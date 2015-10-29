@@ -1,0 +1,21 @@
+{
+  "name": "herostratus",
+  "version": "0.0.1",
+  "homepage": "https://github.com/resin-io/herostratus",
+  "authors": [
+    "Juan Cruz Viotti <juan@resin.io>"
+  ],
+  "main": "lib/templates/index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "iron-icon": "polymerelements/iron-icon#~1.0.7",
+    "polymer": "Polymer/polymer#^1.1.0"
+  }
+}

@@ -1,0 +1,117 @@
+/* The MIT License
+ *
+ * Copyright (c) 2015 Resin.io. https://resin.io.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+$body-bg: rgb(83, 87, 96);
+$text-color: white;
+$brand-primary: rgb(87, 147, 219);
+$font-size-base: 13px;
+$cursor-disabled: initial;
+$color-disabled: rgb(120, 124, 127);
+$btn-disabled: rgb(49, 51, 57);
+$badge-disabled: rgb(92, 94, 92);
+$btn-padding: 10px;
+
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "./angular";
+@import "./desktop";
+
+@import "./modules/space";
+
+hero-badge .badge {
+  background-color: $body-bg;
+}
+
+hero-badge[disabled] .badge {
+  background-color: $badge-disabled;
+  color: $color-disabled;
+}
+
+hero-icon[disabled] hero-caption {
+  color: $color-disabled;
+}
+
+hero-button .btn {
+  &[disabled] {
+    background-color: $btn-disabled;
+    color: $color-disabled;
+
+    &:hover {
+      background-color: lighten($btn-disabled, 2);
+    }
+  }
+}
+
+hero-progress-button .bar {
+  background: lighten($brand-primary, 5);
+}
+
+hero-progress-button[percentage="100"] .bar {
+  background-color: $brand-success;
+}
+
+.block {
+  display: block;
+}
+
+.dropdown-menu {
+  width: 170px;
+}
+
+body {
+  letter-spacing: 1px;
+}
+
+.content {
+  height: 100%;
+}
+
+.relative {
+  position: relative;
+}
+
+.section-footer {
+  color: $gray-dark;
+  margin-top: 50px;
+}
+
+.step-border {
+  height: 2px;
+  background-color: $text-color;
+  position: absolute;
+  width: 230px;
+  top: 55%;
+
+  &[disabled] {
+    background-color: $color-disabled;
+  }
+}
+
+.step-border-left {
+  @extend .step-border;
+  left: -120px;
+}
+
+.step-border-right {
+  @extend .step-border;
+  right: -120px;
+}

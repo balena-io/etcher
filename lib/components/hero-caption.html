@@ -1,0 +1,20 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="hero-caption">
+  <template>
+    <style>
+      :host ::content strong {
+        font-size: 11px;
+      }
+    </style>
+    <div>
+      <strong>
+        <content></content>
+      </strong>
+    </div>
+  </template>
+
+  <script>
+    Polymer({ is: "hero-caption" });
+  </script>
+</dom-module>

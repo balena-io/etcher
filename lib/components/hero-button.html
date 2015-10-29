@@ -1,0 +1,44 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="hero-button">
+  <template>
+    <style>
+      :host ::content button.btn {
+        padding: 10px;
+        padding-top: 11px;
+
+        border-radius: 2px;
+        border: none;
+
+        letter-spacing: 0.5px;
+        outline: none;
+
+        min-width: 170px;
+
+        position: relative;
+      }
+    </style>
+
+    <button type="button" class="btn" disabled="{{disabled}}">
+      <content></content>
+    </button>
+  </template>
+
+  <script>
+    Polymer({
+      is: "hero-button",
+      properties: {
+        disabled: {
+          type: String
+        },
+        type: {
+          type: String,
+          value: 'primary'
+        }
+      },
+      ready: function() {
+        this.querySelector('.btn').className += ' btn-' + this.type;
+      }
+    });
+  </script>
+</dom-module>
