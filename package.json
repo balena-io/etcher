@@ -26,7 +26,7 @@
     "is-elevated": "^1.0.0",
     "lodash": "^3.10.1",
     "resin-image-write": "^2.0.5",
-    "sudo-prompt": "^1.1.7",
+    "sudo-prompt": "^1.1.8",
     "umount": "^1.1.1",
     "windosu": "^0.1.3"
   },
