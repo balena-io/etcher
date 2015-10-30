@@ -1,4 +1,5 @@
 ELECTRON_PACKAGER=./node_modules/.bin/electron-packager
+ELECTRON_IGNORE=$(shell cat package.ignore | tr "\\n" "|" | sed "s/.$$//")
 ELECTRON_VERSION=0.34.2
 
 release/Herostratus-darwin-x64: .
@@ -6,6 +7,8 @@ release/Herostratus-darwin-x64: .
 		--platform=darwin \
 		--arch=x64 \
 		--version=$(ELECTRON_VERSION) \
+		--ignore="$(ELECTRON_IGNORE)" \
+		--overwrite \
 		--out=release/
 
 release/Herostratus-linux-ia32: .
@@ -13,6 +16,8 @@ release/Herostratus-linux-ia32: .
 		--platform=linux \
 		--arch=ia32 \
 		--version=$(ELECTRON_VERSION) \
+		--ignore="$(ELECTRON_IGNORE)" \
+		--overwrite \
 		--out=release/
 
 release/Herostratus-linux-x64: .
@@ -20,6 +25,8 @@ release/Herostratus-linux-x64: .
 		--platform=linux \
 		--arch=x64 \
 		--version=$(ELECTRON_VERSION) \
+		--ignore="$(ELECTRON_IGNORE)" \
+		--overwrite \
 		--out=release/
 
 release/Herostratus-win32-ia32: .
@@ -27,6 +34,8 @@ release/Herostratus-win32-ia32: .
 		--platform=win32 \
 		--arch=ia32 \
 		--version=$(ELECTRON_VERSION) \
+		--ignore="$(ELECTRON_IGNORE)" \
+		--overwrite \
 		--out=release/
 
 release/Herostratus-win32-x64: .
@@ -34,6 +43,8 @@ release/Herostratus-win32-x64: .
 		--platform=win32 \
 		--arch=x64 \
 		--version=$(ELECTRON_VERSION) \
+		--ignore="$(ELECTRON_IGNORE)" \
+		--overwrite \
 		--out=release/
 
 package-osx: release/Herostratus-darwin-x64
