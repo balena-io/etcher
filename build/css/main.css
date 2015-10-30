@@ -5961,6 +5961,9 @@ hero-progress-button .bar {
 hero-progress-button[percentage="100"] .bar {
   background-color: #5cb85c; }
 
+hero-icon[disabled] path {
+  fill: #787c7f; }
+
 .block {
   display: block; }
 

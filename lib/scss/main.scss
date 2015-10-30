@@ -69,6 +69,10 @@ hero-progress-button[percentage="100"] .bar {
   background-color: $brand-success;
 }
 
+hero-icon[disabled]  path {
+  fill: $color-disabled;
+}
+
 .block {
   display: block;
 }
