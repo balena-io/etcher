@@ -1,20 +1,20 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="hero-caption.html">
 
 <dom-module id="hero-icon">
   <template>
     <style>
-      :host {
-        --iron-icon-height: 40px;
-        --iron-icon-width: 40px;
-      }
-
       :host ::content div {
         margin-top: 10px;
       }
+
+      :host ::content .icon {
+        margin: 0 auto;
+        height: 40px;
+        width: 40px;
+      }
     </style>
-    <iron-icon src="{{path}}"></iron-icon>
+    <div class="icon"></div>
 
     <div>
       <hero-caption>
@@ -24,12 +24,23 @@
   </template>
 
   <script>
+    var fs = require('fs');
+    var path = require('path');
+
     Polymer({
       is: "hero-icon",
       properties: {
         path: {
           type: String
         }
+      },
+      ready: function() {
+        var iconElement = this.querySelector('.icon');
+        var imagePath = path.join(__dirname, this.path);
+        var contents = fs.readFileSync(imagePath, {
+          encoding: 'utf8'
+        });
+        iconElement.innerHTML = contents;
       }
     });
   </script>
