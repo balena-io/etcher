@@ -1,9 +1,8 @@
 var m = require('mochainon');
 var angular = require('angular');
 var os = require('os');
-window.mocha = true;
-require('../../../lib/browser/modules/path');
 require('angular-mocks');
+require('../../../lib/browser/modules/path');
 
 describe('Browser: Path', function() {
   'use strict';

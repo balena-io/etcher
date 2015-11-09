@@ -1,8 +1,7 @@
 var m = require('mochainon');
 var angular = require('angular');
-window.mocha = true;
-require('../../../lib/browser/modules/selection-state');
 require('angular-mocks');
+require('../../../lib/browser/modules/selection-state');
 
 describe('Browser: SelectionState', function() {
   'use strict';

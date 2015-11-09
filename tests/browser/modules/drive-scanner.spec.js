@@ -1,8 +1,7 @@
 var m = require('mochainon');
 var angular = require('angular');
-window.mocha = true;
-require('../../../lib/browser/modules/drive-scanner');
 require('angular-mocks');
+require('../../../lib/browser/modules/drive-scanner');
 
 describe('Browser: DriveScanner', function() {
   'use strict';
