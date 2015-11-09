@@ -1,8 +1,7 @@
 var m = require('mochainon');
 var angular = require('angular');
-window.mocha = true;
-require('../../../lib/browser/modules/image-writer');
 require('angular-mocks');
+require('../../../lib/browser/modules/image-writer');
 
 describe('Browser: ImageWriter', function() {
   'use strict';
