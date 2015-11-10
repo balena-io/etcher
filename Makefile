@@ -8,6 +8,8 @@ release/Herostratus-darwin-x64: .
 		--arch=x64 \
 		--version=$(ELECTRON_VERSION) \
 		--ignore="$(ELECTRON_IGNORE)" \
+		--asar \
+		--icon="assets/icon.icns" \
 		--overwrite \
 		--out=release/
 
@@ -17,6 +19,7 @@ release/Herostratus-linux-ia32: .
 		--arch=ia32 \
 		--version=$(ELECTRON_VERSION) \
 		--ignore="$(ELECTRON_IGNORE)" \
+		--asar \
 		--overwrite \
 		--out=release/
 
@@ -26,6 +29,7 @@ release/Herostratus-linux-x64: .
 		--arch=x64 \
 		--version=$(ELECTRON_VERSION) \
 		--ignore="$(ELECTRON_IGNORE)" \
+		--asar \
 		--overwrite \
 		--out=release/
 
@@ -35,6 +39,8 @@ release/Herostratus-win32-ia32: .
 		--arch=ia32 \
 		--version=$(ELECTRON_VERSION) \
 		--ignore="$(ELECTRON_IGNORE)" \
+		--icon="assets/icon.ico" \
+		--asar \
 		--overwrite \
 		--out=release/
 
@@ -44,6 +50,8 @@ release/Herostratus-win32-x64: .
 		--arch=x64 \
 		--version=$(ELECTRON_VERSION) \
 		--ignore="$(ELECTRON_IGNORE)" \
+		--icon="assets/icon.ico" \
+		--asar \
 		--overwrite \
 		--out=release/
 
