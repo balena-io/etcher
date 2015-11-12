@@ -1,6 +1,6 @@
 ELECTRON_PACKAGER=./node_modules/.bin/electron-packager
 ELECTRON_IGNORE=$(shell cat package.ignore | tr "\\n" "|" | sed "s/.$$//")
-ELECTRON_VERSION=0.34.2
+ELECTRON_VERSION=0.31.2
 
 release/Herostratus-darwin-x64: .
 	$(ELECTRON_PACKAGER) . Herostratus \
