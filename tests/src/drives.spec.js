@@ -1,91 +1,17 @@
 var m = require('mochainon');
+var Promise = require('bluebird');
 var drivelist = require('drivelist');
 var drives = require('../../lib/src/drives');
 
 describe('Drives:', function() {
   'use strict';
 
-  describe('.list()', function() {
-
-    describe('given no available drives', function() {
-
-      beforeEach(function() {
-        this.drivelistListStub = m.sinon.stub(drivelist, 'list');
-        this.drivelistListStub.yields(null, []);
-      });
-
-      afterEach(function() {
-        this.drivelistListStub.restore();
-      });
-
-      it('should eventually equal an empty array', function(done) {
-        drives.list().then(function(drives) {
-          m.chai.expect(drives).to.deep.equal([]);
-          done();
-        }).catch(done);
-      });
-
-    });
-
-    describe('given available drives', function() {
-
-      beforeEach(function() {
-        this.drives = [
-          {
-            device: '/dev/sda',
-            description: 'WDC WD10JPVX-75J',
-            size: '931.5G',
-            mountpoint: '/',
-            system: true
-          }
-        ];
-
-        this.drivelistListStub = m.sinon.stub(drivelist, 'list');
-        this.drivelistListStub.yields(null, this.drives);
-      });
-
-      afterEach(function() {
-        this.drivelistListStub.restore();
-      });
-
-      it('should eventually equal the drives', function(done) {
-        drives.list().then(function(drives) {
-          m.chai.expect(drives).to.deep.equal(this.drives);
-          done();
-        }.bind(this)).catch(done);
-      });
-
-    });
-
-    describe('given an error when listing the drives', function() {
-
-      beforeEach(function() {
-        this.drivelistListStub = m.sinon.stub(drivelist, 'list');
-        this.drivelistListStub.yields(new Error('scan error'));
-      });
-
-      afterEach(function() {
-        this.drivelistListStub.restore();
-      });
-
-      it('should be rejected with the error', function(done) {
-        drives.list().catch(function(error) {
-          m.chai.expect(error).to.be.an.instanceof(Error);
-          m.chai.expect(error.message).to.equal('scan error');
-          return done();
-        }).catch(done);
-      });
-
-    });
-
-  });
-
   describe('.listRemovable()', function() {
 
     describe('given no available drives', function() {
 
       beforeEach(function() {
-        this.drivesListStub = m.sinon.stub(drives, 'list');
+        this.drivesListStub = m.sinon.stub(drivelist, 'listAsync');
         this.drivesListStub.returns(Promise.resolve([]));
       });
 
@@ -93,11 +19,9 @@ describe('Drives:', function() {
         this.drivesListStub.restore();
       });
 
-      it('should eventually equal an empty array', function(done) {
-        drives.listRemovable().then(function(drives) {
-          m.chai.expect(drives).to.deep.equal([]);
-          done();
-        }).catch(done);
+      it('should eventually equal an empty array', function() {
+        var promise = drives.listRemovable();
+        m.chai.expect(promise).to.eventually.become([]);
       });
 
     });
@@ -115,7 +39,7 @@ describe('Drives:', function() {
           }
         ];
 
-        this.drivesListStub = m.sinon.stub(drives, 'list');
+        this.drivesListStub = m.sinon.stub(drivelist, 'listAsync');
         this.drivesListStub.returns(Promise.resolve(this.drives));
       });
 
@@ -123,11 +47,9 @@ describe('Drives:', function() {
         this.drivesListStub.restore();
       });
 
-      it('should eventually equal an empty array', function(done) {
-        drives.listRemovable().then(function(drives) {
-          m.chai.expect(drives).to.deep.equal([]);
-          done();
-        }).catch(done);
+      it('should eventually equal an empty array', function() {
+        var promise = drives.listRemovable();
+        m.chai.expect(promise).to.eventually.become([]);
       });
 
     });
@@ -159,7 +81,7 @@ describe('Drives:', function() {
           }
         ];
 
-        this.drivesListStub = m.sinon.stub(drives, 'list');
+        this.drivesListStub = m.sinon.stub(drivelist, 'listAsync');
         this.drivesListStub.returns(Promise.resolve(this.drives));
       });
 
@@ -167,26 +89,24 @@ describe('Drives:', function() {
         this.drivesListStub.restore();
       });
 
-      it('should eventually become the removable drives', function(done) {
-        drives.listRemovable().then(function(drives) {
-          m.chai.expect(drives).to.deep.equal([
-            {
-              device: '/dev/sdb',
-              description: 'Foo',
-              size: '14G',
-              mountpoint: '/mnt/foo',
-              system: false
-            },
-            {
-              device: '/dev/sdc',
-              description: 'Bar',
-              size: '14G',
-              mountpoint: '/mnt/bar',
-              system: false
-            }
-          ]);
-          done();
-        }).catch(done);
+      it('should eventually become the removable drives', function() {
+        var promise = drives.listRemovable();
+        m.chai.expect(promise).to.eventually.become([
+          {
+            device: '/dev/sdb',
+            description: 'Foo',
+            size: '14G',
+            mountpoint: '/mnt/foo',
+            system: false
+          },
+          {
+            device: '/dev/sdc',
+            description: 'Bar',
+            size: '14G',
+            mountpoint: '/mnt/bar',
+            system: false
+          }
+        ]);
       });
 
     });
@@ -194,7 +114,7 @@ describe('Drives:', function() {
     describe('given an error when listing the drives', function() {
 
       beforeEach(function() {
-        this.drivesListStub = m.sinon.stub(drives, 'list');
+        this.drivesListStub = m.sinon.stub(drivelist, 'listAsync');
         this.drivesListStub.returns(Promise.reject(new Error('scan error')));
       });
 
@@ -202,12 +122,9 @@ describe('Drives:', function() {
         this.drivesListStub.restore();
       });
 
-      it('should be rejected with the error', function(done) {
-        drives.listRemovable().catch(function(error) {
-          m.chai.expect(error).to.be.an.instanceof(Error);
-          m.chai.expect(error.message).to.equal('scan error');
-          return done();
-        }).catch(done);
+      it('should be rejected with the error', function() {
+        var promise = drives.listRemovable();
+        m.chai.expect(promise).to.be.rejectedWith('scan error');
       });
 
     });
