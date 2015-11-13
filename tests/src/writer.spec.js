@@ -29,49 +29,4 @@ describe('Writer:', function() {
 
   });
 
-  describe('.unmountDisk()', function() {
-
-    describe('given a successful unmount', function() {
-
-      beforeEach(function() {
-        this.umountStub = m.sinon.stub(umount, 'umount');
-        this.umountStub.yields(null);
-      });
-
-      afterEach(function() {
-        this.umountStub.restore();
-      });
-
-      it('should eventually resolve undefined', function(done) {
-        writer.unmountDisk('/dev/disk2').then(function() {
-          m.chai.expect(arguments[0]).to.be.undefined;
-          done();
-        }).catch(done);
-      });
-
-    });
-
-    describe('given an unsuccessful unmount', function() {
-
-      beforeEach(function() {
-        this.umountStub = m.sinon.stub(umount, 'umount');
-        this.umountStub.yields(new Error('unmount error'));
-      });
-
-      afterEach(function() {
-        this.umountStub.restore();
-      });
-
-      it('should be rejected with the error', function(done) {
-        writer.unmountDisk('/dev/disk2').catch(function(error) {
-          m.chai.expect(error).to.be.an.instanceof(Error);
-          m.chai.expect(error.message).to.equal('unmount error');
-          done();
-        }).catch(done);
-      });
-
-    });
-
-  });
-
 });

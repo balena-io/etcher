@@ -18,11 +18,9 @@ describe('Dialog:', function() {
         this.showOpenDialogStub.restore();
       });
 
-      it('should eventually equal the file', function(done) {
-        dialog.selectImage().then(function(image) {
-          m.chai.expect(image).to.equal('foo/bar');
-          done();
-        }).catch(done);
+      it('should eventually equal the file', function() {
+        var promise = dialog.selectImage();
+        m.chai.expect(promise).to.eventually.equal('foo/bar');
       });
 
     });

@@ -19,6 +19,7 @@
   "dependencies": {
     "angular": "^1.4.6",
     "angular-ui-bootstrap": "^0.14.2",
+    "bluebird": "^3.0.5",
     "bootstrap-sass": "^3.3.5",
     "drivelist": "^2.0.0",
     "electron-window": "^0.6.0",

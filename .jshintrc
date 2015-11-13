@@ -84,7 +84,7 @@
     "couch"         : false,    // Enable globals exposed by CouchDB.
     "devel"         : false,    // Allow development statements e.g. `console.log();`.
     "dojo"          : false,    // Enable globals exposed by Dojo Toolkit.
-    "esnext"        : true,     // Enable globals exposed by ES6.
+    "esnext"        : false,    // Enable globals exposed by ES6.
     "mocha"         : true,     // Enable globals exposed by Mocha.
     "jquery"        : false,    // Enable globals exposed by jQuery JavaScript library.
     "mootools"      : false,    // Enable globals exposed by MooTools JavaScript framework.
