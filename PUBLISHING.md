@@ -8,6 +8,12 @@ Packaging
 
 You need to install [wine](https://www.winehq.org) to package the application for Windows.
 
+Make sure you install npm dependencies with `--force` since there might be optional dependencies for an operating system not equal to the host that will not make it to the package otherwise:
+
+```sh
+npm install --force
+```
+
 Run the following command to package Herostratus:
 
 ```sh
