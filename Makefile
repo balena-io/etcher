@@ -8,7 +8,6 @@ release/Herostratus-darwin-x64: .
 		--arch=x64 \
 		--version=$(ELECTRON_VERSION) \
 		--ignore="$(ELECTRON_IGNORE)" \
-		--asar \
 		--icon="assets/icon.icns" \
 		--overwrite \
 		--out=release/
