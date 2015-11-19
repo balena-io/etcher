@@ -17,6 +17,15 @@
 
         position: relative;
       }
+
+      /*
+       * Remove blue/orange outline
+       * !important is needed here for some reason
+       * despite the rule having top precedence.
+       */
+      :host ::content button.btn:focus {
+        outline: none !important;
+      }
     </style>
 
     <button type="button" class="btn" disabled="{{disabled}}">
