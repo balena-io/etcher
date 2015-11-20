@@ -10,6 +10,10 @@ The easy way to burn images in all operating systems
 
 An image burner with support for Windows, OS X and GNU/Linux.
 
+- [**Installing**](https://github.com/resin-io/herostratus#installation)
+- [**Support**](https://github.com/resin-io/herostratus/issues/new)
+- [**Contributing**](https://github.com/resin-io/herostratus/blob/master/CONTRIBUTING.md)
+
 ![Herostratus](https://raw.githubusercontent.com/resin-io/herostratus/master/screenshot.png)
 
 **Notice:** Herostratus is in a very early state and things might break or not work at all in certain setups.
