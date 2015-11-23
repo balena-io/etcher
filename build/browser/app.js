@@ -65,7 +65,7 @@ app.controller('AppController', function($q, DriveScannerService, SelectionState
 
   this.selectDrive = function(drive) {
     self.selection.setDrive(drive);
-    console.debug('Drive selected: ' + drive);
+    console.debug('Drive selected: ' + drive.device);
   };
 
   this.platform = window.process.platform;
@@ -76,7 +76,7 @@ app.controller('AppController', function($q, DriveScannerService, SelectionState
     // otherwise Windows throws EPERM
     self.scanner.stop();
 
-    console.debug('Burning ' + image + ' to ' + drive);
+    console.debug('Burning ' + image + ' to ' + drive.device);
     return self.writer.burn(image, drive).then(function() {
       console.debug('Done!');
     });
@@ -371,13 +371,15 @@ imageWriter.service('ImageWriterService', function($q, $timeout) {
    * This function is extracted for testing purposes.
    *
    * @param {String} image - image path
-   * @param {String} drive - drive device
+   * @param {Object} drive - drive
    * @param {Function} onProgress - in progress callback (state)
    *
    * @returns {Promise}
    *
    * @example
-   * ImageWriter.performWrite('path/to/image.img', '/dev/disk2', function(state) {
+   * ImageWriter.performWrite('path/to/image.img', {
+   *   device: '/dev/disk2'
+   * }, function(state) {
    *   console.log(state.percentage);
    * });
    */
@@ -394,12 +396,14 @@ imageWriter.service('ImageWriterService', function($q, $timeout) {
    * This function will update `.progress` with the current writing percentage.
    *
    * @param {String} image - image path
-   * @param {String} drive - drive device
+   * @param {Object} drive - drive
    *
    * @returns {Promise}
    *
    * @example
-   * ImageWriterService.burn('foo.img', '/dev/disk').then(function() {
+   * ImageWriterService.burn('foo.img', {
+   *   device: '/dev/disk2'
+   * }).then(function() {
    *   console.log('Write completed!');
    * });
    */
@@ -520,10 +524,12 @@ selectionState.service('SelectionStateService', function() {
    * @function
    * @public
    *
-   * @param {String} drive - drive
+   * @param {Object} drive - drive
    *
    * @example
-   * SelectionStateService.setDrive('/dev/disk2');
+   * SelectionStateService.setDrive({
+   *   device: '/dev/disk2'
+   * });
    */
   this.setDrive = function(drive) {
     selection.drive = drive;
@@ -548,7 +554,7 @@ selectionState.service('SelectionStateService', function() {
    * @function
    * @public
    *
-   * @returns {String} drive
+   * @returns {Object} drive
    *
    * @example
    * var drive = SelectionStateService.getDrive();
