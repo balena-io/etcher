@@ -65,8 +65,12 @@ hero-progress-button .bar {
   background: lighten($brand-primary, 5);
 }
 
-hero-progress-button[percentage="100"] .bar {
+hero-progress-button[percentage="100"][active="false"] .bar {
   background-color: $brand-success;
+}
+
+hero-progress-button[percentage="100"][active="true"] .bar {
+  background-color: $brand-warning;
 }
 
 hero-icon[disabled]  path {

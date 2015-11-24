@@ -2891,7 +2891,7 @@ fieldset[disabled] a.btn {
 .btn-primary {
   color: #fff;
   background-color: #5793db;
-  border-color: #4285d6; }
+  border-color: #4286d7; }
   .btn-primary:focus, .btn-primary.focus {
     color: #fff;
     background-color: #2d78d2;
@@ -2923,7 +2923,7 @@ fieldset[disabled] a.btn {
   fieldset[disabled] .btn-primary:active,
   fieldset[disabled] .btn-primary.active {
     background-color: #5793db;
-    border-color: #4285d6; }
+    border-color: #4286d7; }
   .btn-primary .badge {
     color: #5793db;
     background-color: #fff; }
@@ -5956,10 +5956,13 @@ hero-button .btn[disabled] {
     background-color: #36383e; }
 
 hero-progress-button .bar {
-  background: #6ca0df; }
+  background: #6ca1e0; }
 
-hero-progress-button[percentage="100"] .bar {
+hero-progress-button[percentage="100"][active="false"] .bar {
   background-color: #5cb85c; }
+
+hero-progress-button[percentage="100"][active="true"] .bar {
+  background-color: #f0ad4e; }
 
 hero-icon[disabled] path {
   fill: #787c7f; }
