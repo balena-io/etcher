@@ -84,10 +84,11 @@
               <hero-badge class="block space-vertical-medium" ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">3</hero-badge>
 
               <div class="space-vertical-large">
-                <hero-progress-button percentage="{{ app.writer.progress }}"
+                <hero-progress-button percentage="{{ app.writer.progress }}" active="{{ app.writer.isBurning() }}"
                   ng-click="app.burn(app.selection.getImage(), app.selection.getDrive())"
                   ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">
-                    <span ng-show="app.writer.progress == 100">Done</span>
+                    <span ng-show="app.writer.progress == 100 && !app.writer.isBurning()">Done</span>
+                    <span ng-show="app.writer.progress == 100 && app.writer.isBurning()">Finishing...</span>
                     <span ng-show="app.writer.progress == 0 && !app.writer.isBurning()">Burn!</span>
                     <span ng-show="app.writer.progress == 0 && app.writer.isBurning()">Starting...</span>
                     <span ng-show="app.writer.progress != 0 && app.writer.progress != 100">{{ app.writer.progress }}%</span>
