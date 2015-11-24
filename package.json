@@ -16,6 +16,9 @@
   },
   "author": "Juan Cruz Viotti <juan@resin.io>",
   "license": "MIT",
+  "optionalDependencies": {
+    "removedrive": "^1.0.0"
+  },
   "dependencies": {
     "angular": "^1.4.6",
     "angular-ui-bootstrap": "^0.14.2",

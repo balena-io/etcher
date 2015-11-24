@@ -54,7 +54,7 @@
 
                       <ul class="dropdown-menu">
                         <li ng-repeat="drive in app.scanner.drives">
-                          <a href="#" ng-click="app.selectDrive(drive.device)">
+                          <a href="#" ng-click="app.selectDrive(drive)">
 
                             <!-- Show drive letter instead of phsycal drive name on Windows -->
                             <span ng-if="app.platform == 'win32'">Drive {{ drive.mountpoint }}\ - {{ drive.size }}</span>
@@ -72,7 +72,7 @@
 
                 </div>
                 <div ng-show="app.selection.hasDrive()">
-                  <span>{{ app.selection.getDrive() }}</span>
+                  <span>{{ app.selection.getDrive().device }}</span>
                 </div>
               </div>
             </div>
