@@ -1,3 +1,5 @@
+notifications:
+  email: false
 language: node_js
 node_js:
   - "4.0"
