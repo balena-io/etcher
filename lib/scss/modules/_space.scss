@@ -21,8 +21,9 @@
  * THE SOFTWARE.
  */
 
-$spacing-large: 25px;
+$spacing-large: 30px;
 $spacing-medium: 15px;
+$spacing-tiny: 5px;
 
 .space-vertical-medium {
   margin: $spacing-medium 0;
@@ -36,6 +37,10 @@ $spacing-medium: 15px;
   margin: 0 $spacing-large;
 }
 
-.space-top-large {
-  margin-top: $spacing-large;
+.space-bottom-large {
+  margin-bottom: $spacing-large;
+}
+
+.space-right-tiny {
+  margin-right: $spacing-tiny;
 }

@@ -18,6 +18,10 @@ describe('Browser: SelectionState', function() {
 
     describe('given a clean state', function() {
 
+      beforeEach(function() {
+        SelectionStateService.clear();
+      });
+
       it('getDrive() should return undefined', function() {
         var drive = SelectionStateService.getDrive();
         m.chai.expect(drive).to.be.undefined;
@@ -134,6 +138,29 @@ describe('Browser: SelectionState', function() {
           SelectionStateService.setImage('foo.img');
           var image = SelectionStateService.getImage();
           m.chai.expect(image).to.equal('foo.img');
+        });
+
+      });
+
+    });
+
+    describe('given a drive', function() {
+
+      beforeEach(function() {
+        SelectionStateService.setDrive('/dev/disk2');
+        SelectionStateService.setImage('foo.img');
+      });
+
+      describe('.clear()', function() {
+
+        it('should clear all selections', function() {
+          m.chai.expect(SelectionStateService.hasDrive()).to.be.true;
+          m.chai.expect(SelectionStateService.hasImage()).to.be.true;
+
+          SelectionStateService.clear();
+
+          m.chai.expect(SelectionStateService.hasDrive()).to.be.false;
+          m.chai.expect(SelectionStateService.hasImage()).to.be.false;
         });
 
       });
