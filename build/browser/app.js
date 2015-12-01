@@ -54,7 +54,15 @@ app.controller('AppController', function($q, DriveScannerService, SelectionState
   this.selection = SelectionStateService;
   this.writer = ImageWriterService;
   this.scanner = DriveScannerService;
-  this.scanner.start(2000);
+
+  this.restart = function() {
+    console.debug('Restarting');
+    this.selection.clear();
+    this.writer.setProgress(0);
+    this.scanner.start(2000);
+  };
+
+  this.restart();
 
   this.selectImage = function() {
     return $q.when(dialog.selectImage()).then(function(image) {
@@ -611,6 +619,18 @@ selectionState.service('SelectionStateService', function() {
    */
   this.hasImage = function() {
     return !!self.getImage();
+  };
+
+  /**
+   * @summary Clear all selections
+   * @function
+   * @public
+   *
+   * @example
+   * SelectionStateService.clear();
+   */
+  this.clear = function() {
+    selection = {};
   };
 
 });

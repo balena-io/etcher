@@ -21,9 +21,11 @@
  * THE SOFTWARE.
  */
 
+$icon-font-path: "../../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 $body-bg: rgb(83, 87, 96);
 $text-color: white;
 $brand-primary: rgb(87, 147, 219);
+$gray-light: #ddd;
 $font-size-base: 13px;
 $cursor-disabled: initial;
 $color-disabled: rgb(120, 124, 127);
@@ -97,9 +99,16 @@ body {
   position: relative;
 }
 
+.soft {
+  color: $gray-light;
+}
+
 .section-footer {
+  position: fixed;
+  bottom: 30px;
+  left: 0;
+  right: 0;
   color: $gray-dark;
-  margin-top: 50px;
 }
 
 .step-border {
