@@ -1,7 +1,7 @@
 LICENSE
 Makefile
 package.ignore
-(.*).md
+(.*)\.md
 appveyor.yml
 bower.json
 gulpfile.js
