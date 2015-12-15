@@ -39,6 +39,11 @@ $btn-padding: 10px;
 
 @import "./modules/space";
 
+// Prevent white flash when running application
+html {
+  background-color: $body-bg;
+}
+
 hero-badge .badge {
   background-color: $body-bg;
 }
