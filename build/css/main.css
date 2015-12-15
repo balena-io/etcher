@@ -5938,6 +5938,9 @@ body {
 .space-right-tiny {
   margin-right: 5px; }
 
+html {
+  background-color: #535760; }
+
 hero-badge .badge {
   background-color: #535760; }
 
