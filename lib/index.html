@@ -31,7 +31,7 @@
                   <hero-button ng-click="app.selectImage()">Select image</hero-button>
                 </div>
                 <div ng-show="app.selection.hasImage()">
-                  <span>{{ app.selection.getImage() | basename }}</span>
+                  <span ng-bind="app.selection.getImage() | basename"></span>
                 </div>
               </div>
             </div>
@@ -58,8 +58,10 @@
                           <a href="#" ng-click="app.selectDrive(drive)">
 
                             <!-- Show drive letter instead of phsycal drive name on Windows -->
-                            <span ng-if="app.platform == 'win32'">Drive {{ drive.mountpoint }}\ - {{ drive.size }}</span>
-                            <span ng-if="app.platform != 'win32'">{{ drive.device }} - {{ drive.size }}</span>
+                            <span ng-if="app.platform == 'win32'"
+                              ng-bind="'Drive ' + drive.mountpoint + '\\ - ' + drive.size"></span>
+                            <span ng-if="app.platform != 'win32'"
+                              ng-bind="drive.device + ' - ' + drive.size"></span>
 
                           </a>
                         </li>
@@ -73,7 +75,7 @@
 
                 </div>
                 <div ng-show="app.selection.hasDrive()">
-                  <span>{{ app.selection.getDrive().device }}</span>
+                  <span ng-bind="app.selection.getDrive().device"></span>
                 </div>
               </div>
             </div>
@@ -91,7 +93,8 @@
                     <span ng-show="app.writer.progress == 100 && app.writer.isBurning()">Finishing...</span>
                     <span ng-show="app.writer.progress == 0 && !app.writer.isBurning()">Burn!</span>
                     <span ng-show="app.writer.progress == 0 && app.writer.isBurning()">Starting...</span>
-                    <span ng-show="app.writer.progress != 0 && app.writer.progress != 100">{{ app.writer.progress }}%</span>
+                    <span ng-show="app.writer.progress != 0 && app.writer.progress != 100"
+                      ng-bind="app.writer.progress + '%'"></span>
                 </hero-progress-button>
               </div>
             </div>
