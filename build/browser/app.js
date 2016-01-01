@@ -388,7 +388,7 @@ imageWriter.service('ImageWriterService', function($q, $timeout) {
       // Transform bytes to megabytes preserving only two decimal places
       self.state.speed = Math.floor(state.speed / 1e+6 * 100) / 100 || 0;
 
-      console.debug('Progress: ' + self.state.progress + ' at ' + self.state.speed + ' MB/s');
+      console.debug('Progress: ' + self.state.progress + '% at ' + self.state.speed + ' MB/s');
     });
 
   };

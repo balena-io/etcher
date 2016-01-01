@@ -144,3 +144,10 @@ body {
   @extend .step-border;
   right: -120px;
 }
+
+.step-footer {
+  margin-top: 10px;
+  margin-bottom: -40px;
+  color: lighten($color-disabled, 5%);
+  font-size: 12px;
+}

@@ -5904,8 +5904,8 @@ body {
 .space-horizontal-large {
   margin: 0 30px; }
 
-.space-bottom-large {
-  margin-bottom: 45px; }
+.space-bottom-huge {
+  margin-bottom: 55px; }
 
 .space-right-tiny {
   margin-right: 5px; }
@@ -5987,3 +5987,9 @@ body {
 
 .step-border-right {
   right: -120px; }
+
+.step-footer {
+  margin-top: 10px;
+  margin-bottom: -40px;
+  color: #85898c;
+  font-size: 12px; }

@@ -19,7 +19,7 @@
     <div class="content row middle-xs space-horizontal-large">
       <div class="col-xs">
 
-        <div class="row around-xs space-bottom-large" ng-hide="app.writer.state.progress == 100 && !app.writer.isBurning()">
+        <div class="row around-xs space-bottom-huge" ng-hide="app.writer.state.progress == 100 && !app.writer.isBurning()">
           <div class="col-xs">
             <div class="box text-center">
               <hero-icon path="images/image.svg" label="SELECT IMAGE"></hero-icon>
@@ -81,16 +81,18 @@
                   ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">
                     <span ng-show="app.writer.state.progress == 100 && app.writer.isBurning()">Finishing...</span>
                     <span ng-show="app.writer.state.progress == 0 && !app.writer.isBurning()">Burn!</span>
-                    <span ng-show="app.writer.state.progress == 0 && app.writer.isBurning()">Starting...</span>
-                    <span ng-show="app.writer.state.progress != 0 && app.writer.state.progress != 100"
-                      ng-bind="app.writer.state.progress + '%'"></span>
+                    <span ng-show="app.writer.state.progress == 0 && app.writer.isBurning() && !app.writer.state.speed">Starting...</span>
+                    <span ng-show="app.writer.state.speed && app.writer.state.progress != 100"
+                      ng-bind="app.writer.state.progress + '% '"></span>
                 </hero-progress-button>
+
+                <p class="step-footer" ng-bind="app.writer.state.speed.toFixed(2) + ' MB/s'" ng-show="app.writer.state.speed && app.writer.state.progress != 100"></p>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="row around-xs space-bottom-large" ng-show="app.writer.state.progress == 100 && !app.writer.isBurning()">
+        <div class="row around-xs space-bottom-huge" ng-show="app.writer.state.progress == 100 && !app.writer.isBurning()">
           <div class="col-xs">
             <div class="box text-center">
               <h3><hero-tick type="success" class="space-right-tiny"></hero-tick> Burn Complete!</h3>
