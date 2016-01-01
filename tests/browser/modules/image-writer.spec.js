@@ -23,7 +23,7 @@ describe('Browser: ImageWriter', function() {
     }));
 
     it('should set progress to zero by default', function() {
-      m.chai.expect(ImageWriterService.progress).to.equal(0);
+      m.chai.expect(ImageWriterService.state.progress).to.equal(0);
     });
 
     describe('.isBurning()', function() {
@@ -66,13 +66,13 @@ describe('Browser: ImageWriter', function() {
       it('should be able to set the progress', function() {
         ImageWriterService.setProgress(50);
         $timeout.flush();
-        m.chai.expect(ImageWriterService.progress).to.equal(50);
+        m.chai.expect(ImageWriterService.state.progress).to.equal(50);
       });
 
       it('should floor the percentage', function() {
         ImageWriterService.setProgress(49.9999);
         $timeout.flush();
-        m.chai.expect(ImageWriterService.progress).to.equal(49);
+        m.chai.expect(ImageWriterService.state.progress).to.equal(49);
       });
 
     });
