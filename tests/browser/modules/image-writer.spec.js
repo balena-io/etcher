@@ -64,13 +64,19 @@ describe('Browser: ImageWriter', function() {
     describe('.setProgress()', function() {
 
       it('should be able to set the progress', function() {
-        ImageWriterService.setProgress(50);
+        ImageWriterService.setProgress({
+          percentage: 50
+        });
+
         $timeout.flush();
         m.chai.expect(ImageWriterService.state.progress).to.equal(50);
       });
 
       it('should floor the percentage', function() {
-        ImageWriterService.setProgress(49.9999);
+        ImageWriterService.setProgress({
+          percentage: 49.9999
+        });
+
         $timeout.flush();
         m.chai.expect(ImageWriterService.state.progress).to.equal(49);
       });
@@ -80,7 +86,10 @@ describe('Browser: ImageWriter', function() {
     describe('.reset()', function() {
 
       it('should reset progress percentage to 0', function() {
-        ImageWriterService.setProgress(50);
+        ImageWriterService.setProgress({
+          percentage: 50
+        });
+
         $timeout.flush();
         m.chai.expect(ImageWriterService.state.progress).to.equal(50);
         ImageWriterService.reset();

@@ -359,16 +359,19 @@ imageWriter.service('ImageWriterService', function($q, $timeout) {
    * @function
    * @private
    *
-   * @param {Number} progress
+   * @param {Object} state - progress state
+   * @param {Number} state.percentage - progress percentage
    *
    * @example
-   * ImageWriterService.setProgress(50);
+   * ImageWriterService.setProgress({
+   *   percentage: 50
+   * });
    */
-  this.setProgress = function(progress) {
+  this.setProgress = function(state) {
 
     // Safely bring the state to the world of Angular
     $timeout(function() {
-      self.state.progress = Math.floor(progress);
+      self.state.progress = Math.floor(state.percentage);
       console.debug('Progress: ' + self.state.progress);
     });
 
@@ -383,7 +386,9 @@ imageWriter.service('ImageWriterService', function($q, $timeout) {
    * ImageWriterService.reset();
    */
   this.reset = function() {
-    self.setProgress(0);
+    self.setProgress({
+      percentage: 0
+    });
   };
 
   /**
@@ -470,9 +475,7 @@ imageWriter.service('ImageWriterService', function($q, $timeout) {
 
     self.setBurning(true);
 
-    return self.performWrite(image, drive, function(state) {
-      self.setProgress(state.percentage);
-    }).finally(function() {
+    return self.performWrite(image, drive, self.setProgress).finally(function() {
       self.setBurning(false);
     });
   };
