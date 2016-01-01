@@ -2,8 +2,8 @@ ELECTRON_PACKAGER=./node_modules/.bin/electron-packager
 ELECTRON_IGNORE=$(shell cat package.ignore | tr "\\n" "|" | sed "s/.$$//")
 ELECTRON_VERSION=0.36.0
 
-release/Herostratus-darwin-x64: .
-	$(ELECTRON_PACKAGER) . Herostratus \
+release/ResinEtcher-darwin-x64: .
+	$(ELECTRON_PACKAGER) . "Resin Etcher" \
 		--platform=darwin \
 		--arch=x64 \
 		--version=$(ELECTRON_VERSION) \
@@ -13,8 +13,8 @@ release/Herostratus-darwin-x64: .
 		--overwrite \
 		--out=release/
 
-release/Herostratus-linux-ia32: .
-	$(ELECTRON_PACKAGER) . Herostratus \
+release/ResinEtcher-linux-ia32: .
+	$(ELECTRON_PACKAGER) . "Resin Etcher" \
 		--platform=linux \
 		--arch=ia32 \
 		--version=$(ELECTRON_VERSION) \
@@ -23,8 +23,8 @@ release/Herostratus-linux-ia32: .
 		--overwrite \
 		--out=release/
 
-release/Herostratus-linux-x64: .
-	$(ELECTRON_PACKAGER) . Herostratus \
+release/ResinEtcher-linux-x64: .
+	$(ELECTRON_PACKAGER) . "Resin Etcher" \
 		--platform=linux \
 		--arch=x64 \
 		--version=$(ELECTRON_VERSION) \
@@ -33,8 +33,8 @@ release/Herostratus-linux-x64: .
 		--overwrite \
 		--out=release/
 
-release/Herostratus-win32-ia32: .
-	$(ELECTRON_PACKAGER) . Herostratus \
+release/ResinEtcher-win32-ia32: .
+	$(ELECTRON_PACKAGER) . "Resin Etcher" \
 		--platform=win32 \
 		--arch=ia32 \
 		--version=$(ELECTRON_VERSION) \
@@ -44,8 +44,8 @@ release/Herostratus-win32-ia32: .
 		--overwrite \
 		--out=release/
 
-release/Herostratus-win32-x64: .
-	$(ELECTRON_PACKAGER) . Herostratus \
+release/ResinEtcher-win32-x64: .
+	$(ELECTRON_PACKAGER) . "Resin Etcher" \
 		--platform=win32 \
 		--arch=x64 \
 		--version=$(ELECTRON_VERSION) \
@@ -55,9 +55,9 @@ release/Herostratus-win32-x64: .
 		--overwrite \
 		--out=release/
 
-package-osx: release/Herostratus-darwin-x64
-package-linux: release/Herostratus-linux-ia32 release/Herostratus-linux-x64
-package-win32: release/Herostratus-win32-ia32 release/Herostratus-win32-x64
+package-osx: release/ResinEtcher-darwin-x64
+package-linux: release/ResinEtcher-linux-ia32 release/ResinEtcher-linux-x64
+package-win32: release/ResinEtcher-win32-ia32 release/ResinEtcher-win32-x64
 package-all: package-osx package-linux package-win32
 
 clean:

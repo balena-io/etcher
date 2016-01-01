@@ -6,7 +6,7 @@ require('../../../lib/browser/modules/drive-scanner');
 describe('Browser: DriveScanner', function() {
   'use strict';
 
-  beforeEach(angular.mock.module('herostratus.drive-scanner'));
+  beforeEach(angular.mock.module('ResinEtcher.drive-scanner'));
 
   describe('DriveScannerRefreshService', function() {
 
