@@ -74,7 +74,8 @@
 
                 </div>
                 <div ng-show="app.selection.hasDrive()">
-                  <span ng-bind="app.selection.getDrive().device"></span>
+                  <span ng-if="app.platform == 'win32'" ng-bind="app.selection.getDrive().mountpoint + '\\'"></span>
+                  <span ng-if="app.platform != 'win32'" ng-bind="app.selection.getDrive().device"></span>
                 </div>
               </div>
             </div>
