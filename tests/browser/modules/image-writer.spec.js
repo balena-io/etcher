@@ -61,10 +61,10 @@ describe('Browser: ImageWriter', function() {
 
     });
 
-    describe('.setProgress()', function() {
+    describe('.setProgressState()', function() {
 
       it('should be able to set the progress', function() {
-        ImageWriterService.setProgress({
+        ImageWriterService.setProgressState({
           percentage: 50
         });
 
@@ -73,7 +73,7 @@ describe('Browser: ImageWriter', function() {
       });
 
       it('should floor the percentage', function() {
-        ImageWriterService.setProgress({
+        ImageWriterService.setProgressState({
           percentage: 49.9999
         });
 
@@ -86,7 +86,7 @@ describe('Browser: ImageWriter', function() {
     describe('.reset()', function() {
 
       it('should reset progress percentage to 0', function() {
-        ImageWriterService.setProgress({
+        ImageWriterService.setProgressState({
           percentage: 50
         });
 
