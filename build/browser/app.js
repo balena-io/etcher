@@ -52,7 +52,7 @@ app.controller('AppController', function($q, DriveScannerService, SelectionState
   this.restart = function() {
     console.debug('Restarting');
     this.selection.clear();
-    this.writer.setProgress(0);
+    this.writer.reset();
     this.scanner.start(2000).on('scan', function(drives) {
 
       // Notice we only autoselect the drive if there is an image,
@@ -372,6 +372,18 @@ imageWriter.service('ImageWriterService', function($q, $timeout) {
       console.debug('Progress: ' + self.state.progress);
     });
 
+  };
+
+  /**
+   * @summary Reset progress state
+   * @function
+   * @public
+   *
+   * @example
+   * ImageWriterService.reset();
+   */
+  this.reset = function() {
+    self.setProgress(0);
   };
 
   /**

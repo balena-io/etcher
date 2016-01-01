@@ -77,6 +77,19 @@ describe('Browser: ImageWriter', function() {
 
     });
 
+    describe('.reset()', function() {
+
+      it('should reset progress percentage to 0', function() {
+        ImageWriterService.setProgress(50);
+        $timeout.flush();
+        m.chai.expect(ImageWriterService.state.progress).to.equal(50);
+        ImageWriterService.reset();
+        $timeout.flush();
+        m.chai.expect(ImageWriterService.state.progress).to.equal(0);
+      });
+
+    });
+
     describe('.burn()', function() {
 
       describe('given a succesful write', function() {
