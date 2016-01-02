@@ -62,7 +62,7 @@ app.controller('AppController', function($q, DriveScannerService, SelectionState
     this.scanner.start(2000);
 
     this.scanner.scan().then(function (res) {
-      if(res.length == 1){
+      if(res.length === 1){
         self.selectDrive(res[0]);
       }
     });
@@ -232,8 +232,6 @@ driveScanner.service('DriveScannerService', function($q, DriveScannerRefreshServ
     if (!angular.equals(self.drives, drives)) {
       self.drives = drives;
     }
-
-    return "bla"
   };
 
   /**
