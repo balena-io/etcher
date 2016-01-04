@@ -1,18 +1,18 @@
 {
-  "name": "herostratus",
+  "name": "resin-etcher",
   "version": "0.0.1",
-  "main": "lib/herostratus.js",
+  "main": "lib/etcher.js",
   "description": "An image burner with support for Windows, OS X and GNU/Linux.",
-  "homepage": "https://github.com/resin-io/herostratus",
+  "homepage": "https://github.com/resin-io/resin-etcher",
   "repository": {
     "type": "git",
-    "url": "git@github.com:resin-io/herostratus.git"
+    "url": "git@github.com:resin-io/resin-etcher.git"
   },
   "scripts": {
     "test:main": "electron-mocha --recursive tests/src",
     "test:browser": "electron-mocha --recursive --renderer tests/browser",
     "test": "npm run-script test:main && npm run-script test:browser",
-    "start": "electron lib/herostratus.js"
+    "start": "electron lib/etcher.js"
   },
   "author": "Juan Cruz Viotti <juan@resin.io>",
   "license": "MIT",

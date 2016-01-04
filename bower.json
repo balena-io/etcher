@@ -1,7 +1,7 @@
 {
-  "name": "herostratus",
+  "name": "resin-etcher",
   "version": "0.0.1",
-  "homepage": "https://github.com/resin-io/herostratus",
+  "homepage": "https://github.com/resin-io/resin-etcher",
   "authors": [
     "Juan Cruz Viotti <juan@resin.io>"
   ],

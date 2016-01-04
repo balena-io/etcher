@@ -7,7 +7,7 @@ require('../../../lib/browser/modules/path');
 describe('Browser: Path', function() {
   'use strict';
 
-  beforeEach(angular.mock.module('herostratus.path'));
+  beforeEach(angular.mock.module('ResinEtcher.path'));
 
   describe('BasenameFilter', function() {
 

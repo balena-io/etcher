@@ -23,7 +23,7 @@
  */
 
 /**
- * @module herostratus
+ * @module ResinEtcher
  */
 
 var angular = require('angular');
@@ -37,14 +37,14 @@ require('./modules/drive-scanner');
 require('./modules/image-writer');
 require('./modules/path');
 
-var app = angular.module('Herostratus', [
+var app = angular.module('ResinEtcher', [
   'ui.bootstrap',
 
-  // Herostratus modules
-  'herostratus.path',
-  'herostratus.selection-state',
-  'herostratus.drive-scanner',
-  'herostratus.image-writer'
+  // Resin Etcher modules
+  'ResinEtcher.path',
+  'ResinEtcher.selection-state',
+  'ResinEtcher.drive-scanner',
+  'ResinEtcher.image-writer'
 ]);
 
 app.controller('AppController', function($q, DriveScannerService, SelectionStateService, ImageWriterService) {
@@ -122,7 +122,7 @@ app.controller('AppController', function($q, DriveScannerService, SelectionState
  */
 
 /**
- * @module herostratus.drive-scanner
+ * @module ResinEtcher.drive-scanner
  */
 
 var angular = require('angular');
@@ -139,7 +139,7 @@ if (window.mocha) {
   var dialog = remote.require('./src/dialog');
 }
 
-var driveScanner = angular.module('herostratus.drive-scanner', []);
+var driveScanner = angular.module('ResinEtcher.drive-scanner', []);
 
 driveScanner.service('DriveScannerRefreshService', function($interval) {
   'use strict';
@@ -300,7 +300,7 @@ driveScanner.service('DriveScannerService', function($q, DriveScannerRefreshServ
  */
 
 /**
- * @module herostratus.image-writer
+ * @module ResinEtcher.image-writer
  */
 
 var angular = require('angular');
@@ -312,7 +312,7 @@ if (window.mocha) {
   var writer = remote.require('./src/writer');
 }
 
-var imageWriter = angular.module('herostratus.image-writer', []);
+var imageWriter = angular.module('ResinEtcher.image-writer', []);
 
 imageWriter.service('ImageWriterService', function($q, $timeout) {
   'use strict';
@@ -466,13 +466,13 @@ imageWriter.service('ImageWriterService', function($q, $timeout) {
  */
 
 /**
- * @module herostratus.path
+ * @module ResinEtcher.path
  */
 
 var angular = require('angular');
 var path = require('path');
 
-var pathModule = angular.module('herostratus.path', []);
+var pathModule = angular.module('ResinEtcher.path', []);
 
 pathModule.filter('basename', function() {
   'use strict';
@@ -516,11 +516,11 @@ pathModule.filter('basename', function() {
  */
 
 /**
- * @module herostratus.selection-state
+ * @module ResinEtcher.selection-state
  */
 
 var angular = require('angular');
-var selectionState = angular.module('herostratus.selection-state', []);
+var selectionState = angular.module('ResinEtcher.selection-state', []);
 
 selectionState.service('SelectionStateService', function() {
   'use strict';

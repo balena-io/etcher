@@ -6,7 +6,7 @@ require('../../../lib/browser/modules/image-writer');
 describe('Browser: ImageWriter', function() {
   'use strict';
 
-  beforeEach(angular.mock.module('herostratus.image-writer'));
+  beforeEach(angular.mock.module('ResinEtcher.image-writer'));
 
   describe('ImageWriterService', function() {
 

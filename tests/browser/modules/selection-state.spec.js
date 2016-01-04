@@ -6,7 +6,7 @@ require('../../../lib/browser/modules/selection-state');
 describe('Browser: SelectionState', function() {
   'use strict';
 
-  beforeEach(angular.mock.module('herostratus.selection-state'));
+  beforeEach(angular.mock.module('ResinEtcher.selection-state'));
 
   describe('SelectionStateService', function() {
 
