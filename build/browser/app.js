@@ -72,8 +72,6 @@ app.controller('AppController', function($q, DriveScannerService, SelectionState
     console.debug('Drive selected: ' + drive.device);
   };
 
-  this.platform = window.process.platform;
-
   this.burn = function(image, drive) {
 
     // Stop scanning drives when burning
