@@ -3,7 +3,7 @@ Resin Etcher
 
 [![dependencies](https://david-dm.org/resin-io/resin-etcher.png)](https://david-dm.org/resin-io/resin-etcher.png)
 [![Build Status](https://travis-ci.org/resin-io/resin-etcher.svg)](https://travis-ci.org/resin-io/resin-etcher)
-[![Build status](https://ci.appveyor.com/api/projects/status/jb66mkw45ypqvddg/branch/master?svg=true)](https://ci.appveyor.com/project/resin-io/resin-etcher/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/n95c7ggvwc1i03u7/branch/master?svg=true)](https://ci.appveyor.com/project/resin-io/resin-etcher/branch/master)
 
 The easy way to burn images in all operating systems
 ----------------------------------------------------
