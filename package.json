@@ -15,7 +15,7 @@
     "start": "electron lib/etcher.js"
   },
   "author": "Juan Cruz Viotti <juan@resin.io>",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "optionalDependencies": {
     "elevator": "^1.0.0",
     "removedrive": "^1.0.0"

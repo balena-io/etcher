@@ -6,7 +6,7 @@
     "Juan Cruz Viotti <juan@resin.io>"
   ],
   "main": "lib/templates/index.html",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "ignore": [
     "**/.*",
     "node_modules",
