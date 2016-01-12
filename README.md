@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/resin-io/resin-etcher.png?label=ready&title=Ready)](https://waffle.io/resin-io/resin-etcher)
 Resin Etcher
 ============
 
