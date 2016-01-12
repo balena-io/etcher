@@ -4,6 +4,7 @@ Resin Etcher
 [![dependencies](https://david-dm.org/resin-io/resin-etcher.png)](https://david-dm.org/resin-io/resin-etcher.png)
 [![Build Status](https://travis-ci.org/resin-io/resin-etcher.svg)](https://travis-ci.org/resin-io/resin-etcher)
 [![Build status](https://ci.appveyor.com/api/projects/status/n95c7ggvwc1i03u7/branch/master?svg=true)](https://ci.appveyor.com/project/resin-io/resin-etcher/branch/master)
+[![Stories in Ready](https://badge.waffle.io/resin-io/resin-etcher.png?label=ready&title=Ready)](https://waffle.io/resin-io/resin-etcher)
 
 Join our online chat at [![Gitter chat](https://badges.gitter.im/resin-io/chat.png)](https://gitter.im/resin-io/chat)
 
