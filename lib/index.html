@@ -97,9 +97,13 @@
               <p class="soft">Safely ejected and ready for use</p>
 
               <div class="space-vertical-large">
-                <hero-button ng-click="app.restart()">
+                <hero-button ng-click="app.restart({ preserveImage: true })">
                   <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
-                  Lets do it again
+                  Burn image again
+                </hero-button>
+                <hero-button ng-click="app.restart()">
+                  <span class="glyphicon glyphicon-cd" aria-hidden="true"></span>
+                  Burn another image
                 </hero-button>
               </div>
             </div>
