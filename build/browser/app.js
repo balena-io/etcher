@@ -48,9 +48,9 @@ app.controller('AppController', function($q, DriveScannerService, SelectionState
   this.writer = ImageWriterService;
   this.scanner = DriveScannerService;
 
-  this.restart = function() {
+  this.restart = function(options) {
     console.debug('Restarting');
-    this.selection.clear();
+    this.selection.clear(options);
     this.writer.setProgress(0);
     this.scanner.start(2000);
   };
@@ -481,7 +481,7 @@ pathModule.filter('basename', function() {
 /**
  * @module ResinEtcher.selection-state
  */
-
+var _ = require('lodash');
 var angular = require('angular');
 var selectionState = angular.module('ResinEtcher.selection-state', []);
 
@@ -588,20 +588,30 @@ selectionState.service('SelectionStateService', function() {
   };
 
   /**
-   * @summary Clear all selections
+   * @summary Clear selections
    * @function
    * @public
    *
+   * @param {Object} options - options
+   * @param {Boolean} [options.preserveImage] - preserve image
+   *
    * @example
    * SelectionStateService.clear();
+   *
+   * @example
+   * SelectionStateService.clear({ preserveImage: true });
    */
-  this.clear = function() {
-    selection = {};
+  this.clear = function(options) {
+    if (options && options.preserveImage) {
+      selection = _.pick(selection, 'image');
+    } else {
+      selection = {};
+    }
   };
 
 });
 
-},{"angular":9}],6:[function(require,module,exports){
+},{"angular":9,"lodash":10}],6:[function(require,module,exports){
 require('./ui-bootstrap-tpls');
 module.exports = 'ui.bootstrap';
 
