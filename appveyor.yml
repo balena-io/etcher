@@ -28,3 +28,11 @@ test_script:
   - npm --version
   - ps: npm test
   - cmd: npm test
+
+notifications:
+
+  - provider: Webhook
+    url: https://webhooks.gitter.im/e/3d5ed28fa9ae4c25f46f
+    on_build_success: false
+    on_build_failure: true
+    on_build_status_changed: true
