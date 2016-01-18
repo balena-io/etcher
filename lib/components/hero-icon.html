@@ -14,11 +14,9 @@
     </style>
     <div class="icon"></div>
 
-    <div>
-      <hero-caption>
-        <content></content>
-      </hero-caption>
-    </div>
+    <template is="dom-if" if="{{label}}">
+      <hero-caption>{{label}}</hero-caption>
+    </template>
   </template>
 
   <script>
@@ -29,6 +27,9 @@
       is: "hero-icon",
       properties: {
         path: {
+          type: String
+        },
+        label: {
           type: String
         },
         width: {
