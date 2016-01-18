@@ -108,7 +108,7 @@ app.controller('AppController', function($q, DriveScannerService, SelectionState
   this.open = shell.openExternal;
 });
 
-},{"./modules/drive-scanner":2,"./modules/image-writer":3,"./modules/path":4,"./modules/selection-state":5,"angular":9,"angular-ui-bootstrap":6}],2:[function(require,module,exports){
+},{"./modules/drive-scanner":2,"./modules/image-writer":3,"./modules/path":4,"./modules/selection-state":5,"angular":9,"angular-ui-bootstrap":6,"lodash":10}],2:[function(require,module,exports){
 (function (__dirname){
 /*
  * Copyright 2016 Resin.io
@@ -304,7 +304,7 @@ driveScanner.service('DriveScannerService', function($q, DriveScannerRefreshServ
 });
 
 }).call(this,"/lib/browser/modules")
-},{"angular":9,"lodash":10,"path":undefined}],3:[function(require,module,exports){
+},{"angular":9,"events":undefined,"lodash":10,"path":undefined}],3:[function(require,module,exports){
 (function (__dirname){
 /*
  * Copyright 2016 Resin.io
