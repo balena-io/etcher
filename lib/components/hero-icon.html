@@ -10,17 +10,13 @@
 
       :host ::content .icon {
         margin: 0 auto;
-        height: 40px;
-        width: 40px;
       }
     </style>
     <div class="icon"></div>
 
-    <div>
-      <hero-caption>
-        <content></content>
-      </hero-caption>
-    </div>
+    <template is="dom-if" if="{{label}}">
+      <hero-caption>{{label}}</hero-caption>
+    </template>
   </template>
 
   <script>
@@ -32,6 +28,15 @@
       properties: {
         path: {
           type: String
+        },
+        label: {
+          type: String
+        },
+        width: {
+          type: String
+        },
+        height: {
+          type: String
         }
       },
       ready: function() {
@@ -40,7 +45,10 @@
         var contents = fs.readFileSync(imagePath, {
           encoding: 'utf8'
         });
+
         iconElement.innerHTML = contents;
+        iconElement.style.width = this.width || '40px';
+        iconElement.style.height = this.height || '40px';
       }
     });
   </script>
