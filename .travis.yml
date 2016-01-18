@@ -3,9 +3,6 @@ notifications:
 language: node_js
 node_js:
   - "4.0"
-  - "0.12"
-  - "0.10"
-  - "iojs"
 before_script:
   - npm install -g electron-prebuilt
 notifications:
