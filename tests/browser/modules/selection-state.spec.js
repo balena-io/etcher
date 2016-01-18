@@ -186,6 +186,34 @@ describe('Browser: SelectionState', function() {
 
       });
 
+      describe('given the preserveImage option', function() {
+
+        beforeEach(function() {
+          SelectionStateService.clear({ preserveImage: true });
+        });
+
+        it('getDrive() should return undefined', function() {
+          var drive = SelectionStateService.getDrive();
+          m.chai.expect(drive).to.be.undefined;
+        });
+
+        it('getImage() should return the image', function() {
+          var image = SelectionStateService.getImage();
+          m.chai.expect(image).to.equal('foo.img');
+        });
+
+        it('hasDrive() should return false', function() {
+          var hasDrive = SelectionStateService.hasDrive();
+          m.chai.expect(hasDrive).to.be.false;
+        });
+
+        it('hasImage() should return true', function() {
+          var hasImage = SelectionStateService.hasImage();
+          m.chai.expect(hasImage).to.be.true;
+        });
+
+      });
+
     });
 
   });
