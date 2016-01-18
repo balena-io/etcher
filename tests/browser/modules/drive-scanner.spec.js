@@ -181,6 +181,21 @@ describe('Browser: DriveScanner', function() {
         DriveScannerService.stop();
       });
 
+      describe('.start()', function() {
+
+        it('should emit a `scan` event with the drives', function() {
+          var emitter = DriveScannerService.start(2000);
+          var scanSpy = m.sinon.spy();
+          emitter.on('scan', scanSpy);
+          $timeout.flush();
+          $interval.flush(1000);
+          m.chai.expect(scanSpy).to.have.been.calledOnce;
+          m.chai.expect(scanSpy).to.have.been.calledWith(this.drives);
+          DriveScannerService.stop();
+        });
+
+      });
+
     });
 
   });
