@@ -52,7 +52,7 @@ app.controller('AppController', function($q, DriveScannerService, SelectionState
   this.restart = function() {
     console.debug('Restarting');
     this.selection.clear();
-    this.writer.setProgress(0);
+    this.writer.reset();
     this.scanner.start(2000).on('scan', function(drives) {
 
       // Notice we only autoselect the drive if there is an image,
@@ -343,31 +343,69 @@ imageWriter.service('ImageWriterService', function($q, $timeout) {
   var self = this;
   var burning = false;
 
-  /**
-   * @summary Progress percentage
-   * @type Number
+  /*
+   * @summary Progress state
+   * @type Object
    * @public
    */
-  this.progress = 0;
+  this.state = {
+
+    /**
+     * @summary Progress percentage
+     * @type Number
+     * @public
+     */
+    progress: 0,
+
+    /**
+     * @summary Progress speed
+     * @type Number
+     * @public
+     */
+    speed: 0
+
+  };
 
   /**
-   * @summary Set progress percentage
+   * @summary Set progress state
    * @function
    * @private
    *
-   * @param {Number} progress
+   * @param {Object} state - progress state
+   * @param {Number} state.percentage - progress percentage
    *
    * @example
-   * ImageWriterService.setProgress(50);
+   * ImageWriterService.setProgressState({
+   *   percentage: 50
+   * });
    */
-  this.setProgress = function(progress) {
+  this.setProgressState = function(state) {
 
     // Safely bring the state to the world of Angular
     $timeout(function() {
-      self.progress = Math.floor(progress);
-      console.debug('Progress: ' + self.progress);
+      self.state.progress = Math.floor(state.percentage);
+
+      // Transform bytes to megabytes preserving only two decimal places
+      self.state.speed = Math.floor(state.speed / 1e+6 * 100) / 100 || 0;
+
+      console.debug('Progress: ' + self.state.progress + '% at ' + self.state.speed + ' MB/s');
     });
 
+  };
+
+  /**
+   * @summary Reset progress state
+   * @function
+   * @public
+   *
+   * @example
+   * ImageWriterService.reset();
+   */
+  this.reset = function() {
+    self.setProgressState({
+      percentage: 0,
+      speed: 0
+    });
   };
 
   /**
@@ -431,7 +469,7 @@ imageWriter.service('ImageWriterService', function($q, $timeout) {
    * @public
    *
    * @description
-   * This function will update `.progress` with the current writing percentage.
+   * This function will update `state.progress` with the current writing percentage.
    *
    * @param {String} image - image path
    * @param {Object} drive - drive
@@ -454,9 +492,7 @@ imageWriter.service('ImageWriterService', function($q, $timeout) {
 
     self.setBurning(true);
 
-    return self.performWrite(image, drive, function(state) {
-      self.setProgress(state.percentage);
-    }).finally(function() {
+    return self.performWrite(image, drive, self.setProgressState).finally(function() {
       self.setBurning(false);
     });
   };
