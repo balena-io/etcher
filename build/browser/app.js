@@ -20,6 +20,7 @@
  */
 
 var angular = require('angular');
+var _ = require('lodash');
 var remote = window.require('remote');
 var shell = remote.require('shell');
 var dialog = remote.require('./src/dialog');
@@ -52,7 +53,27 @@ app.controller('AppController', function($q, DriveScannerService, SelectionState
     console.debug('Restarting');
     this.selection.clear();
     this.writer.setProgress(0);
-    this.scanner.start(2000);
+    this.scanner.start(2000).on('scan', function(drives) {
+
+      // Notice we only autoselect the drive if there is an image,
+      // which means that the first step was completed successfully,
+      // otherwise the drive is selected while the drive step is disabled
+      // which looks very weird.
+      if (drives.length === 1 && self.selection.hasImage()) {
+        var drive = _.first(drives);
+
+        // Do not autoselect the same drive over and over again
+        // and fill the logs unnecessary.
+        // `angular.equals` is used instead of `_.isEqual` to
+        // cope with `$$hashKey`.
+        if (!angular.equals(self.selection.getDrive(), drive)) {
+          console.debug('Autoselecting drive: ' + drive.device);
+          self.selectDrive(drive);
+        }
+
+      }
+
+    });
   };
 
   this.restart();
@@ -111,6 +132,7 @@ app.controller('AppController', function($q, DriveScannerService, SelectionState
 
 var angular = require('angular');
 var _ = require('lodash');
+var EventEmitter = require('events').EventEmitter;
 var remote = window.require('remote');
 
 if (window.mocha) {
@@ -125,7 +147,7 @@ if (window.mocha) {
 
 var driveScanner = angular.module('ResinEtcher.drive-scanner', []);
 
-driveScanner.service('DriveScannerRefreshService', function($interval) {
+driveScanner.service('DriveScannerRefreshService', function($interval, $timeout) {
   'use strict';
 
   var interval = null;
@@ -144,8 +166,15 @@ driveScanner.service('DriveScannerRefreshService', function($interval) {
    * }, 2000);
    */
   this.every = function(fn, ms) {
-		fn();
-		interval = $interval(fn, ms);
+
+    // Call fn after in the next process tick
+    // to be able to capture the first run
+    // in unit tests.
+    $timeout(function() {
+      fn();
+      interval = $interval(fn, ms);
+    });
+
   };
 
   /**
@@ -234,15 +263,32 @@ driveScanner.service('DriveScannerService', function($q, DriveScannerRefreshServ
    * @function
    * @public
    *
+   * @description
+   * This function returns an event emitter instance
+   * that emits a `scan` event everything it scans
+   * the drives successfully.
+   *
    * @param {Number} ms - interval milliseconds
+   * @returns {EventEmitter} event emitter instance
    *
    * @example
-   * DriveScannerService.start(2000);
+   * var emitter = DriveScannerService.start(2000);
+   *
+   * emitter.on('scan', function(drives) {
+   *   console.log(drives);
+   * });
    */
   this.start = function(ms) {
+    var emitter = new EventEmitter();
+
     DriveScannerRefreshService.every(function() {
-      return self.scan().then(self.setDrives);
+      return self.scan().then(function(drives) {
+        emitter.emit('scan', drives);
+        self.setDrives(drives);
+      });
     }, ms);
+
+    return emitter;
   };
 
   /**
