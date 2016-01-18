@@ -131,7 +131,7 @@ if (window.mocha) {
 
 var driveScanner = angular.module('ResinEtcher.drive-scanner', []);
 
-driveScanner.service('DriveScannerRefreshService', function($interval) {
+driveScanner.service('DriveScannerRefreshService', function($interval, $timeout) {
   'use strict';
 
   var interval = null;
@@ -150,8 +150,15 @@ driveScanner.service('DriveScannerRefreshService', function($interval) {
    * }, 2000);
    */
   this.every = function(fn, ms) {
-		fn();
-		interval = $interval(fn, ms);
+
+    // Call fn after in the next process tick
+    // to be able to capture the first run
+    // in unit tests.
+    $timeout(function() {
+      fn();
+      interval = $interval(fn, ms);
+    });
+
   };
 
   /**

@@ -12,9 +12,11 @@ describe('Browser: DriveScanner', function() {
 
     var DriveScannerRefreshService;
     var $interval;
+    var $timeout;
 
-    beforeEach(angular.mock.inject(function(_$interval_, _DriveScannerRefreshService_) {
+    beforeEach(angular.mock.inject(function(_$interval_, _$timeout_, _DriveScannerRefreshService_) {
       $interval = _$interval_;
+      $timeout = _$timeout_;
       DriveScannerRefreshService = _DriveScannerRefreshService_;
     }));
 
@@ -23,6 +25,7 @@ describe('Browser: DriveScanner', function() {
       it('should call the function right away', function() {
         var spy = m.sinon.spy();
         DriveScannerRefreshService.every(spy, 1000);
+        $timeout.flush();
         DriveScannerRefreshService.stop();
         m.chai.expect(spy).to.have.been.calledOnce;
       });
@@ -30,6 +33,7 @@ describe('Browser: DriveScanner', function() {
       it('should call the function in an interval', function() {
         var spy = m.sinon.spy();
         DriveScannerRefreshService.every(spy, 100);
+        $timeout.flush();
 
         // 400ms = 100ms / 4 + 1 (the initial call)
         $interval.flush(400);
@@ -45,11 +49,13 @@ describe('Browser: DriveScanner', function() {
   describe('DriveScannerService', function() {
 
     var $interval;
+    var $timeout;
     var $q;
     var DriveScannerService;
 
-    beforeEach(angular.mock.inject(function(_$interval_, _$q_, _DriveScannerService_) {
+    beforeEach(angular.mock.inject(function(_$interval_, _$timeout_, _$q_, _DriveScannerService_) {
       $interval = _$interval_;
+      $timeout = _$timeout_;
       $q = _$q_;
       DriveScannerService = _DriveScannerService_;
     }));
@@ -169,6 +175,7 @@ describe('Browser: DriveScanner', function() {
 
       it('should set the drives to the scanned ones', function() {
         DriveScannerService.start(200);
+        $timeout.flush();
         $interval.flush(400);
         m.chai.expect(DriveScannerService.drives).to.deep.equal(this.drives);
         DriveScannerService.stop();
