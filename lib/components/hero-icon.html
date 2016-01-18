@@ -10,8 +10,6 @@
 
       :host ::content .icon {
         margin: 0 auto;
-        height: 40px;
-        width: 40px;
       }
     </style>
     <div class="icon"></div>
@@ -32,6 +30,12 @@
       properties: {
         path: {
           type: String
+        },
+        width: {
+          type: String
+        },
+        height: {
+          type: String
         }
       },
       ready: function() {
@@ -40,7 +44,10 @@
         var contents = fs.readFileSync(imagePath, {
           encoding: 'utf8'
         });
+
         iconElement.innerHTML = contents;
+        iconElement.style.width = this.width || '40px';
+        iconElement.style.height = this.height || '40px';
       }
     });
   </script>
