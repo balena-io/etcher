@@ -19,6 +19,8 @@ An image burner with support for Windows, OS X and GNU/Linux.
 
 ![Resin Etcher](https://raw.githubusercontent.com/resin-io/resin-etcher/master/screenshot.png)
 
+See the [Resin Etcher CLI](https://github.com/resin-io/resin-etcher-cli).
+
 **Notice:** Resin Etcher is in a very early state and things might break or not work at all in certain setups.
 
 Installation
