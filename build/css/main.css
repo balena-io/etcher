@@ -5905,7 +5905,7 @@ body {
   margin: 0 30px; }
 
 .space-bottom-large {
-  margin-bottom: 30px; }
+  margin-bottom: 45px; }
 
 .space-right-tiny {
   margin-right: 5px; }
@@ -5961,10 +5961,17 @@ body {
 
 .section-footer {
   position: fixed;
-  bottom: 30px;
+  bottom: 20px;
   left: 0;
   right: 0;
-  color: #333333; }
+  color: #787c7f;
+  margin: 0 60px;
+  padding-top: 15px;
+  border-top: 2px solid #64686a; }
+  .section-footer .col-xs {
+    padding: 0; }
+  .section-footer hero-icon .icon {
+    margin: 0; }
 
 .step-border, .step-border-left, .step-border-right {
   height: 2px;

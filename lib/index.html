@@ -108,8 +108,18 @@
       </div>
     </div>
 
-    <div class="text-center section-footer">
-      <hero-caption><span ng-click="app.open('https://github.com/resin-io/resin-etcher')">AN OPEN SOURCE PROJECT</span> BY <span ng-click="app.open('https://resin.io')">RESIN.IO</span></hero-caption>
+    <div class="section-footer row between-xs middle-xs">
+      <div class="col-xs">
+        <div class="box text-left">
+          <hero-icon path="images/resin.svg" width="85px" height="auto" ng-click="app.open('https://resin.io')"></hero-icon>
+        </div>
+      </div>
+
+      <div class="col-xs">
+        <div class="box text-right">
+          <hero-caption><span ng-click="app.open('https://github.com/resin-io/resin-etcher')">AN OPEN SOURCE PROJECT</span> BY <span ng-click="app.open('https://resin.io')">RESIN.IO</span></hero-caption>
+        </div>
+      </div>
     </div>
   </body>
 </html>
