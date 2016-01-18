@@ -5910,6 +5910,9 @@ body {
 .space-right-tiny {
   margin-right: 5px; }
 
+.vertical-right-separator {
+  border-right: solid #ddd 1px; }
+
 html {
   background-color: #535760; }
 
