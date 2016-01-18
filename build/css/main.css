@@ -5993,3 +5993,6 @@ body {
   margin-bottom: -40px;
   color: #85898c;
   font-size: 12px; }
+
+.tiny {
+  font-size: 10px; }
