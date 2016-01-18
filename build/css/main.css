@@ -5959,6 +5959,9 @@ body {
 .soft {
   color: #ddd; }
 
+.vertical-right-separator {
+  border-right: solid #ddd 1px; }
+
 .section-footer {
   position: fixed;
   bottom: 30px;
