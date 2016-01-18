@@ -20,6 +20,7 @@
  */
 
 var angular = require('angular');
+var _ = require('lodash');
 var remote = window.require('remote');
 var shell = remote.require('shell');
 var dialog = remote.require('./src/dialog');
@@ -52,12 +53,26 @@ app.controller('AppController', function($q, DriveScannerService, SelectionState
     console.debug('Restarting');
     this.selection.clear();
     this.writer.setProgress(0);
-    this.scanner.start(2000);
+    this.scanner.start(2000).on('scan', function(drives) {
 
-    this.scanner.scan().then(function (res) {
-      if(res.length === 1){
-        self.selectDrive(res[0]);
+      // Notice we only autoselect the drive if there is an image,
+      // which means that the first step was completed successfully,
+      // otherwise the drive is selected while the drive step is disabled
+      // which looks very weird.
+      if (drives.length === 1 && self.selection.hasImage()) {
+        var drive = _.first(drives);
+
+        // Do not autoselect the same drive over and over again
+        // and fill the logs unnecessary.
+        // `angular.equals` is used instead of `_.isEqual` to
+        // cope with `$$hashKey`.
+        if (!angular.equals(self.selection.getDrive(), drive)) {
+          console.debug('Autoselecting drive: ' + drive.device);
+          self.selectDrive(drive);
+        }
+
       }
+
     });
   };
 
