@@ -29,6 +29,7 @@ require('angular-ui-bootstrap');
 require('./modules/selection-state');
 require('./modules/drive-scanner');
 require('./modules/image-writer');
+require('./modules/logger');
 require('./modules/path');
 
 var app = angular.module('ResinEtcher', [
@@ -38,10 +39,11 @@ var app = angular.module('ResinEtcher', [
   'ResinEtcher.path',
   'ResinEtcher.selection-state',
   'ResinEtcher.drive-scanner',
-  'ResinEtcher.image-writer'
+  'ResinEtcher.image-writer',
+  'ResinEtcher.logger'
 ]);
 
-app.controller('AppController', function($q, DriveScannerService, SelectionStateService, ImageWriterService) {
+app.controller('AppController', function($q, DriveScannerService, SelectionStateService, ImageWriterService, LoggerService) {
   'use strict';
 
   var self = this;
@@ -50,7 +52,7 @@ app.controller('AppController', function($q, DriveScannerService, SelectionState
   this.scanner = DriveScannerService;
 
   this.restart = function() {
-    console.debug('Restarting');
+    LoggerService.debug('Restarting');
     this.selection.clear();
     this.writer.reset();
     this.scanner.start(2000).on('scan', function(drives) {
@@ -67,7 +69,7 @@ app.controller('AppController', function($q, DriveScannerService, SelectionState
         // `angular.equals` is used instead of `_.isEqual` to
         // cope with `$$hashKey`.
         if (!angular.equals(self.selection.getDrive(), drive)) {
-          console.debug('Autoselecting drive: ' + drive.device);
+          LoggerService.debug('Autoselecting drive: ' + drive.device);
           self.selectDrive(drive);
         }
 
@@ -84,13 +86,13 @@ app.controller('AppController', function($q, DriveScannerService, SelectionState
   this.selectImage = function() {
     return $q.when(dialog.selectImage()).then(function(image) {
       self.selection.setImage(image);
-      console.debug('Image selected: ' + image);
+      LoggerService.debug('Image selected: ' + image);
     });
   };
 
   this.selectDrive = function(drive) {
     self.selection.setDrive(drive);
-    console.debug('Drive selected: ' + drive.device);
+    LoggerService.debug('Drive selected: ' + drive.device);
   };
 
   this.reselectImage = function() {
@@ -122,16 +124,16 @@ app.controller('AppController', function($q, DriveScannerService, SelectionState
     // otherwise Windows throws EPERM
     self.scanner.stop();
 
-    console.debug('Burning ' + image + ' to ' + drive.device);
+    LoggerService.debug('Burning ' + image + ' to ' + drive.device);
     return self.writer.burn(image, drive).then(function() {
-      console.debug('Done!');
+      LoggerService.debug('Done!');
     }).catch(dialog.showError);
   };
 
   this.open = shell.openExternal;
 });
 
-},{"./modules/drive-scanner":2,"./modules/image-writer":3,"./modules/path":4,"./modules/selection-state":5,"angular":9,"angular-ui-bootstrap":6,"lodash":10}],2:[function(require,module,exports){
+},{"./modules/drive-scanner":2,"./modules/image-writer":3,"./modules/logger":4,"./modules/path":5,"./modules/selection-state":6,"angular":10,"angular-ui-bootstrap":7,"lodash":11}],2:[function(require,module,exports){
 (function (__dirname){
 /*
  * Copyright 2016 Resin.io
@@ -327,7 +329,7 @@ driveScanner.service('DriveScannerService', function($q, DriveScannerRefreshServ
 });
 
 }).call(this,"/lib/browser/modules")
-},{"angular":9,"events":undefined,"lodash":10,"path":undefined}],3:[function(require,module,exports){
+},{"angular":10,"events":undefined,"lodash":11,"path":undefined}],3:[function(require,module,exports){
 (function (__dirname){
 /*
  * Copyright 2016 Resin.io
@@ -351,6 +353,7 @@ driveScanner.service('DriveScannerService', function($q, DriveScannerRefreshServ
 
 var angular = require('angular');
 var remote = window.require('remote');
+require('./logger');
 
 if (window.mocha) {
   var writer = remote.require(require('path').join(__dirname, '..', '..', 'src', 'writer'));
@@ -358,9 +361,11 @@ if (window.mocha) {
   var writer = remote.require('./src/writer');
 }
 
-var imageWriter = angular.module('ResinEtcher.image-writer', []);
+var imageWriter = angular.module('ResinEtcher.image-writer', [
+  'ResinEtcher.logger'
+]);
 
-imageWriter.service('ImageWriterService', function($q, $timeout) {
+imageWriter.service('ImageWriterService', function($q, $timeout, LoggerService) {
   'use strict';
 
   var self = this;
@@ -411,7 +416,7 @@ imageWriter.service('ImageWriterService', function($q, $timeout) {
       // Transform bytes to megabytes preserving only two decimal places
       self.state.speed = Math.floor(state.speed / 1e+6 * 100) / 100 || 0;
 
-      console.debug('Progress: ' + self.state.progress + '% at ' + self.state.speed + ' MB/s');
+      LoggerService.debug('Progress: ' + self.state.progress + '% at ' + self.state.speed + ' MB/s');
     });
 
   };
@@ -523,7 +528,51 @@ imageWriter.service('ImageWriterService', function($q, $timeout) {
 });
 
 }).call(this,"/lib/browser/modules")
-},{"angular":9,"path":undefined}],4:[function(require,module,exports){
+},{"./logger":4,"angular":10,"path":undefined}],4:[function(require,module,exports){
+/*
+ * Copyright 2016 Resin.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * @module ResinEtcher.logger
+ */
+
+var angular = require('angular');
+var logger = angular.module('ResinEtcher.logger', []);
+
+logger.service('LoggerService', function() {
+  'use strict';
+
+  /**
+   * @summary Print a debug log message
+   * @function
+   * @public
+   *
+   * @param {String} message - message
+   *
+   * @example
+   * LoggerService.debug('Hello World');
+   */
+  this.debug = function(message) {
+    console.debug(new Date() + ' ' + message);
+  };
+
+});
+
+
+},{"angular":10}],5:[function(require,module,exports){
 /*
  * Copyright 2016 Resin.io
  *
@@ -566,7 +615,7 @@ pathModule.filter('basename', function() {
   return path.basename;
 });
 
-},{"angular":9,"path":undefined}],5:[function(require,module,exports){
+},{"angular":10,"path":undefined}],6:[function(require,module,exports){
 /*
  * Copyright 2016 Resin.io
  *
@@ -730,11 +779,11 @@ selectionState.service('SelectionStateService', function() {
 
 });
 
-},{"angular":9}],6:[function(require,module,exports){
+},{"angular":10}],7:[function(require,module,exports){
 require('./ui-bootstrap-tpls');
 module.exports = 'ui.bootstrap';
 
-},{"./ui-bootstrap-tpls":7}],7:[function(require,module,exports){
+},{"./ui-bootstrap-tpls":8}],8:[function(require,module,exports){
 /*
  * angular-ui-bootstrap
  * http://angular-ui.github.io/bootstrap/
@@ -9238,7 +9287,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
     "");
 }]);
 !angular.$$csp() && angular.element(document).find('head').prepend('<style type="text/css">.ng-animate.item:not(.left):not(.right){-webkit-transition:0s ease-in-out left;transition:0s ease-in-out left}</style>');
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 /**
  * @license AngularJS v1.4.8
  * (c) 2010-2015 Google, Inc. http://angularjs.org
@@ -38257,11 +38306,11 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":8}],10:[function(require,module,exports){
+},{"./angular":9}],11:[function(require,module,exports){
 (function (global){
 /**
  * @license
