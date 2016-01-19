@@ -670,6 +670,30 @@ selectionState.service('SelectionStateService', function() {
   };
 
   /**
+   * @summary Remove drive
+   * @function
+   * @public
+   *
+   * @example
+   * SelectionStateService.removeDrive();
+   */
+  this.removeDrive = function() {
+    self.setDrive(undefined);
+  };
+
+  /**
+   * @summary Remove image
+   * @function
+   * @public
+   *
+   * @example
+   * SelectionStateService.removeImage();
+   */
+  this.removeImage = function() {
+    self.setImage(undefined);
+  };
+
+  /**
    * @summary Clear all selections
    * @function
    * @public
