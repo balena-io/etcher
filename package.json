@@ -37,9 +37,9 @@
   "devDependencies": {
     "angular-mocks": "^1.4.7",
     "browserify": "^12.0.1",
-    "electron-mocha": "^0.6.1",
+    "electron-mocha": "^0.7.0",
     "electron-packager": "^5.1.1",
-    "electron-prebuilt": "^0.31.2",
+    "electron-prebuilt": "^0.36.0",
     "gulp": "^3.9.0",
     "gulp-jshint": "^1.11.2",
     "gulp-sass": "^2.0.4",
