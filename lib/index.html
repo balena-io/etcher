@@ -30,7 +30,7 @@
                   <hero-button ng-click="app.selectImage()">Select image</hero-button>
                 </div>
                 <div ng-show="app.selection.hasImage()">
-                  <span ng-bind="app.selection.getImage() | basename"></span>
+                  <span ng-bind="app.selection.getImage() | basename" ng-click="app.reselectImage()"></span>
                 </div>
 
                 <p class="step-footer tiny">*supported files: .img, .iso</p>
@@ -67,7 +67,7 @@
                   </div>
 
                 </div>
-                <div ng-show="app.selection.hasDrive()" ng-bind="app.selection.getDrive().name"></div>
+                <div ng-show="app.selection.hasDrive()" ng-bind="app.selection.getDrive().name" ng-click="app.reselectDrive()"></div>
               </div>
             </div>
           </div>
