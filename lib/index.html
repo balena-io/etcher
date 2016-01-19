@@ -28,12 +28,11 @@
               <div class="space-vertical-large">
                 <div ng-hide="app.selection.hasImage()">
                   <hero-button ng-click="app.selectImage()">Select image</hero-button>
+                  <p class="step-footer tiny">*supported files: .img, .iso</p>
                 </div>
                 <div ng-show="app.selection.hasImage()">
                   <span ng-bind="app.selection.getImage() | basename" ng-click="app.reselectImage()"></span>
                 </div>
-
-                <p class="step-footer tiny">*supported files: .img, .iso</p>
               </div>
             </div>
           </div>
