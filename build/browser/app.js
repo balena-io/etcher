@@ -559,7 +559,7 @@ imageWriter.service('ImageWriterService', function($q, $timeout, LoggerService) 
 var angular = require('angular');
 var logger = angular.module('ResinEtcher.logger', []);
 
-logger.service('LoggerService', function() {
+logger.service('LoggerService', function($log) {
   'use strict';
 
   /**
@@ -573,7 +573,7 @@ logger.service('LoggerService', function() {
    * LoggerService.debug('Hello World');
    */
   this.debug = function(message) {
-    console.debug(new Date() + ' ' + message);
+    $log.debug(new Date() + ' ' + message);
   };
 
 });
