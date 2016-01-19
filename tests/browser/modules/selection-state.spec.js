@@ -78,6 +78,17 @@ describe('Browser: SelectionState', function() {
 
       });
 
+      describe('.removeDrive()', function() {
+
+        it('should clear the drive', function() {
+          SelectionStateService.removeDrive();
+          var drive = SelectionStateService.getDrive();
+          m.chai.expect(drive).to.be.undefined;
+        });
+
+      });
+
+
     });
 
     describe('given no drive', function() {
@@ -124,6 +135,16 @@ describe('Browser: SelectionState', function() {
           SelectionStateService.setImage('bar.img');
           var image = SelectionStateService.getImage();
           m.chai.expect(image).to.equal('bar.img');
+        });
+
+      });
+
+      describe('.removeImage()', function() {
+
+        it('should clear the image', function() {
+          SelectionStateService.removeImage();
+          var image = SelectionStateService.getImage();
+          m.chai.expect(image).to.be.undefined;
         });
 
       });

@@ -93,6 +93,29 @@ app.controller('AppController', function($q, DriveScannerService, SelectionState
     console.debug('Drive selected: ' + drive.device);
   };
 
+  this.reselectImage = function() {
+    if (self.writer.isBurning()) {
+      return;
+    }
+
+    // Reselecting an image automatically
+    // de-selects the current drive, if any.
+    // This is made so the user effectively
+    // "returns" to the first step.
+    self.selection.clear();
+
+    console.debug('Reselecting image');
+  };
+
+  this.reselectDrive = function() {
+    if (self.writer.isBurning()) {
+      return;
+    }
+
+    self.selection.removeDrive();
+    console.debug('Reselecting drive');
+  };
+
   this.burn = function(image, drive) {
 
     // Stop scanning drives when burning
@@ -667,6 +690,30 @@ selectionState.service('SelectionStateService', function() {
    */
   this.hasImage = function() {
     return !!self.getImage();
+  };
+
+  /**
+   * @summary Remove drive
+   * @function
+   * @public
+   *
+   * @example
+   * SelectionStateService.removeDrive();
+   */
+  this.removeDrive = function() {
+    self.setDrive(undefined);
+  };
+
+  /**
+   * @summary Remove image
+   * @function
+   * @public
+   *
+   * @example
+   * SelectionStateService.removeImage();
+   */
+  this.removeImage = function() {
+    self.setImage(undefined);
   };
 
   /**
