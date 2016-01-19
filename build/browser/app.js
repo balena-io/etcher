@@ -106,7 +106,7 @@ app.controller('AppController', function($q, DriveScannerService, SelectionState
     // "returns" to the first step.
     self.selection.clear();
 
-    console.debug('Reselecting image');
+    LoggerService.debug('Reselecting image');
   };
 
   this.reselectDrive = function() {
@@ -115,7 +115,7 @@ app.controller('AppController', function($q, DriveScannerService, SelectionState
     }
 
     self.selection.removeDrive();
-    console.debug('Reselecting drive');
+    LoggerService.debug('Reselecting drive');
   };
 
   this.burn = function(image, drive) {
