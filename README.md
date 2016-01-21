@@ -1,24 +1,19 @@
 Resin Etcher
 ============
 
+> The easy way to burn images in all operating systems
+
 [![dependencies](https://david-dm.org/resin-io/resin-etcher.svg)](https://david-dm.org/resin-io/resin-etcher.svg)
 [![Build Status](https://travis-ci.org/resin-io/resin-etcher.svg)](https://travis-ci.org/resin-io/resin-etcher)
 [![Build status](https://ci.appveyor.com/api/projects/status/n95c7ggvwc1i03u7/branch/master?svg=true)](https://ci.appveyor.com/project/resin-io/resin-etcher/branch/master)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/resin-io/chat)
 [![Stories in Ready](https://badge.waffle.io/resin-io/resin-etcher.svg?label=in progress&title=In Progress)](https://waffle.io/resin-io/resin-etcher)
 
-The easy way to burn images in all operating systems
-----------------------------------------------------
+***
 
-An image burner with support for Windows, OS X and GNU/Linux.
-
-- [**Installing**](https://github.com/resin-io/resin-etcher#installation)
-- [**Support**](https://github.com/resin-io/resin-etcher/issues/new)
-- [**Contributing**](https://github.com/resin-io/resin-etcher/blob/master/CONTRIBUTING.md)
+[**Installing**](https://github.com/resin-io/resin-etcher#installation) | [**Support**](https://github.com/resin-io/resin-etcher/issues/new) | [**Contributing**](https://github.com/resin-io/resin-etcher/blob/master/CONTRIBUTING.md) | [**CLI**](https://github.com/resin-io/resin-etcher-cli)
 
 ![Resin Etcher](https://raw.githubusercontent.com/resin-io/resin-etcher/master/screenshot.png)
-
-See the [Resin Etcher CLI](https://github.com/resin-io/resin-etcher-cli).
 
 **Notice:** Resin Etcher is in a very early state and things might break or not work at all in certain setups.
 
