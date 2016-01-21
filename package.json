@@ -39,6 +39,7 @@
     "electron-packager": "^5.1.1",
     "electron-prebuilt": "^0.36.4",
     "gulp": "^3.9.0",
+    "gulp-jscs": "^3.0.2",
     "gulp-jshint": "^1.11.2",
     "gulp-sass": "^2.0.4",
     "jshint-stylish": "^2.0.1",

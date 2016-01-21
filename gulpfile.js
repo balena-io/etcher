@@ -15,6 +15,7 @@
  */
 
 var gulp = require('gulp');
+var jscs = require('gulp-jscs');
 var jshint = require('gulp-jshint');
 var jshintStylish = require('jshint-stylish');
 var sass = require('gulp-sass');
@@ -43,7 +44,9 @@ gulp.task('lint', function() {
 
   return gulp.src(paths.scripts)
     .pipe(jshint())
-    .pipe(jshint.reporter(jshintStylish));
+    .pipe(jshint.reporter(jshintStylish))
+    .pipe(jscs())
+    .pipe(jscs.reporter());
 });
 
 gulp.task('watch', [ 'lint', 'sass' ], function() {
