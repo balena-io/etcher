@@ -4,7 +4,7 @@
   "disallowCapitalizedComments": false,
   "disallowCommaBeforeLineBreak": false,
   "disallowCurlyBraces": false,
-  "disallowDanglingUnderscores": true,
+  "disallowDanglingUnderscores": false,
   "disallowEmptyBlocks": true,
   "disallowFunctionDeclarations": true,
   "disallowIdenticalDestructuringNames": true,
