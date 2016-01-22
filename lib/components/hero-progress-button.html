@@ -5,7 +5,7 @@
 <dom-module id="hero-progress-button">
   <template>
     <style>
-      :host:not([percentage="0"]) {
+      :host[active="true"] {
         pointer-events: none;
       }
 
@@ -39,6 +39,9 @@
     Polymer({
       is: 'hero-progress-button',
       properties: {
+        active: {
+          type: Boolean
+        },
         disabled: {
           type: String
         },
