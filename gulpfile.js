@@ -18,9 +18,6 @@ var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var jshintStylish = require('jshint-stylish');
 var sass = require('gulp-sass');
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
 
 var paths = {
   scripts: [
@@ -49,26 +46,9 @@ gulp.task('lint', function() {
     .pipe(jshint.reporter(jshintStylish));
 });
 
-gulp.task('javascript', function() {
+gulp.task('watch', [ 'lint', 'sass' ], function() {
   'use strict';
 
-  var b = browserify({
-    entries: './lib/browser/app.js',
-
-    // No need for Browserify builtins since Electron
-    // has access to all NodeJS libraries
-    builtins: {}
-  });
-
-  return b.bundle()
-    .pipe(source('app.js'))
-    .pipe(buffer())
-    .pipe(gulp.dest('./build/browser/'));
-});
-
-gulp.task('watch', [ 'lint', 'javascript', 'sass' ], function() {
-  'use strict';
-
-  gulp.watch(paths.scripts, [ 'lint', 'javascript' ]);
+  gulp.watch(paths.scripts, [ 'lint' ]);
   gulp.watch(paths.sass, [ 'sass' ]);
 });
