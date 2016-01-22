@@ -23,14 +23,6 @@ describe('Browser: ImageWriter', function() {
       ImageWriterService = _ImageWriterService_;
     }));
 
-    it('should set progress to zero by default', function() {
-      m.chai.expect(ImageWriterService.state.progress).to.equal(0);
-    });
-
-    it('should set speed to zero by default', function() {
-      m.chai.expect(ImageWriterService.state.speed).to.equal(0);
-    });
-
     describe('.isBurning()', function() {
 
       it('should return false by default', function() {
@@ -62,69 +54,6 @@ describe('Browser: ImageWriter', function() {
 
         ImageWriterService.setBurning('');
         m.chai.expect(ImageWriterService.isBurning()).to.be.false;
-      });
-
-    });
-
-    describe('.setProgressState()', function() {
-
-      it('should be able to set the progress', function() {
-        ImageWriterService.setProgressState({
-          percentage: 50,
-          speed: 949624
-        });
-
-        $timeout.flush();
-        m.chai.expect(ImageWriterService.state.progress).to.equal(50);
-        m.chai.expect(ImageWriterService.state.speed).to.equal(0.94);
-      });
-
-      it('should floor the percentage', function() {
-        ImageWriterService.setProgressState({
-          percentage: 49.9999
-        });
-
-        $timeout.flush();
-        m.chai.expect(ImageWriterService.state.progress).to.equal(49);
-      });
-
-      it('should assume speed zero if no speed', function() {
-        ImageWriterService.setProgressState({
-          percentage: 25
-        });
-
-        $timeout.flush();
-        m.chai.expect(ImageWriterService.state.speed).to.equal(0);
-      });
-
-    });
-
-    describe('.reset()', function() {
-
-      it('should reset progress percentage to 0', function() {
-        ImageWriterService.setProgressState({
-          percentage: 50,
-          speed: 949624
-        });
-
-        $timeout.flush();
-        m.chai.expect(ImageWriterService.state.progress).to.equal(50);
-        ImageWriterService.reset();
-        $timeout.flush();
-        m.chai.expect(ImageWriterService.state.progress).to.equal(0);
-      });
-
-      it('should reset speed to 0', function() {
-        ImageWriterService.setProgressState({
-          percentage: 50,
-          speed: 949624
-        });
-
-        $timeout.flush();
-        m.chai.expect(ImageWriterService.state.speed).to.equal(0.94);
-        ImageWriterService.reset();
-        $timeout.flush();
-        m.chai.expect(ImageWriterService.state.speed).to.equal(0);
       });
 
     });
