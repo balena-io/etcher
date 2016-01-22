@@ -84,6 +84,20 @@ describe('Browser: ImageWriter', function() {
           m.chai.expect(this.performWriteStub).to.have.been.calledOnce;
         });
 
+        it('should reject the second burn attempt', function() {
+          ImageWriterService.burn('foo.img', '/dev/disk2');
+
+          let rejectError = null;
+          ImageWriterService.burn('foo.img', '/dev/disk2').catch(function(error) {
+            rejectError = error;
+          });
+
+          $rootScope.$apply();
+
+          m.chai.expect(rejectError).to.be.an.instanceof(Error);
+          m.chai.expect(rejectError.message).to.equal('There is already a burn in progress');
+        });
+
       });
 
       describe('given an unsuccesful write', function() {
