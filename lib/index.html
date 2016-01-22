@@ -20,7 +20,7 @@
   <body ng-app="ResinEtcher" ng-controller="AppController as app" style="display: none">
     <div class="content row middle-xs space-horizontal-large">
       <div class="col-xs">
-        <div class="row around-xs space-bottom-huge" ng-hide="app.writer.state.progress == 100 && !app.writer.isBurning()">
+        <div class="row around-xs space-bottom-huge" ng-hide="app.state.progress == 100 && !app.writer.isBurning()">
           <div class="col-xs">
             <div class="box text-center">
               <hero-icon path="images/image.svg" label="SELECT IMAGE"></hero-icon>
@@ -78,23 +78,23 @@
               <hero-badge class="block space-vertical-medium" ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">3</hero-badge>
 
               <div class="space-vertical-large">
-                <hero-progress-button percentage="{{ app.writer.state.progress }}" active="{{ app.writer.isBurning() }}"
+                <hero-progress-button percentage="{{ app.state.progress }}" active="{{ app.writer.isBurning() }}"
                   ng-click="app.burn(app.selection.getImage(), app.selection.getDrive())"
                   ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">
-                    <span ng-show="app.writer.state.progress == 100 && app.writer.isBurning()">Finishing...</span>
-                    <span ng-show="app.writer.state.progress == 0 && !app.writer.isBurning()">Burn!</span>
-                    <span ng-show="app.writer.state.progress == 0 && app.writer.isBurning() && !app.writer.state.speed">Starting...</span>
-                    <span ng-show="app.writer.state.speed && app.writer.state.progress != 100"
-                      ng-bind="app.writer.state.progress + '% '"></span>
+                    <span ng-show="app.state.progress == 100 && app.writer.isBurning()">Finishing...</span>
+                    <span ng-show="app.state.progress == 0 && !app.writer.isBurning()">Burn!</span>
+                    <span ng-show="app.state.progress == 0 && app.writer.isBurning() && !app.state.speed">Starting...</span>
+                    <span ng-show="app.state.speed && app.state.progress != 100"
+                      ng-bind="app.state.progress + '% '"></span>
                 </hero-progress-button>
 
-                <p class="step-footer" ng-bind="app.writer.state.speed.toFixed(2) + ' MB/s'" ng-show="app.writer.state.speed && app.writer.state.progress != 100"></p>
+                <p class="step-footer" ng-bind="app.state.speed.toFixed(2) + ' MB/s'" ng-show="app.state.speed && app.state.progress != 100"></p>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="row around-xs space-bottom-huge" ng-show="app.writer.state.progress == 100 && !app.writer.isBurning()">
+        <div class="row around-xs space-bottom-huge" ng-show="app.state.progress == 100 && !app.writer.isBurning()">
           <div class="col-xs">
             <div class="box text-center">
               <h3><hero-tick type="success" class="space-right-tiny"></hero-tick> Burn Complete!</h3>
