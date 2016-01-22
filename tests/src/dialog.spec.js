@@ -1,5 +1,5 @@
 var m = require('mochainon');
-var electronDialog = require('dialog');
+var electron = require('electron');
 var dialog = require('../../lib/src/dialog');
 
 describe('Dialog:', function() {
@@ -10,7 +10,7 @@ describe('Dialog:', function() {
     describe('given the users performs a selection', function() {
 
       beforeEach(function() {
-        this.showOpenDialogStub = m.sinon.stub(electronDialog, 'showOpenDialog');
+        this.showOpenDialogStub = m.sinon.stub(electron.dialog, 'showOpenDialog');
         this.showOpenDialogStub.yields([ 'foo/bar' ]);
       });
 
