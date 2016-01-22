@@ -1,5 +1,5 @@
 var m = require('mochainon');
-var Promise = require('bluebird');
+var Bluebird = require('bluebird');
 var drivelist = require('drivelist');
 var drives = require('../../lib/src/drives');
 
@@ -12,7 +12,7 @@ describe('Drives:', function() {
 
       beforeEach(function() {
         this.drivesListStub = m.sinon.stub(drivelist, 'listAsync');
-        this.drivesListStub.returns(Promise.resolve([]));
+        this.drivesListStub.returns(Bluebird.resolve([]));
       });
 
       afterEach(function() {
@@ -40,7 +40,7 @@ describe('Drives:', function() {
         ];
 
         this.drivesListStub = m.sinon.stub(drivelist, 'listAsync');
-        this.drivesListStub.returns(Promise.resolve(this.drives));
+        this.drivesListStub.returns(Bluebird.resolve(this.drives));
       });
 
       afterEach(function() {
@@ -82,7 +82,7 @@ describe('Drives:', function() {
         ];
 
         this.drivesListStub = m.sinon.stub(drivelist, 'listAsync');
-        this.drivesListStub.returns(Promise.resolve(this.drives));
+        this.drivesListStub.returns(Bluebird.resolve(this.drives));
       });
 
       afterEach(function() {
@@ -115,7 +115,7 @@ describe('Drives:', function() {
 
       beforeEach(function() {
         this.drivesListStub = m.sinon.stub(drivelist, 'listAsync');
-        this.drivesListStub.returns(Promise.reject(new Error('scan error')));
+        this.drivesListStub.returns(Bluebird.reject(new Error('scan error')));
       });
 
       afterEach(function() {
