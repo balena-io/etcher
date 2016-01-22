@@ -88,7 +88,6 @@ describe('Browser: SelectionState', function() {
 
       });
 
-
     });
 
     describe('given no drive', function() {
@@ -189,7 +188,9 @@ describe('Browser: SelectionState', function() {
       describe('given the preserveImage option', function() {
 
         beforeEach(function() {
-          SelectionStateService.clear({ preserveImage: true });
+          SelectionStateService.clear({
+            preserveImage: true
+          });
         });
 
         it('getDrive() should return undefined', function() {
