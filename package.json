@@ -9,8 +9,8 @@
     "url": "git@github.com:resin-io/resin-etcher.git"
   },
   "scripts": {
-    "test:main": "electron-mocha --recursive tests/src",
-    "test:browser": "electron-mocha --recursive --renderer tests/browser",
+    "test:main": "electron-mocha --recursive tests/src -R progress",
+    "test:browser": "electron-mocha --recursive --renderer tests/browser -R progress",
     "test": "npm run-script test:main && npm run-script test:browser",
     "start": "electron lib/etcher.js"
   },
