@@ -1,18 +1,19 @@
-var m = require('mochainon');
-var angular = require('angular');
+'use strict';
+
+const m = require('mochainon');
+const angular = require('angular');
 require('angular-mocks');
 require('../../../lib/browser/modules/drive-scanner');
 
 describe('Browser: DriveScanner', function() {
-  'use strict';
 
   beforeEach(angular.mock.module('ResinEtcher.drive-scanner'));
 
   describe('DriveScannerRefreshService', function() {
 
-    var DriveScannerRefreshService;
-    var $interval;
-    var $timeout;
+    let DriveScannerRefreshService;
+    let $interval;
+    let $timeout;
 
     beforeEach(angular.mock.inject(function(_$interval_, _$timeout_, _DriveScannerRefreshService_) {
       $interval = _$interval_;
@@ -23,7 +24,7 @@ describe('Browser: DriveScanner', function() {
     describe('.every()', function() {
 
       it('should call the function right away', function() {
-        var spy = m.sinon.spy();
+        const spy = m.sinon.spy();
         DriveScannerRefreshService.every(spy, 1000);
         $timeout.flush();
         DriveScannerRefreshService.stop();
@@ -31,7 +32,7 @@ describe('Browser: DriveScanner', function() {
       });
 
       it('should call the function in an interval', function() {
-        var spy = m.sinon.spy();
+        const spy = m.sinon.spy();
         DriveScannerRefreshService.every(spy, 100);
         $timeout.flush();
 
@@ -48,10 +49,10 @@ describe('Browser: DriveScanner', function() {
 
   describe('DriveScannerService', function() {
 
-    var $interval;
-    var $timeout;
-    var $q;
-    var DriveScannerService;
+    let $interval;
+    let $timeout;
+    let $q;
+    let DriveScannerService;
 
     beforeEach(angular.mock.inject(function(_$interval_, _$timeout_, _$q_, _DriveScannerService_) {
       $interval = _$interval_;
@@ -69,7 +70,7 @@ describe('Browser: DriveScanner', function() {
       describe('.hasAvailableDrives()', function() {
 
         it('should return false', function() {
-          var hasDrives = DriveScannerService.hasAvailableDrives();
+          const hasDrives = DriveScannerService.hasAvailableDrives();
           m.chai.expect(hasDrives).to.be.false;
         });
 
@@ -78,7 +79,7 @@ describe('Browser: DriveScanner', function() {
       describe('.setDrives()', function() {
 
         it('should be able to set drives', function() {
-          var drives = [
+          const drives = [
             {
               device: '/dev/sdb',
               description: 'Foo',
@@ -122,7 +123,7 @@ describe('Browser: DriveScanner', function() {
       describe('.hasAvailableDrives()', function() {
 
         it('should return true', function() {
-          var hasDrives = DriveScannerService.hasAvailableDrives();
+          const hasDrives = DriveScannerService.hasAvailableDrives();
           m.chai.expect(hasDrives).to.be.true;
         });
 
@@ -184,8 +185,8 @@ describe('Browser: DriveScanner', function() {
       describe('.start()', function() {
 
         it('should emit a `scan` event with the drives', function() {
-          var emitter = DriveScannerService.start(2000);
-          var scanSpy = m.sinon.spy();
+          const emitter = DriveScannerService.start(2000);
+          const scanSpy = m.sinon.spy();
           emitter.on('scan', scanSpy);
           $timeout.flush();
           $interval.flush(1000);

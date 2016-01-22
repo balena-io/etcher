@@ -1,10 +1,11 @@
-var m = require('mochainon');
-var Promise = require('bluebird');
-var drivelist = require('drivelist');
-var drives = require('../../lib/src/drives');
+'use strict';
+
+const m = require('mochainon');
+const Bluebird = require('bluebird');
+const drivelist = require('drivelist');
+const drives = require('../../lib/src/drives');
 
 describe('Drives:', function() {
-  'use strict';
 
   describe('.listRemovable()', function() {
 
@@ -12,7 +13,7 @@ describe('Drives:', function() {
 
       beforeEach(function() {
         this.drivesListStub = m.sinon.stub(drivelist, 'listAsync');
-        this.drivesListStub.returns(Promise.resolve([]));
+        this.drivesListStub.returns(Bluebird.resolve([]));
       });
 
       afterEach(function() {
@@ -20,7 +21,7 @@ describe('Drives:', function() {
       });
 
       it('should eventually equal an empty array', function() {
-        var promise = drives.listRemovable();
+        const promise = drives.listRemovable();
         m.chai.expect(promise).to.eventually.become([]);
       });
 
@@ -40,7 +41,7 @@ describe('Drives:', function() {
         ];
 
         this.drivesListStub = m.sinon.stub(drivelist, 'listAsync');
-        this.drivesListStub.returns(Promise.resolve(this.drives));
+        this.drivesListStub.returns(Bluebird.resolve(this.drives));
       });
 
       afterEach(function() {
@@ -48,7 +49,7 @@ describe('Drives:', function() {
       });
 
       it('should eventually equal an empty array', function() {
-        var promise = drives.listRemovable();
+        const promise = drives.listRemovable();
         m.chai.expect(promise).to.eventually.become([]);
       });
 
@@ -82,7 +83,7 @@ describe('Drives:', function() {
         ];
 
         this.drivesListStub = m.sinon.stub(drivelist, 'listAsync');
-        this.drivesListStub.returns(Promise.resolve(this.drives));
+        this.drivesListStub.returns(Bluebird.resolve(this.drives));
       });
 
       afterEach(function() {
@@ -90,7 +91,7 @@ describe('Drives:', function() {
       });
 
       it('should eventually become the removable drives', function() {
-        var promise = drives.listRemovable();
+        const promise = drives.listRemovable();
         m.chai.expect(promise).to.eventually.become([
           {
             device: '/dev/sdb',
@@ -115,7 +116,7 @@ describe('Drives:', function() {
 
       beforeEach(function() {
         this.drivesListStub = m.sinon.stub(drivelist, 'listAsync');
-        this.drivesListStub.returns(Promise.reject(new Error('scan error')));
+        this.drivesListStub.returns(Bluebird.reject(new Error('scan error')));
       });
 
       afterEach(function() {
@@ -123,7 +124,7 @@ describe('Drives:', function() {
       });
 
       it('should be rejected with the error', function() {
-        var promise = drives.listRemovable();
+        const promise = drives.listRemovable();
         m.chai.expect(promise).to.be.rejectedWith('scan error');
       });
 

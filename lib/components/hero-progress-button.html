@@ -37,7 +37,7 @@
 
   <script>
     Polymer({
-      is: "hero-progress-button",
+      is: 'hero-progress-button',
       properties: {
         disabled: {
           type: String
@@ -49,10 +49,14 @@
         }
       },
       setProgress: function(percentage) {
-        var bar = this.querySelector('.bar');
+        'use strict';
+
+        let bar = this.querySelector('.bar');
         bar.style.width = percentage + '%';
       },
       ready: function() {
+        'use strict';
+
         this.setProgress(this.percentage);
         this.addEventListener('percentage-changed', function(event) {
           this.setProgress(event.detail.value);
