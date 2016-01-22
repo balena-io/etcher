@@ -5,6 +5,7 @@ node_js:
   - "4.0"
 before_script:
   - npm install -g electron-prebuilt
+  - export DISPLAY=:99.0; sh -e /etc/init.d/xvfb start
 notifications:
   email: false
   webhooks:
