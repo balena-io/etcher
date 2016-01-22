@@ -4,7 +4,7 @@ Resin Etcher
 > The easy way to burn images in all operating systems
 
 [![dependencies](https://david-dm.org/resin-io/resin-etcher.svg)](https://david-dm.org/resin-io/resin-etcher.svg)
-[![Build Status](https://travis-ci.org/resin-io/resin-etcher.svg)](https://travis-ci.org/resin-io/resin-etcher)
+[![Build Status](https://travis-ci.org/resin-io/resin-etcher.svg?branch=master)](https://travis-ci.org/resin-io/resin-etcher)
 [![Build status](https://ci.appveyor.com/api/projects/status/n95c7ggvwc1i03u7/branch/master?svg=true)](https://ci.appveyor.com/project/resin-io/resin-etcher/branch/master)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/resin-io/chat)
 [![Stories in Ready](https://badge.waffle.io/resin-io/resin-etcher.svg?label=in progress&title=In Progress)](https://waffle.io/resin-io/resin-etcher)
