@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-var gulp = require('gulp');
-var jscs = require('gulp-jscs');
-var jshint = require('gulp-jshint');
-var jshintStylish = require('jshint-stylish');
-var sass = require('gulp-sass');
+'use strict';
 
-var paths = {
+const gulp = require('gulp');
+const jscs = require('gulp-jscs');
+const jshint = require('gulp-jshint');
+const jshintStylish = require('jshint-stylish');
+const sass = require('gulp-sass');
+
+const paths = {
   scripts: [
     './tests/**/*.spec.js',
     './lib/**/*.js',
@@ -32,16 +34,12 @@ var paths = {
 };
 
 gulp.task('sass', function() {
-  'use strict';
-
   return gulp.src(paths.sass)
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./build/css'));
 });
 
 gulp.task('lint', function() {
-  'use strict';
-
   return gulp.src(paths.scripts)
     .pipe(jshint())
     .pipe(jshint.reporter(jshintStylish))
@@ -50,8 +48,6 @@ gulp.task('lint', function() {
 });
 
 gulp.task('watch', [ 'lint', 'sass' ], function() {
-  'use strict';
-
   gulp.watch(paths.scripts, [ 'lint' ]);
   gulp.watch(paths.sass, [ 'sass' ]);
 });

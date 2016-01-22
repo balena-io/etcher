@@ -1,10 +1,11 @@
-var m = require('mochainon');
-var Bluebird = require('bluebird');
-var drivelist = require('drivelist');
-var drives = require('../../lib/src/drives');
+'use strict';
+
+const m = require('mochainon');
+const Bluebird = require('bluebird');
+const drivelist = require('drivelist');
+const drives = require('../../lib/src/drives');
 
 describe('Drives:', function() {
-  'use strict';
 
   describe('.listRemovable()', function() {
 
@@ -20,7 +21,7 @@ describe('Drives:', function() {
       });
 
       it('should eventually equal an empty array', function() {
-        var promise = drives.listRemovable();
+        const promise = drives.listRemovable();
         m.chai.expect(promise).to.eventually.become([]);
       });
 
@@ -48,7 +49,7 @@ describe('Drives:', function() {
       });
 
       it('should eventually equal an empty array', function() {
-        var promise = drives.listRemovable();
+        const promise = drives.listRemovable();
         m.chai.expect(promise).to.eventually.become([]);
       });
 
@@ -90,7 +91,7 @@ describe('Drives:', function() {
       });
 
       it('should eventually become the removable drives', function() {
-        var promise = drives.listRemovable();
+        const promise = drives.listRemovable();
         m.chai.expect(promise).to.eventually.become([
           {
             device: '/dev/sdb',
@@ -123,7 +124,7 @@ describe('Drives:', function() {
       });
 
       it('should be rejected with the error', function() {
-        var promise = drives.listRemovable();
+        const promise = drives.listRemovable();
         m.chai.expect(promise).to.be.rejectedWith('scan error');
       });
 

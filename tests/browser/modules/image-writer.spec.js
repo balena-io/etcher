@@ -1,19 +1,20 @@
-var m = require('mochainon');
-var angular = require('angular');
+'use strict';
+
+const m = require('mochainon');
+const angular = require('angular');
 require('angular-mocks');
 require('../../../lib/browser/modules/image-writer');
 
 describe('Browser: ImageWriter', function() {
-  'use strict';
 
   beforeEach(angular.mock.module('ResinEtcher.image-writer'));
 
   describe('ImageWriterService', function() {
 
-    var $q;
-    var $timeout;
-    var $rootScope;
-    var ImageWriterService;
+    let $q;
+    let $timeout;
+    let $rootScope;
+    let ImageWriterService;
 
     beforeEach(angular.mock.inject(function(_$q_, _$timeout_, _$rootScope_, _ImageWriterService_) {
       $q = _$q_;
@@ -174,7 +175,7 @@ describe('Browser: ImageWriter', function() {
         });
 
         it('should be rejected with the error', function() {
-          var rejection;
+          let rejection;
           ImageWriterService.burn('foo.img', '/dev/disk2').catch(function(error) {
             rejection = error;
           });

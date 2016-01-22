@@ -1,9 +1,10 @@
-var m = require('mochainon');
-var electron = require('electron');
-var dialog = require('../../lib/src/dialog');
+'use strict';
+
+const m = require('mochainon');
+const electron = require('electron');
+const dialog = require('../../lib/src/dialog');
 
 describe('Dialog:', function() {
-  'use strict';
 
   describe('.selectImage()', function() {
 
@@ -19,7 +20,7 @@ describe('Dialog:', function() {
       });
 
       it('should eventually equal the file', function() {
-        var promise = dialog.selectImage();
+        const promise = dialog.selectImage();
         m.chai.expect(promise).to.eventually.equal('foo/bar');
       });
 

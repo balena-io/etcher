@@ -59,7 +59,7 @@
     "evil"          : false,    // Tolerate use of `eval`.
     "expr"          : true,     // Tolerate `ExpressionStatement` as Programs.
     "funcscope"     : false,    // Tolerate declarations of variables inside of control structures while accessing them later from the outside.
-    "globalstrict"  : false,    // Allow global "use strict" (also enables 'strict').
+    "globalstrict"  : true,     // Allow global "use strict" (also enables 'strict').
     "iterator"      : false,    // Allow usage of __iterator__ property.
     "lastsemic"     : false,    // Tolerat missing semicolons when the it is omitted for the last statement in a one-line block.
     "laxbreak"      : false,    // Tolerate unsafe line breaks e.g. `return [\n] x` without semicolons.
