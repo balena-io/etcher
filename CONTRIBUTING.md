@@ -13,7 +13,7 @@ Thanks for your interest in contributing to this project! This document aims to 
 First, clone the repository:
 
 ``` shell
-$ git clone https://github/resin-io/resin-etcher
+$ git clone https://github/resin-io/etcher
 ```
 
 Make sure you install all the dependencies before attempting to run the application:

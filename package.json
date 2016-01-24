@@ -1,12 +1,12 @@
 {
-  "name": "resin-etcher",
+  "name": "etcher",
   "version": "0.0.1",
   "main": "lib/etcher.js",
   "description": "An image burner with support for Windows, OS X and GNU/Linux.",
-  "homepage": "https://github.com/resin-io/resin-etcher",
+  "homepage": "https://github.com/resin-io/etcher",
   "repository": {
     "type": "git",
-    "url": "git@github.com:resin-io/resin-etcher.git"
+    "url": "git@github.com:resin-io/etcher.git"
   },
   "scripts": {
     "test:main": "electron-mocha --recursive tests/src -R progress",
