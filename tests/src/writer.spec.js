@@ -3,7 +3,6 @@
 const m = require('mochainon');
 const ReadableStream = require('stream').Readable;
 const path = require('path');
-const umount = require('umount');
 const writer = require('../../lib/src/writer');
 
 describe('Writer:', function() {

@@ -44,6 +44,8 @@
     "strict"        : true,     // Require `use strict` pragma in every file.
     "trailing"      : true,     // Prohibit trailing whitespaces.
     "maxlen"        : 130,      // Limit line length.
+    "unused"        : true,     // Prohibit unused variables.
+    "undef"         : true,     // Prohibit undefined variables.
 
     // == Relaxing Options ================================================
     //
