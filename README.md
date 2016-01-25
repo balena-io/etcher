@@ -17,6 +17,8 @@ Etcher
 
 **Notice:** Etcher is in a very early state and things might break or not work at all in certain setups.
 
+- **Etcher is currently broken on GNU/Linux due to a bug in Electron. See [#52](https://github.com/resin-io/etcher/issues/52) for updates.**
+
 Installation
 ------------
 
