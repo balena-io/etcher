@@ -90,17 +90,32 @@
           </div>
         </div>
 
-        <div class="row around-xs space-bottom-large" ng-show="app.writer.progress == 100 && !app.writer.isBurning()">
+        <div class="row around-xs space-bottom-huge" ng-show="app.writer.state.progress == 100 && !app.writer.isBurning()">
           <div class="col-xs">
             <div class="box text-center">
               <h3><hero-tick type="success" class="space-right-tiny"></hero-tick> Burn Complete!</h3>
               <p class="soft">Safely ejected and ready for use</p>
-
-              <div class="space-vertical-large">
-                <hero-button ng-click="app.restart()">
-                  <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
-                  Lets do it again
-                </hero-button>
+              <div class="col-xs center-xs space-vertical-large">
+                <div class="col-xs-6 soft vertical-right-separator">
+                  <div class="row center-xs">
+                    Would you like to burn the same image?
+                  </div>
+                  <div class="row center-xs space-vertical-medium">
+                      <hero-button ng-click="app.restart({ preserveImage: true })">
+                        Use <b>same</b> image
+                      </hero-button>
+                  </div>
+                </div>
+                <div class="col-xs-6 soft">
+                  <div class="row center-xs">
+                    Would you like to burn a <b>new</b> image?
+                  </div>
+                  <div class="row center-xs space-vertical-medium">
+                    <hero-button ng-click="app.restart()">
+                      Use new image
+                    </hero-button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
