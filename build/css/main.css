@@ -5925,7 +5925,8 @@ hero-icon[disabled] hero-caption {
 
 hero-button .btn[disabled] {
   background-color: #313339;
-  color: #787c7f; }
+  color: #787c7f;
+  pointer-events: none; }
   hero-button .btn[disabled]:hover {
     background-color: #36383e; }
 

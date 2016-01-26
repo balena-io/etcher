@@ -8,6 +8,7 @@ describe('Browser: DriveScanner', function() {
 
   beforeEach(angular.mock.module('ResinEtcher.drive-scanner'));
 
+<<<<<<< HEAD
   describe('DriveScannerRefreshService', function() {
 
     var DriveScannerRefreshService;
@@ -42,6 +43,8 @@ describe('Browser: DriveScanner', function() {
 
   });
 
+=======
+>>>>>>> resin-io/master
   describe('DriveScannerService', function() {
 
     var $interval;

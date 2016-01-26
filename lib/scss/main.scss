@@ -54,6 +54,7 @@ hero-button .btn {
   &[disabled] {
     background-color: $btn-disabled;
     color: $color-disabled;
+    pointer-events: none;
 
     &:hover {
       background-color: lighten($btn-disabled, 2);
