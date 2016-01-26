@@ -1,23 +1,25 @@
-Etcher
-======
+Resin Etcher
+============
 
-> The easy way to burn images in all operating systems
+[![dependencies](https://david-dm.org/resin-io/resin-etcher.png)](https://david-dm.org/resin-io/resin-etcher.png)
+[![Build Status](https://travis-ci.org/resin-io/resin-etcher.svg)](https://travis-ci.org/resin-io/resin-etcher)
+[![Build status](https://ci.appveyor.com/api/projects/status/n95c7ggvwc1i03u7/branch/master?svg=true)](https://ci.appveyor.com/project/resin-io/resin-etcher/branch/master)
+[![Stories in Ready](https://badge.waffle.io/resin-io/resin-etcher.png?label=ready&title=Ready)](https://waffle.io/resin-io/resin-etcher)
 
-[![dependencies](https://david-dm.org/resin-io/etcher.svg)](https://david-dm.org/resin-io/etcher.svg)
-[![Build Status](https://travis-ci.org/resin-io/etcher.svg?branch=master)](https://travis-ci.org/resin-io/etcher)
-[![Build status](https://ci.appveyor.com/api/projects/status/xggqv231byfhync1/branch/master?svg=true)](https://ci.appveyor.com/project/resin-io/etcher/branch/master)
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/resin-io/chat)
-[![Stories in Ready](https://badge.waffle.io/resin-io/etcher.svg?label=in progress&title=In Progress)](https://waffle.io/resin-io/etcher)
+Join our online chat at [![Gitter chat](https://badges.gitter.im/resin-io/chat.png)](https://gitter.im/resin-io/chat)
 
-***
+The easy way to burn images in all operating systems
+----------------------------------------------------
 
-[**Installing**](https://github.com/resin-io/etcher#installation) | [**Support**](https://github.com/resin-io/etcher/issues/new) | [**Contributing**](https://github.com/resin-io/etcher/blob/master/CONTRIBUTING.md) | [**CLI**](https://github.com/resin-io/etcher-cli)
+An image burner with support for Windows, OS X and GNU/Linux.
 
-![Etcher](https://raw.githubusercontent.com/resin-io/etcher/master/screenshot.png)
+- [**Installing**](https://github.com/resin-io/resin-etcher#installation)
+- [**Support**](https://github.com/resin-io/resin-etcher/issues/new)
+- [**Contributing**](https://github.com/resin-io/resin-etcher/blob/master/CONTRIBUTING.md)
 
-**Notice:** Etcher is in a very early state and things might break or not work at all in certain setups.
+![Resin Etcher](https://raw.githubusercontent.com/resin-io/resin-etcher/master/screenshot.png)
 
-- **Etcher is currently broken on GNU/Linux due to a bug in Electron. See [#52](https://github.com/resin-io/etcher/issues/52) for updates.**
+**Notice:** Resin Etcher is in a very early state and things might break or not work at all in certain setups.
 
 Installation
 ------------
@@ -27,8 +29,8 @@ We're working on providing installers for all major operating systems.
 For now you can manually run the application with the following commands:
 
 ```sh
-git clone https://github.com/resin-io/etcher
-cd etcher
+git clone https://github.com/resin-io/resin-etcher
+cd resin-etcher
 npm install && bower install
 npm start
 ```
@@ -36,9 +38,9 @@ npm start
 Support
 -------
 
-If you're having any problem, please [raise an issue](https://github.com/resin-io/etcher/issues/new) on GitHub and the Resin.io team will be happy to help.
+If you're having any problem, please [raise an issue](https://github.com/resin-io/resin-etcher/issues/new) on GitHub and the Resin.io team will be happy to help.
 
 License
 -------
 
-Etcher is free software, and may be redistributed under the terms specified in the [license](https://github.com/resin-io/etcher/blob/master/LICENSE).
+Resin Etcher is free software, and may be redistributed under the terms specified in the [license](https://github.com/resin-io/resin-etcher/blob/master/LICENSE).

@@ -5847,6 +5847,54 @@ button.close {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+[ng-click] {
+  cursor: pointer; }
+
+/*
+ * Copyright 2016 Resin.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+body {
+  -webkit-user-select: none; }
+
+html,
+body {
+  height: 100%;
+  width: 100%; }
+
+html {
+  overflow: hidden; }
+
+body {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch; }
+
+/*
+ * Copyright 2016 Resin.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 .space-vertical-medium {
   margin: 15px 0; }
 
@@ -5856,8 +5904,8 @@ button.close {
 .space-horizontal-large {
   margin: 0 30px; }
 
-.space-bottom-huge {
-  margin-bottom: 55px; }
+.space-bottom-large {
+  margin-bottom: 30px; }
 
 .space-right-tiny {
   margin-right: 5px; }
@@ -5912,19 +5960,15 @@ body {
 .soft {
   color: #ddd; }
 
+.vertical-right-separator {
+  border-right: solid #ddd 1px; }
+
 .section-footer {
   position: fixed;
-  bottom: 20px;
+  bottom: 30px;
   left: 0;
   right: 0;
-  color: #787c7f;
-  margin: 0 60px;
-  padding-top: 15px;
-  border-top: 2px solid #64686a; }
-  .section-footer .col-xs {
-    padding: 0; }
-  .section-footer hero-icon .icon {
-    margin: 0; }
+  color: #333333; }
 
 .step-border, .step-border-left, .step-border-right {
   height: 2px;
@@ -5940,12 +5984,3 @@ body {
 
 .step-border-right {
   right: -120px; }
-
-.step-footer {
-  margin-top: 10px;
-  margin-bottom: -40px;
-  color: #85898c;
-  font-size: 12px; }
-
-.tiny {
-  font-size: 10px; }

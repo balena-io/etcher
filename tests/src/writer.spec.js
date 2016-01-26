@@ -1,11 +1,11 @@
-'use strict';
-
-const m = require('mochainon');
-const ReadableStream = require('stream').Readable;
-const path = require('path');
-const writer = require('../../lib/src/writer');
+var m = require('mochainon');
+var ReadableStream = require('stream').Readable;
+var path = require('path');
+var umount = require('umount');
+var writer = require('../../lib/src/writer');
 
 describe('Writer:', function() {
+  'use strict';
 
   describe('.getImageStream()', function() {
 
@@ -16,12 +16,12 @@ describe('Writer:', function() {
       });
 
       it('should return a readable stream', function() {
-        const stream = writer.getImageStream(this.image);
+        var stream = writer.getImageStream(this.image);
         m.chai.expect(stream).to.be.an.instanceof(ReadableStream);
       });
 
       it('should append a .length property with the correct size', function() {
-        const stream = writer.getImageStream(this.image);
+        var stream = writer.getImageStream(this.image);
         m.chai.expect(stream.length).to.equal(2097152);
       });
 

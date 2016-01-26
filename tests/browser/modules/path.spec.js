@@ -1,26 +1,25 @@
-'use strict';
-
-const m = require('mochainon');
-const angular = require('angular');
-const os = require('os');
+var m = require('mochainon');
+var angular = require('angular');
+var os = require('os');
 require('angular-mocks');
 require('../../../lib/browser/modules/path');
 
 describe('Browser: Path', function() {
+  'use strict';
 
   beforeEach(angular.mock.module('ResinEtcher.path'));
 
   describe('BasenameFilter', function() {
 
-    let basenameFilter;
+    var basenameFilter;
 
     beforeEach(angular.mock.inject(function(_basenameFilter_) {
       basenameFilter = _basenameFilter_;
     }));
 
     it('should return the basename', function() {
-      const isWindows = os.platform() === 'win32';
-      let basename;
+      var isWindows = os.platform() === 'win32';
+      var basename;
 
       if (isWindows) {
         basename = basenameFilter('C:\\Users\\jviotti\\foo.img');

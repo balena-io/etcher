@@ -1,14 +1,8 @@
 language: node_js
 node_js:
   - "4.0"
+  - "0.12"
+  - "0.10"
+  - "iojs"
 before_script:
   - npm install -g electron-prebuilt
-  - export DISPLAY=:99.0; sh -e /etc/init.d/xvfb start
-notifications:
-  email: false
-  webhooks:
-    urls:
-      - https://webhooks.gitter.im/e/8b150eaf525c280ec2ac
-    on_success: change
-    on_failure: always
-    on_start: never

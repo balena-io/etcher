@@ -5,7 +5,7 @@
 <dom-module id="hero-progress-button">
   <template>
     <style>
-      :host[active="true"] {
+      :host:not([percentage="0"]) {
         pointer-events: none;
       }
 
@@ -37,11 +37,8 @@
 
   <script>
     Polymer({
-      is: 'hero-progress-button',
+      is: "hero-progress-button",
       properties: {
-        active: {
-          type: Boolean
-        },
         disabled: {
           type: String
         },
@@ -52,14 +49,10 @@
         }
       },
       setProgress: function(percentage) {
-        'use strict';
-
-        let bar = this.querySelector('.bar');
+        var bar = this.querySelector('.bar');
         bar.style.width = percentage + '%';
       },
       ready: function() {
-        'use strict';
-
         this.setProgress(this.percentage);
         this.addEventListener('percentage-changed', function(event) {
           this.setProgress(event.detail.value);

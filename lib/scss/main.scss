@@ -27,6 +27,8 @@ $badge-disabled: rgb(92, 94, 92);
 $btn-padding: 10px;
 
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "./angular";
+@import "./desktop";
 
 @import "./modules/space";
 
@@ -100,26 +102,16 @@ body {
   color: $gray-light;
 }
 
+.vertical-right-separator {
+  border-right: solid #ddd 1px;
+}
+
 .section-footer {
   position: fixed;
-  bottom: 20px;
+  bottom: 30px;
   left: 0;
   right: 0;
-  color: $color-disabled;
-  margin: 0 60px;
-  padding-top: 15px;
-  border-top: 2px solid darken($color-disabled, 8%);
-
-  // Override default column padding
-  // set by flexboxgrid.
-  .col-xs {
-    padding: 0;
-  }
-
-  // Align icon to the left
-  hero-icon .icon {
-    margin: 0;
-  }
+  color: $gray-dark;
 }
 
 .step-border {
@@ -142,15 +134,4 @@ body {
 .step-border-right {
   @extend .step-border;
   right: -120px;
-}
-
-.step-footer {
-  margin-top: 10px;
-  margin-bottom: -40px;
-  color: lighten($color-disabled, 5%);
-  font-size: 12px;
-}
-
-.tiny {
-  font-size: 10px;
 }
