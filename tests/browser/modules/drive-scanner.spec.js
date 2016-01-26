@@ -9,44 +9,6 @@ describe('Browser: DriveScanner', function() {
 
   beforeEach(angular.mock.module('ResinEtcher.drive-scanner'));
 
-  describe('DriveScannerRefreshService', function() {
-
-    let DriveScannerRefreshService;
-    let $interval;
-    let $timeout;
-
-    beforeEach(angular.mock.inject(function(_$interval_, _$timeout_, _DriveScannerRefreshService_) {
-      $interval = _$interval_;
-      $timeout = _$timeout_;
-      DriveScannerRefreshService = _DriveScannerRefreshService_;
-    }));
-
-    describe('.every()', function() {
-
-      it('should call the function right away', function() {
-        const spy = m.sinon.spy();
-        DriveScannerRefreshService.every(spy, 1000);
-        $timeout.flush();
-        DriveScannerRefreshService.stop();
-        m.chai.expect(spy).to.have.been.calledOnce;
-      });
-
-      it('should call the function in an interval', function() {
-        const spy = m.sinon.spy();
-        DriveScannerRefreshService.every(spy, 100);
-        $timeout.flush();
-
-        // 400ms = 100ms / 4 + 1 (the initial call)
-        $interval.flush(400);
-
-        DriveScannerRefreshService.stop();
-        m.chai.expect(spy).to.have.callCount(5);
-      });
-
-    });
-
-  });
-
   describe('DriveScannerService', function() {
 
     let $interval;
