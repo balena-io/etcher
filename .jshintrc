@@ -19,6 +19,8 @@
     // @author http://michael.haschke.biz/
     // @license http://unlicense.org/
 
+    "esversion"     : 6,
+
     // == Enforcing Options ===============================================
     //
     // These options tell JSHint to be more strict towards your code. Use
@@ -41,6 +43,9 @@
     "undef"         : true,     // Require all non-global variables be declared before they are used.
     "strict"        : true,     // Require `use strict` pragma in every file.
     "trailing"      : true,     // Prohibit trailing whitespaces.
+    "maxlen"        : 130,      // Limit line length.
+    "unused"        : true,     // Prohibit unused variables.
+    "undef"         : true,     // Prohibit undefined variables.
 
     // == Relaxing Options ================================================
     //
@@ -52,12 +57,11 @@
     "boss"          : false,    // Tolerate assignments inside if, for & while. Usually conditions & loops are for comparison, not assignments.
     "debug"         : false,    // Allow debugger statements e.g. browser breakpoints.
     "eqnull"        : false,    // Tolerate use of `== null`.
-    "es5"           : false,    // Allow EcmaScript 5 syntax.
-    "esnext"        : false,    // Allow ES.next specific features such as `const` and `let`.
+    "esnext"        : true,     // Allow ES.next specific features such as `const` and `let`.
     "evil"          : false,    // Tolerate use of `eval`.
     "expr"          : true,     // Tolerate `ExpressionStatement` as Programs.
     "funcscope"     : false,    // Tolerate declarations of variables inside of control structures while accessing them later from the outside.
-    "globalstrict"  : false,    // Allow global "use strict" (also enables 'strict').
+    "globalstrict"  : true,     // Allow global "use strict" (also enables 'strict').
     "iterator"      : false,    // Allow usage of __iterator__ property.
     "lastsemic"     : false,    // Tolerat missing semicolons when the it is omitted for the last statement in a one-line block.
     "laxbreak"      : false,    // Tolerate unsafe line breaks e.g. `return [\n] x` without semicolons.

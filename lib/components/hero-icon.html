@@ -10,37 +10,47 @@
 
       :host ::content .icon {
         margin: 0 auto;
-        height: 40px;
-        width: 40px;
       }
     </style>
     <div class="icon"></div>
 
-    <div>
-      <hero-caption>
-        <content></content>
-      </hero-caption>
-    </div>
+    <template is="dom-if" if="{{label}}">
+      <hero-caption>{{label}}</hero-caption>
+    </template>
   </template>
 
   <script>
-    var fs = require('fs');
-    var path = require('path');
+    const fs = require('fs');
+    const path = require('path');
 
     Polymer({
-      is: "hero-icon",
+      is: 'hero-icon',
       properties: {
         path: {
+          type: String
+        },
+        label: {
+          type: String
+        },
+        width: {
+          type: String
+        },
+        height: {
           type: String
         }
       },
       ready: function() {
-        var iconElement = this.querySelector('.icon');
-        var imagePath = path.join(__dirname, this.path);
-        var contents = fs.readFileSync(imagePath, {
+        'use strict';
+
+        const iconElement = this.querySelector('.icon');
+        const imagePath = path.join(__dirname, this.path);
+        const contents = fs.readFileSync(imagePath, {
           encoding: 'utf8'
         });
+
         iconElement.innerHTML = contents;
+        iconElement.style.width = this.width || '40px';
+        iconElement.style.height = this.height || '40px';
       }
     });
   </script>

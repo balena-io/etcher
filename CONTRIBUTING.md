@@ -13,7 +13,7 @@ Thanks for your interest in contributing to this project! This document aims to 
 First, clone the repository:
 
 ``` shell
-$ git clone https://github/resin-io/resin-etcher
+$ git clone https://github/resin-io/etcher
 ```
 
 Make sure you install all the dependencies before attempting to run the application:
@@ -80,6 +80,8 @@ When sending a pull request, consider the following guidelines:
 - Mention the operating systems with the corresponding versions in which you tested your changes.
 - If your change affects the visuals of the application, consider attaching a screenshot.
 - Refer to the issue/s your pull request fixes, so they're closed automatically when your pull request is merged.
+- Write a descriptive pull request title.
+- Squash commits when possible, for example, when commiting review changes.
 
 Before your pull request can be merged, the following conditions must hold:
 

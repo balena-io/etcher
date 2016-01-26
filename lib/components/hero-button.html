@@ -40,7 +40,7 @@
 
   <script>
     Polymer({
-      is: "hero-button",
+      is: 'hero-button',
       properties: {
         disabled: {
           type: String
@@ -51,7 +51,9 @@
         }
       },
       ready: function() {
-        this.querySelector('.btn').className += ' btn-' + this.type;
+        'use strict';
+
+        this.querySelector('.btn').className += ` btn-${this.type}`;
       }
     });
   </script>

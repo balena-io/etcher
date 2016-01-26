@@ -1,16 +1,17 @@
-var m = require('mochainon');
-var electronDialog = require('dialog');
-var dialog = require('../../lib/src/dialog');
+'use strict';
+
+const m = require('mochainon');
+const electron = require('electron');
+const dialog = require('../../lib/src/dialog');
 
 describe('Dialog:', function() {
-  'use strict';
 
   describe('.selectImage()', function() {
 
     describe('given the users performs a selection', function() {
 
       beforeEach(function() {
-        this.showOpenDialogStub = m.sinon.stub(electronDialog, 'showOpenDialog');
+        this.showOpenDialogStub = m.sinon.stub(electron.dialog, 'showOpenDialog');
         this.showOpenDialogStub.yields([ 'foo/bar' ]);
       });
 
@@ -19,7 +20,7 @@ describe('Dialog:', function() {
       });
 
       it('should eventually equal the file', function() {
-        var promise = dialog.selectImage();
+        const promise = dialog.selectImage();
         m.chai.expect(promise).to.eventually.equal('foo/bar');
       });
 

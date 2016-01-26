@@ -1,16 +1,16 @@
 {
-  "name": "resin-etcher",
+  "name": "etcher",
   "version": "0.0.1",
   "main": "lib/etcher.js",
   "description": "An image burner with support for Windows, OS X and GNU/Linux.",
-  "homepage": "https://github.com/resin-io/resin-etcher",
+  "homepage": "https://github.com/resin-io/etcher",
   "repository": {
     "type": "git",
-    "url": "git@github.com:resin-io/resin-etcher.git"
+    "url": "git@github.com:resin-io/etcher.git"
   },
   "scripts": {
-    "test:main": "electron-mocha --recursive tests/src",
-    "test:browser": "electron-mocha --recursive --renderer tests/browser",
+    "test:main": "electron-mocha --recursive tests/src -R progress",
+    "test:browser": "electron-mocha --recursive --renderer tests/browser -R progress",
     "test": "npm run-script test:main && npm run-script test:browser",
     "start": "electron lib/etcher.js"
   },
@@ -26,26 +26,24 @@
     "bluebird": "^3.0.5",
     "bootstrap-sass": "^3.3.5",
     "drivelist": "^2.0.7",
-    "electron-window": "^0.6.0",
     "flexboxgrid": "^6.3.0",
     "is-elevated": "^1.0.0",
     "lodash": "^3.10.1",
     "resin-image-write": "^2.0.5",
     "sudo-prompt": "^2.0.2",
+    "trackjs": "^2.1.16",
     "umount": "^1.1.1"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.7",
-    "browserify": "^12.0.1",
-    "electron-mocha": "^0.6.1",
+    "electron-mocha": "^0.8.0",
     "electron-packager": "^5.1.1",
-    "electron-prebuilt": "^0.31.2",
+    "electron-prebuilt": "^0.36.4",
     "gulp": "^3.9.0",
+    "gulp-jscs": "^3.0.2",
     "gulp-jshint": "^1.11.2",
     "gulp-sass": "^2.0.4",
     "jshint-stylish": "^2.0.1",
-    "mochainon": "^1.0.0",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "mochainon": "^1.0.0"
   }
 }

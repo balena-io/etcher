@@ -24,21 +24,23 @@
 
   <script>
     Polymer({
-      is: "hero-tick",
+      is: 'hero-tick',
       properties: {
         type: {
           type: String
         }
       },
       ready: function() {
-        var glyphicon = this.querySelector('.glyphicon');
+        'use strict';
+
+        let glyphicon = this.querySelector('.glyphicon');
 
         if (this.type === 'success') {
           glyphicon.className += ' glyphicon-ok';
         } else if (this.type === 'error') {
           glyphicon.className += ' glyphicon-remove';
         } else {
-          throw new Error('Unknown hero-tick type: ' + this.state);
+          throw new Error(`Unknown hero-tick type: ${this.state}`);
         }
       }
     });

@@ -1,19 +1,20 @@
-var m = require('mochainon');
-var angular = require('angular');
+'use strict';
+
+const m = require('mochainon');
+const angular = require('angular');
 require('angular-mocks');
 require('../../../lib/browser/modules/image-writer');
 
 describe('Browser: ImageWriter', function() {
-  'use strict';
 
   beforeEach(angular.mock.module('ResinEtcher.image-writer'));
 
   describe('ImageWriterService', function() {
 
-    var $q;
-    var $timeout;
-    var $rootScope;
-    var ImageWriterService;
+    let $q;
+    let $timeout;
+    let $rootScope;
+    let ImageWriterService;
 
     beforeEach(angular.mock.inject(function(_$q_, _$timeout_, _$rootScope_, _ImageWriterService_) {
       $q = _$q_;
@@ -21,10 +22,6 @@ describe('Browser: ImageWriter', function() {
       $rootScope = _$rootScope_;
       ImageWriterService = _ImageWriterService_;
     }));
-
-    it('should set progress to zero by default', function() {
-      m.chai.expect(ImageWriterService.progress).to.equal(0);
-    });
 
     describe('.isBurning()', function() {
 
@@ -61,22 +58,6 @@ describe('Browser: ImageWriter', function() {
 
     });
 
-    describe('.setProgress()', function() {
-
-      it('should be able to set the progress', function() {
-        ImageWriterService.setProgress(50);
-        $timeout.flush();
-        m.chai.expect(ImageWriterService.progress).to.equal(50);
-      });
-
-      it('should floor the percentage', function() {
-        ImageWriterService.setProgress(49.9999);
-        $timeout.flush();
-        m.chai.expect(ImageWriterService.progress).to.equal(49);
-      });
-
-    });
-
     describe('.burn()', function() {
 
       describe('given a succesful write', function() {
@@ -103,6 +84,20 @@ describe('Browser: ImageWriter', function() {
           m.chai.expect(this.performWriteStub).to.have.been.calledOnce;
         });
 
+        it('should reject the second burn attempt', function() {
+          ImageWriterService.burn('foo.img', '/dev/disk2');
+
+          let rejectError = null;
+          ImageWriterService.burn('foo.img', '/dev/disk2').catch(function(error) {
+            rejectError = error;
+          });
+
+          $rootScope.$apply();
+
+          m.chai.expect(rejectError).to.be.an.instanceof(Error);
+          m.chai.expect(rejectError.message).to.equal('There is already a burn in progress');
+        });
+
       });
 
       describe('given an unsuccesful write', function() {
@@ -123,7 +118,7 @@ describe('Browser: ImageWriter', function() {
         });
 
         it('should be rejected with the error', function() {
-          var rejection;
+          let rejection;
           ImageWriterService.burn('foo.img', '/dev/disk2').catch(function(error) {
             rejection = error;
           });

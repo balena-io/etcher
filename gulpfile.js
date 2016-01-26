@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-var gulp = require('gulp');
-var jshint = require('gulp-jshint');
-var jshintStylish = require('jshint-stylish');
-var sass = require('gulp-sass');
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
+'use strict';
 
-var paths = {
+const gulp = require('gulp');
+const jscs = require('gulp-jscs');
+const jshint = require('gulp-jshint');
+const jshintStylish = require('jshint-stylish');
+const sass = require('gulp-sass');
+
+const paths = {
   scripts: [
     './tests/**/*.spec.js',
     './lib/**/*.js',
@@ -34,41 +34,20 @@ var paths = {
 };
 
 gulp.task('sass', function() {
-  'use strict';
-
   return gulp.src(paths.sass)
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./build/css'));
 });
 
 gulp.task('lint', function() {
-  'use strict';
-
   return gulp.src(paths.scripts)
     .pipe(jshint())
-    .pipe(jshint.reporter(jshintStylish));
+    .pipe(jshint.reporter(jshintStylish))
+    .pipe(jscs())
+    .pipe(jscs.reporter());
 });
 
-gulp.task('javascript', function() {
-  'use strict';
-
-  var b = browserify({
-    entries: './lib/browser/app.js',
-
-    // No need for Browserify builtins since Electron
-    // has access to all NodeJS libraries
-    builtins: {}
-  });
-
-  return b.bundle()
-    .pipe(source('app.js'))
-    .pipe(buffer())
-    .pipe(gulp.dest('./build/browser/'));
-});
-
-gulp.task('watch', [ 'lint', 'javascript', 'sass' ], function() {
-  'use strict';
-
-  gulp.watch(paths.scripts, [ 'lint', 'javascript' ]);
+gulp.task('watch', [ 'lint', 'sass' ], function() {
+  gulp.watch(paths.scripts, [ 'lint' ]);
   gulp.watch(paths.sass, [ 'sass' ]);
 });

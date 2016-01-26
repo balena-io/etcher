@@ -14,23 +14,6 @@
  * limitations under the License.
  */
 
-// Prevent text selection
-body {
-  -webkit-user-select: none;
-}
-
-// Prevent WebView bounce effect in OS X
-html,
-body {
-  height: 100%;
-  width: 100%;
-}
-
-html {
-  overflow: hidden;
-}
-
-body {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
+[ng-click] {
+  cursor: pointer;
 }

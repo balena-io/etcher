@@ -1,35 +1,40 @@
-var m = require('mochainon');
-var angular = require('angular');
+'use strict';
+
+const m = require('mochainon');
+const angular = require('angular');
 require('angular-mocks');
 require('../../../lib/browser/modules/drive-scanner');
 
 describe('Browser: DriveScanner', function() {
-  'use strict';
 
   beforeEach(angular.mock.module('ResinEtcher.drive-scanner'));
 
   describe('DriveScannerRefreshService', function() {
 
-    var DriveScannerRefreshService;
-    var $interval;
+    let DriveScannerRefreshService;
+    let $interval;
+    let $timeout;
 
-    beforeEach(angular.mock.inject(function(_$interval_, _DriveScannerRefreshService_) {
+    beforeEach(angular.mock.inject(function(_$interval_, _$timeout_, _DriveScannerRefreshService_) {
       $interval = _$interval_;
+      $timeout = _$timeout_;
       DriveScannerRefreshService = _DriveScannerRefreshService_;
     }));
 
     describe('.every()', function() {
 
       it('should call the function right away', function() {
-        var spy = m.sinon.spy();
+        const spy = m.sinon.spy();
         DriveScannerRefreshService.every(spy, 1000);
+        $timeout.flush();
         DriveScannerRefreshService.stop();
         m.chai.expect(spy).to.have.been.calledOnce;
       });
 
       it('should call the function in an interval', function() {
-        var spy = m.sinon.spy();
+        const spy = m.sinon.spy();
         DriveScannerRefreshService.every(spy, 100);
+        $timeout.flush();
 
         // 400ms = 100ms / 4 + 1 (the initial call)
         $interval.flush(400);
@@ -44,12 +49,14 @@ describe('Browser: DriveScanner', function() {
 
   describe('DriveScannerService', function() {
 
-    var $interval;
-    var $q;
-    var DriveScannerService;
+    let $interval;
+    let $timeout;
+    let $q;
+    let DriveScannerService;
 
-    beforeEach(angular.mock.inject(function(_$interval_, _$q_, _DriveScannerService_) {
+    beforeEach(angular.mock.inject(function(_$interval_, _$timeout_, _$q_, _DriveScannerService_) {
       $interval = _$interval_;
+      $timeout = _$timeout_;
       $q = _$q_;
       DriveScannerService = _DriveScannerService_;
     }));
@@ -63,7 +70,7 @@ describe('Browser: DriveScanner', function() {
       describe('.hasAvailableDrives()', function() {
 
         it('should return false', function() {
-          var hasDrives = DriveScannerService.hasAvailableDrives();
+          const hasDrives = DriveScannerService.hasAvailableDrives();
           m.chai.expect(hasDrives).to.be.false;
         });
 
@@ -72,7 +79,7 @@ describe('Browser: DriveScanner', function() {
       describe('.setDrives()', function() {
 
         it('should be able to set drives', function() {
-          var drives = [
+          const drives = [
             {
               device: '/dev/sdb',
               description: 'Foo',
@@ -116,7 +123,7 @@ describe('Browser: DriveScanner', function() {
       describe('.hasAvailableDrives()', function() {
 
         it('should return true', function() {
-          var hasDrives = DriveScannerService.hasAvailableDrives();
+          const hasDrives = DriveScannerService.hasAvailableDrives();
           m.chai.expect(hasDrives).to.be.true;
         });
 
@@ -169,9 +176,25 @@ describe('Browser: DriveScanner', function() {
 
       it('should set the drives to the scanned ones', function() {
         DriveScannerService.start(200);
+        $timeout.flush();
         $interval.flush(400);
         m.chai.expect(DriveScannerService.drives).to.deep.equal(this.drives);
         DriveScannerService.stop();
+      });
+
+      describe('.start()', function() {
+
+        it('should emit a `scan` event with the drives', function() {
+          const emitter = DriveScannerService.start(2000);
+          const scanSpy = m.sinon.spy();
+          emitter.on('scan', scanSpy);
+          $timeout.flush();
+          $interval.flush(1000);
+          m.chai.expect(scanSpy).to.have.been.calledOnce;
+          m.chai.expect(scanSpy).to.have.been.calledWith(this.drives);
+          DriveScannerService.stop();
+        });
+
       });
 
     });
