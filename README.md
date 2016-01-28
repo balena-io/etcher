@@ -17,8 +17,6 @@ Etcher
 
 **Notice:** Etcher is in a very early state and things might break or not work at all in certain setups.
 
-- **Etcher is currently broken on GNU/Linux due to a bug in Electron. See [#52](https://github.com/resin-io/etcher/issues/52) for updates.**
-
 Installation
 ------------
 
@@ -30,6 +28,12 @@ For now you can manually run the application with the following commands:
 git clone https://github.com/resin-io/etcher
 cd etcher
 npm install && bower install
+
+# In GNU/Linux, your home directory needs execution permissions
+# in order to run Etcher as expected due to a bug in Electron.
+# See https://github.com/atom/electron/issues/3666
+sudo chmod a+x /home/<user>
+
 npm start
 ```
 
