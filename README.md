@@ -31,6 +31,7 @@ npm install && bower install
 
 # In GNU/Linux, your home directory needs execution permissions
 # in order to run Etcher as expected due to a bug in Electron.
+# Notice this is a workaround that may cause security concerns.
 # See https://github.com/atom/electron/issues/3666
 sudo chmod a+x /home/<user>
 
