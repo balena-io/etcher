@@ -28,15 +28,21 @@ For now you can manually run the application with the following commands:
 git clone https://github.com/resin-io/etcher
 cd etcher
 npm install && bower install
-
-# In GNU/Linux, your home directory needs execution permissions
-# in order to run Etcher as expected due to a bug in Electron.
-# Notice this is a workaround that may cause security concerns.
-# See https://github.com/atom/electron/issues/3666
-sudo chmod a+x /home/<user>
-
 npm start
 ```
+
+GNU/Linux
+---------
+
+There is a [known electron issue](https://github.com/atom/electron/issues/3666) that prevents Etcher from running correctly when cloned in directories that don't have global execution permissions at any point of the path.
+
+Until this issue is fixed, we recommend cloning Etcher in directories like `/opt`, and making sure they have execution permissions with:
+
+```sh
+chmod a+x /opt
+```
+
+You can still run Etcher from inside your home directory by giving your home directory global execution permissions, but notice this might bring security concerns. Do it at your own risk.
 
 Support
 -------
