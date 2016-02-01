@@ -1,4 +1,25 @@
 {
+  "jsDoc": {
+    "checkAnnotations":  {
+      "preset": "jsdoc3",
+      "extra": {
+        "fulfil": true
+      }
+    },
+    "checkParamExistence": true,
+    "checkParamNames": true,
+    "requireParamTypes": true,
+    "checkReturnTypes": true,
+    "checkRedundantReturns": true,
+    "requireReturnTypes": true,
+    "checkTypes": "capitalizedNativeCase",
+    "checkRedundantAccess": true,
+    "requireHyphenBeforeDescription": true,
+    "requireNewlineAfterDescription": true,
+    "requireDescriptionCompleteSentence": true,
+    "requireParamDescription": true,
+    "checkRedundantParams": true
+  },
   "disallowAnonymousFunctions": false,
   "disallowShorthandArrowFunctions": true,
   "disallowCapitalizedComments": false,
