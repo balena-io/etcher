@@ -100,15 +100,28 @@
               <h3><hero-tick type="success" class="space-right-tiny"></hero-tick> Burn Complete!</h3>
               <p class="soft">Safely ejected and ready for use</p>
 
-              <div class="space-vertical-large">
-                <hero-button ng-click="app.restart({ preserveImage: true })">
-                  <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
-                  Burn image again
-                </hero-button>
-                <hero-button ng-click="app.restart()">
-                  <span class="glyphicon glyphicon-cd" aria-hidden="true"></span>
-                  Burn another image
-                </hero-button>
+              <div class="row center-xs space-vertical-large">
+                <div class="col-xs-4 space-medium">
+                  <div class="box">
+                    <p class="soft button-label">Would you like to burn the same image?</p>
+
+                    <hero-button ng-click="app.restart({ preserveImage: true })">
+                      Use <b>same</b> image
+                    </hero-button>
+                  </div>
+                </div>
+
+                <div class="col-xs separator-xs"></div>
+
+                <div class="col-xs-4 space-medium">
+                  <div class="box">
+                    <p class="soft button-label">Would you like to burn a new image?</p>
+
+                    <hero-button ng-click="app.restart()">
+                      Use <b>new</b> image
+                    </hero-button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

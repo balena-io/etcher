@@ -25,6 +25,7 @@ $color-disabled: rgb(120, 124, 127);
 $btn-disabled: rgb(49, 51, 57);
 $badge-disabled: rgb(92, 94, 92);
 $btn-padding: 10px;
+$btn-min-width: 170px;
 
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
@@ -49,6 +50,8 @@ hero-icon[disabled] hero-caption {
 }
 
 hero-button .btn {
+  min-width: $btn-min-width;
+
   &[disabled] {
     background-color: $btn-disabled;
     color: $color-disabled;
@@ -153,4 +156,18 @@ body {
 
 .tiny {
   font-size: 10px;
+}
+
+.separator-xs {
+  flex-grow: 0;
+  background-color: darken($color-disabled, 8%);
+  padding: 0px;
+  min-width: 2px;
+}
+
+.button-label {
+  margin: 0 auto $spacing-medium;
+
+  // Keep some spacing at the sides
+  max-width: $btn-min-width - 5px;
 }

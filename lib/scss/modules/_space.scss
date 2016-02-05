@@ -19,6 +19,10 @@ $spacing-large: 30px;
 $spacing-medium: 15px;
 $spacing-tiny: 5px;
 
+.space-medium {
+  margin: $spacing-medium;
+}
+
 .space-vertical-medium {
   margin: $spacing-medium 0;
 }
