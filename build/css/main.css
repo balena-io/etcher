@@ -5847,6 +5847,9 @@ button.close {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+.space-medium {
+  margin: 15px; }
+
 .space-vertical-medium {
   margin: 15px 0; }
 
@@ -5875,12 +5878,14 @@ hero-badge[disabled] .badge {
 hero-icon[disabled] hero-caption {
   color: #787c7f; }
 
-hero-button .btn[disabled] {
-  background-color: #313339;
-  color: #787c7f;
-  pointer-events: none; }
-  hero-button .btn[disabled]:hover {
-    background-color: #36383e; }
+hero-button .btn {
+  min-width: 170px; }
+  hero-button .btn[disabled] {
+    background-color: #313339;
+    color: #787c7f;
+    pointer-events: none; }
+    hero-button .btn[disabled]:hover {
+      background-color: #36383e; }
 
 hero-progress-button .bar {
   background: #6ca1e0; }
@@ -5949,3 +5954,13 @@ body {
 
 .tiny {
   font-size: 10px; }
+
+.separator-xs {
+  flex-grow: 0;
+  background-color: #64686a;
+  padding: 0px;
+  min-width: 2px; }
+
+.button-label {
+  margin: 0 auto 15px;
+  max-width: 165px; }
