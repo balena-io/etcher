@@ -7,7 +7,7 @@ require('../../../lib/browser/modules/image-writer');
 
 describe('Browser: ImageWriter', function() {
 
-  beforeEach(angular.mock.module('ResinEtcher.image-writer'));
+  beforeEach(angular.mock.module('Etcher.image-writer'));
 
   describe('ImageWriterService', function() {
 

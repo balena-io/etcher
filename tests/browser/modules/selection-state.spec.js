@@ -7,7 +7,7 @@ require('../../../lib/browser/modules/selection-state');
 
 describe('Browser: SelectionState', function() {
 
-  beforeEach(angular.mock.module('ResinEtcher.selection-state'));
+  beforeEach(angular.mock.module('Etcher.selection-state'));
 
   describe('SelectionStateService', function() {
 

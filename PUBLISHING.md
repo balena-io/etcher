@@ -1,7 +1,7 @@
-Publishing Resin Etcher
-=======================
+Publishing Etcher
+=================
 
-This is a small guide to package and publish Resin Etcher to all supported operating systems.
+This is a small guide to package and publish Etcher to all supported operating systems.
 
 Packaging
 ---------
@@ -14,7 +14,7 @@ Make sure you install npm dependencies with `--force` since there might be optio
 npm install --force
 ```
 
-Run the following command to package Resin Etcher
+Run the following command to package Etcher
 
 ```sh
 make installer-osx
