@@ -9,7 +9,6 @@ installers.json
 screenshot.png
 tests
 lib/scss
-lib/browser
 node_modules/electron-mocha
 node_modules/electron-builder
 node_modules/angular-mocks
