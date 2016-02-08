@@ -16,6 +16,18 @@
   },
   "author": "Juan Cruz Viotti <juan@resin.io>",
   "license": "Apache-2.0",
+  "builder": {
+    "osx" : {
+      "title": "Etcher",
+      "background": "assets/osx/installer.png",
+      "icon": "assets/icon.icns",
+      "icon-size": 110,
+      "contents": [
+        { "x": 415, "y": 225, "type": "link", "path": "/Applications" },
+        { "x": 140, "y": 225, "type": "file" }
+      ]
+    }
+  },
   "optionalDependencies": {
     "elevator": "^1.0.0",
     "removedrive": "^1.0.0"
@@ -37,6 +49,7 @@
   "devDependencies": {
     "angular-mocks": "^1.4.7",
     "electron-mocha": "^0.8.0",
+    "electron-builder": "^2.6.0",
     "electron-packager": "^5.1.1",
     "electron-prebuilt": "^0.36.4",
     "gulp": "^3.9.0",
