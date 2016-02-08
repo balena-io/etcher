@@ -8,7 +8,7 @@ require('../../../lib/browser/modules/path');
 
 describe('Browser: Path', function() {
 
-  beforeEach(angular.mock.module('ResinEtcher.path'));
+  beforeEach(angular.mock.module('Etcher.path'));
 
   describe('BasenameFilter', function() {
 

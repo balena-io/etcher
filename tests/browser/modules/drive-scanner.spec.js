@@ -7,7 +7,7 @@ require('../../../lib/browser/modules/drive-scanner');
 
 describe('Browser: DriveScanner', function() {
 
-  beforeEach(angular.mock.module('ResinEtcher.drive-scanner'));
+  beforeEach(angular.mock.module('Etcher.drive-scanner'));
 
   describe('DriveScannerService', function() {
 
