@@ -5,9 +5,9 @@ package.ignore
 appveyor.yml
 bower.json
 gulpfile.js
-installers.json
 screenshot.png
 tests
+release
 lib/scss
 node_modules/electron-mocha
 node_modules/electron-builder
