@@ -94,5 +94,11 @@ installer-linux: release/installers/Etcher-linux-x64.tar.gz release/installers/E
 installer-win32: release/installers/Etcher-x64.exe release/installers/Etcher.exe
 installer-all: installer-osx installer-linux installer-win32
 
+release:
+	rm -rf node_modules
+	npm install --force
+	npm test
+	make installer-all
+
 clean:
 	rm -rf release/
