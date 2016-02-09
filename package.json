@@ -26,6 +26,13 @@
         { "x": 415, "y": 225, "type": "link", "path": "/Applications" },
         { "x": 140, "y": 225, "type": "file" }
       ]
+    },
+    "win": {
+      "title" : "Etcher",
+      "version" : "0.0.1",
+      "publisher": "Resin.io",
+      "icon" : "assets/icon.ico",
+      "verbosity": 1
     }
   },
   "optionalDependencies": {

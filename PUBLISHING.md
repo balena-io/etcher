@@ -17,7 +17,7 @@ npm install --force
 Run the following command to package Etcher
 
 ```sh
-make installer-osx
+make installer-all
 ```
 
 The resulting packages will be saved to `release/installers`.
