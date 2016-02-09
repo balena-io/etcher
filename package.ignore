@@ -5,7 +5,6 @@ package.ignore
 appveyor.yml
 bower.json
 gulpfile.js
-installers.json
 screenshot.png
 tests
 release
