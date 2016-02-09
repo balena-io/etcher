@@ -13,7 +13,7 @@ release/Etcher-darwin-x64: .
 		--asar \
 		--icon="assets/icon.icns" \
 		--overwrite \
-		--out=release/
+		--out=$(dir $@)
 
 release/Etcher-linux-ia32: .
 	$(ELECTRON_PACKAGER) . $(APPLICATION_NAME) \
@@ -23,7 +23,7 @@ release/Etcher-linux-ia32: .
 		--ignore="$(ELECTRON_IGNORE)" \
 		--asar \
 		--overwrite \
-		--out=release/
+		--out=$(dir $@)
 
 release/Etcher-linux-x64: .
 	$(ELECTRON_PACKAGER) . $(APPLICATION_NAME) \
@@ -33,7 +33,7 @@ release/Etcher-linux-x64: .
 		--ignore="$(ELECTRON_IGNORE)" \
 		--asar \
 		--overwrite \
-		--out=release/
+		--out=$(dir $@)
 
 release/Etcher-win32-ia32: .
 	$(ELECTRON_PACKAGER) . $(APPLICATION_NAME) \
@@ -44,7 +44,7 @@ release/Etcher-win32-ia32: .
 		--icon="assets/icon.ico" \
 		--asar \
 		--overwrite \
-		--out=release/
+		--out=$(dir $@)
 
 release/Etcher-win32-x64: .
 	$(ELECTRON_PACKAGER) . $(APPLICATION_NAME) \
@@ -55,12 +55,12 @@ release/Etcher-win32-x64: .
 		--icon="assets/icon.ico" \
 		--asar \
 		--overwrite \
-		--out=release/
+		--out=$(dir $@)
 
 release/installers/Etcher.dmg: release/Etcher-darwin-x64 package.json
 	$(ELECTRON_BUILDER) "$</$(APPLICATION_NAME).app" \
 		--platform=osx \
-		--out=release/installers
+		--out=$(dir $@)
 
 release/installers/Etcher-linux-x64.tar.gz: release/Etcher-linux-x64
 	mkdir -p $(dir $@)
@@ -73,16 +73,16 @@ release/installers/Etcher-linux-ia32.tar.gz: release/Etcher-linux-ia32
 release/installers/Etcher-x64.exe: release/Etcher-win32-x64 package.json
 	$(ELECTRON_BUILDER) $< \
 		--platform=win \
-		--out=release/installers/win-x64
-	mv release/installers/win-x64/Etcher\ Setup.exe $@
-	rmdir release/installers/win-x64
+		--out=$(dir $@)win-x64
+	mv $(dir $@)win-x64/Etcher\ Setup.exe $@
+	rmdir $(dir $@)win-x64
 
 release/installers/Etcher.exe: release/Etcher-win32-ia32 package.json
 	$(ELECTRON_BUILDER) $< \
 		--platform=win \
-		--out=release/installers/win-ia32
-	mv release/installers/win-ia32/Etcher\ Setup.exe $@
-	rmdir release/installers/win-ia32
+		--out=$(dir $@)win-ia32
+	mv $(dir $@)win-ia32/Etcher\ Setup.exe $@
+	rmdir $(dir $@)win-ia32
 
 package-osx: release/Etcher-darwin-x64
 package-linux: release/Etcher-linux-ia32 release/Etcher-linux-x64
