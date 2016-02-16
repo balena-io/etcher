@@ -14,7 +14,14 @@
     <link rel="import" href="components/hero-progress-button.html">
     <link rel="import" href="components/hero-tick.html">
 
-    <script src="../node_modules/trackjs/tracker.js" data-token="032448bc3d9e4cffb1e9b43d29d6c142"></script>
+    <script>
+      window._trackJs = {
+        token: '032448bc3d9e4cffb1e9b43d29d6c142',
+        application: 'etcher'
+      };
+    </script>
+    <script src="../node_modules/trackjs/tracker.js"></script>
+
     <script src="./browser/app.js"></script>
   </head>
   <body ng-app="Etcher" ng-controller="AppController as app" style="display: none">
