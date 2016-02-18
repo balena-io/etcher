@@ -17,6 +17,6 @@ Run the following command to make installers for all supported operating systems
 make release
 ```
 
-The resulting installers will be saved to `release/installers`.
+The resulting installers will be saved to `etcher-release/installers`.
 
 You can run `make clean` to start in a fresh state.
