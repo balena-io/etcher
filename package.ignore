@@ -7,7 +7,7 @@ bower.json
 gulpfile.js
 screenshot.png
 tests
-release
+etcher-release
 lib/scss
 node_modules/electron-mocha
 node_modules/electron-builder
