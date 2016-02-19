@@ -58,7 +58,7 @@
     "electron-mocha": "^0.8.0",
     "electron-builder": "^2.6.0",
     "electron-packager": "^5.1.1",
-    "electron-prebuilt": "^0.36.4",
+    "electron-prebuilt": "^0.36.8",
     "gulp": "^3.9.0",
     "gulp-jscs": "^3.0.2",
     "gulp-jshint": "^1.11.2",
