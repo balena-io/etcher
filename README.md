@@ -15,8 +15,6 @@ Etcher
 
 ![Etcher](https://raw.githubusercontent.com/resin-io/etcher/master/screenshot.png)
 
-**Notice:** Etcher is in a very early state and things might break or not work at all in certain setups.
-
 Installation
 ------------
 
