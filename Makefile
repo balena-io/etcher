@@ -2,6 +2,7 @@ ELECTRON_PACKAGER=./node_modules/.bin/electron-packager
 ELECTRON_BUILDER=./node_modules/.bin/electron-builder
 ELECTRON_IGNORE=$(shell cat package.ignore | tr "\\n" "|" | sed "s/.$$//")
 ELECTRON_VERSION=0.36.8
+ETCHER_VERSION=$(shell node -e "console.log(require('./package.json').version)")
 APPLICATION_NAME="Etcher"
 
 etcher-release/Etcher-darwin-x64: .
@@ -11,6 +12,11 @@ etcher-release/Etcher-darwin-x64: .
 		--version=$(ELECTRON_VERSION) \
 		--ignore="$(ELECTRON_IGNORE)" \
 		--asar \
+		--app-version="$(ETCHER_VERSION)" \
+		--build-version="$(ETCHER_VERSION)" \
+		--helper-bundle-id="io.resin.etcher-helper" \
+		--app-bundle-id="io.resin.etcher" \
+		--app-category-type="public.app-category.developer-tools" \
 		--icon="assets/icon.icns" \
 		--overwrite \
 		--out=$(dir $@)
@@ -22,6 +28,8 @@ etcher-release/Etcher-linux-ia32: .
 		--version=$(ELECTRON_VERSION) \
 		--ignore="$(ELECTRON_IGNORE)" \
 		--asar \
+		--app-version="$(ETCHER_VERSION)" \
+		--build-version="$(ETCHER_VERSION)" \
 		--overwrite \
 		--out=$(dir $@)
 
@@ -32,6 +40,8 @@ etcher-release/Etcher-linux-x64: .
 		--version=$(ELECTRON_VERSION) \
 		--ignore="$(ELECTRON_IGNORE)" \
 		--asar \
+		--app-version="$(ETCHER_VERSION)" \
+		--build-version="$(ETCHER_VERSION)" \
 		--overwrite \
 		--out=$(dir $@)
 
@@ -43,6 +53,8 @@ etcher-release/Etcher-win32-ia32: .
 		--ignore="$(ELECTRON_IGNORE)" \
 		--icon="assets/icon.ico" \
 		--asar \
+		--app-version="$(ETCHER_VERSION)" \
+		--build-version="$(ETCHER_VERSION)" \
 		--overwrite \
 		--out=$(dir $@)
 
@@ -54,6 +66,8 @@ etcher-release/Etcher-win32-x64: .
 		--ignore="$(ELECTRON_IGNORE)" \
 		--icon="assets/icon.ico" \
 		--asar \
+		--app-version="$(ETCHER_VERSION)" \
+		--build-version="$(ETCHER_VERSION)" \
 		--overwrite \
 		--out=$(dir $@)
 
