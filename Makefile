@@ -3,7 +3,7 @@ ELECTRON_BUILDER=./node_modules/.bin/electron-builder
 ELECTRON_IGNORE=$(shell cat package.ignore | tr "\\n" "|" | sed "s/.$$//")
 ELECTRON_VERSION=0.36.8
 ETCHER_VERSION=$(shell node -e "console.log(require('./package.json').version)")
-APPLICATION_NAME="Etcher"
+APPLICATION_NAME=$(shell node -e "console.log(require('./package.json').displayName)")
 
 etcher-release/Etcher-darwin-x64: .
 	$(ELECTRON_PACKAGER) . $(APPLICATION_NAME) \
