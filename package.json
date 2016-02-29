@@ -1,5 +1,6 @@
 {
   "name": "etcher",
+  "displayName": "Etcher",
   "version": "0.0.1",
   "main": "lib/etcher.js",
   "description": "An image burner with support for Windows, OS X and GNU/Linux.",
