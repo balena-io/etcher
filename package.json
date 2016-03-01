@@ -63,8 +63,9 @@
     "electron-prebuilt": "^0.36.8",
     "gulp": "^3.9.0",
     "gulp-jscs": "^3.0.2",
-    "gulp-jshint": "^1.11.2",
+    "gulp-jshint": "^2.0.0",
     "gulp-sass": "^2.0.4",
+    "jshint": "^2.9.1",
     "jshint-stylish": "^2.0.1",
     "mochainon": "^1.0.0"
   }
