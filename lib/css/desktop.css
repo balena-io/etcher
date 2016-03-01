@@ -34,3 +34,7 @@ body {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
+
+button:focus {
+  outline: none !important;
+}

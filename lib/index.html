@@ -25,7 +25,11 @@
     <script src="./browser/app.js"></script>
   </head>
   <body ng-app="Etcher" ng-controller="AppController as app" style="display: none">
-    <div class="content row middle-xs space-horizontal-large">
+    <div class="content row middle-xs space-horizontal-large" ng-hide="app.settings.isConfiguring()">
+      <button class="btn btn-link btn-navigation" ng-click="app.settings.enter()">
+        <span class="glyphicon glyphicon-cog"></span>
+      </button>
+
       <div class="col-xs">
         <div class="row around-xs space-bottom-huge" ng-hide="app.state.progress == 100 && !app.writer.isBurning()">
           <div class="col-xs">
@@ -131,6 +135,25 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content row space-horizontal-large space-top-huge" ng-show="app.settings.isConfiguring()">
+      <div class="col-xs" ng-show="app.settings.isConfiguring()">
+        <button class="btn btn-link btn-navigation" ng-click="app.settings.leave()">
+          <span class="glyphicon glyphicon-chevron-left"></span> Back
+        </button>
+
+        <div class="box text-left space-horizontal-large">
+          <h1 class="space-bottom-large">Settings</h1>
+
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="app.settings.data.errorReporting">
+              <span>Enable error reporting</span>
+            </label>
           </div>
         </div>
       </div>

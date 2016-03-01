@@ -24,15 +24,26 @@ $spacing-tiny: 5px;
 }
 
 .space-vertical-medium {
-  margin: $spacing-medium 0;
+  margin-top: $spacing-medium;
+  margin-bottom: $spacing-medium;
+}
+
+.space-top-huge {
+  margin-top: $spacing-huge;
 }
 
 .space-vertical-large {
-  margin: $spacing-large 0;
+  margin-top: $spacing-large;
+  margin-bottom: $spacing-large;
 }
 
 .space-horizontal-large {
-  margin: 0 $spacing-large;
+  margin-left: $spacing-large;
+  margin-right: $spacing-large;
+}
+
+.space-bottom-large {
+  margin-bottom: $spacing-large;
 }
 
 .space-bottom-huge {
