@@ -1250,7 +1250,7 @@ mark,
 .text-left {
   text-align: left; }
 
-.text-right {
+.text-right, .section-header {
   text-align: right; }
 
 .text-center {
@@ -5854,22 +5854,12 @@ button.close {
   margin-top: 15px;
   margin-bottom: 15px; }
 
-.space-top-huge {
-  margin-top: 45px; }
-
 .space-vertical-large {
   margin-top: 30px;
   margin-bottom: 30px; }
 
-.space-horizontal-large {
-  margin-left: 30px;
-  margin-right: 30px; }
-
 .space-bottom-large {
   margin-bottom: 30px; }
-
-.space-bottom-huge {
-  margin-bottom: 45px; }
 
 .space-right-tiny {
   margin-right: 5px; }
@@ -5981,8 +5971,13 @@ body {
 .checkbox input[type="checkbox"]:not(:checked) + * {
   color: #ddd; }
 
-.btn-navigation {
-  position: fixed;
-  top: 10px;
-  right: 10px;
+.wrapper {
+  height: 100%;
+  margin: 20px 60px; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0; }
+
+.section-header {
+  padding: 5px;
   font-size: 15px; }

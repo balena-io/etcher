@@ -184,9 +184,17 @@ body {
   color: $gray-light;
 }
 
-.btn-navigation {
-  position: fixed;
-  top: 10px;
-  right: 10px;
+.wrapper {
+  height: 100%;
+  margin: 20px 60px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+}
+
+.section-header {
+  @extend .text-right;
+  padding: 5px;
   font-size: 15px;
 }

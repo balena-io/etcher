@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-$spacing-huge: 45px;
 $spacing-large: 30px;
 $spacing-medium: 15px;
 $spacing-tiny: 5px;
@@ -28,26 +27,13 @@ $spacing-tiny: 5px;
   margin-bottom: $spacing-medium;
 }
 
-.space-top-huge {
-  margin-top: $spacing-huge;
-}
-
 .space-vertical-large {
   margin-top: $spacing-large;
   margin-bottom: $spacing-large;
 }
 
-.space-horizontal-large {
-  margin-left: $spacing-large;
-  margin-right: $spacing-large;
-}
-
 .space-bottom-large {
   margin-bottom: $spacing-large;
-}
-
-.space-bottom-huge {
-  margin-bottom: $spacing-huge;
 }
 
 .space-right-tiny {
