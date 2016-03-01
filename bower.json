@@ -15,6 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.1.0"
+    "polymer": "Polymer/polymer#^1.1.0",
+    "angular-mixpanel": "~1.1.2"
   }
 }
