@@ -26,6 +26,8 @@ $btn-disabled: rgb(49, 51, 57);
 $badge-disabled: rgb(92, 94, 92);
 $btn-padding: 10px;
 $btn-min-width: 170px;
+$link-color: $gray-light;
+$link-hover-decoration: none;
 
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
@@ -176,4 +178,15 @@ body {
 .checkbox input[type="checkbox"] {
   position: initial;
   margin-right: 2px;
+}
+
+.checkbox input[type="checkbox"]:not(:checked) + * {
+  color: $gray-light;
+}
+
+.btn-navigation {
+  position: fixed;
+  top: 10px;
+  right: 15px;
+  font-size: 15px;
 }
