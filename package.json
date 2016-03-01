@@ -48,7 +48,7 @@
     "drivelist": "^2.0.7",
     "flexboxgrid": "^6.3.0",
     "is-elevated": "^1.0.0",
-    "lodash": "^3.10.1",
+    "lodash": "^4.5.1",
     "resin-image-write": "^2.0.5",
     "sudo-prompt": "^2.2.0",
     "trackjs": "^2.1.16",
