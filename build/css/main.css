@@ -5851,13 +5851,16 @@ button.close {
   margin: 15px; }
 
 .space-vertical-medium {
-  margin: 15px 0; }
+  margin-top: 15px;
+  margin-bottom: 15px; }
 
 .space-vertical-large {
-  margin: 30px 0; }
+  margin-top: 30px;
+  margin-bottom: 30px; }
 
 .space-horizontal-large {
-  margin: 0 30px; }
+  margin-left: 30px;
+  margin-right: 30px; }
 
 .space-bottom-huge {
   margin-bottom: 45px; }
