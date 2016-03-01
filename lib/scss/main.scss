@@ -171,3 +171,9 @@ body {
   // Keep some spacing at the sides
   max-width: $btn-min-width - 5px;
 }
+
+// Fix slighly checkbox vertical alignment issue
+.checkbox input[type="checkbox"] {
+  position: initial;
+  margin-right: 2px;
+}

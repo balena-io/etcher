@@ -5967,3 +5967,7 @@ body {
 .button-label {
   margin: 0 auto 15px;
   max-width: 165px; }
+
+.checkbox input[type="checkbox"] {
+  position: initial;
+  margin-right: 2px; }
