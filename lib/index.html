@@ -26,6 +26,10 @@
   </head>
   <body ng-app="Etcher" ng-controller="AppController as app" style="display: none">
     <div class="content row middle-xs space-horizontal-large" ng-hide="app.settings.isConfiguring()">
+      <button class="btn btn-link btn-navigation" ng-click="app.settings.enter()">
+        <span class="glyphicon glyphicon-cog"></span>
+      </button>
+
       <div class="col-xs">
         <div class="row around-xs space-bottom-huge" ng-hide="app.state.progress == 100 && !app.writer.isBurning()">
           <div class="col-xs">
