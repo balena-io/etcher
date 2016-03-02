@@ -35,6 +35,8 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+/* Prevent blue outline */
+input:focus,
 button:focus {
   outline: none !important;
 }

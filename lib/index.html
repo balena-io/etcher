@@ -24,142 +24,20 @@
 
     <script src="./browser/app.js"></script>
   </head>
-  <body ng-app="Etcher" ng-controller="AppController as app" style="display: none">
-    <div class="content row middle-xs space-horizontal-large" ng-hide="app.settings.isConfiguring()">
-      <button class="btn btn-link btn-navigation" ng-click="app.settings.enter()">
+  <body ng-app="Etcher" style="display: none">
+    <header class="section-header" ng-controller="NavigationController as navigation">
+      <button class="btn btn-link" ui-sref="settings" ng-hide="navigation.isState('settings')">
         <span class="glyphicon glyphicon-cog"></span>
       </button>
 
-      <div class="col-xs">
-        <div class="row around-xs space-bottom-huge" ng-hide="app.state.progress == 100 && !app.writer.isBurning()">
-          <div class="col-xs">
-            <div class="box text-center">
-              <hero-icon path="images/image.svg" label="SELECT IMAGE"></hero-icon>
-              <hero-badge class="block space-vertical-medium">1</hero-badge>
+      <button class="btn btn-link" ui-sref="main" ng-show="navigation.isState('settings')">
+        <span class="glyphicon glyphicon-chevron-left"></span> Back
+      </button>
+    </header>
 
-              <div class="space-vertical-large">
-                <div ng-hide="app.selection.hasImage()">
-                  <hero-button ng-click="app.selectImage()">Select image</hero-button>
-                  <p class="step-footer tiny">*supported files: .img, .iso</p>
-                </div>
-                <div ng-show="app.selection.hasImage()">
-                  <span ng-bind="app.selection.getImage() | basename" ng-click="app.reselectImage()"></span>
-                </div>
-              </div>
-            </div>
-          </div>
+    <main class="wrapper" ui-view></main>
 
-          <div class="col-xs">
-            <div class="box text-center relative">
-              <div class="step-border-left" ng-disabled="!app.selection.hasImage()"></div>
-              <div class="step-border-right" ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()"></div>
-
-              <hero-icon path="images/drive.svg" ng-disabled="!app.selection.hasImage()" label="SELECT DRIVE"></hero-icon>
-              <hero-badge class="block space-vertical-medium" ng-disabled="!app.selection.hasImage()">2</hero-badge>
-
-              <div class="space-vertical-large">
-                <div ng-hide="app.selection.hasDrive()">
-
-                  <div ng-show="app.scanner.hasAvailableDrives() || !app.selection.hasImage()">
-                    <div class="btn-group" uib-dropdown>
-                      <hero-button ng-disabled="!app.selection.hasImage()"
-                        uib-dropdown-toggle>Select drive</hero-button>
-
-                      <ul class="dropdown-menu">
-                        <li ng-repeat="drive in app.scanner.drives">
-                          <a href="#" ng-click="app.selectDrive(drive)" ng-bind="drive.name + ' - ' + drive.size"></a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div ng-hide="app.scanner.hasAvailableDrives() || !app.selection.hasImage()">
-                    <hero-button type="danger">Connect a drive</hero-button>
-                  </div>
-
-                </div>
-                <div ng-show="app.selection.hasDrive()" ng-bind="app.selection.getDrive().name" ng-click="app.reselectDrive()"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-xs">
-            <div class="box text-center">
-              <hero-icon path="images/burn.svg" ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()" label="BURN IMAGE"></hero-icon>
-              <hero-badge class="block space-vertical-medium" ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">3</hero-badge>
-
-              <div class="space-vertical-large">
-                <hero-progress-button percentage="{{ app.state.progress }}" ng-attr-active="{{ app.writer.isBurning() }}"
-                  ng-click="app.burn(app.selection.getImage(), app.selection.getDrive())"
-                  ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">
-                    <span ng-show="app.state.progress == 100 && app.writer.isBurning()">Finishing...</span>
-                    <span ng-show="app.state.progress == 0 && !app.writer.isBurning()">Burn!</span>
-                    <span ng-show="app.state.progress == 0 && app.writer.isBurning() && !app.state.speed">Starting...</span>
-                    <span ng-show="app.state.speed && app.state.progress != 100"
-                      ng-bind="app.state.progress + '% '"></span>
-                </hero-progress-button>
-
-                <p class="step-footer" ng-bind="app.state.speed.toFixed(2) + ' MB/s'" ng-show="app.state.speed && app.state.progress != 100"></p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row around-xs space-bottom-huge" ng-show="app.state.progress == 100 && !app.writer.isBurning()">
-          <div class="col-xs">
-            <div class="box text-center">
-              <h3><hero-tick type="success" class="space-right-tiny"></hero-tick> Burn Complete!</h3>
-              <p class="soft">Safely ejected and ready for use</p>
-
-              <div class="row center-xs space-vertical-large">
-                <div class="col-xs-4 space-medium">
-                  <div class="box">
-                    <p class="soft button-label">Would you like to burn the same image?</p>
-
-                    <hero-button ng-click="app.restart({ preserveImage: true })">
-                      Use <b>same</b> image
-                    </hero-button>
-                  </div>
-                </div>
-
-                <div class="col-xs separator-xs"></div>
-
-                <div class="col-xs-4 space-medium">
-                  <div class="box">
-                    <p class="soft button-label">Would you like to burn a new image?</p>
-
-                    <hero-button ng-click="app.restart()">
-                      Use <b>new</b> image
-                    </hero-button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="content row space-horizontal-large space-top-huge" ng-show="app.settings.isConfiguring()">
-      <div class="col-xs" ng-show="app.settings.isConfiguring()">
-        <button class="btn btn-link btn-navigation" ng-click="app.settings.leave()">
-          <span class="glyphicon glyphicon-chevron-left"></span> Back
-        </button>
-
-        <div class="box text-left space-horizontal-large">
-          <h1 class="space-bottom-large">Settings</h1>
-
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" ng-model="app.settings.data.errorReporting">
-              <span>Enable error reporting</span>
-            </label>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-footer row between-xs middle-xs">
+    <footer class="section-footer row between-xs middle-xs">
       <div class="col-xs">
         <div class="box text-left">
           <hero-icon path="images/resin.svg" width="85px" height="auto" ng-click="app.open('https://resin.io')"></hero-icon>
@@ -171,6 +49,6 @@
           <hero-caption><span ng-click="app.open('https://github.com/resin-io/etcher')">AN OPEN SOURCE PROJECT</span> BY <span ng-click="app.open('https://resin.io')">RESIN.IO</span></hero-caption>
         </div>
       </div>
-    </div>
+    </footer>
   </body>
 </html>
