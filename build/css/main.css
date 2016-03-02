@@ -5979,5 +5979,8 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 0; }
 
 .section-header {
-  padding: 5px;
+  padding: 5px 8px;
   font-size: 15px; }
+  .section-header > .btn {
+    padding-left: 3px;
+    padding-right: 3px; }
