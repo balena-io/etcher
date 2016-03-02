@@ -11,6 +11,20 @@ Prequisites
 - [node](https://nodejs.org)
 - [GNU Make](https://www.gnu.org/software/make/)
 
+Signing
+-------
+
+### OS X
+
+1. Get our Apple Developer ID certificate for signing applications distributed outside the Mac App Store from the Resin.io Apple account.
+
+2. Install the Developer ID certificate to your Mac's Keychain by double clicking on the certificate file.
+
+The application will be signed automatically using this certificate when packaging for OS X.
+
+Packaging
+---------
+
 Run the following command to make installers for all supported operating systems:
 
 ```sh

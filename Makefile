@@ -4,6 +4,7 @@ ELECTRON_IGNORE=$(shell cat package.ignore | tr "\\n" "|" | sed "s/.$$//")
 ELECTRON_VERSION=0.36.8
 ETCHER_VERSION=$(shell node -e "console.log(require('./package.json').version)")
 APPLICATION_NAME=$(shell node -e "console.log(require('./package.json').displayName)")
+SIGN_IDENTITY_OSX="Rulemotion Ltd (66H43P8FRG)"
 
 etcher-release/Etcher-darwin-x64: .
 	$(ELECTRON_PACKAGER) . $(APPLICATION_NAME) \
@@ -17,6 +18,7 @@ etcher-release/Etcher-darwin-x64: .
 		--helper-bundle-id="io.resin.etcher-helper" \
 		--app-bundle-id="io.resin.etcher" \
 		--app-category-type="public.app-category.developer-tools" \
+		--sign=$(SIGN_IDENTITY_OSX) \
 		--icon="assets/icon.icns" \
 		--overwrite \
 		--out=$(dir $@)
@@ -74,6 +76,7 @@ etcher-release/Etcher-win32-x64: .
 etcher-release/installers/Etcher.dmg: etcher-release/Etcher-darwin-x64 package.json
 	$(ELECTRON_BUILDER) "$</$(APPLICATION_NAME).app" \
 		--platform=osx \
+		--sign=$(SIGN_IDENTITY_OSX) \
 		--out=$(dir $@)
 
 etcher-release/installers/Etcher-linux-x64.tar.gz: etcher-release/Etcher-linux-x64
