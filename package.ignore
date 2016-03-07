@@ -17,3 +17,5 @@ node_modules/gulp*
 node_modules/jshint-stylish
 node_modules/mochainon
 node_modules/vinyl-*
+node_modules/rindle
+node_modules/tmp

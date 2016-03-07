@@ -61,6 +61,7 @@
     "lodash": "^4.5.1",
     "ngstorage": "^0.3.10",
     "resin-image-write": "^2.0.5",
+    "resin-zip-image": "^1.1.1",
     "sudo-prompt": "^2.2.0",
     "trackjs": "^2.1.16",
     "umount": "^1.1.1",
@@ -78,6 +79,8 @@
     "gulp-sass": "^2.0.4",
     "jshint": "^2.9.1",
     "jshint-stylish": "^2.0.1",
-    "mochainon": "^1.0.0"
+    "mochainon": "^1.0.0",
+    "rindle": "^1.3.0",
+    "tmp": "0.0.28"
   }
 }
