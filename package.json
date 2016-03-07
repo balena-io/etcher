@@ -61,7 +61,7 @@
     "lodash": "^4.5.1",
     "ngstorage": "^0.3.10",
     "resin-image-write": "^2.0.5",
-    "resin-zip-image": "^1.1.0",
+    "resin-zip-image": "^1.1.1",
     "sudo-prompt": "^2.2.0",
     "trackjs": "^2.1.16",
     "umount": "^1.1.1",
