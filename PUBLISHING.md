@@ -6,10 +6,24 @@ This is a small guide to package and publish Etcher to all supported operating s
 Prequisites
 -----------
 
-- [wine](https://www.winehq.org)
-- [nsis](http://nsis.sourceforge.net/Main_Page)
-- [node](https://nodejs.org)
+- [NodeJS](https://nodejs.org)
 - [GNU Make](https://www.gnu.org/software/make/)
+- [wine (for Windows)](https://www.winehq.org)
+- [nsis (for Windows)](http://nsis.sourceforge.net/Main_Page)
+- [XCode (for OS X)](https://developer.apple.com/xcode://developer.apple.com/xcode/)
+- [AWS CLI (for uploading packages)](https://aws.amazon.com/cli://aws.amazon.com/cli/)
+
+If you're going to generate installers for another platform than the one you're currently running, make sure you force-install all NPM dependencies, so optional dependencies marked for a certain operating system get installed regardless of the host operating system
+
+```sh
+npm install --force
+```
+
+You can run the following command at any time to start from a fresh state:
+
+```sh
+make clean
+```
 
 Signing
 -------
@@ -28,9 +42,34 @@ Packaging
 Run the following command to make installers for all supported operating systems:
 
 ```sh
-make release
+make installer-all
+```
+
+You can replace `all` with `osx`, `linux` or `win32` to only generate installers for those platforms:
+
+```sh
+make installer-osx
+make installer-linux
+make installer-win32
 ```
 
 The resulting installers will be saved to `etcher-release/installers`.
 
-You can run `make clean` to start in a fresh state.
+Uploading
+---------
+
+Make sure you have the [AWS CLI tool](https://aws.amazon.com/cli://aws.amazon.com/cli/) installed and configured to access Resin.io's production downloads S3 bucket.
+
+Run the following command to upload all installers:
+
+```sh
+make upload-all
+```
+
+As with the `installer` rule, you can replace `all` with `osx`, `linux` or `win32` to only publish those platform's installers:
+
+```sh
+make upload-osx
+make upload-linux
+make upload-win32
+```
