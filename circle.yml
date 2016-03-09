@@ -1,0 +1,26 @@
+machine:
+  environment:
+    XCODE_SCHEME: ''
+    XCODE_PROJECT: ''
+    NODE_VERSION: 4.2.2
+
+dependencies:
+  override:
+    - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
+    - nvm install $NODE_VERSION
+    - npm install
+
+test:
+  override:
+    - npm test
+
+deployment:
+  production:
+    branch: misc/circle-ci
+    owner: resin-io
+    commands:
+      - make installer-osx
+
+notify:
+  webhooks:
+    - url: https://webhooks.gitter.im/e/5c194079ec4bbdff510b
