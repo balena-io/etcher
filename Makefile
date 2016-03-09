@@ -1,6 +1,6 @@
 ELECTRON_PACKAGER=./node_modules/.bin/electron-packager
 ELECTRON_BUILDER=./node_modules/.bin/electron-builder
-ELECTRON_IGNORE=$(shell cat package.ignore | tr "\\n" "|" | sed "s/.$$//")
+ELECTRON_IGNORE=$(shell node -e "console.log(require('./package.json').packageIgnore.join('|'))")
 ELECTRON_VERSION=0.36.8
 ETCHER_VERSION=$(shell node -e "console.log(require('./package.json').version)")
 APPLICATION_NAME=$(shell node -e "console.log(require('./package.json').displayName)")
