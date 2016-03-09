@@ -5,6 +5,7 @@ ELECTRON_VERSION=0.36.8
 ETCHER_VERSION=$(shell node -e "console.log(require('./package.json').version)")
 APPLICATION_NAME=$(shell node -e "console.log(require('./package.json').displayName)")
 SIGN_IDENTITY_OSX="Rulemotion Ltd (66H43P8FRG)"
+S3_BUCKET="resin-production-downloads"
 
 etcher-release/Etcher-darwin-x64: .
 	$(ELECTRON_PACKAGER) . $(APPLICATION_NAME) \
@@ -111,11 +112,20 @@ installer-linux: etcher-release/installers/Etcher-linux-x64.tar.gz etcher-releas
 installer-win32: etcher-release/installers/Etcher-x64.exe etcher-release/installers/Etcher.exe
 installer-all: installer-osx installer-linux installer-win32
 
-etcher-release:
-	rm -rf node_modules
-	npm install --force
-	npm test
-	make installer-all
+S3_UPLOAD=aws s3api put-object \
+	--bucket $(S3_BUCKET) \
+	--acl public-read \
+	--key etcher/$(ETCHER_VERSION)/$(notdir $<) \
+	--body $<
+
+upload-linux-x64: etcher-release/installers/Etcher-linux-x64.tar.gz ; $(S3_UPLOAD)
+upload-linux-ia32: etcher-release/installers/Etcher-linux-ia32.tar.gz ; $(S3_UPLOAD)
+upload-win32-x64: etcher-release/installers/Etcher-x64.exe ; $(S3_UPLOAD)
+upload-win32-ia32: etcher-release/installers/Etcher.exe ; $(S3_UPLOAD)
+
+upload-osx: etcher-release/installers/Etcher.dmg ; $(S3_UPLOAD)
+upload-linux: upload-linux-x64 upload-linux-ia32
+upload-win32: upload-win32-x64 upload-win32-ia32
 
 clean:
 	rm -rf etcher-release/
