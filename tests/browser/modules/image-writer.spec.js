@@ -23,6 +23,35 @@ describe('Browser: ImageWriter', function() {
       ImageWriterService = _ImageWriterService_;
     }));
 
+    describe('.state', function() {
+
+      it('should be reset by default', function() {
+        m.chai.expect(ImageWriterService.state).to.deep.equal({
+          progress: 0,
+          speed: 0
+        });
+      });
+
+    });
+
+    describe('.resetState()', function() {
+
+      it('should be able to reset the state', function() {
+        ImageWriterService.state = {
+          progress: 50,
+          speed: 3
+        };
+
+        ImageWriterService.resetState();
+
+        m.chai.expect(ImageWriterService.state).to.deep.equal({
+          progress: 0,
+          speed: 0
+        });
+      });
+
+    });
+
     describe('.isBurning()', function() {
 
       it('should return false by default', function() {
