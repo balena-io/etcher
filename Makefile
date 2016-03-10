@@ -129,6 +129,7 @@ upload-win32-x86: etcher-release/installers/Etcher-win32-x86.exe ; $(S3_UPLOAD)
 upload-osx: etcher-release/installers/Etcher-darwin-x64.dmg ; $(S3_UPLOAD)
 upload-linux: upload-linux-x64 upload-linux-x86
 upload-win32: upload-win32-x64 upload-win32-x86
+upload-all: upload-osx upload-linux upload-win32
 
 clean:
 	rm -rf etcher-release/
