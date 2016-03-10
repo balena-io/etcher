@@ -45,7 +45,7 @@
           </div>
 
         </div>
-        <div ng-show="app.selection.hasDrive()" ng-bind="app.selection.getDrive().name" ng-click="app.reselectDrive()"></div>
+        <div ng-show="app.selection.hasDrive()" ng-bind="app.selection.getDrive().name + ' - ' + app.selection.getDrive().size" ng-click="app.reselectDrive()"></div>
       </div>
     </div>
   </div>
