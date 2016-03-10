@@ -11,7 +11,7 @@ Etcher
 
 ***
 
-[**Download**](http://etcher.io) | [**Support**](https://github.com/resin-io/etcher/issues/new) | [**Contributing**](https://github.com/resin-io/etcher/blob/master/CONTRIBUTING.md) | [**CLI**](https://github.com/resin-io/etcher-cli)
+[**Download**](http://etcher.io) | [**Support**](https://github.com/resin-io/etcher/blob/master/SUPPORT.md) | [**Contributing**](https://github.com/resin-io/etcher/blob/master/CONTRIBUTING.md) | [**CLI**](https://github.com/resin-io/etcher-cli)
 
 ![Etcher](https://raw.githubusercontent.com/resin-io/etcher/master/screenshot.png)
 
