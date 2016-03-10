@@ -11,16 +11,19 @@ Etcher
 
 ***
 
-[**Installing**](https://github.com/resin-io/etcher#installation) | [**Support**](https://github.com/resin-io/etcher/issues/new) | [**Contributing**](https://github.com/resin-io/etcher/blob/master/CONTRIBUTING.md) | [**CLI**](https://github.com/resin-io/etcher-cli)
+[**Download**](http://etcher.io) | [**Support**](https://github.com/resin-io/etcher/issues/new) | [**Contributing**](https://github.com/resin-io/etcher/blob/master/CONTRIBUTING.md) | [**CLI**](https://github.com/resin-io/etcher-cli)
 
 ![Etcher](https://raw.githubusercontent.com/resin-io/etcher/master/screenshot.png)
 
-Installation
-------------
+Installers
+----------
 
-We're working on providing installers for all major operating systems.
+Refer to the [downloads page](http://etcher.io) for the latest pre-made installers for all supported operating systems.
 
-For now you can manually run the application with the following commands:
+Developing
+----------
+
+You can manually run the application with the following commands:
 
 ```sh
 git clone https://github.com/resin-io/etcher
@@ -28,6 +31,8 @@ cd etcher
 npm install && bower install
 npm start
 ```
+
+Take a look at our [contributing guide](https://github.com/resin-io/etcher/blob/master/CONTRIBUTING.md).
 
 Support
 -------
