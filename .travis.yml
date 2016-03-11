@@ -1,9 +1,54 @@
-language: node_js
-node_js:
-  - "4.0"
+language: cpp
+sudo: false
+
+env:
+  - NODE_VERSION="4"
+os:
+  - linux
+  - osx
+
+before_install:
+  - rm -rf ~/.nvm
+  - git clone https://github.com/creationix/nvm.git ~/.nvm
+  - source ~/.nvm/nvm.sh
+  - nvm --version
+  - nvm install $NODE_VERSION
+  - node --version
+  - npm --version
+  - npm config set spin=false
+
+install:
+  - npm install
+
 before_script:
-  - npm install -g electron-prebuilt
-  - export DISPLAY=:99.0; sh -e /etc/init.d/xvfb start
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      export DISPLAY=:99.0;
+      sh -e /etc/init.d/xvfb start;
+    fi
+
+script:
+  - npm test
+
+before_deploy:
+  - pip install --user awscli
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      export CERTIFICATE_P12=Certificate.p12;
+      echo $CERTIFICATE_OSX_P12 | base64 --decode > $CERTIFICATE_P12;
+      export KEYCHAIN=etcher.keychain;
+      security create-keychain -p travis $KEYCHAIN;
+      security default-keychain -s $KEYCHAIN;
+      security unlock-keychain -p travis $KEYCHAIN;
+      security set-keychain-settings -t 3600 -u $KEYCHAIN;
+      security import $CERTIFICATE_P12 -k $KEYCHAIN -P $CERTIFICATE_PASSWORD -T /usr/bin/codesign;
+    fi
+
+deploy:
+  provider: script
+  script: make upload-$TRAVIS_OSX_NAME
+  on:
+    repo: resin-io/etcher
+    tags: true
+
 notifications:
   email: false
   webhooks:
