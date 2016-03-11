@@ -131,5 +131,10 @@ upload-linux: upload-linux-x64 upload-linux-x86
 upload-win32: upload-win32-x64 upload-win32-x86
 upload-all: upload-osx upload-linux upload-win32
 
+release:
+	rm -rf node_modules/
+	npm install --force
+	make upload-all
+
 clean:
 	rm -rf etcher-release/
