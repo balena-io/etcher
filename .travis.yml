@@ -1,9 +1,24 @@
-language: node_js
-node_js:
-  - "4.0"
-before_script:
+language: cpp
+os:
+  - linux
+  - osx
+env:
+  - NODE_VERSION="4"
+before_install:
+  - rm -rf ~/.nvm
+  - git clone https://github.com/creationix/nvm.git ~/.nvm
+  - source ~/.nvm/nvm.sh
+  - nvm --version
+  - nvm install $NODE_VERSION
+  - node --version
+  - npm --version
+install:
+  - npm install
   - npm install -g electron-prebuilt
-  - export DISPLAY=:99.0; sh -e /etc/init.d/xvfb start
+before_script:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export DISPLAY=:99.0; sh -e /etc/init.d/xvfb start ; fi
+script:
+  - npm test
 notifications:
   email: false
   webhooks:
