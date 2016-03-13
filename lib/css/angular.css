@@ -16,4 +16,5 @@
 
 [ng-click] {
   cursor: pointer;
+  -webkit-app-region: no-drag;
 }
