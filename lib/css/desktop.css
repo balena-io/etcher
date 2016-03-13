@@ -19,6 +19,18 @@ body {
   -webkit-user-select: none;
 }
 
+
+/* Allow window to be dragged from anywhere */
+* {
+  -webkit-app-region: drag;
+}
+
+button,
+a,
+input {
+  -webkit-app-region: no-drag;
+}
+
 /* Prevent WebView bounce effect in OS X */
 html,
 body {
