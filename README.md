@@ -6,6 +6,7 @@ Etcher
 [![dependencies](https://david-dm.org/resin-io/etcher.svg)](https://david-dm.org/resin-io/etcher.svg)
 [![Build Status](https://travis-ci.org/resin-io/etcher.svg?branch=master)](https://travis-ci.org/resin-io/etcher)
 [![Build status](https://ci.appveyor.com/api/projects/status/xggqv231byfhync1/branch/master?svg=true)](https://ci.appveyor.com/project/resin-io/etcher/branch/master)
+[![Circle CI](https://circleci.com/gh/resin-io/etcher/tree/master.svg?style=shield)](https://circleci.com/gh/resin-io/etcher/tree/master)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/resin-io/chat)
 [![Stories in Ready](https://badge.waffle.io/resin-io/etcher.svg?label=in progress&title=In Progress)](https://waffle.io/resin-io/etcher)
 
