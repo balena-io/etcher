@@ -77,7 +77,7 @@
     "angular-ui-router": "^0.2.18",
     "bluebird": "^3.0.5",
     "bootstrap-sass": "^3.3.5",
-    "drivelist": "^2.0.8",
+    "drivelist": "^2.0.9",
     "flexboxgrid": "^6.3.0",
     "is-elevated": "^1.0.0",
     "lodash": "^4.5.1",
