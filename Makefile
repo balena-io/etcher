@@ -4,6 +4,9 @@ ELECTRON_IGNORE=$(shell node -e "console.log(require('./package.json').packageIg
 ELECTRON_VERSION=0.36.8
 ETCHER_VERSION=$(shell node -e "console.log(require('./package.json').version)")
 APPLICATION_NAME=$(shell node -e "console.log(require('./package.json').displayName)")
+APPLICATION_DESCRIPTION=$(shell node -e "console.log(require('./package.json').description)")
+APPLICATION_COPYRIGHT=$(shell node -e "console.log(require('./package.json').copyright)")
+COMPANY_NAME="Resinio Ltd"
 SIGN_IDENTITY_OSX="Rulemotion Ltd (66H43P8FRG)"
 S3_BUCKET="resin-production-downloads"
 
@@ -14,6 +17,7 @@ etcher-release/Etcher-darwin-x64: .
 		--version=$(ELECTRON_VERSION) \
 		--ignore="$(ELECTRON_IGNORE)" \
 		--asar \
+		--app-copyright="$(APPLICATION_COPYRIGHT)" \
 		--app-version="$(ETCHER_VERSION)" \
 		--build-version="$(ETCHER_VERSION)" \
 		--helper-bundle-id="io.resin.etcher-helper" \
@@ -57,8 +61,14 @@ etcher-release/Etcher-win32-x86: .
 		--ignore="$(ELECTRON_IGNORE)" \
 		--icon="assets/icon.ico" \
 		--asar \
+		--app-copyright="$(APPLICATION_COPYRIGHT)" \
 		--app-version="$(ETCHER_VERSION)" \
 		--build-version="$(ETCHER_VERSION)" \
+		--version-string.CompanyName=$(COMPANY_NAME) \
+		--version-string.FileDescription="$(APPLICATION_NAME)" \
+		--version-string.OriginalFilename=$(notdir $@) \
+		--version-string.ProductName="$(APPLICATION_NAME) -- $(APPLICATION_DESCRIPTION)" \
+		--version-string.InternalName="$(APPLICATION_NAME)" \
 		--overwrite \
 		--out=$(dir $@)
 	mv $(dir $@)Etcher-win32-ia32 $@
@@ -71,8 +81,14 @@ etcher-release/Etcher-win32-x64: .
 		--ignore="$(ELECTRON_IGNORE)" \
 		--icon="assets/icon.ico" \
 		--asar \
+		--app-copyright="$(APPLICATION_COPYRIGHT)" \
 		--app-version="$(ETCHER_VERSION)" \
 		--build-version="$(ETCHER_VERSION)" \
+		--version-string.CompanyName=$(COMPANY_NAME) \
+		--version-string.FileDescription="$(APPLICATION_NAME)" \
+		--version-string.OriginalFilename=$(notdir $@) \
+		--version-string.ProductName="$(APPLICATION_NAME) -- $(APPLICATION_DESCRIPTION)" \
+		--version-string.InternalName="$(APPLICATION_NAME)" \
 		--overwrite \
 		--out=$(dir $@)
 
