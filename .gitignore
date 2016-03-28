@@ -30,3 +30,11 @@ bower_components
 
 # Compiled Electron releases
 etcher-release/
+
+# Certificates
+*.spc
+*.pvk
+*.p12
+*.cer
+*.crt
+*.pem

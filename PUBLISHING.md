@@ -12,6 +12,7 @@ Prequisites
 - [nsis (for Windows)](http://nsis.sourceforge.net/Main_Page)
 - [XCode (for OS X)](https://developer.apple.com/xcode://developer.apple.com/xcode/)
 - [AWS CLI (for uploading packages)](https://aws.amazon.com/cli://aws.amazon.com/cli/)
+- [osslsigncode (for signing the Windows installers)](https://sourceforge.net/projects/osslsigncode/)
 
 If you're going to generate installers for another platform than the one you're currently running, make sure you force-install all NPM dependencies, so optional dependencies marked for a certain operating system get installed regardless of the host operating system
 
@@ -35,6 +36,14 @@ Signing
 2. Install the Developer ID certificate to your Mac's Keychain by double clicking on the certificate file.
 
 The application will be signed automatically using this certificate when packaging for OS X.
+
+### Windows
+
+1. Get access to our code signing certificate and decryption key as a Resin.io employee by asking for it to the relevant people.
+
+2. Place the cert and key in the root of the Etcher repository naming them `certificate.crt.pem` and `certificate.key.pem`, respectively.
+
+The application and installer will be signed automatically using these certificates when packaging for Windows.
 
 Packaging
 ---------

@@ -10,6 +10,16 @@ COMPANY_NAME="Resinio Ltd"
 SIGN_IDENTITY_OSX="Rulemotion Ltd (66H43P8FRG)"
 S3_BUCKET="resin-production-downloads"
 
+sign-win32 = osslsigncode sign \
+	-certs certificate.crt.pem \
+	-key certificate.key.pem \
+	-h sha1 \
+	-t http://timestamp.comodoca.com \
+	-n "$(APPLICATION_NAME) - $(ETCHER_VERSION)"\
+	-in $(1) \
+	-out $(dir $(1))Signed.exe \
+	&& mv $(dir $(1))Signed.exe $(1)
+
 etcher-release/Etcher-darwin-x64: .
 	$(ELECTRON_PACKAGER) . $(APPLICATION_NAME) \
 		--platform=darwin \
@@ -72,6 +82,7 @@ etcher-release/Etcher-win32-x86: .
 		--overwrite \
 		--out=$(dir $@)
 	mv $(dir $@)Etcher-win32-ia32 $@
+	$(call sign-win32,$@/Etcher.exe)
 
 etcher-release/Etcher-win32-x64: .
 	$(ELECTRON_PACKAGER) . $(APPLICATION_NAME) \
@@ -91,6 +102,7 @@ etcher-release/Etcher-win32-x64: .
 		--version-string.InternalName="$(APPLICATION_NAME)" \
 		--overwrite \
 		--out=$(dir $@)
+	$(call sign-win32,$@/Etcher.exe)
 
 etcher-release/installers/Etcher-darwin-x64.dmg: etcher-release/Etcher-darwin-x64 package.json
 	$(ELECTRON_BUILDER) "$</$(APPLICATION_NAME).app" \
@@ -113,6 +125,7 @@ etcher-release/installers/Etcher-win32-x64.exe: etcher-release/Etcher-win32-x64 
 		--out=$(dir $@)win32-x64
 	mv $(dir $@)win32-x64/Etcher\ Setup.exe $@
 	rmdir $(dir $@)win32-x64
+	$(call sign-win32,$@)
 
 etcher-release/installers/Etcher-win32-x86.exe: etcher-release/Etcher-win32-x86 package.json
 	$(ELECTRON_BUILDER) $< \
@@ -120,6 +133,7 @@ etcher-release/installers/Etcher-win32-x86.exe: etcher-release/Etcher-win32-x86 
 		--out=$(dir $@)win32-x86
 	mv $(dir $@)win32-x86/Etcher\ Setup.exe $@
 	rmdir $(dir $@)win32-x86
+	$(call sign-win32,$@)
 
 package-osx: etcher-release/Etcher-darwin-x64
 package-linux: etcher-release/Etcher-linux-x86 etcher-release/Etcher-linux-x64
