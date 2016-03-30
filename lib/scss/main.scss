@@ -32,13 +32,14 @@ $link-hover-decoration: none;
 
 @import "./modules/space";
 @import "./components/badge";
+@import "./components/caption";
 
 // Prevent white flash when running application
 html {
   background-color: $body-bg;
 }
 
-hero-icon[disabled] hero-caption {
+hero-icon[disabled] .caption {
   color: $color-disabled;
 }
 
