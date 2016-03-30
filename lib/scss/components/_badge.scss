@@ -14,32 +14,17 @@
  * limitations under the License.
  */
 
-$spacing-large: 30px;
-$spacing-medium: 15px;
-$spacing-tiny: 5px;
-
-.space-medium {
-  margin: $spacing-medium;
+.badge {
+  border: 2px solid;
+  border-radius: 50%;
+  padding: 7px 10px;
+  position: relative;
+  z-index: 10;
+  letter-spacing: 0;
+  background-color: $body-bg;
 }
 
-.space-vertical-medium {
-  margin-top: $spacing-medium;
-  margin-bottom: $spacing-medium;
-}
-
-.space-top-medium {
-  margin-top: $spacing-medium;
-}
-
-.space-vertical-large {
-  margin-top: $spacing-large;
-  margin-bottom: $spacing-large;
-}
-
-.space-bottom-large {
-  margin-bottom: $spacing-large;
-}
-
-.space-right-tiny {
-  margin-right: $spacing-tiny;
+.badge[disabled] {
+  background-color: #5c5e5c;
+  color: $color-disabled;
 }

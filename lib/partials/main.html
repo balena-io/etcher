@@ -2,7 +2,7 @@
   <div class="col-xs">
     <div class="box text-center">
       <hero-icon path="images/image.svg" label="SELECT IMAGE"></hero-icon>
-      <hero-badge class="block space-vertical-medium">1</hero-badge>
+      <span class="badge space-top-medium">1</span>
 
       <div class="space-vertical-large">
         <div ng-hide="app.selection.hasImage()">
@@ -22,7 +22,8 @@
       <div class="step-border-right" ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()"></div>
 
       <hero-icon path="images/drive.svg" ng-disabled="!app.selection.hasImage()" label="SELECT DRIVE"></hero-icon>
-      <hero-badge class="block space-vertical-medium" ng-disabled="!app.selection.hasImage()">2</hero-badge>
+
+      <span class="badge space-top-medium" ng-disabled="!app.selection.hasImage()">2</span>
 
       <div class="space-vertical-large">
         <div ng-hide="app.selection.hasDrive()">
@@ -53,7 +54,7 @@
   <div class="col-xs">
     <div class="box text-center">
       <hero-icon path="images/burn.svg" ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()" label="BURN IMAGE"></hero-icon>
-      <hero-badge class="block space-vertical-medium" ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">3</hero-badge>
+      <span class="badge space-top-medium" ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">3</span>
 
       <div class="space-vertical-large">
         <hero-progress-button percentage="{{ app.writer.state.progress }}" ng-attr-active="{{ app.writer.isBurning() }}"

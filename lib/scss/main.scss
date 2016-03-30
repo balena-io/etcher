@@ -23,7 +23,6 @@ $font-size-base: 13px;
 $cursor-disabled: initial;
 $color-disabled: rgb(120, 124, 127);
 $btn-disabled: rgb(49, 51, 57);
-$badge-disabled: rgb(92, 94, 92);
 $btn-padding: 10px;
 $btn-min-width: 170px;
 $link-color: $gray-light;
@@ -32,19 +31,11 @@ $link-hover-decoration: none;
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
 @import "./modules/space";
+@import "./components/badge";
 
 // Prevent white flash when running application
 html {
   background-color: $body-bg;
-}
-
-hero-badge .badge {
-  background-color: $body-bg;
-}
-
-hero-badge[disabled] .badge {
-  background-color: $badge-disabled;
-  color: $color-disabled;
 }
 
 hero-icon[disabled] hero-caption {
