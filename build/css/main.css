@@ -5968,7 +5968,8 @@ button.close {
 .caption {
   font-weight: bold;
   font-size: 11px;
-  margin-bottom: 0; }
+  margin-bottom: 0;
+  text-transform: uppercase; }
 
 /*
  * Copyright 2016 Resin.io
