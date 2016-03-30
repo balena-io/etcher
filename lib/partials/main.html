@@ -7,7 +7,7 @@
       <div class="space-vertical-large">
         <div ng-hide="app.selection.hasImage()">
           <button class="btn btn-primary" ng-click="app.selectImage()">Select image</button>
-          <p class="step-footer tiny">*supported files: .img, .iso, .zip</p>
+          <p class="step-footer">*supported files: .img, .iso, .zip</p>
         </div>
         <div ng-show="app.selection.hasImage()">
           <span ng-bind="app.selection.getImage() | basename" ng-click="app.reselectImage()"></span>
