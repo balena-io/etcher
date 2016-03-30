@@ -58,7 +58,7 @@
       <span class="badge space-top-medium" ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">3</span>
 
       <div class="space-vertical-large">
-        <hero-progress-button percentage="{{ app.writer.state.progress }}" ng-attr-active="{{ app.writer.isBurning() }}"
+        <progress-button percentage="app.writer.state.progress" ng-attr-active="{{ app.writer.isBurning() }}"
           ng-click="app.burn(app.selection.getImage(), app.selection.getDrive())"
           ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">
             <span ng-show="app.writer.state.progress == 100 && app.writer.isBurning()">Finishing...</span>
@@ -66,7 +66,7 @@
             <span ng-show="app.writer.state.progress == 0 && app.writer.isBurning() && !app.writer.state.speed">Starting...</span>
             <span ng-show="app.writer.state.speed && app.writer.state.progress != 100"
               ng-bind="app.writer.state.progress + '% '"></span>
-        </hero-progress-button>
+        </progress-button>
 
         <p class="step-footer" ng-bind="app.writer.state.speed.toFixed(2) + ' MB/s'" ng-show="app.writer.state.speed && app.writer.state.progress != 100"></p>
       </div>

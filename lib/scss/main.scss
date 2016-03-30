@@ -34,6 +34,7 @@ $link-hover-decoration: none;
 @import "./components/caption";
 @import "./components/button";
 @import "./components/tick";
+@import "./components/progress-button";
 
 // Prevent white flash when running application
 html {
@@ -42,18 +43,6 @@ html {
 
 hero-icon[disabled] .caption {
   color: $color-disabled;
-}
-
-hero-progress-button .bar {
-  background: lighten($brand-primary, 5);
-}
-
-hero-progress-button[percentage="100"][active="false"] .bar {
-  background-color: $brand-success;
-}
-
-hero-progress-button[percentage="100"][active="true"] .bar {
-  background-color: $brand-warning;
 }
 
 hero-icon[disabled]  path {
