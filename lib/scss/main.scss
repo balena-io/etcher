@@ -29,17 +29,13 @@ $link-hover-decoration: none;
 
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+@import "./modules/bootstrap";
 @import "./modules/space";
 @import "./components/badge";
 @import "./components/caption";
 @import "./components/button";
 @import "./components/tick";
 @import "./components/progress-button";
-
-// Prevent white flash when running application
-html {
-  background-color: $body-bg;
-}
 
 hero-icon[disabled] .caption {
   color: $color-disabled;
@@ -136,16 +132,6 @@ body {
 
   // Keep some spacing at the sides
   max-width: $btn-min-width - 5px;
-}
-
-// Fix slighly checkbox vertical alignment issue
-.checkbox input[type="checkbox"] {
-  position: initial;
-  margin-right: 2px;
-}
-
-.checkbox input[type="checkbox"]:not(:checked) + * {
-  color: $gray-light;
 }
 
 .wrapper {
