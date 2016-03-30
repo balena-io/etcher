@@ -256,7 +256,7 @@ th {
   src: url("../../node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.eot");
   src: url("../../node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../../node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.woff2") format("woff2"), url("../../node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.woff") format("woff"), url("../../node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.ttf") format("truetype"), url("../../node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); }
 
-.glyphicon {
+.glyphicon, .tick {
   position: relative;
   top: 1px;
   display: inline-block;
@@ -322,10 +322,10 @@ th {
 .glyphicon-th-list:before {
   content: "\e012"; }
 
-.glyphicon-ok:before {
+.glyphicon-ok:before, .tick--success:before {
   content: "\e013"; }
 
-.glyphicon-remove:before {
+.glyphicon-remove:before, .tick--error:before {
   content: "\e014"; }
 
 .glyphicon-zoom-in:before {
@@ -5948,7 +5948,7 @@ button.btn {
 .btn:not(.btn-link) {
   min-width: 170px; }
 
-.btn > .glyphicon {
+.btn > .glyphicon, .btn > .tick {
   top: 2px;
   margin-right: 2px; }
 
@@ -5959,6 +5959,33 @@ button.btn {
  */
 button.btn:focus {
   outline: none !important; }
+
+/*
+ * Copyright 2016 Resin.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.tick {
+  display: inline-block;
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 18px; }
+
+.tick--success {
+  background-color: #5fb835; }
+
+.tick--error {
+  background-color: #d9534f; }
 
 html {
   background-color: #535760; }
