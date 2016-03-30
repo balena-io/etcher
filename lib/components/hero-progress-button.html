@@ -1,5 +1,4 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="hero-button.html">
 
 <!-- From http://tympanus.net/Development/ProgressButtonStyles/ -->
 <dom-module id="hero-progress-button">
@@ -27,12 +26,12 @@
       }
     </style>
 
-    <hero-button disabled="{{disabled}}">
+    <button class="btn btn-primary" disabled="{{disabled}}">
       <span class="text">
         <content></content>
       </span>
       <span class="bar"></span>
-    </hero-button>
+    </button>
   </template>
 
   <script>

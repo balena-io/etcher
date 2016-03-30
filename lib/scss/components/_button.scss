@@ -1,0 +1,56 @@
+/*
+ * Copyright 2016 Resin.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+button.btn {
+  padding: 10px;
+  padding-top: 11px;
+
+  border-radius: 2px;
+  border: none;
+
+  letter-spacing: 0.5px;
+  outline: none;
+
+  position: relative;
+
+  &[disabled] {
+    background-color: $btn-disabled;
+    color: $color-disabled;
+    pointer-events: none;
+
+    &:hover {
+      background-color: lighten($btn-disabled, 2);
+    }
+  }
+}
+
+.btn:not(.btn-link) {
+  min-width: $btn-min-width;
+}
+
+.btn > .glyphicon {
+  top: 2px;
+  margin-right: 2px;
+}
+
+/*
+ * Remove blue/orange outline
+ * !important is needed here for some reason
+ * despite the rule having top precedence.
+ */
+button.btn:focus {
+  outline: none !important;
+}

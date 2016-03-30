@@ -6,7 +6,7 @@
 
       <div class="space-vertical-large">
         <div ng-hide="app.selection.hasImage()">
-          <hero-button ng-click="app.selectImage()">Select image</hero-button>
+          <button class="btn btn-primary" ng-click="app.selectImage()">Select image</button>
           <p class="step-footer tiny">*supported files: .img, .iso, .zip</p>
         </div>
         <div ng-show="app.selection.hasImage()">
@@ -30,8 +30,9 @@
 
           <div ng-show="app.scanner.hasAvailableDrives() || !app.selection.hasImage()">
             <div class="btn-group" uib-dropdown>
-              <hero-button ng-disabled="!app.selection.hasImage()"
-                uib-dropdown-toggle>Select drive</hero-button>
+              <button class="btn btn-primary"
+                ng-disabled="!app.selection.hasImage()"
+                uib-dropdown-toggle>Select drive</button>
 
               <ul class="dropdown-menu">
                 <li ng-repeat="drive in app.scanner.drives">
@@ -42,7 +43,7 @@
           </div>
 
           <div ng-hide="app.scanner.hasAvailableDrives() || !app.selection.hasImage()">
-            <hero-button type="danger">Connect a drive</hero-button>
+            <button class="btn btn-danger">Connect a drive</button>
           </div>
 
         </div>
