@@ -37,7 +37,7 @@ $btn-default-color: #b3b3b3;
 @import "./components/caption";
 @import "./components/button";
 @import "./components/tick";
-@import "./components/progress-button";
+@import "../browser/components/progress-button/styles/progress-button";
 @import "./components/modal";
 
 hero-icon[disabled] .caption {
