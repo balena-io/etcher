@@ -2846,7 +2846,7 @@ select[multiple].input-lg,
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px; }
   .btn:hover, .progress-button:hover, .btn:focus, .progress-button:focus, .btn.focus, .focus.progress-button {
-    color: #333;
+    color: #9a9a9a;
     text-decoration: none; }
   .btn:active, .progress-button:active, .btn.active, .active.progress-button {
     outline: 0;
@@ -2868,28 +2868,28 @@ fieldset[disabled] a.progress-button {
   pointer-events: none; }
 
 .btn-default {
-  color: #333;
-  background-color: #fff;
+  color: #9a9a9a;
+  background-color: #f3f3f3;
   border-color: #ccc; }
   .btn-default:focus, .btn-default.focus {
-    color: #333;
-    background-color: #e6e6e6;
+    color: #9a9a9a;
+    background-color: #dadada;
     border-color: #8c8c8c; }
   .btn-default:hover {
-    color: #333;
-    background-color: #e6e6e6;
+    color: #9a9a9a;
+    background-color: #dadada;
     border-color: #adadad; }
   .btn-default:active, .btn-default.active,
   .open > .btn-default.dropdown-toggle {
-    color: #333;
-    background-color: #e6e6e6;
+    color: #9a9a9a;
+    background-color: #dadada;
     border-color: #adadad; }
     .btn-default:active:hover, .btn-default:active:focus, .btn-default:active.focus, .btn-default.active:hover, .btn-default.active:focus, .btn-default.active.focus,
     .open > .btn-default.dropdown-toggle:hover,
     .open > .btn-default.dropdown-toggle:focus,
     .open > .btn-default.dropdown-toggle.focus {
-      color: #333;
-      background-color: #d4d4d4;
+      color: #9a9a9a;
+      background-color: #c8c8c8;
       border-color: #8c8c8c; }
   .btn-default:active, .btn-default.active,
   .open > .btn-default.dropdown-toggle {
@@ -2898,11 +2898,11 @@ fieldset[disabled] a.progress-button {
   fieldset[disabled] .btn-default:hover,
   fieldset[disabled] .btn-default:focus,
   fieldset[disabled] .btn-default.focus {
-    background-color: #fff;
+    background-color: #f3f3f3;
     border-color: #ccc; }
   .btn-default .badge {
-    color: #fff;
-    background-color: #333; }
+    color: #f3f3f3;
+    background-color: #9a9a9a; }
 
 .btn-primary, .progress-button--primary {
   color: #fff;
@@ -6011,7 +6011,7 @@ html {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-button.btn, button.progress-button {
+.btn, .progress-button {
   padding: 10px;
   padding-top: 11px;
   border-radius: 2px;
@@ -6019,15 +6019,19 @@ button.btn, button.progress-button {
   letter-spacing: 0.5px;
   outline: none;
   position: relative; }
-  button.btn[disabled], button[disabled].progress-button {
+  .btn[disabled], [disabled].progress-button {
     background-color: #313339;
     color: #787c7f;
     pointer-events: none; }
-    button.btn[disabled]:hover, button[disabled].progress-button:hover {
+    .btn[disabled]:hover, [disabled].progress-button:hover {
       background-color: #36383e; }
 
 .btn-brick {
   min-width: 170px; }
+
+.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .progress-button {
+  font-size: 10px;
+  padding: 4px 12px; }
 
 .btn > .glyphicon, .progress-button > .glyphicon, .btn > .tick, .progress-button > .tick {
   top: 2px;
