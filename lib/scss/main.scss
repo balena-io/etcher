@@ -23,58 +23,22 @@ $font-size-base: 13px;
 $cursor-disabled: initial;
 $color-disabled: rgb(120, 124, 127);
 $btn-disabled: rgb(49, 51, 57);
-$badge-disabled: rgb(92, 94, 92);
-$btn-padding: 10px;
 $btn-min-width: 170px;
 $link-color: $gray-light;
 $link-hover-decoration: none;
 
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+@import "./modules/bootstrap";
 @import "./modules/space";
+@import "./components/badge";
+@import "./components/caption";
+@import "./components/button";
+@import "./components/tick";
+@import "./components/progress-button";
 
-// Prevent white flash when running application
-html {
-  background-color: $body-bg;
-}
-
-hero-badge .badge {
-  background-color: $body-bg;
-}
-
-hero-badge[disabled] .badge {
-  background-color: $badge-disabled;
+hero-icon[disabled] .caption {
   color: $color-disabled;
-}
-
-hero-icon[disabled] hero-caption {
-  color: $color-disabled;
-}
-
-hero-button .btn {
-  min-width: $btn-min-width;
-
-  &[disabled] {
-    background-color: $btn-disabled;
-    color: $color-disabled;
-    pointer-events: none;
-
-    &:hover {
-      background-color: lighten($btn-disabled, 2);
-    }
-  }
-}
-
-hero-progress-button .bar {
-  background: lighten($brand-primary, 5);
-}
-
-hero-progress-button[percentage="100"][active="false"] .bar {
-  background-color: $brand-success;
-}
-
-hero-progress-button[percentage="100"][active="true"] .bar {
-  background-color: $brand-warning;
 }
 
 hero-icon[disabled]  path {
@@ -153,10 +117,6 @@ body {
   margin-top: 10px;
   margin-bottom: -40px;
   color: lighten($color-disabled, 5%);
-  font-size: 12px;
-}
-
-.tiny {
   font-size: 10px;
 }
 
@@ -174,23 +134,9 @@ body {
   max-width: $btn-min-width - 5px;
 }
 
-// Fix slighly checkbox vertical alignment issue
-.checkbox input[type="checkbox"] {
-  position: initial;
-  margin-right: 2px;
-}
-
-.checkbox input[type="checkbox"]:not(:checked) + * {
-  color: $gray-light;
-}
-
 .wrapper {
   height: 100%;
   margin: 20px 60px;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  margin-top: 0;
 }
 
 .section-header {

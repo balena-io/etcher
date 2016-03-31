@@ -14,46 +14,23 @@
  * limitations under the License.
  */
 
-/* Prevent text selection */
-body {
-  -webkit-user-select: none;
+.tick {
+  @extend .glyphicon;
+
+  display: inline-block;
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 18px;
 }
 
+.tick--success {
+  @extend .glyphicon-ok;
 
-/* Allow window to be dragged from anywhere */
-* {
-  -webkit-app-region: drag;
+  background-color: rgb(95, 184, 53);
 }
 
-button,
-a,
-input {
-  -webkit-app-region: no-drag;
-}
+.tick--error {
+  @extend .glyphicon-remove;
 
-/* Prevent WebView bounce effect in OS X */
-html,
-body {
-  height: 100%;
-  width: 100%;
-}
-
-html {
-  overflow: hidden;
-}
-
-body {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Prevent blue outline */
-input:focus,
-button:focus {
-  outline: none !important;
-}
-
-/* Titles don't have margins on desktop apps */
-h1, h2, h3, h4, h5, h6 {
-  margin: 0;
+  background-color: #d9534f;
 }

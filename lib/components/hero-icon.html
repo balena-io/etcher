@@ -1,10 +1,10 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="hero-caption.html">
 
 <dom-module id="hero-icon">
   <template>
     <style>
-      :host ::content div {
+      :host ::content .caption {
+        display: block;
         margin-top: 10px;
       }
 
@@ -15,7 +15,7 @@
     <div class="icon"></div>
 
     <template is="dom-if" if="{{label}}">
-      <hero-caption>{{label}}</hero-caption>
+      <span class="caption">{{label}}</span>
     </template>
   </template>
 

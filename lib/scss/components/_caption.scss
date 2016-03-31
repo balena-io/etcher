@@ -14,46 +14,9 @@
  * limitations under the License.
  */
 
-/* Prevent text selection */
-body {
-  -webkit-user-select: none;
-}
-
-
-/* Allow window to be dragged from anywhere */
-* {
-  -webkit-app-region: drag;
-}
-
-button,
-a,
-input {
-  -webkit-app-region: no-drag;
-}
-
-/* Prevent WebView bounce effect in OS X */
-html,
-body {
-  height: 100%;
-  width: 100%;
-}
-
-html {
-  overflow: hidden;
-}
-
-body {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Prevent blue outline */
-input:focus,
-button:focus {
-  outline: none !important;
-}
-
-/* Titles don't have margins on desktop apps */
-h1, h2, h3, h4, h5, h6 {
-  margin: 0;
+.caption {
+  font-weight: bold;
+  font-size: 11px;
+  margin-bottom: 0;
+  text-transform: uppercase;
 }

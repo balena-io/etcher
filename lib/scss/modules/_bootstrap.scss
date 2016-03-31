@@ -14,46 +14,20 @@
  * limitations under the License.
  */
 
-/* Prevent text selection */
-body {
-  -webkit-user-select: none;
-}
+// This file is meant to hold Bootstrap modifications
+// that don't qualify as separate UI components.
 
-
-/* Allow window to be dragged from anywhere */
-* {
-  -webkit-app-region: drag;
-}
-
-button,
-a,
-input {
-  -webkit-app-region: no-drag;
-}
-
-/* Prevent WebView bounce effect in OS X */
-html,
-body {
-  height: 100%;
-  width: 100%;
-}
-
+// Prevent white flash when running application
 html {
-  overflow: hidden;
+  background-color: $body-bg;
 }
 
-body {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
+// Fix slighly checkbox vertical alignment issue
+.checkbox input[type="checkbox"] {
+  position: initial;
+  margin-right: 2px;
 }
 
-/* Prevent blue outline */
-input:focus,
-button:focus {
-  outline: none !important;
-}
-
-/* Titles don't have margins on desktop apps */
-h1, h2, h3, h4, h5, h6 {
-  margin: 0;
+.checkbox input[type="checkbox"]:not(:checked) + * {
+  color: $gray-light;
 }

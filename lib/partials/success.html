@@ -1,7 +1,7 @@
 <div class="row around-xs">
   <div class="col-xs">
     <div class="box text-center">
-      <h3><hero-tick type="success" class="space-right-tiny"></hero-tick> Burn Complete!</h3>
+      <h3><span class="tick tick--success" class="space-right-tiny"></span> Burn Complete!</h3>
       <p class="soft"
         ng-controller="SettingsController as settings"
         ng-show="settings.storage.unmountOnSuccess">Safely ejected and ready for use</p>
@@ -11,9 +11,9 @@
           <div class="box">
             <p class="soft button-label">Would you like to burn the same image?</p>
 
-            <hero-button ng-click="finish.restart({ preserveImage: true })">
+            <button class="btn btn-primary" ng-click="finish.restart({ preserveImage: true })">
               Use <b>same</b> image
-            </hero-button>
+            </button>
           </div>
         </div>
 
@@ -23,9 +23,9 @@
           <div class="box">
             <p class="soft button-label">Would you like to burn a new image?</p>
 
-            <hero-button ng-click="finish.restart()">
+            <button class="btn btn-primary" ng-click="finish.restart()">
               Use <b>new</b> image
-            </hero-button>
+            </button>
           </div>
         </div>
       </div>
