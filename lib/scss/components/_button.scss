@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-button.btn {
+.btn {
   padding: 10px;
   padding-top: 11px;
 
@@ -37,8 +37,13 @@ button.btn {
   }
 }
 
-.btn:not(.btn-link) {
+.btn-brick {
   min-width: $btn-min-width;
+}
+
+.btn-sm {
+  font-size: 10px;
+  padding: 4px 12px;
 }
 
 .btn > .glyphicon {
