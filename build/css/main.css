@@ -6026,7 +6026,7 @@ button.btn, button.progress-button {
     button.btn[disabled]:hover, button[disabled].progress-button:hover {
       background-color: #36383e; }
 
-.btn:not(.btn-link), .progress-button:not(.btn-link) {
+.btn-brick {
   min-width: 170px; }
 
 .btn > .glyphicon, .progress-button > .glyphicon, .btn > .tick, .progress-button > .tick {

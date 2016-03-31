@@ -6,7 +6,7 @@
 
       <div class="space-vertical-large">
         <div ng-hide="app.selection.hasImage()">
-          <button class="btn btn-primary" ng-click="app.selectImage()">Select image</button>
+          <button class="btn btn-primary btn-brick" ng-click="app.selectImage()">Select image</button>
           <p class="step-footer">*supported files: .img, .iso, .zip</p>
         </div>
         <div ng-show="app.selection.hasImage()">
@@ -30,7 +30,7 @@
 
           <div ng-show="app.scanner.hasAvailableDrives() || !app.selection.hasImage()">
             <div class="btn-group" uib-dropdown>
-              <button class="btn btn-primary"
+              <button class="btn btn-primary btn-brick"
                 ng-disabled="!app.selection.hasImage()"
                 uib-dropdown-toggle>Select drive</button>
 
@@ -43,7 +43,7 @@
           </div>
 
           <div ng-hide="app.scanner.hasAvailableDrives() || !app.selection.hasImage()">
-            <button class="btn btn-danger">Connect a drive</button>
+            <button class="btn btn-danger btn-brick">Connect a drive</button>
           </div>
 
         </div>
@@ -58,7 +58,7 @@
       <span class="badge space-top-medium" ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">3</span>
 
       <div class="space-vertical-large">
-        <progress-button percentage="app.writer.state.progress" ng-attr-active="{{ app.writer.isBurning() }}"
+        <progress-button class="btn-brick" percentage="app.writer.state.progress" ng-attr-active="{{ app.writer.isBurning() }}"
           ng-click="app.burn(app.selection.getImage(), app.selection.getDrive())"
           ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">
             <span ng-show="app.writer.state.progress == 100 && app.writer.isBurning()">Finishing...</span>
