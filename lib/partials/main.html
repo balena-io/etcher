@@ -29,17 +29,9 @@
         <div ng-hide="app.selection.hasDrive()">
 
           <div ng-show="app.scanner.hasAvailableDrives() || !app.selection.hasImage()">
-            <div class="btn-group" uib-dropdown>
-              <button class="btn btn-primary btn-brick"
-                ng-disabled="!app.selection.hasImage()"
-                uib-dropdown-toggle>Select drive</button>
-
-              <ul class="dropdown-menu">
-                <li ng-repeat="drive in app.scanner.drives">
-                  <a href="#" ng-click="app.selectDrive(drive)" ng-bind="drive.name + ' - ' + drive.size"></a>
-                </li>
-              </ul>
-            </div>
+            <button class="btn btn-primary btn-brick"
+              ng-disabled="!app.selection.hasImage()"
+              ng-click="app.openDriveSelector()">Select drive</button>
           </div>
 
           <div ng-hide="app.scanner.hasAvailableDrives() || !app.selection.hasImage()">

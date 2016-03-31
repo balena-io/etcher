@@ -19,18 +19,28 @@
 
   display: inline-block;
   border-radius: 50%;
-  padding: 5px;
+  padding: 3px;
   font-size: 18px;
+  color: white;
+  border: 2px solid;
+
+  &[disabled] {
+    color: lighten($color-disabled, 40);
+    border-color: lighten($color-disabled, 40);
+    background-color: transparent;
+  }
 }
 
 .tick--success {
   @extend .glyphicon-ok;
 
   background-color: rgb(95, 184, 53);
+  border-color: rgb(95, 184, 53);
 }
 
 .tick--error {
   @extend .glyphicon-remove;
 
   background-color: #d9534f;
+  border-color: #d9534f;
 }

@@ -2846,7 +2846,7 @@ select[multiple].input-lg,
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px; }
   .btn:hover, .progress-button:hover, .btn:focus, .progress-button:focus, .btn.focus, .focus.progress-button {
-    color: #9a9a9a;
+    color: #b3b3b3;
     text-decoration: none; }
   .btn:active, .progress-button:active, .btn.active, .active.progress-button {
     outline: 0;
@@ -2868,28 +2868,28 @@ fieldset[disabled] a.progress-button {
   pointer-events: none; }
 
 .btn-default {
-  color: #9a9a9a;
-  background-color: #f3f3f3;
+  color: #b3b3b3;
+  background-color: #ececec;
   border-color: #ccc; }
   .btn-default:focus, .btn-default.focus {
-    color: #9a9a9a;
-    background-color: #dadada;
+    color: #b3b3b3;
+    background-color: lightgray;
     border-color: #8c8c8c; }
   .btn-default:hover {
-    color: #9a9a9a;
-    background-color: #dadada;
+    color: #b3b3b3;
+    background-color: lightgray;
     border-color: #adadad; }
   .btn-default:active, .btn-default.active,
   .open > .btn-default.dropdown-toggle {
-    color: #9a9a9a;
-    background-color: #dadada;
+    color: #b3b3b3;
+    background-color: lightgray;
     border-color: #adadad; }
     .btn-default:active:hover, .btn-default:active:focus, .btn-default:active.focus, .btn-default.active:hover, .btn-default.active:focus, .btn-default.active.focus,
     .open > .btn-default.dropdown-toggle:hover,
     .open > .btn-default.dropdown-toggle:focus,
     .open > .btn-default.dropdown-toggle.focus {
-      color: #9a9a9a;
-      background-color: #c8c8c8;
+      color: #b3b3b3;
+      background-color: #c1c1c1;
       border-color: #8c8c8c; }
   .btn-default:active, .btn-default.active,
   .open > .btn-default.dropdown-toggle {
@@ -2898,11 +2898,11 @@ fieldset[disabled] a.progress-button {
   fieldset[disabled] .btn-default:hover,
   fieldset[disabled] .btn-default:focus,
   fieldset[disabled] .btn-default.focus {
-    background-color: #f3f3f3;
+    background-color: #ececec;
     border-color: #ccc; }
   .btn-default .badge {
-    color: #f3f3f3;
-    background-color: #9a9a9a; }
+    color: #ececec;
+    background-color: #b3b3b3; }
 
 .btn-primary, .progress-button--primary {
   color: #fff;
@@ -5912,6 +5912,9 @@ html {
 .checkbox input[type="checkbox"]:not(:checked) + * {
   color: #ddd; }
 
+.modal-backdrop.in {
+  opacity: 0; }
+
 /*
  * Copyright 2016 Resin.io
  *
@@ -6063,14 +6066,22 @@ button.btn:focus, button.progress-button:focus {
 .tick {
   display: inline-block;
   border-radius: 50%;
-  padding: 5px;
-  font-size: 18px; }
+  padding: 3px;
+  font-size: 18px;
+  color: white;
+  border: 2px solid; }
+  .tick[disabled] {
+    color: #e1e2e2;
+    border-color: #e1e2e2;
+    background-color: transparent; }
 
 .tick--success {
-  background-color: #5fb835; }
+  background-color: #5fb835;
+  border-color: #5fb835; }
 
 .tick--error {
-  background-color: #d9534f; }
+  background-color: #d9534f;
+  border-color: #d9534f; }
 
 /*
  * Copyright 2016 Resin.io
@@ -6112,6 +6123,69 @@ button.btn:focus, button.progress-button:focus {
   height: 100%;
   transition: width 0.3s, opacity 0.3s; }
 
+/*
+ * Copyright 2016 Resin.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.modal-header {
+  display: flex;
+  align-items: baseline;
+  text-transform: uppercase;
+  font-size: 11px; }
+
+.modal-title {
+  font-size: inherit;
+  flex-grow: 1; }
+
+.modal-header {
+  color: #b3b3b3;
+  padding: 11px 10px 9px 20px; }
+
+.modal-body {
+  color: #666;
+  padding: 0 20px;
+  max-height: 250px;
+  overflow: auto; }
+
+.modal-content {
+  height: 320px; }
+
+.modal-body .list-group-item {
+  display: flex;
+  align-items: center;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  border-color: #eee;
+  padding: 12px 0; }
+  .modal-body .list-group-item > .tick {
+    font-size: 11px; }
+
+.modal-body .list-group-item-heading {
+  font-size: 13px; }
+
+.modal-body .list-group-item-text {
+  line-height: 1;
+  font-size: 11px;
+  color: #aaa; }
+
+.modal-body .list-group-item :first-child {
+  flex-grow: 1; }
+
+.modal-body .list-group-item:first-child {
+  border-top: none; }
+
 hero-icon[disabled] .caption {
   color: #787c7f; }
 
@@ -6120,9 +6194,6 @@ hero-icon[disabled] path {
 
 .block {
   display: block; }
-
-.dropdown-menu {
-  width: 170px; }
 
 body {
   letter-spacing: 1px; }
