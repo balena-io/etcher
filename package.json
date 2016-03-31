@@ -73,8 +73,8 @@
     "removedrive": "^1.0.0"
   },
   "dependencies": {
-    "angular": "^1.4.6",
-    "angular-ui-bootstrap": "^1.2.1",
+    "angular": "^1.5.3",
+    "angular-ui-bootstrap": "^1.2.5",
     "angular-ui-router": "^0.2.18",
     "bluebird": "^3.0.5",
     "bootstrap-sass": "^3.3.5",

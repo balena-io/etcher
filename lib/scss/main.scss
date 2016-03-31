@@ -26,8 +26,8 @@ $btn-disabled: rgb(49, 51, 57);
 $btn-min-width: 170px;
 $link-color: $gray-light;
 $link-hover-decoration: none;
-$btn-default-bg: rgb(243, 243, 243);
-$btn-default-color: #9a9a9a;
+$btn-default-bg: #ececec;
+$btn-default-color: #b3b3b3;
 
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
@@ -38,6 +38,7 @@ $btn-default-color: #9a9a9a;
 @import "./components/button";
 @import "./components/tick";
 @import "./components/progress-button";
+@import "./components/modal";
 
 hero-icon[disabled] .caption {
   color: $color-disabled;
@@ -49,10 +50,6 @@ hero-icon[disabled]  path {
 
 .block {
   display: block;
-}
-
-.dropdown-menu {
-  width: 170px;
 }
 
 body {
