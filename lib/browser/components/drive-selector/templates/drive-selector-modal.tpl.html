@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <h4 class="modal-title">SELECT A DRIVE</h4>
+  <button class="btn btn-default btn-sm" ng-click="modal.closeModal()">CLOSE</button>
+</div>
+
+<div class="modal-body">
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="drive in modal.scanner.drives"
+      ng-click="modal.state.toggleSelectDrive(drive)">
+        <div>
+          <h4 class="list-group-item-heading">{{ drive.description }} - {{ drive.size }}</h4>
+          <p class="list-group-item-text">{{ drive.device }}</p>
+        </div>
+        <span class="tick tick--success" ng-disabled="!modal.state.isSelectedDrive(drive)"></span>
+    </li>
+  </ul>
+</div>
