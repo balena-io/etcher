@@ -21,7 +21,7 @@
   </head>
   <body ng-app="Etcher" style="display: none">
     <header class="section-header" ng-controller="NavigationController as navigation">
-      <button class="btn btn-link" ng-click="navigation.open('https://github.com/resin-io/etcher/blob/master/SUPPORT.md')">
+      <button class="btn btn-link" open-external="https://github.com/resin-io/etcher/blob/master/SUPPORT.md">
         <span class="glyphicon glyphicon-question-sign"></span> Need Help?
       </button>
 
@@ -39,13 +39,13 @@
     <footer class="section-footer row between-xs middle-xs" ng-controller="NavigationController as navigation">
       <div class="col-xs">
         <div class="box text-left">
-          <hero-icon path="images/resin.svg" width="85px" height="auto" ng-click="navigation.open('https://resin.io')"></hero-icon>
+          <hero-icon path="images/resin.svg" width="85px" height="auto" open-external="https://resin.io"></hero-icon>
         </div>
       </div>
 
       <div class="col-xs">
         <div class="box text-right">
-          <p class="caption"><span ng-click="navigation.open('https://github.com/resin-io/etcher')">AN OPEN SOURCE PROJECT</span> BY <span ng-click="navigation.open('https://resin.io')">RESIN.IO</span></p>
+          <p class="caption"><span open-external="https://github.com/resin-io/etcher">AN OPEN SOURCE PROJECT</span> BY <span open-external="https://resin.io">RESIN.IO</span></p>
         </div>
       </div>
     </footer>
