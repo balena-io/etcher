@@ -1,4 +1,7 @@
-<button class="progress-button progress-button--primary">
-  <span class="progress-button__content" ng-transclude></span>
-  <span class="progress-button__bar" ng-style="{ width: percentage + '%' }"></span>
+<button class="progress-button progress-button--primary"
+  ng-class="{
+    'progress-button--striped': striped && striped != 'false'
+  }">
+    <span class="progress-button__content" ng-transclude></span>
+    <span class="progress-button__bar" ng-style="{ width: percentage + '%' }"></span>
 </button>
