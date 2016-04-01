@@ -20,23 +20,23 @@
     <script src="./browser/app.js"></script>
   </head>
   <body ng-app="Etcher" style="display: none">
-    <header class="section-header" ng-controller="NavigationController as navigation">
+    <header class="section-header">
       <button class="btn btn-link" open-external="https://github.com/resin-io/etcher/blob/master/SUPPORT.md">
         <span class="glyphicon glyphicon-question-sign"></span> Need Help?
       </button>
 
-      <button class="btn btn-link" ui-sref="settings" ng-hide="navigation.isState('settings')">
+      <button class="btn btn-link" ui-sref="settings" hide-if-state="settings">
         <span class="glyphicon glyphicon-cog"></span>
       </button>
 
-      <button class="btn btn-link" ui-sref="main" ng-show="navigation.isState('settings')">
+      <button class="btn btn-link" ui-sref="main" show-if-state="settings">
         <span class="glyphicon glyphicon-chevron-left"></span> Back
       </button>
     </header>
 
     <main class="wrapper" ui-view></main>
 
-    <footer class="section-footer row between-xs middle-xs" ng-controller="NavigationController as navigation">
+    <footer class="section-footer row between-xs middle-xs">
       <div class="col-xs">
         <div class="box text-left">
           <hero-icon path="images/resin.svg" width="85px" height="auto" open-external="https://resin.io"></hero-icon>
