@@ -6143,6 +6143,13 @@ button.btn:focus, button.progress-button:focus {
  * This is useful to determine if the progress bar is paused from the point of view
  * of the styling.
  *
+ * You can optionally pass the `.progress-button--striped` modified to get a striped
+ * progress bar.
+ *
+ * The stripe implementation idea was taken from:
+ *
+ *   https://css-tricks.com/css3-progress-bars/
+ *
  * Usage:
  *
  * <button class="progress-button progress-button--primary" percentage="50" active="true">
@@ -6152,6 +6159,9 @@ button.btn:focus, button.progress-button:focus {
  */
 .progress-button--primary .progress-button__bar {
   background: #6ca1e0; }
+
+.progress-button--primary.progress-button--striped .progress-button__bar:after {
+  background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #3b679b), color-stop(0.25, #5c93d6), color-stop(0.5, #5c93d6), color-stop(0.5, #3b679b), color-stop(0.75, #3b679b), color-stop(0.75, #5c93d6), to(#5c93d6)); }
 
 .progress-button[percentage="100"][active="false"] .progress-button__bar {
   background-color: #5cb85c; }
@@ -6172,7 +6182,24 @@ button.btn:focus, button.progress-button:focus {
   top: 0;
   width: 0;
   height: 100%;
-  transition: width 0.3s, opacity 0.3s; }
+  transition: width 0.3s; }
+
+.progress-button--striped .progress-button__bar:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-size: 20px 20px;
+  animation: progress-button-stripes 1s linear infinite;
+  overflow: hidden; }
+
+@keyframes progress-button-stripes {
+  0% {
+    background-position: 0 0; }
+  100% {
+    background-position: 20px 20px; } }
 
 /*
  * Copyright 2016 Resin.io
