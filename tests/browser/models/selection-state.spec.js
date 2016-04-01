@@ -3,43 +3,43 @@
 const m = require('mochainon');
 const angular = require('angular');
 require('angular-mocks');
-require('../../../lib/browser/modules/selection-state');
+require('../../../lib/browser/models/selection-state');
 
 describe('Browser: SelectionState', function() {
 
-  beforeEach(angular.mock.module('Etcher.selection-state'));
+  beforeEach(angular.mock.module('Etcher.Models.SelectionState'));
 
-  describe('SelectionStateService', function() {
+  describe('SelectionStateModel', function() {
 
-    let SelectionStateService;
+    let SelectionStateModel;
 
-    beforeEach(angular.mock.inject(function(_SelectionStateService_) {
-      SelectionStateService = _SelectionStateService_;
+    beforeEach(angular.mock.inject(function(_SelectionStateModel_) {
+      SelectionStateModel = _SelectionStateModel_;
     }));
 
     describe('given a clean state', function() {
 
       beforeEach(function() {
-        SelectionStateService.clear();
+        SelectionStateModel.clear();
       });
 
       it('getDrive() should return undefined', function() {
-        const drive = SelectionStateService.getDrive();
+        const drive = SelectionStateModel.getDrive();
         m.chai.expect(drive).to.be.undefined;
       });
 
       it('getImage() should return undefined', function() {
-        const image = SelectionStateService.getImage();
+        const image = SelectionStateModel.getImage();
         m.chai.expect(image).to.be.undefined;
       });
 
       it('hasDrive() should return false', function() {
-        const hasDrive = SelectionStateService.hasDrive();
+        const hasDrive = SelectionStateModel.hasDrive();
         m.chai.expect(hasDrive).to.be.false;
       });
 
       it('hasImage() should return false', function() {
-        const hasImage = SelectionStateService.hasImage();
+        const hasImage = SelectionStateModel.hasImage();
         m.chai.expect(hasImage).to.be.false;
       });
 
@@ -48,13 +48,13 @@ describe('Browser: SelectionState', function() {
     describe('given a drive', function() {
 
       beforeEach(function() {
-        SelectionStateService.setDrive('/dev/disk2');
+        SelectionStateModel.setDrive('/dev/disk2');
       });
 
       describe('.getDrive()', function() {
 
         it('should return the drive', function() {
-          const drive = SelectionStateService.getDrive();
+          const drive = SelectionStateModel.getDrive();
           m.chai.expect(drive).to.equal('/dev/disk2');
         });
 
@@ -63,7 +63,7 @@ describe('Browser: SelectionState', function() {
       describe('.hasDrive()', function() {
 
         it('should return true', function() {
-          const hasDrive = SelectionStateService.hasDrive();
+          const hasDrive = SelectionStateModel.hasDrive();
           m.chai.expect(hasDrive).to.be.true;
         });
 
@@ -72,8 +72,8 @@ describe('Browser: SelectionState', function() {
       describe('.setDrive()', function() {
 
         it('should override the drive', function() {
-          SelectionStateService.setDrive('/dev/disk5');
-          const drive = SelectionStateService.getDrive();
+          SelectionStateModel.setDrive('/dev/disk5');
+          const drive = SelectionStateModel.getDrive();
           m.chai.expect(drive).to.equal('/dev/disk5');
         });
 
@@ -82,8 +82,8 @@ describe('Browser: SelectionState', function() {
       describe('.removeDrive()', function() {
 
         it('should clear the drive', function() {
-          SelectionStateService.removeDrive();
-          const drive = SelectionStateService.getDrive();
+          SelectionStateModel.removeDrive();
+          const drive = SelectionStateModel.getDrive();
           m.chai.expect(drive).to.be.undefined;
         });
 
@@ -96,8 +96,8 @@ describe('Browser: SelectionState', function() {
       describe('.setDrive()', function() {
 
         it('should be able to set a drive', function() {
-          SelectionStateService.setDrive('/dev/disk5');
-          const drive = SelectionStateService.getDrive();
+          SelectionStateModel.setDrive('/dev/disk5');
+          const drive = SelectionStateModel.getDrive();
           m.chai.expect(drive).to.equal('/dev/disk5');
         });
 
@@ -108,13 +108,13 @@ describe('Browser: SelectionState', function() {
     describe('given an image', function() {
 
       beforeEach(function() {
-        SelectionStateService.setImage('foo.img');
+        SelectionStateModel.setImage('foo.img');
       });
 
       describe('.getImage()', function() {
 
         it('should return the image', function() {
-          const image = SelectionStateService.getImage();
+          const image = SelectionStateModel.getImage();
           m.chai.expect(image).to.equal('foo.img');
         });
 
@@ -123,7 +123,7 @@ describe('Browser: SelectionState', function() {
       describe('.hasImage()', function() {
 
         it('should return true', function() {
-          const hasImage = SelectionStateService.hasImage();
+          const hasImage = SelectionStateModel.hasImage();
           m.chai.expect(hasImage).to.be.true;
         });
 
@@ -132,8 +132,8 @@ describe('Browser: SelectionState', function() {
       describe('.setImage()', function() {
 
         it('should override the image', function() {
-          SelectionStateService.setImage('bar.img');
-          const image = SelectionStateService.getImage();
+          SelectionStateModel.setImage('bar.img');
+          const image = SelectionStateModel.getImage();
           m.chai.expect(image).to.equal('bar.img');
         });
 
@@ -142,8 +142,8 @@ describe('Browser: SelectionState', function() {
       describe('.removeImage()', function() {
 
         it('should clear the image', function() {
-          SelectionStateService.removeImage();
-          const image = SelectionStateService.getImage();
+          SelectionStateModel.removeImage();
+          const image = SelectionStateModel.getImage();
           m.chai.expect(image).to.be.undefined;
         });
 
@@ -156,8 +156,8 @@ describe('Browser: SelectionState', function() {
       describe('.setImage()', function() {
 
         it('should be able to set an image', function() {
-          SelectionStateService.setImage('foo.img');
-          const image = SelectionStateService.getImage();
+          SelectionStateModel.setImage('foo.img');
+          const image = SelectionStateModel.getImage();
           m.chai.expect(image).to.equal('foo.img');
         });
 
@@ -168,20 +168,20 @@ describe('Browser: SelectionState', function() {
     describe('given a drive', function() {
 
       beforeEach(function() {
-        SelectionStateService.setDrive('/dev/disk2');
-        SelectionStateService.setImage('foo.img');
+        SelectionStateModel.setDrive('/dev/disk2');
+        SelectionStateModel.setImage('foo.img');
       });
 
       describe('.clear()', function() {
 
         it('should clear all selections', function() {
-          m.chai.expect(SelectionStateService.hasDrive()).to.be.true;
-          m.chai.expect(SelectionStateService.hasImage()).to.be.true;
+          m.chai.expect(SelectionStateModel.hasDrive()).to.be.true;
+          m.chai.expect(SelectionStateModel.hasImage()).to.be.true;
 
-          SelectionStateService.clear();
+          SelectionStateModel.clear();
 
-          m.chai.expect(SelectionStateService.hasDrive()).to.be.false;
-          m.chai.expect(SelectionStateService.hasImage()).to.be.false;
+          m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+          m.chai.expect(SelectionStateModel.hasImage()).to.be.false;
         });
 
       });
@@ -189,28 +189,28 @@ describe('Browser: SelectionState', function() {
       describe('given the preserveImage option', function() {
 
         beforeEach(function() {
-          SelectionStateService.clear({
+          SelectionStateModel.clear({
             preserveImage: true
           });
         });
 
         it('getDrive() should return undefined', function() {
-          const drive = SelectionStateService.getDrive();
+          const drive = SelectionStateModel.getDrive();
           m.chai.expect(drive).to.be.undefined;
         });
 
         it('getImage() should return the image', function() {
-          const image = SelectionStateService.getImage();
+          const image = SelectionStateModel.getImage();
           m.chai.expect(image).to.equal('foo.img');
         });
 
         it('hasDrive() should return false', function() {
-          const hasDrive = SelectionStateService.hasDrive();
+          const hasDrive = SelectionStateModel.hasDrive();
           m.chai.expect(hasDrive).to.be.false;
         });
 
         it('hasImage() should return true', function() {
-          const hasImage = SelectionStateService.hasImage();
+          const hasImage = SelectionStateModel.hasImage();
           m.chai.expect(hasImage).to.be.true;
         });
 
