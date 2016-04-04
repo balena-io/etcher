@@ -6040,6 +6040,36 @@ html {
   top: 2px;
   margin-right: 2px; }
 
+.btn-default:focus {
+  background-color: #ececec;
+  color: #b3b3b3;
+  border-color: #ccc; }
+
+.btn-primary:focus, .progress-button--primary:focus {
+  background-color: #5793db;
+  color: #fff;
+  border-color: #4286d7; }
+
+.btn-success:focus {
+  background-color: #5cb85c;
+  color: #fff;
+  border-color: #4cae4c; }
+
+.btn-info:focus {
+  background-color: #5bc0de;
+  color: #fff;
+  border-color: #46b8da; }
+
+.btn-warning:focus {
+  background-color: #f0ad4e;
+  color: #fff;
+  border-color: #eea236; }
+
+.btn-danger:focus {
+  background-color: #d9534f;
+  color: #fff;
+  border-color: #d43f3a; }
+
 /*
  * Remove blue/orange outline
  * !important is needed here for some reason
