@@ -29,6 +29,13 @@
  * This is useful to determine if the progress bar is paused from the point of view
  * of the styling.
  *
+ * You can optionally pass the `.progress-button--striped` modified to get a striped
+ * progress bar.
+ *
+ * The stripe implementation idea was taken from:
+ *
+ *   https://css-tricks.com/css3-progress-bars/
+ *
  * Usage:
  *
  * <button class="progress-button progress-button--primary" percentage="50" active="true">
@@ -36,6 +43,9 @@
  *   <span class="progress-button__bar" style="width: 50%;"></span>
  * </button>
  */
+
+$progress-button-stripes-width: 20px;
+$progress-button-stripes-animation-duration: 1s;
 
 .progress-button {
   @extend .btn;
@@ -46,6 +56,20 @@
 
   .progress-button__bar {
     background: lighten($brand-primary, 5);
+  }
+
+  $progress-button-stripes-background-color: desaturate($brand-primary, 5%);
+  $progress-button-stripes-color: desaturate(darken($brand-primary, 18%), 20%);
+
+  &.progress-button--striped .progress-button__bar:after {
+    background-image: -webkit-gradient(linear, 0 0, 100% 100%,
+      color-stop(0.25, $progress-button-stripes-color),
+      color-stop(0.25, $progress-button-stripes-background-color),
+      color-stop(0.50, $progress-button-stripes-background-color),
+      color-stop(0.50, $progress-button-stripes-color),
+      color-stop(0.75, $progress-button-stripes-color),
+      color-stop(0.75, $progress-button-stripes-background-color),
+      to($progress-button-stripes-background-color));
   }
 }
 
@@ -77,6 +101,32 @@
   height: 100%;
 
   // Subtle progress bar animation
-  transition: width 0.3s, opacity 0.3s;
+  transition: width 0.3s;
+
+}
+
+.progress-button--striped .progress-button__bar:after {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  background-size: $progress-button-stripes-width $progress-button-stripes-width;
+  animation: progress-button-stripes $progress-button-stripes-animation-duration linear infinite;
+  overflow: hidden;
+}
+
+@keyframes progress-button-stripes {
+
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: $progress-button-stripes-width $progress-button-stripes-width;
+  }
 
 }

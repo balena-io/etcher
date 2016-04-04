@@ -1254,7 +1254,7 @@ mark,
 .text-right, .section-header {
   text-align: right; }
 
-.text-center {
+.text-center, .alert, .alert-ribbon {
   text-align: center; }
 
 .text-justify {
@@ -3025,28 +3025,28 @@ fieldset[disabled] a.progress-button {
 
 .btn-warning {
   color: #fff;
-  background-color: #f0ad4e;
-  border-color: #eea236; }
+  background-color: #e99852;
+  border-color: #e68b3b; }
   .btn-warning:focus, .btn-warning.focus {
     color: #fff;
-    background-color: #ec971f;
-    border-color: #985f0d; }
+    background-color: #e37d25;
+    border-color: #904c12; }
   .btn-warning:hover {
     color: #fff;
-    background-color: #ec971f;
-    border-color: #d58512; }
+    background-color: #e37d25;
+    border-color: #cb6c1a; }
   .btn-warning:active, .btn-warning.active,
   .open > .btn-warning.dropdown-toggle {
     color: #fff;
-    background-color: #ec971f;
-    border-color: #d58512; }
+    background-color: #e37d25;
+    border-color: #cb6c1a; }
     .btn-warning:active:hover, .btn-warning:active:focus, .btn-warning:active.focus, .btn-warning.active:hover, .btn-warning.active:focus, .btn-warning.active.focus,
     .open > .btn-warning.dropdown-toggle:hover,
     .open > .btn-warning.dropdown-toggle:focus,
     .open > .btn-warning.dropdown-toggle.focus {
       color: #fff;
-      background-color: #d58512;
-      border-color: #985f0d; }
+      background-color: #cb6c1a;
+      border-color: #904c12; }
   .btn-warning:active, .btn-warning.active,
   .open > .btn-warning.dropdown-toggle {
     background-image: none; }
@@ -3054,10 +3054,10 @@ fieldset[disabled] a.progress-button {
   fieldset[disabled] .btn-warning:hover,
   fieldset[disabled] .btn-warning:focus,
   fieldset[disabled] .btn-warning.focus {
-    background-color: #f0ad4e;
-    border-color: #eea236; }
+    background-color: #e99852;
+    border-color: #e68b3b; }
   .btn-warning .badge {
-    color: #f0ad4e;
+    color: #e99852;
     background-color: #fff; }
 
 .btn-danger {
@@ -3124,7 +3124,7 @@ fieldset[disabled] a.progress-button {
   line-height: 1.33333;
   border-radius: 6px; }
 
-.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .progress-button {
+.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .progress-button, .alert-ribbon .btn-link {
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
@@ -3979,7 +3979,7 @@ tbody.collapse.in {
 .navbar-btn {
   margin-top: 9px;
   margin-bottom: 9px; }
-  .navbar-btn.btn-sm, .btn-group-sm > .navbar-btn.btn, .btn-group-sm > .navbar-btn.progress-button {
+  .navbar-btn.btn-sm, .btn-group-sm > .navbar-btn.btn, .btn-group-sm > .navbar-btn.progress-button, .alert-ribbon .navbar-btn.btn-link {
     margin-top: 10px;
     margin-bottom: 10px; }
   .navbar-btn.btn-xs, .btn-group-xs > .navbar-btn.btn, .btn-group-xs > .navbar-btn.progress-button {
@@ -4305,9 +4305,9 @@ a.label:hover, a.label:focus {
     background-color: #31b0d5; }
 
 .label-warning {
-  background-color: #f0ad4e; }
+  background-color: #e99852; }
   .label-warning[href]:hover, .label-warning[href]:focus {
-    background-color: #ec971f; }
+    background-color: #e37d25; }
 
 .label-danger {
   background-color: #d9534f; }
@@ -4414,25 +4414,25 @@ a.thumbnail:focus,
 a.thumbnail.active {
   border-color: #ddd; }
 
-.alert {
-  padding: 15px;
+.alert, .alert-ribbon {
+  padding: 13px;
   margin-bottom: 18px;
   border: 1px solid transparent;
   border-radius: 4px; }
-  .alert h4 {
+  .alert h4, .alert-ribbon h4 {
     margin-top: 0;
     color: inherit; }
-  .alert .alert-link {
+  .alert .alert-link, .alert-ribbon .alert-link {
     font-weight: bold; }
-  .alert > p,
-  .alert > ul {
+  .alert > p, .alert-ribbon > p,
+  .alert > ul, .alert-ribbon > ul {
     margin-bottom: 0; }
-  .alert > p + p {
+  .alert > p + p, .alert-ribbon > p + p {
     margin-top: 5px; }
 
 .alert-dismissable,
 .alert-dismissible {
-  padding-right: 35px; }
+  padding-right: 33px; }
   .alert-dismissable .close,
   .alert-dismissible .close {
     position: relative;
@@ -4459,13 +4459,13 @@ a.thumbnail.active {
     color: #245269; }
 
 .alert-warning {
-  background-color: #fcf8e3;
+  background-color: #e99852;
   border-color: #faebcc;
-  color: #8a6d3b; }
+  color: #fff; }
   .alert-warning hr {
     border-top-color: #f7e1b5; }
   .alert-warning .alert-link {
-    color: #66512c; }
+    color: #e6e6e6; }
 
 .alert-danger {
   background-color: #f2dede;
@@ -4540,7 +4540,7 @@ a.thumbnail.active {
     background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); }
 
 .progress-bar-warning {
-  background-color: #f0ad4e; }
+  background-color: #e99852; }
   .progress-striped .progress-bar-warning {
     background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
     background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
@@ -5915,6 +5915,10 @@ html {
 .modal-backdrop.in {
   opacity: 0; }
 
+.alert, .alert-ribbon {
+  border: none;
+  border-radius: 2px; }
+
 /*
  * Copyright 2016 Resin.io
  *
@@ -6032,7 +6036,7 @@ html {
 .btn-brick {
   min-width: 170px; }
 
-.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .progress-button {
+.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .progress-button, .alert-ribbon .btn-link {
   font-size: 10px;
   padding: 4px 12px; }
 
@@ -6113,6 +6117,13 @@ button.btn:focus, button.progress-button:focus {
  * This is useful to determine if the progress bar is paused from the point of view
  * of the styling.
  *
+ * You can optionally pass the `.progress-button--striped` modified to get a striped
+ * progress bar.
+ *
+ * The stripe implementation idea was taken from:
+ *
+ *   https://css-tricks.com/css3-progress-bars/
+ *
  * Usage:
  *
  * <button class="progress-button progress-button--primary" percentage="50" active="true">
@@ -6123,11 +6134,14 @@ button.btn:focus, button.progress-button:focus {
 .progress-button--primary .progress-button__bar {
   background: #6ca1e0; }
 
+.progress-button--primary.progress-button--striped .progress-button__bar:after {
+  background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #3b679b), color-stop(0.25, #5c93d6), color-stop(0.5, #5c93d6), color-stop(0.5, #3b679b), color-stop(0.75, #3b679b), color-stop(0.75, #5c93d6), to(#5c93d6)); }
+
 .progress-button[percentage="100"][active="false"] .progress-button__bar {
   background-color: #5cb85c; }
 
 .progress-button[percentage="100"][active="true"] .progress-button__bar {
-  background-color: #f0ad4e; }
+  background-color: #e99852; }
 
 .progress-button[active="true"] {
   pointer-events: none; }
@@ -6142,7 +6156,24 @@ button.btn:focus, button.progress-button:focus {
   top: 0;
   width: 0;
   height: 100%;
-  transition: width 0.3s, opacity 0.3s; }
+  transition: width 0.3s; }
+
+.progress-button--striped .progress-button__bar:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-size: 20px 20px;
+  animation: progress-button-stripes 1s linear infinite;
+  overflow: hidden; }
+
+@keyframes progress-button-stripes {
+  0% {
+    background-position: 0 0; }
+  100% {
+    background-position: 20px 20px; } }
 
 /*
  * Copyright 2016 Resin.io
@@ -6206,6 +6237,51 @@ button.btn:focus, button.progress-button:focus {
 
 .modal-body .list-group-item:first-child {
   border-top: none; }
+
+/*
+ * Copyright 2016 Resin.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.alert-ribbon {
+  width: 60%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  top: -100%;
+  transition: top 0.5s; }
+  .alert-ribbon > .glyphicon:first-child, .alert-ribbon > .tick:first-child {
+    margin-right: 5px; }
+  .alert-ribbon > .glyphicon:last-child, .alert-ribbon > .tick:last-child {
+    margin-left: 5px; }
+  .alert-ribbon .btn-link {
+    padding: 0;
+    font-size: inherit;
+    vertical-align: baseline;
+    border-radius: 0;
+    border-bottom: 1px solid; }
+  .alert-ribbon.alert-warning .btn-link {
+    border-color: #f7dbc3;
+    color: #fff; }
+    .alert-ribbon.alert-warning .btn-link:hover {
+      color: #e6e6e6;
+      border-color: #f2c096; }
+
+.alert-ribbon--open {
+  top: 0; }
 
 hero-icon[disabled] .caption {
   color: #787c7f; }
