@@ -36,3 +36,10 @@ html {
 .modal-backdrop.in {
   opacity: 0;
 }
+
+.alert {
+  @extend .text-center;
+
+  border: none;
+  border-radius: 2px;
+}
