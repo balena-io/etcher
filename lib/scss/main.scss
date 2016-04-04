@@ -28,6 +28,10 @@ $link-color: $gray-light;
 $link-hover-decoration: none;
 $btn-default-bg: #ececec;
 $btn-default-color: #b3b3b3;
+$brand-warning: rgb(233, 152, 82);
+$alert-warning-bg: $brand-warning;
+$alert-warning-text: #fff;
+$alert-padding: 13px;
 
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
@@ -39,6 +43,7 @@ $btn-default-color: #b3b3b3;
 @import "./components/tick";
 @import "../browser/components/progress-button/styles/progress-button";
 @import "./components/modal";
+@import "./components/alert-ribbon";
 
 hero-icon[disabled] .caption {
   color: $color-disabled;
