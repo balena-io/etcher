@@ -50,17 +50,39 @@
       <span class="badge space-top-medium" ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">3</span>
 
       <div class="space-vertical-large">
-        <progress-button class="btn-brick" percentage="app.writer.state.progress" ng-attr-active="{{ app.writer.isBurning() }}"
+        <progress-button class="btn-brick"
+          percentage="app.writer.state.progress"
+          striped="{{ app.writer.state.type == 'check' }}"
+          ng-attr-active="{{ app.writer.isBurning() }}"
+          ng-show="app.success"
           ng-click="app.burn(app.selection.getImage(), app.selection.getDrive())"
           ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">
             <span ng-show="app.writer.state.progress == 100 && app.writer.isBurning()">Finishing...</span>
             <span ng-show="app.writer.state.progress == 0 && !app.writer.isBurning()">Burn!</span>
             <span ng-show="app.writer.state.progress == 0 && app.writer.isBurning() && !app.writer.state.speed">Starting...</span>
-            <span ng-show="app.writer.state.speed && app.writer.state.progress != 100"
+            <span ng-show="app.writer.state.speed && app.writer.state.progress != 100 && app.writer.state.type != 'check'"
               ng-bind="app.writer.state.progress + '% '"></span>
+            <span ng-show="app.writer.state.speed && app.writer.state.progress != 100 && app.writer.state.type == 'check'"
+              ng-bind="app.writer.state.progress + '% Validating...'"></span>
         </progress-button>
 
-        <p class="step-footer" ng-bind="app.writer.state.speed.toFixed(2) + ' MB/s'" ng-show="app.writer.state.speed && app.writer.state.progress != 100"></p>
+        <div class="alert-ribbon alert-warning" ng-class="{ 'alert-ribbon--open': !app.success }">
+          <span class="glyphicon glyphicon-warning-sign"></span>
+          <span ng-show="app.settings.validateWriteOnSuccess">
+            Your removable drive did not pass validation check.<br>Please insert another one and <button class="btn btn-link" ng-click="app.restartAfterFailure()">try again</button>
+          </span>
+          <span ng-hide="app.settings.validateWriteOnSuccess">
+            Oops, seems something went wrong. Click <button class="btn btn-link" ng-click="app.restartAfterFailure()">here</button> to retry
+          </span>
+        </div>
+
+        <button class="btn btn-warning btn-brick" ng-hide="app.success" ng-click="app.restartAfterFailure()">
+          <span class="glyphicon glyphicon-repeat"></span> Retry
+        </button>
+
+        <p class="step-footer"
+          ng-bind="app.writer.state.speed.toFixed(2) + ' MB/s'"
+          ng-show="app.writer.state.speed && app.writer.state.progress != 100 && app.writer.state.type == 'write'"></p>
       </div>
     </div>
   </div>
