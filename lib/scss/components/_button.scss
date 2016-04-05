@@ -51,6 +51,56 @@
   margin-right: 2px;
 }
 
+// Create map from Bootstrap `.btn` type styles
+// since its not possible to perform variable
+// interpolation (e.g: `$btn-${type}-bg`).
+// See https://github.com/sass/sass/issues/132
+$btn-types-styles: (
+  default: (
+    bg: $btn-default-bg,
+    color: $btn-default-color,
+    border: $btn-default-border
+  ),
+  primary: (
+    bg: $btn-primary-bg,
+    color: $btn-primary-color,
+    border: $btn-primary-border
+  ),
+  success: (
+    bg: $btn-success-bg,
+    color: $btn-success-color,
+    border: $btn-success-border
+  ),
+  info: (
+    bg: $btn-info-bg,
+    color: $btn-info-color,
+    border: $btn-info-border
+  ),
+  warning: (
+    bg: $btn-warning-bg,
+    color: $btn-warning-color,
+    border: $btn-warning-border
+  ),
+  danger: (
+    bg: $btn-danger-bg,
+    color: $btn-danger-color,
+    border: $btn-danger-border
+  )
+);
+
+// Undo `:focus` styles from Bootstrap.
+// On Electron, the user can click and press over a button,
+// then move the mouse away from the button and release,
+// and the button will erroneusly keep the `:focus` state style.
+@each $style in map-keys($btn-types-styles) {
+  .btn-#{$style}:focus {
+    $btn-styles: map-get($btn-types-styles, $style);
+    background-color: map-get($btn-styles, "bg");
+    color: map-get($btn-styles, "color");
+    border-color: map-get($btn-styles, "border");
+  }
+}
+
 /*
  * Remove blue/orange outline
  * !important is needed here for some reason
