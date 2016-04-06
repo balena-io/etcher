@@ -1,5 +1,6 @@
 ELECTRON_PACKAGER=./node_modules/.bin/electron-packager
 ELECTRON_BUILDER=./node_modules/.bin/electron-builder
+ELECTRON_OSX_SIGN=./node_modules/.bin/electron-osx-sign
 ELECTRON_IGNORE=$(shell node -e "console.log(require('./package.json').packageIgnore.join('|'))")
 ELECTRON_VERSION=0.36.8
 ETCHER_VERSION=$(shell node -e "console.log(require('./package.json').version)")
@@ -7,7 +8,7 @@ APPLICATION_NAME=$(shell node -e "console.log(require('./package.json').displayN
 APPLICATION_DESCRIPTION=$(shell node -e "console.log(require('./package.json').description)")
 APPLICATION_COPYRIGHT=$(shell node -e "console.log(require('./package.json').copyright)")
 COMPANY_NAME="Resinio Ltd"
-SIGN_IDENTITY_OSX="Rulemotion Ltd (66H43P8FRG)"
+SIGN_IDENTITY_OSX="Developer ID Application: Rulemotion Ltd (66H43P8FRG)"
 S3_BUCKET="resin-production-downloads"
 
 sign-win32 = osslsigncode sign \
@@ -33,10 +34,12 @@ etcher-release/Etcher-darwin-x64: .
 		--helper-bundle-id="io.resin.etcher-helper" \
 		--app-bundle-id="io.resin.etcher" \
 		--app-category-type="public.app-category.developer-tools" \
-		--sign=$(SIGN_IDENTITY_OSX) \
 		--icon="assets/icon.icns" \
 		--overwrite \
 		--out=$(dir $@)
+	rm $@/LICENSE
+	rm $@/LICENSES.chromium.html
+	rm $@/version
 
 etcher-release/Etcher-linux-x86: .
 	$(ELECTRON_PACKAGER) . $(APPLICATION_NAME) \
@@ -105,11 +108,88 @@ etcher-release/Etcher-win32-x64: .
 	$(call sign-win32,$@/Etcher.exe)
 
 etcher-release/installers/Etcher-darwin-x64.dmg: etcher-release/Etcher-darwin-x64 package.json
-	$(ELECTRON_BUILDER) "$</$(APPLICATION_NAME).app" \
-		--platform=osx \
-		--sign=$(SIGN_IDENTITY_OSX) \
-		--out=$(dir $@)
-	mv $(dir $@)Etcher.dmg $@
+	# Create temporal read-write DMG image
+	hdiutil create \
+		-srcfolder $< \
+		-volname "$(APPLICATION_NAME)" \
+		-fs HFS+ \
+		-fsargs "-c c=64,a=16,e=16" \
+		-format UDRW \
+		-size 600M $<.dmg
+	# Mount temporal DMG image, so we can modify it
+	hdiutil attach $<.dmg -readwrite -noverify
+	# Wait for a bit to ensure the image is mounted
+	sleep 2
+	# Link to /Applications within the DMG
+	pushd /Volumes/$(APPLICATION_NAME) && ln -s /Applications && popd
+	# Symlink MacOS/Etcher to MacOS/Electron since for some reason, the Electron
+	# binary tries to be ran in some systems.
+	# See https://github.com/Microsoft/vscode/issues/92
+	cp -p /Volumes/$(APPLICATION_NAME)/$(APPLICATION_NAME).app/Contents/MacOS/Etcher /Volumes/$(APPLICATION_NAME)/$(APPLICATION_NAME).app/Contents/MacOS/Electron
+	# Set the DMG icon image
+	# Writing this hexadecimal buffer to the com.apple.FinderInfo
+	# extended attribute does the trick.
+	# See https://github.com/LinusU/node-appdmg/issues/14#issuecomment-29080500
+	cp assets/icon.icns /Volumes/$(APPLICATION_NAME)/.VolumeIcon.icns
+	xattr -wx com.apple.FinderInfo "0000000000000000040000000000000000000000000000000000000000000000" /Volumes/$(APPLICATION_NAME)
+	# Configure background image.
+	# We use tiffutil to create a "Multirepresentation Tiff file".
+	# This allows us to show the retina and non-retina image when appropriate.
+	mkdir /Volumes/$(APPLICATION_NAME)/.background
+	tiffutil -cathidpicheck assets/osx/installer.png assets/osx/installer@2x.png \
+		-out /Volumes/$(APPLICATION_NAME)/.background/installer.tiff
+	# This AppleScript performs the following tasks
+	# - Set the window basic properties.
+	# - Set the window size and position.
+	# - Set the icon size.
+	# - Arrange the icons.
+	echo ' \
+		 tell application "Finder" \n\
+			 tell disk "$(APPLICATION_NAME)" \n\
+				 open \n\
+				 set current view of container window to icon view \n\
+				 set toolbar visible of container window to false \n\
+				 set statusbar visible of container window to false \n\
+				 set the bounds of container window to {400, 100, 944, 530} \n\
+				 set viewOptions to the icon view options of container window \n\
+				 set arrangement of viewOptions to not arranged \n\
+				 set icon size of viewOptions to 110 \n\
+				 set background picture of viewOptions to file ".background:installer.tiff" \n\
+				 set position of item "$(APPLICATION_NAME).app" of container window to {140, 225} \n\
+				 set position of item "Applications" of container window to {415, 225} \n\
+				 close \n\
+				 open \n\
+				 update without registering applications \n\
+				 delay 2 \n\
+				 close \n\
+			 end tell \n\
+		 end tell \n\
+	' | osascript
+	sync
+	# Sign the *.app with `electron-osx-sign`
+	# See https://github.com/electron-userland/electron-osx-sign
+	$(ELECTRON_OSX_SIGN) /Volumes/$(APPLICATION_NAME)/$(APPLICATION_NAME).app \
+		--platform darwin \
+		--verbose \
+		--identity $(SIGN_IDENTITY_OSX)
+	# Light signature verification.
+	# This might pass even if Gatekeeper pass.
+	codesign --verify --deep --display --verbose=4 \
+		"/Volumes/$(APPLICATION_NAME)/$(APPLICATION_NAME).app"
+	# Hard signature check. This represents what users will see.
+	spctl --ignore-cache --no-cache --assess --type execute --verbose=4 \
+		"/Volumes/$(APPLICATION_NAME)/$(APPLICATION_NAME).app"
+	# Unmount temporal DMG image.
+	hdiutil detach /Volumes/$(APPLICATION_NAME)
+	# Convert temporal DMG image into a production-ready
+	# compressed and read-only DMG image.
+	mkdir -p $(dir $@)
+	hdiutil convert $<.dmg \
+		-format UDZO \
+		-imagekey zlib-level=9 \
+		-o $@
+	# Cleanup temporal DMG image.
+	rm $<.dmg
 
 etcher-release/installers/Etcher-linux-x64.tar.gz: etcher-release/Etcher-linux-x64
 	mkdir -p $(dir $@)
