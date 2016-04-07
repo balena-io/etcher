@@ -31,6 +31,7 @@
     "lib/scss",
     "node_modules/electron-mocha",
     "node_modules/electron-builder",
+    "node_modules/electron-osx-sign",
     "node_modules/angular-mocks",
     "node_modules/browserify",
     "node_modules/gulp*",
@@ -41,25 +42,6 @@
     "node_modules/tmp"
   ],
   "builder": {
-    "osx": {
-      "title": "Etcher",
-      "background": "assets/osx/installer.png",
-      "icon": "assets/icon.icns",
-      "icon-size": 110,
-      "contents": [
-        {
-          "x": 415,
-          "y": 225,
-          "type": "link",
-          "path": "/Applications"
-        },
-        {
-          "x": 140,
-          "y": 225,
-          "type": "file"
-        }
-      ]
-    },
     "win": {
       "title": "Etcher",
       "version": "0.0.1",
@@ -95,7 +77,8 @@
     "angular-mocks": "^1.4.7",
     "electron-builder": "^2.6.0",
     "electron-mocha": "^0.8.0",
-    "electron-packager": "^5.1.1",
+    "electron-osx-sign": "^0.3.0",
+    "electron-packager": "^6.0.0",
     "electron-prebuilt": "^0.36.8",
     "gulp": "^3.9.0",
     "gulp-jscs": "^3.0.2",
