@@ -6268,6 +6268,9 @@ button.btn:focus, button.progress-button:focus {
 .modal-body .list-group-item:first-child {
   border-top: none; }
 
+.modal-open {
+  padding-right: 0 !important; }
+
 /*
  * Copyright 2016 Resin.io
  *
