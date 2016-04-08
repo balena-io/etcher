@@ -93,6 +93,11 @@ body {
   hero-icon .icon {
     margin: 0;
   }
+
+  [open-external]:hover {
+    color: lighten($color-disabled, 5%);
+    text-decoration: underline;
+  }
 }
 
 .step-border {
