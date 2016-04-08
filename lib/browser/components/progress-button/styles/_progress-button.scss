@@ -61,7 +61,7 @@ $progress-button-stripes-animation-duration: 1s;
   $progress-button-stripes-background-color: desaturate($brand-primary, 5%);
   $progress-button-stripes-color: desaturate(darken($brand-primary, 18%), 20%);
 
-  &.progress-button--striped .progress-button__bar:after {
+  &.progress-button--striped {
     background-image: -webkit-gradient(linear, 0 0, 100% 100%,
       color-stop(0.25, $progress-button-stripes-color),
       color-stop(0.25, $progress-button-stripes-background-color),
@@ -105,15 +105,7 @@ $progress-button-stripes-animation-duration: 1s;
 
 }
 
-.progress-button--striped .progress-button__bar:after {
-  content: "";
-
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-
+.progress-button--striped {
   background-size: $progress-button-stripes-width $progress-button-stripes-width;
   animation: progress-button-stripes $progress-button-stripes-animation-duration linear infinite;
   overflow: hidden;
