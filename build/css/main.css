@@ -6164,7 +6164,7 @@ button.btn:focus, button.progress-button:focus {
 .progress-button--primary .progress-button__bar {
   background: #6ca1e0; }
 
-.progress-button--primary.progress-button--striped .progress-button__bar:after {
+.progress-button--primary.progress-button--striped {
   background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #3b679b), color-stop(0.25, #5c93d6), color-stop(0.5, #5c93d6), color-stop(0.5, #3b679b), color-stop(0.75, #3b679b), color-stop(0.75, #5c93d6), to(#5c93d6)); }
 
 .progress-button[percentage="100"][active="false"] .progress-button__bar {
@@ -6188,13 +6188,7 @@ button.btn:focus, button.progress-button:focus {
   height: 100%;
   transition: width 0.3s; }
 
-.progress-button--striped .progress-button__bar:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+.progress-button--striped {
   background-size: 20px 20px;
   animation: progress-button-stripes 1s linear infinite;
   overflow: hidden; }
