@@ -20,6 +20,8 @@ Installers
 
 Refer to the [downloads page](http://etcher.io) for the latest pre-made installers for all supported operating systems.
 
+> Etcher only supports OS X >= 10.9
+
 Developing
 ----------
 
