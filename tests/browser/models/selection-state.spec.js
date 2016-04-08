@@ -218,6 +218,91 @@ describe('Browser: SelectionState', function() {
 
     });
 
+    describe('.isCurrentDrive()', function() {
+
+      describe('given a selected drive', function() {
+
+        beforeEach(function() {
+          SelectionStateModel.setDrive({
+            device: '/dev/sdb',
+            description: 'DataTraveler 2.0',
+            size: '7.3G',
+            mountpoint: '/media/UNTITLED',
+            name: '/dev/sdb',
+            system: false
+          });
+        });
+
+        it('should return true given the exact same drive', function() {
+          m.chai.expect(SelectionStateModel.isCurrentDrive({
+            device: '/dev/sdb',
+            description: 'DataTraveler 2.0',
+            size: '7.3G',
+            mountpoint: '/media/UNTITLED',
+            name: '/dev/sdb',
+            system: false
+          })).to.be.true;
+        });
+
+        it('should return true given the exact same drive with a $$hashKey', function() {
+          m.chai.expect(SelectionStateModel.isCurrentDrive({
+            device: '/dev/sdb',
+            description: 'DataTraveler 2.0',
+            size: '7.3G',
+            mountpoint: '/media/UNTITLED',
+            name: '/dev/sdb',
+            system: false,
+            $$hashKey: 1234
+          })).to.be.true;
+        });
+
+        it('should return false if the device changes', function() {
+          m.chai.expect(SelectionStateModel.isCurrentDrive({
+            device: '/dev/sdc',
+            description: 'DataTraveler 2.0',
+            size: '7.3G',
+            mountpoint: '/media/UNTITLED',
+            name: '/dev/sdb',
+            system: false
+          })).to.be.false;
+        });
+
+        it('should return false if the description changes', function() {
+          m.chai.expect(SelectionStateModel.isCurrentDrive({
+            device: '/dev/sdb',
+            description: 'DataTraveler 3.0',
+            size: '7.3G',
+            mountpoint: '/media/UNTITLED',
+            name: '/dev/sdb',
+            system: false
+          })).to.be.false;
+        });
+
+      });
+
+      describe('given no selected drive', function() {
+
+        beforeEach(function() {
+          SelectionStateModel.removeDrive();
+        });
+
+        it('should return false for anything', function() {
+
+          m.chai.expect(SelectionStateModel.isCurrentDrive({
+            device: '/dev/sdb',
+            description: 'DataTraveler 2.0',
+            size: '7.3G',
+            mountpoint: '/media/UNTITLED',
+            name: '/dev/sdb',
+            system: false
+          })).to.be.false;
+
+        });
+
+      });
+
+    });
+
   });
 
 });
