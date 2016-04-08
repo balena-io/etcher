@@ -29,12 +29,13 @@ const paths = {
     'gulpfile.js'
   ],
   sass: [
-    './lib/scss/**/*.scss'
-  ]
+    './lib/**/*.scss'
+  ],
+  sassMain: './lib/scss/main.scss'
 };
 
 gulp.task('sass', function() {
-  return gulp.src(paths.sass)
+  return gulp.src(paths.sassMain)
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./build/css'));
 });
