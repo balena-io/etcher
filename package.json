@@ -21,25 +21,16 @@
   "packageIgnore": [
     "LICENSE",
     "Makefile",
-    "(.*)\\.md",
+    "(.*)\\.pem",
+    "(.*)\\.log",
+    "assets/osx",
     "appveyor.yml",
     "bower.json",
     "gulpfile.js",
     "screenshot.png",
     "tests",
     "etcher-release",
-    "lib/scss",
-    "node_modules/electron-mocha",
-    "node_modules/electron-builder",
-    "node_modules/electron-osx-sign",
-    "node_modules/angular-mocks",
-    "node_modules/browserify",
-    "node_modules/gulp*",
-    "node_modules/jshint-stylish",
-    "node_modules/mochainon",
-    "node_modules/vinyl-*",
-    "node_modules/rindle",
-    "node_modules/tmp"
+    "lib/scss"
   ],
   "builder": {
     "win": {

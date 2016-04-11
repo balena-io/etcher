@@ -1,7 +1,7 @@
 ELECTRON_PACKAGER=./node_modules/.bin/electron-packager
 ELECTRON_BUILDER=./node_modules/.bin/electron-builder
 ELECTRON_OSX_SIGN=./node_modules/.bin/electron-osx-sign
-ELECTRON_IGNORE=$(shell node -e "console.log(require('./package.json').packageIgnore.join('|'))")
+ELECTRON_IGNORE=$(shell node scripts/packageignore.js)
 ELECTRON_VERSION=0.36.11
 ETCHER_VERSION=$(shell node -e "console.log(require('./package.json').version)")
 APPLICATION_NAME=$(shell node -e "console.log(require('./package.json').displayName)")
