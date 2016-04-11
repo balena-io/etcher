@@ -1,12 +1,12 @@
 <div class="row around-xs">
   <div class="col-xs">
-    <div class="box text-center">
+    <div class="box text-center" dropzone="app.selectImage($file)">
       <hero-icon path="../assets/images/image.svg" label="SELECT IMAGE"></hero-icon>
       <span class="badge space-top-medium">1</span>
 
       <div class="space-vertical-large">
         <div ng-hide="app.selection.hasImage()">
-          <button class="btn btn-primary btn-brick" ng-click="app.selectImage()">Select image</button>
+          <button class="btn btn-primary btn-brick" ng-click="app.openImageSelector()">Select image</button>
           <p class="step-footer">*supported files: .img, .iso, .zip</p>
         </div>
         <div ng-show="app.selection.hasImage()">
