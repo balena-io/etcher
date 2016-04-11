@@ -54,6 +54,7 @@ etcher-release/Etcher-linux-x86: .
 		--out=$(dir $@)
 	mv $(dir $@)Etcher-linux-ia32 $@
 	mv $@/Etcher $@/etcher
+	upx -9 $@/etcher $@/libnode.so
 
 etcher-release/Etcher-linux-x64: .
 	$(ELECTRON_PACKAGER) . $(APPLICATION_NAME) \
@@ -67,6 +68,7 @@ etcher-release/Etcher-linux-x64: .
 		--overwrite \
 		--out=$(dir $@)
 	mv $@/Etcher $@/etcher
+	upx -9 $@/etcher $@/*.so*
 
 etcher-release/Etcher-win32-x86: .
 	$(ELECTRON_PACKAGER) . $(APPLICATION_NAME) \
@@ -88,6 +90,7 @@ etcher-release/Etcher-win32-x86: .
 		--out=$(dir $@)
 	mv $(dir $@)Etcher-win32-ia32 $@
 	$(call sign-win32,$@/Etcher.exe)
+	upx -9 $@/*.dll
 
 etcher-release/Etcher-win32-x64: .
 	$(ELECTRON_PACKAGER) . $(APPLICATION_NAME) \
@@ -108,6 +111,7 @@ etcher-release/Etcher-win32-x64: .
 		--overwrite \
 		--out=$(dir $@)
 	$(call sign-win32,$@/Etcher.exe)
+	upx -9 $@/*.dll
 
 etcher-release/installers/Etcher-darwin-x64.dmg: etcher-release/Etcher-darwin-x64 package.json
 	# Create temporal read-write DMG image
