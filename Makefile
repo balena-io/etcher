@@ -53,6 +53,7 @@ etcher-release/Etcher-linux-x86: .
 		--overwrite \
 		--out=$(dir $@)
 	mv $(dir $@)Etcher-linux-ia32 $@
+	mv $@/Etcher $@/etcher
 
 etcher-release/Etcher-linux-x64: .
 	$(ELECTRON_PACKAGER) . $(APPLICATION_NAME) \
@@ -65,6 +66,7 @@ etcher-release/Etcher-linux-x64: .
 		--build-version="$(ETCHER_VERSION)" \
 		--overwrite \
 		--out=$(dir $@)
+	mv $@/Etcher $@/etcher
 
 etcher-release/Etcher-win32-x86: .
 	$(ELECTRON_PACKAGER) . $(APPLICATION_NAME) \
