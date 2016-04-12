@@ -6372,6 +6372,12 @@ body {
   color: #85898c;
   font-size: 10px; }
 
+.btn.step-footer, .step-footer.progress-button {
+  font-size: 12px;
+  border-bottom: 1px dashed;
+  border-radius: 0;
+  padding: 0; }
+
 .separator-xs {
   flex-grow: 0;
   background-color: #64686a;
