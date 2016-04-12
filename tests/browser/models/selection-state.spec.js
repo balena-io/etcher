@@ -45,6 +45,23 @@ describe('Browser: SelectionState', function() {
 
     });
 
+    describe('given an empty object drive', function() {
+
+      beforeEach(function() {
+        SelectionStateModel.setDrive({});
+      });
+
+      describe('.getDrive()', function() {
+
+        it('should return undefined', function() {
+          const drive = SelectionStateModel.getDrive();
+          m.chai.expect(drive).to.be.undefined;
+        });
+
+      });
+
+    });
+
     describe('given a drive', function() {
 
       beforeEach(function() {

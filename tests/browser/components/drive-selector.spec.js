@@ -12,10 +12,16 @@ describe('Browser: DriveSelector', function() {
   describe('DriveSelectorStateService', function() {
 
     let DriveSelectorStateService;
+    let SelectionStateModel;
 
-    beforeEach(angular.mock.inject(function(_DriveSelectorStateService_) {
+    beforeEach(angular.mock.inject(function(_DriveSelectorStateService_, _SelectionStateModel_) {
       DriveSelectorStateService = _DriveSelectorStateService_;
+      SelectionStateModel = _SelectionStateModel_;
     }));
+
+    beforeEach(function() {
+      SelectionStateModel.clear();
+    });
 
     describe('.toggleSelectDrive()', function() {
 
@@ -63,7 +69,7 @@ describe('Browser: DriveSelector', function() {
           size: '16GB'
         };
 
-        DriveSelectorStateService.selectedDrive = null;
+        SelectionStateModel.removeDrive();
         m.chai.expect(DriveSelectorStateService.isSelectedDrive(drive)).to.be.false;
       });
 
@@ -96,8 +102,19 @@ describe('Browser: DriveSelector', function() {
       });
 
       it('should return false if there is no selected drive and an empty object is passed', function() {
-        DriveSelectorStateService.selectedDrive = undefined;
+        SelectionStateModel.removeDrive();
         m.chai.expect(DriveSelectorStateService.isSelectedDrive({})).to.be.false;
+      });
+
+      it('should return true if the drive is selected in SelectionStateModel', function() {
+        const drive = {
+          device: '/dev/disk2',
+          name: 'USB Drive',
+          size: '16GB'
+        };
+
+        SelectionStateModel.setDrive(drive);
+        m.chai.expect(DriveSelectorStateService.isSelectedDrive(drive)).to.be.true;
       });
 
     });
@@ -105,13 +122,13 @@ describe('Browser: DriveSelector', function() {
     describe('.getSelectedDrive()', function() {
 
       it('should return undefined if no selected drive', function() {
-        DriveSelectorStateService.selectedDrive = null;
+        SelectionStateModel.removeDrive();
         const drive = DriveSelectorStateService.getSelectedDrive();
         m.chai.expect(drive).to.not.exist;
       });
 
       it('should return undefined if the selected drive is an empty object', function() {
-        DriveSelectorStateService.selectedDrive = {};
+        SelectionStateModel.setDrive({});
         const drive = DriveSelectorStateService.getSelectedDrive();
         m.chai.expect(drive).to.not.exist;
       });
