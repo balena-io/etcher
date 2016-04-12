@@ -52,42 +52,42 @@ describe('Browser: ImageWriter', function() {
 
     });
 
-    describe('.isBurning()', function() {
+    describe('.isFlashing()', function() {
 
       it('should return false by default', function() {
-        m.chai.expect(ImageWriterService.isBurning()).to.be.false;
+        m.chai.expect(ImageWriterService.isFlashing()).to.be.false;
       });
 
-      it('should return true if burning', function() {
-        ImageWriterService.setBurning(true);
-        m.chai.expect(ImageWriterService.isBurning()).to.be.true;
+      it('should return true if flashing', function() {
+        ImageWriterService.setFlashing(true);
+        m.chai.expect(ImageWriterService.isFlashing()).to.be.true;
       });
 
     });
 
-    describe('.setBurning()', function() {
+    describe('.setFlashing()', function() {
 
-      it('should be able to set burning to true', function() {
-        ImageWriterService.setBurning(true);
-        m.chai.expect(ImageWriterService.isBurning()).to.be.true;
+      it('should be able to set flashing to true', function() {
+        ImageWriterService.setFlashing(true);
+        m.chai.expect(ImageWriterService.isFlashing()).to.be.true;
       });
 
-      it('should be able to set burning to false', function() {
-        ImageWriterService.setBurning(false);
-        m.chai.expect(ImageWriterService.isBurning()).to.be.false;
+      it('should be able to set flashing to false', function() {
+        ImageWriterService.setFlashing(false);
+        m.chai.expect(ImageWriterService.isFlashing()).to.be.false;
       });
 
       it('should cast to boolean by default', function() {
-        ImageWriterService.setBurning('hello');
-        m.chai.expect(ImageWriterService.isBurning()).to.be.true;
+        ImageWriterService.setFlashing('hello');
+        m.chai.expect(ImageWriterService.isFlashing()).to.be.true;
 
-        ImageWriterService.setBurning('');
-        m.chai.expect(ImageWriterService.isBurning()).to.be.false;
+        ImageWriterService.setFlashing('');
+        m.chai.expect(ImageWriterService.isFlashing()).to.be.false;
       });
 
     });
 
-    describe('.burn()', function() {
+    describe('.flash()', function() {
 
       describe('given a succesful write', function() {
 
@@ -100,31 +100,31 @@ describe('Browser: ImageWriter', function() {
           this.performWriteStub.restore();
         });
 
-        it('should set burning to false when done', function() {
-          ImageWriterService.burn('foo.img', '/dev/disk2');
+        it('should set flashing to false when done', function() {
+          ImageWriterService.flash('foo.img', '/dev/disk2');
           $rootScope.$apply();
-          m.chai.expect(ImageWriterService.isBurning()).to.be.false;
+          m.chai.expect(ImageWriterService.isFlashing()).to.be.false;
         });
 
         it('should prevent writing more than once', function() {
-          ImageWriterService.burn('foo.img', '/dev/disk2');
-          ImageWriterService.burn('foo.img', '/dev/disk2');
+          ImageWriterService.flash('foo.img', '/dev/disk2');
+          ImageWriterService.flash('foo.img', '/dev/disk2');
           $rootScope.$apply();
           m.chai.expect(this.performWriteStub).to.have.been.calledOnce;
         });
 
-        it('should reject the second burn attempt', function() {
-          ImageWriterService.burn('foo.img', '/dev/disk2');
+        it('should reject the second flash attempt', function() {
+          ImageWriterService.flash('foo.img', '/dev/disk2');
 
           let rejectError = null;
-          ImageWriterService.burn('foo.img', '/dev/disk2').catch(function(error) {
+          ImageWriterService.flash('foo.img', '/dev/disk2').catch(function(error) {
             rejectError = error;
           });
 
           $rootScope.$apply();
 
           m.chai.expect(rejectError).to.be.an.instanceof(Error);
-          m.chai.expect(rejectError.message).to.equal('There is already a burn in progress');
+          m.chai.expect(rejectError.message).to.equal('There is already a flash in progress');
         });
 
       });
@@ -140,15 +140,15 @@ describe('Browser: ImageWriter', function() {
           this.performWriteStub.restore();
         });
 
-        it('should set burning to false when done', function() {
-          ImageWriterService.burn('foo.img', '/dev/disk2');
+        it('should set flashing to false when done', function() {
+          ImageWriterService.flash('foo.img', '/dev/disk2');
           $rootScope.$apply();
-          m.chai.expect(ImageWriterService.isBurning()).to.be.false;
+          m.chai.expect(ImageWriterService.isFlashing()).to.be.false;
         });
 
         it('should be rejected with the error', function() {
           let rejection;
-          ImageWriterService.burn('foo.img', '/dev/disk2').catch(function(error) {
+          ImageWriterService.flash('foo.img', '/dev/disk2').catch(function(error) {
             rejection = error;
           });
 

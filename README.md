@@ -1,7 +1,7 @@
 Etcher
 ======
 
-> A better way to burn OS images to SD cards
+> A better way to flash OS images to SD cards
 
 [![dependencies](https://david-dm.org/resin-io/etcher.svg)](https://david-dm.org/resin-io/etcher.svg)
 [![Build Status](https://travis-ci.org/resin-io/etcher.svg?branch=master)](https://travis-ci.org/resin-io/etcher)
