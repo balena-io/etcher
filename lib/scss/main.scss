@@ -74,6 +74,12 @@ body {
 }
 
 .section-footer {
+  @extend .text-center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   position: fixed;
   bottom: 20px;
   left: 0;
@@ -89,9 +95,8 @@ body {
     padding: 0;
   }
 
-  // Align icon to the left
   hero-icon .icon {
-    margin: 0;
+    margin: 0 13px;
   }
 
   [open-external]:hover {
