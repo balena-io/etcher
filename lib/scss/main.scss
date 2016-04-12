@@ -134,6 +134,13 @@ body {
   font-size: 10px;
 }
 
+.btn.step-footer {
+  font-size: 12px;
+  border-bottom: 1px dashed;
+  border-radius: 0;
+  padding: 0;
+}
+
 .separator-xs {
   flex-grow: 0;
   background-color: darken($color-disabled, 8%);
