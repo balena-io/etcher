@@ -3,7 +3,7 @@
   "displayName": "Etcher",
   "version": "1.0.0-beta.2",
   "main": "lib/etcher.js",
-  "description": "An image burner with support for Windows, OS X and GNU/Linux.",
+  "description": "An image flasher with support for Windows, OS X and GNU/Linux.",
   "homepage": "https://github.com/resin-io/etcher",
   "repository": {
     "type": "git",
