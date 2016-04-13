@@ -19,11 +19,12 @@
 const m = require('mochainon');
 const angular = require('angular');
 require('angular-mocks');
-require('../../../lib/browser/os/dropzone/dropzone');
 
 describe('Browser: OSDropzone', function() {
 
-  beforeEach(angular.mock.module('Etcher.OS.Dropzone'));
+  beforeEach(angular.mock.module(
+    require('../../../lib/browser/os/dropzone/dropzone')
+  ));
 
   describe('osDropzone', function() {
 

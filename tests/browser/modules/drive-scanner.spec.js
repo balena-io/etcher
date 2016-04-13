@@ -4,11 +4,12 @@ const m = require('mochainon');
 const angular = require('angular');
 const drivelist = require('drivelist');
 require('angular-mocks');
-require('../../../lib/browser/modules/drive-scanner');
 
 describe('Browser: DriveScanner', function() {
 
-  beforeEach(angular.mock.module('Etcher.drive-scanner'));
+  beforeEach(angular.mock.module(
+    require('../../../lib/browser/modules/drive-scanner')
+  ));
 
   describe('DriveScannerService', function() {
 

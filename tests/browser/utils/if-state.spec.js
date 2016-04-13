@@ -19,11 +19,12 @@
 const m = require('mochainon');
 const angular = require('angular');
 require('angular-mocks');
-require('../../../lib/browser/utils/if-state/if-state');
 
 describe('Browser: IfState', function() {
 
-  beforeEach(angular.mock.module('Etcher.Utils.IfState'));
+  beforeEach(angular.mock.module(
+    require('../../../lib/browser/utils/if-state/if-state')
+  ));
 
   let $compile;
   let $rootScope;
