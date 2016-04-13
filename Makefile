@@ -113,6 +113,16 @@ etcher-release/Etcher-win32-x64: .
 	$(call sign-win32,$@/Etcher.exe)
 	upx -9 $@/*.dll
 
+sign-osx = $(ELECTRON_OSX_SIGN) $(1) --platform darwin --verbose --identity $(SIGN_IDENTITY_OSX) \
+	&& codesign --verify --deep --display --verbose=4 $(1) \
+	&& spctl --ignore-cache --no-cache --assess --type execute --verbose=4 $(1)
+
+etcher-release/installers/Etcher-darwin-x64.zip: etcher-release/Etcher-darwin-x64 package.json
+	mkdir -p $(dir $@)
+	$(call sign-osx,$</$(APPLICATION_NAME).app)
+	pushd $< && zip -r -9 $(notdir $@) $(APPLICATION_NAME).app && popd
+	mv $</$(notdir $@) $@
+
 etcher-release/installers/Etcher-darwin-x64.dmg: etcher-release/Etcher-darwin-x64 package.json
 	# Create temporal read-write DMG image
 	hdiutil create \
@@ -172,19 +182,7 @@ etcher-release/installers/Etcher-darwin-x64.dmg: etcher-release/Etcher-darwin-x6
 		 end tell \n\
 	' | osascript
 	sync
-	# Sign the *.app with `electron-osx-sign`
-	# See https://github.com/electron-userland/electron-osx-sign
-	$(ELECTRON_OSX_SIGN) /Volumes/$(APPLICATION_NAME)/$(APPLICATION_NAME).app \
-		--platform darwin \
-		--verbose \
-		--identity $(SIGN_IDENTITY_OSX)
-	# Light signature verification.
-	# This might pass even if Gatekeeper pass.
-	codesign --verify --deep --display --verbose=4 \
-		"/Volumes/$(APPLICATION_NAME)/$(APPLICATION_NAME).app"
-	# Hard signature check. This represents what users will see.
-	spctl --ignore-cache --no-cache --assess --type execute --verbose=4 \
-		"/Volumes/$(APPLICATION_NAME)/$(APPLICATION_NAME).app"
+	$(call sign-osx,/Volumes/$(APPLICATION_NAME)/$(APPLICATION_NAME).app)
 	# Unmount temporal DMG image.
 	hdiutil detach /Volumes/$(APPLICATION_NAME)
 	# Convert temporal DMG image into a production-ready
@@ -231,18 +229,28 @@ installer-linux: etcher-release/installers/Etcher-linux-x64.tar.gz etcher-releas
 installer-win32: etcher-release/installers/Etcher-win32-x64.exe etcher-release/installers/Etcher-win32-x86.exe
 installer-all: installer-osx installer-linux installer-win32
 
-S3_UPLOAD=aws s3api put-object \
+s3-upload = aws s3api put-object \
 	--bucket $(S3_BUCKET) \
 	--acl public-read \
-	--key etcher/$(ETCHER_VERSION)/$(notdir $<) \
-	--body $<
+	--key etcher/$(ETCHER_VERSION)/$(notdir $(1)) \
+	--body $(1)
 
-upload-linux-x64: etcher-release/installers/Etcher-linux-x64.tar.gz ; $(S3_UPLOAD)
-upload-linux-x86: etcher-release/installers/Etcher-linux-x86.tar.gz ; $(S3_UPLOAD)
-upload-win32-x64: etcher-release/installers/Etcher-win32-x64.exe ; $(S3_UPLOAD)
-upload-win32-x86: etcher-release/installers/Etcher-win32-x86.exe ; $(S3_UPLOAD)
+upload-linux-x64: etcher-release/installers/Etcher-linux-x64.tar.gz
+	$(call s3-upload,$<)
 
-upload-osx: etcher-release/installers/Etcher-darwin-x64.dmg ; $(S3_UPLOAD)
+upload-linux-x86: etcher-release/installers/Etcher-linux-x86.tar.gz
+	$(call s3-upload,$<)
+
+upload-win32-x64: etcher-release/installers/Etcher-win32-x64.exe
+	$(call s3-upload,$<)
+
+upload-win32-x86: etcher-release/installers/Etcher-win32-x86.exe
+	$(call s3-upload,$<)
+
+upload-osx: etcher-release/installers/Etcher-darwin-x64.dmg etcher-release/installers/Etcher-darwin-x64.zip
+	$(call s3-upload,$<)
+	$(call s3-upload,$(word 2,$^))
+
 upload-linux: upload-linux-x64 upload-linux-x86
 upload-win32: upload-win32-x64 upload-win32-x86
 upload-all: upload-osx upload-linux upload-win32
