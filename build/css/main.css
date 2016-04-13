@@ -4405,7 +4405,7 @@ a.badge:hover, a.badge:focus {
     height: auto;
     margin-left: auto;
     margin-right: auto; }
-  .thumbnail .caption {
+  .thumbnail .caption, .thumbnail .icon-caption {
     padding: 9px;
     color: white; }
 
@@ -5681,7 +5681,7 @@ button.close {
 .clearfix:after {
   clear: both; }
 
-.center-block {
+.center-block, .icon-caption {
   display: block;
   margin-left: auto;
   margin-right: auto; }
@@ -5997,7 +5997,7 @@ html {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.caption {
+.caption, .icon-caption {
   font-weight: bold;
   font-size: 11px;
   margin-bottom: 0;
@@ -6214,6 +6214,24 @@ button.btn:focus, button.progress-button:focus {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+.svg-icon[disabled] path {
+  fill: #787c7f; }
+
+/*
+ * Copyright 2016 Resin.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 .modal-header {
   display: flex;
   align-items: baseline;
@@ -6310,11 +6328,10 @@ button.btn:focus, button.progress-button:focus {
 .alert-ribbon--open {
   top: 0; }
 
-hero-icon[disabled] .caption {
-  color: #787c7f; }
-
-hero-icon[disabled] path {
-  fill: #787c7f; }
+.icon-caption {
+  margin-top: 10px; }
+  .icon-caption[disabled] {
+    color: #787c7f; }
 
 .block {
   display: block; }
@@ -6345,7 +6362,7 @@ body {
   border-top: 2px solid #64686a; }
   .section-footer .col-xs {
     padding: 0; }
-  .section-footer hero-icon .icon {
+  .section-footer .svg-icon {
     margin: 0 13px; }
   .section-footer [os-open-external]:hover {
     color: #85898c;
