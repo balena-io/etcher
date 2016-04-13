@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "angular": "^1.5.3",
+    "angular-q-promisify": "^1.1.0",
     "angular-ui-bootstrap": "^1.2.5",
     "angular-ui-router": "^0.2.18",
     "bluebird": "^3.0.5",
