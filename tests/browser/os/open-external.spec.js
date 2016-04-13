@@ -22,13 +22,13 @@ const angular = require('angular');
 const electron = require('electron');
 const shell = electron.remote.require('shell');
 require('angular-mocks');
-require('../../../lib/browser/utils/open-external/open-external');
+require('../../../lib/browser/os/open-external/open-external');
 
-describe('Browser: OpenExternal', function() {
+describe('Browser: OSOpenExternal', function() {
 
-  beforeEach(angular.mock.module('Etcher.Utils.OpenExternal'));
+  beforeEach(angular.mock.module('Etcher.OS.OpenExternal'));
 
-  describe('openExternal', function() {
+  describe('osOpenExternal', function() {
 
     let $compile;
     let $rootScope;
@@ -39,7 +39,7 @@ describe('Browser: OpenExternal', function() {
     }));
 
     it('should set the element cursor to pointer', function() {
-      const element = $compile('<span open-external="https://resin.io">Resin.io</span>')($rootScope);
+      const element = $compile('<span os-open-external="https://resin.io">Resin.io</span>')($rootScope);
       $rootScope.$digest();
       m.chai.expect(element.css('cursor')).to.equal('pointer');
     });
@@ -57,7 +57,7 @@ describe('Browser: OpenExternal', function() {
 
       it('should call Electron shell.openExternal with the attribute value', function() {
         const shellExternalStub = m.sinon.stub(shell, 'openExternal');
-        const element = $compile('<span open-external="https://resin.io">Resin.io</span>')($rootScope);
+        const element = $compile('<span os-open-external="https://resin.io">Resin.io</span>')($rootScope);
         element.triggerHandler('click');
         $rootScope.$digest();
         m.chai.expect(shellExternalStub).to.have.been.calledWith('https://resin.io');
