@@ -19,11 +19,12 @@
 const m = require('mochainon');
 const angular = require('angular');
 require('angular-mocks');
-require('../../../lib/browser/os/window-progress/window-progress');
 
 describe('Browser: OSWindowProgress', function() {
 
-  beforeEach(angular.mock.module('Etcher.OS.WindowProgress'));
+  beforeEach(angular.mock.module(
+    require('../../../lib/browser/os/window-progress/window-progress')
+  ));
 
   describe('OSWindowProgressService', function() {
 

@@ -3,11 +3,12 @@
 const m = require('mochainon');
 const angular = require('angular');
 require('angular-mocks');
-require('../../../lib/browser/modules/image-writer');
 
 describe('Browser: ImageWriter', function() {
 
-  beforeEach(angular.mock.module('Etcher.image-writer'));
+  beforeEach(angular.mock.module(
+    require('../../../lib/browser/modules/image-writer')
+  ));
 
   describe('ImageWriterService', function() {
 

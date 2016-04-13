@@ -4,11 +4,12 @@ const m = require('mochainon');
 const angular = require('angular');
 const os = require('os');
 require('angular-mocks');
-require('../../../lib/browser/utils/path/path');
 
 describe('Browser: Path', function() {
 
-  beforeEach(angular.mock.module('Etcher.Utils.Path'));
+  beforeEach(angular.mock.module(
+    require('../../../lib/browser/utils/path/path')
+  ));
 
   describe('BasenameFilter', function() {
 

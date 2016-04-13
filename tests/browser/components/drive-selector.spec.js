@@ -3,11 +3,12 @@
 const m = require('mochainon');
 const angular = require('angular');
 require('angular-mocks');
-require('../../../lib/browser/components/drive-selector/drive-selector');
 
 describe('Browser: DriveSelector', function() {
 
-  beforeEach(angular.mock.module('Etcher.Components.DriveSelector'));
+  beforeEach(angular.mock.module(
+    require('../../../lib/browser/components/drive-selector/drive-selector')
+  ));
 
   describe('DriveSelectorStateService', function() {
 

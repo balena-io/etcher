@@ -22,11 +22,12 @@ const angular = require('angular');
 const electron = require('electron');
 const shell = electron.remote.require('shell');
 require('angular-mocks');
-require('../../../lib/browser/os/open-external/open-external');
 
 describe('Browser: OSOpenExternal', function() {
 
-  beforeEach(angular.mock.module('Etcher.OS.OpenExternal'));
+  beforeEach(angular.mock.module(
+    require('../../../lib/browser/os/open-external/open-external')
+  ));
 
   describe('osOpenExternal', function() {
 

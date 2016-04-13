@@ -3,11 +3,12 @@
 const m = require('mochainon');
 const angular = require('angular');
 require('angular-mocks');
-require('../../../lib/browser/models/selection-state');
 
 describe('Browser: SelectionState', function() {
 
-  beforeEach(angular.mock.module('Etcher.Models.SelectionState'));
+  beforeEach(angular.mock.module(
+    require('../../../lib/browser/models/selection-state')
+  ));
 
   describe('SelectionStateModel', function() {
 
