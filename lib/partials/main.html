@@ -10,7 +10,7 @@
           <p class="step-footer">*supported files: .img, .iso, .zip</p>
         </div>
         <div ng-show="app.selection.hasImage()">
-          <div ng-bind="app.selection.getImage() | basename" ng-click="app.reselectImage()"></div>
+          <div ng-bind="app.selection.getImage() | basename"></div>
 
           <button class="btn btn-link step-footer"
             ng-click="app.reselectImage()"
@@ -44,8 +44,7 @@
 
         </div>
         <div ng-show="app.selection.hasDrive()">
-          <div ng-bind="app.selection.getDrive().name + ' - ' + app.selection.getDrive().size"
-            ng-click="app.reselectDrive()"></div>
+          <div ng-bind="app.selection.getDrive().name + ' - ' + app.selection.getDrive().size"></div>
 
           <button class="btn btn-link step-footer"
             ng-click="app.reselectDrive()"
