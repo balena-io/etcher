@@ -42,15 +42,19 @@ $alert-padding: 13px;
 @import "./components/button";
 @import "./components/tick";
 @import "../browser/components/progress-button/styles/progress-button";
+@import "../browser/components/svg-icon/styles/svg-icon";
 @import "./components/modal";
 @import "./components/alert-ribbon";
 
-hero-icon[disabled] .caption {
-  color: $color-disabled;
-}
+.icon-caption {
+  @extend .caption;
+  @extend .center-block;
 
-hero-icon[disabled]  path {
-  fill: $color-disabled;
+  margin-top: 10px;
+
+  &[disabled] {
+    color: $color-disabled;
+  }
 }
 
 .block {
@@ -95,7 +99,7 @@ body {
     padding: 0;
   }
 
-  hero-icon .icon {
+  .svg-icon {
     margin: 0 13px;
   }
 
