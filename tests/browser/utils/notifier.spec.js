@@ -3,11 +3,11 @@
 const m = require('mochainon');
 const angular = require('angular');
 require('angular-mocks');
-require('../../../lib/browser/modules/notifier');
+require('../../../lib/browser/utils/notifier/notifier');
 
 describe('Browser: Notifier', function() {
 
-  beforeEach(angular.mock.module('Etcher.notifier'));
+  beforeEach(angular.mock.module('Etcher.Utils.Notifier'));
 
   describe('NotifierService', function() {
 

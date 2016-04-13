@@ -19,13 +19,13 @@
 const m = require('mochainon');
 const angular = require('angular');
 require('angular-mocks');
-require('../../../lib/browser/utils/dropzone/dropzone');
+require('../../../lib/browser/os/dropzone/dropzone');
 
-describe('Browser: Dropzone', function() {
+describe('Browser: OSDropzone', function() {
 
-  beforeEach(angular.mock.module('Etcher.Utils.Dropzone'));
+  beforeEach(angular.mock.module('Etcher.OS.Dropzone'));
 
-  describe('dropzone', function() {
+  describe('osDropzone', function() {
 
     let $compile;
     let $rootScope;
@@ -43,7 +43,7 @@ describe('Browser: Dropzone', function() {
         done();
       };
 
-      const element = $compile('<div dropzone="onDropZone($file)">Drop a file here</div>')($rootScope);
+      const element = $compile('<div os-dropzone="onDropZone($file)">Drop a file here</div>')($rootScope);
       $rootScope.$digest();
 
       element[0].ondrop({
@@ -67,7 +67,7 @@ describe('Browser: Dropzone', function() {
         done();
       };
 
-      const element = $compile('<div dropzone="onDropZone()">Drop a file here</div>')($rootScope);
+      const element = $compile('<div os-dropzone="onDropZone()">Drop a file here</div>')($rootScope);
       $rootScope.$digest();
 
       element[0].ondrop({
