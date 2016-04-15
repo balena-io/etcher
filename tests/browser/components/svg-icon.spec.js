@@ -32,7 +32,7 @@ describe('Browser: SVGIcon', function() {
     }));
 
     it('should inline the svg contents in the element', function() {
-      const icon = "../../../../../assets/images/etcher.svg";
+      const icon = '../../../../../assets/images/etcher.svg';
       let iconContents = fs.readFileSync(path.join(__dirname, '../../../assets/images/etcher.svg'), {
         encoding: 'utf8'
       }).split('\n');
@@ -48,7 +48,7 @@ describe('Browser: SVGIcon', function() {
     });
 
     it('should default the size to 40x40 pixels', function() {
-      const icon = "../../../../../assets/images/etcher.svg";
+      const icon = '../../../../../assets/images/etcher.svg';
       const element = $compile(`<svg-icon path="${icon}">Resin.io</svg-icon>`)($rootScope);
       $rootScope.$digest();
       m.chai.expect(element.css('width')).to.equal('40px');
@@ -56,7 +56,7 @@ describe('Browser: SVGIcon', function() {
     });
 
     it('should be able to set a custom height', function() {
-      const icon = "../../../../../assets/images/etcher.svg";
+      const icon = '../../../../../assets/images/etcher.svg';
       const element = $compile(`<svg-icon path="${icon}" width="20px">Resin.io</svg-icon>`)($rootScope);
       $rootScope.$digest();
       m.chai.expect(element.css('width')).to.equal('20px');
@@ -64,7 +64,7 @@ describe('Browser: SVGIcon', function() {
     });
 
     it('should be able to set a custom height', function() {
-      const icon = "../../../../../assets/images/etcher.svg";
+      const icon = '../../../../../assets/images/etcher.svg';
       const element = $compile(`<svg-icon path="${icon}" height="20px">Resin.io</svg-icon>`)($rootScope);
       $rootScope.$digest();
       m.chai.expect(element.css('width')).to.equal('40px');
