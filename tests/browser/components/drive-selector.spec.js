@@ -148,6 +148,33 @@ describe('Browser: DriveSelector', function() {
 
     });
 
+    describe('.hasSelectedDrive()', function() {
+
+      it('should return false if no selected drive', function() {
+        SelectionStateModel.removeDrive();
+        const hasDrive = DriveSelectorStateService.hasSelectedDrive();
+        m.chai.expect(hasDrive).to.be.false;
+      });
+
+      it('should return false if the selected drive is an empty object', function() {
+        SelectionStateModel.setDrive({});
+        const hasDrive = DriveSelectorStateService.hasSelectedDrive();
+        m.chai.expect(hasDrive).to.be.false;
+      });
+
+      it('should return true if there is a selected drive', function() {
+        DriveSelectorStateService.toggleSelectDrive({
+          device: '/dev/disk2',
+          name: 'USB Drive',
+          size: '16GB'
+        });
+
+        const hasDrive = DriveSelectorStateService.hasSelectedDrive();
+        m.chai.expect(hasDrive).to.be.true;
+      });
+
+    });
+
   });
 
 });

@@ -1,6 +1,6 @@
 <div class="modal-header">
   <h4 class="modal-title">SELECT A DRIVE</h4>
-  <button class="btn btn-default btn-sm" ng-click="modal.closeModal()">CLOSE</button>
+  <button class="close" ng-click="modal.closeModal()">&times;</button>
 </div>
 
 <div class="modal-body">
@@ -14,4 +14,10 @@
         <span class="tick tick--success" ng-disabled="!modal.state.isSelectedDrive(drive)"></span>
     </li>
   </ul>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-primary btn-block"
+    ng-click="modal.closeModal()"
+    ng-disabled="!modal.state.hasSelectedDrive()">CONTINUE</button>
 </div>
