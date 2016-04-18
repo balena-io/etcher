@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v1.0.0-beta.3] - 2016-04-17
+
+### Added
+
+- Show drive name in drive selector modal.
+- Add subtle hover styling to footer links.
+- Implement OS notifications on completion.
+- Allow to drag and drop an image to the first step.
+- Add Etcher logo to application footer.
+- Add "Change" button links below each step.
+
+### Changed
+
+- Invert progress bar stripes during validation.
+- Fix window contents being pushed below when opening the drive selector modal.
+- Detect removal of selected drive.
+- Detect MacBook SDCard readers in OS X.
+- Improve removable drive detection on Windows.
+- Keep one decimal in Windows drive sizes.
+- Prevent error dialog not showing on malformed `Error` objects.
+- Fix window being resizable on GNU/Linux.
+- Compress Linux executables and libraries.
+- Compress Windows DLLs.
+- Make GNU/Linux binary lowercase.
+- Hide drive selector modal if no available drives.
+- Replace all occurrences of "burn" with "flash".
+- Make drive selector modal react to drive auto-selection.
+- Improve UX when attempting to re-selecta single available drive.
+- Reset writer state on flash error.
+- Fix `stream.push() after EOF` error when flashing unaligned images.
+
 ## [v1.0.0-beta.2] - 2016-04-07
 
 ### Added

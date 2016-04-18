@@ -1,6 +1,6 @@
 {
   "name": "etcher",
-  "version": "0.0.1",
+  "version": "v1.0.0-beta.3",
   "homepage": "https://github.com/resin-io/etcher",
   "authors": [
     "Juan Cruz Viotti <juan@resin.io>"
