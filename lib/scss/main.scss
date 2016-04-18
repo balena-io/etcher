@@ -107,6 +107,12 @@ body {
     color: lighten($color-disabled, 5%);
     text-decoration: underline;
   }
+
+  .footer-right {
+    position: absolute;
+    right: 0;
+    top: 50%;
+  }
 }
 
 .step-border {

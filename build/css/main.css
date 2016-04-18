@@ -6000,8 +6000,7 @@ html {
 .caption, .icon-caption {
   font-weight: bold;
   font-size: 11px;
-  margin-bottom: 0;
-  text-transform: uppercase; }
+  margin-bottom: 0; }
 
 /*
  * Copyright 2016 Resin.io
@@ -6367,6 +6366,10 @@ body {
   .section-footer [os-open-external]:hover {
     color: #85898c;
     text-decoration: underline; }
+  .section-footer .footer-right {
+    position: absolute;
+    right: 0;
+    top: 50%; }
 
 .step-border, .step-border-left, .step-border-right {
   height: 2px;
