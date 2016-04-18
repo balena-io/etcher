@@ -6363,9 +6363,11 @@ body {
     padding: 0; }
   .section-footer .svg-icon {
     margin: 0 13px; }
-  .section-footer [os-open-external]:hover {
-    color: #85898c;
-    text-decoration: underline; }
+  .section-footer .caption[os-open-external], .section-footer [os-open-external].icon-caption {
+    border-bottom: 1px dashed;
+    padding-bottom: 2px; }
+    .section-footer .caption[os-open-external]:hover, .section-footer [os-open-external].icon-caption:hover {
+      color: #85898c; }
   .section-footer .footer-right {
     position: absolute;
     right: 0;

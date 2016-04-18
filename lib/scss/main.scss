@@ -103,9 +103,13 @@ body {
     margin: 0 13px;
   }
 
-  [os-open-external]:hover {
-    color: lighten($color-disabled, 5%);
-    text-decoration: underline;
+  .caption[os-open-external] {
+    border-bottom: 1px dashed;
+    padding-bottom: 2px;
+
+    &:hover {
+      color: lighten($color-disabled, 5%);
+    }
   }
 
   .footer-right {
