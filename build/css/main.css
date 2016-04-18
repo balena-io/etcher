@@ -6231,6 +6231,10 @@ button.btn:focus, button.progress-button:focus {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+.modal-content {
+  display: flex;
+  flex-direction: column; }
+
 .modal-header {
   display: flex;
   align-items: baseline;
@@ -6243,9 +6247,11 @@ button.btn:focus, button.progress-button:focus {
 
 .modal-header {
   color: #b3b3b3;
-  padding: 11px 10px 9px 20px; }
+  padding: 11px 20px;
+  flex-grow: 0; }
 
 .modal-body {
+  flex-grow: 1;
   color: #666;
   padding: 0 20px;
   max-height: 250px;
@@ -6281,6 +6287,13 @@ button.btn:focus, button.progress-button:focus {
 
 .modal-open {
   padding-right: 0 !important; }
+
+.modal-footer {
+  flex-grow: 0;
+  border: 0; }
+
+.modal .btn-primary[disabled], .modal [disabled].progress-button--primary {
+  background-color: #d5d5d5; }
 
 /*
  * Copyright 2016 Resin.io

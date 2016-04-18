@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+.modal-content {
+  display: flex;
+  flex-direction: column;
+}
+
 .modal-header {
   display: flex;
   align-items: baseline;
@@ -28,10 +33,12 @@
 
 .modal-header {
   color: $btn-default-color;
-  padding: 11px 10px 9px 20px;
+  padding: 11px 20px;
+  flex-grow: 0;
 }
 
 .modal-body {
+  flex-grow: 1;
   color: #666;
   padding: 0 20px;
   max-height: 250px;
@@ -84,4 +91,13 @@
 // the styles programatically to the element.
 .modal-open {
   padding-right: 0 !important;
+}
+
+.modal-footer {
+  flex-grow: 0;
+  border: 0;
+}
+
+.modal .btn-primary[disabled] {
+  background-color: darken($gray-lighter, 10%);
 }
