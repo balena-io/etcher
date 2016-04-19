@@ -54,6 +54,7 @@ etcher-release/Etcher-linux-x86: .
 		--out=$(dir $@)
 	mv $(dir $@)Etcher-linux-ia32 $@
 	mv $@/Etcher $@/etcher
+	chmod a+x $@/*.so*
 	upx -9 $@/etcher $@/libnode.so
 
 etcher-release/Etcher-linux-x64: .
@@ -68,6 +69,7 @@ etcher-release/Etcher-linux-x64: .
 		--overwrite \
 		--out=$(dir $@)
 	mv $@/Etcher $@/etcher
+	chmod a+x $@/*.so*
 	upx -9 $@/etcher $@/*.so*
 
 etcher-release/Etcher-win32-x86: .
@@ -203,6 +205,16 @@ etcher-release/installers/Etcher-linux-x86.tar.gz: etcher-release/Etcher-linux-x
 	mkdir -p $(dir $@)
 	tar -zcf $@ $<
 
+etcher-release/installers/Etcher-linux-x64.AppImage: etcher-release/Etcher-linux-x64
+	mkdir -p $(dir $<)Etcher-linux-x64.AppDir/usr/bin
+	cp ./scripts/AppRun $(dir $<)Etcher-linux-x64.AppDir
+	chmod a+x $(dir $<)Etcher-linux-x64.AppDir/AppRun
+	cp ./Etcher.desktop $(dir $<)Etcher-linux-x64.AppDir
+	cp ./assets/icon.png $(dir $<)Etcher-linux-x64.AppDir
+	cp -rf $</* $(dir $<)Etcher-linux-x64.AppDir/usr/bin
+	mkdir -p $(dir $@)
+	./scripts/AppImageAssistant $(dir $<)Etcher-linux-x64.AppDir $@
+
 etcher-release/installers/Etcher-win32-x64.exe: etcher-release/Etcher-win32-x64 package.json
 	$(ELECTRON_BUILDER) $< \
 		--platform=win \
@@ -225,7 +237,7 @@ package-win32: etcher-release/Etcher-win32-x86 etcher-release/Etcher-win32-x64
 package-all: package-osx package-linux package-win32
 
 installer-osx: etcher-release/installers/Etcher-darwin-x64.dmg
-installer-linux: etcher-release/installers/Etcher-linux-x64.tar.gz etcher-release/installers/Etcher-linux-x86.tar.gz
+installer-linux: etcher-release/installers/Etcher-linux-x64.tar.gz etcher-release/installers/Etcher-linux-x86.tar.gz etcher-release/installers/Etcher-linux-x64.AppImage
 installer-win32: etcher-release/installers/Etcher-win32-x64.exe etcher-release/installers/Etcher-win32-x86.exe
 installer-all: installer-osx installer-linux installer-win32
 
