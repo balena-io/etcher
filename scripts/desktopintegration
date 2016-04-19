@@ -1,0 +1,201 @@
+#!/bin/bash
+
+# The purpose of this script is to provide lightweight desktop integration
+# into the host system without special help from the host system.
+# If you want to use it, then place this in usr/bin/$APPNAME.wrapper
+# and set it as the Exec= line of the .desktop file in the AppImage.
+
+# TODO:
+# Handle icons for mime types as well using xdg-icon-resource
+# Handle multiple versions of the same AppImage?
+# Handle removed AppImages? Currently we are just setting TryExec=
+# See http://specifications.freedesktop.org/thumbnail-spec/thumbnail-spec-latest.html#DELETE
+# Possibly move this to the C runtime that is part of every AppImage?
+
+# Exit on errors
+set -e
+
+# Be verbose if $DEBUG=1 is set
+if [ ! -z "$DEBUG" ] ; then
+  env
+  set -x
+fi
+
+# Please do not change $VENDORPREFIX as it will allow for desktop files
+# belonging to AppImages to be recognized by future AppImageKit components
+# such as desktop integration daemons
+VENDORPREFIX=appimagekit
+
+FILENAME=$(readlink -f "${0}")
+
+echo $FILENAME
+
+if [[ "$FILENAME" != *.wrapper ]] ; then
+  echo "$0 is not named correctly. It should be named \$Exec.wrapper"
+  exit 0
+fi
+
+BIN=$(echo "$FILENAME" | sed -e 's|.wrapper||g')
+if [[ ! -f $BIN ]] ; then
+  echo "$BIN not found"
+  exit 0
+fi
+
+ARGS=$@
+
+trap atexit EXIT
+
+atexit()
+{
+  exec $BIN $ARGS
+}
+
+error()
+{
+  if [ -x /usr/bin/zenity ] ; then
+    LD_LIBRARY_PATH="" zenity --error --text "${1}" 2>/dev/null
+  elif [ -x /usr/bin/kdialog ] ; then
+    LD_LIBRARY_PATH="" kdialog --msgbox "${1}" 2>/dev/null
+  elif [ -x /usr/bin/Xdialog ] ; then
+    LD_LIBRARY_PATH="" Xdialog --msgbox "${1}" 2>/dev/null
+  else
+    echo "${1}"
+  fi
+  exit 1
+}
+
+yesno()
+{
+  TITLE=$1
+  TEXT=$2
+  if [ -x /usr/bin/zenity ] ; then
+    LD_LIBRARY_PATH="" zenity --question --title="$TITLE" --text="$TEXT" || exit 0
+  elif [ -x /usr/bin/kdialog ] ; then
+    LD_LIBRARY_PATH="" kdialog --caption "Disk auswerfen?" --title "$TITLE" -yesno "$TEXT" || exit 0
+  elif [ -x /usr/bin/Xdialog ] ; then
+    LD_LIBRARY_PATH="" Xdialog --title "$TITLE" --clear --yesno "$TEXT" 10 80 || exit 0
+  else
+    echo "zenity, kdialog, Xdialog missing. Skipping $0."
+    exit 0
+  fi
+}
+
+check_prevent()
+{
+  FILE=$1
+  if [ -e "$FILE" ] ; then
+    exit 0
+  fi
+}
+
+# Exit immediately of one of these files is present
+# (e.g., because the desktop environment wants to handle desktop integration itself)
+check_prevent "$HOME/.local/share/$VENDORPREFIX/no_desktopintegration"
+check_prevent "/usr/share/$VENDORPREFIX/no_desktopintegration"
+check_prevent "/etc/$VENDORPREFIX/no_desktopintegration"
+
+# Exit immediately if appimaged is running
+pidof appimaged 2>/dev/null && exit 0
+
+# Exit immediately if $DESKTOPINTEGRATION is not empty
+if [ ! -z "$DESKTOPINTEGRATION" ] ; then
+  exit 0
+fi
+
+check_dep()
+{
+  DEP=$1
+  if [ -z $(which $DEP) ] ; then
+    echo "$DEP is missing. Skipping $0."
+    exit 0
+  fi
+}
+
+DIRNAME=$(dirname $FILENAME)
+
+# Check whether dependencies are present in base system (we do not bundle these)
+# http://cgit.freedesktop.org/xdg/desktop-file-utils/
+check_dep desktop-file-validate
+check_dep update-desktop-database
+check_dep desktop-file-install
+
+DESKTOPFILE=$(find ../ -name "*.desktop" | head -n 1)
+DESKTOPFILE_NAME=$(basename $DESKTOPFILE)
+
+if [ ! -f "$DESKTOPFILE" ] ; then
+  echo "Desktop file is missing. Please run $0 from within an AppImage."
+  exit 0
+fi
+
+if [ -z "$APPIMAGE" ] ; then
+  echo "\$APPIMAGE is missing. Please run $0 from within an AppImage."
+  exit 0
+fi
+
+# Construct path to the icon according to
+# http://specifications.freedesktop.org/thumbnail-spec/thumbnail-spec-latest.html
+ABS_APPIMAGE=$(readlink -e $APPIMAGE)
+ICONURL="file://$ABS_APPIMAGE"
+MD5=$(echo -n $ICONURL | md5sum | cut -c -32)
+ICONFILE="$HOME/.cache/thumbnails/normal/$MD5.png"
+if [ ! -f "$ICONFILE" ] ; then
+  echo "$ICONFILE is missing. Please run $0 from within an AppImage."
+  exit 0
+fi
+
+# $XDG_DATA_DIRS contains the default paths /usr/local/share:/usr/share
+# desktop file has to be installed in an applications subdirectory
+# of one of the $XDG_DATA_DIRS components
+if [ -z "$XDG_DATA_DIRS" ] ; then
+  echo "\$XDG_DATA_DIRS is missing. Please run $0 from within an AppImage."
+  exit 0
+fi
+
+# Determine where the desktop file should be installed
+if [[ $EUID -ne 0 ]]; then
+   DESTINATION_DIR_DESKTOP="$HOME/.local/share/applications"
+   SYSTEM_WIDE=""
+else
+   # TODO: Check $XDG_DATA_DIRS
+   DESTINATION_DIR_DESKTOP="/usr/local/share/applications"
+   SYSTEM_WIDE="--mode system" # for xdg-mime and xdg-icon-resource
+fi
+
+# Check if the desktop file is already there
+# and if so, whether it points to the same AppImage
+if [ -e "$DESTINATION_DIR_DESKTOP/$VENDORPREFIX-$DESKTOPFILE_NAME" ] ; then
+  # echo "$DESTINATION_DIR_DESKTOP/$VENDORPREFIX-$DESKTOPFILE_NAME already there"
+  EXEC=$(grep "^Exec=" "$DESTINATION_DIR_DESKTOP/$VENDORPREFIX-$DESKTOPFILE_NAME" | head -n 1)
+  # echo $EXEC
+  if [ "Exec=$APPIMAGE" == "$EXEC" ] ; then
+    exit 0
+  fi
+fi
+
+# We ask the user only if we have found no reason to skip until here
+if [ -z "$SKIP" ] ; then
+  yesno "Install" "Should a desktop file for $APPIMAGE be installed?"
+fi
+
+# If the user has agreed, rewrite and install the desktop file, and the MIME information
+if [ -z "$SKIP" ] ; then
+  if [ -e ./share/mime/ ] ; then
+    find ./share/mime/ -type f -name *xml -exec xdg-mime install $SYSTEM_WIDE --novendor {} \;
+  fi
+  # desktop-file-install is supposed to install
+  # .desktop files to the user's
+  # applications directory when run as a non-root user,
+  # and to /usr/share/applications if run as root
+  # but that does not really work for me...
+  echo desktop-file-install --rebuild-mime-info-cache \
+    --vendor=$VENDORPREFIX --set-key=Exec --set-value=$APPIMAGE \
+    --set-key=X-AppImage-Comment --set-value="Generated by $0" \
+    --set-icon=$ICONFILE --set-key=TryExec --set-value=$APPIMAGE $DESKTOPFILE \
+    --dir "$DESTINATION_DIR_DESKTOP"
+  desktop-file-install --rebuild-mime-info-cache \
+    --vendor=$VENDORPREFIX --set-key=Exec --set-value=$APPIMAGE \
+    --set-key=X-AppImage-Comment --set-value="Generated by $0" \
+    --set-icon=$ICONFILE --set-key=TryExec --set-value=$APPIMAGE $DESKTOPFILE \
+    --dir "$DESTINATION_DIR_DESKTOP"
+  xdg-desktop-menu forceupdate
+fi

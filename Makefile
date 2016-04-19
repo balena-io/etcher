@@ -212,6 +212,8 @@ etcher-release/installers/Etcher-linux-x64.AppImage: etcher-release/Etcher-linux
 	cp ./Etcher.desktop $(dir $<)Etcher-linux-x64.AppDir
 	cp ./assets/icon.png $(dir $<)Etcher-linux-x64.AppDir
 	cp -rf $</* $(dir $<)Etcher-linux-x64.AppDir/usr/bin
+	cp ./scripts/desktopintegration $(dir $<)Etcher-linux-x64.AppDir/usr/bin/etcher.wrapper
+	chmod a+x $(dir $<)Etcher-linux-x64.AppDir/usr/bin/etcher.wrapper
 	mkdir -p $(dir $@)
 	./scripts/AppImageAssistant $(dir $<)Etcher-linux-x64.AppDir $@
 
