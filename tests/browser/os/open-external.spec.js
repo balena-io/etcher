@@ -19,8 +19,7 @@
 const m = require('mochainon');
 const os = require('os');
 const angular = require('angular');
-const electron = require('electron');
-const shell = electron.remote.require('shell');
+const shell = require('shell');
 require('angular-mocks');
 
 describe('Browser: OSOpenExternal', function() {
