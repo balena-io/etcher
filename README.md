@@ -1,7 +1,9 @@
 Etcher
 ======
 
-> A better way to flash OS images to SD cards
+> Flash OS images to SD cards & USB drives, safe & easy.
+
+Etcher is a powerful OS image flasher built with web technologies to ensure flashing an SDCard or USB drive is pleasant and safe experience. It protects you from accidentally writing to your hard-drives, ensures every byte of data was written correctly and much more.
 
 [![dependencies](https://david-dm.org/resin-io/etcher.svg)](https://david-dm.org/resin-io/etcher.svg)
 [![Build Status](https://travis-ci.org/resin-io/etcher.svg?branch=master)](https://travis-ci.org/resin-io/etcher)
