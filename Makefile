@@ -205,17 +205,24 @@ etcher-release/installers/Etcher-linux-x86.tar.gz: etcher-release/Etcher-linux-x
 	mkdir -p $(dir $@)
 	tar -zcf $@ $<
 
+app-dir-create = mkdir -p $(2)/usr/bin \
+	&& cp ./scripts/AppRun-$(1) $(2)/AppRun \
+	&& cp ./Etcher.desktop $(2) \
+	&& cp ./assets/icon.png $(2) \
+	&& cp -rf $</* $(2)/usr/bin \
+	&& cp ./scripts/desktopintegration $(2)/usr/bin/etcher.wrapper
+
+app-image-create = ./scripts/AppImageAssistant-$(1) $(2) $(3)
+
 etcher-release/installers/Etcher-linux-x64.AppImage: etcher-release/Etcher-linux-x64
-	mkdir -p $(dir $<)Etcher-linux-x64.AppDir/usr/bin
-	cp ./scripts/AppRun $(dir $<)Etcher-linux-x64.AppDir
-	chmod a+x $(dir $<)Etcher-linux-x64.AppDir/AppRun
-	cp ./Etcher.desktop $(dir $<)Etcher-linux-x64.AppDir
-	cp ./assets/icon.png $(dir $<)Etcher-linux-x64.AppDir
-	cp -rf $</* $(dir $<)Etcher-linux-x64.AppDir/usr/bin
-	cp ./scripts/desktopintegration $(dir $<)Etcher-linux-x64.AppDir/usr/bin/etcher.wrapper
-	chmod a+x $(dir $<)Etcher-linux-x64.AppDir/usr/bin/etcher.wrapper
+	$(call app-dir-create,x64,$(dir $<)Etcher-linux-x64.AppDir)
 	mkdir -p $(dir $@)
-	./scripts/AppImageAssistant $(dir $<)Etcher-linux-x64.AppDir $@
+	$(call app-image-create,x64,$(dir $<)Etcher-linux-x64.AppDir,$@)
+
+etcher-release/installers/Etcher-linux-x86.AppImage: etcher-release/Etcher-linux-x86
+	$(call app-dir-create,x86,$(dir $<)Etcher-linux-x86.AppDir)
+	mkdir -p $(dir $@)
+	$(call app-image-create,x86,$(dir $<)Etcher-linux-x86.AppDir,$@)
 
 etcher-release/installers/Etcher-win32-x64.exe: etcher-release/Etcher-win32-x64 package.json
 	$(ELECTRON_BUILDER) $< \
@@ -239,7 +246,7 @@ package-win32: etcher-release/Etcher-win32-x86 etcher-release/Etcher-win32-x64
 package-all: package-osx package-linux package-win32
 
 installer-osx: etcher-release/installers/Etcher-darwin-x64.dmg
-installer-linux: etcher-release/installers/Etcher-linux-x64.tar.gz etcher-release/installers/Etcher-linux-x86.tar.gz etcher-release/installers/Etcher-linux-x64.AppImage
+installer-linux: etcher-release/installers/Etcher-linux-x64.tar.gz etcher-release/installers/Etcher-linux-x86.tar.gz etcher-release/installers/Etcher-linux-x64.AppImage etcher-release/installers/Etcher-linux-x86.AppImage
 installer-win32: etcher-release/installers/Etcher-win32-x64.exe etcher-release/installers/Etcher-win32-x86.exe
 installer-all: installer-osx installer-linux installer-win32
 
