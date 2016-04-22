@@ -197,14 +197,6 @@ etcher-release/installers/Etcher-darwin-x64.dmg: etcher-release/Etcher-darwin-x6
 	# Cleanup temporal DMG image.
 	rm $<.dmg
 
-etcher-release/installers/Etcher-linux-x64.tar.gz: etcher-release/Etcher-linux-x64
-	mkdir -p $(dir $@)
-	tar -zcf $@ $<
-
-etcher-release/installers/Etcher-linux-x86.tar.gz: etcher-release/Etcher-linux-x86
-	mkdir -p $(dir $@)
-	tar -zcf $@ $<
-
 app-dir-create = mkdir -p $(2)/usr/bin \
 	&& cp ./scripts/AppRun-$(1) $(2)/AppRun \
 	&& cp ./Etcher.desktop $(2) \
@@ -246,7 +238,7 @@ package-win32: etcher-release/Etcher-win32-x86 etcher-release/Etcher-win32-x64
 package-all: package-osx package-linux package-win32
 
 installer-osx: etcher-release/installers/Etcher-darwin-x64.dmg
-installer-linux: etcher-release/installers/Etcher-linux-x64.tar.gz etcher-release/installers/Etcher-linux-x86.tar.gz etcher-release/installers/Etcher-linux-x64.AppImage etcher-release/installers/Etcher-linux-x86.AppImage
+installer-linux: etcher-release/installers/Etcher-linux-x64.AppImage etcher-release/installers/Etcher-linux-x86.AppImage
 installer-win32: etcher-release/installers/Etcher-win32-x64.exe etcher-release/installers/Etcher-win32-x86.exe
 installer-all: installer-osx installer-linux installer-win32
 
@@ -256,10 +248,10 @@ s3-upload = aws s3api put-object \
 	--key etcher/$(ETCHER_VERSION)/$(notdir $(1)) \
 	--body $(1)
 
-upload-linux-x64: etcher-release/installers/Etcher-linux-x64.tar.gz
+upload-linux-x64: etcher-release/installers/Etcher-linux-x64.AppImage
 	$(call s3-upload,$<)
 
-upload-linux-x86: etcher-release/installers/Etcher-linux-x86.tar.gz
+upload-linux-x86: etcher-release/installers/Etcher-linux-x86.AppImage
 	$(call s3-upload,$<)
 
 upload-win32-x64: etcher-release/installers/Etcher-win32-x64.exe
