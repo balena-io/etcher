@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v1.0.0-beta.4] - 2016-04-22
+
+### Added
+
+- Integrate Etcher CLI in this git repository.
+- Generate [AppImage](http://appimage.org) packages for GNU/Linux.
+- Add application version to footer, which links to the `CHANGELOG`.
+- Allow to bypass elevation with an environment variable (`ETCHER_BYPASS_ELEVATION`).
+
+### Changed
+
+- Upgrade Electron to v0.37.6.
+- Improve drive selector modal.
+- Add dashed underline stlying to footer links.
+
 ## [v1.0.0-beta.3] - 2016-04-17
 
 ### Added
@@ -75,6 +90,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fix broken state when going to settings from the success screen.
 - Fix `Cannot read property 'length' of undefined` frequent issue.
 
+[v1.0.0-beta.4]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.3...v1.0.0-beta.4
 [v1.0.0-beta.3]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.2...v1.0.0-beta.3
 [v1.0.0-beta.2]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.1...v1.0.0-beta.2
 [v1.0.0-beta.1]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.0...v1.0.0-beta.1
