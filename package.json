@@ -2,7 +2,7 @@
   "name": "etcher",
   "displayName": "Etcher",
   "version": "1.0.0-beta.4",
-  "main": "lib/etcher.js",
+  "main": "lib/gui/etcher.js",
   "description": "An image flasher with support for Windows, OS X and GNU/Linux.",
   "homepage": "https://github.com/resin-io/etcher",
   "repository": {
@@ -11,9 +11,9 @@
   },
   "scripts": {
     "test:main": "electron-mocha --recursive tests/src -R progress",
-    "test:browser": "electron-mocha --recursive --renderer tests/browser -R progress",
-    "test": "npm run-script test:main && npm run-script test:browser",
-    "start": "electron lib/etcher.js"
+    "test:gui": "electron-mocha --recursive --renderer tests/gui -R progress",
+    "test": "npm run-script test:main && npm run-script test:gui",
+    "start": "electron lib/gui/etcher.js"
   },
   "author": "Juan Cruz Viotti <juan@resin.io>",
   "license": "Apache-2.0",

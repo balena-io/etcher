@@ -29,9 +29,9 @@ const paths = {
     'gulpfile.js'
   ],
   sass: [
-    './lib/**/*.scss'
+    './lib/gui/**/*.scss'
   ],
-  sassMain: './lib/scss/main.scss'
+  sassMain: './lib/gui/scss/main.scss'
 };
 
 gulp.task('sass', function() {
