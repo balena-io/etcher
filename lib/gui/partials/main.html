@@ -1,0 +1,109 @@
+<div class="row around-xs">
+  <div class="col-xs">
+    <div class="box text-center" os-dropzone="app.selectImage($file)">
+      <svg-icon class="center-block" path="../../../assets/image.svg"></svg-icon>
+      <span class="icon-caption">SELECT IMAGE</span>
+      <span class="badge space-top-medium">1</span>
+
+      <div class="space-vertical-large">
+        <div ng-hide="app.selection.hasImage()">
+          <button class="btn btn-primary btn-brick" ng-click="app.openImageSelector()">Select image</button>
+          <p class="step-footer">*supported files: .img, .iso, .zip</p>
+        </div>
+        <div ng-show="app.selection.hasImage()">
+          <div ng-bind="app.selection.getImage() | basename"></div>
+
+          <button class="btn btn-link step-footer"
+            ng-click="app.reselectImage()"
+            ng-hide="app.writer.isFlashing()">Change</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs">
+    <div class="box text-center relative">
+      <div class="step-border-left" ng-disabled="!app.selection.hasImage()"></div>
+      <div class="step-border-right" ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()"></div>
+
+      <svg-icon class="center-block"
+        path="../../../assets/drive.svg"
+        ng-disabled="!app.selection.hasImage()"></svg-icon>
+      <span class="icon-caption"
+        ng-disabled="!app.selection.hasImage()">SELECT DRIVE</span>
+
+      <span class="badge space-top-medium" ng-disabled="!app.selection.hasImage()">2</span>
+
+      <div class="space-vertical-large">
+        <div ng-hide="app.selection.hasDrive()">
+
+          <div ng-show="app.scanner.hasAvailableDrives() || !app.selection.hasImage()">
+            <button class="btn btn-primary btn-brick"
+              ng-disabled="!app.selection.hasImage()"
+              ng-click="app.openDriveSelector()">Select drive</button>
+          </div>
+
+          <div ng-hide="app.scanner.hasAvailableDrives() || !app.selection.hasImage()">
+            <button class="btn btn-danger btn-brick">Connect a drive</button>
+          </div>
+
+        </div>
+        <div ng-show="app.selection.hasDrive()">
+          <div ng-bind="app.selection.getDrive().name + ' - ' + app.selection.getDrive().size"></div>
+
+          <button class="btn btn-link step-footer"
+            ng-click="app.reselectDrive()"
+            ng-hide="app.writer.isFlashing()">Change</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs">
+    <div class="box text-center">
+      <svg-icon class="center-block"
+        path="../../../assets/flash.svg"
+        ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()"></svg-icon>
+      <span class="icon-caption"
+        ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">FLASH IMAGE</span>
+
+      <span class="badge space-top-medium" ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">3</span>
+
+      <div class="space-vertical-large">
+        <progress-button class="btn-brick"
+          percentage="app.writer.state.progress"
+          striped="{{ app.writer.state.type == 'check' }}"
+          ng-attr-active="{{ app.writer.isFlashing() }}"
+          ng-show="app.success"
+          ng-click="app.flash(app.selection.getImage(), app.selection.getDrive())"
+          ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">
+            <span ng-show="app.writer.state.progress == 100 && app.writer.isFlashing()">Finishing...</span>
+            <span ng-show="app.writer.state.progress == 0 && !app.writer.isFlashing()">Flash!</span>
+            <span ng-show="app.writer.state.progress == 0 && app.writer.isFlashing() && !app.writer.state.speed">Starting...</span>
+            <span ng-show="app.writer.state.speed && app.writer.state.progress != 100 && app.writer.state.type != 'check'"
+              ng-bind="app.writer.state.progress + '% '"></span>
+            <span ng-show="app.writer.state.speed && app.writer.state.progress != 100 && app.writer.state.type == 'check'"
+              ng-bind="app.writer.state.progress + '% Validating...'"></span>
+        </progress-button>
+
+        <div class="alert-ribbon alert-warning" ng-class="{ 'alert-ribbon--open': !app.success }">
+          <span class="glyphicon glyphicon-warning-sign"></span>
+          <span ng-show="app.settings.validateWriteOnSuccess">
+            Your removable drive did not pass validation check.<br>Please insert another one and <button class="btn btn-link" ng-click="app.restartAfterFailure()">try again</button>
+          </span>
+          <span ng-hide="app.settings.validateWriteOnSuccess">
+            Oops, seems something went wrong. Click <button class="btn btn-link" ng-click="app.restartAfterFailure()">here</button> to retry
+          </span>
+        </div>
+
+        <button class="btn btn-warning btn-brick" ng-hide="app.success" ng-click="app.restartAfterFailure()">
+          <span class="glyphicon glyphicon-repeat"></span> Retry
+        </button>
+
+        <p class="step-footer"
+          ng-bind="app.writer.state.speed.toFixed(2) + ' MB/s'"
+          ng-show="app.writer.state.speed && app.writer.state.progress != 100 && app.writer.state.type == 'write'"></p>
+      </div>
+    </div>
+  </div>
+</div>

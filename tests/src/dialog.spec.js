@@ -2,7 +2,7 @@
 
 const m = require('mochainon');
 const electron = require('electron');
-const dialog = require('../../lib/src/dialog');
+const dialog = require('../../lib/gui/dialog');
 
 describe('Dialog:', function() {
 
