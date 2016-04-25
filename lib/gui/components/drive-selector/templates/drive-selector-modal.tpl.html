@@ -8,7 +8,7 @@
     <li class="list-group-item" ng-repeat="drive in modal.scanner.drives"
       ng-click="modal.state.toggleSelectDrive(drive)">
         <div>
-          <h4 class="list-group-item-heading">{{ drive.description }} - {{ drive.size }}</h4>
+          <h4 class="list-group-item-heading">{{ drive.description }} - {{ drive.size | gigabyte | number:1 }} GB</h4>
           <p class="list-group-item-text">{{ drive.name }}</p>
         </div>
         <span class="tick tick--success" ng-disabled="!modal.state.isSelectedDrive(drive)"></span>

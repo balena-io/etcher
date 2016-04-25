@@ -49,8 +49,7 @@
 
         </div>
         <div ng-show="app.selection.hasDrive()">
-          <div ng-bind="app.selection.getDrive().name + ' - ' + app.selection.getDrive().size"></div>
-
+          <div>{{ app.selection.getDrive().name }} - {{ app.selection.getDrive().size | gigabyte | number:1 }} GB</div>
           <button class="btn btn-link step-footer"
             ng-click="app.reselectDrive()"
             ng-hide="app.writer.isFlashing()">Change</button>
