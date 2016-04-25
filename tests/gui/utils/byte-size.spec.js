@@ -2,7 +2,6 @@
 
 const m = require('mochainon');
 const angular = require('angular');
-const os = require('os');
 require('angular-mocks');
 
 describe('Browser: ByteSize', function() {
