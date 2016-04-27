@@ -31,7 +31,6 @@
     "tests",
     "etcher-release",
     "lib/scss",
-    "lib/cli",
     "bin/etcher"
   ],
   "builder": {
