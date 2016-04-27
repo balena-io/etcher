@@ -25,8 +25,10 @@ console.log(_.flatten([
   }),
 
   // Top level hidden files
-  _.filter(topLevelFiles, function(file) {
+  _.map(_.filter(topLevelFiles, function(file) {
     return _.startsWith(file, '.');
+  }), function(file) {
+    return '\\' + file;
   }),
 
   // Top level markdown files
