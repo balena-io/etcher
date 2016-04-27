@@ -78,7 +78,7 @@
     "electron-mocha": "^1.2.2",
     "electron-osx-sign": "^0.3.0",
     "electron-packager": "^7.0.1",
-    "electron-prebuilt": "^0.37.6",
+    "electron-prebuilt": "0.37.6",
     "gulp": "^3.9.0",
     "gulp-jscs": "^3.0.2",
     "gulp-jshint": "^2.0.0",
