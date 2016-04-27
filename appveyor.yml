@@ -11,13 +11,13 @@ cache:
 # what combinations to test
 environment:
   matrix:
-    - nodejs_version: 4
+    - nodejs_version: 5
 
 install:
   - ps: Install-Product node $env:nodejs_version x64
   - npm -g install npm@2
   - set PATH=%APPDATA%\npm;%PATH%
-  - npm install
+  - npm install --build-from-source
 
 build: off
 
