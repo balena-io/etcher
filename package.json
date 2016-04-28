@@ -60,7 +60,7 @@
     "lodash": "^4.5.1",
     "ngstorage": "^0.3.10",
     "open": "0.0.5",
-    "resin-image-write": "^4.0.0",
+    "resin-image-write": "^4.0.1",
     "resin-cli-errors": "^1.2.0",
     "resin-cli-form": "^1.4.1",
     "resin-cli-visuals": "^1.2.8",
