@@ -8,18 +8,34 @@ Thanks for your interest in contributing to this project! This document aims to 
 - [Bower](http://bower.io).
 - [Gulp](http://gulpjs.com).
 
-## Cloning
+## Running locally
 
-First, clone the repository:
+You can manually run the application with the following steps:
 
-``` shell
-$ git clone https://github/resin-io/etcher
+- Clone the repository.
+
+```sh
+git clone https://github.com/resin-io/etcher
+cd etcher
 ```
 
-Make sure you install all the dependencies before attempting to run the application:
+- Install dependencies.
 
-``` shell
-$ npm install && bower install
+```sh
+npm install
+bower install
+```
+
+- Run the GUI application.
+
+```sh
+npm start
+```
+
+- Run the CLI application.
+
+```sh
+node bin/etcher
 ```
 
 ## Developing
@@ -39,14 +55,6 @@ $ gulp watch
 ```
 
 We make use of [EditorConfig](http://editorconfig.org) to communicate indentation, line endings and other text editing default. We encourage you to install the relevant plugin in your text editor of choice to avoid having to fix any issues during the review process.
-
-## Running
-
-You can run the application with the following command in the root of the project:
-
-``` shell
-$ npm start
-```
 
 ## Testing
 

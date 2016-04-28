@@ -22,39 +22,6 @@ Installers
 
 Refer to the [downloads page](http://etcher.io) for the latest pre-made installers for all supported operating systems.
 
-Developing
-----------
-
-You can manually run the application with the following steps:
-
-- Clone the repository.
-
-```sh
-git clone https://github.com/resin-io/etcher
-cd etcher
-```
-
-- Install dependencies.
-
-```sh
-npm install
-bower install
-```
-
-- Run the GUI application.
-
-```sh
-npm start
-```
-
-- Run the CLI application.
-
-```sh
-node bin/etcher
-```
-
-Take a look at our [contributing guide](https://github.com/resin-io/etcher/blob/master/CONTRIBUTING.md).
-
 Support
 -------
 
