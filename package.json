@@ -10,9 +10,7 @@
     "url": "git@github.com:resin-io/etcher.git"
   },
   "scripts": {
-    "test:main": "electron-mocha --recursive tests/src -R progress",
-    "test:gui": "electron-mocha --recursive --renderer tests/gui -R progress",
-    "test": "npm run-script test:main && npm run-script test:gui",
+    "test": "electron-mocha --recursive --renderer tests/gui -R progress",
     "start": "electron lib/start.js"
   },
   "author": "Juan Cruz Viotti <juan@resin.io>",
@@ -65,7 +63,6 @@
     "resin-cli-errors": "^1.2.0",
     "resin-cli-form": "^1.4.1",
     "resin-cli-visuals": "^1.2.8",
-    "resin-zip-image": "^1.1.2",
     "sudo-prompt": "^3.1.0",
     "trackjs": "^2.1.16",
     "umount": "^1.1.3",
@@ -85,8 +82,6 @@
     "gulp-sass": "^2.0.4",
     "jshint": "^2.9.1",
     "jshint-stylish": "^2.0.1",
-    "mochainon": "^1.0.0",
-    "rindle": "^1.3.0",
-    "tmp": "0.0.28"
+    "mochainon": "^1.0.0"
   }
 }
