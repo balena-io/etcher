@@ -14,6 +14,7 @@ Prequisites
 - [AWS CLI (for uploading packages)](https://aws.amazon.com/cli://aws.amazon.com/cli/)
 - [osslsigncode (for signing the Windows installers)](https://sourceforge.net/projects/osslsigncode/)
 - [UPX](http://upx.sourceforge.net)
+- [Python](https://www.python.org)
 
 If you're going to generate installers for another platform than the one you're currently running, make sure you force-install all NPM dependencies, so optional dependencies marked for a certain operating system get installed regardless of the host operating system
 
