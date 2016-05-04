@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v1.0.0-beta.5] - 2016-05-04
+
+### Added
+
+- Add `xz` compression support.
+
+### Changed
+
+- Improve "Select Image" supported file types label.
+- Fix error that prevented the application to be elevated correctly on Windows.
+
+### Removed
+
+- Deprecate GNU/Linux `.tar.gz` installers in favor of AppImages.
+
 ## [v1.0.0-beta.4] - 2016-04-22
 
 ### Added
@@ -90,6 +105,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fix broken state when going to settings from the success screen.
 - Fix `Cannot read property 'length' of undefined` frequent issue.
 
+[v1.0.0-beta.5]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.4...v1.0.0-beta.5
 [v1.0.0-beta.4]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.3...v1.0.0-beta.4
 [v1.0.0-beta.3]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.2...v1.0.0-beta.3
 [v1.0.0-beta.2]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.1...v1.0.0-beta.2
