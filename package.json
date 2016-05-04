@@ -20,6 +20,7 @@
     "LICENSE",
     "Makefile",
     "(.*)\\.pem",
+    "(.*)\\.p12",
     "(.*)\\.log",
     "assets/osx",
     "appveyor.yml",

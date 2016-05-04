@@ -3,30 +3,16 @@ Publishing Etcher
 
 This is a small guide to package and publish Etcher to all supported operating systems.
 
-Prequisites
------------
+Common Pre-requisites
+---------------------
 
 - [NodeJS](https://nodejs.org)
-- [GNU Make](https://www.gnu.org/software/make/)
-- [wine (for Windows)](https://www.winehq.org)
-- [nsis (for Windows)](http://nsis.sourceforge.net/Main_Page)
-- [XCode (for OS X)](https://developer.apple.com/xcode://developer.apple.com/xcode/)
-- [AWS CLI (for uploading packages)](https://aws.amazon.com/cli://aws.amazon.com/cli/)
-- [osslsigncode (for signing the Windows installers)](https://sourceforge.net/projects/osslsigncode/)
+
+Make sure you're running the exact same NodeJS version as the one included with the current Electron build being used by Etcher to avoid any strange native dependencies issues.
+
+- [Bower](http://bower.io)
 - [UPX](http://upx.sourceforge.net)
 - [Python](https://www.python.org)
-
-If you're going to generate installers for another platform than the one you're currently running, make sure you force-install all NPM dependencies, so optional dependencies marked for a certain operating system get installed regardless of the host operating system
-
-```sh
-npm install --force
-```
-
-You can run the following command at any time to start from a fresh state:
-
-```sh
-make clean
-```
 
 Signing
 -------
@@ -43,44 +29,59 @@ The application will be signed automatically using this certificate when packagi
 
 1. Get access to our code signing certificate and decryption key as a Resin.io employee by asking for it to the relevant people.
 
-2. Place the cert and key in the root of the Etcher repository naming them `certificate.crt.pem` and `certificate.key.pem`, respectively.
-
-The application and installer will be signed automatically using these certificates when packaging for Windows.
+2. Place the certificate in the root of the Etcher repository naming it `certificate.p12`.
 
 Packaging
 ---------
 
-Run the following command to make installers for all supported operating systems:
-
-```sh
-make installer-all
-```
-
-You can replace `all` with `osx`, `linux` or `win32` to only generate installers for those platforms:
-
-```sh
-make installer-osx
-make installer-linux
-make installer-win32
-```
-
 The resulting installers will be saved to `etcher-release/installers`.
 
-Uploading
----------
+### Windows
+
+Pre-requisites:
+
+- [NSIS](http://nsis.sourceforge.net/Main_Page)
+- [Visual Studio Community 2013](https://www.visualstudio.com/en-us/news/vs2013-community-vs.aspx)
+- [Rimraf](https://github.com/isaacs/rimraf)
+- [asar](https://github.com/electron/asar)
+
+Run the following command from the *Developer Command Prompt for VS2013*, to ensure all Visual Studio command utilities are available in the `%PATH%`:
+
+```sh
+> .\scripts\build\windows.bat <arch>
+```
+
+### OS X
+
+Pre-requisites:
+
+- [XCode](https://developer.apple.com/xcode://developer.apple.com/xcode/)
+
+Run the following command:
+
+```sh
+$ ./scripts/build/darwin.sh
+```
+
+### GNU/Linux
+
+Run the following command:
+
+```sh
+$ ./scripts/build/linux.sh <arch>
+```
+
+Publishing
+----------
+
+- [AWS CLI](https://aws.amazon.com/cli://aws.amazon.com/cli/)
 
 Make sure you have the [AWS CLI tool](https://aws.amazon.com/cli://aws.amazon.com/cli/) installed and configured to access Resin.io's production downloads S3 bucket.
 
-Run the following command to upload all installers:
+> The publishing script only runs on UNIX based operating systems for now. You can use something like [Cygwin](https://cygwin.com) to run it on Windows.
+
+Run the following command:
 
 ```sh
-make upload-all
-```
-
-As with the `installer` rule, you can replace `all` with `osx`, `linux` or `win32` to only publish those platform's installers:
-
-```sh
-make upload-osx
-make upload-linux
-make upload-win32
+./scripts/publish.sh <file>
 ```
