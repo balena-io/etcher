@@ -6360,6 +6360,9 @@ body {
 .soft {
   color: #ddd; }
 
+[uib-tooltip] {
+  cursor: default; }
+
 .section-footer {
   display: flex;
   align-items: center;
@@ -6406,6 +6409,10 @@ body {
   margin-bottom: -40px;
   color: #85898c;
   font-size: 10px; }
+
+.step-footer-underline {
+  border-bottom: 1px dotted;
+  padding-bottom: 2px; }
 
 .btn.step-footer, .step-footer.progress-button {
   font-size: 12px;
