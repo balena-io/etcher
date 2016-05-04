@@ -8,7 +8,7 @@
       <div class="space-vertical-large">
         <div ng-hide="app.selection.hasImage()">
           <button class="btn btn-primary btn-brick" ng-click="app.openImageSelector()">Select image</button>
-          <p class="step-footer">.img, .iso, or <span class="step-footer-underline" uib-tooltip=".zip">compressed images</span></p>
+          <p class="step-footer">.img, .iso, or <span class="step-footer-underline" uib-tooltip=".zip, .xz">compressed images</span></p>
         </div>
         <div ng-show="app.selection.hasImage()">
           <div ng-bind="app.selection.getImage() | basename"></div>
