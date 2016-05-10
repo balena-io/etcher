@@ -10,7 +10,7 @@
     "url": "git@github.com:resin-io/etcher.git"
   },
   "scripts": {
-    "test": "electron-mocha --recursive --renderer tests/gui -R progress",
+    "test": "electron-mocha --recursive --renderer tests/gui -R min",
     "start": "electron lib/start.js"
   },
   "author": "Juan Cruz Viotti <juan@resin.io>",
