@@ -337,6 +337,66 @@ describe('Browser: SelectionState', function() {
 
     });
 
+    describe('.toggleSetDrive()', function() {
+
+      describe('given a selected drive', function() {
+
+        beforeEach(function() {
+          this.drive = {
+            device: '/dev/sdb',
+            description: 'DataTraveler 2.0',
+            size: '7.3G',
+            mountpoint: '/media/UNTITLED',
+            name: '/dev/sdb',
+            system: false
+          };
+
+          SelectionStateModel.setDrive(this.drive);
+        });
+
+        it('should be able to remove the drive', function() {
+          m.chai.expect(SelectionStateModel.hasDrive()).to.be.true;
+          SelectionStateModel.toggleSetDrive(this.drive);
+          m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+        });
+
+        it('should be able to replace the drive', function() {
+          const drive = {
+            device: '/dev/disk2',
+            name: 'USB Drive',
+            size: '16GB'
+          };
+
+          m.chai.expect(SelectionStateModel.getDrive()).to.deep.equal(this.drive);
+          SelectionStateModel.toggleSetDrive(drive);
+          m.chai.expect(SelectionStateModel.getDrive()).to.deep.equal(drive);
+          m.chai.expect(SelectionStateModel.getDrive()).to.not.deep.equal(this.drive);
+        });
+
+      });
+
+      describe('given no selected drive', function() {
+
+        beforeEach(function() {
+          SelectionStateModel.removeDrive();
+        });
+
+        it('should set the drive', function() {
+          const drive = {
+            device: '/dev/disk2',
+            name: 'USB Drive',
+            size: '16GB'
+          };
+
+          m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+          SelectionStateModel.toggleSetDrive(drive);
+          m.chai.expect(SelectionStateModel.getDrive()).to.deep.equal(drive);
+        });
+
+      });
+
+    });
+
   });
 
 });
