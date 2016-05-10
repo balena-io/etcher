@@ -35,7 +35,7 @@ describe('Browser: SVGIcon', function() {
       const icon = '../../../../../lib/gui/assets/etcher.svg';
       let iconContents = fs.readFileSync(path.join(__dirname, '../../../lib/gui/assets/etcher.svg'), {
         encoding: 'utf8'
-      }).split('\n');
+      }).split(/\r?\n/);
 
       // Injecting XML as HTML causes the XML header to be commented out.
       // Modify here to ease assertions later on.
