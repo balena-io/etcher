@@ -10,6 +10,8 @@ cache:
 
 # what combinations to test
 environment:
+  global:
+    ELECTRON_NO_ATTACH_CONSOLE: true
   matrix:
     - nodejs_version: 5
 
