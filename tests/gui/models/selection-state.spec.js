@@ -251,6 +251,14 @@ describe('Browser: SelectionState', function() {
           });
         });
 
+        it('should return false if an undefined value is passed', function() {
+          m.chai.expect(SelectionStateModel.isCurrentDrive()).to.be.false;
+        });
+
+        it('should return false if an empty object is passed', function() {
+          m.chai.expect(SelectionStateModel.isCurrentDrive({})).to.be.false;
+        });
+
         it('should return true given the exact same drive', function() {
           m.chai.expect(SelectionStateModel.isCurrentDrive({
             device: '/dev/sdb',
@@ -285,7 +293,7 @@ describe('Browser: SelectionState', function() {
           })).to.be.false;
         });
 
-        it('should return false if the description changes', function() {
+        it('should return true if the description changes', function() {
           m.chai.expect(SelectionStateModel.isCurrentDrive({
             device: '/dev/sdb',
             description: 'DataTraveler 3.0',
@@ -293,7 +301,7 @@ describe('Browser: SelectionState', function() {
             mountpoint: '/media/UNTITLED',
             name: '/dev/sdb',
             system: false
-          })).to.be.false;
+          })).to.be.true;
         });
 
       });
@@ -302,6 +310,14 @@ describe('Browser: SelectionState', function() {
 
         beforeEach(function() {
           SelectionStateModel.removeDrive();
+        });
+
+        it('should return false if an undefined value is passed', function() {
+          m.chai.expect(SelectionStateModel.isCurrentDrive()).to.be.false;
+        });
+
+        it('should return false if an empty object is passed', function() {
+          m.chai.expect(SelectionStateModel.isCurrentDrive({})).to.be.false;
         });
 
         it('should return false for anything', function() {
