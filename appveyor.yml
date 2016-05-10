@@ -24,6 +24,8 @@ install:
   - npm -g install npm@2
   - set PATH=%APPDATA%\npm;%PATH%
   - npm install --build-from-source
+  - npm install -g bower
+  - bower install
 
 build: off
 
