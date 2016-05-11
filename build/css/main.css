@@ -1254,7 +1254,7 @@ mark,
 .text-right, .section-header {
   text-align: right; }
 
-.text-center, .alert, .alert-ribbon, .section-footer {
+.text-center, .alert, .alert-ribbon, .update-notifier-modal-body__content, .section-footer {
   text-align: center; }
 
 .text-justify {
@@ -5909,9 +5909,6 @@ html {
   position: initial;
   margin-right: 2px; }
 
-.checkbox input[type="checkbox"]:not(:checked) + * {
-  color: #ddd; }
-
 .modal-backdrop.in {
   opacity: 0; }
 
@@ -6131,6 +6128,184 @@ button.btn:focus, button.progress-button:focus {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+.modal-content {
+  display: flex;
+  flex-direction: column; }
+
+.modal-header {
+  display: flex;
+  align-items: baseline;
+  text-transform: uppercase;
+  font-size: 11px; }
+
+.modal-title {
+  font-size: inherit;
+  flex-grow: 1; }
+
+.modal-header {
+  color: #b3b3b3;
+  padding: 11px 20px;
+  flex-grow: 0; }
+
+.modal-body {
+  flex-grow: 1;
+  color: #666;
+  padding: 0 20px;
+  max-height: 250px;
+  overflow: auto; }
+
+.modal-content {
+  height: 320px; }
+
+.modal-body .list-group-item {
+  display: flex;
+  align-items: center;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  border-color: #eee;
+  padding: 12px 0; }
+  .modal-body .list-group-item > .tick {
+    font-size: 11px; }
+
+.modal-body .list-group-item-heading {
+  font-size: 13px; }
+
+.modal-body .list-group-item-text {
+  line-height: 1;
+  font-size: 11px;
+  color: #aaa; }
+
+.modal-body .list-group-item :first-child {
+  flex-grow: 1; }
+
+.modal-body .list-group-item:first-child {
+  border-top: none; }
+
+.modal-open {
+  padding-right: 0 !important; }
+
+.modal-fat-and-short {
+  width: 400px;
+  margin-top: -10px; }
+  .modal-fat-and-short .modal-content {
+    height: 245px; }
+
+.modal-footer {
+  flex-grow: 0;
+  border: 0; }
+
+.modal .btn-primary[disabled], .modal [disabled].progress-button--primary {
+  background-color: #d5d5d5; }
+
+.modal {
+  display: flex !important;
+  justify-content: center;
+  align-items: center; }
+
+.modal-dialog {
+  margin: 0;
+  position: initial; }
+
+/*
+ * Copyright 2016 Resin.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.alert-ribbon {
+  width: 60%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  top: -100%;
+  transition: top 0.5s; }
+  .alert-ribbon > .glyphicon:first-child, .alert-ribbon > .tick:first-child {
+    margin-right: 5px; }
+  .alert-ribbon > .glyphicon:last-child, .alert-ribbon > .tick:last-child {
+    margin-left: 5px; }
+  .alert-ribbon .btn-link {
+    padding: 0;
+    font-size: inherit;
+    vertical-align: baseline;
+    border-radius: 0;
+    border-bottom: 1px solid; }
+  .alert-ribbon.alert-warning .btn-link {
+    border-color: #f7dbc3;
+    color: #fff; }
+    .alert-ribbon.alert-warning .btn-link:hover {
+      color: #e6e6e6;
+      border-color: #f2c096; }
+
+.alert-ribbon--open {
+  top: 0; }
+
+/*
+ * Copyright 2016 Resin.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.update-notifier-modal-body {
+  padding: 30px 35px; }
+
+.update-notifier-modal-body__content {
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #eeeeee; }
+
+.update-notifier-modal-body__title {
+  margin-bottom: 15px; }
+
+.update-notifier-modal-body__menu {
+  display: flex;
+  justify-content: center; }
+  .update-notifier-modal-body__menu > .btn, .update-notifier-modal-body__menu > .progress-button {
+    flex-grow: 1;
+    width: 0; }
+  .update-notifier-modal-body__menu > .btn + .btn, .update-notifier-modal-body__menu > .progress-button + .btn, .update-notifier-modal-body__menu > .btn + .progress-button, .update-notifier-modal-body__menu > .progress-button + .progress-button {
+    margin-left: 10px; }
+
+.update-notifier-modal-body .checkbox {
+  color: #959595;
+  font-size: 11px; }
+
+/*
+ * Copyright 2016 Resin.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /**
  * A button with a progress bar inside.
  *
@@ -6231,114 +6406,8 @@ button.btn:focus, button.progress-button:focus {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.modal-content {
-  display: flex;
-  flex-direction: column; }
-
-.modal-header {
-  display: flex;
-  align-items: baseline;
-  text-transform: uppercase;
-  font-size: 11px; }
-
-.modal-title {
-  font-size: inherit;
-  flex-grow: 1; }
-
-.modal-header {
-  color: #b3b3b3;
-  padding: 11px 20px;
-  flex-grow: 0; }
-
-.modal-body {
-  flex-grow: 1;
-  color: #666;
-  padding: 0 20px;
-  max-height: 250px;
-  overflow: auto; }
-
-.modal-content {
-  height: 320px; }
-
-.modal-body .list-group-item {
-  display: flex;
-  align-items: center;
-  border-left: none;
-  border-right: none;
-  border-radius: 0;
-  border-color: #eee;
-  padding: 12px 0; }
-  .modal-body .list-group-item > .tick {
-    font-size: 11px; }
-
-.modal-body .list-group-item-heading {
-  font-size: 13px; }
-
-.modal-body .list-group-item-text {
-  line-height: 1;
-  font-size: 11px;
-  color: #aaa; }
-
-.modal-body .list-group-item :first-child {
-  flex-grow: 1; }
-
-.modal-body .list-group-item:first-child {
-  border-top: none; }
-
-.modal-open {
-  padding-right: 0 !important; }
-
-.modal-footer {
-  flex-grow: 0;
-  border: 0; }
-
-.modal .btn-primary[disabled], .modal [disabled].progress-button--primary {
-  background-color: #d5d5d5; }
-
-/*
- * Copyright 2016 Resin.io
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-.alert-ribbon {
-  width: 60%;
-  position: fixed;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  top: -100%;
-  transition: top 0.5s; }
-  .alert-ribbon > .glyphicon:first-child, .alert-ribbon > .tick:first-child {
-    margin-right: 5px; }
-  .alert-ribbon > .glyphicon:last-child, .alert-ribbon > .tick:last-child {
-    margin-left: 5px; }
-  .alert-ribbon .btn-link {
-    padding: 0;
-    font-size: inherit;
-    vertical-align: baseline;
-    border-radius: 0;
-    border-bottom: 1px solid; }
-  .alert-ribbon.alert-warning .btn-link {
-    border-color: #f7dbc3;
-    color: #fff; }
-    .alert-ribbon.alert-warning .btn-link:hover {
-      color: #e6e6e6;
-      border-color: #f2c096; }
-
-.alert-ribbon--open {
-  top: 0; }
+.page-settings .checkbox input[type="checkbox"]:not(:checked) + * {
+  color: #ddd; }
 
 .icon-caption {
   margin-top: 10px; }
