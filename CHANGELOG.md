@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v1.0.0-beta.6] - 2016-05-12
+
+### Added
+
+- Implement update notifier modal.
+
+### Changed
+
+- Implement writing by forking the Etcher CLI as a child process.
+- Prevent selection of drives that are not large enough for the selected image.
+
+### Removed
+
+- Remove implicit "Enable" from settings screen items.
+
 ## [v1.0.0-beta.5] - 2016-05-04
 
 ### Added
@@ -105,6 +120,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fix broken state when going to settings from the success screen.
 - Fix `Cannot read property 'length' of undefined` frequent issue.
 
+[v1.0.0-beta.6]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.5...v1.0.0-beta.6
 [v1.0.0-beta.5]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.4...v1.0.0-beta.5
 [v1.0.0-beta.4]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.3...v1.0.0-beta.4
 [v1.0.0-beta.3]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.2...v1.0.0-beta.3
