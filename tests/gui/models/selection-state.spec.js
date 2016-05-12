@@ -49,34 +49,25 @@ describe('Browser: SelectionState', function() {
 
     });
 
-    describe('given an empty object drive', function() {
-
-      beforeEach(function() {
-        SelectionStateModel.setDrive({});
-      });
-
-      describe('.getDrive()', function() {
-
-        it('should return undefined', function() {
-          const drive = SelectionStateModel.getDrive();
-          m.chai.expect(drive).to.be.undefined;
-        });
-
-      });
-
-    });
-
     describe('given a drive', function() {
 
       beforeEach(function() {
-        SelectionStateModel.setDrive('/dev/disk2');
+        SelectionStateModel.setDrive({
+          device: '/dev/disk2',
+          name: 'USB Drive',
+          size: 999999999
+        });
       });
 
       describe('.getDrive()', function() {
 
         it('should return the drive', function() {
           const drive = SelectionStateModel.getDrive();
-          m.chai.expect(drive).to.equal('/dev/disk2');
+          m.chai.expect(drive).to.deep.equal({
+            device: '/dev/disk2',
+            name: 'USB Drive',
+            size: 999999999
+          });
         });
 
       });
@@ -93,9 +84,18 @@ describe('Browser: SelectionState', function() {
       describe('.setDrive()', function() {
 
         it('should override the drive', function() {
-          SelectionStateModel.setDrive('/dev/disk5');
+          SelectionStateModel.setDrive({
+            device: '/dev/disk5',
+            name: 'USB Drive',
+            size: 999999999
+          });
+
           const drive = SelectionStateModel.getDrive();
-          m.chai.expect(drive).to.equal('/dev/disk5');
+          m.chai.expect(drive).to.deep.equal({
+            device: '/dev/disk5',
+            name: 'USB Drive',
+            size: 999999999
+          });
         });
 
       });
@@ -117,9 +117,75 @@ describe('Browser: SelectionState', function() {
       describe('.setDrive()', function() {
 
         it('should be able to set a drive', function() {
-          SelectionStateModel.setDrive('/dev/disk5');
+          SelectionStateModel.setDrive({
+            device: '/dev/disk5',
+            name: 'USB Drive',
+            size: 999999999
+          });
+
           const drive = SelectionStateModel.getDrive();
-          m.chai.expect(drive).to.equal('/dev/disk5');
+          m.chai.expect(drive).to.deep.equal({
+            device: '/dev/disk5',
+            name: 'USB Drive',
+            size: 999999999
+          });
+        });
+
+        it('should throw if no device', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setDrive({
+              name: 'USB Drive',
+              size: 999999999
+            });
+          }).to.throw('Missing drive device');
+        });
+
+        it('should throw if device is not a string', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setDrive({
+              device: 123,
+              name: 'USB Drive',
+              size: 999999999
+            });
+          }).to.throw('Invalid drive device: 123');
+        });
+
+        it('should throw if no name', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setDrive({
+              device: '/dev/disk2',
+              size: 999999999
+            });
+          }).to.throw('Missing drive name');
+        });
+
+        it('should throw if name is not a string', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setDrive({
+              device: '/dev/disk2',
+              name: 123,
+              size: 999999999
+            });
+          }).to.throw('Invalid drive name: 123');
+        });
+
+        it('should throw if no size', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setDrive({
+              device: '/dev/disk2',
+              name: 'USB Drive'
+            });
+          }).to.throw('Missing drive size');
+        });
+
+        it('should throw if size is not a number', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setDrive({
+              device: '/dev/disk2',
+              name: 'USB Drive',
+              size: '999999999'
+            });
+          }).to.throw('Invalid drive size: 999999999');
         });
 
       });
@@ -209,6 +275,40 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(imageSize).to.equal(999999999);
         });
 
+        it('should throw if no path', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setImage({
+              size: 999999999
+            });
+          }).to.throw('Missing image path');
+        });
+
+        it('should throw if path is not a string', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setImage({
+              path: 123,
+              size: 999999999
+            });
+          }).to.throw('Invalid image path: 123');
+        });
+
+        it('should throw if no size', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setImage({
+              path: 'foo.img'
+            });
+          }).to.throw('Missing image size');
+        });
+
+        it('should throw if size is not a number', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setImage({
+              path: 'foo.img',
+              size: '999999999'
+            });
+          }).to.throw('Invalid image size: 999999999');
+        });
+
       });
 
     });
@@ -216,7 +316,11 @@ describe('Browser: SelectionState', function() {
     describe('given a drive', function() {
 
       beforeEach(function() {
-        SelectionStateModel.setDrive('/dev/disk2');
+        SelectionStateModel.setDrive({
+          device: '/dev/disk1',
+          name: 'USB Drive',
+          size: 999999999
+        });
 
         SelectionStateModel.setImage({
           path: 'foo.img',
@@ -283,7 +387,7 @@ describe('Browser: SelectionState', function() {
           SelectionStateModel.setDrive({
             device: '/dev/sdb',
             description: 'DataTraveler 2.0',
-            size: '7.3G',
+            size: 999999999,
             mountpoint: '/media/UNTITLED',
             name: '/dev/sdb',
             system: false
@@ -302,7 +406,7 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(SelectionStateModel.isCurrentDrive({
             device: '/dev/sdb',
             description: 'DataTraveler 2.0',
-            size: '7.3G',
+            size: 999999999,
             mountpoint: '/media/UNTITLED',
             name: '/dev/sdb',
             system: false
@@ -313,7 +417,7 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(SelectionStateModel.isCurrentDrive({
             device: '/dev/sdb',
             description: 'DataTraveler 2.0',
-            size: '7.3G',
+            size: 999999999,
             mountpoint: '/media/UNTITLED',
             name: '/dev/sdb',
             system: false,
@@ -325,7 +429,7 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(SelectionStateModel.isCurrentDrive({
             device: '/dev/sdc',
             description: 'DataTraveler 2.0',
-            size: '7.3G',
+            size: 999999999,
             mountpoint: '/media/UNTITLED',
             name: '/dev/sdb',
             system: false
@@ -336,7 +440,7 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(SelectionStateModel.isCurrentDrive({
             device: '/dev/sdb',
             description: 'DataTraveler 3.0',
-            size: '7.3G',
+            size: 999999999,
             mountpoint: '/media/UNTITLED',
             name: '/dev/sdb',
             system: false
@@ -364,7 +468,7 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(SelectionStateModel.isCurrentDrive({
             device: '/dev/sdb',
             description: 'DataTraveler 2.0',
-            size: '7.3G',
+            size: 999999999,
             mountpoint: '/media/UNTITLED',
             name: '/dev/sdb',
             system: false
@@ -384,7 +488,7 @@ describe('Browser: SelectionState', function() {
           this.drive = {
             device: '/dev/sdb',
             description: 'DataTraveler 2.0',
-            size: '7.3G',
+            size: 999999999,
             mountpoint: '/media/UNTITLED',
             name: '/dev/sdb',
             system: false
@@ -403,7 +507,7 @@ describe('Browser: SelectionState', function() {
           const drive = {
             device: '/dev/disk2',
             name: 'USB Drive',
-            size: '16GB'
+            size: 999999999
           };
 
           m.chai.expect(SelectionStateModel.getDrive()).to.deep.equal(this.drive);
@@ -424,7 +528,7 @@ describe('Browser: SelectionState', function() {
           const drive = {
             device: '/dev/disk2',
             name: 'USB Drive',
-            size: '16GB'
+            size: 999999999
           };
 
           m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
