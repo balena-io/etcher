@@ -11,7 +11,7 @@
           <p class="step-footer">.img, .iso, or <span class="step-footer-underline" uib-tooltip=".zip, .xz">compressed images</span></p>
         </div>
         <div ng-show="app.selection.hasImage()">
-          <div ng-bind="app.selection.getImage() | basename"></div>
+          <div ng-bind="app.selection.getImagePath() | basename"></div>
 
           <button class="btn btn-link step-footer"
             ng-click="app.reselectImage()"
@@ -74,7 +74,7 @@
           striped="{{ app.writer.state.type == 'check' }}"
           ng-attr-active="{{ app.writer.isFlashing() }}"
           ng-show="app.success"
-          ng-click="app.flash(app.selection.getImage(), app.selection.getDrive())"
+          ng-click="app.flash(app.selection.getImagePath(), app.selection.getDrive())"
           ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">
             <span ng-show="app.writer.state.progress == 100 && app.writer.isFlashing()">Finishing...</span>
             <span ng-show="app.writer.state.progress == 0 && !app.writer.isFlashing()">Flash!</span>

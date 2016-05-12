@@ -29,9 +29,12 @@ describe('Browser: SelectionState', function() {
         m.chai.expect(drive).to.be.undefined;
       });
 
-      it('getImage() should return undefined', function() {
-        const image = SelectionStateModel.getImage();
-        m.chai.expect(image).to.be.undefined;
+      it('getImagePath() should return undefined', function() {
+        m.chai.expect(SelectionStateModel.getImagePath()).to.be.undefined;
+      });
+
+      it('getImageSize() should return undefined', function() {
+        m.chai.expect(SelectionStateModel.getImageSize()).to.be.undefined;
       });
 
       it('hasDrive() should return false', function() {
@@ -126,14 +129,26 @@ describe('Browser: SelectionState', function() {
     describe('given an image', function() {
 
       beforeEach(function() {
-        SelectionStateModel.setImage('foo.img');
+        SelectionStateModel.setImage({
+          path: 'foo.img',
+          size: 999999999
+        });
       });
 
-      describe('.getImage()', function() {
+      describe('.getImagePath()', function() {
 
-        it('should return the image', function() {
-          const image = SelectionStateModel.getImage();
-          m.chai.expect(image).to.equal('foo.img');
+        it('should return the image path', function() {
+          const imagePath = SelectionStateModel.getImagePath();
+          m.chai.expect(imagePath).to.equal('foo.img');
+        });
+
+      });
+
+      describe('.getImageSize()', function() {
+
+        it('should return the image size', function() {
+          const imageSize = SelectionStateModel.getImageSize();
+          m.chai.expect(imageSize).to.equal(999999999);
         });
 
       });
@@ -150,9 +165,15 @@ describe('Browser: SelectionState', function() {
       describe('.setImage()', function() {
 
         it('should override the image', function() {
-          SelectionStateModel.setImage('bar.img');
-          const image = SelectionStateModel.getImage();
-          m.chai.expect(image).to.equal('bar.img');
+          SelectionStateModel.setImage({
+            path: 'bar.img',
+            size: 999999999
+          });
+
+          const imagePath = SelectionStateModel.getImagePath();
+          m.chai.expect(imagePath).to.equal('bar.img');
+          const imageSize = SelectionStateModel.getImageSize();
+          m.chai.expect(imageSize).to.equal(999999999);
         });
 
       });
@@ -161,8 +182,11 @@ describe('Browser: SelectionState', function() {
 
         it('should clear the image', function() {
           SelectionStateModel.removeImage();
-          const image = SelectionStateModel.getImage();
-          m.chai.expect(image).to.be.undefined;
+
+          const imagePath = SelectionStateModel.getImagePath();
+          m.chai.expect(imagePath).to.be.undefined;
+          const imageSize = SelectionStateModel.getImageSize();
+          m.chai.expect(imageSize).to.be.undefined;
         });
 
       });
@@ -174,9 +198,15 @@ describe('Browser: SelectionState', function() {
       describe('.setImage()', function() {
 
         it('should be able to set an image', function() {
-          SelectionStateModel.setImage('foo.img');
-          const image = SelectionStateModel.getImage();
-          m.chai.expect(image).to.equal('foo.img');
+          SelectionStateModel.setImage({
+            path: 'foo.img',
+            size: 999999999
+          });
+
+          const imagePath = SelectionStateModel.getImagePath();
+          m.chai.expect(imagePath).to.equal('foo.img');
+          const imageSize = SelectionStateModel.getImageSize();
+          m.chai.expect(imageSize).to.equal(999999999);
         });
 
       });
@@ -187,7 +217,11 @@ describe('Browser: SelectionState', function() {
 
       beforeEach(function() {
         SelectionStateModel.setDrive('/dev/disk2');
-        SelectionStateModel.setImage('foo.img');
+
+        SelectionStateModel.setImage({
+          path: 'foo.img',
+          size: 999999999
+        });
       });
 
       describe('.clear()', function() {
@@ -217,9 +251,14 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(drive).to.be.undefined;
         });
 
-        it('getImage() should return the image', function() {
-          const image = SelectionStateModel.getImage();
-          m.chai.expect(image).to.equal('foo.img');
+        it('getImagePath() should return the image path', function() {
+          const imagePath = SelectionStateModel.getImagePath();
+          m.chai.expect(imagePath).to.equal('foo.img');
+        });
+
+        it('getImageSize() should return the image size', function() {
+          const imageSize = SelectionStateModel.getImageSize();
+          m.chai.expect(imageSize).to.equal(999999999);
         });
 
         it('hasDrive() should return false', function() {
