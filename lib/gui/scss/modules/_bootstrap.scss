@@ -28,10 +28,6 @@ html {
   margin-right: 2px;
 }
 
-.checkbox input[type="checkbox"]:not(:checked) + * {
-  color: $gray-light;
-}
-
 // Disable modal opacity
 .modal-backdrop.in {
   opacity: 0;

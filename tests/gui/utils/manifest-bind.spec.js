@@ -35,6 +35,31 @@ describe('Browser: ManifestBind', function() {
     $rootScope = _$rootScope_;
   }));
 
+  describe('ManifestBindService', function() {
+
+    let ManifestBindService;
+
+    beforeEach(angular.mock.inject(function(_ManifestBindService_) {
+      ManifestBindService = _ManifestBindService_;
+    }));
+
+    it('should be able to fetch top level properties', function() {
+      const value = ManifestBindService.get('version');
+      m.chai.expect(value).to.equal(packageJSON.version);
+    });
+
+    it('should be able to fetch nested properties', function() {
+      const value = ManifestBindService.get('repository.type');
+      m.chai.expect(value).to.equal(packageJSON.repository.type);
+    });
+
+    it('should return undefined if the property does not exist', function() {
+      const value = ManifestBindService.get('foo.bar');
+      m.chai.expect(value).to.be.undefined;
+    });
+
+  });
+
   describe('manifestBind', function() {
 
     it('should bind to top level properties', function() {

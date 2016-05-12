@@ -93,6 +93,18 @@
   padding-right: 0 !important;
 }
 
+.modal-fat-and-short {
+  width: 400px;
+
+  // Move it a bit to the top for
+  // aesthetic reasons
+  margin-top: -10px;
+
+  .modal-content {
+    height: 245px;
+  }
+}
+
 .modal-footer {
   flex-grow: 0;
   border: 0;
@@ -101,3 +113,18 @@
 .modal .btn-primary[disabled] {
   background-color: darken($gray-lighter, 10%);
 }
+
+// Center the modal using Flexbox so we can
+// freely use any height.
+
+.modal {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-dialog {
+  margin: 0;
+  position: initial;
+}
+

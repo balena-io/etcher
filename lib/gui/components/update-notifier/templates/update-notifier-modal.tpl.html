@@ -1,0 +1,20 @@
+<div class="modal-body update-notifier-modal-body">
+  <div class="update-notifier-modal-body__content">
+    <h4 class="update-notifier-modal-body__title">New Update Available!</h4>
+    <p>A new version of Etcher is available for download</p>
+  </div>
+
+  <div class="update-notifier-modal-body__menu">
+    <button class="btn btn-primary"
+      os-open-external="http://etcher.io">DOWNLOAD</button>
+    <button class="btn btn-default"
+      ng-click="modal.closeModal()">SKIP</button>
+  </div>
+
+  <div class="checkbox text-right">
+    <label>
+      <input type="checkbox" ng-model="modal.settings.sleepUpdateCheck">
+      <span>Remind me again in 7 days</span>
+    </label>
+  </div>
+</div>

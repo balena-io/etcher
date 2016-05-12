@@ -41,10 +41,12 @@ $alert-padding: 13px;
 @import "./components/caption";
 @import "./components/button";
 @import "./components/tick";
-@import "../components/progress-button/styles/progress-button";
-@import "../components/svg-icon/styles/svg-icon";
 @import "./components/modal";
 @import "./components/alert-ribbon";
+@import "../components/update-notifier/styles/update-notifier";
+@import "../components/progress-button/styles/progress-button";
+@import "../components/svg-icon/styles/svg-icon";
+@import "../pages/settings/styles/settings";
 
 .icon-caption {
   @extend .caption;
