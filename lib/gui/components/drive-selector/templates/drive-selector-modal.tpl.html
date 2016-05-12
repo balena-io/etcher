@@ -6,12 +6,15 @@
 <div class="modal-body">
   <ul class="list-group">
     <li class="list-group-item" ng-repeat="drive in modal.scanner.drives"
-      ng-click="modal.state.toggleSetDrive(drive)">
+      ng-disabled="!modal.state.isDriveLargeEnough(drive)"
+      ng-click="modal.state.isDriveLargeEnough(drive) && modal.state.toggleSetDrive(drive)">
         <div>
           <h4 class="list-group-item-heading">{{ drive.description }} - {{ drive.size | gigabyte | number:1 }} GB</h4>
           <p class="list-group-item-text">{{ drive.name }}</p>
         </div>
-        <span class="tick tick--success" ng-disabled="!modal.state.isCurrentDrive(drive)"></span>
+        <span class="tick tick--success"
+          ng-show="modal.state.isDriveLargeEnough(drive)"
+          ng-disabled="!modal.state.isCurrentDrive(drive)"></span>
     </li>
   </ul>
 </div>
