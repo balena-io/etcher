@@ -201,6 +201,54 @@ describe('Browser: SelectionState', function() {
         });
       });
 
+      describe('.isDriveLargeEnough()', function() {
+
+        it('should return true if the drive size is greater than the image size', function() {
+          const result = SelectionStateModel.isDriveLargeEnough({
+            device: '/dev/disk1',
+            name: 'USB Drive',
+            size: 99999999999999
+          });
+
+          m.chai.expect(result).to.be.true;
+        });
+
+        it('should return true if the drive size is equal to the image size', function() {
+          const result = SelectionStateModel.isDriveLargeEnough({
+            device: '/dev/disk1',
+            name: 'USB Drive',
+            size: 999999999
+          });
+
+          m.chai.expect(result).to.be.true;
+        });
+
+        it('should return false if the drive size is less than the image size', function() {
+          const result = SelectionStateModel.isDriveLargeEnough({
+            device: '/dev/disk1',
+            name: 'USB Drive',
+            size: 999999998
+          });
+
+          m.chai.expect(result).to.be.false;
+        });
+
+      });
+
+      describe('.setDrive()', function() {
+
+        it('should throw if drive is no large enough', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setDrive({
+              device: '/dev/disk1',
+              name: 'USB Drive',
+              size: 999999998
+            });
+          }).to.throw('The drive is not large enough');
+        });
+
+      });
+
       describe('.getImagePath()', function() {
 
         it('should return the image path', function() {
@@ -260,6 +308,20 @@ describe('Browser: SelectionState', function() {
     });
 
     describe('given no image', function() {
+
+      describe('.isDriveLargeEnough()', function() {
+
+        it('should return true', function() {
+          const result = SelectionStateModel.isDriveLargeEnough({
+            device: '/dev/disk1',
+            name: 'USB Drive',
+            size: 1
+          });
+
+          m.chai.expect(result).to.be.true;
+        });
+
+      });
 
       describe('.setImage()', function() {
 
