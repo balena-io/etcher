@@ -124,10 +124,6 @@ for /f %%i in (' "node -e ""console.log(require('./package.json').version)""" ')
   set etcher_version=%%i
 )
 
-for /f %%i in (' "node .\scripts\packageignore.js" ') do (
-  set electron_ignore="%%i"
-)
-
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :: Configure NPM to build native addons for Electron correctly
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -153,6 +149,10 @@ call bower install
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :: Package application
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+for /f %%i in (' "node .\scripts\packageignore.js" ') do (
+  set electron_ignore="%%i"
+)
 
 call %electron_packager% . %application_name%^
  --platform=win32^
