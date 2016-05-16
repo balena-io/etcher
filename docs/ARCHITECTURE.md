@@ -47,7 +47,6 @@ As mentioned before, the Etcher GUI forks the CLI and retrieves information from
 
 - [Well-documented exit codes.](https://github.com/resin-io/etcher/blob/master/lib/src/exit-codes.js)
 - A `--robot` option, which causes the Etcher CLI to output state in a way that can be easily machine-parsed.
-- An `--ipc` option, which causes the Etcher CLI to use [NodeJS's built-in IPC channel](https://nodejs.org/api/child_process.html#child_process_child_send_message_sendhandle_options_callback) to emit messages from the child to the parent.
 
 GUI fifty-thousand foot view
 ----------------------------

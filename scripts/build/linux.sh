@@ -139,8 +139,7 @@ function app_dir_create {
   cp ./Etcher.desktop $output_directory
   cp ./assets/icon.png $output_directory
   cp -rf $source_directory/* $output_directory/usr/bin
-  cp ./scripts/desktopintegration $output_directory/usr/bin/elevate.wrapper
-  cp ./scripts/elevate-linux.sh $output_directory/usr/bin/elevate
+  cp ./scripts/desktopintegration $output_directory/usr/bin/etcher.wrapper
 }
 
 function installer {
