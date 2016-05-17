@@ -14,38 +14,17 @@
  * limitations under the License.
  */
 
-$spacing-large: 30px;
-$spacing-medium: 15px;
-$spacing-small: 10px;
-$spacing-tiny: 5px;
-
-.space-medium {
-  margin: $spacing-medium;
+.label {
+  font-size: 11px;
+  font-weight: normal;
+  padding: 8px 25px;
 }
 
-.space-vertical-medium {
-  margin-top: $spacing-medium;
-  margin-bottom: $spacing-medium;
-}
+.label-default {
+  background-color: #3e4147;
+  color: darken($gray-light, 30%);
 
-.space-vertical-small {
-  margin-top: $spacing-small;
-  margin-bottom: $spacing-small;
-}
-
-.space-top-medium {
-  margin-top: $spacing-medium;
-}
-
-.space-vertical-large {
-  margin-top: $spacing-large;
-  margin-bottom: $spacing-large;
-}
-
-.space-bottom-large {
-  margin-bottom: $spacing-large;
-}
-
-.space-right-tiny {
-  margin-right: $spacing-tiny;
+  > b {
+    color: darken(white, 5%);
+  }
 }
