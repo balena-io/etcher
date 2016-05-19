@@ -37,6 +37,7 @@ $alert-padding: 13px;
 
 @import "./modules/bootstrap";
 @import "./modules/space";
+@import "./components/label";
 @import "./components/badge";
 @import "./components/caption";
 @import "./components/button";
@@ -48,6 +49,10 @@ $alert-padding: 13px;
 @import "../components/progress-button/styles/progress-button";
 @import "../components/svg-icon/styles/svg-icon";
 @import "../pages/settings/styles/settings";
+
+.monospace {
+  font-family: monospace;
+}
 
 .icon-caption {
   @extend .caption;
@@ -62,6 +67,10 @@ $alert-padding: 13px;
 
 .block {
   display: block;
+}
+
+.inline-block {
+  display: inline-block;
 }
 
 body {
