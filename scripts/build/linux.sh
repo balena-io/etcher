@@ -53,6 +53,12 @@ ELECTRON_VERSION=`node -e "console.log(require('./package.json').devDependencies
 APPLICATION_NAME=`node -e "console.log(require('./package.json').displayName)"`
 APPLICATION_COPYRIGHT=`node -e "console.log(require('./package.json').copyright)"`
 APPLICATION_VERSION=`node -e "console.log(require('./package.json').version)"`
+ELECTRON_NODE_VERSION=`node -e "console.log(require('./package.json').engines.node)"`
+
+if [[ "v$ELECTRON_NODE_VERSION" != "`node -v`" ]]; then
+  echo "Incompatible NodeJS version. Expected: $ELECTRON_NODE_VERSION" 1>&2
+  exit 1
+fi
 
 function install {
 
