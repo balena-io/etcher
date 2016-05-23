@@ -93,14 +93,14 @@ function package_x86 {
     --out=$output_directory
 
   # Change ia32 suffix to x86 for consistency
-	mv $output_directory/Etcher-linux-ia32 $output_package
+  mv $output_directory/Etcher-linux-ia32 $output_package
 
-	mv $output_package/Etcher $output_package/etcher
-	chmod a+x $output_package/*.so*
+  mv $output_package/Etcher $output_package/etcher
+  chmod a+x $output_package/*.so*
 
   # UPX fails for some reason with some other so libraries
   # other than libnode.so in the x86 build
-	upx -9 $output_package/etcher $output_package/libnode.so
+  upx -9 $output_package/etcher $output_package/libnode.so
 
 }
 
@@ -119,9 +119,9 @@ function package_x64 {
     --overwrite \
     --out=$output_directory
 
-	mv $output_package/Etcher $output_package/etcher
-	chmod a+x $output_package/*.so*
-	upx -9 $output_package/etcher $output_package/*.so*
+  mv $output_package/Etcher $output_package/etcher
+  chmod a+x $output_package/*.so*
+  upx -9 $output_package/etcher $output_package/*.so*
 }
 
 function app_dir_create {

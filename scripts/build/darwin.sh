@@ -80,8 +80,8 @@ function sign {
   source_application=$1
 
   $ELECTRON_OSX_SIGN $source_application --platform darwin --verbose --identity "$SIGN_IDENTITY_OSX"
-	codesign --verify --deep --display --verbose=4 $source_application
-	spctl --ignore-cache --no-cache --assess --type execute --verbose=4 $source_application
+  codesign --verify --deep --display --verbose=4 $source_application
+  spctl --ignore-cache --no-cache --assess --type execute --verbose=4 $source_application
 }
 
 function installer_zip {
@@ -104,94 +104,94 @@ function installer_dmg {
   volume_app=$volume_directory/$APPLICATION_NAME.app
 
   # Make sure any previous DMG was unmounted
-	hdiutil detach $volume_directory || true
+  hdiutil detach $volume_directory || true
 
-	# Create temporal read-write DMG image
-	rm -f $temporal_dmg
-	hdiutil create \
-		-srcfolder $source_directory \
-		-volname "$APPLICATION_NAME" \
-		-fs HFS+ \
-		-fsargs "-c c=64,a=16,e=16" \
-		-format UDRW \
-		-size 600M $temporal_dmg
+  # Create temporal read-write DMG image
+  rm -f $temporal_dmg
+  hdiutil create \
+    -srcfolder $source_directory \
+    -volname "$APPLICATION_NAME" \
+    -fs HFS+ \
+    -fsargs "-c c=64,a=16,e=16" \
+    -format UDRW \
+    -size 600M $temporal_dmg
 
-	# Mount temporal DMG image, so we can modify it
-	hdiutil attach $temporal_dmg -readwrite -noverify
+  # Mount temporal DMG image, so we can modify it
+  hdiutil attach $temporal_dmg -readwrite -noverify
 
-	# Wait for a bit to ensure the image is mounted
-	sleep 2
+  # Wait for a bit to ensure the image is mounted
+  sleep 2
 
-	# Link to /Applications within the DMG
-	pushd $volume_directory
+  # Link to /Applications within the DMG
+  pushd $volume_directory
   ln -s /Applications
   popd
 
-	# Symlink MacOS/Etcher to MacOS/Electron since for some reason, the Electron
-	# binary tries to be ran in some systems.
-	# See https://github.com/Microsoft/vscode/issues/92
-	cp -p $volume_app/Contents/MacOS/Etcher $volume_app/Contents/MacOS/Electron
+  # Symlink MacOS/Etcher to MacOS/Electron since for some reason, the Electron
+  # binary tries to be ran in some systems.
+  # See https://github.com/Microsoft/vscode/issues/92
+  cp -p $volume_app/Contents/MacOS/Etcher $volume_app/Contents/MacOS/Electron
 
-	# Set the DMG icon image
-	# Writing this hexadecimal buffer to the com.apple.FinderInfo
-	# extended attribute does the trick.
-	# See https://github.com/LinusU/node-appdmg/issues/14#issuecomment-29080500
-	cp assets/icon.icns $volume_directory/.VolumeIcon.icns
-	xattr -wx com.apple.FinderInfo \
+  # Set the DMG icon image
+  # Writing this hexadecimal buffer to the com.apple.FinderInfo
+  # extended attribute does the trick.
+  # See https://github.com/LinusU/node-appdmg/issues/14#issuecomment-29080500
+  cp assets/icon.icns $volume_directory/.VolumeIcon.icns
+  xattr -wx com.apple.FinderInfo \
     "0000000000000000040000000000000000000000000000000000000000000000" $volume_directory
 
-	# Configure background image.
-	# We use tiffutil to create a "Multirepresentation Tiff file".
-	# This allows us to show the retina and non-retina image when appropriate.
-	mkdir $volume_directory/.background
-	tiffutil -cathidpicheck assets/osx/installer.png assets/osx/installer@2x.png \
-		-out $volume_directory/.background/installer.tiff
+  # Configure background image.
+  # We use tiffutil to create a "Multirepresentation Tiff file".
+  # This allows us to show the retina and non-retina image when appropriate.
+  mkdir $volume_directory/.background
+  tiffutil -cathidpicheck assets/osx/installer.png assets/osx/installer@2x.png \
+    -out $volume_directory/.background/installer.tiff
 
-	# This AppleScript performs the following tasks
-	# - Set the window basic properties.
-	# - Set the window size and position.
-	# - Set the icon size.
-	# - Arrange the icons.
-	echo '
-		 tell application "Finder"
-			 tell disk "'${APPLICATION_NAME}'"
-				 open
-				 set current view of container window to icon view
-				 set toolbar visible of container window to false
-				 set statusbar visible of container window to false
-				 set the bounds of container window to {400, 100, 944, 530}
-				 set viewOptions to the icon view options of container window
-				 set arrangement of viewOptions to not arranged
-				 set icon size of viewOptions to 110
-				 set background picture of viewOptions to file ".background:installer.tiff"
-				 set position of item "'${APPLICATION_NAME}.app'" of container window to {140, 225}
-				 set position of item "Applications" of container window to {415, 225}
-				 close
-				 open
-				 update without registering applications
-				 delay 2
-				 close
-			 end tell
-		 end tell
-	' | osascript
-	sync
+  # This AppleScript performs the following tasks
+  # - Set the window basic properties.
+  # - Set the window size and position.
+  # - Set the icon size.
+  # - Arrange the icons.
+  echo '
+     tell application "Finder"
+       tell disk "'${APPLICATION_NAME}'"
+         open
+         set current view of container window to icon view
+         set toolbar visible of container window to false
+         set statusbar visible of container window to false
+         set the bounds of container window to {400, 100, 944, 530}
+         set viewOptions to the icon view options of container window
+         set arrangement of viewOptions to not arranged
+         set icon size of viewOptions to 110
+         set background picture of viewOptions to file ".background:installer.tiff"
+         set position of item "'${APPLICATION_NAME}.app'" of container window to {140, 225}
+         set position of item "Applications" of container window to {415, 225}
+         close
+         open
+         update without registering applications
+         delay 2
+         close
+       end tell
+     end tell
+  ' | osascript
+  sync
 
   sign $volume_app
 
-	# Unmount temporal DMG image.
-	hdiutil detach $volume_directory
+  # Unmount temporal DMG image.
+  hdiutil detach $volume_directory
 
-	# Convert temporal DMG image into a production-ready
-	# compressed and read-only DMG image.
-	mkdir -p $output_directory
-	rm -f $output_directory/Etcher-darwin-x64.dmg
-	hdiutil convert $temporal_dmg \
-		-format UDZO \
-		-imagekey zlib-level=9 \
-		-o $output_directory/Etcher-darwin-x64.dmg
+  # Convert temporal DMG image into a production-ready
+  # compressed and read-only DMG image.
+  mkdir -p $output_directory
+  rm -f $output_directory/Etcher-darwin-x64.dmg
+  hdiutil convert $temporal_dmg \
+    -format UDZO \
+    -imagekey zlib-level=9 \
+    -o $output_directory/Etcher-darwin-x64.dmg
 
-	# Cleanup temporal DMG image.
-	rm $temporal_dmg
+  # Cleanup temporal DMG image.
+  rm $temporal_dmg
 
 }
 
