@@ -213,6 +213,7 @@ upx -9 %package_output%\*.dll
 set installer_tmp_output=%output_build_directory%\win32-%arch%-tmp-installer
 set installer_output=%output_directory%\Etcher-win32-%arch%.exe
 
+call npm install --only=dev
 call %electron_builder% %package_output%^
  --platform=win^
  --out=%installer_tmp_output%
