@@ -156,8 +156,8 @@ set HOME=%homedrive%%homepath%\.electron-gyp
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 call rimraf node_modules bower_components
-call npm install --build-from-source
-call bower install
+call npm install --production --build-from-source
+call bower install --production
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :: Package application
