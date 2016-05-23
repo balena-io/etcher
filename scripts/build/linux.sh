@@ -146,6 +146,7 @@ function installer {
 
   mkdir -p $output_directory
   app_dir_create $source_directory $architecture $appdir_temporary_location
+  rm -f $output_file
   ./scripts/AppImageAssistant-$architecture $appdir_temporary_location $output_file
   rm -rf $appdir_temporary_location
 }

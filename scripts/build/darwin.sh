@@ -107,6 +107,7 @@ function installer_dmg {
 	hdiutil detach $volume_directory || true
 
 	# Create temporal read-write DMG image
+	rm -f $temporal_dmg
 	hdiutil create \
 		-srcfolder $source_directory \
 		-volname "$APPLICATION_NAME" \
@@ -183,6 +184,7 @@ function installer_dmg {
 	# Convert temporal DMG image into a production-ready
 	# compressed and read-only DMG image.
 	mkdir -p $output_directory
+	rm -f $output_directory/Etcher-darwin-x64.dmg
 	hdiutil convert $temporal_dmg \
 		-format UDZO \
 		-imagekey zlib-level=9 \
