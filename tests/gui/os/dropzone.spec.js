@@ -17,6 +17,7 @@
 'use strict';
 
 const m = require('mochainon');
+const fs = require('fs');
 const angular = require('angular');
 require('angular-mocks');
 
@@ -40,9 +41,18 @@ describe('Browser: OSDropzone', function() {
 
     it('should pass the file back to the callback as $file', function(done) {
       $rootScope.onDropZone = function(file) {
-        m.chai.expect(file).to.equal('/foo/bar');
+        statStub.restore();
+        m.chai.expect(file).to.deep.equal({
+          path: '/foo/bar',
+          size: 999999999
+        });
         done();
       };
+
+      const statStub = m.sinon.stub(fs, 'statSync');
+      statStub.returns({
+        size: 999999999
+      });
 
       const element = $compile('<div os-dropzone="onDropZone($file)">Drop a file here</div>')($rootScope);
       $rootScope.$digest();
@@ -64,9 +74,15 @@ describe('Browser: OSDropzone', function() {
 
     it('should pass undefined to the callback if not passing $file', function(done) {
       $rootScope.onDropZone = function(file) {
+        statStub.restore();
         m.chai.expect(file).to.be.undefined;
         done();
       };
+
+      const statStub = m.sinon.stub(fs, 'statSync');
+      statStub.returns({
+        size: 999999999
+      });
 
       const element = $compile('<div os-dropzone="onDropZone()">Drop a file here</div>')($rootScope);
       $rootScope.$digest();
