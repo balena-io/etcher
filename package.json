@@ -6,7 +6,7 @@
   "description": "An image flasher with support for Windows, OS X and GNU/Linux.",
   "homepage": "https://github.com/resin-io/etcher",
   "engines" : {
-    "node" : "5.10.0"
+    "node" : "6.1.0"
   },
   "repository": {
     "type": "git",
@@ -82,7 +82,7 @@
     "electron-mocha": "^1.2.2",
     "electron-osx-sign": "^0.3.0",
     "electron-packager": "^7.0.1",
-    "electron-prebuilt": "0.37.6",
+    "electron-prebuilt": "1.1.1",
     "gulp": "^3.9.0",
     "gulp-jscs": "^3.0.2",
     "gulp-jshint": "^2.0.0",

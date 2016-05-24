@@ -19,7 +19,7 @@
 const m = require('mochainon');
 const os = require('os');
 const angular = require('angular');
-const shell = require('shell');
+const electron = require('electron');
 require('angular-mocks');
 
 describe('Browser: OSOpenExternal', function() {
@@ -56,7 +56,7 @@ describe('Browser: OSOpenExternal', function() {
       });
 
       it('should call Electron shell.openExternal with the attribute value', function() {
-        const shellExternalStub = m.sinon.stub(shell, 'openExternal');
+        const shellExternalStub = m.sinon.stub(electron.shell, 'openExternal');
         const element = $compile('<span os-open-external="https://resin.io">Resin.io</span>')($rootScope);
         element.triggerHandler('click');
         $rootScope.$digest();

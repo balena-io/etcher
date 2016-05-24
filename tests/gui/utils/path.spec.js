@@ -19,6 +19,10 @@ describe('Browser: Path', function() {
       basenameFilter = _basenameFilter_;
     }));
 
+    it('should return undefined if no input', function() {
+      m.chai.expect(basenameFilter()).to.be.undefined;
+    });
+
     it('should return the basename', function() {
       const isWindows = os.platform() === 'win32';
       let basename;
