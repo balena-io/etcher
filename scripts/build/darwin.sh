@@ -48,7 +48,7 @@ fi
 
 function install {
   rm -rf node_modules bower_components
-  npm install --production --build-from-source
+  npm install --build-from-source
   bower install --production
 }
 
