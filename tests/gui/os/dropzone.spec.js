@@ -40,6 +40,7 @@ describe('Browser: OSDropzone', function() {
     }));
 
     it('should pass the file back to the callback as $file', function(done) {
+      const statStub = m.sinon.stub(fs, 'statSync');
       $rootScope.onDropZone = function(file) {
         statStub.restore();
         m.chai.expect(file).to.deep.equal({
@@ -49,7 +50,6 @@ describe('Browser: OSDropzone', function() {
         done();
       };
 
-      const statStub = m.sinon.stub(fs, 'statSync');
       statStub.returns({
         size: 999999999
       });
@@ -73,13 +73,13 @@ describe('Browser: OSDropzone', function() {
     });
 
     it('should pass undefined to the callback if not passing $file', function(done) {
+      const statStub = m.sinon.stub(fs, 'statSync');
       $rootScope.onDropZone = function(file) {
         statStub.restore();
         m.chai.expect(file).to.be.undefined;
         done();
       };
 
-      const statStub = m.sinon.stub(fs, 'statSync');
       statStub.returns({
         size: 999999999
       });
