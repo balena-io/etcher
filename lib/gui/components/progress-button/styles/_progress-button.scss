@@ -73,6 +73,12 @@ $progress-button-stripes-animation-duration: 1s;
   }
 }
 
+.progress-button--primary[active="true"]:active {
+  box-shadow: none;
+  background-color: $brand-success;
+  border-color: $btn-primary-border;
+}
+
 .progress-button[percentage="100"][active="false"] .progress-button__bar {
   background-color: $brand-success;
 }
