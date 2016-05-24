@@ -2,7 +2,7 @@ language: cpp
 sudo: false
 
 env:
-  - NODE_VERSION="5"
+  - NODE_VERSION="6.1.0"
 os:
   - linux
   - osx
