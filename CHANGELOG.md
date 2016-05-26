@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v1.0.0-beta.7] - 2016-05-26
+
+### Added
+
+- Add `gzip` compression support.
+- Add `bzip2` compression support.
+- Provide a GUI elevation dialog for GNU/Linux.
+
+### Changed
+
+- Upgrade Electron to v1.1.1.
+- Fix broken image drag and drop functionality.
+- Prevent global shortcuts from interferring with another applications.
+- Prevent re-activating the "Flash" button with the keybaord shortcuts when a flash is already in process.
+- Various improvements to the build system.
+- Fix certain non-removable Windows devices not being filtered out.
+- Display non-mountable Windows drives in the drive selector.
+
 ## [v1.0.0-beta.6] - 2016-05-12
 
 ### Added
@@ -120,6 +138,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fix broken state when going to settings from the success screen.
 - Fix `Cannot read property 'length' of undefined` frequent issue.
 
+[v1.0.0-beta.7]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.6...v1.0.0-beta.7
 [v1.0.0-beta.6]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.5...v1.0.0-beta.6
 [v1.0.0-beta.5]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.4...v1.0.0-beta.5
 [v1.0.0-beta.4]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.3...v1.0.0-beta.4
