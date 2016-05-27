@@ -6317,7 +6317,8 @@ button.btn:focus, button.progress-button:focus {
  * limitations under the License.
  */
 .update-notifier-modal-body {
-  padding: 30px 35px; }
+  padding: 30px 35px;
+  overflow: hidden; }
 
 .update-notifier-modal-body__content {
   padding-bottom: 15px;
