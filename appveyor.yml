@@ -14,7 +14,7 @@ environment:
     ELECTRON_NO_ATTACH_CONSOLE: true
     npm_config_disturl: https://atom.io/download/atom-shell
     npm_config_runtime: electron
-    npm_config_target: 0.37.6
+    npm_config_target: 1.1.1
     npm_config_arch: x64
   matrix:
     - nodejs_version: 6.1.0
