@@ -2,6 +2,10 @@
 
 Thanks for your interest in contributing to this project! This document aims to serve as a friendly guide for making your first contribution.
 
+## High-level Etcher overview
+
+Make sure you checkout our [ARCHITECTURE.md](https://github.com/resin-io/etcher/blob/master/docs/ARCHITECTURE.md) guide, which aims to explain how all the pieces fit together.
+
 ## Prerequisites
 
 - [NodeJS](https://nodejs.org).
