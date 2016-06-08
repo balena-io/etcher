@@ -104,9 +104,13 @@
           <span class="glyphicon glyphicon-repeat"></span> Retry
         </button>
 
-        <p class="step-footer"
-          ng-bind="app.writer.state.speed.toFixed(2) + ' MB/s'"
-          ng-show="app.writer.state.speed && app.writer.state.progress != 100 && app.writer.state.type == 'write'"></p>
+        <p class="step-footer step-footer-split" ng-show="app.writer.state.speed && app.writer.state.progress != 100">
+
+          <!-- Convert our eta (in seconds) to milliseconds, which is what `moment` understands -->
+          <span>ETA: {{ app.writer.state.eta * 1000 | amDateFormat:'m[m]ss[s]' }}</span>
+
+          <span ng-bind="app.writer.state.speed.toFixed(2) + ' MB/s'"></span>
+        </p>
       </div>
     </div>
   </div>
