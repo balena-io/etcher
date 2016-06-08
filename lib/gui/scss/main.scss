@@ -164,6 +164,14 @@ body {
   font-size: 10px;
 }
 
+.step-footer-split {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+  max-width: $btn-min-width;
+}
+
 .step-footer-underline {
   border-bottom: 1px dotted;
   padding-bottom: 2px;
