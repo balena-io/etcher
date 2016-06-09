@@ -49,6 +49,42 @@ describe('Browser: SupportedFormats', function() {
 
     });
 
+    describe('.isSupportedImage()', function() {
+
+      it('should return false if the file has no extension', function() {
+        const isSupported = SupportedFormatsModel.isSupportedImage('/path/to/foo');
+        m.chai.expect(isSupported).to.be.false;
+      });
+
+      it('should return false if the extension is not included in .getAllExtensions()', function() {
+        const isSupported = SupportedFormatsModel.isSupportedImage('/path/to/foo.jpg');
+        m.chai.expect(isSupported).to.be.false;
+      });
+
+      it('should return true if the extension is included in .getAllExtensions()', function() {
+        const supportedExtensions = SupportedFormatsModel.getAllExtensions();
+        const imagePath = '/path/to/foo.' + _.first(supportedExtensions);
+        const isSupported = SupportedFormatsModel.isSupportedImage(imagePath);
+        m.chai.expect(isSupported).to.be.true;
+      });
+
+      it('should return true if the extension is a supported one plus a supported compressed extensions', function() {
+        const nonCompressedExtension = _.first(SupportedFormatsModel.getNonCompressedExtensions());
+        const compressedExtension = _.first(SupportedFormatsModel.getCompressedExtensions());
+        const imagePath = '/path/to/foo.' + nonCompressedExtension + '.' + compressedExtension;
+        const isSupported = SupportedFormatsModel.isSupportedImage(imagePath);
+        m.chai.expect(isSupported).to.be.true;
+      });
+
+      it('should return false if the extension is an unsupported one plus a supported compressed extensions', function() {
+        const compressedExtension = _.first(SupportedFormatsModel.getCompressedExtensions());
+        const imagePath = '/path/to/foo.jpg.' + compressedExtension;
+        const isSupported = SupportedFormatsModel.isSupportedImage(imagePath);
+        m.chai.expect(isSupported).to.be.false;
+      });
+
+    });
+
   });
 
 });
