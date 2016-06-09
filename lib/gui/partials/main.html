@@ -42,13 +42,13 @@
       <div class="space-vertical-large">
         <div ng-hide="app.selection.hasDrive()">
 
-          <div ng-show="app.scanner.hasAvailableDrives() || !app.selection.hasImage()">
+          <div ng-show="app.drives.hasAvailableDrives() || !app.selection.hasImage()">
             <button class="btn btn-primary btn-brick"
               ng-disabled="!app.selection.hasImage()"
               ng-click="app.openDriveSelector()">Select drive</button>
           </div>
 
-          <div ng-hide="app.scanner.hasAvailableDrives() || !app.selection.hasImage()">
+          <div ng-hide="app.drives.hasAvailableDrives() || !app.selection.hasImage()">
             <button class="btn btn-danger btn-brick">Connect a drive</button>
           </div>
 
