@@ -11,25 +11,27 @@ describe('Browser: DriveScanner', function() {
     require('../../../lib/gui/modules/drive-scanner')
   ));
 
+  beforeEach(angular.mock.module(
+    require('../../../lib/gui/models/drives')
+  ));
+
   describe('DriveScannerService', function() {
 
     let $interval;
     let $rootScope;
     let $timeout;
     let $q;
+    let DrivesModel;
     let DriveScannerService;
 
-    beforeEach(angular.mock.inject(function(_$interval_, _$rootScope_, _$timeout_, _$q_, _DriveScannerService_) {
+    beforeEach(angular.mock.inject(function(_$interval_, _$rootScope_, _$timeout_, _$q_, _DriveScannerService_, _DrivesModel_) {
       $interval = _$interval_;
       $rootScope = _$rootScope_;
       $timeout = _$timeout_;
       $q = _$q_;
       DriveScannerService = _DriveScannerService_;
+      DrivesModel = _DrivesModel_;
     }));
-
-    it('should have no drives by default', function() {
-      m.chai.expect(DriveScannerService.drives).to.deep.equal([]);
-    });
 
     describe('.scan()', function() {
 
@@ -173,87 +175,6 @@ describe('Browser: DriveScanner', function() {
 
     });
 
-    describe('given no drives', function() {
-
-      describe('.hasAvailableDrives()', function() {
-
-        it('should return false', function() {
-          const hasDrives = DriveScannerService.hasAvailableDrives();
-          m.chai.expect(hasDrives).to.be.false;
-        });
-
-      });
-
-      describe('.setDrives()', function() {
-
-        it('should be able to set drives', function() {
-          const drives = [
-            {
-              device: '/dev/sdb',
-              description: 'Foo',
-              size: '14G',
-              mountpoint: '/mnt/foo',
-              system: false
-            }
-          ];
-
-          DriveScannerService.setDrives(drives);
-          m.chai.expect(DriveScannerService.drives).to.deep.equal(drives);
-        });
-
-      });
-
-    });
-
-    describe('given drives', function() {
-
-      beforeEach(function() {
-        this.drives = [
-          {
-            device: '/dev/sdb',
-            description: 'Foo',
-            size: '14G',
-            mountpoint: '/mnt/foo',
-            system: false
-          },
-          {
-            device: '/dev/sdc',
-            description: 'Bar',
-            size: '14G',
-            mountpoint: '/mnt/bar',
-            system: false
-          }
-        ];
-
-        DriveScannerService.drives = this.drives;
-      });
-
-      describe('.hasAvailableDrives()', function() {
-
-        it('should return true', function() {
-          const hasDrives = DriveScannerService.hasAvailableDrives();
-          m.chai.expect(hasDrives).to.be.true;
-        });
-
-      });
-
-      describe('.setDrives()', function() {
-
-        it('should keep the same drives if equal', function() {
-          DriveScannerService.setDrives(this.drives);
-          m.chai.expect(DriveScannerService.drives).to.deep.equal(this.drives);
-        });
-
-        it('should consider drives with different $$hashKey the same', function() {
-          this.drives[0].$$haskey = 1234;
-          DriveScannerService.setDrives(this.drives);
-          m.chai.expect(DriveScannerService.drives).to.deep.equal(this.drives);
-        });
-
-      });
-
-    });
-
     describe('given available drives', function() {
 
       beforeEach(function() {
@@ -286,7 +207,7 @@ describe('Browser: DriveScanner', function() {
         DriveScannerService.start(200);
         $timeout.flush();
         $interval.flush(400);
-        m.chai.expect(DriveScannerService.drives).to.deep.equal(this.drives);
+        m.chai.expect(DrivesModel.getDrives()).to.deep.equal(this.drives);
         DriveScannerService.stop();
       });
 
