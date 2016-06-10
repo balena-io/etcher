@@ -68,6 +68,13 @@ describe('Browser: SupportedFormats', function() {
         m.chai.expect(isSupported).to.be.true;
       });
 
+      it('should return true if the extension is supported and the file name includes dots', function() {
+        const supportedExtensions = SupportedFormatsModel.getAllExtensions();
+        const imagePath = '/path/to/foo.1.2.3-bar.' + _.first(supportedExtensions);
+        const isSupported = SupportedFormatsModel.isSupportedImage(imagePath);
+        m.chai.expect(isSupported).to.be.true;
+      });
+
       it('should return true if the extension is a supported one plus a supported compressed extensions', function() {
         const nonCompressedExtension = _.first(SupportedFormatsModel.getNonCompressedExtensions());
         const compressedExtension = _.first(SupportedFormatsModel.getCompressedExtensions());
