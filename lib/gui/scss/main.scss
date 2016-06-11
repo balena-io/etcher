@@ -44,15 +44,11 @@ $alert-padding: 13px;
 @import "./components/tick";
 @import "./components/modal";
 @import "./components/alert-ribbon";
-@import "./components/list-group";
 @import "../components/update-notifier/styles/update-notifier";
 @import "../components/progress-button/styles/progress-button";
 @import "../components/svg-icon/styles/svg-icon";
 @import "../pages/settings/styles/settings";
-
-.monospace {
-  font-family: monospace;
-}
+@import "../pages/finish/styles/finish";
 
 .icon-caption {
   @extend .caption;
@@ -65,32 +61,12 @@ $alert-padding: 13px;
   }
 }
 
-.block {
-  display: block;
-}
-
-.inline-block {
-  display: inline-block;
-}
-
 body {
   letter-spacing: 1px;
 }
 
-.content {
-  height: 100%;
-}
-
 .relative {
   position: relative;
-}
-
-.soft {
-  color: $gray-light;
-}
-
-[uib-tooltip] {
-  cursor: default;
 }
 
 .section-footer {
@@ -182,20 +158,6 @@ body {
   border-bottom: 1px dashed;
   border-radius: 0;
   padding: 0;
-}
-
-.separator-xs {
-  flex-grow: 0;
-  background-color: darken($color-disabled, 8%);
-  padding: 0px;
-  min-width: 2px;
-}
-
-.button-label {
-  margin: 0 auto $spacing-medium;
-
-  // Keep some spacing at the sides
-  max-width: $btn-min-width - 5px;
 }
 
 .wrapper {

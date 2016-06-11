@@ -14,7 +14,28 @@
  * limitations under the License.
  */
 
-.list-group-item[disabled] {
-  text-decoration: line-through;
-  cursor: not-allowed;
+.page-finish .button-label {
+  margin: 0 auto $spacing-medium;
+
+  // Keep some spacing at the sides
+  max-width: $btn-min-width - 5px;
+}
+
+.page-finish .label {
+  display: inline-block;
+}
+
+.page-finish .monospace {
+  font-family: monospace;
+}
+
+.page-finish .soft {
+  color: $gray-light;
+}
+
+.page-finish .separator-xs {
+  flex-grow: 0;
+  background-color: darken($color-disabled, 8%);
+  padding: 0px;
+  min-width: 2px;
 }
