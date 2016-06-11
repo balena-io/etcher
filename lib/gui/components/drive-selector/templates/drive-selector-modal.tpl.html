@@ -3,12 +3,18 @@
   <button class="close" ng-click="modal.closeModal()">&times;</button>
 </div>
 
-<div class="modal-body">
+<div class="component-drive-selector-body modal-body">
   <ul class="list-group">
     <li class="list-group-item" ng-repeat="drive in modal.drives.getDrives()"
       ng-disabled="!modal.state.isDriveLargeEnough(drive)"
       ng-click="modal.state.isDriveLargeEnough(drive) && modal.state.toggleSetDrive(drive)">
         <div>
+          <header class="list-group-item-header">
+            <span class="label label-danger"
+              ng-hide="modal.state.isDriveLargeEnough(drive)">
+                <i class="glyphicon glyphicon-resize-small"></i>
+                TOO SMALL FOR IMAGE</span>
+          </header>
           <h4 class="list-group-item-heading">{{ drive.description }} - {{ drive.size | gigabyte | number:1 }} GB</h4>
           <p class="list-group-item-text">{{ drive.name }}</p>
         </div>
