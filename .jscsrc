@@ -131,7 +131,7 @@
     "!=="
   ],
   "maximumLineLength": 130,
-  "maximumNumberOfLines": 500,
+  "maximumNumberOfLines": 1000,
   "requireAlignedMultilineParams": true,
   "requireAlignedObjectValues": false,
   "requireAnonymousFunctions": true,

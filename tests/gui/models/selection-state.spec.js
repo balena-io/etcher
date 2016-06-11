@@ -49,13 +49,50 @@ describe('Browser: SelectionState', function() {
 
     });
 
+    describe('.isDriveLocked()', function() {
+
+      it('should return true if the drive is protected', function() {
+        const result = SelectionStateModel.isDriveLocked({
+          device: '/dev/disk2',
+          name: 'USB Drive',
+          size: 999999999,
+          protected: true
+        });
+
+        m.chai.expect(result).to.be.true;
+      });
+
+      it('should return false if the drive is not protected', function() {
+        const result = SelectionStateModel.isDriveLocked({
+          device: '/dev/disk2',
+          name: 'USB Drive',
+          size: 999999999,
+          protected: false
+        });
+
+        m.chai.expect(result).to.be.false;
+      });
+
+      it('should return false if we don\'t know if the drive is protected', function() {
+        const result = SelectionStateModel.isDriveLocked({
+          device: '/dev/disk2',
+          name: 'USB Drive',
+          size: 999999999
+        });
+
+        m.chai.expect(result).to.be.false;
+      });
+
+    });
+
     describe('given a drive', function() {
 
       beforeEach(function() {
         SelectionStateModel.setDrive({
           device: '/dev/disk2',
           name: 'USB Drive',
-          size: 999999999
+          size: 999999999,
+          protected: false
         });
       });
 
@@ -66,7 +103,8 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(drive).to.deep.equal({
             device: '/dev/disk2',
             name: 'USB Drive',
-            size: 999999999
+            size: 999999999,
+            protected: false
           });
         });
 
@@ -87,14 +125,16 @@ describe('Browser: SelectionState', function() {
           SelectionStateModel.setDrive({
             device: '/dev/disk5',
             name: 'USB Drive',
-            size: 999999999
+            size: 999999999,
+            protected: false
           });
 
           const drive = SelectionStateModel.getDrive();
           m.chai.expect(drive).to.deep.equal({
             device: '/dev/disk5',
             name: 'USB Drive',
-            size: 999999999
+            size: 999999999,
+            protected: false
           });
         });
 
@@ -120,14 +160,16 @@ describe('Browser: SelectionState', function() {
           SelectionStateModel.setDrive({
             device: '/dev/disk5',
             name: 'USB Drive',
-            size: 999999999
+            size: 999999999,
+            protected: false
           });
 
           const drive = SelectionStateModel.getDrive();
           m.chai.expect(drive).to.deep.equal({
             device: '/dev/disk5',
             name: 'USB Drive',
-            size: 999999999
+            size: 999999999,
+            protected: false
           });
         });
 
@@ -135,7 +177,8 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(function() {
             SelectionStateModel.setDrive({
               name: 'USB Drive',
-              size: 999999999
+              size: 999999999,
+              protected: false
             });
           }).to.throw('Missing drive device');
         });
@@ -145,7 +188,8 @@ describe('Browser: SelectionState', function() {
             SelectionStateModel.setDrive({
               device: 123,
               name: 'USB Drive',
-              size: 999999999
+              size: 999999999,
+              protected: false
             });
           }).to.throw('Invalid drive device: 123');
         });
@@ -154,7 +198,8 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(function() {
             SelectionStateModel.setDrive({
               device: '/dev/disk2',
-              size: 999999999
+              size: 999999999,
+              protected: false
             });
           }).to.throw('Missing drive name');
         });
@@ -164,7 +209,8 @@ describe('Browser: SelectionState', function() {
             SelectionStateModel.setDrive({
               device: '/dev/disk2',
               name: 123,
-              size: 999999999
+              size: 999999999,
+              protected: false
             });
           }).to.throw('Invalid drive name: 123');
         });
@@ -173,7 +219,8 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(function() {
             SelectionStateModel.setDrive({
               device: '/dev/disk2',
-              name: 'USB Drive'
+              name: 'USB Drive',
+              protected: false
             });
           }).to.throw('Missing drive size');
         });
@@ -183,9 +230,31 @@ describe('Browser: SelectionState', function() {
             SelectionStateModel.setDrive({
               device: '/dev/disk2',
               name: 'USB Drive',
-              size: '999999999'
+              size: '999999999',
+              protected: false
             });
           }).to.throw('Invalid drive size: 999999999');
+        });
+
+        it('should throw if no protected property', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setDrive({
+              device: '/dev/disk2',
+              name: 'USB Drive',
+              size: 999999999
+            });
+          }).to.throw('Invalid drive protected state: undefined');
+        });
+
+        it('should throw if the protected is not boolean', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setDrive({
+              device: '/dev/disk2',
+              name: 'USB Drive',
+              size: 999999999,
+              protected: 'foo'
+            });
+          }).to.throw('Invalid drive protected state: foo');
         });
 
       });
@@ -207,7 +276,8 @@ describe('Browser: SelectionState', function() {
           const result = SelectionStateModel.isDriveLargeEnough({
             device: '/dev/disk1',
             name: 'USB Drive',
-            size: 99999999999999
+            size: 99999999999999,
+            protected: false
           });
 
           m.chai.expect(result).to.be.true;
@@ -217,7 +287,8 @@ describe('Browser: SelectionState', function() {
           const result = SelectionStateModel.isDriveLargeEnough({
             device: '/dev/disk1',
             name: 'USB Drive',
-            size: 999999999
+            size: 999999999,
+            protected: false
           });
 
           m.chai.expect(result).to.be.true;
@@ -227,7 +298,8 @@ describe('Browser: SelectionState', function() {
           const result = SelectionStateModel.isDriveLargeEnough({
             device: '/dev/disk1',
             name: 'USB Drive',
-            size: 999999998
+            size: 999999998,
+            protected: false
           });
 
           m.chai.expect(result).to.be.false;
@@ -242,7 +314,8 @@ describe('Browser: SelectionState', function() {
             SelectionStateModel.setDrive({
               device: '/dev/disk1',
               name: 'USB Drive',
-              size: 999999998
+              size: 999999998,
+              protected: false
             });
           }).to.throw('The drive is not large enough');
         });
@@ -381,7 +454,8 @@ describe('Browser: SelectionState', function() {
         SelectionStateModel.setDrive({
           device: '/dev/disk1',
           name: 'USB Drive',
-          size: 999999999
+          size: 999999999,
+          protected: false
         });
 
         SelectionStateModel.setImage({
@@ -452,7 +526,8 @@ describe('Browser: SelectionState', function() {
             size: 999999999,
             mountpoint: '/media/UNTITLED',
             name: '/dev/sdb',
-            system: false
+            system: false,
+            protected: false
           });
         });
 
@@ -471,7 +546,8 @@ describe('Browser: SelectionState', function() {
             size: 999999999,
             mountpoint: '/media/UNTITLED',
             name: '/dev/sdb',
-            system: false
+            system: false,
+            protected: false
           })).to.be.true;
         });
 
@@ -483,7 +559,8 @@ describe('Browser: SelectionState', function() {
             mountpoint: '/media/UNTITLED',
             name: '/dev/sdb',
             system: false,
-            $$hashKey: 1234
+            $$hashKey: 1234,
+            protected: false
           })).to.be.true;
         });
 
@@ -494,7 +571,8 @@ describe('Browser: SelectionState', function() {
             size: 999999999,
             mountpoint: '/media/UNTITLED',
             name: '/dev/sdb',
-            system: false
+            system: false,
+            protected: false
           })).to.be.false;
         });
 
@@ -505,7 +583,8 @@ describe('Browser: SelectionState', function() {
             size: 999999999,
             mountpoint: '/media/UNTITLED',
             name: '/dev/sdb',
-            system: false
+            system: false,
+            protected: false
           })).to.be.true;
         });
 
@@ -533,7 +612,8 @@ describe('Browser: SelectionState', function() {
             size: 999999999,
             mountpoint: '/media/UNTITLED',
             name: '/dev/sdb',
-            system: false
+            system: false,
+            protected: false
           })).to.be.false;
 
         });
@@ -553,7 +633,8 @@ describe('Browser: SelectionState', function() {
             size: 999999999,
             mountpoint: '/media/UNTITLED',
             name: '/dev/sdb',
-            system: false
+            system: false,
+            protected: false
           };
 
           SelectionStateModel.setDrive(this.drive);
@@ -569,7 +650,8 @@ describe('Browser: SelectionState', function() {
           const drive = {
             device: '/dev/disk2',
             name: 'USB Drive',
-            size: 999999999
+            size: 999999999,
+            protected: false
           };
 
           m.chai.expect(SelectionStateModel.getDrive()).to.deep.equal(this.drive);
@@ -590,7 +672,8 @@ describe('Browser: SelectionState', function() {
           const drive = {
             device: '/dev/disk2',
             name: 'USB Drive',
-            size: 999999999
+            size: 999999999,
+            protected: false
           };
 
           m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
