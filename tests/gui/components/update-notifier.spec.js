@@ -73,7 +73,7 @@ describe('Browser: UpdateNotifier', function() {
         describe('given the `lastUpdateNotify` was updated long ago', function() {
 
           beforeEach(function() {
-            SettingsModel.data.lastUpdateNotify = Date.now() + UPDATE_NOTIFIER_SLEEP_TIME + 1;
+            SettingsModel.data.lastUpdateNotify = Date.now() + UPDATE_NOTIFIER_SLEEP_TIME + 1000;
           });
 
           it('should return true', function() {
