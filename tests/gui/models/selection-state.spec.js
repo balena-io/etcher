@@ -85,6 +85,32 @@ describe('Browser: SelectionState', function() {
 
     });
 
+    describe('.isDriveValid()', function() {
+
+      it('should return true if the drive is not locked', function() {
+        const result = SelectionStateModel.isDriveValid({
+          device: '/dev/disk2',
+          name: 'USB Drive',
+          size: 999999999,
+          protected: false
+        });
+
+        m.chai.expect(result).to.be.true;
+      });
+
+      it('should return false if the drive is locked', function() {
+        const result = SelectionStateModel.isDriveValid({
+          device: '/dev/disk2',
+          name: 'USB Drive',
+          size: 999999999,
+          protected: true
+        });
+
+        m.chai.expect(result).to.be.false;
+      });
+
+    });
+
     describe('given a drive', function() {
 
       beforeEach(function() {
@@ -300,6 +326,54 @@ describe('Browser: SelectionState', function() {
             name: 'USB Drive',
             size: 999999998,
             protected: false
+          });
+
+          m.chai.expect(result).to.be.false;
+        });
+
+      });
+
+      describe('.isDriveValid()', function() {
+
+        it('should return true if the drive is large enough and it is not locked', function() {
+          const result = SelectionStateModel.isDriveValid({
+            device: '/dev/disk1',
+            name: 'USB Drive',
+            size: 99999999999999,
+            protected: false
+          });
+
+          m.chai.expect(result).to.be.true;
+        });
+
+        it('should return false if the drive is large enough but it is locked', function() {
+          const result = SelectionStateModel.isDriveValid({
+            device: '/dev/disk1',
+            name: 'USB Drive',
+            size: 99999999999999,
+            protected: true
+          });
+
+          m.chai.expect(result).to.be.false;
+        });
+
+        it('should return false if the drive is not large enough and it is not locked', function() {
+          const result = SelectionStateModel.isDriveValid({
+            device: '/dev/disk1',
+            name: 'USB Drive',
+            size: 1,
+            protected: false
+          });
+
+          m.chai.expect(result).to.be.false;
+        });
+
+        it('should return false if the drive is not large enough and it is locked', function() {
+          const result = SelectionStateModel.isDriveValid({
+            device: '/dev/disk1',
+            name: 'USB Drive',
+            size: 1,
+            protected: true
           });
 
           m.chai.expect(result).to.be.false;
