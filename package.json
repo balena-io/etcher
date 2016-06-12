@@ -60,7 +60,7 @@
     "drivelist": "^3.2.0",
     "electron-is-running-in-asar": "^1.0.0",
     "etcher-image-stream": "^2.0.0",
-    "etcher-image-write": "^5.0.0",
+    "etcher-image-write": "^5.0.1",
     "flexboxgrid": "^6.3.0",
     "is-elevated": "^1.0.0",
     "lodash": "^4.5.1",

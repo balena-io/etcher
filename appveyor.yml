@@ -21,6 +21,7 @@ environment:
 
 install:
   - ps: Install-Product node $env:nodejs_version x64
+  - npm install -g npm
   - npm install --build-from-source
   - npm install -g bower
   - bower install
