@@ -15,8 +15,14 @@
               uib-tooltip="{{ app.formats.getCompressedExtensions().join(', ') }}">compressed images</span>
           </p>
         </div>
-        <div ng-show="app.selection.hasImage()">
-          <div ng-bind="app.selection.getImagePath() | basename"></div>
+        <div ng-if="app.selection.hasImage()">
+          <div ng-bind="app.selection.getImagePath() | basename | middleEllipses:25"></div>
+
+          <button class="btn btn-link step-tooltip"
+            ng-click="app.tooltipModal.show({
+              title: 'IMAGE FILE NAME',
+              message: app.selection.getImagePath()
+            })">SHOW IN FULL</button>
 
           <button class="btn btn-link step-footer"
             ng-click="app.reselectImage()"
