@@ -86,6 +86,13 @@ if %ERRORLEVEL% neq 0 (
   exit /b 1
 )
 
+:: Check that asar is installed.
+where python >nul 2>nul
+if %ERRORLEVEL% neq 0 (
+  echo Dependency missing: python 1>&2
+  exit /b 1
+)
+
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :: Global variables
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

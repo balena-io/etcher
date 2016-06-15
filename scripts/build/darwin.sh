@@ -32,6 +32,11 @@ if ! command -v bower 2>/dev/null; then
   exit 1
 fi
 
+if ! command -v python 2>/dev/null; then
+  echo "Dependency missing: python" 1>&2
+  exit 1
+fi
+
 ELECTRON_OSX_SIGN=./node_modules/.bin/electron-osx-sign
 ELECTRON_PACKAGER=./node_modules/.bin/electron-packager
 SIGN_IDENTITY_OSX="Developer ID Application: Rulemotion Ltd (66H43P8FRG)"
