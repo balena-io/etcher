@@ -6221,12 +6221,6 @@ button.btn:focus, button.progress-button:focus {
 .modal-open {
   padding-right: 0 !important; }
 
-.modal-fat-and-short {
-  width: 400px;
-  margin-top: -10px; }
-  .modal-fat-and-short .modal-content {
-    height: 245px; }
-
 .modal-footer {
   flex-grow: 0;
   border: 0; }
@@ -6306,6 +6300,12 @@ button.btn:focus, button.progress-button:focus {
 .update-notifier-modal-body {
   padding: 30px 35px;
   overflow: hidden; }
+
+.modal-update-notifier {
+  width: 400px;
+  margin-top: -10px; }
+  .modal-update-notifier .modal-content {
+    height: 245px; }
 
 .update-notifier-modal-body__content {
   padding-bottom: 15px;

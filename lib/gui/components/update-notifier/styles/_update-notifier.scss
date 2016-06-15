@@ -19,6 +19,18 @@
   overflow: hidden;
 }
 
+.modal-update-notifier {
+  width: 400px;
+
+  // Move it a bit to the top for
+  // aesthetic reasons
+  margin-top: -10px;
+
+  .modal-content {
+    height: 245px;
+  }
+}
+
 .update-notifier-modal-body__content {
   @extend .text-center;
 
