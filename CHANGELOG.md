@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v1.0.0-beta.8] - 2016-06-15
+
+### Added
+
+- Display ETA during flash and check.
+- Write a document explaining Etcher's architecture.
+- Show an informative label if the drive is not large enough for the selected image.
+- Show an informative label if the drive is locked (write protected).
+
+### Changed
+
+- Prevent certain system drives to be detected as removable in GNU/Linux.
+- Fix external resources not opening on GNU/Linux when the application is elevated.
+- Don't show an unnecessary scroll bar in the update notifier modal.
+- Prevent selection of invalid images by drag and drop.
+- Fix `EPERM` errors on Windows on drives formatted with a GUID Partition Table.
+- Prevent a very long image name from breaking the UI.
+
 ## [v1.0.0-beta.7] - 2016-05-26
 
 ### Added
@@ -138,6 +156,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fix broken state when going to settings from the success screen.
 - Fix `Cannot read property 'length' of undefined` frequent issue.
 
+[v1.0.0-beta.8]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.7...v1.0.0-beta.8
 [v1.0.0-beta.7]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.6...v1.0.0-beta.7
 [v1.0.0-beta.6]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.5...v1.0.0-beta.6
 [v1.0.0-beta.5]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.4...v1.0.0-beta.5
