@@ -6448,8 +6448,8 @@ button.btn:focus, button.progress-button:focus {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.component-drive-selector-body .list-group-item-header {
-  margin-bottom: 8px; }
+.component-drive-selector-body .list-group-item-footer {
+  margin-top: 8px; }
 
 .component-drive-selector-body .list-group-item[disabled] .list-group-item-heading {
   color: #aaaaaa; }
