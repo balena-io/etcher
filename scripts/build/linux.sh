@@ -37,6 +37,11 @@ if ! command -v upx 2>/dev/null; then
   exit 1
 fi
 
+if ! command -v python 2>/dev/null; then
+  echo "Dependency missing: python" 1>&2
+  exit 1
+fi
+
 if [ "$#" -ne 1 ]; then
   echo "Usage: $0 <arch>" 1>&2
   exit 1
