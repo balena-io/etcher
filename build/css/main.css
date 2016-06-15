@@ -1254,7 +1254,7 @@ mark,
 .text-right, .section-header {
   text-align: right; }
 
-.text-center, .alert, .alert-ribbon, .update-notifier-modal-body__content, .section-footer {
+.text-center, .alert, .alert-ribbon, .update-notifier-modal-body__content, .modal-tooltip-modal .modal-body, .section-footer {
   text-align: center; }
 
 .text-justify {
@@ -6469,6 +6469,49 @@ button.btn:focus, button.progress-button:focus {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+.modal-tooltip-modal {
+  max-width: 50%; }
+  .modal-tooltip-modal .modal-header {
+    border: none; }
+    .modal-tooltip-modal .modal-header .close {
+      position: absolute;
+      right: -9px;
+      top: -8px;
+      background-color: #333333;
+      color: #eeeeee;
+      opacity: 1;
+      font-weight: 200;
+      font-size: 150%;
+      padding: 0px 5px 3px;
+      text-shadow: none;
+      margin: 0;
+      border-radius: 50%; }
+  .modal-tooltip-modal .modal-content {
+    height: auto;
+    border-radius: 3px; }
+  .modal-tooltip-modal .modal-body {
+    margin: 0px 15px 15px;
+    color: #222222;
+    background-color: #eeeeee;
+    padding: 8px;
+    overflow: hidden;
+    word-wrap: break-word; }
+
+/*
+ * Copyright 2016 Resin.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 .page-settings .checkbox input[type="checkbox"]:not(:checked) + * {
   color: #ddd; }
 
@@ -6557,6 +6600,12 @@ body {
 
 .step-border-right {
   right: -120px; }
+
+.step-tooltip {
+  display: block;
+  margin: -5px auto -20px;
+  color: #85898c;
+  font-size: 10px; }
 
 .step-footer {
   margin-top: 10px;
