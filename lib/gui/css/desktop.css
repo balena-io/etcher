@@ -43,7 +43,7 @@ html {
 }
 
 body {
-  overflow: auto;
+  overflow: hidden;
   -webkit-overflow-scrolling: touch;
 }
 
