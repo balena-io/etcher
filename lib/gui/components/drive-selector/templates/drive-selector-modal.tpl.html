@@ -9,7 +9,10 @@
       ng-disabled="!modal.state.isDriveValid(drive)"
       ng-click="modal.state.isDriveValid(drive) && modal.state.toggleSetDrive(drive)">
         <div>
-          <header class="list-group-item-header">
+          <h4 class="list-group-item-heading">{{ drive.description }} - {{ drive.size | gigabyte | number:1 }} GB</h4>
+          <p class="list-group-item-text">{{ drive.name }}</p>
+
+          <footer class="list-group-item-footer">
 
             <!-- There can be a case where the device it not large enough, and it's also locked. -->
             <!-- Since in this case both labels will be displayed, we chose to only show the -->
@@ -26,9 +29,7 @@
                 <i class="glyphicon glyphicon-lock"></i>
                 LOCKED</span>
 
-          </header>
-          <h4 class="list-group-item-heading">{{ drive.description }} - {{ drive.size | gigabyte | number:1 }} GB</h4>
-          <p class="list-group-item-text">{{ drive.name }}</p>
+          </footer>
         </div>
         <span class="tick tick--success"
           ng-show="modal.state.isDriveValid(drive)"
