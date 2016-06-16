@@ -35,7 +35,7 @@ error() {
 
 # Check if we're running as root
 if [ "$EUID" -eq 0 ]; then
-  ./$binary
+  $APPDIR/$binary
 else
 
   # Determine a unique mountpoint based on the current mount point.
