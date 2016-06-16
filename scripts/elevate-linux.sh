@@ -39,7 +39,7 @@ if [ "$EUID" -eq 0 ]; then
 else
 
   # Determine a unique mountpoint based on the current mount point.
-  mountpoint=$(mount | grep $(basename $APPIMAGE) | awk '{ print $3 }')-elevated
+  mountpoint=$(mount | grep $(basename $APPIMAGE) | grep fuse | head -n 1 | awk '{ print $3 }')-elevated
 
   # We remount the AppImage to be able to workaround FUSE a
   # security measure of not allowing root to run binaries
