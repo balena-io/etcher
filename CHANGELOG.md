@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v1.0.0-beta.9] - 2016-06-20
+
+### Changed
+
+- Don't interpret image file name information between dots as image extensions.
+
 ## [v1.0.0-beta.8] - 2016-06-15
 
 ### Added
@@ -156,6 +162,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fix broken state when going to settings from the success screen.
 - Fix `Cannot read property 'length' of undefined` frequent issue.
 
+[v1.0.0-beta.9]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.8...v1.0.0-beta.9
 [v1.0.0-beta.8]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.7...v1.0.0-beta.8
 [v1.0.0-beta.7]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.6...v1.0.0-beta.7
 [v1.0.0-beta.6]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.5...v1.0.0-beta.6
