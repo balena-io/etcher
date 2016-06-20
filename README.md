@@ -6,6 +6,7 @@ Etcher
 Etcher is a powerful OS image flasher built with web technologies to ensure flashing an SDCard or USB drive is pleasant and safe experience. It protects you from accidentally writing to your hard-drives, ensures every byte of data was written correctly and much more.
 
 [![dependencies](https://david-dm.org/resin-io/etcher.svg)](https://david-dm.org/resin-io/etcher.svg)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![Build Status](https://travis-ci.org/resin-io/etcher.svg?branch=master)](https://travis-ci.org/resin-io/etcher)
 [![Build status](https://ci.appveyor.com/api/projects/status/e745k1gt39nik0t7/branch/master?svg=true)](https://ci.appveyor.com/project/resin-io/etcher/branch/master)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/resin-io/chat)

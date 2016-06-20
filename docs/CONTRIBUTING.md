@@ -107,6 +107,8 @@ We encourage our contributors to test the application on as many operating syste
 
 ## Sending a pull request
 
+We make use of [commitizen](https://commitizen.github.io/cz-cli/#making-your-repo-commitizen-friendly) to ensure certain commit conventions, since they will be used to auto-generate the CHANGELOG. The project already includes all necessary configuration, so you only have to install the commitizen cli tool (`npm install -g commitizen`) and commit by executing `git cz`, which will drive you through an interactive wizard to make sure your commit is perfectly crafted according to our guidelines.
+
 When sending a pull request, consider the following guidelines:
 
 - Write a concise commit message explaining your changes.
