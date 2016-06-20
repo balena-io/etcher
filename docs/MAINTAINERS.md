@@ -19,6 +19,9 @@ https://github.com/resin-io/etcher/compare/<previous>...<current>
 ```
 
 - Re-take `screenshot.png` so it displays the latest version in the bottom right corner.
+
+- Re-install all dependencies and run `npm shrinkwrap` to update `npm-shrinkwrap.json`.
+
 - Commit the changes with the version number as the commit title, including the `v` prefix, to `master`. For example:
 
 ```sh
