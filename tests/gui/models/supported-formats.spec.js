@@ -23,7 +23,7 @@ describe('Browser: SupportedFormats', function() {
 
       it('should return the supported compressed extensions', function() {
         const extensions = SupportedFormatsModel.getCompressedExtensions();
-        m.chai.expect(extensions).to.deep.equal([ 'zip', 'gz', 'bz2', 'xz' ]);
+        m.chai.expect(extensions).to.deep.equal([ 'gz', 'bz2', 'xz' ]);
       });
 
     });
@@ -37,12 +37,22 @@ describe('Browser: SupportedFormats', function() {
 
     });
 
+    describe('.getArchiveExtensions()', function() {
+
+      it('should return the supported archive extensions', function() {
+        const extensions = SupportedFormatsModel.getArchiveExtensions();
+        m.chai.expect(extensions).to.deep.equal([ 'zip' ]);
+      });
+
+    });
+
     describe('.getAllExtensions()', function() {
 
-      it('should return the union of .getCompressedExtensions and .getNonCompressedExtensions', function() {
+      it('should return the union of all compressed, uncompressed, and archive extensions', function() {
+        const archiveExtensions = SupportedFormatsModel.getArchiveExtensions();
         const compressedExtensions = SupportedFormatsModel.getCompressedExtensions();
         const nonCompressedExtensions = SupportedFormatsModel.getNonCompressedExtensions();
-        const expected = _.union(compressedExtensions, nonCompressedExtensions);
+        const expected = _.union(archiveExtensions, compressedExtensions, nonCompressedExtensions);
         const extensions = SupportedFormatsModel.getAllExtensions();
         m.chai.expect(extensions).to.deep.equal(expected);
       });
@@ -62,15 +72,29 @@ describe('Browser: SupportedFormats', function() {
       });
 
       it('should return true if the extension is included in .getAllExtensions()', function() {
-        const supportedExtensions = SupportedFormatsModel.getAllExtensions();
-        const imagePath = '/path/to/foo.' + _.first(supportedExtensions);
+        const nonCompressedExtension = _.first(SupportedFormatsModel.getNonCompressedExtensions());
+        const imagePath = '/path/to/foo.' + nonCompressedExtension;
+        const isSupported = SupportedFormatsModel.isSupportedImage(imagePath);
+        m.chai.expect(isSupported).to.be.true;
+      });
+
+      it('should not consider an extension before a non compressed extension', function() {
+        const nonCompressedExtension = _.first(SupportedFormatsModel.getNonCompressedExtensions());
+        const imagePath = '/path/to/foo.1234.' + nonCompressedExtension;
         const isSupported = SupportedFormatsModel.isSupportedImage(imagePath);
         m.chai.expect(isSupported).to.be.true;
       });
 
       it('should return true if the extension is supported and the file name includes dots', function() {
-        const supportedExtensions = SupportedFormatsModel.getAllExtensions();
-        const imagePath = '/path/to/foo.1.2.3-bar.' + _.first(supportedExtensions);
+        const nonCompressedExtension = _.first(SupportedFormatsModel.getNonCompressedExtensions());
+        const imagePath = '/path/to/foo.1.2.3-bar.' + nonCompressedExtension;
+        const isSupported = SupportedFormatsModel.isSupportedImage(imagePath);
+        m.chai.expect(isSupported).to.be.true;
+      });
+
+      it('should return true if the extension is only a supported archive extension', function() {
+        const archiveExtension = _.first(SupportedFormatsModel.getArchiveExtensions());
+        const imagePath = '/path/to/foo.' + archiveExtension;
         const isSupported = SupportedFormatsModel.isSupportedImage(imagePath);
         m.chai.expect(isSupported).to.be.true;
       });
