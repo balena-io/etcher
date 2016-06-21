@@ -135,11 +135,11 @@ function app_dir_create {
   output_directory=$3
 
   mkdir -p $output_directory/usr/bin
-  cp ./scripts/AppRun-$architecture $output_directory/AppRun
-  cp ./Etcher.desktop $output_directory
+  cp ./scripts/build/AppImages/AppRun-$architecture $output_directory/AppRun
+  cp ./scripts/build/AppImages/Etcher.desktop $output_directory
   cp ./assets/icon.png $output_directory
   cp -rf $source_directory/* $output_directory/usr/bin
-  cp ./scripts/desktopintegration $output_directory/usr/bin/etcher.wrapper
+  cp ./scripts/build/AppImages/desktopintegration $output_directory/usr/bin/etcher.wrapper
 }
 
 function installer {
@@ -152,7 +152,7 @@ function installer {
   mkdir -p $output_directory
   app_dir_create $source_directory $architecture $appdir_temporary_location
   rm -f $output_file
-  ./scripts/AppImageAssistant-$architecture $appdir_temporary_location $output_file
+  ./scripts/build/AppImages/AppImageAssistant-$architecture $appdir_temporary_location $output_file
   rm -rf $appdir_temporary_location
 }
 
