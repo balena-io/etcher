@@ -52,11 +52,6 @@
       "from": "angular-moment@>=1.0.0-beta.6 <2.0.0",
       "resolved": "https://registry.npmjs.org/angular-moment/-/angular-moment-1.0.0-beta.6.tgz"
     },
-    "angular-q-promisify": {
-      "version": "1.1.0",
-      "from": "angular-q-promisify@>=1.1.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/angular-q-promisify/-/angular-q-promisify-1.1.0.tgz"
-    },
     "angular-ui-bootstrap": {
       "version": "1.3.3",
       "from": "angular-ui-bootstrap@>=1.3.2 <2.0.0",
@@ -4665,6 +4660,11 @@
       "version": "1.1.4",
       "from": "run-series@>=1.1.4 <2.0.0",
       "resolved": "https://registry.npmjs.org/run-series/-/run-series-1.1.4.tgz"
+    },
+    "rx": {
+      "version": "4.1.0",
+      "from": "rx@latest",
+      "resolved": "https://registry.npmjs.org/rx/-/rx-4.1.0.tgz"
     },
     "rx-lite": {
       "version": "3.1.2",
