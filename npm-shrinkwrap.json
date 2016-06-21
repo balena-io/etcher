@@ -255,6 +255,11 @@
       "from": "asar@>=0.10.0 <0.11.0",
       "resolved": "https://registry.npmjs.org/asar/-/asar-0.10.0.tgz",
       "dependencies": {
+        "commander": {
+          "version": "2.9.0",
+          "from": "commander@>=2.9.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/commander/-/commander-2.9.0.tgz"
+        },
         "glob": {
           "version": "6.0.4",
           "from": "glob@>=6.0.4 <7.0.0",
@@ -887,9 +892,9 @@
       "resolved": "https://registry.npmjs.org/command-line-usage/-/command-line-usage-2.0.5.tgz"
     },
     "commander": {
-      "version": "2.9.0",
-      "from": "commander@>=2.9.0 <3.0.0",
-      "resolved": "https://registry.npmjs.org/commander/-/commander-2.9.0.tgz"
+      "version": "2.1.0",
+      "from": "commander@>=2.1.0 <2.2.0",
+      "resolved": "https://registry.npmjs.org/commander/-/commander-2.1.0.tgz"
     },
     "comment-parser": {
       "version": "0.3.1",
@@ -913,6 +918,11 @@
       "from": "commoner@>=0.10.3 <0.11.0",
       "resolved": "https://registry.npmjs.org/commoner/-/commoner-0.10.4.tgz",
       "dependencies": {
+        "commander": {
+          "version": "2.9.0",
+          "from": "commander@>=2.5.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/commander/-/commander-2.9.0.tgz"
+        },
         "detective": {
           "version": "4.3.1",
           "from": "detective@>=4.3.1 <5.0.0",
@@ -1425,6 +1435,11 @@
           "from": "asar@>=0.11.0 <0.12.0",
           "resolved": "https://registry.npmjs.org/asar/-/asar-0.11.0.tgz"
         },
+        "commander": {
+          "version": "2.9.0",
+          "from": "commander@>=2.9.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/commander/-/commander-2.9.0.tgz"
+        },
         "decompress-zip": {
           "version": "0.3.0",
           "from": "decompress-zip@0.3.0",
@@ -1692,6 +1707,16 @@
       "from": "figures@>=1.3.5 <2.0.0",
       "resolved": "https://registry.npmjs.org/figures/-/figures-1.7.0.tgz"
     },
+    "file-size-watcher": {
+      "version": "0.2.1",
+      "from": "file-size-watcher@>=0.2.0 <0.3.0",
+      "resolved": "https://registry.npmjs.org/file-size-watcher/-/file-size-watcher-0.2.1.tgz"
+    },
+    "file-tail": {
+      "version": "0.3.0",
+      "from": "file-tail@>=0.3.0 <0.4.0",
+      "resolved": "https://registry.npmjs.org/file-tail/-/file-tail-0.3.0.tgz"
+    },
     "file-type": {
       "version": "3.8.0",
       "from": "file-type@>=3.1.0 <4.0.0",
@@ -1800,11 +1825,6 @@
       "from": "fs-temp@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/fs-temp/-/fs-temp-1.1.0.tgz"
     },
-    "fs-xattr": {
-      "version": "0.1.14",
-      "from": "fs-xattr@>=0.1.14 <0.2.0",
-      "resolved": "https://registry.npmjs.org/fs-xattr/-/fs-xattr-0.1.14.tgz"
-    },
     "fs.realpath": {
       "version": "1.0.0",
       "from": "fs.realpath@>=1.0.0 <2.0.0",
@@ -1870,9 +1890,9 @@
       }
     },
     "glob": {
-      "version": "7.0.4",
+      "version": "7.0.5",
       "from": "glob@>=7.0.0 <8.0.0",
-      "resolved": "https://registry.npmjs.org/glob/-/glob-7.0.4.tgz"
+      "resolved": "https://registry.npmjs.org/glob/-/glob-7.0.5.tgz"
     },
     "glob-stream": {
       "version": "3.1.18",
@@ -2061,6 +2081,11 @@
           "version": "2.10.2",
           "from": "bluebird@>=2.9.30 <3.0.0",
           "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-2.10.2.tgz"
+        },
+        "commander": {
+          "version": "2.9.0",
+          "from": "commander@>=2.8.1 <3.0.0",
+          "resolved": "https://registry.npmjs.org/commander/-/commander-2.9.0.tgz"
         }
       }
     },
@@ -2431,6 +2456,11 @@
           "from": "colors@>=0.6.0 <0.7.0",
           "resolved": "https://registry.npmjs.org/colors/-/colors-0.6.2.tgz"
         },
+        "commander": {
+          "version": "2.9.0",
+          "from": "commander@>=2.9.0 <2.10.0",
+          "resolved": "https://registry.npmjs.org/commander/-/commander-2.9.0.tgz"
+        },
         "estraverse": {
           "version": "4.2.0",
           "from": "estraverse@>=4.1.0 <5.0.0",
@@ -2544,7 +2574,7 @@
     },
     "jsonfile": {
       "version": "2.3.1",
-      "from": "jsonfile@>=2.0.0 <3.0.0",
+      "from": "jsonfile@>=2.3.1 <3.0.0",
       "resolved": "https://registry.npmjs.org/jsonfile/-/jsonfile-2.3.1.tgz"
     },
     "jsonify": {
@@ -3450,11 +3480,6 @@
       "from": "macmount@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/macmount/-/macmount-1.0.0.tgz"
     },
-    "macos-alias": {
-      "version": "0.2.9",
-      "from": "macos-alias@>=0.2.5 <0.3.0",
-      "resolved": "https://registry.npmjs.org/macos-alias/-/macos-alias-0.2.9.tgz"
-    },
     "map-obj": {
       "version": "1.0.1",
       "from": "map-obj@>=1.0.1 <1.1.0",
@@ -3509,7 +3534,7 @@
     },
     "minimatch": {
       "version": "3.0.2",
-      "from": "minimatch@>=2.0.0 <3.0.0||>=3.0.0 <4.0.0",
+      "from": "minimatch@>=3.0.2 <4.0.0",
       "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.0.2.tgz"
     },
     "minimist": {
@@ -3772,6 +3797,11 @@
           "version": "1.0.5",
           "from": "combined-stream@>=1.0.5 <1.1.0",
           "resolved": "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.5.tgz"
+        },
+        "commander": {
+          "version": "2.9.0",
+          "from": "commander@>=2.9.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/commander/-/commander-2.9.0.tgz"
         },
         "delayed-stream": {
           "version": "1.0.0",
@@ -5040,9 +5070,9 @@
       }
     },
     "sudo-prompt": {
-      "version": "3.1.0",
-      "from": "sudo-prompt@>=3.1.0 <4.0.0",
-      "resolved": "https://registry.npmjs.org/sudo-prompt/-/sudo-prompt-3.1.0.tgz"
+      "version": "5.0.3",
+      "from": "sudo-prompt@>=5.0.3 <6.0.0",
+      "resolved": "https://registry.npmjs.org/sudo-prompt/-/sudo-prompt-5.0.3.tgz"
     },
     "supports-color": {
       "version": "2.0.0",
@@ -5070,6 +5100,11 @@
       "version": "0.0.3",
       "from": "table-parser@0.0.3",
       "resolved": "https://registry.npmjs.org/table-parser/-/table-parser-0.0.3.tgz"
+    },
+    "tail": {
+      "version": "1.1.0",
+      "from": "tail@>=1.1.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/tail/-/tail-1.1.0.tgz"
     },
     "tar": {
       "version": "2.2.1",
@@ -5536,6 +5571,11 @@
           "resolved": "https://registry.npmjs.org/pkginfo/-/pkginfo-0.3.1.tgz"
         }
       }
+    },
+    "word-wrap": {
+      "version": "1.1.0",
+      "from": "word-wrap@>=1.0.3 <2.0.0",
+      "resolved": "https://registry.npmjs.org/word-wrap/-/word-wrap-1.1.0.tgz"
     },
     "wordwrap": {
       "version": "1.0.0",
