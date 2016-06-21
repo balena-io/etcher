@@ -1591,9 +1591,9 @@
       "resolved": "https://registry.npmjs.org/esutils/-/esutils-2.0.2.tgz"
     },
     "etcher-image-stream": {
-      "version": "2.1.0",
-      "from": "etcher-image-stream@>=2.1.0 <3.0.0",
-      "resolved": "https://registry.npmjs.org/etcher-image-stream/-/etcher-image-stream-2.1.0.tgz"
+      "version": "2.2.0",
+      "from": "etcher-image-stream@>=2.2.0 <3.0.0",
+      "resolved": "https://registry.npmjs.org/etcher-image-stream/-/etcher-image-stream-2.2.0.tgz"
     },
     "etcher-image-write": {
       "version": "5.0.1",
