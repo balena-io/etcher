@@ -45,6 +45,7 @@
     }
   },
   "optionalDependencies": {
+    "electron-builder": "^2.6.0",
     "elevator": "^2.1.0",
     "removedrive": "^1.0.0"
   },
@@ -84,7 +85,6 @@
     "angular-mocks": "^1.4.7",
     "cz-conventional-changelog": "^1.1.6",
     "browserify": "^13.0.1",
-    "electron-builder": "^2.6.0",
     "electron-mocha": "^1.2.2",
     "electron-osx-sign": "^0.3.0",
     "electron-packager": "^7.0.1",
