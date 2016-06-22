@@ -7,15 +7,18 @@ require('angular-mocks');
 describe('Browser: DrivesModel', function() {
 
   beforeEach(angular.mock.module(
-    require('../../../lib/gui/models/drives')
+    require('../../../lib/gui/models/drives'),
+    require('../../../lib/gui/models/selection-state')
   ));
 
   describe('DrivesModel', function() {
 
     let DrivesModel;
+    let SelectionStateModel;
 
-    beforeEach(angular.mock.inject(function(_DrivesModel_) {
+    beforeEach(angular.mock.inject(function(_DrivesModel_, _SelectionStateModel_) {
       DrivesModel = _DrivesModel_;
+      SelectionStateModel = _SelectionStateModel_;
     }));
 
     it('should have no drives by default', function() {
@@ -85,21 +88,57 @@ describe('Browser: DrivesModel', function() {
         this.drives = [
           {
             device: '/dev/sdb',
-            description: 'Foo',
-            size: '14G',
+            name: 'SD Card',
+            size: 9999999,
             mountpoint: '/mnt/foo',
-            system: false
+            system: false,
+            protected: false
           },
           {
             device: '/dev/sdc',
-            description: 'Bar',
-            size: '14G',
+            name: 'USB Drive',
+            size: 9999999,
             mountpoint: '/mnt/bar',
-            system: false
+            system: false,
+            protected: false
           }
         ];
 
         DrivesModel.setDrives(this.drives);
+      });
+
+      describe('given one of the drives was selected', function() {
+
+        beforeEach(function() {
+          SelectionStateModel.setDrive({
+            device: '/dev/sdc',
+            name: 'USB Drive',
+            size: 9999999,
+            mountpoint: '/mnt/bar',
+            system: false,
+            protected: false
+          });
+        });
+
+        afterEach(function() {
+          SelectionStateModel.removeDrive();
+        });
+
+        it('should be delected if its not contain in the available drives anymore', function() {
+          m.chai.expect(SelectionStateModel.hasDrive()).to.be.true;
+          DrivesModel.setDrives([
+            {
+              device: '/dev/sdb',
+              name: 'SD Card',
+              size: 9999999,
+              mountpoint: '/mnt/foo',
+              system: false,
+              protected: false
+            }
+          ]);
+          m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+        });
+
       });
 
       describe('.hasAvailableDrives()', function() {
