@@ -44,6 +44,7 @@ describe('Browser: ImageWriter', function() {
         };
 
         ImageWriterService.resetState();
+        $timeout.flush();
 
         m.chai.expect(ImageWriterService.state).to.deep.equal({
           progress: 0,

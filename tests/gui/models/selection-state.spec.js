@@ -383,7 +383,7 @@ describe('Browser: SelectionState', function() {
 
       describe('.setDrive()', function() {
 
-        it('should throw if drive is no large enough', function() {
+        it('should throw if drive is not large enough', function() {
           m.chai.expect(function() {
             SelectionStateModel.setDrive({
               device: '/dev/disk1',
