@@ -21,6 +21,7 @@ const jscs = require('gulp-jscs');
 const jshint = require('gulp-jshint');
 const jshintStylish = require('jshint-stylish');
 const sass = require('gulp-sass');
+const sequence = require('gulp-sequence');
 
 const paths = {
   scripts: [
@@ -40,13 +41,21 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('./build/css'));
 });
 
-gulp.task('lint', function() {
+gulp.task('lint:jshint', function() {
   return gulp.src(paths.scripts)
     .pipe(jshint())
     .pipe(jshint.reporter(jshintStylish))
-    .pipe(jscs())
-    .pipe(jscs.reporter());
+    .pipe(jshint.reporter('fail'));
 });
+
+gulp.task('lint:jscs', function() {
+  return gulp.src(paths.scripts)
+    .pipe(jscs())
+    .pipe(jscs.reporter())
+    .pipe(jscs.reporter('fail'));
+});
+
+gulp.task('lint', sequence('lint:jshint', 'lint:jscs'));
 
 gulp.task('watch', [ 'lint', 'sass' ], function() {
   gulp.watch(paths.scripts, [ 'lint' ]);
