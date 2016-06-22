@@ -40,3 +40,14 @@ git tag -a v1.0.0 -m "v1.0.0"
 git push
 git push --tags
 ```
+
+Upgrading Electron
+------------------
+
+- Upgrade the `electron-prebuilt` dependency version in `package.json` to an *exact version* (no `~`, `^`, etc).
+
+- Find the exact NodeJS version included in the desired Electron version and update `engines.node` in `package.json` appropriately. This can be usually found in the [Electron releases page](https://github.com/electron/electron/releases).
+
+- Update the `NODE_VERSION` environment variable in `.travis.yml`.
+
+- Update the `nodejs_version` and `npm_config_target` environment variables in `appveyor.yml`.
