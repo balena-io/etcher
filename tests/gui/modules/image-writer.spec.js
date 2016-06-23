@@ -81,6 +81,86 @@ describe('Browser: ImageWriter', function() {
         }).to.throw('Can\'t set the flashing state when not flashing');
       });
 
+      it('should throw if type is missing', function() {
+        ImageWriterService.setFlashing(true);
+        m.chai.expect(function() {
+          ImageWriterService.setProgressState({
+            percentage: 50,
+            eta: 15,
+            speed: 100000000000
+          });
+        }).to.throw('Missing state type');
+      });
+
+      it('should throw if type is not a string', function() {
+        ImageWriterService.setFlashing(true);
+        m.chai.expect(function() {
+          ImageWriterService.setProgressState({
+            type: 1234,
+            percentage: 50,
+            eta: 15,
+            speed: 100000000000
+          });
+        }).to.throw('Invalid state type: 1234');
+      });
+
+      it('should throw if progress is missing', function() {
+        ImageWriterService.setFlashing(true);
+        m.chai.expect(function() {
+          ImageWriterService.setProgressState({
+            type: 'write',
+            eta: 15,
+            speed: 100000000000
+          });
+        }).to.throw('Missing state progress');
+      });
+
+      it('should throw if progress is not a number', function() {
+        ImageWriterService.setFlashing(true);
+        m.chai.expect(function() {
+          ImageWriterService.setProgressState({
+            type: 'write',
+            percentage: '50',
+            eta: 15,
+            speed: 100000000000
+          });
+        }).to.throw('Invalid state progress: 50');
+      });
+
+      it('should throw if eta is missing', function() {
+        ImageWriterService.setFlashing(true);
+        m.chai.expect(function() {
+          ImageWriterService.setProgressState({
+            type: 'write',
+            percentage: 50,
+            speed: 100000000000
+          });
+        }).to.throw('Missing state eta');
+      });
+
+      it('should throw if eta is not a number', function() {
+        ImageWriterService.setFlashing(true);
+        m.chai.expect(function() {
+          ImageWriterService.setProgressState({
+            type: 'write',
+            percentage: 50,
+            eta: '15',
+            speed: 100000000000
+          });
+        }).to.throw('Invalid state eta: 15');
+      });
+
+      it('should throw if speed is missing', function() {
+        ImageWriterService.setFlashing(true);
+        m.chai.expect(function() {
+          ImageWriterService.setProgressState({
+            type: 'write',
+            percentage: 50,
+            eta: 15
+          });
+        }).to.throw('Missing state speed');
+      });
+
     });
 
     describe('.setFlashing()', function() {
