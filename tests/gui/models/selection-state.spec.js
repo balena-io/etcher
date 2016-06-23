@@ -199,6 +199,17 @@ describe('Browser: SelectionState', function() {
           });
         });
 
+        it('should throw if drive is write protected', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setDrive({
+              device: '/dev/disk1',
+              name: 'USB Drive',
+              size: 999999999,
+              protected: true
+            });
+          }).to.throw('The drive is write-protected');
+        });
+
         it('should throw if no device', function() {
           m.chai.expect(function() {
             SelectionStateModel.setDrive({
