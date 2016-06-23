@@ -67,6 +67,22 @@ describe('Browser: ImageWriter', function() {
 
     });
 
+    describe('.setProgressState()', function() {
+
+      it('should not allow setting the state if flashing is false', function() {
+        ImageWriterService.setFlashing(false);
+        m.chai.expect(function() {
+          ImageWriterService.setProgressState({
+            type: 'write',
+            percentage: 50,
+            eta: 15,
+            speed: 100000000000
+          });
+        }).to.throw('Can\'t set the flashing state when not flashing');
+      });
+
+    });
+
     describe('.setFlashing()', function() {
 
       it('should be able to set flashing to true', function() {
