@@ -5,7 +5,7 @@
 
 <div class="component-drive-selector-body modal-body">
   <ul class="list-group">
-    <li class="list-group-item" ng-repeat="drive in modal.drives.getDrives()"
+    <li class="list-group-item" ng-repeat="drive in modal.drives.getDrives() track by drive.device"
       ng-disabled="!modal.state.isDriveValid(drive)"
       ng-click="modal.state.isDriveValid(drive) && modal.state.toggleSetDrive(drive)">
         <div>
