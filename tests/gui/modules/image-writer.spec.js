@@ -87,6 +87,33 @@ describe('Browser: ImageWriter', function() {
         m.chai.expect(ImageWriterService.isFlashing()).to.be.false;
       });
 
+      it('should reset the flashing state if set to false', function() {
+        ImageWriterService.setFlashing(true);
+
+        ImageWriterService.setProgressState({
+          type: 'write',
+          percentage: 50,
+          eta: 15,
+          speed: 100000000000
+        });
+
+        $timeout.flush();
+
+        m.chai.expect(ImageWriterService.state).to.not.deep.equal({
+          progress: 0,
+          speed: 0
+        });
+
+        ImageWriterService.setFlashing(false);
+
+        $timeout.flush();
+
+        m.chai.expect(ImageWriterService.state).to.deep.equal({
+          progress: 0,
+          speed: 0
+        });
+      });
+
     });
 
     describe('.flash()', function() {
@@ -103,12 +130,14 @@ describe('Browser: ImageWriter', function() {
         });
 
         it('should set flashing to false when done', function() {
+          ImageWriterService.setFlashing(false);
           ImageWriterService.flash('foo.img', '/dev/disk2');
           $rootScope.$apply();
           m.chai.expect(ImageWriterService.isFlashing()).to.be.false;
         });
 
         it('should prevent writing more than once', function() {
+          ImageWriterService.setFlashing(false);
           ImageWriterService.flash('foo.img', '/dev/disk2');
           ImageWriterService.flash('foo.img', '/dev/disk2');
           $rootScope.$apply();
@@ -149,6 +178,8 @@ describe('Browser: ImageWriter', function() {
         });
 
         it('should be rejected with the error', function() {
+          ImageWriterService.setFlashing(false);
+
           let rejection;
           ImageWriterService.flash('foo.img', '/dev/disk2').catch(function(error) {
             rejection = error;
