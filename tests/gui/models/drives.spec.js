@@ -78,6 +78,131 @@ describe('Browser: DrivesModel', function() {
           m.chai.expect(DrivesModel.getDrives()).to.deep.equal(drives);
         });
 
+        describe('given no selected image and no selected drive', function() {
+
+          beforeEach(function() {
+            SelectionStateModel.removeDrive();
+            SelectionStateModel.removeImage();
+          });
+
+          it('should not auto-select a single valid available drive', function() {
+            m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+
+            DrivesModel.setDrives([
+              {
+                device: '/dev/sdb',
+                name: 'Foo',
+                size: 999999999,
+                mountpoint: '/mnt/foo',
+                system: false,
+                protected: false
+              }
+            ]);
+
+            m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+          });
+
+        });
+
+        describe('given a selected image and no selected drive', function() {
+
+          beforeEach(function() {
+            SelectionStateModel.removeDrive();
+            SelectionStateModel.setImage({
+              path: 'foo.img',
+              size: 999999999
+            });
+          });
+
+          afterEach(function() {
+            SelectionStateModel.removeImage();
+          });
+
+          it('should not auto-select when there are multiple valid available drives', function() {
+            m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+
+            DrivesModel.setDrives([
+              {
+                device: '/dev/sdb',
+                name: 'Foo',
+                size: 999999999,
+                mountpoint: '/mnt/foo',
+                system: false,
+                protected: false
+              },
+              {
+                device: '/dev/sdc',
+                name: 'Bar',
+                size: 999999999,
+                mountpoint: '/mnt/bar',
+                system: false,
+                protected: false
+              }
+            ]);
+
+            m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+          });
+
+          it('should auto-select a single valid available drive', function() {
+            m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+
+            DrivesModel.setDrives([
+              {
+                device: '/dev/sdb',
+                name: 'Foo',
+                size: 999999999,
+                mountpoint: '/mnt/foo',
+                system: false,
+                protected: false
+              }
+            ]);
+
+            m.chai.expect(SelectionStateModel.getDrive()).to.deep.equal({
+              device: '/dev/sdb',
+              name: 'Foo',
+              size: 999999999,
+              mountpoint: '/mnt/foo',
+              system: false,
+              protected: false
+            });
+          });
+
+          it('should not auto-select a single too small drive', function() {
+            m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+
+            DrivesModel.setDrives([
+              {
+                device: '/dev/sdb',
+                name: 'Foo',
+                size: 99999999,
+                mountpoint: '/mnt/foo',
+                system: false,
+                protected: false
+              }
+            ]);
+
+            m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+          });
+
+          it('should not auto-select a single protected drive', function() {
+            m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+
+            DrivesModel.setDrives([
+              {
+                device: '/dev/sdb',
+                name: 'Foo',
+                size: 999999999,
+                mountpoint: '/mnt/foo',
+                system: false,
+                protected: true
+              }
+            ]);
+
+            m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+          });
+
+        });
+
       });
 
     });
