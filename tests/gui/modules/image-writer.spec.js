@@ -138,6 +138,18 @@ describe('Browser: ImageWriter', function() {
         }).to.throw('Missing state eta');
       });
 
+      it('should not throw if eta is equal to zero', function() {
+        ImageWriterService.setFlashing(true);
+        m.chai.expect(function() {
+          ImageWriterService.setProgressState({
+            type: 'write',
+            percentage: 50,
+            eta: 0,
+            speed: 100000000000
+          });
+        }).to.not.throw('Missing state eta');
+      });
+
       it('should throw if eta is not a number', function() {
         ImageWriterService.setFlashing(true);
         m.chai.expect(function() {
