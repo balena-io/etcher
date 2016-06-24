@@ -28,7 +28,7 @@ describe('Browser: ImageWriter', function() {
 
       it('should be reset by default', function() {
         m.chai.expect(ImageWriterService.state).to.deep.equal({
-          progress: 0,
+          percentage: 0,
           speed: 0
         });
       });
@@ -39,7 +39,7 @@ describe('Browser: ImageWriter', function() {
 
       it('should be able to reset the state', function() {
         ImageWriterService.state = {
-          progress: 50,
+          percentage: 50,
           speed: 3
         };
 
@@ -47,7 +47,7 @@ describe('Browser: ImageWriter', function() {
         $timeout.flush();
 
         m.chai.expect(ImageWriterService.state).to.deep.equal({
-          progress: 0,
+          percentage: 0,
           speed: 0
         });
       });
@@ -104,7 +104,7 @@ describe('Browser: ImageWriter', function() {
         }).to.throw('Invalid state type: 1234');
       });
 
-      it('should throw if progress is missing', function() {
+      it('should throw if percentage is missing', function() {
         ImageWriterService.setFlashing(true);
         m.chai.expect(function() {
           ImageWriterService.setProgressState({
@@ -112,10 +112,10 @@ describe('Browser: ImageWriter', function() {
             eta: 15,
             speed: 100000000000
           });
-        }).to.throw('Missing state progress');
+        }).to.throw('Missing state percentage');
       });
 
-      it('should throw if progress is not a number', function() {
+      it('should throw if percentage is not a number', function() {
         ImageWriterService.setFlashing(true);
         m.chai.expect(function() {
           ImageWriterService.setProgressState({
@@ -124,7 +124,7 @@ describe('Browser: ImageWriter', function() {
             eta: 15,
             speed: 100000000000
           });
-        }).to.throw('Invalid state progress: 50');
+        }).to.throw('Invalid state percentage: 50');
       });
 
       it('should throw if eta is missing', function() {
@@ -196,7 +196,7 @@ describe('Browser: ImageWriter', function() {
         $timeout.flush();
 
         m.chai.expect(ImageWriterService.state).to.not.deep.equal({
-          progress: 0,
+          percentage: 0,
           speed: 0
         });
 
@@ -205,7 +205,7 @@ describe('Browser: ImageWriter', function() {
         $timeout.flush();
 
         m.chai.expect(ImageWriterService.state).to.deep.equal({
-          progress: 0,
+          percentage: 0,
           speed: 0
         });
       });
