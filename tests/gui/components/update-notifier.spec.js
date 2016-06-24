@@ -28,7 +28,7 @@ describe('Browser: UpdateNotifier', function() {
       describe('given the `sleepUpdateCheck` is disabled', function() {
 
         beforeEach(function() {
-          SettingsModel.data.sleepUpdateCheck = false;
+          SettingsModel.set('sleepUpdateCheck', false);
         });
 
         it('should return true', function() {
@@ -41,13 +41,13 @@ describe('Browser: UpdateNotifier', function() {
       describe('given the `sleepUpdateCheck` is enabled', function() {
 
         beforeEach(function() {
-          SettingsModel.data.sleepUpdateCheck = true;
+          SettingsModel.set('sleepUpdateCheck', true);
         });
 
         describe('given the `lastUpdateNotify` was never updated', function() {
 
           beforeEach(function() {
-            SettingsModel.data.lastUpdateNotify = undefined;
+            SettingsModel.set('lastUpdateNotify', undefined);
           });
 
           it('should return true', function() {
@@ -60,7 +60,7 @@ describe('Browser: UpdateNotifier', function() {
         describe('given the `lastUpdateNotify` was very recently updated', function() {
 
           beforeEach(function() {
-            SettingsModel.data.lastUpdateNotify = Date.now() + 1000;
+            SettingsModel.set('lastUpdateNotify', Date.now() + 1000);
           });
 
           it('should return false', function() {
@@ -73,7 +73,7 @@ describe('Browser: UpdateNotifier', function() {
         describe('given the `lastUpdateNotify` was updated long ago', function() {
 
           beforeEach(function() {
-            SettingsModel.data.lastUpdateNotify = Date.now() + UPDATE_NOTIFIER_SLEEP_TIME + 1000;
+            SettingsModel.set('lastUpdateNotify', Date.now() + UPDATE_NOTIFIER_SLEEP_TIME + 1000);
           });
 
           it('should return true', function() {
@@ -82,9 +82,9 @@ describe('Browser: UpdateNotifier', function() {
           });
 
           it('should unset the `sleepUpdateCheck` setting', function() {
-            m.chai.expect(SettingsModel.data.sleepUpdateCheck).to.be.true;
+            m.chai.expect(SettingsModel.get('sleepUpdateCheck')).to.be.true;
             UpdateNotifierService.shouldCheckForUpdates();
-            m.chai.expect(SettingsModel.data.sleepUpdateCheck).to.be.false;
+            m.chai.expect(SettingsModel.get('sleepUpdateCheck')).to.be.false;
           });
 
         });
