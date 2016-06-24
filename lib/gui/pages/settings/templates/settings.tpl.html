@@ -3,21 +3,30 @@
 
   <div class="checkbox">
     <label>
-      <input type="checkbox" ng-model="settings.storage.errorReporting">
+      <input type="checkbox"
+        ng-model="settings.currentData.errorReporting"
+        ng-change="settings.model.set('errorReporting', settings.currentData.errorReporting)">
+
       <span>Report errors</span>
     </label>
   </div>
 
   <div class="checkbox">
     <label>
-      <input type="checkbox" ng-model="settings.storage.unmountOnSuccess">
+      <input type="checkbox"
+        ng-model="settings.currentData.unmountOnSuccess"
+        ng-change="settings.model.set('unmountOnSuccess', settings.currentData.unmountOnSuccess)">
+
       <span>Auto-unmount on success</span>
     </label>
   </div>
 
   <div class="checkbox">
     <label>
-      <input type="checkbox" ng-model="settings.storage.validateWriteOnSuccess">
+      <input type="checkbox"
+        ng-model="settings.currentData.validateWriteOnSuccess"
+        ng-change="settings.model.set('validateWriteOnSuccess', settings.currentData.validateWriteOnSuccess)">
+
       <span>Validate write on success</span>
     </label>
   </div>
