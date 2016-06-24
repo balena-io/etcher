@@ -84,7 +84,7 @@
           percentage="app.writer.state.percentage"
           striped="{{ app.writer.state.type == 'check' }}"
           ng-attr-active="{{ app.writer.isFlashing() }}"
-          ng-show="app.success"
+          ng-show="app.wasLastFlashSuccessful()"
           ng-click="app.flash(app.selection.getImagePath(), app.selection.getDrive())"
           ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">
             <span ng-show="app.writer.state.percentage == 100 && app.writer.isFlashing()">Finishing...</span>
@@ -96,7 +96,7 @@
               ng-bind="app.writer.state.percentage + '% Validating...'"></span>
         </progress-button>
 
-        <div class="alert-ribbon alert-warning" ng-class="{ 'alert-ribbon--open': !app.success }">
+        <div class="alert-ribbon alert-warning" ng-class="{ 'alert-ribbon--open': !app.wasLastFlashSuccessful() }">
           <span class="glyphicon glyphicon-warning-sign"></span>
           <span ng-show="app.settings.validateWriteOnSuccess">
             Your removable drive did not pass validation check.<br>Please insert another one and <button class="btn btn-link" ng-click="app.restartAfterFailure()">try again</button>
@@ -106,7 +106,7 @@
           </span>
         </div>
 
-        <button class="btn btn-warning btn-brick" ng-hide="app.success" ng-click="app.restartAfterFailure()">
+        <button class="btn btn-warning btn-brick" ng-hide="app.wasLastFlashSuccessful()" ng-click="app.restartAfterFailure()">
           <span class="glyphicon glyphicon-repeat"></span> Retry
         </button>
 

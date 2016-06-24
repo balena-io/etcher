@@ -37,7 +37,7 @@ describe('Browser: ImageWriter', function() {
 
     describe('.resetState()', function() {
 
-      it('should be able to reset the state', function() {
+      it('should be able to reset the progress state', function() {
         ImageWriterService.state = {
           percentage: 50,
           speed: 3
@@ -52,6 +52,17 @@ describe('Browser: ImageWriter', function() {
         });
       });
 
+      it('should be able to reset the progress state', function() {
+        ImageWriterService.unsetFlashingFlag({
+          passedValidation: true,
+          cancelled: false,
+          sourceChecksum: '1234'
+        });
+
+        ImageWriterService.resetState();
+        m.chai.expect(ImageWriterService.getFlashResults()).to.deep.equal({});
+      });
+
     });
 
     describe('.isFlashing()', function() {
@@ -61,7 +72,7 @@ describe('Browser: ImageWriter', function() {
       });
 
       it('should return true if flashing', function() {
-        ImageWriterService.setFlashing(true);
+        ImageWriterService.setFlashingFlag();
         m.chai.expect(ImageWriterService.isFlashing()).to.be.true;
       });
 
@@ -70,7 +81,12 @@ describe('Browser: ImageWriter', function() {
     describe('.setProgressState()', function() {
 
       it('should not allow setting the state if flashing is false', function() {
-        ImageWriterService.setFlashing(false);
+        ImageWriterService.unsetFlashingFlag({
+          passedValidation: true,
+          cancelled: false,
+          sourceChecksum: '1234'
+        });
+
         m.chai.expect(function() {
           ImageWriterService.setProgressState({
             type: 'write',
@@ -82,7 +98,7 @@ describe('Browser: ImageWriter', function() {
       });
 
       it('should throw if type is missing', function() {
-        ImageWriterService.setFlashing(true);
+        ImageWriterService.setFlashingFlag();
         m.chai.expect(function() {
           ImageWriterService.setProgressState({
             percentage: 50,
@@ -93,7 +109,7 @@ describe('Browser: ImageWriter', function() {
       });
 
       it('should throw if type is not a string', function() {
-        ImageWriterService.setFlashing(true);
+        ImageWriterService.setFlashingFlag();
         m.chai.expect(function() {
           ImageWriterService.setProgressState({
             type: 1234,
@@ -105,7 +121,7 @@ describe('Browser: ImageWriter', function() {
       });
 
       it('should throw if percentage is missing', function() {
-        ImageWriterService.setFlashing(true);
+        ImageWriterService.setFlashingFlag();
         m.chai.expect(function() {
           ImageWriterService.setProgressState({
             type: 'write',
@@ -116,7 +132,7 @@ describe('Browser: ImageWriter', function() {
       });
 
       it('should throw if percentage is not a number', function() {
-        ImageWriterService.setFlashing(true);
+        ImageWriterService.setFlashingFlag();
         m.chai.expect(function() {
           ImageWriterService.setProgressState({
             type: 'write',
@@ -128,7 +144,7 @@ describe('Browser: ImageWriter', function() {
       });
 
       it('should throw if eta is missing', function() {
-        ImageWriterService.setFlashing(true);
+        ImageWriterService.setFlashingFlag();
         m.chai.expect(function() {
           ImageWriterService.setProgressState({
             type: 'write',
@@ -139,7 +155,7 @@ describe('Browser: ImageWriter', function() {
       });
 
       it('should not throw if eta is equal to zero', function() {
-        ImageWriterService.setFlashing(true);
+        ImageWriterService.setFlashingFlag();
         m.chai.expect(function() {
           ImageWriterService.setProgressState({
             type: 'write',
@@ -151,7 +167,7 @@ describe('Browser: ImageWriter', function() {
       });
 
       it('should throw if eta is not a number', function() {
-        ImageWriterService.setFlashing(true);
+        ImageWriterService.setFlashingFlag();
         m.chai.expect(function() {
           ImageWriterService.setProgressState({
             type: 'write',
@@ -163,7 +179,7 @@ describe('Browser: ImageWriter', function() {
       });
 
       it('should throw if speed is missing', function() {
-        ImageWriterService.setFlashing(true);
+        ImageWriterService.setFlashingFlag();
         m.chai.expect(function() {
           ImageWriterService.setProgressState({
             type: 'write',
@@ -175,28 +191,120 @@ describe('Browser: ImageWriter', function() {
 
     });
 
-    describe('.setFlashing()', function() {
+    describe('.getFlashResults()', function() {
 
-      it('should be able to set flashing to true', function() {
-        ImageWriterService.setFlashing(true);
-        m.chai.expect(ImageWriterService.isFlashing()).to.be.true;
+      it('should get the flash results', function() {
+        ImageWriterService.setFlashingFlag();
+
+        const expectedResults = {
+          passedValidation: true,
+          cancelled: false,
+          sourceChecksum: '1234'
+        };
+
+        ImageWriterService.unsetFlashingFlag(expectedResults);
+        const results = ImageWriterService.getFlashResults();
+        m.chai.expect(results).to.deep.equal(expectedResults);
+      });
+
+    });
+
+    describe('.unsetFlashingFlag()', function() {
+
+      it('should throw if no flashing results', function() {
+        m.chai.expect(function() {
+          ImageWriterService.unsetFlashingFlag();
+        }).to.throw('Missing results');
+      });
+
+      it('should throw if no passedValidation', function() {
+        m.chai.expect(function() {
+          ImageWriterService.unsetFlashingFlag({
+            cancelled: false,
+            sourceChecksum: '1234'
+          });
+        }).to.throw('Missing results passedValidation');
+      });
+
+      it('should throw if passedValidation is not boolean', function() {
+        m.chai.expect(function() {
+          ImageWriterService.unsetFlashingFlag({
+            passedValidation: 'true',
+            cancelled: false,
+            sourceChecksum: '1234'
+          });
+        }).to.throw('Invalid results passedValidation: true');
+      });
+
+      it('should throw if no cancelled', function() {
+        m.chai.expect(function() {
+          ImageWriterService.unsetFlashingFlag({
+            passedValidation: true,
+            sourceChecksum: '1234'
+          });
+        }).to.throw('Missing results cancelled');
+      });
+
+      it('should throw if cancelled is not boolean', function() {
+        m.chai.expect(function() {
+          ImageWriterService.unsetFlashingFlag({
+            passedValidation: true,
+            cancelled: 'false',
+            sourceChecksum: '1234'
+          });
+        }).to.throw('Invalid results cancelled: false');
+      });
+
+      it('should throw if passedValidation is true and sourceChecksum does not exist', function() {
+        m.chai.expect(function() {
+          ImageWriterService.unsetFlashingFlag({
+            passedValidation: true,
+            cancelled: false
+          });
+        }).to.throw('Missing results sourceChecksum');
+      });
+
+      it('should throw if passedValidation is true and sourceChecksum is not a string', function() {
+        m.chai.expect(function() {
+          ImageWriterService.unsetFlashingFlag({
+            passedValidation: true,
+            cancelled: false,
+            sourceChecksum: 12345
+          });
+        }).to.throw('Invalid results sourceChecksum: 12345');
+      });
+
+      it('should throw if cancelled is true and sourceChecksum exists', function() {
+        m.chai.expect(function() {
+          ImageWriterService.unsetFlashingFlag({
+            passedValidation: false,
+            cancelled: true,
+            sourceChecksum: '1234'
+          });
+        }).to.throw('The sourceChecksum value can\'t exist if the flashing was cancelled');
+      });
+
+      it('should throw if cancelled is true and passedValidation is true', function() {
+        m.chai.expect(function() {
+          ImageWriterService.unsetFlashingFlag({
+            passedValidation: true,
+            cancelled: true
+          });
+        }).to.throw('The passedValidation value can\'t be true if the flashing was cancelled');
       });
 
       it('should be able to set flashing to false', function() {
-        ImageWriterService.setFlashing(false);
+        ImageWriterService.unsetFlashingFlag({
+          passedValidation: true,
+          cancelled: false,
+          sourceChecksum: '1234'
+        });
+
         m.chai.expect(ImageWriterService.isFlashing()).to.be.false;
       });
 
-      it('should cast to boolean by default', function() {
-        ImageWriterService.setFlashing('hello');
-        m.chai.expect(ImageWriterService.isFlashing()).to.be.true;
-
-        ImageWriterService.setFlashing('');
-        m.chai.expect(ImageWriterService.isFlashing()).to.be.false;
-      });
-
-      it('should reset the flashing state if set to false', function() {
-        ImageWriterService.setFlashing(true);
+      it('should reset the flashing state', function() {
+        ImageWriterService.setFlashingFlag();
 
         ImageWriterService.setProgressState({
           type: 'write',
@@ -212,7 +320,11 @@ describe('Browser: ImageWriter', function() {
           speed: 0
         });
 
-        ImageWriterService.setFlashing(false);
+        ImageWriterService.unsetFlashingFlag({
+          passedValidation: true,
+          cancelled: false,
+          sourceChecksum: '1234'
+        });
 
         $timeout.flush();
 
@@ -224,13 +336,40 @@ describe('Browser: ImageWriter', function() {
 
     });
 
+    describe('.setFlashingFlag()', function() {
+
+      it('should be able to set flashing to true', function() {
+        ImageWriterService.setFlashingFlag();
+        m.chai.expect(ImageWriterService.isFlashing()).to.be.true;
+      });
+
+      it('should reset the flash results', function() {
+        const expectedResults = {
+          passedValidation: true,
+          cancelled: false,
+          sourceChecksum: '1234'
+        };
+
+        ImageWriterService.unsetFlashingFlag(expectedResults);
+        const results = ImageWriterService.getFlashResults();
+        m.chai.expect(results).to.deep.equal(expectedResults);
+        ImageWriterService.setFlashingFlag();
+        m.chai.expect(ImageWriterService.getFlashResults()).to.deep.equal({});
+      });
+
+    });
+
     describe('.flash()', function() {
 
       describe('given a succesful write', function() {
 
         beforeEach(function() {
           this.performWriteStub = m.sinon.stub(ImageWriterService, 'performWrite');
-          this.performWriteStub.returns($q.resolve());
+          this.performWriteStub.returns($q.resolve({
+            passedValidation: true,
+            cancelled: false,
+            sourceChecksum: '1234'
+          }));
         });
 
         afterEach(function() {
@@ -238,14 +377,24 @@ describe('Browser: ImageWriter', function() {
         });
 
         it('should set flashing to false when done', function() {
-          ImageWriterService.setFlashing(false);
+          ImageWriterService.unsetFlashingFlag({
+            passedValidation: true,
+            cancelled: false,
+            sourceChecksum: '1234'
+          });
+
           ImageWriterService.flash('foo.img', '/dev/disk2');
           $rootScope.$apply();
           m.chai.expect(ImageWriterService.isFlashing()).to.be.false;
         });
 
         it('should prevent writing more than once', function() {
-          ImageWriterService.setFlashing(false);
+          ImageWriterService.unsetFlashingFlag({
+            passedValidation: true,
+            cancelled: false,
+            sourceChecksum: '1234'
+          });
+
           ImageWriterService.flash('foo.img', '/dev/disk2');
           ImageWriterService.flash('foo.img', '/dev/disk2');
           $rootScope.$apply();
@@ -286,7 +435,11 @@ describe('Browser: ImageWriter', function() {
         });
 
         it('should be rejected with the error', function() {
-          ImageWriterService.setFlashing(false);
+          ImageWriterService.unsetFlashingFlag({
+            passedValidation: true,
+            cancelled: false,
+            sourceChecksum: '1234'
+          });
 
           let rejection;
           ImageWriterService.flash('foo.img', '/dev/disk2').catch(function(error) {
