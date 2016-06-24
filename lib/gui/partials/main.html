@@ -81,19 +81,19 @@
 
       <div class="space-vertical-large">
         <progress-button class="btn-brick"
-          percentage="app.writer.state.progress"
+          percentage="app.writer.state.percentage"
           striped="{{ app.writer.state.type == 'check' }}"
           ng-attr-active="{{ app.writer.isFlashing() }}"
           ng-show="app.success"
           ng-click="app.flash(app.selection.getImagePath(), app.selection.getDrive())"
           ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">
-            <span ng-show="app.writer.state.progress == 100 && app.writer.isFlashing()">Finishing...</span>
-            <span ng-show="app.writer.state.progress == 0 && !app.writer.isFlashing()">Flash!</span>
-            <span ng-show="app.writer.state.progress == 0 && app.writer.isFlashing() && !app.writer.state.speed">Starting...</span>
-            <span ng-show="app.writer.state.speed && app.writer.state.progress != 100 && app.writer.state.type != 'check'"
-              ng-bind="app.writer.state.progress + '% '"></span>
-            <span ng-show="app.writer.state.speed && app.writer.state.progress != 100 && app.writer.state.type == 'check'"
-              ng-bind="app.writer.state.progress + '% Validating...'"></span>
+            <span ng-show="app.writer.state.percentage == 100 && app.writer.isFlashing()">Finishing...</span>
+            <span ng-show="app.writer.state.percentage == 0 && !app.writer.isFlashing()">Flash!</span>
+            <span ng-show="app.writer.state.percentage == 0 && app.writer.isFlashing() && !app.writer.state.speed">Starting...</span>
+            <span ng-show="app.writer.state.speed && app.writer.state.percentage != 100 && app.writer.state.type != 'check'"
+              ng-bind="app.writer.state.percentage + '% '"></span>
+            <span ng-show="app.writer.state.speed && app.writer.state.percentage != 100 && app.writer.state.type == 'check'"
+              ng-bind="app.writer.state.percentage + '% Validating...'"></span>
         </progress-button>
 
         <div class="alert-ribbon alert-warning" ng-class="{ 'alert-ribbon--open': !app.success }">
@@ -110,7 +110,7 @@
           <span class="glyphicon glyphicon-repeat"></span> Retry
         </button>
 
-        <p class="step-footer step-footer-split" ng-show="app.writer.state.speed && app.writer.state.progress != 100">
+        <p class="step-footer step-footer-split" ng-show="app.writer.state.speed && app.writer.state.percentage != 100">
 
           <!-- Convert our eta (in seconds) to milliseconds, which is what `moment` understands -->
           <span>ETA: {{ app.writer.state.eta * 1000 | amDateFormat:'m[m]ss[s]' }}</span>
