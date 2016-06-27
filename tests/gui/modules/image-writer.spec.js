@@ -120,6 +120,18 @@ describe('Browser: ImageWriter', function() {
         }).to.throw('Invalid state type: 1234');
       });
 
+      it('should not throw if percentage is 0', function() {
+        ImageWriterService.setFlashingFlag();
+        m.chai.expect(function() {
+          ImageWriterService.setProgressState({
+            type: 'write',
+            percentage: 0,
+            eta: 15,
+            speed: 100000000000
+          });
+        }).to.not.throw('Missing state percentage');
+      });
+
       it('should throw if percentage is missing', function() {
         ImageWriterService.setFlashingFlag();
         m.chai.expect(function() {
