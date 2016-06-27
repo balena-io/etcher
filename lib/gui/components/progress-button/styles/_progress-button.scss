@@ -62,14 +62,20 @@ $progress-button-stripes-animation-duration: 1s;
   $progress-button-stripes-color: desaturate(darken($brand-primary, 18%), 20%);
 
   &.progress-button--striped {
+
+    // Notice that we add `0.01` to certain gradient stop positions.
+    // That workarounds a Chrome rendering issue where diagonal
+    // lines look spiky.
+    // See https://github.com/resin-io/etcher/issues/472
     background-image: -webkit-gradient(linear, 0 0, 100% 100%,
       color-stop(0.25, $progress-button-stripes-color),
-      color-stop(0.25, $progress-button-stripes-background-color),
+      color-stop(0.25 + 0.01, $progress-button-stripes-background-color),
       color-stop(0.50, $progress-button-stripes-background-color),
-      color-stop(0.50, $progress-button-stripes-color),
+      color-stop(0.50 + 0.01, $progress-button-stripes-color),
       color-stop(0.75, $progress-button-stripes-color),
-      color-stop(0.75, $progress-button-stripes-background-color),
+      color-stop(0.75 + 0.01, $progress-button-stripes-background-color),
       to($progress-button-stripes-background-color));
+
   }
 }
 
