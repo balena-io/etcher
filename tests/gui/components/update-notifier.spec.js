@@ -1,4 +1,3 @@
-
 'use strict';
 
 const m = require('mochainon');
