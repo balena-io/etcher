@@ -10,7 +10,8 @@
           <button class="btn btn-primary btn-brick" ng-click="app.openImageSelector()">Select image</button>
 
           <p class="step-footer">
-            {{ ::app.formats.getNonCompressedExtensions().join(', ') }}, or
+            {{ ::app.formats.getNonCompressedExtensions().join(', ') }},
+            {{ ::app.formats.getArchiveExtensions().join(', ') }}, or
             <span class="step-footer-underline"
               uib-tooltip="{{ app.formats.getCompressedExtensions().join(', ') }}">compressed images</span>
           </p>
