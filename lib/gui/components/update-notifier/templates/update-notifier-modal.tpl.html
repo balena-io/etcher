@@ -13,7 +13,9 @@
 
   <div class="checkbox text-right">
     <label>
-      <input type="checkbox" ng-model="modal.settings.get('sleepUpdateCheck')">
+      <input type="checkbox"
+        ng-model="modal.sleepUpdateCheck"
+        ng-change="modal.settings.set('sleepUpdateCheck', modal.sleepUpdateCheck)">
       <span>Remind me again in 7 days</span>
     </label>
   </div>
