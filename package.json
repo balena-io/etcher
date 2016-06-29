@@ -67,6 +67,7 @@
     "electron-is-running-in-asar": "^1.0.0",
     "etcher-image-stream": "^2.2.0",
     "etcher-image-write": "^5.0.2",
+    "etcher-latest-version": "^1.0.0",
     "file-tail": "^0.3.0",
     "flexboxgrid": "^6.3.0",
     "immutable": "^3.8.1",
@@ -85,7 +86,6 @@
     "trackjs": "^2.1.16",
     "umount": "^1.1.3",
     "username": "^2.1.0",
-    "xml2js": "^0.4.16",
     "yargs": "^4.6.0"
   },
   "devDependencies": {
