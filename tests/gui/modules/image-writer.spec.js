@@ -201,6 +201,18 @@ describe('Browser: ImageWriter', function() {
         }).to.throw('Missing state speed');
       });
 
+      it('should not throw if speed is 0', function() {
+        ImageWriterService.setFlashingFlag();
+        m.chai.expect(function() {
+          ImageWriterService.setProgressState({
+            type: 'write',
+            percentage: 50,
+            eta: 15,
+            speed: 0
+          });
+        }).to.not.throw('Missing state speed');
+      });
+
     });
 
     describe('.getFlashResults()', function() {
