@@ -1551,6 +1551,18 @@
       "from": "etcher-image-write@>=5.0.2 <6.0.0",
       "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-5.0.2.tgz"
     },
+    "etcher-latest-version": {
+      "version": "1.0.0",
+      "from": "etcher-latest-version@latest",
+      "resolved": "https://registry.npmjs.org/etcher-latest-version/-/etcher-latest-version-1.0.0.tgz",
+      "dependencies": {
+        "semver": {
+          "version": "5.2.0",
+          "from": "semver@>=5.2.0 <6.0.0",
+          "resolved": "https://registry.npmjs.org/semver/-/semver-5.2.0.tgz"
+        }
+      }
+    },
     "event-emitter": {
       "version": "0.3.4",
       "from": "event-emitter@>=0.3.4 <0.4.0",
