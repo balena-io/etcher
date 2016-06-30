@@ -4888,9 +4888,9 @@
       }
     },
     "sudo-prompt": {
-      "version": "5.0.3",
-      "from": "sudo-prompt@>=5.0.3 <6.0.0",
-      "resolved": "https://registry.npmjs.org/sudo-prompt/-/sudo-prompt-5.0.3.tgz"
+      "version": "5.1.0",
+      "from": "sudo-prompt@>=5.1.0 <6.0.0",
+      "resolved": "https://registry.npmjs.org/sudo-prompt/-/sudo-prompt-5.1.0.tgz"
     },
     "supports-color": {
       "version": "2.0.0",
