@@ -59,6 +59,11 @@
       "from": "angular-moment@>=1.0.0-beta.6 <2.0.0",
       "resolved": "https://registry.npmjs.org/angular-moment/-/angular-moment-1.0.0-beta.6.tgz"
     },
+    "angular-seconds-to-date": {
+      "version": "1.0.0",
+      "from": "angular-seconds-to-date@latest",
+      "resolved": "https://registry.npmjs.org/angular-seconds-to-date/-/angular-seconds-to-date-1.0.0.tgz"
+    },
     "angular-ui-bootstrap": {
       "version": "1.3.3",
       "from": "angular-ui-bootstrap@>=1.3.2 <2.0.0",

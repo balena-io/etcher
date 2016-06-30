@@ -59,6 +59,7 @@
     "angular-if-state": "^1.0.0",
     "angular-middle-ellipses": "^1.0.0",
     "angular-moment": "^1.0.0-beta.6",
+    "angular-seconds-to-date": "^1.0.0",
     "angular-ui-bootstrap": "^1.3.2",
     "angular-ui-router": "^0.2.18",
     "bluebird": "^3.0.5",
