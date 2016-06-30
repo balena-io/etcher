@@ -82,7 +82,7 @@
     "resin-cli-visuals": "^1.2.8",
     "rx": "^4.1.0",
     "semver": "^5.1.0",
-    "sudo-prompt": "^5.0.3",
+    "sudo-prompt": "^5.1.0",
     "tail": "^1.1.0",
     "tmp": "0.0.28",
     "trackjs": "^2.1.16",
