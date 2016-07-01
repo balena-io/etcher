@@ -13,15 +13,17 @@
  * See: https://github.com/npm/npm/issues/2679
  */
 
+'use strict';
+
 const _ = require('lodash');
 const path = require('path');
 const jsonfile = require('jsonfile');
-const child_process = require('child_process');
+const childProcess = require('child_process');
 const shrinkwrapIgnore = require('../package.json').shrinkwrapIgnore;
 const SHRINKWRAP_PATH = path.join(__dirname, '..', 'npm-shrinkwrap.json');
 
 try {
-  console.log(child_process.execSync('npm shrinkwrap', {
+  console.log(childProcess.execSync('npm shrinkwrap', {
     cwd: path.dirname(SHRINKWRAP_PATH)
   }));
 } catch (error) {

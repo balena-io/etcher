@@ -6376,7 +6376,7 @@ button.btn:focus, button.progress-button:focus {
   background: #6ca1e0; }
 
 .progress-button--primary.progress-button--striped {
-  background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #3b679b), color-stop(0.25, #5c93d6), color-stop(0.5, #5c93d6), color-stop(0.5, #3b679b), color-stop(0.75, #3b679b), color-stop(0.75, #5c93d6), to(#5c93d6)); }
+  background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #3b679b), color-stop(0.26, #5c93d6), color-stop(0.5, #5c93d6), color-stop(0.51, #3b679b), color-stop(0.75, #3b679b), color-stop(0.76, #5c93d6), to(#5c93d6)); }
 
 .progress-button--primary[active="true"]:active {
   box-shadow: none;

@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v1.0.0-beta.10] - 2016-06-27
+
+### Added
+
+- Add support for `dsk` images.
+- Add documentation for the Etcher CLI.
+- Add a GitHub issue template.
+
+### Changed
+
+- Only elevate the writer process instead of the whole application.
+- Fix an error that prevented an AppImage from being directly ran as `root`.
+- Open DevTools in "undocked" mode by default.
+- Make Etcher CLI `--robot` option output parseable JSON strings.
+- Ensure we pass the correct argument types to `electron.dialog.showErrorBox()`.
+- Make sure a drive is instantly deselected if its not available anymore.
+- Don't re-check for updates when navigating back to the main screen.
+- Emit window progress even when not on the main screen.
+- Improve aliasing of the striped progress button.
+- Fix `EPERM` errors on Windows.
+
+### Removed
+
+- Remove application wide elevation.
+
 ## [v1.0.0-beta.9] - 2016-06-20
 
 ### Changed
@@ -162,6 +187,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fix broken state when going to settings from the success screen.
 - Fix `Cannot read property 'length' of undefined` frequent issue.
 
+[v1.0.0-beta.10]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.9...v1.0.0-beta.10
 [v1.0.0-beta.9]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.8...v1.0.0-beta.9
 [v1.0.0-beta.8]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.7...v1.0.0-beta.8
 [v1.0.0-beta.7]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.6...v1.0.0-beta.7
