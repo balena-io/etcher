@@ -9,7 +9,7 @@ Etcher is a powerful OS image flasher built with web technologies to ensure flas
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![Build Status](https://travis-ci.org/resin-io/etcher.svg?branch=master)](https://travis-ci.org/resin-io/etcher)
 [![Build status](https://ci.appveyor.com/api/projects/status/e745k1gt39nik0t7/branch/master?svg=true)](https://ci.appveyor.com/project/resin-io/etcher/branch/master)
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/resin-io/chat)
+[![Gitter](https://badges.gitter.im/resin-io/etcher.svg)](https://gitter.im/resin-io/etcher?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Stories in Ready](https://badge.waffle.io/resin-io/etcher.svg?label=in progress&title=In Progress)](https://waffle.io/resin-io/etcher)
 
 ***
