@@ -77,6 +77,28 @@ $progress-button-stripes-animation-duration: 1s;
       to($progress-button-stripes-background-color));
 
   }
+
+  $downloading: rgb(252, 50, 84);
+
+  $progress-button-downloading-background-color: desaturate($downloading, 5%);
+  $progress-button-downloading-color: desaturate(darken($downloading, 18%), 20%);
+
+  &.progress-button--downloading {
+
+    // Notice that we add `0.01` to certain gradient stop positions.
+    // That workarounds a Chrome rendering issue where diagonal
+    // lines look spiky.
+    // See https://github.com/resin-io/etcher/issues/472
+    background-image: -webkit-gradient(linear, 0 0, 100% 100%,
+      color-stop(0.25, $progress-button-downloading-color),
+      color-stop(0.25 + 0.01, $progress-button-downloading-background-color),
+      color-stop(0.50, $progress-button-downloading-background-color),
+      color-stop(0.50 + 0.01, $progress-button-downloading-color),
+      color-stop(0.75, $progress-button-downloading-color),
+      color-stop(0.75 + 0.01, $progress-button-downloading-background-color),
+      to($progress-button-downloading-background-color));
+
+  }
 }
 
 .progress-button--primary[active="true"]:active {

@@ -1,6 +1,7 @@
 <button class="progress-button progress-button--primary"
   ng-class="{
-    'progress-button--striped': striped && striped != 'false'
+    'progress-button--striped': striped && striped != 'false',
+    'progress-button--downloading': downloading && downloading != 'false'
   }">
     <span class="progress-button__content" ng-transclude></span>
     <span class="progress-button__bar" ng-style="{ width: percentage + '%' }"></span>
