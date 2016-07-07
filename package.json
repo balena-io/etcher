@@ -98,7 +98,7 @@
     "electron-mocha": "^1.2.2",
     "electron-osx-sign": "^0.3.0",
     "electron-packager": "^7.0.1",
-    "electron-prebuilt": "1.1.1",
+    "electron-prebuilt": "1.2.6",
     "eslint": "^2.13.1",
     "gulp": "^3.9.0",
     "gulp-sass": "^2.0.4",
