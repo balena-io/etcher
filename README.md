@@ -17,7 +17,7 @@ was written correctly and much more.
 
 ***
 
-[**Download**][etcher] | [**Support**][SUPPORT] | [**Contributing**][CONTRIBUTING] | [**Roadmap**][milestones] | [**CLI**][CLI]
+[**Download**][etcher] | [**Support**][SUPPORT] | [**Documentation**][USER-DOCUMENTATION] | [**Contributing**][CONTRIBUTING] | [**Roadmap**][milestones] | [**CLI**][CLI]
 
 ![Etcher](https://raw.githubusercontent.com/resin-io/etcher/master/screenshot.png)
 
@@ -43,6 +43,7 @@ the [license].
 [SUPPORT]: https://github.com/resin-io/etcher/blob/master/SUPPORT.md
 [CONTRIBUTING]: https://github.com/resin-io/etcher/blob/master/docs/CONTRIBUTING.md
 [CLI]: https://github.com/resin-io/etcher/blob/master/docs/CLI.md
+[USER-DOCUMENTATION]: https://github.com/resin-io/etcher/blob/master/docs/USER-DOCUMENTATION.md
 [milestones]: https://github.com/resin-io/etcher/milestones
 [newissue]: https://github.com/resin-io/etcher/issues/new
 [license]: https://github.com/resin-io/etcher/blob/master/LICENSE
