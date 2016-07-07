@@ -1,16 +1,20 @@
 Publishing Etcher
 =================
 
-This is a small guide to package and publish Etcher to all supported operating systems.
+This is a small guide to package and publish Etcher to all supported operating
+systems.
 
 Common Pre-requisites
 ---------------------
 
 - [NodeJS](https://nodejs.org)
 
-Make sure you're running the exact same NodeJS version as the one included with the current Electron build being used by Etcher to avoid any strange native dependencies issues.
+Make sure you're running the exact same NodeJS version as the one included with
+the current Electron build being used by Etcher to avoid any strange native
+dependencies issues.
 
-The expected NodeJS version is determined by the `engines.node` property in [`package.json`](https://github.com/resin-io/etcher/blob/master/package.json).
+The expected NodeJS version is determined by the `engines.node` property in
+[`package.json`][package-json].
 
 - [Bower](http://bower.io)
 - [UPX](http://upx.sourceforge.net)
@@ -21,17 +25,22 @@ Signing
 
 ### OS X
 
-1. Get our Apple Developer ID certificate for signing applications distributed outside the Mac App Store from the Resin.io Apple account.
+1. Get our Apple Developer ID certificate for signing applications distributed
+outside the Mac App Store from the Resin.io Apple account.
 
-2. Install the Developer ID certificate to your Mac's Keychain by double clicking on the certificate file.
+2. Install the Developer ID certificate to your Mac's Keychain by double
+clicking on the certificate file.
 
-The application will be signed automatically using this certificate when packaging for OS X.
+The application will be signed automatically using this certificate when
+packaging for OS X.
 
 ### Windows
 
-1. Get access to our code signing certificate and decryption key as a Resin.io employee by asking for it to the relevant people.
+1. Get access to our code signing certificate and decryption key as a Resin.io
+employee by asking for it to the relevant people.
 
-2. Place the certificate in the root of the Etcher repository naming it `certificate.p12`.
+2. Place the certificate in the root of the Etcher repository naming it
+`certificate.p12`.
 
 Packaging
 ---------
@@ -47,7 +56,8 @@ Pre-requisites:
 - [Rimraf](https://github.com/isaacs/rimraf)
 - [asar](https://github.com/electron/asar)
 
-Run the following command from the *Developer Command Prompt for VS2013*, to ensure all Visual Studio command utilities are available in the `%PATH%`:
+Run the following command from the *Developer Command Prompt for VS2013*, to
+ensure all Visual Studio command utilities are available in the `%PATH%`:
 
 ```sh
 > .\scripts\build\windows.bat <arch>
@@ -76,14 +86,19 @@ $ ./scripts/build/linux.sh <arch>
 Publishing
 ----------
 
-- [AWS CLI](https://aws.amazon.com/cli://aws.amazon.com/cli/)
+- [AWS CLI][aws-cli]
 
-Make sure you have the [AWS CLI tool](https://aws.amazon.com/cli://aws.amazon.com/cli/) installed and configured to access Resin.io's production downloads S3 bucket.
+Make sure you have the [AWS CLI tool][aws-cli] installed and configured to
+access Resin.io's production downloads S3 bucket.
 
-> The publishing script only runs on UNIX based operating systems for now. You can use something like [Cygwin](https://cygwin.com) to run it on Windows.
+> The publishing script only runs on UNIX based operating systems for now. You
+> can use something like [Cygwin](https://cygwin.com) to run it on Windows.
 
 Run the following command:
 
 ```sh
 ./scripts/publish.sh <file>
 ```
+
+[package-json]: https://github.com/resin-io/etcher/blob/master/package.json
+[aws-cli]: https://aws.amazon.com/cli://aws.amazon.com/cli/
