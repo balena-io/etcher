@@ -17,7 +17,6 @@
 .btn {
   padding: 10px;
   padding-top: 11px;
-
   border-radius: 2px;
   border: none;
 
@@ -34,6 +33,26 @@
     &:hover {
       background-color: lighten($btn-disabled, 2);
     }
+  }
+}
+
+.btn-primary {
+  background-color: $btn;
+  &:hover
+  {
+    background-color: $btn;
+  }
+  &:focus
+  {
+    background-color: $btn;
+  }
+  &:link
+  {
+    background-color: $btn;
+  }
+  &:active
+  {
+    background-color: $btn;
   }
 }
 

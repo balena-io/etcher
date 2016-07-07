@@ -15,14 +15,15 @@
  */
 
 $icon-font-path: "../../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
-$body-bg: rgb(83, 87, 96);
+$body-bg: #943633;
 $text-color: white;
 $brand-primary: rgb(87, 147, 219);
 $gray-light: #ddd;
 $font-size-base: 13px;
 $cursor-disabled: initial;
-$color-disabled: rgb(120, 124, 127);
-$btn-disabled: rgb(49, 51, 57);
+$color-disabled: rgb(160, 101, 100);
+$btn: #AB423F;
+$btn-disabled: #943633;
 $btn-min-width: 170px;
 $link-color: $gray-light;
 $link-hover-decoration: none;
@@ -85,7 +86,7 @@ body {
   color: $color-disabled;
   margin: 0 60px;
   padding-top: 15px;
-  border-top: 2px solid darken($color-disabled, 8%);
+  //border-top: 2px solid darken($color-disabled, 8%);
 
   // Override default column padding
   // set by flexboxgrid.
@@ -171,7 +172,7 @@ body {
 
 .wrapper {
   height: 100%;
-  margin: 20px 60px;
+  margin: 35px 60px;
 }
 
 .section-header {

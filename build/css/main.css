@@ -1075,7 +1075,7 @@ body {
   font-size: 13px;
   line-height: 1.42857;
   color: white;
-  background-color: #535760; }
+  background-color: #943633; }
 
 input,
 button,
@@ -1113,7 +1113,7 @@ img {
 .img-thumbnail {
   padding: 4px;
   line-height: 1.42857;
-  background-color: #535760;
+  background-color: #943633;
   border: 1px solid #ddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
@@ -2074,7 +2074,7 @@ th {
   .table > tbody + tbody {
     border-top: 2px solid #ddd; }
   .table .table {
-    background-color: #535760; }
+    background-color: #943633; }
 
 .table-condensed > thead > tr > th,
 .table-condensed > thead > tr > td,
@@ -3656,7 +3656,7 @@ tbody.collapse.in {
         border-color: #eeeeee #eeeeee #ddd; }
     .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
       color: #555555;
-      background-color: #535760;
+      background-color: #943633;
       border: 1px solid #ddd;
       border-bottom-color: transparent;
       cursor: default; }
@@ -3710,7 +3710,7 @@ tbody.collapse.in {
     .nav-tabs-justified > .active > a, .nav-tabs.nav-justified > .active > a,
     .nav-tabs-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:hover,
     .nav-tabs-justified > .active > a:focus, .nav-tabs.nav-justified > .active > a:focus {
-      border-bottom-color: #535760; } }
+      border-bottom-color: #943633; } }
 
 .tab-content > .tab-pane {
   display: none; }
@@ -4392,7 +4392,7 @@ a.badge:hover, a.badge:focus {
   padding: 4px;
   margin-bottom: 18px;
   line-height: 1.42857;
-  background-color: #535760;
+  background-color: #943633;
   border: 1px solid #ddd;
   border-radius: 4px;
   -webkit-transition: border 0.2s ease-in-out;
@@ -5903,7 +5903,7 @@ button.close {
  * limitations under the License.
  */
 html {
-  background-color: #535760; }
+  background-color: #943633; }
 
 .checkbox input[type="checkbox"] {
   position: initial;
@@ -6009,11 +6009,11 @@ html {
   position: relative;
   z-index: 10;
   letter-spacing: 0;
-  background-color: #535760; }
+  background-color: #943633; }
 
 .badge[disabled] {
-  background-color: #5c5e5c;
-  color: #787c7f; }
+  background-color: #943633;
+  color: #a06564; }
 
 /*
  * Copyright 2016 Resin.io
@@ -6059,11 +6059,22 @@ html {
   outline: none;
   position: relative; }
   .btn[disabled], [disabled].progress-button {
-    background-color: #313339;
-    color: #787c7f;
+    background-color: #943633;
+    color: #a06564;
     pointer-events: none; }
     .btn[disabled]:hover, [disabled].progress-button:hover {
-      background-color: #36383e; }
+      background-color: #9c3936; }
+
+.btn-primary, .progress-button--primary {
+  background-color: #AB423F; }
+  .btn-primary:hover, .progress-button--primary:hover {
+    background-color: #AB423F; }
+  .btn-primary:focus, .progress-button--primary:focus {
+    background-color: #AB423F; }
+  .btn-primary:link, .progress-button--primary:link {
+    background-color: #AB423F; }
+  .btn-primary:active, .progress-button--primary:active {
+    background-color: #AB423F; }
 
 .btn-brick {
   min-width: 170px; }
@@ -6137,8 +6148,8 @@ button.btn:focus, button.progress-button:focus {
   color: white;
   border: 2px solid; }
   .tick[disabled] {
-    color: #e1e2e2;
-    border-color: #e1e2e2;
+    color: #eee3e2;
+    border-color: #eee3e2;
     background-color: transparent; }
 
 .tick--success {
@@ -6434,7 +6445,7 @@ button.btn:focus, button.progress-button:focus {
  * limitations under the License.
  */
 .svg-icon[disabled] path {
-  fill: #787c7f; }
+  fill: #a06564; }
 
 /*
  * Copyright 2016 Resin.io
@@ -6548,14 +6559,14 @@ button.btn:focus, button.progress-button:focus {
 
 .page-finish .separator-xs {
   flex-grow: 0;
-  background-color: #64686a;
+  background-color: #885453;
   padding: 0px;
   min-width: 2px; }
 
 .icon-caption {
   margin-top: 10px; }
   .icon-caption[disabled] {
-    color: #787c7f; }
+    color: #a06564; }
 
 body {
   letter-spacing: 1px; }
@@ -6571,10 +6582,9 @@ body {
   bottom: 20px;
   left: 0;
   right: 0;
-  color: #787c7f;
+  color: #a06564;
   margin: 0 60px;
-  padding-top: 15px;
-  border-top: 2px solid #64686a; }
+  padding-top: 15px; }
   .section-footer .col-xs {
     padding: 0; }
   .section-footer .svg-icon {
@@ -6583,7 +6593,7 @@ body {
     border-bottom: 1px dashed;
     padding-bottom: 2px; }
     .section-footer .caption[os-open-external]:hover, .section-footer [os-open-external].icon-caption:hover {
-      color: #85898c; }
+      color: #aa7574; }
   .section-footer .footer-right {
     position: absolute;
     right: 0;
@@ -6596,7 +6606,7 @@ body {
   width: 230px;
   top: 95px; }
   .step-border[disabled], [disabled].step-border-left, [disabled].step-border-right {
-    background-color: #787c7f; }
+    background-color: #a06564; }
 
 .step-border-left {
   left: -120px; }
@@ -6607,13 +6617,13 @@ body {
 .step-tooltip {
   display: block;
   margin: -5px auto -20px;
-  color: #85898c;
+  color: #aa7574;
   font-size: 10px; }
 
 .step-footer {
   margin-top: 10px;
   margin-bottom: -40px;
-  color: #85898c;
+  color: #aa7574;
   font-size: 10px; }
 
 .step-footer-split {
@@ -6635,7 +6645,7 @@ body {
 
 .wrapper {
   height: 100%;
-  margin: 20px 60px; }
+  margin: 35px 60px; }
 
 .section-header {
   padding: 5px 8px;
