@@ -12,7 +12,8 @@ over the commit history.
 - Be able to automatically reference relevant changes from a dependency
 upgrade.
 
-The guidelines are inspired by the [AngularJS git commit guidelines][angular-commit-guidelines].
+The guidelines are inspired by the [AngularJS git commit
+guidelines][angular-commit-guidelines].
 
 Commit structure
 ----------------
@@ -40,7 +41,8 @@ Must be one of the following:
 - `fix`: A bug fix.
 - `minifix`: A minimal fix that doesn't warrant an entry in the CHANGELOG.
 - `docs`: Documentation only changes.
-- `style`: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc).
+- `style`: Changes that do not affect the meaning of the code (white-space,
+formatting, missing semi-colons, etc).
 - `refactor`: A code change that neither fixes a bug nor adds a feature.
 - `perf`: A code change that improves performance.
 - `test`: Adding missing tests.

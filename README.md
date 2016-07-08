@@ -3,7 +3,10 @@ Etcher
 
 > Flash OS images to SD cards & USB drives, safe & easy.
 
-Etcher is a powerful OS image flasher built with web technologies to ensure flashing an SDCard or USB drive is pleasant and safe experience. It protects you from accidentally writing to your hard-drives, ensures every byte of data was written correctly and much more.
+Etcher is a powerful OS image flasher built with web technologies to ensure
+flashing an SDCard or USB drive is pleasant and safe experience. It protects
+you from accidentally writing to your hard-drives, ensures every byte of data
+was written correctly and much more.
 
 [![dependencies](https://david-dm.org/resin-io/etcher.svg)](https://david-dm.org/resin-io/etcher.svg)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
@@ -14,21 +17,32 @@ Etcher is a powerful OS image flasher built with web technologies to ensure flas
 
 ***
 
-[**Download**](http://etcher.io) | [**Support**](https://github.com/resin-io/etcher/blob/master/SUPPORT.md) | [**Contributing**](https://github.com/resin-io/etcher/blob/master/docs/CONTRIBUTING.md) | [**Roadmap**](https://github.com/resin-io/etcher/milestones) | [**CLI**](https://github.com/resin-io/etcher-cli)
+[**Download**][etcher] | [**Support**][SUPPORT] | [**Contributing**][CONTRIBUTING] | [**Roadmap**][milestones] | [**CLI**][CLI]
 
 ![Etcher](https://raw.githubusercontent.com/resin-io/etcher/master/screenshot.png)
 
 Installers
 ----------
 
-Refer to the [downloads page](http://etcher.io) for the latest pre-made installers for all supported operating systems.
+Refer to the [downloads page][etcher] for the latest pre-made
+installers for all supported operating systems.
 
 Support
 -------
 
-If you're having any problem, please [raise an issue](https://github.com/resin-io/etcher/issues/new) on GitHub and the Resin.io team will be happy to help.
+If you're having any problem, please [raise an issue][newissue] on GitHub and
+the Resin.io team will be happy to help.
 
 License
 -------
 
-Etcher is free software, and may be redistributed under the terms specified in the [license](https://github.com/resin-io/etcher/blob/master/LICENSE).
+Etcher is free software, and may be redistributed under the terms specified in
+the [license].
+
+[etcher]: http://etcher.io
+[SUPPORT]: https://github.com/resin-io/etcher/blob/master/SUPPORT.md
+[CONTRIBUTING]: https://github.com/resin-io/etcher/blob/master/docs/CONTRIBUTING.md
+[CLI]: https://github.com/resin-io/etcher/blob/master/docs/CLI.md
+[milestones]: https://github.com/resin-io/etcher/milestones
+[newissue]: https://github.com/resin-io/etcher/issues/new
+[license]: https://github.com/resin-io/etcher/blob/master/LICENSE
