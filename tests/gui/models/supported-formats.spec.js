@@ -78,6 +78,13 @@ describe('Browser: SupportedFormats', function() {
         m.chai.expect(isSupported).to.be.true;
       });
 
+      it('should ignore casing when determining extension validity', function() {
+        const nonCompressedExtension = _.first(SupportedFormatsModel.getNonCompressedExtensions());
+        const imagePath = '/path/to/foo.' + nonCompressedExtension.toUpperCase();
+        const isSupported = SupportedFormatsModel.isSupportedImage(imagePath);
+        m.chai.expect(isSupported).to.be.true;
+      });
+
       it('should not consider an extension before a non compressed extension', function() {
         const nonCompressedExtension = _.first(SupportedFormatsModel.getNonCompressedExtensions());
         const imagePath = '/path/to/foo.1234.' + nonCompressedExtension;
