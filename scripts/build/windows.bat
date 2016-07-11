@@ -16,7 +16,8 @@
 :: limitations under the License.
 ::::
 
-set arch=%1
+set command=%1
+set arch=%2
 set output_build_directory=etcher-release
 set output_directory=%output_build_directory%\installers
 set certificate_file=certificate.p12
@@ -28,16 +29,31 @@ set timestamp_server_url=http://timestamp.comodoca.com
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 if "%arch%"=="" (
-  echo Usage: %0 [arch] 1>&2
+  echo Usage: %0 [command] [arch] 1>&2
+  exit /b 1
+)
+
+if "%command%"=="" (
+  echo Usage: %0 [command] [arch] 1>&2
   exit /b 1
 )
 
 :: Batch conditionals don't support logical operators.
 :: Simulate "and" with nested conditions.
+
 if not "%arch%"=="x86" (
   if not "%arch%"=="x64" (
     echo Unknown architecture: %arch% 1>&2
     exit /b 1
+  )
+)
+
+if not "%command%"=="install" (
+  if not "%command%"=="package" (
+    if not "%command%"=="all" (
+      echo Unknown command: %command% 1>&2
+      exit /b 1
+    )
   )
 )
 
@@ -162,9 +178,15 @@ set HOME=%homedrive%%homepath%\.electron-gyp
 :: Install dependencies
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-call rimraf node_modules bower_components
-call npm install --build-from-source
-call bower install --production
+if not "%command%"=="package" (
+  call rimraf node_modules bower_components
+  call npm install --build-from-source
+  call bower install --production
+)
+
+if "%command%"=="install" (
+  exit /b 0
+)
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :: Package application

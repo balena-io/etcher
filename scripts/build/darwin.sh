@@ -37,6 +37,17 @@ if ! command -v python 2>/dev/null; then
   exit 1
 fi
 
+if [ "$#" -ne 1 ]; then
+  echo "Usage: $0 <command>" 1>&2
+  exit 1
+fi
+
+COMMAND=$1
+if [ "$COMMAND" != "install" ] && [ "$COMMAND" != "package" ] && [ "$COMMAND" != "all" ]; then
+  echo "Unknown command: $COMMAND" 1>&2
+  exit 1
+fi
+
 ELECTRON_OSX_SIGN=./node_modules/.bin/electron-osx-sign
 ELECTRON_PACKAGER=./node_modules/.bin/electron-packager
 SIGN_IDENTITY_OSX="Developer ID Application: Rulemotion Ltd (66H43P8FRG)"
@@ -200,7 +211,12 @@ function installer_dmg {
 
 }
 
-install
-package etcher-release
-installer_dmg etcher-release/Etcher-darwin-x64 etcher-release/installers
-installer_zip etcher-release/Etcher-darwin-x64 etcher-release/installers
+if [ "$COMMAND" == "install" ] || [ "$COMMAND" == "all" ]; then
+  install
+fi
+
+if [ "$COMMAND" == "package" ] || [ "$COMMAND" == "all" ]; then
+  package etcher-release
+  installer_dmg etcher-release/Etcher-darwin-x64 etcher-release/installers
+  installer_zip etcher-release/Etcher-darwin-x64 etcher-release/installers
+fi

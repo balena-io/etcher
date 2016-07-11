@@ -33,33 +33,30 @@ git clone https://github.com/resin-io/etcher
 cd etcher
 ```
 
-- Configure NPM.
-
-In UNIX based operating systems:
-
-```sh
-export npm_config_disturl=https://atom.io/download/atom-shell
-export npm_config_target=<ELECTRON_VERSION>
-export npm_config_runtime=electron
-```
-
-In Windows:
-
-```sh
-set npm_config_disturl=https://atom.io/download/atom-shell
-set npm_config_target=<ELECTRON_VERSION>
-set npm_config_runtime=electron
-```
-
-You can find the appropriate electron version in the
-`devDependencies['electron-prebuilt']` field in `package.json`.
-
 - Install dependencies.
 
-```sh
-npm install --build-from-source
-bower install
-```
+Please make use of the following scripts to install dependencies rather than
+simply running `npm install` given that we need to do extra configuration to
+make sure native dependencies are correctly compiled for Electron, otherwise
+the application might not run successfully.
+
+  - OS X
+
+  ```sh
+  ./scripts/build/darwin.sh install
+  ```
+
+  - GNU/Linux
+
+  ```sh
+  ./scripts/build/linux.sh install <x64|x86>
+  ```
+
+  - Windows
+
+  ```sh
+  .\scripts\build\windows.bat install <x64|x86>
+  ```
 
 - Run the GUI application.
 

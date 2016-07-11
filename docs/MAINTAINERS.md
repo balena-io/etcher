@@ -62,7 +62,6 @@ found in the [Electron releases page][electron-releases].
 
 - Update the `NODE_VERSION` environment variable in `.travis.yml`.
 
-- Update the `nodejs_version` and `npm_config_target` environment variables in
-`appveyor.yml`.
+- Update the `nodejs_version` environment variable in `appveyor.yml`.
 
 [electron-releases]: https://github.com/electron/electron/releases

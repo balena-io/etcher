@@ -4,6 +4,8 @@
 init:
   - git config --global core.autocrlf input
 
+image: Visual Studio 2013
+
 cache:
   - C:\Users\appveyor\.node-gyp
   - '%AppData%\npm-cache'
@@ -12,19 +14,17 @@ cache:
 environment:
   global:
     ELECTRON_NO_ATTACH_CONSOLE: true
-    npm_config_disturl: https://atom.io/download/atom-shell
-    npm_config_runtime: electron
-    npm_config_target: 1.1.1
-    npm_config_arch: x64
   matrix:
     - nodejs_version: 6.1.0
 
 install:
   - ps: Install-Product node $env:nodejs_version x64
-  - npm install -g npm
-  - npm install --build-from-source
-  - npm install -g bower
-  - bower install
+  - npm install -g npm bower rimraf asar
+  - choco install nsis -version 2.51
+  - choco install upx
+  - set PATH=C:\Program Files (x86)\Windows Kits\8.1\bin\x86;%PATH%
+  - set PATH=C:\Program Files (x86)\NSIS;%PATH%
+  - .\scripts\build\windows.bat install x64
 
 build: off
 

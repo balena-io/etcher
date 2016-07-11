@@ -42,12 +42,18 @@ if ! command -v python 2>/dev/null; then
   exit 1
 fi
 
-if [ "$#" -ne 1 ]; then
-  echo "Usage: $0 <arch>" 1>&2
+if [ "$#" -ne 2 ]; then
+  echo "Usage: $0 <command> <arch>" 1>&2
   exit 1
 fi
 
-ARCH=$1
+COMMAND=$1
+if [ "$COMMAND" != "install" ] && [ "$COMMAND" != "package" ] && [ "$COMMAND" != "all" ]; then
+  echo "Unknown command: $COMMAND" 1>&2
+  exit 1
+fi
+
+ARCH=$2
 if [ "$ARCH" != "x64" ] && [ "$ARCH" != "x86" ]; then
   echo "Unknown architecture: $ARCH" 1>&2
   exit 1
@@ -156,14 +162,25 @@ function installer {
   rm -rf $appdir_temporary_location
 }
 
-if [ "$ARCH" == "x86" ]; then
-  install ia32
-  package_x86 etcher-release
+if [ "$COMMAND" == "install" ] || [ "$COMMAND" == "all" ]; then
+  if [ "$ARCH" == "x86" ]; then
+    install ia32
+  fi
+
+  if [ "$ARCH" == "x64" ]; then
+    install x64
+  fi
 fi
 
-if [ "$ARCH" == "x64" ]; then
-  install x64
-  package_x64 etcher-release
+if [ "$COMMAND" == "package" ] || [ "$COMMAND" == "all" ]; then
+  if [ "$ARCH" == "x86" ]; then
+    package_x86 etcher-release
+  fi
+
+  if [ "$ARCH" == "x64" ]; then
+    package_x64 etcher-release
+  fi
+
+  installer etcher-release/Etcher-linux-$ARCH $ARCH etcher-release/installers
 fi
 
-installer etcher-release/Etcher-linux-$ARCH $ARCH etcher-release/installers
