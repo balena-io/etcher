@@ -293,9 +293,6 @@ rules:
     - error
     - before: true
       after: true
-  linebreak-style:
-    - error
-    - unix
   lines-around-comment:
     - error
     - beforeBlockComment: true
