@@ -7,6 +7,22 @@ os:
   - linux
   - osx
 
+# C++11 support
+# See https://github.com/PacificBiosciences/pbdagcon/pull/7
+
+compiler:
+  - gcc
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - upx-ucl
+      - gcc-4.8
+      - g++-4.8
+      - clang
+
 before_install:
   - rm -rf ~/.nvm
   - git clone https://github.com/creationix/nvm.git ~/.nvm
@@ -18,9 +34,16 @@ before_install:
   - npm config set spin=false
 
 install:
-  - npm install
+  - if [ "$CXX" = "g++" ]; then
+      export CXX="g++-4.8" CC="gcc-4.8";
+    fi
   - npm install -g bower
-  - bower install
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      ./scripts/build/linux.sh install x64;
+    fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      ./scripts/build/darwin.sh install;
+    fi
 
 before_script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then

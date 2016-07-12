@@ -60,7 +60,7 @@ Run the following command from the *Developer Command Prompt for VS2013*, to
 ensure all Visual Studio command utilities are available in the `%PATH%`:
 
 ```sh
-> .\scripts\build\windows.bat <arch>
+> .\scripts\build\windows.bat all <x64|x86>
 ```
 
 ### OS X
@@ -72,7 +72,7 @@ Pre-requisites:
 Run the following command:
 
 ```sh
-$ ./scripts/build/darwin.sh
+$ ./scripts/build/darwin.sh all
 ```
 
 ### GNU/Linux
@@ -80,7 +80,7 @@ $ ./scripts/build/darwin.sh
 Run the following command:
 
 ```sh
-$ ./scripts/build/linux.sh <arch>
+$ ./scripts/build/linux.sh all <x64|x86>
 ```
 
 Publishing
