@@ -1547,9 +1547,9 @@
       "resolved": "https://registry.npmjs.org/etcher-image-stream/-/etcher-image-stream-2.3.0.tgz"
     },
     "etcher-image-write": {
-      "version": "5.0.2",
-      "from": "etcher-image-write@>=5.0.2 <6.0.0",
-      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-5.0.2.tgz"
+      "version": "5.0.3",
+      "from": "etcher-image-write@>=5.0.3 <6.0.0",
+      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-5.0.3.tgz"
     },
     "etcher-latest-version": {
       "version": "1.0.0",
