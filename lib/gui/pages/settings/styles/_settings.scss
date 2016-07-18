@@ -18,3 +18,52 @@
   color: $gray-light;
 }
 
+.page-settings .subtitle {
+  @extend .space-top-large;
+  @extend .space-bottom-medium;
+}
+
+.modal-settings-dangerous-modal {
+  max-width: 50%;
+
+  .modal-header {
+    text-align: center;
+    font-weight: bold;
+    color: $gray;
+    text-transform: initial;
+    font-size: 15px;
+    border-bottom: none;
+    padding: 0 0 15px;
+  }
+
+  .modal-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .glyphicon {
+      margin-right: 3px;
+      color: $btn-danger-bg;
+    }
+  }
+
+  .modal-content {
+    padding: 25px 30px;
+    height: 220px;
+  }
+
+  .modal-body {
+    padding: 0;
+  }
+
+  .modal-footer {
+    padding: 0;
+    padding-top: 20px;
+    border-top: 1px solid $gray-lighter;
+    display: flex;
+
+    & > .btn {
+      flex-basis: 50%;
+    }
+  }
+}
