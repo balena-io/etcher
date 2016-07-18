@@ -1311,9 +1311,9 @@
       "resolved": "https://registry.npmjs.org/domutils/-/domutils-1.5.1.tgz"
     },
     "drivelist": {
-      "version": "3.2.0",
-      "from": "drivelist@>=3.2.0 <4.0.0",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-3.2.0.tgz",
+      "version": "3.2.2",
+      "from": "drivelist@>=3.2.2 <4.0.0",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-3.2.2.tgz",
       "dependencies": {
         "lodash": {
           "version": "3.10.1",
