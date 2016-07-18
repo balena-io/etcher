@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v1.0.0-beta.11] - 2016-07-17
+
+### Changed
+
+- Upgrade `etcher-image-write` to v5.0.2.
+- Don't throw an "Invalid image" error if the extension is not in lowercase.
+- Set dialog default directory to the place where the AppImage was run from in GNU/Linux.
+- Fix `ENOENT` error when selecting certain images with multiple extensions on GNU/Linux.
+- Fix flashing not starting when an image name contains a space.
+- Fix error when writing images containing parenthesis in GNU/Linux and OS X.
+- Fix error when cancelling an elevation request.
+- Fix incorrect ETA numbers in certain timezones.
+- Fix state validation error when speed equals zero.
+- Display `*.zip` in the supported images tooltip.
+- Fix uncaught exception when showing the update notifier modal.
+
 ## [v1.0.0-beta.10] - 2016-06-27
 
 ### Added
@@ -187,6 +203,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fix broken state when going to settings from the success screen.
 - Fix `Cannot read property 'length' of undefined` frequent issue.
 
+[v1.0.0-beta.11]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.10...v1.0.0-beta.11
 [v1.0.0-beta.10]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.9...v1.0.0-beta.10
 [v1.0.0-beta.9]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.8...v1.0.0-beta.9
 [v1.0.0-beta.8]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.7...v1.0.0-beta.8
