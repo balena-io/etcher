@@ -5945,12 +5945,18 @@ html {
   margin-top: 10px;
   margin-bottom: 10px; }
 
+.space-top-large, .page-settings .subtitle {
+  margin-top: 30px; }
+
 .space-top-medium {
   margin-top: 15px; }
 
 .space-vertical-large {
   margin-top: 30px;
   margin-bottom: 30px; }
+
+.space-bottom-medium, .page-settings .subtitle {
+  margin-bottom: 15px; }
 
 .space-bottom-large {
   margin-bottom: 30px; }
@@ -6514,6 +6520,36 @@ button.btn:focus, button.progress-button:focus {
  */
 .page-settings .checkbox input[type="checkbox"]:not(:checked) + * {
   color: #ddd; }
+
+.modal-settings-dangerous-modal {
+  max-width: 50%; }
+  .modal-settings-dangerous-modal .modal-header {
+    text-align: center;
+    font-weight: bold;
+    color: #555555;
+    text-transform: initial;
+    font-size: 15px;
+    border-bottom: none;
+    padding: 0 0 15px; }
+  .modal-settings-dangerous-modal .modal-title {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .modal-settings-dangerous-modal .modal-title .glyphicon, .modal-settings-dangerous-modal .modal-title .tick {
+      margin-right: 3px;
+      color: #d9534f; }
+  .modal-settings-dangerous-modal .modal-content {
+    padding: 25px 30px;
+    height: 220px; }
+  .modal-settings-dangerous-modal .modal-body {
+    padding: 0; }
+  .modal-settings-dangerous-modal .modal-footer {
+    padding: 0;
+    padding-top: 20px;
+    border-top: 1px solid #eeeeee;
+    display: flex; }
+    .modal-settings-dangerous-modal .modal-footer > .btn, .modal-settings-dangerous-modal .modal-footer > .progress-button {
+      flex-basis: 50%; }
 
 /*
  * Copyright 2016 Resin.io
