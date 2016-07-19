@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <h4 class="modal-title">
+    <span class="glyphicon glyphicon-exclamation-sign"></span>
+    <span>Warning!</span>
+  </h4>
+</div>
+
+<div class="modal-body">
+  <p>Are you sure you want to turn this on? {{ modal.message }}</p>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-danger"
+    ng-click="modal.accept()">YES, CONTINUE</button>
+
+  <button class="btn btn-default"
+    ng-click="modal.reject()">CANCEL</button>
+</div>

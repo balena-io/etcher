@@ -1,7 +1,7 @@
 {
   "name": "etcher",
   "displayName": "Etcher",
-  "version": "1.0.0-beta.10",
+  "version": "1.0.0-beta.11",
   "main": "lib/start.js",
   "description": "An image flasher with support for Windows, OS X and GNU/Linux.",
   "homepage": "https://github.com/resin-io/etcher",
@@ -44,7 +44,7 @@
   "builder": {
     "win": {
       "title": "Etcher",
-      "version": "v1.0.0-beta.10",
+      "version": "v1.0.0-beta.11",
       "publisher": "Resin.io",
       "icon": "assets/icon.ico",
       "verbosity": 1
@@ -67,10 +67,10 @@
     "bootstrap-sass": "^3.3.5",
     "chalk": "^1.1.3",
     "default-network": "^0.2.0",
-    "drivelist": "^3.2.0",
+    "drivelist": "^3.2.2",
     "electron-is-running-in-asar": "^1.0.0",
     "etcher-image-stream": "^2.3.0",
-    "etcher-image-write": "^5.0.2",
+    "etcher-image-write": "^5.0.3",
     "etcher-latest-version": "^1.0.0",
     "file-tail": "^0.3.0",
     "flexboxgrid": "^6.3.0",
@@ -108,7 +108,7 @@
     "electron-mocha": "^1.2.2",
     "electron-osx-sign": "^0.3.0",
     "electron-packager": "^7.0.1",
-    "electron-prebuilt": "1.1.1",
+    "electron-prebuilt": "1.2.6",
     "eslint": "^2.13.1",
     "gulp": "^3.9.0",
     "gulp-sass": "^2.0.4",

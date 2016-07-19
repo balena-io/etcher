@@ -1,6 +1,6 @@
 {
   "name": "etcher",
-  "version": "1.0.0-beta.10",
+  "version": "1.0.0-beta.11",
   "dependencies": {
     "abbrev": {
       "version": "1.0.9",
@@ -1311,9 +1311,9 @@
       "resolved": "https://registry.npmjs.org/domutils/-/domutils-1.5.1.tgz"
     },
     "drivelist": {
-      "version": "3.2.0",
-      "from": "drivelist@>=3.2.0 <4.0.0",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-3.2.0.tgz",
+      "version": "3.2.2",
+      "from": "drivelist@>=3.2.2 <4.0.0",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-3.2.2.tgz",
       "dependencies": {
         "lodash": {
           "version": "3.10.1",
@@ -1547,9 +1547,9 @@
       "resolved": "https://registry.npmjs.org/etcher-image-stream/-/etcher-image-stream-2.3.0.tgz"
     },
     "etcher-image-write": {
-      "version": "5.0.2",
-      "from": "etcher-image-write@>=5.0.2 <6.0.0",
-      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-5.0.2.tgz"
+      "version": "5.0.3",
+      "from": "etcher-image-write@>=5.0.3 <6.0.0",
+      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-5.0.3.tgz"
     },
     "etcher-latest-version": {
       "version": "1.0.0",
