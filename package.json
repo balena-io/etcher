@@ -5,9 +5,6 @@
   "main": "lib/start.js",
   "description": "An image flasher with support for Windows, OS X and GNU/Linux.",
   "homepage": "https://github.com/resin-io/etcher",
-  "engines": {
-    "node": "6.1.0"
-  },
   "repository": {
     "type": "git",
     "url": "git@github.com:resin-io/etcher.git"
