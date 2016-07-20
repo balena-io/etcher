@@ -22,10 +22,6 @@ Running locally
 
 - Install [NodeJS](https://nodejs.org/en/).
 
-Sadly we need to enforce the same NodeJS version that the Electron version we
-use is running to avoid module version mismatches when building native
-dependencies (`electron-rebuild` doesn't seem to be enough).
-
 - Clone the repository.
 
 ```sh

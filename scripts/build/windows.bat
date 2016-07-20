@@ -147,17 +147,8 @@ for /f %%i in (' "node -e ""console.log(require('./package.json').version)""" ')
   set etcher_version=%%i
 )
 
-for /f %%i in (' "node -e ""console.log(require('./package.json').engines.node)""" ') do (
-  set electron_node_version=%%i
-)
-
 for /f %%i in (' "node -v" ') do (
   set node_version=%%i
-)
-
-if not "v%electron_node_version%"=="%node_version%" (
-  echo Incompatible NodeJS version. Expected: %electron_node_version% 1>&2
-  exit /b 1
 )
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
