@@ -16,6 +16,14 @@ Prerequisites
 - [NodeJS](https://nodejs.org).
 - [Bower](http://bower.io).
 - [Gulp](http://gulpjs.com).
+- [UPX](http://upx.sourceforge.net).
+- [Python](https://www.python.org).
+
+### Windows
+
+- [rimraf](https://github.com/isaacs/rimraf).
+- [asar](https://github.com/electron/asar).
+- [NSIS](http://nsis.sourceforge.net/Main_Page).
 
 Running locally
 ---------------
