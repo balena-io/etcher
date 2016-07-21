@@ -101,6 +101,27 @@ other text editing default. We encourage you to install the relevant plugin in
 your text editor of choice to avoid having to fix any issues during the review
 process.
 
+Updating a dependency
+---------------------
+
+Given we use [npm shrinkwrap][shrinkwrap], we have to take extra steps to make
+sure the `npm-shrinkwrap.json` file gets updated correctly when we update a
+dependency.
+
+Use the following steps to ensure everything goes flawlessly:
+
+- Delete your `node_modules/` to ensure you don't have extraneous dependencies
+  you might have brought during development, or you are running older
+  dependencies because you come from another branch or reference.
+
+- Re-install the dependencies. This will update the `npm-shrinkwrap.json` file.
+
+- Run `npm run shrinkwrap`. This is a small script that ensures that operating
+  system specific dependencies that could get included in the previous step are
+  removed from `npm-shrinkwrap.json`.
+
+- Commit *both* `package.json` and `npm-shrinkwrap.json`.
+
 Testing
 -------
 
@@ -175,3 +196,4 @@ Don't hesitate to get in touch if you have any questions or need any help!
 [gulp]: http://gulpjs.com
 [EditorConfig]: http://editorconfig.org
 [commitizen]: https://commitizen.github.io/cz-cli/#making-your-repo-commitizen-friendly
+[shrinkwrap]: https://docs.npmjs.com/cli/shrinkwrap
