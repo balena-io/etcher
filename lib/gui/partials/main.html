@@ -98,10 +98,13 @@
 
         <div class="alert-ribbon alert-warning" ng-class="{ 'alert-ribbon--open': !app.wasLastFlashSuccessful() }">
           <span class="glyphicon glyphicon-warning-sign"></span>
-          <span ng-show="app.settings.get('validateWriteOnSuccess')">
+          <span ng-show="app.writer.getFlashResults().errorCode === 'ENOSPC'">
+            Not enough space on the drive.<br>Please insert larger one and <button class="btn btn-link" ng-click="app.restartAfterFailure()">try again</button>
+          </span>
+          <span ng-show="app.writer.getFlashResults().errorCode !== 'ENOSPC' && app.settings.get('validateWriteOnSuccess')">
             Your removable drive did not pass validation check.<br>Please insert another one and <button class="btn btn-link" ng-click="app.restartAfterFailure()">try again</button>
           </span>
-          <span ng-hide="app.settings.get('validateWriteOnSuccess')">
+          <span ng-show="app.writer.getFlashResults().errorCode !== 'ENOSPC' && !app.settings.get('validateWriteOnSuccess')">
             Oops, seems something went wrong. Click <button class="btn btn-link" ng-click="app.restartAfterFailure()">here</button> to retry
           </span>
         </div>
