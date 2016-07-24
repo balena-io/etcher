@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [v1.0.0-beta.11] - 2016-07-17
+## v1.0.0-beta.11 - 2016-07-17
 
 ### Features
 
@@ -25,7 +25,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Upgrade `etcher-image-write` to v5.0.2.
 
-## [v1.0.0-beta.10] - 2016-06-27
+## v1.0.0-beta.10 - 2016-06-27
 
 ### Features
 
@@ -49,13 +49,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Add a GitHub issue template.
 - Open DevTools in "undocked" mode by default.
 
-## [v1.0.0-beta.9] - 2016-06-20
+## v1.0.0-beta.9 - 2016-06-20
 
 ### Fixes
 
 - Don't interpret image file name information between dots as image extensions.
 
-## [v1.0.0-beta.8] - 2016-06-15
+## v1.0.0-beta.8 - 2016-06-15
 
 ### Features
 
@@ -76,7 +76,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Write a document explaining Etcher's architecture.
 
-## [v1.0.0-beta.7] - 2016-05-26
+## v1.0.0-beta.7 - 2016-05-26
 
 ### Features
 
@@ -97,7 +97,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Upgrade Electron to v1.1.1.
 - Various improvements to the build system.
 
-## [v1.0.0-beta.6] - 2016-05-12
+## v1.0.0-beta.6 - 2016-05-12
 
 ### Features
 
@@ -112,7 +112,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Remove implicit "Enable" from settings screen items.
 
-## [v1.0.0-beta.5] - 2016-05-04
+## v1.0.0-beta.5 - 2016-05-04
 
 ### Features
 
@@ -127,7 +127,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Deprecate GNU/Linux `.tar.gz` installers in favor of AppImages.
 
-## [v1.0.0-beta.4] - 2016-04-22
+## v1.0.0-beta.4 - 2016-04-22
 
 ### Features
 
@@ -145,7 +145,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Upgrade Electron to v0.37.6.
 - Integrate Etcher CLI in this git repository.
 
-## [v1.0.0-beta.3] - 2016-04-17
+## v1.0.0-beta.3 - 2016-04-17
 
 ### Features
 
@@ -179,7 +179,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Make GNU/Linux binary lowercase.
 - Replace all occurrences of "burn" with "flash".
 
-## [v1.0.0-beta.2] - 2016-04-07
+## v1.0.0-beta.2 - 2016-04-07
 
 ### Features
 
@@ -203,7 +203,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Heavy general refactoring.
 
-## [v1.0.0-beta.1] - 2016-03-28
+## v1.0.0-beta.1 - 2016-03-28
 
 ### Features
 
@@ -218,15 +218,3 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Make sure error is logged if its trapped with an error dialog.
 - Fix broken state when going to settings from the success screen.
 - Fix `Cannot read property 'length' of undefined` frequent issue.
-
-[v1.0.0-beta.11]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.10...v1.0.0-beta.11
-[v1.0.0-beta.10]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.9...v1.0.0-beta.10
-[v1.0.0-beta.9]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.8...v1.0.0-beta.9
-[v1.0.0-beta.8]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.7...v1.0.0-beta.8
-[v1.0.0-beta.7]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.6...v1.0.0-beta.7
-[v1.0.0-beta.6]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.5...v1.0.0-beta.6
-[v1.0.0-beta.5]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.4...v1.0.0-beta.5
-[v1.0.0-beta.4]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.3...v1.0.0-beta.4
-[v1.0.0-beta.3]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.2...v1.0.0-beta.3
-[v1.0.0-beta.2]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.1...v1.0.0-beta.2
-[v1.0.0-beta.1]: https://github.com/resin-io/etcher/compare/v1.0.0-beta.0...v1.0.0-beta.1
