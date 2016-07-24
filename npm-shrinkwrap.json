@@ -1273,9 +1273,9 @@
       "resolved": "https://registry.npmjs.org/esutils/-/esutils-2.0.2.tgz"
     },
     "etcher-image-stream": {
-      "version": "2.5.2",
-      "from": "etcher-image-stream@2.5.2",
-      "resolved": "https://registry.npmjs.org/etcher-image-stream/-/etcher-image-stream-2.5.2.tgz"
+      "version": "2.6.0",
+      "from": "etcher-image-stream@2.6.0",
+      "resolved": "https://registry.npmjs.org/etcher-image-stream/-/etcher-image-stream-2.6.0.tgz"
     },
     "etcher-image-write": {
       "version": "6.0.0",
@@ -1786,14 +1786,7 @@
     "gzip-uncompressed-size": {
       "version": "1.0.0",
       "from": "gzip-uncompressed-size@>=1.0.0 <2.0.0",
-      "resolved": "https://registry.npmjs.com/gzip-uncompressed-size/-/gzip-uncompressed-size-1.0.0.tgz",
-      "dependencies": {
-        "async": {
-          "version": "2.0.0",
-          "from": "async@>=2.0.0 <3.0.0",
-          "resolved": "https://registry.npmjs.org/async/-/async-2.0.0.tgz"
-        }
-      }
+      "resolved": "https://registry.npmjs.com/gzip-uncompressed-size/-/gzip-uncompressed-size-1.0.0.tgz"
     },
     "har-validator": {
       "version": "1.8.0",
