@@ -15,7 +15,6 @@ Prerequisites
 
 - [NodeJS](https://nodejs.org).
 - [Bower](http://bower.io).
-- [Gulp](http://gulpjs.com).
 - [UPX](http://upx.sourceforge.net).
 - [Python](https://www.python.org).
 
@@ -77,24 +76,10 @@ node bin/etcher
 Developing
 ----------
 
-We rely on [gulp] to provide an automated developing workflow in which your
-changes will automatically be detected and the necessary resources will be
-rebuilt for you.
+We rely on various `npm` scripts to perform some common tasks:
 
-First make sure you have [gulp] installed as a global dependency:
-
-```sh
-$ npm install -g gulp
-```
-
-Run the `watch` task to initialise the build system. We encourage to have this
-command running in the background all the time as you develop, and check the
-output from time to time, since it'll let you know of any issues and/or
-warnings in your changes:
-
-```js
-$ gulp watch
-```
+- `npm run lint`: Run the linter.
+- `npm run sass`: Compile SCSS files.
 
 We make use of [EditorConfig] to communicate indentation, line endings and
 other text editing default. We encourage you to install the relevant plugin in
@@ -125,11 +110,6 @@ Use the following steps to ensure everything goes flawlessly:
 
 Testing
 -------
-
-In order to avoid inaccurate results, the test suites run in a real Electron
-instance each in the respective process. This means that running the test suite
-is not a cheap operation and therefore we decided to not run it by default in
-the `watch` gulp task to not disrupt the user development workflow.
 
 To run the test suite, run the following command:
 
@@ -194,7 +174,6 @@ systems we support.
 Don't hesitate to get in touch if you have any questions or need any help!
 
 [ARCHITECTURE]: https://github.com/resin-io/etcher/blob/master/docs/ARCHITECTURE.md
-[gulp]: http://gulpjs.com
 [EditorConfig]: http://editorconfig.org
 [commitizen]: https://commitizen.github.io/cz-cli/#making-your-repo-commitizen-friendly
 [shrinkwrap]: https://docs.npmjs.com/cli/shrinkwrap

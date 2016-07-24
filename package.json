@@ -11,7 +11,8 @@
   },
   "scripts": {
     "test": "npm run lint && electron-mocha --recursive --renderer tests/gui -R min",
-    "lint": "eslint gulpfile.js lib tests scripts bin",
+    "sass": "node-sass ./lib/gui/scss/main.scss > build/css/main.css",
+    "lint": "eslint lib tests scripts bin",
     "start": "electron lib/start.js",
     "shrinkwrap": "node ./scripts/shrinkwrap.js"
   },
@@ -27,7 +28,6 @@
     "assets/osx",
     "appveyor.yml",
     "bower.json",
-    "gulpfile.js",
     "screenshot.png",
     "tests",
     "etcher-release",
@@ -97,10 +97,9 @@
     "electron-packager": "^7.0.1",
     "electron-prebuilt": "1.2.6",
     "eslint": "^2.13.1",
-    "gulp": "^3.9.0",
-    "gulp-sass": "^2.0.4",
     "jsonfile": "^2.3.1",
-    "mochainon": "^1.0.0"
+    "mochainon": "^1.0.0",
+    "node-sass": "^3.8.0"
   },
   "config": {
     "commitizen": {
