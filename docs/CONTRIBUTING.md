@@ -114,7 +114,8 @@ Use the following steps to ensure everything goes flawlessly:
   you might have brought during development, or you are running older
   dependencies because you come from another branch or reference.
 
-- Re-install the dependencies. This will update the `npm-shrinkwrap.json` file.
+- Install the new version of the dependency. For example: `npm install --save
+  <package>@<version>`. This will update the `npm-shrinkwrap.json` file.
 
 - Run `npm run shrinkwrap`. This is a small script that ensures that operating
   system specific dependencies that could get included in the previous step are
