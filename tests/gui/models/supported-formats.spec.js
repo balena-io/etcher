@@ -32,7 +32,7 @@ describe('Browser: SupportedFormats', function() {
 
       it('should return the supported non compressed extensions', function() {
         const extensions = SupportedFormatsModel.getNonCompressedExtensions();
-        m.chai.expect(extensions).to.deep.equal([ 'img', 'iso', 'dsk', 'hddimg' ]);
+        m.chai.expect(extensions).to.deep.equal([ 'img', 'iso', 'dsk', 'hddimg', 'raw' ]);
       });
 
     });

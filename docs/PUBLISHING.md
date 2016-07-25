@@ -8,14 +8,6 @@ Common Pre-requisites
 ---------------------
 
 - [NodeJS](https://nodejs.org)
-
-Make sure you're running the exact same NodeJS version as the one included with
-the current Electron build being used by Etcher to avoid any strange native
-dependencies issues.
-
-The expected NodeJS version is determined by the `engines.node` property in
-[`package.json`][package-json].
-
 - [Bower](http://bower.io)
 - [UPX](http://upx.sourceforge.net)
 - [Python](https://www.python.org)

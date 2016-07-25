@@ -12,16 +12,7 @@ Preparing a new version
 - Bump the version number in the `package.json`'s `builder.win.version`
 property.
 
-- Add a new entry to `CHANGELOG.md` describing what has been added, changed, or
-removed. Please use the imperative mode and capitalize the first letter of
-each item.
-
-- Link the `CHANGELOG.md` entry to the GitHub page displaying the diffs between
-the previous and the current version.
-
-```markdown
-https://github.com/resin-io/etcher/compare/<previous>...<current>
-```
+- Add a new entry to `CHANGELOG.md` by running `npm run changelog`.
 
 - Re-take `screenshot.png` so it displays the latest version in the bottom
 right corner.
@@ -55,13 +46,3 @@ Upgrading Electron
 
 - Upgrade the `electron-prebuilt` dependency version in `package.json` to an
 *exact version* (no `~`, `^`, etc).
-
-- Find the exact NodeJS version included in the desired Electron version and
-update `engines.node` in `package.json` appropriately. This can be usually
-found in the [Electron releases page][electron-releases].
-
-- Update the `NODE_VERSION` environment variable in `.travis.yml`.
-
-- Update the `nodejs_version` environment variable in `appveyor.yml`.
-
-[electron-releases]: https://github.com/electron/electron/releases

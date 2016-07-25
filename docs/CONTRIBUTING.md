@@ -15,16 +15,19 @@ Prerequisites
 
 - [NodeJS](https://nodejs.org).
 - [Bower](http://bower.io).
-- [Gulp](http://gulpjs.com).
+- [UPX](http://upx.sourceforge.net).
+- [Python](https://www.python.org).
+
+### Windows
+
+- [rimraf](https://github.com/isaacs/rimraf).
+- [asar](https://github.com/electron/asar).
+- [NSIS](http://nsis.sourceforge.net/Main_Page).
 
 Running locally
 ---------------
 
 - Install [NodeJS](https://nodejs.org/en/).
-
-Sadly we need to enforce the same NodeJS version that the Electron version we
-use is running to avoid module version mismatches when building native
-dependencies (`electron-rebuild` doesn't seem to be enough).
 
 - Clone the repository.
 
@@ -73,37 +76,40 @@ node bin/etcher
 Developing
 ----------
 
-We rely on [gulp] to provide an automated developing workflow in which your
-changes will automatically be detected and the necessary resources will be
-rebuilt for you.
+We rely on various `npm` scripts to perform some common tasks:
 
-First make sure you have [gulp] installed as a global dependency:
-
-```sh
-$ npm install -g gulp
-```
-
-Run the `watch` task to initialise the build system. We encourage to have this
-command running in the background all the time as you develop, and check the
-output from time to time, since it'll let you know of any issues and/or
-warnings in your changes:
-
-```js
-$ gulp watch
-```
+- `npm run lint`: Run the linter.
+- `npm run sass`: Compile SCSS files.
 
 We make use of [EditorConfig] to communicate indentation, line endings and
 other text editing default. We encourage you to install the relevant plugin in
 your text editor of choice to avoid having to fix any issues during the review
 process.
 
+Updating a dependency
+---------------------
+
+Given we use [npm shrinkwrap][shrinkwrap], we have to take extra steps to make
+sure the `npm-shrinkwrap.json` file gets updated correctly when we update a
+dependency.
+
+Use the following steps to ensure everything goes flawlessly:
+
+- Delete your `node_modules/` to ensure you don't have extraneous dependencies
+  you might have brought during development, or you are running older
+  dependencies because you come from another branch or reference.
+
+- Install the new version of the dependency. For example: `npm install --save
+  <package>@<version>`. This will update the `npm-shrinkwrap.json` file.
+
+- Run `npm run shrinkwrap`. This is a small script that ensures that operating
+  system specific dependencies that could get included in the previous step are
+  removed from `npm-shrinkwrap.json`.
+
+- Commit *both* `package.json` and `npm-shrinkwrap.json`.
+
 Testing
 -------
-
-In order to avoid inaccurate results, the test suites run in a real Electron
-instance each in the respective process. This means that running the test suite
-is not a cheap operation and therefore we decided to not run it by default in
-the `watch` gulp task to not disrupt the user development workflow.
 
 To run the test suite, run the following command:
 
@@ -168,6 +174,6 @@ systems we support.
 Don't hesitate to get in touch if you have any questions or need any help!
 
 [ARCHITECTURE]: https://github.com/resin-io/etcher/blob/master/docs/ARCHITECTURE.md
-[gulp]: http://gulpjs.com
 [EditorConfig]: http://editorconfig.org
 [commitizen]: https://commitizen.github.io/cz-cli/#making-your-repo-commitizen-friendly
+[shrinkwrap]: https://docs.npmjs.com/cli/shrinkwrap

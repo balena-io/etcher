@@ -241,6 +241,17 @@ describe('Browser: ImageWriter', function() {
         }).to.throw('Missing results');
       });
 
+      it('should throw if errorCode is defined but it is not a number', function() {
+        m.chai.expect(function() {
+          ImageWriterService.unsetFlashingFlag({
+            passedValidation: true,
+            cancelled: false,
+            sourceChecksum: '1234',
+            errorCode: 123
+          });
+        }).to.throw('Invalid results errorCode: 123');
+      });
+
       it('should throw if no passedValidation', function() {
         m.chai.expect(function() {
           ImageWriterService.unsetFlashingFlag({
@@ -445,7 +456,9 @@ describe('Browser: ImageWriter', function() {
 
         beforeEach(function() {
           this.performWriteStub = m.sinon.stub(ImageWriterService, 'performWrite');
-          this.performWriteStub.returns($q.reject(new Error('write error')));
+          this.error = new Error('write error');
+          this.error.code = 'FOO';
+          this.performWriteStub.returns($q.reject(this.error));
         });
 
         afterEach(function() {
@@ -456,6 +469,13 @@ describe('Browser: ImageWriter', function() {
           ImageWriterService.flash('foo.img', '/dev/disk2');
           $rootScope.$apply();
           m.chai.expect(ImageWriterService.isFlashing()).to.be.false;
+        });
+
+        it('should set the error code in the flash results', function() {
+          ImageWriterService.flash('foo.img', '/dev/disk2');
+          $rootScope.$apply();
+          const flashResults = ImageWriterService.getFlashResults();
+          m.chai.expect(flashResults.errorCode).to.equal('FOO');
         });
 
         it('should be rejected with the error', function() {
