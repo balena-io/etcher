@@ -7,7 +7,7 @@
   <ul class="list-group">
     <li class="list-group-item" ng-repeat="drive in modal.drives.getDrives() track by drive.device"
       ng-disabled="!modal.state.isDriveValid(drive)"
-      ng-click="modal.state.isDriveValid(drive) && modal.state.toggleSetDrive(drive)">
+      ng-click="modal.state.isDriveValid(drive) && modal.state.toggleSetDrive(drive.device)">
         <div>
           <h4 class="list-group-item-heading">{{ drive.description }} - {{ drive.size | gigabyte | number:1 }} GB</h4>
           <p class="list-group-item-text">{{ drive.name }}</p>
@@ -33,7 +33,7 @@
         </div>
         <span class="tick tick--success"
           ng-show="modal.state.isDriveValid(drive)"
-          ng-disabled="!modal.state.isCurrentDrive(drive)"></span>
+          ng-disabled="!modal.state.isCurrentDrive(drive.device)"></span>
     </li>
   </ul>
 </div>
