@@ -47,6 +47,29 @@ describe('Browser: SVGIcon', function() {
       m.chai.expect(element.html()).to.equal(iconContents);
     });
 
+    it('should inline raw svg contents in the element', function() {
+      const svg = '<svg><text>Raspbian</text></svg>';
+      const element = $compile(`<svg-icon path="${svg}"></svg-icon>`)($rootScope);
+      $rootScope.$digest();
+      m.chai.expect(element.html()).to.equal(svg);
+    });
+
+    it('should react to external updates', function() {
+      const scope = $rootScope.$new();
+      scope.name = 'Raspbian';
+      scope.getSvg = () => {
+        return `<svg><text>${scope.name}</text></svg>`;
+      };
+
+      const element = $compile('<svg-icon path="{{ getSvg() }}"></svg-icon>')(scope);
+      $rootScope.$digest();
+      m.chai.expect(element.html()).to.equal('<svg><text>Raspbian</text></svg>');
+
+      scope.name = 'Resin.io';
+      $rootScope.$digest();
+      m.chai.expect(element.html()).to.equal('<svg><text>Resin.io</text></svg>');
+    });
+
     it('should default the size to 40x40 pixels', function() {
       const icon = '../../../../../lib/gui/assets/etcher.svg';
       const element = $compile(`<svg-icon path="${icon}">Resin.io</svg-icon>`)($rootScope);
@@ -55,7 +78,7 @@ describe('Browser: SVGIcon', function() {
       m.chai.expect(element.css('height')).to.equal('40px');
     });
 
-    it('should be able to set a custom height', function() {
+    it('should be able to set a custom width', function() {
       const icon = '../../../../../lib/gui/assets/etcher.svg';
       const element = $compile(`<svg-icon path="${icon}" width="20px">Resin.io</svg-icon>`)($rootScope);
       $rootScope.$digest();

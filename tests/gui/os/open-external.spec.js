@@ -17,7 +17,6 @@
 'use strict';
 
 const m = require('mochainon');
-const os = require('os');
 const angular = require('angular');
 const electron = require('electron');
 require('angular-mocks');
@@ -44,26 +43,13 @@ describe('Browser: OSOpenExternal', function() {
       m.chai.expect(element.css('cursor')).to.equal('pointer');
     });
 
-    describe('given non linux', function() {
-
-      beforeEach(function() {
-        this.osPlatformStub = m.sinon.stub(os, 'platform');
-        this.osPlatformStub.returns('darwin');
-      });
-
-      afterEach(function() {
-        this.osPlatformStub.restore();
-      });
-
-      it('should call Electron shell.openExternal with the attribute value', function() {
-        const shellExternalStub = m.sinon.stub(electron.shell, 'openExternal');
-        const element = $compile('<span os-open-external="https://resin.io">Resin.io</span>')($rootScope);
-        element.triggerHandler('click');
-        $rootScope.$digest();
-        m.chai.expect(shellExternalStub).to.have.been.calledWith('https://resin.io');
-        shellExternalStub.restore();
-      });
-
+    it('should call Electron shell.openExternal with the attribute value', function() {
+      const shellExternalStub = m.sinon.stub(electron.shell, 'openExternal');
+      const element = $compile('<span os-open-external="https://resin.io">Resin.io</span>')($rootScope);
+      element.triggerHandler('click');
+      $rootScope.$digest();
+      m.chai.expect(shellExternalStub).to.have.been.calledWith('https://resin.io');
+      shellExternalStub.restore();
     });
 
   });
