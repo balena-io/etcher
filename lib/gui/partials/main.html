@@ -1,7 +1,7 @@
 <div class="row around-xs">
   <div class="col-xs">
     <div class="box text-center" os-dropzone="app.selectImage($file)">
-      <svg-icon class="center-block" path="../../../assets/image.svg"></svg-icon>
+      <svg-icon class="center-block" path="{{ app.selection.getImageLogo() || '../../../assets/image.svg' }}"></svg-icon>
       <span class="icon-caption">SELECT IMAGE</span>
       <span class="badge space-top-medium">1</span>
 
@@ -16,7 +16,8 @@
           </p>
         </div>
         <div ng-if="app.selection.hasImage()">
-          <div ng-bind="app.selection.getImagePath() | basename | middleEllipses:25"></div>
+          <div ng-click="app.openImageUrl()"
+            ng-bind="app.selection.getImageName() || app.selection.getImagePath() | basename | middleEllipses:25"></div>
 
           <button class="btn btn-link step-tooltip"
             ng-click="app.tooltipModal.show({

@@ -37,6 +37,18 @@ describe('Browser: SelectionState', function() {
         m.chai.expect(SelectionStateModel.getImageSize()).to.be.undefined;
       });
 
+      it('getImageUrl() should return undefined', function() {
+        m.chai.expect(SelectionStateModel.getImageUrl()).to.be.undefined;
+      });
+
+      it('getImageName() should return undefined', function() {
+        m.chai.expect(SelectionStateModel.getImageName()).to.be.undefined;
+      });
+
+      it('getImageLogo() should return undefined', function() {
+        m.chai.expect(SelectionStateModel.getImageLogo()).to.be.undefined;
+      });
+
       it('hasDrive() should return false', function() {
         const hasDrive = SelectionStateModel.hasDrive();
         m.chai.expect(hasDrive).to.be.false;
@@ -303,7 +315,10 @@ describe('Browser: SelectionState', function() {
       beforeEach(function() {
         SelectionStateModel.setImage({
           path: 'foo.img',
-          size: 999999999
+          size: 999999999,
+          url: 'https://www.raspbian.org',
+          name: 'Raspbian',
+          logo: '<svg><text fill="red">Raspbian</text></svg>'
         });
       });
 
@@ -425,6 +440,33 @@ describe('Browser: SelectionState', function() {
 
       });
 
+      describe('.getImageUrl()', function() {
+
+        it('should return the image url', function() {
+          const imageUrl = SelectionStateModel.getImageUrl();
+          m.chai.expect(imageUrl).to.equal('https://www.raspbian.org');
+        });
+
+      });
+
+      describe('.getImageName()', function() {
+
+        it('should return the image name', function() {
+          const imageName = SelectionStateModel.getImageName();
+          m.chai.expect(imageName).to.equal('Raspbian');
+        });
+
+      });
+
+      describe('.getImageLogo()', function() {
+
+        it('should return the image logo', function() {
+          const imageLogo = SelectionStateModel.getImageLogo();
+          m.chai.expect(imageLogo).to.equal('<svg><text fill="red">Raspbian</text></svg>');
+        });
+
+      });
+
       describe('.hasImage()', function() {
 
         it('should return true', function() {
@@ -527,6 +569,36 @@ describe('Browser: SelectionState', function() {
               size: '999999999'
             });
           }).to.throw('Invalid image size: 999999999');
+        });
+
+        it('should throw if url is defined but its not a string', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setImage({
+              path: 'foo.img',
+              size: 999999999,
+              url: 1234
+            });
+          }).to.throw('Invalid image url: 1234');
+        });
+
+        it('should throw if name is defined but its not a string', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setImage({
+              path: 'foo.img',
+              size: 999999999,
+              name: 1234
+            });
+          }).to.throw('Invalid image name: 1234');
+        });
+
+        it('should throw if logo is defined but its not a string', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setImage({
+              path: 'foo.img',
+              size: 999999999,
+              logo: 1234
+            });
+          }).to.throw('Invalid image logo: 1234');
         });
 
       });
