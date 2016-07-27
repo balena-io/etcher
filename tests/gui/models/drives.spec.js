@@ -235,21 +235,25 @@ describe('Browser: DrivesModel', function() {
       describe('given one of the drives was selected', function() {
 
         beforeEach(function() {
-          SelectionStateModel.setDrive({
-            device: '/dev/sdc',
-            name: 'USB Drive',
-            size: 9999999,
-            mountpoint: '/mnt/bar',
-            system: false,
-            protected: false
-          });
+          DrivesModel.setDrives([
+            {
+              device: '/dev/sdc',
+              name: 'USB Drive',
+              size: 9999999,
+              mountpoint: '/mnt/bar',
+              system: false,
+              protected: false
+            }
+          ]);
+
+          SelectionStateModel.setDrive('/dev/sdc');
         });
 
         afterEach(function() {
           SelectionStateModel.removeDrive();
         });
 
-        it('should be delected if its not contain in the available drives anymore', function() {
+        it('should be deleted if its not contain in the available drives anymore', function() {
           m.chai.expect(SelectionStateModel.hasDrive()).to.be.true;
           DrivesModel.setDrives([
             {
