@@ -7,7 +7,7 @@
 
       <div class="space-vertical-large">
         <div ng-hide="app.selection.hasImage()">
-          <button class="btn btn-primary btn-brick" ng-click="app.openImageSelector()">Select release</button>
+          <button class="btn btn-primary btn-brick" ng-click="app.openKiosSelector()">Select release</button>
         </div>
         <div ng-if="app.selection.hasImage()">
           <div ng-bind="app.selection.getImagePath() | basename | middleEllipses:25"></div>
