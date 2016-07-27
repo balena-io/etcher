@@ -71,6 +71,10 @@ body {
   position: relative;
 }
 
+.soft {
+  color: $color-disabled;
+}
+
 .section-footer {
   @extend .text-center;
 
