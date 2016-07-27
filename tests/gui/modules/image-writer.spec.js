@@ -13,40 +13,29 @@ describe('Browser: ImageWriter', function() {
   describe('ImageWriterService', function() {
 
     let $q;
-    let $timeout;
     let $rootScope;
     let ImageWriterService;
 
-    beforeEach(angular.mock.inject(function(_$q_, _$timeout_, _$rootScope_, _ImageWriterService_) {
+    beforeEach(angular.mock.inject(function(_$q_, _$rootScope_, _ImageWriterService_) {
       $q = _$q_;
-      $timeout = _$timeout_;
       $rootScope = _$rootScope_;
       ImageWriterService = _ImageWriterService_;
     }));
 
-    describe('.state', function() {
-
-      it('should be reset by default', function() {
-        m.chai.expect(ImageWriterService.state).to.deep.equal({
-          percentage: 0,
-          speed: 0
-        });
-      });
-
-    });
-
     describe('.resetState()', function() {
 
       it('should be able to reset the progress state', function() {
-        ImageWriterService.state = {
+        ImageWriterService.setFlashingFlag();
+        ImageWriterService.setProgressState({
+          type: 'write',
           percentage: 50,
-          speed: 3
-        };
+          eta: 15,
+          speed: 100000000000
+        });
 
         ImageWriterService.resetState();
-        $timeout.flush();
 
-        m.chai.expect(ImageWriterService.state).to.deep.equal({
+        m.chai.expect(ImageWriterService.getFlashState()).to.deep.equal({
           percentage: 0,
           speed: 0
         });
@@ -233,6 +222,33 @@ describe('Browser: ImageWriter', function() {
 
     });
 
+    describe('.getFlashState()', function() {
+
+      it('should initially return an empty state', function() {
+        ImageWriterService.resetState();
+        const flashState = ImageWriterService.getFlashState();
+        m.chai.expect(flashState).to.deep.equal({
+          percentage: 0,
+          speed: 0
+        });
+      });
+
+      it('should return the current flash state', function() {
+        const state = {
+          type: 'write',
+          percentage: 50,
+          eta: 15,
+          speed: 0
+        };
+
+        ImageWriterService.setFlashingFlag();
+        ImageWriterService.setProgressState(state);
+        const flashState = ImageWriterService.getFlashState();
+        m.chai.expect(flashState).to.deep.equal(state);
+      });
+
+    });
+
     describe('.unsetFlashingFlag()', function() {
 
       it('should throw if no flashing results', function() {
@@ -348,9 +364,7 @@ describe('Browser: ImageWriter', function() {
           speed: 100000000000
         });
 
-        $timeout.flush();
-
-        m.chai.expect(ImageWriterService.state).to.not.deep.equal({
+        m.chai.expect(ImageWriterService.getFlashState()).to.not.deep.equal({
           percentage: 0,
           speed: 0
         });
@@ -361,9 +375,7 @@ describe('Browser: ImageWriter', function() {
           sourceChecksum: '1234'
         });
 
-        $timeout.flush();
-
-        m.chai.expect(ImageWriterService.state).to.deep.equal({
+        m.chai.expect(ImageWriterService.getFlashState()).to.deep.equal({
           percentage: 0,
           speed: 0
         });
