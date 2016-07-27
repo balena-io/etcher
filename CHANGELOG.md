@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.0.0-beta.12 - 2016-07-26
+
+### Features
+
+- Support rich image extensions.
+- Add support for `raw` images.
+- Display a nice alert ribbon if drive runs out of space.
+- Validate the existence of the passed drive.
+- Add an "unsafe" option to bypass drive protection.
+
+### Fixes
+
+- Escape quotes from image paths to prevent Bash errors on GNU/Linux and OS X.
+- Check if drive is large enough using the final uncompressed size of the image.
+
+### Misc
+
+- Upgrade `drivelist` to v3.2.4.
+
 ## v1.0.0-beta.11 - 2016-07-17
 
 ### Features
