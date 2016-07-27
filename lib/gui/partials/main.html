@@ -84,19 +84,19 @@
 
       <div class="space-vertical-large">
         <progress-button class="btn-brick"
-          percentage="app.writer.state.percentage"
-          striped="{{ app.writer.state.type == 'check' }}"
+          percentage="app.writer.getFlashState().percentage"
+          striped="{{ app.writer.getFlashState().type == 'check' }}"
           ng-attr-active="{{ app.writer.isFlashing() }}"
           ng-show="app.wasLastFlashSuccessful()"
           ng-click="app.flash(app.selection.getImagePath(), app.selection.getDrive())"
           ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">
-            <span ng-show="app.writer.state.percentage == 100 && app.writer.isFlashing()">Finishing...</span>
-            <span ng-show="app.writer.state.percentage == 0 && !app.writer.isFlashing()">Flash!</span>
-            <span ng-show="app.writer.state.percentage == 0 && app.writer.isFlashing() && !app.writer.state.speed">Starting...</span>
-            <span ng-show="app.writer.state.speed && app.writer.state.percentage != 100 && app.writer.state.type != 'check'"
-              ng-bind="app.writer.state.percentage + '% '"></span>
-            <span ng-show="app.writer.state.speed && app.writer.state.percentage != 100 && app.writer.state.type == 'check'"
-              ng-bind="app.writer.state.percentage + '% Validating...'"></span>
+            <span ng-show="app.writer.getFlashState().percentage == 100 && app.writer.isFlashing()">Finishing...</span>
+            <span ng-show="app.writer.getFlashState().percentage == 0 && !app.writer.isFlashing()">Flash!</span>
+            <span ng-show="app.writer.getFlashState().percentage == 0 && app.writer.isFlashing() && !app.writer.getFlashState().speed">Starting...</span>
+            <span ng-show="app.writer.getFlashState().speed && app.writer.getFlashState().percentage != 100 && app.writer.getFlashState().type != 'check'"
+              ng-bind="app.writer.getFlashState().percentage + '% '"></span>
+            <span ng-show="app.writer.getFlashState().speed && app.writer.getFlashState().percentage != 100 && app.writer.getFlashState().type == 'check'"
+              ng-bind="app.writer.getFlashState().percentage + '% Validating...'"></span>
         </progress-button>
 
         <div class="alert-ribbon alert-warning" ng-class="{ 'alert-ribbon--open': !app.wasLastFlashSuccessful() }">
@@ -116,9 +116,9 @@
           <span class="glyphicon glyphicon-repeat"></span> Retry
         </button>
 
-        <p class="step-footer step-footer-split" ng-show="app.writer.state.speed && app.writer.state.percentage != 100">
-          <span>ETA: {{ app.writer.state.eta | secondsToDate | amDateFormat:'m[m]ss[s]' }}</span>
-          <span ng-bind="app.writer.state.speed.toFixed(2) + ' MB/s'"></span>
+        <p class="step-footer step-footer-split" ng-show="app.writer.getFlashState().speed && app.writer.getFlashState().percentage != 100">
+          <span>ETA: {{ app.writer.getFlashState().eta | secondsToDate | amDateFormat:'m[m]ss[s]' }}</span>
+          <span ng-bind="app.writer.getFlashState().speed.toFixed(2) + ' MB/s'"></span>
         </p>
       </div>
     </div>
