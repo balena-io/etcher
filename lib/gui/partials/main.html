@@ -61,7 +61,9 @@
 
         </div>
         <div ng-show="app.selection.hasDrive()">
-          <div>{{ app.selection.getDrive().name }} - {{ app.selection.getDrive().size | gigabyte | number:1 }} GB</div>
+          <div ng-class="{
+            soft: !app.selection.hasImage()
+          }">{{ app.selection.getDrive().name }} - {{ app.selection.getDrive().size | gigabyte | number:1 }} GB</div>
           <button class="btn btn-link step-footer"
             ng-click="app.reselectDrive()"
             ng-hide="app.writer.isFlashing()">Change</button>

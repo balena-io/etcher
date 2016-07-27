@@ -6596,6 +6596,9 @@ body {
 .relative {
   position: relative; }
 
+.soft {
+  color: #787c7f; }
+
 .section-footer {
   display: flex;
   align-items: center;

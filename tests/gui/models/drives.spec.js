@@ -85,7 +85,7 @@ describe('Browser: DrivesModel', function() {
             SelectionStateModel.removeImage();
           });
 
-          it('should not auto-select a single valid available drive', function() {
+          it('should auto-select a single valid available drive', function() {
             m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
 
             DrivesModel.setDrives([
@@ -99,7 +99,8 @@ describe('Browser: DrivesModel', function() {
               }
             ]);
 
-            m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+            m.chai.expect(SelectionStateModel.hasDrive()).to.be.true;
+            m.chai.expect(SelectionStateModel.getDrive().device).to.equal('/dev/sdb');
           });
 
         });
@@ -253,9 +254,21 @@ describe('Browser: DrivesModel', function() {
           SelectionStateModel.removeDrive();
         });
 
-        it('should be deleted if its not contain in the available drives anymore', function() {
+        it('should be deleted if its not contained in the available drives anymore', function() {
           m.chai.expect(SelectionStateModel.hasDrive()).to.be.true;
+
+          // We have to provide at least two drives, otherwise,
+          // if we only provide one, the single drive will be
+          // auto-selected.
           DrivesModel.setDrives([
+            {
+              device: '/dev/sda',
+              name: 'USB Drive',
+              size: 9999999,
+              mountpoint: '/mnt/bar',
+              system: false,
+              protected: false
+            },
             {
               device: '/dev/sdb',
               name: 'SD Card',
@@ -265,6 +278,7 @@ describe('Browser: DrivesModel', function() {
               protected: false
             }
           ]);
+
           m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
         });
 
