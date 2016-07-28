@@ -87,7 +87,7 @@
           percentage="main.state.getFlashState().percentage"
           striped="{{ main.state.getFlashState().type == 'check' }}"
           ng-attr-active="{{ main.state.isFlashing() }}"
-          ng-show="main.wasLastFlashSuccessful()"
+          ng-show="main.state.wasLastFlashSuccessful()"
           ng-click="main.flash(main.selection.getImagePath(), main.selection.getDrive())"
           ng-disabled="!main.selection.hasImage() || !main.selection.hasDrive()">
             <span ng-show="main.state.getFlashState().percentage == 100 && main.state.isFlashing()">Finishing...</span>
@@ -99,20 +99,20 @@
               ng-bind="main.state.getFlashState().percentage + '% Validating...'"></span>
         </progress-button>
 
-        <div class="alert-ribbon alert-warning" ng-class="{ 'alert-ribbon--open': !main.wasLastFlashSuccessful() }">
+        <div class="alert-ribbon alert-warning" ng-class="{ 'alert-ribbon--open': !main.state.wasLastFlashSuccessful() }">
           <span class="glyphicon glyphicon-warning-sign"></span>
-          <span ng-show="main.state.getFlashResults().errorCode === 'ENOSPC'">
+          <span ng-show="main.state.getLastFlashErrorCode() === 'ENOSPC'">
             Not enough space on the drive.<br>Please insert larger one and <button class="btn btn-link" ng-click="main.restartAfterFailure()">try again</button>
           </span>
-          <span ng-show="main.state.getFlashResults().errorCode !== 'ENOSPC' && main.settings.get('validateWriteOnSuccess')">
+          <span ng-show="main.state.getLastFlashErrorCode() !== 'ENOSPC' && main.settings.get('validateWriteOnSuccess')">
             Your removable drive may be corrupted.<br>Try inserting a different one and <button class="btn btn-link" ng-click="main.restartAfterFailure()">press "retry"</button>
           </span>
-          <span ng-show="main.state.getFlashResults().errorCode !== 'ENOSPC' && !main.settings.get('validateWriteOnSuccess')">
+          <span ng-show="main.state.getLastFlashErrorCode() !== 'ENOSPC' && !main.settings.get('validateWriteOnSuccess')">
             Oops, seems something went wrong. Click <button class="btn btn-link" ng-click="main.restartAfterFailure()">here</button> to retry
           </span>
         </div>
 
-        <button class="btn btn-warning btn-brick" ng-hide="main.wasLastFlashSuccessful()" ng-click="main.restartAfterFailure()">
+        <button class="btn btn-warning btn-brick" ng-hide="main.state.wasLastFlashSuccessful()" ng-click="main.restartAfterFailure()">
           <span class="glyphicon glyphicon-repeat"></span> Retry
         </button>
 
