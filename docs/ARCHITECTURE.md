@@ -91,7 +91,7 @@ straightforward interfaces as AngularJS modules, and provide a single place
 where all the modules are tied together.
 
 Therefore, if you want to get a rough idea of how the GUI works, the perfect
-place to start is [application controller][appcontroller] and the [main
+place to start is [main controller][maincontroller] and the [main
 view][mainview], and diving into specific modules depending on your interests.
 
 Summary
@@ -106,8 +106,8 @@ be documented instead!
 [lego-blocks]: https://github.com/sindresorhus/ama/issues/10#issuecomment-117766328
 [etcher-image-write]: https://github.com/resin-io-modules/etcher-image-write
 [exit-codes]: https://github.com/resin-io/etcher/blob/master/lib/src/exit-codes.js
-[appcontroller]: https://github.com/resin-io/etcher/blob/master/lib/gui/app.js
-[mainview]: https://github.com/resin-io/etcher/blob/master/lib/gui/partials/main.html
+[maincontroller]: https://github.com/resin-io/etcher/blob/master/lib/gui/pages/main/controllers/main.js
+[mainview]: https://github.com/resin-io/etcher/blob/master/lib/gui/pages/main/templates/main.tpl.html
 [cli-dir]: https://github.com/resin-io/etcher/tree/master/lib/cli
 [gui-dir]: https://github.com/resin-io/etcher/tree/master/lib/gui
 
