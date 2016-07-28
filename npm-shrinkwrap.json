@@ -1366,9 +1366,9 @@
       }
     },
     "etcher-image-write": {
-      "version": "6.0.0",
-      "from": "etcher-image-write@6.0.0",
-      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-6.0.0.tgz",
+      "version": "6.0.1",
+      "from": "etcher-image-write@6.0.1",
+      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-6.0.1.tgz",
       "dependencies": {
         "isarray": {
           "version": "1.0.0",
@@ -1739,28 +1739,6 @@
       "version": "0.1.0",
       "from": "fs-extra-p@>=0.1.0 <0.2.0",
       "resolved": "https://registry.npmjs.org/fs-extra-p/-/fs-extra-p-0.1.0.tgz"
-    },
-    "fs-plus": {
-      "version": "2.9.1",
-      "from": "fs-plus@>=2.4.0 <3.0.0",
-      "resolved": "https://registry.npmjs.org/fs-plus/-/fs-plus-2.9.1.tgz",
-      "dependencies": {
-        "async": {
-          "version": "0.2.10",
-          "from": "async@>=0.2.9 <0.3.0",
-          "resolved": "https://registry.npmjs.org/async/-/async-0.2.10.tgz"
-        },
-        "mkdirp": {
-          "version": "0.3.5",
-          "from": "mkdirp@>=0.3.5 <0.4.0",
-          "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.3.5.tgz"
-        },
-        "rimraf": {
-          "version": "2.2.8",
-          "from": "rimraf@>=2.2.2 <2.3.0",
-          "resolved": "https://registry.npmjs.org/rimraf/-/rimraf-2.2.8.tgz"
-        }
-      }
     },
     "fs-temp": {
       "version": "1.1.0",
@@ -4441,9 +4419,9 @@
       "resolved": "https://registry.npmjs.org/slice-ansi/-/slice-ansi-0.0.4.tgz"
     },
     "slice-stream2": {
-      "version": "2.0.0",
+      "version": "2.0.1",
       "from": "slice-stream2@>=2.0.0 <3.0.0",
-      "resolved": "https://registry.npmjs.org/slice-stream2/-/slice-stream2-2.0.0.tgz",
+      "resolved": "https://registry.npmjs.org/slice-stream2/-/slice-stream2-2.0.1.tgz",
       "dependencies": {
         "isarray": {
           "version": "1.0.0",
@@ -5065,18 +5043,6 @@
       "version": "1.7.0",
       "from": "underscore@>=1.7.0 <1.8.0",
       "resolved": "https://registry.npmjs.org/underscore/-/underscore-1.7.0.tgz"
-    },
-    "underscore-plus": {
-      "version": "1.6.6",
-      "from": "underscore-plus@>=1.0.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/underscore-plus/-/underscore-plus-1.6.6.tgz",
-      "dependencies": {
-        "underscore": {
-          "version": "1.6.0",
-          "from": "underscore@>=1.6.0 <1.7.0",
-          "resolved": "https://registry.npmjs.org/underscore/-/underscore-1.6.0.tgz"
-        }
-      }
     },
     "underscore.string": {
       "version": "3.3.4",
