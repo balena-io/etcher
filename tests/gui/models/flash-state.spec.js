@@ -256,7 +256,7 @@ describe('Browser: FlashStateModel', function() {
       it('should throw if errorCode is defined but it is not a number', function() {
         m.chai.expect(function() {
           FlashStateModel.unsetFlashingFlag({
-            passedValidation: true,
+            passedValidation: false,
             cancelled: false,
             sourceChecksum: '1234',
             errorCode: 123
@@ -264,13 +264,19 @@ describe('Browser: FlashStateModel', function() {
         }).to.throw('Invalid results errorCode: 123');
       });
 
-      it('should throw if no passedValidation', function() {
-        m.chai.expect(function() {
-          FlashStateModel.unsetFlashingFlag({
-            cancelled: false,
-            sourceChecksum: '1234'
-          });
-        }).to.throw('Missing results passedValidation');
+      it('should default passedValidation to false', function() {
+        FlashStateModel.unsetFlashingFlag({
+          cancelled: false,
+          sourceChecksum: '1234'
+        });
+
+        const flashResults = FlashStateModel.getFlashResults();
+
+        m.chai.expect(flashResults).to.deep.equal({
+          passedValidation: false,
+          cancelled: false,
+          sourceChecksum: '1234'
+        });
       });
 
       it('should throw if passedValidation is not boolean', function() {
@@ -283,13 +289,19 @@ describe('Browser: FlashStateModel', function() {
         }).to.throw('Invalid results passedValidation: true');
       });
 
-      it('should throw if no cancelled', function() {
-        m.chai.expect(function() {
-          FlashStateModel.unsetFlashingFlag({
-            passedValidation: true,
-            sourceChecksum: '1234'
-          });
-        }).to.throw('Missing results cancelled');
+      it('should default cancelled to false', function() {
+        FlashStateModel.unsetFlashingFlag({
+          passedValidation: true,
+          sourceChecksum: '1234'
+        });
+
+        const flashResults = FlashStateModel.getFlashResults();
+
+        m.chai.expect(flashResults).to.deep.equal({
+          passedValidation: true,
+          cancelled: false,
+          sourceChecksum: '1234'
+        });
       });
 
       it('should throw if cancelled is not boolean', function() {
@@ -329,6 +341,17 @@ describe('Browser: FlashStateModel', function() {
             sourceChecksum: '1234'
           });
         }).to.throw('The sourceChecksum value can\'t exist if the flashing was cancelled');
+      });
+
+      it('should throw if passedValidation is true and errorCode is set', function() {
+        m.chai.expect(function() {
+          FlashStateModel.unsetFlashingFlag({
+            passedValidation: true,
+            cancelled: false,
+            sourceChecksum: '1234',
+            errorCode: 'ENOSPC'
+          });
+        }).to.throw('The errorCode value can\'t be set if the flashing passed validation');
       });
 
       it('should throw if cancelled is true and passedValidation is true', function() {
@@ -398,6 +421,140 @@ describe('Browser: FlashStateModel', function() {
         m.chai.expect(results).to.deep.equal(expectedResults);
         FlashStateModel.setFlashingFlag();
         m.chai.expect(FlashStateModel.getFlashResults()).to.deep.equal({});
+      });
+
+    });
+
+    describe('.wasLastFlashSuccessful()', function() {
+
+      it('should return true given a pristine state', function() {
+        FlashStateModel.resetState();
+        m.chai.expect(FlashStateModel.wasLastFlashSuccessful()).to.be.true;
+      });
+
+      it('should return false if !cancelled && !passedValidation', function() {
+        FlashStateModel.unsetFlashingFlag({
+          sourceChecksum: '1234',
+          cancelled: false,
+          passedValidation: false
+        });
+
+        m.chai.expect(FlashStateModel.wasLastFlashSuccessful()).to.be.false;
+      });
+
+      it('should return true if !cancelled && passedValidation', function() {
+        FlashStateModel.unsetFlashingFlag({
+          sourceChecksum: '1234',
+          cancelled: false,
+          passedValidation: true
+        });
+
+        m.chai.expect(FlashStateModel.wasLastFlashSuccessful()).to.be.true;
+      });
+
+      it('should return true if cancelled && !passedValidation', function() {
+        FlashStateModel.unsetFlashingFlag({
+          cancelled: true,
+          passedValidation: false
+        });
+
+        m.chai.expect(FlashStateModel.wasLastFlashSuccessful()).to.be.true;
+      });
+
+    });
+
+    describe('.wasLastFlashCancelled()', function() {
+
+      it('should return false given a pristine state', function() {
+        FlashStateModel.resetState();
+        m.chai.expect(FlashStateModel.wasLastFlashCancelled()).to.be.false;
+      });
+
+      it('should return false if !cancelled && !passedValidation', function() {
+        FlashStateModel.unsetFlashingFlag({
+          sourceChecksum: '1234',
+          cancelled: false,
+          passedValidation: false
+        });
+
+        m.chai.expect(FlashStateModel.wasLastFlashCancelled()).to.be.false;
+      });
+
+      it('should return false if !cancelled && passedValidation', function() {
+        FlashStateModel.unsetFlashingFlag({
+          sourceChecksum: '1234',
+          cancelled: false,
+          passedValidation: true
+        });
+
+        m.chai.expect(FlashStateModel.wasLastFlashCancelled()).to.be.false;
+      });
+
+      it('should return true if cancelled && !passedValidation', function() {
+        FlashStateModel.unsetFlashingFlag({
+          cancelled: true,
+          passedValidation: false
+        });
+
+        m.chai.expect(FlashStateModel.wasLastFlashCancelled()).to.be.true;
+      });
+
+    });
+
+    describe('.getLastFlashSourceChecksum()', function() {
+
+      it('should return undefined given a pristine state', function() {
+        FlashStateModel.resetState();
+        m.chai.expect(FlashStateModel.getLastFlashSourceChecksum()).to.be.undefined;
+      });
+
+      it('should return the last flash source checksum', function() {
+        FlashStateModel.unsetFlashingFlag({
+          sourceChecksum: '1234',
+          cancelled: false,
+          passedValidation: true
+        });
+
+        m.chai.expect(FlashStateModel.getLastFlashSourceChecksum()).to.equal('1234');
+      });
+
+      it('should return undefined if the last flash was cancelled', function() {
+        FlashStateModel.unsetFlashingFlag({
+          cancelled: true,
+          passedValidation: false
+        });
+
+        m.chai.expect(FlashStateModel.getLastFlashSourceChecksum()).to.be.undefined;
+      });
+
+    });
+
+    describe('.getLastFlashErrorCode()', function() {
+
+      it('should return undefined given a pristine state', function() {
+        FlashStateModel.resetState();
+        m.chai.expect(FlashStateModel.getLastFlashErrorCode()).to.be.undefined;
+      });
+
+      it('should return the last flash error code', function() {
+        FlashStateModel.unsetFlashingFlag({
+          sourceChecksum: '1234',
+          cancelled: false,
+          passedValidation: false,
+          errorCode: 'ENOSPC'
+        });
+
+        m.chai.expect(FlashStateModel.getLastFlashErrorCode()).to.equal('ENOSPC');
+      });
+
+      it('should return undefined if the last flash did not report an error code', function() {
+        FlashStateModel.unsetFlashingFlag({
+          sourceChecksum: '1234',
+          cancelled: false,
+          passedValidation: true
+        });
+
+        m.chai.expect(FlashStateModel.getLastFlashErrorCode()).to.be.undefined;
       });
 
     });
