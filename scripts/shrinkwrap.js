@@ -19,7 +19,8 @@ const _ = require('lodash');
 const path = require('path');
 const jsonfile = require('jsonfile');
 const childProcess = require('child_process');
-const shrinkwrapIgnore = require('../package.json').shrinkwrapIgnore;
+const packageJSON = require('../package.json');
+const shrinkwrapIgnore = _.union(packageJSON.shrinkwrapIgnore, _.keys(packageJSON.optionalDependencies));
 const SHRINKWRAP_PATH = path.join(__dirname, '..', 'npm-shrinkwrap.json');
 
 try {
