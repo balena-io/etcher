@@ -253,15 +253,39 @@ describe('Browser: FlashStateModel', function() {
         }).to.throw('Missing results');
       });
 
-      it('should throw if errorCode is defined but it is not a number', function() {
+      it('should be able to set a string error code', function() {
+        FlashStateModel.unsetFlashingFlag({
+          passedValidation: false,
+          cancelled: false,
+          sourceChecksum: '1234',
+          errorCode: 'EBUSY'
+        });
+
+        m.chai.expect(FlashStateModel.getLastFlashErrorCode()).to.equal('EBUSY');
+      });
+
+      it('should be able to set a number error code', function() {
+        FlashStateModel.unsetFlashingFlag({
+          passedValidation: false,
+          cancelled: false,
+          sourceChecksum: '1234',
+          errorCode: 123
+        });
+
+        m.chai.expect(FlashStateModel.getLastFlashErrorCode()).to.equal(123);
+      });
+
+      it('should throw if errorCode is not a number not a string', function() {
         m.chai.expect(function() {
           FlashStateModel.unsetFlashingFlag({
             passedValidation: false,
             cancelled: false,
             sourceChecksum: '1234',
-            errorCode: 123
+            errorCode: {
+              name: 'EBUSY'
+            }
           });
-        }).to.throw('Invalid results errorCode: 123');
+        }).to.throw('Invalid results errorCode: [object Object]');
       });
 
       it('should default passedValidation to false', function() {
