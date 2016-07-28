@@ -559,6 +559,28 @@ describe('Browser: SelectionState', function() {
           }).to.throw('Invalid image logo: 1234');
         });
 
+        it('should de-select a previously selected not-large-enough drive', function() {
+          DrivesModel.setDrives([
+            {
+              device: '/dev/disk1',
+              name: 'USB Drive',
+              size: 999999999,
+              protected: false
+            }
+          ]);
+
+          SelectionStateModel.setDrive('/dev/disk1');
+          m.chai.expect(SelectionStateModel.hasDrive()).to.be.true;
+
+          SelectionStateModel.setImage({
+            path: 'foo.img',
+            size: 9999999999
+          });
+
+          m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+          SelectionStateModel.removeImage();
+        });
+
       });
 
     });
