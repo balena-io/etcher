@@ -27,7 +27,7 @@
 
           <button class="btn btn-link step-footer"
             ng-click="app.reselectImage()"
-            ng-hide="app.writer.isFlashing()">Change</button>
+            ng-hide="app.state.isFlashing()">Change</button>
         </div>
       </div>
     </div>
@@ -66,7 +66,7 @@
           }">{{ app.selection.getDrive().name }} - {{ app.selection.getDrive().size | gigabyte | number:1 }} GB</div>
           <button class="btn btn-link step-footer"
             ng-click="app.reselectDrive()"
-            ng-hide="app.writer.isFlashing()">Change</button>
+            ng-hide="app.state.isFlashing()">Change</button>
         </div>
       </div>
     </div>
@@ -84,30 +84,30 @@
 
       <div class="space-vertical-large">
         <progress-button class="btn-brick"
-          percentage="app.writer.getFlashState().percentage"
-          striped="{{ app.writer.getFlashState().type == 'check' }}"
-          ng-attr-active="{{ app.writer.isFlashing() }}"
+          percentage="app.state.getFlashState().percentage"
+          striped="{{ app.state.getFlashState().type == 'check' }}"
+          ng-attr-active="{{ app.state.isFlashing() }}"
           ng-show="app.wasLastFlashSuccessful()"
           ng-click="app.flash(app.selection.getImagePath(), app.selection.getDrive())"
           ng-disabled="!app.selection.hasImage() || !app.selection.hasDrive()">
-            <span ng-show="app.writer.getFlashState().percentage == 100 && app.writer.isFlashing()">Finishing...</span>
-            <span ng-show="app.writer.getFlashState().percentage == 0 && !app.writer.isFlashing()">Flash!</span>
-            <span ng-show="app.writer.getFlashState().percentage == 0 && app.writer.isFlashing() && !app.writer.getFlashState().speed">Starting...</span>
-            <span ng-show="app.writer.getFlashState().speed && app.writer.getFlashState().percentage != 100 && app.writer.getFlashState().type != 'check'"
-              ng-bind="app.writer.getFlashState().percentage + '% '"></span>
-            <span ng-show="app.writer.getFlashState().speed && app.writer.getFlashState().percentage != 100 && app.writer.getFlashState().type == 'check'"
-              ng-bind="app.writer.getFlashState().percentage + '% Validating...'"></span>
+            <span ng-show="app.state.getFlashState().percentage == 100 && app.state.isFlashing()">Finishing...</span>
+            <span ng-show="app.state.getFlashState().percentage == 0 && !app.state.isFlashing()">Flash!</span>
+            <span ng-show="app.state.getFlashState().percentage == 0 && app.state.isFlashing() && !app.state.getFlashState().speed">Starting...</span>
+            <span ng-show="app.state.getFlashState().speed && app.state.getFlashState().percentage != 100 && app.state.getFlashState().type != 'check'"
+              ng-bind="app.state.getFlashState().percentage + '% '"></span>
+            <span ng-show="app.state.getFlashState().speed && app.state.getFlashState().percentage != 100 && app.state.getFlashState().type == 'check'"
+              ng-bind="app.state.getFlashState().percentage + '% Validating...'"></span>
         </progress-button>
 
         <div class="alert-ribbon alert-warning" ng-class="{ 'alert-ribbon--open': !app.wasLastFlashSuccessful() }">
           <span class="glyphicon glyphicon-warning-sign"></span>
-          <span ng-show="app.writer.getFlashResults().errorCode === 'ENOSPC'">
+          <span ng-show="app.state.getFlashResults().errorCode === 'ENOSPC'">
             Not enough space on the drive.<br>Please insert larger one and <button class="btn btn-link" ng-click="app.restartAfterFailure()">try again</button>
           </span>
-          <span ng-show="app.writer.getFlashResults().errorCode !== 'ENOSPC' && app.settings.get('validateWriteOnSuccess')">
+          <span ng-show="app.state.getFlashResults().errorCode !== 'ENOSPC' && app.settings.get('validateWriteOnSuccess')">
             Your removable drive may be corrupted.<br>Try inserting a different one and <button class="btn btn-link" ng-click="app.restartAfterFailure()">press "retry"</button>
           </span>
-          <span ng-show="app.writer.getFlashResults().errorCode !== 'ENOSPC' && !app.settings.get('validateWriteOnSuccess')">
+          <span ng-show="app.state.getFlashResults().errorCode !== 'ENOSPC' && !app.settings.get('validateWriteOnSuccess')">
             Oops, seems something went wrong. Click <button class="btn btn-link" ng-click="app.restartAfterFailure()">here</button> to retry
           </span>
         </div>
@@ -116,9 +116,9 @@
           <span class="glyphicon glyphicon-repeat"></span> Retry
         </button>
 
-        <p class="step-footer step-footer-split" ng-show="app.writer.getFlashState().speed && app.writer.getFlashState().percentage != 100">
-          <span>ETA: {{ app.writer.getFlashState().eta | secondsToDate | amDateFormat:'m[m]ss[s]' }}</span>
-          <span ng-bind="app.writer.getFlashState().speed.toFixed(2) + ' MB/s'"></span>
+        <p class="step-footer step-footer-split" ng-show="app.state.getFlashState().speed && app.state.getFlashState().percentage != 100">
+          <span>ETA: {{ app.state.getFlashState().eta | secondsToDate | amDateFormat:'m[m]ss[s]' }}</span>
+          <span ng-bind="app.state.getFlashState().speed.toFixed(2) + ' MB/s'"></span>
         </p>
       </div>
     </div>
