@@ -4,15 +4,21 @@
 </div>
 
 <div class="component-drive-selector-body modal-body">
-  <select class="list-group">
-    <option class="list-group-item" ng-repeat="release in modal.kios.getReleases() track by release.name">
-            {{ release.name }}
-    </option>
-  </select>
+  <select id="releases" class="list-group"
+    ng-model="release"
+    ng-change="modal.showDevices(release)"
+    ng-options="release.name for release in modal.kios.getReleases() track by release.name"
+  ></select>
+
+  <select id="devices" class="list-group"
+    ng-model="device"
+    ng-change="modal.state.setDownload(device)"
+    ng-options="device.name for device in modal.getDevices() track by device.name"
+    ></select>
 </div>
 
 <div class="modal-footer">
   <button class="btn btn-primary btn-block"
     ng-click="modal.closeModal()"
-    ng-disabled="!modal.state.hasDrive()">CONTINUE</button>
+    ng-disabled="!modal.state.hasDownload()">CONTINUE</button>
 </div>
