@@ -90,13 +90,7 @@
           ng-show="main.state.wasLastFlashSuccessful()"
           ng-click="main.flash(main.selection.getImagePath(), main.selection.getDrive())"
           ng-disabled="!main.selection.hasImage() || !main.selection.hasDrive()">
-            <span ng-show="main.state.getFlashState().percentage == 100 && main.state.isFlashing()">Finishing...</span>
-            <span ng-show="main.state.getFlashState().percentage == 0 && !main.state.isFlashing()">Flash!</span>
-            <span ng-show="main.state.getFlashState().percentage == 0 && main.state.isFlashing() && !main.state.getFlashState().speed">Starting...</span>
-            <span ng-show="main.state.getFlashState().speed && main.state.getFlashState().percentage != 100 && main.state.getFlashState().type != 'check'"
-              ng-bind="main.state.getFlashState().percentage + '% '"></span>
-            <span ng-show="main.state.getFlashState().speed && main.state.getFlashState().percentage != 100 && main.state.getFlashState().type == 'check'"
-              ng-bind="main.state.getFlashState().percentage + '% Validating...'"></span>
+            <span ng-bind="main.getProgressButtonLabel()"></span>
         </progress-button>
 
         <div class="alert-ribbon alert-warning" ng-class="{ 'alert-ribbon--open': !main.state.wasLastFlashSuccessful() }">
