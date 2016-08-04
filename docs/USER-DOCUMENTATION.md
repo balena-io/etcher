@@ -47,4 +47,22 @@ Refer to [the following message from Ubuntu's mailing
 list](https://lists.ubuntu.com/archives/ubuntu-devel/2011-June/033495.html) if
 you want to learn more.
 
+Running on Wayland
+------------------
+
+Electron is based on Gtk2, which can't run natively on Wayland. Fortunately,
+the [XWayland Server][xwayland] provides backwards compatibility to run *any* X
+client on Wayland, including Etcher.
+
+This usually works out of the box on mainstream GNU/Linux distributions that
+properly support Wayland. If it doesn't, make sure the `xwayland.so` module is
+being loaded by declaring it in your [weston.ini]:
+
+```
+[core]
+modules=xwayland.so
+```
+
 [appimage]: http://appimage.org
+[xwayland]: https://wayland.freedesktop.org/xserver.html
+[weston.ini]: http://manpages.ubuntu.com/manpages/wily/man5/weston.ini.5.html
