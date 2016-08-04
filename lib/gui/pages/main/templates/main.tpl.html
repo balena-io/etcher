@@ -1,22 +1,22 @@
 <div class="row around-xs">
-  <div class="col-xs">
-    <div class="box text-center" os-dropzone="main.selectImage($file)">
+  <div class="col-xs" ng-controller="ImageSelectionController as image">
+    <div class="box text-center" os-dropzone="image.selectImage($file)">
       <svg-icon class="center-block" path="{{ main.selection.getImageLogo() || '../../../assets/image.svg' }}"></svg-icon>
       <span class="icon-caption">SELECT IMAGE</span>
       <span class="badge space-top-medium">1</span>
 
       <div class="space-vertical-large">
         <div ng-hide="main.selection.hasImage()">
-          <button class="btn btn-primary btn-brick" ng-click="main.openImageSelector()">Select image</button>
+          <button class="btn btn-primary btn-brick" ng-click="image.openImageSelector()">Select image</button>
 
           <p class="step-footer">
-            {{ ::main.formats.getAllExtensions().slice(0, 3).join(', ') }}, and
+            {{ ::image.mainSupportedExtensions.join(', ') }}, and
             <span class="step-footer-underline"
-              uib-tooltip="{{ main.formats.getAllExtensions().slice(3).join(', ') }}">many more</span>
+              uib-tooltip="{{ image.extraSupportedExtensions.join(', ') }}">many more</span>
           </p>
         </div>
         <div ng-if="main.selection.hasImage()">
-          <div ng-click="main.openImageUrl()"
+          <div ng-click="main.external.open(main.selection.getImageUrl())"
             ng-bind="main.selection.getImageName() || main.selection.getImagePath() | basename | middleEllipses:25"></div>
 
           <button class="btn btn-link step-tooltip"
@@ -26,61 +26,61 @@
             })">SHOW IN FULL</button>
 
           <button class="btn btn-link step-footer"
-            ng-click="main.reselectImage()"
+            ng-click="image.reselectImage()"
             ng-hide="main.state.isFlashing()">Change</button>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="col-xs">
+  <div class="col-xs" ng-controller="DriveSelectionController as drive">
     <div class="box text-center relative">
-      <div class="step-border-left" ng-disabled="!main.selection.hasImage()"></div>
-      <div class="step-border-right" ng-disabled="!main.selection.hasImage() || !main.selection.hasDrive()"></div>
+      <div class="step-border-left" ng-disabled="main.shouldDriveStepBeDisabled()"></div>
+      <div class="step-border-right" ng-disabled="main.shouldFlashStateBeDisabled()"></div>
 
       <svg-icon class="center-block"
         path="../../../assets/drive.svg"
-        ng-disabled="!main.selection.hasImage()"></svg-icon>
+        ng-disabled="main.shouldDriveStepBeDisabled()"></svg-icon>
       <span class="icon-caption"
-        ng-disabled="!main.selection.hasImage()">SELECT DRIVE</span>
+        ng-disabled="main.shouldDriveStepBeDisabled()">SELECT DRIVE</span>
 
-      <span class="badge space-top-medium" ng-disabled="!main.selection.hasImage()">2</span>
+      <span class="badge space-top-medium" ng-disabled="main.shouldDriveStepBeDisabled()">2</span>
 
       <div class="space-vertical-large">
         <div ng-hide="main.selection.hasDrive()">
 
-          <div ng-show="main.drives.hasAvailableDrives() || !main.selection.hasImage()">
+          <div ng-show="main.drives.hasAvailableDrives() || main.shouldDriveStepBeDisabled()">
             <button class="btn btn-primary btn-brick"
-              ng-disabled="!main.selection.hasImage()"
-              ng-click="main.openDriveSelector()">Select drive</button>
+              ng-disabled="main.shouldDriveStepBeDisabled()"
+              ng-click="drive.openDriveSelector()">Select drive</button>
           </div>
 
-          <div ng-hide="main.drives.hasAvailableDrives() || !main.selection.hasImage()">
+          <div ng-hide="main.drives.hasAvailableDrives() || main.shouldDriveStepBeDisabled()">
             <button class="btn btn-danger btn-brick">Connect a drive</button>
           </div>
 
         </div>
         <div ng-show="main.selection.hasDrive()">
           <div ng-class="{
-            soft: !main.selection.hasImage()
+            soft: main.shouldDriveStepBeDisabled()
           }">{{ main.selection.getDrive().name }} - {{ main.selection.getDrive().size | gigabyte | number:1 }} GB</div>
           <button class="btn btn-link step-footer"
-            ng-click="main.reselectDrive()"
+            ng-click="drive.reselectDrive()"
             ng-hide="main.state.isFlashing()">Change</button>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="col-xs">
+  <div class="col-xs" ng-controller="FlashController as flash">
     <div class="box text-center">
       <svg-icon class="center-block"
         path="../../../assets/flash.svg"
-        ng-disabled="!main.selection.hasImage() || !main.selection.hasDrive()"></svg-icon>
+        ng-disabled="main.shouldFlashStateBeDisabled()"></svg-icon>
       <span class="icon-caption"
-        ng-disabled="!main.selection.hasImage() || !main.selection.hasDrive()">FLASH IMAGE</span>
+        ng-disabled="main.shouldFlashStateBeDisabled()">FLASH IMAGE</span>
 
-      <span class="badge space-top-medium" ng-disabled="!main.selection.hasImage() || !main.selection.hasDrive()">3</span>
+      <span class="badge space-top-medium" ng-disabled="main.shouldFlashStateBeDisabled()">3</span>
 
       <div class="space-vertical-large">
         <progress-button class="btn-brick"
@@ -88,9 +88,9 @@
           striped="{{ main.state.getFlashState().type == 'check' }}"
           ng-attr-active="{{ main.state.isFlashing() }}"
           ng-show="main.state.wasLastFlashSuccessful()"
-          ng-click="main.flash(main.selection.getImagePath(), main.selection.getDrive())"
-          ng-disabled="!main.selection.hasImage() || !main.selection.hasDrive()">
-            <span ng-bind="main.getProgressButtonLabel()"></span>
+          ng-click="flash.flashImageToDrive(main.selection.getImagePath(), main.selection.getDrive())"
+          ng-disabled="main.shouldFlashStateBeDisabled()">
+            <span ng-bind="flash.getProgressButtonLabel()"></span>
         </progress-button>
 
         <div class="alert-ribbon alert-warning" ng-class="{ 'alert-ribbon--open': !main.state.wasLastFlashSuccessful() }">
