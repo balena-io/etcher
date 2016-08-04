@@ -52,6 +52,15 @@ describe('Browser: OSOpenExternal', function() {
       shellExternalStub.restore();
     });
 
+    it('should not call Electron shell.openExternal if the attribute value is not defined', function() {
+      const shellExternalStub = m.sinon.stub(electron.shell, 'openExternal');
+      const element = $compile('<span os-open-external>Resin.io</span>')($rootScope);
+      element.triggerHandler('click');
+      $rootScope.$digest();
+      m.chai.expect(shellExternalStub).to.not.have.been.called;
+      shellExternalStub.restore();
+    });
+
   });
 
 });
