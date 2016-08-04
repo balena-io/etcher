@@ -1,7 +1,7 @@
 Etcher User Documentation
 =========================
 
-This document contains application documented oriented to Etcher users.
+This document contains how-tos and FAQs oriented to Etcher users.
 
 Deactivate desktop shortcut prompt on GNU/Linux
 -----------------------------------------------
