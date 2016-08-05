@@ -80,20 +80,6 @@ contains certain features to ease communication:
 - A `--robot` option, which causes the Etcher CLI to output state in a way that
 can be easily machine-parsed.
 
-GUI fifty-thousand foot view
-----------------------------
-
-Given the event oriented nature of desktop applications, it can be hard to
-follow what's going on without getting deep in the details.
-
-To mitigate this, we try to encapsulate functionality with nice and
-straightforward interfaces as AngularJS modules, and provide a single place
-where all the modules are tied together.
-
-Therefore, if you want to get a rough idea of how the GUI works, the perfect
-place to start is [main controller][maincontroller] and the [main
-view][mainview], and diving into specific modules depending on your interests.
-
 Summary
 -------
 
@@ -106,8 +92,6 @@ be documented instead!
 [lego-blocks]: https://github.com/sindresorhus/ama/issues/10#issuecomment-117766328
 [etcher-image-write]: https://github.com/resin-io-modules/etcher-image-write
 [exit-codes]: https://github.com/resin-io/etcher/blob/master/lib/src/exit-codes.js
-[maincontroller]: https://github.com/resin-io/etcher/blob/master/lib/gui/pages/main/controllers/main.js
-[mainview]: https://github.com/resin-io/etcher/blob/master/lib/gui/pages/main/templates/main.tpl.html
 [cli-dir]: https://github.com/resin-io/etcher/tree/master/lib/cli
 [gui-dir]: https://github.com/resin-io/etcher/tree/master/lib/gui
 
