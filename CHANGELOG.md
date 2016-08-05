@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.0.0-beta.13 - 2016-08-05
+
+### Features
+
+- Show "Unmounting..." while unmounting a drive.
+- Perform drive auto-selection even when there is no selected image.
+
+### Fixes
+
+- Prevent selected drive from getting auto-removed when navigating back to the main screen from another screen.
+- Fix new available drives not being recognised automatically in Windows.
+- Fix application stuck at "Finishing".
+- Display an error if no graphical polkit authentication agent was found.
+- Only enable error reporting if running inside an `asar`.
+- Fix "backdrop click" uncaught errors on modals.
+
+### Misc
+
+- Fix internal removable drives considered system drives in macOS Sierra.
+- Upgrade `etcher-image-write` to v6.0.1.
+- Upgrade `removedrive` to v1.0.0.
+
 ## v1.0.0-beta.12 - 2016-07-26
 
 ### Features
