@@ -10,10 +10,10 @@
           <button class="btn btn-primary btn-brick" ng-click="app.openKiosSelector()">Select release</button>
         </div>
         <div ng-if="app.selection.hasDownload()">
-          <div ng-bind="app.selection.getImagePath() | basename | middleEllipses:25"></div>
+          <div ng-bind="app.selection.getDownloadPath() | basename | middleEllipses:25"></div>
 
           <button class="btn btn-link step-footer"
-            ng-click="app.reselectImage()"
+            ng-click="app.reselectKiOS()"
             ng-hide="app.writer.isFlashing()">Change</button>
         </div>
       </div>

@@ -1,0 +1,26 @@
+<div class="modal-header">
+  <h4 class="modal-title">SPECIFY NETWORK</h4>
+  <button class="close" ng-click="modal.closeModal()">&times;</button>
+</div>
+
+<div class="component-kios-selector-body modal-body">
+  <select id="releases" class="list-group"
+    ng-model="type"
+    ng-change="modal.showNetworkType(release)"
+    ng-options="type.name for type in modal.kios.getNetworkTypes() track by type.name"
+  >
+    <option value="">Select a network type</option>
+  </select>
+
+  <select id="connections" class="list-group"
+    ng-model="connection"
+    ng-options="connection.ssid for connection in modal.kios.getConnections() track by connection.ssid">
+    <option value="">Select a connection</option>
+  </select>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-primary btn-block"
+    ng-click="modal.closeModal()"
+    ng-disabled="!modal.state.hasDownload()">NEXT</button>
+</div>

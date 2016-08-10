@@ -3,22 +3,26 @@
   <button class="close" ng-click="modal.closeModal()">&times;</button>
 </div>
 
-<div class="component-drive-selector-body modal-body">
+<div class="component-kios-selector-body modal-body">
   <select id="releases" class="list-group"
     ng-model="release"
     ng-change="modal.showDevices(release)"
-    ng-options="release.name for release in modal.kios.getReleases() track by release.name"
-  ></select>
+    ng-options="release.tag_name for release in modal.kios.getReleases() track by release.tag_name"
+  >
+    <option value="">Select a version</option>
+  </select>
 
   <select id="devices" class="list-group"
     ng-model="device"
     ng-change="modal.state.setDownload(device)"
     ng-options="device.name for device in modal.getDevices() track by device.name"
-    ></select>
+    >
+      <option value="">Select a board</option>
+    </select>
 </div>
 
 <div class="modal-footer">
   <button class="btn btn-primary btn-block"
-    ng-click="modal.closeModal()"
-    ng-disabled="!modal.state.hasDownload()">CONTINUE</button>
+    ng-click="modal.networkModal()"
+    ng-disabled="!modal.state.hasDownload()">NEXT</button>
 </div>

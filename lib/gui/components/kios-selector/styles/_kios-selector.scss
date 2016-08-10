@@ -14,10 +14,19 @@
  * limitations under the License.
  */
 
-.component-drive-selector-body .list-group-item-footer {
+.component-kios-selector-body select{
+	width: 100%;
+    margin: 20px 0 0 0;
+    padding: 11px;
+    -webkit-appearance: none;
+    border-color: #ddd;
+    outline: 0;
+}
+
+.component-kios-selector-body .list-group-item-footer {
   margin-top: 8px;
 }
 
-.component-drive-selector-body .list-group-item[disabled] .list-group-item-heading {
+.component-kios-selector-body .list-group-item[disabled] .list-group-item-heading {
   color: darken($gray-light, 20%);
 }
