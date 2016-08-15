@@ -795,6 +795,11 @@
       "from": "constants-browserify@>=1.0.0 <1.1.0",
       "resolved": "https://registry.npmjs.org/constants-browserify/-/constants-browserify-1.0.0.tgz"
     },
+    "conventional-commit-types": {
+      "version": "2.0.0",
+      "from": "conventional-commit-types@>=2.0.0 <3.0.0",
+      "resolved": "https://registry.npmjs.org/conventional-commit-types/-/conventional-commit-types-2.0.0.tgz"
+    },
     "convert-source-map": {
       "version": "1.1.3",
       "from": "convert-source-map@>=1.1.0 <1.2.0",
@@ -1354,9 +1359,9 @@
       "resolved": "https://registry.npmjs.org/esutils/-/esutils-2.0.2.tgz"
     },
     "etcher-image-stream": {
-      "version": "3.0.1",
-      "from": "etcher-image-stream@3.0.1",
-      "resolved": "https://registry.npmjs.org/etcher-image-stream/-/etcher-image-stream-3.0.1.tgz",
+      "version": "3.1.0",
+      "from": "etcher-image-stream@3.1.0",
+      "resolved": "https://registry.npmjs.org/etcher-image-stream/-/etcher-image-stream-3.1.0.tgz",
       "dependencies": {
         "yauzl": {
           "version": "2.6.0",
@@ -2661,6 +2666,11 @@
       "version": "4.1.4",
       "from": "lodash.keysin@>=4.0.0 <5.0.0",
       "resolved": "https://registry.npmjs.org/lodash.keysin/-/lodash.keysin-4.1.4.tgz"
+    },
+    "lodash.map": {
+      "version": "4.6.0",
+      "from": "lodash.map@>=4.5.1 <5.0.0",
+      "resolved": "https://registry.npmjs.org/lodash.map/-/lodash.map-4.6.0.tgz"
     },
     "lodash.memoize": {
       "version": "3.0.4",
@@ -4020,6 +4030,11 @@
       "from": "osenv@>=0.0.0 <1.0.0",
       "resolved": "https://registry.npmjs.org/osenv/-/osenv-0.1.3.tgz"
     },
+    "pad-right": {
+      "version": "0.2.2",
+      "from": "pad-right@>=0.2.2 <0.3.0",
+      "resolved": "https://registry.npmjs.org/pad-right/-/pad-right-0.2.2.tgz"
+    },
     "pako": {
       "version": "0.2.8",
       "from": "pako@>=0.2.0 <0.3.0",
@@ -4550,6 +4565,11 @@
       "version": "0.1.3",
       "from": "right-align@>=0.1.1 <0.2.0",
       "resolved": "https://registry.npmjs.org/right-align/-/right-align-0.1.3.tgz"
+    },
+    "right-pad": {
+      "version": "1.0.1",
+      "from": "right-pad@>=1.0.1 <2.0.0",
+      "resolved": "https://registry.npmjs.org/right-pad/-/right-pad-1.0.1.tgz"
     },
     "rimraf": {
       "version": "2.5.2",
