@@ -55,6 +55,10 @@ describe('Browser: SelectionState', function() {
         m.chai.expect(SelectionStateModel.getImageLogo()).to.be.undefined;
       });
 
+      it('getImageBmap() should return undefined', function() {
+        m.chai.expect(SelectionStateModel.getImageBmap()).to.be.undefined;
+      });
+
       it('hasDrive() should return false', function() {
         const hasDrive = SelectionStateModel.hasDrive();
         m.chai.expect(hasDrive).to.be.false;
@@ -272,7 +276,8 @@ describe('Browser: SelectionState', function() {
           size: 999999999,
           url: 'https://www.raspbian.org',
           name: 'Raspbian',
-          logo: '<svg><text fill="red">Raspbian</text></svg>'
+          logo: '<svg><text fill="red">Raspbian</text></svg>',
+          bmap: '<Range>Foo Bar</Range>'
         });
       });
 
@@ -421,6 +426,15 @@ describe('Browser: SelectionState', function() {
         it('should return the image logo', function() {
           const imageLogo = SelectionStateModel.getImageLogo();
           m.chai.expect(imageLogo).to.equal('<svg><text fill="red">Raspbian</text></svg>');
+        });
+
+      });
+
+      describe('.getImageBmap()', function() {
+
+        it('should return the image bmap', function() {
+          const imageBmap = SelectionStateModel.getImageBmap();
+          m.chai.expect(imageBmap).to.equal('<Range>Foo Bar</Range>');
         });
 
       });
