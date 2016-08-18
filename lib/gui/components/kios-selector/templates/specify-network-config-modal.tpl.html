@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <h4 class="modal-title">SPECIFY NETWORK</h4>
+  <button class="close" ng-click="modal.closeModal()">&times;</button>
+</div>
+
+<div class="component-kios-selector-body modal-body">
+  <select id="configs" class="list-group"
+    ng-model="config"
+    ng-options="config.name for config in modal.kios.getNetworkConfigurations() track by config.name"
+    ng-change="modal.setNetworkConfiguration(config)"
+  >
+    <option value="">Select a network configuration</option>
+  </select>
+
+  <input ng-show="modal.configuration=='Static'" type="text" ng-model="modal.kios.ip"/>
+
+  <input ng-show="modal.configuration=='Static'" type="text" ng-model="modal.kios.netmask"/>
+
+  <input ng-show="modal.configuration=='Static'" type="text" ng-model="modal.kios.gateway"/>
+
+  <input ng-show="modal.configuration=='Static'" type="text" ng-model="modal.kios.dns"/>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-primary btn-block"
+    ng-click="modal.setNetworkConfigurationState(); modal.closeModal()"
+    ng-disabled="!modal.state.hasDownload()">FINISH</button>
+</div>

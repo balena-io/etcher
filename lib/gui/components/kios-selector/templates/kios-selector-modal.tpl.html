@@ -16,6 +16,7 @@
     ng-model="device"
     ng-change="modal.state.setDownload(device)"
     ng-options="device.name for device in modal.getDevices() track by device.name"
+    ng-show="modal.release"
     >
       <option value="">Select a board</option>
     </select>

@@ -6489,13 +6489,18 @@ button.btn:focus, button.progress-button:focus {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.component-kios-selector-body select {
+.component-kios-selector-body select, .component-kios-selector-body input {
   width: 100%;
   margin: 20px 0 0 0;
   padding: 11px;
   -webkit-appearance: none;
   border-color: #ddd;
   outline: 0; }
+
+.component-kios-selector-body input {
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd; }
 
 .component-kios-selector-body .list-group-item-footer {
   margin-top: 8px; }
