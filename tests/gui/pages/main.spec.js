@@ -177,6 +177,22 @@ describe('Browser: MainPage', function() {
           FlashStateModel.setFlashingFlag();
         });
 
+        it('should report 0% if percentage == 0 but speed != 0', function() {
+          const controller = $controller('FlashController', {
+            $scope: {}
+          });
+
+          FlashStateModel.setProgressState({
+            type: 'write',
+            percentage: 0,
+            eta: 15,
+            speed: 100000000000000
+          });
+
+          SettingsModel.set('unmountOnSuccess', true);
+          m.chai.expect(controller.getProgressButtonLabel()).to.equal('0%');
+        });
+
         it('should handle percentage == 0, type = write, unmountOnSuccess', function() {
           const controller = $controller('FlashController', {
             $scope: {}
@@ -186,7 +202,7 @@ describe('Browser: MainPage', function() {
             type: 'write',
             percentage: 0,
             eta: 15,
-            speed: 1000
+            speed: 0
           });
 
           SettingsModel.set('unmountOnSuccess', true);
@@ -202,7 +218,7 @@ describe('Browser: MainPage', function() {
             type: 'write',
             percentage: 0,
             eta: 15,
-            speed: 1000
+            speed: 0
           });
 
           SettingsModel.set('unmountOnSuccess', false);
@@ -218,7 +234,7 @@ describe('Browser: MainPage', function() {
             type: 'check',
             percentage: 0,
             eta: 15,
-            speed: 1000
+            speed: 0
           });
 
           SettingsModel.set('unmountOnSuccess', true);
@@ -234,7 +250,7 @@ describe('Browser: MainPage', function() {
             type: 'check',
             percentage: 0,
             eta: 15,
-            speed: 1000
+            speed: 0
           });
 
           SettingsModel.set('unmountOnSuccess', false);

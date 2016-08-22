@@ -39,6 +39,7 @@ Options
   --check, -c    validate write
   --robot, -r    parse-able output without interactivity
   --log, -l      output log file
+  --bmap, -b     bmap file
   --yes, -y      confirm non-interactively
   --unmount, -u  unmount on success
 ```

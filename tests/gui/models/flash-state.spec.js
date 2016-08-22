@@ -338,13 +338,13 @@ describe('Browser: FlashStateModel', function() {
         }).to.throw('Invalid results cancelled: false');
       });
 
-      it('should throw if passedValidation is true and sourceChecksum does not exist', function() {
+      it('should not throw if passedValidation is true and sourceChecksum does not exist', function() {
         m.chai.expect(function() {
           FlashStateModel.unsetFlashingFlag({
             passedValidation: true,
             cancelled: false
           });
-        }).to.throw('Missing results sourceChecksum');
+        }).to.not.throw();
       });
 
       it('should throw if passedValidation is true and sourceChecksum is not a string', function() {

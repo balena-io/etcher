@@ -398,6 +398,43 @@
       "from": "bluebird-retry@>=0.7.0 <0.8.0",
       "resolved": "https://registry.npmjs.org/bluebird-retry/-/bluebird-retry-0.7.0.tgz"
     },
+    "bmapflash": {
+      "version": "1.1.2",
+      "from": "bmapflash@>=1.1.2 <2.0.0",
+      "resolved": "https://registry.npmjs.org/bmapflash/-/bmapflash-1.1.2.tgz",
+      "dependencies": {
+        "isarray": {
+          "version": "1.0.0",
+          "from": "isarray@~1.0.0",
+          "resolved": "http://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
+        },
+        "lodash": {
+          "version": "4.15.0",
+          "from": "lodash@>=4.14.2 <5.0.0",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.15.0.tgz"
+        },
+        "readable-stream": {
+          "version": "2.0.6",
+          "from": "readable-stream@~2.0.0",
+          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.0.6.tgz"
+        },
+        "through2": {
+          "version": "2.0.1",
+          "from": "through2@^2.0.1",
+          "resolved": "https://registry.npmjs.org/through2/-/through2-2.0.1.tgz"
+        },
+        "xml2js": {
+          "version": "0.4.17",
+          "from": "xml2js@>=0.4.17 <0.5.0",
+          "resolved": "https://registry.npmjs.org/xml2js/-/xml2js-0.4.17.tgz"
+        },
+        "xtend": {
+          "version": "4.0.1",
+          "from": "xtend@~4.0.0",
+          "resolved": "https://registry.npmjs.org/xtend/-/xtend-4.0.1.tgz"
+        }
+      }
+    },
     "bn.js": {
       "version": "4.11.4",
       "from": "bn.js@>=4.1.1 <5.0.0",
@@ -1371,9 +1408,9 @@
       }
     },
     "etcher-image-write": {
-      "version": "6.0.1",
-      "from": "etcher-image-write@6.0.1",
-      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-6.0.1.tgz",
+      "version": "6.1.1",
+      "from": "etcher-image-write@6.1.1",
+      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-6.1.1.tgz",
       "dependencies": {
         "isarray": {
           "version": "1.0.0",
