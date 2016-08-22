@@ -1396,9 +1396,9 @@
       "resolved": "https://registry.npmjs.org/esutils/-/esutils-2.0.2.tgz"
     },
     "etcher-image-stream": {
-      "version": "3.1.0",
-      "from": "etcher-image-stream@3.1.0",
-      "resolved": "https://registry.npmjs.org/etcher-image-stream/-/etcher-image-stream-3.1.0.tgz",
+      "version": "3.1.1",
+      "from": "etcher-image-stream@3.1.1",
+      "resolved": "https://registry.npmjs.org/etcher-image-stream/-/etcher-image-stream-3.1.1.tgz",
       "dependencies": {
         "yauzl": {
           "version": "2.6.0",
@@ -3652,9 +3652,9 @@
           }
         },
         "readable-stream": {
-          "version": "2.1.4",
+          "version": "2.1.5",
           "from": "readable-stream@>=2.0.5 <3.0.0",
-          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.1.4.tgz"
+          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.1.5.tgz"
         }
       }
     },
@@ -4977,9 +4977,9 @@
           "resolved": "http://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
         },
         "readable-stream": {
-          "version": "2.1.4",
+          "version": "2.1.5",
           "from": "readable-stream@^2.1.0",
-          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.1.4.tgz"
+          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.1.5.tgz"
         }
       }
     },
