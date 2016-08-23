@@ -5,18 +5,18 @@
 
 <div class="component-kios-selector-body modal-body">
   <select id="releases" class="list-group"
-    ng-model="release"
-    ng-change="modal.showDevices(release)"
+    ng-model="modal.kios.release"
+    ng-change="modal.showDevices(modal.kios.release)"
     ng-options="release.tag_name for release in modal.kios.getReleases() track by release.tag_name"
   >
     <option value="">Select a version</option>
   </select>
 
   <select id="devices" class="list-group"
-    ng-model="device"
-    ng-change="modal.state.setDownload(device)"
+    ng-model="modal.kios.device"
+    ng-change="modal.state.setDownload(modal.kios.device)"
     ng-options="device.name for device in modal.getDevices() track by device.name"
-    ng-show="modal.release"
+    ng-show="modal.kios.release"
     >
       <option value="">Select a board</option>
     </select>

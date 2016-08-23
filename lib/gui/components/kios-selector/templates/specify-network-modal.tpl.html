@@ -5,25 +5,25 @@
 
 <div class="component-kios-selector-body modal-body">
   <select id="releases" class="list-group"
-    ng-model="type"
-    ng-change="modal.setNetworkType(type)"
+    ng-model="modal.kios.type"
+    ng-change="modal.setNetworkType(modal.kios.type)"
     ng-options="type.name for type in modal.kios.getNetworkTypes() track by type.name"
   >
     <option value="">Select a network type</option>
   </select>
 
   <select id="connections" class="list-group"
-    ng-model="connection"
-    ng-change="modal.setConnection(connection)"
+    ng-model="modal.kios.connection"
+    ng-change="modal.setConnection(modal.kios.connection)"
     ng-options="connection.ssid for connection in modal.kios.getConnections() track by connection.ssid"
-    ng-show="modal.type=='WiFi'"
+    ng-show="modal.kios.type.name=='WiFi'"
   >
     <option value="">Select a connection</option>
   </select>
 
-  <input ng-show="modal.connection=='x - not in this list'" type="text" placeholder="WiFi name" />
-
-  <input ng-show="modal.type=='WiFi'" type="password" placeholder="WiFi password" ng-model="modal.wifi_password" />
+  <input ng-show="modal.kios.type.name=='WiFi' && modal.kios.connection.ssid=='x - not in this list'" type="text" placeholder="WiFi name" ng-model="modal.kios.wifi_connection" />
+ 
+  <input ng-show="modal.kios.type.name=='WiFi'" type="password" placeholder="WiFi password" ng-model="modal.kios.wifi_password" />
 </div>
 
 <div class="modal-footer">

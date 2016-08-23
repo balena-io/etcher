@@ -1276,11 +1276,11 @@ mark,
   color: #ddd; }
 
 .text-primary {
-  color: #5793db; }
+  color: #943633; }
 
 a.text-primary:hover,
 a.text-primary:focus {
-  color: #2d78d2; }
+  color: #6e2826; }
 
 .text-success {
   color: #3c763d; }
@@ -1314,11 +1314,11 @@ a.text-danger:focus {
   color: #fff; }
 
 .bg-primary {
-  background-color: #5793db; }
+  background-color: #943633; }
 
 a.bg-primary:hover,
 a.bg-primary:focus {
-  background-color: #2d78d2; }
+  background-color: #6e2826; }
 
 .bg-success {
   background-color: #dff0d8; }
@@ -2906,22 +2906,22 @@ fieldset[disabled] a.progress-button {
 
 .btn-primary, .progress-button--primary {
   color: #fff;
-  background-color: #5793db;
-  border-color: #4286d7; }
+  background-color: #943633;
+  border-color: #812f2c; }
   .btn-primary:focus, .progress-button--primary:focus, .btn-primary.focus, .focus.progress-button--primary {
     color: #fff;
-    background-color: #2d78d2;
-    border-color: #1b487e; }
+    background-color: #6e2826;
+    border-color: #220c0c; }
   .btn-primary:hover, .progress-button--primary:hover {
     color: #fff;
-    background-color: #2d78d2;
-    border-color: #2767b5; }
+    background-color: #6e2826;
+    border-color: #541e1d; }
   .btn-primary:active, .progress-button--primary:active, .btn-primary.active, .active.progress-button--primary,
   .open > .btn-primary.dropdown-toggle,
   .open > .dropdown-toggle.progress-button--primary {
     color: #fff;
-    background-color: #2d78d2;
-    border-color: #2767b5; }
+    background-color: #6e2826;
+    border-color: #541e1d; }
     .btn-primary:active:hover, .progress-button--primary:active:hover, .btn-primary:active:focus, .progress-button--primary:active:focus, .btn-primary:active.focus, .progress-button--primary:active.focus, .btn-primary.active:hover, .active.progress-button--primary:hover, .btn-primary.active:focus, .active.progress-button--primary:focus, .btn-primary.active.focus, .active.focus.progress-button--primary,
     .open > .btn-primary.dropdown-toggle:hover,
     .open > .dropdown-toggle.progress-button--primary:hover,
@@ -2930,8 +2930,8 @@ fieldset[disabled] a.progress-button {
     .open > .btn-primary.dropdown-toggle.focus,
     .open > .dropdown-toggle.focus.progress-button--primary {
       color: #fff;
-      background-color: #2767b5;
-      border-color: #1b487e; }
+      background-color: #541e1d;
+      border-color: #220c0c; }
   .btn-primary:active, .progress-button--primary:active, .btn-primary.active, .active.progress-button--primary,
   .open > .btn-primary.dropdown-toggle,
   .open > .dropdown-toggle.progress-button--primary {
@@ -2943,10 +2943,10 @@ fieldset[disabled] a.progress-button {
   fieldset[disabled] .progress-button--primary:focus,
   fieldset[disabled] .btn-primary.focus,
   fieldset[disabled] .focus.progress-button--primary {
-    background-color: #5793db;
-    border-color: #4286d7; }
+    background-color: #943633;
+    border-color: #812f2c; }
   .btn-primary .badge, .progress-button--primary .badge {
-    color: #5793db;
+    color: #943633;
     background-color: #fff; }
 
 .btn-success {
@@ -3242,7 +3242,7 @@ tbody.collapse.in {
   color: #fff;
   text-decoration: none;
   outline: 0;
-  background-color: #5793db; }
+  background-color: #943633; }
 
 .dropdown-menu > .disabled > a, .dropdown-menu > .disabled > a:hover, .dropdown-menu > .disabled > a:focus {
   color: #ddd; }
@@ -3669,7 +3669,7 @@ tbody.collapse.in {
     margin-left: 2px; }
   .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
     color: #fff;
-    background-color: #5793db; }
+    background-color: #943633; }
 
 .nav-stacked > li {
   float: none; }
@@ -4179,8 +4179,8 @@ tbody.collapse.in {
   .pagination > .active > span:focus {
     z-index: 3;
     color: #fff;
-    background-color: #5793db;
-    border-color: #5793db;
+    background-color: #943633;
+    border-color: #943633;
     cursor: default; }
   .pagination > .disabled > span,
   .pagination > .disabled > span:hover,
@@ -4290,9 +4290,9 @@ a.label:hover, a.label:focus {
     background-color: #c4c4c4; }
 
 .label-primary {
-  background-color: #5793db; }
+  background-color: #943633; }
   .label-primary[href]:hover, .label-primary[href]:focus {
-    background-color: #2d78d2; }
+    background-color: #6e2826; }
 
 .label-success {
   background-color: #5cb85c; }
@@ -4505,7 +4505,7 @@ a.thumbnail.active {
   line-height: 18px;
   color: #fff;
   text-align: center;
-  background-color: #5793db;
+  background-color: #943633;
   -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   -webkit-transition: width 0.6s ease;
@@ -4647,8 +4647,8 @@ button.list-group-item {
 .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
   z-index: 2;
   color: #fff;
-  background-color: #5793db;
-  border-color: #5793db; }
+  background-color: #943633;
+  border-color: #943633; }
   .list-group-item.active .list-group-item-heading,
   .list-group-item.active .list-group-item-heading > small,
   .list-group-item.active .list-group-item-heading > .small, .list-group-item.active:hover .list-group-item-heading,
@@ -4658,7 +4658,7 @@ button.list-group-item {
   .list-group-item.active:focus .list-group-item-heading > .small {
     color: inherit; }
   .list-group-item.active .list-group-item-text, .list-group-item.active:hover .list-group-item-text, .list-group-item.active:focus .list-group-item-text {
-    color: white; }
+    color: #e4b1af; }
 
 .list-group-item-success {
   color: #3c763d;
@@ -4993,18 +4993,18 @@ button.list-group-item-danger {
     border-bottom-color: #ddd; }
 
 .panel-primary {
-  border-color: #5793db; }
+  border-color: #943633; }
   .panel-primary > .panel-heading {
     color: #fff;
-    background-color: #5793db;
-    border-color: #5793db; }
+    background-color: #943633;
+    border-color: #943633; }
     .panel-primary > .panel-heading + .panel-collapse > .panel-body {
-      border-top-color: #5793db; }
+      border-top-color: #943633; }
     .panel-primary > .panel-heading .badge {
-      color: #5793db;
+      color: #943633;
       background-color: #fff; }
   .panel-primary > .panel-footer + .panel-collapse > .panel-body {
-    border-bottom-color: #5793db; }
+    border-bottom-color: #943633; }
 
 .panel-success {
   border-color: #d6e9c6; }
@@ -6099,9 +6099,9 @@ html {
   border-color: #ccc; }
 
 .btn-primary:focus, .progress-button--primary:focus {
-  background-color: #5793db;
+  background-color: #943633;
   color: #fff;
-  border-color: #4286d7; }
+  border-color: #812f2c; }
 
 .btn-success:focus {
   background-color: #5cb85c;
@@ -6390,10 +6390,10 @@ button.btn:focus, button.progress-button:focus {
  * </button>
  */
 .progress-button--primary .progress-button__bar {
-  background: #6ca1e0; }
+  background: #a73d3a; }
 
 .progress-button--primary.progress-button--striped {
-  background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #3b679b), color-stop(0.26, #5c93d6), color-stop(0.5, #5c93d6), color-stop(0.51, #3b679b), color-stop(0.75, #3b679b), color-stop(0.76, #5c93d6), to(#5c93d6)); }
+  background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #ab5a58), color-stop(0.26, #8f3b38), color-stop(0.5, #8f3b38), color-stop(0.51, #ab5a58), color-stop(0.75, #ab5a58), color-stop(0.76, #8f3b38), to(#8f3b38)); }
 
 .progress-button--primary.progress-button--downloading {
   background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #ba1833), color-stop(0.26, #f73757), color-stop(0.5, #f73757), color-stop(0.51, #ba1833), color-stop(0.75, #ba1833), color-stop(0.76, #f73757), to(#f73757)); }
@@ -6401,7 +6401,7 @@ button.btn:focus, button.progress-button:focus {
 .progress-button--primary[active="true"]:active {
   box-shadow: none;
   background-color: #5cb85c;
-  border-color: #4286d7; }
+  border-color: #812f2c; }
 
 .progress-button[percentage="100"][active="false"] .progress-button__bar {
   background-color: #5cb85c; }
@@ -6614,6 +6614,9 @@ button.btn:focus, button.progress-button:focus {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+.page-finish {
+  margin-top: -22px; }
+
 .page-finish .button-label {
   margin: 0 auto 15px;
   max-width: 165px; }

@@ -59,7 +59,7 @@ $progress-button-stripes-animation-duration: 1s;
   }
 
   $progress-button-stripes-background-color: desaturate($brand-primary, 5%);
-  $progress-button-stripes-color: desaturate(darken($brand-primary, 18%), 20%);
+  $progress-button-stripes-color: #ab5a58;
 
   &.progress-button--striped {
 
