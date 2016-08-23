@@ -12,13 +12,13 @@
     <option value="">Select a network configuration</option>
   </select>
 
-  <input ng-show="modal.kios.config.name=='Static'" type="text" ng-model="modal.kios.ip"/>
+  <input ng-show="modal.kios.config.value=='static'" type="text" ng-model="modal.kios.ip"/>
 
-  <input ng-show="modal.kios.config.name=='Static'" type="text" ng-model="modal.kios.netmask"/>
+  <input ng-show="modal.kios.config.value=='static'" type="text" ng-model="modal.kios.netmask"/>
 
-  <input ng-show="modal.kios.config.name=='Static'" type="text" ng-model="modal.kios.gateway"/>
+  <input ng-show="modal.kios.config.value=='static'" type="text" ng-model="modal.kios.gateway"/>
 
-  <input ng-show="modal.kios.config.name=='Static'" type="text" ng-model="modal.kios.dns"/>
+  <input ng-show="modal.kios.config.value=='static'" type="text" ng-model="modal.kios.dns"/>
 </div>
 
 <div class="modal-footer">

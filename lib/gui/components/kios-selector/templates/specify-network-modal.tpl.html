@@ -16,14 +16,14 @@
     ng-model="modal.kios.connection"
     ng-change="modal.setConnection(modal.kios.connection)"
     ng-options="connection.ssid for connection in modal.kios.getConnections() track by connection.ssid"
-    ng-show="modal.kios.type.name=='WiFi'"
+    ng-show="modal.kios.type.value=='wifi'"
   >
     <option value="">Select a connection</option>
   </select>
 
-  <input ng-show="modal.kios.type.name=='WiFi' && modal.kios.connection.ssid=='x - not in this list'" type="text" placeholder="WiFi name" ng-model="modal.kios.wifi_connection" />
+  <input ng-show="modal.kios.type.value=='wifi' && modal.kios.connection.ssid=='? not in this list'" type="text" placeholder="Name of connection" ng-model="modal.kios.wifi_connection" />
  
-  <input ng-show="modal.kios.type.name=='WiFi'" type="password" placeholder="WiFi password" ng-model="modal.kios.wifi_password" />
+  <input ng-show="modal.kios.type.value=='wifi'" type="password" placeholder="password" ng-model="modal.kios.wifi_password" />
 </div>
 
 <div class="modal-footer">

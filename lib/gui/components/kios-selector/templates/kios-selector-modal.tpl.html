@@ -15,7 +15,7 @@
   <select id="devices" class="list-group"
     ng-model="modal.kios.device"
     ng-change="modal.state.setDownload(modal.kios.device)"
-    ng-options="device.name for device in modal.getDevices() track by device.name"
+    ng-options="device.board for device in modal.getDevices() track by device.board"
     ng-show="modal.kios.release"
     >
       <option value="">Select a board</option>
