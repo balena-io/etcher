@@ -1403,9 +1403,9 @@
       }
     },
     "etcher-image-write": {
-      "version": "7.0.0",
-      "from": "etcher-image-write@7.0.0",
-      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-7.0.0.tgz",
+      "version": "7.0.1",
+      "from": "etcher-image-write@7.0.1",
+      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-7.0.1.tgz",
       "dependencies": {
         "isarray": {
           "version": "1.0.0",
