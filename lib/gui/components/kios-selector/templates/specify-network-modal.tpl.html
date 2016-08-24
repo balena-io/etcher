@@ -21,9 +21,19 @@
     <option value="">Select a connection</option>
   </select>
 
-  <input ng-show="modal.kios.type.value=='wifi' && modal.kios.connection.ssid=='? not in this list'" type="text" placeholder="Name of connection" ng-model="modal.kios.wifi_connection" />
- 
-  <input ng-show="modal.kios.type.value=='wifi'" type="password" placeholder="password" ng-model="modal.kios.wifi_password" />
+  
+    <div class="float-container">
+   <md-input-container class="float-input float-input-half" ng-show="modal.kios.type.value=='wifi' && modal.kios.connection.ssid=='? not in this list'" >
+      <label>SSID</label>
+      <input type="text" ng-model="modal.kios.wifi_connection" />
+    </md-input-container>
+
+    <md-input-container class="float-input" ng-class="modal.kios.connection.ssid=='? not in this list' ? 'float-input-half' : 'float-input-max'" ng-show="modal.kios.type.value=='wifi' && modal.kios.connection.ssid">
+      <label>passphrase</label>
+      <input  type="password" ng-model="modal.kios.wifi_password" />
+    </md-input-container>
+  </div>
+
 </div>
 
 <div class="modal-footer">

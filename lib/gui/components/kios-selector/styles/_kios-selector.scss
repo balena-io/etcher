@@ -23,11 +23,41 @@
     outline: 0;
 }
 
+.float-container
+{
+    margin-top: 10px;
+}
+
+.float-container-more
+{
+    margin-top: 15px;
+}
+
 .component-kios-selector-body input {
 	border-radius: 5px;
     background-color: #f8f8f8;
     border: 1px solid #ddd;
+    width: 100%;
  }
+
+.float-input
+{
+    display: inline-block;
+    position: relative;
+    padding: 2px;
+    margin: 18px 0 -22px;
+    vertical-align: middle;
+}
+
+.float-input-max
+{
+    width: 100%;
+}
+
+.float-input-half
+{
+  width: 49%;
+}
 
 .component-kios-selector-body .list-group-item-footer {
   margin-top: 8px;
@@ -36,3 +66,4 @@
 .component-kios-selector-body .list-group-item[disabled] .list-group-item-heading {
   color: darken($gray-light, 20%);
 }
+

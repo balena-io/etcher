@@ -1,3 +1,6 @@
+
+
+
 <div class="modal-header">
   <h4 class="modal-title">SPECIFY NETWORK</h4>
   <button class="close" ng-click="modal.closeModal()">&times;</button>
@@ -12,13 +15,29 @@
     <option value="">Select a network configuration</option>
   </select>
 
-  <input ng-show="modal.kios.config.value=='static'" type="text" ng-model="modal.kios.ip"/>
+  <div class="float-container-more" ng-show="modal.kios.config.value=='static'">
+  
+  <md-input-container class="float-input float-input-half">
+    <label>IP</label>
+    <input type="text" ng-model="modal.kios.ip"/>
+  </md-input-container>
 
-  <input ng-show="modal.kios.config.value=='static'" type="text" ng-model="modal.kios.netmask"/>
+  <md-input-container class="float-input float-input-half">
+    <label>Netmask</label>
+    <input type="text" ng-model="modal.kios.netmask"/>
+  </md-input-container>
 
-  <input ng-show="modal.kios.config.value=='static'" type="text" ng-model="modal.kios.gateway"/>
+  <md-input-container class="float-input float-input-half">
+    <label>Gatwaye</label>
+    <input type="text" ng-model="modal.kios.gateway"/>
+  </md-input-container>
+  
+  <md-input-container class="float-input float-input-half">
+    <label>DNS</label>
+    <input type="text" ng-model="modal.kios.dns"/>
+  </md-input-container>
 
-  <input ng-show="modal.kios.config.value=='static'" type="text" ng-model="modal.kios.dns"/>
+  </div>
 </div>
 
 <div class="modal-footer">
