@@ -1,0 +1,90 @@
+/*
+ * Copyright 2016 Resin.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.page-main .icon-caption {
+  @extend .caption;
+  @extend .center-block;
+
+  margin-top: 10px;
+
+  &[disabled] {
+    color: $color-disabled;
+  }
+}
+
+.page-main .soft {
+  color: $color-disabled;
+}
+
+.page-main .relative {
+  position: relative;
+}
+
+%step-border {
+  height: 2px;
+  background-color: $text-color;
+  position: absolute;
+  width: 230px;
+  top: 95px;
+
+  &[disabled] {
+    background-color: $color-disabled;
+  }
+}
+
+.page-main .step-border-left {
+  @extend %step-border;
+  left: -120px;
+}
+
+.page-main .step-border-right {
+  @extend %step-border;
+  right: -120px;
+}
+
+.page-main .step-tooltip {
+  display: block;
+  margin: -5px auto -20px;
+  color: lighten($color-disabled, 5%);
+  font-size: 10px;
+}
+
+.page-main .step-footer {
+  margin-top: 10px;
+  margin-bottom: -40px;
+  color: lighten($color-disabled, 5%);
+  font-size: 10px;
+}
+
+.page-main .step-footer-split {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+  max-width: $btn-min-width;
+}
+
+.page-main .step-footer-underline {
+  border-bottom: 1px dotted;
+  padding-bottom: 2px;
+}
+
+.page-main .btn.step-footer {
+  font-size: 12px;
+  border-bottom: 1px dashed;
+  border-radius: 0;
+  padding: 0;
+}
