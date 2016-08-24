@@ -24,11 +24,6 @@
         }
       }
     },
-    "adm-zip": {
-      "version": "0.4.7",
-      "from": "adm-zip@>=0.4.7 <0.5.0",
-      "resolved": "https://registry.npmjs.org/adm-zip/-/adm-zip-0.4.7.tgz"
-    },
     "align-text": {
       "version": "0.1.4",
       "from": "align-text@>=0.1.3 <0.2.0",
@@ -1391,9 +1386,9 @@
       "resolved": "https://registry.npmjs.org/esutils/-/esutils-2.0.2.tgz"
     },
     "etcher-image-stream": {
-      "version": "3.1.1",
-      "from": "etcher-image-stream@3.1.1",
-      "resolved": "https://registry.npmjs.org/etcher-image-stream/-/etcher-image-stream-3.1.1.tgz",
+      "version": "3.1.2",
+      "from": "etcher-image-stream@3.1.2",
+      "resolved": "https://registry.npmjs.org/etcher-image-stream/-/etcher-image-stream-3.1.2.tgz",
       "dependencies": {
         "yauzl": {
           "version": "2.6.0",
@@ -3903,6 +3898,11 @@
       "version": "0.4.0",
       "from": "node-int64@>=0.4.0 <0.5.0",
       "resolved": "https://registry.npmjs.org/node-int64/-/node-int64-0.4.0.tgz"
+    },
+    "node-stream-zip": {
+      "version": "1.3.4",
+      "from": "node-stream-zip@>=1.3.4 <2.0.0",
+      "resolved": "https://registry.npmjs.org/node-stream-zip/-/node-stream-zip-1.3.4.tgz"
     },
     "node-uuid": {
       "version": "1.4.7",
