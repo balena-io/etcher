@@ -63,6 +63,42 @@ being loaded by declaring it in your [weston.ini]:
 modules=xwayland.so
 ```
 
+Runtime GNU/Linux dependencies
+------------------------------
+
+This entry aims to provide an up to date list of runtime dependencies needed to
+run Etcher on a GNU/Linux system.
+
+### Electron specific
+
+> See [brightray's gyp file](https://github.com/electron/brightray/blob/master/brightray.gyp#L4)
+
+- gtk+-2.0
+- dbus-1
+- x11
+- xi
+- xcursor
+- xdamage
+- xrandr
+- xcomposite
+- xext
+- xfixes
+- xrender
+- xtst
+- xscrnsaver
+- gconf-2.0
+- gmodule-2.0
+- nss
+
+### Optional dependencies:
+
+- libnotify (for notifications)
+- libspeechd (for text-to-speech)
+
+### Etcher specific:
+
+- liblzma (for xz decompression)
+
 [appimage]: http://appimage.org
 [xwayland]: https://wayland.freedesktop.org/xserver.html
 [weston.ini]: http://manpages.ubuntu.com/manpages/wily/man5/weston.ini.5.html
