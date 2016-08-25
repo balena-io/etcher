@@ -98,9 +98,9 @@ function package_x86 {
     --out=$output_directory
 
   # Change ia32 suffix to x86 for consistency
-  mv $output_directory/Etcher-linux-ia32 $output_package
+  mv $output_directory/$APPLICATION_NAME-linux-ia32 $output_package
 
-  mv $output_package/Etcher $output_package/etcher
+  mv $output_package/$APPLICATION_NAME $output_package/etcher
   chmod a+x $output_package/*.so*
 
   # UPX fails for some reason with some other so libraries
@@ -111,7 +111,7 @@ function package_x86 {
 
 function package_x64 {
   output_directory=$1
-  output_package=$output_directory/Etcher-linux-x64
+  output_package=$output_directory/$APPLICATION_NAME-linux-x64
 
   $ELECTRON_PACKAGER . $APPLICATION_NAME \
     --platform=linux \
@@ -124,7 +124,7 @@ function package_x64 {
     --overwrite \
     --out=$output_directory
 
-  mv $output_package/Etcher $output_package/etcher
+  mv $output_package/$APPLICATION_NAME $output_package/etcher
   chmod a+x $output_package/*.so*
   upx -9 $output_package/etcher $output_package/*.so*
 }
@@ -136,7 +136,7 @@ function app_dir_create {
 
   mkdir -p $output_directory/usr/bin
   cp ./scripts/build/AppImages/AppRun-$architecture $output_directory/AppRun
-  cp ./scripts/build/AppImages/Etcher.desktop $output_directory
+  cp ./scripts/build/AppImages/$APPLICATION_NAME.desktop $output_directory
   cp ./assets/icon.png $output_directory
   cp -rf $source_directory/* $output_directory/usr/bin
   cp ./scripts/build/AppImages/desktopintegration $output_directory/usr/bin/etcher.wrapper
@@ -146,8 +146,8 @@ function installer {
   source_directory=$1
   architecture=$2
   output_directory=$3
-  appdir_temporary_location=$output_directory/Etcher-linux-$architecture.AppDir
-  output_file=$output_directory/Etcher-linux-$architecture.AppImage
+  appdir_temporary_location=$output_directory/$APPLICATION_NAME-linux-$architecture.AppDir
+  output_file=$output_directory/$APPLICATION_NAME-linux-$architecture.AppImage
 
   mkdir -p $output_directory
   app_dir_create $source_directory $architecture $appdir_temporary_location
@@ -175,6 +175,6 @@ if [ "$COMMAND" == "package" ] || [ "$COMMAND" == "all" ]; then
     package_x64 etcher-release
   fi
 
-  installer etcher-release/Etcher-linux-$ARCH $ARCH etcher-release/installers
+  installer etcher-release/$APPLICATION_NAME-linux-$ARCH $ARCH etcher-release/installers
 fi
 
