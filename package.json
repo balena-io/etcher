@@ -1,6 +1,7 @@
 {
-  "name": "etcher",
-  "displayName": "Etcher",
+  
+  "name": "kios",
+  "displayName": "KiOS",
   "version": "1.0.0-beta.11",
   "main": "lib/start.js",
   "description": "An image flasher with support for Windows, OS X and GNU/Linux.",
@@ -41,7 +42,7 @@
   ],
   "builder": {
     "win": {
-      "title": "Etcher",
+      "title": "KiOS",
       "version": "v1.0.0-beta.11",
       "publisher": "Resin.io",
       "icon": "assets/icon.ico",

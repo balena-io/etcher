@@ -89,9 +89,9 @@ function package {
     --overwrite \
     --out=$output_directory
 
-  rm $output_directory/Etcher-darwin-x64/LICENSE
-  rm $output_directory/Etcher-darwin-x64/LICENSES.chromium.html
-  rm $output_directory/Etcher-darwin-x64/version
+  rm $output_directory/$APPLICATION_NAME-darwin-x64/LICENSE
+  rm $output_directory/$APPLICATION_NAME-darwin-x64/LICENSES.chromium.html
+  rm $output_directory/$APPLICATION_NAME-darwin-x64/version
 }
 
 function sign {
@@ -111,7 +111,7 @@ function installer_zip {
   pushd $source_directory
   zip -r -9 Etcher-darwin-x64.zip $APPLICATION_NAME.app
   popd
-  mv $source_directory/Etcher-darwin-x64.zip $output_directory
+  mv $source_directory/$APPLICATION_NAME-darwin-x64.zip $output_directory
 }
 
 function installer_dmg {
@@ -148,7 +148,7 @@ function installer_dmg {
   # Symlink MacOS/Etcher to MacOS/Electron since for some reason, the Electron
   # binary tries to be ran in some systems.
   # See https://github.com/Microsoft/vscode/issues/92
-  cp -p $volume_app/Contents/MacOS/Etcher $volume_app/Contents/MacOS/Electron
+  cp -p $volume_app/Contents/MacOS/$APPLICATION_NAME $volume_app/Contents/MacOS/Electron
 
   # Set the DMG icon image
   # Writing this hexadecimal buffer to the com.apple.FinderInfo
@@ -202,11 +202,11 @@ function installer_dmg {
   # Convert temporal DMG image into a production-ready
   # compressed and read-only DMG image.
   mkdir -p $output_directory
-  rm -f $output_directory/Etcher-darwin-x64.dmg
+  rm -f $output_directory/$APPLICATION_NAME-darwin-x64.dmg
   hdiutil convert $temporal_dmg \
     -format UDZO \
     -imagekey zlib-level=9 \
-    -o $output_directory/Etcher-darwin-x64.dmg
+    -o $output_directory/$APPLICATION_NAME-darwin-x64.dmg
 
   # Cleanup temporal DMG image.
   rm $temporal_dmg
@@ -219,6 +219,6 @@ fi
 
 if [ "$COMMAND" == "package" ] || [ "$COMMAND" == "all" ]; then
   package etcher-release
-  installer_dmg etcher-release/Etcher-darwin-x64 etcher-release/installers
-  installer_zip etcher-release/Etcher-darwin-x64 etcher-release/installers
+  installer_dmg etcher-release/$APPLICATION_NAME-darwin-x64 etcher-release/installers
+  installer_zip etcher-release/$APPLICATION_NAME-darwin-x64 etcher-release/installers
 fi
