@@ -19,12 +19,17 @@
   padding-top: 11px;
 
   border-radius: 2px;
-  border: none;
+  border: 0;
 
-  letter-spacing: 0.5px;
+  letter-spacing: .5px;
   outline: none;
 
   position: relative;
+
+  > .glyphicon {
+    top: 2px;
+    margin-right: 2px;
+  }
 
   &[disabled] {
     background-color: $btn-disabled;
@@ -44,11 +49,6 @@
 .btn-sm {
   font-size: 10px;
   padding: 4px 12px;
-}
-
-.btn > .glyphicon {
-  top: 2px;
-  margin-right: 2px;
 }
 
 // Create map from Bootstrap `.btn` type styles
