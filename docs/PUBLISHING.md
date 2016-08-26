@@ -4,14 +4,6 @@ Publishing Etcher
 This is a small guide to package and publish Etcher to all supported operating
 systems.
 
-Common Pre-requisites
----------------------
-
-- [NodeJS](https://nodejs.org)
-- [Bower](http://bower.io)
-- [UPX](http://upx.sourceforge.net)
-- [Python](https://www.python.org)
-
 Signing
 -------
 
@@ -38,28 +30,6 @@ Packaging
 ---------
 
 The resulting installers will be saved to `etcher-release/installers`.
-
-### Windows
-
-Pre-requisites:
-
-- [NSIS](http://nsis.sourceforge.net/Main_Page)
-- [Visual Studio Community 2013](https://www.visualstudio.com/en-us/news/vs2013-community-vs.aspx)
-- [Rimraf](https://github.com/isaacs/rimraf)
-- [asar](https://github.com/electron/asar)
-
-Run the following command from the *Developer Command Prompt for VS2013*, to
-ensure all Visual Studio command utilities are available in the `%PATH%`:
-
-```sh
-> .\scripts\build\windows.bat all <x64|x86>
-```
-
-### OS X
-
-Pre-requisites:
-
-- [XCode](https://developer.apple.com/xcode://developer.apple.com/xcode/)
 
 Run the following command:
 
