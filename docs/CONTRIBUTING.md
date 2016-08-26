@@ -10,69 +10,10 @@ High-level Etcher overview
 Make sure you checkout our [ARCHITECTURE.md][ARCHITECTURE] guide, which aims to
 explain how all the pieces fit together.
 
-Prerequisites
--------------
-
-- [NodeJS](https://nodejs.org).
-- [Bower](http://bower.io).
-- [UPX](http://upx.sourceforge.net).
-- [Python](https://www.python.org).
-- [SCSS Lint](https://github.com/brigade/scss-lint/).
-
-### Windows
-
-- [rimraf](https://github.com/isaacs/rimraf).
-- [asar](https://github.com/electron/asar).
-- [NSIS](http://nsis.sourceforge.net/Main_Page).
-
 Running locally
 ---------------
 
-- Install [NodeJS](https://nodejs.org/en/).
-
-- Clone the repository.
-
-```sh
-git clone https://github.com/resin-io/etcher
-cd etcher
-```
-
-- Install dependencies.
-
-Please make use of the following scripts to install dependencies rather than
-simply running `npm install` given that we need to do extra configuration to
-make sure native dependencies are correctly compiled for Electron, otherwise
-the application might not run successfully.
-
-  - OS X
-
-  ```sh
-  ./scripts/build/darwin.sh install
-  ```
-
-  - GNU/Linux
-
-  ```sh
-  ./scripts/build/linux.sh install <x64|x86>
-  ```
-
-  - Windows
-
-  ```sh
-  .\scripts\build\windows.bat install <x64|x86>
-  ```
-
-- Run the GUI application.
-
-```sh
-npm start
-```
-
-- Run the CLI application.
-
-```sh
-node bin/etcher
-```
+See the [RUNNING-LOCALLY.md][RUNNING-LOCALLY] guide.
 
 Developing
 ----------
@@ -175,6 +116,7 @@ systems we support.
 Don't hesitate to get in touch if you have any questions or need any help!
 
 [ARCHITECTURE]: https://github.com/resin-io/etcher/blob/master/docs/ARCHITECTURE.md
+[RUNNING-LOCALLY]: https://github.com/resin-io/etcher/blob/master/docs/RUNNING-LOCALLY.md
 [EditorConfig]: http://editorconfig.org
 [commitizen]: https://commitizen.github.io/cz-cli/#making-your-repo-commitizen-friendly
 [shrinkwrap]: https://docs.npmjs.com/cli/shrinkwrap
