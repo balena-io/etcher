@@ -37,6 +37,7 @@ install:
   - if [ "$CXX" = "g++" ]; then
       export CXX="g++-4.8" CC="gcc-4.8";
     fi
+  - gem install scss_lint
   - npm install -g bower
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       ./scripts/build/linux.sh install x64;
