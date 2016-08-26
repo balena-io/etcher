@@ -1074,7 +1074,7 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
   line-height: 1.42857;
-  color: white;
+  color: #fff;
   background-color: #535760; }
 
 input,
@@ -4407,7 +4407,7 @@ a.badge:hover, a.badge:focus {
     margin-right: auto; }
   .thumbnail .caption, .thumbnail .page-main .icon-caption, .page-main .thumbnail .icon-caption {
     padding: 9px;
-    color: white; }
+    color: #fff; }
 
 a.thumbnail:hover,
 a.thumbnail:focus,
@@ -5913,7 +5913,7 @@ html {
   opacity: 0; }
 
 .alert, .alert-ribbon {
-  border: none;
+  border: 0;
   border-radius: 2px; }
 
 [uib-tooltip] {
@@ -6060,10 +6060,13 @@ html {
   padding: 10px;
   padding-top: 11px;
   border-radius: 2px;
-  border: none;
-  letter-spacing: 0.5px;
+  border: 0;
+  letter-spacing: .5px;
   outline: none;
   position: relative; }
+  .btn > .glyphicon, .progress-button > .glyphicon, .btn > .tick, .progress-button > .tick {
+    top: 2px;
+    margin-right: 2px; }
   .btn[disabled], [disabled].progress-button {
     background-color: #313339;
     color: #787c7f;
@@ -6077,10 +6080,6 @@ html {
 .btn-sm, .btn-group-sm > .btn, .btn-group-sm > .progress-button, .alert-ribbon .btn-link {
   font-size: 10px;
   padding: 4px 12px; }
-
-.btn > .glyphicon, .progress-button > .glyphicon, .btn > .tick, .progress-button > .tick {
-  top: 2px;
-  margin-right: 2px; }
 
 .btn-default:focus {
   background-color: #ececec;
@@ -6140,7 +6139,7 @@ button.btn:focus, button.progress-button:focus {
   border-radius: 50%;
   padding: 3px;
   font-size: 18px;
-  color: white;
+  color: #fff;
   border: 2px solid; }
   .tick[disabled] {
     color: #e1e2e2;
@@ -6172,22 +6171,21 @@ button.btn:focus, button.progress-button:focus {
  */
 .modal-content {
   display: flex;
-  flex-direction: column; }
+  flex-direction: column;
+  height: 320px; }
 
 .modal-header {
   display: flex;
   align-items: baseline;
   text-transform: uppercase;
-  font-size: 11px; }
+  font-size: 11px;
+  color: #b3b3b3;
+  padding: 11px 20px;
+  flex-grow: 0; }
 
 .modal-title {
   font-size: inherit;
   flex-grow: 1; }
-
-.modal-header {
-  color: #b3b3b3;
-  padding: 11px 20px;
-  flex-grow: 0; }
 
 .modal-body {
   flex-grow: 1;
@@ -6195,34 +6193,26 @@ button.btn:focus, button.progress-button:focus {
   padding: 0 20px;
   max-height: 250px;
   overflow: auto; }
-
-.modal-content {
-  height: 320px; }
-
-.modal-body .list-group-item {
-  display: flex;
-  align-items: center;
-  border-left: none;
-  border-right: none;
-  border-radius: 0;
-  border-color: #eee;
-  padding: 12px 0; }
-  .modal-body .list-group-item > .tick {
-    font-size: 11px; }
-
-.modal-body .list-group-item-heading {
-  font-size: 13px; }
-
-.modal-body .list-group-item-text {
-  line-height: 1;
-  font-size: 11px;
-  color: #aaa; }
-
-.modal-body .list-group-item :first-child {
-  flex-grow: 1; }
-
-.modal-body .list-group-item:first-child {
-  border-top: none; }
+  .modal-body .list-group-item {
+    display: flex;
+    align-items: center;
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+    border-color: #eee;
+    padding: 12px 0; }
+    .modal-body .list-group-item > .tick {
+      font-size: 11px; }
+    .modal-body .list-group-item :first-child {
+      flex-grow: 1; }
+    .modal-body .list-group-item:first-child {
+      border-top: 0; }
+  .modal-body .list-group-item-heading {
+    font-size: 13px; }
+  .modal-body .list-group-item-text {
+    line-height: 1;
+    font-size: 11px;
+    color: #aaa; }
 
 .modal-open {
   padding-right: 0 !important; }
@@ -6231,13 +6221,12 @@ button.btn:focus, button.progress-button:focus {
   flex-grow: 0;
   border: 0; }
 
-.modal .btn-primary[disabled], .modal [disabled].progress-button--primary {
-  background-color: #d5d5d5; }
-
 .modal {
   display: flex !important;
   justify-content: center;
   align-items: center; }
+  .modal .btn-primary[disabled], .modal [disabled].progress-button--primary {
+    background-color: #d5d5d5; }
 
 .modal-dialog {
   margin: 0;
@@ -6267,7 +6256,7 @@ button.btn:focus, button.progress-button:focus {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   top: -100%;
-  transition: top 0.5s; }
+  transition: top .5s; }
   .alert-ribbon > .glyphicon:first-child, .alert-ribbon > .tick:first-child {
     margin-right: 5px; }
   .alert-ribbon > .glyphicon:last-child, .alert-ribbon > .tick:last-child {
@@ -6531,7 +6520,7 @@ button.btn:focus, button.progress-button:focus {
 
 .page-main .step-border-left, .page-main .step-border-right {
   height: 2px;
-  background-color: white;
+  background-color: #fff;
   position: absolute;
   width: 230px;
   top: 95px; }

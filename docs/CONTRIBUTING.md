@@ -17,6 +17,7 @@ Prerequisites
 - [Bower](http://bower.io).
 - [UPX](http://upx.sourceforge.net).
 - [Python](https://www.python.org).
+- [SCSS Lint](https://github.com/brigade/scss-lint/).
 
 ### Windows
 
