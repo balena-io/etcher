@@ -16,7 +16,7 @@
 
 $icon-font-path: "../../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 $body-bg: rgb(83, 87, 96);
-$text-color: white;
+$text-color: #fff;
 $brand-primary: rgb(87, 147, 219);
 $gray-light: #ddd;
 $font-size-base: 13px;
@@ -109,7 +109,7 @@ body {
   padding: 5px 8px;
   font-size: 15px;
 
-  & > .btn {
+  > .btn {
     padding-left: 3px;
     padding-right: 3px;
   }

@@ -17,6 +17,10 @@
 .modal-content {
   display: flex;
   flex-direction: column;
+
+  // Since Etcher opens with a known width & height and its
+  // not resizable, we can safely use an absolute value here
+  height: 320px;
 }
 
 .modal-header {
@@ -24,17 +28,14 @@
   align-items: baseline;
   text-transform: uppercase;
   font-size: 11px;
+  color: $btn-default-color;
+  padding: 11px 20px;
+  flex-grow: 0;
 }
 
 .modal-title {
   font-size: inherit;
   flex-grow: 1;
-}
-
-.modal-header {
-  color: $btn-default-color;
-  padding: 11px 20px;
-  flex-grow: 0;
 }
 
 .modal-body {
@@ -43,44 +44,38 @@
   padding: 0 20px;
   max-height: 250px;
   overflow: auto;
-}
 
-// Since Etcher opens with a known width & height and its
-// not resizable, we can safely use an absolute value here
-.modal-content {
-  height: 320px;
-}
+  .list-group-item {
+    display: flex;
+    align-items: center;
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+    border-color: #eee;
+    padding: 12px 0;
 
-.modal-body .list-group-item {
-  display: flex;
-  align-items: center;
-  border-left: none;
-  border-right: none;
-  border-radius: 0;
-  border-color: #eee;
-  padding: 12px 0;
+    > .tick {
+      font-size: 11px;
+    }
 
-  & > .tick {
-    font-size: 11px;
+    :first-child {
+      flex-grow: 1;
+    }
+
+    &:first-child {
+      border-top: 0;
+    }
   }
-}
 
-.modal-body .list-group-item-heading {
-  font-size: 13px;
-}
+  .list-group-item-heading {
+    font-size: 13px;
+  }
 
-.modal-body .list-group-item-text {
-  line-height: 1;
-  font-size: 11px;
-  color: #aaa;
-}
-
-.modal-body .list-group-item :first-child {
-  flex-grow: 1;
-}
-
-.modal-body .list-group-item:first-child {
-  border-top: none;
+  .list-group-item-text {
+    line-height: 1;
+    font-size: 11px;
+    color: #aaa;
+  }
 }
 
 // UI Bootstrap adds the `.modal-open` class to the <body>
@@ -98,17 +93,17 @@
   border: 0;
 }
 
-.modal .btn-primary[disabled] {
-  background-color: darken($gray-lighter, 10%);
-}
-
-// Center the modal using Flexbox so we can
-// freely use any height.
-
 .modal {
+
+  // Center the modal using Flexbox so we can
+  // freely use any height.
   display: flex !important;
   justify-content: center;
   align-items: center;
+
+  .btn-primary[disabled] {
+    background-color: darken($gray-lighter, 10%);
+  }
 }
 
 .modal-dialog {
