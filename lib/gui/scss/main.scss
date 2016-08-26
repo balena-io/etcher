@@ -49,30 +49,12 @@ $alert-padding: 13px;
 @import "../components/svg-icon/styles/svg-icon";
 @import "../components/drive-selector/styles/drive-selector";
 @import "../components/tooltip-modal/styles/tooltip-modal";
+@import "../pages/main/styles/main";
 @import "../pages/settings/styles/settings";
 @import "../pages/finish/styles/finish";
 
-.icon-caption {
-  @extend .caption;
-  @extend .center-block;
-
-  margin-top: 10px;
-
-  &[disabled] {
-    color: $color-disabled;
-  }
-}
-
 body {
   letter-spacing: 1px;
-}
-
-.relative {
-  position: relative;
-}
-
-.soft {
-  color: $color-disabled;
 }
 
 .section-footer {
@@ -115,62 +97,6 @@ body {
     right: 0;
     top: 50%;
   }
-}
-
-.step-border {
-  height: 2px;
-  background-color: $text-color;
-  position: absolute;
-  width: 230px;
-  top: 95px;
-
-  &[disabled] {
-    background-color: $color-disabled;
-  }
-}
-
-.step-border-left {
-  @extend .step-border;
-  left: -120px;
-}
-
-.step-border-right {
-  @extend .step-border;
-  right: -120px;
-}
-
-.step-tooltip {
-  display: block;
-  margin: -5px auto -20px;
-  color: lighten($color-disabled, 5%);
-  font-size: 10px;
-}
-
-.step-footer {
-  margin-top: 10px;
-  margin-bottom: -40px;
-  color: lighten($color-disabled, 5%);
-  font-size: 10px;
-}
-
-.step-footer-split {
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  justify-content: space-between;
-  max-width: $btn-min-width;
-}
-
-.step-footer-underline {
-  border-bottom: 1px dotted;
-  padding-bottom: 2px;
-}
-
-.btn.step-footer {
-  font-size: 12px;
-  border-bottom: 1px dashed;
-  border-radius: 0;
-  padding: 0;
 }
 
 .wrapper {
