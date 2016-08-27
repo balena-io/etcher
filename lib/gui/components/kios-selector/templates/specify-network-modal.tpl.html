@@ -39,5 +39,5 @@
 <div class="modal-footer">
   <button class="btn btn-primary btn-block"
     ng-click="modal.setNetworkTypeState(); modal.networkConfigModal()"
-    ng-disabled="!modal.state.hasDownload()">NEXT</button>
+    ng-disabled="!modal.state.hasNetworkType() || !modal.state.hasDownload()">NEXT</button>
 </div>
