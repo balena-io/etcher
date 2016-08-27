@@ -5,24 +5,12 @@
       <p class="soft space-vertical-small" ng-show="finish.settings.get('unmountOnSuccess')">Safely ejected and ready for use</p>
 
       <div class="row center-xs space-vertical-medium">
-        <div class="col-xs-4 space-medium">
+        <div class="col-xs-8 space-medium">
           <div class="box">
-            <p class="soft button-label">Would you like to flash the same release?</p>
+            <p class="soft button-label">Would you like to flash to another SD card?</p>
 
             <button class="btn btn-primary btn-brick" ng-click="finish.restart({ preserveRelease: true })">
-              Flash <b>same</b> release
-            </button>
-          </div>
-        </div>
-
-        <div class="col-xs separator-xs"></div>
-
-        <div class="col-xs-4 space-medium">
-          <div class="box">
-            <p class="soft button-label">Would you like to flash another release?</p>
-
-            <button class="btn btn-primary btn-brick" ng-click="finish.restart()">
-              Flash <b>new</b> release
+              Flash <b>again</b>
             </button>
           </div>
         </div>
