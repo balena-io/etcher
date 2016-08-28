@@ -139,7 +139,7 @@ function app_dir_create {
   cp ./scripts/build/AppImages/$APPLICATION_NAME.desktop $output_directory
   cp ./assets/icon.png $output_directory
   cp -rf $source_directory/* $output_directory/usr/bin
-  cp ./scripts/build/AppImages/desktopintegration $output_directory/usr/bin/etcher.wrapper
+  cp ./scripts/build/AppImages/desktopintegration $output_directory/usr/bin/kios.wrapper
 }
 
 function installer {
