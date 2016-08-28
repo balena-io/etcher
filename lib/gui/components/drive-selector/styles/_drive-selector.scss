@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+.component-drive-selector-body .list-group-item {
+  outline: 0;
+}
+
 .component-drive-selector-body .list-group-item-footer {
   margin-top: 8px;
 }
