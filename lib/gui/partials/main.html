@@ -29,7 +29,7 @@
         path="../../../assets/drive.svg"
         ng-disabled="!app.selection.hasDownload()"></svg-icon>
       <span class="icon-caption"
-        ng-disabled="!app.selection.hasDownload()">SELECT DRIVE</span>
+        ng-disabled="!app.selection.hasDownload() || !app.selection.hasNetworkType() || !app.selection.hasNetworkConfiguration()">SELECT DRIVE</span>
 
       <span class="badge space-top-medium" ng-disabled="!app.selection.hasDownload()">2</span>
 
@@ -38,7 +38,7 @@
 
           <div ng-show="app.drives.hasAvailableDrives() || !app.selection.hasDownload()">
             <button class="btn btn-primary btn-brick"
-              ng-disabled="!app.selection.hasDownload()"
+              ng-disabled="!app.selection.hasDownload() || !app.selection.hasNetworkType() || !app.selection.hasNetworkConfiguration()"
               ng-click="app.openDriveSelector()">Select drive</button>
           </div>
 
