@@ -84,7 +84,7 @@ function install {
 
 function package_x86 {
   output_directory=$1
-  output_package=$output_directory/Etcher-linux-x86
+  output_package=$output_directory/$APPLICATION_NAME-linux-x86
 
   $ELECTRON_PACKAGER . $APPLICATION_NAME \
     --platform=linux \
@@ -100,12 +100,12 @@ function package_x86 {
   # Change ia32 suffix to x86 for consistency
   mv $output_directory/$APPLICATION_NAME-linux-ia32 $output_package
 
-  mv $output_package/$APPLICATION_NAME $output_package/etcher
+  mv $output_package/$APPLICATION_NAME $output_package/kios
   chmod a+x $output_package/*.so*
 
   # UPX fails for some reason with some other so libraries
   # other than libnode.so in the x86 build
-  upx -9 $output_package/etcher $output_package/libnode.so
+  upx -9 $output_package/kios $output_package/libnode.so
 
 }
 
@@ -124,9 +124,9 @@ function package_x64 {
     --overwrite \
     --out=$output_directory
 
-  mv $output_package/$APPLICATION_NAME $output_package/etcher
+  mv $output_package/$APPLICATION_NAME $output_package/kios
   chmod a+x $output_package/*.so*
-  upx -9 $output_package/etcher $output_package/*.so*
+  upx -9 $output_package/kios $output_package/*.so*
 }
 
 function app_dir_create {
