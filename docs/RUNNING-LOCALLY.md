@@ -19,7 +19,7 @@ Prerequisites
 
 - [Rimraf](https://github.com/isaacs/rimraf)
 - [Asar](https://github.com/electron/asar)
-- [NSIS](http://nsis.sourceforge.net/Main_Page)
+- [NSIS v2.51](http://nsis.sourceforge.net/Main_Page) (v3.x won't work)
 - [Visual Studio Community 2013](https://www.visualstudio.com/en-us/news/vs2013-community-vs.aspx)
 
 ### OS X
