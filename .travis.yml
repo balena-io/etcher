@@ -2,7 +2,7 @@ language: cpp
 sudo: false
 
 env:
-  - NODE_VERSION="6.1.0"
+  - NODE_VERSION="6.1.0" RUBY_VERSION="2.3.1"
 os:
   - linux
   - osx
@@ -32,6 +32,8 @@ before_install:
   - node --version
   - npm --version
   - npm config set spin=false
+  - rvm install $RUBY_VERSION
+  - rvm use $RUBY_VERSION
 
 install:
   - if [ "$CXX" = "g++" ]; then
