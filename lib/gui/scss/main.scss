@@ -15,26 +15,15 @@
  */
 
 $icon-font-path: "../../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
-$body-bg: rgb(83, 87, 96);
-$text-color: #fff;
-$brand-primary: rgb(87, 147, 219);
-$gray-light: #ddd;
 $font-size-base: 13px;
 $cursor-disabled: initial;
-$color-disabled: rgb(120, 124, 127);
-$btn-disabled: rgb(49, 51, 57);
-$btn-min-width: 170px;
-$link-color: $gray-light;
 $link-hover-decoration: none;
-$btn-default-bg: #ececec;
-$btn-default-color: #b3b3b3;
-$brand-warning: rgb(233, 152, 82);
-$alert-warning-bg: $brand-warning;
-$alert-warning-text: #fff;
 $alert-padding: 13px;
+$btn-min-width: 170px;
+$link-color: #ddd;
 
 @import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-
+@import "./modules/theme";
 @import "./modules/bootstrap";
 @import "./modules/space";
 @import "./components/label";
@@ -46,7 +35,6 @@ $alert-padding: 13px;
 @import "./components/alert-ribbon";
 @import "../components/update-notifier/styles/update-notifier";
 @import "../components/progress-button/styles/progress-button";
-@import "../components/svg-icon/styles/svg-icon";
 @import "../components/drive-selector/styles/drive-selector";
 @import "../components/tooltip-modal/styles/tooltip-modal";
 @import "../pages/main/styles/main";
@@ -58,8 +46,6 @@ body {
 }
 
 .section-footer {
-  @extend .text-center;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -68,10 +54,11 @@ body {
   bottom: 20px;
   left: 0;
   right: 0;
-  color: $color-disabled;
+  color: $palette-theme-dark-disabled-foreground;
   margin: 0 60px;
   padding-top: 15px;
-  border-top: 2px solid darken($color-disabled, 8%);
+  border-top: 2px solid $palette-theme-dark-soft-background;
+  text-align: center;
 
   // Override default column padding
   // set by flexboxgrid.
@@ -88,7 +75,7 @@ body {
     padding-bottom: 2px;
 
     &:hover {
-      color: lighten($color-disabled, 5%);
+      color: lighten($palette-theme-dark-disabled-foreground, 5%);
     }
   }
 
@@ -105,11 +92,11 @@ body {
 }
 
 .section-header {
-  @extend .text-right;
+  text-align: right;
   padding: 5px 8px;
   font-size: 15px;
 
-  > .btn {
+  > .button {
     padding-left: 3px;
     padding-right: 3px;
   }

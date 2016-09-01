@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-.btn {
+.button {
+  @extend .btn;
+
   padding: 10px;
   padding-top: 11px;
 
@@ -32,80 +34,70 @@
   }
 
   &[disabled] {
-    background-color: $btn-disabled;
-    color: $color-disabled;
-    pointer-events: none;
-
-    &:hover {
-      background-color: lighten($btn-disabled, 2);
-    }
+    @extend .button-no-hover;
+    background-color: $palette-theme-dark-disabled-background;
+    color: $palette-theme-dark-disabled-foreground;
   }
 }
 
-.btn-brick {
-  min-width: $btn-min-width;
+.button-link {
+  @extend .btn-link;
 }
 
-.btn-sm {
-  font-size: 10px;
-  padding: 4px 12px;
+.button-block {
+  display: block;
+  width: 100%;
+}
+
+.button-no-hover {
+  pointer-events: none;
+}
+
+.button-brick {
+  min-width: $btn-min-width;
 }
 
 // Create map from Bootstrap `.btn` type styles
 // since its not possible to perform variable
 // interpolation (e.g: `$btn-${type}-bg`).
 // See https://github.com/sass/sass/issues/132
-$btn-types-styles: (
+$button-types-styles: (
   default: (
-    bg: $btn-default-bg,
-    color: $btn-default-color,
-    border: $btn-default-border
+    bg: $palette-theme-default-background,
+    color: $palette-theme-default-foreground
   ),
   primary: (
-    bg: $btn-primary-bg,
-    color: $btn-primary-color,
-    border: $btn-primary-border
-  ),
-  success: (
-    bg: $btn-success-bg,
-    color: $btn-success-color,
-    border: $btn-success-border
-  ),
-  info: (
-    bg: $btn-info-bg,
-    color: $btn-info-color,
-    border: $btn-info-border
+    bg: $palette-theme-primary-background,
+    color: $palette-theme-primary-foreground
   ),
   warning: (
-    bg: $btn-warning-bg,
-    color: $btn-warning-color,
-    border: $btn-warning-border
+    bg: $palette-theme-warning-background,
+    color: $palette-theme-warning-foreground
   ),
   danger: (
-    bg: $btn-danger-bg,
-    color: $btn-danger-color,
-    border: $btn-danger-border
+    bg: $palette-theme-danger-background,
+    color: $palette-theme-danger-foreground
   )
 );
 
-// Undo `:focus` styles from Bootstrap.
-// On Electron, the user can click and press over a button,
-// then move the mouse away from the button and release,
-// and the button will erroneusly keep the `:focus` state style.
-@each $style in map-keys($btn-types-styles) {
-  .btn-#{$style}:focus {
-    $btn-styles: map-get($btn-types-styles, $style);
-    background-color: map-get($btn-styles, "bg");
-    color: map-get($btn-styles, "color");
-    border-color: map-get($btn-styles, "border");
-  }
-}
+@each $style in map-keys($button-types-styles) {
+  $button-styles: map-get($button-types-styles, $style);
 
-/*
- * Remove blue/orange outline
- * !important is needed here for some reason
- * despite the rule having top precedence.
- */
-button.btn:focus {
-  outline: none !important;
+  .button-#{$style},
+
+  // Undo `:focus` styles from Bootstrap.
+  // On Electron, the user can click and press over a button,
+  // then move the mouse away from the button and release,
+  // and the button will erroneusly keep the `:focus` state style.
+  .button-#{$style}:focus {
+
+    background-color: map-get($button-styles, "bg");
+    color: map-get($button-styles, "color");
+    outline: none;
+  }
+
+  .button-#{$style}:hover {
+    background-color: darken(map-get($button-styles, "bg"), 10%);
+    color: map-get($button-styles, "color");
+  }
 }

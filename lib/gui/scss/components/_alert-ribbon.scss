@@ -17,6 +17,10 @@
 .alert-ribbon {
   @extend .alert;
 
+  background-color: $palette-theme-warning-background;
+  color: $palette-theme-warning-foreground;
+  border-color: lighten($palette-theme-warning-background, 25%);
+
   width: 60%;
   position: fixed;
 
@@ -42,24 +46,15 @@
     }
   }
 
-  .btn-link {
-    @extend .btn-sm;
-
+  .button-link {
     padding: 0;
     font-size: inherit;
     vertical-align: baseline;
     border-radius: 0;
     border-bottom: 1px solid;
-  }
 
-  &.alert-warning .btn-link {
-    border-color: lighten($alert-warning-bg, 25%);
-    color: $alert-warning-text;
-
-    &:hover {
-      color: darken($alert-warning-text, 10%);
-      border-color: lighten($alert-warning-bg, 15%);
-    }
+    border-color: $palette-theme-warning-foreground;
+    color: $palette-theme-warning-foreground;
   }
 }
 

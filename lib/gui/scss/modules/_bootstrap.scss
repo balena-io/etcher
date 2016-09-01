@@ -19,7 +19,11 @@
 
 // Prevent white flash when running application
 html {
-  background-color: $body-bg;
+  background-color: $palette-theme-dark-background;
+}
+
+body {
+  background-color: $palette-theme-dark-background;
 }
 
 // Fix slighly checkbox vertical alignment issue
@@ -34,8 +38,7 @@ html {
 }
 
 .alert {
-  @extend .text-center;
-
+  text-align: center;
   border: 0;
   border-radius: 2px;
 }

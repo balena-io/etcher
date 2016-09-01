@@ -15,12 +15,11 @@
  */
 
 .modal-content {
+  background-color: $palette-theme-light-background;
   display: flex;
   flex-direction: column;
-
-  // Since Etcher opens with a known width & height and its
-  // not resizable, we can safely use an absolute value here
-  height: 320px;
+  margin: 0 auto;
+  height: auto;
 }
 
 .modal-header {
@@ -28,7 +27,7 @@
   align-items: baseline;
   text-transform: uppercase;
   font-size: 11px;
-  color: $btn-default-color;
+  color: $palette-theme-light-soft-foreground;
   padding: 11px 20px;
   flex-grow: 0;
 }
@@ -40,7 +39,7 @@
 
 .modal-body {
   flex-grow: 1;
-  color: #666;
+  color: $palette-theme-light-foreground;
   padding: 0 20px;
   max-height: 250px;
   overflow: auto;
@@ -51,7 +50,7 @@
     border-left: 0;
     border-right: 0;
     border-radius: 0;
-    border-color: #eee;
+    border-color: darken($palette-theme-light-background, 7%);
     padding: 12px 0;
 
     > .tick {
@@ -65,6 +64,10 @@
     &:first-child {
       border-top: 0;
     }
+
+    &[disabled] .list-group-item-heading {
+      color: $palette-theme-light-soft-foreground;
+    }
   }
 
   .list-group-item-heading {
@@ -74,7 +77,7 @@
   .list-group-item-text {
     line-height: 1;
     font-size: 11px;
-    color: #aaa;
+    color: $palette-theme-light-soft-foreground;
   }
 }
 
@@ -101,13 +104,15 @@
   justify-content: center;
   align-items: center;
 
-  .btn-primary[disabled] {
-    background-color: darken($gray-lighter, 10%);
+  .button[disabled] {
+    background-color: $palette-theme-light-disabled-background;
+    color: $palette-theme-light-disabled-foreground;
   }
 }
 
 .modal-dialog {
   margin: 0;
   position: initial;
+  max-width: 50%;
 }
 

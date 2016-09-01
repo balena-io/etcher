@@ -14,55 +14,38 @@
  * limitations under the License.
  */
 
+.page-settings .checkbox input[type="checkbox"] + * {
+  color: $palette-theme-dark-foreground;
+}
+
 .page-settings .checkbox input[type="checkbox"]:not(:checked) + * {
-  color: $gray-light;
+  color: $palette-theme-dark-soft-foreground;
+}
+
+.page-settings .title {
+  color: $palette-theme-dark-foreground;
 }
 
 .page-settings .subtitle {
-  @extend .space-top-large;
-  @extend .space-bottom-medium;
+  color: $palette-theme-dark-foreground;
+  margin-top: 30px;
+  margin-bottom: 15px;
 }
 
 .modal-settings-dangerous-modal {
-  max-width: 50%;
 
-  .modal-header {
-    text-align: center;
-    font-weight: bold;
-    color: $gray;
-    text-transform: initial;
-    font-size: 15px;
-    border-bottom: none;
-    padding: 0 0 15px;
-  }
-
-  .modal-title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .glyphicon {
-      margin-right: 3px;
-      color: $btn-danger-bg;
-    }
-  }
-
-  .modal-content {
-    padding: 25px 30px;
-    height: 220px;
+  .modal-title .glyphicon {
+    color: $palette-theme-danger-background;
   }
 
   .modal-body {
-    padding: 0;
+    padding: 20px;
   }
 
   .modal-footer {
-    padding: 0;
-    padding-top: 20px;
-    border-top: 1px solid $gray-lighter;
     display: flex;
 
-    & > .btn {
+    & > .button {
       flex-basis: 50%;
     }
   }

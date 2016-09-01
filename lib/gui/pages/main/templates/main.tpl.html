@@ -7,7 +7,7 @@
 
       <div class="space-vertical-large">
         <div ng-hide="main.selection.hasImage()">
-          <button class="btn btn-primary btn-brick" ng-click="image.openImageSelector()">Select image</button>
+          <button class="button button-primary button-brick" ng-click="image.openImageSelector()">Select image</button>
 
           <p class="step-footer">
             {{ ::image.mainSupportedExtensions.join(', ') }}, and
@@ -16,16 +16,17 @@
           </p>
         </div>
         <div ng-if="main.selection.hasImage()">
-          <div ng-click="main.external.open(main.selection.getImageUrl())"
+          <div class="step-selection-text"
+            ng-click="main.external.open(main.selection.getImageUrl())"
             ng-bind="main.selection.getImageName() || main.selection.getImagePath() | basename | middleEllipses:25"></div>
 
-          <button class="btn btn-link step-tooltip"
+          <button class="button button-link step-tooltip"
             ng-click="main.tooltipModal.show({
               title: 'IMAGE FILE NAME',
               message: main.selection.getImagePath()
             })">SHOW FULL FILE NAME</button>
 
-          <button class="btn btn-link step-footer"
+          <button class="button button-link step-footer"
             ng-click="image.reselectImage()"
             ng-hide="main.state.isFlashing()">Change</button>
         </div>
@@ -50,21 +51,23 @@
         <div ng-hide="main.selection.hasDrive()">
 
           <div ng-show="main.drives.hasAvailableDrives() || main.shouldDriveStepBeDisabled()">
-            <button class="btn btn-primary btn-brick"
+            <button class="button button-primary button-brick"
               ng-disabled="main.shouldDriveStepBeDisabled()"
               ng-click="drive.openDriveSelector()">Select drive</button>
           </div>
 
           <div ng-hide="main.drives.hasAvailableDrives() || main.shouldDriveStepBeDisabled()">
-            <button class="btn btn-danger btn-brick">Connect a drive</button>
+            <button class="button button-danger button-brick button-no-hover">Connect a drive</button>
           </div>
 
         </div>
         <div ng-show="main.selection.hasDrive()">
-          <div ng-class="{
-            soft: main.shouldDriveStepBeDisabled()
-          }">{{ main.selection.getDrive().name }} - {{ main.selection.getDrive().size | gigabyte | number:1 }} GB</div>
-          <button class="btn btn-link step-footer"
+
+          <div class="step-selection-text"
+            ng-class="{
+              'text-disabled': main.shouldDriveStepBeDisabled()
+            }">{{ main.selection.getDrive().name }} - {{ main.selection.getDrive().size | gigabyte | number:1 }} GB</div>
+          <button class="button button-link step-footer"
             ng-click="drive.reselectDrive()"
             ng-hide="main.state.isFlashing()">Change</button>
         </div>
@@ -83,7 +86,7 @@
       <span class="badge space-top-medium" ng-disabled="main.shouldFlashStateBeDisabled()">3</span>
 
       <div class="space-vertical-large">
-        <progress-button class="btn-brick"
+        <progress-button class="button-brick"
           percentage="main.state.getFlashState().percentage"
           striped="{{ main.state.getFlashState().type == 'check' }}"
           ng-attr-active="{{ main.state.isFlashing() }}"
@@ -93,20 +96,20 @@
             <span ng-bind="flash.getProgressButtonLabel()"></span>
         </progress-button>
 
-        <div class="alert-ribbon alert-warning" ng-class="{ 'alert-ribbon--open': !main.state.wasLastFlashSuccessful() }">
+        <div class="alert-ribbon" ng-class="{ 'alert-ribbon--open': !main.state.wasLastFlashSuccessful() }">
           <span class="glyphicon glyphicon-warning-sign"></span>
           <span ng-show="main.state.getLastFlashErrorCode() === 'ENOSPC'">
-            Not enough space on the drive.<br>Please insert larger one and <button class="btn btn-link" ng-click="main.restartAfterFailure()">try again</button>
+            Not enough space on the drive.<br>Please insert larger one and <button class="button button-link" ng-click="main.restartAfterFailure()">try again</button>
           </span>
           <span ng-show="main.state.getLastFlashErrorCode() !== 'ENOSPC' && main.settings.get('validateWriteOnSuccess')">
-            Your removable drive may be corrupted.<br>Try inserting a different one and <button class="btn btn-link" ng-click="main.restartAfterFailure()">press "retry"</button>
+            Your removable drive may be corrupted.<br>Try inserting a different one and <button class="button button-link" ng-click="main.restartAfterFailure()">press "retry"</button>
           </span>
           <span ng-show="main.state.getLastFlashErrorCode() !== 'ENOSPC' && !main.settings.get('validateWriteOnSuccess')">
-            Oops, seems something went wrong. Click <button class="btn btn-link" ng-click="main.restartAfterFailure()">here</button> to retry
+            Oops, seems something went wrong. Click <button class="button button-link" ng-click="main.restartAfterFailure()">here</button> to retry
           </span>
         </div>
 
-        <button class="btn btn-warning btn-brick" ng-hide="main.state.wasLastFlashSuccessful()" ng-click="main.restartAfterFailure()">
+        <button class="button button-warning button-brick" ng-hide="main.state.wasLastFlashSuccessful()" ng-click="main.restartAfterFailure()">
           <span class="glyphicon glyphicon-repeat"></span> Retry
         </button>
 

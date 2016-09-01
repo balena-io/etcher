@@ -3,8 +3,6 @@ scss_files: 'lib/gui/scss/**/*.scss'
 linters:
   Comment:
     enabled: false
-  ColorVariable:
-    enabled: false
   ImportantRule:
     enabled: false
   PlaceholderInExtend:

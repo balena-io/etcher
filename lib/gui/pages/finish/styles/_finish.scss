@@ -21,21 +21,26 @@
   max-width: $btn-min-width - 5px;
 }
 
-.page-finish .label {
-  display: inline-block;
+.page-finish .title {
+  color: $palette-theme-dark-foreground;
 }
 
-.page-finish .monospace {
-  font-family: monospace;
+.page-finish .label {
+  display: inline-block;
+
+  > b {
+    color: $palette-theme-dark-soft-foreground;
+    font-family: monospace;
+  }
 }
 
 .page-finish .soft {
-  color: $gray-light;
+  color: $palette-theme-dark-soft-foreground;
 }
 
 .page-finish .separator-xs {
   flex-grow: 0;
-  background-color: darken($color-disabled, 8%);
+  background-color: $palette-theme-dark-soft-background;
   padding: 0px;
   min-width: 2px;
 }

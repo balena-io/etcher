@@ -24,11 +24,7 @@
   padding: 8px 25px;
 }
 
-.label-default {
-  background-color: #3e4147;
-  color: darken($gray-light, 30%);
-
-  > b {
-    color: darken(#fff, 5%);
-  }
+.label-inset {
+  background-color: darken($palette-theme-dark-background, 10%);
+  color: darken($palette-theme-dark-foreground, 43%);
 }

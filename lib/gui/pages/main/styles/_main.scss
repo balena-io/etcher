@@ -16,17 +16,29 @@
 
 .page-main .icon-caption {
   @extend .caption;
-  @extend .center-block;
 
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 10px;
 
+  color: $palette-theme-dark-foreground;
+
   &[disabled] {
-    color: $color-disabled;
+    color: $palette-theme-dark-disabled-foreground;
   }
 }
 
-.page-main .soft {
-  color: $color-disabled;
+.svg-icon[disabled] path {
+  fill: $palette-theme-dark-disabled-foreground;
+}
+
+.page-main .step-selection-text {
+  color: $palette-theme-dark-foreground;
+}
+
+.page-main .text-disabled {
+  color: $palette-theme-dark-disabled-foreground;
 }
 
 .page-main .relative {
@@ -35,13 +47,13 @@
 
 %step-border {
   height: 2px;
-  background-color: $text-color;
+  background-color: $palette-theme-dark-foreground;
   position: absolute;
   width: 230px;
   top: 95px;
 
   &[disabled] {
-    background-color: $color-disabled;
+    background-color: $palette-theme-dark-disabled-foreground;
   }
 }
 
@@ -58,14 +70,14 @@
 .page-main .step-tooltip {
   display: block;
   margin: -5px auto -20px;
-  color: lighten($color-disabled, 5%);
+  color: $palette-theme-dark-disabled-foreground;
   font-size: 10px;
 }
 
 .page-main .step-footer {
   margin-top: 10px;
   margin-bottom: -40px;
-  color: lighten($color-disabled, 5%);
+  color: $palette-theme-dark-disabled-foreground;
   font-size: 10px;
 }
 
@@ -82,7 +94,7 @@
   padding-bottom: 2px;
 }
 
-.page-main .btn.step-footer {
+.page-main .button.step-footer {
   font-size: 12px;
   border-bottom: 1px dashed;
   border-radius: 0;
