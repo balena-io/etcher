@@ -1,7 +1,7 @@
 <div class="page-finish row around-xs">
   <div class="col-xs">
     <div class="box text-center">
-      <h3><span class="tick tick--success" class="space-right-tiny"></span> Flash Complete!</h3>
+      <h3 class="title"><span class="tick tick--success" class="space-right-tiny"></span> Flash Complete!</h3>
       <p class="soft space-vertical-small" ng-show="finish.settings.get('unmountOnSuccess')">Safely ejected and ready for use</p>
 
       <div class="row center-xs space-vertical-medium">
@@ -9,7 +9,7 @@
           <div class="box">
             <p class="soft button-label">Would you like to flash the same image?</p>
 
-            <button class="btn btn-primary btn-brick" ng-click="finish.restart({ preserveImage: true })">
+            <button class="button button-primary button-brick" ng-click="finish.restart({ preserveImage: true })">
               Use <b>same</b> image
             </button>
           </div>
@@ -21,15 +21,15 @@
           <div class="box">
             <p class="soft button-label">Would you like to flash a new image?</p>
 
-            <button class="btn btn-primary btn-brick" ng-click="finish.restart()">
+            <button class="button button-primary button-brick" ng-click="finish.restart()">
               Use <b>new</b> image
             </button>
           </div>
         </div>
       </div>
 
-      <span class="label label-big label-default"
-        ng-if="finish.checksum">CRC32 CHECKSUM : <b class="monospace">{{ ::finish.checksum }}</b></span>
+      <span class="label label-big label-inset"
+        ng-if="finish.checksum">CRC32 CHECKSUM : <b>{{ ::finish.checksum }}</b></span>
     </div>
   </div>
 </div>

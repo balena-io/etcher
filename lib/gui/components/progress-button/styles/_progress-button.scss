@@ -22,9 +22,6 @@
  * The state of the progress bar is controller by the width, in percentage,
  * of `.progress-button__bar`.
  *
- * The current percentage also needs to be reflected in the top level
- * `.progress-button` element as a `percentage` attribute, without the percentage sign.
- *
  * If there is an action in place, the `active` attribute must be set to `true`.
  * This is useful to determine if the progress bar is paused from the point of view
  * of the styling.
@@ -38,7 +35,7 @@
  *
  * Usage:
  *
- * <button class="progress-button progress-button--primary" percentage="50" active="true">
+ * <button class="progress-button" active="true">
  *   <span class="progress-button__content">Button text</span>
  *   <span class="progress-button__bar" style="width: 50%;"></span>
  * </button>
@@ -48,55 +45,37 @@ $progress-button-stripes-width: 20px;
 $progress-button-stripes-animation-duration: 1s;
 
 .progress-button {
-  @extend .btn;
-}
-
-.progress-button--primary {
-  @extend .btn-primary;
+  @extend .button;
+  @extend .button-primary;
 
   .progress-button__bar {
-    background: lighten($brand-primary, 5);
+    background-color: lighten($palette-theme-primary-background, 5%);
   }
 
-  $progress-button-stripes-background-color: desaturate($brand-primary, 5%);
-  $progress-button-stripes-color: desaturate(darken($brand-primary, 18%), 20%);
-
   &.progress-button--striped {
+    $progress-button-stripes-background-color: desaturate($palette-theme-primary-background, 5%);
+    $progress-button-stripes-foreground-color: desaturate(darken($palette-theme-primary-background, 18%), 20%);
 
     // Notice that we add `0.01` to certain gradient stop positions.
     // That workarounds a Chrome rendering issue where diagonal
     // lines look spiky.
     // See https://github.com/resin-io/etcher/issues/472
     background-image: -webkit-gradient(linear, 0 0, 100% 100%,
-      color-stop(0.25, $progress-button-stripes-color),
+      color-stop(0.25, $progress-button-stripes-foreground-color),
       color-stop(0.25 + 0.01, $progress-button-stripes-background-color),
       color-stop(0.50, $progress-button-stripes-background-color),
-      color-stop(0.50 + 0.01, $progress-button-stripes-color),
-      color-stop(0.75, $progress-button-stripes-color),
+      color-stop(0.50 + 0.01, $progress-button-stripes-foreground-color),
+      color-stop(0.75, $progress-button-stripes-foreground-color),
       color-stop(0.75 + 0.01, $progress-button-stripes-background-color),
       to($progress-button-stripes-background-color));
 
   }
 }
 
-.progress-button--primary[active="true"]:active {
-  box-shadow: none;
-  background-color: $brand-success;
-  border-color: $btn-primary-border;
-}
-
-.progress-button[percentage="100"][active="false"] .progress-button__bar {
-  background-color: $brand-success;
-}
-
-.progress-button[percentage="100"][active="true"] .progress-button__bar {
-  background-color: $brand-warning;
-}
-
 // Prevent the button from being clickable
 // when it has an active progress bar.
 .progress-button[active="true"] {
-  pointer-events: none;
+  @extend .button-no-hover;
 }
 
 .progress-button__content {

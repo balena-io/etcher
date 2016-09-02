@@ -20,50 +20,25 @@
 }
 
 .modal-update-notifier {
-  width: 400px;
 
-  // Move it a bit to the top for
-  // aesthetic reasons
-  margin-top: -10px;
-
-  .modal-content {
-    height: 245px;
-  }
-}
-
-.update-notifier-modal-body__content {
-  @extend .text-center;
-
-  padding-bottom: 15px;
-  margin-bottom: 25px;
-  border-bottom: 1px solid $gray-lighter;
-}
-
-.update-notifier-modal-body__title {
-  margin-bottom: 15px;
-}
-
-.update-notifier-modal-body__menu {
-  display: flex;
-  justify-content: center;
-
-  > .btn {
-    flex-grow: 1;
-
-
-    // This causes flex children buttons to be
-    // equally resized independently of the
-    // button text length
-    width: 0;
-
+  .modal-body {
+    padding: 20px;
+    padding-bottom: 0;
   }
 
-  > .btn + .btn {
-    margin-left: 10px;
+  .modal-footer .checkbox {
+    color: $palette-theme-light-soft-foreground;
+    font-size: 11px;
+    margin-bottom: 0;
   }
+
+  .modal-menu {
+    display: flex;
+
+    & > .button {
+      flex-basis: 50%;
+    }
+  }
+
 }
 
-.update-notifier-modal-body .checkbox {
-  color: lighten($gray, 25%);
-  font-size: 11px;
-}

@@ -21,12 +21,11 @@
   border-radius: 50%;
   padding: 3px;
   font-size: 18px;
-  color: #fff;
   border: 2px solid;
 
   &[disabled] {
-    color: lighten($color-disabled, 40);
-    border-color: lighten($color-disabled, 40);
+    color: $palette-theme-dark-soft-foreground;
+    border-color: $palette-theme-dark-soft-foreground;
     background-color: transparent;
   }
 }
@@ -34,13 +33,15 @@
 .tick--success {
   @extend .glyphicon-ok;
 
-  background-color: rgb(95, 184, 53);
-  border-color: rgb(95, 184, 53);
+  color: $palette-theme-success-foreground;
+  background-color: $palette-theme-success-background;
+  border-color: $palette-theme-success-background;
 }
 
 .tick--error {
   @extend .glyphicon-remove;
 
-  background-color: #d9534f;
-  border-color: #d9534f;
+  color: $palette-theme-danger-foreground;
+  background-color: $palette-theme-danger-background;
+  border-color: $palette-theme-danger-background;
 }

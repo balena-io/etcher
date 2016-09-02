@@ -14,45 +14,12 @@
  * limitations under the License.
  */
 
-.modal-tooltip-modal {
-  max-width: 50%;
-
-  .modal-header {
-    border: none;
-
-    .close {
-      position: absolute;
-
-      $modal-tooltip-close-position: 8px;
-      right: -($modal-tooltip-close-position + 1px);
-      top: -$modal-tooltip-close-position;
-
-      background-color: $gray-dark;
-      color: $gray-lighter;
-      opacity: 1;
-      font-weight: 200;
-      font-size: 150%;
-      padding: 0px 5px 3px;
-      text-shadow: none;
-      margin: 0;
-      border-radius: 50%;
-    }
-  }
-
-  .modal-content {
-    height: auto;
-    border-radius: 3px;
-  }
-
-  .modal-body {
-    @extend .text-center;
-
-    margin: 0px 15px 15px;
-    color: $gray-darker;
-    background-color: $gray-lighter;
-    padding: 8px;
-    overflow: hidden;
-    word-wrap: break-word;
-  }
-
+.modal-tooltip-modal .modal-body {
+  text-align: center;
+  margin: 15px;
+  color: $palette-theme-light-foreground;
+  background-color: darken($palette-theme-light-background, 5%);
+  padding: 8px;
+  overflow: hidden;
+  word-wrap: break-word;
 }
