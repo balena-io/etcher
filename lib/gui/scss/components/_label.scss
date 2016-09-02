@@ -28,3 +28,8 @@
   background-color: darken($palette-theme-dark-background, 10%);
   color: darken($palette-theme-dark-foreground, 43%);
 }
+
+.label-danger {
+  background-color: $palette-theme-danger-background;
+  color: $palette-theme-danger-foreground;
+}
