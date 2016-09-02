@@ -32,21 +32,6 @@
   margin-bottom: 15px;
 }
 
-.modal-settings-dangerous-modal {
-
-  .modal-title .glyphicon {
-    color: $palette-theme-danger-background;
-  }
-
-  .modal-body {
-    padding: 20px;
-  }
-
-  .modal-footer {
-    display: flex;
-
-    & > .button {
-      flex-basis: 50%;
-    }
-  }
+.modal-settings-dangerous-modal .modal-title .glyphicon {
+  color: $palette-theme-danger-background;
 }
