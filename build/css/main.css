@@ -6135,9 +6135,6 @@ body {
 .button-no-hover, .button[disabled], [disabled].progress-button, .progress-button[active="true"] {
   pointer-events: none; }
 
-.button-brick {
-  min-width: 170px; }
-
 .button-default,
 .button-default:focus {
   background-color: #ececec;
@@ -6538,6 +6535,9 @@ body {
 .page-main .relative {
   position: relative; }
 
+.page-main .button-brick {
+  min-width: 170px; }
+
 .page-main .step-border-left, .page-main .step-border-right {
   height: 2px;
   background-color: #fff;
@@ -6640,6 +6640,9 @@ body {
 .page-finish .button-label {
   margin: 0 auto 15px;
   max-width: 165px; }
+
+.page-finish .button-primary, .page-finish .progress-button {
+  min-width: 170px; }
 
 .page-finish .title {
   color: #fff; }

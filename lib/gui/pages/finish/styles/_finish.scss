@@ -21,6 +21,10 @@
   max-width: $btn-min-width - 5px;
 }
 
+.page-finish .button-primary {
+  min-width: $btn-min-width;
+}
+
 .page-finish .title {
   color: $palette-theme-dark-foreground;
 }

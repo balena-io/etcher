@@ -55,6 +55,10 @@
   position: relative;
 }
 
+.page-main .button-brick {
+  min-width: $btn-min-width;
+}
+
 %step-border {
   height: 2px;
   background-color: $palette-theme-dark-foreground;
