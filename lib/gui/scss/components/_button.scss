@@ -53,10 +53,6 @@
   pointer-events: none;
 }
 
-.button-brick {
-  min-width: $btn-min-width;
-}
-
 // Create map from Bootstrap `.btn` type styles
 // since its not possible to perform variable
 // interpolation (e.g: `$btn-${type}-bg`).
