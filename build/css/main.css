@@ -5976,11 +5976,6 @@ body {
 .modal-backdrop.in {
   opacity: 0; }
 
-.alert, .alert-ribbon {
-  text-align: center;
-  border: 0;
-  border-radius: 2px; }
-
 [uib-tooltip] {
   cursor: default; }
 
@@ -6325,9 +6320,12 @@ body {
   border-color: #f7dbc3;
   width: 60%;
   position: fixed;
+  text-align: center;
   left: 0;
   right: 0;
   margin: 0 auto;
+  border: 0;
+  border-radius: 2px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   top: -100%;
