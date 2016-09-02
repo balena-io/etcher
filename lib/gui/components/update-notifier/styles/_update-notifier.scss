@@ -14,31 +14,9 @@
  * limitations under the License.
  */
 
-.update-notifier-modal-body {
-  padding: 30px 35px;
-  overflow: hidden;
-}
-
-.modal-update-notifier {
-
-  .modal-body {
-    padding: 20px;
-    padding-bottom: 0;
-  }
-
-  .modal-footer .checkbox {
-    color: $palette-theme-light-soft-foreground;
-    font-size: 11px;
-    margin-bottom: 0;
-  }
-
-  .modal-menu {
-    display: flex;
-
-    & > .button {
-      flex-basis: 50%;
-    }
-  }
-
+.modal-update-notifier .modal-footer .checkbox {
+  color: $palette-theme-light-soft-foreground;
+  font-size: 11px;
+  margin-bottom: 0;
 }
 

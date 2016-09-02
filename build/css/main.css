@@ -5973,9 +5973,6 @@ body {
   position: initial;
   margin-right: 2px; }
 
-.modal-backdrop.in {
-  opacity: 0; }
-
 [uib-tooltip] {
   cursor: default; }
 
@@ -6227,90 +6224,6 @@ body {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.modal-content {
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  height: auto; }
-
-.modal-header {
-  display: flex;
-  align-items: baseline;
-  text-transform: uppercase;
-  font-size: 11px;
-  color: #b3b3b3;
-  padding: 11px 20px;
-  flex-grow: 0; }
-
-.modal-title {
-  font-size: inherit;
-  flex-grow: 1; }
-
-.modal-body {
-  flex-grow: 1;
-  color: #666;
-  padding: 0 20px;
-  max-height: 250px;
-  overflow: auto; }
-  .modal-body .list-group-item {
-    display: flex;
-    align-items: center;
-    border-left: 0;
-    border-right: 0;
-    border-radius: 0;
-    border-color: #ededed;
-    padding: 12px 0; }
-    .modal-body .list-group-item > .tick {
-      font-size: 11px; }
-    .modal-body .list-group-item :first-child {
-      flex-grow: 1; }
-    .modal-body .list-group-item:first-child {
-      border-top: 0; }
-    .modal-body .list-group-item[disabled] .list-group-item-heading {
-      color: #b3b3b3; }
-  .modal-body .list-group-item-heading {
-    font-size: 13px; }
-  .modal-body .list-group-item-text {
-    line-height: 1;
-    font-size: 11px;
-    color: #b3b3b3; }
-
-.modal-open {
-  padding-right: 0 !important; }
-
-.modal-footer {
-  flex-grow: 0;
-  border: 0; }
-
-.modal {
-  display: flex !important;
-  justify-content: center;
-  align-items: center; }
-  .modal .button[disabled], .modal [disabled].progress-button {
-    background-color: #d5d5d5;
-    color: #787c7f; }
-
-.modal-dialog {
-  margin: 0;
-  position: initial;
-  max-width: 50%; }
-
-/*
- * Copyright 2016 Resin.io
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 .alert-ribbon {
   background-color: #e99852;
   color: #fff;
@@ -6358,23 +6271,109 @@ body {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.update-notifier-modal-body {
-  padding: 30px 35px;
-  overflow: hidden; }
+.modal-content {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  height: auto; }
 
-.modal-update-notifier .modal-body {
-  padding: 20px;
-  padding-bottom: 0; }
+.modal-header {
+  display: flex;
+  align-items: baseline;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: #b3b3b3;
+  padding: 11px 20px;
+  flex-grow: 0; }
 
+.modal-title {
+  font-size: inherit;
+  flex-grow: 1; }
+
+.modal-body {
+  flex-grow: 1;
+  color: #666;
+  padding: 0;
+  max-height: 250px;
+  overflow: auto; }
+  .modal-body .list-group {
+    padding: 0 20px; }
+  .modal-body .list-group-item {
+    display: flex;
+    align-items: center;
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+    border-color: #ededed;
+    padding: 12px 0; }
+    .modal-body .list-group-item > .tick {
+      font-size: 11px; }
+    .modal-body .list-group-item :first-child {
+      flex-grow: 1; }
+    .modal-body .list-group-item:first-child {
+      border-top: 0; }
+    .modal-body .list-group-item[disabled] .list-group-item-heading {
+      color: #b3b3b3; }
+  .modal-body .list-group-item-heading {
+    font-size: 13px; }
+  .modal-body .list-group-item-text {
+    line-height: 1;
+    font-size: 11px;
+    color: #b3b3b3; }
+
+.modal-text {
+  padding: 20px; }
+  .modal-text > p:last-child {
+    margin-bottom: 0; }
+
+.modal-menu {
+  display: flex; }
+  .modal-menu > .button, .modal-menu > .progress-button {
+    flex-basis: 50%; }
+
+.modal-open {
+  padding-right: 0 !important; }
+
+.modal-backdrop.in {
+  opacity: 0; }
+
+.modal-footer {
+  flex-grow: 0;
+  border: 0; }
+
+.modal {
+  display: flex !important;
+  justify-content: center;
+  align-items: center; }
+  .modal .button[disabled], .modal [disabled].progress-button {
+    background-color: #d5d5d5;
+    color: #787c7f; }
+
+.modal-dialog {
+  margin: 0;
+  position: initial;
+  max-width: 50%; }
+
+/*
+ * Copyright 2016 Resin.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 .modal-update-notifier .modal-footer .checkbox {
   color: #b3b3b3;
   font-size: 11px;
   margin-bottom: 0; }
-
-.modal-update-notifier .modal-menu {
-  display: flex; }
-  .modal-update-notifier .modal-menu > .button, .modal-update-notifier .modal-menu > .progress-button {
-    flex-basis: 50%; }
 
 /*
  * Copyright 2016 Resin.io
@@ -6488,8 +6487,6 @@ body {
   margin: 15px;
   color: #666;
   background-color: #f2f2f2;
-  padding: 8px;
-  overflow: hidden;
   word-wrap: break-word; }
 
 /*
@@ -6613,14 +6610,6 @@ body {
 
 .modal-settings-dangerous-modal .modal-title .glyphicon, .modal-settings-dangerous-modal .modal-title .tick {
   color: #d9534f; }
-
-.modal-settings-dangerous-modal .modal-body {
-  padding: 20px; }
-
-.modal-settings-dangerous-modal .modal-footer {
-  display: flex; }
-  .modal-settings-dangerous-modal .modal-footer > .button, .modal-settings-dangerous-modal .modal-footer > .progress-button {
-    flex-basis: 50%; }
 
 /*
  * Copyright 2016 Resin.io

@@ -32,11 +32,6 @@ body {
   margin-right: 2px;
 }
 
-// Disable modal opacity
-.modal-backdrop.in {
-  opacity: 0;
-}
-
 [uib-tooltip] {
   cursor: default;
 }
