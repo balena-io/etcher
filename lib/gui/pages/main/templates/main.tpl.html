@@ -1,4 +1,25 @@
 <div class="page-main row around-xs">
+
+  <div class="alert-ribbon" ng-class="{
+    'alert-ribbon--open': !main.state.wasLastFlashSuccessful()
+  }">
+    <span class="glyphicon glyphicon-warning-sign"></span>
+    <span ng-show="main.state.getLastFlashErrorCode() === 'ENOSPC'">
+      Not enough space on the drive.<br>
+      Please insert larger one and
+      <button class="button button-link" ng-click="main.restartAfterFailure()">try again</button>
+    </span>
+    <span ng-show="main.state.getLastFlashErrorCode() !== 'ENOSPC' && main.settings.get('validateWriteOnSuccess')">
+      Your removable drive may be corrupted.
+      <br>Try inserting a different one and
+      <button class="button button-link" ng-click="main.restartAfterFailure()">press "retry"</button>
+    </span>
+    <span ng-show="main.state.getLastFlashErrorCode() !== 'ENOSPC' && !main.settings.get('validateWriteOnSuccess')">
+      Oops, seems something went wrong.
+      Click <button class="button button-link" ng-click="main.restartAfterFailure()">here</button> to retry
+    </span>
+  </div>
+
   <div class="col-xs" ng-controller="ImageSelectionController as image">
     <div class="box text-center" os-dropzone="image.selectImage($file)">
       <svg-icon class="center-block" path="{{ main.selection.getImageLogo() || '../../../assets/image.svg' }}"></svg-icon>
@@ -95,19 +116,6 @@
           ng-disabled="main.shouldFlashStateBeDisabled()">
             <span ng-bind="flash.getProgressButtonLabel()"></span>
         </progress-button>
-
-        <div class="alert-ribbon" ng-class="{ 'alert-ribbon--open': !main.state.wasLastFlashSuccessful() }">
-          <span class="glyphicon glyphicon-warning-sign"></span>
-          <span ng-show="main.state.getLastFlashErrorCode() === 'ENOSPC'">
-            Not enough space on the drive.<br>Please insert larger one and <button class="button button-link" ng-click="main.restartAfterFailure()">try again</button>
-          </span>
-          <span ng-show="main.state.getLastFlashErrorCode() !== 'ENOSPC' && main.settings.get('validateWriteOnSuccess')">
-            Your removable drive may be corrupted.<br>Try inserting a different one and <button class="button button-link" ng-click="main.restartAfterFailure()">press "retry"</button>
-          </span>
-          <span ng-show="main.state.getLastFlashErrorCode() !== 'ENOSPC' && !main.settings.get('validateWriteOnSuccess')">
-            Oops, seems something went wrong. Click <button class="button button-link" ng-click="main.restartAfterFailure()">here</button> to retry
-          </span>
-        </div>
 
         <button class="button button-warning button-brick" ng-hide="main.state.wasLastFlashSuccessful()" ng-click="main.restartAfterFailure()">
           <span class="glyphicon glyphicon-repeat"></span> Retry
