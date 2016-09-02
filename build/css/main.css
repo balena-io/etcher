@@ -6081,13 +6081,7 @@ body {
   padding: 7px 10px;
   position: relative;
   z-index: 10;
-  letter-spacing: 0;
-  background-color: #535760;
-  color: #fff; }
-
-.badge[disabled] {
-  background-color: #5a5d60;
-  color: #787c7f; }
+  letter-spacing: 0; }
 
 /*
  * Copyright 2016 Resin.io
@@ -6525,6 +6519,13 @@ body {
   margin-top: 10px;
   color: #fff; }
   .page-main .icon-caption[disabled] {
+    color: #787c7f; }
+
+.page-main .badge {
+  background-color: #535760;
+  color: #fff; }
+  .page-main .badge[disabled] {
+    background-color: #5a5d60;
     color: #787c7f; }
 
 .svg-icon[disabled] path {
