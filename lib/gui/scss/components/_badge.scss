@@ -21,11 +21,4 @@
   position: relative;
   z-index: 10;
   letter-spacing: 0;
-  background-color: $palette-theme-dark-background;
-  color: $palette-theme-dark-foreground;
-}
-
-.badge[disabled] {
-  background-color: darken($palette-theme-dark-disabled-foreground, 12%);
-  color: $palette-theme-dark-disabled-foreground;
 }
