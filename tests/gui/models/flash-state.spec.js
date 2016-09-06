@@ -39,7 +39,6 @@ describe('Browser: FlashStateModel', function() {
 
       it('should be able to reset the progress state', function() {
         FlashStateModel.unsetFlashingFlag({
-          passedValidation: true,
           cancelled: false,
           sourceChecksum: '1234'
         });
@@ -67,7 +66,6 @@ describe('Browser: FlashStateModel', function() {
 
       it('should not allow setting the state if flashing is false', function() {
         FlashStateModel.unsetFlashingFlag({
-          passedValidation: true,
           cancelled: false,
           sourceChecksum: '1234'
         });
@@ -206,7 +204,6 @@ describe('Browser: FlashStateModel', function() {
         FlashStateModel.setFlashingFlag();
 
         const expectedResults = {
-          passedValidation: true,
           cancelled: false,
           sourceChecksum: '1234'
         };
@@ -255,7 +252,6 @@ describe('Browser: FlashStateModel', function() {
 
       it('should be able to set a string error code', function() {
         FlashStateModel.unsetFlashingFlag({
-          passedValidation: false,
           cancelled: false,
           sourceChecksum: '1234',
           errorCode: 'EBUSY'
@@ -266,7 +262,6 @@ describe('Browser: FlashStateModel', function() {
 
       it('should be able to set a number error code', function() {
         FlashStateModel.unsetFlashingFlag({
-          passedValidation: false,
           cancelled: false,
           sourceChecksum: '1234',
           errorCode: 123
@@ -278,7 +273,6 @@ describe('Browser: FlashStateModel', function() {
       it('should throw if errorCode is not a number not a string', function() {
         m.chai.expect(function() {
           FlashStateModel.unsetFlashingFlag({
-            passedValidation: false,
             cancelled: false,
             sourceChecksum: '1234',
             errorCode: {
@@ -288,41 +282,14 @@ describe('Browser: FlashStateModel', function() {
         }).to.throw('Invalid results errorCode: [object Object]');
       });
 
-      it('should default passedValidation to false', function() {
-        FlashStateModel.unsetFlashingFlag({
-          cancelled: false,
-          sourceChecksum: '1234'
-        });
-
-        const flashResults = FlashStateModel.getFlashResults();
-
-        m.chai.expect(flashResults).to.deep.equal({
-          passedValidation: false,
-          cancelled: false,
-          sourceChecksum: '1234'
-        });
-      });
-
-      it('should throw if passedValidation is not boolean', function() {
-        m.chai.expect(function() {
-          FlashStateModel.unsetFlashingFlag({
-            passedValidation: 'true',
-            cancelled: false,
-            sourceChecksum: '1234'
-          });
-        }).to.throw('Invalid results passedValidation: true');
-      });
-
       it('should default cancelled to false', function() {
         FlashStateModel.unsetFlashingFlag({
-          passedValidation: true,
           sourceChecksum: '1234'
         });
 
         const flashResults = FlashStateModel.getFlashResults();
 
         m.chai.expect(flashResults).to.deep.equal({
-          passedValidation: true,
           cancelled: false,
           sourceChecksum: '1234'
         });
@@ -331,65 +298,23 @@ describe('Browser: FlashStateModel', function() {
       it('should throw if cancelled is not boolean', function() {
         m.chai.expect(function() {
           FlashStateModel.unsetFlashingFlag({
-            passedValidation: true,
             cancelled: 'false',
             sourceChecksum: '1234'
           });
         }).to.throw('Invalid results cancelled: false');
       });
 
-      it('should not throw if passedValidation is true and sourceChecksum does not exist', function() {
-        m.chai.expect(function() {
-          FlashStateModel.unsetFlashingFlag({
-            passedValidation: true,
-            cancelled: false
-          });
-        }).to.not.throw();
-      });
-
-      it('should throw if passedValidation is true and sourceChecksum is not a string', function() {
-        m.chai.expect(function() {
-          FlashStateModel.unsetFlashingFlag({
-            passedValidation: true,
-            cancelled: false,
-            sourceChecksum: 12345
-          });
-        }).to.throw('Invalid results sourceChecksum: 12345');
-      });
-
       it('should throw if cancelled is true and sourceChecksum exists', function() {
         m.chai.expect(function() {
           FlashStateModel.unsetFlashingFlag({
-            passedValidation: false,
             cancelled: true,
             sourceChecksum: '1234'
           });
         }).to.throw('The sourceChecksum value can\'t exist if the flashing was cancelled');
       });
 
-      it('should throw if passedValidation is true and errorCode is set', function() {
-        m.chai.expect(function() {
-          FlashStateModel.unsetFlashingFlag({
-            passedValidation: true,
-            cancelled: false,
-            sourceChecksum: '1234',
-            errorCode: 'ENOSPC'
-          });
-        }).to.throw('The errorCode value can\'t be set if the flashing passed validation');
-      });
-
-      it('should throw if cancelled is true and passedValidation is true', function() {
-        m.chai.expect(function() {
-          FlashStateModel.unsetFlashingFlag({
-            passedValidation: true,
-            cancelled: true
-          });
-        }).to.throw('The passedValidation value can\'t be true if the flashing was cancelled');
-      });
-
       it('should be able to set flashing to false', function() {
         FlashStateModel.unsetFlashingFlag({
-          passedValidation: true,
           cancelled: false,
           sourceChecksum: '1234'
         });
@@ -413,7 +338,6 @@ describe('Browser: FlashStateModel', function() {
         });
 
         FlashStateModel.unsetFlashingFlag({
-          passedValidation: true,
           cancelled: false,
           sourceChecksum: '1234'
         });
@@ -435,7 +359,6 @@ describe('Browser: FlashStateModel', function() {
 
       it('should reset the flash results', function() {
         const expectedResults = {
-          passedValidation: true,
           cancelled: false,
           sourceChecksum: '1234'
         };
@@ -449,44 +372,6 @@ describe('Browser: FlashStateModel', function() {
 
     });
 
-    describe('.wasLastFlashSuccessful()', function() {
-
-      it('should return true given a pristine state', function() {
-        FlashStateModel.resetState();
-        m.chai.expect(FlashStateModel.wasLastFlashSuccessful()).to.be.true;
-      });
-
-      it('should return false if !cancelled && !passedValidation', function() {
-        FlashStateModel.unsetFlashingFlag({
-          sourceChecksum: '1234',
-          cancelled: false,
-          passedValidation: false
-        });
-
-        m.chai.expect(FlashStateModel.wasLastFlashSuccessful()).to.be.false;
-      });
-
-      it('should return true if !cancelled && passedValidation', function() {
-        FlashStateModel.unsetFlashingFlag({
-          sourceChecksum: '1234',
-          cancelled: false,
-          passedValidation: true
-        });
-
-        m.chai.expect(FlashStateModel.wasLastFlashSuccessful()).to.be.true;
-      });
-
-      it('should return true if cancelled && !passedValidation', function() {
-        FlashStateModel.unsetFlashingFlag({
-          cancelled: true,
-          passedValidation: false
-        });
-
-        m.chai.expect(FlashStateModel.wasLastFlashSuccessful()).to.be.true;
-      });
-
-    });
-
     describe('.wasLastFlashCancelled()', function() {
 
       it('should return false given a pristine state', function() {
@@ -494,30 +379,18 @@ describe('Browser: FlashStateModel', function() {
         m.chai.expect(FlashStateModel.wasLastFlashCancelled()).to.be.false;
       });
 
-      it('should return false if !cancelled && !passedValidation', function() {
+      it('should return false if !cancelled', function() {
         FlashStateModel.unsetFlashingFlag({
           sourceChecksum: '1234',
-          cancelled: false,
-          passedValidation: false
+          cancelled: false
         });
 
         m.chai.expect(FlashStateModel.wasLastFlashCancelled()).to.be.false;
       });
 
-      it('should return false if !cancelled && passedValidation', function() {
+      it('should return true if cancelled', function() {
         FlashStateModel.unsetFlashingFlag({
-          sourceChecksum: '1234',
-          cancelled: false,
-          passedValidation: true
-        });
-
-        m.chai.expect(FlashStateModel.wasLastFlashCancelled()).to.be.false;
-      });
-
-      it('should return true if cancelled && !passedValidation', function() {
-        FlashStateModel.unsetFlashingFlag({
-          cancelled: true,
-          passedValidation: false
+          cancelled: true
         });
 
         m.chai.expect(FlashStateModel.wasLastFlashCancelled()).to.be.true;
@@ -535,8 +408,7 @@ describe('Browser: FlashStateModel', function() {
       it('should return the last flash source checksum', function() {
         FlashStateModel.unsetFlashingFlag({
           sourceChecksum: '1234',
-          cancelled: false,
-          passedValidation: true
+          cancelled: false
         });
 
         m.chai.expect(FlashStateModel.getLastFlashSourceChecksum()).to.equal('1234');
@@ -544,8 +416,7 @@ describe('Browser: FlashStateModel', function() {
 
       it('should return undefined if the last flash was cancelled', function() {
         FlashStateModel.unsetFlashingFlag({
-          cancelled: true,
-          passedValidation: false
+          cancelled: true
         });
 
         m.chai.expect(FlashStateModel.getLastFlashSourceChecksum()).to.be.undefined;
@@ -564,7 +435,6 @@ describe('Browser: FlashStateModel', function() {
         FlashStateModel.unsetFlashingFlag({
           sourceChecksum: '1234',
           cancelled: false,
-          passedValidation: false,
           errorCode: 'ENOSPC'
         });
 
@@ -574,8 +444,7 @@ describe('Browser: FlashStateModel', function() {
       it('should return undefined if the last flash did not report an error code', function() {
         FlashStateModel.unsetFlashingFlag({
           sourceChecksum: '1234',
-          cancelled: false,
-          passedValidation: true
+          cancelled: false
         });
 
         m.chai.expect(FlashStateModel.getLastFlashErrorCode()).to.be.undefined;
