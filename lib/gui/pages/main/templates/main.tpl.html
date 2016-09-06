@@ -58,7 +58,7 @@
   <div class="col-xs" ng-controller="DriveSelectionController as drive">
     <div class="box text-center relative">
       <div class="step-border-left" ng-disabled="main.shouldDriveStepBeDisabled()"></div>
-      <div class="step-border-right" ng-disabled="main.shouldFlashStateBeDisabled()"></div>
+      <div class="step-border-right" ng-disabled="main.shouldFlashStepBeDisabled()"></div>
 
       <svg-icon class="center-block"
         path="../../../assets/drive.svg"
@@ -100,11 +100,11 @@
     <div class="box text-center">
       <svg-icon class="center-block"
         path="../../../assets/flash.svg"
-        ng-disabled="main.shouldFlashStateBeDisabled()"></svg-icon>
+        ng-disabled="main.shouldFlashStepBeDisabled()"></svg-icon>
       <span class="icon-caption"
-        ng-disabled="main.shouldFlashStateBeDisabled()">FLASH IMAGE</span>
+        ng-disabled="main.shouldFlashStepBeDisabled()">FLASH IMAGE</span>
 
-      <span class="badge space-top-medium" ng-disabled="main.shouldFlashStateBeDisabled()">3</span>
+      <span class="badge space-top-medium" ng-disabled="main.shouldFlashStepBeDisabled()">3</span>
 
       <div class="space-vertical-large">
         <progress-button class="button-brick"
@@ -113,7 +113,7 @@
           ng-attr-active="{{ main.state.isFlashing() }}"
           ng-show="main.state.wasLastFlashSuccessful()"
           ng-click="flash.flashImageToDrive(main.selection.getImagePath(), main.selection.getDrive())"
-          ng-disabled="main.shouldFlashStateBeDisabled()">
+          ng-disabled="main.shouldFlashStepBeDisabled()">
             <span ng-bind="flash.getProgressButtonLabel()"></span>
         </progress-button>
 
