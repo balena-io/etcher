@@ -49,7 +49,7 @@ describe('Browser: MainPage', function() {
 
     });
 
-    describe('.shouldFlashStateBeDisabled()', function() {
+    describe('.shouldFlashStepBeDisabled()', function() {
 
       it('should return true if there is no selected drive nor image', function() {
         const controller = $controller('MainController', {
@@ -58,7 +58,7 @@ describe('Browser: MainPage', function() {
 
         SelectionStateModel.clear();
 
-        m.chai.expect(controller.shouldFlashStateBeDisabled()).to.be.true;
+        m.chai.expect(controller.shouldFlashStepBeDisabled()).to.be.true;
       });
 
       it('should return true if there is a selected image but no drive', function() {
@@ -72,7 +72,7 @@ describe('Browser: MainPage', function() {
           size: 99999
         });
 
-        m.chai.expect(controller.shouldFlashStateBeDisabled()).to.be.true;
+        m.chai.expect(controller.shouldFlashStepBeDisabled()).to.be.true;
       });
 
       it('should return true if there is a selected drive but no image', function() {
@@ -93,7 +93,7 @@ describe('Browser: MainPage', function() {
         SelectionStateModel.clear();
         SelectionStateModel.setDrive('/dev/disk2');
 
-        m.chai.expect(controller.shouldFlashStateBeDisabled()).to.be.true;
+        m.chai.expect(controller.shouldFlashStepBeDisabled()).to.be.true;
       });
 
       it('should return false if there is a selected drive and a selected image', function() {
@@ -119,7 +119,7 @@ describe('Browser: MainPage', function() {
           size: 99999
         });
 
-        m.chai.expect(controller.shouldFlashStateBeDisabled()).to.be.false;
+        m.chai.expect(controller.shouldFlashStepBeDisabled()).to.be.false;
       });
 
     });
