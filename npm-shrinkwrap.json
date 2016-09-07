@@ -394,9 +394,9 @@
       "resolved": "https://registry.npmjs.org/bluebird-retry/-/bluebird-retry-0.7.0.tgz"
     },
     "bmapflash": {
-      "version": "1.1.2",
-      "from": "bmapflash@>=1.1.2 <2.0.0",
-      "resolved": "https://registry.npmjs.org/bmapflash/-/bmapflash-1.1.2.tgz",
+      "version": "1.2.0",
+      "from": "bmapflash@>=1.2.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/bmapflash/-/bmapflash-1.2.0.tgz",
       "dependencies": {
         "isarray": {
           "version": "1.0.0",
@@ -1398,9 +1398,9 @@
       "resolved": "https://registry.npmjs.org/esutils/-/esutils-2.0.2.tgz"
     },
     "etcher-image-stream": {
-      "version": "4.0.0",
-      "from": "etcher-image-stream@4.0.0",
-      "resolved": "https://registry.npmjs.org/etcher-image-stream/-/etcher-image-stream-4.0.0.tgz",
+      "version": "4.1.0",
+      "from": "etcher-image-stream@4.1.0",
+      "resolved": "https://registry.npmjs.org/etcher-image-stream/-/etcher-image-stream-4.1.0.tgz",
       "dependencies": {
         "yauzl": {
           "version": "2.6.0",
@@ -1410,9 +1410,9 @@
       }
     },
     "etcher-image-write": {
-      "version": "8.0.0",
-      "from": "etcher-image-write@8.0.0",
-      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-8.0.0.tgz",
+      "version": "8.1.0",
+      "from": "etcher-image-write@8.1.0",
+      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-8.1.0.tgz",
       "dependencies": {
         "isarray": {
           "version": "1.0.0",
