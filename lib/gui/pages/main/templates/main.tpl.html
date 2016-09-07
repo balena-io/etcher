@@ -1,28 +1,4 @@
 <div class="page-main row around-xs">
-
-  <div class="alert-ribbon" ng-class="{
-    'alert-ribbon--open': main.state.getLastFlashErrorCode()
-  }" ng-switch="main.state.getLastFlashErrorCode()">
-    <span class="glyphicon glyphicon-warning-sign"></span>
-
-    <span ng-switch-when="ENOSPC">
-      Not enough space on the drive.<br>
-      Please insert larger one and
-      <button class="button button-link" ng-click="main.restartAfterFailure()">try again</button>
-    </span>
-
-    <span ng-switch-when="EVALIDATION">
-      Your removable drive may be corrupted.
-      <br>Try inserting a different one and
-      <button class="button button-link" ng-click="main.restartAfterFailure()">press "retry"</button>
-    </span>
-
-    <span ng-switch-default>
-      Oops, seems something went wrong.
-      Click <button class="button button-link" ng-click="main.restartAfterFailure()">here</button> to retry
-    </span>
-  </div>
-
   <div class="col-xs" ng-controller="ImageSelectionController as image">
     <div class="box text-center" os-dropzone="image.selectImage($file)">
       <svg-icon class="center-block" path="{{ main.selection.getImageLogo() || '../../../assets/image.svg' }}"></svg-icon>
@@ -114,15 +90,10 @@
           percentage="main.state.getFlashState().percentage"
           striped="{{ main.state.getFlashState().type == 'check' }}"
           ng-attr-active="{{ main.state.isFlashing() }}"
-          ng-show="!main.state.getLastFlashErrorCode()"
           ng-click="flash.flashImageToDrive(main.selection.getImagePath(), main.selection.getDrive())"
-          ng-disabled="main.shouldFlashStepBeDisabled()">
+          ng-disabled="main.shouldFlashStepBeDisabled() || main.state.getLastFlashErrorCode()">
             <span ng-bind="flash.getProgressButtonLabel()"></span>
         </progress-button>
-
-        <button class="button button-warning button-brick" ng-show="main.state.getLastFlashErrorCode()" ng-click="main.restartAfterFailure()">
-          <span class="glyphicon glyphicon-repeat"></span> Retry
-        </button>
 
         <p class="step-footer step-footer-split" ng-show="main.state.getFlashState().speed && main.state.getFlashState().percentage != 100">
           <span>ETA: {{ main.state.getFlashState().eta | secondsToDate | amDateFormat:'m[m]ss[s]' }}</span>

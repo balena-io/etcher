@@ -4460,25 +4460,25 @@ a.thumbnail:focus,
 a.thumbnail.active {
   border-color: #ddd; }
 
-.alert, .alert-ribbon {
-  padding: 13px;
+.alert {
+  padding: 15px;
   margin-bottom: 18px;
   border: 1px solid transparent;
   border-radius: 4px; }
-  .alert h4, .alert-ribbon h4 {
+  .alert h4 {
     margin-top: 0;
     color: inherit; }
-  .alert .alert-link, .alert-ribbon .alert-link {
+  .alert .alert-link {
     font-weight: bold; }
-  .alert > p, .alert-ribbon > p,
-  .alert > ul, .alert-ribbon > ul {
+  .alert > p,
+  .alert > ul {
     margin-bottom: 0; }
-  .alert > p + p, .alert-ribbon > p + p {
+  .alert > p + p {
     margin-top: 5px; }
 
 .alert-dismissable,
 .alert-dismissible {
-  padding-right: 33px; }
+  padding-right: 35px; }
   .alert-dismissable .close,
   .alert-dismissible .close {
     position: relative;
@@ -6153,16 +6153,6 @@ body {
   background-color: #2d78d2;
   color: #fff; }
 
-.button-warning,
-.button-warning:focus {
-  background-color: #e99852;
-  color: #fff;
-  outline: none; }
-
-.button-warning:hover {
-  background-color: #e37d25;
-  color: #fff; }
-
 .button-danger,
 .button-danger:focus {
   background-color: #d9534f;
@@ -6208,53 +6198,6 @@ body {
   color: #fff;
   background-color: #d9534f;
   border-color: #d9534f; }
-
-/*
- * Copyright 2016 Resin.io
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-.alert-ribbon {
-  background-color: #e99852;
-  color: #fff;
-  border-color: #f7dbc3;
-  width: 60%;
-  position: fixed;
-  text-align: center;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  border: 0;
-  border-radius: 2px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  top: -100%;
-  transition: top .5s; }
-  .alert-ribbon > .glyphicon:first-child, .alert-ribbon > .tick:first-child {
-    margin-right: 5px; }
-  .alert-ribbon > .glyphicon:last-child, .alert-ribbon > .tick:last-child {
-    margin-left: 5px; }
-  .alert-ribbon .button-link {
-    padding: 0;
-    font-size: inherit;
-    vertical-align: baseline;
-    border-radius: 0;
-    border-bottom: 1px solid;
-    border-color: #fff;
-    color: #fff; }
-
-.alert-ribbon--open {
-  top: 0; }
 
 /*
  * Copyright 2016 Resin.io
@@ -6488,6 +6431,24 @@ body {
   color: #666;
   background-color: #f2f2f2;
   word-wrap: break-word; }
+
+/*
+ * Copyright 2016 Resin.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.modal-flash-error-modal .modal-title .glyphicon, .modal-flash-error-modal .modal-title .tick {
+  color: #d9534f; }
 
 /*
  * Copyright 2016 Resin.io
