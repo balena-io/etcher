@@ -35,7 +35,6 @@ describe('Browser: ImageWriter', function() {
         beforeEach(function() {
           this.performWriteStub = m.sinon.stub(ImageWriterService, 'performWrite');
           this.performWriteStub.returns($q.resolve({
-            passedValidation: true,
             cancelled: false,
             sourceChecksum: '1234'
           }));
@@ -47,7 +46,6 @@ describe('Browser: ImageWriter', function() {
 
         it('should set flashing to false when done', function() {
           FlashStateModel.unsetFlashingFlag({
-            passedValidation: true,
             cancelled: false,
             sourceChecksum: '1234'
           });
@@ -59,7 +57,6 @@ describe('Browser: ImageWriter', function() {
 
         it('should prevent writing more than once', function() {
           FlashStateModel.unsetFlashingFlag({
-            passedValidation: true,
             cancelled: false,
             sourceChecksum: '1234'
           });
@@ -114,7 +111,6 @@ describe('Browser: ImageWriter', function() {
 
         it('should be rejected with the error', function() {
           FlashStateModel.unsetFlashingFlag({
-            passedValidation: true,
             cancelled: false,
             sourceChecksum: '1234'
           });

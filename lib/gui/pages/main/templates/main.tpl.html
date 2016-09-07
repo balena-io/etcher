@@ -1,20 +1,23 @@
 <div class="page-main row around-xs">
 
   <div class="alert-ribbon" ng-class="{
-    'alert-ribbon--open': !main.state.wasLastFlashSuccessful()
-  }">
+    'alert-ribbon--open': main.state.getLastFlashErrorCode()
+  }" ng-switch="main.state.getLastFlashErrorCode()">
     <span class="glyphicon glyphicon-warning-sign"></span>
-    <span ng-show="main.state.getLastFlashErrorCode() === 'ENOSPC'">
+
+    <span ng-switch-when="ENOSPC">
       Not enough space on the drive.<br>
       Please insert larger one and
       <button class="button button-link" ng-click="main.restartAfterFailure()">try again</button>
     </span>
-    <span ng-show="main.state.getLastFlashErrorCode() !== 'ENOSPC' && main.settings.get('validateWriteOnSuccess')">
+
+    <span ng-switch-when="EVALIDATION">
       Your removable drive may be corrupted.
       <br>Try inserting a different one and
       <button class="button button-link" ng-click="main.restartAfterFailure()">press "retry"</button>
     </span>
-    <span ng-show="main.state.getLastFlashErrorCode() !== 'ENOSPC' && !main.settings.get('validateWriteOnSuccess')">
+
+    <span ng-switch-default>
       Oops, seems something went wrong.
       Click <button class="button button-link" ng-click="main.restartAfterFailure()">here</button> to retry
     </span>
@@ -111,13 +114,13 @@
           percentage="main.state.getFlashState().percentage"
           striped="{{ main.state.getFlashState().type == 'check' }}"
           ng-attr-active="{{ main.state.isFlashing() }}"
-          ng-show="main.state.wasLastFlashSuccessful()"
+          ng-show="!main.state.getLastFlashErrorCode()"
           ng-click="flash.flashImageToDrive(main.selection.getImagePath(), main.selection.getDrive())"
           ng-disabled="main.shouldFlashStepBeDisabled()">
             <span ng-bind="flash.getProgressButtonLabel()"></span>
         </progress-button>
 
-        <button class="button button-warning button-brick" ng-hide="main.state.wasLastFlashSuccessful()" ng-click="main.restartAfterFailure()">
+        <button class="button button-warning button-brick" ng-show="main.state.getLastFlashErrorCode()" ng-click="main.restartAfterFailure()">
           <span class="glyphicon glyphicon-repeat"></span> Retry
         </button>
 

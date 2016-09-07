@@ -59,7 +59,7 @@ $ sudo etcher image.iso --robot --drive /dev/disk2
 {"command":"progress","data":{"type":"write","percentage":1,"eta":130,"speed":1703936}}
 ...
 {"command":"progress","data":{"type":"check","percentage":100,"eta":0,"speed":17180514}}
-{"command":"done","data":{"passedValidation":true,"sourceChecksum":"27c39a5d"}}
+{"command":"done","data":{"sourceChecksum":"27c39a5d"}}
 ```
 
 The `command` property can be used to determine the action taking place, while
