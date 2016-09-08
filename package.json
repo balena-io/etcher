@@ -38,6 +38,7 @@
     "bin/etcher"
   ],
   "shrinkwrapIgnore": [
+    "appdmg",
     "macos-alias",
     "fs-xattr",
     "diskpart"

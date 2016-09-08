@@ -42,7 +42,7 @@ install:
   - gem install scss_lint
   - npm install -g bower
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      ./scripts/build/linux.sh install x64;
+      ./scripts/build/linux.sh install x64; cat /home/travis/build/resin-io/etcher/npm-debug.log;
     fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       ./scripts/build/darwin.sh install;
