@@ -55,6 +55,10 @@ describe('Browser: SelectionState', function() {
         m.chai.expect(SelectionStateModel.getImageLogo()).to.be.undefined;
       });
 
+      it('getImageInstructions() should return undefined', function() {
+        m.chai.expect(SelectionStateModel.getImageInstructions()).to.be.undefined;
+      });
+
       it('getImageSupportUrl() should return undefined', function() {
         m.chai.expect(SelectionStateModel.getImageSupportUrl()).to.be.undefined;
       });
@@ -277,7 +281,8 @@ describe('Browser: SelectionState', function() {
           url: 'https://www.raspbian.org',
           supportUrl: 'https://www.raspbian.org/forums/',
           name: 'Raspbian',
-          logo: '<svg><text fill="red">Raspbian</text></svg>'
+          logo: '<svg><text fill="red">Raspbian</text></svg>',
+          instructions: '# Hello'
         });
       });
 
@@ -426,6 +431,15 @@ describe('Browser: SelectionState', function() {
         it('should return the image logo', function() {
           const imageLogo = SelectionStateModel.getImageLogo();
           m.chai.expect(imageLogo).to.equal('<svg><text fill="red">Raspbian</text></svg>');
+        });
+
+      });
+
+      describe('.getImageInstructions()', function() {
+
+        it('should return the image instructions', function() {
+          const imageLogo = SelectionStateModel.getImageInstructions();
+          m.chai.expect(imageLogo).to.equal('# Hello');
         });
 
       });

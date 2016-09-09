@@ -401,7 +401,7 @@
         "isarray": {
           "version": "1.0.0",
           "from": "isarray@~1.0.0",
-          "resolved": "http://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
+          "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
         },
         "lodash": {
           "version": "4.15.0",
@@ -1398,9 +1398,9 @@
       "resolved": "https://registry.npmjs.org/esutils/-/esutils-2.0.2.tgz"
     },
     "etcher-image-stream": {
-      "version": "4.1.0",
-      "from": "etcher-image-stream@4.1.0",
-      "resolved": "https://registry.npmjs.org/etcher-image-stream/-/etcher-image-stream-4.1.0.tgz",
+      "version": "4.2.0",
+      "from": "etcher-image-stream@4.2.0",
+      "resolved": "https://registry.npmjs.org/etcher-image-stream/-/etcher-image-stream-4.2.0.tgz",
       "dependencies": {
         "yauzl": {
           "version": "2.6.0",
@@ -4436,6 +4436,28 @@
       "version": "0.6.0",
       "from": "shelljs@>=0.6.0 <0.7.0",
       "resolved": "https://registry.npmjs.org/shelljs/-/shelljs-0.6.0.tgz"
+    },
+    "showdown": {
+      "version": "1.4.3",
+      "from": "showdown@latest",
+      "resolved": "https://registry.npmjs.org/showdown/-/showdown-1.4.3.tgz",
+      "dependencies": {
+        "camelcase": {
+          "version": "2.1.1",
+          "from": "camelcase@>=2.0.1 <3.0.0",
+          "resolved": "https://registry.npmjs.org/camelcase/-/camelcase-2.1.1.tgz"
+        },
+        "window-size": {
+          "version": "0.1.4",
+          "from": "window-size@>=0.1.4 <0.2.0",
+          "resolved": "https://registry.npmjs.org/window-size/-/window-size-0.1.4.tgz"
+        },
+        "yargs": {
+          "version": "3.32.0",
+          "from": "yargs@>=3.15.0 <4.0.0",
+          "resolved": "https://registry.npmjs.org/yargs/-/yargs-3.32.0.tgz"
+        }
+      }
     },
     "sigmund": {
       "version": "1.0.1",
