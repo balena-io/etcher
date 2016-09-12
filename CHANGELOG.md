@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.0.0-beta.14 - 2016-09-12
+
+### Features
+
+- Allow archive images to configure a certain amount of bytes to be zeroed out from the beginning of the drive when using bmaps.
+- Make the "Need help?" link dynamically open the image support url.
+- Add `.bmap` support.
+
+### Fixes
+
+- Don't clear the drive selection if clicking the "Retry" button.
+- Fix "`modal.dismiss` is not a function" exception.
+- Prevent `ENOSPC` if the drive capacity is equal to the image size.
+- Prevent failed validation due to drive getting auto-mounted in GNU/Linux.
+- Fix incorrect estimated entry sizes in certain ZIP archives.
+- Show device id if device doesn't have an assigned drive letter in Windows.
+- Fix `blkid: command not found` error in certain GNU/Linux distributions.
+
+### Misc
+
+- Upgrade `etcher-image-stream` to v4.3.0.
+- Upgrade `drivelist` to v3.3.0.
+- Improve speed when retrieving archive image metadata.
+- Improve image full file name modal tooltip.
+
 ## v1.0.0-beta.13 - 2016-08-05
 
 ### Features
