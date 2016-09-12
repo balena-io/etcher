@@ -401,7 +401,7 @@
         "isarray": {
           "version": "1.0.0",
           "from": "isarray@~1.0.0",
-          "resolved": "http://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
+          "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
         },
         "lodash": {
           "version": "4.15.0",
@@ -1398,9 +1398,9 @@
       "resolved": "https://registry.npmjs.org/esutils/-/esutils-2.0.2.tgz"
     },
     "etcher-image-stream": {
-      "version": "4.1.0",
-      "from": "etcher-image-stream@4.1.0",
-      "resolved": "https://registry.npmjs.org/etcher-image-stream/-/etcher-image-stream-4.1.0.tgz",
+      "version": "4.3.0",
+      "from": "etcher-image-stream@4.3.0",
+      "resolved": "https://registry.npmjs.org/etcher-image-stream/-/etcher-image-stream-4.3.0.tgz",
       "dependencies": {
         "yauzl": {
           "version": "2.6.0",
@@ -4777,6 +4777,11 @@
       "from": "sudo-prompt@6.1.0",
       "resolved": "https://registry.npmjs.org/sudo-prompt/-/sudo-prompt-6.1.0.tgz"
     },
+    "sumchecker": {
+      "version": "1.1.0",
+      "from": "sumchecker@>=1.1.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/sumchecker/-/sumchecker-1.1.0.tgz"
+    },
     "supports-color": {
       "version": "2.0.0",
       "from": "supports-color@>=2.0.0 <3.0.0",
@@ -5094,9 +5099,9 @@
       }
     },
     "unbzip2-stream": {
-      "version": "1.0.9",
-      "from": "unbzip2-stream@>=1.0.9 <2.0.0",
-      "resolved": "https://registry.npmjs.org/unbzip2-stream/-/unbzip2-stream-1.0.9.tgz"
+      "version": "1.0.10",
+      "from": "unbzip2-stream@>=1.0.10 <2.0.0",
+      "resolved": "https://registry.npmjs.org/unbzip2-stream/-/unbzip2-stream-1.0.10.tgz"
     },
     "unc-path-regex": {
       "version": "0.1.2",
