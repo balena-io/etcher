@@ -7,12 +7,17 @@
   <ul class="list-group">
     <li class="list-group-item" ng-repeat="drive in modal.drives.getDrives() track by drive.device"
       ng-disabled="!modal.state.isDriveValid(drive)"
-      ng-click="modal.state.isDriveValid(drive) && modal.state.toggleSetDrive(drive.device)">
+      ng-click="modal.toggleDrive(drive)">
         <div>
           <h4 class="list-group-item-heading">{{ drive.description }} - {{ drive.size | gigabyte | number:1 }} GB</h4>
           <p class="list-group-item-text">{{ drive.name }}</p>
 
           <footer class="list-group-item-footer">
+
+            <span class="label label-warning"
+                ng-show="modal.state.isDriveLargeEnough(drive) && !modal.state.isDriveLocked(drive) && !modal.state.isDriveSizeRecommended(drive)">
+                <i class="glyphicon glyphicon-warning-sign"></i>
+                NOT RECOMMENDED</span>
 
             <!-- There can be a case where the device it not large enough, and it's also locked. -->
             <!-- Since in this case both labels will be displayed, we chose to only show the -->
