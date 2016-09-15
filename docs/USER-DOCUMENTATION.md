@@ -99,6 +99,26 @@ run Etcher on a GNU/Linux system.
 
 - liblzma (for xz decompression)
 
+Disable update notifications
+----------------------------
+
+You can disable update notifications, which can be useful when running Etcher
+outside a common desktop environment (like in a [Resin.io][resin.io]
+application), by setting the `ETCHER_DISABLE_UPDATES` environment variable.
+
+In GNU/Linux and Mac OS X:
+
+```sh
+export ETCHER_DISABLE_UPDATES=1
+```
+
+In Windows:
+
+```sh
+set ETCHER_DISABLE_UPDATES=1
+```
+
+[resin.io]: https://resin.io
 [appimage]: http://appimage.org
 [xwayland]: https://wayland.freedesktop.org/xserver.html
 [weston.ini]: http://manpages.ubuntu.com/manpages/wily/man5/weston.ini.5.html
