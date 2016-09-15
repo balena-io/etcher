@@ -118,7 +118,56 @@ In Windows:
 set ETCHER_DISABLE_UPDATES=1
 ```
 
+Recovering broken drives
+------------------------
+
+Sometimes, things might go wrong, and you end up with a half-flashed drive that
+is unusable by your operating systems, and common graphical tools might even
+refuse to get it back to a normal state.
+
+To solve these kinds of problems, we've collected a list of fail-proof methods
+to completely erase your drive in major operating systems.
+
+### Windows
+
+In Windows, we'll use [diskpart], a command line utility tool that comes
+pre-installed in all modern Windows versions.
+
+- Open `cmd.exe` from either the list of all installed applications, or from
+  the "Run..." dialog usually accessible by pressing Ctrl+X.
+
+- Type `diskpart.exe` and press "Enter". You'll be asked to provide
+  administrator permissions, and a new prompt window will appear. The following
+  commands should be run **in the new window**.
+
+- Run `list disk` to list the available drives. Take note of the number id that
+  identifies the drive you want to clean.
+
+- Run `select disk N`, where `N` corresponds to the id from the previous step.
+
+- Run `clean`. This command will completely clean your drive by erasing any
+  existent filesystem.
+
+### OS X
+
+Run the following command in `Terminal.app`, replacing `N` by the corresponding
+disk number, which you can find by running `diskutil list`:
+
+```sh
+diskutil eraseDisk free UNTITLED /dev/diskN
+```
+
+### GNU/Linux
+
+Make sure the drive is unmounted (`umount /dev/xxx`), and run the following
+command as `root`, replacing `xxx` by your actual device path:
+
+```sh
+dd if=/dev/zero of=/dev/xxx bs=512 count=1 conv=notrunc
+```
+
 [resin.io]: https://resin.io
 [appimage]: http://appimage.org
 [xwayland]: https://wayland.freedesktop.org/xserver.html
 [weston.ini]: http://manpages.ubuntu.com/manpages/wily/man5/weston.ini.5.html
+[diskpart]: https://technet.microsoft.com/en-us/library/cc770877(v=ws.11).aspx
