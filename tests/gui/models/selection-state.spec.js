@@ -59,6 +59,10 @@ describe('Browser: SelectionState', function() {
         m.chai.expect(SelectionStateModel.getImageSupportUrl()).to.be.undefined;
       });
 
+      it('getImageRecommendedDriveSize() should return undefined', function() {
+        m.chai.expect(SelectionStateModel.getImageRecommendedDriveSize()).to.be.undefined;
+      });
+
       it('hasDrive() should return false', function() {
         const hasDrive = SelectionStateModel.hasDrive();
         m.chai.expect(hasDrive).to.be.false;
@@ -274,6 +278,7 @@ describe('Browser: SelectionState', function() {
         SelectionStateModel.setImage({
           path: 'foo.img',
           size: 999999999,
+          recommendedDriveSize: 1000000000,
           url: 'https://www.raspbian.org',
           supportUrl: 'https://www.raspbian.org/forums/',
           name: 'Raspbian',
@@ -310,6 +315,43 @@ describe('Browser: SelectionState', function() {
             device: '/dev/disk1',
             name: 'USB Drive',
             size: 999999998,
+            protected: false
+          });
+
+          m.chai.expect(result).to.be.false;
+        });
+
+      });
+
+      describe('.isDriveSizeRecommended()', function() {
+
+        it('should return true if the drive size is greater than the recommended size', function() {
+          const result = SelectionStateModel.isDriveSizeRecommended({
+            device: '/dev/disk1',
+            name: 'USB Drive',
+            size: 1000000001,
+            protected: false
+          });
+
+          m.chai.expect(result).to.be.true;
+        });
+
+        it('should return true if the drive size is equal to the recommended size', function() {
+          const result = SelectionStateModel.isDriveSizeRecommended({
+            device: '/dev/disk1',
+            name: 'USB Drive',
+            size: 1000000000,
+            protected: false
+          });
+
+          m.chai.expect(result).to.be.true;
+        });
+
+        it('should return false if the drive size is less than the recommended size', function() {
+          const result = SelectionStateModel.isDriveSizeRecommended({
+            device: '/dev/disk1',
+            name: 'USB Drive',
+            size: 999999999,
             protected: false
           });
 
@@ -439,6 +481,15 @@ describe('Browser: SelectionState', function() {
 
       });
 
+      describe('.getImageRecommendedDriveSize()', function() {
+
+        it('should return the image recommended drive size', function() {
+          const imageRecommendedDriveSize = SelectionStateModel.getImageRecommendedDriveSize();
+          m.chai.expect(imageRecommendedDriveSize).to.equal(1000000000);
+        });
+
+      });
+
       describe('.hasImage()', function() {
 
         it('should return true', function() {
@@ -485,6 +536,20 @@ describe('Browser: SelectionState', function() {
 
         it('should return true', function() {
           const result = SelectionStateModel.isDriveLargeEnough({
+            device: '/dev/disk1',
+            name: 'USB Drive',
+            size: 1
+          });
+
+          m.chai.expect(result).to.be.true;
+        });
+
+      });
+
+      describe('.isDriveSizeRecommended()', function() {
+
+        it('should return true', function() {
+          const result = SelectionStateModel.isDriveSizeRecommended({
             device: '/dev/disk1',
             name: 'USB Drive',
             size: 1
@@ -589,6 +654,29 @@ describe('Browser: SelectionState', function() {
           SelectionStateModel.setImage({
             path: 'foo.img',
             size: 9999999999
+          });
+
+          m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+          SelectionStateModel.removeImage();
+        });
+
+        it('should de-select a previously selected not-recommended drive', function() {
+          DrivesModel.setDrives([
+            {
+              device: '/dev/disk1',
+              name: 'USB Drive',
+              size: 1200000000,
+              protected: false
+            }
+          ]);
+
+          SelectionStateModel.setDrive('/dev/disk1');
+          m.chai.expect(SelectionStateModel.hasDrive()).to.be.true;
+
+          SelectionStateModel.setImage({
+            path: 'foo.img',
+            size: 999999999,
+            recommendedDriveSize: 1500000000
           });
 
           m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
