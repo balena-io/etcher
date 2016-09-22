@@ -409,9 +409,9 @@
           "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
         },
         "lodash": {
-          "version": "4.15.0",
+          "version": "4.16.1",
           "from": "lodash@>=4.14.2 <5.0.0",
-          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.15.0.tgz"
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.16.1.tgz"
         },
         "readable-stream": {
           "version": "2.0.6",
@@ -1415,9 +1415,9 @@
       }
     },
     "etcher-image-write": {
-      "version": "8.1.0",
-      "from": "etcher-image-write@8.1.0",
-      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-8.1.0.tgz",
+      "version": "8.1.2",
+      "from": "etcher-image-write@8.1.2",
+      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-8.1.2.tgz",
       "dependencies": {
         "isarray": {
           "version": "1.0.0",
