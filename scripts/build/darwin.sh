@@ -37,6 +37,11 @@ if ! command -v python 2>/dev/null; then
   exit 1
 fi
 
+if ! command -v afsctool 2>/dev/null; then
+  echo "Dependency missing: afsctool" 1>&2
+  exit 1
+fi
+
 if [ "$#" -ne 1 ]; then
   echo "Usage: $0 <command>" 1>&2
   exit 1
@@ -193,6 +198,9 @@ function installer_dmg {
      end tell
   ' | osascript
   sync
+
+  # Apply HFS+ compression
+  afsctool -ci -9 $volume_app
 
   sign $volume_app
 

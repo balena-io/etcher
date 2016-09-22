@@ -45,6 +45,9 @@ install:
       ./scripts/build/linux.sh install x64;
     fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      brew install afsctool;
+    fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       ./scripts/build/darwin.sh install;
     fi
 
