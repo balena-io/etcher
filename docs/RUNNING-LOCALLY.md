@@ -25,6 +25,7 @@ Prerequisites
 ### OS X
 
 - [XCode](https://developer.apple.com/xcode/)
+- [afsctool](https://brkirch.wordpress.com/afsctool/)
 
 Cloning the project
 -------------------
