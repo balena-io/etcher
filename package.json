@@ -69,7 +69,7 @@
     "drivelist": "^3.3.4",
     "electron-is-running-in-asar": "^1.0.0",
     "etcher-image-stream": "^4.3.0",
-    "etcher-image-write": "^8.1.2",
+    "etcher-image-write": "^8.1.3",
     "etcher-latest-version": "^1.0.0",
     "file-tail": "^0.3.0",
     "flexboxgrid": "^6.3.0",
