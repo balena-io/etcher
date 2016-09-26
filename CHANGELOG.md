@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.0.0-beta.15 - 2016-09-26
+
+### Features
+
+- Allow the user to disable auto-update notifications with an environment variable.
+- Allow images to declare a recommended minimum drive size.
+
+### Fixes
+
+- Fix flashing never starting after elevation in GNU/Linux.
+- Fix sporadic EPERM write errors on Windows.
+- Fix incorrect validation errors when flashing bzip2 images.
+- Fix `cscript is not recognised as an internal or external command` Windows error.
+
 ## v1.0.0-beta.14 - 2016-09-12
 
 ### Features
