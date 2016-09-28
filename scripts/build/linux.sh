@@ -48,7 +48,7 @@ if [ "$#" -ne 2 ]; then
 fi
 
 COMMAND=$1
-if [ "$COMMAND" != "install" ] && [ "$COMMAND" != "package" ] && [ "$COMMAND" != "all" ]; then
+if [ "$COMMAND" != "install" ] && [ "$COMMAND" != "package" ] && [ "$COMMAND" != "appimage" ] && [ "$COMMAND" != "all" ]; then
   echo "Unknown command: $COMMAND" 1>&2
   exit 1
 fi
@@ -174,7 +174,8 @@ if [ "$COMMAND" == "package" ] || [ "$COMMAND" == "all" ]; then
   if [ "$ARCH" == "x64" ]; then
     package_x64 etcher-release
   fi
-
-  installer etcher-release/Etcher-linux-$ARCH $ARCH etcher-release/installers
 fi
 
+if [ "$COMMAND" == "appimage" ] || [ "$COMMAND" == "all" ]; then
+  installer etcher-release/Etcher-linux-$ARCH $ARCH etcher-release/installers
+fi
