@@ -1,0 +1,11 @@
+--- etcher-1.0.0~beta.15.orig/lib/gui/app.js
++++ etcher-1.0.0~beta.15/lib/gui/app.js
+@@ -65,7 +65,7 @@ const app = angular.module('Etcher', [
+ app.run((AnalyticsService, UpdateNotifierService, SelectionStateModel) => {
+   AnalyticsService.logEvent('Application start');
+ 
+-  if (UpdateNotifierService.shouldCheckForUpdates() && !process.env.ETCHER_DISABLE_UPDATES) {
++  if (false && UpdateNotifierService.shouldCheckForUpdates() && !process.env.ETCHER_DISABLE_UPDATES) {
+     AnalyticsService.logEvent('Checking for updates');
+ 
+     UpdateNotifierService.isLatestVersion().then((isLatestVersion) => {

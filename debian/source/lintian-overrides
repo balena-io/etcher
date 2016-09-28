@@ -1,0 +1,4 @@
+etcher source: source-is-missing
+etcher source: statically-linked-binary
+etcher source: embedded-library
+etcher source: extra-license-file

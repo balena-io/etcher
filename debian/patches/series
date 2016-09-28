@@ -1,0 +1,3 @@
+separate-package-from-appimage.patch
+disable-updates.patch
+do-not-use-upx.patch
