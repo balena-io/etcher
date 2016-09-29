@@ -9,7 +9,7 @@ Prerequisites
 
 ### Common
 
-- [NodeJS](https://nodejs.org)
+- [NodeJS](https://nodejs.org) (at least v6)
 - [Bower](http://bower.io)
 - [UPX](http://upx.sourceforge.net)
 - [Python](https://www.python.org)
