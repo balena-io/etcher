@@ -32,7 +32,7 @@ operating systems.
 
 - [Etcher Image Stream](https://github.com/resin-io-modules/etcher-image-stream)
 
-The goal of this project is to convert any kind if input into a readable stream
+The goal of this project is to convert any kind of input into a readable stream
 representing the image so it can be plugged to [etcher-image-write]. Inputs
 that this module might handle could be, for example: a simple image file, a URL
 to an image, a compressed image, an image inside a ZIP archive, etc. Together
