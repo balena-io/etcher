@@ -59,3 +59,16 @@ install:
 
 script:
   - debuild --preserve-envvar PATH -us -uc
+
+before_deploy:
+  - ./create-bintray-json.sh
+
+deploy:
+  on:
+    tags: true
+    condition: '"$TRAVIS_TAG" = "debian/"*'
+  provider: bintray
+  file: $HOME/bintray.json
+  user: dlech
+  key:
+    secure: ZA/ohtFniKxpAexNslnPSumGj5MRljMiaVEin3mQmPFSPaMZ71A7O+F1/dk9Bn4HlAzxL0Kvkav5nPPNbUsIy5olNrE1MtlsXyXgyfA6PzQDdcZTZKpbZkuPUmpXalFYk+H8IElZZQqQxM5yv8F8N/6YAj5JjwzfubahY/fd4H6k0RGpai6Dyg43nRGavZrA/gFTkrhTlCPjuSdP/dQhCvjpy9FP57DKgDayc/0iaT+IHINsmH3abs1w6fLvfj5L5dKQDaD4pcJSfRL1YpG8mhY6n1iK6KOAyvWA+ZDhIYhae4x4gvoZeZ44lD8Bo3Q9bgNQX5jJsk9DlrHPhE5ZucC7xhzGH4hhlW8/RswiXUhEvakh+49JtIh+6I0Yxv5RoLkRuKux3m+gbfjH5MBYNIx51TN0rb1pWb0Ug6L02ILSjQMgkPlsrui0tzqtHlDcqisz7yx/5OSSrzI+cUlHs3STqStLBvuZfksrKipGVLfIxUNkMkqKydpiUMVrDVJku+xG8U/m7ovaKYS2rMzNHq3c50jtVm6Y+HKN5UOuhR3X+KQlCRrOwXS4X0WX1kSj6Wb2BfkFOE/feJkQhnal9x8FIRr2m5x9ZaxEwOzL6WXnYJ6oD8sAM29S5U1KrZLz77qqqU8XrJLE/Rqzfz3KcjrCFCdKuhCG//pmrZtoGWk=

@@ -1,1 +1,1 @@
-extend-diff-ignore = "(^|/)(\.travis\.yml|bower_components/.*|node_modules/.*|etcher-release/.*)$"
+extend-diff-ignore = "(^|/)(\.travis\.yml|create\-bintray\-json\.sh|bower_components/.*|node_modules/.*|etcher-release/.*)$"
