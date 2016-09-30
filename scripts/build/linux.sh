@@ -102,11 +102,6 @@ function package_x86 {
 
   mv $output_package/Etcher $output_package/etcher
   chmod a+x $output_package/*.so*
-
-  # UPX fails for some reason with some other so libraries
-  # other than libnode.so in the x86 build
-  upx -9 $output_package/etcher $output_package/libnode.so
-
 }
 
 function package_x64 {
@@ -126,7 +121,6 @@ function package_x64 {
 
   mv $output_package/Etcher $output_package/etcher
   chmod a+x $output_package/*.so*
-  upx -9 $output_package/etcher $output_package/*.so*
 }
 
 function app_dir_create {
@@ -177,5 +171,15 @@ if [ "$COMMAND" == "package" ] || [ "$COMMAND" == "all" ]; then
 fi
 
 if [ "$COMMAND" == "appimage" ] || [ "$COMMAND" == "all" ]; then
+  if [ "$ARCH" == "x86" ]; then
+    # UPX fails for some reason with some other so libraries
+    # other than libnode.so in the x86 build
+    upx -9 $output_package/etcher $output_package/libnode.so
+  fi
+
+  if [ "$ARCH" == "x64" ]; then
+    upx -9 $output_package/etcher $output_package/*.so*
+  fi
+
   installer etcher-release/Etcher-linux-$ARCH $ARCH etcher-release/installers
 fi
