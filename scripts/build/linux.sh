@@ -32,11 +32,6 @@ if ! command -v bower 2>/dev/null; then
   exit 1
 fi
 
-if ! command -v upx 2>/dev/null; then
-  echo "Dependency missing: upx" 1>&2
-  exit 1
-fi
-
 if ! command -v python 2>/dev/null; then
   echo "Dependency missing: python" 1>&2
   exit 1
@@ -51,6 +46,13 @@ COMMAND=$1
 if [ "$COMMAND" != "install" ] && [ "$COMMAND" != "package" ] && [ "$COMMAND" != "appimage" ] && [ "$COMMAND" != "all" ]; then
   echo "Unknown command: $COMMAND" 1>&2
   exit 1
+fi
+
+if [ "$COMMAND" == "appimage" ] || [ "$COMMAND" == "all" ]; then
+  if ! command -v upx 2>/dev/null; then
+    echo "Dependency missing: upx" 1>&2
+    exit 1
+  fi
 fi
 
 ARCH=$2
