@@ -43,9 +43,16 @@ if [ "$#" -ne 2 ]; then
 fi
 
 COMMAND=$1
-if [ "$COMMAND" != "install" ] && [ "$COMMAND" != "package" ] && [ "$COMMAND" != "appimage" ] && [ "$COMMAND" != "all" ]; then
+if [ "$COMMAND" != "install" ] && [ "$COMMAND" != "package" ] && [ "$COMMAND" != "debian" ] && [ "$COMMAND" != "appimage" ] && [ "$COMMAND" != "all" ]; then
   echo "Unknown command: $COMMAND" 1>&2
   exit 1
+fi
+
+if [ "$COMMAND" == "debian" ] || [ "$COMMAND" == "all" ]; then
+  if ! command -v electron-installer-debian 2>/dev/null; then
+    echo "Dependency missing: electron-installer-debian" 1>&2
+    exit 1
+  fi
 fi
 
 if [ "$COMMAND" == "appimage" ] || [ "$COMMAND" == "all" ]; then
@@ -170,6 +177,23 @@ if [ "$COMMAND" == "package" ] || [ "$COMMAND" == "all" ]; then
   if [ "$ARCH" == "x64" ]; then
     package_x64 etcher-release
   fi
+fi
+
+if [ "$COMMAND" == "debian" ] || [ "$COMMAND" == "all" ]; then
+  if [ "$ARCH" == "x86" ]; then
+    DEBARCH=i386
+  fi
+
+  if [ "$ARCH" == "x64" ]; then
+    DEBARCH=amd64
+  fi
+
+  cp scripts/build/debian/etcher-electron.sh etcher-release/Etcher-linux-$ARCH/
+  electron-installer-debian --src etcher-release/Etcher-linux-$ARCH \
+    --dest etcher-release/installers \
+    --config scripts/build/debian/config.json \
+    --arch $DEBARCH
+  rm etcher-release/Etcher-linux-$ARCH/etcher-electron.sh
 fi
 
 if [ "$COMMAND" == "appimage" ] || [ "$COMMAND" == "all" ]; then
