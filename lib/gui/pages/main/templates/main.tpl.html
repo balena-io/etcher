@@ -18,7 +18,8 @@
         <div ng-if="main.selection.hasImage()">
           <div class="step-selection-text"
             ng-click="main.external.open(main.selection.getImageUrl())"
-            ng-bind="main.selection.getImageName() || main.selection.getImagePath() | basename | middleEllipses:25"></div>
+            ng-bind="main.selection.getImageName() || main.selection.getImagePath() | basename | middleEllipses:25"
+            uib-tooltip="{{ main.selection.getImagePath() | basename }}"></div>
 
           <button class="button button-link step-tooltip"
             ng-click="main.tooltipModal.show({
