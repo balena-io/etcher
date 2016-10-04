@@ -1,0 +1,53 @@
+From 682708508c7bd47a16480a76e49e6c7fdd3f918d Mon Sep 17 00:00:00 2001
+From: David Lechner <david@lechnology.com>
+Date: Fri, 30 Sep 2016 16:21:36 -0500
+Subject: [PATCH] Move upx compression to appimage command in linux build
+ script
+
+Debian packaging tools cannot analyze the binaries if they are compressed
+with upx. If we move the compression to the appimage command, then the
+output of the package command can be used for building debian packages.
+---
+ scripts/build/linux.sh | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
+
+diff --git a/scripts/build/linux.sh b/scripts/build/linux.sh
+index 0f0c1f7..8e37cad 100755
+--- a/scripts/build/linux.sh
++++ b/scripts/build/linux.sh
+@@ -102,11 +102,6 @@ function package_x86 {
+ 
+   mv $output_package/Etcher $output_package/etcher
+   chmod a+x $output_package/*.so*
+-
+-  # UPX fails for some reason with some other so libraries
+-  # other than libnode.so in the x86 build
+-  upx -9 $output_package/etcher $output_package/libnode.so
+-
+ }
+ 
+ function package_x64 {
+@@ -126,7 +121,6 @@ function package_x64 {
+ 
+   mv $output_package/Etcher $output_package/etcher
+   chmod a+x $output_package/*.so*
+-  upx -9 $output_package/etcher $output_package/*.so*
+ }
+ 
+ function app_dir_create {
+@@ -177,5 +171,15 @@ if [ "$COMMAND" == "package" ] || [ "$COMMAND" == "all" ]; then
+ fi
+ 
+ if [ "$COMMAND" == "appimage" ] || [ "$COMMAND" == "all" ]; then
++  if [ "$ARCH" == "x86" ]; then
++    # UPX fails for some reason with some other so libraries
++    # other than libnode.so in the x86 build
++    upx -9 $output_package/etcher $output_package/libnode.so
++  fi
++
++  if [ "$ARCH" == "x64" ]; then
++    upx -9 $output_package/etcher $output_package/*.so*
++  fi
++
+   installer etcher-release/Etcher-linux-$ARCH $ARCH etcher-release/installers
+ fi

@@ -1,0 +1,29 @@
+Source: etcher
+Section: utils
+Priority: optional
+Maintainer: David Lechner <david@lechnology.com>
+Build-Depends: debhelper (>=9)
+ , libasound2-dev
+ , libcap-dev
+ , libcups2-dev
+ , libfontconfig1-dev
+ , libfreetype6-dev
+ , libexpat1-dev
+ , libgtk2.0-dev
+ , libgconf2-dev
+ , liblzma-dev
+Standards-Version: 3.9.3
+Homepage: http://etcher.io
+Vcs-Git: git://github.com/dlech/etcher.git
+Vcs-Browser: https://github.com/dlech/etcher
+
+Package: etcher
+Architecture: amd64
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Burn images to SD cards & USB drives, safe & easy
+ Etcher is a powerful OS image flasher built with web technologies to ensure
+ flashing an SDCard or USB drive is pleasant and safe experience. It protects
+ you from accidentally writing to your hard-drives, ensures every byte of data
+ was written correctly and much more.
+ .
+ This package contains the Etcher desktop application.

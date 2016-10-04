@@ -1,0 +1,17 @@
+#!/usr/bin/make -f
+# See debhelper(7) (uncomment to enable)
+# output every command that modifies files on the build system.
+#export DH_VERBOSE = 1
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	# assuming that `./scripts/build/linux.sh install x64` was already run
+	./scripts/build/linux.sh package x64
+
+override_dh_strip:
+	# don't strip anything
+
+override_dh_makeshlibs:
+	# there are .so files, but we don't share them

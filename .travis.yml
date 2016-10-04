@@ -3,9 +3,6 @@ sudo: false
 
 env:
   - NODE_VERSION="6.1.0" RUBY_VERSION="2.3.1"
-os:
-  - linux
-  - osx
 
 # C++11 support
 # See https://github.com/PacificBiosciences/pbdagcon/pull/7
@@ -18,12 +15,28 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-      - upx-ucl
+      - debhelper
+      - devscripts
+      - quilt
+      - lintian
+      - libwww-perl
+      - libcrypt-ssleay-perl # https://github.com/travis-ci/apt-package-whitelist/issues/3380
       - gcc-4.8
       - g++-4.8
       - clang
+      - libasound2-dev
+      - libcap-dev
+      - libcups2-dev
+      - libfontconfig1-dev
+      - libfreetype6-dev
+      - libexpat1-dev
+      - libgtk2.0-dev
+      - libgconf2-dev
+      - liblzma-dev
 
 before_install:
+  #- uscan --verbose --download-current-version
+  - wget -O ../etcher_1.0.0~beta.15.orig.tar.gz https://github.com/resin-io/etcher/archive/v1.0.0-beta.15.tar.gz
   - rm -rf ~/.nvm
   - git clone https://github.com/creationix/nvm.git ~/.nvm
   - source ~/.nvm/nvm.sh
@@ -41,30 +54,21 @@ install:
     fi
   - gem install scss_lint
   - npm install -g bower
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      ./scripts/build/linux.sh install x64;
-    fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      brew install afsctool;
-    fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      ./scripts/build/darwin.sh install;
-    fi
-
-before_script:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      export DISPLAY=:99.0;
-      sh -e /etc/init.d/xvfb start;
-    fi
+  - QUILT_PATCHES=debian/patches quilt push -a
+  - ./scripts/build/linux.sh install x64
 
 script:
-  - npm test
+  - debuild --preserve-envvar PATH -us -uc
 
-notifications:
-  email: false
-  webhooks:
-    urls:
-      - https://webhooks.gitter.im/e/0a019c8b9828eb9f6a72
-    on_success: change
-    on_failure: always
-    on_start: never
+before_deploy:
+  - ./create-bintray-json.sh
+
+deploy:
+  on:
+    tags: true
+    condition: '"$TRAVIS_TAG" = "debian/"*'
+  provider: bintray
+  file: $HOME/bintray.json
+  user: dlech
+  key:
+    secure: ZA/ohtFniKxpAexNslnPSumGj5MRljMiaVEin3mQmPFSPaMZ71A7O+F1/dk9Bn4HlAzxL0Kvkav5nPPNbUsIy5olNrE1MtlsXyXgyfA6PzQDdcZTZKpbZkuPUmpXalFYk+H8IElZZQqQxM5yv8F8N/6YAj5JjwzfubahY/fd4H6k0RGpai6Dyg43nRGavZrA/gFTkrhTlCPjuSdP/dQhCvjpy9FP57DKgDayc/0iaT+IHINsmH3abs1w6fLvfj5L5dKQDaD4pcJSfRL1YpG8mhY6n1iK6KOAyvWA+ZDhIYhae4x4gvoZeZ44lD8Bo3Q9bgNQX5jJsk9DlrHPhE5ZucC7xhzGH4hhlW8/RswiXUhEvakh+49JtIh+6I0Yxv5RoLkRuKux3m+gbfjH5MBYNIx51TN0rb1pWb0Ug6L02ILSjQMgkPlsrui0tzqtHlDcqisz7yx/5OSSrzI+cUlHs3STqStLBvuZfksrKipGVLfIxUNkMkqKydpiUMVrDVJku+xG8U/m7ovaKYS2rMzNHq3c50jtVm6Y+HKN5UOuhR3X+KQlCRrOwXS4X0WX1kSj6Wb2BfkFOE/feJkQhnal9x8FIRr2m5x9ZaxEwOzL6WXnYJ6oD8sAM29S5U1KrZLz77qqqU8XrJLE/Rqzfz3KcjrCFCdKuhCG//pmrZtoGWk=

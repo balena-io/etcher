@@ -1,0 +1,39 @@
+From 9980c3e80932fbb5fa6c6c1cb6fef005aa86fd88 Mon Sep 17 00:00:00 2001
+From: David Lechner <david@lechnology.com>
+Date: Fri, 30 Sep 2016 16:38:05 -0500
+Subject: [PATCH] Only check for upx when building appimage
+
+---
+ scripts/build/linux.sh | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/scripts/build/linux.sh b/scripts/build/linux.sh
+index 8e37cad..65651a4 100755
+--- a/scripts/build/linux.sh
++++ b/scripts/build/linux.sh
+@@ -32,11 +32,6 @@ if ! command -v bower 2>/dev/null; then
+   exit 1
+ fi
+ 
+-if ! command -v upx 2>/dev/null; then
+-  echo "Dependency missing: upx" 1>&2
+-  exit 1
+-fi
+-
+ if ! command -v python 2>/dev/null; then
+   echo "Dependency missing: python" 1>&2
+   exit 1
+@@ -53,6 +48,13 @@ if [ "$COMMAND" != "install" ] && [ "$COMMAND" != "package" ] && [ "$COMMAND" !=
+   exit 1
+ fi
+ 
++if [ "$COMMAND" == "appimage" ] || [ "$COMMAND" == "all" ]; then
++  if ! command -v upx 2>/dev/null; then
++    echo "Dependency missing: upx" 1>&2
++    exit 1
++  fi
++fi
++
+ ARCH=$2
+ if [ "$ARCH" != "x64" ] && [ "$ARCH" != "x86" ]; then
+   echo "Unknown architecture: $ARCH" 1>&2

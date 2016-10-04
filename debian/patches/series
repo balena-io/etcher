@@ -1,0 +1,3 @@
+separate-package-from-appimage.patch
+move-upx.patch
+move-upx-check.patch

@@ -1,0 +1,21 @@
+--- etcher-1.0.0~beta.15.orig/scripts/build/linux.sh
++++ etcher-1.0.0~beta.15/scripts/build/linux.sh
+@@ -48,7 +48,7 @@ if [ "$#" -ne 2 ]; then
+ fi
+ 
+ COMMAND=$1
+-if [ "$COMMAND" != "install" ] && [ "$COMMAND" != "package" ] && [ "$COMMAND" != "all" ]; then
++if [ "$COMMAND" != "install" ] && [ "$COMMAND" != "package" ] && [ "$COMMAND" != "appimage" ] && [ "$COMMAND" != "all" ]; then
+   echo "Unknown command: $COMMAND" 1>&2
+   exit 1
+ fi
+@@ -174,7 +174,8 @@ if [ "$COMMAND" == "package" ] || [ "$CO
+   if [ "$ARCH" == "x64" ]; then
+     package_x64 etcher-release
+   fi
++fi
+ 
++if [ "$COMMAND" == "appimage" ] || [ "$COMMAND" == "all" ]; then
+   installer etcher-release/Etcher-linux-$ARCH $ARCH etcher-release/installers
+ fi
+-

@@ -1,0 +1,4 @@
+assets/etcher.png usr/share/icons/hicolor/256x256/apps/
+debian/etcher-ui usr/bin/
+debian/etcher.desktop usr/share/applications/
+etcher-release/Etcher-linux-x64/* usr/lib/etcher/

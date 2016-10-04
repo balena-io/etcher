@@ -1,0 +1,11 @@
+# Example watch control file for uscan
+# Rename this file to "watch" and then you can run the "uscan" command
+# to check for upstream updates and more.
+# See uscan(1) for format
+
+# Compulsory line, this is a version 3 file
+version=3
+
+opts=versionmangle=s/-(beta\.\d+)/~$1/ \
+   https://github.com/resin-io/etcher/tags \
+   (?:.*?/)?v(\d+\.\d+\.\d+(?:-beta\.\d+))\.tar\.gz
