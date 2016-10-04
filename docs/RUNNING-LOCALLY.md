@@ -35,12 +35,15 @@ git clone https://github.com/resin-io/etcher
 cd etcher
 ```
 
-Installing dependencies
------------------------
+Installing npm dependencies
+---------------------------
 
-Please make use of the following scripts to install dependencies rather than
-simply running `npm install` given that we need to do extra configuration to
-make sure native dependencies are correctly compiled for Electron, otherwise
+**Make sure you have all the pre-requisites listed above installed in your
+system before running the `install` script.**
+
+Please make use of the following scripts to install npm dependencies rather
+than simply running `npm install` given that we need to do extra configuration
+to make sure native dependencies are correctly compiled for Electron, otherwise
 the application might not run successfully.
 
 ### OS X
