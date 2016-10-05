@@ -22,6 +22,8 @@ addons:
       - gcc-4.8
       - g++-4.8
       - clang
+      - dpkg
+      - fakeroot
 
 before_install:
   - rm -rf ~/.nvm
@@ -41,6 +43,7 @@ install:
     fi
   - gem install scss_lint
   - npm install -g bower
+  - npm install -g electron-installer-debian
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       ./scripts/build/linux.sh install x64;
     fi
