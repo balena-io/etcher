@@ -17,7 +17,16 @@
         ng-model="settings.currentData.unmountOnSuccess"
         ng-change="settings.model.set('unmountOnSuccess', settings.currentData.unmountOnSuccess)">
 
-      <span>Auto-unmount on success</span>
+      <!-- On Windows, "Unmounting" basically means "ejecting". -->
+      <!-- On top of that, Windows users are usually not even -->
+      <!-- familiar with the meaning of "unmount", which comes -->
+      <!-- from the UNIX world. -->
+
+      <span>
+        <span ng-show="settings.platform == 'win32'">Eject</span>
+        <span ng-hide="settings.platform == 'win32'">Auto-unmount</span>
+        on success
+      </span>
     </label>
   </div>
 
