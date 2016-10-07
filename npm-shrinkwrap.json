@@ -1,6 +1,6 @@
 {
   "name": "etcher",
-  "version": "1.0.0-beta.14",
+  "version": "1.0.0-beta.15",
   "dependencies": {
     "abbrev": {
       "version": "1.0.9",
@@ -1403,9 +1403,9 @@
       "resolved": "https://registry.npmjs.org/esutils/-/esutils-2.0.2.tgz"
     },
     "etcher-image-stream": {
-      "version": "4.3.0",
-      "from": "etcher-image-stream@4.3.0",
-      "resolved": "https://registry.npmjs.org/etcher-image-stream/-/etcher-image-stream-4.3.0.tgz",
+      "version": "5.1.0",
+      "from": "etcher-image-stream@5.1.0",
+      "resolved": "https://registry.npmjs.org/etcher-image-stream/-/etcher-image-stream-5.1.0.tgz",
       "dependencies": {
         "yauzl": {
           "version": "2.6.0",
@@ -4716,7 +4716,7 @@
         "isarray": {
           "version": "1.0.0",
           "from": "isarray@~1.0.0",
-          "resolved": "http://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
+          "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
         },
         "readable-stream": {
           "version": "2.1.5",
@@ -5341,7 +5341,7 @@
         "isarray": {
           "version": "1.0.0",
           "from": "isarray@>=1.0.0 <1.1.0",
-          "resolved": "http://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
+          "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
         },
         "readable-stream": {
           "version": "2.1.4",
