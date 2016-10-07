@@ -41,7 +41,7 @@ describe('Browser: SupportedFormats', function() {
 
       it('should return the supported archive extensions', function() {
         const extensions = SupportedFormatsModel.getArchiveExtensions();
-        m.chai.expect(extensions).to.deep.equal([ 'zip' ]);
+        m.chai.expect(extensions).to.deep.equal([ 'zip', 'etch' ]);
       });
 
     });
