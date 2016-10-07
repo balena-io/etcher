@@ -38,7 +38,7 @@ before_install:
   - rvm use $RUBY_VERSION
 
 install:
-  - if [ "$CXX" = "g++" ]; then
+  - if [ "$CXX" = "g++" ] && [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       export CXX="g++-4.8" CC="gcc-4.8";
     fi
   - gem install scss_lint
