@@ -166,6 +166,15 @@ command as `root`, replacing `xxx` by your actual device path:
 dd if=/dev/zero of=/dev/xxx bs=512 count=1 conv=notrunc
 ```
 
+"No polkit authentication agent found" error in GNU/Linux
+----------------------------------------------------------
+
+Etcher requires an available [polkit authentication
+agent](https://wiki.archlinux.org/index.php/Polkit#Authentication_agents) in
+your system in order to show a secure password prompt dialog to perform
+elevation. Make sure you have one installed for the desktop environment of your
+choice.
+
 [resin.io]: https://resin.io
 [appimage]: http://appimage.org
 [xwayland]: https://wayland.freedesktop.org/xserver.html
