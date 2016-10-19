@@ -132,8 +132,6 @@ if "%arch%"=="x64" (
   set electron_arch=x64
 )
 
-set package_name=Etcher-win32-%arch%
-
 for /f %%i in (' "node -e ""console.log(require('./package.json').devDependencies['electron-prebuilt'])""" ') do (
   set electron_version=%%i
 )
@@ -157,6 +155,8 @@ for /f %%i in (' "node -e ""console.log(require('./package.json').version)""" ')
 for /f %%i in (' "node -v" ') do (
   set node_version=%%i
 )
+
+set package_name=Etcher-%etcher_version%-win32-%arch%
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :: Configure NPM to build native addons for Electron correctly
@@ -214,8 +214,10 @@ call %electron_packager% . %application_name%^
 set package_output=%output_build_directory%\%package_name%
 
 if not "%arch%"=="%electron_arch%" (
-  move %output_build_directory%\Etcher-win32-%electron_arch% %package_output%
-)
+    move %output_build_directory%\Etcher-win32-%electron_arch% %output_build_directory%\Etcher-win32-%arch%
+) 
+
+move %output_build_directory%\Etcher-win32-%arch% %package_output%
 
 :: Omit *.dll and *.node files from the asar package, otherwise
 :: `process.dlopen` and `module.require` can't load them correctly.
@@ -242,7 +244,7 @@ cd %package_output%^
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 set installer_tmp_output=%output_build_directory%\win32-%arch%-tmp-installer
-set installer_output=%output_directory%\Etcher-win32-%arch%.exe
+set installer_output=%output_directory%\%package_name%.exe
 
 call %electron_builder% %package_output%^
  --platform=win^
