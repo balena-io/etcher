@@ -175,8 +175,20 @@ your system in order to show a secure password prompt dialog to perform
 elevation. Make sure you have one installed for the desktop environment of your
 choice.
 
+Running in older macOS versions
+-------------------------------
+
+Etcher GUI is based on the [Electron][electron] framework, [which only supports
+macOS 10.9 and newer versions][electron-supported-platforms].
+
+You can however, run the [Etcher CLI][etcher-cli], which should work in older
+platforms.
+
 [resin.io]: https://resin.io
 [appimage]: http://appimage.org
 [xwayland]: https://wayland.freedesktop.org/xserver.html
 [weston.ini]: http://manpages.ubuntu.com/manpages/wily/man5/weston.ini.5.html
 [diskpart]: https://technet.microsoft.com/en-us/library/cc770877(v=ws.11).aspx
+[electron]: http://electron.atom.io
+[electron-supported-platforms]: https://github.com/electron/electron/blob/master/docs/tutorial/supported-platforms.md
+[etcher-cli]: https://github.com/resin-io/etcher/blob/master/docs/CLI.md
