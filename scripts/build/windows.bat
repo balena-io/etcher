@@ -102,10 +102,17 @@ if %ERRORLEVEL% neq 0 (
   exit /b 1
 )
 
-:: Check that asar is installed.
+:: Check that python is installed.
 where python >nul 2>nul
 if %ERRORLEVEL% neq 0 (
   echo Dependency missing: python 1>&2
+  exit /b 1
+)
+
+:: Check that 7z is installed.
+where 7z >nul 2>nul
+if %ERRORLEVEL% neq 0 (
+  echo Dependency missing: 7z 1>&2
   exit /b 1
 )
 
@@ -225,6 +232,10 @@ signtool sign^
 signtool verify /pa /v %package_output%\Etcher.exe
 
 upx -9 %package_output%\*.dll
+
+cd %package_output%^
+ && 7z a -tzip ..\installers\%package_name%.zip *^
+ && cd ..\..
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :: Generate installer
