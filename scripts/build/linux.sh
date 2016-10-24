@@ -77,7 +77,7 @@ APPLICATION_VERSION=`node -e "console.log(require('./package.json').version)"`
 function install {
 
   # Can be either "x64" or "ia32"
-  architecture=$1
+  local architecture=$1
 
   # Ensure native addons are compiled with the correct headers
   # See https://github.com/electron/electron/blob/master/docs/tutorial/using-native-node-modules.md
@@ -92,8 +92,8 @@ function install {
 }
 
 function package_x86 {
-  output_directory=$1
-  output_package=$output_directory/Etcher-linux-x86
+  local output_directory=$1
+  local output_package=$output_directory/Etcher-linux-x86
 
   $ELECTRON_PACKAGER . $APPLICATION_NAME \
     --platform=linux \
@@ -114,8 +114,8 @@ function package_x86 {
 }
 
 function package_x64 {
-  output_directory=$1
-  output_package=$output_directory/Etcher-linux-x64
+  local output_directory=$1
+  local output_package=$output_directory/Etcher-linux-x64
 
   $ELECTRON_PACKAGER . $APPLICATION_NAME \
     --platform=linux \
@@ -133,9 +133,9 @@ function package_x64 {
 }
 
 function app_dir_create {
-  source_directory=$1
-  architecture=$2
-  output_directory=$3
+  local source_directory=$1
+  local architecture=$2
+  local output_directory=$3
 
   mkdir -p $output_directory/usr/bin
   cp ./scripts/build/AppImages/AppRun-$architecture $output_directory/AppRun
@@ -146,11 +146,11 @@ function app_dir_create {
 }
 
 function installer {
-  source_directory=$1
-  architecture=$2
-  output_directory=$3
-  appdir_temporary_location=$output_directory/Etcher-linux-$architecture.AppDir
-  output_file=$output_directory/Etcher-linux-$architecture.AppImage
+  local source_directory=$1
+  local architecture=$2
+  local output_directory=$3
+  local appdir_temporary_location=$output_directory/Etcher-linux-$architecture.AppDir
+  local output_file=$output_directory/Etcher-linux-$architecture.AppImage
 
   mkdir -p $output_directory
   app_dir_create $source_directory $architecture $appdir_temporary_location

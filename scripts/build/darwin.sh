@@ -76,7 +76,7 @@ function install {
 }
 
 function package {
-  output_directory=$1
+  local output_directory=$1
 
   $ELECTRON_PACKAGER . $APPLICATION_NAME \
     --platform=darwin \
@@ -100,7 +100,7 @@ function package {
 }
 
 function sign {
-  source_application=$1
+  local source_application=$1
 
   $ELECTRON_OSX_SIGN $source_application --platform darwin --verbose --identity "$SIGN_IDENTITY_OSX"
   codesign --verify --deep --display --verbose=4 $source_application
@@ -108,8 +108,8 @@ function sign {
 }
 
 function installer_zip {
-  source_directory=$1
-  output_directory=$2
+  local source_directory=$1
+  local output_directory=$2
 
   mkdir -p $output_directory
   sign $source_directory/$APPLICATION_NAME.app
@@ -120,11 +120,11 @@ function installer_zip {
 }
 
 function installer_dmg {
-  source_directory=$1
-  output_directory=$2
-  temporal_dmg=$source_directory.dmg
-  volume_directory=/Volumes/$APPLICATION_NAME
-  volume_app=$volume_directory/$APPLICATION_NAME.app
+  local source_directory=$1
+  local output_directory=$2
+  local temporal_dmg=$source_directory.dmg
+  local volume_directory=/Volumes/$APPLICATION_NAME
+  local volume_app=$volume_directory/$APPLICATION_NAME.app
 
   # Make sure any previous DMG was unmounted
   hdiutil detach $volume_directory || true
