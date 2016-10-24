@@ -197,15 +197,19 @@ if [ "$COMMAND" == "debian" ] || [ "$COMMAND" == "all" ]; then
 fi
 
 if [ "$COMMAND" == "appimage" ] || [ "$COMMAND" == "all" ]; then
+  package_directory=etcher-release/Etcher-linux-$ARCH
+
   if [ "$ARCH" == "x86" ]; then
+
     # UPX fails for some reason with some other so libraries
     # other than libnode.so in the x86 build
-    upx -9 $output_package/etcher $output_package/libnode.so
+    upx -9 $package_directory/etcher $package_directory/libnode.so
+
   fi
 
   if [ "$ARCH" == "x64" ]; then
-    upx -9 $output_package/etcher $output_package/*.so*
+    upx -9 $package_directory/etcher $package_directory/*.so*
   fi
 
-  installer etcher-release/Etcher-linux-$ARCH $ARCH etcher-release/installers
+  installer $package_directory $ARCH etcher-release/installers
 fi
