@@ -156,6 +156,12 @@ function installer {
   app_dir_create $source_directory $architecture $appdir_temporary_location
   rm -f $output_file
   ./scripts/build/AppImages/AppImageAssistant-$architecture $appdir_temporary_location $output_file
+
+  pushd $output_directory
+  zip Etcher-linux-$architecture.zip Etcher-linux-$architecture.AppImage
+  rm Etcher-linux-$architecture.AppImage
+  popd
+
   rm -rf $appdir_temporary_location
 }
 
