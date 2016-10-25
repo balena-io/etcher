@@ -21,6 +21,7 @@ Prerequisites
 - [Asar](https://github.com/electron/asar)
 - [NSIS v2.51](http://nsis.sourceforge.net/Main_Page) (v3.x won't work)
 - [Visual Studio Community 2013](https://www.visualstudio.com/en-us/news/vs2013-community-vs.aspx)
+- [7z](http://www.7-zip.org) (command line version)
 
 ### OS X
 
