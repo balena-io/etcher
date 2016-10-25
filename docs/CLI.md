@@ -38,7 +38,6 @@ Options
   --drive, -d    drive
   --check, -c    validate write
   --robot, -r    parse-able output without interactivity
-  --log, -l      output log file
   --yes, -y      confirm non-interactively
   --unmount, -u  unmount on success
 ```
