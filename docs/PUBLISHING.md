@@ -47,6 +47,14 @@ Run the following command:
 $ ./scripts/build/linux.sh all <x64|x86>
 ```
 
+### Windows
+
+Run the following command:
+
+```sh
+> .\scripts\build\windows.bat all <x64|x86>
+```
+
 Publishing
 ----------
 
