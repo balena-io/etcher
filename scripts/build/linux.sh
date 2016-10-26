@@ -88,7 +88,7 @@ function install {
 
   rm -rf node_modules bower_components
   npm install --build-from-source
-  bower install --production
+  bower install --production --allow-root
 }
 
 function package_x86 {
@@ -107,6 +107,7 @@ function package_x86 {
     --out=$output_directory
 
   # Change ia32 suffix to x86 for consistency
+  rm -r $output_package
   mv $output_directory/Etcher-linux-ia32 $output_package
 
   mv $output_package/Etcher $output_package/etcher
