@@ -21,7 +21,7 @@ packaging for OS X.
 ### Windows
 
 1. Get access to our code signing certificate and decryption key as a Resin.io
-employee by asking for it to the relevant people.
+employee by asking for it from the relevant people.
 
 2. Place the certificate in the root of the Etcher repository naming it
 `certificate.p12`.
@@ -30,6 +30,8 @@ Packaging
 ---------
 
 The resulting installers will be saved to `etcher-release/installers`.
+
+### OS X
 
 Run the following command:
 
@@ -45,6 +47,14 @@ Run the following command:
 $ ./scripts/build/linux.sh all <x64|x86>
 ```
 
+### Windows
+
+Run the following command:
+
+```sh
+> .\scripts\build\windows.bat all <x64|x86>
+```
+
 Publishing
 ----------
 
@@ -54,7 +64,7 @@ Make sure you have the [AWS CLI tool][aws-cli] installed and configured to
 access Resin.io's production downloads S3 bucket.
 
 > The publishing script only runs on UNIX based operating systems for now. You
-> can use something like [Cygwin](https://cygwin.com) to run it on Windows.
+> can use something like [Cygwin][cygwin] to run it on Windows.
 
 Run the following command:
 
@@ -62,5 +72,5 @@ Run the following command:
 ./scripts/publish.sh <file>
 ```
 
-[package-json]: https://github.com/resin-io/etcher/blob/master/package.json
-[aws-cli]: https://aws.amazon.com/cli://aws.amazon.com/cli/
+[aws-cli]: https://aws.amazon.com/cli
+[cygwin]: https://cygwin.com
