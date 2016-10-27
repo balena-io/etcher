@@ -114,33 +114,33 @@ function installer_zip {
   mkdir -p $output_directory
   sign $source_directory/$APPLICATION_NAME.app
   pushd $source_directory
-  zip -r -9 Etcher-darwin-x64.zip $APPLICATION_NAME.app
+  zip -r -9 Etcher-$APPLICATION_VERSION-darwin-x64.zip $APPLICATION_NAME.app
   popd
-  mv $source_directory/Etcher-darwin-x64.zip $output_directory
+  mv $source_directory/Etcher-$APPLICATION_VERSION-darwin-x64.zip $output_directory
 }
 
 function installer_dmg {
   local source_directory=$1
   local output_directory=$2
-  local temporal_dmg=$source_directory.dmg
+  local temporary_dmg=$source_directory.dmg
   local volume_directory=/Volumes/$APPLICATION_NAME
   local volume_app=$volume_directory/$APPLICATION_NAME.app
 
   # Make sure any previous DMG was unmounted
   hdiutil detach $volume_directory || true
 
-  # Create temporal read-write DMG image
-  rm -f $temporal_dmg
+  # Create temporary read-write DMG image
+  rm -f $temporary_dmg
   hdiutil create \
     -srcfolder $source_directory \
     -volname "$APPLICATION_NAME" \
     -fs HFS+ \
     -fsargs "-c c=64,a=16,e=16" \
     -format UDRW \
-    -size 600M $temporal_dmg
+    -size 600M $temporary_dmg
 
-  # Mount temporal DMG image, so we can modify it
-  hdiutil attach $temporal_dmg -readwrite -noverify
+  # Mount temporary DMG image, so we can modify it
+  hdiutil attach $temporary_dmg -readwrite -noverify
 
   # Wait for a bit to ensure the image is mounted
   sleep 2
@@ -204,20 +204,20 @@ function installer_dmg {
 
   sign $volume_app
 
-  # Unmount temporal DMG image.
+  # Unmount temporary DMG image.
   hdiutil detach $volume_directory
 
-  # Convert temporal DMG image into a production-ready
+  # Convert temporary DMG image into a production-ready
   # compressed and read-only DMG image.
   mkdir -p $output_directory
   rm -f $output_directory/Etcher-darwin-x64.dmg
-  hdiutil convert $temporal_dmg \
+  hdiutil convert $temporary_dmg \
     -format UDZO \
     -imagekey zlib-level=9 \
-    -o $output_directory/Etcher-darwin-x64.dmg
+    -o $output_directory/Etcher-$APPLICATION_VERSION-darwin-x64.dmg
 
-  # Cleanup temporal DMG image.
-  rm $temporal_dmg
+  # Cleanup temporary DMG image.
+  rm $temporary_dmg
 
 }
 

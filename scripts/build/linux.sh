@@ -159,7 +159,7 @@ function installer {
   ./scripts/build/AppImages/AppImageAssistant-$architecture $appdir_temporary_location $output_file
 
   pushd $output_directory
-  zip Etcher-linux-$architecture.zip Etcher-linux-$architecture.AppImage
+  zip Etcher-$APPLICATION_VERSION-linux-$architecture.zip Etcher-linux-$architecture.AppImage
   rm Etcher-linux-$architecture.AppImage
   popd
 
