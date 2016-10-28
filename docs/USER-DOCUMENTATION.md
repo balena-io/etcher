@@ -16,6 +16,13 @@ To deactivate this feature, `touch` any of the files listed below:
 - `/usr/share/appimagekit/no_desktopintegration`
 - `/etc/appimagekit/no_desktopintegration`
 
+Alternatively, set the `SKIP` environment variable before executing the
+AppImage:
+
+```sh
+SKIP=1 ./Etcher-linux-x64.AppImage
+```
+
 Flashing Ubuntu ISOs
 --------------------
 
