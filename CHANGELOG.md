@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.0.0-beta.16 - 2016-10-28
+
+### Features
+
+- Use info icon instead of "SHOW FULL FILE NAME" in first step.
+- Display image path base name as a tooltip on truncated image name.
+- Add support for `etch` images.
+
+### Fixes
+
+- Fix Etcher leaving zombie processes behind in GNU/Linux.
+- Prevent escaping issues during elevation by surrounding paths in double quotes.
+- Fix "Unexpected end of JSON" error in Windows.
+- Fix drag and drop not working anymore.
+- Don't clear selection state when re-selecting an image.
+
+### Misc
+
+- Publish standalone Windows builds.
+
 ## v1.0.0-beta.15 - 2016-09-26
 
 ### Features
