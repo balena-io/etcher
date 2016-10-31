@@ -34,7 +34,7 @@ Alternatively, set the `SKIP` environment variable before executing the
 AppImage:
 
 ```sh
-SKIP=1 ./Etcher-<version>-linux-<arch>.AppImage
+SKIP=1 ./Etcher-linux-<arch>.AppImage
 ```
 
 Flashing Ubuntu ISOs
