@@ -2,11 +2,11 @@ Etcher CLI
 ==========
 
 The Etcher CLI is a command-line tool that aims to provide all the benefits of
-the Etcher desktop application in a way that can be ran from a terminal, or
+the Etcher desktop application in a way that can be run from a terminal, or
 even used from a script.
 
 In fact, the Etcher desktop application is simply a wrapper around the CLI,
-which the place where the actual writing logic takes place.
+which is the place where the actual writing logic takes place.
 
 Running
 -------
@@ -21,7 +21,7 @@ git clone https://github.com/resin-io/etcher
 ```
 
 - Install the dependencies, using the instructions from
-[`CONTRIBUTING.md`][CONTRIBUTING].
+[`RUNNING-LOCALLY.md`][RUNNING-LOCALLY].
 
 - Run the Etcher CLI from `bin/etcher`.
 
@@ -71,5 +71,5 @@ The Etcher CLI uses certain exit codes to signal the result of the operation.
 These are documented in [`lib/src/exit-codes.js`][exit-codes] and are also
 printed on the Etcher CLI help page.
 
-[CONTRIBUTING]: https://github.com/resin-io/etcher/blob/master/docs/CONTRIBUTING.md
+[RUNNING-LOCALLY]: https://github.com/resin-io/etcher/blob/master/docs/RUNNING-LOCALLY.md
 [exit-codes]: https://github.com/resin-io/etcher/blob/master/lib/src/exit-codes.js
