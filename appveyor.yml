@@ -9,17 +9,20 @@ image: Visual Studio 2013
 cache:
   - C:\Users\appveyor\.node-gyp
   - '%AppData%\npm-cache'
+  - '%CHOCOLATEY_CACHE%'
 
 # what combinations to test
 environment:
   global:
     ELECTRON_NO_ATTACH_CONSOLE: true
+    CHOCOLATEY_CACHE: '%AppData%\chocolatey-cache'
   matrix:
     - nodejs_version: 6.1.0
 
 install:
   - ps: Install-Product node $env:nodejs_version x64
   - npm install -g npm bower rimraf asar
+  - choco config set cacheLocation %CHOCOLATEY_CACHE%
   - choco install nsis -version 2.51
   - choco install upx
   - choco install 7zip.commandline
