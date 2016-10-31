@@ -3,6 +3,20 @@ Etcher User Documentation
 
 This document contains how-tos and FAQs oriented to Etcher users.
 
+Why is my drive not bootable?
+-----------------------------
+
+Etcher copies images to drives byte by byte, without doing any transformation
+to the final device, which means images that require special treatment to be
+made bootable, like Windows images, will not work out of the box. In these
+cases, the general advice is to use software specific to those kind of
+images, usually available from the image publishers themselves.
+
+Images known to require special treatment:
+
+- Microsoft Windows (use [Windows USB/DVD Download Tool][windows-usb-tool], or
+  [Rufus][rufus]).
+
 Deactivate desktop shortcut prompt on GNU/Linux
 -----------------------------------------------
 
@@ -199,3 +213,5 @@ platforms.
 [electron]: http://electron.atom.io
 [electron-supported-platforms]: https://github.com/electron/electron/blob/master/docs/tutorial/supported-platforms.md
 [etcher-cli]: https://github.com/resin-io/etcher/blob/master/docs/CLI.md
+[windows-usb-tool]: https://www.microsoft.com/en-us/download/windows-usb-dvd-download-tool
+[rufus]: https://rufus.akeo.ie
