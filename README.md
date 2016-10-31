@@ -39,7 +39,7 @@ License
 Etcher is free software, and may be redistributed under the terms specified in
 the [license].
 
-[etcher]: http://etcher.io
+[etcher]: https://www.etcher.io
 [SUPPORT]: https://github.com/resin-io/etcher/blob/master/SUPPORT.md
 [CONTRIBUTING]: https://github.com/resin-io/etcher/blob/master/docs/CONTRIBUTING.md
 [CLI]: https://github.com/resin-io/etcher/blob/master/docs/CLI.md
