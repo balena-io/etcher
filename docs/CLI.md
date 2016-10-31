@@ -20,8 +20,11 @@ you can run it locally with the following steps:
 git clone https://github.com/resin-io/etcher
 ```
 
-- Install the dependencies, using the instructions from
-[`RUNNING-LOCALLY.md`][RUNNING-LOCALLY].
+- Install the dependencies by running:
+
+```sh
+npm install
+```
 
 - Run the Etcher CLI from `bin/etcher`.
 
@@ -71,5 +74,4 @@ The Etcher CLI uses certain exit codes to signal the result of the operation.
 These are documented in [`lib/src/exit-codes.js`][exit-codes] and are also
 printed on the Etcher CLI help page.
 
-[RUNNING-LOCALLY]: https://github.com/resin-io/etcher/blob/master/docs/RUNNING-LOCALLY.md
 [exit-codes]: https://github.com/resin-io/etcher/blob/master/lib/src/exit-codes.js
