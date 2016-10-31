@@ -1,6 +1,7 @@
 'use strict';
 
 const m = require('mochainon');
+const os = require('os');
 const angular = require('angular');
 const drivelist = require('drivelist');
 require('angular-mocks');
@@ -73,42 +74,29 @@ describe('Browser: DriveScanner', function() {
 
     });
 
-    describe('given available drives', function() {
+    describe('given linux', function() {
 
       beforeEach(function() {
-        this.drivesListStub = m.sinon.stub(drivelist, 'list');
-        this.drivesListStub.yields(null, [
-          {
-            device: '/dev/sda',
-            description: 'WDC WD10JPVX-75J',
-            size: '931.5G',
-            mountpoint: '/',
-            system: true
-          },
-          {
-            device: '/dev/sdb',
-            description: 'Foo',
-            size: '14G',
-            mountpoint: '/mnt/foo',
-            system: false
-          },
-          {
-            device: '/dev/sdc',
-            description: 'Bar',
-            size: '14G',
-            mountpoint: '/mnt/bar',
-            system: false
-          }
-        ]);
+        this.osPlatformStub = m.sinon.stub(os, 'platform');
+        this.osPlatformStub.returns('linux');
       });
 
       afterEach(function() {
-        this.drivesListStub.restore();
+        this.osPlatformStub.restore();
       });
 
-      it('should emit the non removable drives', function(done) {
-        DriveScannerService.on('drives', function(drives) {
-          m.chai.expect(drives).to.deep.equal([
+      describe('given available drives', function() {
+
+        beforeEach(function() {
+          this.drivesListStub = m.sinon.stub(drivelist, 'list');
+          this.drivesListStub.yields(null, [
+            {
+              device: '/dev/sda',
+              description: 'WDC WD10JPVX-75J',
+              size: '931.5G',
+              mountpoint: '/',
+              system: true
+            },
             {
               device: '/dev/sdb',
               description: 'Foo',
@@ -124,12 +112,116 @@ describe('Browser: DriveScanner', function() {
               system: false
             }
           ]);
-
-          DriveScannerService.stop();
-          done();
         });
 
-        DriveScannerService.start();
+        afterEach(function() {
+          this.drivesListStub.restore();
+        });
+
+        it('should emit the non removable drives', function(done) {
+          DriveScannerService.on('drives', function(drives) {
+            m.chai.expect(drives).to.deep.equal([
+              {
+                device: '/dev/sdb',
+                name: '/dev/sdb',
+                description: 'Foo',
+                size: '14G',
+                mountpoint: '/mnt/foo',
+                system: false
+              },
+              {
+                device: '/dev/sdc',
+                name: '/dev/sdc',
+                description: 'Bar',
+                size: '14G',
+                mountpoint: '/mnt/bar',
+                system: false
+              }
+            ]);
+
+            DriveScannerService.stop();
+            done();
+          });
+
+          DriveScannerService.start();
+        });
+
+      });
+
+    });
+
+    describe('given windows', function() {
+
+      beforeEach(function() {
+        this.osPlatformStub = m.sinon.stub(os, 'platform');
+        this.osPlatformStub.returns('win32');
+      });
+
+      afterEach(function() {
+        this.osPlatformStub.restore();
+      });
+
+      describe('given available drives', function() {
+
+        beforeEach(function() {
+          this.drivesListStub = m.sinon.stub(drivelist, 'list');
+          this.drivesListStub.yields(null, [
+            {
+              device: '\\\\.\\PHYSICALDRIVE1',
+              description: 'WDC WD10JPVX-75J',
+              size: '931.5G',
+              mountpoint: 'C:',
+              system: true
+            },
+            {
+              device: '\\\\.\\PHYSICALDRIVE2',
+              description: 'Foo',
+              size: '14G',
+              mountpoint: null,
+              system: false
+            },
+            {
+              device: '\\\\.\\PHYSICALDRIVE3',
+              description: 'Bar',
+              size: '14G',
+              mountpoint: 'F:',
+              system: false
+            }
+          ]);
+        });
+
+        afterEach(function() {
+          this.drivesListStub.restore();
+        });
+
+        it('should emit the non removable drives', function(done) {
+          DriveScannerService.on('drives', function(drives) {
+            m.chai.expect(drives).to.deep.equal([
+              {
+                device: '\\\\.\\PHYSICALDRIVE2',
+                name: '\\\\.\\PHYSICALDRIVE2',
+                description: 'Foo',
+                size: '14G',
+                mountpoint: null,
+                system: false
+              },
+              {
+                device: '\\\\.\\PHYSICALDRIVE3',
+                name: 'F:',
+                description: 'Bar',
+                size: '14G',
+                mountpoint: 'F:',
+                system: false
+              }
+            ]);
+
+            DriveScannerService.stop();
+            done();
+          });
+
+          DriveScannerService.start();
+        });
+
       });
 
     });
