@@ -1,7 +1,7 @@
 Getting help with Etcher
 ========================
 
-There are various ways get support for Etcher if you experience an issue or
+There are various ways to get support for Etcher if you experience an issue or
 have an idea you'd like to share with us.
 
 Gitter
