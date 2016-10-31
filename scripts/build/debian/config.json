@@ -2,7 +2,7 @@
   "name": "etcher-electron",
   "productName": "Etcher",
   "genericName": "Etcher",
-  "homepage": "https://www.etcher.io/",
+  "homepage": "https://etcher.io/",
   "icon": "assets/icon.png",
   "bin": "etcher-electron.sh",
   "categories": [
