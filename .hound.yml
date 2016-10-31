@@ -1,9 +1,0 @@
-javascript:
-  config_file: .jshintrc
-
-jscs:
-  enabled: true
-  config_file: .jscsrc
-
-scss:
-  enabled: false
