@@ -17,6 +17,8 @@ Images known to require special treatment:
 - Microsoft Windows (use [Windows USB/DVD Download Tool][windows-usb-tool], or
   [Rufus][rufus]).
 
+- Windows 10 IoT (use the [Windows 10 IoT Core Dashboard][windows-iot-dashboard])
+
 How can I configure persistent storage?
 ---------------------------------------
 
@@ -224,3 +226,4 @@ platforms.
 [windows-usb-tool]: https://www.microsoft.com/en-us/download/windows-usb-dvd-download-tool
 [rufus]: https://rufus.akeo.ie
 [unetbootin]: https://unetbootin.github.io
+[windows-iot-dashboard]: https://developer.microsoft.com/en-us/windows/iot/downloads
