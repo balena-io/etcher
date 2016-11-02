@@ -31,7 +31,7 @@ Support
 -------
 
 If you're having any problem, please [raise an issue][newissue] on GitHub and
-the Resin.io team will be happy to help.
+the resin.io team will be happy to help.
 
 License
 -------

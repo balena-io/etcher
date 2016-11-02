@@ -1,7 +1,7 @@
 @echo off
 
 ::::
-:: Copyright 2016 Resin.io
+:: Copyright 2016 resin.io
 ::
 :: Licensed under the Apache License, Version 2.0 (the "License");
 :: you may not use this file except in compliance with the License.
@@ -215,7 +215,7 @@ set package_output=%output_build_directory%\%package_name%
 
 if not "%arch%"=="%electron_arch%" (
     move %output_build_directory%\Etcher-win32-%electron_arch% %output_build_directory%\Etcher-win32-%arch%
-) 
+)
 
 move %output_build_directory%\Etcher-win32-%arch% %package_output%
 
