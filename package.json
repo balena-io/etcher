@@ -3,7 +3,7 @@
   "displayName": "Etcher",
   "version": "1.0.0-beta.16",
   "main": "lib/start.js",
-  "description": "An image flasher with support for Windows, OS X and GNU/Linux.",
+  "description": "Flash OS images to SD cards & USB drives, safely and easily.",
   "homepage": "https://github.com/resin-io/etcher",
   "repository": {
     "type": "git",
