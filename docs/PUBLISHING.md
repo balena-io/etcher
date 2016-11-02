@@ -55,8 +55,24 @@ Run the following command:
 > .\scripts\build\windows.bat all <x64|x86>
 ```
 
-Publishing
-----------
+Publishing to Bintray
+---------------------
+
+We publish GNU/Linux Debian packages to [Bintray][bintray].
+
+Make sure you set the following environment variables:
+
+- `BINTRAY_USER`
+- `BINTRAY_API_KEY`
+
+Run the following command:
+
+```sh
+./scripts/publish/bintray-debian.sh <debfile>
+```
+
+Publishing to S3
+----------------
 
 - [AWS CLI][aws-cli]
 
@@ -69,7 +85,7 @@ access Resin.io's production downloads S3 bucket.
 Run the following command:
 
 ```sh
-./scripts/publish.sh <file>
+./scripts/publish/aws-s3.sh <file>
 ```
 
 Announcing
@@ -80,3 +96,4 @@ new version of Etcher, and including the relevant section of the Changelog.
 
 [aws-cli]: https://aws.amazon.com/cli
 [cygwin]: https://cygwin.com
+[bintray]: https://bintray.com
