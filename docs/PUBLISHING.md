@@ -72,5 +72,11 @@ Run the following command:
 ./scripts/publish.sh <file>
 ```
 
+Announcing
+----------
+
+Post a message to https://talk.resin.io/c/etcher/annoucements announcing the
+new version of Etcher, and including the relevant section of the Changelog.
+
 [aws-cli]: https://aws.amazon.com/cli
 [cygwin]: https://cygwin.com
