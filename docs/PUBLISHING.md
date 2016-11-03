@@ -10,7 +10,7 @@ Signing
 ### OS X
 
 1. Get our Apple Developer ID certificate for signing applications distributed
-outside the Mac App Store from the Resin.io Apple account.
+outside the Mac App Store from the resin.io Apple account.
 
 2. Install the Developer ID certificate to your Mac's Keychain by double
 clicking on the certificate file.
@@ -20,7 +20,7 @@ packaging for OS X.
 
 ### Windows
 
-1. Get access to our code signing certificate and decryption key as a Resin.io
+1. Get access to our code signing certificate and decryption key as a resin.io
 employee by asking for it from the relevant people.
 
 2. Place the certificate in the root of the Etcher repository naming it
@@ -77,7 +77,7 @@ Publishing to S3
 - [AWS CLI][aws-cli]
 
 Make sure you have the [AWS CLI tool][aws-cli] installed and configured to
-access Resin.io's production downloads S3 bucket.
+access resin.io's production downloads S3 bucket.
 
 > The publishing script only runs on UNIX based operating systems for now. You
 > can use something like [Cygwin][cygwin] to run it on Windows.

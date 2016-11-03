@@ -134,8 +134,8 @@ Disable update notifications
 ----------------------------
 
 You can disable update notifications, which can be useful when running Etcher
-outside a common desktop environment (like in a [Resin.io][resin.io]
-application), by setting the `ETCHER_DISABLE_UPDATES` environment variable.
+outside a common desktop environment (like in a [resin.io] application), by
+setting the `ETCHER_DISABLE_UPDATES` environment variable.
 
 In GNU/Linux and Mac OS X:
 

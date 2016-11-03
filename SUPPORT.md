@@ -8,7 +8,7 @@ Gitter
 ------
 
 We have a [Gitter chat room][gitter] for Etcher which is open to everyone,
-please come join us :). Drop us a line there and the Resin.io staff and
+please come join us :). Drop us a line there and the resin.io staff and
 community users will be happy to assist.
 
 Make sure to mention the following information to help us provide better
