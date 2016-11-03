@@ -4,6 +4,23 @@ Etcher Architecture
 This document aims to serve as a high-level overview of how Etcher works,
 specially oriented for contributors who want to understand the big picture.
 
+Technologies
+------------
+
+This is a non exhaustive list of the major frameworks, libraries, and other
+technologies used in Etcher that you should become familiar with:
+
+- [Electron][electron]
+- [NodeJS][nodejs]
+- [AngularJS][angularjs]
+- [Redux][redux]
+- [ImmutableJS][immutablejs]
+- [Bootstrap][bootstrap]
+- [Sass][sass]
+- [Flexbox Grid][flexbox-grid]
+- [Mocha][mocha]
+- [JSDoc][jsdoc]
+
 Module architecture
 -------------------
 
@@ -94,4 +111,13 @@ be documented instead!
 [exit-codes]: https://github.com/resin-io/etcher/blob/master/lib/src/exit-codes.js
 [cli-dir]: https://github.com/resin-io/etcher/tree/master/lib/cli
 [gui-dir]: https://github.com/resin-io/etcher/tree/master/lib/gui
-
+[electron]: http://electron.atom.io
+[nodejs]: https://nodejs.org
+[angularjs]: https://angularjs.org
+[redux]: http://redux.js.org
+[immutablejs]: http://facebook.github.io/immutable-js/
+[bootstrap]: http://getbootstrap.com
+[sass]: http://sass-lang.com
+[flexbox-grid]: http://flexboxgrid.com
+[mocha]: http://mochajs.org
+[jsdoc]: http://usejsdoc.org
