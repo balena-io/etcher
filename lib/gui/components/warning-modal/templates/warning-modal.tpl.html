@@ -7,16 +7,16 @@
 
 <div class="modal-body">
   <div class="modal-text">
-    <p>{{ ::modal.message }}</p>
+    <p>{{ ::modal.options.message }}</p>
   </div>
 </div>
 
 <div class="modal-footer">
   <div class="modal-menu">
     <button class="button button-danger"
-      ng-click="modal.accept()">YES, CONTINUE</button>
+      ng-click="modal.accept()">{{ ::modal.options.confirmButtonMessage }}</button>
 
     <button class="button button-default"
-      ng-click="modal.reject()">CANCEL</button>
+      ng-click="modal.reject()">{{ ::modal.options.rejectButtonMessage }}</button>
   </div>
 </div>
