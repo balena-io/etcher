@@ -3,20 +3,17 @@
     <span class="glyphicon glyphicon-exclamation-sign"></span>
     <span>Warning!</span>
   </h4>
+  <button class="close" ng-click="modal.reject()">&times;</button>
 </div>
 
 <div class="modal-body">
   <div class="modal-text">
-    <p>{{ ::modal.message }}</p>
+    <p>{{ ::modal.options.description }}</p>
   </div>
 </div>
 
 <div class="modal-footer">
-  <div class="modal-menu">
-    <button class="button button-danger"
-      ng-click="modal.accept()">YES, CONTINUE</button>
-
-    <button class="button button-default"
-      ng-click="modal.reject()">CANCEL</button>
-  </div>
+  <button class="button button-danger button-block"
+    ng-click="modal.accept()">{{ ::modal.options.confirmationLabel }}</button>
 </div>
+
