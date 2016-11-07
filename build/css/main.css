@@ -6465,8 +6465,14 @@ body {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+.modal-warning-modal .modal-content {
+  width: 350px; }
+
 .modal-warning-modal .modal-title .glyphicon, .modal-warning-modal .modal-title .tick {
   color: #d9534f; }
+
+.modal-warning-modal .button, .modal-warning-modal .progress-button {
+  text-transform: uppercase; }
 
 /*
  * Copyright 2016 resin.io

@@ -14,6 +14,13 @@
  * limitations under the License.
  */
 
+.modal-warning-modal .modal-content {
+  width: 350px;
+}
+
 .modal-warning-modal .modal-title .glyphicon {
   color: $palette-theme-danger-background;
+}
+.modal-warning-modal .button {
+  text-transform: uppercase;
 }
