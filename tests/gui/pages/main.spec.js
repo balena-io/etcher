@@ -1,6 +1,7 @@
 'use strict';
 
 const m = require('mochainon');
+const _ = require('lodash');
 const angular = require('angular');
 require('angular-mocks');
 
@@ -143,7 +144,7 @@ describe('Browser: MainPage', function() {
       });
 
       const extensions = controller.mainSupportedExtensions.concat(controller.extraSupportedExtensions);
-      m.chai.expect(extensions).to.deep.equal(SupportedFormatsModel.getAllExtensions());
+      m.chai.expect(_.sortBy(extensions)).to.deep.equal(_.sortBy(SupportedFormatsModel.getAllExtensions()));
     });
 
   });
