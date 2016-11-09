@@ -88,6 +88,15 @@ Run the following command:
 ./scripts/publish/aws-s3.sh <file>
 ```
 
+Publishing to Homebrew Cask
+---------------------------
+
+1. Update [`Casks/etcher.rb`][etcher-cask-file] with the new version and
+   `sha256`
+
+2. Send a PR with the changes above to
+   [`caskroom/homebrew-cask`][homebrew-cask]
+
 Announcing
 ----------
 
@@ -97,3 +106,5 @@ new version of Etcher, and including the relevant section of the Changelog.
 [aws-cli]: https://aws.amazon.com/cli
 [cygwin]: https://cygwin.com
 [bintray]: https://bintray.com
+[etcher-cask-file]: https://github.com/caskroom/homebrew-cask/blob/master/Casks/etcher.rb
+[homebrew-cask]: https://github.com/caskroom/homebrew-cask
