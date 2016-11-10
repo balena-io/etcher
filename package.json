@@ -105,7 +105,8 @@
     "jsonfile": "^2.3.1",
     "mochainon": "^1.0.0",
     "node-sass": "^3.8.0",
-    "versionist": "^2.1.0"
+    "versionist": "^2.1.0",
+    "request": "2.76.0"
   },
   "config": {
     "commitizen": {

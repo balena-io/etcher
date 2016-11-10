@@ -1,8 +1,10 @@
 language: cpp
 sudo: false
-
 env:
+  matrix:
   - NODE_VERSION="6.1.0" RUBY_VERSION="2.3.1"
+  global:
+    secure: PtNVNtKSM3ps8SG3TfBQ91Gd4zcS+rPDI6Bn/OjTxVNdKj6ZXN3RUJYUQbM8ZIuIwjY9AK1Ho6SqS4/lB6MIj+WHnjBgcdzPl6LuQg4+m6MKi3I+qQdpcwqut9x7Cd0XRQzJt0XqdsULHmAK7NAAeh3fS1QjzB864IJsbxVfo/OVe5XXXTnWQmd5SsL301L0c9v6IW8IwscWnipBI32K8BVZza7vUFsGXapfSU9gOIMvGBomdcKTm2axNWmIdFSI+O6UV9kzEU68e9Q7y1crYjV/Yaljevy/pX9ISK1OW4FdOiJyBGKr9GEX6nN/ZrbD/vSywQTIUH4xCPNqp4kdi9e8UKU+sSLCyjFAQIRRgXkVZdv4owyWszKcYZcEv+8tdBK48e3YnMlhBVPm9yPsXG6SkgTvRTg2W8tKgL3zCHxH6A1/n/1Y/Z14dOmDIKdYHJe9M/NvrtyDWufIkZTK6R/qNrL2LC5PGUjsrTxQ9wnCg+KIqTW/UVWA8Pv/yhcnxaF5+a+JCbH+GlJMaPnwjSjluWunMSCRsubhQBgdO5ERsP0vJhG33F/8WLDF/rUFp5Vh7+F4ygoEt3DNXrty1jNn6Xq0QSo/2P/TlX5I3hD3LfwpDz7zbeCNN8FUr1YpsN5feoN24J7gbiNuJIBSNGSGGNOHJIeVLO3ALs9Qz+s=
 os:
   - linux
   - osx
@@ -62,7 +64,9 @@ before_script:
 
 script:
   - npm test
-
+after_success:
+  # only execute website build once per build
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]] && [[ $TRAVIS_BRANCH == "master" ]]; then node scripts/triggerWebsiteBuild.js; fi
 notifications:
   email: false
   webhooks:
