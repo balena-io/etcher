@@ -88,6 +88,10 @@
 .modal-text {
   padding: 20px;
 
+  > p {
+    white-space: pre-line;
+  }
+
   > p:last-child {
     margin-bottom: 0;
   }
