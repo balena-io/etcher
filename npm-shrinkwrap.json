@@ -5146,18 +5146,6 @@
       "from": "umd@>=3.0.0 <4.0.0",
       "resolved": "https://registry.npmjs.org/umd/-/umd-3.0.1.tgz"
     },
-    "umount": {
-      "version": "1.1.5",
-      "from": "umount@1.1.5",
-      "resolved": "https://registry.npmjs.org/umount/-/umount-1.1.5.tgz",
-      "dependencies": {
-        "lodash": {
-          "version": "3.10.1",
-          "from": "lodash@>=3.7.0 <4.0.0",
-          "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz"
-        }
-      }
-    },
     "unbzip2-stream": {
       "version": "1.0.10",
       "from": "unbzip2-stream@>=1.0.10 <2.0.0",
