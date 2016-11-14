@@ -11,7 +11,7 @@
     "url": "git@github.com:resin-io/etcher.git"
   },
   "scripts": {
-    "test": "npm run lint && electron-mocha --recursive --renderer tests/gui -R min",
+    "test": "npm run lint && electron-mocha --recursive --renderer tests/gui -R min && electron-mocha --recursive tests/cli -R min",
     "sass": "node-sass ./lib/gui/scss/main.scss > build/css/main.css",
     "jslint": "eslint lib tests scripts bin versionist.conf.js",
     "scsslint": "scss-lint lib/gui/scss",
@@ -88,7 +88,6 @@
     "sudo-prompt": "^6.1.0",
     "tail": "^1.1.0",
     "trackjs": "^2.1.16",
-    "umount": "^1.1.5",
     "username": "^2.1.0",
     "yargs": "^4.6.0"
   },
