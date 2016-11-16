@@ -545,7 +545,7 @@
         "isarray": {
           "version": "1.0.0",
           "from": "isarray@>=1.0.0 <2.0.0",
-          "resolved": "http://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
+          "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
         }
       }
     },
@@ -1158,14 +1158,14 @@
       "resolved": "https://registry.npmjs.org/domain-browser/-/domain-browser-1.1.7.tgz"
     },
     "drivelist": {
-      "version": "4.0.0",
-      "from": "drivelist@4.0.0",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-4.0.0.tgz",
+      "version": "5.0.1",
+      "from": "drivelist@5.0.1",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-5.0.1.tgz",
       "dependencies": {
         "lodash": {
-          "version": "4.16.4",
+          "version": "4.17.0",
           "from": "lodash@>=4.16.4 <5.0.0",
-          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.16.4.tgz"
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.0.tgz"
         }
       }
     },
@@ -4744,7 +4744,7 @@
         "isarray": {
           "version": "1.0.0",
           "from": "isarray@>=1.0.0 <1.1.0",
-          "resolved": "http://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
+          "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
         },
         "readable-stream": {
           "version": "2.1.4",
