@@ -52,7 +52,11 @@ describe('Browser: DriveScanner', function() {
             device: '/dev/sda',
             description: 'WDC WD10JPVX-75J',
             size: '931.5G',
-            mountpoint: '/',
+            mountpoints: [
+              {
+                path: '/'
+              }
+            ],
             system: true
           }
         ]);
@@ -94,21 +98,33 @@ describe('Browser: DriveScanner', function() {
               device: '/dev/sda',
               description: 'WDC WD10JPVX-75J',
               size: '931.5G',
-              mountpoint: '/',
+              mountpoints: [
+                {
+                  path: '/'
+                }
+              ],
               system: true
             },
             {
               device: '/dev/sdb',
               description: 'Foo',
               size: '14G',
-              mountpoint: '/mnt/foo',
+              mountpoints: [
+                {
+                  path: '/mnt/foo'
+                }
+              ],
               system: false
             },
             {
               device: '/dev/sdc',
               description: 'Bar',
               size: '14G',
-              mountpoint: '/mnt/bar',
+              mountpoints: [
+                {
+                  path: '/mnt/bar'
+                }
+              ],
               system: false
             }
           ]);
@@ -126,7 +142,11 @@ describe('Browser: DriveScanner', function() {
                 name: '/dev/sdb',
                 description: 'Foo',
                 size: '14G',
-                mountpoint: '/mnt/foo',
+                mountpoints: [
+                  {
+                    path: '/mnt/foo'
+                  }
+                ],
                 system: false
               },
               {
@@ -134,7 +154,11 @@ describe('Browser: DriveScanner', function() {
                 name: '/dev/sdc',
                 description: 'Bar',
                 size: '14G',
-                mountpoint: '/mnt/bar',
+                mountpoints: [
+                  {
+                    path: '/mnt/bar'
+                  }
+                ],
                 system: false
               }
             ]);
@@ -170,21 +194,29 @@ describe('Browser: DriveScanner', function() {
               device: '\\\\.\\PHYSICALDRIVE1',
               description: 'WDC WD10JPVX-75J',
               size: '931.5G',
-              mountpoint: 'C:',
+              mountpoints: [
+                {
+                  path: 'C:'
+                }
+              ],
               system: true
             },
             {
               device: '\\\\.\\PHYSICALDRIVE2',
               description: 'Foo',
               size: '14G',
-              mountpoint: null,
+              mountpoints: [],
               system: false
             },
             {
               device: '\\\\.\\PHYSICALDRIVE3',
               description: 'Bar',
               size: '14G',
-              mountpoint: 'F:',
+              mountpoints: [
+                {
+                  path: 'F:'
+                }
+              ],
               system: false
             }
           ]);
@@ -202,7 +234,7 @@ describe('Browser: DriveScanner', function() {
                 name: '\\\\.\\PHYSICALDRIVE2',
                 description: 'Foo',
                 size: '14G',
-                mountpoint: null,
+                mountpoints: [],
                 system: false
               },
               {
@@ -210,11 +242,93 @@ describe('Browser: DriveScanner', function() {
                 name: 'F:',
                 description: 'Bar',
                 size: '14G',
-                mountpoint: 'F:',
+                mountpoints: [
+                  {
+                    path: 'F:'
+                  }
+                ],
                 system: false
               }
             ]);
 
+            DriveScannerService.stop();
+            done();
+          });
+
+          DriveScannerService.start();
+        });
+
+      });
+
+      describe('given a drive with a single drive letters', function() {
+
+        beforeEach(function() {
+          this.drivesListStub = m.sinon.stub(drivelist, 'list');
+          this.drivesListStub.yields(null, [
+            {
+              device: '\\\\.\\PHYSICALDRIVE3',
+              description: 'Bar',
+              size: '14G',
+              mountpoints: [
+                {
+                  path: 'F:'
+                }
+              ],
+              system: false
+            }
+          ]);
+        });
+
+        afterEach(function() {
+          this.drivesListStub.restore();
+        });
+
+        it('should use the drive letter as the name', function(done) {
+          DriveScannerService.on('drives', function(drives) {
+            m.chai.expect(drives).to.have.length(1);
+            m.chai.expect(drives[0].name).to.equal('F:');
+            DriveScannerService.stop();
+            done();
+          });
+
+          DriveScannerService.start();
+        });
+
+      });
+
+      describe('given a drive with multiple drive letters', function() {
+
+        beforeEach(function() {
+          this.drivesListStub = m.sinon.stub(drivelist, 'list');
+          this.drivesListStub.yields(null, [
+            {
+              device: '\\\\.\\PHYSICALDRIVE3',
+              description: 'Bar',
+              size: '14G',
+              mountpoints: [
+                {
+                  path: 'F:'
+                },
+                {
+                  path: 'G:'
+                },
+                {
+                  path: 'H:'
+                }
+              ],
+              system: false
+            }
+          ]);
+        });
+
+        afterEach(function() {
+          this.drivesListStub.restore();
+        });
+
+        it('should join all the mountpoints in `name`', function(done) {
+          DriveScannerService.on('drives', function(drives) {
+            m.chai.expect(drives).to.have.length(1);
+            m.chai.expect(drives[0].name).to.equal('F:, G:, H:');
             DriveScannerService.stop();
             done();
           });
