@@ -68,9 +68,14 @@ fi
 # Ensure native addons are compiled with the correct headers
 # See https://github.com/electron/electron/blob/master/docs/tutorial/using-native-node-modules.md
 export npm_config_disturl=https://atom.io/download/atom-shell
-export npm_config_target=$ARGV_ELECTRON_VERSION
-export npm_config_arch=$ARGV_ARCHITECTURE
 export npm_config_runtime=electron
+export npm_config_target=$ARGV_ELECTRON_VERSION
+
+if [ "$ARGV_ARCHITECTURE" == "x86" ]; then
+  export npm_config_arch=ia32
+else
+  export npm_config_arch=$ARGV_ARCHITECTURE
+fi
 
 rm -rf node_modules bower_components
 npm install --build-from-source
