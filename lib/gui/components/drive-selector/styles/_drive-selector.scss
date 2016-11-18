@@ -19,6 +19,15 @@
   height: 320px;
 }
 
-.component-drive-selector-body .list-group-item-footer {
-  margin-top: 8px;
+.component-drive-selector-body {
+
+  .list-group-item-footer {
+    margin-top: 8px;
+  }
+
+  .list-group-item-heading,
+  .list-group-item-text {
+    word-break: break-all;
+  }
 }
+
