@@ -6410,6 +6410,10 @@ body {
 .component-drive-selector-body .list-group-item-footer {
   margin-top: 8px; }
 
+.component-drive-selector-body .list-group-item-heading,
+.component-drive-selector-body .list-group-item-text {
+  word-break: break-all; }
+
 /*
  * Copyright 2016 resin.io
  *
