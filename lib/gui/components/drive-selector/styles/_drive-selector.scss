@@ -19,6 +19,10 @@
   height: 320px;
 }
 
+.modal-drive-selector-modal .list-group-item[disabled] {
+  cursor: not-allowed;
+}
+
 .component-drive-selector-body {
 
   .list-group-item-footer {
