@@ -7,6 +7,7 @@
   <ul class="list-group">
     <li class="list-group-item" ng-repeat="drive in modal.drives.getDrives() track by drive.device"
       ng-disabled="!modal.state.isDriveValid(drive)"
+      ng-dblclick="modal.selectDriveAndClose(drive)"
       ng-click="modal.toggleDrive(drive)">
         <div>
           <h4 class="list-group-item-heading">{{ drive.description }} - {{ drive.size | gigabyte | number:1 }} GB</h4>
