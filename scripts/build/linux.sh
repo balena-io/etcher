@@ -33,7 +33,7 @@ if [ "$#" -ne 2 ]; then
 fi
 
 COMMAND=$1
-if [ "$COMMAND" != "install" ] && [ "$COMMAND" != "package" ] && [ "$COMMAND" != "debian" ] && [ "$COMMAND" != "appimage" ] && [ "$COMMAND" != "all" ]; then
+if [ "$COMMAND" != "install" ] && [ "$COMMAND" != "package" ] && [ "$COMMAND" != "debian" ] && [ "$COMMAND" != "appimage" ] && [ "$COMMAND" != "cli" ] && [ "$COMMAND" != "all" ]; then
   echo "Unknown command: $COMMAND" 1>&2
   exit 1
 fi
@@ -55,6 +55,17 @@ ELECTRON_VERSION=`node -e "console.log(require('./package.json').devDependencies
 APPLICATION_NAME=`node -e "console.log(require('./package.json').displayName)"`
 APPLICATION_DESCRIPTION=`node -e "console.log(require('./package.json').description)"`
 APPLICATION_VERSION=`node -e "console.log(require('./package.json').version)"`
+
+if [ "$COMMAND" == "cli" ]; then
+  ./scripts/unix/dependencies.sh -r "$ARCH" -v 6.2.2 -t node -f -p
+  ./scripts/unix/package-cli.sh \
+    -n etcher \
+    -e bin/etcher \
+    -r x64 \
+    -s linux \
+    -o etcher-release/etcher-cli-linux-$ARCH
+  exit 0
+fi
 
 if [ "$COMMAND" == "install" ] || [ "$COMMAND" == "all" ]; then
   ./scripts/unix/dependencies.sh \

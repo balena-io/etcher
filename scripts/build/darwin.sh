@@ -33,7 +33,7 @@ if [ "$#" -ne 1 ]; then
 fi
 
 COMMAND=$1
-if [ "$COMMAND" != "install" ] && [ "$COMMAND" != "package" ] && [ "$COMMAND" != "all" ]; then
+if [ "$COMMAND" != "install" ] && [ "$COMMAND" != "package" ] && [ "$COMMAND" != "cli" ] && [ "$COMMAND" != "all" ]; then
   echo "Unknown command: $COMMAND" 1>&2
   exit 1
 fi
@@ -43,6 +43,17 @@ ELECTRON_VERSION=`node -e "console.log(require('./package.json').devDependencies
 APPLICATION_NAME=`node -e "console.log(require('./package.json').displayName)"`
 APPLICATION_COPYRIGHT=`node -e "console.log(require('./package.json').copyright)"`
 APPLICATION_VERSION=`node -e "console.log(require('./package.json').version)"`
+
+if [ "$COMMAND" == "cli" ]; then
+  ./scripts/unix/dependencies.sh -r x64 -v 6.2.2 -t node -f -p
+  ./scripts/unix/package-cli.sh \
+    -n etcher \
+    -e bin/etcher \
+    -r x64 \
+    -s darwin \
+    -o etcher-release/etcher-cli-darwin-x64
+  exit 0
+fi
 
 if [ "$COMMAND" == "install" ] || [ "$COMMAND" == "all" ]; then
   ./scripts/unix/dependencies.sh \
