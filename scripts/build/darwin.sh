@@ -45,7 +45,10 @@ APPLICATION_COPYRIGHT=`node -e "console.log(require('./package.json').copyright)
 APPLICATION_VERSION=`node -e "console.log(require('./package.json').version)"`
 
 if [ "$COMMAND" == "install" ] || [ "$COMMAND" == "all" ]; then
-  ./scripts/darwin/dependencies.sh -r x64 -e $ELECTRON_VERSION
+  ./scripts/unix/dependencies.sh \
+    -r x64 \
+    -v "$ELECTRON_VERSION" \
+    -t electron
 fi
 
 if [ "$COMMAND" == "package" ] || [ "$COMMAND" == "all" ]; then
