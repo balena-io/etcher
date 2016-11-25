@@ -1141,9 +1141,9 @@
       "resolved": "https://registry.npmjs.org/domain-browser/-/domain-browser-1.1.7.tgz"
     },
     "drivelist": {
-      "version": "5.0.3",
-      "from": "drivelist@5.0.3",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-5.0.3.tgz",
+      "version": "5.0.4",
+      "from": "drivelist@5.0.4",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-5.0.4.tgz",
       "dependencies": {
         "lodash": {
           "version": "4.17.2",
