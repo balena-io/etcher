@@ -56,7 +56,7 @@ the application might not run successfully.
 ### GNU/Linux
 
 ```sh
-./scripts/build/linux.sh install <x64|x86>
+./scripts/build/linux.sh develop-electron <x64|x86>
 ```
 
 ### Windows
