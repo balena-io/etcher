@@ -41,7 +41,9 @@
   "shrinkwrapIgnore": [
     "macos-alias",
     "fs-xattr",
-    "diskpart"
+    "ds-store",
+    "diskpart",
+    "appdmg"
   ],
   "builder": {
     "win": {
