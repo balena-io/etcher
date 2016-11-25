@@ -18,10 +18,21 @@
 
 set -u
 set -e
+set -x
 
 OS=$(uname)
 if [[ "$OS" != "Linux" ]]; then
   echo "This script is only meant to be run in GNU/Linux" 1>&2
+  exit 1
+fi
+
+if ! command -v asar 2>/dev/null 1>&2; then
+  echo "Dependency missing: asar" 1>&2
+  exit 1
+fi
+
+if ! command -v wget 2>/dev/null 1>&2; then
+  echo "Dependency missing: wget" 1>&2
   exit 1
 fi
 
@@ -33,6 +44,8 @@ function usage() {
   echo "    -n <application name>"
   echo "    -r <application architecture>"
   echo "    -v <application version>"
+  echo "    -l <application license file>"
+  echo "    -f <application files (comma separated)>"
   echo "    -e <electron version>"
   echo "    -o <output>"
   exit 0
@@ -41,14 +54,18 @@ function usage() {
 ARGV_APPLICATION_NAME=""
 ARGV_ARCHITECTURE=""
 ARGV_VERSION=""
+ARGV_LICENSE=""
+ARGV_FILES=""
 ARGV_ELECTRON_VERSION=""
 ARGV_OUTPUT=""
 
-while getopts ":n:r:v:e:o:" option; do
+while getopts ":n:r:v:l:f:e:o:" option; do
   case $option in
     n) ARGV_APPLICATION_NAME="$OPTARG" ;;
     r) ARGV_ARCHITECTURE="$OPTARG" ;;
     v) ARGV_VERSION="$OPTARG" ;;
+    l) ARGV_LICENSE="$OPTARG" ;;
+    f) ARGV_FILES="$OPTARG" ;;
     e) ARGV_ELECTRON_VERSION="$OPTARG" ;;
     o) ARGV_OUTPUT="$OPTARG" ;;
     *) usage ;;
@@ -58,50 +75,41 @@ done
 if [ -z "$ARGV_APPLICATION_NAME" ] \
   || [ -z "$ARGV_ARCHITECTURE" ] \
   || [ -z "$ARGV_VERSION" ] \
+  || [ -z "$ARGV_LICENSE" ] \
+  || [ -z "$ARGV_FILES" ] \
   || [ -z "$ARGV_ELECTRON_VERSION" ] \
   || [ -z "$ARGV_OUTPUT" ]
 then
   usage
 fi
 
-ELECTRON_PACKAGER=./node_modules/.bin/electron-packager
-
-if [ ! -x $ELECTRON_PACKAGER ]; then
-  echo "Couldn't find $ELECTRON_PACKAGER" 1>&2
-  echo "Have you installed the dependencies first?" 1>&2
-  exit 1
-fi
-
 OUTPUT_DIRNAME=$(dirname "$ARGV_OUTPUT")
-
 mkdir -p "$OUTPUT_DIRNAME"
 
-ELECTRON_PACKAGER_ARCH=$ARGV_ARCHITECTURE
-if [ "$ELECTRON_PACKAGER_ARCH" == "x86" ]; then
-  ELECTRON_PACKAGER_ARCH="ia32"
+ELECTRON_ARCHITECTURE=$ARGV_ARCHITECTURE
+if [ "$ELECTRON_ARCHITECTURE" == "x86" ]; then
+  ELECTRON_ARCHITECTURE="ia32"
 fi
 
 ELECTRON_PACKAGE_OUTPUT=$OUTPUT_DIRNAME/$ARGV_APPLICATION_NAME-linux-$ARGV_ARCHITECTURE
+ELECTRON_GITHUB_REPOSITORY=https://github.com/electron/electron
+ELECTRON_FILENAME=electron-v$ARGV_ELECTRON_VERSION-linux-$ELECTRON_ARCHITECTURE.zip
 
-rm -rf "$ELECTRON_PACKAGE_OUTPUT"
+pushd $OUTPUT_DIRNAME
+wget $ELECTRON_GITHUB_REPOSITORY/releases/download/v$ARGV_ELECTRON_VERSION/$ELECTRON_FILENAME
+popd
 
-$ELECTRON_PACKAGER . "$ARGV_APPLICATION_NAME" \
-  --platform=linux \
-  --arch="$ELECTRON_PACKAGER_ARCH" \
-  --version="$ARGV_ELECTRON_VERSION" \
-  --ignore="$(node scripts/packageignore.js)" \
-  --asar \
-  --app-version="$ARGV_VERSION" \
-  --build-version="$ARGV_VERSION" \
-  --overwrite \
-  --out="$OUTPUT_DIRNAME"
+unzip $OUTPUT_DIRNAME/$ELECTRON_FILENAME -d $ARGV_OUTPUT
+rm $OUTPUT_DIRNAME/$ELECTRON_FILENAME
+mv $ARGV_OUTPUT/electron $ARGV_OUTPUT/$(echo "$ARGV_APPLICATION_NAME" | tr '[:upper:]' '[:lower:]')
+cp $ARGV_LICENSE $ARGV_OUTPUT/LICENSE
+echo "$ARGV_VERSION" > $ARGV_OUTPUT/version
+rm $ARGV_OUTPUT/resources/default_app.asar
+mkdir -p $ARGV_OUTPUT/resources/app
 
-if [ "$ELECTRON_PACKAGE_OUTPUT" != "$ARGV_OUTPUT" ]; then
-  mv "$ELECTRON_PACKAGE_OUTPUT" "$ARGV_OUTPUT"
-fi
+for file in $(echo $ARGV_FILES | sed "s/,/ /g"); do
+  cp -rf "$file" $ARGV_OUTPUT/resources/app
+done
 
-# Transform binary to lowercase
-FINAL_BINARY_FILENAME=$(echo "$ARGV_APPLICATION_NAME" | tr '[:upper:]' '[:lower:]')
-mv "$ARGV_OUTPUT/$ARGV_APPLICATION_NAME" "$ARGV_OUTPUT/$FINAL_BINARY_FILENAME"
-
-chmod a+x "$ARGV_OUTPUT"/*.so*
+asar pack $ARGV_OUTPUT/resources/app $ARGV_OUTPUT/resources/app.asar --unpack *.node
+rm -rf $ARGV_OUTPUT/resources/app

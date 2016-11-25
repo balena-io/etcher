@@ -75,10 +75,18 @@ if [ "$COMMAND" == "install" ] || [ "$COMMAND" == "all" ]; then
 fi
 
 if [ "$COMMAND" == "package" ] || [ "$COMMAND" == "all" ]; then
+  ./scripts/unix/dependencies.sh \
+    -r "$ARCH" \
+    -v "$ELECTRON_VERSION" \
+    -t electron \
+    -p
+
   ./scripts/linux/package.sh \
     -n "$APPLICATION_NAME" \
     -r "$ARCH" \
     -v "$APPLICATION_VERSION" \
+    -l LICENSE \
+    -f "package.json,lib,node_modules,bower_components,build,assets" \
     -e "$ELECTRON_VERSION" \
     -o etcher-release/$APPLICATION_NAME-linux-$ARCH
 fi
