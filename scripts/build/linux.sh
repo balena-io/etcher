@@ -57,9 +57,10 @@ APPLICATION_DESCRIPTION=`node -e "console.log(require('./package.json').descript
 APPLICATION_VERSION=`node -e "console.log(require('./package.json').version)"`
 
 if [ "$COMMAND" == "install" ] || [ "$COMMAND" == "all" ]; then
-  ./scripts/linux/dependencies.sh \
+  ./scripts/unix/dependencies.sh \
     -r "$ARCH" \
-    -e "$ELECTRON_VERSION"
+    -v "$ELECTRON_VERSION" \
+    -t electron
 fi
 
 if [ "$COMMAND" == "package" ] || [ "$COMMAND" == "all" ]; then
