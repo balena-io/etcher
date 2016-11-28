@@ -51,7 +51,7 @@ install:
       brew install afsctool;
     fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      ./scripts/build/darwin.sh install;
+      ./scripts/build/darwin.sh develop-electron;
     fi
 
 before_script:

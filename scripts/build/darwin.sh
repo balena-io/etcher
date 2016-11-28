@@ -33,11 +33,6 @@ if [ "$#" -ne 1 ]; then
 fi
 
 COMMAND=$1
-if [ "$COMMAND" != "install" ] && [ "$COMMAND" != "package" ] && [ "$COMMAND" != "cli" ] && [ "$COMMAND" != "all" ]; then
-  echo "Unknown command: $COMMAND" 1>&2
-  exit 1
-fi
-
 SIGN_IDENTITY_OSX="Developer ID Application: Rulemotion Ltd (66H43P8FRG)"
 ELECTRON_VERSION=`node -e "console.log(require('./package.json').devDependencies['electron-prebuilt'])"`
 APPLICATION_NAME=`node -e "console.log(require('./package.json').displayName)"`
@@ -55,14 +50,20 @@ if [ "$COMMAND" == "cli" ]; then
   exit 0
 fi
 
-if [ "$COMMAND" == "install" ] || [ "$COMMAND" == "all" ]; then
+if [ "$COMMAND" == "develop-electron" ]; then
   ./scripts/unix/dependencies.sh \
     -r x64 \
     -v "$ELECTRON_VERSION" \
     -t electron
+  exit 0
 fi
 
-if [ "$COMMAND" == "package" ] || [ "$COMMAND" == "all" ]; then
+if [ "$COMMAND" == "installer-dmg" ]; then
+  ./scripts/unix/dependencies.sh -p \
+    -r x64 \
+    -v "$ELECTRON_VERSION" \
+    -t electron
+
   ./scripts/darwin/package.sh \
     -n $APPLICATION_NAME \
     -r x64 \
@@ -70,6 +71,8 @@ if [ "$COMMAND" == "package" ] || [ "$COMMAND" == "all" ]; then
     -b io.resin.etcher \
     -c "$APPLICATION_COPYRIGHT" \
     -t public.app-category.developer-tools \
+    -l LICENSE \
+    -f "package.json,lib,node_modules,bower_components,build,assets" \
     -i assets/icon.icns \
     -e $ELECTRON_VERSION \
     -o etcher-release/$APPLICATION_NAME-darwin-x64
@@ -83,6 +86,28 @@ if [ "$COMMAND" == "package" ] || [ "$COMMAND" == "all" ]; then
     -b assets/osx/installer.png \
     -o etcher-release/installers/$APPLICATION_NAME-$APPLICATION_VERSION-darwin-x64.dmg
 
+  exit 0
+fi
+
+if [ "$COMMAND" == "installer-zip" ]; then
+  ./scripts/unix/dependencies.sh -p \
+    -r x64 \
+    -v "$ELECTRON_VERSION" \
+    -t electron
+
+  ./scripts/darwin/package.sh \
+    -n $APPLICATION_NAME \
+    -r x64 \
+    -v $APPLICATION_VERSION \
+    -b io.resin.etcher \
+    -c "$APPLICATION_COPYRIGHT" \
+    -t public.app-category.developer-tools \
+    -l LICENSE \
+    -f "package.json,lib,node_modules,bower_components,build,assets" \
+    -i assets/icon.icns \
+    -e $ELECTRON_VERSION \
+    -o etcher-release/$APPLICATION_NAME-darwin-x64
+
   ./scripts/darwin/sign.sh \
     -a etcher-release/$APPLICATION_NAME-darwin-x64/$APPLICATION_NAME.app \
     -i "$SIGN_IDENTITY_OSX"
@@ -90,4 +115,9 @@ if [ "$COMMAND" == "package" ] || [ "$COMMAND" == "all" ]; then
   ./scripts/darwin/installer-zip.sh \
     -a etcher-release/$APPLICATION_NAME-darwin-x64/$APPLICATION_NAME.app \
     -o etcher-release/installers/$APPLICATION_NAME-$APPLICATION_VERSION-darwin-x64.zip
+
+  exit 0
 fi
+
+echo "Unknown command: $COMMAND" 1>&2
+exit 1
