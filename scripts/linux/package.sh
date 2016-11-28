@@ -18,7 +18,6 @@
 
 set -u
 set -e
-set -x
 
 OS=$(uname)
 if [[ "$OS" != "Linux" ]]; then
@@ -84,6 +83,7 @@ then
 fi
 
 OUTPUT_DIRNAME=$(dirname "$ARGV_OUTPUT")
+rm -rf "$ARGV_OUTPUT"
 mkdir -p "$OUTPUT_DIRNAME"
 
 ELECTRON_ARCHITECTURE=$ARGV_ARCHITECTURE

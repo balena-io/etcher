@@ -130,6 +130,9 @@ download_executable \
 # Compress binaries
 upx -9 "$APPDIR_PATH/usr/bin/$ARGV_BINARY"
 
+# upx fails with an error if .so are not executables
+chmod +x "$APPDIR_PATH"/usr/bin/*.so*
+
 # UPX fails for some reason with some other so libraries
 # other than libnode.so in the x86 build
 if [ "$ARGV_ARCHITECTURE" == "x86" ]; then

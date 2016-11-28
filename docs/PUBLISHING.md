@@ -44,7 +44,8 @@ $ ./scripts/build/darwin.sh all
 Run the following command:
 
 ```sh
-$ ./scripts/build/linux.sh all <x64|x86>
+$ ./scripts/build/linux.sh installer-appimage <x64|x86>
+$ ./scripts/build/linux.sh installer-debian <x64|x86>
 ```
 
 ### Windows

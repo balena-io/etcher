@@ -33,31 +33,42 @@ if [ "$#" -ne 2 ]; then
 fi
 
 COMMAND=$1
-if [ "$COMMAND" != "install" ] && [ "$COMMAND" != "package" ] && [ "$COMMAND" != "debian" ] && [ "$COMMAND" != "appimage" ] && [ "$COMMAND" != "cli" ] && [ "$COMMAND" != "all" ]; then
-  echo "Unknown command: $COMMAND" 1>&2
-  exit 1
-fi
-
-if [ "$COMMAND" == "appimage" ] || [ "$COMMAND" == "all" ]; then
-  if ! command -v upx 2>/dev/null; then
-    echo "Dependency missing: upx" 1>&2
-    exit 1
-  fi
-fi
-
 ARCH=$2
-if [ "$ARCH" != "x64" ] && [ "$ARCH" != "x86" ]; then
+if [ "$ARCH" != "x64" ] &&
+   [ "$ARCH" != "x86" ];
+then
   echo "Unknown architecture: $ARCH" 1>&2
   exit 1
 fi
 
 ELECTRON_VERSION=`node -e "console.log(require('./package.json').devDependencies['electron-prebuilt'])"`
+NODE_VERSION="6.2.2"
 APPLICATION_NAME=`node -e "console.log(require('./package.json').displayName)"`
 APPLICATION_DESCRIPTION=`node -e "console.log(require('./package.json').description)"`
 APPLICATION_VERSION=`node -e "console.log(require('./package.json').version)"`
 
-if [ "$COMMAND" == "cli" ]; then
-  ./scripts/unix/dependencies.sh -r "$ARCH" -v 6.2.2 -t node -f -p
+if [ "$COMMAND" == "develop-electron" ]; then
+  ./scripts/unix/dependencies.sh \
+    -r "$ARCH" \
+    -v "$ELECTRON_VERSION" \
+    -t electron
+  exit 0
+fi
+
+if [ "$COMMAND" == "develop-cli" ]; then
+  ./scripts/unix/dependencies.sh \
+    -r "$ARCH" \
+    -v "$NODE_VERSION" \
+    -t node
+  exit 0
+fi
+
+if [ "$COMMAND" == "installer-cli" ]; then
+  ./scripts/unix/dependencies.sh -f -p \
+    -r "$ARCH" \
+    -v "$NODE_VERSION" \
+    -t node
+
   ./scripts/unix/package-cli.sh \
     -n etcher \
     -e bin/etcher \
@@ -67,19 +78,11 @@ if [ "$COMMAND" == "cli" ]; then
   exit 0
 fi
 
-if [ "$COMMAND" == "install" ] || [ "$COMMAND" == "all" ]; then
-  ./scripts/unix/dependencies.sh \
+if [ "$COMMAND" == "installer-debian" ]; then
+  ./scripts/unix/dependencies.sh -p \
     -r "$ARCH" \
     -v "$ELECTRON_VERSION" \
     -t electron
-fi
-
-if [ "$COMMAND" == "package" ] || [ "$COMMAND" == "all" ]; then
-  ./scripts/unix/dependencies.sh \
-    -r "$ARCH" \
-    -v "$ELECTRON_VERSION" \
-    -t electron \
-    -p
 
   ./scripts/linux/package.sh \
     -n "$APPLICATION_NAME" \
@@ -89,29 +92,48 @@ if [ "$COMMAND" == "package" ] || [ "$COMMAND" == "all" ]; then
     -f "package.json,lib,node_modules,bower_components,build,assets" \
     -e "$ELECTRON_VERSION" \
     -o etcher-release/$APPLICATION_NAME-linux-$ARCH
-fi
 
-if [ "$COMMAND" == "debian" ] || [ "$COMMAND" == "all" ]; then
   ./scripts/linux/installer-deb.sh \
     -p etcher-release/$APPLICATION_NAME-linux-$ARCH \
     -r "$ARCH" \
     -c scripts/build/debian/config.json \
     -o etcher-release/installers
+
+  exit 0
 fi
 
-if [ "$COMMAND" == "appimage" ] || [ "$COMMAND" == "all" ]; then
+if [ "$COMMAND" == "installer-appimage" ]; then
+  ./scripts/unix/dependencies.sh -p \
+    -r "$ARCH" \
+    -v "$ELECTRON_VERSION" \
+    -t electron
+
+  ./scripts/linux/package.sh \
+    -n "$APPLICATION_NAME" \
+    -r "$ARCH" \
+    -v "$APPLICATION_VERSION" \
+    -l LICENSE \
+    -f "package.json,lib,node_modules,bower_components,build,assets" \
+    -e "$ELECTRON_VERSION" \
+    -o etcher-release/$APPLICATION_NAME-linux-$ARCH
+
   ./scripts/linux/installer-appimage.sh \
     -n "$APPLICATION_NAME" \
     -d "$APPLICATION_DESCRIPTION" \
-    -p etcher-release/Etcher-linux-$ARCH \
+    -p etcher-release/$APPLICATION_NAME-linux-$ARCH \
     -r $ARCH \
     -b etcher \
     -i assets/icon.png \
     -o etcher-release/$APPLICATION_NAME-linux-$ARCH.AppImage
 
   pushd etcher-release
-  zip Etcher-$APPLICATION_VERSION-linux-$ARCH.zip Etcher-linux-$ARCH.AppImage
+  zip $APPLICATION_NAME-$APPLICATION_VERSION-linux-$ARCH.zip $APPLICATION_NAME-linux-$ARCH.AppImage
   mkdir -p installers
-  mv Etcher-$APPLICATION_VERSION-linux-$ARCH.zip installers
+  mv $APPLICATION_NAME-$APPLICATION_VERSION-linux-$ARCH.zip installers
   popd
+
+  exit 0
 fi
+
+echo "Unknown command: $COMMAND" 1>&2
+exit 1
