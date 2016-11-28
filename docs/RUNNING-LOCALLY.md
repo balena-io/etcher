@@ -50,7 +50,7 @@ the application might not run successfully.
 ### OS X
 
 ```sh
-./scripts/build/darwin.sh install
+./scripts/build/darwin.sh develop-electron
 ```
 
 ### GNU/Linux

@@ -103,11 +103,6 @@ pushd "$VOLUME_DIRECTORY"
 ln -s /Applications
 popd
 
-# Symlink MacOS/Etcher to MacOS/Electron since for some reason, the Electron
-# binary tries to be ran in some systems.
-# See https://github.com/Microsoft/vscode/issues/92
-cp -p "$VOLUME_APPLICATION/Contents/MacOS/Etcher" "$VOLUME_APPLICATION/Contents/MacOS/Electron"
-
 # Set the DMG icon image
 # Writing this hexadecimal buffer to the com.apple.FinderInfo
 # extended attribute does the trick.

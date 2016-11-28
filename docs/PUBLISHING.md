@@ -36,7 +36,8 @@ The resulting installers will be saved to `etcher-release/installers`.
 Run the following command:
 
 ```sh
-$ ./scripts/build/darwin.sh all
+$ ./scripts/build/darwin.sh installer-dmg
+$ ./scripts/build/darwin.sh installer-zip
 ```
 
 ### GNU/Linux

@@ -25,16 +25,6 @@ if [[ "$OS" != "Linux" ]]; then
   exit 1
 fi
 
-if ! command -v asar 2>/dev/null 1>&2; then
-  echo "Dependency missing: asar" 1>&2
-  exit 1
-fi
-
-if ! command -v wget 2>/dev/null 1>&2; then
-  echo "Dependency missing: wget" 1>&2
-  exit 1
-fi
-
 function usage() {
   echo "Usage: $0"
   echo ""
@@ -92,11 +82,7 @@ mv $ARGV_OUTPUT/electron $ARGV_OUTPUT/$(echo "$ARGV_APPLICATION_NAME" | tr '[:up
 cp $ARGV_LICENSE $ARGV_OUTPUT/LICENSE
 echo "$ARGV_VERSION" > $ARGV_OUTPUT/version
 rm $ARGV_OUTPUT/resources/default_app.asar
-mkdir -p $ARGV_OUTPUT/resources/app
 
-for file in $(echo $ARGV_FILES | sed "s/,/ /g"); do
-  cp -rf "$file" $ARGV_OUTPUT/resources/app
-done
-
-asar pack $ARGV_OUTPUT/resources/app $ARGV_OUTPUT/resources/app.asar --unpack *.node
-rm -rf $ARGV_OUTPUT/resources/app
+./scripts/unix/create-asar.sh \
+  -f "$ARGV_FILES" \
+  -o "$ARGV_OUTPUT/resources/app.asar"
