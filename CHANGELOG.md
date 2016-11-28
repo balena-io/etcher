@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.0.0-beta.17 - 2016-11-28
+
+### Fixes
+
+- Fix command line arguments not interpreted correctly when running the CLI with a custom named NodeJS binary.
+- Wrap drive names and descriptions in the drive selector widget.
+- Allow the user to press ESC to cancel a modal dialog.
+- Fix "Can't set the flashing state when not flashing" error.
+- Fix writing process remaining alive after the GUI is closed.
+- Check available permissions in the CLI early on.
+- Fix `this.log is not a function` error when clicking "flash again".
+- Fix duplicate drives in Windows.
+- Fix drive scanning exceptions on GNU/Linux systems with `net.ifnames` enabled.
+- Fix `0x80131700` error when scanning drives on Windows.
+- Fix internal SDCard drive descriptions.
+- Fix unmount issues in GNU/Linux and OS Xwhen paths contain spaces.
+- Fix "Not Enough Space" error when flashing unaligned images.
+- Fix `at least one volume could not be unmounted` error in OS X.
+
 ## v1.0.0-beta.16 - 2016-10-28
 
 ### Features
