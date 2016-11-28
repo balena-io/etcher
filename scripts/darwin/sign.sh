@@ -50,19 +50,41 @@ if [ -z "$ARGV_APPLICATION" ] || [ -z "$ARGV_IDENTITY" ]; then
   usage
 fi
 
-ELECTRON_OSX_SIGN=./node_modules/.bin/electron-osx-sign
+function sign_file() {
+  local file=$1
+  codesign --sign "$ARGV_IDENTITY" -fv "$file"
+}
 
-if [ ! -x $ELECTRON_OSX_SIGN ]; then
-  echo "Couldn't find $ELECTRON_OSX_SIGN" 1>&2
-  echo "Have you installed the dependencies first?" 1>&2
-  exit 1
-fi
+# Avoid issues with `for` loops on file names containing spaces
+# See https://www.cyberciti.biz/tips/handling-filenames-with-spaces-in-bash.html
+SAVEIFS=$IFS
+IFS=$(echo -en "\n\b")
 
-$ELECTRON_OSX_SIGN "$ARGV_APPLICATION" \
-  --platform darwin \
-  --verbose \
-  --identity "$ARGV_IDENTITY"
+# Sign all executables
+# See http://apple.stackexchange.com/a/116371
+for file in $(find "$ARGV_APPLICATION" -perm +111 -type f); do
+  sign_file "$file"
+done
 
+# Sign `.app` and `.framework` directories now that
+# all the executables inside them have been signed.
+
+for file in $(find "$ARGV_APPLICATION/Contents" -name '*.app'); do
+  sign_file "$file"
+done
+
+for file in $(find "$ARGV_APPLICATION/Contents" -name '*.framework'); do
+  sign_file "$file"
+done
+
+# Restore IFS
+IFS=$SAVEIFS
+
+# Sign top-level application after all
+# its components have been signed
+sign_file "$ARGV_APPLICATION"
+
+# Verify signature
 codesign \
   --verify \
   --deep \

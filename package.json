@@ -99,7 +99,6 @@
     "cz-conventional-changelog": "^1.1.6",
     "electron-builder": "^2.6.0",
     "electron-mocha": "^3.1.1",
-    "electron-osx-sign": "^0.3.0",
     "electron-packager": "^7.0.1",
     "electron-prebuilt": "1.4.4",
     "eslint": "^2.13.1",
