@@ -19,10 +19,14 @@
 set -u
 set -e
 
-if ! command -v asar 2>/dev/null 1>&2; then
-  echo "Dependency missing: asar" 1>&2
-  exit 1
-fi
+function check_dep() {
+  if ! command -v $1 2>/dev/null 1>&2; then
+    echo "Dependency missing: $1" 1>&2
+    exit 1
+  fi
+}
+
+check_dep asar
 
 function usage() {
   echo "Usage: $0"

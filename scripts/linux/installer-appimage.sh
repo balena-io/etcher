@@ -19,21 +19,21 @@
 set -u
 set -e
 
+function check_dep() {
+  if ! command -v $1 2>/dev/null 1>&2; then
+    echo "Dependency missing: $1" 1>&2
+    exit 1
+  fi
+}
+
 OS=$(uname)
 if [[ "$OS" != "Linux" ]]; then
   echo "This script is only meant to be run in GNU/Linux" 1>&2
   exit 1
 fi
 
-if ! command -v upx 2>/dev/null 1>&2; then
-  echo "Dependency missing: upx" 1>&2
-  exit 1
-fi
-
-if ! command -v wget 2>/dev/null 1>&2; then
-  echo "Dependency missing: wget" 1>&2
-  exit 1
-fi
+check_dep upx
+check_dep wget
 
 function usage() {
   echo "Usage: $0"

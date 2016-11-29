@@ -19,20 +19,16 @@
 set -u
 set -e
 
-if ! command -v browserify 2>/dev/null 1>&2; then
-  echo "Dependency missing: browserify" 1>&2
-  exit 1
-fi
+function check_dep() {
+  if ! command -v $1 2>/dev/null 1>&2; then
+    echo "Dependency missing: $1" 1>&2
+    exit 1
+  fi
+}
 
-if ! command -v wget 2>/dev/null 1>&2; then
-  echo "Dependency missing: wget" 1>&2
-  exit 1
-fi
-
-if ! command -v rsync 2>/dev/null 1>&2; then
-  echo "Dependency missing: rsync" 1>&2
-  exit 1
-fi
+check_dep browserify
+check_dep wget
+check_dep rsync
 
 function usage() {
   echo "Usage: $0"
