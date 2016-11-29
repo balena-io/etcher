@@ -35,6 +35,11 @@
                 <i class="glyphicon glyphicon-lock"></i>
                 LOCKED</span>
 
+            <span class="label label-danger"
+              ng-show="modal.state.isSystemDrive(drive)">
+                <i class="glyphicon glyphicon-hdd"></i>
+                SYSTEM DRIVE</span>
+
           </footer>
         </div>
         <span class="tick tick--success"
@@ -45,7 +50,15 @@
 </div>
 
 <div class="modal-footer">
+  <span ng-show="modal.state.getDrive().system" class="modal-footer-warning">
+      Etcher has identified this as a system drive
+  </span>
   <button class="button button-primary button-block"
+    ng-class="{ 'label-danger': modal.state.getDrive().system, 'button-primary': !modal.state.getDrive().system }"
     ng-click="modal.closeModal()"
-    ng-disabled="!modal.state.hasDrive()">CONTINUE</button>
+    ng-disabled="!modal.state.hasDrive()">
+      <i class="glyphicon glyphicon-alert"
+        ng-show="modal.state.getDrive().system"></i>
+      CONTINUE
+  </button>
 </div>
