@@ -19,20 +19,16 @@
 set -u
 set -e
 
-if ! command -v npm 2>/dev/null 1>&2; then
-  echo "Dependency missing: npm" 1>&2
-  exit 1
-fi
+function check_dep() {
+  if ! command -v $1 2>/dev/null 1>&2; then
+    echo "Dependency missing: $1" 1>&2
+    exit 1
+  fi
+}
 
-if ! command -v bower 2>/dev/null 1>&2; then
-  echo "Dependency missing: bower" 1>&2
-  exit 1
-fi
-
-if ! command -v python 2>/dev/null 1>&2; then
-  echo "Dependency missing: python" 1>&2
-  exit 1
-fi
+check_dep npm
+check_dep bower
+check_dep python
 
 function usage() {
   echo "Usage: $0"
