@@ -37,59 +37,47 @@ function usage() {
   echo ""
   echo "Options"
   echo ""
+  echo "    -d <electron directory>"
   echo "    -n <application name>"
-  echo "    -r <application architecture>"
   echo "    -v <application version>"
   echo "    -l <application license file>"
-  echo "    -f <application files (comma separated)>"
-  echo "    -e <electron version>"
-  echo "    -o <output>"
+  echo "    -a <application asar (.asar)>"
   exit 0
 }
 
+ARGV_ELECTRON_DIRECTORY=""
 ARGV_APPLICATION_NAME=""
-ARGV_ARCHITECTURE=""
 ARGV_VERSION=""
 ARGV_LICENSE=""
-ARGV_FILES=""
-ARGV_ELECTRON_VERSION=""
-ARGV_OUTPUT=""
+ARGV_ASAR=""
 
-while getopts ":n:r:v:l:f:e:o:" option; do
+while getopts ":d:n:v:l:a:" option; do
   case $option in
+    d) ARGV_ELECTRON_DIRECTORY="$OPTARG" ;;
     n) ARGV_APPLICATION_NAME="$OPTARG" ;;
-    r) ARGV_ARCHITECTURE="$OPTARG" ;;
     v) ARGV_VERSION="$OPTARG" ;;
     l) ARGV_LICENSE="$OPTARG" ;;
-    f) ARGV_FILES="$OPTARG" ;;
-    e) ARGV_ELECTRON_VERSION="$OPTARG" ;;
-    o) ARGV_OUTPUT="$OPTARG" ;;
+    a) ARGV_ASAR="$OPTARG" ;;
     *) usage ;;
   esac
 done
 
-if [ -z "$ARGV_APPLICATION_NAME" ] \
-  || [ -z "$ARGV_ARCHITECTURE" ] \
+if [ -z "$ARGV_ELECTRON_DIRECTORY" ] \
+  || [ -z "$ARGV_APPLICATION_NAME" ] \
   || [ -z "$ARGV_VERSION" ] \
   || [ -z "$ARGV_LICENSE" ] \
-  || [ -z "$ARGV_FILES" ] \
-  || [ -z "$ARGV_ELECTRON_VERSION" ] \
-  || [ -z "$ARGV_OUTPUT" ]
+  || [ -z "$ARGV_ASAR" ]
 then
   usage
 fi
 
-./scripts/unix/download-electron.sh \
-  -r "$ARGV_ARCHITECTURE" \
-  -v "$ARGV_ELECTRON_VERSION" \
-  -s linux \
-  -o "$ARGV_OUTPUT"
+mv $ARGV_ELECTRON_DIRECTORY/electron $ARGV_ELECTRON_DIRECTORY/$(echo "$ARGV_APPLICATION_NAME" | tr '[:upper:]' '[:lower:]')
+cp $ARGV_LICENSE $ARGV_ELECTRON_DIRECTORY/LICENSE
+echo "$ARGV_VERSION" > $ARGV_ELECTRON_DIRECTORY/version
+rm $ARGV_ELECTRON_DIRECTORY/resources/default_app.asar
 
-mv $ARGV_OUTPUT/electron $ARGV_OUTPUT/$(echo "$ARGV_APPLICATION_NAME" | tr '[:upper:]' '[:lower:]')
-cp $ARGV_LICENSE $ARGV_OUTPUT/LICENSE
-echo "$ARGV_VERSION" > $ARGV_OUTPUT/version
-rm $ARGV_OUTPUT/resources/default_app.asar
+cp "$ARGV_ASAR" "$ARGV_ELECTRON_DIRECTORY/resources/app.asar"
 
-./scripts/unix/create-asar.sh \
-  -f "$ARGV_FILES" \
-  -o "$ARGV_OUTPUT/resources/app.asar"
+if [ -d "$ARGV_ASAR.unpacked" ]; then
+  cp -rf "$ARGV_ASAR.unpacked" "$ARGV_ELECTRON_DIRECTORY/resources/app.asar.unpacked"
+fi

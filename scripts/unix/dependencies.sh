@@ -38,6 +38,7 @@ function usage() {
   echo "    -r <architecture>"
   echo "    -v <target version>"
   echo "    -t <target platform (node|electron)>"
+  echo "    -x <install prefix>"
   echo "    -f force install"
   echo "    -p production install"
   exit 0
@@ -46,14 +47,16 @@ function usage() {
 ARGV_ARCHITECTURE=""
 ARGV_TARGET_VERSION=""
 ARGV_TARGET_PLATFORM=""
+ARGV_PREFIX=""
 ARGV_FORCE=false
 ARGV_PRODUCTION=false
 
-while getopts ":r:v:t:fp" option; do
+while getopts ":r:v:t:x:fp" option; do
   case $option in
     r) ARGV_ARCHITECTURE=$OPTARG ;;
     v) ARGV_TARGET_VERSION=$OPTARG ;;
     t) ARGV_TARGET_PLATFORM=$OPTARG ;;
+    x) ARGV_PREFIX=$OPTARG ;;
     f) ARGV_FORCE=true ;;
     p) ARGV_PRODUCTION=true ;;
     *) usage ;;
@@ -84,8 +87,6 @@ else
   export npm_config_arch=$ARGV_ARCHITECTURE
 fi
 
-rm -rf node_modules
-
 NPM_INSTALL_OPTS="--build-from-source"
 
 if [ "$ARGV_FORCE" == "true" ]; then
@@ -96,9 +97,25 @@ if [ "$ARGV_PRODUCTION" == "true" ]; then
   NPM_INSTALL_OPTS="$NPM_INSTALL_OPTS --production"
 fi
 
+if [ -n "$ARGV_PREFIX" ]; then
+  NPM_INSTALL_OPTS="$NPM_INSTALL_OPTS --prefix=$ARGV_PREFIX"
+fi
+
 npm install $NPM_INSTALL_OPTS
 
+# Using `--prefix` might cause npm to create an empty `etc` directory
+if [ -n "$ARGV_PREFIX" ] && [ ! "$(ls -A "$ARGV_PREFIX/etc")" ]; then
+  rm -rf "$ARGV_PREFIX/etc"
+fi
+
 if [ "$ARGV_TARGET_PLATFORM" == "electron" ]; then
-  rm -rf bower_components
-  bower install --production --allow-root
+  BOWER_INSTALL_OPTS="--production --allow-root"
+
+  if [ -n "$ARGV_PREFIX" ]; then
+    pushd "$ARGV_PREFIX"
+    bower install $BOWER_INSTALL_OPTS
+    popd
+  fi
+
+  bower install $BOWER_INSTALL_OPTS
 fi
