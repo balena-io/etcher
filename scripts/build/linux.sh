@@ -168,13 +168,7 @@ if [ "$COMMAND" == "installer-appimage" ]; then
     -r $ARCH \
     -b etcher \
     -i assets/icon.png \
-    -o etcher-release/$APPLICATION_NAME-linux-$ARCH.AppImage
-
-  pushd etcher-release
-  zip $APPLICATION_NAME-$APPLICATION_VERSION-linux-$ARCH.zip $APPLICATION_NAME-linux-$ARCH.AppImage
-  mkdir -p installers
-  mv $APPLICATION_NAME-$APPLICATION_VERSION-linux-$ARCH.zip installers
-  popd
+    -o etcher-release/installers/$APPLICATION_NAME-$APPLICATION_VERSION-linux-$ARCH.zip
 
   exit 0
 fi
