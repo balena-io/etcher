@@ -71,7 +71,6 @@ if [ "$COMMAND" == "installer-dmg" ]; then
     -b io.resin.etcher \
     -c "$APPLICATION_COPYRIGHT" \
     -t public.app-category.developer-tools \
-    -l LICENSE \
     -f "package.json,lib,node_modules,bower_components,build,assets" \
     -i assets/icon.icns \
     -e $ELECTRON_VERSION \
@@ -102,7 +101,6 @@ if [ "$COMMAND" == "installer-zip" ]; then
     -b io.resin.etcher \
     -c "$APPLICATION_COPYRIGHT" \
     -t public.app-category.developer-tools \
-    -l LICENSE \
     -f "package.json,lib,node_modules,bower_components,build,assets" \
     -i assets/icon.icns \
     -e $ELECTRON_VERSION \

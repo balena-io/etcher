@@ -36,7 +36,6 @@ function usage() {
   echo "    -b <application bundle id>"
   echo "    -c <application copyright>"
   echo "    -t <application category>"
-  echo "    -l <application license file>"
   echo "    -f <application files (comma separated)>"
   echo "    -i <application icon (.icns)>"
   echo "    -e <electron version>"
@@ -50,13 +49,12 @@ ARGV_VERSION=""
 ARGV_BUNDLE_ID=""
 ARGV_COPYRIGHT=""
 ARGV_CATEGORY=""
-ARGV_LICENSE=""
 ARGV_FILES=""
 ARGV_ICON=""
 ARGV_ELECTRON_VERSION=""
 ARGV_OUTPUT=""
 
-while getopts ":n:r:v:b:c:t:l:f:i:e:o:" option; do
+while getopts ":n:r:v:b:c:t:f:i:e:o:" option; do
   case $option in
     n) ARGV_APPLICATION_NAME="$OPTARG" ;;
     r) ARGV_ARCHITECTURE="$OPTARG" ;;
@@ -64,7 +62,6 @@ while getopts ":n:r:v:b:c:t:l:f:i:e:o:" option; do
     b) ARGV_BUNDLE_ID="$OPTARG" ;;
     c) ARGV_COPYRIGHT="$OPTARG" ;;
     t) ARGV_CATEGORY="$OPTARG" ;;
-    l) ARGV_LICENSE="$OPTARG" ;;
     f) ARGV_FILES="$OPTARG" ;;
     i) ARGV_ICON="$OPTARG" ;;
     e) ARGV_ELECTRON_VERSION="$OPTARG" ;;
@@ -79,7 +76,6 @@ if [ -z "$ARGV_APPLICATION_NAME" ] \
   || [ -z "$ARGV_BUNDLE_ID" ] \
   || [ -z "$ARGV_COPYRIGHT" ] \
   || [ -z "$ARGV_CATEGORY" ] \
-  || [ -z "$ARGV_LICENSE" ] \
   || [ -z "$ARGV_FILES" ] \
   || [ -z "$ARGV_ICON" ] \
   || [ -z "$ARGV_ELECTRON_VERSION" ] \
@@ -97,8 +93,10 @@ fi
 APPLICATION_OUTPUT="$ARGV_OUTPUT/$ARGV_APPLICATION_NAME.app"
 mv "$ARGV_OUTPUT/Electron.app" "$APPLICATION_OUTPUT"
 rm "$APPLICATION_OUTPUT/Contents/Resources/default_app.asar"
-cp "$ARGV_LICENSE" "$ARGV_OUTPUT/LICENSE"
-echo "$ARGV_VERSION" > $ARGV_OUTPUT/version
+
+# Don't include these for now
+rm -f "$ARGV_OUTPUT"/LICENSE*
+rm -f "$ARGV_OUTPUT/version"
 
 function plist_set() {
   local plist_file=$1
