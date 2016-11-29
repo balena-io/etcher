@@ -72,7 +72,7 @@ if [ "$COMMAND" == "installer-cli" ]; then
   ./scripts/unix/package-cli.sh \
     -n etcher \
     -e bin/etcher \
-    -r x64 \
+    -r "$ARCH" \
     -s linux \
     -o etcher-release/etcher-cli-linux-$ARCH
   exit 0
