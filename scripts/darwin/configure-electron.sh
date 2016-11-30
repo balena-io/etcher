@@ -39,73 +39,59 @@ function usage() {
   echo ""
   echo "Options"
   echo ""
+  echo "    -d <electron directory>"
   echo "    -n <application name>"
-  echo "    -r <application architecture>"
   echo "    -v <application version>"
   echo "    -b <application bundle id>"
   echo "    -c <application copyright>"
   echo "    -t <application category>"
-  echo "    -f <application files (comma separated)>"
+  echo "    -a <application asar (.asar)>"
   echo "    -i <application icon (.icns)>"
-  echo "    -e <electron version>"
-  echo "    -o <output>"
   exit 0
 }
 
+ARGV_ELECTRON_DIRECTORY=""
 ARGV_APPLICATION_NAME=""
-ARGV_ARCHITECTURE=""
 ARGV_VERSION=""
 ARGV_BUNDLE_ID=""
 ARGV_COPYRIGHT=""
 ARGV_CATEGORY=""
-ARGV_FILES=""
+ARGV_ASAR=""
 ARGV_ICON=""
-ARGV_ELECTRON_VERSION=""
-ARGV_OUTPUT=""
 
-while getopts ":n:r:v:b:c:t:f:i:e:o:" option; do
+while getopts ":d:n:v:b:c:t:a:i:" option; do
   case $option in
+    d) ARGV_ELECTRON_DIRECTORY="$OPTARG" ;;
     n) ARGV_APPLICATION_NAME="$OPTARG" ;;
-    r) ARGV_ARCHITECTURE="$OPTARG" ;;
     v) ARGV_VERSION="$OPTARG" ;;
     b) ARGV_BUNDLE_ID="$OPTARG" ;;
     c) ARGV_COPYRIGHT="$OPTARG" ;;
     t) ARGV_CATEGORY="$OPTARG" ;;
-    f) ARGV_FILES="$OPTARG" ;;
+    a) ARGV_ASAR="$OPTARG" ;;
     i) ARGV_ICON="$OPTARG" ;;
-    e) ARGV_ELECTRON_VERSION="$OPTARG" ;;
-    o) ARGV_OUTPUT="$OPTARG" ;;
     *) usage ;;
   esac
 done
 
-if [ -z "$ARGV_APPLICATION_NAME" ] \
-  || [ -z "$ARGV_ARCHITECTURE" ] \
+if [ -z "$ARGV_ELECTRON_DIRECTORY" ] \
+  || [ -z "$ARGV_APPLICATION_NAME" ] \
   || [ -z "$ARGV_VERSION" ] \
   || [ -z "$ARGV_BUNDLE_ID" ] \
   || [ -z "$ARGV_COPYRIGHT" ] \
   || [ -z "$ARGV_CATEGORY" ] \
-  || [ -z "$ARGV_FILES" ] \
-  || [ -z "$ARGV_ICON" ] \
-  || [ -z "$ARGV_ELECTRON_VERSION" ] \
-  || [ -z "$ARGV_OUTPUT" ]
+  || [ -z "$ARGV_ASAR" ] \
+  || [ -z "$ARGV_ICON" ]
 then
   usage
 fi
 
-./scripts/unix/download-electron.sh \
-  -r "$ARGV_ARCHITECTURE" \
-  -v "$ARGV_ELECTRON_VERSION" \
-  -s darwin \
-  -o "$ARGV_OUTPUT"
-
-APPLICATION_OUTPUT="$ARGV_OUTPUT/$ARGV_APPLICATION_NAME.app"
-mv "$ARGV_OUTPUT/Electron.app" "$APPLICATION_OUTPUT"
+APPLICATION_OUTPUT="$ARGV_ELECTRON_DIRECTORY/$ARGV_APPLICATION_NAME.app"
+mv "$ARGV_ELECTRON_DIRECTORY/Electron.app" "$APPLICATION_OUTPUT"
 rm "$APPLICATION_OUTPUT/Contents/Resources/default_app.asar"
 
 # Don't include these for now
-rm -f "$ARGV_OUTPUT"/LICENSE*
-rm -f "$ARGV_OUTPUT/version"
+rm -f "$ARGV_ELECTRON_DIRECTORY"/LICENSE*
+rm -f "$ARGV_ELECTRON_DIRECTORY/version"
 
 function plist_set() {
   local plist_file=$1
@@ -153,6 +139,8 @@ for id in EH NP; do
     "$APPLICATION_OUTPUT/Contents/Frameworks/$ARGV_APPLICATION_NAME Helper $id.app"
 done
 
-./scripts/unix/create-asar.sh \
-  -f "$ARGV_FILES" \
-  -o "$APPLICATION_OUTPUT/Contents/Resources/app.asar"
+cp "$ARGV_ASAR" "$APPLICATION_OUTPUT/Contents/Resources/app.asar"
+
+if [ -d "$ARGV_ASAR.unpacked" ]; then
+  cp -rf "$ARGV_ASAR.unpacked" "$APPLICATION_OUTPUT/Contents/Resources/app.asar.unpacked"
+fi

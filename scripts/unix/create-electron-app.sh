@@ -19,39 +19,50 @@
 set -u
 set -e
 
-function check_dep() {
-  if ! command -v $1 2>/dev/null 1>&2; then
-    echo "Dependency missing: $1" 1>&2
-    exit 1
-  fi
-}
-
-check_dep asar
-
 function usage() {
   echo "Usage: $0"
   echo ""
   echo "Options"
   echo ""
-  echo "    -d <directory>"
+  echo "    -s <source directory>"
+  echo "    -f <extra files (comma separated)>"
   echo "    -o <output>"
   exit 0
 }
 
-ARGV_DIRECTORY=""
+ARGV_SOURCE_DIRECTORY=""
+ARGV_FILES=""
 ARGV_OUTPUT=""
 
-while getopts ":d:o:" option; do
+while getopts ":s:f:o:" option; do
   case $option in
-    d) ARGV_DIRECTORY=$OPTARG ;;
+    s) ARGV_SOURCE_DIRECTORY=$OPTARG ;;
+    f) ARGV_FILES=$OPTARG ;;
     o) ARGV_OUTPUT=$OPTARG ;;
     *) usage ;;
   esac
 done
 
-if [ -z "$ARGV_DIRECTORY" ] || [ -z "$ARGV_OUTPUT" ]; then
+if [ -z "$ARGV_SOURCE_DIRECTORY" ] ||
+   [ -z "$ARGV_FILES" ] || \
+   [ -z "$ARGV_OUTPUT" ]; then
   usage
 fi
 
-mkdir -p $(dirname "$ARGV_OUTPUT")
-asar pack "$ARGV_DIRECTORY" "$ARGV_OUTPUT" --unpack *.node
+mkdir -p "$ARGV_OUTPUT"
+
+function copy_file_if_it_exists() {
+  local file=$1
+
+  if [ -f "$ARGV_SOURCE_DIRECTORY/$file" ]; then
+    cp "$ARGV_SOURCE_DIRECTORY/$file" "$ARGV_OUTPUT"
+  fi
+}
+
+copy_file_if_it_exists "package.json"
+copy_file_if_it_exists "npm-shrinkwrap.json"
+copy_file_if_it_exists "bower.json"
+
+for file in $(echo "$ARGV_FILES" | sed "s/,/ /g"); do
+  cp -rf "$file" "$ARGV_OUTPUT"
+done

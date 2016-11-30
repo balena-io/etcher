@@ -66,22 +66,36 @@ if [ "$COMMAND" == "develop-electron" ]; then
 fi
 
 if [ "$COMMAND" == "installer-dmg" ]; then
+  ./scripts/unix/create-electron-app.sh \
+    -s . \
+    -f "lib,build,assets" \
+    -o "etcher-release/app"
+
   ./scripts/unix/dependencies.sh -p \
     -r x64 \
     -v "$ELECTRON_VERSION" \
+    -x "etcher-release/app" \
     -t electron
 
-  ./scripts/darwin/package.sh \
-    -n $APPLICATION_NAME \
+  ./scripts/unix/create-asar.sh \
+    -d "etcher-release/app" \
+    -o "etcher-release/app.asar"
+
+  ./scripts/unix/download-electron.sh \
     -r x64 \
+    -v "$ELECTRON_VERSION" \
+    -s darwin \
+    -o etcher-release/$APPLICATION_NAME-darwin-x64
+
+  ./scripts/darwin/configure-electron.sh \
+    -d etcher-release/$APPLICATION_NAME-darwin-x64 \
+    -n $APPLICATION_NAME \
     -v $APPLICATION_VERSION \
     -b io.resin.etcher \
     -c "$APPLICATION_COPYRIGHT" \
     -t public.app-category.developer-tools \
-    -f "package.json,lib,node_modules,bower_components,build,assets" \
-    -i assets/icon.icns \
-    -e $ELECTRON_VERSION \
-    -o etcher-release/$APPLICATION_NAME-darwin-x64
+    -a "etcher-release/app.asar" \
+    -i assets/icon.icns
 
   ./scripts/darwin/installer-dmg.sh \
     -n $APPLICATION_NAME \
@@ -96,22 +110,36 @@ if [ "$COMMAND" == "installer-dmg" ]; then
 fi
 
 if [ "$COMMAND" == "installer-zip" ]; then
+  ./scripts/unix/create-electron-app.sh \
+    -s . \
+    -f "lib,build,assets" \
+    -o "etcher-release/app"
+
   ./scripts/unix/dependencies.sh -p \
     -r x64 \
     -v "$ELECTRON_VERSION" \
+    -x "etcher-release/app" \
     -t electron
 
-  ./scripts/darwin/package.sh \
-    -n $APPLICATION_NAME \
+  ./scripts/unix/create-asar.sh \
+    -d "etcher-release/app" \
+    -o "etcher-release/app.asar"
+
+  ./scripts/unix/download-electron.sh \
     -r x64 \
+    -v "$ELECTRON_VERSION" \
+    -s darwin \
+    -o etcher-release/$APPLICATION_NAME-darwin-x64
+
+  ./scripts/darwin/configure-electron.sh \
+    -d etcher-release/$APPLICATION_NAME-darwin-x64 \
+    -n $APPLICATION_NAME \
     -v $APPLICATION_VERSION \
     -b io.resin.etcher \
     -c "$APPLICATION_COPYRIGHT" \
     -t public.app-category.developer-tools \
-    -f "package.json,lib,node_modules,bower_components,build,assets" \
-    -i assets/icon.icns \
-    -e $ELECTRON_VERSION \
-    -o etcher-release/$APPLICATION_NAME-darwin-x64
+    -a "etcher-release/app.asar" \
+    -i assets/icon.icns
 
   ./scripts/darwin/sign.sh \
     -a etcher-release/$APPLICATION_NAME-darwin-x64/$APPLICATION_NAME.app \
