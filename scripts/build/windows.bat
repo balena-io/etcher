@@ -22,7 +22,6 @@ set output_build_directory=etcher-release
 set output_directory=%output_build_directory%\installers
 set certificate_file=certificate.p12
 set certificate_pass=1234
-set timestamp_server_url=http://timestamp.comodoca.com
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :: Validate arguments
@@ -64,13 +63,6 @@ if not "%command%"=="install" (
 where rimraf >nul 2>nul
 if %ERRORLEVEL% neq 0 (
   echo Dependency missing: rimraf 1>&2
-  exit /b 1
-)
-
-:: Check that signtool is installed.
-where signtool >nul 2>nul
-if %ERRORLEVEL% neq 0 (
-  echo Dependency missing: signtool 1>&2
   exit /b 1
 )
 
@@ -202,13 +194,11 @@ call asar pack %package_output%\resources\app %package_output%\resources\app.asa
  --unpack "{*.dll,*.node}"
 call rimraf %package_output%\resources\app
 
-signtool sign^
- /t %timestamp_server_url%^
- /d "%application_name% - %etcher_version%"^
- /f %certificate_file%^
- /p %certificate_pass%^
- %package_output%\Etcher.exe
-signtool verify /pa /v %package_output%\Etcher.exe
+call scripts\windows\sign.bat^
+ -c %certificate_file%^
+ -p %certificate_pass%^
+ -f %package_output%\Etcher.exe^
+ -d "%application_name% - %etcher_version%"
 
 upx -9 %package_output%\*.dll
 
@@ -231,10 +221,8 @@ mkdir "%output_directory%"
 move "%installer_tmp_output%\%application_name% Setup.exe" "%installer_output%"
 rd /s /q "%installer_tmp_output%"
 
-signtool sign^
- /t %timestamp_server_url%^
- /d "%application_name% - %etcher_version%"^
- /f %certificate_file%^
- /p %certificate_pass%^
- %installer_output%
-signtool verify /pa /v %installer_output%
+call scripts\windows\sign.bat^
+ -c %certificate_file%^
+ -p %certificate_pass%^
+ -f %installer_output%^
+ -d "%application_name% - %etcher_version%"
