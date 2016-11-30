@@ -74,13 +74,6 @@ if %ERRORLEVEL% neq 0 (
   exit /b 1
 )
 
-:: Check that bower is installed.
-where bower >nul 2>nul
-if %ERRORLEVEL% neq 0 (
-  echo Dependency missing: bower 1>&2
-  exit /b 1
-)
-
 :: Check that makensis is installed.
 where makensis >nul 2>nul
 if %ERRORLEVEL% neq 0 (
@@ -159,27 +152,11 @@ for /f %%i in (' "node -v" ') do (
 set package_name=Etcher-%etcher_version%-win32-%arch%
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-:: Configure NPM to build native addons for Electron correctly
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:: We require Visual Studio 2013 specifically since newer versions
-:: lack command line build tools such as `lib.exe` and `cl.exe`.
-set GYP_MSVS_VERSION=2013
-
-set npm_config_disturl=https://atom.io/download/atom-shell
-set npm_config_runtime=electron
-set npm_config_target=%electron_version%
-set npm_config_arch=%electron_arch%
-set HOME=%homedrive%%homepath%\.electron-gyp
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :: Install dependencies
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 if not "%command%"=="package" (
-  call rimraf node_modules bower_components
-  call npm install --build-from-source
-  call bower install --production
+  call scripts\windows\dependencies.bat -r %arch% -v %electron_version% -t electron
 )
 
 if "%command%"=="install" (
