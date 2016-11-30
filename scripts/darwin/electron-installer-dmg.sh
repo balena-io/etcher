@@ -160,7 +160,7 @@ sync
 afsctool -ci -9 "$VOLUME_APPLICATION"
 
 # TODO: this should be decoupled from this script
-./scripts/darwin/sign.sh -a "$VOLUME_APPLICATION" -i "$ARGV_IDENTITY"
+./scripts/darwin/electron-sign-app.sh -a "$VOLUME_APPLICATION" -i "$ARGV_IDENTITY"
 
 # Unmount temporary DMG image.
 hdiutil detach "$VOLUME_DIRECTORY"

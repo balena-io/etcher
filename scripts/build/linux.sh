@@ -87,7 +87,7 @@ if [ "$COMMAND" == "installer-cli" ]; then
 fi
 
 if [ "$COMMAND" == "installer-debian" ]; then
-  ./scripts/unix/create-electron-app.sh \
+  ./scripts/unix/electron-create-resources-app.sh \
     -s . \
     -f "lib,build,assets" \
     -o "etcher-release/app"
@@ -101,24 +101,24 @@ if [ "$COMMAND" == "installer-debian" ]; then
   ./scripts/unix/dependencies-bower.sh -p \
     -x "etcher-release/app"
 
-  ./scripts/unix/create-asar.sh \
+  ./scripts/unix/electron-create-asar.sh \
     -d "etcher-release/app" \
     -o "etcher-release/app.asar"
 
-  ./scripts/unix/download-electron.sh \
+  ./scripts/unix/electron-download-package.sh \
     -r "$ARCH" \
     -v "$ELECTRON_VERSION" \
     -s linux \
     -o "etcher-release/$APPLICATION_NAME-linux-$ARCH"
 
-  ./scripts/linux/configure-electron.sh \
+  ./scripts/linux/electron-configure-package-linux.sh \
     -d etcher-release/$APPLICATION_NAME-linux-$ARCH \
     -n "$APPLICATION_NAME" \
     -v "$APPLICATION_VERSION" \
     -l LICENSE \
     -a "etcher-release/app.asar"
 
-  ./scripts/linux/installer-deb.sh \
+  ./scripts/linux/electron-installer-debian.sh \
     -p etcher-release/$APPLICATION_NAME-linux-$ARCH \
     -r "$ARCH" \
     -c scripts/build/debian/config.json \
@@ -130,7 +130,7 @@ fi
 if [ "$COMMAND" == "installer-appimage" ]; then
   check_dep zip
 
-  ./scripts/unix/create-electron-app.sh \
+  ./scripts/unix/electron-create-resources-app.sh \
     -s . \
     -f "lib,build,assets" \
     -o "etcher-release/app"
@@ -144,24 +144,24 @@ if [ "$COMMAND" == "installer-appimage" ]; then
   ./scripts/unix/dependencies-bower.sh -p \
     -x "etcher-release/app"
 
-  ./scripts/unix/create-asar.sh \
+  ./scripts/unix/electron-create-asar.sh \
     -d "etcher-release/app" \
     -o "etcher-release/app.asar"
 
-  ./scripts/unix/download-electron.sh \
+  ./scripts/unix/electron-download-package.sh \
     -r "$ARCH" \
     -v "$ELECTRON_VERSION" \
     -s linux \
     -o "etcher-release/$APPLICATION_NAME-linux-$ARCH"
 
-  ./scripts/linux/configure-electron.sh \
+  ./scripts/linux/electron-configure-package-linux.sh \
     -d etcher-release/$APPLICATION_NAME-linux-$ARCH \
     -n "$APPLICATION_NAME" \
     -v "$APPLICATION_VERSION" \
     -l LICENSE \
     -a "etcher-release/app.asar"
 
-  ./scripts/linux/installer-appimage.sh \
+  ./scripts/linux/electron-installer-appimage.sh \
     -n "$APPLICATION_NAME" \
     -d "$APPLICATION_DESCRIPTION" \
     -p etcher-release/$APPLICATION_NAME-linux-$ARCH \
