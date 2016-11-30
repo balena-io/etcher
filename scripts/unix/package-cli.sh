@@ -40,7 +40,7 @@ function usage() {
   echo "    -r <architecture>"
   echo "    -s <operating system (linux|darwin)>"
   echo "    -o <output directory>"
-  exit 0
+  exit 1
 }
 
 ARGV_APPLICATION_NAME=""

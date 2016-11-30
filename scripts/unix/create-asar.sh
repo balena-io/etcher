@@ -35,7 +35,7 @@ function usage() {
   echo ""
   echo "    -d <directory>"
   echo "    -o <output>"
-  exit 0
+  exit 1
 }
 
 ARGV_DIRECTORY=""

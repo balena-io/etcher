@@ -47,7 +47,7 @@ function usage() {
   echo "    -b <application binary name>"
   echo "    -i <application icon (.png)>"
   echo "    -o <output>"
-  exit 0
+  exit 1
 }
 
 ARGV_APPLICATION_NAME=""

@@ -47,7 +47,7 @@ function usage() {
   echo "    -t <application category>"
   echo "    -a <application asar (.asar)>"
   echo "    -i <application icon (.icns)>"
-  exit 0
+  exit 1
 }
 
 ARGV_ELECTRON_DIRECTORY=""

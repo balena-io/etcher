@@ -27,7 +27,7 @@ function usage() {
   echo "    -s <source directory>"
   echo "    -f <extra files (comma separated)>"
   echo "    -o <output>"
-  exit 0
+  exit 1
 }
 
 ARGV_SOURCE_DIRECTORY=""

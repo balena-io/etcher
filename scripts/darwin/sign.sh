@@ -42,7 +42,7 @@ function usage() {
   echo ""
   echo "    -a <application (.app)>"
   echo "    -i <identity>"
-  exit 0
+  exit 1
 }
 
 ARGV_APPLICATION=""

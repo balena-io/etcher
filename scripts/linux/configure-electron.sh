@@ -42,7 +42,7 @@ function usage() {
   echo "    -v <application version>"
   echo "    -l <application license file>"
   echo "    -a <application asar (.asar)>"
-  exit 0
+  exit 1
 }
 
 ARGV_ELECTRON_DIRECTORY=""

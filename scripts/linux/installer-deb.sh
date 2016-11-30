@@ -43,7 +43,7 @@ function usage() {
   echo "    -r <application architecture>"
   echo "    -c <debian configuration (.json)>"
   echo "    -o <output directory>"
-  exit 0
+  exit 1
 }
 
 ARGV_DIRECTORY=""
