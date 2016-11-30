@@ -27,7 +27,6 @@ function check_dep() {
 }
 
 check_dep npm
-check_dep bower
 check_dep python
 
 function usage() {
@@ -87,35 +86,23 @@ else
   export npm_config_arch=$ARGV_ARCHITECTURE
 fi
 
-NPM_INSTALL_OPTS="--build-from-source"
+INSTALL_OPTS="--build-from-source"
 
 if [ "$ARGV_FORCE" == "true" ]; then
-  NPM_INSTALL_OPTS="$NPM_INSTALL_OPTS --force"
+  INSTALL_OPTS="$INSTALL_OPTS --force"
 fi
 
 if [ "$ARGV_PRODUCTION" == "true" ]; then
-  NPM_INSTALL_OPTS="$NPM_INSTALL_OPTS --production"
+  INSTALL_OPTS="$INSTALL_OPTS --production"
 fi
 
 if [ -n "$ARGV_PREFIX" ]; then
-  NPM_INSTALL_OPTS="$NPM_INSTALL_OPTS --prefix=$ARGV_PREFIX"
+  INSTALL_OPTS="$INSTALL_OPTS --prefix=$ARGV_PREFIX"
 fi
 
-npm install $NPM_INSTALL_OPTS
+npm install $INSTALL_OPTS
 
 # Using `--prefix` might cause npm to create an empty `etc` directory
 if [ -n "$ARGV_PREFIX" ] && [ ! "$(ls -A "$ARGV_PREFIX/etc")" ]; then
   rm -rf "$ARGV_PREFIX/etc"
-fi
-
-if [ "$ARGV_TARGET_PLATFORM" == "electron" ]; then
-  BOWER_INSTALL_OPTS="--production --allow-root"
-
-  if [ -n "$ARGV_PREFIX" ]; then
-    pushd "$ARGV_PREFIX"
-    bower install $BOWER_INSTALL_OPTS
-    popd
-  fi
-
-  bower install $BOWER_INSTALL_OPTS
 fi

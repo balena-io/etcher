@@ -47,7 +47,7 @@ APPLICATION_COPYRIGHT=`node -e "console.log(require('./package.json').copyright)
 APPLICATION_VERSION=`node -e "console.log(require('./package.json').version)"`
 
 if [ "$COMMAND" == "cli" ]; then
-  ./scripts/unix/dependencies.sh -r x64 -v 6.2.2 -t node -f -p
+  ./scripts/unix/dependencies-npm.sh -r x64 -v 6.2.2 -t node -f -p
   ./scripts/unix/package-cli.sh \
     -n etcher \
     -e bin/etcher \
@@ -58,10 +58,11 @@ if [ "$COMMAND" == "cli" ]; then
 fi
 
 if [ "$COMMAND" == "develop-electron" ]; then
-  ./scripts/unix/dependencies.sh \
+  ./scripts/unix/dependencies-npm.sh \
     -r x64 \
     -v "$ELECTRON_VERSION" \
     -t electron
+  ./scripts/unix/dependencies-bower.sh
   exit 0
 fi
 
@@ -71,11 +72,14 @@ if [ "$COMMAND" == "installer-dmg" ]; then
     -f "lib,build,assets" \
     -o "etcher-release/app"
 
-  ./scripts/unix/dependencies.sh -p \
+  ./scripts/unix/dependencies-npm.sh -p \
     -r x64 \
     -v "$ELECTRON_VERSION" \
     -x "etcher-release/app" \
     -t electron
+
+  ./scripts/unix/dependencies-bower.sh -p \
+    -x "etcher-release/app"
 
   ./scripts/unix/create-asar.sh \
     -d "etcher-release/app" \
@@ -115,11 +119,14 @@ if [ "$COMMAND" == "installer-zip" ]; then
     -f "lib,build,assets" \
     -o "etcher-release/app"
 
-  ./scripts/unix/dependencies.sh -p \
+  ./scripts/unix/dependencies-npm.sh -p \
     -r x64 \
     -v "$ELECTRON_VERSION" \
     -x "etcher-release/app" \
     -t electron
+
+  ./scripts/unix/dependencies-bower.sh -p \
+    -x "etcher-release/app"
 
   ./scripts/unix/create-asar.sh \
     -d "etcher-release/app" \
