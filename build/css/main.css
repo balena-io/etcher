@@ -6240,6 +6240,8 @@ body {
   padding: 0;
   max-height: 250px;
   overflow: auto; }
+  .modal-body a {
+    color: #5793db; }
   .modal-body .list-group {
     padding: 0 20px; }
   .modal-body .list-group-item {

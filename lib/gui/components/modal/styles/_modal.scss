@@ -44,6 +44,10 @@
   max-height: 250px;
   overflow: auto;
 
+  a {
+    color: $palette-theme-primary-background;
+  }
+
   .list-group {
     padding: 0 20px;
   }
