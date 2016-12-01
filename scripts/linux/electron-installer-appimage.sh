@@ -18,6 +18,7 @@
 
 set -u
 set -e
+set -x
 
 function check_dep() {
   if ! command -v $1 2>/dev/null 1>&2; then
@@ -101,11 +102,11 @@ else
   exit 1
 fi
 
+OUTPUT_FILENAME="$ARGV_APPLICATION_NAME-linux-$ARGV_ARCHITECTURE.AppImage"
+
 # Create AppDir
-OUTPUT_FILENAME="$(basename "$ARGV_OUTPUT")"
 APPDIR_PATH=/tmp/${OUTPUT_FILENAME%.*}.AppDir
 APPDIR_ICON_FILENAME=icon
-mkdir -p "$(dirname "$ARGV_OUTPUT")"
 rm -rf "$APPDIR_PATH"
 mkdir -p "$APPDIR_PATH/usr/bin"
 download_executable \
@@ -143,6 +144,7 @@ else
 fi
 
 # Generate AppImage
+mkdir -p "$(dirname "$ARGV_OUTPUT")"
 rm -f "$ARGV_OUTPUT"
 
 APPIMAGEASSISTANT_PATH=/tmp/AppImageAssistant.AppImage
@@ -150,5 +152,11 @@ download_executable \
   "$APPIMAGES_GITHUB_RELEASE_BASE_URL/AppImageAssistant_$APPIMAGES_TAG-$APPIMAGES_ARCHITECTURE.AppImage" \
   $APPIMAGEASSISTANT_PATH
 
-$APPIMAGEASSISTANT_PATH "$APPDIR_PATH" "$ARGV_OUTPUT"
+$APPIMAGEASSISTANT_PATH "$APPDIR_PATH" "$(dirname "$ARGV_OUTPUT")/$OUTPUT_FILENAME"
 rm -rf "$APPDIR_PATH"
+
+# Package AppImage inside a Zip to preserve the execution permissions
+pushd "$(dirname "$ARGV_OUTPUT")"
+zip "$(basename "$ARGV_OUTPUT")" "$OUTPUT_FILENAME"
+rm -f "$OUTPUT_FILENAME"
+popd
