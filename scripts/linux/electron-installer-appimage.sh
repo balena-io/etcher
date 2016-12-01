@@ -102,10 +102,15 @@ else
   exit 1
 fi
 
+if [ -z "$TMPDIR" ]; then
+  TMPDIR=$(mktemp -d)
+fi
+mkdir -p "$TMPDIR"
+
 OUTPUT_FILENAME="$ARGV_APPLICATION_NAME-linux-$ARGV_ARCHITECTURE.AppImage"
 
 # Create AppDir
-APPDIR_PATH=/tmp/${OUTPUT_FILENAME%.*}.AppDir
+APPDIR_PATH=$TMPDIR/${OUTPUT_FILENAME%.*}.AppDir
 APPDIR_ICON_FILENAME=icon
 rm -rf "$APPDIR_PATH"
 mkdir -p "$APPDIR_PATH/usr/bin"
@@ -147,7 +152,7 @@ fi
 mkdir -p "$(dirname "$ARGV_OUTPUT")"
 rm -f "$ARGV_OUTPUT"
 
-APPIMAGEASSISTANT_PATH=/tmp/AppImageAssistant.AppImage
+APPIMAGEASSISTANT_PATH=$TMPDIR/AppImageAssistant.AppImage
 download_executable \
   "$APPIMAGES_GITHUB_RELEASE_BASE_URL/AppImageAssistant_$APPIMAGES_TAG-$APPIMAGES_ARCHITECTURE.AppImage" \
   $APPIMAGEASSISTANT_PATH
