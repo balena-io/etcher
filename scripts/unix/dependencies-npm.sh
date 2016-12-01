@@ -97,12 +97,24 @@ if [ "$ARGV_PRODUCTION" == "true" ]; then
 fi
 
 if [ -n "$ARGV_PREFIX" ]; then
+  mkdir -p "$ARGV_PREFIX"
   INSTALL_OPTS="$INSTALL_OPTS --prefix=$ARGV_PREFIX"
+  cp "$PWD/package.json" "$ARGV_PREFIX"
+
+  if [ -f "$PWD/npm-shrinkwrap.json" ]; then
+    cp "$PWD/npm-shrinkwrap.json" "$ARGV_PREFIX"
+  fi
 fi
 
 npm install $INSTALL_OPTS
 
-# Using `--prefix` might cause npm to create an empty `etc` directory
-if [ -n "$ARGV_PREFIX" ] && [ ! "$(ls -A "$ARGV_PREFIX/etc")" ]; then
-  rm -rf "$ARGV_PREFIX/etc"
+if [ -n "$ARGV_PREFIX" ]; then
+  rm -f "$ARGV_PREFIX/package.json"
+  rm -f "$ARGV_PREFIX/npm-shrinkwrap.json"
+
+  # Using `--prefix` might cause npm to create an empty `etc` directory
+  if [ ! "$(ls -A "$ARGV_PREFIX/etc")" ]; then
+    rm -rf "$ARGV_PREFIX/etc"
+  fi
+
 fi

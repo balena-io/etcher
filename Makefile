@@ -88,21 +88,22 @@ APPLICATION_VERSION_DEBIAN = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
 # Rules
 # ---------------------------------------------------------------------
 
-release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app:
+release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/node_modules: package.json npm-shrinkwrap.json
+	./scripts/unix/dependencies-npm.sh -p -r "$(TARGET_ARCH)" -v "$(ELECTRON_VERSION)" -x $(dir $@) -t electron
+
+release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/bower_components: bower.json
+	./scripts/unix/dependencies-bower.sh -p -x $(dir $@)
+
+release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app: \
+	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/node_modules \
+	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/bower_components
 	./scripts/unix/electron-create-resources-app.sh -s . -f "$(APPLICATION_FILES)" -o $@
-
-release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app/node_modules:\
-	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app
-	./scripts/unix/dependencies-npm.sh -p -r "$(TARGET_ARCH)" -v "$(ELECTRON_VERSION)" -x $< -t electron
-
-release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app/bower_components:\
-	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app
-	./scripts/unix/dependencies-bower.sh -p -x $<
+	for prerequisite in $^; do \
+		cp -rf $$prerequisite $@; \
+	done
 
 release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app.asar: \
-	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app \
-	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app/node_modules \
-	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app/bower_components
+	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app
 	./scripts/unix/electron-create-asar.sh -d $< -o $@
 
 release/$(APPLICATION_NAME)-$(TARGET_PLATFORM)-$(TARGET_ARCH): \
