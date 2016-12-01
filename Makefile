@@ -51,16 +51,16 @@ else
 endif
 
 ifndef HOST_PLATFORM
-  $(error We couldn\'t detect your host platform)
+	$(error We couldn\'t detect your host platform)
 endif
 ifndef HOST_ARCH
-  $(error We couldn\'t detect your host architecture)
+	$(error We couldn\'t detect your host architecture)
 endif
 
 TARGET_PLATFORM = $(HOST_PLATFORM)
 
 ifneq ($(TARGET_PLATFORM),$(HOST_PLATFORM))
-  $(error We don\'t support cross-platform builds yet)
+	$(error We don\'t support cross-platform builds yet)
 endif
 
 # Default to host architecture. You can override by doing:
