@@ -67,7 +67,7 @@ if [ "$COMMAND" == "develop-electron" ]; then
 fi
 
 if [ "$COMMAND" == "installer-dmg" ]; then
-  ./scripts/unix/create-electron-app.sh \
+  ./scripts/unix/electron-create-resources-app.sh \
     -s . \
     -f "lib,build,assets" \
     -o "etcher-release/app"
@@ -81,17 +81,17 @@ if [ "$COMMAND" == "installer-dmg" ]; then
   ./scripts/unix/dependencies-bower.sh -p \
     -x "etcher-release/app"
 
-  ./scripts/unix/create-asar.sh \
+  ./scripts/unix/electron-create-asar.sh \
     -d "etcher-release/app" \
     -o "etcher-release/app.asar"
 
-  ./scripts/unix/download-electron.sh \
+  ./scripts/unix/electron-download-package.sh \
     -r x64 \
     -v "$ELECTRON_VERSION" \
     -s darwin \
     -o etcher-release/$APPLICATION_NAME-darwin-x64
 
-  ./scripts/darwin/configure-electron.sh \
+  ./scripts/darwin/electron-configure-package-darwin.sh \
     -d etcher-release/$APPLICATION_NAME-darwin-x64 \
     -n $APPLICATION_NAME \
     -v $APPLICATION_VERSION \
@@ -101,7 +101,7 @@ if [ "$COMMAND" == "installer-dmg" ]; then
     -a "etcher-release/app.asar" \
     -i assets/icon.icns
 
-  ./scripts/darwin/installer-dmg.sh \
+  ./scripts/darwin/electron-installer-dmg.sh \
     -n $APPLICATION_NAME \
     -v $APPLICATION_VERSION \
     -p etcher-release/$APPLICATION_NAME-darwin-x64 \
@@ -114,7 +114,7 @@ if [ "$COMMAND" == "installer-dmg" ]; then
 fi
 
 if [ "$COMMAND" == "installer-zip" ]; then
-  ./scripts/unix/create-electron-app.sh \
+  ./scripts/unix/electron-create-resources-app.sh \
     -s . \
     -f "lib,build,assets" \
     -o "etcher-release/app"
@@ -128,17 +128,17 @@ if [ "$COMMAND" == "installer-zip" ]; then
   ./scripts/unix/dependencies-bower.sh -p \
     -x "etcher-release/app"
 
-  ./scripts/unix/create-asar.sh \
+  ./scripts/unix/electron-create-asar.sh \
     -d "etcher-release/app" \
     -o "etcher-release/app.asar"
 
-  ./scripts/unix/download-electron.sh \
+  ./scripts/unix/electron-download-package.sh \
     -r x64 \
     -v "$ELECTRON_VERSION" \
     -s darwin \
     -o etcher-release/$APPLICATION_NAME-darwin-x64
 
-  ./scripts/darwin/configure-electron.sh \
+  ./scripts/darwin/electron-configure-package-darwin.sh \
     -d etcher-release/$APPLICATION_NAME-darwin-x64 \
     -n $APPLICATION_NAME \
     -v $APPLICATION_VERSION \
@@ -148,11 +148,11 @@ if [ "$COMMAND" == "installer-zip" ]; then
     -a "etcher-release/app.asar" \
     -i assets/icon.icns
 
-  ./scripts/darwin/sign.sh \
+  ./scripts/darwin/electron-sign-app.sh \
     -a etcher-release/$APPLICATION_NAME-darwin-x64/$APPLICATION_NAME.app \
     -i "$SIGN_IDENTITY_OSX"
 
-  ./scripts/darwin/installer-zip.sh \
+  ./scripts/darwin/electron-installer-app-zip.sh \
     -a etcher-release/$APPLICATION_NAME-darwin-x64/$APPLICATION_NAME.app \
     -o etcher-release/installers/$APPLICATION_NAME-$APPLICATION_VERSION-darwin-x64.zip
 
