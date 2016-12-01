@@ -51,17 +51,7 @@ fi
 
 mkdir -p "$ARGV_OUTPUT"
 
-function copy_file_if_it_exists() {
-  local file=$1
-
-  if [ -f "$ARGV_SOURCE_DIRECTORY/$file" ]; then
-    cp "$ARGV_SOURCE_DIRECTORY/$file" "$ARGV_OUTPUT"
-  fi
-}
-
-copy_file_if_it_exists "package.json"
-copy_file_if_it_exists "npm-shrinkwrap.json"
-copy_file_if_it_exists "bower.json"
+cp "$ARGV_SOURCE_DIRECTORY/package.json" "$ARGV_OUTPUT"
 
 for file in $(echo "$ARGV_FILES" | sed "s/,/ /g"); do
   cp -rf "$file" "$ARGV_OUTPUT"
