@@ -40,7 +40,7 @@ function usage() {
   echo "    -x <install prefix>"
   echo "    -f force install"
   echo "    -p production install"
-  exit 0
+  exit 1
 }
 
 ARGV_ARCHITECTURE=""

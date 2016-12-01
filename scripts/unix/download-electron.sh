@@ -38,7 +38,7 @@ function usage() {
   echo "    -v <electron version>"
   echo "    -s <electron operating system>"
   echo "    -o <output directory>"
-  exit 0
+  exit 1
 }
 
 ARGV_ARCHITECTURE=""

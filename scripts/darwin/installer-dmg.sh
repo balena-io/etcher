@@ -50,7 +50,7 @@ function usage() {
   echo "    -i <application icon (.icns)>"
   echo "    -b <application background (.png)>"
   echo "    -o <output>"
-  exit 0
+  exit 1
 }
 
 ARGV_APPLICATION_NAME=""

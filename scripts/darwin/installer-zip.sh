@@ -41,7 +41,7 @@ function usage() {
   echo ""
   echo "    -a <application (.app)>"
   echo "    -o <output>"
-  exit 0
+  exit 1
 }
 
 ARGV_APPLICATION=""
