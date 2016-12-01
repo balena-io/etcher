@@ -55,15 +55,16 @@ APPLICATION_DESCRIPTION=`node -e "console.log(require('./package.json').descript
 APPLICATION_VERSION=`node -e "console.log(require('./package.json').version)"`
 
 if [ "$COMMAND" == "develop-electron" ]; then
-  ./scripts/unix/dependencies.sh \
+  ./scripts/unix/dependencies-npm.sh \
     -r "$ARCH" \
     -v "$ELECTRON_VERSION" \
     -t electron
+  ./scripts/unix/dependencies-bower.sh
   exit 0
 fi
 
 if [ "$COMMAND" == "develop-cli" ]; then
-  ./scripts/unix/dependencies.sh \
+  ./scripts/unix/dependencies-npm.sh \
     -r "$ARCH" \
     -v "$NODE_VERSION" \
     -t node
@@ -71,7 +72,7 @@ if [ "$COMMAND" == "develop-cli" ]; then
 fi
 
 if [ "$COMMAND" == "installer-cli" ]; then
-  ./scripts/unix/dependencies.sh -f -p \
+  ./scripts/unix/dependencies-npm.sh -f -p \
     -r "$ARCH" \
     -v "$NODE_VERSION" \
     -t node
@@ -91,11 +92,14 @@ if [ "$COMMAND" == "installer-debian" ]; then
     -f "lib,build,assets" \
     -o "etcher-release/app"
 
-  ./scripts/unix/dependencies.sh -p \
+  ./scripts/unix/dependencies-npm.sh -p \
     -r "$ARCH" \
     -v "$ELECTRON_VERSION" \
     -x "etcher-release/app" \
     -t electron
+
+  ./scripts/unix/dependencies-bower.sh -p \
+    -x "etcher-release/app"
 
   ./scripts/unix/create-asar.sh \
     -d "etcher-release/app" \
@@ -131,11 +135,14 @@ if [ "$COMMAND" == "installer-appimage" ]; then
     -f "lib,build,assets" \
     -o "etcher-release/app"
 
-  ./scripts/unix/dependencies.sh -p \
+  ./scripts/unix/dependencies-npm.sh -p \
     -r "$ARCH" \
     -v "$ELECTRON_VERSION" \
     -x "etcher-release/app" \
     -t electron
+
+  ./scripts/unix/dependencies-bower.sh -p \
+    -x "etcher-release/app"
 
   ./scripts/unix/create-asar.sh \
     -d "etcher-release/app" \
