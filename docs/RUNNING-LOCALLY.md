@@ -50,13 +50,13 @@ the application might not run successfully.
 ### OS X
 
 ```sh
-./scripts/build/darwin.sh develop-electron
+make electron-develop
 ```
 
 ### GNU/Linux
 
 ```sh
-./scripts/build/linux.sh develop-electron <x64|x86>
+make electron-develop
 ```
 
 ### Windows

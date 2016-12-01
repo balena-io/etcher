@@ -29,25 +29,28 @@ employee by asking for it from the relevant people.
 Packaging
 ---------
 
-The resulting installers will be saved to `etcher-release/installers`.
 
 ### OS X
 
 Run the following command:
 
 ```sh
-$ ./scripts/build/darwin.sh installer-dmg
-$ ./scripts/build/darwin.sh installer-zip
+make electron-installer-dmg
+make electron-installer-app-zip
 ```
+
+The resulting installers will be saved to `release/out`.
 
 ### GNU/Linux
 
 Run the following command:
 
 ```sh
-$ ./scripts/build/linux.sh installer-appimage <x64|x86>
-$ ./scripts/build/linux.sh installer-debian <x64|x86>
+make electron-installer-appimage
+make electron-installer-debian
 ```
+
+The resulting installers will be saved to `release/out`.
 
 ### Windows
 
@@ -56,6 +59,8 @@ Run the following command:
 ```sh
 > .\scripts\build\windows.bat all <x64|x86>
 ```
+
+The resulting installers will be saved to `etcher-release/installers`.
 
 Publishing to Bintray
 ---------------------
