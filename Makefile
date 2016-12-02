@@ -98,9 +98,7 @@ release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app: \
 	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/node_modules \
 	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/bower_components
 	./scripts/unix/electron-create-resources-app.sh -s . -f "$(APPLICATION_FILES)" -o $@
-	for prerequisite in $^; do \
-		cp -rf $$prerequisite $@; \
-	done
+	$(foreach prerequisite,$^,cp -rf $(prerequisite) $@;)
 
 release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app.asar: \
 	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app
