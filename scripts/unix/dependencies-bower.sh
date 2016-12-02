@@ -35,7 +35,7 @@ function usage() {
   echo ""
   echo "    -x <install prefix>"
   echo "    -p production install"
-  exit 0
+  exit 1
 }
 
 ARGV_PREFIX=""
