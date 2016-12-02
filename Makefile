@@ -104,23 +104,32 @@ release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app.asar: \
 	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app
 	./scripts/unix/electron-create-asar.sh -d $< -o $@
 
+release/electron-$(ELECTRON_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip:
+	./scripts/unix/electron-download-package.sh \
+		-r "$(TARGET_ARCH)" \
+		-v "$(ELECTRON_VERSION)" \
+		-s "$(TARGET_PLATFORM)" \
+		-o $@
+
 release/$(APPLICATION_NAME)-$(TARGET_PLATFORM)-$(TARGET_ARCH): \
-	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app.asar
-	./scripts/unix/electron-download-package.sh -r "$(TARGET_ARCH)" -v "$(ELECTRON_VERSION)" -s "$(TARGET_PLATFORM)" -o $@
+	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app.asar \
+	release/electron-$(ELECTRON_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
 ifeq ($(TARGET_PLATFORM),darwin)
-	./scripts/darwin/electron-configure-package-darwin.sh -d $@ -a $< \
+	./scripts/darwin/electron-configure-package-darwin.sh -p $(word 2,$^) -a $< \
 		-n "$(APPLICATION_NAME)" \
 		-v "$(APPLICATION_VERSION)" \
 		-b "$(APPLICATION_BUNDLE_ID)" \
 		-c "$(APPLICATION_COPYRIGHT)" \
 		-t "$(APPLICATION_CATEGORY)" \
-		-i assets/icon.icns
+		-i assets/icon.icns \
+		-o $@
 endif
 ifeq ($(TARGET_PLATFORM),linux)
-	./scripts/linux/electron-configure-package-linux.sh -d $@ -a $< \
+	./scripts/linux/electron-configure-package-linux.sh -p $(word 2,$^) -a $< \
 		-n "$(APPLICATION_NAME)" \
 		-v "$(APPLICATION_VERSION)" \
-		-l LICENSE
+		-l LICENSE \
+		-o $@
 endif
 
 release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-darwin-$(TARGET_ARCH).zip: \

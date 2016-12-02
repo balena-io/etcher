@@ -27,7 +27,6 @@ function check_dep() {
 }
 
 check_dep wget
-check_dep unzip
 
 function usage() {
   echo "Usage: $0"
@@ -64,10 +63,6 @@ then
   usage
 fi
 
-OUTPUT_DIRNAME=$(dirname "$ARGV_OUTPUT")
-rm -rf "$ARGV_OUTPUT"
-mkdir -p "$OUTPUT_DIRNAME"
-
 ELECTRON_ARCHITECTURE=$ARGV_ARCHITECTURE
 if [ "$ELECTRON_ARCHITECTURE" == "x86" ]; then
   ELECTRON_ARCHITECTURE="ia32"
@@ -76,9 +71,5 @@ fi
 ELECTRON_GITHUB_REPOSITORY=https://github.com/electron/electron
 ELECTRON_FILENAME="electron-v$ARGV_ELECTRON_VERSION-$ARGV_OPERATING_SYSTEM-$ELECTRON_ARCHITECTURE.zip"
 
-pushd "$OUTPUT_DIRNAME"
-wget "$ELECTRON_GITHUB_REPOSITORY/releases/download/v$ARGV_ELECTRON_VERSION/$ELECTRON_FILENAME"
-popd
-
-unzip "$OUTPUT_DIRNAME/$ELECTRON_FILENAME" -d "$ARGV_OUTPUT"
-rm "$OUTPUT_DIRNAME/$ELECTRON_FILENAME"
+mkdir -p $(dirname $ARGV_OUTPUT)
+wget "$ELECTRON_GITHUB_REPOSITORY/releases/download/v$ARGV_ELECTRON_VERSION/$ELECTRON_FILENAME" -O "$ARGV_OUTPUT"
