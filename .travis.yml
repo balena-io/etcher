@@ -45,13 +45,13 @@ install:
   - npm install -g bower
   - npm install -g electron-installer-debian
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      make electron-develop
+      make electron-develop;
     fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       brew install afsctool;
     fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      make electron-develop
+      make electron-develop;
     fi
 
 before_script:
