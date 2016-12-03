@@ -34,13 +34,15 @@ if [ "$#" -ne 1 ]; then
   exit 1
 fi
 
-if [ -z $BINTRAY_USER ] || [ -z $BINTRAY_API_KEY ]; then
+set +u
+if [ -z "$BINTRAY_USER" ] || [ -z "$BINTRAY_API_KEY" ]; then
   echo "Please define the following environment variables:" 1>&2
   echo "" 1>&2
   echo "  BINTRAY_USER" 1>&2
   echo "  BINTRAY_API_KEY" 1>&2
   exit 1
 fi
+set -u
 
 ARGV_FILE=$1
 PACKAGE_COMPONENT=etcher
