@@ -89,7 +89,12 @@ APPLICATION_VERSION_DEBIAN = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
 # ---------------------------------------------------------------------
 
 release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/node_modules: package.json npm-shrinkwrap.json
-	./scripts/unix/dependencies-npm.sh -p -r "$(TARGET_ARCH)" -v "$(ELECTRON_VERSION)" -x $(dir $@) -t electron
+	./scripts/unix/dependencies-npm.sh -p \
+		-r "$(TARGET_ARCH)" \
+		-v "$(ELECTRON_VERSION)" \
+		-x $(dir $@) \
+		-t electron \
+		-s "$(TARGET_PLATFORM)"
 
 release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/bower_components: bower.json
 	./scripts/unix/dependencies-bower.sh -p -x $(dir $@)
@@ -181,7 +186,11 @@ electron-develop:
 	# is defined by the `npm-shrinkwrap.json` file, and will thus
 	# refuse to do anything but install from scratch.
 	rm -rf node_modules
-	./scripts/unix/dependencies-npm.sh -r "$(TARGET_ARCH)" -v "$(ELECTRON_VERSION)" -t electron
+	./scripts/unix/dependencies-npm.sh \
+		-r "$(TARGET_ARCH)" \
+		-v "$(ELECTRON_VERSION)" \
+		-t electron \
+		-s "$(TARGET_PLATFORM)"
 	./scripts/unix/dependencies-bower.sh
 
 ifeq ($(TARGET_PLATFORM),darwin)

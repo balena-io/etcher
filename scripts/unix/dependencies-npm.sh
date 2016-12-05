@@ -37,6 +37,7 @@ function usage() {
   echo "    -r <architecture>"
   echo "    -v <target version>"
   echo "    -t <target platform (node|electron)>"
+  echo "    -s <target operating system>"
   echo "    -x <install prefix>"
   echo "    -f force install"
   echo "    -p production install"
@@ -46,15 +47,17 @@ function usage() {
 ARGV_ARCHITECTURE=""
 ARGV_TARGET_VERSION=""
 ARGV_TARGET_PLATFORM=""
+ARGV_TARGET_OPERATING_SYSTEM=""
 ARGV_PREFIX=""
 ARGV_FORCE=false
 ARGV_PRODUCTION=false
 
-while getopts ":r:v:t:x:fp" option; do
+while getopts ":r:v:t:s:x:fp" option; do
   case $option in
     r) ARGV_ARCHITECTURE=$OPTARG ;;
     v) ARGV_TARGET_VERSION=$OPTARG ;;
     t) ARGV_TARGET_PLATFORM=$OPTARG ;;
+    s) ARGV_TARGET_OPERATING_SYSTEM=$OPTARG ;;
     x) ARGV_PREFIX=$OPTARG ;;
     f) ARGV_FORCE=true ;;
     p) ARGV_PRODUCTION=true ;;
@@ -64,9 +67,18 @@ done
 
 if [ -z "$ARGV_ARCHITECTURE" ] \
   || [ -z "$ARGV_TARGET_VERSION" ] \
-  || [ -z "$ARGV_TARGET_PLATFORM" ]
+  || [ -z "$ARGV_TARGET_PLATFORM" ] \
+  || [ -z "$ARGV_TARGET_OPERATING_SYSTEM" ]
 then
   usage
+fi
+
+if [ "$ARGV_TARGET_OPERATING_SYSTEM" == "win32" ]; then
+
+  # We require Visual Studio 2013 specifically since newer versions
+  # lack command line build tools such as `lib.exe` and `cl.exe`.
+  export GYP_MSVS_VERSION=2013
+
 fi
 
 if [ "$ARGV_TARGET_PLATFORM" == "electron" ]; then
