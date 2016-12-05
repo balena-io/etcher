@@ -44,15 +44,10 @@ install:
   - gem install scss_lint
   - npm install -g bower
   - npm install -g electron-installer-debian
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      make electron-develop;
-    fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       brew install afsctool;
     fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      make electron-develop;
-    fi
+  - make electron-develop
 
 before_script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
