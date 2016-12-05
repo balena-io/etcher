@@ -99,10 +99,10 @@ fi
 if [ -n "$ARGV_PREFIX" ]; then
   mkdir -p "$ARGV_PREFIX"
   INSTALL_OPTS="$INSTALL_OPTS --prefix=$ARGV_PREFIX"
-  cp "$PWD/package.json" "$ARGV_PREFIX"
+  ln -s "$PWD/package.json" "$ARGV_PREFIX/package.json"
 
   if [ -f "$PWD/npm-shrinkwrap.json" ]; then
-    cp "$PWD/npm-shrinkwrap.json" "$ARGV_PREFIX"
+    ln -s "$PWD/npm-shrinkwrap.json" "$ARGV_PREFIX/npm-shrinkwrap.json"
   fi
 fi
 
