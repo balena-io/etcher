@@ -2,7 +2,6 @@
 # Application configuration
 # ---------------------------------------------------------------------
 
-SIGN_IDENTITY_OSX = Developer ID Application: Rulemotion Ltd (66H43P8FRG)
 ELECTRON_VERSION = $(shell node -e "console.log(require('./package.json').devDependencies['electron-prebuilt'])")
 APPLICATION_NAME = $(shell node -e "console.log(require('./package.json').displayName)")
 APPLICATION_DESCRIPTION=$(shell node -e "console.log(require('./package.json').description)")
@@ -70,6 +69,16 @@ endif
 TARGET_ARCH = $(HOST_ARCH)
 
 # ---------------------------------------------------------------------
+# Code signing
+# ---------------------------------------------------------------------
+
+ifeq ($(TARGET_PLATFORM),darwin)
+ifndef CODE_SIGN_IDENTITY
+$(warning No code-sign identity found (CODE_SIGN_IDENTITY is not set))
+endif
+endif
+
+# ---------------------------------------------------------------------
 # Extra variables
 # ---------------------------------------------------------------------
 
@@ -132,19 +141,29 @@ ifeq ($(TARGET_PLATFORM),linux)
 		-o $@
 endif
 
+release/$(APPLICATION_NAME)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-rw.dmg: \
+	release/$(APPLICATION_NAME)-darwin-$(TARGET_ARCH)
+	./scripts/darwin/electron-create-readwrite-dmg.sh -p $< -o $@ \
+		-n "$(APPLICATION_NAME)" \
+		-i assets/icon.icns \
+		-b assets/osx/installer.png
+
 release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-darwin-$(TARGET_ARCH).zip: \
 	release/$(APPLICATION_NAME)-darwin-$(TARGET_ARCH)
-	./scripts/darwin/electron-sign-app.sh -a $</$(APPLICATION_NAME).app -i "$(SIGN_IDENTITY_OSX)"
+ifdef CODE_SIGN_IDENTITY
+	./scripts/darwin/electron-sign-app.sh -a $</$(APPLICATION_NAME).app -i "$(CODE_SIGN_IDENTITY)"
+endif
 	./scripts/darwin/electron-installer-app-zip.sh -a $</$(APPLICATION_NAME).app -o $@
 
 release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-darwin-$(TARGET_ARCH).dmg: \
-	release/$(APPLICATION_NAME)-darwin-$(TARGET_ARCH)
-	./scripts/darwin/electron-installer-dmg.sh -p $< -o $@ \
+	release/$(APPLICATION_NAME)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-rw.dmg
+ifdef CODE_SIGN_IDENTITY
+	./scripts/darwin/electron-sign-dmg.sh \
 		-n "$(APPLICATION_NAME)" \
-		-v "$(APPLICATION_VERSION)" \
-		-d "$(SIGN_IDENTITY_OSX)" \
-		-i assets/icon.icns \
-		-b assets/osx/installer.png
+		-d $< \
+		-i "$(CODE_SIGN_IDENTITY)"
+endif
+	./scripts/darwin/electron-create-readonly-dmg.sh -d $< -o $@
 
 release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-linux-$(TARGET_ARCH).zip: \
 	release/$(APPLICATION_NAME)-linux-$(TARGET_ARCH)
