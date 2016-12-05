@@ -213,22 +213,33 @@ ifdef CODE_SIGN_IDENTITY
 endif
 	./scripts/build/electron-create-readonly-dmg-darwin.sh -d $< -o $@
 
-$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-linux-$(TARGET_ARCH).zip: \
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-linux-$(TARGET_ARCH).AppDir: \
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-linux-$(TARGET_ARCH) \
-	| $(BUILD_OUTPUT_DIRECTORY) $(BUILD_TEMPORARY_DIRECTORY)
-	TMPDIR=$(BUILD_TEMPORARY_DIRECTORY) ./scripts/build/electron-installer-appimage-linux.sh -p $< -o $@ \
+	| $(BUILD_DIRECTORY)
+	./scripts/build/electron-create-appdir.sh -p $< -o $@ \
 		-n "$(APPLICATION_NAME)" \
 		-d "$(APPLICATION_DESCRIPTION)" \
 		-r "$(TARGET_ARCH)" \
 		-b "$(APPLICATION_NAME_LOWERCASE)" \
 		-i assets/icon.png
 
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-linux-$(TARGET_ARCH).AppImage: \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-linux-$(TARGET_ARCH).AppDir \
+	| $(BUILD_DIRECTORY) $(BUILD_TEMPORARY_DIRECTORY)
+	./scripts/build/electron-create-appimage-linux.sh -d $< -o $@ \
+		-r "$(TARGET_ARCH)" \
+		-w "$(BUILD_TEMPORARY_DIRECTORY)"
+
+$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-linux-$(TARGET_ARCH).zip: \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-linux-$(TARGET_ARCH).AppImage \
+	| $(BUILD_OUTPUT_DIRECTORY)
+	./scripts/build/electron-installer-appimage-zip.sh -i $< -o $@
+
 $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb: \
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-linux-$(TARGET_ARCH) \
 	| $(BUILD_OUTPUT_DIRECTORY)
-	./scripts/build/electron-installer-debian-linux.sh -p $< -r "$(TARGET_ARCH)" \
-		-c scripts/build/debian/config.json \
-		-o $(dir $@)
+	./scripts/build/electron-installer-debian-linux.sh -p $< -r "$(TARGET_ARCH)" -o $| \
+		-c scripts/build/debian/config.json
 
 # ---------------------------------------------------------------------
 # Phony targets

@@ -18,13 +18,6 @@
 
 set -u
 set -e
-set -x
-
-OS=$(uname)
-if [[ "$OS" != "Linux" ]]; then
-  echo "This script is only meant to be run in GNU/Linux" 1>&2
-  exit 1
-fi
 
 ./scripts/build/check-dependency.sh upx
 
@@ -75,16 +68,11 @@ then
   usage
 fi
 
-TEMPORARY_DIRECTORY=$(mktemp -d)
-OUTPUT_FILENAME="$ARGV_APPLICATION_NAME-linux-$ARGV_ARCHITECTURE.AppImage"
-
 # Create AppDir
-APPDIR_PATH=$TEMPORARY_DIRECTORY/${OUTPUT_FILENAME%.*}.AppDir
+mkdir -p "$ARGV_OUTPUT"
 APPDIR_ICON_FILENAME=icon
-rm -rf "$APPDIR_PATH"
-mkdir -p "$APPDIR_PATH/usr/bin"
 
-cat >"$APPDIR_PATH/$ARGV_APPLICATION_NAME.desktop" <<EOF
+cat >"$ARGV_OUTPUT/$ARGV_APPLICATION_NAME.desktop" <<EOF
 [Desktop Entry]
 Name=$ARGV_APPLICATION_NAME
 Exec=$ARGV_BINARY.wrapper
@@ -93,44 +81,40 @@ Icon=$APPDIR_ICON_FILENAME
 Type=Application
 EOF
 
-cp "$ARGV_ICON" "$APPDIR_PATH/$APPDIR_ICON_FILENAME.png"
-cp -rf "$ARGV_PACKAGE"/* "$APPDIR_PATH/usr/bin"
+cp "$ARGV_ICON" "$ARGV_OUTPUT/$APPDIR_ICON_FILENAME.png"
+mkdir -p "$ARGV_OUTPUT/usr/bin"
+cp -rf "$ARGV_PACKAGE"/* "$ARGV_OUTPUT/usr/bin"
 
 # Compress binaries
-upx -9 "$APPDIR_PATH/usr/bin/$ARGV_BINARY"
+upx -9 "$ARGV_OUTPUT/usr/bin/$ARGV_BINARY"
 
 # upx fails with an error if .so are not executables
-chmod +x "$APPDIR_PATH"/usr/bin/*.so*
+chmod +x "$ARGV_OUTPUT"/usr/bin/*.so*
 
 # UPX fails for some reason with some other so libraries
 # other than libnode.so in the x86 build
 if [ "$ARGV_ARCHITECTURE" == "x86" ]; then
-  upx -9 "$APPDIR_PATH"/usr/bin/libnode.so
+  upx -9 "$ARGV_OUTPUT"/usr/bin/libnode.so
 
 else
-  upx -9 "$APPDIR_PATH"/usr/bin/*.so*
+  upx -9 "$ARGV_OUTPUT"/usr/bin/*.so*
 fi
 
-# Generate AppImage
-rm -f "$ARGV_OUTPUT"
-
 APPIMAGES_TAG=6
+APPIMAGES_GITHUB_RAW_BASE_URL=https://raw.githubusercontent.com/probonopd/AppImageKit/$APPIMAGES_TAG
 APPIMAGES_GITHUB_RELEASE_BASE_URL=https://github.com/probonopd/AppImageKit/releases/download/$APPIMAGES_TAG
-APPIMAGEASSISTANT_PATH=$TMPDIR/AppImageAssistant.AppImage
 
 ./scripts/build/download-tool.sh -x \
-  -u "https://raw.githubusercontent.com/probonopd/AppImageKit/$APPIMAGES_TAG/desktopintegration" \
+  -u "$APPIMAGES_GITHUB_RAW_BASE_URL/desktopintegration" \
   -c "bf321258134fa1290b3b3c005332d2aa04ca241e65c21c16c0ab76e892ef6044" \
-  -o "$APPDIR_PATH/usr/bin/$ARGV_BINARY.wrapper"
+  -o "$ARGV_OUTPUT/usr/bin/$ARGV_BINARY.wrapper"
 
 if [ "$ARGV_ARCHITECTURE" == "x64"  ]; then
   APPIMAGES_ARCHITECTURE="x86_64"
   APPRUN_CHECKSUM=28b9c59facd7d0211ef5d825cc00873324cc75163902c48e80e34bf314c910c4
-  APPIMAGEASSISTANT_CHECKSUM=e792fa6ba1dd81de6438844fde39aa12d6b6d15238154ec46baf01da1c92d59f
 elif [ "$ARGV_ARCHITECTURE" == "x86"  ]; then
   APPIMAGES_ARCHITECTURE="i686"
   APPRUN_CHECKSUM=44a56d8a654891030bab57cee4670550ed550f6c63aa7d82377a25828671088b
-  APPIMAGEASSISTANT_CHECKSUM=0faade0c009e703c221650e414f3b4ea8d03abbd8b9f1f065aef46156ee15dd0
 else
   echo "Invalid architecture: $ARGV_ARCHITECTURE" 1>&2
   exit 1
@@ -139,18 +123,4 @@ fi
 ./scripts/build/download-tool.sh -x \
   -u "$APPIMAGES_GITHUB_RELEASE_BASE_URL/AppRun_$APPIMAGES_TAG-$APPIMAGES_ARCHITECTURE" \
   -c "$APPRUN_CHECKSUM" \
-  -o "$APPDIR_PATH/AppRun"
-
-./scripts/build/download-tool.sh -x \
-  -u "$APPIMAGES_GITHUB_RELEASE_BASE_URL/AppImageAssistant_$APPIMAGES_TAG-$APPIMAGES_ARCHITECTURE.AppImage" \
-  -c "$APPIMAGEASSISTANT_CHECKSUM" \
-  -o "$APPIMAGEASSISTANT_PATH"
-
-$APPIMAGEASSISTANT_PATH "$APPDIR_PATH" "$(dirname "$ARGV_OUTPUT")/$OUTPUT_FILENAME"
-rm -rf "$APPDIR_PATH"
-
-# Package AppImage inside a Zip to preserve the execution permissions
-pushd "$(dirname "$ARGV_OUTPUT")"
-zip "$(basename "$ARGV_OUTPUT")" "$OUTPUT_FILENAME"
-rm -f "$OUTPUT_FILENAME"
-popd
+  -o "$ARGV_OUTPUT/AppRun"

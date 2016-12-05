@@ -31,6 +31,7 @@ The following MinGW packages are required:
 - `msys-unzip`
 - `msys-wget`
 - `msys-bash`
+- `msys-coreutils`
 
 ### OS X
 
