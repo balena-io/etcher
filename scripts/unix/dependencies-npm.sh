@@ -114,7 +114,7 @@ if [ -n "$ARGV_PREFIX" ]; then
 
   # Using `--prefix` might cause npm to create an empty `etc` directory
   if [ ! "$(ls -A "$ARGV_PREFIX/etc")" ]; then
-    rm -rf "$ARGV_PREFIX/etc"
+    rmdir "$ARGV_PREFIX/etc"
   fi
 
 fi
