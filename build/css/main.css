@@ -6269,6 +6269,8 @@ body {
 
 .modal-text {
   padding: 20px; }
+  .modal-text > p {
+    white-space: pre-line; }
   .modal-text > p:last-child {
     margin-bottom: 0; }
 
