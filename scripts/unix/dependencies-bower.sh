@@ -59,8 +59,8 @@ if [ -n "$ARGV_PREFIX" ]; then
   cp "$PWD/bower.json" "$ARGV_PREFIX"
   pushd "$ARGV_PREFIX"
   bower install $INSTALL_OPTS
-  rm bower.json
   popd
+  rm "$ARGV_PREFIX/bower.json"
 else
   bower install $INSTALL_OPTS
 fi
