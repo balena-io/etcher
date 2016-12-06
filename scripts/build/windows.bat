@@ -148,7 +148,12 @@ set package_name=Etcher-%etcher_version%-win32-%arch%
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 if not "%command%"=="package" (
-  call scripts\windows\dependencies.bat -r %arch% -v %electron_version% -t electron
+  call bash.exe scripts\unix\dependencies-npm.sh^
+   -r %arch%^
+   -v %electron_version%^
+   -t electron^
+   -s win32
+  call bash.exe scripts\unix\dependencies-bower.sh
 )
 
 if "%command%"=="install" (
@@ -188,13 +193,13 @@ if not "%arch%"=="%electron_arch%" (
 
 move %output_build_directory%\Etcher-win32-%arch% %package_output%
 
-:: Omit *.dll and *.node files from the asar package, otherwise
-:: `process.dlopen` and `module.require` can't load them correctly.
-call asar pack %package_output%\resources\app %package_output%\resources\app.asar^
- --unpack "{*.dll,*.node}"
+call bash.exe scripts\unix\electron-create-asar.sh^
+ -d %package_output%\resources\app^
+ -o %package_output%\resources\app.asar
+
 call rimraf %package_output%\resources\app
 
-call scripts\windows\sign.bat^
+call bash.exe scripts\windows\electron-sign-exe.sh^
  -c %certificate_file%^
  -p %certificate_pass%^
  -f %package_output%\Etcher.exe^
@@ -221,7 +226,7 @@ mkdir "%output_directory%"
 move "%installer_tmp_output%\%application_name% Setup.exe" "%installer_output%"
 rd /s /q "%installer_tmp_output%"
 
-call scripts\windows\sign.bat^
+call bash.exe scripts\windows\electron-sign-exe.sh^
  -c %certificate_file%^
  -p %certificate_pass%^
  -f %installer_output%^
