@@ -98,23 +98,18 @@ fi
 
 if [ -n "$ARGV_PREFIX" ]; then
   mkdir -p "$ARGV_PREFIX"
-  INSTALL_OPTS="$INSTALL_OPTS --prefix=$ARGV_PREFIX"
   ln -s "$PWD/package.json" "$ARGV_PREFIX/package.json"
 
   if [ -f "$PWD/npm-shrinkwrap.json" ]; then
     ln -s "$PWD/npm-shrinkwrap.json" "$ARGV_PREFIX/npm-shrinkwrap.json"
   fi
-fi
 
-npm install $INSTALL_OPTS
+  pushd "$ARGV_PREFIX"
+  npm install $INSTALL_OPTS
+  popd
 
-if [ -n "$ARGV_PREFIX" ]; then
   rm -f "$ARGV_PREFIX/package.json"
   rm -f "$ARGV_PREFIX/npm-shrinkwrap.json"
-
-  # Using `--prefix` might cause npm to create an empty `etc` directory
-  if [ ! "$(ls -A "$ARGV_PREFIX/etc")" ]; then
-    rmdir "$ARGV_PREFIX/etc"
-  fi
-
+else
+  npm install $INSTALL_OPTS
 fi
