@@ -54,4 +54,9 @@ if [ -z "$ARGV_DIRECTORY" ] || [ -z "$ARGV_OUTPUT" ]; then
 fi
 
 mkdir -p $(dirname "$ARGV_OUTPUT")
-asar pack "$ARGV_DIRECTORY" "$ARGV_OUTPUT" --unpack *.node
+
+# Omit `*.dll` and `*.node` files from the
+# asar package, otherwise `process.dlopen` and
+# `module.require` can't load them correctly.
+asar pack "$ARGV_DIRECTORY" "$ARGV_OUTPUT" \
+  --unpack "{*.dll,*.node}"
