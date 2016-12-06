@@ -44,9 +44,7 @@ function usage() {
   echo "Options"
   echo ""
   echo "    -n <application name>"
-  echo "    -v <application version>"
   echo "    -p <application package>"
-  echo "    -d <identity>"
   echo "    -i <application icon (.icns)>"
   echo "    -b <application background (.png)>"
   echo "    -o <output>"
@@ -54,19 +52,15 @@ function usage() {
 }
 
 ARGV_APPLICATION_NAME=""
-ARGV_VERSION=""
 ARGV_PACKAGE=""
-ARGV_IDENTITY=""
 ARGV_ICON=""
 ARGV_BACKGROUND=""
 ARGV_OUTPUT=""
 
-while getopts ":n:v:p:d:i:b:o:" option; do
+while getopts ":n:p:i:b:o:" option; do
   case $option in
     n) ARGV_APPLICATION_NAME="$OPTARG" ;;
-    v) ARGV_VERSION="$OPTARG" ;;
     p) ARGV_PACKAGE="$OPTARG" ;;
-    d) ARGV_IDENTITY="$OPTARG" ;;
     i) ARGV_ICON="$OPTARG" ;;
     b) ARGV_BACKGROUND="$OPTARG" ;;
     o) ARGV_OUTPUT="$OPTARG" ;;
@@ -75,15 +69,14 @@ while getopts ":n:v:p:d:i:b:o:" option; do
 done
 
 if [ -z "$ARGV_APPLICATION_NAME" ] \
-  || [ -z "$ARGV_VERSION" ] \
-  || [ -z "$ARGV_IDENTITY" ] \
+  || [ -z "$ARGV_PACKAGE" ] \
   || [ -z "$ARGV_ICON" ] \
+  || [ -z "$ARGV_BACKGROUND" ] \
   || [ -z "$ARGV_OUTPUT" ]
 then
   usage
 fi
 
-TEMPORARY_DMG=$ARGV_PACKAGE.dmg
 VOLUME_DIRECTORY=/Volumes/$ARGV_APPLICATION_NAME
 VOLUME_APPLICATION=$VOLUME_DIRECTORY/$ARGV_APPLICATION_NAME.app
 
@@ -91,17 +84,16 @@ VOLUME_APPLICATION=$VOLUME_DIRECTORY/$ARGV_APPLICATION_NAME.app
 hdiutil detach "$VOLUME_DIRECTORY" || true
 
 # Create temporary read-write DMG image
-rm -f "$TEMPORARY_DMG"
 hdiutil create \
   -srcfolder "$ARGV_PACKAGE" \
   -volname "$ARGV_APPLICATION_NAME" \
   -fs HFS+ \
   -fsargs "-c c=64,a=16,e=16" \
   -format UDRW \
-  -size 600M "$TEMPORARY_DMG"
+  -size 600M "$ARGV_OUTPUT"
 
 # Mount temporary DMG image, so we can modify it
-hdiutil attach "$TEMPORARY_DMG" -readwrite -noverify
+hdiutil attach "$ARGV_OUTPUT" -readwrite -noverify
 
 # Wait for a bit to ensure the image is mounted
 sleep 2
@@ -159,16 +151,5 @@ sync
 # Apply HFS+ compression
 afsctool -ci -9 "$VOLUME_APPLICATION"
 
-# TODO: this should be decoupled from this script
-./scripts/darwin/electron-sign-app.sh -a "$VOLUME_APPLICATION" -i "$ARGV_IDENTITY"
-
 # Unmount temporary DMG image.
 hdiutil detach "$VOLUME_DIRECTORY"
-
-# Convert temporary DMG image into a production-ready
-# compressed and read-only DMG image.
-mkdir -p "$(dirname "$ARGV_OUTPUT")"
-hdiutil convert "$TEMPORARY_DMG" \
-  -format UDZO \
-  -imagekey zlib-level=9 \
-  -o "$ARGV_OUTPUT"
