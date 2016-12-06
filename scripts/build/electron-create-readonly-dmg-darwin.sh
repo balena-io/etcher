@@ -61,7 +61,6 @@ fi
 
 # Convert temporary DMG image into a production-ready
 # compressed and read-only DMG image.
-mkdir -p "$(dirname "$ARGV_OUTPUT")"
 hdiutil convert "$ARGV_APPLICATION_DMG" \
   -format UDZO \
   -imagekey zlib-level=9 \

@@ -77,7 +77,6 @@ then
   usage
 fi
 
-mkdir -p $(dirname "$ARGV_OUTPUT")
 unzip "$ARGV_ELECTRON_PACKAGE" -d "$ARGV_OUTPUT"
 
 mv $ARGV_OUTPUT/electron $ARGV_OUTPUT/$(echo "$ARGV_APPLICATION_NAME" | tr '[:upper:]' '[:lower:]')

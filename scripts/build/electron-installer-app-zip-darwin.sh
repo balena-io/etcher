@@ -59,7 +59,6 @@ if [ -z "$ARGV_APPLICATION" ] || [ -z "$ARGV_OUTPUT" ]; then
   usage
 fi
 
-mkdir -p "$(dirname "$ARGV_OUTPUT")"
 CWD=$(pwd)
 pushd "$(dirname "$ARGV_APPLICATION")"
 zip -r -9 "$CWD/$ARGV_OUTPUT" "$(basename "$ARGV_APPLICATION")"

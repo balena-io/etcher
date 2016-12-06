@@ -83,15 +83,11 @@ then
   usage
 fi
 
-if [ -z "$TMPDIR" ]; then
-  TMPDIR=$(mktemp -d)
-fi
-mkdir -p "$TMPDIR"
-
+TEMPORARY_DIRECTORY=$(mktemp -d)
 OUTPUT_FILENAME="$ARGV_APPLICATION_NAME-linux-$ARGV_ARCHITECTURE.AppImage"
 
 # Create AppDir
-APPDIR_PATH=$TMPDIR/${OUTPUT_FILENAME%.*}.AppDir
+APPDIR_PATH=$TEMPORARY_DIRECTORY/${OUTPUT_FILENAME%.*}.AppDir
 APPDIR_ICON_FILENAME=icon
 rm -rf "$APPDIR_PATH"
 mkdir -p "$APPDIR_PATH/usr/bin"
@@ -124,7 +120,6 @@ else
 fi
 
 # Generate AppImage
-mkdir -p "$(dirname "$ARGV_OUTPUT")"
 rm -f "$ARGV_OUTPUT"
 
 APPIMAGES_TAG=6

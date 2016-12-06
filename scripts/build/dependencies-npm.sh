@@ -106,7 +106,6 @@ if [ "$ARGV_PRODUCTION" == "true" ]; then
 fi
 
 if [ -n "$ARGV_PREFIX" ]; then
-  mkdir -p "$ARGV_PREFIX"
   ln -s "$PWD/package.json" "$ARGV_PREFIX/package.json"
 
   if [ -f "$PWD/npm-shrinkwrap.json" ]; then

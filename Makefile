@@ -1,4 +1,20 @@
 # ---------------------------------------------------------------------
+# Build configuration
+# ---------------------------------------------------------------------
+
+# This directory will be completely deleted by the `clean` rule
+BUILD_DIRECTORY ?= release
+
+# See http://stackoverflow.com/a/20763842/1641422
+BUILD_DIRECTORY_PARENT = $(dir $(BUILD_DIRECTORY))
+ifeq ($(wildcard $(BUILD_DIRECTORY_PARENT).),)
+$(error $(BUILD_DIRECTORY_PARENT) does not exist)
+endif
+
+BUILD_TEMPORARY_DIRECTORY = $(BUILD_DIRECTORY)/.tmp
+BUILD_OUTPUT_DIRECTORY = $(BUILD_DIRECTORY)/out
+
+# ---------------------------------------------------------------------
 # Application configuration
 # ---------------------------------------------------------------------
 
@@ -89,7 +105,6 @@ ifeq ($(TARGET_ARCH),x64)
 	TARGET_ARCH_DEBIAN = amd64
 endif
 
-TEMPORARY_DIRECTORY = release/.tmp
 APPLICATION_NAME_LOWERCASE = $(shell echo $(APPLICATION_NAME) | tr A-Z a-z)
 APPLICATION_VERSION_DEBIAN = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
 
@@ -104,37 +119,55 @@ define execute-command
 
 endef
 
-release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/node_modules: package.json npm-shrinkwrap.json
+$(BUILD_DIRECTORY):
+	mkdir $@
+
+$(BUILD_TEMPORARY_DIRECTORY): | $(BUILD_DIRECTORY)
+	mkdir $@
+
+$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies: | $(BUILD_DIRECTORY)
+	mkdir $@
+
+$(BUILD_OUTPUT_DIRECTORY): | $(BUILD_DIRECTORY)
+	mkdir $@
+
+$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/node_modules: package.json npm-shrinkwrap.json \
+	| $(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies
 	./scripts/build/dependencies-npm.sh -p \
 		-r "$(TARGET_ARCH)" \
 		-v "$(ELECTRON_VERSION)" \
-		-x $(dir $@) \
+		-x $| \
 		-t electron \
 		-s "$(TARGET_PLATFORM)"
 
-release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/bower_components: bower.json
-	./scripts/build/dependencies-bower.sh -p -x $(dir $@)
+$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/bower_components: bower.json \
+	| $(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies
+	./scripts/build/dependencies-bower.sh -p -x $|
 
-release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app: \
-	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/node_modules \
-	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/bower_components
+$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app: \
+	$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/node_modules \
+	$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/bower_components \
+	| $(BUILD_DIRECTORY)
 	./scripts/build/electron-create-resources-app.sh -s . -f "$(APPLICATION_FILES)" -o $@
 	$(foreach prerequisite,$^,$(call execute-command,cp -rf $(prerequisite) $@))
 
-release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app.asar: \
-	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app
+$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app.asar: \
+	$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app \
+	| $(BUILD_DIRECTORY)
 	./scripts/build/electron-create-asar.sh -d $< -o $@
 
-release/electron-$(ELECTRON_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip:
+$(BUILD_DIRECTORY)/electron-$(ELECTRON_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip: \
+	| $(BUILD_DIRECTORY)
 	./scripts/build/electron-download-package.sh \
 		-r "$(TARGET_ARCH)" \
 		-v "$(ELECTRON_VERSION)" \
 		-s "$(TARGET_PLATFORM)" \
 		-o $@
 
-release/$(APPLICATION_NAME)-$(TARGET_PLATFORM)-$(TARGET_ARCH): \
-	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app.asar \
-	release/electron-$(ELECTRON_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(TARGET_PLATFORM)-$(TARGET_ARCH): \
+	$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app.asar \
+	$(BUILD_DIRECTORY)/electron-$(ELECTRON_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip \
+	| $(BUILD_DIRECTORY)
 ifeq ($(TARGET_PLATFORM),darwin)
 	./scripts/build/electron-configure-package-darwin.sh -p $(word 2,$^) -a $< \
 		-n "$(APPLICATION_NAME)" \
@@ -153,22 +186,25 @@ ifeq ($(TARGET_PLATFORM),linux)
 		-o $@
 endif
 
-release/$(APPLICATION_NAME)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-rw.dmg: \
-	release/$(APPLICATION_NAME)-darwin-$(TARGET_ARCH)
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-rw.dmg: \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-darwin-$(TARGET_ARCH) \
+	| $(BUILD_DIRECTORY)
 	./scripts/build/electron-create-readwrite-dmg-darwin.sh -p $< -o $@ \
 		-n "$(APPLICATION_NAME)" \
 		-i assets/icon.icns \
 		-b assets/osx/installer.png
 
-release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-darwin-$(TARGET_ARCH).zip: \
-	release/$(APPLICATION_NAME)-darwin-$(TARGET_ARCH)
+$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-darwin-$(TARGET_ARCH).zip: \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-darwin-$(TARGET_ARCH) \
+	| $(BUILD_OUTPUT_DIRECTORY)
 ifdef CODE_SIGN_IDENTITY
 	./scripts/build/electron-sign-app-darwin.sh -a $</$(APPLICATION_NAME).app -i "$(CODE_SIGN_IDENTITY)"
 endif
 	./scripts/build/electron-installer-app-zip-darwin.sh -a $</$(APPLICATION_NAME).app -o $@
 
-release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-darwin-$(TARGET_ARCH).dmg: \
-	release/$(APPLICATION_NAME)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-rw.dmg
+$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-darwin-$(TARGET_ARCH).dmg: \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-rw.dmg \
+	| $(BUILD_OUTPUT_DIRECTORY)
 ifdef CODE_SIGN_IDENTITY
 	./scripts/build/electron-sign-dmg-darwin.sh \
 		-n "$(APPLICATION_NAME)" \
@@ -177,17 +213,19 @@ ifdef CODE_SIGN_IDENTITY
 endif
 	./scripts/build/electron-create-readonly-dmg-darwin.sh -d $< -o $@
 
-release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-linux-$(TARGET_ARCH).zip: \
-	release/$(APPLICATION_NAME)-linux-$(TARGET_ARCH)
-	TMPDIR=$(TEMPORARY_DIRECTORY) ./scripts/build/electron-installer-appimage-linux.sh -p $< -o $@ \
+$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-linux-$(TARGET_ARCH).zip: \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-linux-$(TARGET_ARCH) \
+	| $(BUILD_OUTPUT_DIRECTORY) $(BUILD_TEMPORARY_DIRECTORY)
+	TMPDIR=$(BUILD_TEMPORARY_DIRECTORY) ./scripts/build/electron-installer-appimage-linux.sh -p $< -o $@ \
 		-n "$(APPLICATION_NAME)" \
 		-d "$(APPLICATION_DESCRIPTION)" \
 		-r "$(TARGET_ARCH)" \
 		-b "$(APPLICATION_NAME_LOWERCASE)" \
 		-i assets/icon.png
 
-release/out/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb: \
-	release/$(APPLICATION_NAME)-linux-$(TARGET_ARCH)
+$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb: \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-linux-$(TARGET_ARCH) \
+	| $(BUILD_OUTPUT_DIRECTORY)
 	./scripts/build/electron-installer-debian-linux.sh -p $< -r "$(TARGET_ARCH)" \
 		-c scripts/build/debian/config.json \
 		-o $(dir $@)
@@ -203,8 +241,8 @@ TARGETS = \
 	electron-develop
 
 ifeq ($(TARGET_PLATFORM),darwin)
-electron-installer-app-zip: release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
-electron-installer-dmg: release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).dmg
+electron-installer-app-zip: $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
+electron-installer-dmg: $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).dmg
 TARGETS += \
 	electron-installer-dmg \
 	electron-installer-app-zip
@@ -214,8 +252,8 @@ PUBLISH_AWS_S3 += \
 endif
 
 ifeq ($(TARGET_PLATFORM),linux)
-electron-installer-appimage: release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
-electron-installer-debian: release/out/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb
+electron-installer-appimage: $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
+electron-installer-debian: $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb
 TARGETS +=  \
 	electron-installer-appimage \
 	electron-installer-debian
@@ -265,6 +303,6 @@ info:
 	@echo "Target arch     : $(TARGET_ARCH)"
 
 clean:
-	rm -rf release
+	rm -rf $(BUILD_DIRECTORY)
 
 .DEFAULT_GOAL = help
