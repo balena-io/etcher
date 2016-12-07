@@ -27,7 +27,6 @@ function check_dep() {
 }
 
 check_dep browserify
-check_dep wget
 check_dep rsync
 
 function usage() {
@@ -78,13 +77,36 @@ NODE_STATIC_ENTRY_POINT_VERSION=v1.0.0 # NodeJS v6
 NODE_STATIC_ENTRY_POINT_FILENAME="node-$ARGV_OPERATING_SYSTEM-$ARGV_ARCHITECTURE"
 NODE_STATIC_ENTRY_POINT_URL="$NODE_STATIC_ENTRY_POINT_REPOSITORY/releases/download/$NODE_STATIC_ENTRY_POINT_VERSION/$NODE_STATIC_ENTRY_POINT_FILENAME"
 
+if [ "$ARGV_OPERATING_SYSTEM" == "darwin" ]; then
+  NODE_STATIC_ENTRY_POINT_CHECKSUM=12509af741777a2c3688169272fbb01e66b5c0efae400a775770b71d7b62666c
+elif [ "$ARGV_OPERATING_SYSTEM" == "linux" ]; then
+  if [ "$ARGV_ARCHITECTURE" == "x64" ]; then
+    NODE_STATIC_ENTRY_POINT_CHECKSUM=c1735694c1cef2bd26e4c8dcc7e67d5ad61b16b347f1b06588a52cf1aa4432fd
+  fi
+  if [ "$ARGV_ARCHITECTURE" == "x86" ]; then
+    NODE_STATIC_ENTRY_POINT_CHECKSUM=49eeacc086df04bb3370b7c25afcf36b6e45083889ca438747ece3dd96602b8d
+  fi
+elif [ "$ARGV_OPERATING_SYSTEM" == "win32" ]; then
+  if [ "$ARGV_ARCHITECTURE" == "x64" ]; then
+    NODE_STATIC_ENTRY_POINT_CHECKSUM=60f167aa3389e86956c4ec3c44de7107b4dc9d634b26dbd5f08e14e85f32c2ea
+  fi
+  if [ "$ARGV_ARCHITECTURE" == "x86" ]; then
+    NODE_STATIC_ENTRY_POINT_CHECKSUM=19f07b2d89a727dc64dd4b4e74b7ee8f4464ddc908b63bd60506d471e2f9f602
+  fi
+else
+  echo "Unsupported operating system: $ARGV_OPERATING_SYSTEM" 1>&2
+  exit 1
+fi
+
 rm -rf "$ARGV_OUTPUT"
 mkdir -p "$ARGV_OUTPUT"
 
 browserify "$ARGV_ENTRY_POINT" --node --outfile "$ARGV_OUTPUT/index.js"
 BINARY_LOCATION="$ARGV_OUTPUT/$ARGV_APPLICATION_NAME"
-wget "$NODE_STATIC_ENTRY_POINT_URL" -O "$BINARY_LOCATION"
-chmod +x "$BINARY_LOCATION"
+./scripts/build/download-tool.sh -x \
+  -u "$NODE_STATIC_ENTRY_POINT_URL" \
+  -c "$NODE_STATIC_ENTRY_POINT_CHECKSUM" \
+  -o "$BINARY_LOCATION"
 
 rsync \
   --archive \
