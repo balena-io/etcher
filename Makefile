@@ -97,6 +97,13 @@ APPLICATION_VERSION_DEBIAN = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
 # Rules
 # ---------------------------------------------------------------------
 
+# See http://stackoverflow.com/a/12528721
+# Note that the blank line before 'endef' is actually important - don't delete it
+define execute-command
+	$(1)
+
+endef
+
 release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/node_modules: package.json npm-shrinkwrap.json
 	./scripts/build/dependencies-npm.sh -p \
 		-r "$(TARGET_ARCH)" \
@@ -112,7 +119,7 @@ release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app: \
 	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/node_modules \
 	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/bower_components
 	./scripts/build/electron-create-resources-app.sh -s . -f "$(APPLICATION_FILES)" -o $@
-	$(foreach prerequisite,$^,cp -rf $(prerequisite) $@;)
+	$(foreach prerequisite,$^,$(call execute-command,cp -rf $(prerequisite) $@))
 
 release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app.asar: \
 	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app
@@ -201,13 +208,35 @@ electron-installer-dmg: release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$
 TARGETS += \
 	electron-installer-dmg \
 	electron-installer-app-zip
+PUBLISH_AWS_S3 += \
+	release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip \
+	release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).dmg
 endif
+
 ifeq ($(TARGET_PLATFORM),linux)
 electron-installer-appimage: release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
 electron-installer-debian: release/out/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb
 TARGETS +=  \
 	electron-installer-appimage \
 	electron-installer-debian
+PUBLISH_AWS_S3 += \
+	release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
+PUBLISH_BINTRAY_DEBIAN += \
+	release/out/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb
+endif
+
+ifdef PUBLISH_AWS_S3
+publish-aws-s3: $(PUBLISH_AWS_S3)
+	$(foreach publishable,$^,$(call execute-command,./scripts/publish/aws-s3.sh $(publishable)))
+
+TARGETS += publish-aws-s3
+endif
+
+ifdef PUBLISH_BINTRAY_DEBIAN
+publish-bintray-debian: $(PUBLISH_BINTRAY_DEBIAN)
+	$(foreach publishable,$^,$(call execute-command,./scripts/publish/bintray-debian.sh $(publishable)))
+
+TARGETS += publish-bintray-debian
 endif
 
 .PHONY: $(TARGETS)
