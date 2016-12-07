@@ -22,6 +22,14 @@ Prerequisites
 - [NSIS v2.51](http://nsis.sourceforge.net/Main_Page) (v3.x won't work)
 - [Visual Studio Community 2013](https://www.visualstudio.com/en-us/news/vs2013-community-vs.aspx)
 - [7z](http://www.7-zip.org) (command line version)
+- [MinGW](http://www.mingw.org)
+
+The following MinGW packages are required:
+
+- `msys-make`
+- `msys-unzip`
+- `msys-wget`
+- `msys-bash`
 
 ### OS X
 

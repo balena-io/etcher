@@ -29,6 +29,8 @@ install:
   - set PATH=C:\Program Files (x86)\Windows Kits\8.1\bin\x86;%PATH%
   - set PATH=C:\Program Files (x86)\NSIS;%PATH%
   - set PATH=C:\Ruby22\bin;%PATH%
+  - set PATH=C:\MinGW\bin;%PATH%
+  - set PATH=C:\MinGW\msys\1.0\bin;%PATH%
   - gem install scss_lint
   - .\scripts\build\windows.bat install x64
 
