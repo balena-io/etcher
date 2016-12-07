@@ -74,11 +74,7 @@ then
 fi
 
 if [ "$ARGV_TARGET_OPERATING_SYSTEM" == "win32" ]; then
-
-  # We require Visual Studio 2013 specifically since newer versions
-  # lack command line build tools such as `lib.exe` and `cl.exe`.
-  export GYP_MSVS_VERSION=2013
-
+  export GYP_MSVS_VERSION=2015
 fi
 
 if [ "$ARGV_TARGET_PLATFORM" == "electron" ]; then

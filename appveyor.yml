@@ -4,7 +4,7 @@
 init:
   - git config --global core.autocrlf input
 
-image: Visual Studio 2013
+image: Visual Studio 2015
 
 cache:
   - C:\Users\appveyor\.node-gyp

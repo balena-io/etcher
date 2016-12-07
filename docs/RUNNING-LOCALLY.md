@@ -20,7 +20,7 @@ Prerequisites
 - [Rimraf](https://github.com/isaacs/rimraf)
 - [Asar](https://github.com/electron/asar)
 - [NSIS v2.51](http://nsis.sourceforge.net/Main_Page) (v3.x won't work)
-- [Visual Studio Community 2013](https://www.visualstudio.com/en-us/news/vs2013-community-vs.aspx)
+- [Visual Studio Community 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48146) (free) (other editions, like Professional and Enterprise, should work too)
 - [7z](http://www.7-zip.org) (command line version)
 - [MinGW](http://www.mingw.org)
 
@@ -69,7 +69,7 @@ make electron-develop
 
 ### Windows
 
-**Run the following command from the _Developer Command Prompt for VS2013_**,
+**Run the following command from the _Developer Command Prompt for VS2015_**,
 to ensure all Visual Studio command utilities are available in the `%PATH%`:
 
 ```sh
