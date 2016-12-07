@@ -189,14 +189,28 @@ release/out/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_VERSION_DEBIAN)
 # Phony targets
 # ---------------------------------------------------------------------
 
-.PHONY: \
+TARGETS = \
+	help \
 	info \
 	clean \
-	electron-develop \
+	electron-develop
+
+ifeq ($(TARGET_PLATFORM),darwin)
+electron-installer-app-zip: release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
+electron-installer-dmg: release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).dmg
+TARGETS += \
 	electron-installer-dmg \
-	electron-installer-app-zip \
+	electron-installer-app-zip
+endif
+ifeq ($(TARGET_PLATFORM),linux)
+electron-installer-appimage: release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
+electron-installer-debian: release/out/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb
+TARGETS +=  \
 	electron-installer-appimage \
 	electron-installer-debian
+endif
+
+.PHONY: $(TARGETS)
 
 electron-develop:
 	# Since we use an `npm-shrinkwrap.json` file, if you pull changes
@@ -212,14 +226,8 @@ electron-develop:
 		-s "$(TARGET_PLATFORM)"
 	./scripts/unix/dependencies-bower.sh
 
-ifeq ($(TARGET_PLATFORM),darwin)
-electron-installer-app-zip: release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
-electron-installer-dmg: release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).dmg
-endif
-ifeq ($(TARGET_PLATFORM),linux)
-electron-installer-appimage: release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
-electron-installer-debian: release/out/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb
-endif
+help:
+	@echo "Available targets: $(TARGETS)"
 
 info:
 	@echo "Host platform   : $(HOST_PLATFORM)"
@@ -229,3 +237,5 @@ info:
 
 clean:
 	rm -rf release
+
+.DEFAULT_GOAL = help
