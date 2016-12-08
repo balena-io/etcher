@@ -17,22 +17,25 @@ cache:
 environment:
   global:
     ELECTRON_NO_ATTACH_CONSOLE: true
+    nodejs_version: 6.1.0
   matrix:
-    - nodejs_version: 6.1.0
+    - TARGET_ARCH: x64
+    - TARGET_ARCH: x86
 
 install:
   - ps: Install-Product node $env:nodejs_version x64
   - npm install -g npm bower rimraf asar
   - choco install nsis -version 2.51
   - choco install upx
-  - choco install 7zip.commandline
+  - choco install jq
   - set PATH=C:\Program Files (x86)\Windows Kits\8.1\bin\x86;%PATH%
   - set PATH=C:\Program Files (x86)\NSIS;%PATH%
   - set PATH=C:\Ruby22\bin;%PATH%
   - set PATH=C:\MinGW\bin;%PATH%
   - set PATH=C:\MinGW\msys\1.0\bin;%PATH%
   - gem install scss_lint
-  - .\scripts\build\windows.bat install x64
+  - make info
+  - make electron-develop
 
 build: off
 
