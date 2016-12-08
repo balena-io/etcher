@@ -19,15 +19,8 @@
 set -u
 set -e
 
-function check_dep() {
-  if ! command -v $1 2>/dev/null 1>&2; then
-    echo "Dependency missing: $1" 1>&2
-    exit 1
-  fi
-}
-
-check_dep npm
-check_dep python
+./scripts/build/check-dependency.sh npm
+./scripts/build/check-dependency.sh python
 
 function usage() {
   echo "Usage: $0"
