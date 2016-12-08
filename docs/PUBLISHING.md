@@ -75,7 +75,7 @@ Make sure you set the following environment variables:
 Run the following command:
 
 ```sh
-./scripts/publish/bintray-debian.sh <debfile>
+make publish-bintray-debian
 ```
 
 Publishing to S3
@@ -89,10 +89,17 @@ access resin.io's production downloads S3 bucket.
 > The publishing script only runs on UNIX based operating systems for now. You
 > can use something like [Cygwin][cygwin] to run it on Windows.
 
-Run the following command:
+Run the following command to publish a specific file:
 
 ```sh
 ./scripts/publish/aws-s3.sh <file>
+```
+
+Or run the following command to publish all files for the current combination
+of _platform_ and _arch_ (building them if necessary) :
+
+```sh
+make publish-aws-s3
 ```
 
 Also add links to each AWS S3 file in [GitHub Releases][github-releases]. See
