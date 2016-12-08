@@ -24,6 +24,7 @@ addons:
       - clang
       - dpkg
       - fakeroot
+      - jq
 
 before_install:
   - rm -rf ~/.nvm
@@ -46,6 +47,7 @@ install:
   - npm install -g electron-installer-debian
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       brew install afsctool;
+      brew install jq;
     fi
   - make electron-develop
 
