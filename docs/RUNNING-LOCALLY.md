@@ -14,6 +14,7 @@ Prerequisites
 - [UPX](http://upx.sourceforge.net)
 - [Python](https://www.python.org)
 - [SCSS Lint](https://github.com/brigade/scss-lint/)
+- [jq](https://stedolan.github.io/jq/)
 
 ### Windows
 
