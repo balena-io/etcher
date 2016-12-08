@@ -148,12 +148,12 @@ set package_name=Etcher-%etcher_version%-win32-%arch%
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 if not "%command%"=="package" (
-  call bash.exe scripts\unix\dependencies-npm.sh^
+  call bash.exe scripts\build\dependencies-npm.sh^
    -r %arch%^
    -v %electron_version%^
    -t electron^
    -s win32
-  call bash.exe scripts\unix\dependencies-bower.sh
+  call bash.exe scripts\build\dependencies-bower.sh
 )
 
 if "%command%"=="install" (
@@ -193,13 +193,13 @@ if not "%arch%"=="%electron_arch%" (
 
 move %output_build_directory%\Etcher-win32-%arch% %package_output%
 
-call bash.exe scripts\unix\electron-create-asar.sh^
+call bash.exe scripts\build\electron-create-asar.sh^
  -d %package_output%\resources\app^
  -o %package_output%\resources\app.asar
 
 call rimraf %package_output%\resources\app
 
-call bash.exe scripts\windows\electron-sign-exe.sh^
+call bash.exe scripts\build\electron-sign-exe-win32.sh^
  -c %certificate_file%^
  -p %certificate_pass%^
  -f %package_output%\Etcher.exe^
@@ -226,7 +226,7 @@ mkdir "%output_directory%"
 move "%installer_tmp_output%\%application_name% Setup.exe" "%installer_output%"
 rd /s /q "%installer_tmp_output%"
 
-call bash.exe scripts\windows\electron-sign-exe.sh^
+call bash.exe scripts\build\electron-sign-exe-win32.sh^
  -c %certificate_file%^
  -p %certificate_pass%^
  -f %installer_output%^

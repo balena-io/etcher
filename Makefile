@@ -98,7 +98,7 @@ APPLICATION_VERSION_DEBIAN = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
 # ---------------------------------------------------------------------
 
 release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/node_modules: package.json npm-shrinkwrap.json
-	./scripts/unix/dependencies-npm.sh -p \
+	./scripts/build/dependencies-npm.sh -p \
 		-r "$(TARGET_ARCH)" \
 		-v "$(ELECTRON_VERSION)" \
 		-x $(dir $@) \
@@ -106,20 +106,20 @@ release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/node_modules: pa
 		-s "$(TARGET_PLATFORM)"
 
 release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/bower_components: bower.json
-	./scripts/unix/dependencies-bower.sh -p -x $(dir $@)
+	./scripts/build/dependencies-bower.sh -p -x $(dir $@)
 
 release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app: \
 	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/node_modules \
 	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/bower_components
-	./scripts/unix/electron-create-resources-app.sh -s . -f "$(APPLICATION_FILES)" -o $@
+	./scripts/build/electron-create-resources-app.sh -s . -f "$(APPLICATION_FILES)" -o $@
 	$(foreach prerequisite,$^,cp -rf $(prerequisite) $@;)
 
 release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app.asar: \
 	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app
-	./scripts/unix/electron-create-asar.sh -d $< -o $@
+	./scripts/build/electron-create-asar.sh -d $< -o $@
 
 release/electron-$(ELECTRON_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip:
-	./scripts/unix/electron-download-package.sh \
+	./scripts/build/electron-download-package.sh \
 		-r "$(TARGET_ARCH)" \
 		-v "$(ELECTRON_VERSION)" \
 		-s "$(TARGET_PLATFORM)" \
@@ -129,7 +129,7 @@ release/$(APPLICATION_NAME)-$(TARGET_PLATFORM)-$(TARGET_ARCH): \
 	release/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app.asar \
 	release/electron-$(ELECTRON_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
 ifeq ($(TARGET_PLATFORM),darwin)
-	./scripts/darwin/electron-configure-package-darwin.sh -p $(word 2,$^) -a $< \
+	./scripts/build/electron-configure-package-darwin.sh -p $(word 2,$^) -a $< \
 		-n "$(APPLICATION_NAME)" \
 		-v "$(APPLICATION_VERSION)" \
 		-b "$(APPLICATION_BUNDLE_ID)" \
@@ -139,7 +139,7 @@ ifeq ($(TARGET_PLATFORM),darwin)
 		-o $@
 endif
 ifeq ($(TARGET_PLATFORM),linux)
-	./scripts/linux/electron-configure-package-linux.sh -p $(word 2,$^) -a $< \
+	./scripts/build/electron-configure-package-linux.sh -p $(word 2,$^) -a $< \
 		-n "$(APPLICATION_NAME)" \
 		-v "$(APPLICATION_VERSION)" \
 		-l LICENSE \
@@ -148,7 +148,7 @@ endif
 
 release/$(APPLICATION_NAME)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-rw.dmg: \
 	release/$(APPLICATION_NAME)-darwin-$(TARGET_ARCH)
-	./scripts/darwin/electron-create-readwrite-dmg.sh -p $< -o $@ \
+	./scripts/build/electron-create-readwrite-dmg-darwin.sh -p $< -o $@ \
 		-n "$(APPLICATION_NAME)" \
 		-i assets/icon.icns \
 		-b assets/osx/installer.png
@@ -156,23 +156,23 @@ release/$(APPLICATION_NAME)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-rw.dmg: \
 release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-darwin-$(TARGET_ARCH).zip: \
 	release/$(APPLICATION_NAME)-darwin-$(TARGET_ARCH)
 ifdef CODE_SIGN_IDENTITY
-	./scripts/darwin/electron-sign-app.sh -a $</$(APPLICATION_NAME).app -i "$(CODE_SIGN_IDENTITY)"
+	./scripts/build/electron-sign-app-darwin.sh -a $</$(APPLICATION_NAME).app -i "$(CODE_SIGN_IDENTITY)"
 endif
-	./scripts/darwin/electron-installer-app-zip.sh -a $</$(APPLICATION_NAME).app -o $@
+	./scripts/build/electron-installer-app-zip-darwin.sh -a $</$(APPLICATION_NAME).app -o $@
 
 release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-darwin-$(TARGET_ARCH).dmg: \
 	release/$(APPLICATION_NAME)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-rw.dmg
 ifdef CODE_SIGN_IDENTITY
-	./scripts/darwin/electron-sign-dmg.sh \
+	./scripts/build/electron-sign-dmg-darwin.sh \
 		-n "$(APPLICATION_NAME)" \
 		-d $< \
 		-i "$(CODE_SIGN_IDENTITY)"
 endif
-	./scripts/darwin/electron-create-readonly-dmg.sh -d $< -o $@
+	./scripts/build/electron-create-readonly-dmg-darwin.sh -d $< -o $@
 
 release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-linux-$(TARGET_ARCH).zip: \
 	release/$(APPLICATION_NAME)-linux-$(TARGET_ARCH)
-	TMPDIR=$(TEMPORARY_DIRECTORY) ./scripts/linux/electron-installer-appimage.sh -p $< -o $@ \
+	TMPDIR=$(TEMPORARY_DIRECTORY) ./scripts/build/electron-installer-appimage-linux.sh -p $< -o $@ \
 		-n "$(APPLICATION_NAME)" \
 		-d "$(APPLICATION_DESCRIPTION)" \
 		-r "$(TARGET_ARCH)" \
@@ -181,7 +181,7 @@ release/out/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-linux-$(TARGET_ARCH).zip:
 
 release/out/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb: \
 	release/$(APPLICATION_NAME)-linux-$(TARGET_ARCH)
-	./scripts/linux/electron-installer-debian.sh -p $< -r "$(TARGET_ARCH)" \
+	./scripts/build/electron-installer-debian-linux.sh -p $< -r "$(TARGET_ARCH)" \
 		-c scripts/build/debian/config.json \
 		-o $(dir $@)
 
@@ -219,12 +219,12 @@ electron-develop:
 	# is defined by the `npm-shrinkwrap.json` file, and will thus
 	# refuse to do anything but install from scratch.
 	rm -rf node_modules
-	./scripts/unix/dependencies-npm.sh \
+	./scripts/build/dependencies-npm.sh \
 		-r "$(TARGET_ARCH)" \
 		-v "$(ELECTRON_VERSION)" \
 		-t electron \
 		-s "$(TARGET_PLATFORM)"
-	./scripts/unix/dependencies-bower.sh
+	./scripts/build/dependencies-bower.sh
 
 help:
 	@echo "Available targets: $(TARGETS)"
