@@ -95,6 +95,10 @@ Run the following command:
 ./scripts/publish/aws-s3.sh <file>
 ```
 
+Also add links to each AWS S3 file in [GitHub Releases][github-releases]. See
+[`v1.0.0-beta.17`](https://github.com/resin-io/etcher/releases/tag/v1.0.0-beta.17)
+as an example.
+
 Publishing to Homebrew Cask
 ---------------------------
 
@@ -118,3 +122,4 @@ of Etcher, and including the relevant section of the Changelog.
 [homebrew-cask]: https://github.com/caskroom/homebrew-cask
 [resin-forum-etcher]: https://talk.resin.io/c/etcher/annoucements
 [gitter-etcher]: https://gitter.im/resin-io/etcher
+[github-releases]: https://github.com/resin-io/etcher/releases
