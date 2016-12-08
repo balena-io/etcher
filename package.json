@@ -23,6 +23,7 @@
   "author": "Juan Cruz Viotti <juan@resin.io>",
   "license": "Apache-2.0",
   "copyright": "Copyright 2016 Resinio Ltd",
+  "companyName": "Resinio Ltd",
   "packageIgnore": [
     "LICENSE",
     "Makefile",

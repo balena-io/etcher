@@ -19,6 +19,7 @@ BUILD_OUTPUT_DIRECTORY = $(BUILD_DIRECTORY)/out
 # ---------------------------------------------------------------------
 
 ELECTRON_VERSION = $(shell jq -r '.devDependencies["electron-prebuilt"]' package.json)
+COMPANY_NAME = $(shell jq -r '.companyName' package.json)
 APPLICATION_NAME = $(shell jq -r '.displayName' package.json)
 APPLICATION_DESCRIPTION = $(shell jq -r '.description' package.json)
 APPLICATION_VERSION = $(shell jq -r '.version' package.json)
@@ -91,6 +92,15 @@ TARGET_ARCH = $(HOST_ARCH)
 ifeq ($(TARGET_PLATFORM),darwin)
 ifndef CODE_SIGN_IDENTITY
 $(warning No code-sign identity found (CODE_SIGN_IDENTITY is not set))
+endif
+endif
+
+ifeq ($(TARGET_PLATFORM),win32)
+ifndef CODE_SIGN_CERTIFICATE
+$(warning No code-sign certificate found (CODE_SIGN_CERTIFICATE is not set))
+ifndef CODE_SIGN_CERTIFICATE_PASSWORD
+$(warning No code-sign certificate password found (CODE_SIGN_CERTIFICATE_PASSWORD is not set))
+endif
 endif
 endif
 
@@ -184,6 +194,26 @@ ifeq ($(TARGET_PLATFORM),linux)
 		-v "$(APPLICATION_VERSION)" \
 		-l LICENSE \
 		-o $@
+endif
+ifeq ($(TARGET_PLATFORM),win32)
+	./scripts/build/electron-configure-package-win32.sh -p $(word 2,$^) -a $< \
+		-n "$(APPLICATION_NAME)" \
+		-d "$(APPLICATION_DESCRIPTION)" \
+		-v "$(APPLICATION_VERSION)" \
+		-l LICENSE \
+		-c "$(APPLICATION_COPYRIGHT)" \
+		-m "$(COMPANY_NAME)" \
+		-i assets/icon.ico \
+		-w $(TEMPORARY_DIRECTORY) \
+		-o $@
+ifdef CODE_SIGN_CERTIFICATE
+ifdef CODE_SIGN_CERTIFICATE_PASSWORD
+	./scripts/build/electron-sign-exe.sh -f $@/$(APPLICATION_NAME).exe \
+		-d "$(APPLICATION_NAME) - $(APPLICATION_VERSION)"
+		-c $(CODE_SIGN_CERTIFICATE) \
+		-p $(CODE_SIGN_CERTIFICATE_PASSWORD)
+endif
+endif
 endif
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-rw.dmg: \
