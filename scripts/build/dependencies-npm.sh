@@ -81,12 +81,13 @@ if [ "$ARGV_TARGET_PLATFORM" == "electron" ]; then
 
   # Ensure native addons are compiled with the correct headers
   # See https://github.com/electron/electron/blob/master/docs/tutorial/using-native-node-modules.md
-  export npm_config_disturl=https://atom.io/download/atom-shell
+  export npm_config_disturl=https://atom.io/download/electron
   export npm_config_runtime=electron
 
 fi
 
 export npm_config_target=$ARGV_TARGET_VERSION
+export npm_config_build_from_source=true
 
 if [ "$ARGV_ARCHITECTURE" == "x86" ]; then
   export npm_config_arch=ia32
@@ -94,7 +95,7 @@ else
   export npm_config_arch=$ARGV_ARCHITECTURE
 fi
 
-INSTALL_OPTS="--build-from-source"
+INSTALL_OPTS=""
 
 if [ "$ARGV_FORCE" == "true" ]; then
   INSTALL_OPTS="$INSTALL_OPTS --force"
