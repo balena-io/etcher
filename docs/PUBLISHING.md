@@ -75,7 +75,7 @@ Make sure you set the following environment variables:
 Run the following command:
 
 ```sh
-make publish-bintray-debian
+make publish-bintray-debian RELEASE_TYPE=<production|snapshot>
 ```
 
 Publishing to S3
@@ -92,14 +92,14 @@ access resin.io's production downloads S3 bucket.
 Run the following command to publish a specific file:
 
 ```sh
-./scripts/publish/aws-s3.sh <file>
+./scripts/publish/aws-s3.sh -f <file> -b <bucket> -v <version> -t <production|snapshot>
 ```
 
 Or run the following command to publish all files for the current combination
 of _platform_ and _arch_ (building them if necessary) :
 
 ```sh
-make publish-aws-s3
+make publish-aws-s3 RELEASE_TYPE=<production|snapshot>
 ```
 
 Also add links to each AWS S3 file in [GitHub Releases][github-releases]. See

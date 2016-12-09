@@ -6673,6 +6673,7 @@ body {
     .section-footer .caption[os-open-external]:hover, .section-footer .page-main [os-open-external].icon-caption:hover, .page-main .section-footer [os-open-external].icon-caption:hover {
       color: #85898c; }
   .section-footer .footer-right {
+    font-size: 10px;
     position: absolute;
     right: 0;
     top: 50%; }
