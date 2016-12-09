@@ -69,7 +69,7 @@ hdiutil attach "$ARGV_APPLICATION_DMG" -readwrite -noverify
 # Wait for a bit to ensure the image is mounted
 sleep 2
 
-./scripts/darwin/electron-sign-app.sh -a "$VOLUME_APPLICATION" -i "$ARGV_IDENTITY"
+./scripts/build/electron-sign-app-darwin.sh -a "$VOLUME_APPLICATION" -i "$ARGV_IDENTITY"
 
 # Unmount temporary DMG image.
 hdiutil detach "$VOLUME_DIRECTORY"
