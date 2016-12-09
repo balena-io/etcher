@@ -16,22 +16,33 @@
 # limitations under the License.
 ###
 
-# See http://www.davidpashley.com/articles/writing-robust-shell-scripts/
-set -u
 set -e
+set +u
+ARGV_DEPENDENCIES=$*
+set -u
 
-./scripts/build/check-dependency.sh aws
-
-if [ "$#" -ne 1 ]; then
-  echo "Usage: $0 <file>" 1>&2
+if [ -z "$ARGV_DEPENDENCIES" ]; then
+  echo "Usage: $0 <dependency...>"
   exit 1
 fi
 
-ETCHER_VERSION=`node -e "console.log(require('./package.json').version)"`
-S3_BUCKET="resin-production-downloads"
+RESULT=""
 
-aws s3api put-object \
-  --bucket $S3_BUCKET \
-  --acl public-read \
-  --key etcher/$ETCHER_VERSION/`basename $1` \
-  --body $1
+for dependency in $ARGV_DEPENDENCIES; do
+  if command -v $dependency 2>/dev/null 1>&2; then
+    RESULT=$dependency
+    break
+  fi
+done
+
+if [ -z "$RESULT" ]; then
+  echo "Dependency missing: $ARGV_DEPENDENCIES" 1>&2
+  exit 1
+fi
+
+# Only print back if more than one command was passed
+# otherwise if the script passes, its clear that the
+# single command checked is the one that exists.
+if [ "$#" -ne 1 ]; then
+  echo $RESULT
+fi

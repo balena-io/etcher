@@ -19,22 +19,11 @@
 set -u
 set -e
 
-function check_dep() {
-  if ! command -v $1 2>/dev/null 1>&2; then
-    echo "Dependency missing: $1" 1>&2
-    exit 1
-  fi
-}
+./scripts/build/check-dependency.sh wget
 
-check_dep wget
-
-if command -v sha256sum 2>/dev/null 1>&2; then
-  SHA256SUM=sha256sum
-elif command -v shasum 2>/dev/null 1>&2; then
-  SHA256SUM="shasum -a 256"
-else
-  echo "Dependency missing: sha256sum or shasum" 1>&2
-  exit 1
+SHA256SUM=$(./scripts/build/check-dependency.sh sha256sum shasum)
+if [ "$SHA256SUM" == "shasum" ]; then
+  SHA256SUM="$SHA256SUM -a 256"
 fi
 
 function usage() {

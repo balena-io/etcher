@@ -25,14 +25,7 @@ if [[ "$OS" != "Linux" ]]; then
   exit 1
 fi
 
-function check_dep() {
-  if ! command -v $1 2>/dev/null 1>&2; then
-    echo "Dependency missing: $1" 1>&2
-    exit 1
-  fi
-}
-
-check_dep unzip
+./scripts/build/check-dependency.sh unzip
 
 function usage() {
   echo "Usage: $0"
