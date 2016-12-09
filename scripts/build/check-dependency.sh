@@ -17,18 +17,18 @@
 ###
 
 set -e
-set +u
-ARGV_DEPENDENCIES=$*
 set -u
 
-if [ -z "$ARGV_DEPENDENCIES" ]; then
+if [ "$#" -lt 1 ]; then
   echo "Usage: $0 <dependency...>"
   exit 1
 fi
 
 RESULT=""
+DEPENDENCIES=""
 
-for dependency in $ARGV_DEPENDENCIES; do
+for dependency in "$@"; do
+  DEPENDENCIES="$DEPENDENCIES $(echo $dependency | cut -d ' ' -f 1)"
   if command -v $dependency 2>/dev/null 1>&2; then
     RESULT=$dependency
     break
@@ -36,7 +36,11 @@ for dependency in $ARGV_DEPENDENCIES; do
 done
 
 if [ -z "$RESULT" ]; then
-  echo "Dependency missing: $ARGV_DEPENDENCIES" 1>&2
+  if [ "$#" -eq 1 ]; then
+    echo "Dependency missing:$DEPENDENCIES" 1>&2
+  else
+    echo "No dependency found from:$DEPENDENCIES" 1>&2
+  fi
   exit 1
 fi
 

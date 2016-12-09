@@ -21,10 +21,7 @@ set -e
 
 ./scripts/build/check-dependency.sh wget
 
-SHA256SUM=$(./scripts/build/check-dependency.sh sha256sum shasum)
-if [ "$SHA256SUM" == "shasum" ]; then
-  SHA256SUM="$SHA256SUM -a 256"
-fi
+SHA256SUM=$(./scripts/build/check-dependency.sh sha256sum "shasum -a 256")
 
 function usage() {
   echo "Usage: $0"
