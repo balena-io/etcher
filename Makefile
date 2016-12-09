@@ -84,6 +84,18 @@ endif
 #
 TARGET_ARCH ?= $(HOST_ARCH)
 
+# Support x86 builds from x64 in GNU/Linux
+# See https://github.com/addaleax/lzma-native/issues/27
+ifeq ($(TARGET_PLATFORM),linux)
+	ifneq ($(HOST_ARCH),$(TARGET_ARCH))
+		ifeq ($(TARGET_ARCH),x86)
+			export CFLAGS += -m32
+		else
+$(error Can't build $(TARGET_ARCH) binaries on a $(HOST_ARCH) host)
+		endif
+	endif
+endif
+
 # ---------------------------------------------------------------------
 # Code signing
 # ---------------------------------------------------------------------
@@ -285,6 +297,9 @@ electron-develop:
 	# will complain that your `node_modules` tree is not equal to what
 	# is defined by the `npm-shrinkwrap.json` file, and will thus
 	# refuse to do anything but install from scratch.
+	# The `node_modules` directory also needs to be wiped out if you're
+	# changing between target architectures, since compiled add-ons
+	# will not work otherwise.
 	rm -rf node_modules
 	./scripts/build/dependencies-npm.sh \
 		-r "$(TARGET_ARCH)" \
