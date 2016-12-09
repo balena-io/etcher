@@ -53,8 +53,6 @@ if [ -z "$ARGV_DIRECTORY" ] || [ -z "$ARGV_OUTPUT" ]; then
   usage
 fi
 
-mkdir -p $(dirname "$ARGV_OUTPUT")
-
 # Omit `*.dll` and `*.node` files from the
 # asar package, otherwise `process.dlopen` and
 # `module.require` can't load them correctly.

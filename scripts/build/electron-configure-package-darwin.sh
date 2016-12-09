@@ -90,7 +90,6 @@ then
   usage
 fi
 
-mkdir -p $(dirname "$ARGV_OUTPUT")
 unzip "$ARGV_ELECTRON_PACKAGE" -d "$ARGV_OUTPUT"
 
 APPLICATION_OUTPUT="$ARGV_OUTPUT/$ARGV_APPLICATION_NAME.app"

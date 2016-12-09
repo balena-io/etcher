@@ -98,9 +98,6 @@ else
   exit 1
 fi
 
-rm -rf "$ARGV_OUTPUT"
-mkdir -p "$ARGV_OUTPUT"
-
 browserify "$ARGV_ENTRY_POINT" --node --outfile "$ARGV_OUTPUT/index.js"
 BINARY_LOCATION="$ARGV_OUTPUT/$ARGV_APPLICATION_NAME"
 ./scripts/build/download-tool.sh -x \

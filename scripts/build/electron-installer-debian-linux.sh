@@ -78,7 +78,6 @@ else
   exit 1
 fi
 
-mkdir -p "$ARGV_OUTPUT"
 cp scripts/build/debian/etcher-electron.sh "$ARGV_DIRECTORY"
 electron-installer-debian \
   --src "$ARGV_DIRECTORY" \
