@@ -82,7 +82,7 @@ endif
 #
 #   make <target> TARGET_ARCH=<arch>
 #
-TARGET_ARCH = $(HOST_ARCH)
+TARGET_ARCH ?= $(HOST_ARCH)
 
 # ---------------------------------------------------------------------
 # Code signing
