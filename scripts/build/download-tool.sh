@@ -63,7 +63,13 @@ function checksum_matches() {
 	test "$($SHA256SUM $file | cut -d ' ' -f1)" = "$hash"
 }
 
-if [ -e "$ARGV_OUTPUT" ]; then
+TEMP_OUTPUT="$ARGV_OUTPUT.TMP"
+
+if [ -f "$TEMP_OUTPUT" ]; then
+  rm "$TEMP_OUTPUT"
+fi
+
+if [ -f "$ARGV_OUTPUT" ]; then
   if checksum_matches "$ARGV_OUTPUT" "$ARGV_CHECKSUM"; then
     echo "Re-using from cache"
     exit 0
@@ -72,12 +78,14 @@ if [ -e "$ARGV_OUTPUT" ]; then
   fi
 fi
 
-wget --no-check-certificate "$ARGV_URL" -O "$ARGV_OUTPUT"
+wget --no-check-certificate "$ARGV_URL" -O "$TEMP_OUTPUT"
 
-if ! checksum_matches "$ARGV_OUTPUT" "$ARGV_CHECKSUM"; then
+if ! checksum_matches "$TEMP_OUTPUT" "$ARGV_CHECKSUM"; then
   echo "Checksum mismatch" 1>&2
-  rm -f "$ARGV_OUTPUT"
+  rm "$TEMP_OUTPUT"
   exit 1
+else
+  mv "$TEMP_OUTPUT" "$ARGV_OUTPUT"
 fi
 
 if [ "$ARGV_EXECUTE_PERMISSIONS" == "true" ]; then
