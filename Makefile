@@ -238,6 +238,7 @@ TARGETS = \
 	help \
 	info \
 	clean \
+	distclean \
 	electron-develop
 
 ifeq ($(TARGET_PLATFORM),darwin)
@@ -304,5 +305,9 @@ info:
 
 clean:
 	rm -rf $(BUILD_DIRECTORY)
+
+distclean: clean
+	rm -rf node_modules
+	rm -rf bower_components
 
 .DEFAULT_GOAL = help
