@@ -37,7 +37,7 @@ dependency.
 
 Use the following steps to ensure everything goes flawlessly:
 
-- Delete your `node_modules/` to ensure you don't have extraneous dependencies
+- Run `make electron-develop` to ensure you don't have extraneous dependencies
   you might have brought during development, or you are running older
   dependencies because you come from another branch or reference.
 
