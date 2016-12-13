@@ -189,9 +189,9 @@
       "resolved": "https://registry.npmjs.org/cli-spinner/-/cli-spinner-0.2.5.tgz"
     },
     "cli-width": {
-      "version": "1.1.1",
-      "from": "cli-width@>=1.0.1 <2.0.0",
-      "resolved": "https://registry.npmjs.org/cli-width/-/cli-width-1.1.1.tgz"
+      "version": "2.1.0",
+      "from": "cli-width@>=2.0.0 <3.0.0",
+      "resolved": "https://registry.npmjs.org/cli-width/-/cli-width-2.1.0.tgz"
     },
     "cliui": {
       "version": "3.2.0",
@@ -446,14 +446,34 @@
       "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz"
     },
     "inquirer": {
-      "version": "0.11.4",
-      "from": "inquirer@>=0.11.0 <0.12.0",
-      "resolved": "https://registry.npmjs.org/inquirer/-/inquirer-0.11.4.tgz",
+      "version": "2.0.0",
+      "from": "inquirer@latest",
+      "resolved": "https://registry.npmjs.org/inquirer/-/inquirer-2.0.0.tgz",
       "dependencies": {
-        "lodash": {
-          "version": "3.10.1",
-          "from": "lodash@>=3.3.1 <4.0.0",
-          "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz"
+        "figures": {
+          "version": "2.0.0",
+          "from": "figures@>=2.0.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/figures/-/figures-2.0.0.tgz"
+        },
+        "is-fullwidth-code-point": {
+          "version": "2.0.0",
+          "from": "is-fullwidth-code-point@>=2.0.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/is-fullwidth-code-point/-/is-fullwidth-code-point-2.0.0.tgz"
+        },
+        "mute-stream": {
+          "version": "0.0.6",
+          "from": "mute-stream@0.0.6",
+          "resolved": "https://registry.npmjs.org/mute-stream/-/mute-stream-0.0.6.tgz"
+        },
+        "run-async": {
+          "version": "2.3.0",
+          "from": "run-async@>=2.2.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/run-async/-/run-async-2.3.0.tgz"
+        },
+        "string-width": {
+          "version": "2.0.0",
+          "from": "string-width@>=2.0.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/string-width/-/string-width-2.0.0.tgz"
         }
       }
     },
@@ -466,6 +486,16 @@
           "version": "2.10.2",
           "from": "bluebird@>=2.10.2 <3.0.0",
           "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-2.10.2.tgz"
+        },
+        "cli-width": {
+          "version": "1.1.1",
+          "from": "cli-width@>=1.0.1 <2.0.0",
+          "resolved": "https://registry.npmjs.org/cli-width/-/cli-width-1.1.1.tgz"
+        },
+        "inquirer": {
+          "version": "0.11.4",
+          "from": "inquirer@>=0.11.0 <0.12.0",
+          "resolved": "https://registry.npmjs.org/inquirer/-/inquirer-0.11.4.tgz"
         },
         "lodash": {
           "version": "3.10.1",
@@ -1417,23 +1447,6 @@
       "from": "require-uncached@>=1.0.2 <2.0.0",
       "resolved": "https://registry.npmjs.org/require-uncached/-/require-uncached-1.0.2.tgz"
     },
-    "resin-cli-form": {
-      "version": "1.4.1",
-      "from": "resin-cli-form@>=1.4.1 <2.0.0",
-      "resolved": "https://registry.npmjs.org/resin-cli-form/-/resin-cli-form-1.4.1.tgz",
-      "dependencies": {
-        "bluebird": {
-          "version": "2.10.2",
-          "from": "bluebird@>=2.9.30 <3.0.0",
-          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-2.10.2.tgz"
-        },
-        "lodash": {
-          "version": "3.10.1",
-          "from": "lodash@>=3.9.3 <4.0.0",
-          "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz"
-        }
-      }
-    },
     "resin-cli-visuals": {
       "version": "1.2.9",
       "from": "resin-cli-visuals@>=1.2.8 <2.0.0",
@@ -1444,10 +1457,20 @@
           "from": "bluebird@>=2.9.34 <3.0.0",
           "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-2.10.2.tgz"
         },
+        "cli-width": {
+          "version": "1.1.1",
+          "from": "cli-width@>=1.0.1 <2.0.0",
+          "resolved": "https://registry.npmjs.org/cli-width/-/cli-width-1.1.1.tgz"
+        },
         "drivelist": {
           "version": "3.3.4",
           "from": "drivelist@>=3.1.0 <4.0.0",
           "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-3.3.4.tgz"
+        },
+        "inquirer": {
+          "version": "0.11.4",
+          "from": "inquirer@>=0.11.0 <0.12.0",
+          "resolved": "https://registry.npmjs.org/inquirer/-/inquirer-0.11.4.tgz"
         },
         "lodash": {
           "version": "3.10.1",
