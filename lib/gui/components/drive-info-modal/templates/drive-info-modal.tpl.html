@@ -1,0 +1,59 @@
+<div class="modal-header">
+  <h4 class="modal-title">
+    <span class="glyphicon glyphicon-{{ ::modal.options.icon }}"></span>
+    <span>{{ ::modal.options.title }}</span>
+  </h4>
+  <button class="close" ng-click="modal.reject()">&times;</button>
+</div>
+
+<div class="modal-body">
+  <div class="modal-text"
+    ng-if="modal.options.header && modal.options.description">
+    <h4>{{ ::modal.options.header }}</h4>
+    <p>{{ ::modal.options.description }}</p>
+  </div>
+  <div class="modal-selected-drive">
+    <div class="modal-selected-drive-description">
+      {{ ::modal.selection.getDrive().description }}
+
+    </div>
+    <div class="modal-selected-drive-name">
+      {{ ::modal.selection.getDrive().name }} - {{ ::modal.selection.getDrive().size | gigabyte | number:1 }} GB
+
+
+      <span class="label label-warning"
+          ng-show="modal.selection.isDriveLargeEnough(modal.selection.getDrive()) && !modal.selection.isDriveLocked(modal.selection.getDrive()) && !modal.selection.isDriveSizeRecommended(modal.selection.getDrive())">
+          <i class="glyphicon glyphicon-warning-sign"></i>
+          NOT RECOMMENDED</span>
+
+      <span class="label label-danger"
+        ng-hide="modal.selection.isDriveLargeEnough(modal.selection.getDrive())">
+          <i class="glyphicon glyphicon-resize-small"></i>
+          TOO SMALL FOR IMAGE</span>
+
+      <span class="label label-danger"
+        ng-show="modal.selection.isDriveLocked(modal.selection.getDrive()) && modal.selection.isDriveLargeEnough(modal.selection.getDrive())">
+          <i class="glyphicon glyphicon-lock"></i>
+          LOCKED</span>
+
+      <span class="label label-danger"
+        ng-show="modal.selection.getDrive().system">
+          <i class="glyphicon glyphicon-hdd"></i>
+          SYSTEM DRIVE</span>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer"
+  ng-if="modal.options.confirmationLabel && modal.options.rejectionLabel">
+  <div class="modal-menu">
+    <button class="button button-danger button-block"
+      ng-if="modal.options.confirmationLabel" 
+      ng-click="modal.accept()">{{ ::modal.options.confirmationLabel }}</button>
+    <button class="button button-block"
+      ng-if="modal.options.rejectionLabel" 
+      ng-click="modal.reject()">{{ ::modal.options.rejectionLabel }}</button>
+  </div>
+</div>
+
