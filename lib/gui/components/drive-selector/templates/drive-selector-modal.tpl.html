@@ -27,17 +27,14 @@
 
             <span class="label label-danger"
               ng-hide="modal.state.isDriveLargeEnough(drive)">
-                <i class="glyphicon glyphicon-resize-small"></i>
                 TOO SMALL FOR IMAGE</span>
 
             <span class="label label-danger"
               ng-show="modal.state.isDriveLocked(drive) && modal.state.isDriveLargeEnough(drive)">
-                <i class="glyphicon glyphicon-lock"></i>
                 LOCKED</span>
 
             <span class="label label-danger"
               ng-show="modal.state.isSystemDrive(drive)">
-                <i class="glyphicon glyphicon-hdd"></i>
                 SYSTEM DRIVE</span>
 
           </footer>
@@ -50,7 +47,17 @@
 </div>
 
 <div class="modal-footer">
-  <button class="button button-primary button-block"
+  <p class="modal-footer-label"
+    ng-show="modal.getButtonStatus() === 'danger'">
+      {{ modal.getFooterMessage() }}
+  </p>
+  <button class="button button-block"
+    ng-class="{ 'label-danger': modal.getButtonStatus() === 'danger',
+                'button-primary': modal.getButtonStatus() === 'primary' }"
     ng-click="modal.closeModal()"
-    ng-disabled="!modal.state.hasDrive()">CONTINUE</button>
+    ng-disabled="!modal.state.hasDrive()">
+      <i class="glyphicon glyphicon-alert"
+        ng-show="modal.getButtonStatus() === 'danger'"></i>
+      Continue
+  </button>
 </div>

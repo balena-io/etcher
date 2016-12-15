@@ -33,7 +33,7 @@
 }
 
 .modal-title {
-  font-size: inherit;
+  font-size: 12px;
   flex-grow: 1;
 }
 
@@ -79,12 +79,14 @@
   }
 
   .list-group-item-heading {
-    font-size: 13px;
+    font-size: 14px;
+    font-weight: bold;
   }
 
   .list-group-item-text {
     line-height: 1;
-    font-size: 11px;
+    font-size: 13px;
+    font-weight: bold;
     color: $palette-theme-light-soft-foreground;
   }
 }
