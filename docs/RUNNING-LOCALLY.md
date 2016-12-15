@@ -15,11 +15,11 @@ Prerequisites
 - [Python](https://www.python.org)
 - [SCSS Lint](https://github.com/brigade/scss-lint/)
 - [jq](https://stedolan.github.io/jq/)
+- [Asar](https://github.com/electron/asar)
 
 ### Windows
 
 - [Rimraf](https://github.com/isaacs/rimraf)
-- [Asar](https://github.com/electron/asar)
 - [NSIS v2.51](http://nsis.sourceforge.net/Main_Page) (v3.x won't work)
 - [Visual Studio Community 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48146) (free) (other editions, like Professional and Enterprise, should work too)
 - [7z](http://www.7-zip.org) (command line version)
