@@ -35,6 +35,11 @@
                 <i class="glyphicon glyphicon-lock"></i>
                 LOCKED</span>
 
+            <span class="label label-danger"
+              ng-show="modal.state.isSystemDrive(drive)">
+                <i class="glyphicon glyphicon-hdd"></i>
+                SYSTEM DRIVE</span>
+
           </footer>
         </div>
         <span class="tick tick--success"
