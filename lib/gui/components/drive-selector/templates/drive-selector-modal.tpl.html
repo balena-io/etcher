@@ -16,7 +16,7 @@
           <footer class="list-group-item-footer">
 
             <span class="label label-warning"
-                ng-show="modal.state.isDriveLargeEnough(drive) && !modal.state.isDriveLocked(drive) && !modal.state.isDriveSizeRecommended(drive)">
+                ng-show="modal.state.isDriveLargeEnough(drive) && !modal.constraints.isDriveLocked(drive) && !modal.state.isDriveSizeRecommended(drive)">
                 <i class="glyphicon glyphicon-warning-sign"></i>
                 NOT RECOMMENDED</span>
 
@@ -31,12 +31,12 @@
                 TOO SMALL FOR IMAGE</span>
 
             <span class="label label-danger"
-              ng-show="modal.state.isDriveLocked(drive) && modal.state.isDriveLargeEnough(drive)">
+              ng-show="modal.constraints.isDriveLocked(drive) && modal.state.isDriveLargeEnough(drive)">
                 <i class="glyphicon glyphicon-lock"></i>
                 LOCKED</span>
 
             <span class="label label-danger"
-              ng-show="modal.state.isSystemDrive(drive)">
+              ng-show="modal.constraints.isSystemDrive(drive)">
                 <i class="glyphicon glyphicon-hdd"></i>
                 SYSTEM DRIVE</span>
 
