@@ -18,9 +18,9 @@ describe('Browser: DriveConstraints', function() {
       DriveConstraintsModel = _DriveConstraintsModel_;
     }));
 
-    it('should be an instance of `lib.shared.DriveConstraints`', function() {
+    it('should be the `lib/shared/drive-constraints.js` object', function() {
       const DriveConstraints = require('../../../lib/shared/drive-constraints');
-      m.chai.expect(DriveConstraintsModel).to.be.an.instanceof(DriveConstraints);
+      m.chai.expect(Object.is(DriveConstraintsModel, DriveConstraints)).to.be.true;
     });
 
   });

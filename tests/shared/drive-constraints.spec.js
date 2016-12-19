@@ -3,16 +3,12 @@
 const m = require('mochainon');
 const DriveConstraints = require('../../lib/shared/drive-constraints');
 
-describe('(new DriveConstraints())', function() {
-
-  beforeEach(function() {
-    this.constraints = new DriveConstraints();
-  });
+describe('DriveConstraints)', function() {
 
   describe('.isDriveLocked()', function() {
 
     it('should return true if the drive is protected', function() {
-      const result = this.constraints.isDriveLocked({
+      const result = DriveConstraints.isDriveLocked({
         device: '/dev/disk2',
         name: 'USB Drive',
         size: 999999999,
@@ -23,7 +19,7 @@ describe('(new DriveConstraints())', function() {
     });
 
     it('should return false if the drive is not protected', function() {
-      const result = this.constraints.isDriveLocked({
+      const result = DriveConstraints.isDriveLocked({
         device: '/dev/disk2',
         name: 'USB Drive',
         size: 999999999,
@@ -34,7 +30,7 @@ describe('(new DriveConstraints())', function() {
     });
 
     it('should return false if we don\'t know if the drive is protected', function() {
-      const result = this.constraints.isDriveLocked({
+      const result = DriveConstraints.isDriveLocked({
         device: '/dev/disk2',
         name: 'USB Drive',
         size: 999999999
@@ -48,7 +44,7 @@ describe('(new DriveConstraints())', function() {
   describe('.isSystemDrive()', function() {
 
     it('should return true if the drive is a system drive', function() {
-      const result = this.constraints.isSystemDrive({
+      const result = DriveConstraints.isSystemDrive({
         device: '/dev/disk2',
         name: 'USB Drive',
         size: 999999999,
@@ -60,7 +56,7 @@ describe('(new DriveConstraints())', function() {
     });
 
     it('should return false if the drive is a removable drive', function() {
-      const result = this.constraints.isSystemDrive({
+      const result = DriveConstraints.isSystemDrive({
         device: '/dev/disk2',
         name: 'USB Drive',
         size: 999999999,
