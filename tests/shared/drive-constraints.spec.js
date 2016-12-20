@@ -55,6 +55,17 @@ describe('drive-constraints', function() {
       m.chai.expect(result).to.be.true;
     });
 
+    it('should default to `false` if the `system` property is `undefined`', function() {
+      const result = constraints.isSystemDrive({
+        device: '/dev/disk2',
+        name: 'USB Drive',
+        size: 999999999,
+        protected: true
+      });
+
+      m.chai.expect(result).to.be.false;
+    });
+
     it('should return false if the drive is a removable drive', function() {
       const result = constraints.isSystemDrive({
         device: '/dev/disk2',
