@@ -66,6 +66,7 @@ describe('drive-constraints', function() {
 
       m.chai.expect(result).to.be.false;
     });
+
   });
 
   describe('.isDriveLargeEnough()', function() {
@@ -110,17 +111,6 @@ describe('drive-constraints', function() {
       });
 
       m.chai.expect(result).to.be.false;
-    });
-
-    it('should return true if the image is undefined', function() {
-      const result = constraints.isDriveLargeEnough({
-        device: '/dev/disk1',
-        name: 'USB Drive',
-        size: 1000000000,
-        protected: false
-      }, undefined);
-
-      m.chai.expect(result).to.be.true;
     });
 
   });
@@ -172,17 +162,6 @@ describe('drive-constraints', function() {
       m.chai.expect(result).to.be.false;
     });
 
-    it('should return true if the image is undefined', function() {
-      const result = constraints.isDriveSizeRecommended({
-        device: '/dev/disk1',
-        name: 'USB Drive',
-        size: 1000000000,
-        protected: false
-      }, undefined);
-
-      m.chai.expect(result).to.be.true;
-    });
-
     it('should return true if the recommended drive size is undefined', function() {
       const result = constraints.isDriveSizeRecommended({
         device: '/dev/disk1',
@@ -224,7 +203,9 @@ describe('drive-constraints', function() {
         this.drive.protected = true;
         m.chai.expect(constraints.isDriveValid(this.drive, this.image)).to.be.false;
       });
+
     });
+
     describe('given drive is not large enough', function() {
 
       beforeEach(function() {
@@ -242,17 +223,9 @@ describe('drive-constraints', function() {
       it('should return false', function() {
         m.chai.expect(constraints.isDriveValid(this.drive, this.image)).to.be.false;
       });
+
     });
-    describe('given image is undefined', function() {
-      it('should return true', function() {
-        const result = constraints.isDriveValid({
-          device: '/dev/disk2',
-          name: 'My Drive',
-          size: 4000000000
-        }, undefined);
-        m.chai.expect(result).to.be.true;
-      });
-    });
+
   });
 
 });
