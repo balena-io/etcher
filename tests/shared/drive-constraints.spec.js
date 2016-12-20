@@ -3,7 +3,7 @@
 const m = require('mochainon');
 const constraints = require('../../lib/shared/drive-constraints');
 
-describe('drive-constraints', function() {
+describe('Shared: DriveConstraints', function() {
 
   describe('.isDriveLocked()', function() {
 
