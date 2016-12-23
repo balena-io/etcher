@@ -104,6 +104,7 @@
     "electron-prebuilt": "1.4.4",
     "eslint": "^2.13.1",
     "jsonfile": "^2.3.1",
+    "landr": "^1.0.2",
     "mochainon": "^1.0.0",
     "node-sass": "^3.8.0",
     "versionist": "^2.1.0"
