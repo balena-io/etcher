@@ -71,7 +71,7 @@ Exit codes
 ----------
 
 The Etcher CLI uses certain exit codes to signal the result of the operation.
-These are documented in [`lib/src/exit-codes.js`][exit-codes] and are also
+These are documented in [`lib/shared/exit-codes.js`][exit-codes] and are also
 printed on the Etcher CLI help page.
 
-[exit-codes]: https://github.com/resin-io/etcher/blob/master/lib/src/exit-codes.js
+[exit-codes]: https://github.com/resin-io/etcher/blob/master/lib/shared/exit-codes.js
