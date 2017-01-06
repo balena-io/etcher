@@ -26,7 +26,7 @@ APPLICATION_VERSION = $(shell jq -r '.version' package.json)
 APPLICATION_COPYRIGHT = $(shell jq -r '.copyright' package.json)
 APPLICATION_CATEGORY = public.app-category.developer-tools
 APPLICATION_BUNDLE_ID = io.resin.etcher
-APPLICATION_FILES = lib,build,assets
+APPLICATION_FILES = lib,assets
 
 # ---------------------------------------------------------------------
 # Operating system and architecture detection
