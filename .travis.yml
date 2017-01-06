@@ -2,7 +2,18 @@ language: cpp
 sudo: false
 
 env:
-  - NODE_VERSION="6.1.0" RUBY_VERSION="2.3.1"
+  global:
+    - NODE_VERSION="6.1.0"
+    - RUBY_VERSION="2.3.1"
+  matrix:
+    - TARGET_ARCH=x64
+    - TARGET_ARCH=x86
+
+matrix:
+  exclude:
+    - os: osx
+      env: TARGET_ARCH=x86
+
 os:
   - linux
   - osx
@@ -20,7 +31,16 @@ addons:
     packages:
       - upx-ucl
       - gcc-4.8
+      - gcc-4.8-multilib
       - g++-4.8
+      - g++-4.8-multilib
+      - linux-libc-dev:i386
+      - libgtk2.0-0:i386
+      - libxtst6:i386
+      - libnss3:i386
+      - libxss1:i386
+      - libgconf-2-4:i386
+      - libasound2:i386
       - clang
       - dpkg
       - fakeroot
@@ -49,6 +69,7 @@ install:
       brew install afsctool;
       brew install jq;
     fi
+  - make info
   - make electron-develop
 
 before_script:
