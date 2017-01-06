@@ -1255,7 +1255,7 @@ mark,
 .text-right {
   text-align: right; }
 
-.text-center {
+.text-center, .modal-footer-label {
   text-align: center; }
 
 .text-justify {
@@ -6037,8 +6037,9 @@ body {
  * limitations under the License.
  */
 .label {
-  font-size: 9px;
-  font-weight: normal; }
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 5px; }
 
 .label-big {
   font-size: 11px;
@@ -6231,7 +6232,7 @@ body {
   flex-grow: 0; }
 
 .modal-title {
-  font-size: inherit;
+  font-size: 12px;
   flex-grow: 1; }
 
 .modal-body {
@@ -6261,10 +6262,12 @@ body {
     .modal-body .list-group-item[disabled] .list-group-item-heading {
       color: #b3b3b3; }
   .modal-body .list-group-item-heading {
-    font-size: 13px; }
+    font-size: 14px;
+    font-weight: bold; }
   .modal-body .list-group-item-text {
     line-height: 1;
-    font-size: 11px;
+    font-size: 13px;
+    font-weight: bold;
     color: #b3b3b3; }
 
 .modal-text {
@@ -6408,8 +6411,13 @@ body {
  * limitations under the License.
  */
 .modal-drive-selector-modal .modal-content {
-  width: 300px;
+  width: 400px;
   height: 320px; }
+
+.modal-drive-selector-modal .button, .modal-drive-selector-modal .progress-button,
+.modal-drive-selector-modal .label,
+.modal-drive-selector-modal .modal-title {
+  font-weight: bold; }
 
 .modal-drive-selector-modal .list-group-item[disabled] {
   cursor: not-allowed; }
@@ -6420,6 +6428,13 @@ body {
 .component-drive-selector-body .list-group-item-heading,
 .component-drive-selector-body .list-group-item-text {
   word-break: break-all; }
+
+.component-drive-selector-body .list-group-item-text,
+.component-drive-selector-body .list-group-item-footer {
+  display: inline-block; }
+
+.component-drive-selector-body .list-group-item-footer {
+  margin-top: 0; }
 
 /*
  * Copyright 2016 resin.io

@@ -14,13 +14,21 @@
  * limitations under the License.
  */
 
-.modal-drive-selector-modal .modal-content {
-  width: 300px;
-  height: 320px;
-}
+.modal-drive-selector-modal {
+  .modal-content {
+    width: 400px;
+    height: 320px;
+  }
 
-.modal-drive-selector-modal .list-group-item[disabled] {
-  cursor: not-allowed;
+  .button,
+  .label,
+  .modal-title {
+    font-weight: bold;
+  }
+
+  .list-group-item[disabled] {
+    cursor: not-allowed;
+  }
 }
 
 .component-drive-selector-body {
@@ -33,5 +41,18 @@
   .list-group-item-text {
     word-break: break-all;
   }
+
+  .list-group-item-text,
+  .list-group-item-footer {
+    display: inline-block;
+  }
+
+  .list-group-item-footer {
+    margin-top: 0;
+  }
+}
+
+.modal-footer-label {
+  @extend .text-center;
 }
 
