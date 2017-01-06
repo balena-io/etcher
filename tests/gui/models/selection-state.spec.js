@@ -35,6 +35,10 @@ describe('Browser: SelectionState', function() {
         m.chai.expect(drive).to.be.undefined;
       });
 
+      it('getImage() should return undefined', function() {
+        m.chai.expect(SelectionStateModel.getImage()).to.be.undefined;
+      });
+
       it('getImagePath() should return undefined', function() {
         m.chai.expect(SelectionStateModel.getImagePath()).to.be.undefined;
       });
@@ -73,95 +77,6 @@ describe('Browser: SelectionState', function() {
         m.chai.expect(hasImage).to.be.false;
       });
 
-    });
-
-    describe('.isDriveLocked()', function() {
-
-      it('should return true if the drive is protected', function() {
-        const result = SelectionStateModel.isDriveLocked({
-          device: '/dev/disk2',
-          name: 'USB Drive',
-          size: 999999999,
-          protected: true
-        });
-
-        m.chai.expect(result).to.be.true;
-      });
-
-      it('should return false if the drive is not protected', function() {
-        const result = SelectionStateModel.isDriveLocked({
-          device: '/dev/disk2',
-          name: 'USB Drive',
-          size: 999999999,
-          protected: false
-        });
-
-        m.chai.expect(result).to.be.false;
-      });
-
-      it('should return false if we don\'t know if the drive is protected', function() {
-        const result = SelectionStateModel.isDriveLocked({
-          device: '/dev/disk2',
-          name: 'USB Drive',
-          size: 999999999
-        });
-
-        m.chai.expect(result).to.be.false;
-      });
-
-    });
-
-    describe('.isDriveValid()', function() {
-
-      it('should return true if the drive is not locked', function() {
-        const result = SelectionStateModel.isDriveValid({
-          device: '/dev/disk2',
-          name: 'USB Drive',
-          size: 999999999,
-          protected: false
-        });
-
-        m.chai.expect(result).to.be.true;
-      });
-
-      it('should return false if the drive is locked', function() {
-        const result = SelectionStateModel.isDriveValid({
-          device: '/dev/disk2',
-          name: 'USB Drive',
-          size: 999999999,
-          protected: true
-        });
-
-        m.chai.expect(result).to.be.false;
-      });
-
-    });
-
-    describe('.isSystemDrive()', function() {
-
-      it('should return true if the drive is a system drive', function() {
-        const result = SelectionStateModel.isSystemDrive({
-          device: '/dev/disk2',
-          name: 'USB Drive',
-          size: 999999999,
-          protected: true,
-          system: true
-        });
-
-        m.chai.expect(result).to.be.true;
-      });
-
-      it('should return false if the drive is a removable drive', function() {
-        const result = SelectionStateModel.isSystemDrive({
-          device: '/dev/disk2',
-          name: 'USB Drive',
-          size: 999999999,
-          protected: true,
-          system: false
-        });
-
-        m.chai.expect(result).to.be.false;
-      });
     });
 
     describe('given a drive', function() {
@@ -302,7 +217,7 @@ describe('Browser: SelectionState', function() {
     describe('given an image', function() {
 
       beforeEach(function() {
-        SelectionStateModel.setImage({
+        this.image = {
           path: 'foo.img',
           size: 999999999,
           recommendedDriveSize: 1000000000,
@@ -310,129 +225,9 @@ describe('Browser: SelectionState', function() {
           supportUrl: 'https://www.raspbian.org/forums/',
           name: 'Raspbian',
           logo: '<svg><text fill="red">Raspbian</text></svg>'
-        });
-      });
+        };
 
-      describe('.isDriveLargeEnough()', function() {
-
-        it('should return true if the drive size is greater than the image size', function() {
-          const result = SelectionStateModel.isDriveLargeEnough({
-            device: '/dev/disk1',
-            name: 'USB Drive',
-            size: 99999999999999,
-            protected: false
-          });
-
-          m.chai.expect(result).to.be.true;
-        });
-
-        it('should return true if the drive size is equal to the image size', function() {
-          const result = SelectionStateModel.isDriveLargeEnough({
-            device: '/dev/disk1',
-            name: 'USB Drive',
-            size: 999999999,
-            protected: false
-          });
-
-          m.chai.expect(result).to.be.true;
-        });
-
-        it('should return false if the drive size is less than the image size', function() {
-          const result = SelectionStateModel.isDriveLargeEnough({
-            device: '/dev/disk1',
-            name: 'USB Drive',
-            size: 999999998,
-            protected: false
-          });
-
-          m.chai.expect(result).to.be.false;
-        });
-
-      });
-
-      describe('.isDriveSizeRecommended()', function() {
-
-        it('should return true if the drive size is greater than the recommended size', function() {
-          const result = SelectionStateModel.isDriveSizeRecommended({
-            device: '/dev/disk1',
-            name: 'USB Drive',
-            size: 1000000001,
-            protected: false
-          });
-
-          m.chai.expect(result).to.be.true;
-        });
-
-        it('should return true if the drive size is equal to the recommended size', function() {
-          const result = SelectionStateModel.isDriveSizeRecommended({
-            device: '/dev/disk1',
-            name: 'USB Drive',
-            size: 1000000000,
-            protected: false
-          });
-
-          m.chai.expect(result).to.be.true;
-        });
-
-        it('should return false if the drive size is less than the recommended size', function() {
-          const result = SelectionStateModel.isDriveSizeRecommended({
-            device: '/dev/disk1',
-            name: 'USB Drive',
-            size: 999999999,
-            protected: false
-          });
-
-          m.chai.expect(result).to.be.false;
-        });
-
-      });
-
-      describe('.isDriveValid()', function() {
-
-        it('should return true if the drive is large enough and it is not locked', function() {
-          const result = SelectionStateModel.isDriveValid({
-            device: '/dev/disk1',
-            name: 'USB Drive',
-            size: 99999999999999,
-            protected: false
-          });
-
-          m.chai.expect(result).to.be.true;
-        });
-
-        it('should return false if the drive is large enough but it is locked', function() {
-          const result = SelectionStateModel.isDriveValid({
-            device: '/dev/disk1',
-            name: 'USB Drive',
-            size: 99999999999999,
-            protected: true
-          });
-
-          m.chai.expect(result).to.be.false;
-        });
-
-        it('should return false if the drive is not large enough and it is not locked', function() {
-          const result = SelectionStateModel.isDriveValid({
-            device: '/dev/disk1',
-            name: 'USB Drive',
-            size: 1,
-            protected: false
-          });
-
-          m.chai.expect(result).to.be.false;
-        });
-
-        it('should return false if the drive is not large enough and it is locked', function() {
-          const result = SelectionStateModel.isDriveValid({
-            device: '/dev/disk1',
-            name: 'USB Drive',
-            size: 1,
-            protected: true
-          });
-
-          m.chai.expect(result).to.be.false;
-        });
-
+        SelectionStateModel.setImage(this.image);
       });
 
       describe('.setDrive()', function() {
@@ -450,6 +245,14 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(function() {
             SelectionStateModel.setDrive('/dev/disk2');
           }).to.throw('The drive is not large enough');
+        });
+
+      });
+
+      describe('.getImage()', function() {
+
+        it('should return the image', function() {
+          m.chai.expect(SelectionStateModel.getImage()).to.deep.equal(this.image);
         });
 
       });
@@ -558,34 +361,6 @@ describe('Browser: SelectionState', function() {
     });
 
     describe('given no image', function() {
-
-      describe('.isDriveLargeEnough()', function() {
-
-        it('should return true', function() {
-          const result = SelectionStateModel.isDriveLargeEnough({
-            device: '/dev/disk1',
-            name: 'USB Drive',
-            size: 1
-          });
-
-          m.chai.expect(result).to.be.true;
-        });
-
-      });
-
-      describe('.isDriveSizeRecommended()', function() {
-
-        it('should return true', function() {
-          const result = SelectionStateModel.isDriveSizeRecommended({
-            device: '/dev/disk1',
-            name: 'USB Drive',
-            size: 1
-          });
-
-          m.chai.expect(result).to.be.true;
-        });
-
-      });
 
       describe('.setImage()', function() {
 

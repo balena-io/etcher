@@ -6,7 +6,7 @@
 <div class="component-drive-selector-body modal-body">
   <ul class="list-group">
     <li class="list-group-item" ng-repeat="drive in modal.drives.getDrives() track by drive.device"
-      ng-disabled="!modal.state.isDriveValid(drive)"
+      ng-disabled="!modal.constraints.isDriveValid(drive, modal.state.getImage())"
       ng-dblclick="modal.selectDriveAndClose(drive)"
       ng-click="modal.toggleDrive(drive)">
         <div>
@@ -16,7 +16,7 @@
           <footer class="list-group-item-footer">
 
             <span class="label label-warning"
-                ng-show="modal.state.isDriveLargeEnough(drive) && !modal.state.isDriveLocked(drive) && !modal.state.isDriveSizeRecommended(drive)">
+                ng-show="modal.constraints.isDriveLargeEnough(drive, modal.state.getImage()) && !modal.constraints.isDriveLocked(drive) && !modal.constraints.isDriveSizeRecommended(drive, modal.state.getImage())">
                 <i class="glyphicon glyphicon-warning-sign"></i>
                 NOT RECOMMENDED</span>
 
@@ -26,24 +26,24 @@
             <!-- state is irrelevent if the drive is not large enough anyway. -->
 
             <span class="label label-danger"
-              ng-hide="modal.state.isDriveLargeEnough(drive)">
+              ng-hide="modal.constraints.isDriveLargeEnough(drive, modal.state.getImage())">
                 <i class="glyphicon glyphicon-resize-small"></i>
                 TOO SMALL FOR IMAGE</span>
 
             <span class="label label-danger"
-              ng-show="modal.state.isDriveLocked(drive) && modal.state.isDriveLargeEnough(drive)">
+              ng-show="modal.constraints.isDriveLocked(drive) && modal.constraints.isDriveLargeEnough(drive, modal.state.getImage())">
                 <i class="glyphicon glyphicon-lock"></i>
                 LOCKED</span>
 
             <span class="label label-danger"
-              ng-show="modal.state.isSystemDrive(drive)">
+              ng-show="modal.constraints.isSystemDrive(drive)">
                 <i class="glyphicon glyphicon-hdd"></i>
                 SYSTEM DRIVE</span>
 
           </footer>
         </div>
         <span class="tick tick--success"
-          ng-show="modal.state.isDriveValid(drive)"
+          ng-show="modal.constraints.isDriveValid(drive, modal.state.getImage())"
           ng-disabled="!modal.state.isCurrentDrive(drive.device)"></span>
     </li>
   </ul>

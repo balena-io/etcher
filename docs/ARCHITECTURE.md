@@ -108,7 +108,7 @@ be documented instead!
 
 [lego-blocks]: https://github.com/sindresorhus/ama/issues/10#issuecomment-117766328
 [etcher-image-write]: https://github.com/resin-io-modules/etcher-image-write
-[exit-codes]: https://github.com/resin-io/etcher/blob/master/lib/src/exit-codes.js
+[exit-codes]: https://github.com/resin-io/etcher/blob/master/lib/shared/exit-codes.js
 [cli-dir]: https://github.com/resin-io/etcher/tree/master/lib/cli
 [gui-dir]: https://github.com/resin-io/etcher/tree/master/lib/gui
 [electron]: http://electron.atom.io
