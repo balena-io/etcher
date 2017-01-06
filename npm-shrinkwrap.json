@@ -1136,14 +1136,14 @@
       "resolved": "https://registry.npmjs.org/domain-browser/-/domain-browser-1.1.7.tgz"
     },
     "drivelist": {
-      "version": "5.0.4",
-      "from": "drivelist@5.0.4",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-5.0.4.tgz",
+      "version": "5.0.5",
+      "from": "drivelist@5.0.5",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-5.0.5.tgz",
       "dependencies": {
         "lodash": {
-          "version": "4.17.2",
+          "version": "4.17.4",
           "from": "lodash@>=4.16.4 <5.0.0",
-          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.2.tgz"
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz"
         }
       }
     },
