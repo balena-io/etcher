@@ -58,6 +58,12 @@ describe('Browser: OSDropzone', function() {
       $rootScope.$digest();
 
       element[0].ondrop({
+        currentTarget: {
+          classList: {
+            add: angular.noop,
+            remove: angular.noop
+          }
+        },
         preventDefault: angular.noop,
         dataTransfer: {
           files: [
@@ -88,6 +94,12 @@ describe('Browser: OSDropzone', function() {
       $rootScope.$digest();
 
       element[0].ondrop({
+        currentTarget: {
+          classList: {
+            add: angular.noop,
+            remove: angular.noop
+          }
+        },
         preventDefault: angular.noop,
         dataTransfer: {
           files: [

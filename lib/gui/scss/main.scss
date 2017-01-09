@@ -36,9 +36,11 @@ $link-color: #ddd;
 @import "../components/drive-selector/styles/drive-selector";
 @import "../components/tooltip-modal/styles/tooltip-modal";
 @import "../components/warning-modal/styles/warning-modal";
+@import "../components/file-dropper/styles/file-dropper";
 @import "../pages/main/styles/main";
 @import "../pages/settings/styles/settings";
 @import "../pages/finish/styles/finish";
+@import "../os/dropzone/styles/dropzone";
 
 body {
   letter-spacing: 1px;
