@@ -40,7 +40,6 @@ Options
   --version, -v  show version number
   --drive, -d    drive
   --check, -c    validate write
-  --robot, -r    parse-able output without interactivity
   --yes, -y      confirm non-interactively
   --unmount, -u  unmount on success
 ```
@@ -48,13 +47,13 @@ Options
 The robot option
 ----------------
 
-The `--robot` option is very particular since it allows other applications to
-easily consume the output of the Etcher CLI in real-time. When using the
-`--robot` option, the `--yes` option is implicit, therefore you need to
-manually specify `--drive`.
+Setting the `ETCHER_CLI_ROBOT` environment variable allows other applications
+to easily consume the output of the Etcher CLI in real-time When using the
+`ETCHER_CLI_ROBOT` option, the `--yes` option is implicit, therefore you need
+to manually specify `--drive`.
 
-When `--robot` is used, the program will output JSON lines containing the
-progress state and other useful information. For example:
+When `ETCHER_CLI_ROBOT` is used, the program will output JSON lines containing
+the progress state and other useful information. For example:
 
 ```
 $ sudo etcher image.iso --robot --drive /dev/disk2
