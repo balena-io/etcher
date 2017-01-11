@@ -83,7 +83,6 @@
     "node-ipc": "^8.9.2",
     "redux": "^3.5.2",
     "redux-localstorage": "^0.4.1",
-    "resin-cli-errors": "^1.2.0",
     "resin-cli-form": "^1.4.1",
     "resin-cli-visuals": "^1.2.8",
     "rx": "^4.1.0",
