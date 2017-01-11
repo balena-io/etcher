@@ -39,6 +39,12 @@ describe('Shared: DriveConstraints', function() {
       m.chai.expect(result).to.be.false;
     });
 
+    it('should return false if the drive is undefined', function() {
+      const result = constraints.isDriveLocked(undefined);
+
+      m.chai.expect(result).to.be.false;
+    });
+
   });
 
   describe('.isSystemDrive()', function() {
@@ -74,6 +80,12 @@ describe('Shared: DriveConstraints', function() {
         protected: true,
         system: false
       });
+
+      m.chai.expect(result).to.be.false;
+    });
+
+    it('should return false if the drive is undefined', function() {
+      const result = constraints.isSystemDrive(undefined);
 
       m.chai.expect(result).to.be.false;
     });
@@ -122,6 +134,31 @@ describe('Shared: DriveConstraints', function() {
       });
 
       m.chai.expect(result).to.be.false;
+    });
+
+    it('should return false if the drive is undefined', function() {
+      const result = constraints.isDriveLargeEnough(undefined, {
+        path: 'rpi.img',
+        size: 1000000000
+      });
+
+      m.chai.expect(result).to.be.false;
+    });
+
+    it('should return true if the image is undefined', function() {
+      const result = constraints.isDriveLargeEnough({
+        device: '/dev/disk1',
+        name: 'USB Drive',
+        size: 1000000000,
+        protected: false
+      }, undefined);
+
+      m.chai.expect(result).to.be.true;
+    });
+
+    it('should return false if the drive and image are undefined', function() {
+      const result = constraints.isDriveLargeEnough(undefined, undefined);
+      m.chai.expect(result).to.be.true;
     });
 
   });
@@ -184,6 +221,32 @@ describe('Shared: DriveConstraints', function() {
         size: 1000000000
       });
 
+      m.chai.expect(result).to.be.true;
+    });
+
+    it('should return false if the drive is undefined', function() {
+      const result = constraints.isDriveSizeRecommended(undefined, {
+        path: 'rpi.img',
+        size: 1000000000,
+        recommendedDriveSize: 1000000000
+      });
+
+      m.chai.expect(result).to.be.false;
+    });
+
+    it('should return true if the image is undefined', function() {
+      const result = constraints.isDriveSizeRecommended({
+        device: '/dev/disk1',
+        name: 'USB Drive',
+        size: 2000000000,
+        protected: false
+      }, undefined);
+
+      m.chai.expect(result).to.be.true;
+    });
+
+    it('should return false if the drive and image are undefined', function() {
+      const result = constraints.isDriveSizeRecommended(undefined, undefined);
       m.chai.expect(result).to.be.true;
     });
 
