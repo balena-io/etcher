@@ -22,11 +22,24 @@ ELECTRON_VERSION = $(shell jq -r '.devDependencies["electron-prebuilt"]' package
 COMPANY_NAME = $(shell jq -r '.companyName' package.json)
 APPLICATION_NAME = $(shell jq -r '.displayName' package.json)
 APPLICATION_DESCRIPTION = $(shell jq -r '.description' package.json)
-APPLICATION_VERSION = $(shell jq -r '.version' package.json)
 APPLICATION_COPYRIGHT = $(shell jq -r '.copyright' package.json)
 APPLICATION_CATEGORY = public.app-category.developer-tools
 APPLICATION_BUNDLE_ID = io.resin.etcher
 APPLICATION_FILES = lib,assets
+
+# Add the current commit to the version if release type is "snapshot"
+RELEASE_TYPE ?= snapshot
+PACKAGE_JSON_VERSION = $(shell jq -r '.version' package.json)
+ifeq ($(RELEASE_TYPE),production)
+APPLICATION_VERSION = $(PACKAGE_JSON_VERSION)
+endif
+ifeq ($(RELEASE_TYPE),snapshot)
+CURRENT_COMMIT_HASH = $(shell git log -1 --format="%h")
+APPLICATION_VERSION = $(PACKAGE_JSON_VERSION)+$(CURRENT_COMMIT_HASH)
+endif
+ifndef APPLICATION_VERSION
+$(error Invalid release type: $(RELEASE_TYPE))
+endif
 
 # ---------------------------------------------------------------------
 # Operating system and architecture detection
@@ -127,6 +140,13 @@ ifeq ($(TARGET_ARCH),x64)
 	TARGET_ARCH_DEBIAN = amd64
 endif
 
+ifeq ($(RELEASE_TYPE),production)
+	PRODUCT_NAME = etcher
+endif
+ifeq ($(RELEASE_TYPE),snapshot)
+	PRODUCT_NAME = etcher-snapshots
+endif
+
 APPLICATION_NAME_LOWERCASE = $(shell echo $(APPLICATION_NAME) | tr A-Z a-z)
 APPLICATION_VERSION_DEBIAN = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
 
@@ -166,15 +186,17 @@ $(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/bower
 	| $(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies
 	./scripts/build/dependencies-bower.sh -p -x $|
 
-$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app: \
+$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH)-app: \
 	$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/node_modules \
 	$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/bower_components \
 	| $(BUILD_DIRECTORY)
-	./scripts/build/electron-create-resources-app.sh -s . -f "$(APPLICATION_FILES)" -o $@
+	./scripts/build/electron-create-resources-app.sh -s . -o $@ \
+		-v $(APPLICATION_VERSION) \
+		-f "$(APPLICATION_FILES)"
 	$(foreach prerequisite,$^,$(call execute-command,cp -rf $(prerequisite) $@))
 
-$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app.asar: \
-	$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app \
+$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH)-app.asar: \
+	$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH)-app \
 	| $(BUILD_DIRECTORY)
 	./scripts/build/electron-create-asar.sh -d $< -o $@
 
@@ -186,8 +208,8 @@ $(BUILD_DIRECTORY)/electron-$(ELECTRON_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH
 		-s "$(TARGET_PLATFORM)" \
 		-o $@
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(TARGET_PLATFORM)-$(TARGET_ARCH): \
-	$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app.asar \
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH): \
+	$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH)-app.asar \
 	$(BUILD_DIRECTORY)/electron-$(ELECTRON_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip \
 	| $(BUILD_DIRECTORY)
 ifeq ($(TARGET_PLATFORM),darwin)
@@ -228,8 +250,8 @@ endif
 endif
 endif
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-rw.dmg: \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-darwin-$(TARGET_ARCH) \
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-rw.dmg: \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-darwin-$(TARGET_ARCH) \
 	| $(BUILD_DIRECTORY)
 	./scripts/build/electron-create-readwrite-dmg-darwin.sh -p $< -o $@ \
 		-n "$(APPLICATION_NAME)" \
@@ -237,7 +259,7 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-rw.dmg:
 		-b assets/osx/installer.png
 
 $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-darwin-$(TARGET_ARCH).zip: \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-darwin-$(TARGET_ARCH) \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-darwin-$(TARGET_ARCH) \
 	| $(BUILD_OUTPUT_DIRECTORY)
 ifdef CODE_SIGN_IDENTITY
 	./scripts/build/electron-sign-app-darwin.sh -a $</$(APPLICATION_NAME).app -i "$(CODE_SIGN_IDENTITY)"
@@ -245,7 +267,7 @@ endif
 	./scripts/build/electron-installer-app-zip-darwin.sh -a $</$(APPLICATION_NAME).app -o $@
 
 $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-darwin-$(TARGET_ARCH).dmg: \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-rw.dmg \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-rw.dmg \
 	| $(BUILD_OUTPUT_DIRECTORY)
 ifdef CODE_SIGN_IDENTITY
 	./scripts/build/electron-sign-dmg-darwin.sh \
@@ -255,8 +277,8 @@ ifdef CODE_SIGN_IDENTITY
 endif
 	./scripts/build/electron-create-readonly-dmg-darwin.sh -d $< -o $@
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-linux-$(TARGET_ARCH).AppDir: \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-linux-$(TARGET_ARCH) \
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-linux-$(TARGET_ARCH).AppDir: \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-linux-$(TARGET_ARCH) \
 	| $(BUILD_DIRECTORY)
 	./scripts/build/electron-create-appdir.sh -p $< -o $@ \
 		-n "$(APPLICATION_NAME)" \
@@ -265,20 +287,20 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-linux-$(TARGET_ARCH).AppDir: \
 		-b "$(APPLICATION_NAME_LOWERCASE)" \
 		-i assets/icon.png
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-linux-$(TARGET_ARCH).AppImage: \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-linux-$(TARGET_ARCH).AppDir \
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-linux-$(TARGET_ARCH).AppImage: \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-linux-$(TARGET_ARCH).AppDir \
 	| $(BUILD_DIRECTORY) $(BUILD_TEMPORARY_DIRECTORY)
 	./scripts/build/electron-create-appimage-linux.sh -d $< -o $@ \
 		-r "$(TARGET_ARCH)" \
 		-w "$(BUILD_TEMPORARY_DIRECTORY)"
 
 $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-linux-$(TARGET_ARCH).zip: \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-linux-$(TARGET_ARCH).AppImage \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-linux-$(TARGET_ARCH).AppImage \
 	| $(BUILD_OUTPUT_DIRECTORY)
 	./scripts/build/electron-installer-appimage-zip.sh -i $< -o $@
 
 $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb: \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-linux-$(TARGET_ARCH) \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-linux-$(TARGET_ARCH) \
 	| $(BUILD_OUTPUT_DIRECTORY)
 	./scripts/build/electron-installer-debian-linux.sh -p $< -r "$(TARGET_ARCH)" -o $| \
 		-c scripts/build/debian/config.json
@@ -319,14 +341,23 @@ endif
 
 ifdef PUBLISH_AWS_S3
 publish-aws-s3: $(PUBLISH_AWS_S3)
-	$(foreach publishable,$^,$(call execute-command,./scripts/publish/aws-s3.sh $(publishable)))
+	$(foreach publishable,$^,$(call execute-command,./scripts/publish/aws-s3.sh \
+		-f $(publishable) \
+		-b $(S3_BUCKET) \
+		-v $(APPLICATION_VERSION) \
+		-p $(PRODUCT_NAME)))
 
 TARGETS += publish-aws-s3
 endif
 
 ifdef PUBLISH_BINTRAY_DEBIAN
 publish-bintray-debian: $(PUBLISH_BINTRAY_DEBIAN)
-	$(foreach publishable,$^,$(call execute-command,./scripts/publish/bintray-debian.sh $(publishable)))
+	$(foreach publishable,$^,$(call execute-command,./scripts/publish/bintray-debian.sh \
+		-f $(publishable) \
+		-v $(APPLICATION_VERSION_DEBIAN) \
+		-r $(TARGET_ARCH_DEBIAN) \
+		-c $(APPLICATION_NAME_LOWERCASE) \
+		-t $(RELEASE_TYPE)))
 
 TARGETS += publish-bintray-debian
 endif
@@ -354,10 +385,12 @@ help:
 	@echo "Available targets: $(TARGETS)"
 
 info:
-	@echo "Host platform   : $(HOST_PLATFORM)"
-	@echo "Host arch       : $(HOST_ARCH)"
-	@echo "Target platform : $(TARGET_PLATFORM)"
-	@echo "Target arch     : $(TARGET_ARCH)"
+	@echo "Application version : $(APPLICATION_VERSION)"
+	@echo "Release type        : $(RELEASE_TYPE)"
+	@echo "Host platform       : $(HOST_PLATFORM)"
+	@echo "Host arch           : $(HOST_ARCH)"
+	@echo "Target platform     : $(TARGET_PLATFORM)"
+	@echo "Target arch         : $(TARGET_ARCH)"
 
 clean:
 	rm -rf $(BUILD_DIRECTORY)
