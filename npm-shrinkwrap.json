@@ -1417,18 +1417,6 @@
       "from": "require-uncached@>=1.0.2 <2.0.0",
       "resolved": "https://registry.npmjs.org/require-uncached/-/require-uncached-1.0.2.tgz"
     },
-    "resin-cli-errors": {
-      "version": "1.2.0",
-      "from": "resin-cli-errors@>=1.2.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/resin-cli-errors/-/resin-cli-errors-1.2.0.tgz",
-      "dependencies": {
-        "lodash": {
-          "version": "3.10.1",
-          "from": "lodash@>=3.10.1 <4.0.0",
-          "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz"
-        }
-      }
-    },
     "resin-cli-form": {
       "version": "1.4.1",
       "from": "resin-cli-form@>=1.4.1 <2.0.0",
