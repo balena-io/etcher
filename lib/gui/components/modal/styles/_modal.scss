@@ -104,8 +104,8 @@
 .modal-menu {
   display: flex;
 
-  > .button {
-    flex-basis: 50%;
+  > * {
+    flex-basis: auto;
   }
 }
 

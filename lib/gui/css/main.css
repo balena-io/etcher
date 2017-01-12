@@ -6276,8 +6276,8 @@ body {
 
 .modal-menu {
   display: flex; }
-  .modal-menu > .button, .modal-menu > .progress-button {
-    flex-basis: 50%; }
+  .modal-menu > * {
+    flex-basis: auto; }
 
 .modal-open {
   padding-right: 0 !important; }
