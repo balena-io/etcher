@@ -16,21 +16,23 @@
 
 'use strict';
 
-const units = require('../../../../shared/units');
+const m = require('mochainon');
+const units = require('../../lib/shared/units');
 
-module.exports = () => {
+describe('Shared: Units', function() {
 
-  /**
-   * @summary Convert bytes to gigabytes
-   * @function
-   * @public
-   *
-   * @param {Number} bytes - bytes
-   * @returns {Number} gigabytes
-   *
-   * @example
-   * {{ 7801405440 | gigabytes }}
-   */
-  return units.bytesToGigabytes;
+  describe('.bytesToGigabytes()', function() {
 
-};
+    it('should convert bytes to gigabytes', function() {
+      m.chai.expect(units.bytesToGigabytes(7801405440)).to.equal(7.80140544);
+      m.chai.expect(units.bytesToGigabytes(100000000)).to.equal(0.1);
+    });
+
+    it('should convert bytes to megabytes', function() {
+      m.chai.expect(units.bytesToMegabytes(1.2e+7)).to.equal(12);
+      m.chai.expect(units.bytesToMegabytes(332000)).to.equal(0.332);
+    });
+
+  });
+
+});
