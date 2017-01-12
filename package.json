@@ -11,7 +11,7 @@
     "url": "git@github.com:resin-io/etcher.git"
   },
   "scripts": {
-    "test": "npm run lint && electron-mocha --recursive --renderer tests/gui -R spec && electron-mocha --recursive tests/cli tests/shared -R spec",
+    "test": "npm run lint && electron-mocha --recursive --renderer tests/gui -R spec && NODE_ENV=test electron-mocha --recursive tests/cli tests/shared -R spec",
     "sass": "node-sass ./lib/gui/scss/main.scss > ./lib/gui/css/main.css",
     "jslint": "eslint lib tests scripts bin versionist.conf.js",
     "scsslint": "scss-lint lib/gui/scss",
@@ -78,12 +78,12 @@
     "file-tail": "^0.3.0",
     "flexboxgrid": "^6.3.0",
     "immutable": "^3.8.1",
+    "inquirer": "^2.0.0",
     "is-elevated": "^1.0.0",
     "lodash": "^4.5.1",
     "node-ipc": "^8.9.2",
     "redux": "^3.5.2",
     "redux-localstorage": "^0.4.1",
-    "resin-cli-form": "^1.4.1",
     "resin-cli-visuals": "^1.2.8",
     "rx": "^4.1.0",
     "semver": "^5.1.0",

@@ -18,7 +18,7 @@
             <span class="label label-warning"
                 ng-show="modal.constraints.isDriveLargeEnough(drive, modal.state.getImage()) && !modal.constraints.isDriveLocked(drive) && !modal.constraints.isDriveSizeRecommended(drive, modal.state.getImage())">
                 <i class="glyphicon glyphicon-warning-sign"></i>
-                NOT RECOMMENDED</span>
+                {{modal.constraints.labels.NOT_RECOMMENDED}}</span>
 
             <!-- There can be a case where the device it not large enough, and it's also locked. -->
             <!-- Since in this case both labels will be displayed, we chose to only show the -->
@@ -28,17 +28,17 @@
             <span class="label label-danger"
               ng-hide="modal.constraints.isDriveLargeEnough(drive, modal.state.getImage())">
                 <i class="glyphicon glyphicon-resize-small"></i>
-                TOO SMALL FOR IMAGE</span>
+                {{modal.constraints.labels.TOO_SMALL}}</span>
 
             <span class="label label-danger"
               ng-show="modal.constraints.isDriveLocked(drive) && modal.constraints.isDriveLargeEnough(drive, modal.state.getImage())">
                 <i class="glyphicon glyphicon-lock"></i>
-                LOCKED</span>
+                {{modal.constraints.labels.LOCKED}}</span>
 
             <span class="label label-danger"
               ng-show="modal.constraints.isSystemDrive(drive)">
                 <i class="glyphicon glyphicon-hdd"></i>
-                SYSTEM DRIVE</span>
+                {{modal.constraints.labels.SYSTEM_DRIVE}}</span>
 
           </footer>
         </div>
