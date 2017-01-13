@@ -1,6 +1,9 @@
 language: cpp
 sudo: false
 
+services:
+  - docker
+
 env:
   global:
     - NODE_VERSION="6.1.0"
@@ -18,68 +21,43 @@ os:
   - linux
   - osx
 
-# C++11 support
-# See https://github.com/PacificBiosciences/pbdagcon/pull/7
-
-compiler:
-  - gcc
-
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - upx-ucl
-      - gcc-4.8
-      - gcc-4.8-multilib
-      - g++-4.8
-      - g++-4.8-multilib
-      - linux-libc-dev:i386
-      - libgtk2.0-0:i386
-      - libxtst6:i386
-      - libnss3:i386
-      - libxss1:i386
-      - libgconf-2-4:i386
-      - libasound2:i386
-      - clang
-      - dpkg
-      - fakeroot
-      - jq
-
 before_install:
-  - rm -rf ~/.nvm
-  - git clone https://github.com/creationix/nvm.git ~/.nvm
-  - source ~/.nvm/nvm.sh
-  - nvm --version
-  - nvm install $NODE_VERSION
-  - node --version
-  - npm --version
-  - npm config set spin=false
-  - rvm install $RUBY_VERSION
-  - rvm use $RUBY_VERSION
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      rm -rf ~/.nvm;
+      git clone https://github.com/creationix/nvm.git ~/.nvm;
+      source ~/.nvm/nvm.sh;
+      nvm --version;
+      nvm install $NODE_VERSION;
+      node --version;
+      npm --version;
+      npm config set spin=false;
+      rvm install $RUBY_VERSION;
+      rvm use $RUBY_VERSION;
+    fi
 
 install:
-  - if [ "$CXX" = "g++" ] && [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      export CXX="g++-4.8" CC="gcc-4.8";
-    fi
-  - gem install scss_lint
-  - npm install -g bower
-  - npm install -g electron-installer-debian
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      gem install scss_lint;
+      npm install -g bower electron-installer-debian;
+      npm install -g electron-installer-debian;
       brew install afsctool;
       brew install jq;
     fi
-  - make info
-  - make electron-develop
-
-before_script:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      make info;
+      make electron-develop;
+    fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      export DISPLAY=:99.0;
-      sh -e /etc/init.d/xvfb start;
+      ./scripts/build/docker/run-command.sh -r ${TARGET_ARCH} -s ${PWD} -c "make info && make electron-develop";
     fi
 
 script:
-  - npm test
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      npm test;
+    fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      ./scripts/build/docker/run-command.sh -r ${TARGET_ARCH} -s ${PWD} -c "xvfb-run --server-args=$XVFB_ARGS npm test";
+    fi
 
 notifications:
   email: false
