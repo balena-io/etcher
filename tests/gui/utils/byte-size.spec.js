@@ -3,6 +3,7 @@
 const m = require('mochainon');
 const angular = require('angular');
 require('angular-mocks');
+const units = require('../../../lib/shared/units');
 
 describe('Browser: ByteSize', function() {
 
@@ -18,9 +19,8 @@ describe('Browser: ByteSize', function() {
       gigabyteFilter = _gigabyteFilter_;
     }));
 
-    it('should convert bytes to gigabytes', function() {
-      m.chai.expect(gigabyteFilter(7801405440)).to.equal(7.80140544);
-      m.chai.expect(gigabyteFilter(100000000)).to.equal(0.1);
+    it('should expose lib/shared/units.js bytesToGigabytes()', function() {
+      m.chai.expect(gigabyteFilter).to.equal(units.bytesToGigabytes);
     });
 
   });
