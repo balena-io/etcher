@@ -48,7 +48,7 @@ The robot option
 ----------------
 
 Setting the `ETCHER_CLI_ROBOT` environment variable allows other applications
-to easily consume the output of the Etcher CLI in real-time When using the
+to easily consume the output of the Etcher CLI in real-time. When using the
 `ETCHER_CLI_ROBOT` option, the `--yes` option is implicit, therefore you need
 to manually specify `--drive`.
 
