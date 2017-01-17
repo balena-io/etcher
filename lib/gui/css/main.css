@@ -5976,6 +5976,9 @@ body {
 [uib-tooltip] {
   cursor: default; }
 
+.tooltip {
+  word-wrap: break-word; }
+
 /*
  * Copyright 2016 resin.io
  *
