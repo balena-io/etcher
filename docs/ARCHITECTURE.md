@@ -96,7 +96,7 @@ contains certain features to ease communication:
 
 - An environment variable called `ETCHER_CLI_ROBOT` option, which when set
   causes the Etcher CLI to output state in a way that can be easily
-  parser by a machine.
+  parsed by a machine.
 
 Summary
 -------
