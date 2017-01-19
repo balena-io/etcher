@@ -121,7 +121,6 @@ Here's an example of a real-world publisher manifest for RetroPie:
   "name": "RetroPie",
   "url": "https://retropie.org.uk",
   "logo": "retropie.svg",
-  "supportUrl": "https://retropie.org.uk/forum/",
   "colorScheme": {
     "background": "#535760",
     "text": "#FFFFFF",
@@ -144,13 +143,6 @@ The main url of the publisher, usually the landing page.
 
 The path to a logo that represents the publisher, relative to the `.meta`
 directory.
-
-##### `supportUrl (String)`
-
-The publisher url where users can get general support.
-
-This could be a link to a forum, IRC room, troubleshooting page, support form,
-etc.
 
 ##### `colorScheme (Object)`
 
@@ -175,6 +167,7 @@ Here's an example of a real-world image manifest for Raspbian Jessie:
   "name": "Raspbian Jessie",
   "version": "May 2016",
   "url": "https://www.raspberrypi.org/downloads/raspbian/",
+  "supportUrl": "https://retropie.org.uk/forum/",
   "logo": "raspbian.svg",
   "checksumType": "sha1",
   "path": "raspbian-jessie.img",
@@ -201,6 +194,13 @@ The version of the image.
 ##### `url (String)`
 
 The main url of the image.
+
+##### `supportUrl (String)`
+
+The url where users can get general support for this image.
+
+This could be a link to a forum, IRC room, troubleshooting page, support form,
+etc.
 
 ##### `logo (String)`
 
