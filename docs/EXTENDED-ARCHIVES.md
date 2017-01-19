@@ -3,22 +3,16 @@ Etcher Extended Archives
 
 Etcher extended archives are archive files including an image and a special
 metadata directory including information that describes the image, device type,
-and vendor in detail, enabling Etcher to make use of such information to
+and publisher in detail, enabling Etcher to make use of such information to
 deliver advanced features and a more pleasant experience to the user.
 
 Entities
 --------
 
-### Vendor
-
-A vendor represents a manufacturer of a device type and potential publisher.
-
-*Some examples of image vendors are: Beagleboard, Raspberry Pi Foundation,
-Intel, and ODroid.*
-
 ### Publisher
 
-A publisher represents an entity that maintains and publishes official images.
+A publisher represents an entity that maintains and publishes operating system
+images.
 
 *Some examples of image publishers are: Tizen, RetroPie, Resin.io, and CoreOS.*
 
@@ -50,7 +44,8 @@ The file format should have the following characteristics:
 We base this format on the [`tar`][tar] archive format, which has the following
 benefits:
 
-- It's a nearly universal archive format (easy to find robust implementations)
+- It's a common archive format, so it'd be easy to find robust modules to work
+  with in any platform ecosystem
 
 - It allows us to easily impose a file order, which greatly helps with
   streamability. This is not trivial with `zip`, for instance
@@ -80,9 +75,9 @@ Archive layout
 The contents of an extended archive are the followings:
 
 - **REQUIRED** `.meta/manifest.json`
-- `.meta/publisher.svg`
-- `.meta/device.svg`
-- `.meta/image.svg`
+- `.meta/publisher(2x)?.[svg|png]`
+- `.meta/device(2x)?.[svg|png]`
+- `.meta/image(2x)?.[svg|png]`
 - `.meta/schema.json`
 - `.meta/image.bmap`
 - `.meta/instructions.markdown`
@@ -101,9 +96,10 @@ described above ensures the maximum UX perceived efficiency.
 
 ### Graphics
 
-We chose [`svg`][svg] over other image formats since clients can display it on
-any kind of screen resolution without requiring multi-layer files, or multiple
-files workarounds.
+Any graphic included in the archive can be either an [`svg`][svg] file, or a
+[`png`][png] file with the `<filename>.png` and `<filename>@2x.png` convention.
+
+If both are present, [`svg`][svg] should be favoured by the client.
 
 Archive files
 -------------
@@ -164,13 +160,15 @@ You may declare the following colors, in hexadecimal format:
 - `text`: The text color
 - `primary`: The primary color
 
+The client decides how to use them and where, if at all.
+
 #### Device
 
 Here's an example of a real-world device manifest for Raspberry Pi 3:
 
 ```json
 {
-  "displayName": "Raspberry Pi 3",
+  "name": "Raspberry Pi 3",
   "url": "https://www.raspberrypi.org/products/raspberry-pi-3-model-b/",
   "arch": "armv7hf",
   "slug": "raspberrypi3",
@@ -183,7 +181,7 @@ Here's an example of a real-world device manifest for Raspberry Pi 3:
 
 Describe a device with any of the following properties:
 
-##### `displayName (String)`
+##### `name (String)`
 
 The human-friendly name of the device.
 
@@ -191,7 +189,7 @@ The human-friendly name of the device.
 
 The url to the landing page of the device.
 
-##### `arch (String[])`
+##### `arch (String)`
 
 The device architecture.
 
@@ -242,10 +240,9 @@ Here's an example of a real-world image manifest for Raspbian Jessie:
 
 ```json
 {
-  "displayName": "Raspbian Jessie",
+  "name": "Raspbian Jessie",
   "version": "May 2016",
   "url": "https://www.raspberrypi.org/downloads/raspbian/",
-  "releaseNotesUrl": "http://downloads.raspberrypi.org/raspbian/release_notes.txt",
   "checksumType": "sha1",
   "recommendedDriveSize": 4294967296,
   "updateUrl": "https://downloads.raspberrypi.org/raspbian_latest",
@@ -260,7 +257,7 @@ Here's an example of a real-world image manifest for Raspbian Jessie:
 
 Describe an image with any of the following properties:
 
-##### `displayName (String)`
+##### `name (String)`
 
 The human-friendly name of the image.
 
@@ -272,11 +269,6 @@ The version of the image.
 
 The main url of the image.
 
-##### `releaseNotesUrl (String)`
-
-The url to the image's release notes or CHANGELOG. This URL will take
-precedence over `.meta/release-notes.txt` if defined.
-
 ##### `releaseDate (String)`
 
 The release date timestamp. The date should conform to [ISO 8601][iso8601]
@@ -284,7 +276,8 @@ standard.
 
 ##### `checksumType (String)`
 
-The checksum type. The current possible values are: `sha1`, `crc32`, and `md5`.
+The checksum type. The current possible values are: `sha1`, `sha256`, `crc32`,
+and `md5`.
 
 See the `.meta/checksum` file.
 
@@ -294,7 +287,7 @@ The minimum recommended drive size to flash this image, in bytes.
 
 The use case for this option is that while a drive might be large enough to
 contain the image, it might not be large enough to deliver a good experience
-when actual using the application or operating system contained in the image.
+when actually using the application or operating system contained in the image.
 
 ##### `supportedDevices (String[])`
 
@@ -327,7 +320,7 @@ to the one we have locally.
 The timestamp to determine the expiration date of the image. The date should
 conform to [ISO 8601][iso8601] standard.
 
-Clients may use this information to refuse flashing the image.
+Clients may use this information to warn against flashing the image.
 
 #### Extensions
 
@@ -365,13 +358,17 @@ For example:
 }
 ```
 
-### `.meta/publisher.svg`
+### `.meta/publisher(2x)?.[svg|png]`
 
-An [`svg`][svg] logo of the publisher.
+A graphic that represents the image publisher.
 
-### `.meta/device.svg`
+### `.meta/device(2x)?.[svg|png]`
 
-An [`svg`][svg] logo of the device.
+A graphic that represents the target device.
+
+### `.meta/image(2x)?.[svg|png]`
+
+A graphic that represents the image.
 
 ### `.meta/schema.json`
 
@@ -387,10 +384,7 @@ A markdown file including post-flash instructions.
 
 ### `.meta/release-notes.txt`
 
-A plain text file describing the image version's release notes. The client
-should read this file only if the `releaseNotesUrl` on the `image` section of
-the `.meta/manifest.json` is not defined, returns an unsuccessful HTTP code,
-or the client is offline.
+A plain text file describing the image version's release notes.
 
 ### `image.<extension>`
 
@@ -422,6 +416,7 @@ image has been processed.
 [nodejs]: https://nodejs.org
 [lzma-native]: https://github.com/addaleax/lzma-native
 [svg]: https://developer.mozilla.org/en-US/docs/Web/SVG
+[png]: http://www.libpng.org/pub/png/
 [reconfix]: https://github.com/resin-io/reconfix
 [bmap]: https://source.tizen.org/documentation/reference/bmaptool/introduction
 [iso8601]: https://en.wikipedia.org/wiki/ISO_8601
