@@ -107,44 +107,57 @@ Archive files
 ### `.meta/manifest.json`
 
 This is the only required file inside `.meta`, which declares information about
-the image. This file may contain the following top level properties:
+the image.
 
-- `publisher`: Information about the image publisher
-- `image`: Information about the image itself
-
-#### Publisher
-
-Here's an example of a real-world publisher manifest for RetroPie:
+Here's an example of a real-world manifest for Raspbian Jessie
 
 ```json
 {
-  "name": "RetroPie",
-  "url": "https://retropie.org.uk",
-  "logo": "retropie.svg",
-  "colorScheme": {
-    "background": "#535760",
-    "text": "#FFFFFF",
-    "primary": "#5793db"
+  "publisher": {
+    "name": "Raspberry Pi",
+    "url": "https://www.raspberrypi.org",
+    "logo": "raspberrypi.svg",
+    "colorScheme": {
+      "background": "#535760",
+      "text": "#FFFFFF",
+      "primary": "#5793db"
+    }
+  },
+  "image": {
+    "name": "Raspbian Jessie",
+    "version": "May 2016",
+    "url": "https://www.raspberrypi.org/downloads/raspbian/",
+    "supportUrl": "https://retropie.org.uk/forum/",
+    "logo": "raspbian.svg",
+    "checksumType": "sha1",
+    "path": "raspbian-jessie.img",
+    "bmap": "raspbian-jessie.img.bmap",
+    "instructions": "raspbian-jessie.markdown",
+    "releaseNotes": "raspbian-jessie-changelog.txt",
+    "configurationSchema": "raspbian-jessie-schema.json",
+    "recommendedDriveSize": 4294967296,
+    "updateUrl": "https://downloads.raspberrypi.org/raspbian_latest",
+    "etag": "c0170-53152af2-533d18ef29fc0"
   }
 }
 ```
 
-Describe a publisher with any of the following properties:
+This file may contain the following properties:
 
-##### `name (String)`
+#### `publisher.name (String)`
 
 The display human-friendly name of the publisher.
 
-##### `url (String)`
+#### `publisher.url (String)`
 
 The main url of the publisher, usually the landing page.
 
-##### `logo (String)`
+#### `publisher.logo (String)`
 
 The path to a logo that represents the publisher, relative to the `.meta`
 directory.
 
-##### `colorScheme (Object)`
+#### `publisher.colorScheme (Object)`
 
 The publisher specific color scheme, if any.
 
@@ -158,92 +171,67 @@ You may declare the following colors, in hexadecimal format:
 
 The client decides how to use them and where, if at all.
 
-#### Image
-
-Here's an example of a real-world image manifest for Raspbian Jessie:
-
-```json
-{
-  "name": "Raspbian Jessie",
-  "version": "May 2016",
-  "url": "https://www.raspberrypi.org/downloads/raspbian/",
-  "supportUrl": "https://retropie.org.uk/forum/",
-  "logo": "raspbian.svg",
-  "checksumType": "sha1",
-  "path": "raspbian-jessie.img",
-  "bmap": "raspbian-jessie.img.bmap",
-  "instructions": "raspbian-jessie.markdown",
-  "releaseNotes": "raspbian-jessie-changelog.txt",
-  "configurationSchema": "raspbian-jessie-schema.json",
-  "recommendedDriveSize": 4294967296,
-  "updateUrl": "https://downloads.raspberrypi.org/raspbian_latest",
-  "etag": "c0170-53152af2-533d18ef29fc0"
-}
-```
-
-Describe an image with any of the following properties:
-
-##### `name (String)`
+#### `image.name (String)`
 
 The human-friendly name of the image.
 
-##### `version (String)`
+#### `image.version (String)`
 
 The version of the image.
 
-##### `url (String)`
+#### `image.url (String)`
 
 The main url of the image.
 
-##### `supportUrl (String)`
+#### `image.supportUrl (String)`
 
 The url where users can get general support for this image.
 
 This could be a link to a forum, IRC room, troubleshooting page, support form,
 etc.
 
-##### `logo (String)`
+#### `image.logo (String)`
 
 The path to a logo that represents the image, relative to the `.meta`
 directory.
 
-##### `releaseDate (String)`
+#### `image.releaseDate (String)`
 
 The release date timestamp. The date should conform to [ISO 8601][iso8601]
 standard.
 
-##### `checksumType (String)`
+#### `image.checksumType (String)`
 
 The checksum type. The current possible values are: `sha1`, `sha256`, `crc32`,
 and `md5`.
 
 See the `.meta/checksum` file.
 
-##### `path (String)`
+#### `image.path (String)`
 
 The path to the image, relative to the root of the archive.
 
-##### `bmap (String)`
+#### `image.bmap (String)`
 
 The path a [`bmap`][bmap] file for the image, relative to the `.meta`
 directory.
 
-##### `instructions (String)`
+#### `image.instructions (String)`
 
 The path a markdown post-flash instructions file for the image, relative to the
 `.meta` directory.
 
-##### `releaseNotes (String)`
+#### `image.releaseNotes (String)`
 
 The path to a plain text file describing the image version's release notes,
 relative to the `.meta` directory.
 
-##### `configurationSchema (String)`
+#### `image.configurationSchema (String)`
 
 The path to a [Reconfix][reconfix] image configuration schema, relative to the
 `.meta` directory.
 
-##### `recommendedDriveSize (Number)`
+#### `image.recommendedDriveSize (Number)`
 
 The minimum recommended drive size to flash this image, in bytes.
 
@@ -251,7 +239,7 @@ The use case for this option is that while a drive might be large enough to
 contain the image, it might not be large enough to deliver a good experience
 when actually using the application or operating system contained in the image.
 
-##### `updateUrl (String)`
+#### `image.updateUrl (String)`
 
 The url where the client can request the latest version of the image.
 
@@ -266,14 +254,14 @@ image.
 If the HTTP response from `updateUrl` doesn't contain an ETag this mechanism is
 ignored.
 
-##### `etag (String)`
+#### `image.etag (String)`
 
 The [HTTP Etag][etag] of the current image.
 
 Clients may use this to check if the image resolved by `updateUrl` is different
 to the one we have locally.
 
-##### `expiryDate (String)`
+#### `image.expiryDate (String)`
 
 The timestamp to determine the expiration date of the image. The date should
 conform to [ISO 8601][iso8601] standard.
