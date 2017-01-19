@@ -75,27 +75,31 @@ Archive layout
 The contents of an extended archive are the followings:
 
 - **REQUIRED** `.meta/manifest.json`
-- `.meta/schema.json`
-- `.meta/instructions.markdown`
-- `.meta/release-notes.txt`
 - **REQUIRED** `<image name>.<extension>`
 - `.meta/checksum`
 
 ### Order
 
 Notice that the order is important. The `.meta/` directory must come before the
-image data, since we need that information before being able to make use of the
-image.
-
-The order of the files inside `.meta/` is not mandatory, however the order
-described above ensures the maximum UX perceived efficiency.
+image data, and `.meta/manifest.json` should be the first entry, since we need
+that information before being able to make use of the image.
 
 ### Graphics
 
 Any graphic included in the archive can be either an [`svg`][svg] file, or a
-[`png`][png] file with the `<filename>.png` and `<filename>@2x.png` convention.
+[`png`][png] file.
 
 If both are present, [`svg`][svg] should be favoured by the client.
+
+Ifa [`png`][png] file path is declared and the client detects that the host is
+running a high definition screen, it may search for a `<filename>@2x.png` file
+in the archive.
+
+### Paths
+
+The `.meta/manifest.json` file may refer to other files in the package. If the
+property searches for the file relative to `.meta`, then it should not allow
+accessing the parent directory with `..`.
 
 Archive files
 -------------
@@ -175,6 +179,9 @@ Here's an example of a real-world image manifest for Raspbian Jessie:
   "checksumType": "sha1",
   "path": "raspbian-jessie.img",
   "bmap": "raspbian-jessie.img.bmap",
+  "instructions": "raspbian-jessie.markdown",
+  "releaseNotes": "raspbian-jessie-changelog.txt",
+  "configurationSchema": "raspbian-jessie-schema.json",
   "recommendedDriveSize": 4294967296,
   "updateUrl": "https://downloads.raspberrypi.org/raspbian_latest",
   "etag": "c0170-53152af2-533d18ef29fc0"
@@ -220,6 +227,21 @@ The path to the image, relative to the root of the archive.
 
 The path a [`bmap`][bmap] file for the image, relative to the `.meta`
 directory.
+
+##### `instructions (String)`
+
+The path a markdown post-flash instructions file for the image, relative to the
+`.meta` directory.
+
+##### `releaseNotes (String)`
+
+The path to a plain text file describing the image version's release notes,
+relative to the `.meta` directory.
+
+##### `configurationSchema (String)`
+
+The path to a [Reconfix][reconfix] image configuration schema, relative to the
+`.meta` directory.
 
 ##### `recommendedDriveSize (Number)`
 
@@ -286,18 +308,6 @@ For example:
   }
 }
 ```
-
-### `.meta/schema.json`
-
-A [Reconfix][reconfix] image configuration schema.
-
-### `.meta/instructions.markdown`
-
-A markdown file including post-flash instructions.
-
-### `.meta/release-notes.txt`
-
-A plain text file describing the image version's release notes.
 
 ### `<image name>.<extension>`
 
