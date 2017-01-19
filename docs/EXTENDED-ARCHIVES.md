@@ -76,7 +76,6 @@ The contents of an extended archive are the followings:
 
 - **REQUIRED** `.meta/manifest.json`
 - `.meta/publisher(2x)?.[svg|png]`
-- `.meta/device(2x)?.[svg|png]`
 - `.meta/image(2x)?.[svg|png]`
 - `.meta/schema.json`
 - `.meta/image.bmap`
@@ -107,11 +106,9 @@ Archive files
 ### `.meta/manifest.json`
 
 This is the only required file inside `.meta`, which declares information about
-the image, the target device type, and the publisher. This file may contain the
-following top level properties:
+the image. This file may contain the following top level properties:
 
 - `publisher`: Information about the image publisher
-- `device`: Information about the image device type
 - `image`: Information about the image itself
 
 #### Publisher
@@ -162,78 +159,6 @@ You may declare the following colors, in hexadecimal format:
 
 The client decides how to use them and where, if at all.
 
-#### Device
-
-Here's an example of a real-world device manifest for Raspberry Pi 3:
-
-```json
-{
-  "name": "Raspberry Pi 3",
-  "url": "https://www.raspberrypi.org/products/raspberry-pi-3-model-b/",
-  "arch": "armv7hf",
-  "slug": "raspberrypi3",
-  "slugAliases": [
-    "raspberry-pi3",
-    "rpi3"
-  ]
-}
-```
-
-Describe a device with any of the following properties:
-
-##### `name (String)`
-
-The human-friendly name of the device.
-
-##### `url (String)`
-
-The url to the landing page of the device.
-
-##### `arch (String)`
-
-The device architecture.
-
-The current possible values are: `aarch64`, `amd64`, `armv5e`, `armv6`,
-`armv7hf`, and `i386`.
-
-##### `slug (String)`
-
-The device slug. Officially recognised slugs include:
-
-- `artik10`
-- `artik5`
-- `artik710`
-- `beaglebone-black`
-- `beaglebone-green-wifi`
-- `beaglebone-green`
-- `colibri-imx6dl`
-- `cybertan-ze250`
-- `edge`
-- `hummingboard`
-- `intel-edison`
-- `intel-nuc`
-- `nitrogen6x`
-- `odroid-c1`
-- `odroid-xu4`
-- `parallella`
-- `qemux86-64`
-- `qemux86`
-- `raspberry-pi`
-- `raspberry-pi2`
-- `raspberrypi3`
-- `ts4900`
-- `ts7700`
-- `via-vab820-quad`
-- `zynq-xz702`
-
-##### `slugAliases (String[])`
-
-The device slug aliases, if any.
-
-##### `compatibleWith (String[])`
-
-An array of the device slugs this device is compatible with.
-
 #### Image
 
 Here's an example of a real-world image manifest for Raspbian Jessie:
@@ -246,12 +171,7 @@ Here's an example of a real-world image manifest for Raspbian Jessie:
   "checksumType": "sha1",
   "recommendedDriveSize": 4294967296,
   "updateUrl": "https://downloads.raspberrypi.org/raspbian_latest",
-  "etag": "c0170-53152af2-533d18ef29fc0",
-  "supportedDevices": [
-    "raspberrypi",
-    "raspberrypi2",
-    "raspberrypi3"
-  ]
+  "etag": "c0170-53152af2-533d18ef29fc0"
 }
 ```
 
@@ -288,10 +208,6 @@ The minimum recommended drive size to flash this image, in bytes.
 The use case for this option is that while a drive might be large enough to
 contain the image, it might not be large enough to deliver a good experience
 when actually using the application or operating system contained in the image.
-
-##### `supportedDevices (String[])`
-
-An array of the device slugs this image supports.
 
 ##### `updateUrl (String)`
 
@@ -341,13 +257,6 @@ For example:
     }
     ..
   },
-  "device": {
-    ..
-    "extensions": {
-      ..
-    }
-    ..
-  },
   "image": {
     ..
     "extensions": {
@@ -361,10 +270,6 @@ For example:
 ### `.meta/publisher(2x)?.[svg|png]`
 
 A graphic that represents the image publisher.
-
-### `.meta/device(2x)?.[svg|png]`
-
-A graphic that represents the target device.
 
 ### `.meta/image(2x)?.[svg|png]`
 
