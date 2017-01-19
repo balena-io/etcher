@@ -121,23 +121,28 @@ Here's an example of a real-world manifest for Raspbian Jessie
       "background": "#535760",
       "text": "#FFFFFF",
       "primary": "#5793db"
-    }
-  },
-  "image": {
-    "name": "Raspbian Jessie",
-    "version": "May 2016",
-    "url": "https://www.raspberrypi.org/downloads/raspbian/",
-    "supportUrl": "https://retropie.org.uk/forum/",
-    "logo": "raspbian.svg",
-    "checksumType": "sha1",
-    "path": "raspbian-jessie.img",
-    "bmap": "raspbian-jessie.img.bmap",
-    "instructions": "raspbian-jessie.markdown",
-    "releaseNotes": "raspbian-jessie-changelog.txt",
-    "configurationSchema": "raspbian-jessie-schema.json",
-    "recommendedDriveSize": 4294967296,
-    "updateUrl": "https://downloads.raspberrypi.org/raspbian_latest",
-    "etag": "c0170-53152af2-533d18ef29fc0"
+    },
+    "images": [
+      {
+        "name": "Raspbian Jessie",
+        "version": "May 2016",
+        "url": "https://www.raspberrypi.org/downloads/raspbian/",
+        "supportUrl": "https://retropie.org.uk/forum/",
+        "logo": "raspbian.svg",
+        "checksum": {
+          "type": "sha1",
+          "path": "raspbian-jessie-checksum.txt"
+        },
+        "path": "raspbian-jessie.img",
+        "bmap": "raspbian-jessie.img.bmap",
+        "instructions": "raspbian-jessie.markdown",
+        "releaseNotes": "raspbian-jessie-changelog.txt",
+        "configurationSchema": "raspbian-jessie-schema.json",
+        "recommendedDriveSize": 4294967296,
+        "updateUrl": "https://downloads.raspberrypi.org/raspbian_latest",
+        "etag": "c0170-53152af2-533d18ef29fc0"
+      }
+    ]
   }
 }
 ```
@@ -171,67 +176,71 @@ You may declare the following colors, in hexadecimal format:
 
 The client decides how to use them and where, if at all.
 
-#### `image.name (String)`
+#### `images[].name (String)`
 
 The human-friendly name of the image.
 
-#### `image.version (String)`
+#### `images[].version (String)`
 
 The version of the image.
 
-#### `image.url (String)`
+#### `images[].url (String)`
 
 The main url of the image.
 
-#### `image.supportUrl (String)`
+#### `images[].supportUrl (String)`
 
 The url where users can get general support for this image.
 
 This could be a link to a forum, IRC room, troubleshooting page, support form,
 etc.
 
-#### `image.logo (String)`
+#### `images[].logo (String)`
 
 The path to a logo that represents the image, relative to the `.meta`
 directory.
 
-#### `image.releaseDate (String)`
+#### `images[].releaseDate (String)`
 
 The release date timestamp. The date should conform to [ISO 8601][iso8601]
 standard.
 
-#### `image.checksumType (String)`
+#### `images[].checksum.type (String)`
 
 The checksum type. The current possible values are: `sha1`, `sha256`, `crc32`,
 and `md5`.
 
-See the `.meta/checksum` file.
+#### `images[].checksum.path (String)`
 
-#### `image.path (String)`
+The path to a file containing the checksum, relative to the root of the
+archive. This file **can't be inside `.meta/`** and should be included **at the
+tail of the archive**.
+
+#### `images[].path (String)`
 
 The path to the image, relative to the root of the archive.
 
-#### `image.bmap (String)`
+#### `images[].bmap (String)`
 
 The path a [`bmap`][bmap] file for the image, relative to the `.meta`
 directory.
 
-#### `image.instructions (String)`
+#### `images[].instructions (String)`
 
 The path a markdown post-flash instructions file for the image, relative to the
 `.meta` directory.
 
-#### `image.releaseNotes (String)`
+#### `images[].releaseNotes (String)`
 
 The path to a plain text file describing the image version's release notes,
 relative to the `.meta` directory.
 
-#### `image.configurationSchema (String)`
+#### `images[].configurationSchema (String)`
 
 The path to a [Reconfix][reconfix] image configuration schema, relative to the
 `.meta` directory.
 
-#### `image.recommendedDriveSize (Number)`
+#### `images[].recommendedDriveSize (Number)`
 
 The minimum recommended drive size to flash this image, in bytes.
 
@@ -239,7 +248,7 @@ The use case for this option is that while a drive might be large enough to
 contain the image, it might not be large enough to deliver a good experience
 when actually using the application or operating system contained in the image.
 
-#### `image.updateUrl (String)`
+#### `images[].updateUrl (String)`
 
 The url where the client can request the latest version of the image.
 
@@ -254,14 +263,14 @@ image.
 If the HTTP response from `updateUrl` doesn't contain an ETag this mechanism is
 ignored.
 
-#### `image.etag (String)`
+#### `images[].etag (String)`
 
 The [HTTP Etag][etag] of the current image.
 
 Clients may use this to check if the image resolved by `updateUrl` is different
 to the one we have locally.
 
-#### `image.expiryDate (String)`
+#### `images[].expiryDate (String)`
 
 The timestamp to determine the expiration date of the image. The date should
 conform to [ISO 8601][iso8601] standard.
@@ -284,15 +293,17 @@ For example:
     ..
     "extensions": {
       ..
-    }
+    },
     ..
-  },
-  "image": {
-    ..
-    "extensions": {
-      ..
-    }
-    ..
+    "images": [
+      {
+        ..
+        "extensions": {
+          ..
+        }
+        ..
+      }
+    ]
   }
 }
 ```
@@ -306,12 +317,13 @@ compressed bytes to the drive.
 
 This file should be references by `.meta/manifest.json`'s `path` property.
 
-### `.meta/checksum`
+### `.meta/<checksum file name>`
 
 For example: `64c7ed611929ea5178fbb69b5a5f29cc9cc7c157`
 
 This file contains the checksum matching the type specified in the
-`checksumType` field of the image section of `.meta/manifest.json`.
+`images[].checksum.type` field of an image section of `.meta/manifest.json`,
+and it should be referenced by the `images[].checksum.path` property.
 
 The reason the actual checksum is at the end of the archive is that if any tool
 modifies the image inside the extended archive, it will need to update the
