@@ -112,15 +112,17 @@ the image.
 Here's an example of a real-world manifest for Raspbian Jessie
 
 ```json
-{
-  "publisher": {
-    "name": "Raspberry Pi",
-    "url": "https://www.raspberrypi.org",
-    "logo": "raspberrypi.svg",
-    "colorScheme": {
-      "background": "#535760",
-      "text": "#FFFFFF",
-      "primary": "#5793db"
+[
+  {
+    "publisher": {
+      "name": "Raspberry Pi",
+      "url": "https://www.raspberrypi.org",
+      "logo": "raspberrypi.svg",
+      "colorScheme": {
+        "background": "#535760",
+        "text": "#FFFFFF",
+        "primary": "#5793db"
+      }
     },
     "images": [
       {
@@ -144,10 +146,10 @@ Here's an example of a real-world manifest for Raspbian Jessie
       }
     ]
   }
-}
+]
 ```
 
-This file may contain the following properties:
+Each entry of this file may contain the following properties:
 
 #### `publisher.name (String)`
 
