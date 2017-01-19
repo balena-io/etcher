@@ -75,13 +75,10 @@ Archive layout
 The contents of an extended archive are the followings:
 
 - **REQUIRED** `.meta/manifest.json`
-- `.meta/publisher(2x)?.[svg|png]`
-- `.meta/image(2x)?.[svg|png]`
 - `.meta/schema.json`
-- `.meta/image.bmap`
 - `.meta/instructions.markdown`
 - `.meta/release-notes.txt`
-- **REQUIRED** `image.<extension>`
+- **REQUIRED** `<image name>.<extension>`
 - `.meta/checksum`
 
 ### Order
@@ -119,6 +116,7 @@ Here's an example of a real-world publisher manifest for RetroPie:
 {
   "name": "RetroPie",
   "url": "https://retropie.org.uk",
+  "logo": "retropie.svg",
   "supportUrl": "https://retropie.org.uk/forum/",
   "colorScheme": {
     "background": "#535760",
@@ -137,6 +135,11 @@ The display human-friendly name of the publisher.
 ##### `url (String)`
 
 The main url of the publisher, usually the landing page.
+
+##### `logo (String)`
+
+The path to a logo that represents the publisher, relative to the `.meta`
+directory.
 
 ##### `supportUrl (String)`
 
@@ -168,7 +171,10 @@ Here's an example of a real-world image manifest for Raspbian Jessie:
   "name": "Raspbian Jessie",
   "version": "May 2016",
   "url": "https://www.raspberrypi.org/downloads/raspbian/",
+  "logo": "raspbian.svg",
   "checksumType": "sha1",
+  "path": "raspbian-jessie.img",
+  "bmap": "raspbian-jessie.img.bmap",
   "recommendedDriveSize": 4294967296,
   "updateUrl": "https://downloads.raspberrypi.org/raspbian_latest",
   "etag": "c0170-53152af2-533d18ef29fc0"
@@ -189,6 +195,11 @@ The version of the image.
 
 The main url of the image.
 
+##### `logo (String)`
+
+The path to a logo that represents the image, relative to the `.meta`
+directory.
+
 ##### `releaseDate (String)`
 
 The release date timestamp. The date should conform to [ISO 8601][iso8601]
@@ -200,6 +211,15 @@ The checksum type. The current possible values are: `sha1`, `sha256`, `crc32`,
 and `md5`.
 
 See the `.meta/checksum` file.
+
+##### `path (String)`
+
+The path to the image, relative to the root of the archive.
+
+##### `bmap (String)`
+
+The path a [`bmap`][bmap] file for the image, relative to the `.meta`
+directory.
 
 ##### `recommendedDriveSize (Number)`
 
@@ -267,21 +287,9 @@ For example:
 }
 ```
 
-### `.meta/publisher(2x)?.[svg|png]`
-
-A graphic that represents the image publisher.
-
-### `.meta/image(2x)?.[svg|png]`
-
-A graphic that represents the image.
-
 ### `.meta/schema.json`
 
 A [Reconfix][reconfix] image configuration schema.
-
-### `.meta/image.bmap`
-
-A [bmap][bmap] file for the extended archive image.
 
 ### `.meta/instructions.markdown`
 
@@ -291,15 +299,14 @@ A markdown file including post-flash instructions.
 
 A plain text file describing the image version's release notes.
 
-### `image.<extension>`
+### `<image name>.<extension>`
 
-The image file **in uncompressed form**. Clients should not attempt to
+An image file **in uncompressed form**. Clients should not attempt to
 decompress the image file since the extended archive already includes
 compression. If the image is compressed, then the client should write
 compressed bytes to the drive.
 
-An archive containing more than one image file is not a well-formed archive. If
-this is the case, use only the first image.
+This file should be references by `.meta/manifest.json`'s `path` property.
 
 ### `.meta/checksum`
 
