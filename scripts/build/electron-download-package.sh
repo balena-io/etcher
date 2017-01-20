@@ -26,7 +26,7 @@ function usage() {
   echo ""
   echo "Options"
   echo ""
-  echo "    -r <electron architecture>"
+  echo "    -r <architecture>"
   echo "    -v <electron version>"
   echo "    -s <electron operating system>"
   echo "    -o <output directory>"
@@ -56,11 +56,7 @@ then
   usage
 fi
 
-ELECTRON_ARCHITECTURE=$ARGV_ARCHITECTURE
-if [ "$ELECTRON_ARCHITECTURE" == "x86" ]; then
-  ELECTRON_ARCHITECTURE="ia32"
-fi
-
+ELECTRON_ARCHITECTURE=$(./scripts/build/architecture-convert.sh -r "$ARGV_ARCHITECTURE" -t node)
 ELECTRON_GITHUB_REPOSITORY=https://github.com/electron/electron
 ELECTRON_DOWNLOADS_BASEURL="$ELECTRON_GITHUB_REPOSITORY/releases/download/v$ARGV_ELECTRON_VERSION"
 ELECTRON_FILENAME="electron-v$ARGV_ELECTRON_VERSION-$ARGV_OPERATING_SYSTEM-$ELECTRON_ARCHITECTURE.zip"

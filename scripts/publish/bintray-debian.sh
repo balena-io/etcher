@@ -82,12 +82,13 @@ fi
 
 PACKAGE_FILE_NAME=$(basename $ARGV_FILE)
 PACKAGE_NAME=${PACKAGE_FILE_NAME%.*}
+PACKAGE_ARCHITECTURE=$(./scripts/build/architecture-convert.sh -r "$ARGV_ARCHITECTURE" -t debian)
 
 curl --upload-file $ARGV_FILE \
   --user $BINTRAY_USER:$BINTRAY_API_KEY \
   --header "X-Bintray-Debian-Distribution: $PACKAGE_DISTRIBUTION" \
   --header "X-Bintray-Debian-Component: $ARGV_COMPONENT_NAME" \
-  --header "X-Bintray-Debian-Architecture: $ARGV_ARCHITECTURE" \
+  --header "X-Bintray-Debian-Architecture: $PACKAGE_ARCHITECTURE" \
   --header "X-Bintray-Publish: 1" \
   https://api.bintray.com/content/resin-io/debian/$ARGV_COMPONENT_NAME/$ARGV_VERSION/$PACKAGE_FILE_NAME
 

@@ -33,7 +33,7 @@ function usage() {
   echo "Options"
   echo ""
   echo "    -p <application directory>"
-  echo "    -r <application architecture>"
+  echo "    -r <architecture>"
   echo "    -c <debian configuration (.json)>"
   echo "    -o <output directory>"
   exit 1
@@ -62,19 +62,12 @@ then
   usage
 fi
 
-if [ "$ARGV_ARCHITECTURE" == "x86" ]; then
-  DEBARCH=i386
-elif [ "$ARGV_ARCHITECTURE" == "x64" ]; then
-  DEBARCH=amd64
-else
-  echo "Unsupported architecture: $ARGV_ARCHITECTURE" 1>&2
-  exit 1
-fi
+DEBIAN_ARCHITECTURE=$(./scripts/build/architecture-convert.sh -r "$ARGV_ARCHITECTURE" -t debian)
 
 cp scripts/build/debian/etcher-electron.sh "$ARGV_DIRECTORY"
 electron-installer-debian \
   --src "$ARGV_DIRECTORY" \
   --dest "$ARGV_OUTPUT" \
   --config "$ARGV_DEBIAN_CONFIGURATION" \
-  --arch "$DEBARCH"
+  --arch "$DEBIAN_ARCHITECTURE"
 rm "$ARGV_DIRECTORY/etcher-electron.sh"

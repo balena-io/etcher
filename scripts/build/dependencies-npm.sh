@@ -82,11 +82,8 @@ fi
 export npm_config_target=$ARGV_TARGET_VERSION
 export npm_config_build_from_source=true
 
-if [ "$ARGV_ARCHITECTURE" == "x86" ]; then
-  export npm_config_arch=ia32
-else
-  export npm_config_arch=$ARGV_ARCHITECTURE
-fi
+ELECTRON_ARCHITECTURE=$(./scripts/build/architecture-convert.sh -r "$ARGV_ARCHITECTURE" -t node)
+export npm_config_arch=$ELECTRON_ARCHITECTURE
 
 INSTALL_OPTS=""
 
