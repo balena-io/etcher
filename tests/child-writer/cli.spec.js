@@ -17,9 +17,9 @@
 'use strict';
 
 const m = require('mochainon');
-const cli = require('../../../lib/shared/child-writer/cli');
+const cli = require('../../lib/child-writer/cli');
 
-describe('Shared: ChildWriter CLI', function() {
+describe('ChildWriter CLI', function() {
 
   describe('.getBooleanArgumentForm()', function() {
 
