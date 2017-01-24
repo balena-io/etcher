@@ -60,10 +60,10 @@ exports.extractFromFilePath = function(file, image) {
 
     imageStream.getFromFilePath(file).then(function(results) {
       if (!_.some([
-        results.size === fs.statSync(file).size,
-        results.size === fs.statSync(image).size
+        results.size.original === fs.statSync(file).size,
+        results.size.original === fs.statSync(image).size
       ])) {
-        throw new Error('Invalid size: ' + results.size);
+        throw new Error('Invalid size: ' + results.size.original);
       }
 
       const stream = results.stream
