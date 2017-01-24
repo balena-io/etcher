@@ -17,9 +17,9 @@
 'use strict';
 
 const m = require('mochainon');
-const utils = require('../../../lib/shared/child-writer/utils');
+const utils = require('../../lib/child-writer/utils');
 
-describe('Shared: ChildWriter Utils', function() {
+describe('ChildWriter Utils', function() {
 
   describe('.splitObjectLines()', function() {
 
