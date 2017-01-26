@@ -43,7 +43,7 @@
 
       <svg-icon
         class="center-block"
-        path="{{ main.selection.getImageLogo() || '../../../assets/image.svg' }}"
+        path="../../../assets/image.svg"
         ng-disabled="main.shouldImageStepBeDisabled()"></svg-icon>
       <span
         class="icon-caption"
@@ -67,9 +67,8 @@
         </div>
         <div ng-if="main.selection.hasImage()">
           <div class="step-selection-text">
-            <span ng-click="main.external.open(main.selection.getImageUrl())"
-              ng-class="{ 'text-disabled': main.shouldImageStepBeDisabled() }"
-              ng-bind="main.selection.getImageName() || main.selection.getImagePath() | basename | middleEllipses:20"
+            <span ng-class="{ 'text-disabled': main.shouldImageStepBeDisabled() }"
+              ng-bind="main.selection.getImagePath() | basename | middleEllipses:20"
               uib-tooltip="{{ main.selection.getImagePath() | basename }}"></span>
 
             <span class="glyphicon glyphicon-info-sign"
