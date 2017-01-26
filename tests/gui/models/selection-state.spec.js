@@ -47,6 +47,26 @@ describe('Browser: SelectionState', function() {
         m.chai.expect(SelectionStateModel.getImageSize()).to.be.undefined;
       });
 
+      it('getImageUrl() should return undefined', function() {
+        m.chai.expect(SelectionStateModel.getImageUrl()).to.be.undefined;
+      });
+
+      it('getImageName() should return undefined', function() {
+        m.chai.expect(SelectionStateModel.getImageName()).to.be.undefined;
+      });
+
+      it('getImageLogo() should return undefined', function() {
+        m.chai.expect(SelectionStateModel.getImageLogo()).to.be.undefined;
+      });
+
+      it('getImageSupportUrl() should return undefined', function() {
+        m.chai.expect(SelectionStateModel.getImageSupportUrl()).to.be.undefined;
+      });
+
+      it('getImageRecommendedDriveSize() should return undefined', function() {
+        m.chai.expect(SelectionStateModel.getImageRecommendedDriveSize()).to.be.undefined;
+      });
+
       it('hasDrive() should return false', function() {
         const hasDrive = SelectionStateModel.hasDrive();
         m.chai.expect(hasDrive).to.be.false;
@@ -199,7 +219,12 @@ describe('Browser: SelectionState', function() {
       beforeEach(function() {
         this.image = {
           path: 'foo.img',
-          size: 999999999
+          size: 999999999,
+          recommendedDriveSize: 1000000000,
+          url: 'https://www.raspbian.org',
+          supportUrl: 'https://www.raspbian.org/forums/',
+          name: 'Raspbian',
+          logo: '<svg><text fill="red">Raspbian</text></svg>'
         };
 
         SelectionStateModel.setImage(this.image);
@@ -246,6 +271,51 @@ describe('Browser: SelectionState', function() {
         it('should return the image size', function() {
           const imageSize = SelectionStateModel.getImageSize();
           m.chai.expect(imageSize).to.equal(999999999);
+        });
+
+      });
+
+      describe('.getImageUrl()', function() {
+
+        it('should return the image url', function() {
+          const imageUrl = SelectionStateModel.getImageUrl();
+          m.chai.expect(imageUrl).to.equal('https://www.raspbian.org');
+        });
+
+      });
+
+      describe('.getImageName()', function() {
+
+        it('should return the image name', function() {
+          const imageName = SelectionStateModel.getImageName();
+          m.chai.expect(imageName).to.equal('Raspbian');
+        });
+
+      });
+
+      describe('.getImageLogo()', function() {
+
+        it('should return the image logo', function() {
+          const imageLogo = SelectionStateModel.getImageLogo();
+          m.chai.expect(imageLogo).to.equal('<svg><text fill="red">Raspbian</text></svg>');
+        });
+
+      });
+
+      describe('.getImageSupportUrl()', function() {
+
+        it('should return the image support url', function() {
+          const imageSupportUrl = SelectionStateModel.getImageSupportUrl();
+          m.chai.expect(imageSupportUrl).to.equal('https://www.raspbian.org/forums/');
+        });
+
+      });
+
+      describe('.getImageRecommendedDriveSize()', function() {
+
+        it('should return the image recommended drive size', function() {
+          const imageRecommendedDriveSize = SelectionStateModel.getImageRecommendedDriveSize();
+          m.chai.expect(imageRecommendedDriveSize).to.equal(1000000000);
         });
 
       });
@@ -340,6 +410,36 @@ describe('Browser: SelectionState', function() {
           }).to.throw('Invalid image size: 999999999');
         });
 
+        it('should throw if url is defined but its not a string', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setImage({
+              path: 'foo.img',
+              size: 999999999,
+              url: 1234
+            });
+          }).to.throw('Invalid image url: 1234');
+        });
+
+        it('should throw if name is defined but its not a string', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setImage({
+              path: 'foo.img',
+              size: 999999999,
+              name: 1234
+            });
+          }).to.throw('Invalid image name: 1234');
+        });
+
+        it('should throw if logo is defined but its not a string', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setImage({
+              path: 'foo.img',
+              size: 999999999,
+              logo: 1234
+            });
+          }).to.throw('Invalid image logo: 1234');
+        });
+
         it('should de-select a previously selected not-large-enough drive', function() {
           DrivesModel.setDrives([
             {
@@ -356,6 +456,29 @@ describe('Browser: SelectionState', function() {
           SelectionStateModel.setImage({
             path: 'foo.img',
             size: 9999999999
+          });
+
+          m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+          SelectionStateModel.removeImage();
+        });
+
+        it('should de-select a previously selected not-recommended drive', function() {
+          DrivesModel.setDrives([
+            {
+              device: '/dev/disk1',
+              name: 'USB Drive',
+              size: 1200000000,
+              protected: false
+            }
+          ]);
+
+          SelectionStateModel.setDrive('/dev/disk1');
+          m.chai.expect(SelectionStateModel.hasDrive()).to.be.true;
+
+          SelectionStateModel.setImage({
+            path: 'foo.img',
+            size: 999999999,
+            recommendedDriveSize: 1500000000
           });
 
           m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
