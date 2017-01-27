@@ -111,8 +111,7 @@ describe('Browser: DrivesModel', function() {
             SelectionStateModel.removeDrive();
             SelectionStateModel.setImage({
               path: 'foo.img',
-              size: 999999999,
-              recommendedDriveSize: 2000000000
+              size: 999999999
             });
           });
 
@@ -177,23 +176,6 @@ describe('Browser: DrivesModel', function() {
                 device: '/dev/sdb',
                 name: 'Foo',
                 size: 99999999,
-                mountpoint: '/mnt/foo',
-                system: false,
-                protected: false
-              }
-            ]);
-
-            m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
-          });
-
-          it('should not auto-select a single drive that doesn\'t meet the recommended size', function() {
-            m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
-
-            DrivesModel.setDrives([
-              {
-                device: '/dev/sdb',
-                name: 'Foo',
-                size: 1500000000,
                 mountpoint: '/mnt/foo',
                 system: false,
                 protected: false

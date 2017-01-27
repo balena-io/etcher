@@ -15,11 +15,6 @@
 
           <footer class="list-group-item-footer">
 
-            <span class="label label-warning"
-                ng-show="modal.constraints.isDriveLargeEnough(drive, modal.state.getImage()) && !modal.constraints.isDriveLocked(drive) && !modal.constraints.isDriveSizeRecommended(drive, modal.state.getImage())">
-                <i class="glyphicon glyphicon-warning-sign"></i>
-                NOT RECOMMENDED</span>
-
             <!-- There can be a case where the device it not large enough, and it's also locked. -->
             <!-- Since in this case both labels will be displayed, we chose to only show the -->
             <!-- "not large enough label", since from the point of view of the user, the locked -->
