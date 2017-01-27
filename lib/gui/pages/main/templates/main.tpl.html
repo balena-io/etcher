@@ -5,7 +5,7 @@
       <svg-icon class="center-block"
         path="../../../assets/drive.svg"
         ng-disabled="main.shouldDriveStepBeDisabled()"></svg-icon>
-      <span class="icon-caption">SELECT DRIVE</span>
+      <span class="icon-caption">Select Drive</span>
 
       <span class="badge space-top-medium">1</span>
 
@@ -47,7 +47,7 @@
         ng-disabled="main.shouldImageStepBeDisabled()"></svg-icon>
       <span
         class="icon-caption"
-        ng-disabled="main.shouldImageStepBeDisabled()">SELECT IMAGE</span>
+        ng-disabled="main.shouldImageStepBeDisabled()">Select Image</span>
       <span
         class="badge space-top-medium"
         ng-disabled="main.shouldImageStepBeDisabled()">2</span>
@@ -75,7 +75,7 @@
             <span class="glyphicon glyphicon-info-sign"
               ng-class="{ 'text-disabled': main.shouldImageStepBeDisabled() }"
               ng-click="main.tooltipModal.show({
-                title: 'IMAGE FILE NAME',
+                title: 'Image File Name',
                 message: main.selection.getImagePath()
               })"></span>
           </div>
@@ -94,7 +94,7 @@
         path="../../../assets/flash.svg"
         ng-disabled="main.shouldFlashStepBeDisabled()"></svg-icon>
       <span class="icon-caption"
-        ng-disabled="main.shouldFlashStepBeDisabled()">FLASH IMAGE</span>
+        ng-disabled="main.shouldFlashStepBeDisabled()">Flash Image</span>
 
       <span class="badge space-top-medium" ng-disabled="main.shouldFlashStepBeDisabled()">3</span>
 
