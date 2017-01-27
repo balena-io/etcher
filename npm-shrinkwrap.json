@@ -266,9 +266,9 @@
       "resolved": "https://registry.npmjs.org/dev-null-stream/-/dev-null-stream-0.0.1.tgz"
     },
     "drivelist": {
-      "version": "5.0.6",
-      "from": "drivelist@5.0.6",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-5.0.6.tgz",
+      "version": "5.0.8",
+      "from": "drivelist@5.0.8",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-5.0.8.tgz",
       "dependencies": {
         "lodash": {
           "version": "4.17.4",
@@ -512,15 +512,15 @@
       "from": "isarray@0.0.1",
       "resolved": "https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz"
     },
-    "isstream": {
-      "version": "0.1.2",
-      "from": "isstream@>=0.1.1 <0.2.0",
-      "resolved": "https://registry.npmjs.org/isstream/-/isstream-0.1.2.tgz"
-    },
     "isexe": {
       "version": "1.1.2",
       "from": "isexe@>=1.1.1 <2.0.0",
       "resolved": "https://registry.npmjs.org/isexe/-/isexe-1.1.2.tgz"
+    },
+    "isstream": {
+      "version": "0.1.2",
+      "from": "isstream@>=0.1.1 <0.2.0",
+      "resolved": "https://registry.npmjs.org/isstream/-/isstream-0.1.2.tgz"
     },
     "js-message": {
       "version": "1.0.5",
