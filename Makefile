@@ -314,7 +314,10 @@ TARGETS = \
 	info \
 	clean \
 	distclean \
+	package \
 	electron-develop
+
+package: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH)
 
 ifeq ($(TARGET_PLATFORM),darwin)
 electron-installer-app-zip: $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
