@@ -5,9 +5,6 @@
       <svg-icon class="center-block"
         path="../../../assets/drive.svg"
         ng-disabled="main.shouldDriveStepBeDisabled()"></svg-icon>
-      <span class="icon-caption">Select Drive</span>
-
-      <span class="badge space-top-medium">1</span>
 
       <div class="space-vertical-large">
         <div ng-hide="main.selection.hasDrive()">
@@ -27,7 +24,10 @@
           <div class="step-selection-text"
             ng-class="{
               'text-disabled': main.shouldDriveStepBeDisabled()
-            }">{{ main.selection.getDrive().name }} - {{ main.selection.getDrive().size | gigabyte | number:1 }} GB</div>
+            }">
+            <span class="step-drive step-name">{{ main.selection.getDrive().name }}</span>
+            <span class="step-drive step-size">{{ main.selection.getDrive().size | gigabyte | number:1 }} GB</span>
+          </div>
           <button class="button button-link step-footer"
             ng-click="drive.reselectDrive()"
             ng-hide="main.state.isFlashing()">Change</button>
@@ -45,12 +45,6 @@
         class="center-block"
         path="{{ main.selection.getImageLogo() || '../../../assets/image.svg' }}"
         ng-disabled="main.shouldImageStepBeDisabled()"></svg-icon>
-      <span
-        class="icon-caption"
-        ng-disabled="main.shouldImageStepBeDisabled()">Select Image</span>
-      <span
-        class="badge space-top-medium"
-        ng-disabled="main.shouldImageStepBeDisabled()">2</span>
 
       <div class="space-vertical-large">
         <div ng-hide="main.selection.hasImage()">
@@ -67,17 +61,16 @@
         </div>
         <div ng-if="main.selection.hasImage()">
           <div class="step-selection-text">
-            <span ng-click="main.external.open(main.selection.getImageUrl())"
-              ng-class="{ 'text-disabled': main.shouldImageStepBeDisabled() }"
-              ng-bind="main.selection.getImageName() || main.selection.getImagePath() | basename | middleEllipses:20"
-              uib-tooltip="{{ main.selection.getImagePath() | basename }}"></span>
-
-            <span class="glyphicon glyphicon-info-sign"
-              ng-class="{ 'text-disabled': main.shouldImageStepBeDisabled() }"
+            <span
               ng-click="main.tooltipModal.show({
                 title: 'Image File Name',
                 message: main.selection.getImagePath()
-              })"></span>
+              })"
+              class="step-image step-name"
+              ng-class="{ 'text-disabled': main.shouldImageStepBeDisabled() }"
+              ng-bind="main.selection.getImageName() || main.selection.getImagePath() | basename | middleEllipses:20"
+              uib-tooltip="{{ main.selection.getImagePath() | basename }}"></span>
+            <span class="step-image step-size">{{ main.selection.getImageSize() | gigabyte | number:1 }} GB</span>
           </div>
 
           <button class="button button-link step-footer"
@@ -93,10 +86,6 @@
       <svg-icon class="center-block"
         path="../../../assets/flash.svg"
         ng-disabled="main.shouldFlashStepBeDisabled()"></svg-icon>
-      <span class="icon-caption"
-        ng-disabled="main.shouldFlashStepBeDisabled()">Flash Image</span>
-
-      <span class="badge space-top-medium" ng-disabled="main.shouldFlashStepBeDisabled()">3</span>
 
       <div class="space-vertical-large">
         <progress-button class="button-brick"
