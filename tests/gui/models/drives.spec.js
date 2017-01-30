@@ -210,7 +210,7 @@ describe('Browser: DrivesModel', function() {
               {
                 device: '/dev/sdb',
                 name: 'Foo',
-                size: 999999999,
+                size: 2000000000,
                 mountpoint: '/mnt/foo',
                 system: false,
                 protected: true
