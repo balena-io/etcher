@@ -40,6 +40,11 @@
                 <i class="glyphicon glyphicon-hdd"></i>
                 System Drive</span>
 
+            <span class="label label-danger"
+              ng-show="modal.constraints.isSourceDrive(drive, modal.state.getImage())">
+                <i class="glyphicon glyphicon-circle-arrow-down"></i>
+                Source Drive</span>
+
           </footer>
         </div>
         <span class="tick tick--success"

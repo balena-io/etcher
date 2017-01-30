@@ -1,6 +1,7 @@
 'use strict';
 
 const m = require('mochainon');
+const path = require('path');
 const angular = require('angular');
 require('angular-mocks');
 
@@ -108,9 +109,15 @@ describe('Browser: DrivesModel', function() {
         describe('given a selected image and no selected drive', function() {
 
           beforeEach(function() {
+            if (process.platform === 'win32') {
+              this.imagePath = 'E:\\bar\\foo.img';
+            } else {
+              this.imagePath = '/mnt/bar/foo.img';
+            }
+
             SelectionStateModel.removeDrive();
             SelectionStateModel.setImage({
-              path: 'foo.img',
+              path: this.imagePath,
               size: 999999999,
               recommendedDriveSize: 2000000000
             });
@@ -214,6 +221,27 @@ describe('Browser: DrivesModel', function() {
                 mountpoint: '/mnt/foo',
                 system: false,
                 protected: true
+              }
+            ]);
+
+            m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+          });
+
+          it('should not auto-select a source drive', function() {
+            m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+
+            DrivesModel.setDrives([
+              {
+                device: '/dev/sdb',
+                name: 'Foo',
+                size: 2000000000,
+                mountpoints: [
+                  {
+                    path: path.dirname(this.imagePath)
+                  }
+                ],
+                system: false,
+                protected: false
               }
             ]);
 

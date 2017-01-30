@@ -1,6 +1,8 @@
 'use strict';
 
 const m = require('mochainon');
+const _ = require('lodash');
+const path = require('path');
 const angular = require('angular');
 require('angular-mocks');
 
@@ -479,6 +481,41 @@ describe('Browser: SelectionState', function() {
             path: 'foo.img',
             size: 999999999,
             recommendedDriveSize: 1500000000
+          });
+
+          m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+          SelectionStateModel.removeImage();
+        });
+
+        it('should de-select a previously selected source drive', function() {
+          const imagePath = _.attempt(() => {
+            if (process.platform === 'win32') {
+              return 'E:\\bar\\foo.img';
+            }
+
+            return '/mnt/bar/foo.img';
+          });
+
+          DrivesModel.setDrives([
+            {
+              device: '/dev/disk1',
+              name: 'USB Drive',
+              size: 1200000000,
+              mountpoints: [
+                {
+                  path: path.dirname(imagePath)
+                }
+              ],
+              protected: false
+            }
+          ]);
+
+          SelectionStateModel.setDrive('/dev/disk1');
+          m.chai.expect(SelectionStateModel.hasDrive()).to.be.true;
+
+          SelectionStateModel.setImage({
+            path: imagePath,
+            size: 999999999
           });
 
           m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
