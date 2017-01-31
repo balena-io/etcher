@@ -6416,11 +6416,11 @@ body {
 .modal-drive-selector-modal .list-group-item[disabled] {
   cursor: not-allowed; }
 
-.component-drive-selector-body .list-group-item-footer {
+.modal-drive-selector-modal .list-group-item-footer {
   margin-top: 8px; }
 
-.component-drive-selector-body .list-group-item-heading,
-.component-drive-selector-body .list-group-item-text {
+.modal-drive-selector-modal .list-group-item-heading,
+.modal-drive-selector-modal .list-group-item-text {
   word-break: break-all; }
 
 /*

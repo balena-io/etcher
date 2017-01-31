@@ -3,7 +3,7 @@
   <button class="close" ng-click="modal.closeModal()">&times;</button>
 </div>
 
-<div class="component-drive-selector-body modal-body">
+<div class="modal-body">
   <ul class="list-group">
     <li class="list-group-item" ng-repeat="drive in modal.drives.getDrives() track by drive.device"
       ng-disabled="!modal.constraints.isDriveValid(drive, modal.state.getImage())"
