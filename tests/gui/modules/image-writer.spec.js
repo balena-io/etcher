@@ -30,7 +30,7 @@ describe('Browser: ImageWriter', function() {
 
     describe('.flash()', function() {
 
-      describe('given a succesful write', function() {
+      describe('given a successful write', function() {
 
         beforeEach(function() {
           this.performWriteStub = m.sinon.stub(ImageWriterService, 'performWrite');
@@ -83,7 +83,7 @@ describe('Browser: ImageWriter', function() {
 
       });
 
-      describe('given an unsuccesful write', function() {
+      describe('given an unsuccessful write', function() {
 
         beforeEach(function() {
           this.performWriteStub = m.sinon.stub(ImageWriterService, 'performWrite');
