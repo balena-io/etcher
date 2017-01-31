@@ -6289,7 +6289,7 @@ body {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.modal-update-notifier .modal-footer .checkbox {
+.modal-update-notifier .checkbox {
   color: #b3b3b3;
   font-size: 11px;
   margin-bottom: 0; }
