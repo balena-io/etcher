@@ -14,6 +14,8 @@ RUN apt-get update && apt-get install -y \
   libxss1 \
   libxtst6 \
   python \
+  python-pip \
+  python-dev \
   python-software-properties \
   software-properties-common \
   upx \
@@ -27,6 +29,9 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
   && apt-get install -y nodejs
 RUN npm config set spin=false
 RUN npm install -g bower asar electron-installer-debian
+
+# Python
+RUN pip install codespell
 
 # Ruby
 RUN add-apt-repository ppa:brightbox/ruby-ng

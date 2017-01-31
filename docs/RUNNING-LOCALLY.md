@@ -16,6 +16,7 @@ Prerequisites
 - [SCSS Lint](https://github.com/brigade/scss-lint/)
 - [jq](https://stedolan.github.io/jq/)
 - [Asar](https://github.com/electron/asar)
+- [Codespell](https://github.com/lucasdemarchi/codespell)
 
 ### Windows
 

@@ -34,6 +34,7 @@ install:
   - set PATH=C:\MinGW\bin;%PATH%
   - set PATH=C:\MinGW\msys\1.0\bin;%PATH%
   - gem install scss_lint
+  - pip install codespell
   - make info
   - make electron-develop
 
