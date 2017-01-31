@@ -6239,41 +6239,14 @@ body {
 .modal-body {
   flex-grow: 1;
   color: #666;
-  padding: 0;
+  padding: 20px;
   max-height: 250px;
   overflow: auto; }
   .modal-body a {
     color: #5793db; }
-  .modal-body .list-group {
-    padding: 0 20px; }
-  .modal-body .list-group-item {
-    display: flex;
-    align-items: center;
-    border-left: 0;
-    border-right: 0;
-    border-radius: 0;
-    border-color: #ededed;
-    padding: 12px 0; }
-    .modal-body .list-group-item > .tick {
-      font-size: 11px; }
-    .modal-body .list-group-item :first-child {
-      flex-grow: 1; }
-    .modal-body .list-group-item:first-child {
-      border-top: 0; }
-    .modal-body .list-group-item[disabled] .list-group-item-heading {
-      color: #b3b3b3; }
-  .modal-body .list-group-item-heading {
-    font-size: 13px; }
-  .modal-body .list-group-item-text {
-    line-height: 1;
-    font-size: 11px;
-    color: #b3b3b3; }
-
-.modal-text {
-  padding: 20px; }
-  .modal-text > p {
+  .modal-body > p {
     white-space: pre-line; }
-  .modal-text > p:last-child {
+  .modal-body > p:last-child {
     margin-bottom: 0; }
 
 .modal-menu {
@@ -6413,6 +6386,10 @@ body {
   width: 300px;
   height: 320px; }
 
+.modal-drive-selector-modal .modal-body {
+  padding-top: 0;
+  padding-bottom: 0; }
+
 .modal-drive-selector-modal .list-group-item[disabled] {
   cursor: not-allowed; }
 
@@ -6422,6 +6399,34 @@ body {
 .component-drive-selector-body .list-group-item-heading,
 .component-drive-selector-body .list-group-item-text {
   word-break: break-all; }
+
+.modal-drive-selector-modal .list-group {
+  margin-bottom: 0; }
+
+.modal-drive-selector-modal .list-group-item {
+  display: flex;
+  align-items: center;
+  border-left: 0;
+  border-right: 0;
+  border-radius: 0;
+  border-color: #ededed;
+  padding: 12px 0; }
+  .modal-drive-selector-modal .list-group-item > .tick {
+    font-size: 11px; }
+  .modal-drive-selector-modal .list-group-item :first-child {
+    flex-grow: 1; }
+  .modal-drive-selector-modal .list-group-item:first-child {
+    border-top: 0; }
+  .modal-drive-selector-modal .list-group-item[disabled] .list-group-item-heading {
+    color: #b3b3b3; }
+
+.modal-drive-selector-modal .list-group-item-heading {
+  font-size: 13px; }
+
+.modal-drive-selector-modal .list-group-item-text {
+  line-height: 1;
+  font-size: 11px;
+  color: #b3b3b3; }
 
 /*
  * Copyright 2016 resin.io
