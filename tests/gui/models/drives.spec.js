@@ -248,6 +248,23 @@ describe('Browser: DrivesModel', function() {
             m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
           });
 
+          it('should not auto-select a single system drive', function() {
+            m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+
+            DrivesModel.setDrives([
+              {
+                device: '/dev/sdb',
+                name: 'Foo',
+                size: 2000000000,
+                mountpoint: '/mnt/foo',
+                system: true,
+                protected: false
+              }
+            ]);
+
+            m.chai.expect(SelectionStateModel.hasDrive()).to.be.false;
+          });
+
         });
 
       });
