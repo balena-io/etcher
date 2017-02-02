@@ -19,7 +19,7 @@
 set -u
 set -e
 
-./scripts/build/check-dependency.sh wget
+./scripts/build/check-dependency.sh curl
 
 SHA256SUM=$(./scripts/build/check-dependency.sh sha256sum "shasum -a 256")
 
@@ -78,7 +78,8 @@ if [ -f "$ARGV_OUTPUT" ]; then
   fi
 fi
 
-wget --no-check-certificate "$ARGV_URL" -O "$TEMP_OUTPUT"
+echo "Downloading $ARGV_URL"
+curl --continue-at - --retry 100 --location --output "$TEMP_OUTPUT" "$ARGV_URL"
 
 if ! checksum_matches "$TEMP_OUTPUT" "$ARGV_CHECKSUM"; then
   echo "Checksum mismatch" 1>&2

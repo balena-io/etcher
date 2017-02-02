@@ -26,17 +26,18 @@ APPLICATION_COPYRIGHT = $(shell jq -r '.copyright' package.json)
 APPLICATION_CATEGORY = public.app-category.developer-tools
 APPLICATION_BUNDLE_ID = io.resin.etcher
 APPLICATION_FILES = lib,assets
-S3_BUCKET = resin-production-downloads
 
 # Add the current commit to the version if release type is "snapshot"
 RELEASE_TYPE ?= snapshot
 PACKAGE_JSON_VERSION = $(shell jq -r '.version' package.json)
 ifeq ($(RELEASE_TYPE),production)
 APPLICATION_VERSION = $(PACKAGE_JSON_VERSION)
+S3_BUCKET = resin-production-downloads
 endif
 ifeq ($(RELEASE_TYPE),snapshot)
 CURRENT_COMMIT_HASH = $(shell git log -1 --format="%h")
 APPLICATION_VERSION = $(PACKAGE_JSON_VERSION)+$(CURRENT_COMMIT_HASH)
+S3_BUCKET = resin-nightly-downloads
 endif
 ifndef APPLICATION_VERSION
 $(error Invalid release type: $(RELEASE_TYPE))
@@ -139,13 +140,7 @@ endif
 
 TARGET_ARCH_DEBIAN = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET_ARCH) -t debian)
 
-ifeq ($(RELEASE_TYPE),production)
-	PRODUCT_NAME = etcher
-endif
-ifeq ($(RELEASE_TYPE),snapshot)
-	PRODUCT_NAME = etcher-snapshots
-endif
-
+PRODUCT_NAME = etcher
 APPLICATION_NAME_LOWERCASE = $(shell echo $(APPLICATION_NAME) | tr A-Z a-z)
 APPLICATION_VERSION_DEBIAN = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
 
@@ -192,7 +187,7 @@ $(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_A
 	./scripts/build/electron-create-resources-app.sh -s . -o $@ \
 		-v $(APPLICATION_VERSION) \
 		-f "$(APPLICATION_FILES)"
-	$(foreach prerequisite,$^,$(call execute-command,cp -rf $(prerequisite) $@))
+	$(foreach prerequisite,$^,$(call execute-command,cp -RLf $(prerequisite) $@))
 
 $(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH)-app.asar: \
 	$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH)-app \
@@ -373,11 +368,21 @@ endif
 
 ifdef PUBLISH_AWS_S3
 publish-aws-s3: $(PUBLISH_AWS_S3)
+ifeq ($(RELEASE_TYPE),production)
 	$(foreach publishable,$^,$(call execute-command,./scripts/publish/aws-s3.sh \
 		-f $(publishable) \
 		-b $(S3_BUCKET) \
 		-v $(APPLICATION_VERSION) \
 		-p $(PRODUCT_NAME)))
+endif
+ifeq ($(RELEASE_TYPE),snapshot)
+	$(foreach publishable,$^,$(call execute-command,./scripts/publish/aws-s3.sh \
+		-f $(publishable) \
+		-b $(S3_BUCKET) \
+		-v $(APPLICATION_VERSION) \
+		-p $(PRODUCT_NAME) \
+		-k $(shell date +"%Y-%m-%d")))
+endif
 
 TARGETS += publish-aws-s3
 endif

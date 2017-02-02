@@ -93,7 +93,7 @@ access resin.io's production downloads S3 bucket.
 Run the following command to publish a specific file:
 
 ```sh
-./scripts/publish/aws-s3.sh -f <file> -b <bucket> -v <version> -t <production|snapshot>
+./scripts/publish/aws-s3.sh -f <file> -b <bucket> -v <version> -p <product name>
 ```
 
 Or run the following command to publish all files for the current combination
