@@ -29,6 +29,7 @@ The following MinGW packages are required:
 
 - `msys-make`
 - `msys-unzip`
+- `msys-zip`
 - `msys-wget`
 - `msys-bash`
 - `msys-coreutils`
