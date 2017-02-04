@@ -62,10 +62,7 @@
         <div ng-if="main.selection.hasImage()">
           <div class="step-selection-text">
             <span
-              ng-click="main.tooltipModal.show({
-                title: 'Image File Name',
-                message: main.selection.getImagePath()
-              })"
+              ng-click="main.showSelectedImageDetails()"
               class="step-image step-name"
               ng-class="{ 'text-disabled': main.shouldImageStepBeDisabled() }"
               ng-bind="main.selection.getImageName() || main.selection.getImagePath() | basename | middleEllipses:20"

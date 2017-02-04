@@ -62,7 +62,7 @@ describe('Browser: ImageWriter', function() {
           });
 
           ImageWriterService.flash('foo.img', '/dev/disk2');
-          ImageWriterService.flash('foo.img', '/dev/disk2');
+          ImageWriterService.flash('foo.img', '/dev/disk2').catch(angular.noop);
           $rootScope.$apply();
           m.chai.expect(this.performWriteStub).to.have.been.calledOnce;
         });
@@ -97,13 +97,13 @@ describe('Browser: ImageWriter', function() {
         });
 
         it('should set flashing to false when done', function() {
-          ImageWriterService.flash('foo.img', '/dev/disk2');
+          ImageWriterService.flash('foo.img', '/dev/disk2').catch(angular.noop);
           $rootScope.$apply();
           m.chai.expect(FlashStateModel.isFlashing()).to.be.false;
         });
 
         it('should set the error code in the flash results', function() {
-          ImageWriterService.flash('foo.img', '/dev/disk2');
+          ImageWriterService.flash('foo.img', '/dev/disk2').catch(angular.noop);
           $rootScope.$apply();
           const flashResults = FlashStateModel.getFlashResults();
           m.chai.expect(flashResults.errorCode).to.equal('FOO');
