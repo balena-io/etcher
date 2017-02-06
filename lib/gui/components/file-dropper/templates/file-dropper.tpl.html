@@ -1,0 +1,16 @@
+<div os-dropzone="showOverlayIf ? yank($file) : null">
+  <div
+     ng-if="showOverlayIf"
+     class="file-dropper-wrap">
+      <div class="file-dropper-border">
+        <div class="file-dropper-figure">
+          <svg-icon
+            path="{{icon}}"
+            width="80px" height="auto"></svg-icon>
+          <h1 class="file-dropper-text">{{ text }}</h1>
+          <span class="file-dropper-subtext">{{ subtext }}</span>
+        </div>
+      </div>
+  </div>
+  <div ng-transclude></div>
+</div>
