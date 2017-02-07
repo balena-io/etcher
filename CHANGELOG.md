@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.0.0-beta.18 - 2017-01-16
+
+### Features
+
+- Improve Etcher CLI error messages.
+- Replace the `--robot` CLI option with an `ETCHER_CLI_ROBOT` environment variable.
+- Sort supported extensions alphabetically in the image file-picker.
+- Label system drives in the drive-list widget.
+- Show available Etcher version in the update notifier.
+- Confirm before user quits while writing.
+- Add a changelog link to the update notifier modal.
+- Make the image file picker attach to the main window (as a real modal).
+
+### Fixes
+
+- Fix alignment of single call to action buttons inside modals.
+- Fix "Invalid message" error caused by the IPC client emitting multiple JSON objects as a single message.
+- Fix "This key is already associated with an element of this collection" error when multiple partitions point to the same drive letter on Windows.
+- Fix system drives detected as removable drives on Mac Mini.
+- Fix sporadic "EIO: i/o error, read" errors during validation.
+- Fix "EIO: i/o error, write" error.
+
 ## v1.0.0-beta.17 - 2016-11-28
 
 ### Fixes
@@ -18,7 +40,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fix drive scanning exceptions on GNU/Linux systems with `net.ifnames` enabled.
 - Fix `0x80131700` error when scanning drives on Windows.
 - Fix internal SDCard drive descriptions.
-- Fix unmount issues in GNU/Linux and OS Xwhen paths contain spaces.
+- Fix unmount issues in GNU/Linux and OS X when paths contain spaces.
 - Fix "Not Enough Space" error when flashing unaligned images.
 - Fix `at least one volume could not be unmounted` error in OS X.
 

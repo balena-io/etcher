@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">SELECT A DRIVE</h4>
+  <h4 class="modal-title">Select a Drive</h4>
   <button class="close" ng-click="modal.closeModal()">&times;</button>
 </div>
 
@@ -18,27 +18,32 @@
             <span class="label label-warning"
                 ng-show="modal.constraints.isDriveLargeEnough(drive, modal.state.getImage()) && !modal.constraints.isDriveLocked(drive) && !modal.constraints.isDriveSizeRecommended(drive, modal.state.getImage())">
                 <i class="glyphicon glyphicon-warning-sign"></i>
-                NOT RECOMMENDED</span>
+                Not Recommended</span>
 
             <!-- There can be a case where the device it not large enough, and it's also locked. -->
             <!-- Since in this case both labels will be displayed, we chose to only show the -->
             <!-- "not large enough label", since from the point of view of the user, the locked -->
-            <!-- state is irrelevent if the drive is not large enough anyway. -->
+            <!-- state is irrelevant if the drive is not large enough anyway. -->
 
             <span class="label label-danger"
               ng-hide="modal.constraints.isDriveLargeEnough(drive, modal.state.getImage())">
                 <i class="glyphicon glyphicon-resize-small"></i>
-                TOO SMALL FOR IMAGE</span>
+                Too Small For Image</span>
 
             <span class="label label-danger"
               ng-show="modal.constraints.isDriveLocked(drive) && modal.constraints.isDriveLargeEnough(drive, modal.state.getImage())">
                 <i class="glyphicon glyphicon-lock"></i>
-                LOCKED</span>
+                Locked</span>
 
             <span class="label label-danger"
               ng-show="modal.constraints.isSystemDrive(drive)">
                 <i class="glyphicon glyphicon-hdd"></i>
-                SYSTEM DRIVE</span>
+                System Drive</span>
+
+            <span class="label label-danger"
+              ng-show="modal.constraints.isSourceDrive(drive, modal.state.getImage())">
+                <i class="glyphicon glyphicon-circle-arrow-down"></i>
+                Source Drive</span>
 
           </footer>
         </div>
@@ -52,5 +57,5 @@
 <div class="modal-footer">
   <button class="button button-primary button-block"
     ng-click="modal.closeModal()"
-    ng-disabled="!modal.state.hasDrive()">CONTINUE</button>
+    ng-disabled="!modal.state.hasDrive()">Continue</button>
 </div>

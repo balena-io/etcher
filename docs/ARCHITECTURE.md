@@ -94,8 +94,9 @@ contains certain features to ease communication:
 
 - [Well-documented exit codes.][exit-codes]
 
-- A `--robot` option, which causes the Etcher CLI to output state in a way that
-can be easily machine-parsed.
+- An environment variable called `ETCHER_CLI_ROBOT` option, which when set
+  causes the Etcher CLI to output state in a way that can be easily
+  parsed by a machine.
 
 Summary
 -------

@@ -7,6 +7,10 @@
     <link rel="stylesheet" type="text/css" href="css/desktop.css">
     <link rel="stylesheet" type="text/css" href="css/angular.css">
 
+    <!-- Enable debug information from all modules that use `debug` -->
+    <!-- See https://github.com/visionmedia/debug#browser-support -->
+    <script>window.localStorage.debug = '*';</script>
+
     <script>
       window._trackJs = {
         token: '032448bc3d9e4cffb1e9b43d29d6c142',
@@ -20,7 +24,7 @@
   <body ng-app="Etcher">
     <header class="section-header" ng-controller="HeaderController as header">
       <button class="button button-link" ng-click="header.openHelpPage()">
-        <span class="glyphicon glyphicon-question-sign"></span> Need Help?
+        <span class="glyphicon glyphicon-question-sign"></span>
       </button>
 
       <button class="button button-link" ui-sref="settings" hide-if-state="settings">
@@ -41,7 +45,7 @@
         os-open-external="https://etcher.io?ref=etcher_footer"></svg-icon>
 
       <span class="caption">
-        IS <span class="caption" os-open-external="https://github.com/resin-io/etcher">AN OPEN SOURCE PROJECT</span> BY
+        is <span class="caption" os-open-external="https://github.com/resin-io/etcher">an open source project</span> by
       </span>
 
       <svg-icon path="../../../assets/resin.svg"

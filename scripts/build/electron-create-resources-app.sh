@@ -19,24 +19,29 @@
 set -u
 set -e
 
+./scripts/build/check-dependency.sh jq
+
 function usage() {
   echo "Usage: $0"
   echo ""
   echo "Options"
   echo ""
   echo "    -s <source directory>"
+  echo "    -v <application version>"
   echo "    -f <extra files (comma separated)>"
   echo "    -o <output>"
   exit 1
 }
 
 ARGV_SOURCE_DIRECTORY=""
+ARGV_APPLICATION_VERSION=""
 ARGV_FILES=""
 ARGV_OUTPUT=""
 
-while getopts ":s:f:o:" option; do
+while getopts ":s:v:f:o:" option; do
   case $option in
     s) ARGV_SOURCE_DIRECTORY=$OPTARG ;;
+    v) ARGV_APPLICATION_VERSION=$OPTARG ;;
     f) ARGV_FILES=$OPTARG ;;
     o) ARGV_OUTPUT=$OPTARG ;;
     *) usage ;;
@@ -44,6 +49,7 @@ while getopts ":s:f:o:" option; do
 done
 
 if [ -z "$ARGV_SOURCE_DIRECTORY" ] ||
+   [ -z "$ARGV_APPLICATION_VERSION" ] || \
    [ -z "$ARGV_FILES" ] || \
    [ -z "$ARGV_OUTPUT" ]; then
   usage
@@ -51,7 +57,7 @@ fi
 
 mkdir -p "$ARGV_OUTPUT"
 
-cp "$ARGV_SOURCE_DIRECTORY/package.json" "$ARGV_OUTPUT"
+jq ".version = \"$ARGV_APPLICATION_VERSION\"" "$ARGV_SOURCE_DIRECTORY/package.json" > "$ARGV_OUTPUT/package.json"
 
 for file in $(echo "$ARGV_FILES" | sed "s/,/ /g"); do
   cp -rf "$file" "$ARGV_OUTPUT"

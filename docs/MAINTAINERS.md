@@ -10,15 +10,13 @@ Preparing a new version
 - Bump the version number in the `package.json`'s `version` property.
 
 - Bump the version number in the `package.json`'s `builder.win.version`
-property.
+
+- Bump the version number in the `npm-shrinkwrap.json`'s `version` property.
 
 - Add a new entry to `CHANGELOG.md` by running `npm run changelog`.
 
 - Re-take `screenshot.png` so it displays the latest version in the bottom
 right corner.
-
-- Re-install all dependencies and run `npm shrinkwrap` to update
-`npm-shrinkwrap.json`.
 
 - Commit the changes with the version number as the commit title, including the
 `v` prefix, to `master`. For example:

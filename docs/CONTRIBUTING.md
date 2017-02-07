@@ -44,9 +44,20 @@ Use the following steps to ensure everything goes flawlessly:
 - Install the new version of the dependency. For example: `npm install --save
   <package>@<version>`. This will update the `npm-shrinkwrap.json` file.
 
-- Run `npm run shrinkwrap`. This is a small script that ensures that operating
-  system specific dependencies that could get included in the previous step are
-  removed from `npm-shrinkwrap.json`.
+- Run `npm run clean-shrinkwrap`. This is a small script that ensures that
+  operating system specific dependencies that could get included in the
+  previous step are removed from `npm-shrinkwrap.json`.
+
+Some npm versions seem to contain an issue were all development dependencies
+will be included in `npm-shrinkwrap.json` when attempting to modify it (e.g: by
+`npm install`, `npm uninstall`, etc). A bulletproof way to ensure only the
+necessary dependencies get added is to run the following commands:
+
+```sh
+make electron-develop
+npm prune --production
+npm shrinkwrap
+```
 
 - Commit *both* `package.json` and `npm-shrinkwrap.json`.
 
@@ -75,13 +86,6 @@ request.*
 
 Sending a pull request
 ----------------------
-
-We make use of [commitizen] to ensure certain commit conventions, since they
-will be used to auto-generate the CHANGELOG. The project already includes all
-necessary configuration, so you only have to install the commitizen cli tool
-(`npm install -g commitizen`) and commit by executing `git cz`, which will
-drive you through an interactive wizard to make sure your commit is perfectly
-crafted according to our guidelines.
 
 When sending a pull request, consider the following guidelines:
 
@@ -118,5 +122,4 @@ Don't hesitate to get in touch if you have any questions or need any help!
 [ARCHITECTURE]: https://github.com/resin-io/etcher/blob/master/docs/ARCHITECTURE.md
 [RUNNING-LOCALLY]: https://github.com/resin-io/etcher/blob/master/docs/RUNNING-LOCALLY.md
 [EditorConfig]: http://editorconfig.org
-[commitizen]: https://commitizen.github.io/cz-cli/#making-your-repo-commitizen-friendly
 [shrinkwrap]: https://docs.npmjs.com/cli/shrinkwrap

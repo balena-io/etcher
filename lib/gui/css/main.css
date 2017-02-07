@@ -255,8 +255,8 @@ th {
 
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url("../../node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.eot");
-  src: url("../../node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../../node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.woff2") format("woff2"), url("../../node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.woff") format("woff"), url("../../node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.ttf") format("truetype"), url("../../node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); }
+  src: url("../../../node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.eot");
+  src: url("../../../node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../../../node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.woff2") format("woff2"), url("../../../node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.woff") format("woff"), url("../../../node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.ttf") format("truetype"), url("../../../node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); }
 
 .glyphicon, .tick {
   position: relative;
@@ -4451,7 +4451,7 @@ a.badge:hover, a.badge:focus {
     height: auto;
     margin-left: auto;
     margin-right: auto; }
-  .thumbnail .caption, .thumbnail .page-main .icon-caption, .page-main .thumbnail .icon-caption {
+  .thumbnail .caption {
     padding: 9px;
     color: #333333; }
 
@@ -5976,6 +5976,9 @@ body {
 [uib-tooltip] {
   cursor: default; }
 
+.tooltip {
+  word-wrap: break-word; }
+
 /*
  * Copyright 2016 resin.io
  *
@@ -6004,9 +6007,6 @@ body {
 
 .space-top-large {
   margin-top: 30px; }
-
-.space-top-medium {
-  margin-top: 15px; }
 
 .space-vertical-large {
   margin-top: 30px;
@@ -6090,7 +6090,7 @@ body {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.caption, .page-main .icon-caption {
+.caption {
   font-weight: bold;
   font-size: 11px;
   margin-bottom: 0; }
@@ -6224,8 +6224,7 @@ body {
 .modal-header {
   display: flex;
   align-items: baseline;
-  text-transform: uppercase;
-  font-size: 11px;
+  font-size: 12px;
   color: #b3b3b3;
   padding: 11px 20px;
   flex-grow: 0; }
@@ -6276,8 +6275,8 @@ body {
 
 .modal-menu {
   display: flex; }
-  .modal-menu > .button, .modal-menu > .progress-button {
-    flex-basis: 50%; }
+  .modal-menu > * {
+    flex-basis: auto; }
 
 .modal-open {
   padding-right: 0 !important; }
@@ -6363,11 +6362,16 @@ body {
  *   <span class="progress-button__bar" style="width: 50%;"></span>
  * </button>
  */
+.progress-button[active="true"] {
+  background-color: #ff912f; }
+
 .progress-button .progress-button__bar {
-  background-color: #6ca1e0; }
+  background-color: #ff9e49; }
 
 .progress-button.progress-button--striped {
-  background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #3b679b), color-stop(0.26, #5c93d6), color-stop(0.5, #5c93d6), color-stop(0.51, #3b679b), color-stop(0.75, #3b679b), color-stop(0.76, #5c93d6), to(#5c93d6)); }
+  background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #bd6415), color-stop(0.26, #fa9134), color-stop(0.5, #fa9134), color-stop(0.51, #bd6415), color-stop(0.75, #bd6415), color-stop(0.76, #fa9134), to(#fa9134)); }
+  .progress-button.progress-button--striped .progress-button__bar {
+    background-color: #ff9e49; }
 
 .progress-button__content {
   position: relative;
@@ -6458,33 +6462,12 @@ body {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.modal-flash-error-modal .modal-title .glyphicon, .modal-flash-error-modal .modal-title .tick {
-  color: #d9534f; }
-
-/*
- * Copyright 2016 resin.io
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 .modal-warning-modal .modal-content {
   width: 350px; }
 
 .modal-warning-modal .modal-title .glyphicon, .modal-warning-modal .modal-title .tick {
   color: #d9534f; }
 
-.modal-warning-modal .button, .modal-warning-modal .progress-button {
-  text-transform: uppercase; }
-
 /*
  * Copyright 2016 resin.io
  *
@@ -6500,21 +6483,8 @@ body {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.page-main .icon-caption {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
-  color: #fff; }
-  .page-main .icon-caption[disabled] {
-    color: #787c7f; }
-
-.page-main .badge {
-  background-color: #535760;
-  color: #fff; }
-  .page-main .badge[disabled] {
-    background-color: #5a5d60;
-    color: #787c7f; }
+.page-main {
+  margin-top: 75px; }
 
 .svg-icon[disabled] path {
   fill: #787c7f; }
@@ -6535,16 +6505,16 @@ body {
   height: 2px;
   background-color: #fff;
   position: absolute;
-  width: 230px;
-  top: 95px; }
+  width: 124px;
+  top: 19px; }
   .page-main [disabled].step-border-left, .page-main [disabled].step-border-right {
     background-color: #787c7f; }
 
 .page-main .step-border-left {
-  left: -120px; }
+  left: -67px; }
 
 .page-main .step-border-right {
-  right: -120px; }
+  right: -67px; }
 
 .page-main .step-tooltip {
   display: block;
@@ -6571,12 +6541,19 @@ body {
 
 .page-main .button.step-footer, .page-main .step-footer.progress-button {
   font-size: 12px;
-  border-bottom: 1px dashed;
+  color: #5793db;
   border-radius: 0;
   padding: 0; }
 
 .page-main .glyphicon, .page-main .tick {
   vertical-align: text-top; }
+
+.page-main .step-name {
+  font-weight: bold;
+  color: #fff; }
+
+.page-main .step-size {
+  color: #787c7f; }
 
 /*
  * Copyright 2016 resin.io
@@ -6667,12 +6644,13 @@ body {
     padding: 0; }
   .section-footer .svg-icon {
     margin: 0 13px; }
-  .section-footer .caption[os-open-external], .section-footer .page-main [os-open-external].icon-caption, .page-main .section-footer [os-open-external].icon-caption {
+  .section-footer .caption[os-open-external] {
     border-bottom: 1px dashed;
     padding-bottom: 2px; }
-    .section-footer .caption[os-open-external]:hover, .section-footer .page-main [os-open-external].icon-caption:hover, .page-main .section-footer [os-open-external].icon-caption:hover {
+    .section-footer .caption[os-open-external]:hover {
       color: #85898c; }
   .section-footer .footer-right {
+    font-size: 10px;
     position: absolute;
     right: 0;
     top: 50%; }
