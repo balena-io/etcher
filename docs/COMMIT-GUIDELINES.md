@@ -42,7 +42,7 @@ Must be one of the following:
 - `minifix`: A minimal fix that doesn't warrant an entry in the CHANGELOG.
 - `docs`: Documentation only changes.
 - `style`: Changes that do not affect the meaning of the code (white-space,
-formatting, missing semi-colons, etc).
+formatting, missing semi-colons, JSDoc annotations, comments, etc).
 - `refactor`: A code change that neither fixes a bug nor adds a feature.
 - `perf`: A code change that improves performance.
 - `test`: Adding missing tests.
