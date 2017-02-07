@@ -39,57 +39,13 @@
 .modal-body {
   flex-grow: 1;
   color: $palette-theme-light-foreground;
-  padding: 0;
+  padding: 20px;
   max-height: 250px;
   overflow: auto;
 
   a {
     color: $palette-theme-primary-background;
   }
-
-  .list-group {
-    padding: 0 20px;
-  }
-
-  .list-group-item {
-    display: flex;
-    align-items: center;
-    border-left: 0;
-    border-right: 0;
-    border-radius: 0;
-    border-color: darken($palette-theme-light-background, 7%);
-    padding: 12px 0;
-
-    > .tick {
-      font-size: 11px;
-    }
-
-    :first-child {
-      flex-grow: 1;
-    }
-
-    &:first-child {
-      border-top: 0;
-    }
-
-    &[disabled] .list-group-item-heading {
-      color: $palette-theme-light-soft-foreground;
-    }
-  }
-
-  .list-group-item-heading {
-    font-size: 13px;
-  }
-
-  .list-group-item-text {
-    line-height: 1;
-    font-size: 11px;
-    color: $palette-theme-light-soft-foreground;
-  }
-}
-
-.modal-text {
-  padding: 20px;
 
   > p {
     white-space: pre-line;
