@@ -106,3 +106,7 @@
 .page-main .step-size {
   color: $palette-theme-dark-disabled-foreground;
 }
+
+.page-main .popover-content {
+  -webkit-user-select: auto;
+}

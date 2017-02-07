@@ -5976,8 +5976,16 @@ body {
 [uib-tooltip] {
   cursor: default; }
 
-.tooltip {
+.tooltip,
+.popover {
   word-wrap: break-word; }
+
+.page-main .popover-title {
+  color: #666;
+  font-weight: bold; }
+
+.page-main .popover-content {
+  color: #666; }
 
 /*
  * Copyright 2016 resin.io
@@ -6559,6 +6567,9 @@ body {
 
 .page-main .step-size {
   color: #787c7f; }
+
+.page-main [uib-popover-popup] .popover-content {
+  -webkit-user-select: auto; }
 
 /*
  * Copyright 2016 resin.io
