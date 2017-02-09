@@ -5,17 +5,8 @@
 
 <div class="modal-body">
   <p>Etcher {{ ::modal.options.version }} is available for download</p>
-</div>
 
-<div class="modal-footer">
-  <div class="modal-menu">
-    <button class="button button-primary"
-      os-open-external="https://etcher.io?ref=etcher_update">Download</button>
-    <button class="button button-default"
-      ng-click="modal.closeModal()">Skip</button>
-  </div>
-
-  <div class="checkbox text-right">
+  <div class="checkbox">
     <label>
       <input type="checkbox"
         ng-model="modal.sleepUpdateCheck"
@@ -25,3 +16,11 @@
   </div>
 </div>
 
+<div class="modal-footer">
+  <div class="modal-menu">
+    <button class="button button-primary button-block"
+      os-open-external="https://etcher.io?ref=etcher_update">Download</button>
+    <button class="button button-default button-block"
+      ng-click="modal.closeModal()">Skip</button>
+  </div>
+</div>
