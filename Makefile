@@ -305,6 +305,24 @@ $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_V
 	./scripts/build/electron-installer-debian-linux.sh -p $< -r "$(TARGET_ARCH)" -o $| \
 		-c scripts/build/debian/config.json
 
+$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-win32-$(TARGET_ARCH).zip: \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-win32-$(TARGET_ARCH) \
+	| $(BUILD_OUTPUT_DIRECTORY)
+	./scripts/build/electron-installer-zip-win32.sh -a $< -o $@
+
+$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-win32-$(TARGET_ARCH).exe: \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-win32-$(TARGET_ARCH) \
+	| $(BUILD_OUTPUT_DIRECTORY) $(BUILD_TEMPORARY_DIRECTORY)
+	./scripts/build/electron-installer-nsis-win32.sh -n $(APPLICATION_NAME) -a $< -t $(BUILD_TEMPORARY_DIRECTORY) -o $@
+ifdef CODE_SIGN_CERTIFICATE
+ifdef CODE_SIGN_CERTIFICATE_PASSWORD
+	./scripts/build/electron-sign-exe.sh -f $@ \
+		-d "$(APPLICATION_NAME) - $(APPLICATION_VERSION)"
+		-c $(CODE_SIGN_CERTIFICATE) \
+		-p $(CODE_SIGN_CERTIFICATE_PASSWORD)
+endif
+endif
+
 # ---------------------------------------------------------------------
 # Phony targets
 # ---------------------------------------------------------------------
@@ -340,6 +358,17 @@ PUBLISH_AWS_S3 += \
 	$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
 PUBLISH_BINTRAY_DEBIAN += \
 	$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb
+endif
+
+ifeq ($(TARGET_PLATFORM),win32)
+electron-installer-zip: $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
+electron-installer-nsis: $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-win32-$(TARGET_ARCH).exe
+TARGETS += \
+	electron-installer-zip \
+	electron-installer-nsis
+PUBLISH_AWS_S3 += \
+	$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip \
+	$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-win32-$(TARGET_ARCH).exe
 endif
 
 ifdef PUBLISH_AWS_S3

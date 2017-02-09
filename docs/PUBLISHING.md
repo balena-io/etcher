@@ -57,7 +57,8 @@ The resulting installers will be saved to `release/out`.
 Run the following command:
 
 ```sh
-> .\scripts\build\windows.bat all <x64|x86>
+make electron-installer-zip
+make electron-installer-nsis
 ```
 
 The resulting installers will be saved to `etcher-release/installers`.
