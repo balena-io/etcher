@@ -23,7 +23,7 @@ describe('Browser: MainPage', function() {
       DrivesModel = _DrivesModel_;
     }));
 
-    describe('.shouldImageStepBeDisabled()', function() {
+    describe('.shouldDriveStepBeDisabled()', function() {
 
       it('should return true if there is no drive', function() {
         const controller = $controller('MainController', {
@@ -32,7 +32,7 @@ describe('Browser: MainPage', function() {
 
         SelectionStateModel.clear();
 
-        m.chai.expect(controller.shouldImageStepBeDisabled()).to.be.true;
+        m.chai.expect(controller.shouldDriveStepBeDisabled()).to.be.true;
       });
 
       it('should return false if there is a drive', function() {
@@ -40,11 +40,12 @@ describe('Browser: MainPage', function() {
           $scope: {}
         });
 
-        SelectionStateModel.hasDrive = () => {
-          return true;
-        };
+        SelectionStateModel.setImage({
+          path: 'rpi.img',
+          size: 99999
+        });
 
-        m.chai.expect(controller.shouldImageStepBeDisabled()).to.be.false;
+        m.chai.expect(controller.shouldDriveStepBeDisabled()).to.be.false;
       });
 
     });

@@ -36,7 +36,16 @@ body {
   cursor: default;
 }
 
-.tooltip {
+.tooltip,
+.popover {
   word-wrap: break-word;
 }
 
+.page-main .popover-title {
+  color: $palette-theme-light-foreground;
+  font-weight: bold;
+}
+
+.page-main .popover-content {
+  color: $palette-theme-light-foreground;
+}

@@ -26,7 +26,7 @@
   color: $palette-theme-dark-foreground;
 }
 
-.page-main .text-disabled {
+.page-main .text-disabled > span {
   color: $palette-theme-dark-disabled-foreground;
 }
 
@@ -105,4 +105,8 @@
 
 .page-main .step-size {
   color: $palette-theme-dark-disabled-foreground;
+}
+
+.page-main .popover-content {
+  -webkit-user-select: auto;
 }
