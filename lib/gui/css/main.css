@@ -6497,7 +6497,7 @@ body {
 .page-main .step-selection-text {
   color: #fff; }
 
-.page-main .text-disabled {
+.page-main .text-disabled > span {
   color: #787c7f; }
 
 .page-main .relative {

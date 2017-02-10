@@ -1,6 +1,45 @@
 <div class="page-main row around-xs">
+  <div class="col-xs" ng-controller="ImageSelectionController as image">
+    <div class="box text-center relative" os-dropzone="image.selectImage($file)">
+
+      <svg-icon
+        class="center-block"
+        path="{{ main.selection.getImageLogo() || '../../../assets/image.svg' }}"></svg-icon>
+
+      <div class="space-vertical-large">
+        <div ng-hide="main.selection.hasImage()">
+          <button
+            class="button button-primary button-brick"
+            ng-click="image.openImageSelector()">Select image</button>
+
+          <p class="step-footer">
+            {{ ::image.mainSupportedExtensions.join(', ') }}, and
+            <span class="step-footer-underline"
+              uib-tooltip="{{ image.extraSupportedExtensions.join(', ') }}">others</span>
+          </p>
+        </div>
+        <div ng-if="main.selection.hasImage()">
+          <div class="step-selection-text">
+            <span
+              ng-click="main.showSelectedImageDetails()"
+              class="step-image step-name"
+              ng-bind="main.selection.getImageName() || main.selection.getImagePath() | basename | middleEllipses:20"
+              uib-tooltip="{{ main.selection.getImagePath() | basename }}"></span>
+            <span class="step-image step-size">{{ main.selection.getImageSize() | gigabyte | number:1 }} GB</span>
+          </div>
+
+          <button class="button button-link step-footer"
+            ng-click="image.reselectImage()"
+            ng-hide="main.state.isFlashing()">Change</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="col-xs" ng-controller="DriveSelectionController as drive">
     <div class="box text-center relative">
+      <div class="step-border-left" ng-disabled="main.shouldDriveStepBeDisabled()"></div>
+      <div class="step-border-right" ng-disabled="main.shouldFlashStepBeDisabled()"></div>
 
       <svg-icon class="center-block"
         path="../../../assets/drive.svg"
@@ -11,11 +50,14 @@
 
           <div ng-show="main.drives.hasAvailableDrives()">
             <button class="button button-primary button-brick"
+              ng-disabled="main.shouldDriveStepBeDisabled()"
               ng-click="drive.openDriveSelector()">Select drive</button>
           </div>
 
           <div ng-hide="main.drives.hasAvailableDrives()">
-            <button class="button button-primary button-brick button-no-hover">Connect a drive</button>
+            <button
+              class="button button-primary button-brick button-no-hover"
+              ng-disabled="main.shouldDriveStepBeDisabled()">Connect a drive</button>
           </div>
 
         </div>
@@ -30,48 +72,6 @@
           </div>
           <button class="button button-link step-footer"
             ng-click="drive.reselectDrive()"
-            ng-hide="main.state.isFlashing()">Change</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-xs" ng-controller="ImageSelectionController as image">
-    <div class="box text-center relative" os-dropzone="image.selectImage($file)">
-      <div class="step-border-left" ng-disabled="main.shouldImageStepBeDisabled()"></div>
-      <div class="step-border-right" ng-disabled="main.shouldFlashStepBeDisabled()"></div>
-
-      <svg-icon
-        class="center-block"
-        path="{{ main.selection.getImageLogo() || '../../../assets/image.svg' }}"
-        ng-disabled="main.shouldImageStepBeDisabled()"></svg-icon>
-
-      <div class="space-vertical-large">
-        <div ng-hide="main.selection.hasImage()">
-          <button
-            class="button button-primary button-brick"
-            ng-click="image.openImageSelector()"
-            ng-disabled="main.shouldImageStepBeDisabled()">Select image</button>
-
-          <p class="step-footer">
-            {{ ::image.mainSupportedExtensions.join(', ') }}, and
-            <span class="step-footer-underline"
-              uib-tooltip="{{ image.extraSupportedExtensions.join(', ') }}">others</span>
-          </p>
-        </div>
-        <div ng-if="main.selection.hasImage()">
-          <div class="step-selection-text">
-            <span
-              ng-click="main.showSelectedImageDetails()"
-              class="step-image step-name"
-              ng-class="{ 'text-disabled': main.shouldImageStepBeDisabled() }"
-              ng-bind="main.selection.getImageName() || main.selection.getImagePath() | basename | middleEllipses:20"
-              uib-tooltip="{{ main.selection.getImagePath() | basename }}"></span>
-            <span class="step-image step-size">{{ main.selection.getImageSize() | gigabyte | number:1 }} GB</span>
-          </div>
-
-          <button class="button button-link step-footer"
-            ng-click="image.reselectImage()"
             ng-hide="main.state.isFlashing()">Change</button>
         </div>
       </div>
