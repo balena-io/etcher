@@ -15,8 +15,9 @@
     "sass": "node-sass ./lib/gui/scss/main.scss > ./lib/gui/css/main.css",
     "jslint": "eslint lib tests scripts bin versionist.conf.js",
     "scsslint": "scss-lint lib/gui/scss",
+    "htmllint": "node scripts/html-lint.js",
     "codespell": "codespell.py lib tests",
-    "lint": "npm run jslint && npm run scsslint && npm run codespell",
+    "lint": "npm run jslint && npm run scsslint && npm run codespell && npm run htmllint",
     "changelog": "versionist",
     "start": "electron lib/start.js",
     "clean-shrinkwrap": "node ./scripts/clean-shrinkwrap.js"
@@ -112,6 +113,7 @@
     "electron-prebuilt": "1.4.4",
     "eslint": "^2.13.1",
     "file-exists": "^1.0.0",
+    "html-angular-validate": "^0.1.9",
     "jsonfile": "^2.3.1",
     "mochainon": "^1.0.0",
     "node-sass": "^3.8.0",
