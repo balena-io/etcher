@@ -83,7 +83,7 @@
           percentage="main.state.getFlashState().percentage"
           striped="{{ main.state.getFlashState().type == 'check' }}"
           ng-attr-active="{{ main.state.isFlashing() }}"
-          ng-click="flash.flashImageToDrive(main.selection.getImagePath(), main.selection.getDrive())"
+          ng-click="flash.flashImageToDrive(main.selection.getImage(), main.selection.getDrive())"
           ng-disabled="main.shouldFlashStepBeDisabled() || main.state.getLastFlashErrorCode()">
             <span ng-bind="flash.getProgressButtonLabel()"></span>
         </progress-button>

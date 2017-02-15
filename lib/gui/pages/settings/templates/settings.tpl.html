@@ -5,7 +5,7 @@
     <label>
       <input type="checkbox"
         ng-model="settings.currentData.errorReporting"
-        ng-change="settings.model.set('errorReporting', settings.currentData.errorReporting)">
+        ng-change="settings.set('errorReporting', settings.currentData.errorReporting)">
 
       <span>Report errors</span>
     </label>
@@ -15,7 +15,7 @@
     <label>
       <input type="checkbox"
         ng-model="settings.currentData.unmountOnSuccess"
-        ng-change="settings.model.set('unmountOnSuccess', settings.currentData.unmountOnSuccess)">
+        ng-change="settings.set('unmountOnSuccess', settings.currentData.unmountOnSuccess)">
 
       <!-- On Windows, "Unmounting" basically means "ejecting". -->
       <!-- On top of that, Windows users are usually not even -->
@@ -34,7 +34,7 @@
     <label>
       <input type="checkbox"
         ng-model="settings.currentData.validateWriteOnSuccess"
-        ng-change="settings.model.set('validateWriteOnSuccess', settings.currentData.validateWriteOnSuccess)">
+        ng-change="settings.set('validateWriteOnSuccess', settings.currentData.validateWriteOnSuccess)">
 
       <span>Validate write on success</span>
     </label>
