@@ -23,6 +23,7 @@ Prerequisites
 - [Rimraf](https://github.com/isaacs/rimraf)
 - [NSIS v2.51](http://nsis.sourceforge.net/Main_Page) (v3.x won't work)
 - [Visual Studio Community 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48146) (free) (other editions, like Professional and Enterprise, should work too)
+- [Windows 8.1 SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-8-1-sdk)
 - [MinGW](http://www.mingw.org)
 
 The following MinGW packages are required:
