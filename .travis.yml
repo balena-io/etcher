@@ -55,9 +55,10 @@ install:
 script:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       npm test;
+      ./scripts/ci/ensure-staged-sass.sh;
     fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      ./scripts/build/docker/run-command.sh -r ${TARGET_ARCH} -s ${PWD} -c "xvfb-run --server-args=$XVFB_ARGS npm test";
+      ./scripts/build/docker/run-command.sh -r ${TARGET_ARCH} -s ${PWD} -c "xvfb-run --server-args=$XVFB_ARGS npm test && ./scripts/ci/ensure-staged-sass.sh";
     fi
 
 notifications:
