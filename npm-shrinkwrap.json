@@ -271,8 +271,9 @@
       "resolved": "https://registry.npmjs.org/dev-null-stream/-/dev-null-stream-0.0.1.tgz"
     },
     "drivelist": {
-      "version": "5.0.11",
-      "from": "drivelist@5.0.11",
+      "version": "5.0.13",
+      "from": "drivelist@5.0.13",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-5.0.13.tgz",
       "dependencies": {
         "lodash": {
           "version": "4.17.4",
