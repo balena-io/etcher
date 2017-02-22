@@ -39,8 +39,7 @@ install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       pip install codespell;
       gem install scss_lint;
-      npm install -g bower electron-installer-debian;
-      npm install -g electron-installer-debian;
+      npm install -g bower;
       brew install afsctool;
       brew install jq;
     fi
