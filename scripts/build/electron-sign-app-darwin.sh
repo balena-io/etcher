@@ -55,7 +55,7 @@ fi
 
 function sign_file() {
   local file=$1
-  codesign --sign "$ARGV_IDENTITY" -fv "$file"
+  ./scripts/build/electron-sign-file-darwin.sh -f "$file" -i "$ARGV_IDENTITY"
 }
 
 # Avoid issues with `for` loops on file names containing spaces
@@ -87,13 +87,11 @@ IFS=$SAVEIFS
 # its components have been signed
 sign_file "$ARGV_APPLICATION"
 
-# Verify signature
-codesign \
-  --verify \
-  --deep \
-  --display \
-  --verbose=4 "$ARGV_APPLICATION"
-
+# spctl manages the security assessment policy subsystem.
+# This subsystem maintains and evaluates rules that determine whether the system
+# allows the installation, execution, and other operations on files on the system.
+# We use this tool to simulate whether the OS would accept our code
+# signature at the moment of installation / execution.
 spctl \
   --ignore-cache \
   --no-cache \

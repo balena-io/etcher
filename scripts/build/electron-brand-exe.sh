@@ -19,99 +19,72 @@
 set -u
 set -e
 
-OS=$(uname -o 2>/dev/null || true)
-if [[ "$OS" != "Msys" ]]; then
-  echo "This script is only meant to be run in Windows" 1>&2
-  exit 1
-fi
-
-./scripts/build/check-dependency.sh upx
-./scripts/build/check-dependency.sh unzip
-
 function usage() {
   echo "Usage: $0"
   echo ""
   echo "Options"
   echo ""
-  echo "    -p <electron package>"
+  echo "    -f <file (.exe)>"
   echo "    -n <application name>"
   echo "    -d <application description>"
   echo "    -v <application version>"
   echo "    -c <application copyright>"
-  echo "    -l <application license file>"
   echo "    -m <company name>"
-  echo "    -a <application asar (.asar)>"
   echo "    -i <application icon (.ico)>"
   echo "    -w <download directory>"
-  echo "    -o <output directory>"
   exit 1
 }
 
-ARGV_ELECTRON_PACKAGE=""
+ARGV_FILE=""
 ARGV_APPLICATION_NAME=""
 ARGV_APPLICATION_DESCRIPTION=""
 ARGV_VERSION=""
 ARGV_COPYRIGHT=""
-ARGV_LICENSE=""
 ARGV_COMPANY_NAME=""
-ARGV_ASAR=""
 ARGV_ICON=""
 ARGV_DOWNLOAD_DIRECTORY=""
-ARGV_OUTPUT=""
 
-while getopts ":p:n:d:v:c:l:m:a:i:w:o:" option; do
+while getopts ":f:n:d:v:c:m:i:w:" option; do
   case $option in
-    p) ARGV_ELECTRON_PACKAGE="$OPTARG" ;;
+    f) ARGV_FILE="$OPTARG" ;;
     n) ARGV_APPLICATION_NAME="$OPTARG" ;;
     d) ARGV_APPLICATION_DESCRIPTION="$OPTARG" ;;
     v) ARGV_VERSION="$OPTARG" ;;
     c) ARGV_COPYRIGHT="$OPTARG" ;;
-    l) ARGV_LICENSE="$OPTARG" ;;
     m) ARGV_COMPANY_NAME="$OPTARG" ;;
-    a) ARGV_ASAR="$OPTARG" ;;
     i) ARGV_ICON="$OPTARG" ;;
     w) ARGV_DOWNLOAD_DIRECTORY="$OPTARG" ;;
-    o) ARGV_OUTPUT="$OPTARG" ;;
     *) usage ;;
   esac
 done
 
-if [ -z "$ARGV_ELECTRON_PACKAGE" ] \
+if [ -z "$ARGV_FILE" ] \
   || [ -z "$ARGV_APPLICATION_NAME" ] \
   || [ -z "$ARGV_APPLICATION_DESCRIPTION" ] \
   || [ -z "$ARGV_VERSION" ] \
   || [ -z "$ARGV_COPYRIGHT" ] \
-  || [ -z "$ARGV_LICENSE" ] \
   || [ -z "$ARGV_COMPANY_NAME" ] \
-  || [ -z "$ARGV_ASAR" ] \
   || [ -z "$ARGV_ICON" ] \
-  || [ -z "$ARGV_DOWNLOAD_DIRECTORY" ] \
-  || [ -z "$ARGV_OUTPUT" ]
+  || [ -z "$ARGV_DOWNLOAD_DIRECTORY" ]
 then
   usage
 fi
 
-unzip "$ARGV_ELECTRON_PACKAGE" -d "$ARGV_OUTPUT"
+RCEDIT_VERSION=v0.7.0
+RCEDIT="$ARGV_DOWNLOAD_DIRECTORY/rcedit.exe"
 
-mv "$ARGV_OUTPUT/electron.exe" "$ARGV_OUTPUT/$ARGV_APPLICATION_NAME.exe"
-cp "$ARGV_LICENSE" "$ARGV_OUTPUT/LICENSE"
-echo "$ARGV_VERSION" > "$ARGV_OUTPUT/version"
-rm -f "$ARGV_OUTPUT/resources/default_app.asar"
+./scripts/build/download-tool.sh -x \
+  -u "https://github.com/electron/node-rcedit/raw/$RCEDIT_VERSION/bin/rcedit.exe" \
+  -c "42649d92e1bbb3af1186fb0ad063df9fcdc18e7b5f2ea82191ecc8fdfaffb0d8" \
+  -o "$RCEDIT"
 
-./scripts/build/electron-brand-exe.sh \
-  -f "$ARGV_OUTPUT/$ARGV_APPLICATION_NAME.exe" \
-  -n "$ARGV_APPLICATION_NAME" \
-  -d "$ARGV_APPLICATION_DESCRIPTION" \
-  -v "$ARGV_VERSION" \
-  -c "$ARGV_COPYRIGHT" \
-  -m "$ARGV_COMPANY_NAME" \
-  -i "$ARGV_ICON" \
-  -w "$ARGV_DOWNLOAD_DIRECTORY"
-
-upx -9 "$ARGV_OUTPUT/*.dll"
-
-cp "$ARGV_ASAR" "$ARGV_OUTPUT/resources/app.asar"
-
-if [ -d "$ARGV_ASAR.unpacked" ]; then
-  cp -rf "$ARGV_ASAR.unpacked" "$ARGV_OUTPUT/resources/app.asar.unpacked"
-fi
+"$RCEDIT" "$ARGV_FILE" \
+  --set-version-string "FileDescription" "$ARGV_APPLICATION_NAME" \
+  --set-version-string "InternalName" "$ARGV_APPLICATION_NAME" \
+  --set-version-string "OriginalFilename" "$(basename "$ARGV_FILE")" \
+  --set-version-string "ProductName" "$ARGV_APPLICATION_NAME - $ARGV_APPLICATION_DESCRIPTION" \
+  --set-version-string "CompanyName" "$ARGV_COMPANY_NAME" \
+  --set-version-string "LegalCopyright" "$ARGV_COPYRIGHT" \
+  --set-file-version "$ARGV_VERSION" \
+  --set-product-version "$ARGV_VERSION" \
+  --set-icon "$ARGV_ICON"
