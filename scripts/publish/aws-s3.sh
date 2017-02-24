@@ -39,7 +39,7 @@ ARGV_BUCKET=""
 ARGV_VERSION=""
 ARGV_PRODUCT_NAME=""
 
-while getopts ":f:b:v:p" option; do
+while getopts ":f:b:v:p:" option; do
   case $option in
     f) ARGV_FILE="$OPTARG" ;;
     b) ARGV_BUCKET="$OPTARG" ;;
