@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.0.0-beta.19 - 2017-02-24
+
+### Features
+
+- Show warning when user tries to flash a Windows image
+- Update the image step icon with an hexagonal "plus" icon.
+- Update main page design to its new style.
+- Swap the order of the drive and image selection steps.
+
+### Fixes
+
+- Fix `transformRequest` error at startup when not connected to the internet, or when on an unstable connection.
+- Prevent flashing the drive where the source image is located.
+- Fix text overflowing on tooltips.
+- Don't ignore errors coming from the Windows drive detection script.
+- Omit empty SD Card readers in the drive selector on Windows.
+- Fix "Error: Command Failed" error when unmounting on Windows.
+- Fix duplicate error messages on some errors.
+- Fix 'MySQL' is not recognised as an internal or external command error on Windows.
+- Ignore `stderr` output from drive detection scripts if they exit with code zero.
+
+### Misc
+
+- Improve validation error message.
+- Emit an analytics event on `ENOSPC`.
+- Normalize button text casing.
+- Don't auto select system drives in unsafe mode.
+- Use a OS dialog to show the "exit while flashing" warning.
+- Capitalize every text throughout the application.
+
 ## v1.0.0-beta.18 - 2017-01-16
 
 ### Features
