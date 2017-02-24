@@ -49,7 +49,7 @@ if [ "$ARGV_PRODUCTION" == "true" ]; then
 fi
 
 if [ -n "$ARGV_PREFIX" ]; then
-  ln -s "$PWD/bower.json" "$ARGV_PREFIX/bower.json"
+  cp "$PWD/bower.json" "$ARGV_PREFIX/bower.json"
   pushd "$ARGV_PREFIX"
   bower install $INSTALL_OPTS
   popd
