@@ -65,10 +65,10 @@ fi
 TIMESTAMP_SERVER=http://timestamp.comodoca.com
 
 signtool sign \
-  /t "$TIMESTAMP_SERVER" \
-  /d "$ARGV_SIGNATURE_DESCRIPTION" \
-  /f "$ARGV_CERTIFICATE_FILE" \
-  /p "$ARGV_CERTIFICATE_PASSWORD" \
+  -t "$TIMESTAMP_SERVER" \
+  -d "$ARGV_SIGNATURE_DESCRIPTION" \
+  -f "$ARGV_CERTIFICATE_FILE" \
+  -p "$ARGV_CERTIFICATE_PASSWORD" \
   "$ARGV_FILE"
 
-signtool verify /pa /v "$ARGV_FILE"
+signtool verify -pa -v "$ARGV_FILE"
