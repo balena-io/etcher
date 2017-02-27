@@ -242,8 +242,8 @@ ifeq ($(TARGET_PLATFORM),win32)
 		-o $@
 ifdef CODE_SIGN_CERTIFICATE
 ifdef CODE_SIGN_CERTIFICATE_PASSWORD
-	./scripts/build/electron-sign-exe.sh -f $@/$(APPLICATION_NAME).exe \
-		-d "$(APPLICATION_NAME) - $(APPLICATION_VERSION)"
+	./scripts/build/electron-sign-exe-win32.sh -f $@/$(APPLICATION_NAME).exe \
+		-d "$(APPLICATION_NAME) - $(APPLICATION_VERSION)" \
 		-c $(CODE_SIGN_CERTIFICATE) \
 		-p $(CODE_SIGN_CERTIFICATE_PASSWORD)
 endif
@@ -316,8 +316,8 @@ $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-win32-$(TAR
 	./scripts/build/electron-installer-nsis-win32.sh -n $(APPLICATION_NAME) -a $< -t $(BUILD_TEMPORARY_DIRECTORY) -o $@
 ifdef CODE_SIGN_CERTIFICATE
 ifdef CODE_SIGN_CERTIFICATE_PASSWORD
-	./scripts/build/electron-sign-exe.sh -f $@ \
-		-d "$(APPLICATION_NAME) - $(APPLICATION_VERSION)"
+	./scripts/build/electron-sign-exe-win32.sh -f $@ \
+		-d "$(APPLICATION_NAME) - $(APPLICATION_VERSION)" \
 		-c $(CODE_SIGN_CERTIFICATE) \
 		-p $(CODE_SIGN_CERTIFICATE_PASSWORD)
 endif
