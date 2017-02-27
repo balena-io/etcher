@@ -99,10 +99,10 @@ if [ "$ARGV_PRODUCTION" == "true" ]; then
 fi
 
 if [ -n "$ARGV_PREFIX" ]; then
-  ln -s "$PWD/package.json" "$ARGV_PREFIX/package.json"
+  cp "$PWD/package.json" "$ARGV_PREFIX/package.json"
 
   if [ -f "$PWD/npm-shrinkwrap.json" ]; then
-    ln -s "$PWD/npm-shrinkwrap.json" "$ARGV_PREFIX/npm-shrinkwrap.json"
+    cp "$PWD/npm-shrinkwrap.json" "$ARGV_PREFIX/npm-shrinkwrap.json"
   fi
 
   pushd "$ARGV_PREFIX"
