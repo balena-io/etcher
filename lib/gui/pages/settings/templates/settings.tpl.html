@@ -5,7 +5,7 @@
     <label>
       <input type="checkbox"
         ng-model="settings.currentData.errorReporting"
-        ng-change="settings.set('errorReporting', settings.currentData.errorReporting)">
+        ng-change="settings.toggle('errorReporting')">
 
       <span>Report errors</span>
     </label>
@@ -15,7 +15,7 @@
     <label>
       <input type="checkbox"
         ng-model="settings.currentData.unmountOnSuccess"
-        ng-change="settings.set('unmountOnSuccess', settings.currentData.unmountOnSuccess)">
+        ng-change="settings.toggle('unmountOnSuccess')">
 
       <!-- On Windows, "Unmounting" basically means "ejecting". -->
       <!-- On top of that, Windows users are usually not even -->
@@ -34,7 +34,7 @@
     <label>
       <input type="checkbox"
         ng-model="settings.currentData.validateWriteOnSuccess"
-        ng-change="settings.set('validateWriteOnSuccess', settings.currentData.validateWriteOnSuccess)">
+        ng-change="settings.toggle('validateWriteOnSuccess')">
 
       <span>Validate write on success</span>
     </label>
@@ -46,7 +46,7 @@
     <label>
       <input type="checkbox"
         ng-model="settings.currentData.unsafeMode"
-        ng-change="settings.enableDangerousSetting('unsafeMode', {
+        ng-change="settings.toggle('unsafeMode', {
           description: 'Are you sure you want to turn this on? You will be able to overwrite your system drives if you\'re not careful.',
           confirmationLabel: 'Enable unsafe mode'
         })">
