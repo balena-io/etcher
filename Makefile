@@ -26,6 +26,7 @@ APPLICATION_COPYRIGHT = $(shell jq -r '.copyright' package.json)
 APPLICATION_CATEGORY = public.app-category.developer-tools
 APPLICATION_BUNDLE_ID = io.resin.etcher
 APPLICATION_FILES = lib,assets
+S3_BUCKET = resin-production-downloads
 
 # Add the current commit to the version if release type is "snapshot"
 RELEASE_TYPE ?= snapshot
