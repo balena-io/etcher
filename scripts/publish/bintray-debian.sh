@@ -41,7 +41,7 @@ ARGV_ARCHITECTURE=""
 ARGV_COMPONENT_NAME=""
 ARGV_RELEASE_TYPE=""
 
-while getopts ":f:v:r:c:t" option; do
+while getopts ":f:v:r:c:t:" option; do
   case $option in
     f) ARGV_FILE="$OPTARG" ;;
     v) ARGV_VERSION="$OPTARG" ;;
