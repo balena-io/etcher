@@ -71,6 +71,17 @@ rules:
     - error
     - requireReturn: false
       requireReturnDescription: false
+      requireReturnType: true
+      requireParamDescription: true
+      preferType:
+        boolean: "Boolean"
+        number: "Number"
+        object: "Object"
+        string: "String"
+        array: "Array"
+      prefer:
+        arg: "param"
+        return: "returns"
   valid-typeof:
     - error
 
