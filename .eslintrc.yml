@@ -4,6 +4,8 @@ env:
   es6: true
   node: true
   mocha: true
+plugins:
+  - lodash
 extends: 'eslint:recommended'
 rules:
 
@@ -571,3 +573,75 @@ rules:
     - error
     - before: true
       after: false
+
+  # Lodash
+
+  lodash/chain-style:
+    - error
+    - explicit
+  lodash/identity-shorthand:
+    - error
+    - always
+  lodash/import-scope:
+    - error
+    - full
+  lodash/matches-prop-shorthand:
+    - error
+    - always
+  lodash/matches-shorthand:
+    - error
+    - always
+  lodash/no-commit:
+    - error
+  lodash/path-style:
+    - error
+    - array
+  lodash/prefer-compact:
+    - error
+  lodash/prefer-filter:
+    - error
+    - 5
+  lodash/prefer-flat-map:
+    - error
+  lodash/prefer-invoke-map:
+    - error
+  lodash/prefer-map:
+    - error
+  lodash/prefer-reject:
+    - error
+  lodash/prefer-thru:
+    - error
+  lodash/prefer-wrapper-method:
+    - error
+  lodash/prop-shorthand:
+    - error
+    - always
+  lodash/prefer-constant:
+    - error
+    - true
+    - true
+  lodash/prefer-get:
+    - error
+    - 2
+  lodash/prefer-includes:
+    - error
+    - includeNative: true
+  lodash/prefer-is-nil:
+    - error
+  lodash/prefer-lodash-chain:
+    - error
+  lodash/prefer-lodash-method:
+    - error
+  lodash/prefer-lodash-typecheck:
+    - error
+  lodash/prefer-matches:
+    - error
+    - 3
+  lodash/prefer-noop:
+    - error
+  lodash/prefer-over-quantifier:
+    - error
+  lodash/prefer-startswith:
+    - error
+  lodash/prefer-times:
+    - error

@@ -90,7 +90,7 @@ describe('CLI: Errors', function() {
       it('should provide a friendly message for EACCES', function() {
         const error = new Error('foo bar');
         error.code = 'EACCES';
-        const message = 'EACCES: You\'re don\'t have access to this resource';
+        const message = 'EACCES: You don\'t have access to this resource';
         m.chai.expect(errors.getErrorMessage(error)).to.equal(message);
       });
 
