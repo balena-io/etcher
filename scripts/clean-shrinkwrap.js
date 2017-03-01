@@ -21,6 +21,7 @@ const jsonfile = require('jsonfile');
 const childProcess = require('child_process');
 const packageJSON = require('../package.json');
 const shrinkwrapIgnore = _.union(packageJSON.shrinkwrapIgnore, _.keys(packageJSON.optionalDependencies));
+const EXIT_CODES = require('../lib/shared/exit-codes');
 const SHRINKWRAP_PATH = path.join(__dirname, '..', 'npm-shrinkwrap.json');
 
 try {
@@ -29,7 +30,7 @@ try {
   }));
 } catch (error) {
   console.error(error.stderr.toString());
-  process.exit(1);
+  process.exit(EXIT_CODES.GENERAL_ERROR);
 }
 
 const shrinkwrapContents = jsonfile.readFileSync(SHRINKWRAP_PATH);

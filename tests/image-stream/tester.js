@@ -39,6 +39,8 @@ const deleteIfExists = (file) => {
     if (fileExists(file)) {
       return fs.unlinkAsync(file);
     }
+
+    return Bluebird.resolve();
   });
 };
 
@@ -63,7 +65,7 @@ exports.extractFromFilePath = function(file, image) {
         results.size.original === fs.statSync(file).size,
         results.size.original === fs.statSync(image).size
       ])) {
-        throw new Error('Invalid size: ' + results.size.original);
+        throw new Error(`Invalid size: ${results.size.original}`);
       }
 
       const stream = results.stream

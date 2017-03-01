@@ -14,6 +14,7 @@ const chalk = require('chalk');
 const path = require('path');
 const _ = require('lodash');
 const angularValidate = require('html-angular-validate');
+const EXIT_CODES = require('../lib/shared/exit-codes');
 const PROJECT_ROOT = path.join(__dirname, '..');
 const FILENAME = path.relative(PROJECT_ROOT, __filename);
 
@@ -45,16 +46,14 @@ angularValidate.validate(
     reportCheckstylePath: null
   }
 ).then((result) => {
-
-  // console.log(result);
-
   _.each(result.failed, (failure) => {
 
     // The module has a typo in the "numbers" property
     console.error(chalk.red(`${failure.numerrs} errors at ${path.relative(PROJECT_ROOT, failure.filepath)}`));
 
     _.each(failure.errors, (error) => {
-      console.error('  ' + chalk.yellow(`[${error.line}:${error.col}]`) + ` ${error.msg}`);
+      const errorPosition = `[${error.line}:${error.col}]`;
+      console.error(`  ${chalk.yellow(errorPosition)} ${error.msg}`);
 
       if (/^Attribute (.*) not allowed on/.test(error.msg)) {
         console.error(chalk.dim(`    If this is a valid directive attribute, add it to the whitelist at ${FILENAME}`));
@@ -71,16 +70,17 @@ angularValidate.validate(
   }
 
   if (!result.allpassed) {
+    const EXIT_TIMEOUT_MS = 500;
 
     // Add a small timeout, otherwise the scripts exits
     // before every string was printed on the screen.
     setTimeout(() => {
-      process.exit(1);
-    }, 500);
+      process.exit(EXIT_CODES.GENERAL_ERROR);
+    }, EXIT_TIMEOUT_MS);
 
   }
 
 }, (error) => {
   console.error(error);
-  process.exit(1);
+  process.exit(EXIT_CODES.GENERAL_ERROR);
 });

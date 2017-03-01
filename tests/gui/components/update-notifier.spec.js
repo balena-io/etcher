@@ -2,6 +2,7 @@
 
 const m = require('mochainon');
 const angular = require('angular');
+const units = require('../../../lib/shared/units');
 require('angular-mocks');
 
 describe('Browser: UpdateNotifier', function() {
@@ -16,12 +17,12 @@ describe('Browser: UpdateNotifier', function() {
 
       let UpdateNotifierService;
       let SettingsModel;
-      let UPDATE_NOTIFIER_SLEEP_TIME;
+      let UPDATE_NOTIFIER_SLEEP_DAYS;
 
-      beforeEach(angular.mock.inject(function(_UpdateNotifierService_, _SettingsModel_, _UPDATE_NOTIFIER_SLEEP_TIME_) {
+      beforeEach(angular.mock.inject(function(_UpdateNotifierService_, _SettingsModel_, _UPDATE_NOTIFIER_SLEEP_DAYS_) {
         UpdateNotifierService = _UpdateNotifierService_;
         SettingsModel = _SettingsModel_;
-        UPDATE_NOTIFIER_SLEEP_TIME = _UPDATE_NOTIFIER_SLEEP_TIME_;
+        UPDATE_NOTIFIER_SLEEP_DAYS = _UPDATE_NOTIFIER_SLEEP_DAYS_;
       }));
 
       describe('given the `sleepUpdateCheck` is disabled', function() {
@@ -72,7 +73,8 @@ describe('Browser: UpdateNotifier', function() {
         describe('given the `lastUpdateNotify` was updated long ago', function() {
 
           beforeEach(function() {
-            SettingsModel.set('lastUpdateNotify', Date.now() + UPDATE_NOTIFIER_SLEEP_TIME + 1000);
+            const SLEEP_MS = units.daysToMilliseconds(UPDATE_NOTIFIER_SLEEP_DAYS);
+            SettingsModel.set('lastUpdateNotify', Date.now() + SLEEP_MS + 1000);
           });
 
           it('should return true', function() {
