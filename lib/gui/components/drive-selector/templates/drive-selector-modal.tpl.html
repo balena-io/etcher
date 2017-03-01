@@ -51,6 +51,13 @@
           ng-show="modal.constraints.isDriveValid(drive, modal.state.getImage())"
           ng-disabled="!modal.state.isCurrentDrive(drive.device)"></span>
     </li>
+    <li class="list-group-item"
+      ng-show="!modal.drives.hasAvailableDrives()">
+      <div>
+        <b>Connect a drive!</b>
+        <div>No removable drive detected.</div>
+      </div>
+    </li>
   </ul>
 </div>
 
