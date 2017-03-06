@@ -90,29 +90,19 @@
       "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.4.1.tgz"
     },
     "bluebird-retry": {
-      "version": "0.7.0",
-      "from": "bluebird-retry@>=0.7.0 <0.8.0",
-      "resolved": "https://registry.npmjs.org/bluebird-retry/-/bluebird-retry-0.7.0.tgz"
+      "version": "0.10.1",
+      "from": "bluebird-retry@>=0.10.1 <0.11.0",
+      "resolved": "https://registry.npmjs.org/bluebird-retry/-/bluebird-retry-0.10.1.tgz"
     },
     "bmapflash": {
       "version": "1.2.0",
       "from": "bmapflash@>=1.2.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/bmapflash/-/bmapflash-1.2.0.tgz",
       "dependencies": {
-        "isarray": {
-          "version": "1.0.0",
-          "from": "isarray@~1.0.0",
-          "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
-        },
         "lodash": {
           "version": "4.17.4",
           "from": "lodash@>=4.14.2 <5.0.0",
           "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz"
-        },
-        "readable-stream": {
-          "version": "2.2.2",
-          "from": "readable-stream@^2.1.5",
-          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.2.2.tgz"
         },
         "through2": {
           "version": "2.0.3",
@@ -228,22 +218,15 @@
       "from": "core-util-is@>=1.0.0 <1.1.0",
       "resolved": "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.2.tgz"
     },
+    "crc": {
+      "version": "3.4.4",
+      "from": "crc@>=3.4.4 <4.0.0",
+      "resolved": "https://registry.npmjs.org/crc/-/crc-3.4.4.tgz"
+    },
     "crc32-stream": {
-      "version": "0.4.0",
-      "from": "crc32-stream@>=0.4.0 <0.5.0",
-      "resolved": "https://registry.npmjs.org/crc32-stream/-/crc32-stream-0.4.0.tgz",
-      "dependencies": {
-        "isarray": {
-          "version": "1.0.0",
-          "from": "isarray@>=1.0.0 <1.1.0",
-          "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
-        },
-        "readable-stream": {
-          "version": "2.0.6",
-          "from": "readable-stream@>=2.0.0 <2.1.0",
-          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.0.6.tgz"
-        }
-      }
+      "version": "1.0.1",
+      "from": "crc32-stream@>=1.0.1 <2.0.0",
+      "resolved": "https://registry.npmjs.org/crc32-stream/-/crc32-stream-1.0.1.tgz"
     },
     "cross-spawn-async": {
       "version": "2.2.4",
@@ -315,19 +298,19 @@
       "resolved": "https://registry.npmjs.org/esprima/-/esprima-2.7.2.tgz"
     },
     "etcher-image-write": {
-      "version": "9.0.0",
-      "from": "etcher-image-write@9.0.0",
-      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-9.0.0.tgz",
+      "version": "9.0.1",
+      "from": "etcher-image-write@9.0.1",
+      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-9.0.1.tgz",
       "dependencies": {
-        "isarray": {
-          "version": "1.0.0",
-          "from": "isarray@~1.0.0",
-          "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
+        "bluebird": {
+          "version": "3.5.0",
+          "from": "bluebird@>=3.4.7 <4.0.0",
+          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.0.tgz"
         },
-        "readable-stream": {
-          "version": "2.2.2",
-          "from": "readable-stream@^2.1.5",
-          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.2.2.tgz"
+        "lodash": {
+          "version": "4.17.4",
+          "from": "lodash@>=4.17.4 <5.0.0",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz"
         },
         "through2": {
           "version": "2.0.3",
@@ -1499,9 +1482,9 @@
       "resolved": "https://registry.npmjs.org/rx-lite/-/rx-lite-3.1.2.tgz"
     },
     "sax": {
-      "version": "1.2.1",
+      "version": "1.2.2",
       "from": "sax@>=0.6.0",
-      "resolved": "https://registry.npmjs.org/sax/-/sax-1.2.1.tgz"
+      "resolved": "https://registry.npmjs.org/sax/-/sax-1.2.2.tgz"
     },
     "semver": {
       "version": "5.1.1",
@@ -1518,16 +1501,6 @@
       "from": "slice-stream2@>=2.0.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/slice-stream2/-/slice-stream2-2.0.1.tgz",
       "dependencies": {
-        "isarray": {
-          "version": "1.0.0",
-          "from": "isarray@>=1.0.0 <1.1.0",
-          "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
-        },
-        "readable-stream": {
-          "version": "2.2.2",
-          "from": "readable-stream@^2.1.5",
-          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.2.2.tgz"
-        },
         "through2": {
           "version": "2.0.3",
           "from": "through2@^2.0.1",
@@ -1575,16 +1548,6 @@
       "from": "stream-chunker@>=1.2.8 <2.0.0",
       "resolved": "https://registry.npmjs.org/stream-chunker/-/stream-chunker-1.2.8.tgz",
       "dependencies": {
-        "isarray": {
-          "version": "1.0.0",
-          "from": "isarray@>=1.0.0 <1.1.0",
-          "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
-        },
-        "readable-stream": {
-          "version": "2.2.2",
-          "from": "readable-stream@>=2.1.5 <3.0.0",
-          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.2.2.tgz"
-        },
         "through2": {
           "version": "2.0.3",
           "from": "through2@~2.0.0",

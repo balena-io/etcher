@@ -75,7 +75,7 @@
     "chalk": "^1.1.3",
     "drivelist": "^5.0.15",
     "electron-is-running-in-asar": "^1.0.0",
-    "etcher-image-write": "^9.0.0",
+    "etcher-image-write": "^9.0.1",
     "etcher-latest-version": "^1.0.0",
     "file-tail": "^0.3.0",
     "flexboxgrid": "^6.3.0",
