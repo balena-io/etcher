@@ -39,7 +39,7 @@ describe('Browser: SVGIcon', function() {
 
       // Injecting XML as HTML causes the XML header to be commented out.
       // Modify here to ease assertions later on.
-      iconContents[0] = '<!--' + iconContents[0].slice(1, iconContents[0].length - 1) + '-->';
+      iconContents[0] = `<!--${iconContents[0].slice(1, iconContents[0].length - 1)}-->`;
       iconContents = iconContents.join('\n');
 
       const element = $compile(`<svg-icon path="${icon}">Resin.io</svg-icon>`)($rootScope);

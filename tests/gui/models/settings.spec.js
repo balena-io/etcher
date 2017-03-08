@@ -65,7 +65,7 @@ describe('Browser: SettingsModel', function() {
         const keyUnderTest = _.first(SUPPORTED_KEYS);
         m.chai.expect(function() {
           SettingsModel.set(keyUnderTest, {
-            x: 1
+            setting: 1
           });
         }).to.throw('Invalid setting value: [object Object]');
       });

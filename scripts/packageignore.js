@@ -22,19 +22,19 @@ console.log(_.flatten([
   packageJSON.packageIgnore,
 
   // Development dependencies
-  _.map(_.keys(packageJSON.devDependencies), function(dependency) {
+  _.map(_.keys(packageJSON.devDependencies), (dependency) => {
     return path.join('node_modules', dependency);
   }),
 
   // Top level hidden files
-  _.map(_.filter(topLevelFiles, function(file) {
+  _.map(_.filter(topLevelFiles, (file) => {
     return _.startsWith(file, '.');
-  }), function(file) {
-    return '\\' + file;
+  }), (file) => {
+    return `\\${file}`;
   }),
 
   // Top level markdown files
-  _.filter(topLevelFiles, function(file) {
+  _.filter(topLevelFiles, (file) => {
     return _.endsWith(file, '.md');
   })
 
