@@ -16,7 +16,7 @@
     "jslint": "eslint lib tests scripts bin versionist.conf.js",
     "sasslint": "sass-lint lib/gui/scss",
     "htmllint": "node scripts/html-lint.js",
-    "codespell": "codespell.py --dictionary=- --dictionary=dictionary lib tests",
+    "codespell": "codespell.py --skip *.gz,*.bz2,*.xz,*.zip,*.img lib tests docs scripts Makefile *.md LICENSE",
     "lint": "npm run jslint && npm run sasslint && npm run codespell && npm run htmllint",
     "changelog": "versionist",
     "start": "electron lib/start.js",

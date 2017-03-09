@@ -104,7 +104,7 @@ when your pull request is merged.
 
 - Write a descriptive pull request title.
 
-- Squash commits when possible, for example, when commiting review changes.
+- Squash commits when possible, for example, when committing review changes.
 
 Before your pull request can be merged, the following conditions must hold:
 
