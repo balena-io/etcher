@@ -3,9 +3,9 @@
   "version": "1.0.0-beta.19",
   "dependencies": {
     "angular": {
-      "version": "1.6.1",
-      "from": "angular@>=1.6.1 <2.0.0",
-      "resolved": "https://registry.npmjs.org/angular/-/angular-1.6.1.tgz"
+      "version": "1.6.3",
+      "from": "angular@1.6.3",
+      "resolved": "https://registry.npmjs.org/angular/-/angular-1.6.3.tgz"
     },
     "angular-if-state": {
       "version": "1.0.0",
