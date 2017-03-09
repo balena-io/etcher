@@ -14,10 +14,10 @@
     "test": "npm run lint && electron-mocha --recursive --renderer tests/gui -R spec && electron-mocha --recursive tests/cli tests/shared tests/child-writer tests/image-stream -R spec",
     "sass": "node-sass ./lib/gui/scss/main.scss > ./lib/gui/css/main.css",
     "jslint": "eslint lib tests scripts bin versionist.conf.js",
-    "scsslint": "scss-lint lib/gui/scss",
+    "sasslint": "sass-lint lib/gui/scss",
     "htmllint": "node scripts/html-lint.js",
     "codespell": "codespell.py --dictionary=- --dictionary=dictionary lib tests",
-    "lint": "npm run jslint && npm run scsslint && npm run codespell && npm run htmllint",
+    "lint": "npm run jslint && npm run sasslint && npm run codespell && npm run htmllint",
     "changelog": "versionist",
     "start": "electron lib/start.js",
     "clean-shrinkwrap": "node ./scripts/clean-shrinkwrap.js"
@@ -118,6 +118,7 @@
     "jsonfile": "^2.3.1",
     "mochainon": "^1.0.0",
     "node-sass": "^3.8.0",
+    "sass-lint": "^1.10.2",
     "tmp": "0.0.31",
     "versionist": "^2.1.0"
   }
