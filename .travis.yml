@@ -7,7 +7,6 @@ services:
 env:
   global:
     - NODE_VERSION="6.1.0"
-    - RUBY_VERSION="2.3.1"
   matrix:
     - TARGET_ARCH=x64
     - TARGET_ARCH=x86
@@ -31,14 +30,11 @@ before_install:
       node --version;
       npm --version;
       npm config set spin=false;
-      rvm install $RUBY_VERSION;
-      rvm use $RUBY_VERSION;
     fi
 
 install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       pip install codespell;
-      gem install scss_lint;
       npm install -g bower;
       brew install afsctool;
       brew install jq;
