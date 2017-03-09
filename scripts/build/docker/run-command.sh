@@ -65,7 +65,9 @@ fi
 
 IMAGE_ID="etcher-build-$ARGV_ARCHITECTURE"
 
+cp "$ARGV_SOURCE_CODE_DIRECTORY/.gitignore" "$ARGV_SOURCE_CODE_DIRECTORY/.dockerignore"
 docker build -f "$DOCKERFILE" -t "$IMAGE_ID" "$ARGV_SOURCE_CODE_DIRECTORY"
+rm -f "$ARGV_SOURCE_CODE_DIRECTORY/.dockerignore"
 
 # Docker complaints with: ". includes invalid characters for a local
 # volume name, only [a-zA-Z0-9][a-zA-Z0-9_.-] are allowed" otherwise
