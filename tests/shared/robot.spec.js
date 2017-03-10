@@ -101,7 +101,7 @@ describe('Shared: Robot', function() {
         command: 'error',
         data: {
           message: 'foo',
-          stacktrace: error.stack
+          stack: error.stack
         }
       });
     });
@@ -116,7 +116,7 @@ describe('Shared: Robot', function() {
         data: {
           message: 'foo',
           description: 'error description',
-          stacktrace: error.stack
+          stack: error.stack
         }
       });
     });
@@ -131,7 +131,7 @@ describe('Shared: Robot', function() {
         data: {
           message: 'foo',
           code: 'MYERROR',
-          stacktrace: error.stack
+          stack: error.stack
         }
       });
     });
@@ -139,8 +139,8 @@ describe('Shared: Robot', function() {
     it('should handle a string error', function() {
       const message = JSON.parse(robot.buildErrorMessage('foo'));
       m.chai.expect(message.data.message).to.equal('foo');
-      m.chai.expect(message.data.stacktrace).to.be.a.string;
-      m.chai.expect(_.isEmpty(message.data.stacktrace)).to.be.false;
+      m.chai.expect(message.data.stack).to.be.a.string;
+      m.chai.expect(_.isEmpty(message.data.stack)).to.be.false;
     });
 
   });
