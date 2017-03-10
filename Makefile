@@ -70,6 +70,9 @@ else
 		ifneq ($(filter %86,$(shell uname -p)),)
 			HOST_ARCH = x86
 		endif
+		ifeq ($(shell uname -m),armv7l)
+			HOST_ARCH = armv7l
+		endif
 	endif
 	ifeq ($(shell uname -s),Darwin)
 		HOST_PLATFORM = darwin
@@ -134,12 +137,7 @@ endif
 # Extra variables
 # ---------------------------------------------------------------------
 
-ifeq ($(TARGET_ARCH),x86)
-	TARGET_ARCH_DEBIAN = i386
-endif
-ifeq ($(TARGET_ARCH),x64)
-	TARGET_ARCH_DEBIAN = amd64
-endif
+TARGET_ARCH_DEBIAN = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET_ARCH) -t debian)
 
 ifeq ($(RELEASE_TYPE),production)
 	PRODUCT_NAME = etcher
@@ -388,7 +386,7 @@ publish-bintray-debian: $(PUBLISH_BINTRAY_DEBIAN)
 	$(foreach publishable,$^,$(call execute-command,./scripts/publish/bintray-debian.sh \
 		-f $(publishable) \
 		-v $(APPLICATION_VERSION_DEBIAN) \
-		-r $(TARGET_ARCH_DEBIAN) \
+		-r $(TARGET_ARCH) \
 		-c $(APPLICATION_NAME_LOWERCASE) \
 		-t $(RELEASE_TYPE)))
 
