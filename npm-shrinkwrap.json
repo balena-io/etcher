@@ -64,6 +64,11 @@
       "from": "any-promise@>=1.1.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/any-promise/-/any-promise-1.3.0.tgz"
     },
+    "arch": {
+      "version": "2.1.0",
+      "from": "arch@2.1.0",
+      "resolved": "https://registry.npmjs.org/arch/-/arch-2.1.0.tgz"
+    },
     "archive-type": {
       "version": "3.2.0",
       "from": "archive-type@>=3.2.0 <4.0.0",
@@ -233,6 +238,11 @@
       "from": "cross-spawn-async@>=2.1.1 <3.0.0",
       "resolved": "https://registry.npmjs.org/cross-spawn-async/-/cross-spawn-async-2.2.4.tgz"
     },
+    "d": {
+      "version": "0.1.1",
+      "from": "d@>=0.1.1 <0.2.0",
+      "resolved": "https://registry.npmjs.org/d/-/d-0.1.1.tgz"
+    },
     "debug": {
       "version": "2.6.0",
       "from": "debug@>=2.2.0 <3.0.0",
@@ -242,6 +252,11 @@
       "version": "1.2.0",
       "from": "decamelize@>=1.1.1 <2.0.0",
       "resolved": "https://registry.npmjs.org/decamelize/-/decamelize-1.2.0.tgz"
+    },
+    "deep-map-keys": {
+      "version": "1.2.0",
+      "from": "deep-map-keys@1.2.0",
+      "resolved": "https://registry.npmjs.org/deep-map-keys/-/deep-map-keys-1.2.0.tgz"
     },
     "defaults": {
       "version": "1.0.3",
@@ -286,6 +301,26 @@
       "version": "1.3.0",
       "from": "error-ex@>=1.2.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/error-ex/-/error-ex-1.3.0.tgz"
+    },
+    "es5-ext": {
+      "version": "0.10.12",
+      "from": "es5-ext@>=0.10.11 <0.11.0",
+      "resolved": "https://registry.npmjs.org/es5-ext/-/es5-ext-0.10.12.tgz"
+    },
+    "es6-iterator": {
+      "version": "2.0.0",
+      "from": "es6-iterator@>=2.0.0 <3.0.0",
+      "resolved": "https://registry.npmjs.org/es6-iterator/-/es6-iterator-2.0.0.tgz"
+    },
+    "es6-symbol": {
+      "version": "3.1.0",
+      "from": "es6-symbol@>=3.1.0 <3.2.0",
+      "resolved": "https://registry.npmjs.org/es6-symbol/-/es6-symbol-3.1.0.tgz"
+    },
+    "es6-weak-map": {
+      "version": "2.0.1",
+      "from": "es6-weak-map@>=2.0.1 <3.0.0",
+      "resolved": "https://registry.npmjs.org/es6-weak-map/-/es6-weak-map-2.0.1.tgz"
     },
     "escape-string-regexp": {
       "version": "1.0.5",
@@ -381,6 +416,11 @@
       "from": "find-up@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/find-up/-/find-up-1.1.2.tgz"
     },
+    "flat": {
+      "version": "2.0.1",
+      "from": "flat@2.0.1",
+      "resolved": "https://registry.npmjs.org/flat/-/flat-2.0.1.tgz"
+    },
     "flexboxgrid": {
       "version": "6.3.0",
       "from": "flexboxgrid@>=6.3.0 <7.0.0",
@@ -464,6 +504,11 @@
       "version": "0.2.1",
       "from": "is-arrayish@>=0.2.1 <0.3.0",
       "resolved": "https://registry.npmjs.org/is-arrayish/-/is-arrayish-0.2.1.tgz"
+    },
+    "is-buffer": {
+      "version": "1.1.4",
+      "from": "is-buffer@>=1.1.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/is-buffer/-/is-buffer-1.1.4.tgz"
     },
     "is-builtin-module": {
       "version": "1.0.0",
