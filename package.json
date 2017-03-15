@@ -2,6 +2,9 @@
   "name": "etcher",
   "displayName": "Etcher",
   "version": "1.0.0-rc.4",
+  "updates": {
+    "semverRange": "<2.0.0"
+  },
   "main": "lib/start.js",
   "description": "Flash OS images to SD cards & USB drives, safely and easily.",
   "productDescription": "Etcher is a powerful OS image flasher built with web technologies to ensure flashing an SDCard or USB drive is a pleasant and safe experience. It protects you from accidentally writing to your hard-drives, ensures every byte of data was written correctly and much more.",
@@ -89,6 +92,7 @@
     "path-is-inside": "^1.0.2",
     "redux": "^3.5.2",
     "redux-localstorage": "^0.4.1",
+    "request": "^2.81.0",
     "resin-cli-form": "^1.4.1",
     "resin-cli-visuals": "^1.2.8",
     "resin-corvus": "^1.0.0-beta.26",
@@ -99,6 +103,7 @@
     "udif": "^0.9.0",
     "unbzip2-stream": "^1.0.11",
     "uuid": "^3.0.1",
+    "xml2js": "^0.4.17",
     "yargs": "^4.6.0",
     "yauzl": "^2.6.0"
   },
@@ -115,6 +120,7 @@
     "file-exists": "^1.0.0",
     "html-angular-validate": "^0.1.9",
     "mochainon": "^1.0.0",
+    "nock": "^9.0.9",
     "node-sass": "^3.8.0",
     "sass-lint": "^1.10.2",
     "tmp": "0.0.31",

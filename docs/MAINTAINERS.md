@@ -18,6 +18,8 @@ Preparing a new version
 - Re-take `screenshot.png` so it displays the latest version in the bottom
 right corner.
 
+- Revise the `updates.semverRange` version in `package.json`
+
 - Commit the changes with the version number as the commit title, including the
 `v` prefix, to `master`. For example:
 
