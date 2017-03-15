@@ -80,7 +80,7 @@ describe('Browser: SupportedFormats', function() {
 
       it('should ignore casing when determining extension validity', function() {
         const nonCompressedExtension = _.first(SupportedFormatsModel.getNonCompressedExtensions());
-        const imagePath = `/path/to/foo.${nonCompressedExtension.toUpperCase()}`;
+        const imagePath = `/path/to/foo.${_.toUpper(nonCompressedExtension)}`;
         const isSupported = SupportedFormatsModel.isSupportedImage(imagePath);
         m.chai.expect(isSupported).to.be.true;
       });

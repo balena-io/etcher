@@ -125,7 +125,7 @@ describe('Shared: Utils', function() {
 
   });
 
-  describe('hideAbsolutePathsInObject()', function() {
+  describe('.hideAbsolutePathsInObject()', function() {
 
     it('should return undefined if given undefined', function() {
       m.chai.expect(utils.hideAbsolutePathsInObject(undefined)).to.be.undefined;

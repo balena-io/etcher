@@ -1,6 +1,7 @@
 'use strict';
 
 const m = require('mochainon');
+const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
 const angular = require('angular');
@@ -33,9 +34,9 @@ describe('Browser: SVGIcon', function() {
 
     it('should inline the svg contents in the element', function() {
       const icon = '../../../../../lib/gui/assets/etcher.svg';
-      let iconContents = fs.readFileSync(path.join(__dirname, '../../../lib/gui/assets/etcher.svg'), {
+      let iconContents = _.split(fs.readFileSync(path.join(__dirname, '../../../lib/gui/assets/etcher.svg'), {
         encoding: 'utf8'
-      }).split(/\r?\n/);
+      }), /\r?\n/);
 
       // Injecting XML as HTML causes the XML header to be commented out.
       // Modify here to ease assertions later on.
