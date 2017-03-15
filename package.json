@@ -87,6 +87,7 @@
     "is-elevated": "^1.0.0",
     "isstream": "^0.1.2",
     "lodash": "^4.5.1",
+    "lodash-deep": "^2.0.0",
     "lzma-native": "^1.5.2",
     "node-ipc": "^8.9.2",
     "node-stream-zip": "^1.3.4",
