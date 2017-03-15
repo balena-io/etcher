@@ -213,6 +213,11 @@
       "from": "columnify@>=1.5.1 <2.0.0",
       "resolved": "https://registry.npmjs.org/columnify/-/columnify-1.5.4.tgz"
     },
+    "command-join": {
+      "version": "2.0.0",
+      "from": "command-join@latest",
+      "resolved": "https://registry.npmjs.org/command-join/-/command-join-2.0.0.tgz"
+    },
     "commander": {
       "version": "2.1.0",
       "from": "commander@>=2.1.0 <2.2.0",
