@@ -29,4 +29,4 @@ RUN npm config set spin=false
 RUN npm install -g bower asar electron-installer-debian
 
 # Python
-RUN pip install codespell
+RUN pip install codespell==1.9.2

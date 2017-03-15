@@ -34,7 +34,7 @@ before_install:
 
 install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      pip install codespell;
+      pip install codespell==1.9.2;
       npm install -g bower;
       brew install afsctool;
       brew install jq;
