@@ -19,8 +19,6 @@
 set -u
 set -e
 
-./scripts/build/check-dependency.sh upx
-
 function usage() {
   echo "Usage: $0"
   echo ""
@@ -84,21 +82,6 @@ EOF
 cp "$ARGV_ICON" "$ARGV_OUTPUT/$APPDIR_ICON_FILENAME.png"
 mkdir -p "$ARGV_OUTPUT/usr/bin"
 cp -rf "$ARGV_PACKAGE"/* "$ARGV_OUTPUT/usr/bin"
-
-# Compress binaries
-upx -9 "$ARGV_OUTPUT/usr/bin/$ARGV_BINARY"
-
-# upx fails with an error if .so are not executables
-chmod +x "$ARGV_OUTPUT"/usr/bin/*.so*
-
-# UPX fails for some reason with some other so libraries
-# other than libnode.so in the x86 build
-if [ "$ARGV_ARCHITECTURE" == "x86" ]; then
-  upx -9 "$ARGV_OUTPUT"/usr/bin/libnode.so
-
-else
-  upx -9 "$ARGV_OUTPUT"/usr/bin/*.so*
-fi
 
 APPIMAGES_TAG=6
 APPIMAGES_GITHUB_RAW_BASE_URL=https://raw.githubusercontent.com/probonopd/AppImageKit/$APPIMAGES_TAG
