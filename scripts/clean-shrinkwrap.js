@@ -25,7 +25,7 @@ const EXIT_CODES = require('../lib/shared/exit-codes');
 const SHRINKWRAP_PATH = path.join(__dirname, '..', 'npm-shrinkwrap.json');
 
 try {
-  console.log(childProcess.execSync('npm shrinkwrap', {
+  console.log(childProcess.execSync('npm shrinkwrap --dev', {
     cwd: path.dirname(SHRINKWRAP_PATH)
   }));
 } catch (error) {

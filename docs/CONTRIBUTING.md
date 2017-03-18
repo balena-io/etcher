@@ -56,7 +56,7 @@ necessary dependencies get added is to run the following commands:
 ```sh
 make electron-develop
 npm prune --production
-npm shrinkwrap
+npm shrinkwrap --dev
 ```
 
 - Commit *both* `package.json` and `npm-shrinkwrap.json`.
