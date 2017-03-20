@@ -771,4 +771,266 @@ describe('Shared: DriveConstraints', function() {
 
   });
 
+  describe('.getDriveImageCompatibilityStatus', function() {
+
+    beforeEach(function() {
+      if (process.platform === 'win32') {
+        this.mountpoint = 'E:';
+        this.separator = '\\';
+      } else {
+        this.mountpoint = '/mnt/foo';
+        this.separator = '/';
+      }
+
+      this.drive = {
+        device: '/dev/disk2',
+        name: 'My Drive',
+        protected: false,
+        system: false,
+        mountpoints: [
+          {
+            path: this.mountpoint
+          }
+        ],
+        size: 4000000000
+      };
+    });
+
+    describe('given there are no errors or warnings', () => {
+
+      it('should return OK', function() {
+        const result = constraints.getDriveImageCompatibilityStatus(this.drive, {
+          path: '/mnt/disk2/rpi.img',
+          size: 1000000000
+        });
+
+        m.chai.expect(result).to.deep.equal({
+          type: constraints.COMPATIBILITY_STATUS_TYPES.OK,
+          message: constraints.COMPATIBILITY_STATUS_MESSAGES.OK
+        });
+      });
+
+    });
+
+    describe('given the drive contains the image', () => {
+
+      it('should return the source error', function() {
+        const result = constraints.getDriveImageCompatibilityStatus(this.drive, {
+          path: `${this.mountpoint}${this.separator}rpi.img`,
+          size: 1000000000
+        });
+
+        m.chai.expect(result).to.deep.equal({
+          type: constraints.COMPATIBILITY_STATUS_TYPES.ERROR,
+          message: constraints.COMPATIBILITY_STATUS_MESSAGES.CONTAINS_IMAGE
+        });
+      });
+
+    });
+
+    describe('given the drive is a system drive', () => {
+
+      it('should return the system drive error', function() {
+        this.drive.system = true;
+
+        const result = constraints.getDriveImageCompatibilityStatus(this.drive, {
+          path: '/mnt/disk2/rpi.img',
+          size: 1000000000
+        });
+
+        m.chai.expect(result).to.deep.equal({
+          type: constraints.COMPATIBILITY_STATUS_TYPES.WARNING,
+          message: constraints.COMPATIBILITY_STATUS_MESSAGES.SYSTEM
+        });
+      });
+
+    });
+
+    describe('given the drive is too small', () => {
+
+      it('should return the too small error', function() {
+        this.drive.size = 1000000;
+
+        const result = constraints.getDriveImageCompatibilityStatus(this.drive, {
+          path: '/mnt/disk2/rpi.img',
+          size: 1000000000
+        });
+
+        m.chai.expect(result).to.deep.equal({
+          type: constraints.COMPATIBILITY_STATUS_TYPES.ERROR,
+          message: constraints.COMPATIBILITY_STATUS_MESSAGES.TOO_SMALL
+        });
+      });
+
+    });
+
+    describe('given the drive is locked', () => {
+
+      it('should return the locked drive error', function() {
+        this.drive.protected = true;
+
+        const result = constraints.getDriveImageCompatibilityStatus(this.drive, {
+          path: '/mnt/disk2/rpi.img',
+          size: 1000000000
+        });
+
+        m.chai.expect(result).to.deep.equal({
+          type: constraints.COMPATIBILITY_STATUS_TYPES.ERROR,
+          message: constraints.COMPATIBILITY_STATUS_MESSAGES.LOCKED
+        });
+      });
+
+    });
+
+    describe('given the drive is smaller than the recommended size', () => {
+
+      it('should return the smaller than recommended size warning', function() {
+        const result = constraints.getDriveImageCompatibilityStatus(this.drive, {
+          path: '/mnt/disk2/rpi.img',
+          size: 1000000000,
+          recommendedDriveSize: 5000000000
+        });
+
+        m.chai.expect(result).to.deep.equal({
+          type: constraints.COMPATIBILITY_STATUS_TYPES.WARNING,
+          message: constraints.COMPATIBILITY_STATUS_MESSAGES.SIZE_NOT_RECOMMENDED
+        });
+      });
+
+    });
+
+    describe('given the image is null', () => {
+
+      it('should return OK', function() {
+        const result = constraints.getDriveImageCompatibilityStatus(this.drive, null);
+
+        m.chai.expect(result).to.deep.equal({
+          type: constraints.COMPATIBILITY_STATUS_TYPES.OK,
+          message: constraints.COMPATIBILITY_STATUS_MESSAGES.OK
+        });
+      });
+
+    });
+
+    describe('given the drive is null', () => {
+
+      it('should return OK', function() {
+        const result = constraints.getDriveImageCompatibilityStatus(null, {
+          path: '/mnt/disk2/rpi.img',
+          size: 1000000000,
+          recommendedDriveSize: 2000000000
+        });
+
+        m.chai.expect(result).to.deep.equal({
+          type: constraints.COMPATIBILITY_STATUS_TYPES.OK,
+          message: constraints.COMPATIBILITY_STATUS_MESSAGES.OK
+        });
+      });
+
+    });
+
+    describe('given a system drive and image is null', () => {
+
+      it('should return system drive error', function() {
+        this.drive.system = true;
+
+        const result = constraints.getDriveImageCompatibilityStatus(this.drive, null);
+
+        m.chai.expect(result).to.deep.equal({
+          type: constraints.COMPATIBILITY_STATUS_TYPES.WARNING,
+          message: constraints.COMPATIBILITY_STATUS_MESSAGES.SYSTEM
+        });
+      });
+
+    });
+
+    describe('given a locked drive and image is null', () => {
+
+      it('should return locked drive error', function() {
+        this.drive.protected = true;
+
+        const result = constraints.getDriveImageCompatibilityStatus(this.drive, null);
+
+        m.chai.expect(result).to.deep.equal({
+          type: constraints.COMPATIBILITY_STATUS_TYPES.ERROR,
+          message: constraints.COMPATIBILITY_STATUS_MESSAGES.LOCKED
+        });
+      });
+
+    });
+
+    describe('given the drive contains the image and is a system drive', () => {
+
+      it('should return the source drive error by precedence', function() {
+        this.drive.system = true;
+
+        const result = constraints.getDriveImageCompatibilityStatus(this.drive, {
+          path: `${this.mountpoint}${this.separator}rpi.img`,
+          size: 1000000000
+        });
+
+        m.chai.expect(result).to.deep.equal({
+          type: constraints.COMPATIBILITY_STATUS_TYPES.ERROR,
+          message: constraints.COMPATIBILITY_STATUS_MESSAGES.CONTAINS_IMAGE
+        });
+      });
+
+    });
+
+    describe('given a system and too small drive', () => {
+
+      it('should return the system drive error by precedence', function() {
+        this.drive.system = true;
+
+        const result = constraints.getDriveImageCompatibilityStatus(this.drive, {
+          path: '/mnt/disk2/rpi.img',
+          size: 5000000000
+        });
+
+        m.chai.expect(result).to.deep.equal({
+          type: constraints.COMPATIBILITY_STATUS_TYPES.WARNING,
+          message: constraints.COMPATIBILITY_STATUS_MESSAGES.SYSTEM
+        });
+      });
+
+    });
+
+    describe('given a too small and locked drive', () => {
+
+      it('should return the too small error by precedence', function() {
+        this.drive.protected = true;
+
+        const result = constraints.getDriveImageCompatibilityStatus(this.drive, {
+          path: '/mnt/disk2/rpi.img',
+          size: 5000000000
+        });
+
+        m.chai.expect(result).to.deep.equal({
+          type: constraints.COMPATIBILITY_STATUS_TYPES.ERROR,
+          message: constraints.COMPATIBILITY_STATUS_MESSAGES.TOO_SMALL
+        });
+      });
+
+    });
+
+    describe('given a locked drive and not recommended drive size', () => {
+
+      it('should return the locked drive error by precedence', function() {
+        this.drive.protected = true;
+
+        const result = constraints.getDriveImageCompatibilityStatus(this.drive, {
+          path: '/mnt/disk2/rpi.img',
+          size: 1000000000,
+          recommendedDriveSize: 5000000000
+        });
+
+        m.chai.expect(result).to.deep.equal({
+          type: constraints.COMPATIBILITY_STATUS_TYPES.ERROR,
+          message: constraints.COMPATIBILITY_STATUS_MESSAGES.LOCKED
+        });
+      });
+
+    });
+  });
+
 });

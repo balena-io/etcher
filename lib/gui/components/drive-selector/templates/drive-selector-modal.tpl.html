@@ -15,35 +15,14 @@
 
           <footer class="list-group-item-footer">
 
-            <span class="label label-warning"
-                ng-show="modal.constraints.isDriveLargeEnough(drive, modal.state.getImage()) && !modal.constraints.isDriveLocked(drive) && !modal.constraints.isDriveSizeRecommended(drive, modal.state.getImage())">
-                <i class="glyphicon glyphicon-warning-sign"></i>
-                Not Recommended</span>
-
-            <!-- There can be a case where the device it not large enough, and it's also locked. -->
-            <!-- Since in this case both labels will be displayed, we chose to only show the -->
-            <!-- "not large enough label", since from the point of view of the user, the locked -->
-            <!-- state is irrelevant if the drive is not large enough anyway. -->
-
-            <span class="label label-danger"
-              ng-hide="modal.constraints.isDriveLargeEnough(drive, modal.state.getImage())">
-                <i class="glyphicon glyphicon-resize-small"></i>
-                Too Small For Image</span>
-
-            <span class="label label-danger"
-              ng-show="modal.constraints.isDriveLocked(drive) && modal.constraints.isDriveLargeEnough(drive, modal.state.getImage())">
-                <i class="glyphicon glyphicon-lock"></i>
-                Locked</span>
-
-            <span class="label label-danger"
-              ng-show="modal.constraints.isSystemDrive(drive)">
-                <i class="glyphicon glyphicon-hdd"></i>
-                System Drive</span>
-
-            <span class="label label-danger"
-              ng-show="modal.constraints.isSourceDrive(drive, modal.state.getImage())">
-                <i class="glyphicon glyphicon-circle-arrow-down"></i>
-                Source Drive</span>
+            <span class="label"
+              ng-class="{
+                'label-warning': modal.getDriveImageCompatibilityStatus(drive).type === modal.constraints.COMPATIBILITY_STATUS_TYPES.WARNING,
+                'label-danger': modal.getDriveImageCompatibilityStatus(drive).type === modal.constraints.COMPATIBILITY_STATUS_TYPES.ERROR
+              }"
+              ng-show="modal.getDriveImageCompatibilityStatus(drive).type !== modal.constraints.COMPATIBILITY_STATUS_TYPES.OK">
+              <b>{{ modal.getDriveImageCompatibilityStatus(drive).message }}</b>
+            </span>
 
           </footer>
         </div>
