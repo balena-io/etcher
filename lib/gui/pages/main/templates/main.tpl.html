@@ -60,8 +60,12 @@
           <div class="step-selection-text"
             ng-class="{
               'text-disabled': main.shouldDriveStepBeDisabled()
-            }">
-            <span class="step-drive step-name">{{ main.selection.getDrive().name }}</span>
+            }"
+            uib-tooltip="{{ main.selection.getDrive().name }}">
+            <span class="step-drive step-name">
+              <!-- middleEllipses errors on undefined, therefore fallback to empty string -->
+              {{ (main.selection.getDrive().description || "") | middleEllipses:11 }}
+            </span>
             <span class="step-drive step-size">{{ main.selection.getDrive().size | gigabyte | number:1 }} GB</span>
           </div>
           <button class="button button-link step-footer"
