@@ -91,18 +91,23 @@ if [ "$ARGV_FORCE" == "true" ]; then
   INSTALL_OPTS="$INSTALL_OPTS --force"
 fi
 
+if [ "$ARGV_PRODUCTION" == "true" ]; then
+  INSTALL_OPTS="$INSTALL_OPTS --production"
+fi
+
 function run_install() {
   npm install $INSTALL_OPTS
 
-  # Turns out that if `npm-shrinkwrap.json` contains development
-  # dependencies then `npm install --production` will also install
-  # those, despite knowing, based on `package.json`, that they are
-  # really development dependencies. As a workaround, we manually
-  # delete the development dependencies using `npm prune`.
   if [ "$ARGV_PRODUCTION" == "true" ]; then
-    npm prune --production
-  fi
 
+    # Turns out that if `npm-shrinkwrap.json` contains development
+    # dependencies then `npm install --production` will also install
+    # those, despite knowing, based on `package.json`, that they are
+    # really development dependencies. As a workaround, we manually
+    # delete the development dependencies using `npm prune`.
+    npm prune --production
+
+  fi
 }
 
 if [ -n "$ARGV_PREFIX" ]; then

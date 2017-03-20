@@ -18,20 +18,9 @@
 const _ = require('lodash');
 const path = require('path');
 const jsonfile = require('jsonfile');
-const childProcess = require('child_process');
 const packageJSON = require('../package.json');
 const shrinkwrapIgnore = _.union(packageJSON.shrinkwrapIgnore, _.keys(packageJSON.optionalDependencies));
-const EXIT_CODES = require('../lib/shared/exit-codes');
 const SHRINKWRAP_PATH = path.join(__dirname, '..', 'npm-shrinkwrap.json');
-
-try {
-  console.log(childProcess.execSync('npm shrinkwrap --dev', {
-    cwd: path.dirname(SHRINKWRAP_PATH)
-  }));
-} catch (error) {
-  console.error(error.stderr.toString());
-  process.exit(EXIT_CODES.GENERAL_ERROR);
-}
 
 const shrinkwrapContents = jsonfile.readFileSync(SHRINKWRAP_PATH);
 shrinkwrapContents.dependencies = _.omit(shrinkwrapContents.dependencies, shrinkwrapIgnore);
