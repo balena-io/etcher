@@ -48,17 +48,6 @@ Use the following steps to ensure everything goes flawlessly:
   operating system specific dependencies that could get included in the
   previous step are removed from `npm-shrinkwrap.json`.
 
-Some npm versions seem to contain an issue were all development dependencies
-will be included in `npm-shrinkwrap.json` when attempting to modify it (e.g: by
-`npm install`, `npm uninstall`, etc). A bulletproof way to ensure only the
-necessary dependencies get added is to run the following commands:
-
-```sh
-make electron-develop
-npm prune --production
-npm shrinkwrap
-```
-
 - Commit *both* `package.json` and `npm-shrinkwrap.json`.
 
 Testing

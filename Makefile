@@ -427,6 +427,7 @@ info:
 sanity-checks:
 	./scripts/ci/ensure-staged-sass.sh
 	./scripts/ci/ensure-npm-dependencies-compatibility.sh
+	./scripts/ci/ensure-npm-shrinkwrap-versions.sh
 
 clean:
 	rm -rf $(BUILD_DIRECTORY)
