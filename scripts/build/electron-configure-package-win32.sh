@@ -25,7 +25,6 @@ if [[ "$OS" != "Msys" ]]; then
   exit 1
 fi
 
-./scripts/build/check-dependency.sh upx
 ./scripts/build/check-dependency.sh unzip
 
 function usage() {
@@ -116,8 +115,6 @@ RCEDIT="$ARGV_DOWNLOAD_DIRECTORY/rcedit.exe"
   --set-file-version "$ARGV_VERSION" \
   --set-product-version "$ARGV_VERSION" \
   --set-icon "$ARGV_ICON"
-
-upx -9 "$ARGV_OUTPUT/*.dll"
 
 cp "$ARGV_ASAR" "$ARGV_OUTPUT/resources/app.asar"
 
