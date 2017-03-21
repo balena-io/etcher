@@ -104,7 +104,7 @@
     "sudo-prompt": "^6.1.0",
     "tail": "^1.1.0",
     "trackjs": "^2.1.16",
-    "unbzip2-stream": "^1.0.10",
+    "unbzip2-stream": "^1.0.11",
     "username": "^2.1.0",
     "yargs": "^4.6.0",
     "yauzl": "^2.6.0"
