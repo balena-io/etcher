@@ -1,0 +1,30 @@
+# Javascript files must retain LF line-endings (to keep eslint happy)
+*.js text eol=lf
+# CSS and SCSS files must retain LF line-endings (to keep ensure-staged-sass.sh happy)
+*.css text eol=lf
+*.scss text eol=lf
+
+# Text files
+dictionary text
+Dockerfile* text
+.editorconfig text
+etcher text
+.git* text
+*.html text
+*.json text
+LICENSE text
+Makefile text
+*.md text
+*.sh text
+*.svg text
+*.yml text
+
+# Binary files (no line-ending conversions)
+*.bz2 binary
+*.gz binary
+*.icns binary
+*.ico binary
+*.img binary
+*.png binary
+*.xz binary
+*.zip binary

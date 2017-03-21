@@ -428,6 +428,7 @@ sanity-checks:
 	./scripts/ci/ensure-staged-sass.sh
 	./scripts/ci/ensure-npm-dependencies-compatibility.sh
 	./scripts/ci/ensure-npm-shrinkwrap-versions.sh
+	./scripts/ci/ensure-all-file-extensions-in-gitattributes.sh
 
 clean:
 	rm -rf $(BUILD_DIRECTORY)
