@@ -6939,9 +6939,9 @@
       "dev": true
     },
     "unbzip2-stream": {
-      "version": "1.0.10",
-      "from": "unbzip2-stream@>=1.0.10 <2.0.0",
-      "resolved": "https://registry.npmjs.org/unbzip2-stream/-/unbzip2-stream-1.0.10.tgz"
+      "version": "1.0.11",
+      "from": "unbzip2-stream@1.0.11",
+      "resolved": "https://registry.npmjs.org/unbzip2-stream/-/unbzip2-stream-1.0.11.tgz"
     },
     "unc-path-regex": {
       "version": "0.1.2",
