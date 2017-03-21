@@ -31,6 +31,7 @@ function usage() {
   echo "    -b <s3 bucket>"
   echo "    -v <version>"
   echo "    -p <product name>"
+  echo "    -k [S3 key prefix]"
   exit 1
 }
 
@@ -38,13 +39,15 @@ ARGV_FILE=""
 ARGV_BUCKET=""
 ARGV_VERSION=""
 ARGV_PRODUCT_NAME=""
+ARGV_PREFIX=""
 
-while getopts ":f:b:v:p:" option; do
+while getopts ":f:b:v:p:k:" option; do
   case $option in
     f) ARGV_FILE="$OPTARG" ;;
     b) ARGV_BUCKET="$OPTARG" ;;
     v) ARGV_VERSION="$OPTARG" ;;
     p) ARGV_PRODUCT_NAME="$OPTARG" ;;
+    k) ARGV_PREFIX="$OPTARG" ;;
     *) usage ;;
   esac
 done
@@ -59,8 +62,19 @@ fi
 
 FILENAME=$(basename "$ARGV_FILE")
 
+if [ -n "$ARGV_PREFIX" ]; then
+  S3_KEY="$ARGV_PRODUCT_NAME/$ARGV_PREFIX/$ARGV_VERSION/$FILENAME"
+else
+  S3_KEY="$ARGV_PRODUCT_NAME/$ARGV_VERSION/$FILENAME"
+fi
+
 aws s3api put-object \
   --bucket "$ARGV_BUCKET" \
   --acl public-read \
-  --key "$ARGV_PRODUCT_NAME/$ARGV_VERSION/$FILENAME" \
+  --key "$S3_KEY" \
   --body "$ARGV_FILE"
+
+# Escape plus signs when printing the final URL
+URL="$(echo "https://$ARGV_BUCKET.s3.amazonaws.com/$S3_KEY" | sed 's/\+/%2B/g')"
+
+echo "Uploaded $(basename "$ARGV_FILE") to $URL"

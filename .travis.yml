@@ -33,27 +33,32 @@ before_install:
     fi
 
 install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      pip install codespell==1.9.2;
-      npm install -g bower;
-      brew install afsctool;
-      brew install jq;
-    fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      ./scripts/build/docker/run-command.sh -r ${TARGET_ARCH} -s ${PWD} -c "make info && make electron-develop";
+    else
+      pip install codespell==1.9.2 awscli;
+      npm install -g bower asar;
+      brew install afsctool jq;
       make info;
       make electron-develop;
     fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      ./scripts/build/docker/run-command.sh -r ${TARGET_ARCH} -s ${PWD} -c "make info && make electron-develop";
-    fi
 
 script:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      make sanity-checks && npm test;
-    fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       ./scripts/build/docker/run-command.sh -r ${TARGET_ARCH} -s ${PWD} -c "make sanity-checks && xvfb-run --server-args=$XVFB_ARGS npm test";
+    else
+      make sanity-checks && npm test;
     fi
+
+deploy:
+  provider: script
+  script: if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+            ./scripts/build/docker/run-command.sh -r ${TARGET_ARCH} -s ${PWD} -c "make publish-aws-s3";
+          else
+            make publish-aws-s3;
+          fi
+  on:
+    branch: master
 
 notifications:
   email: false

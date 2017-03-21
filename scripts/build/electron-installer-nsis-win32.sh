@@ -18,7 +18,6 @@
 
 set -u
 set -e
-set -x
 
 ./scripts/build/check-dependency.sh zip
 
