@@ -52,6 +52,7 @@ script:
 
 deploy:
   provider: script
+  skip_cleanup: true
   script: if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
             ./scripts/build/docker/run-command.sh -r ${TARGET_ARCH} -s ${PWD} -c "make publish-aws-s3";
           else

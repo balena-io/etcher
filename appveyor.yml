@@ -24,6 +24,7 @@ install:
   - npm install -g bower rimraf asar
   - choco install nsis -version 2.51
   - choco install jq
+  - choco install curl
   - set PATH=C:\Program Files (x86)\Windows Kits\8.1\bin\x86;%PATH%
   - set PATH=C:\Program Files (x86)\NSIS;%PATH%
   - set PATH=C:\MinGW\bin;%PATH%

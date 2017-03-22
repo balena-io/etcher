@@ -15,6 +15,7 @@ Prerequisites
 - [jq](https://stedolan.github.io/jq/)
 - [Asar](https://github.com/electron/asar)
 - [Codespell](https://github.com/lucasdemarchi/codespell)
+- [curl](https://curl.haxx.se/)
 
 ### Windows
 
@@ -22,7 +23,7 @@ Prerequisites
 - [NSIS v2.51](http://nsis.sourceforge.net/Main_Page) (v3.x won't work)
 - Either one of the following:
   - [Visual C++ 2015 Build Tools](http://landinghub.visualstudio.com/visual-cpp-build-tools) containing standalone compilers, libraries and scripts
-  - [Visual Studio Community 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48146) (free) (other editions, like Professional and Enterprise, should work too)  
+  - [Visual Studio Community 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48146) (free) (other editions, like Professional and Enterprise, should work too)
     **NOTE:** Visual Studio 2015 doesn't install C++ by default. You have to rerun the
     setup, select "Modify" and then check `Visual C++ -> Common Tools for Visual
     C++ 2015` (see http://stackoverflow.com/a/31955339)
@@ -33,7 +34,6 @@ The following MinGW packages are required:
 - `msys-make`
 - `msys-unzip`
 - `msys-zip`
-- `msys-curl`
 - `msys-bash`
 - `msys-coreutils`
 
