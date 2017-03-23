@@ -48,6 +48,16 @@ console.log(robot.getData(message));
 > }
 ```
 
+**Logging debug data to the console:**
+
+*Child process:*
+
+```js
+// This will log the passed data to parent's console,
+// as `console.log()`ing in the child will cause errors
+robot.log({ debugging: 'things' })
+```
+
 The codename "robot" is inspired by [xz][xz-man], which provides a `--robot`
 option that makes the tool print machine-parseable output:
 
