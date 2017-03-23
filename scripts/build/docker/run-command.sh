@@ -77,15 +77,21 @@ then
   ARGV_SOURCE_CODE_DIRECTORY="$PWD"
 fi
 
+# Fairly ugly code that only passes environment variables into Docker when they're actually set
+# see http://stackoverflow.com/a/13864829
+# and http://mywiki.wooledge.org/BashFAQ/050
+# and http://stackoverflow.com/a/7577209
+DOCKER_ENVVARS=()
+for COPYVAR in AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY RELEASE_TYPE CI; do
+  eval "if [ ! -z \${$COPYVAR+x} ]; then DOCKER_ENVVARS+=(\"--env\" \"$COPYVAR=\$$COPYVAR\"); fi"
+done
+
 # The SYS_ADMIN capability and FUSE host device declarations
 # are needed to be able to build an AppImage
 # The `-t` and TERM setup is needed to display coloured output.
 docker run -t \
   --env "TERM=xterm-256color" \
-  --env "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" \
-  --env "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" \
-  --env "RELEASE_TYPE=$RELEASE_TYPE" \
-  --env "CI=$CI" \
+  ${DOCKER_ENVVARS[@]+"${DOCKER_ENVVARS[@]}"} \
   --cap-add SYS_ADMIN \
   --device /dev/fuse:/dev/fuse:mrw \
   --volume "$ARGV_SOURCE_CODE_DIRECTORY:/etcher" \

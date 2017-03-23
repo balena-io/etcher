@@ -19,7 +19,7 @@
 set -u
 set -e
 
-./scripts/build/check-dependency.sh curl
+./scripts/build/check-dependency.sh wget
 
 function usage() {
   echo "Usage: $0"
@@ -27,21 +27,21 @@ function usage() {
   echo "Options"
   echo ""
   echo "    -r <architecture>"
-  echo "    -v <electron version>"
-  echo "    -s <electron operating system>"
+  echo "    -v <version>"
+  echo "    -s <operating system>"
   echo "    -o <output directory>"
   exit 1
 }
 
 ARGV_ARCHITECTURE=""
-ARGV_ELECTRON_VERSION=""
+ARGV_VERSION=""
 ARGV_OPERATING_SYSTEM=""
 ARGV_OUTPUT=""
 
 while getopts ":r:v:s:o:" option; do
   case $option in
     r) ARGV_ARCHITECTURE=$OPTARG ;;
-    v) ARGV_ELECTRON_VERSION=$OPTARG ;;
+    v) ARGV_VERSION=$OPTARG ;;
     s) ARGV_OPERATING_SYSTEM=$OPTARG ;;
     o) ARGV_OUTPUT=$OPTARG ;;
     *) usage ;;
@@ -49,20 +49,24 @@ while getopts ":r:v:s:o:" option; do
 done
 
 if [ -z "$ARGV_ARCHITECTURE" ] \
-  || [ -z "$ARGV_ELECTRON_VERSION" ] \
+  || [ -z "$ARGV_VERSION" ] \
   || [ -z "$ARGV_OPERATING_SYSTEM" ] \
   || [ -z "$ARGV_OUTPUT" ]
 then
   usage
 fi
 
-ELECTRON_ARCHITECTURE=$(./scripts/build/architecture-convert.sh -r "$ARGV_ARCHITECTURE" -t node)
-ELECTRON_GITHUB_REPOSITORY=https://github.com/electron/electron
-ELECTRON_DOWNLOADS_BASEURL="$ELECTRON_GITHUB_REPOSITORY/releases/download/v$ARGV_ELECTRON_VERSION"
-ELECTRON_FILENAME="electron-v$ARGV_ELECTRON_VERSION-$ARGV_OPERATING_SYSTEM-$ELECTRON_ARCHITECTURE.zip"
-ELECTRON_CHECKSUM=$(curl --location "$ELECTRON_DOWNLOADS_BASEURL/SHASUMS256.txt" | grep "$ELECTRON_FILENAME" | cut -d ' ' -f 1)
+GITHUB_REPOSITORY=https://github.com/resin-io-modules/node-static-entry-point
+DOWNLOADS_BASEURL="$GITHUB_REPOSITORY/releases/download/v$ARGV_VERSION"
+
+FILENAME="node-$ARGV_OPERATING_SYSTEM-$ARGV_ARCHITECTURE"
+if [ "$ARGV_OPERATING_SYSTEM" == "win32" ]; then
+  FILENAME="$FILENAME.exe"
+fi
+
+CHECKSUM=$(wget --no-check-certificate -O - "$DOWNLOADS_BASEURL/SHASUMS256.txt" | grep "$FILENAME" | cut -d ' ' -f 1)
 
 ./scripts/build/download-tool.sh \
-  -u "$ELECTRON_DOWNLOADS_BASEURL/$ELECTRON_FILENAME" \
-  -c "$ELECTRON_CHECKSUM" \
+  -u "$DOWNLOADS_BASEURL/$FILENAME" \
+  -c "$CHECKSUM" \
   -o "$ARGV_OUTPUT"
