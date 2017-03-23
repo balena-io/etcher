@@ -26,27 +26,44 @@ function usage() {
   echo ""
   echo "Options"
   echo ""
-  echo "    -a <application package directory>"
+  echo "    -f <file>"
+  echo "    -s <operating system>"
   echo "    -o <output>"
   exit 1
 }
 
-ARGV_APPLICATION=""
+ARGV_FILE=""
 ARGV_OUTPUT=""
 
-while getopts ":a:o:" option; do
+while getopts ":f:s:o:" option; do
   case $option in
-    a) ARGV_APPLICATION="$OPTARG" ;;
+    f) ARGV_FILE="$OPTARG" ;;
+    s) ARGV_OPERATING_SYSTEM="$OPTARG" ;;
     o) ARGV_OUTPUT="$OPTARG" ;;
     *) usage ;;
   esac
 done
 
-if [ -z "$ARGV_APPLICATION" ] || [ -z "$ARGV_OUTPUT" ]; then
+if [ -z "$ARGV_FILE" ] ||
+   [ -z "$ARGV_OPERATING_SYSTEM" ] ||
+   [ -z "$ARGV_OUTPUT" ]; then
   usage
 fi
 
 CWD=$(pwd)
-pushd "$ARGV_APPLICATION"
-zip -r -9 "$CWD/$ARGV_OUTPUT" *
+
+# The default unzip tool in Windows already creates a base directory
+# whose name equals the zip file name excluding the extension, therefore
+# the common practice for zipping directories in this platform is to
+# zip their contents instead.
+if [ "$ARGV_OPERATING_SYSTEM" == "win32" ] && [ -d "$ARGV_FILE" ]; then
+  pushd "$ARGV_FILE"
+  zip -r -9 "$CWD/$ARGV_OUTPUT" *
+
+else
+  pushd "$(dirname "$ARGV_FILE")"
+  zip -r -9 "$CWD/$ARGV_OUTPUT" "$(basename "$ARGV_FILE")"
+fi
+
 popd
+
