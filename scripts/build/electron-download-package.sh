@@ -19,7 +19,7 @@
 set -u
 set -e
 
-./scripts/build/check-dependency.sh wget
+./scripts/build/check-dependency.sh curl
 
 function usage() {
   echo "Usage: $0"
