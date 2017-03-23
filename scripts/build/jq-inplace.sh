@@ -19,42 +19,38 @@
 set -u
 set -e
 
-./scripts/build/check-dependency.sh bower
+./scripts/build/check-dependency.sh jq
 
 function usage() {
   echo "Usage: $0"
   echo ""
   echo "Options"
   echo ""
-  echo "    -x <install prefix>"
-  echo "    -p production install"
+  echo "    -c <command>"
+  echo "    -f <file>"
+  echo "    -t <temporary directory>"
   exit 1
 }
 
-ARGV_PREFIX=""
-ARGV_PRODUCTION=false
+ARGV_COMMAND=""
+ARGV_FILE=""
+ARGV_TEMPORARY_DIRECTORY=""
 
-while getopts ":x:p" option; do
+while getopts ":c:f:t:" option; do
   case $option in
-    x) ARGV_PREFIX=$OPTARG ;;
-    p) ARGV_PRODUCTION=true ;;
+    c) ARGV_COMMAND=$OPTARG ;;
+    f) ARGV_FILE=$OPTARG ;;
+    t) ARGV_TEMPORARY_DIRECTORY="$OPTARG" ;;
     *) usage ;;
   esac
 done
 
-INSTALL_OPTS="--allow-root"
-
-if [ "$ARGV_PRODUCTION" == "true" ]; then
-  INSTALL_OPTS="$INSTALL_OPTS --production"
+if [ -z "$ARGV_COMMAND" ] ||
+   [ -z "$ARGV_FILE" ] ||
+   [ -z "$ARGV_TEMPORARY_DIRECTORY" ]; then
+  usage
 fi
 
-if [ -n "$ARGV_PREFIX" ]; then
-  cp "$PWD/bower.json" "$ARGV_PREFIX/bower.json"
-  pushd "$ARGV_PREFIX"
-  bower install $INSTALL_OPTS
-  popd
-  rm "$ARGV_PREFIX/bower.json"
-else
-  bower install $INSTALL_OPTS
-fi
-
+TEMPORARY_FILE="$ARGV_TEMPORARY_DIRECTORY/$(basename "$ARGV_FILE").TMP"
+jq "$ARGV_COMMAND" "$ARGV_FILE" > "$TEMPORARY_FILE"
+mv "$TEMPORARY_FILE" "$ARGV_FILE"

@@ -10,7 +10,6 @@ Prerequisites
 ### Common
 
 - [NodeJS](https://nodejs.org) (at least v6)
-- [Bower](http://bower.io)
 - [Python](https://www.python.org)
 - [jq](https://stedolan.github.io/jq/)
 - [Asar](https://github.com/electron/asar)
