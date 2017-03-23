@@ -66,10 +66,10 @@ else
 	ifeq ($(shell uname -s),Linux)
 		HOST_PLATFORM = linux
 
-		ifeq ($(shell uname -p),x86_64)
+		ifeq ($(shell uname -m),x86_64)
 			HOST_ARCH = x64
 		endif
-		ifneq ($(filter %86,$(shell uname -p)),)
+		ifneq ($(filter %86,$(shell uname -m)),)
 			HOST_ARCH = x86
 		endif
 		ifeq ($(shell uname -m),armv7l)
