@@ -37,7 +37,7 @@ before_install:
 
 install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      ./scripts/build/docker/run-command.sh -r ${TARGET_ARCH} -s ${PWD} -c "make info && make electron-develop";
+      ./scripts/build/docker/run-command.sh -r "${TARGET_ARCH}" -s "${PWD}" -c "make info && make electron-develop";
     else
       pip install codespell==1.9.2 awscli;
       npm install -g bower asar;
@@ -48,7 +48,7 @@ install:
 
 script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      ./scripts/build/docker/run-command.sh -r ${TARGET_ARCH} -s ${PWD} -c "make sanity-checks && xvfb-run --server-args=$XVFB_ARGS npm test";
+      ./scripts/build/docker/run-command.sh -r "${TARGET_ARCH}" -s "${PWD}" -c "make sanity-checks && xvfb-run --server-args=$XVFB_ARGS npm test";
     else
       make sanity-checks && npm test;
     fi
@@ -56,11 +56,7 @@ script:
 deploy:
   provider: script
   skip_cleanup: true
-  script: if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-            ./scripts/build/docker/run-command.sh -r ${TARGET_ARCH} -s ${PWD} -c "make publish-aws-s3";
-          else
-            make publish-aws-s3;
-          fi
+  script: scripts/ci/deploy-travis.sh
   on:
     branch: master
 

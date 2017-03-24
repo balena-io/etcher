@@ -42,7 +42,7 @@ test_script:
   - cmd: npm test
 
 deploy_script:
-  - cmd: IF %APPVEYOR_REPO_BRANCH%==master (make publish-aws-s3)
+  - cmd: .\scripts\ci\deploy-appveyor.bat
 
 notifications:
 
