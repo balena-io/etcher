@@ -471,18 +471,7 @@ endif
 
 .PHONY: $(TARGETS)
 
-# Note that we need to remove `node_modules` every time.
-# Since we use an `npm-shrinkwrap.json` file, if you pull changes
-# that update a dependency and try to `npm install` directly, npm
-# will complain that your `node_modules` tree is not equal to what
-# is defined by the `npm-shrinkwrap.json` file, and will thus
-# refuse to do anything but install from scratch.
-# The `node_modules` directory also needs to be wiped out if you're
-# changing between target architectures, since compiled add-ons
-# will not work otherwise.
-
 cli-develop:
-	rm -rf node_modules
 	./scripts/build/dependencies-npm.sh \
 		-r "$(TARGET_ARCH)" \
 		-v "$(ELECTRON_VERSION)" \
@@ -490,7 +479,6 @@ cli-develop:
 		-s "$(TARGET_PLATFORM)"
 
 electron-develop:
-	rm -rf node_modules
 	./scripts/build/dependencies-npm.sh \
 		-r "$(TARGET_ARCH)" \
 		-v "$(ELECTRON_VERSION)" \
