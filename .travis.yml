@@ -23,7 +23,7 @@ os:
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       rm -rf ~/.nvm;
-      git clone https://github.com/creationix/nvm.git ~/.nvm;
+      git clone --depth 1 https://github.com/creationix/nvm.git ~/.nvm;
       source ~/.nvm/nvm.sh;
       nvm --version;
       nvm install $NODE_VERSION;
