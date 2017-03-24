@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
   libnss3 \
   libxss1 \
   libxtst6 \
+  libyaml-dev \
   python \
   python-pip \
   python-dev \
