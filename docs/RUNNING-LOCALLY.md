@@ -23,6 +23,7 @@ Prerequisites
 - [NSIS v2.51](http://nsis.sourceforge.net/Main_Page) (v3.x won't work)
 - Either one of the following:
   - [Visual C++ 2015 Build Tools](http://landinghub.visualstudio.com/visual-cpp-build-tools) containing standalone compilers, libraries and scripts
+  - Install the [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools) via npm with `npm install --global windows-build-tools`
   - [Visual Studio Community 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48146) (free) (other editions, like Professional and Enterprise, should work too)
     **NOTE:** Visual Studio 2015 doesn't install C++ by default. You have to rerun the
     setup, select "Modify" and then check `Visual C++ -> Common Tools for Visual
