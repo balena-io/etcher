@@ -1,12 +1,24 @@
-language: cpp
+language: node_js
 sudo: false
+node_js:
+  - "6.1.0"
 
 services:
   - docker
 
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - libstdc++-6-dev
+
 env:
   global:
-    - NODE_VERSION="6.1.0"
+    - CCACHE_TEMPDIR=/tmp/.ccache-temp
+    - CCACHE_COMPRESS=1
+    - CC="clang"
+    - CXX="clang++"
   matrix:
     - TARGET_ARCH=x64
     - TARGET_ARCH=x86
@@ -21,16 +33,7 @@ os:
   - osx
 
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      rm -rf ~/.nvm;
-      git clone --depth 1 https://github.com/creationix/nvm.git ~/.nvm;
-      source ~/.nvm/nvm.sh;
-      nvm --version;
-      nvm install $NODE_VERSION;
-      node --version;
-      npm --version;
-      npm config set spin=false;
-    fi
+  - npm config set spin=false
 
 install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
