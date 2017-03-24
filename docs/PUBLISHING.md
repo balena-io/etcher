@@ -85,19 +85,10 @@ Publishing to S3
 - [AWS CLI][aws-cli]
 
 Make sure you have the [AWS CLI tool][aws-cli] installed and configured to
-access resin.io's production downloads S3 bucket.
+access resin.io's production or snapshot S3 bucket.
 
-> The publishing script only runs on UNIX based operating systems for now. You
-> can use something like [Cygwin][cygwin] to run it on Windows.
-
-Run the following command to publish a specific file:
-
-```sh
-./scripts/publish/aws-s3.sh -f <file> -b <bucket> -v <version> -p <product name>
-```
-
-Or run the following command to publish all files for the current combination
-of _platform_ and _arch_ (building them if necessary) :
+Run the following command to publish all files for the current combination of
+_platform_ and _arch_ (building them if necessary):
 
 ```sh
 make publish-aws-s3 RELEASE_TYPE=<production|snapshot>
@@ -124,7 +115,6 @@ Post messages to the [Etcher forum][resin-forum-etcher] and
 of Etcher, and including the relevant section of the Changelog.
 
 [aws-cli]: https://aws.amazon.com/cli
-[cygwin]: https://cygwin.com
 [bintray]: https://bintray.com
 [etcher-cask-file]: https://github.com/caskroom/homebrew-cask/blob/master/Casks/etcher.rb
 [homebrew-cask]: https://github.com/caskroom/homebrew-cask
