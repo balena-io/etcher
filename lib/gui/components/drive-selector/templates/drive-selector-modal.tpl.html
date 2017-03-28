@@ -5,30 +5,29 @@
 
 <div class="modal-body">
   <ul class="list-group">
-    <li class="list-group-item" ng-repeat="drive in modal.drives.getDrives() track by drive.device"
-      ng-disabled="!modal.constraints.isDriveValid(drive, modal.state.getImage())"
-      ng-dblclick="modal.selectDriveAndClose(drive)"
-      ng-click="modal.toggleDrive(drive)">
+    <li class="list-group-item" ng-repeat="meta in modal.getDrivesAndStatuses() track by meta.drive.device"
+      ng-disabled="!modal.constraints.isDriveValid(meta.drive, modal.state.getImage())"
+      ng-dblclick="modal.selectDriveAndClose(meta.drive)"
+      ng-click="modal.toggleDrive(meta.drive)">
         <div>
-          <h4 class="list-group-item-heading">{{ drive.description }} - {{ drive.size | gigabyte | number:1 }} GB</h4>
-          <p class="list-group-item-text">{{ drive.name }}</p>
+          <h4 class="list-group-item-heading">{{ meta.drive.description }} - {{ meta.drive.size | gigabyte | number:1 }} GB</h4>
+          <p class="list-group-item-text">{{ meta.drive.name }}</p>
 
           <footer class="list-group-item-footer">
 
-            <span class="label"
+            <span class="label" ng-repeat="status in meta.statuses"
               ng-class="{
-                'label-warning': modal.getDriveImageCompatibilityStatus(drive).type === modal.constraints.COMPATIBILITY_STATUS_TYPES.WARNING,
-                'label-danger': modal.getDriveImageCompatibilityStatus(drive).type === modal.constraints.COMPATIBILITY_STATUS_TYPES.ERROR
-              }"
-              ng-show="modal.getDriveImageCompatibilityStatus(drive).type !== modal.constraints.COMPATIBILITY_STATUS_TYPES.OK">
-              <b>{{ modal.getDriveImageCompatibilityStatus(drive).message }}</b>
+                'label-warning': status.type === modal.constraints.COMPATIBILITY_STATUS_TYPES.WARNING,
+                'label-danger': status.type === modal.constraints.COMPATIBILITY_STATUS_TYPES.ERROR
+              }">
+              <b>{{ status.message }}</b>
             </span>
 
           </footer>
         </div>
         <span class="tick tick--success"
-          ng-show="modal.constraints.isDriveValid(drive, modal.state.getImage())"
-          ng-disabled="!modal.state.isCurrentDrive(drive.device)"></span>
+          ng-show="modal.constraints.isDriveValid(meta.drive, modal.state.getImage())"
+          ng-disabled="!modal.state.isCurrentDrive(meta.drive.device)"></span>
     </li>
     <li class="list-group-item"
       ng-show="!modal.drives.hasAvailableDrives()">

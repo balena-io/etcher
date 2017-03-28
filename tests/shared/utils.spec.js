@@ -131,4 +131,74 @@ describe('Shared: Utils', function() {
 
   });
 
+  describe('.removeAngularHashes()', function() {
+
+    it('should remove direct hashes', function() {
+      m.chai.expect(utils.removeAngularHashes({
+        attrA: 1,
+        $$hashKey: '123'
+      })).to.deep.equal({
+        attrA: 1
+      });
+    });
+
+    it('should remove hashes from objects in list', function() {
+      m.chai.expect(utils.removeAngularHashes([
+        {
+          attrA: 1,
+          $$hashKey: '123'
+        },
+        {
+          attrB: 2,
+          $$hashKey: 'abc'
+        }
+      ])).to.deep.equal([
+        {
+          attrA: 1
+        },
+        {
+          attrB: 2
+        }
+      ]);
+    });
+
+    it('should remove hashes from objects in objects', function() {
+      m.chai.expect(utils.removeAngularHashes({
+        attrA: {
+          nestedA: 1,
+          $$hashKey: '123'
+        },
+        attrB: {
+          nestedB: 2,
+          $$hashKey: 'abc'
+        },
+        $$hashKey: 'xyz'
+      })).to.deep.equal({
+        attrA: {
+          nestedA: 1
+        },
+        attrB: {
+          nestedB: 2
+        }
+      });
+    });
+
+    it('should return identity when no hashes', function() {
+      m.chai.expect(utils.removeAngularHashes({
+        attrA: 1
+      })).to.deep.equal({
+        attrA: 1
+      });
+    });
+
+    it('should return identity when not an object or list', function() {
+      m.chai.expect(utils.removeAngularHashes(1)).to.deep.equal(1);
+    });
+
+    it('should return identity when null', function() {
+      m.chai.expect(utils.removeAngularHashes(null)).to.deep.equal(null);
+    });
+
+  });
+
 });
