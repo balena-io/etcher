@@ -43,7 +43,13 @@ describe('Browser: MainPage', function() {
 
         SelectionStateModel.setImage({
           path: 'rpi.img',
-          size: 99999
+          size: {
+            original: 99999,
+            final: {
+              estimation: false,
+              value: 99999
+            }
+          }
         });
 
         m.chai.expect(controller.shouldDriveStepBeDisabled()).to.be.false;
@@ -71,7 +77,13 @@ describe('Browser: MainPage', function() {
         SelectionStateModel.clear();
         SelectionStateModel.setImage({
           path: 'rpi.img',
-          size: 99999
+          size: {
+            original: 99999,
+            final: {
+              estimation: false,
+              value: 99999
+            }
+          }
         });
 
         m.chai.expect(controller.shouldFlashStepBeDisabled()).to.be.true;
@@ -118,7 +130,13 @@ describe('Browser: MainPage', function() {
 
         SelectionStateModel.setImage({
           path: 'rpi.img',
-          size: 99999
+          size: {
+            original: 99999,
+            final: {
+              estimation: false,
+              value: 99999
+            }
+          }
         });
 
         m.chai.expect(controller.shouldFlashStepBeDisabled()).to.be.false;
@@ -159,7 +177,13 @@ describe('Browser: MainPage', function() {
 
         SelectionStateModel.setImage({
           path: path.join(__dirname, 'foo', 'bar.img'),
-          size: 999999999
+          size: {
+            original: 999999999,
+            final: {
+              estimation: false,
+              value: 999999999
+            }
+          }
         });
 
         m.chai.expect(controller.getImageBasename()).to.equal('bar.img');

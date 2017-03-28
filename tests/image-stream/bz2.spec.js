@@ -47,6 +47,7 @@ describe('ImageStream: BZ2', function() {
 
       imageStream.getImageMetadata(image).then((metadata) => {
         m.chai.expect(metadata).to.deep.equal({
+          path: image,
           size: {
             original: expectedSize,
             final: {
