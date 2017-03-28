@@ -17,6 +17,7 @@ LICENSE text
 Makefile text
 *.md text
 *.sh text
+*.bat text
 *.svg text
 *.yml text
 
