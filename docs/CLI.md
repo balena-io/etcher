@@ -43,3 +43,9 @@ Options
   --yes, -y      confirm non-interactively
   --unmount, -u  unmount on success
 ```
+
+Debug mode
+----------
+
+You can set the `ETCHER_CLI_DEBUG` environment variable to make the Etcher CLI
+print error stack traces.

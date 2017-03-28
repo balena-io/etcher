@@ -422,6 +422,60 @@ describe('Shared: Errors', function() {
       m.chai.expect(errors.getDescription(error)).to.equal('Memory error');
     });
 
+    describe('given userFriendlyDescriptionsOnly is false', function() {
+
+      it('should return the stack for a basic error', function() {
+        const error = new Error('Foo');
+        m.chai.expect(errors.getDescription(error, {
+          userFriendlyDescriptionsOnly: false
+        })).to.equal(error.stack);
+      });
+
+      it('should return the stack if the description is an empty string', function() {
+        const error = new Error('Foo');
+        error.description = '';
+        m.chai.expect(errors.getDescription(error, {
+          userFriendlyDescriptionsOnly: false
+        })).to.equal(error.stack);
+      });
+
+      it('should return the stack if the description is a blank string', function() {
+        const error = new Error('Foo');
+        error.description = '   ';
+        m.chai.expect(errors.getDescription(error, {
+          userFriendlyDescriptionsOnly: false
+        })).to.equal(error.stack);
+      });
+
+    });
+
+    describe('given userFriendlyDescriptionsOnly is true', function() {
+
+      it('should return an empty string for a basic error', function() {
+        const error = new Error('Foo');
+        m.chai.expect(errors.getDescription(error, {
+          userFriendlyDescriptionsOnly: true
+        })).to.equal('');
+      });
+
+      it('should return an empty string if the description is an empty string', function() {
+        const error = new Error('Foo');
+        error.description = '';
+        m.chai.expect(errors.getDescription(error, {
+          userFriendlyDescriptionsOnly: true
+        })).to.equal('');
+      });
+
+      it('should return an empty string if the description is a blank string', function() {
+        const error = new Error('Foo');
+        error.description = '   ';
+        m.chai.expect(errors.getDescription(error, {
+          userFriendlyDescriptionsOnly: true
+        })).to.equal('');
+      });
+
+    });
+
   });
 
   describe('.createError()', function() {
