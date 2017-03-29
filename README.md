@@ -58,6 +58,14 @@ installers for all supported operating systems.
     sudo apt-get install etcher-electron
     ```
 
+##### Uninstall
+
+```sh
+sudo apt-get remove etcher-electron
+sudo rm /etc/apt/sources.list.d/etcher.list
+sudo apt-get update
+```
+
 #### Brew Cask (macOS)
 
 Note that the Etcher Cask has to be updated manually to point to new versions,
@@ -66,6 +74,12 @@ release.
 
 ```sh
 brew cask install etcher
+```
+
+##### Uninstall
+
+```sh
+brew cask uninstall etcher
 ```
 
 Support
