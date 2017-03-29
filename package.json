@@ -59,9 +59,7 @@
   },
   "optionalDependencies": {
     "elevator": "^2.1.0",
-    "removedrive": "^1.1.1",
-    "spawn-sync": "^1.0.15",
-    "try-thread-sleep": "^1.0.2"
+    "removedrive": "^1.1.1"
   },
   "dependencies": {
     "angular": "1.6.3",
@@ -103,9 +101,11 @@
     "rindle": "^1.3.0",
     "rx": "^4.1.0",
     "semver": "^5.1.0",
+    "spawn-sync": "^1.0.15",
     "sudo-prompt": "^6.1.0",
     "tail": "^1.1.0",
     "trackjs": "^2.1.16",
+    "try-thread-sleep": "^1.0.2",
     "unbzip2-stream": "^1.0.11",
     "username": "^2.1.0",
     "yargs": "^4.6.0",
