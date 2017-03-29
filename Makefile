@@ -498,6 +498,7 @@ info:
 	@echo "Target arch         : $(TARGET_ARCH)"
 
 sanity-checks:
+	./scripts/ci/ensure-all-node-requirements-available.sh
 	./scripts/ci/ensure-staged-sass.sh
 	./scripts/ci/ensure-npm-dependencies-compatibility.sh
 	./scripts/ci/ensure-npm-shrinkwrap-versions.sh
