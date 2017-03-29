@@ -20,7 +20,7 @@
     "lint": "npm run jslint && npm run sasslint && npm run codespell && npm run htmllint",
     "changelog": "versionist",
     "start": "electron lib/start.js",
-    "clean-shrinkwrap": "node ./scripts/clean-shrinkwrap.js"
+    "preshrinkwrap": "node ./scripts/clean-shrinkwrap.js"
   },
   "author": "Juan Cruz Viotti <juan@resin.io>",
   "license": "Apache-2.0",
@@ -122,7 +122,6 @@
     "eslint-plugin-lodash": "^2.3.5",
     "file-exists": "^1.0.0",
     "html-angular-validate": "^0.1.9",
-    "jsonfile": "^2.3.1",
     "mochainon": "^1.0.0",
     "node-sass": "^3.8.0",
     "sass-lint": "^1.10.2",
