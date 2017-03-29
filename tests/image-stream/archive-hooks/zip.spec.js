@@ -18,8 +18,8 @@
 
 const m = require('mochainon');
 const path = require('path');
-const rindle = require('rindle');
 const zipHooks = require('../../../lib/image-stream/archive-hooks/zip');
+const utils = require('../../../lib/image-stream/utils');
 const ZIP_PATH = path.join(__dirname, '..', 'data', 'zip');
 
 describe('ImageStream: Archive hooks: ZIP', function() {
@@ -100,12 +100,9 @@ describe('ImageStream: Archive hooks: ZIP', function() {
       const fileName = 'zip-directory-nested-misc/foo';
       zipHooks.getEntries(this.zip).then((entries) => {
         return zipHooks.extractFile(this.zip, entries, fileName);
-      }).then((stream) => {
-        rindle.extract(stream, function(error, data) {
-          m.chai.expect(error).to.not.exist;
-          m.chai.expect(data).to.equal('foo\n');
-          done();
-        });
+      }).then(utils.extractStream).then((data) => {
+        m.chai.expect(data.toString()).to.equal('foo\n');
+        done();
       });
     });
 
@@ -113,12 +110,9 @@ describe('ImageStream: Archive hooks: ZIP', function() {
       const fileName = 'zip-directory-nested-misc/hello/there/bar';
       zipHooks.getEntries(this.zip).then((entries) => {
         return zipHooks.extractFile(this.zip, entries, fileName);
-      }).then((stream) => {
-        rindle.extract(stream, function(error, data) {
-          m.chai.expect(error).to.not.exist;
-          m.chai.expect(data).to.equal('bar\n');
-          done();
-        });
+      }).then(utils.extractStream).then((data) => {
+        m.chai.expect(data.toString()).to.equal('bar\n');
+        done();
       });
     });
 

@@ -22,7 +22,6 @@ const Bluebird = require('bluebird');
 const fileExists = require('file-exists');
 const fs = Bluebird.promisifyAll(require('fs'));
 const tmp = require('tmp');
-const rindle = require('rindle');
 const imageStream = require('../../lib/image-stream/index');
 
 const doFilesContainTheSameData = (file1, file2) => {
@@ -72,7 +71,10 @@ exports.extractFromFilePath = function(file, image) {
         .pipe(results.transform)
         .pipe(fs.createWriteStream(output));
 
-      return rindle.wait(stream);
+      return new Bluebird((resolve, reject) => {
+        stream.on('error', reject);
+        stream.on('close', resolve);
+      });
     }).then(function() {
       return doFilesContainTheSameData(image, output);
     }).then(function(areEqual) {
