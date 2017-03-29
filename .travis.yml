@@ -24,6 +24,7 @@ env:
     - TARGET_ARCH=x86
 
 matrix:
+  fast_finish: true
   exclude:
     - os: osx
       env: TARGET_ARCH=x86
