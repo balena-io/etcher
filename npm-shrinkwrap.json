@@ -5570,11 +5570,6 @@
       "resolved": "https://registry.npmjs.org/read/-/read-1.0.7.tgz",
       "dev": true
     },
-    "read-chunk": {
-      "version": "2.0.0",
-      "from": "read-chunk@>=2.0.0 <3.0.0",
-      "resolved": "https://registry.npmjs.org/read-chunk/-/read-chunk-2.0.0.tgz"
-    },
     "read-only-stream": {
       "version": "2.0.0",
       "from": "read-only-stream@>=2.0.0 <3.0.0",

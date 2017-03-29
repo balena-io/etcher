@@ -25,29 +25,44 @@ describe('ImageStream: Utils', function() {
 
   describe('.getArchiveMimeType()', function() {
 
-    it('should return application/x-bzip2 for a bz2 archive', function() {
+    it('should resolve application/x-bzip2 for a bz2 archive', function(done) {
       const file = path.join(DATA_PATH, 'bz2', 'raspberrypi.img.bz2');
-      m.chai.expect(utils.getArchiveMimeType(file)).to.equal('application/x-bzip2');
+      utils.getArchiveMimeType(file).then((type) => {
+        m.chai.expect(type).to.equal('application/x-bzip2');
+        done();
+      }).catch(done);
     });
 
-    it('should return application/x-xz for a xz archive', function() {
+    it('should resolve application/x-xz for a xz archive', function(done) {
       const file = path.join(DATA_PATH, 'xz', 'raspberrypi.img.xz');
-      m.chai.expect(utils.getArchiveMimeType(file)).to.equal('application/x-xz');
+      utils.getArchiveMimeType(file).then((type) => {
+        m.chai.expect(type).to.equal('application/x-xz');
+        done();
+      }).catch(done);
     });
 
-    it('should return application/gzip for a gz archive', function() {
+    it('should resolve application/gzip for a gz archive', function(done) {
       const file = path.join(DATA_PATH, 'gz', 'raspberrypi.img.gz');
-      m.chai.expect(utils.getArchiveMimeType(file)).to.equal('application/gzip');
+      utils.getArchiveMimeType(file).then((type) => {
+        m.chai.expect(type).to.equal('application/gzip');
+        done();
+      }).catch(done);
     });
 
-    it('should return application/zip for a zip archive', function() {
+    it('should resolve application/zip for a zip archive', function(done) {
       const file = path.join(DATA_PATH, 'zip', 'zip-directory-rpi-only.zip');
-      m.chai.expect(utils.getArchiveMimeType(file)).to.equal('application/zip');
+      utils.getArchiveMimeType(file).then((type) => {
+        m.chai.expect(type).to.equal('application/zip');
+        done();
+      }).catch(done);
     });
 
-    it('should return application/octet-stream for an uncompress image', function() {
+    it('should resolve application/octet-stream for an uncompress image', function(done) {
       const file = path.join(DATA_PATH, 'images', 'raspberrypi.img');
-      m.chai.expect(utils.getArchiveMimeType(file)).to.equal('application/octet-stream');
+      utils.getArchiveMimeType(file).then((type) => {
+        m.chai.expect(type).to.equal('application/octet-stream');
+        done();
+      }).catch(done);
     });
 
   });
