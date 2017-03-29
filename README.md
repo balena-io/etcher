@@ -18,7 +18,7 @@ was written correctly and much more.
 
 [**Download**][etcher] | [**Support**][SUPPORT] | [**Documentation**][USER-DOCUMENTATION] | [**Contributing**][CONTRIBUTING] | [**Roadmap**][milestones] | [**CLI**][CLI]
 
-![Etcher](https://raw.githubusercontent.com/resin-io/etcher/master/screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/resin-io/etcher/master/screenshot.png)
 
 Supported Operating Systems
 ---------------------------
@@ -68,6 +68,13 @@ release.
 brew cask install etcher
 ```
 
+Why Etcher
+-------
+
+Here at [resin.io] we have thousands of users working through our getting started process and until recently we were embarrassed about the steps involved in burning an SD card. There was a separate track for each Mac/Windows/Ubuntu and several manual and error prone steps along the way.
+
+To our surprise there was nothing out there that fitted our needs. So we built Etcher, a SD card burner app that is simple for end users, extensible for developers, and works on any platform.
+
 Support
 -------
 
@@ -90,3 +97,4 @@ the [license].
 [milestones]: https://github.com/resin-io/etcher/milestones
 [newissue]: https://github.com/resin-io/etcher/issues/new
 [license]: https://github.com/resin-io/etcher/blob/master/LICENSE
+[resin.io]: https://resin.io

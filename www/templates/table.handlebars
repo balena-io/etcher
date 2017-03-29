@@ -1,0 +1,40 @@
+<div id="{{ id }}" data-downloads='{{{json data }}}' class="{{ class }}">
+  <div class="container">
+      {{> sectionHeader title=title lead=lead class="py-0" }}
+    <div class="row text-xs-center">
+      <a id="dynamicDownload" class="btn btn-danger btn text-center mb-1" href="{{ data.[0].Release }}" role="button">
+        Download Now
+      </a>
+      <div id="instructions-linux" class="alert alert-warning alert-dismissible fade in hidden-xs-up">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3>Installation</h3>
+        <p>
+          We use {{> link text="AppImages" href="http://appimage.org/" target="_blank" }} to simplify Etcher's Linux installation process, simply:
+        </p>
+        <p>Extract, and run!</p>
+        <p>
+          Notice {{> link text="AppImages require FUSE to run." href="https://github.com/probonopd/AppImageKit/wiki/FUSE" target="_blank" }}
+        </p>
+      </div>
+      <table class="table downloads-table">
+        <thead>
+          <tr>
+          {{#each data.[0]}}
+            <th>{{ @key }}</th>
+          {{/each }}
+          </tr>
+        </thead>
+        {{#each data}}
+          <tr>
+          {{#each this}}
+            <td>{{{formatLink this }}}</td>
+          {{/each}}
+          <tr>
+          <!-- Here we allow the user to specify how the item is rendered -->
+        {{/each}}
+      </table>
+    </div>
+  </div>
+</div>
