@@ -59,9 +59,7 @@
   },
   "optionalDependencies": {
     "elevator": "^2.1.0",
-    "removedrive": "^1.1.1",
-    "spawn-sync": "^1.0.15",
-    "try-thread-sleep": "^1.0.2"
+    "removedrive": "^1.1.1"
   },
   "dependencies": {
     "angular": "1.6.3",
