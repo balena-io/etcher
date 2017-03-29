@@ -217,13 +217,6 @@
       "resolved": "https://registry.npmjs.org/array-back/-/array-back-1.0.4.tgz",
       "dev": true
     },
-    "array-buffer-from-string": {
-      "version": "0.1.0",
-      "from": "array-buffer-from-string@>=0.1.0 <0.2.0",
-      "resolved": "https://registry.npmjs.org/array-buffer-from-string/-/array-buffer-from-string-0.1.0.tgz",
-      "dev": true,
-      "optional": true
-    },
     "array-filter": {
       "version": "0.0.1",
       "from": "array-filter@>=0.0.0 <0.1.0",
@@ -433,13 +426,6 @@
       "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-0.4.2.tgz",
       "dev": true
     },
-    "base32-encode": {
-      "version": "0.1.0",
-      "from": "base32-encode@>=0.1.0 <0.2.0",
-      "resolved": "https://registry.npmjs.org/base32-encode/-/base32-encode-0.1.0.tgz",
-      "dev": true,
-      "optional": true
-    },
     "base64-js": {
       "version": "0.0.8",
       "from": "base64-js@0.0.8",
@@ -531,13 +517,6 @@
       "version": "3.3.6",
       "from": "bootstrap-sass@>=3.3.5 <4.0.0",
       "resolved": "https://registry.npmjs.org/bootstrap-sass/-/bootstrap-sass-3.3.6.tgz"
-    },
-    "bplist-creator": {
-      "version": "0.0.7",
-      "from": "bplist-creator@>=0.0.3 <0.1.0",
-      "resolved": "https://registry.npmjs.org/bplist-creator/-/bplist-creator-0.0.7.tgz",
-      "dev": true,
-      "optional": true
     },
     "brace-expansion": {
       "version": "1.1.6",
@@ -1081,13 +1060,6 @@
       "version": "1.0.2",
       "from": "core-util-is@>=1.0.0 <1.1.0",
       "resolved": "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.2.tgz"
-    },
-    "cp-file": {
-      "version": "3.2.0",
-      "from": "cp-file@>=3.1.0 <4.0.0",
-      "resolved": "https://registry.npmjs.org/cp-file/-/cp-file-3.2.0.tgz",
-      "dev": true,
-      "optional": true
     },
     "crc": {
       "version": "3.4.4",
@@ -2580,13 +2552,6 @@
       "from": "flexboxgrid@>=6.3.0 <7.0.0",
       "resolved": "https://registry.npmjs.org/flexboxgrid/-/flexboxgrid-6.3.0.tgz"
     },
-    "fmix": {
-      "version": "0.1.0",
-      "from": "fmix@>=0.1.0 <0.2.0",
-      "resolved": "https://registry.npmjs.org/fmix/-/fmix-0.1.0.tgz",
-      "dev": true,
-      "optional": true
-    },
     "for-in": {
       "version": "0.1.8",
       "from": "for-in@>=0.1.5 <0.2.0",
@@ -2668,13 +2633,6 @@
       "from": "fs-extra-tf@>=0.30.3 <0.31.0",
       "resolved": "https://registry.npmjs.org/fs-extra-tf/-/fs-extra-tf-0.30.4.tgz",
       "dev": true
-    },
-    "fs-temp": {
-      "version": "1.1.2",
-      "from": "fs-temp@>=1.0.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/fs-temp/-/fs-temp-1.1.2.tgz",
-      "dev": true,
-      "optional": true
     },
     "fs.realpath": {
       "version": "1.0.0",
@@ -3216,23 +3174,10 @@
       "resolved": "https://registry.npmjs.org/ignore/-/ignore-3.2.6.tgz",
       "dev": true
     },
-    "image-size": {
-      "version": "0.5.1",
-      "from": "image-size@>=0.5.0 <0.6.0",
-      "resolved": "https://registry.npmjs.org/image-size/-/image-size-0.5.1.tgz",
-      "dev": true,
-      "optional": true
-    },
     "immutable": {
       "version": "3.8.1",
       "from": "immutable@>=3.8.1 <4.0.0",
       "resolved": "https://registry.npmjs.org/immutable/-/immutable-3.8.1.tgz"
-    },
-    "imul": {
-      "version": "1.0.1",
-      "from": "imul@>=1.0.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/imul/-/imul-1.0.1.tgz",
-      "dev": true
     },
     "imurmurhash": {
       "version": "0.1.4",
@@ -4890,13 +4835,6 @@
       "from": "ms@0.7.2",
       "resolved": "https://registry.npmjs.org/ms/-/ms-0.7.2.tgz"
     },
-    "murmur-32": {
-      "version": "0.1.0",
-      "from": "murmur-32@>=0.1.0 <0.2.0",
-      "resolved": "https://registry.npmjs.org/murmur-32/-/murmur-32-0.1.0.tgz",
-      "dev": true,
-      "optional": true
-    },
     "mute-stream": {
       "version": "0.0.5",
       "from": "mute-stream@0.0.5",
@@ -4944,13 +4882,6 @@
       "from": "ncp@>=2.0.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/ncp/-/ncp-2.0.0.tgz",
       "dev": true
-    },
-    "nested-error-stacks": {
-      "version": "1.0.2",
-      "from": "nested-error-stacks@>=1.0.1 <2.0.0",
-      "resolved": "https://registry.npmjs.org/nested-error-stacks/-/nested-error-stacks-1.0.2.tgz",
-      "dev": true,
-      "optional": true
     },
     "netmask": {
       "version": "1.0.6",
@@ -5608,13 +5539,6 @@
       "from": "querystring-es3@>=0.2.0 <0.3.0",
       "resolved": "https://registry.npmjs.org/querystring-es3/-/querystring-es3-0.2.1.tgz",
       "dev": true
-    },
-    "random-path": {
-      "version": "0.1.1",
-      "from": "random-path@>=0.1.0 <0.2.0",
-      "resolved": "https://registry.npmjs.org/random-path/-/random-path-0.1.1.tgz",
-      "dev": true,
-      "optional": true
     },
     "randomatic": {
       "version": "1.1.6",
@@ -6370,13 +6294,6 @@
       "resolved": "https://registry.npmjs.org/stream-browserify/-/stream-browserify-2.0.1.tgz",
       "dev": true
     },
-    "stream-buffers": {
-      "version": "2.2.0",
-      "from": "stream-buffers@>=2.2.0 <2.3.0",
-      "resolved": "https://registry.npmjs.org/stream-buffers/-/stream-buffers-2.2.0.tgz",
-      "dev": true,
-      "optional": true
-    },
     "stream-chunker": {
       "version": "1.2.8",
       "from": "stream-chunker@>=1.2.8 <2.0.0",
@@ -6732,13 +6649,6 @@
       "resolved": "https://registry.npmjs.org/tmp/-/tmp-0.0.31.tgz",
       "dev": true
     },
-    "tn1150": {
-      "version": "0.1.0",
-      "from": "tn1150@>=0.1.0 <0.2.0",
-      "resolved": "https://registry.npmjs.org/tn1150/-/tn1150-0.1.0.tgz",
-      "dev": true,
-      "optional": true
-    },
     "to-arraybuffer": {
       "version": "1.0.1",
       "from": "to-arraybuffer@>=1.0.0 <2.0.0",
@@ -6959,13 +6869,6 @@
       "version": "3.3.4",
       "from": "underscore.string@>=3.2.2 <4.0.0",
       "resolved": "https://registry.npmjs.org/underscore.string/-/underscore.string-3.3.4.tgz"
-    },
-    "unorm": {
-      "version": "1.4.1",
-      "from": "unorm@>=1.4.1 <2.0.0",
-      "resolved": "https://registry.npmjs.org/unorm/-/unorm-1.4.1.tgz",
-      "dev": true,
-      "optional": true
     },
     "update-json": {
       "version": "1.0.0",
