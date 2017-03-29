@@ -83,7 +83,6 @@
     "file-tail": "^0.3.0",
     "flat": "^2.0.1",
     "flexboxgrid": "^6.3.0",
-    "gzip-uncompressed-size": "^1.0.0",
     "immutable": "^3.8.1",
     "is-elevated": "^2.0.1",
     "isstream": "^0.1.2",
