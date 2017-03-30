@@ -27,7 +27,9 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PACKAGE_JSON=package.json
 
 # builtin-modules.json from https://github.com/sindresorhus/builtin-modules
-NODE_MODULES=($(jq -r '.[]' "$HERE/builtin-modules.json"))
+#NODE_MODULES=($(jq -r '.[]' "$HERE/builtin-modules.json"))
+# workaround for path-length bug in jq that only affects Windows https://github.com/stedolan/jq/issues/1155
+NODE_MODULES=($(cat "$HERE/builtin-modules.json" | jq -r '.[]'))
 NPM_MODULES=($(jq -r '.dependencies | keys | .[]' "$PACKAGE_JSON"))
 NPM_OPTIONAL_MODULES=($(jq -r '.optionalDependencies | keys | .[]' "$PACKAGE_JSON"))
 NPM_DEV_MODULES=($(jq -r '.devDependencies | keys | .[]' "$PACKAGE_JSON"))
