@@ -44,10 +44,6 @@ Use the following steps to ensure everything goes flawlessly:
 - Install the new version of the dependency. For example: `npm install --save
   <package>@<version>`. This will update the `npm-shrinkwrap.json` file.
 
-- Run `npm run clean-shrinkwrap`. This is a small script that ensures that
-  operating system specific dependencies that could get included in the
-  previous step are removed from `npm-shrinkwrap.json`.
-
 - Commit *both* `package.json` and `npm-shrinkwrap.json`.
 
 Testing

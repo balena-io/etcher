@@ -17,13 +17,28 @@
 
 const _ = require('lodash');
 const path = require('path');
-const jsonfile = require('jsonfile');
 const packageJSON = require('../package.json');
+const spawn = require('child_process').spawn;
 const shrinkwrapIgnore = _.union(packageJSON.shrinkwrapIgnore, _.keys(packageJSON.optionalDependencies));
-const SHRINKWRAP_PATH = path.join(__dirname, '..', 'npm-shrinkwrap.json');
 
-const shrinkwrapContents = jsonfile.readFileSync(SHRINKWRAP_PATH);
-shrinkwrapContents.dependencies = _.omit(shrinkwrapContents.dependencies, shrinkwrapIgnore);
-jsonfile.writeFileSync(SHRINKWRAP_PATH, shrinkwrapContents, {
-  spaces: 2
-});
+console.log('Removing:', shrinkwrapIgnore.join(', '));
+
+/**
+ * Run an npm command
+ * @param {Array} command - list of arguments
+ * @returns {ChildProcess}
+ */
+const npm = (command) => {
+  return spawn('npm', command, {
+    cwd: path.join(__dirname, '..'),
+    env: process.env,
+    stdio: [ process.stdin, process.stdout, process.stderr ]
+  });
+};
+
+npm([ 'rm', '--ignore-scripts' ].concat(shrinkwrapIgnore))
+  .once('close', () => {
+    npm([ 'prune' ]).once('close', () => {
+      console.log('Done.');
+    });
+  });
