@@ -86,7 +86,6 @@
     "gzip-uncompressed-size": "^1.0.0",
     "immutable": "^3.8.1",
     "is-elevated": "^2.0.1",
-    "isstream": "^0.1.2",
     "lodash": "^4.5.1",
     "lodash-deep": "^2.0.0",
     "lzma-native": "^1.5.2",
