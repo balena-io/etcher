@@ -3,6 +3,7 @@
 const m = require('mochainon');
 const _ = require('lodash');
 const path = require('path');
+const supportedFormats = require('../../../lib/shared/supported-formats');
 const angular = require('angular');
 const settings = require('../../../lib/gui/models/settings');
 const flashState = require('../../../lib/gui/models/flash-state');
@@ -151,12 +152,10 @@ describe('Browser: MainPage', function() {
   describe('ImageSelectionController', function() {
 
     let $controller;
-    let SupportedFormatsModel;
     let SelectionStateModel;
 
-    beforeEach(angular.mock.inject(function(_$controller_, _SupportedFormatsModel_, _SelectionStateModel_) {
+    beforeEach(angular.mock.inject(function(_$controller_, _SelectionStateModel_) {
       $controller = _$controller_;
-      SupportedFormatsModel = _SupportedFormatsModel_;
       SelectionStateModel = _SelectionStateModel_;
     }));
 
@@ -167,7 +166,7 @@ describe('Browser: MainPage', function() {
       });
 
       const extensions = controller.mainSupportedExtensions.concat(controller.extraSupportedExtensions);
-      m.chai.expect(_.sortBy(extensions)).to.deep.equal(_.sortBy(SupportedFormatsModel.getAllExtensions()));
+      m.chai.expect(_.sortBy(extensions)).to.deep.equal(_.sortBy(supportedFormats.getAllExtensions()));
     });
 
     describe('.getImageBasename()', function() {
