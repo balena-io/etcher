@@ -23,8 +23,8 @@
             <span
               ng-click="main.showSelectedImageDetails()"
               class="step-image step-name"
-              ng-bind="main.selection.getImageName() || main.selection.getImagePath() | basename | middleEllipses:20"
-              uib-tooltip="{{ main.selection.getImagePath() | basename }}"></span>
+              ng-bind="main.selection.getImageName() || image.getImageBasename() | middleEllipses:20"
+              uib-tooltip="{{ image.getImageBasename() }}"></span>
             <span class="step-image step-size">{{ main.selection.getImageSize() | gigabyte | number:1 }} GB</span>
           </div>
 
