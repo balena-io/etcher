@@ -80,6 +80,7 @@ describe('ImageStream: ZIP', function() {
           path: image,
           extension: 'img',
           archiveExtension: 'zip',
+          stream: null,
           size: {
             original: expectedSize,
             final: {

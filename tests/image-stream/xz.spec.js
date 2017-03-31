@@ -51,6 +51,7 @@ describe('ImageStream: XZ', function() {
           path: image,
           extension: 'img',
           archiveExtension: 'xz',
+          stream: null,
           size: {
             original: compressedSize,
             final: {

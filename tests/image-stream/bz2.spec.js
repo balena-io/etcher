@@ -50,6 +50,7 @@ describe('ImageStream: BZ2', function() {
           path: image,
           extension: 'img',
           archiveExtension: 'bz2',
+          stream: null,
           size: {
             original: expectedSize,
             final: {
