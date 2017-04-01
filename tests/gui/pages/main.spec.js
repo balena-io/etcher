@@ -2,6 +2,7 @@
 
 const m = require('mochainon');
 const _ = require('lodash');
+const path = require('path');
 const angular = require('angular');
 require('angular-mocks');
 
@@ -131,10 +132,12 @@ describe('Browser: MainPage', function() {
 
     let $controller;
     let SupportedFormatsModel;
+    let SelectionStateModel;
 
-    beforeEach(angular.mock.inject(function(_$controller_, _SupportedFormatsModel_) {
+    beforeEach(angular.mock.inject(function(_$controller_, _SupportedFormatsModel_, _SelectionStateModel_) {
       $controller = _$controller_;
       SupportedFormatsModel = _SupportedFormatsModel_;
+      SelectionStateModel = _SelectionStateModel_;
     }));
 
     it('should contain all available extensions in mainSupportedExtensions and extraSupportedExtensions', function() {
@@ -145,6 +148,33 @@ describe('Browser: MainPage', function() {
 
       const extensions = controller.mainSupportedExtensions.concat(controller.extraSupportedExtensions);
       m.chai.expect(_.sortBy(extensions)).to.deep.equal(_.sortBy(SupportedFormatsModel.getAllExtensions()));
+    });
+
+    describe('.getImageBasename()', function() {
+
+      it('should return the basename of the selected image', function() {
+        const controller = $controller('ImageSelectionController', {
+          $scope: {}
+        });
+
+        SelectionStateModel.setImage({
+          path: path.join(__dirname, 'foo', 'bar.img'),
+          size: 999999999
+        });
+
+        m.chai.expect(controller.getImageBasename()).to.equal('bar.img');
+        SelectionStateModel.removeImage();
+      });
+
+      it('should return an empty string if no selected image', function() {
+        const controller = $controller('ImageSelectionController', {
+          $scope: {}
+        });
+
+        SelectionStateModel.removeImage();
+        m.chai.expect(controller.getImageBasename()).to.equal('');
+      });
+
     });
 
   });
