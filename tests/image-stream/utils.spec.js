@@ -26,44 +26,53 @@ describe('ImageStream: Utils', function() {
 
   describe('.getArchiveMimeType()', function() {
 
-    it('should resolve application/x-bzip2 for a bz2 archive', function(done) {
+    it('should resolve application/x-bzip2 for a bz2 archive', function() {
       const file = path.join(DATA_PATH, 'bz2', 'raspberrypi.img.bz2');
-      utils.getArchiveMimeType(file).then((type) => {
+      return utils.getArchiveMimeType(file).then((type) => {
         m.chai.expect(type).to.equal('application/x-bzip2');
-        done();
-      }).catch(done);
+      });
     });
 
-    it('should resolve application/x-xz for a xz archive', function(done) {
+    it('should resolve application/x-xz for a xz archive', function() {
       const file = path.join(DATA_PATH, 'xz', 'raspberrypi.img.xz');
-      utils.getArchiveMimeType(file).then((type) => {
+      return utils.getArchiveMimeType(file).then((type) => {
         m.chai.expect(type).to.equal('application/x-xz');
-        done();
-      }).catch(done);
+      });
     });
 
-    it('should resolve application/gzip for a gz archive', function(done) {
+    it('should resolve application/gzip for a gz archive', function() {
       const file = path.join(DATA_PATH, 'gz', 'raspberrypi.img.gz');
-      utils.getArchiveMimeType(file).then((type) => {
+      return utils.getArchiveMimeType(file).then((type) => {
         m.chai.expect(type).to.equal('application/gzip');
-        done();
-      }).catch(done);
+      });
     });
 
-    it('should resolve application/zip for a zip archive', function(done) {
+    it('should resolve application/zip for a zip archive', function() {
       const file = path.join(DATA_PATH, 'zip', 'zip-directory-rpi-only.zip');
-      utils.getArchiveMimeType(file).then((type) => {
+      return utils.getArchiveMimeType(file).then((type) => {
         m.chai.expect(type).to.equal('application/zip');
-        done();
-      }).catch(done);
+      });
     });
 
-    it('should resolve application/octet-stream for an uncompress image', function(done) {
+    it('should resolve application/octet-stream for an uncompressed image', function() {
       const file = path.join(DATA_PATH, 'images', 'raspberrypi.img');
-      utils.getArchiveMimeType(file).then((type) => {
+      return utils.getArchiveMimeType(file).then((type) => {
         m.chai.expect(type).to.equal('application/octet-stream');
-        done();
-      }).catch(done);
+      });
+    });
+
+    it('should resolve application/x-apple-diskimage for a compressed Apple disk image', function() {
+      const file = path.join(DATA_PATH, 'dmg', 'zlib-compressed.dmg');
+      return utils.getArchiveMimeType(file).then((type) => {
+        m.chai.expect(type).to.equal('application/x-apple-diskimage');
+      });
+    });
+
+    it('should resolve application/x-apple-diskimage for an uncompressed Apple disk image', function() {
+      const file = path.join(DATA_PATH, 'dmg', 'raw.dmg');
+      return utils.getArchiveMimeType(file).then((type) => {
+        m.chai.expect(type).to.equal('application/x-apple-diskimage');
+      });
     });
 
   });

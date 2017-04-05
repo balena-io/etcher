@@ -30,3 +30,4 @@ Makefile text
 *.png binary
 *.xz binary
 *.zip binary
+*.dmg binary
