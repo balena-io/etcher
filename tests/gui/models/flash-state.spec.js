@@ -143,6 +143,30 @@ describe('Browser: flashState', function() {
         }).to.throw('Invalid state percentage: 50');
       });
 
+      it('should throw if percentage is outside maximum bound', function() {
+        flashState.setFlashingFlag();
+        m.chai.expect(function() {
+          flashState.setProgressState({
+            type: 'write',
+            percentage: 101,
+            eta: 15,
+            speed: 0
+          });
+        }).to.throw('Invalid state percentage: 101');
+      });
+
+      it('should throw if percentage is outside minimum bound', function() {
+        flashState.setFlashingFlag();
+        m.chai.expect(function() {
+          flashState.setProgressState({
+            type: 'write',
+            percentage: -1,
+            eta: 15,
+            speed: 0
+          });
+        }).to.throw('Invalid state percentage: -1');
+      });
+
       it('should throw if eta is missing', function() {
         flashState.setFlashingFlag();
         m.chai.expect(function() {
