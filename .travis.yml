@@ -43,7 +43,7 @@ install:
       npm install -g bower asar;
       brew install afsctool jq;
       make info;
-      make electron-develop;
+      travis_wait make electron-develop;
     fi
 
 script:
