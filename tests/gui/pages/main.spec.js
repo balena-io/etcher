@@ -4,6 +4,7 @@ const m = require('mochainon');
 const _ = require('lodash');
 const path = require('path');
 const angular = require('angular');
+const settings = require('../../../lib/gui/models/settings');
 require('angular-mocks');
 
 describe('Browser: MainPage', function() {
@@ -207,12 +208,10 @@ describe('Browser: MainPage', function() {
 
     let $controller;
     let FlashStateModel;
-    let SettingsModel;
 
-    beforeEach(angular.mock.inject(function(_$controller_, _FlashStateModel_, _SettingsModel_) {
+    beforeEach(angular.mock.inject(function(_$controller_, _FlashStateModel_) {
       $controller = _$controller_;
       FlashStateModel = _FlashStateModel_;
-      SettingsModel = _SettingsModel_;
     }));
 
     describe('.getProgressButtonLabel()', function() {
@@ -244,7 +243,7 @@ describe('Browser: MainPage', function() {
             speed: 100000000000000
           });
 
-          SettingsModel.set('unmountOnSuccess', true);
+          settings.set('unmountOnSuccess', true);
           m.chai.expect(controller.getProgressButtonLabel()).to.equal('0%');
         });
 
@@ -260,7 +259,7 @@ describe('Browser: MainPage', function() {
             speed: 0
           });
 
-          SettingsModel.set('unmountOnSuccess', true);
+          settings.set('unmountOnSuccess', true);
           m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...');
         });
 
@@ -276,7 +275,7 @@ describe('Browser: MainPage', function() {
             speed: 0
           });
 
-          SettingsModel.set('unmountOnSuccess', false);
+          settings.set('unmountOnSuccess', false);
           m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...');
         });
 
@@ -292,7 +291,7 @@ describe('Browser: MainPage', function() {
             speed: 0
           });
 
-          SettingsModel.set('unmountOnSuccess', true);
+          settings.set('unmountOnSuccess', true);
           m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...');
         });
 
@@ -308,7 +307,7 @@ describe('Browser: MainPage', function() {
             speed: 0
           });
 
-          SettingsModel.set('unmountOnSuccess', false);
+          settings.set('unmountOnSuccess', false);
           m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...');
         });
 
@@ -324,7 +323,7 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          SettingsModel.set('unmountOnSuccess', true);
+          settings.set('unmountOnSuccess', true);
           m.chai.expect(controller.getProgressButtonLabel()).to.equal('50%');
         });
 
@@ -340,7 +339,7 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          SettingsModel.set('unmountOnSuccess', false);
+          settings.set('unmountOnSuccess', false);
           m.chai.expect(controller.getProgressButtonLabel()).to.equal('50%');
         });
 
@@ -356,7 +355,7 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          SettingsModel.set('unmountOnSuccess', true);
+          settings.set('unmountOnSuccess', true);
           m.chai.expect(controller.getProgressButtonLabel()).to.equal('50% Validating...');
         });
 
@@ -372,7 +371,7 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          SettingsModel.set('unmountOnSuccess', false);
+          settings.set('unmountOnSuccess', false);
           m.chai.expect(controller.getProgressButtonLabel()).to.equal('50% Validating...');
         });
 
@@ -388,7 +387,7 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          SettingsModel.set('unmountOnSuccess', true);
+          settings.set('unmountOnSuccess', true);
           m.chai.expect(controller.getProgressButtonLabel()).to.equal('Finishing...');
         });
 
@@ -404,7 +403,7 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          SettingsModel.set('unmountOnSuccess', false);
+          settings.set('unmountOnSuccess', false);
           m.chai.expect(controller.getProgressButtonLabel()).to.equal('Finishing...');
         });
 
@@ -420,7 +419,7 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          SettingsModel.set('unmountOnSuccess', true);
+          settings.set('unmountOnSuccess', true);
           m.chai.expect(controller.getProgressButtonLabel()).to.equal('Unmounting...');
         });
 
@@ -436,7 +435,7 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          SettingsModel.set('unmountOnSuccess', false);
+          settings.set('unmountOnSuccess', false);
           m.chai.expect(controller.getProgressButtonLabel()).to.equal('Finishing...');
         });
 

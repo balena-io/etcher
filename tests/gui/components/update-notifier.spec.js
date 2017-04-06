@@ -3,6 +3,7 @@
 const m = require('mochainon');
 const angular = require('angular');
 const units = require('../../../lib/shared/units');
+const settings = require('../../../lib/gui/models/settings');
 require('angular-mocks');
 
 describe('Browser: UpdateNotifier', function() {
@@ -16,19 +17,17 @@ describe('Browser: UpdateNotifier', function() {
     describe('.shouldCheckForUpdates()', function() {
 
       let UpdateNotifierService;
-      let SettingsModel;
       let UPDATE_NOTIFIER_SLEEP_DAYS;
 
-      beforeEach(angular.mock.inject(function(_UpdateNotifierService_, _SettingsModel_, _UPDATE_NOTIFIER_SLEEP_DAYS_) {
+      beforeEach(angular.mock.inject(function(_UpdateNotifierService_, _UPDATE_NOTIFIER_SLEEP_DAYS_) {
         UpdateNotifierService = _UpdateNotifierService_;
-        SettingsModel = _SettingsModel_;
         UPDATE_NOTIFIER_SLEEP_DAYS = _UPDATE_NOTIFIER_SLEEP_DAYS_;
       }));
 
       describe('given the `sleepUpdateCheck` is disabled', function() {
 
         beforeEach(function() {
-          SettingsModel.set('sleepUpdateCheck', false);
+          settings.set('sleepUpdateCheck', false);
         });
 
         it('should return true', function() {
@@ -41,13 +40,13 @@ describe('Browser: UpdateNotifier', function() {
       describe('given the `sleepUpdateCheck` is enabled', function() {
 
         beforeEach(function() {
-          SettingsModel.set('sleepUpdateCheck', true);
+          settings.set('sleepUpdateCheck', true);
         });
 
         describe('given the `lastUpdateNotify` was never updated', function() {
 
           beforeEach(function() {
-            SettingsModel.set('lastUpdateNotify', undefined);
+            settings.set('lastUpdateNotify', undefined);
           });
 
           it('should return true', function() {
@@ -60,7 +59,7 @@ describe('Browser: UpdateNotifier', function() {
         describe('given the `lastUpdateNotify` was very recently updated', function() {
 
           beforeEach(function() {
-            SettingsModel.set('lastUpdateNotify', Date.now() + 1000);
+            settings.set('lastUpdateNotify', Date.now() + 1000);
           });
 
           it('should return false', function() {
@@ -74,7 +73,7 @@ describe('Browser: UpdateNotifier', function() {
 
           beforeEach(function() {
             const SLEEP_MS = units.daysToMilliseconds(UPDATE_NOTIFIER_SLEEP_DAYS);
-            SettingsModel.set('lastUpdateNotify', Date.now() + SLEEP_MS + 1000);
+            settings.set('lastUpdateNotify', Date.now() + SLEEP_MS + 1000);
           });
 
           it('should return true', function() {
@@ -83,9 +82,9 @@ describe('Browser: UpdateNotifier', function() {
           });
 
           it('should unset the `sleepUpdateCheck` setting', function() {
-            m.chai.expect(SettingsModel.get('sleepUpdateCheck')).to.be.true;
+            m.chai.expect(settings.get('sleepUpdateCheck')).to.be.true;
             UpdateNotifierService.shouldCheckForUpdates();
-            m.chai.expect(SettingsModel.get('sleepUpdateCheck')).to.be.false;
+            m.chai.expect(settings.get('sleepUpdateCheck')).to.be.false;
           });
 
         });
