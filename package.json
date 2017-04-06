@@ -82,7 +82,6 @@
     "flat": "^2.0.1",
     "flexboxgrid": "^6.3.0",
     "immutable": "^3.8.1",
-    "is-elevated": "^2.0.1",
     "lodash": "^4.5.1",
     "lodash-deep": "^2.0.0",
     "lzma-native": "^1.5.2",
