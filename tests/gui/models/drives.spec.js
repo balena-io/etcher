@@ -118,7 +118,13 @@ describe('Browser: DrivesModel', function() {
             SelectionStateModel.removeDrive();
             SelectionStateModel.setImage({
               path: this.imagePath,
-              size: 999999999,
+              size: {
+                original: 999999999,
+                final: {
+                  estimation: false,
+                  value: 999999999
+                }
+              },
               recommendedDriveSize: 2000000000
             });
           });

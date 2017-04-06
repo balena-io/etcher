@@ -303,52 +303,219 @@ describe('Shared: DriveConstraints', function() {
 
   describe('.isDriveLargeEnough()', function() {
 
-    it('should return true if the drive size is greater than the image size', function() {
-      const result = constraints.isDriveLargeEnough({
-        device: '/dev/disk1',
-        name: 'USB Drive',
-        size: 1000000001,
-        protected: false
-      }, {
-        path: 'rpi.img',
-        size: 1000000000
-      });
-
-      m.chai.expect(result).to.be.true;
-    });
-
-    it('should return true if the drive size is equal to the image size', function() {
-      const result = constraints.isDriveLargeEnough({
+    beforeEach(function() {
+      this.drive = {
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 1000000000,
         protected: false
-      }, {
-        path: 'rpi.img',
-        size: 1000000000
-      });
-
-      m.chai.expect(result).to.be.true;
+      };
     });
 
-    it('should return false if the drive size is less than the image size', function() {
-      const result = constraints.isDriveLargeEnough({
-        device: '/dev/disk1',
-        name: 'USB Drive',
-        size: 1000000000,
-        protected: false
-      }, {
-        path: 'rpi.img',
-        size: 1000000001
+    describe('given the final image size estimation flag is false', function() {
+
+      describe('given the original size is less than the drive size', function() {
+
+        beforeEach(function() {
+          this.image = {
+            path: path.join(__dirname, 'rpi.img'),
+            size: {
+              original: this.drive.size - 1,
+              final: {
+                estimation: false
+              }
+            }
+          };
+        });
+
+        it('should return true if the final size is less than the drive size', function() {
+          this.image.size.final.value = this.drive.size - 1;
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
+        });
+
+        it('should return true if the final size is equal to the drive size', function() {
+          this.image.size.final.value = this.drive.size;
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
+        });
+
+        it('should return false if the final size is greater than the drive size', function() {
+          this.image.size.final.value = this.drive.size + 1;
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false;
+        });
+
       });
 
-      m.chai.expect(result).to.be.false;
+      describe('given the original size is equal to the drive size', function() {
+
+        beforeEach(function() {
+          this.image = {
+            path: path.join(__dirname, 'rpi.img'),
+            size: {
+              original: this.drive.size,
+              final: {
+                estimation: false
+              }
+            }
+          };
+        });
+
+        it('should return true if the final size is less than the drive size', function() {
+          this.image.size.final.value = this.drive.size - 1;
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
+        });
+
+        it('should return true if the final size is equal to the drive size', function() {
+          this.image.size.final.value = this.drive.size;
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
+        });
+
+        it('should return false if the final size is greater than the drive size', function() {
+          this.image.size.final.value = this.drive.size + 1;
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false;
+        });
+
+      });
+
+      describe('given the original size is greater than the drive size', function() {
+
+        beforeEach(function() {
+          this.image = {
+            path: path.join(__dirname, 'rpi.img'),
+            size: {
+              original: this.drive.size + 1,
+              final: {
+                estimation: false
+              }
+            }
+          };
+        });
+
+        it('should return true if the final size is less than the drive size', function() {
+          this.image.size.final.value = this.drive.size - 1;
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
+        });
+
+        it('should return true if the final size is equal to the drive size', function() {
+          this.image.size.final.value = this.drive.size;
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
+        });
+
+        it('should return false if the final size is greater than the drive size', function() {
+          this.image.size.final.value = this.drive.size + 1;
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false;
+        });
+
+      });
+
+    });
+
+    describe('given the final image size estimation flag is true', function() {
+
+      describe('given the original size is less than the drive size', function() {
+
+        beforeEach(function() {
+          this.image = {
+            path: path.join(__dirname, 'rpi.img'),
+            size: {
+              original: this.drive.size - 1,
+              final: {
+                estimation: true
+              }
+            }
+          };
+        });
+
+        it('should return true if the final size is less than the drive size', function() {
+          this.image.size.final.value = this.drive.size - 1;
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
+        });
+
+        it('should return true if the final size is equal to the drive size', function() {
+          this.image.size.final.value = this.drive.size;
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
+        });
+
+        it('should return true if the final size is greater than the drive size', function() {
+          this.image.size.final.value = this.drive.size + 1;
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
+        });
+
+      });
+
+      describe('given the original size is equal to the drive size', function() {
+
+        beforeEach(function() {
+          this.image = {
+            path: path.join(__dirname, 'rpi.img'),
+            size: {
+              original: this.drive.size,
+              final: {
+                estimation: true
+              }
+            }
+          };
+        });
+
+        it('should return true if the final size is less than the drive size', function() {
+          this.image.size.final.value = this.drive.size - 1;
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
+        });
+
+        it('should return true if the final size is equal to the drive size', function() {
+          this.image.size.final.value = this.drive.size;
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
+        });
+
+        it('should return true if the final size is greater than the drive size', function() {
+          this.image.size.final.value = this.drive.size + 1;
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
+        });
+
+      });
+
+      describe('given the original size is greater than the drive size', function() {
+
+        beforeEach(function() {
+          this.image = {
+            path: path.join(__dirname, 'rpi.img'),
+            size: {
+              original: this.drive.size + 1,
+              final: {
+                estimation: true
+              }
+            }
+          };
+        });
+
+        it('should return false if the final size is less than the drive size', function() {
+          this.image.size.final.value = this.drive.size - 1;
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false;
+        });
+
+        it('should return false if the final size is equal to the drive size', function() {
+          this.image.size.final.value = this.drive.size;
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false;
+        });
+
+        it('should return false if the final size is greater than the drive size', function() {
+          this.image.size.final.value = this.drive.size + 1;
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false;
+        });
+
+      });
+
     });
 
     it('should return false if the drive is undefined', function() {
       const result = constraints.isDriveLargeEnough(undefined, {
-        path: 'rpi.img',
-        size: 1000000000
+        path: path.join(__dirname, 'rpi.img'),
+        size: {
+          original: 1000000000,
+          final: {
+            estimation: false,
+            value: 1000000000
+          }
+        }
       });
 
       m.chai.expect(result).to.be.false;
@@ -381,7 +548,7 @@ describe('Shared: DriveConstraints', function() {
         size: 2000000001,
         protected: false
       }, {
-        path: 'rpi.img',
+        path: path.join(__dirname, 'rpi.img'),
         size: 1000000000,
         recommendedDriveSize: 2000000000
       });
@@ -396,7 +563,7 @@ describe('Shared: DriveConstraints', function() {
         size: 2000000000,
         protected: false
       }, {
-        path: 'rpi.img',
+        path: path.join(__dirname, 'rpi.img'),
         size: 1000000000,
         recommendedDriveSize: 2000000000
       });
@@ -411,7 +578,7 @@ describe('Shared: DriveConstraints', function() {
         size: 2000000000,
         protected: false
       }, {
-        path: 'rpi.img',
+        path: path.join(__dirname, 'rpi.img'),
         size: 1000000000,
         recommendedDriveSize: 2000000001
       });
@@ -426,7 +593,7 @@ describe('Shared: DriveConstraints', function() {
         size: 2000000000,
         protected: false
       }, {
-        path: 'rpi.img',
+        path: path.join(__dirname, 'rpi.img'),
         size: 1000000000
       });
 
@@ -435,7 +602,7 @@ describe('Shared: DriveConstraints', function() {
 
     it('should return false if the drive is undefined', function() {
       const result = constraints.isDriveSizeRecommended(undefined, {
-        path: 'rpi.img',
+        path: path.join(__dirname, 'rpi.img'),
         size: 1000000000,
         recommendedDriveSize: 1000000000
       });
@@ -491,28 +658,52 @@ describe('Shared: DriveConstraints', function() {
       it('should return false if the drive is not large enough and is a source drive', function() {
         m.chai.expect(constraints.isDriveValid(this.drive, {
           path: path.join(this.mountpoint, 'rpi.img'),
-          size: 5000000000
+          size: {
+            original: 5000000000,
+            final: {
+              estimation: false,
+              value: 5000000000
+            }
+          }
         })).to.be.false;
       });
 
       it('should return false if the drive is not large enough and is not a source drive', function() {
         m.chai.expect(constraints.isDriveValid(this.drive, {
           path: path.resolve(this.mountpoint, '../bar/rpi.img'),
-          size: 5000000000
+          size: {
+            original: 5000000000,
+            final: {
+              estimation: false,
+              value: 5000000000
+            }
+          }
         })).to.be.false;
       });
 
       it('should return false if the drive is large enough and is a source drive', function() {
         m.chai.expect(constraints.isDriveValid(this.drive, {
           path: path.join(this.mountpoint, 'rpi.img'),
-          size: 2000000000
+          size: {
+            original: 2000000000,
+            final: {
+              estimation: false,
+              value: 2000000000
+            }
+          }
         })).to.be.false;
       });
 
       it('should return false if the drive is large enough and is not a source drive', function() {
         m.chai.expect(constraints.isDriveValid(this.drive, {
           path: path.resolve(this.mountpoint, '../bar/rpi.img'),
-          size: 2000000000
+          size: {
+            original: 2000000000,
+            final: {
+              estimation: false,
+              value: 2000000000
+            }
+          }
         })).to.be.false;
       });
 
@@ -527,28 +718,52 @@ describe('Shared: DriveConstraints', function() {
       it('should return false if the drive is not large enough and is a source drive', function() {
         m.chai.expect(constraints.isDriveValid(this.drive, {
           path: path.join(this.mountpoint, 'rpi.img'),
-          size: 5000000000
+          size: {
+            original: 5000000000,
+            final: {
+              estimation: false,
+              value: 5000000000
+            }
+          }
         })).to.be.false;
       });
 
       it('should return false if the drive is not large enough and is not a source drive', function() {
         m.chai.expect(constraints.isDriveValid(this.drive, {
           path: path.resolve(this.mountpoint, '../bar/rpi.img'),
-          size: 5000000000
+          size: {
+            original: 5000000000,
+            final: {
+              estimation: false,
+              value: 5000000000
+            }
+          }
         })).to.be.false;
       });
 
       it('should return false if the drive is large enough and is a source drive', function() {
         m.chai.expect(constraints.isDriveValid(this.drive, {
           path: path.join(this.mountpoint, 'rpi.img'),
-          size: 2000000000
+          size: {
+            original: 2000000000,
+            final: {
+              estimation: false,
+              value: 2000000000
+            }
+          }
         })).to.be.false;
       });
 
       it('should return true if the drive is large enough and is not a source drive', function() {
         m.chai.expect(constraints.isDriveValid(this.drive, {
           path: path.resolve(this.mountpoint, '../bar/rpi.img'),
-          size: 2000000000
+          size: {
+            original: 2000000000,
+            final: {
+              estimation: false,
+              value: 2000000000
+            }
+          }
         })).to.be.true;
       });
 
