@@ -4,6 +4,7 @@ const m = require('mochainon');
 const _ = require('lodash');
 const path = require('path');
 const angular = require('angular');
+const availableDrives = require('../../../lib/gui/models/drives');
 require('angular-mocks');
 
 describe('Browser: SelectionState', function() {
@@ -12,18 +13,12 @@ describe('Browser: SelectionState', function() {
     require('../../../lib/gui/models/selection-state')
   ));
 
-  beforeEach(angular.mock.module(
-    require('../../../lib/gui/models/drives')
-  ));
-
   describe('SelectionStateModel', function() {
 
     let SelectionStateModel;
-    let DrivesModel;
 
-    beforeEach(angular.mock.inject(function(_SelectionStateModel_, _DrivesModel_) {
+    beforeEach(angular.mock.inject(function(_SelectionStateModel_) {
       SelectionStateModel = _SelectionStateModel_;
-      DrivesModel = _DrivesModel_;
     }));
 
     describe('given a clean state', function() {
@@ -84,7 +79,7 @@ describe('Browser: SelectionState', function() {
     describe('given a drive', function() {
 
       beforeEach(function() {
-        DrivesModel.setDrives([
+        availableDrives.setDrives([
           {
             device: '/dev/disk2',
             name: 'USB Drive',
@@ -157,7 +152,7 @@ describe('Browser: SelectionState', function() {
       describe('.setDrive()', function() {
 
         it('should be able to set a drive', function() {
-          DrivesModel.setDrives([
+          availableDrives.setDrives([
             {
               device: '/dev/disk5',
               name: 'USB Drive',
@@ -177,7 +172,7 @@ describe('Browser: SelectionState', function() {
         });
 
         it('should throw if drive is write protected', function() {
-          DrivesModel.setDrives([
+          availableDrives.setDrives([
             {
               device: '/dev/disk1',
               name: 'USB Drive',
@@ -192,7 +187,7 @@ describe('Browser: SelectionState', function() {
         });
 
         it('should throw if the drive is not available', function() {
-          DrivesModel.setDrives([
+          availableDrives.setDrives([
             {
               device: '/dev/disk1',
               name: 'USB Drive',
@@ -242,7 +237,7 @@ describe('Browser: SelectionState', function() {
       describe('.setDrive()', function() {
 
         it('should throw if drive is not large enough', function() {
-          DrivesModel.setDrives([
+          availableDrives.setDrives([
             {
               device: '/dev/disk2',
               name: 'USB Drive',
@@ -762,7 +757,7 @@ describe('Browser: SelectionState', function() {
         });
 
         it('should de-select a previously selected not-large-enough drive', function() {
-          DrivesModel.setDrives([
+          availableDrives.setDrives([
             {
               device: '/dev/disk1',
               name: 'USB Drive',
@@ -791,7 +786,7 @@ describe('Browser: SelectionState', function() {
         });
 
         it('should de-select a previously selected not-recommended drive', function() {
-          DrivesModel.setDrives([
+          availableDrives.setDrives([
             {
               device: '/dev/disk1',
               name: 'USB Drive',
@@ -829,7 +824,7 @@ describe('Browser: SelectionState', function() {
             return '/mnt/bar/foo.img';
           });
 
-          DrivesModel.setDrives([
+          availableDrives.setDrives([
             {
               device: '/dev/disk1',
               name: 'USB Drive',
@@ -869,7 +864,7 @@ describe('Browser: SelectionState', function() {
     describe('given a drive', function() {
 
       beforeEach(function() {
-        DrivesModel.setDrives([
+        availableDrives.setDrives([
           {
             device: '/dev/disk1',
             name: 'USB Drive',
@@ -949,7 +944,7 @@ describe('Browser: SelectionState', function() {
       describe('given a selected drive', function() {
 
         beforeEach(function() {
-          DrivesModel.setDrives([
+          availableDrives.setDrives([
             {
               device: '/dev/sdb',
               description: 'DataTraveler 2.0',
@@ -1011,7 +1006,7 @@ describe('Browser: SelectionState', function() {
             protected: false
           };
 
-          DrivesModel.setDrives([
+          availableDrives.setDrives([
             this.drive,
             {
               device: '/dev/disk2',

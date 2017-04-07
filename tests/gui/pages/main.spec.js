@@ -7,6 +7,7 @@ const supportedFormats = require('../../../lib/shared/supported-formats');
 const angular = require('angular');
 const settings = require('../../../lib/gui/models/settings');
 const flashState = require('../../../lib/gui/models/flash-state');
+const availableDrives = require('../../../lib/gui/models/drives');
 require('angular-mocks');
 
 describe('Browser: MainPage', function() {
@@ -19,12 +20,10 @@ describe('Browser: MainPage', function() {
 
     let $controller;
     let SelectionStateModel;
-    let DrivesModel;
 
-    beforeEach(angular.mock.inject(function(_$controller_, _SelectionStateModel_, _DrivesModel_) {
+    beforeEach(angular.mock.inject(function(_$controller_, _SelectionStateModel_) {
       $controller = _$controller_;
       SelectionStateModel = _SelectionStateModel_;
-      DrivesModel = _DrivesModel_;
     }));
 
     describe('.shouldDriveStepBeDisabled()', function() {
@@ -99,7 +98,7 @@ describe('Browser: MainPage', function() {
           $scope: {}
         });
 
-        DrivesModel.setDrives([
+        availableDrives.setDrives([
           {
             device: '/dev/disk2',
             description: 'Foo',
@@ -120,7 +119,7 @@ describe('Browser: MainPage', function() {
           $scope: {}
         });
 
-        DrivesModel.setDrives([
+        availableDrives.setDrives([
           {
             device: '/dev/disk2',
             description: 'Foo',
