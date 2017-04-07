@@ -23,7 +23,7 @@ describe('Browser: SupportedFormats', function() {
 
       it('should return the supported compressed extensions', function() {
         const extensions = SupportedFormatsModel.getCompressedExtensions();
-        m.chai.expect(extensions).to.deep.equal([ 'gz', 'bz2', 'xz' ]);
+        m.chai.expect(extensions).to.deep.equal([ 'gz', 'bz2', 'xz', 'dmg' ]);
       });
 
     });
