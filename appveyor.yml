@@ -19,6 +19,8 @@ environment:
     - TARGET_ARCH: x64
     - TARGET_ARCH: x86
 
+clone_depth: 3
+
 matrix:
   fast_finish: true
 
