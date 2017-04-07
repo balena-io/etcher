@@ -5,6 +5,7 @@ const _ = require('lodash');
 const path = require('path');
 const angular = require('angular');
 const settings = require('../../../lib/gui/models/settings');
+const flashState = require('../../../lib/gui/models/flash-state');
 require('angular-mocks');
 
 describe('Browser: MainPage', function() {
@@ -207,11 +208,9 @@ describe('Browser: MainPage', function() {
   describe('FlashController', function() {
 
     let $controller;
-    let FlashStateModel;
 
-    beforeEach(angular.mock.inject(function(_$controller_, _FlashStateModel_) {
+    beforeEach(angular.mock.inject(function(_$controller_) {
       $controller = _$controller_;
-      FlashStateModel = _FlashStateModel_;
     }));
 
     describe('.getProgressButtonLabel()', function() {
@@ -221,14 +220,14 @@ describe('Browser: MainPage', function() {
           $scope: {}
         });
 
-        FlashStateModel.resetState();
+        flashState.resetState();
         m.chai.expect(controller.getProgressButtonLabel()).to.equal('Flash!');
       });
 
       describe('given there is a flash in progress', function() {
 
         beforeEach(function() {
-          FlashStateModel.setFlashingFlag();
+          flashState.setFlashingFlag();
         });
 
         it('should report 0% if percentage == 0 but speed != 0', function() {
@@ -236,7 +235,7 @@ describe('Browser: MainPage', function() {
             $scope: {}
           });
 
-          FlashStateModel.setProgressState({
+          flashState.setProgressState({
             type: 'write',
             percentage: 0,
             eta: 15,
@@ -252,7 +251,7 @@ describe('Browser: MainPage', function() {
             $scope: {}
           });
 
-          FlashStateModel.setProgressState({
+          flashState.setProgressState({
             type: 'write',
             percentage: 0,
             eta: 15,
@@ -268,7 +267,7 @@ describe('Browser: MainPage', function() {
             $scope: {}
           });
 
-          FlashStateModel.setProgressState({
+          flashState.setProgressState({
             type: 'write',
             percentage: 0,
             eta: 15,
@@ -284,7 +283,7 @@ describe('Browser: MainPage', function() {
             $scope: {}
           });
 
-          FlashStateModel.setProgressState({
+          flashState.setProgressState({
             type: 'check',
             percentage: 0,
             eta: 15,
@@ -300,7 +299,7 @@ describe('Browser: MainPage', function() {
             $scope: {}
           });
 
-          FlashStateModel.setProgressState({
+          flashState.setProgressState({
             type: 'check',
             percentage: 0,
             eta: 15,
@@ -316,7 +315,7 @@ describe('Browser: MainPage', function() {
             $scope: {}
           });
 
-          FlashStateModel.setProgressState({
+          flashState.setProgressState({
             type: 'write',
             percentage: 50,
             eta: 15,
@@ -332,7 +331,7 @@ describe('Browser: MainPage', function() {
             $scope: {}
           });
 
-          FlashStateModel.setProgressState({
+          flashState.setProgressState({
             type: 'write',
             percentage: 50,
             eta: 15,
@@ -348,7 +347,7 @@ describe('Browser: MainPage', function() {
             $scope: {}
           });
 
-          FlashStateModel.setProgressState({
+          flashState.setProgressState({
             type: 'check',
             percentage: 50,
             eta: 15,
@@ -364,7 +363,7 @@ describe('Browser: MainPage', function() {
             $scope: {}
           });
 
-          FlashStateModel.setProgressState({
+          flashState.setProgressState({
             type: 'check',
             percentage: 50,
             eta: 15,
@@ -380,7 +379,7 @@ describe('Browser: MainPage', function() {
             $scope: {}
           });
 
-          FlashStateModel.setProgressState({
+          flashState.setProgressState({
             type: 'write',
             percentage: 100,
             eta: 15,
@@ -396,7 +395,7 @@ describe('Browser: MainPage', function() {
             $scope: {}
           });
 
-          FlashStateModel.setProgressState({
+          flashState.setProgressState({
             type: 'write',
             percentage: 100,
             eta: 15,
@@ -412,7 +411,7 @@ describe('Browser: MainPage', function() {
             $scope: {}
           });
 
-          FlashStateModel.setProgressState({
+          flashState.setProgressState({
             type: 'check',
             percentage: 100,
             eta: 15,
@@ -428,7 +427,7 @@ describe('Browser: MainPage', function() {
             $scope: {}
           });
 
-          FlashStateModel.setProgressState({
+          flashState.setProgressState({
             type: 'check',
             percentage: 100,
             eta: 15,
