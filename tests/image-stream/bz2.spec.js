@@ -41,11 +41,11 @@ describe('ImageStream: BZ2', function() {
 
   describe('.getImageMetadata()', function() {
 
-    it('should return the correct metadata', function(done) {
+    it('should return the correct metadata', function() {
       const image = path.join(BZ2_PATH, 'raspberrypi.img.bz2');
       const expectedSize = fs.statSync(image).size;
 
-      imageStream.getImageMetadata(image).then((metadata) => {
+      return imageStream.getImageMetadata(image).then((metadata) => {
         m.chai.expect(metadata).to.deep.equal({
           path: image,
           size: {
@@ -56,7 +56,6 @@ describe('ImageStream: BZ2', function() {
             }
           }
         });
-        done();
       });
     });
 

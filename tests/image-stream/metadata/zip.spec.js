@@ -68,42 +68,42 @@ describe('ImageStream: Metadata ZIP', function() {
       archive,
       path.join(IMAGES_PATH, 'raspberrypi.img'));
 
-    it('should read the manifest name property', function(done) {
-      testMetadataProperty(archive, 'name', 'Raspberry Pi').asCallback(done);
+    it('should read the manifest name property', function() {
+      return testMetadataProperty(archive, 'name', 'Raspberry Pi');
     });
 
-    it('should read the manifest version property', function(done) {
-      testMetadataProperty(archive, 'version', '1.0.0').asCallback(done);
+    it('should read the manifest version property', function() {
+      return testMetadataProperty(archive, 'version', '1.0.0');
     });
 
-    it('should read the manifest url property', function(done) {
-      testMetadataProperty(archive, 'url', 'https://www.raspberrypi.org').asCallback(done);
+    it('should read the manifest url property', function() {
+      return testMetadataProperty(archive, 'url', 'https://www.raspberrypi.org');
     });
 
-    it('should read the manifest supportUrl property', function(done) {
+    it('should read the manifest supportUrl property', function() {
       const expectedValue = 'https://www.raspberrypi.org/forums/';
-      testMetadataProperty(archive, 'supportUrl', expectedValue).asCallback(done);
+      return testMetadataProperty(archive, 'supportUrl', expectedValue);
     });
 
-    it('should read the manifest releaseNotesUrl property', function(done) {
+    it('should read the manifest releaseNotesUrl property', function() {
       const expectedValue = 'http://downloads.raspberrypi.org/raspbian/release_notes.txt';
-      testMetadataProperty(archive, 'releaseNotesUrl', expectedValue).asCallback(done);
+      return testMetadataProperty(archive, 'releaseNotesUrl', expectedValue);
     });
 
-    it('should read the manifest checksumType property', function(done) {
-      testMetadataProperty(archive, 'checksumType', 'md5').asCallback(done);
+    it('should read the manifest checksumType property', function() {
+      return testMetadataProperty(archive, 'checksumType', 'md5');
     });
 
-    it('should read the manifest checksum property', function(done) {
-      testMetadataProperty(archive, 'checksum', 'add060b285d512f56c175b76b7ef1bee').asCallback(done);
+    it('should read the manifest checksum property', function() {
+      return testMetadataProperty(archive, 'checksum', 'add060b285d512f56c175b76b7ef1bee');
     });
 
-    it('should read the manifest bytesToZeroOutFromTheBeginning property', function(done) {
-      testMetadataProperty(archive, 'bytesToZeroOutFromTheBeginning', 512).asCallback(done);
+    it('should read the manifest bytesToZeroOutFromTheBeginning property', function() {
+      return testMetadataProperty(archive, 'bytesToZeroOutFromTheBeginning', 512);
     });
 
-    it('should read the manifest recommendedDriveSize property', function(done) {
-      testMetadataProperty(archive, 'recommendedDriveSize', 4294967296).asCallback(done);
+    it('should read the manifest recommendedDriveSize property', function() {
+      return testMetadataProperty(archive, 'recommendedDriveSize', 4294967296);
     });
 
   });
@@ -119,8 +119,8 @@ describe('ImageStream: Metadata ZIP', function() {
       ''
     ].join('\n');
 
-    it('should read the logo contents', function(done) {
-      testMetadataProperty(archive, 'logo', logo).asCallback(done);
+    it('should read the logo contents', function() {
+      return testMetadataProperty(archive, 'logo', logo);
     });
 
   });
@@ -145,8 +145,8 @@ describe('ImageStream: Metadata ZIP', function() {
       ''
     ].join('\n');
 
-    it('should read the bmap contents', function(done) {
-      testMetadataProperty(archive, 'bmap', bmap).asCallback(done);
+    it('should read the bmap contents', function() {
+      return testMetadataProperty(archive, 'bmap', bmap);
     });
 
   });
@@ -162,8 +162,8 @@ describe('ImageStream: Metadata ZIP', function() {
       ''
     ].join('\n');
 
-    it('should read the instruction contents', function(done) {
-      testMetadataProperty(archive, 'instructions', instructions).asCallback(done);
+    it('should read the instruction contents', function() {
+      return testMetadataProperty(archive, 'instructions', instructions);
     });
 
   });

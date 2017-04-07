@@ -41,12 +41,12 @@ describe('ImageStream: XZ', function() {
 
   describe('.getImageMetadata()', function() {
 
-    it('should return the correct metadata', function(done) {
+    it('should return the correct metadata', function() {
       const image = path.join(XZ_PATH, 'raspberrypi.img.xz');
       const compressedSize = fs.statSync(image).size;
       const uncompressedSize = fs.statSync(path.join(IMAGES_PATH, 'raspberrypi.img')).size;
 
-      imageStream.getImageMetadata(image).then((metadata) => {
+      return imageStream.getImageMetadata(image).then((metadata) => {
         m.chai.expect(metadata).to.deep.equal({
           path: image,
           size: {
@@ -57,7 +57,6 @@ describe('ImageStream: XZ', function() {
             }
           }
         });
-        done();
       });
     });
 
