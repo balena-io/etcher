@@ -34,11 +34,10 @@ NPM_MODULES=($(jq -r '.dependencies | keys | .[]' "$PACKAGE_JSON"))
 NPM_OPTIONAL_MODULES=($(jq -r '.optionalDependencies | keys | .[]' "$PACKAGE_JSON"))
 NPM_DEV_MODULES=($(jq -r '.devDependencies | keys | .[]' "$PACKAGE_JSON"))
 
-
 DEV_FILES_REGEX=^\(tests\|scripts\)/
-
 # need to do a non-greedy match, which is why we're not using (.*)
 REQUIRE_REGEX=require\\\(\'\([-_/\.a-z0-9]+\)\'\\\)
+JS_OR_JSON_REGEX=\.js\(on\)?$
 
 # Check all js files stored in the repo can require() the packages they need
 git ls-tree -r HEAD | while IFS='' read line; do
@@ -54,12 +53,21 @@ git ls-tree -r HEAD | while IFS='' read line; do
           required=${BASH_REMATCH[1]}
         fi
         requirement_found=0
+        is_local=0
         if [[ "$required" =~ "/" ]]; then
-          localpath="$(dirname "$fullpath")/$required"
-          if [[ -f "$localpath" ]] || [[ -f "$localpath.js" ]] || [[ -f "$localpath/index.js" ]]; then
-            requirement_found=1
+          if [[ "$required" =~ ^\.\.?/ ]]; then
+            is_local=1
+            localpath="$(dirname "$fullpath")/$required"
+            if [[ "$localpath" =~ $JS_OR_JSON_REGEX ]] && [[ -f "$localpath" ]]; then
+              requirement_found=1
+            elif [[ -f "$localpath.js" ]] || [[ -f "$localpath/index.js" ]]; then
+              requirement_found=1
+            fi
+          else
+            required=${required%%/*}
           fi
-        else
+        fi
+        if [[ $is_local -eq 0 ]]; then
           # electron is implictly available
           if [[ "$required" == "electron" ]]; then
               requirement_found=1
