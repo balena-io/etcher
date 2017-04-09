@@ -44,22 +44,21 @@ const deleteIfExists = (file) => {
 };
 
 exports.expectError = function(file, errorMessage) {
-  it('should be rejected with an error', function(done) {
-    imageStream.getFromFilePath(file).catch((error) => {
+  it('should be rejected with an error', function() {
+    return imageStream.getFromFilePath(file).catch((error) => {
       m.chai.expect(error).to.be.an.instanceof(Error);
       m.chai.expect(error.message).to.equal(errorMessage);
       m.chai.expect(error.description).to.be.a.string;
       m.chai.expect(error.description.length > 0).to.be.true;
-      done();
     });
   });
 };
 
 exports.extractFromFilePath = function(file, image) {
-  it('should be able to extract the image', function(done) {
+  it('should be able to extract the image', function() {
     const output = tmp.tmpNameSync();
 
-    imageStream.getFromFilePath(file).then(function(results) {
+    return imageStream.getFromFilePath(file).then(function(results) {
       if (!_.some([
         results.size.original === fs.statSync(file).size,
         results.size.original === fs.statSync(image).size
@@ -81,6 +80,6 @@ exports.extractFromFilePath = function(file, image) {
       m.chai.expect(areEqual).to.be.true;
     }).finally(function() {
       return deleteIfExists(output);
-    }).nodeify(done);
+    });
   });
 };

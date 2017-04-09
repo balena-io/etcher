@@ -34,10 +34,10 @@ describe('ImageStream: Archive hooks: ZIP', function() {
         this.zip = path.join(ZIP_PATH, 'zip-directory-empty.zip');
       });
 
-      it('should become an empty array', function(done) {
-        zipHooks.getEntries(this.zip).then((entries) => {
+      it('should become an empty array', function() {
+        return zipHooks.getEntries(this.zip).then((entries) => {
           m.chai.expect(entries).to.deep.equal([]);
-        }).asCallback(done);
+        });
       });
 
     });
@@ -48,8 +48,8 @@ describe('ImageStream: Archive hooks: ZIP', function() {
         this.zip = path.join(ZIP_PATH, 'zip-directory-multiple-images.zip');
       });
 
-      it('should become all entries', function(done) {
-        zipHooks.getEntries(this.zip).then((entries) => {
+      it('should become all entries', function() {
+        return zipHooks.getEntries(this.zip).then((entries) => {
           m.chai.expect(entries).to.deep.equal([
             {
               name: 'multiple-images/edison-config.img',
@@ -60,7 +60,7 @@ describe('ImageStream: Archive hooks: ZIP', function() {
               size: 33554432
             }
           ]);
-        }).asCallback(done);
+        });
       });
 
     });
@@ -71,8 +71,8 @@ describe('ImageStream: Archive hooks: ZIP', function() {
         this.zip = path.join(ZIP_PATH, 'zip-directory-nested-misc.zip');
       });
 
-      it('should become all entries', function(done) {
-        zipHooks.getEntries(this.zip).then((entries) => {
+      it('should become all entries', function() {
+        return zipHooks.getEntries(this.zip).then((entries) => {
           m.chai.expect(entries).to.deep.equal([
             {
               name: 'zip-directory-nested-misc/foo',
@@ -83,7 +83,7 @@ describe('ImageStream: Archive hooks: ZIP', function() {
               size: 4
             }
           ]);
-        }).asCallback(done);
+        });
       });
 
     });
@@ -96,45 +96,41 @@ describe('ImageStream: Archive hooks: ZIP', function() {
       this.zip = path.join(ZIP_PATH, 'zip-directory-nested-misc.zip');
     });
 
-    it('should be able to extract a top-level file', function(done) {
+    it('should be able to extract a top-level file', function() {
       const fileName = 'zip-directory-nested-misc/foo';
-      zipHooks.getEntries(this.zip).then((entries) => {
+      return zipHooks.getEntries(this.zip).then((entries) => {
         return zipHooks.extractFile(this.zip, entries, fileName);
       }).then(utils.extractStream).then((data) => {
         m.chai.expect(data.toString()).to.equal('foo\n');
-        done();
       });
     });
 
-    it('should be able to extract a nested file', function(done) {
+    it('should be able to extract a nested file', function() {
       const fileName = 'zip-directory-nested-misc/hello/there/bar';
-      zipHooks.getEntries(this.zip).then((entries) => {
+      return zipHooks.getEntries(this.zip).then((entries) => {
         return zipHooks.extractFile(this.zip, entries, fileName);
       }).then(utils.extractStream).then((data) => {
         m.chai.expect(data.toString()).to.equal('bar\n');
-        done();
       });
     });
 
-    it('should throw if the entry does not exist', function(done) {
+    it('should throw if the entry does not exist', function() {
       const fileName = 'zip-directory-nested-misc/xxxxxxxxxxxxxxxx';
-      zipHooks.getEntries(this.zip).then((entries) => {
+      return zipHooks.getEntries(this.zip).then((entries) => {
         return zipHooks.extractFile(this.zip, entries, fileName);
       }).catch((error) => {
         m.chai.expect(error).to.be.an.instanceof(Error);
         m.chai.expect(error.message).to.equal(`Invalid entry: ${fileName}`);
-        done();
       });
     });
 
-    it('should throw if the entry is a directory', function(done) {
+    it('should throw if the entry is a directory', function() {
       const fileName = 'zip-directory-nested-misc/hello';
-      zipHooks.getEntries(this.zip).then((entries) => {
+      return zipHooks.getEntries(this.zip).then((entries) => {
         return zipHooks.extractFile(this.zip, entries, fileName);
       }).catch((error) => {
         m.chai.expect(error).to.be.an.instanceof(Error);
         m.chai.expect(error.message).to.equal(`Invalid entry: ${fileName}`);
-        done();
       });
     });
 

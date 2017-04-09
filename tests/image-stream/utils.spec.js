@@ -97,11 +97,10 @@ describe('ImageStream: Utils', function() {
         };
       });
 
-      it('should yield the stream data', function(done) {
-        utils.extractStream(this.stream).then((data) => {
+      it('should yield the stream data', function() {
+        return utils.extractStream(this.stream).then((data) => {
           m.chai.expect(data.toString()).to.equal('Hello World');
-          done();
-        }).catch(done);
+        });
       });
 
     });
@@ -121,11 +120,10 @@ describe('ImageStream: Utils', function() {
         };
       });
 
-      it('should be rejected with the error', function(done) {
-        utils.extractStream(this.stream).catch((error) => {
+      it('should be rejected with the error', function() {
+        return utils.extractStream(this.stream).catch((error) => {
           m.chai.expect(error).to.be.an.instanceof(Error);
           m.chai.expect(error.message).to.equal('stream error');
-          done();
         });
       });
 
