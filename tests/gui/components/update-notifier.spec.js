@@ -4,9 +4,18 @@ const m = require('mochainon');
 const angular = require('angular');
 const units = require('../../../lib/shared/units');
 const settings = require('../../../lib/gui/models/settings');
+const analytics = require('../../../lib/shared/analytics');
 require('angular-mocks');
 
 describe('Browser: UpdateNotifier', function() {
+
+  before(function() {
+    analytics.disableConsoleOutput();
+  });
+
+  after(function() {
+    analytics.enableConsoleOutput();
+  });
 
   beforeEach(angular.mock.module(
     require('../../../lib/gui/components/update-notifier/update-notifier')

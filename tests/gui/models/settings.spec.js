@@ -4,8 +4,13 @@ const m = require('mochainon');
 const _ = require('lodash');
 const Store = require('../../../lib/gui/models/store');
 const settings = require('../../../lib/gui/models/settings');
+const analytics = require('../../../lib/shared/analytics');
 
 describe('Browser: settings', function() {
+
+  before(function() {
+    analytics.disableConsoleOutput();
+  });
 
   describe('settings', function() {
 

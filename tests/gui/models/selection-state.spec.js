@@ -4,9 +4,18 @@ const m = require('mochainon');
 const _ = require('lodash');
 const path = require('path');
 const angular = require('angular');
+const analytics = require('../../../lib/shared/analytics');
 require('angular-mocks');
 
 describe('Browser: SelectionState', function() {
+
+  before(function() {
+    analytics.disableConsoleOutput();
+  });
+
+  after(function() {
+    analytics.enableConsoleOutput();
+  });
 
   beforeEach(angular.mock.module(
     require('../../../lib/gui/models/selection-state')
