@@ -114,6 +114,9 @@ git ls-tree -r HEAD | while IFS='' read line; do
           exit 1
         fi
       done
+      # see http://unix.stackexchange.com/a/213112
+      err=$?
+      if [[ $err -ne 0 ]]; then exit $err; fi
     fi
   fi
 done
