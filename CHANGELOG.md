@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.0.0-rc.1 - 2017-04-10
+
+### Features
+
+- Add the un-truncated drive description to the selected drive step tooltip.
+- Prevent flashing an image that is larger than the drive with the CLI.
+
+### Fixes
+
+- Prevent progress button percentage to exceed 100%.
+- Don't print stack traces by default in the CLI.
+- Prevent blank application when sending SIGINT on GNU/Linux and macOS.
+- Fix unmounting freezing in macOS.
+- Fix GNU/Linux udev error when `net.ifnames` is set.
+- Fix `ENOSPC` image alignment errors.
+- Fix errors when unplugging drives exactly when the drive scanning scripts are running.
+- Fix several unmount related issues in all platforms.
+- Fix "rawr i'm a dinosaur" bzip2 error.
+
+### Misc
+
+- Make errors more user friendly throughout the application.
+- Don't report "invalid archive" errors to TrackJS.
+- Stop drive scanning loop if an error occurs.
+- Don't include user paths in Mixpanel analytics events.
+- Provide a user friendly error message when no polkit authentication agent is available on the system.
+- Show friendly drive name instead of device name in the main screen.
+- Start reporting errors to Sentry instead of to TrackJS.
+
 ## v1.0.0-beta.19 - 2017-02-24
 
 ### Features
