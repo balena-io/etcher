@@ -26,31 +26,35 @@ function usage() {
   echo ""
   echo "Options"
   echo ""
-  echo "    -c <command>"
+  echo "    -p <property>"
+  echo "    -v <value>"
   echo "    -f <file>"
   echo "    -t <temporary directory>"
   exit 1
 }
 
-ARGV_COMMAND=""
+ARGV_PROPERTY=""
+ARGV_VALUE=""
 ARGV_FILE=""
 ARGV_TEMPORARY_DIRECTORY=""
 
-while getopts ":c:f:t:" option; do
+while getopts ":p:v:f:t:" option; do
   case $option in
-    c) ARGV_COMMAND=$OPTARG ;;
+    p) ARGV_PROPERTY=$OPTARG ;;
+    v) ARGV_VALUE=$OPTARG ;;
     f) ARGV_FILE=$OPTARG ;;
     t) ARGV_TEMPORARY_DIRECTORY="$OPTARG" ;;
     *) usage ;;
   esac
 done
 
-if [ -z "$ARGV_COMMAND" ] ||
+if [ -z "$ARGV_PROPERTY" ] ||
+   [ -z "$ARGV_VALUE" ] ||
    [ -z "$ARGV_FILE" ] ||
    [ -z "$ARGV_TEMPORARY_DIRECTORY" ]; then
   usage
 fi
 
 TEMPORARY_FILE="$ARGV_TEMPORARY_DIRECTORY/$(basename "$ARGV_FILE").TMP"
-jq "$ARGV_COMMAND" "$ARGV_FILE" > "$TEMPORARY_FILE"
+jq "$ARGV_PROPERTY=\"$ARGV_VALUE\"" "$ARGV_FILE" > "$TEMPORARY_FILE"
 mv "$TEMPORARY_FILE" "$ARGV_FILE"

@@ -210,15 +210,17 @@ $(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_A
 	cp -RLf $< $@
 
 ifdef ANALYTICS_SENTRY_TOKEN
-	./scripts/build/jq-inplace.sh \
-		-c ".analytics.sentry.token = \"$(ANALYTICS_SENTRY_TOKEN)\"" \
+	./scripts/build/jq-insert.sh \
+		-p ".analytics.sentry.token" \
+		-v "$(ANALYTICS_SENTRY_TOKEN)" \
 		-f $@/package.json \
 		-t $(BUILD_TEMPORARY_DIRECTORY)
 endif
 
 ifdef ANALYTICS_MIXPANEL_TOKEN
-	./scripts/build/jq-inplace.sh \
-		-c ".analytics.mixpanel.token = \"$(ANALYTICS_MIXPANEL_TOKEN)\"" \
+	./scripts/build/jq-insert.sh \
+		-p ".analytics.mixpanel.token" \
+		-v "$(ANALYTICS_MIXPANEL_TOKEN)" \
 		-f $@/package.json \
 		-t $(BUILD_TEMPORARY_DIRECTORY)
 endif
