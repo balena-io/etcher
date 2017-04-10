@@ -2,6 +2,7 @@
 
 const m = require('mochainon');
 const angular = require('angular');
+const flashState = require('../../../lib/gui/models/flash-state');
 require('angular-mocks');
 
 describe('Browser: ImageWriter', function() {
@@ -10,22 +11,16 @@ describe('Browser: ImageWriter', function() {
     require('../../../lib/gui/modules/image-writer')
   ));
 
-  beforeEach(angular.mock.module(
-    require('../../../lib/gui/models/flash-state')
-  ));
-
   describe('ImageWriterService', function() {
 
     let $q;
     let $rootScope;
     let ImageWriterService;
-    let FlashStateModel;
 
-    beforeEach(angular.mock.inject(function(_$q_, _$rootScope_, _ImageWriterService_, _FlashStateModel_) {
+    beforeEach(angular.mock.inject(function(_$q_, _$rootScope_, _ImageWriterService_) {
       $q = _$q_;
       $rootScope = _$rootScope_;
       ImageWriterService = _ImageWriterService_;
-      FlashStateModel = _FlashStateModel_;
     }));
 
     describe('.flash()', function() {
@@ -45,18 +40,18 @@ describe('Browser: ImageWriter', function() {
         });
 
         it('should set flashing to false when done', function() {
-          FlashStateModel.unsetFlashingFlag({
+          flashState.unsetFlashingFlag({
             cancelled: false,
             sourceChecksum: '1234'
           });
 
           ImageWriterService.flash('foo.img', '/dev/disk2');
           $rootScope.$apply();
-          m.chai.expect(FlashStateModel.isFlashing()).to.be.false;
+          m.chai.expect(flashState.isFlashing()).to.be.false;
         });
 
         it('should prevent writing more than once', function() {
-          FlashStateModel.unsetFlashingFlag({
+          flashState.unsetFlashingFlag({
             cancelled: false,
             sourceChecksum: '1234'
           });
@@ -99,18 +94,18 @@ describe('Browser: ImageWriter', function() {
         it('should set flashing to false when done', function() {
           ImageWriterService.flash('foo.img', '/dev/disk2').catch(angular.noop);
           $rootScope.$apply();
-          m.chai.expect(FlashStateModel.isFlashing()).to.be.false;
+          m.chai.expect(flashState.isFlashing()).to.be.false;
         });
 
         it('should set the error code in the flash results', function() {
           ImageWriterService.flash('foo.img', '/dev/disk2').catch(angular.noop);
           $rootScope.$apply();
-          const flashResults = FlashStateModel.getFlashResults();
+          const flashResults = flashState.getFlashResults();
           m.chai.expect(flashResults.errorCode).to.equal('FOO');
         });
 
         it('should be rejected with the error', function() {
-          FlashStateModel.unsetFlashingFlag({
+          flashState.unsetFlashingFlag({
             cancelled: false,
             sourceChecksum: '1234'
           });
