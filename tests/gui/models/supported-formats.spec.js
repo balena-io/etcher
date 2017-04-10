@@ -129,7 +129,11 @@ describe('Browser: SupportedFormats', function() {
         'C:\\path\\to\\en_windows_10_multiple_editions_version_1607_updated_jan_2017_x64_dvd_9714399.iso',
         '/path/to/en_windows_10_multiple_editions_version_1607_updated_jan_2017_x64_dvd_9714399.iso',
         '/path/to/Win10_1607_SingleLang_English_x32.iso',
-        '/path/to/en_winxp_pro_x86_build2600_iso.img'
+        '/path/to/en_winxp_pro_x86_build2600_iso.img',
+        '/path/to/w10_july.img',
+        '/path/to/W10_july.img',
+        '/path/to/W8_july.img',
+        '/path/to/W7_july.img'
       ], (imagePath) => {
 
         it(`should return true if filename is ${imagePath}`, function() {
@@ -141,7 +145,10 @@ describe('Browser: SupportedFormats', function() {
 
       _.each([
         'C:\\path\\to\\2017-01-11-raspbian-jessie.img',
-        '/path/to/2017-01-11-raspbian-jessie.img'
+        '/path/to/2017-01-11-raspbian-jessie.img',
+        '/path/to/2017-01-11-foow10.img',
+        '/path/to/2017-01-11-foow8.img',
+        '/path/to/2017-01-11-foow7.img'
       ], (imagePath) => {
 
         it(`should return false if filename is ${imagePath}`, function() {
