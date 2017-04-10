@@ -36,97 +36,6 @@ describe('Shared: Errors', function() {
 
   });
 
-  describe('.shouldReport()', function() {
-
-    it('should return true for a string error', function() {
-      const error = 'foo';
-      m.chai.expect(errors.shouldReport(error)).to.be.true;
-    });
-
-    it('should return true for a number 0 error', function() {
-      const error = 0;
-      m.chai.expect(errors.shouldReport(error)).to.be.true;
-    });
-
-    it('should return true for a number 1 error', function() {
-      const error = 1;
-      m.chai.expect(errors.shouldReport(error)).to.be.true;
-    });
-
-    it('should return true for a number -1 error', function() {
-      const error = -1;
-      m.chai.expect(errors.shouldReport(error)).to.be.true;
-    });
-
-    it('should return true for an array error', function() {
-      const error = [ 1, 2, 3 ];
-      m.chai.expect(errors.shouldReport(error)).to.be.true;
-    });
-
-    it('should return true for an undefined error', function() {
-      const error = undefined;
-      m.chai.expect(errors.shouldReport(error)).to.be.true;
-    });
-
-    it('should return true for a null error', function() {
-      const error = null;
-      m.chai.expect(errors.shouldReport(error)).to.be.true;
-    });
-
-    it('should return true for an empty object error', function() {
-      const error = {};
-      m.chai.expect(errors.shouldReport(error)).to.be.true;
-    });
-
-    it('should return true for a basic error', function() {
-      const error = new Error('foo');
-      m.chai.expect(errors.shouldReport(error)).to.be.true;
-    });
-
-    it('should return true for an error with a report true property', function() {
-      const error = new Error('foo');
-      error.report = true;
-      m.chai.expect(errors.shouldReport(error)).to.be.true;
-    });
-
-    it('should return false for an error with a report false property', function() {
-      const error = new Error('foo');
-      error.report = false;
-      m.chai.expect(errors.shouldReport(error)).to.be.false;
-    });
-
-    it('should return false for an error with a report undefined property', function() {
-      const error = new Error('foo');
-      error.report = undefined;
-      m.chai.expect(errors.shouldReport(error)).to.be.false;
-    });
-
-    it('should return false for an error with a report null property', function() {
-      const error = new Error('foo');
-      error.report = null;
-      m.chai.expect(errors.shouldReport(error)).to.be.false;
-    });
-
-    it('should return false for an error with a report 0 property', function() {
-      const error = new Error('foo');
-      error.report = 0;
-      m.chai.expect(errors.shouldReport(error)).to.be.false;
-    });
-
-    it('should return true for an error with a report 1 property', function() {
-      const error = new Error('foo');
-      error.report = 1;
-      m.chai.expect(errors.shouldReport(error)).to.be.true;
-    });
-
-    it('should cast the report property to boolean', function() {
-      const error = new Error('foo');
-      error.report = '';
-      m.chai.expect(errors.shouldReport(error)).to.be.false;
-    });
-
-  });
-
   describe('.getTitle()', function() {
 
     it('should accept a string', function() {
@@ -480,25 +389,25 @@ describe('Shared: Errors', function() {
 
   describe('.createError()', function() {
 
-    it('should report the resulting error by default', function() {
+    it('should not set `error.report` by default', function() {
       const error = errors.createError('Foo', 'Something happened');
-      m.chai.expect(errors.shouldReport(error)).to.be.true;
+      m.chai.expect(error.report).to.be.undefined;
     });
 
-    it('should not report the error if report is false', function() {
+    it('should set `error.report` to false if `options.report` is false', function() {
       const error = errors.createError('Foo', 'Something happened', {
         report: false
       });
 
-      m.chai.expect(errors.shouldReport(error)).to.be.false;
+      m.chai.expect(error.report).to.be.false;
     });
 
-    it('should not report the error if report evaluates to false', function() {
+    it('should set `error.report` to false if `options.report` evaluates to false', function() {
       const error = errors.createError('Foo', 'Something happened', {
         report: 0
       });
 
-      m.chai.expect(errors.shouldReport(error)).to.be.false;
+      m.chai.expect(error.report).to.be.false;
     });
 
     it('should be an instance of Error', function() {
@@ -550,9 +459,9 @@ describe('Shared: Errors', function() {
 
   describe('.createUserError()', function() {
 
-    it('should not report the resulting error', function() {
+    it('should set the `report` flag to `false`', function() {
       const error = errors.createUserError('Foo', 'Something happened');
-      m.chai.expect(errors.shouldReport(error)).to.be.false;
+      m.chai.expect(error.report).to.be.false;
     });
 
     it('should be an instance of Error', function() {

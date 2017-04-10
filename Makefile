@@ -136,6 +136,18 @@ endif
 endif
 
 # ---------------------------------------------------------------------
+# Analytics
+# ---------------------------------------------------------------------
+
+ifndef ANALYTICS_SENTRY_TOKEN
+$(warning No Sentry token found (ANALYTICS_SENTRY_TOKEN is not set))
+endif
+
+ifndef ANALYTICS_MIXPANEL_TOKEN
+$(warning No Mixpanel token found (ANALYTICS_MIXPANEL_TOKEN is not set))
+endif
+
+# ---------------------------------------------------------------------
 # Extra variables
 # ---------------------------------------------------------------------
 
@@ -189,18 +201,29 @@ $(BUILD_DIRECTORY)/node-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/node_modu
 		-t node \
 		-s "$(TARGET_PLATFORM)"
 
-$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/bower_components: bower.json \
-	| $(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies
-	./scripts/build/dependencies-bower.sh -p -x $|
-
 $(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH)-app: \
 	$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/node_modules \
-	$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/bower_components \
-	| $(BUILD_DIRECTORY)
+	| $(BUILD_DIRECTORY) $(BUILD_TEMPORARY_DIRECTORY)
 	./scripts/build/electron-create-resources-app.sh -s . -o $@ \
 		-v $(APPLICATION_VERSION) \
 		-f "$(APPLICATION_FILES)"
-	$(foreach prerequisite,$^,$(call execute-command,cp -RLf $(prerequisite) $@))
+	cp -RLf $< $@
+
+ifdef ANALYTICS_SENTRY_TOKEN
+	./scripts/build/jq-insert.sh \
+		-p ".analytics.sentry.token" \
+		-v "$(ANALYTICS_SENTRY_TOKEN)" \
+		-f $@/package.json \
+		-t $(BUILD_TEMPORARY_DIRECTORY)
+endif
+
+ifdef ANALYTICS_MIXPANEL_TOKEN
+	./scripts/build/jq-insert.sh \
+		-p ".analytics.mixpanel.token" \
+		-v "$(ANALYTICS_MIXPANEL_TOKEN)" \
+		-f $@/package.json \
+		-t $(BUILD_TEMPORARY_DIRECTORY)
+endif
 
 $(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH)-app.asar: \
 	$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH)-app \
@@ -484,7 +507,6 @@ electron-develop:
 		-v "$(ELECTRON_VERSION)" \
 		-t electron \
 		-s "$(TARGET_PLATFORM)"
-	./scripts/build/dependencies-bower.sh
 
 help:
 	@echo "Available targets: $(TARGETS)"
@@ -510,6 +532,5 @@ clean:
 
 distclean: clean
 	rm -rf node_modules
-	rm -rf bower_components
 
 .DEFAULT_GOAL = help

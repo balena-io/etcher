@@ -26,7 +26,7 @@ RUN apt-get update && apt-get install -y \
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
   && apt-get install -y nodejs
 RUN npm config set spin=false
-RUN npm install -g bower asar electron-installer-debian
+RUN npm install -g asar electron-installer-debian
 
 # Python
 RUN pip install codespell==1.9.2 awscli
