@@ -4636,9 +4636,9 @@
       "dev": true
     },
     "mbr": {
-      "version": "1.1.0",
+      "version": "1.1.1",
       "from": "mbr@latest",
-      "resolved": "https://registry.npmjs.org/mbr/-/mbr-1.1.0.tgz"
+      "resolved": "https://registry.npmjs.org/mbr/-/mbr-1.1.1.tgz"
     },
     "meow": {
       "version": "3.7.0",
