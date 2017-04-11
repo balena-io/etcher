@@ -27,6 +27,7 @@ Makefile text
 *.icns binary
 *.ico binary
 *.img binary
+*.iso binary
 *.png binary
 *.xz binary
 *.zip binary

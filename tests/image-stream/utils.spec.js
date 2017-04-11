@@ -61,6 +61,13 @@ describe('ImageStream: Utils', function() {
       });
     });
 
+    it('should resolve application/octet-stream for an uncompressed iso', function() {
+      const file = path.join(DATA_PATH, 'images', 'raspberrypi.iso');
+      return utils.getArchiveMimeType(file).then((type) => {
+        m.chai.expect(type).to.equal('application/octet-stream');
+      });
+    });
+
     it('should resolve application/x-apple-diskimage for a compressed Apple disk image', function() {
       const file = path.join(DATA_PATH, 'dmg', 'zlib-compressed.dmg');
       return utils.getArchiveMimeType(file).then((type) => {
