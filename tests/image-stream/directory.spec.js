@@ -25,8 +25,6 @@ const imageStream = require('../../lib/image-stream/index');
 
 describe('ImageStream: Directory', function() {
 
-  this.timeout(20000);
-
   describe('.getFromFilePath()', function() {
 
     describe('given a directory', function() {
