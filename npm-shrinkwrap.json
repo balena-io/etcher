@@ -6772,9 +6772,9 @@
       "dev": true
     },
     "udif": {
-      "version": "0.7.0",
+      "version": "0.8.0",
       "from": "udif@latest",
-      "resolved": "https://registry.npmjs.org/udif/-/udif-0.7.0.tgz",
+      "resolved": "https://registry.npmjs.org/udif/-/udif-0.8.0.tgz",
       "dependencies": {
         "base64-js": {
           "version": "1.1.2",
