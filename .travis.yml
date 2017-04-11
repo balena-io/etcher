@@ -3,9 +3,6 @@ sudo: false
 node_js:
   - "6.1.0"
 
-git:
-  depth: 3
-
 services:
   - docker
 
