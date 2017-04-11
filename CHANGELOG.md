@@ -3,10 +3,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.0.0-rc.2 - 2017-04-11
+
+### Fixes
+
+- Display a user error if the image is no longer accessible when the writer starts.
+- Prevent uncaught `EISDIR` when dropping a directory to the application.
+- Fix "Path must be a string. Received undefined" when selecting Apple images.
+- Don't interpret certain ISO images as unsupported.
+
 ## v1.0.0-rc.1 - 2017-04-10
 
 ### Features
 
+- Add support for Apple Disk images.
 - Add the un-truncated drive description to the selected drive step tooltip.
 - Prevent flashing an image that is larger than the drive with the CLI.
 
