@@ -48,14 +48,49 @@ describe('ImageStream: IMG', function() {
         m.chai.expect(metadata).to.deep.equal({
           path: image,
           extension: 'img',
-          stream: null,
           size: {
             original: expectedSize,
             final: {
               estimation: false,
               value: expectedSize
             }
-          }
+          },
+          hasMBR: true,
+          hasGPT: false,
+          partitions: [
+            {
+              end: 49152,
+              extended: false,
+              id: null,
+              name: null,
+              start: 8192,
+              type: 11
+            },
+            {
+              end: 49154,
+              extended: false,
+              id: null,
+              name: null,
+              start: 49152,
+              type: 131
+            },
+            {
+              end: 49156,
+              extended: false,
+              id: null,
+              name: null,
+              start: 49154,
+              type: 131
+            },
+            {
+              end: 65536,
+              extended: true,
+              id: null,
+              name: null,
+              start: 49156,
+              type: 5
+            }
+          ]
         });
       });
     });
