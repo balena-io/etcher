@@ -17,29 +17,18 @@
 'use strict';
 
 const m = require('mochainon');
-const angular = require('angular');
-require('angular-mocks');
+const windowProgress = require('../../../lib/gui/os/window-progress');
 
-describe('Browser: OSWindowProgress', function() {
+describe('Browser: WindowProgress', function() {
 
-  beforeEach(angular.mock.module(
-    require('../../../lib/gui/os/window-progress/window-progress')
-  ));
-
-  describe('OSWindowProgressService', function() {
-
-    let OSWindowProgressService;
-
-    beforeEach(angular.mock.inject(function(_OSWindowProgressService_) {
-      OSWindowProgressService = _OSWindowProgressService_;
-    }));
+  describe('windowProgress', function() {
 
     describe('given a stubbed current window', function() {
 
       beforeEach(function() {
         this.setProgressBarSpy = m.sinon.spy();
 
-        OSWindowProgressService.currentWindow = {
+        windowProgress.currentWindow = {
           setProgressBar: this.setProgressBarSpy
         };
       });
@@ -47,30 +36,30 @@ describe('Browser: OSWindowProgress', function() {
       describe('.set()', function() {
 
         it('should translate 0-100 percentages to 0-1 ranges', function() {
-          OSWindowProgressService.set(85);
+          windowProgress.set(85);
           m.chai.expect(this.setProgressBarSpy).to.have.been.calledWith(0.85);
         });
 
         it('should set 0 given 0', function() {
-          OSWindowProgressService.set(0);
+          windowProgress.set(0);
           m.chai.expect(this.setProgressBarSpy).to.have.been.calledWith(0);
         });
 
         it('should set 1 given 100', function() {
-          OSWindowProgressService.set(100);
+          windowProgress.set(100);
           m.chai.expect(this.setProgressBarSpy).to.have.been.calledWith(1);
         });
 
         it('should throw if given a percentage higher than 100', function() {
           m.chai.expect(function() {
-            OSWindowProgressService.set(101);
-          }).to.throw('Invalid window progress percentage: 101');
+            windowProgress.set(101);
+          }).to.throw('Invalid percentage: 101');
         });
 
         it('should throw if given a percentage less than 0', function() {
           m.chai.expect(function() {
-            OSWindowProgressService.set(-1);
-          }).to.throw('Invalid window progress percentage: -1');
+            windowProgress.set(-1);
+          }).to.throw('Invalid percentage: -1');
         });
 
       });
@@ -78,7 +67,7 @@ describe('Browser: OSWindowProgress', function() {
       describe('.clear()', function() {
 
         it('should set -1', function() {
-          OSWindowProgressService.clear();
+          windowProgress.clear();
           m.chai.expect(this.setProgressBarSpy).to.have.been.calledWith(-1);
         });
 
