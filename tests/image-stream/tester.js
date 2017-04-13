@@ -59,6 +59,8 @@ exports.extractFromFilePath = function(file, image) {
     const output = tmp.tmpNameSync();
 
     return imageStream.getFromFilePath(file).then(function(results) {
+      m.chai.expect(results.path).to.equal(file);
+
       if (!_.some([
         results.size.original === fs.statSync(file).size,
         results.size.original === fs.statSync(image).size
