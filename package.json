@@ -58,7 +58,7 @@
     }
   },
   "optionalDependencies": {
-    "elevator": "^2.1.0"
+    "elevator": "^2.2.0"
   },
   "dependencies": {
     "angular": "1.6.3",
