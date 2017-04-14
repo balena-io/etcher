@@ -5846,9 +5846,9 @@
       }
     },
     "resin-corvus": {
-      "version": "1.0.0-beta.24",
+      "version": "1.0.0-beta.25",
       "from": "resin-corvus@latest",
-      "resolved": "https://registry.npmjs.org/resin-corvus/-/resin-corvus-1.0.0-beta.24.tgz",
+      "resolved": "https://registry.npmjs.org/resin-corvus/-/resin-corvus-1.0.0-beta.25.tgz",
       "dependencies": {
         "lodash": {
           "version": "4.17.4",
