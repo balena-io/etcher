@@ -74,7 +74,7 @@
     "command-join": "^2.0.0",
     "drivelist": "^5.0.16",
     "electron-is-running-in-asar": "^1.0.0",
-    "etcher-image-write": "^9.0.2",
+    "etcher-image-write": "^9.1.0",
     "etcher-latest-version": "^1.0.0",
     "file-type": "^4.1.0",
     "flexboxgrid": "^6.3.0",
