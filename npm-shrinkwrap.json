@@ -486,9 +486,9 @@
       "resolved": "https://registry.npmjs.org/bluebird-retry/-/bluebird-retry-0.10.1.tgz"
     },
     "bmapflash": {
-      "version": "1.2.0",
-      "from": "bmapflash@>=1.2.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/bmapflash/-/bmapflash-1.2.0.tgz",
+      "version": "1.2.1",
+      "from": "bmapflash@>=1.2.1 <2.0.0",
+      "resolved": "https://registry.npmjs.org/bmapflash/-/bmapflash-1.2.1.tgz",
       "dependencies": {
         "lodash": {
           "version": "4.17.4",
@@ -2193,9 +2193,9 @@
       "dev": true
     },
     "etcher-image-write": {
-      "version": "9.0.2",
-      "from": "etcher-image-write@9.0.2",
-      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-9.0.2.tgz",
+      "version": "9.1.0",
+      "from": "etcher-image-write@9.1.0",
+      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-9.1.0.tgz",
       "dependencies": {
         "bluebird": {
           "version": "3.5.0",
