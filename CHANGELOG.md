@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.0.0-rc.3 - 2017-04-14
+
+### Fixes
+
+- Show a user friendly message when the drive is unplugged half-way through.
+- Fix "UNKNOWN: unknown error" error when unplugging an SD Card from an internal reader on Windows.
+- Fix "function createError(opts) {}" error on validation failure.
+- Fix "Unmount failed, invalid drive" error on Windows.
+- Fix Apple disk image detection & streaming.
+
+### Misc
+
+- Improve error reporting accuracy.
+
 ## v1.0.0-rc.2 - 2017-04-11
 
 ### Fixes
