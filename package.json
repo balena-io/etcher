@@ -90,7 +90,7 @@
     "redux-localstorage": "^0.4.1",
     "resin-cli-form": "^1.4.1",
     "resin-cli-visuals": "^1.2.8",
-    "resin-corvus": "^1.0.0-beta.25",
+    "resin-corvus": "^1.0.0-beta.26",
     "rx": "^4.1.0",
     "semver": "^5.1.0",
     "sudo-prompt": "^6.1.0",
