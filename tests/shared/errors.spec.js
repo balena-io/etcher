@@ -389,33 +389,53 @@ describe('Shared: Errors', function() {
 
   describe('.createError()', function() {
 
-    it('should not set `error.report` by default', function() {
+    it('should not be a user error', function() {
       const error = errors.createError({
         title: 'Foo',
         description: 'Something happened'
       });
 
-      m.chai.expect(error.report).to.be.undefined;
+      m.chai.expect(errors.isUserError(error)).to.be.false;
     });
 
-    it('should set `error.report` to false if `options.report` is false', function() {
+    it('should be a user error if `options.report` is false', function() {
       const error = errors.createError({
         title: 'Foo',
         description: 'Something happened',
         report: false
       });
 
-      m.chai.expect(error.report).to.be.false;
+      m.chai.expect(errors.isUserError(error)).to.be.true;
     });
 
-    it('should set `error.report` to false if `options.report` evaluates to false', function() {
+    it('should be a user error if `options.report` evaluates to false', function() {
       const error = errors.createError({
         title: 'Foo',
         description: 'Something happened',
         report: 0
       });
 
-      m.chai.expect(error.report).to.be.false;
+      m.chai.expect(errors.isUserError(error)).to.be.true;
+    });
+
+    it('should not be a user error if `options.report` is true', function() {
+      const error = errors.createError({
+        title: 'Foo',
+        description: 'Something happened',
+        report: true
+      });
+
+      m.chai.expect(errors.isUserError(error)).to.be.false;
+    });
+
+    it('should not be a user error if `options.report` evaluates to true', function() {
+      const error = errors.createError({
+        title: 'Foo',
+        description: 'Something happened',
+        report: 1
+      });
+
+      m.chai.expect(errors.isUserError(error)).to.be.false;
     });
 
     it('should be an instance of Error', function() {
@@ -498,13 +518,13 @@ describe('Shared: Errors', function() {
 
   describe('.createUserError()', function() {
 
-    it('should set the `report` flag to `false`', function() {
+    it('should be a user error', function() {
       const error = errors.createUserError({
         title: 'Foo',
         description: 'Something happened'
       });
 
-      m.chai.expect(error.report).to.be.false;
+      m.chai.expect(errors.isUserError(error)).to.be.true;
     });
 
     it('should be an instance of Error', function() {
@@ -581,6 +601,41 @@ describe('Shared: Errors', function() {
           title: '   '
         });
       }).to.throw('Invalid error title:    ');
+    });
+
+  });
+
+  describe('.isUserError()', function() {
+
+    _.each([
+      0,
+      '',
+      false
+    ], (value) => {
+
+      it(`should return true if report equals ${value}`, function() {
+        const error = new Error('foo bar');
+        error.report = value;
+        m.chai.expect(errors.isUserError(error)).to.be.true;
+      });
+
+    });
+
+    _.each([
+      undefined,
+      null,
+      true,
+      1,
+      3,
+      'foo'
+    ], (value) => {
+
+      it(`should return false if report equals ${value}`, function() {
+        const error = new Error('foo bar');
+        error.report = value;
+        m.chai.expect(errors.isUserError(error)).to.be.false;
+      });
+
     });
 
   });
