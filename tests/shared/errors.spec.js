@@ -390,12 +390,18 @@ describe('Shared: Errors', function() {
   describe('.createError()', function() {
 
     it('should not set `error.report` by default', function() {
-      const error = errors.createError('Foo', 'Something happened');
+      const error = errors.createError({
+        title: 'Foo',
+        description: 'Something happened'
+      });
+
       m.chai.expect(error.report).to.be.undefined;
     });
 
     it('should set `error.report` to false if `options.report` is false', function() {
-      const error = errors.createError('Foo', 'Something happened', {
+      const error = errors.createError({
+        title: 'Foo',
+        description: 'Something happened',
         report: false
       });
 
@@ -403,7 +409,9 @@ describe('Shared: Errors', function() {
     });
 
     it('should set `error.report` to false if `options.report` evaluates to false', function() {
-      const error = errors.createError('Foo', 'Something happened', {
+      const error = errors.createError({
+        title: 'Foo',
+        description: 'Something happened',
         report: 0
       });
 
@@ -411,47 +419,78 @@ describe('Shared: Errors', function() {
     });
 
     it('should be an instance of Error', function() {
-      const error = errors.createError('Foo', 'Something happened');
+      const error = errors.createError({
+        title: 'Foo',
+        description: 'Something happened'
+      });
+
       m.chai.expect(error).to.be.an.instanceof(Error);
     });
 
-    it('should correctly add both a message and a description', function() {
-      const error = errors.createError('Foo', 'Something happened');
+    it('should correctly add both a title and a description', function() {
+      const error = errors.createError({
+        title: 'Foo',
+        description: 'Something happened'
+      });
+
       m.chai.expect(errors.getTitle(error)).to.equal('Foo');
       m.chai.expect(errors.getDescription(error)).to.equal('Something happened');
     });
 
-    it('should correctly add only a message', function() {
-      const error = errors.createError('Foo');
+    it('should correctly add only a title', function() {
+      const error = errors.createError({
+        title: 'Foo'
+      });
+
       m.chai.expect(errors.getTitle(error)).to.equal('Foo');
       m.chai.expect(errors.getDescription(error)).to.equal(error.stack);
     });
 
     it('should ignore an empty description', function() {
-      const error = errors.createError('Foo', '');
+      const error = errors.createError({
+        title: 'Foo',
+        description: ''
+      });
+
       m.chai.expect(errors.getDescription(error)).to.equal(error.stack);
     });
 
     it('should ignore a blank description', function() {
-      const error = errors.createError('Foo', '    ');
+      const error = errors.createError({
+        title: 'Foo',
+        description: '     '
+      });
+
       m.chai.expect(errors.getDescription(error)).to.equal(error.stack);
     });
 
-    it('should throw if no message', function() {
+    it('should throw if no title', function() {
       m.chai.expect(() => {
-        errors.createError();
+        errors.createError({});
       }).to.throw('Invalid error title: undefined');
     });
 
-    it('should throw if message is empty', function() {
+    it('should throw if there is a description but no title', function() {
       m.chai.expect(() => {
-        errors.createError('');
+        errors.createError({
+          description: 'foo'
+        });
+      }).to.throw('Invalid error title: undefined');
+    });
+
+    it('should throw if title is empty', function() {
+      m.chai.expect(() => {
+        errors.createError({
+          title: ''
+        });
       }).to.throw('Invalid error title: ');
     });
 
-    it('should throw if message is blank', function() {
+    it('should throw if title is blank', function() {
       m.chai.expect(() => {
-        errors.createError('   ');
+        errors.createError({
+          title: '    '
+        });
       }).to.throw('Invalid error title:    ');
     });
 
@@ -460,52 +499,87 @@ describe('Shared: Errors', function() {
   describe('.createUserError()', function() {
 
     it('should set the `report` flag to `false`', function() {
-      const error = errors.createUserError('Foo', 'Something happened');
+      const error = errors.createUserError({
+        title: 'Foo',
+        description: 'Something happened'
+      });
+
       m.chai.expect(error.report).to.be.false;
     });
 
     it('should be an instance of Error', function() {
-      const error = errors.createUserError('Foo', 'Something happened');
+      const error = errors.createUserError({
+        title: 'Foo',
+        description: 'Something happened'
+      });
+
       m.chai.expect(error).to.be.an.instanceof(Error);
     });
 
-    it('should correctly add both a message and a description', function() {
-      const error = errors.createUserError('Foo', 'Something happened');
+    it('should correctly add both a title and a description', function() {
+      const error = errors.createUserError({
+        title: 'Foo',
+        description: 'Something happened'
+      });
+
       m.chai.expect(errors.getTitle(error)).to.equal('Foo');
       m.chai.expect(errors.getDescription(error)).to.equal('Something happened');
     });
 
-    it('should correctly add only a message', function() {
-      const error = errors.createUserError('Foo');
+    it('should correctly add only a title', function() {
+      const error = errors.createUserError({
+        title: 'Foo'
+      });
+
       m.chai.expect(errors.getTitle(error)).to.equal('Foo');
       m.chai.expect(errors.getDescription(error)).to.equal(error.stack);
     });
 
     it('should ignore an empty description', function() {
-      const error = errors.createUserError('Foo', '');
+      const error = errors.createUserError({
+        title: 'Foo',
+        description: ''
+      });
+
       m.chai.expect(errors.getDescription(error)).to.equal(error.stack);
     });
 
     it('should ignore a blank description', function() {
-      const error = errors.createUserError('Foo', '    ');
+      const error = errors.createUserError({
+        title: 'Foo',
+        description: '     '
+      });
+
       m.chai.expect(errors.getDescription(error)).to.equal(error.stack);
     });
 
-    it('should throw if no message', function() {
+    it('should throw if no title', function() {
       m.chai.expect(() => {
-        errors.createUserError();
+        errors.createUserError({});
       }).to.throw('Invalid error title: undefined');
     });
 
-    it('should throw if message is empty', function() {
+    it('should throw if title is empty', function() {
       m.chai.expect(() => {
-        errors.createUserError('');
+        errors.createUserError({
+          title: ''
+        });
       }).to.throw('Invalid error title: ');
     });
 
-    it('should throw if message is blank', function() {
+    it('should throw if there is a description but no title', function() {
       m.chai.expect(() => {
-        errors.createUserError('   ');
+        errors.createUserError({
+          description: 'foo'
+        });
+      }).to.throw('Invalid error title: undefined');
+    });
+
+    it('should throw if title is blank', function() {
+      m.chai.expect(() => {
+        errors.createUserError({
+          title: '   '
+        });
       }).to.throw('Invalid error title:    ');
     });
 

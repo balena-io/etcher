@@ -120,7 +120,11 @@ functions: `.printError()` and `.recomposeErrorMessage()`.
 Here's an example of these functions in action:
 
 ```javascript
-const error = errors.createError('This is an error', 'My description');
+const error = errors.createError({
+  title: 'This is an error',
+  description: 'My description'
+});
+
 robot.printError(error);
 ```
 
