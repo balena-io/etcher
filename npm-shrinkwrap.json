@@ -1455,9 +1455,9 @@
       "dev": true
     },
     "drivelist": {
-      "version": "5.0.16",
-      "from": "drivelist@5.0.16",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-5.0.16.tgz",
+      "version": "5.0.19",
+      "from": "drivelist@5.0.19",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-5.0.19.tgz",
       "dependencies": {
         "lodash": {
           "version": "4.17.4",
