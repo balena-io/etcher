@@ -41,7 +41,6 @@ install:
       ./scripts/build/docker/run-command.sh -r "${TARGET_ARCH}" -s "${PWD}" -c "make info && make electron-develop";
     else
       pip install codespell==1.9.2 awscli;
-      npm install -g asar;
       brew install afsctool jq;
       make info;
       travis_wait make electron-develop;

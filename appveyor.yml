@@ -25,7 +25,6 @@ matrix:
 install:
   - ps: Install-Product node $env:nodejs_version x64
   - npm install -g npm@4.4.4
-  - npm install -g rimraf asar
   - choco install nsis -version 2.51
   - choco install jq
   - choco install curl
