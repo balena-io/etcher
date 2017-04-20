@@ -22,6 +22,23 @@ const robot = require('../../lib/shared/robot');
 
 describe('Shared: Robot', function() {
 
+  describe('.COMMAND', function() {
+
+    it('should be a plain object', function() {
+      m.chai.expect(_.isPlainObject(robot.COMMAND)).to.be.true;
+    });
+
+    it('should only contain string values', function() {
+      m.chai.expect(_.every(_.values(robot.COMMAND), _.isString)).to.be.true;
+    });
+
+    it('should contain only unique values', function() {
+      const numberOfKeys = _.size(_.keys(robot.COMMAND));
+      m.chai.expect(_.size(_.uniq(_.values(robot.COMMAND)))).to.equal(numberOfKeys);
+    });
+
+  });
+
   describe('.isEnabled()', function() {
 
     it('should return false if ETCHER_CLI_ROBOT is not set', function() {
@@ -193,7 +210,7 @@ describe('Shared: Robot', function() {
       const message = robot.buildErrorMessage(error);
 
       m.chai.expect(JSON.parse(message)).to.deep.equal({
-        command: 'error',
+        command: robot.COMMAND.ERROR,
         data: {
           message: 'foo',
           stack: error.stack
@@ -207,7 +224,7 @@ describe('Shared: Robot', function() {
       const message = robot.buildErrorMessage(error);
 
       m.chai.expect(JSON.parse(message)).to.deep.equal({
-        command: 'error',
+        command: robot.COMMAND.ERROR,
         data: {
           message: 'foo',
           description: 'error description',
@@ -222,7 +239,7 @@ describe('Shared: Robot', function() {
       const message = robot.buildErrorMessage(error);
 
       m.chai.expect(JSON.parse(message)).to.deep.equal({
-        command: 'error',
+        command: robot.COMMAND.ERROR,
         data: {
           message: 'foo',
           code: 'MYERROR',
