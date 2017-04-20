@@ -19,7 +19,9 @@
 set -u
 set -e
 
-./scripts/build/check-dependency.sh asar
+ASAR="./node_modules/.bin/asar"
+
+./scripts/build/check-dependency.sh "$ASAR"
 
 function usage() {
   echo "Usage: $0"
@@ -49,5 +51,5 @@ fi
 # Omit `*.dll` and `*.node` files from the
 # asar package, otherwise `process.dlopen` and
 # `module.require` can't load them correctly.
-asar pack "$ARGV_DIRECTORY" "$ARGV_OUTPUT" \
+"$ASAR" pack "$ARGV_DIRECTORY" "$ARGV_OUTPUT" \
   --unpack "{*.dll,*.node}"

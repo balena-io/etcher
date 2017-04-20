@@ -12,13 +12,11 @@ Prerequisites
 - [NodeJS](https://nodejs.org) (at least v6)
 - [Python](https://www.python.org)
 - [jq](https://stedolan.github.io/jq/)
-- [Asar](https://github.com/electron/asar)
 - [Codespell](https://github.com/lucasdemarchi/codespell)
 - [curl](https://curl.haxx.se/)
 
 ### Windows
 
-- [Rimraf](https://github.com/isaacs/rimraf)
 - [NSIS v2.51](http://nsis.sourceforge.net/Main_Page) (v3.x won't work)
 - Either one of the following:
   - [Visual C++ 2015 Build Tools](http://landinghub.visualstudio.com/visual-cpp-build-tools) containing standalone compilers, libraries and scripts
