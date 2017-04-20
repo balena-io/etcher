@@ -59,7 +59,7 @@
   },
   "optionalDependencies": {
     "electron-installer-debian": "^0.5.1",
-    "elevator": "^2.2.2"
+    "elevator": "^2.2.3"
   },
   "dependencies": {
     "angular": "1.6.3",
