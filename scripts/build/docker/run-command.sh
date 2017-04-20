@@ -89,6 +89,7 @@ done
 # The `-t` and TERM setup is needed to display coloured output.
 docker run -t \
   --env "TERM=xterm-256color" \
+  --env "TARGET_ARCH=$ARGV_ARCHITECTURE" \
   ${DOCKER_ENVVARS[@]+"${DOCKER_ENVVARS[@]}"} \
   --cap-add SYS_ADMIN \
   --device /dev/fuse:/dev/fuse:mrw \

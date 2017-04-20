@@ -1,4 +1,4 @@
-FROM toopher/ubuntu-i386:14.04
+FROM 32bit/debian:jessie
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \

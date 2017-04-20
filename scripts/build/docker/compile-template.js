@@ -31,11 +31,11 @@ const template = fs.readFileSync(path.join(currentDirectory, 'Dockerfile.templat
 _.each([
   {
     architecture: 'i686',
-    image: 'toopher/ubuntu-i386:14.04'
+    image: '32bit/debian:jessie'
   },
   {
     architecture: 'x86_64',
-    image: 'ubuntu:14.04'
+    image: 'debian:jessie'
   }
 ], (options) => {
   const result = _.template(template)(options);
