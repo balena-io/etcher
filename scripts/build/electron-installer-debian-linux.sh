@@ -25,7 +25,9 @@ if [[ "$OS" != "Linux" ]]; then
   exit 1
 fi
 
-./scripts/build/check-dependency.sh electron-installer-debian
+ELECTRON_INSTALLER_DEBIAN="./node_modules/.bin/electron-installer-debian"
+
+./scripts/build/check-dependency.sh "$ELECTRON_INSTALLER_DEBIAN"
 
 function usage() {
   echo "Usage: $0"
@@ -65,7 +67,7 @@ fi
 DEBIAN_ARCHITECTURE=$(./scripts/build/architecture-convert.sh -r "$ARGV_ARCHITECTURE" -t debian)
 
 cp scripts/build/debian/etcher-electron.sh "$ARGV_DIRECTORY"
-electron-installer-debian \
+"$ELECTRON_INSTALLER_DEBIAN" \
   --src "$ARGV_DIRECTORY" \
   --dest "$ARGV_OUTPUT" \
   --config "$ARGV_DEBIAN_CONFIGURATION" \
