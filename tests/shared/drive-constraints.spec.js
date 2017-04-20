@@ -837,7 +837,7 @@ describe('Shared: DriveConstraints', function() {
     describe('given the drive contains the image', () => {
 
       it('should return the contains-image error', function() {
-        this.image.path = `${this.mountpoint}${this.separator}rpi.img`;
+        this.image.path = path.join(this.mountpoint, 'rpi.img');
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image);
         const expectedTuples = [ [ 'ERROR', 'CONTAINS_IMAGE' ] ];
@@ -949,7 +949,7 @@ describe('Shared: DriveConstraints', function() {
 
       it('should return the contains-image drive error by precedence', function() {
         this.drive.protected = true;
-        this.image.path = `${this.mountpoint}${this.separator}rpi.img`;
+        this.image.path = path.join(this.mountpoint, 'rpi.img');
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image);
         const expectedTuples = [ [ 'ERROR', 'CONTAINS_IMAGE' ] ];
