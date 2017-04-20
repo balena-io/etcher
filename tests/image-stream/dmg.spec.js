@@ -73,6 +73,7 @@ describe('ImageStream: DMG', function () {
     describe('.getImageMetadata()', function () {
       it('should return the correct metadata', function () {
         const image = path.join(DMG_PATH, 'etcher-test-zlib.dmg')
+        const compressedSize = fs.statSync(path.join(DMG_PATH, 'etcher-test-zlib.dmg')).size
         const uncompressedSize = fs.statSync(path.join(IMAGES_PATH, 'etcher-test.img')).size
 
         return imageStream.getImageMetadata(image).then((metadata) => {
@@ -80,7 +81,7 @@ describe('ImageStream: DMG', function () {
             path: image,
             extension: 'dmg',
             size: {
-              original: uncompressedSize,
+              original: compressedSize,
               final: {
                 estimation: false,
                 value: uncompressedSize
@@ -107,6 +108,7 @@ describe('ImageStream: DMG', function () {
     describe('.getImageMetadata()', function () {
       it('should return the correct metadata', function () {
         const image = path.join(DMG_PATH, 'etcher-test-raw.dmg')
+        const compressedSize = fs.statSync(path.join(DMG_PATH, 'etcher-test-raw.dmg')).size
         const uncompressedSize = fs.statSync(path.join(IMAGES_PATH, 'etcher-test.img')).size
 
         return imageStream.getImageMetadata(image).then((metadata) => {
@@ -114,7 +116,7 @@ describe('ImageStream: DMG', function () {
             path: image,
             extension: 'dmg',
             size: {
-              original: uncompressedSize,
+              original: compressedSize,
               final: {
                 estimation: false,
                 value: uncompressedSize
