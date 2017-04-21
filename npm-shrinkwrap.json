@@ -4812,9 +4812,9 @@
       "resolved": "https://registry.npmjs.org/moment-duration-format/-/moment-duration-format-1.3.0.tgz"
     },
     "mountutils": {
-      "version": "1.0.5",
-      "from": "mountutils@1.0.5",
-      "resolved": "https://registry.npmjs.org/mountutils/-/mountutils-1.0.5.tgz",
+      "version": "1.0.6",
+      "from": "mountutils@1.0.6",
+      "resolved": "https://registry.npmjs.org/mountutils/-/mountutils-1.0.6.tgz",
       "dependencies": {
         "nan": {
           "version": "2.6.1",
