@@ -5,6 +5,10 @@ const flashState = require('../../../lib/gui/models/flash-state');
 
 describe('Browser: flashState', function() {
 
+  beforeEach(function() {
+    flashState.resetState();
+  });
+
   describe('flashState', function() {
 
     describe('.resetState()', function() {
@@ -34,6 +38,18 @@ describe('Browser: flashState', function() {
 
         flashState.resetState();
         m.chai.expect(flashState.getFlashResults()).to.deep.equal({});
+      });
+
+      it('should unset the flashing flag', function() {
+        flashState.setFlashingFlag();
+        flashState.resetState();
+        m.chai.expect(flashState.isFlashing()).to.be.false;
+      });
+
+      it('should unset the flash uuid', function() {
+        flashState.setFlashingFlag();
+        flashState.resetState();
+        m.chai.expect(flashState.getFlashUuid()).to.be.undefined;
       });
 
     });
@@ -337,6 +353,19 @@ describe('Browser: flashState', function() {
         });
       });
 
+      it('should not reset the flash uuid', function() {
+        flashState.setFlashingFlag();
+        const uuidBeforeUnset = flashState.getFlashUuid();
+
+        flashState.unsetFlashingFlag({
+          sourceChecksum: '1234',
+          cancelled: false
+        });
+
+        const uuidAfterUnset = flashState.getFlashUuid();
+        m.chai.expect(uuidBeforeUnset).to.equal(uuidAfterUnset);
+      });
+
     });
 
     describe('.setFlashingFlag()', function() {
@@ -437,6 +466,52 @@ describe('Browser: flashState', function() {
         });
 
         m.chai.expect(flashState.getLastFlashErrorCode()).to.be.undefined;
+      });
+
+    });
+
+    describe('.getFlashUuid()', function() {
+
+      const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+
+      it('should be initially undefined', function() {
+        m.chai.expect(flashState.getFlashUuid()).to.be.undefined;
+      });
+
+      it('should be a valid uuid if the flashing flag is set', function() {
+        flashState.setFlashingFlag();
+        const uuid = flashState.getFlashUuid();
+        m.chai.expect(UUID_REGEX.test(uuid)).to.be.true;
+      });
+
+      it('should return different uuids every time the flashing flag is set', function() {
+        flashState.setFlashingFlag();
+        const uuid1 = flashState.getFlashUuid();
+        flashState.unsetFlashingFlag({
+          sourceChecksum: '1234',
+          cancelled: false
+        });
+
+        flashState.setFlashingFlag();
+        const uuid2 = flashState.getFlashUuid();
+        flashState.unsetFlashingFlag({
+          cancelled: true
+        });
+
+        flashState.setFlashingFlag();
+        const uuid3 = flashState.getFlashUuid();
+        flashState.unsetFlashingFlag({
+          sourceChecksum: '1234',
+          cancelled: false
+        });
+
+        m.chai.expect(UUID_REGEX.test(uuid1)).to.be.true;
+        m.chai.expect(UUID_REGEX.test(uuid2)).to.be.true;
+        m.chai.expect(UUID_REGEX.test(uuid3)).to.be.true;
+
+        m.chai.expect(uuid1).to.not.equal(uuid2);
+        m.chai.expect(uuid2).to.not.equal(uuid3);
+        m.chai.expect(uuid3).to.not.equal(uuid1);
       });
 
     });
