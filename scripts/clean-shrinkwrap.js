@@ -38,7 +38,5 @@ const npm = (command) => {
 
 npm([ 'rm', '--ignore-scripts' ].concat(shrinkwrapIgnore))
   .once('close', () => {
-    npm([ 'prune' ]).once('close', () => {
-      console.log('Done.');
-    });
+    console.log('Done.');
   });
