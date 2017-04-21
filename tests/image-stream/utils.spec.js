@@ -138,4 +138,16 @@ describe('ImageStream: Utils', function() {
 
   });
 
+  describe('.getImageExtension()', function() {
+
+    it('returns null for empty string', function() {
+      m.chai.expect(utils.getImageExtension('')).to.be.null;
+    });
+
+    it('returns .img for raspberrypi.img.xz', function() {
+      m.chai.expect(utils.getImageExtension('raspberrypi.img.xz')).to.equal('.img');
+    });
+
+  });
+
 });
