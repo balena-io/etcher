@@ -2193,9 +2193,9 @@
       "dev": true
     },
     "etcher-image-write": {
-      "version": "9.1.1",
-      "from": "etcher-image-write@9.1.1",
-      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-9.1.1.tgz",
+      "version": "9.1.2",
+      "from": "etcher-image-write@9.1.2",
+      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-9.1.2.tgz",
       "dependencies": {
         "bluebird": {
           "version": "3.5.0",
