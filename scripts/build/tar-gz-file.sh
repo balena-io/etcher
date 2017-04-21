@@ -19,40 +19,34 @@
 set -u
 set -e
 
-OS=$(uname)
-if [[ "$OS" != "Darwin" ]]; then
-  echo "This script is only meant to be run in OS X" 1>&2
-  exit 1
-fi
-
-./scripts/build/check-dependency.sh zip
+./scripts/build/check-dependency.sh tar
 
 function usage() {
   echo "Usage: $0"
   echo ""
   echo "Options"
   echo ""
-  echo "    -a <application (.app)>"
+  echo "    -f <file>"
   echo "    -o <output>"
   exit 1
 }
 
-ARGV_APPLICATION=""
+ARGV_FILE=""
 ARGV_OUTPUT=""
 
-while getopts ":a:o:" option; do
+while getopts ":f:o:" option; do
   case $option in
-    a) ARGV_APPLICATION="$OPTARG" ;;
+    f) ARGV_FILE="$OPTARG" ;;
     o) ARGV_OUTPUT="$OPTARG" ;;
     *) usage ;;
   esac
 done
 
-if [ -z "$ARGV_APPLICATION" ] || [ -z "$ARGV_OUTPUT" ]; then
+if [ -z "$ARGV_FILE" ] || [ -z "$ARGV_OUTPUT" ]; then
   usage
 fi
 
 CWD=$(pwd)
-pushd "$(dirname "$ARGV_APPLICATION")"
-zip -r -9 "$CWD/$ARGV_OUTPUT" "$(basename "$ARGV_APPLICATION")"
+pushd "$(dirname "$ARGV_FILE")"
+tar -czvf "$CWD/$ARGV_OUTPUT" "$(basename "$ARGV_FILE")"
 popd
