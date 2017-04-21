@@ -21,7 +21,9 @@ BUILD_OUTPUT_DIRECTORY = $(BUILD_DIRECTORY)/out
 ELECTRON_VERSION = $(shell jq -r '.devDependencies["electron-prebuilt"]' package.json)
 NODE_VERSION = 6.1.0
 COMPANY_NAME = $(shell jq -r '.companyName' package.json)
+AUTHOR = resin.io
 APPLICATION_NAME = $(shell jq -r '.displayName' package.json)
+APPLICATION_ID = $(shell jq -r '.name' package.json)
 APPLICATION_DESCRIPTION = $(shell jq -r '.description' package.json)
 APPLICATION_COPYRIGHT = $(shell jq -r '.copyright' package.json)
 APPLICATION_CATEGORY = public.app-category.developer-tools
@@ -156,6 +158,7 @@ TARGET_ARCH_DEBIAN = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET
 PRODUCT_NAME = etcher
 APPLICATION_NAME_LOWERCASE = $(shell echo $(APPLICATION_NAME) | tr A-Z a-z)
 APPLICATION_VERSION_DEBIAN = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
+APPLICATION_VERSION_NUGET = $(shell echo $(APPLICATION_VERSION) | sed 's/[.+]/-/g3')
 
 # ---------------------------------------------------------------------
 # Rules
@@ -377,6 +380,39 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-linux-$(TARGET_ARC
 		-r "$(TARGET_ARCH)" \
 		-w "$(BUILD_TEMPORARY_DIRECTORY)"
 
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME).nuspec: | $(BUILD_DIRECTORY)
+	./scripts/build/electron-create-nuspec.sh \
+		-n $(APPLICATION_NAME) \
+		-x $(APPLICATION_ID) \
+		-s "$(APPLICATION_DESCRIPTION)" \
+		-d "$(APPLICATION_DESCRIPTION)" \
+		-v $(APPLICATION_VERSION_NUGET) \
+		-a $(AUTHOR) \
+		-i https://github.com/resin-io/etcher/raw/master/assets/icon.png \
+		-l https://raw.githubusercontent.com/resin-io/etcher/master/LICENSE \
+		-u https://etcher.io \
+		-b https://github.com/resin-io/etcher/issues \
+		-c https://github.com/resin-io/etcher/tree/master/docs \
+		-o $@
+
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-chocolateyInstall.ps1: | $(BUILD_DIRECTORY)
+	./scripts/build/electron-create-chocolatey-install.sh \
+		-i $(APPLICATION_ID) \
+		-u https://resin-production-downloads.s3.amazonaws.com/etcher/1.0.0-beta.19/Etcher-1.0.0-beta.19-win32-x64.exe,https://resin-production-downloads.s3.amazonaws.com/etcher/1.0.0-beta.19/Etcher-1.0.0-beta.19-win32-x86.exe \
+		-c 7d9f6f266986cfd4ec6f0b6f8da1c52f90569d25c0694859867a097273398933,589e34a90e6e2b2179ff54bb1e35f5a32d5ad6c643b10af73cadd5ec9d81a5ea \
+		-t sha256 \
+		-o $@
+
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION_NUGET)-nupkg: \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME).nuspec \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-chocolateyInstall.ps1 \
+	| $(BUILD_DIRECTORY)
+	./scripts/build/electron-create-nupkg-directory.sh \
+		-i $(APPLICATION_ID) \
+		-n $< \
+		-s $(word 2,$^) \
+		-o $@
+
 $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-linux-$(TARGET_ARCH).zip: \
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-linux-$(TARGET_ARCH).AppImage \
 	| $(BUILD_OUTPUT_DIRECTORY)
@@ -406,6 +442,16 @@ ifdef CODE_SIGN_CERTIFICATE_PASSWORD
 		-p $(CODE_SIGN_CERTIFICATE_PASSWORD)
 endif
 endif
+
+$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_ID).$(APPLICATION_VERSION_NUGET).nupkg: \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION_NUGET)-nupkg \
+	| $(BUILD_OUTPUT_DIRECTORY) $(BUILD_TEMPORARY_DIRECTORY)
+	./scripts/build/electron-installer-nupkg-multiarch-win32.sh \
+		-i $(APPLICATION_ID) \
+		-v $(APPLICATION_VERSION_NUGET) \
+		-d $< \
+		-t $(BUILD_TEMPORARY_DIRECTORY) \
+		-o $@
 
 # ---------------------------------------------------------------------
 # Phony targets
@@ -451,9 +497,11 @@ endif
 ifeq ($(TARGET_PLATFORM),win32)
 electron-installer-zip: $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
 electron-installer-nsis: $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-win32-$(TARGET_ARCH).exe
+electron-installer-nupkg: $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_ID).$(APPLICATION_VERSION_NUGET).nupkg
 TARGETS += \
 	electron-installer-zip \
-	electron-installer-nsis
+	electron-installer-nsis \
+	electron-installer-nupkg
 PUBLISH_AWS_S3 += \
 	$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip \
 	$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-win32-$(TARGET_ARCH).exe
