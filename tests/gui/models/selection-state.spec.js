@@ -221,6 +221,7 @@ describe('Browser: SelectionState', function() {
       beforeEach(function() {
         this.image = {
           path: 'foo.img',
+          extension: 'img',
           size: {
             original: 999999999,
             final: {
@@ -342,6 +343,7 @@ describe('Browser: SelectionState', function() {
         it('should override the image', function() {
           SelectionStateModel.setImage({
             path: 'bar.img',
+            extension: 'img',
             size: {
               original: 999999999,
               final: {
@@ -381,6 +383,7 @@ describe('Browser: SelectionState', function() {
         it('should be able to set an image', function() {
           SelectionStateModel.setImage({
             path: 'foo.img',
+            extension: 'img',
             size: {
               original: 999999999,
               final: {
@@ -396,9 +399,28 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(imageSize).to.equal(999999999);
         });
 
+        it('should be able to set an image with an archive extension', function() {
+          SelectionStateModel.setImage({
+            path: 'foo.zip',
+            extension: 'img',
+            archiveExtension: 'zip',
+            size: {
+              original: 999999999,
+              final: {
+                estimation: false,
+                value: 999999999
+              }
+            }
+          });
+
+          const imagePath = SelectionStateModel.getImagePath();
+          m.chai.expect(imagePath).to.equal('foo.zip');
+        });
+
         it('should throw if no path', function() {
           m.chai.expect(function() {
             SelectionStateModel.setImage({
+              extension: 'img',
               size: {
                 original: 999999999,
                 final: {
@@ -414,6 +436,7 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(function() {
             SelectionStateModel.setImage({
               path: 123,
+              extension: 'img',
               size: {
                 original: 999999999,
                 final: {
@@ -425,10 +448,75 @@ describe('Browser: SelectionState', function() {
           }).to.throw('Invalid image path: 123');
         });
 
+        it('should throw if no extension', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setImage({
+              path: 'foo.img',
+              size: {
+                original: 999999999,
+                final: {
+                  estimation: false,
+                  value: 999999999
+                }
+              }
+            });
+          }).to.throw('Missing image extension');
+        });
+
+        it('should throw if extension is not a string', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setImage({
+              path: 'foo.img',
+              extension: 1,
+              size: {
+                original: 999999999,
+                final: {
+                  estimation: false,
+                  value: 999999999
+                }
+              }
+            });
+          }).to.throw('Invalid image extension: 1');
+        });
+
+        it('should throw if the extension doesn\'t match the path and there is no archive extension', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setImage({
+              path: 'foo.img',
+              extension: 'iso',
+              size: {
+                original: 999999999,
+                final: {
+                  estimation: false,
+                  value: 999999999
+                }
+              }
+            });
+          }).to.throw('Missing image archive extension');
+        });
+
+        it('should throw if the extension doesn\'t match the path and the archive extension is not a string', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setImage({
+              path: 'foo.img',
+              extension: 'iso',
+              archiveExtension: 1,
+              size: {
+                original: 999999999,
+                final: {
+                  estimation: false,
+                  value: 999999999
+                }
+              }
+            });
+          }).to.throw('Invalid image archive extension: 1');
+        });
+
         it('should throw if no size', function() {
           m.chai.expect(function() {
             SelectionStateModel.setImage({
-              path: 'foo.img'
+              path: 'foo.img',
+              extension: 'img'
             });
           }).to.throw('Missing image size');
         });
@@ -437,6 +525,7 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(function() {
             SelectionStateModel.setImage({
               path: 'foo.img',
+              extension: 'img',
               size: 999999999
             });
           }).to.throw('Invalid image size: 999999999');
@@ -446,6 +535,7 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(function() {
             SelectionStateModel.setImage({
               path: 'foo.img',
+              extension: 'img',
               size: {
                 original: '999999999',
                 final: {
@@ -461,6 +551,7 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(function() {
             SelectionStateModel.setImage({
               path: 'foo.img',
+              extension: 'img',
               size: {
                 original: 999999999.999,
                 final: {
@@ -476,6 +567,7 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(function() {
             SelectionStateModel.setImage({
               path: 'foo.img',
+              extension: 'img',
               size: {
                 original: -1,
                 final: {
@@ -491,6 +583,7 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(function() {
             SelectionStateModel.setImage({
               path: 'foo.img',
+              extension: 'img',
               size: {
                 original: 999999999,
                 final: {
@@ -506,6 +599,7 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(function() {
             SelectionStateModel.setImage({
               path: 'foo.img',
+              extension: 'img',
               size: {
                 original: 999999999,
                 final: {
@@ -521,6 +615,7 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(function() {
             SelectionStateModel.setImage({
               path: 'foo.img',
+              extension: 'img',
               size: {
                 original: 999999999,
                 final: {
@@ -536,6 +631,7 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(function() {
             SelectionStateModel.setImage({
               path: 'foo.img',
+              extension: 'img',
               size: {
                 original: 999999999,
                 final: {
@@ -551,6 +647,7 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(function() {
             SelectionStateModel.setImage({
               path: 'foo.img',
+              extension: 'img',
               size: {
                 original: 999999999,
                 final: {
@@ -567,6 +664,7 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(function() {
             SelectionStateModel.setImage({
               path: 'foo.img',
+              extension: 'img',
               size: {
                 original: 999999999,
                 final: {
@@ -583,6 +681,7 @@ describe('Browser: SelectionState', function() {
           m.chai.expect(function() {
             SelectionStateModel.setImage({
               path: 'foo.img',
+              extension: 'img',
               size: {
                 original: 999999999,
                 final: {
@@ -610,6 +709,7 @@ describe('Browser: SelectionState', function() {
 
           SelectionStateModel.setImage({
             path: 'foo.img',
+            extension: 'img',
             size: {
               original: 9999999999,
               final: {
@@ -638,6 +738,7 @@ describe('Browser: SelectionState', function() {
 
           SelectionStateModel.setImage({
             path: 'foo.img',
+            extension: 'img',
             size: {
               original: 999999999,
               final: {
@@ -680,6 +781,7 @@ describe('Browser: SelectionState', function() {
 
           SelectionStateModel.setImage({
             path: imagePath,
+            extension: 'img',
             size: {
               original: 999999999,
               final: {
@@ -713,6 +815,7 @@ describe('Browser: SelectionState', function() {
 
         SelectionStateModel.setImage({
           path: 'foo.img',
+          extension: 'img',
           size: {
             original: 999999999,
             final: {
