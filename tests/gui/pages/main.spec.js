@@ -7,9 +7,18 @@ const supportedFormats = require('../../../lib/shared/supported-formats');
 const angular = require('angular');
 const settings = require('../../../lib/gui/models/settings');
 const flashState = require('../../../lib/gui/models/flash-state');
+const analytics = require('../../../lib/shared/analytics');
 require('angular-mocks');
 
 describe('Browser: MainPage', function() {
+
+  before(function() {
+    analytics.disableConsoleOutput();
+  });
+
+  after(function() {
+    analytics.enableConsoleOutput();
+  });
 
   beforeEach(angular.mock.module(
     require('../../../lib/gui/pages/main/main')

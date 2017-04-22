@@ -2,10 +2,19 @@
 
 const m = require('mochainon');
 const angular = require('angular');
+const analytics = require('../../../lib/shared/analytics');
 const flashState = require('../../../lib/gui/models/flash-state');
 require('angular-mocks');
 
 describe('Browser: ImageWriter', function() {
+
+  before(function() {
+    analytics.disableConsoleOutput();
+  });
+
+  after(function() {
+    analytics.enableConsoleOutput();
+  });
 
   beforeEach(angular.mock.module(
     require('../../../lib/gui/modules/image-writer')
