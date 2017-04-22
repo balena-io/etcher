@@ -47,7 +47,7 @@ describe('ImageStream: ISO', function() {
       return imageStream.getImageMetadata(image).then((metadata) => {
         m.chai.expect(metadata).to.deep.equal({
           path: image,
-          extension: '.iso',
+          extension: 'iso',
           size: {
             original: expectedSize,
             final: {

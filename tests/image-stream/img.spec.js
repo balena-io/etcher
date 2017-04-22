@@ -47,7 +47,7 @@ describe('ImageStream: IMG', function() {
       return imageStream.getImageMetadata(image).then((metadata) => {
         m.chai.expect(metadata).to.deep.equal({
           path: image,
-          extension: '.img',
+          extension: 'img',
           size: {
             original: expectedSize,
             final: {

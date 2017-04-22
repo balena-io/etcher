@@ -49,8 +49,8 @@ describe('ImageStream: GZ', function() {
       return imageStream.getImageMetadata(image).then((metadata) => {
         m.chai.expect(metadata).to.deep.equal({
           path: image,
-          extension: '.img',
-          archiveExtension: '.gz',
+          extension: 'img',
+          archiveExtension: 'gz',
           size: {
             original: compressedSize,
             final: {

@@ -51,7 +51,7 @@ describe('ImageStream: DMG', function() {
         return imageStream.getImageMetadata(image).then((metadata) => {
           m.chai.expect(metadata).to.deep.equal({
             path: image,
-            extension: '.dmg',
+            extension: 'dmg',
             size: {
               original: compressedSize,
               final: {
@@ -89,7 +89,7 @@ describe('ImageStream: DMG', function() {
         return imageStream.getImageMetadata(image).then((metadata) => {
           m.chai.expect(metadata).to.deep.equal({
             path: image,
-            extension: '.dmg',
+            extension: 'dmg',
             size: {
               original: compressedSize,
               final: {

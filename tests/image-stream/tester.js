@@ -60,6 +60,8 @@ exports.extractFromFilePath = function(file, image) {
 
     return imageStream.getFromFilePath(file).then(function(results) {
       m.chai.expect(results.path).to.equal(file);
+      m.chai.expect(_.isString(results.extension)).to.be.true;
+      m.chai.expect(_.isEmpty(_.trim(results.extension))).to.be.false;
 
       if (!_.some([
         results.size.original === fs.statSync(file).size,
