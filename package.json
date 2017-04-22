@@ -96,7 +96,7 @@
     "semver": "^5.1.0",
     "sudo-prompt": "^6.1.0",
     "trackjs": "^2.1.16",
-    "udif": "^0.8.0",
+    "udif": "^0.9.0",
     "unbzip2-stream": "^1.0.11",
     "yargs": "^4.6.0",
     "yauzl": "^2.6.0"
