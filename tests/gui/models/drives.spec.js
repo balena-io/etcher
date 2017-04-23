@@ -118,6 +118,7 @@ describe('Browser: DrivesModel', function() {
             SelectionStateModel.removeDrive();
             SelectionStateModel.setImage({
               path: this.imagePath,
+              extension: 'img',
               size: {
                 original: 999999999,
                 final: {

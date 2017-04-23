@@ -46,6 +46,7 @@ describe('Browser: MainPage', function() {
 
         SelectionStateModel.setImage({
           path: 'rpi.img',
+          extension: 'img',
           size: {
             original: 99999,
             final: {
@@ -80,6 +81,7 @@ describe('Browser: MainPage', function() {
         SelectionStateModel.clear();
         SelectionStateModel.setImage({
           path: 'rpi.img',
+          extension: 'img',
           size: {
             original: 99999,
             final: {
@@ -133,6 +135,7 @@ describe('Browser: MainPage', function() {
 
         SelectionStateModel.setImage({
           path: 'rpi.img',
+          extension: 'img',
           size: {
             original: 99999,
             final: {
@@ -178,6 +181,7 @@ describe('Browser: MainPage', function() {
 
         SelectionStateModel.setImage({
           path: path.join(__dirname, 'foo', 'bar.img'),
+          extension: 'img',
           size: {
             original: 999999999,
             final: {
