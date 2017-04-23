@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.0.0-rc.4 - 2017-04-22
+
+### Fixes
+
+- Fix "Unmount failed" on Windows where the PC is connected to network drives.
+- Various fixes for when drive descriptions contain special characters.
+
+### Misc
+
+- Show a friendly user message on EIO after many retries.
+- Show user friendly messages for `EBUSY, read` and `EBUSY, write` errors on macOS.
+
 ## v1.0.0-rc.3 - 2017-04-14
 
 ### Fixes
