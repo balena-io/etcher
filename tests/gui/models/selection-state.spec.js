@@ -512,6 +512,73 @@ describe('Browser: SelectionState', function() {
           }).to.throw('Invalid image archive extension: 1');
         });
 
+        it('should throw if the archive extension doesn\'t match the last path extension in a compressed image', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setImage({
+              path: 'foo.img.xz',
+              extension: 'img',
+              archiveExtension: 'gz',
+              size: {
+                original: 999999999,
+                final: {
+                  estimation: false,
+                  value: 999999999
+                }
+              }
+            });
+          }).to.throw('Image archive extension mismatch: gz and xz');
+        });
+
+        it('should throw if the extension is not recognised in an uncompressed image', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setImage({
+              path: 'foo.ifg',
+              extension: 'ifg',
+              size: {
+                original: 999999999,
+                final: {
+                  estimation: false,
+                  value: 999999999
+                }
+              }
+            });
+          }).to.throw('Invalid image extension: ifg');
+        });
+
+        it('should throw if the extension is not recognised in a compressed image', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setImage({
+              path: 'foo.ifg.gz',
+              extension: 'ifg',
+              archiveExtension: 'gz',
+              size: {
+                original: 999999999,
+                final: {
+                  estimation: false,
+                  value: 999999999
+                }
+              }
+            });
+          }).to.throw('Invalid image extension: ifg');
+        });
+
+        it('should throw if the archive extension is not recognised', function() {
+          m.chai.expect(function() {
+            SelectionStateModel.setImage({
+              path: 'foo.img.ifg',
+              extension: 'img',
+              archiveExtension: 'ifg',
+              size: {
+                original: 999999999,
+                final: {
+                  estimation: false,
+                  value: 999999999
+                }
+              }
+            });
+          }).to.throw('Invalid image archive extension: ifg');
+        });
+
         it('should throw if no size', function() {
           m.chai.expect(function() {
             SelectionStateModel.setImage({
