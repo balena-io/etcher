@@ -44,3 +44,27 @@ Upgrading Electron
 
 - Upgrade the `electron-prebuilt` dependency version in `package.json` to an
 *exact version* (no `~`, `^`, etc).
+
+Dealing with a problematic release
+----------------------------------
+
+There can be times where a release is accidentally plagued with bugs. If you
+released a new version and notice the error rates are higher than normal, then
+revert the problematic release as soon as possible, until the bugs are fixed.
+
+You can revert a version by deleting its builds from the S3 bucket and Bintray.
+Refer to the `Makefile` for the up to date information about the S3 bucket
+where we push builds to, and get in touch with the resin.io operations team to
+get write access to it.
+
+The Etcher update notifier dialog and the website only show the a certain
+version if all the expected files have been uploaded to it, so deleting a
+single package or two is enough to bring down the whole version.
+
+Use the following command to delete files from S3:
+
+```sh
+aws s3api delete-object --bucket <bucket name> --key <file name>
+```
+
+The Bintray dashboard provides an easy way to delete a version's files.
