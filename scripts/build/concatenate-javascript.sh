@@ -19,7 +19,8 @@
 set -u
 set -e
 
-./scripts/build/check-dependency.sh browserify
+BROWSERIFY="./node_modules/.bin/browserify"
+./scripts/build/check-dependency.sh "$BROWSERIFY"
 
 function usage() {
   echo "Usage: $0"
@@ -46,4 +47,4 @@ if [ -z "$ARGV_ENTRY_POINT" ] || [ -z "$ARGV_OUTPUT" ]; then
   usage
 fi
 
-browserify "$ARGV_ENTRY_POINT" --node --outfile "$ARGV_OUTPUT"
+"$BROWSERIFY" "$ARGV_ENTRY_POINT" --node --outfile "$ARGV_OUTPUT"
