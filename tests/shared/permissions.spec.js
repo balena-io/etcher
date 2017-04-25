@@ -39,7 +39,7 @@ describe('Shared: permissions', function() {
         m.chai.expect(permissions.getEnvironmentCommandPrefix()).to.deep.equal([]);
       });
 
-      it('should return an empty array environment is an empty object', function() {
+      it('should return an empty array if the environment is an empty object', function() {
         m.chai.expect(permissions.getEnvironmentCommandPrefix({})).to.deep.equal([]);
       });
 
@@ -76,11 +76,11 @@ describe('Shared: permissions', function() {
       it('should ignore undefined and null variable values', function() {
         m.chai.expect(permissions.getEnvironmentCommandPrefix({
           FOO: null,
-          BAR: undefined,
-          BAZ: 'qux'
+          BAR: 'qux',
+          BAZ: undefined
         })).to.deep.equal([
           'set',
-          'BAZ=qux',
+          'BAR=qux',
           '&&',
           'call'
         ]);
@@ -122,7 +122,7 @@ describe('Shared: permissions', function() {
         m.chai.expect(permissions.getEnvironmentCommandPrefix()).to.deep.equal([]);
       });
 
-      it('should return an empty array environment is an empty object', function() {
+      it('should return an empty array if the environment is an empty object', function() {
         m.chai.expect(permissions.getEnvironmentCommandPrefix({})).to.deep.equal([]);
       });
 
@@ -151,11 +151,11 @@ describe('Shared: permissions', function() {
       it('should ignore undefined and null variable values', function() {
         m.chai.expect(permissions.getEnvironmentCommandPrefix({
           FOO: null,
-          BAR: undefined,
-          BAZ: 'qux'
+          BAR: 'qux',
+          BAZ: undefined
         })).to.deep.equal([
           'env',
-          'BAZ=qux'
+          'BAR=qux'
         ]);
       });
 
@@ -189,7 +189,7 @@ describe('Shared: permissions', function() {
         m.chai.expect(permissions.getEnvironmentCommandPrefix()).to.deep.equal([]);
       });
 
-      it('should return an empty array environment is an empty object', function() {
+      it('should return an empty array if the environment is an empty object', function() {
         m.chai.expect(permissions.getEnvironmentCommandPrefix({})).to.deep.equal([]);
       });
 
@@ -218,11 +218,11 @@ describe('Shared: permissions', function() {
       it('should ignore undefined and null variable values', function() {
         m.chai.expect(permissions.getEnvironmentCommandPrefix({
           FOO: null,
-          BAR: undefined,
-          BAZ: 'qux'
+          BAR: 'qux',
+          BAZ: undefined
         })).to.deep.equal([
           'env',
-          'BAZ=qux'
+          'BAR=qux'
         ]);
       });
 
