@@ -18,7 +18,7 @@ BUILD_OUTPUT_DIRECTORY = $(BUILD_DIRECTORY)/out
 # Application configuration
 # ---------------------------------------------------------------------
 
-ELECTRON_VERSION = $(shell jq -r '.devDependencies["electron-prebuilt"]' package.json)
+ELECTRON_VERSION = $(shell jq -r '.devDependencies["electron"]' package.json)
 NODE_VERSION = 6.1.0
 COMPANY_NAME = $(shell jq -r '.companyName' package.json)
 APPLICATION_NAME = $(shell jq -r '.displayName' package.json)

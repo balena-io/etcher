@@ -42,8 +42,8 @@ git push --tags
 Upgrading Electron
 ------------------
 
-- Upgrade the `electron-prebuilt` dependency version in `package.json` to an
-*exact version* (no `~`, `^`, etc).
+- Upgrade the `electron` dependency version in `package.json` to an *exact
+  version* (no `~`, `^`, etc).
 
 Dealing with a problematic release
 ----------------------------------
