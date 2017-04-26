@@ -91,6 +91,7 @@ docker run -t \
   --env "TERM=xterm-256color" \
   --env "TARGET_ARCH=$ARGV_ARCHITECTURE" \
   ${DOCKER_ENVVARS[@]+"${DOCKER_ENVVARS[@]}"} \
+  --privileged \
   --cap-add SYS_ADMIN \
   --device /dev/fuse:/dev/fuse:mrw \
   --volume "$ARGV_SOURCE_CODE_DIRECTORY:/etcher" \

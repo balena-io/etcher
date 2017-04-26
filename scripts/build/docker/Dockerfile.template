@@ -1,25 +1,34 @@
 FROM <%= image %>
 
 # Install dependencies
-RUN apt-get update && apt-get install -y \
-  build-essential \
-  curl \
-  fuse \
-  git \
-  jq \
-  libasound2 \
-  libgconf-2-4 \
-  libgtk2.0-0 \
-  libnss3 \
-  libxss1 \
-  libxtst6 \
-  libyaml-dev \
-  python \
-  python-pip \
-  python-dev \
-  unzip \
-  xvfb \
-  zip
+RUN echo "deb http://archive.ubuntu.com/ubuntu precise-backports main restricted universe multiverse" >> /etc/apt/sources.list \
+  && apt-get update \
+  && apt-get install -y \
+    build-essential \
+    curl \
+    fuse \
+    git \
+    jq \
+    libasound2 \
+    libgconf-2-4 \
+    libgtk2.0-0 \
+    libx11-xcb1 \
+    libnss3 \
+    libxss1 \
+    libxtst6 \
+    libyaml-dev \
+    python \
+    python-pip \
+    python-dev \
+    python-software-properties \
+    unzip \
+    xvfb \
+    zip
+
+# Install a C++11 compiler
+RUN add-apt-repository ppa:ubuntu-toolchain-r/test \
+  && apt-get update && apt-get install -y gcc-4.8 g++-4.8 \
+  && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
 
 # NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
