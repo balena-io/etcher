@@ -38,6 +38,7 @@ install:
 
 script:
   - ./scripts/ci/travis-test.sh
+  - ./scripts/ci/travis-build-installers.sh
 
 deploy:
   provider: script

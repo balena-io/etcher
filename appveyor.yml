@@ -35,10 +35,11 @@ build: off
 test_script:
   - node --version
   - npm --version
-  - cmd: .\scripts\ci\appveyor-test.bat
+  - .\scripts\ci\appveyor-test.bat
+  - .\scripts\ci\appveyor-build-installers.bat
 
 deploy_script:
-  - cmd: .\scripts\ci\appveyor-deploy.bat
+  - .\scripts\ci\appveyor-deploy.bat
 
 notifications:
 
