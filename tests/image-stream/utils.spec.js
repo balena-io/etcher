@@ -61,10 +61,10 @@ describe('ImageStream: Utils', function() {
       });
     });
 
-    it('should resolve application/octet-stream for an uncompressed iso', function() {
+    it('should resolve application/x-iso9660-image for an uncompressed iso', function() {
       const file = path.join(DATA_PATH, 'images', 'raspberrypi.iso');
       return utils.getArchiveMimeType(file).then((type) => {
-        m.chai.expect(type).to.equal('application/octet-stream');
+        m.chai.expect(type).to.equal('application/x-iso9660-image');
       });
     });
 
@@ -79,6 +79,13 @@ describe('ImageStream: Utils', function() {
       const file = path.join(DATA_PATH, 'dmg', 'raw.dmg');
       return utils.getArchiveMimeType(file).then((type) => {
         m.chai.expect(type).to.equal('application/x-apple-diskimage');
+      });
+    });
+
+    it('should resolve application/octet-stream for an unrecognized file type', function() {
+      const file = path.join(DATA_PATH, 'unrecognized', 'random.rpi-sdcard');
+      return utils.getArchiveMimeType(file).then((type) => {
+        m.chai.expect(type).to.equal('application/octet-stream');
       });
     });
 

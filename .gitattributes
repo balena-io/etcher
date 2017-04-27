@@ -32,3 +32,4 @@ Makefile text
 *.xz binary
 *.zip binary
 *.dmg binary
+*.rpi-sdcard binary
