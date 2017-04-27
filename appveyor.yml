@@ -32,7 +32,7 @@ install:
   - set PATH=C:\Program Files (x86)\NSIS;%PATH%
   - set PATH=C:\MinGW\bin;%PATH%
   - set PATH=C:\MinGW\msys\1.0\bin;%PATH%
-  - pip install codespell==1.9.2 awscli
+  - pip install codespell==1.9.2 awscli cpplint
   - make info
   - make electron-develop
 

@@ -40,7 +40,7 @@ install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       ./scripts/build/docker/run-command.sh -r "${TARGET_ARCH}" -s "${PWD}" -c "make info && make electron-develop";
     else
-      pip install codespell==1.9.2 awscli;
+      pip install codespell==1.9.2 awscli cpplint;
       brew install afsctool jq;
       make info;
       travis_wait make electron-develop;

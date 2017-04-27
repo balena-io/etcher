@@ -13,6 +13,9 @@ etcher text
 .git* text
 *.html text
 *.json text
+*.cpp text
+*.h text
+*.gyp text
 LICENSE text
 Makefile text
 *.md text
