@@ -3,6 +3,7 @@
   "displayName": "Etcher",
   "version": "1.0.0",
   "updates": {
+    "sleepDays": 7,
     "semverRange": "<2.0.0"
   },
   "main": "lib/start.js",
