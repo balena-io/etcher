@@ -1,35 +1,45 @@
 <div class="page-finish row around-xs">
   <div class="col-xs">
-    <div class="box text-center">
-      <h3 class="title"><span class="tick tick--success space-right-tiny"></span> Flash Complete!</h3>
-      <p class="soft space-vertical-small" ng-show="finish.settings.get('unmountOnSuccess')">Safely ejected and ready for use</p>
-
-      <div class="row center-xs space-vertical-medium">
-        <div class="col-xs-4 space-medium">
-          <div class="box">
-            <p class="soft button-label">Would you like to flash the same image?</p>
-
-            <button class="button button-primary button-brick" ng-click="finish.restart({ preserveImage: true })">
-              Use <b>same</b> image
-            </button>
-          </div>
-        </div>
-
-        <div class="col-xs separator-xs"></div>
-
-        <div class="col-xs-4 space-medium">
-          <div class="box">
-            <p class="soft button-label">Would you like to flash a different image?</p>
-
-            <button class="button button-primary button-brick" ng-click="finish.restart()">
-              Use <b>different</b> image
-            </button>
-          </div>
-        </div>
+    <div class="box center">
+      <div class="col-xs-5">
+        <h3 class="title"><span class="tick tick--success space-right-tiny"></span> Flash Complete!</h3>
       </div>
 
-      <span class="label label-big label-inset"
-        ng-if="finish.checksum">CRC32 CHECKSUM : <b>{{ ::finish.checksum }}</b></span>
+      <div class="col-xs-7">
+        <button class="button button-primary button-brick" ng-click="finish.restart()">
+          <b>Flash Another</b>
+        </button>
+
+        <button class="button button-secondary button-brick" ng-click="finish.restart({ preserveImage: true })">
+          Show Details
+        </button>
+      </div>
+    </div>
+
+    <div class="box center">
+      <safe-webview src="'https://etcher.io/'"
+        ng-show="finish.shouldShowWebview"
+        timeout="2000"
+        callback="finish.setShowWebview"></safe-webview>
+      <div class="fallback-banner" ng-hide="finish.shouldShowWebview">
+        <svg-icon path="../../../assets/etcher.svg"
+          width="200px"
+          height="auto"
+          os-open-external="https://etcher.io?ref=etcher_footer"></svg-icon>
+
+        <span class="caption">
+          is <span class="caption" os-open-external="https://github.com/resin-io/etcher">an open source project</span> by
+        </span>
+
+        <svg-icon path="../../../assets/resin.svg"
+          width="300px"
+          height="auto"
+          os-open-external="https://resin.io?ref=etcher"></svg-icon>
+
+        <span class="caption footer-right"
+          manifest-bind="version"
+          os-open-external="https://github.com/resin-io/etcher/blob/master/CHANGELOG.md"></span>
+      </div>
     </div>
   </div>
 </div>

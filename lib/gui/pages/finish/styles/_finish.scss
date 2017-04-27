@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+.page-finish {
+  margin-top: -50px;
+}
+
 .page-finish .button-label {
   margin: 0 auto $spacing-medium;
 
@@ -22,11 +26,30 @@
 }
 
 .page-finish .button-primary {
-  min-width: $btn-min-width;
+  min-width: $btn-min-width - 20;
+}
+
+.page-finish .button-secondary {
+  min-width: $btn-min-width - 22;
+  padding: 9px 10px;
+  background: transparent;
+  border: 2px solid $palette-theme-primary-background;
+  color: $palette-theme-primary-background;
+  font-weight: bold;
+}
+
+.page-finish .button-secondary:hover {
+  color: darken($palette-theme-primary-background, 10%);
+  border-color: darken($palette-theme-primary-background, 10%);
 }
 
 .page-finish .title {
   color: $palette-theme-dark-foreground;
+  font-weight: bold;
+}
+
+.page-finish .huge-title {
+  font-size: 3.5em;
 }
 
 .page-finish .label {
@@ -47,4 +70,60 @@
   background-color: $palette-theme-dark-soft-background;
   padding: 0px;
   min-width: 2px;
+}
+
+.page-finish .center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-finish .box > div {
+  margin-bottom: 20px;
+
+  > button {
+    margin-right: 20px;
+  }
+}
+
+.page-finish webview {
+  width: 800px;
+  height: 300px;
+  position: absolute;
+  top: 80px;
+  left: 0;
+  z-index: 9001;
+}
+
+.page-finish .fallback-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 300px;
+  position: absolute;
+  top: 140px;
+  left: 0;
+  background-color: $palette-theme-dark-background;
+  z-index: 9001;
+
+  > * {
+    flex-shrink: 0;
+    padding: 10px 6px 0 6px;
+  }
+
+  span.caption {
+    font-size: 3rem;
+    color: $palette-theme-dark-foreground;
+  }
+
+  .footer-right {
+    padding: 0;
+  }
+
+  .caption[os-open-external] {
+    border-bottom: 2px dashed;
+  }
 }
