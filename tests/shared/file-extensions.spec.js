@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 resin.io
+ * Copyright 2017 resin.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,62 +29,66 @@ describe('Shared: fileExtensions', function() {
       // No extension
       {
         file: 'path/to/filename',
-        extension: []
+        extensions: []
       },
 
       // Type: 'archive'
       {
         file: 'path/to/filename.zip',
-        extension: [ 'zip' ]
+        extensions: [ 'zip' ]
       },
       {
         file: 'path/to/filename.etch',
-        extension: [ 'etch' ]
+        extensions: [ 'etch' ]
       },
 
       // Type: 'compressed'
       {
         file: 'path/to/filename.img.gz',
-        extension: [ 'img', 'gz' ]
+        extensions: [ 'img', 'gz' ]
       },
       {
         file: 'path/to/filename.img.bz2',
-        extension: [ 'img', 'bz2' ]
+        extensions: [ 'img', 'bz2' ]
       },
       {
         file: 'path/to/filename.img.xz',
-        extension: [ 'img', 'xz' ]
+        extensions: [ 'img', 'xz' ]
+      },
+      {
+        file: 'path/to/filename.img.xz.gz',
+        extensions: [ 'img', 'xz', 'gz' ]
       },
 
       // Type: 'image'
       {
         file: 'path/to/filename.img',
-        extension: [ 'img' ]
+        extensions: [ 'img' ]
       },
       {
         file: 'path/to/filename.iso',
-        extension: [ 'iso' ]
+        extensions: [ 'iso' ]
       },
       {
         file: 'path/to/filename.dsk',
-        extension: [ 'dsk' ]
+        extensions: [ 'dsk' ]
       },
       {
         file: 'path/to/filename.hddimg',
-        extension: [ 'hddimg' ]
+        extensions: [ 'hddimg' ]
       },
       {
         file: 'path/to/filename.raw',
-        extension: [ 'raw' ]
+        extensions: [ 'raw' ]
       },
       {
         file: 'path/to/filename.dmg',
-        extension: [ 'dmg' ]
+        extensions: [ 'dmg' ]
       }
 
     ], (testCase) => {
-      it(`should return ${testCase.extension} for ${testCase.file}`, function() {
-        m.chai.expect(fileExtensions.getFileExtensions(testCase.file)).to.deep.equal(testCase.extension);
+      it(`should return ${testCase.extensions} for ${testCase.file}`, function() {
+        m.chai.expect(fileExtensions.getFileExtensions(testCase.file)).to.deep.equal(testCase.extensions);
       });
     });
 
@@ -100,7 +104,7 @@ describe('Shared: fileExtensions', function() {
 
   describe('.getLastFileExtension()', function() {
 
-    it('should return undefined in the file path has no extension', function() {
+    it('should return undefined if the file path has no extension', function() {
       m.chai.expect(fileExtensions.getLastFileExtension('foo')).to.be.undefined;
     });
 
@@ -108,7 +112,7 @@ describe('Shared: fileExtensions', function() {
       m.chai.expect(fileExtensions.getLastFileExtension('foo.img')).to.equal('img');
     });
 
-    it('should return the last extension if there two extensions', function() {
+    it('should return the last extension if there are two extensions', function() {
       m.chai.expect(fileExtensions.getLastFileExtension('foo.img.gz')).to.equal('gz');
     });
 
@@ -128,7 +132,7 @@ describe('Shared: fileExtensions', function() {
       m.chai.expect(fileExtensions.getPenultimateFileExtension('foo.img')).to.be.undefined;
     });
 
-    it('should return the first extension if there are two extensions', function() {
+    it('should return the penultimate extension if there are two extensions', function() {
       m.chai.expect(fileExtensions.getPenultimateFileExtension('foo.img.gz')).to.equal('img');
     });
 
