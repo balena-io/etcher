@@ -40,6 +40,16 @@
     </label>
   </div>
 
+  <div class="checkbox">
+    <label>
+      <input type="checkbox"
+        ng-model="settings.currentData.includeUnstableUpdateChannel"
+        ng-change="settings.toggle('includeUnstableUpdateChannel')">
+
+      <span>Include unstable update channel</span>
+    </label>
+  </div>
+
   <h3 class="subtitle">Advanced</h3>
 
   <div class="checkbox">

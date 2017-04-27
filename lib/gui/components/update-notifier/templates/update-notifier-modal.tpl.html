@@ -6,7 +6,7 @@
 <div class="modal-body">
   <p>Etcher {{ ::modal.options.version }} is available for download</p>
 
-  <div class="checkbox">
+  <div class="checkbox" ng-if="modal.options.allowSleepUpdateCheck">
     <label>
       <input type="checkbox"
         ng-model="modal.sleepUpdateCheck"
