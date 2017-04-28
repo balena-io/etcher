@@ -59,8 +59,42 @@ describe('ImageStream: DMG', function() {
                 value: uncompressedSize
               }
             },
-            hasMBR: false,
-            hasGPT: false
+            hasMBR: true,
+            hasGPT: false,
+            partitions: [
+              {
+                end: 49152,
+                extended: false,
+                id: null,
+                name: null,
+                start: 8192,
+                type: 11
+              },
+              {
+                end: 49154,
+                extended: false,
+                id: null,
+                name: null,
+                start: 49152,
+                type: 131
+              },
+              {
+                end: 49156,
+                extended: false,
+                id: null,
+                name: null,
+                start: 49154,
+                type: 131
+              },
+              {
+                end: 65536,
+                extended: true,
+                id: null,
+                name: null,
+                start: 49156,
+                type: 5
+              }
+            ]
           });
         });
       });
@@ -99,8 +133,42 @@ describe('ImageStream: DMG', function() {
                 value: uncompressedSize
               }
             },
-            hasMBR: false,
-            hasGPT: false
+            hasMBR: true,
+            hasGPT: false,
+            partitions: [
+              {
+                end: 49152,
+                extended: false,
+                id: null,
+                name: null,
+                start: 8192,
+                type: 11
+              },
+              {
+                end: 49154,
+                extended: false,
+                id: null,
+                name: null,
+                start: 49152,
+                type: 131
+              },
+              {
+                end: 49156,
+                extended: false,
+                id: null,
+                name: null,
+                start: 49154,
+                type: 131
+              },
+              {
+                end: 65536,
+                extended: true,
+                id: null,
+                name: null,
+                start: 49156,
+                type: 5
+              }
+            ]
           });
         });
       });

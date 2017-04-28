@@ -51,7 +51,6 @@ describe('ImageStream: GZ', function() {
           path: image,
           extension: 'img',
           archiveExtension: 'gz',
-          stream: null,
           size: {
             original: compressedSize,
             final: {
