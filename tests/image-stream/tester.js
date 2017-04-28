@@ -43,11 +43,14 @@ const deleteIfExists = (file) => {
   });
 };
 
-exports.expectError = function(file, errorMessage) {
+exports.expectError = function(file, errorMessage, errorDetail) {
   it('should be rejected with an error', function() {
     return imageStream.getFromFilePath(file).catch((error) => {
       m.chai.expect(error).to.be.an.instanceof(Error);
       m.chai.expect(error.message).to.equal(errorMessage);
+      if (errorDetail) {
+        m.chai.expect(error.description).to.contain(errorDetail);
+      }
       m.chai.expect(error.description).to.be.a.string;
       m.chai.expect(error.description.length > 0).to.be.true;
     });
