@@ -22,14 +22,14 @@ Makefile text
 *.yml text
 
 # Binary files (no line-ending conversions)
-*.bz2 binary
-*.gz binary
-*.icns binary
-*.ico binary
-*.img binary
-*.iso binary
-*.png binary
-*.xz binary
-*.zip binary
-*.dmg binary
-*.rpi-sdcard binary
+*.bz2 binary diff=hex
+*.gz binary diff=hex
+*.icns binary diff=hex
+*.ico binary diff=hex
+*.img binary diff=hex
+*.iso binary diff=hex
+*.png binary diff=hex
+*.xz binary diff=hex
+*.zip binary diff=hex
+*.dmg binary diff=hex
+*.rpi-sdcard binary diff=hex
