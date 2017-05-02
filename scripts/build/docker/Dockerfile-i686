@@ -36,4 +36,4 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
 RUN npm config set spin=false
 
 # Python
-RUN pip install codespell==1.9.2 awscli
+RUN pip install codespell==1.9.2 awscli cpplint

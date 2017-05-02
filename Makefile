@@ -174,40 +174,40 @@ $(BUILD_DIRECTORY):
 $(BUILD_TEMPORARY_DIRECTORY): | $(BUILD_DIRECTORY)
 	mkdir $@
 
-$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies: | $(BUILD_DIRECTORY)
-	mkdir $@
-
-$(BUILD_DIRECTORY)/node-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies: | $(BUILD_DIRECTORY)
-	mkdir $@
-
 $(BUILD_OUTPUT_DIRECTORY): | $(BUILD_DIRECTORY)
 	mkdir $@
 
-$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/node_modules: package.json npm-shrinkwrap.json \
-	| $(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies
+$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies: package.json npm-shrinkwrap.json \
+	| $(BUILD_DIRECTORY)
+	mkdir $@
+	cp -rf src $@
 	./scripts/build/dependencies-npm.sh -p \
 		-r "$(TARGET_ARCH)" \
 		-v "$(ELECTRON_VERSION)" \
-		-x $| \
+		-x $@ \
 		-t electron \
 		-s "$(TARGET_PLATFORM)"
+	rm -rf $@/src
 
-$(BUILD_DIRECTORY)/node-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/node_modules: package.json npm-shrinkwrap.json \
-	| $(BUILD_DIRECTORY)/node-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies
+$(BUILD_DIRECTORY)/node-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies: package.json npm-shrinkwrap.json \
+	| $(BUILD_DIRECTORY)
+	mkdir $@
+	cp -rf src $@
 	./scripts/build/dependencies-npm.sh -p -f \
 		-r "$(TARGET_ARCH)" \
 		-v "$(NODE_VERSION)" \
-		-x $| \
+		-x $@ \
 		-t node \
 		-s "$(TARGET_PLATFORM)"
+	rm -rf $@/src
 
 $(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH)-app: \
-	$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/node_modules \
+	$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies \
 	| $(BUILD_DIRECTORY) $(BUILD_TEMPORARY_DIRECTORY)
 	./scripts/build/electron-create-resources-app.sh -s . -o $@ \
 		-v $(APPLICATION_VERSION) \
 		-f "$(APPLICATION_FILES)"
-	cp -RLf $< $@
+	cp -RLf $</* $@
 
 ifdef ANALYTICS_SENTRY_TOKEN
 	./scripts/build/jq-insert.sh \
@@ -240,10 +240,12 @@ $(BUILD_DIRECTORY)/electron-$(ELECTRON_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH)-app: \
 	package.json lib \
-	$(BUILD_DIRECTORY)/node-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/node_modules \
+	$(BUILD_DIRECTORY)/node-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies \
 	| $(BUILD_DIRECTORY)
 	mkdir $@
-	$(foreach prerequisite,$^,$(call execute-command,cp -rf $(prerequisite) $@))
+	cp $(word 1,$^) $@
+	cp $(word 2,$^) $@
+	cp -rf $(word 3,$^)/* $@
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH).js: \
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH)-app \
@@ -251,10 +253,10 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(TARGET_PLATFORM)-$(APPLICATION_VERS
 	./scripts/build/concatenate-javascript.sh -e $</lib/cli/etcher.js -o $@
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH): \
-	$(BUILD_DIRECTORY)/node-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies/node_modules \
+	$(BUILD_DIRECTORY)/node-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies \
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH).js \
 	| $(BUILD_DIRECTORY) $(BUILD_TEMPORARY_DIRECTORY)
-	./scripts/build/node-package-cli.sh -o $@ -l $< \
+	./scripts/build/node-package-cli.sh -o $@ -l $</node_modules \
 		-n $(APPLICATION_NAME) \
 		-e $(word 2,$^) \
 		-r $(TARGET_ARCH) \

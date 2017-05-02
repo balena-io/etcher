@@ -129,12 +129,17 @@ if [ -n "$ARGV_PREFIX" ]; then
     cp "$PWD/npm-shrinkwrap.json" "$ARGV_PREFIX/npm-shrinkwrap.json"
   fi
 
+  if [ -f "$PWD/binding.gyp" ]; then
+    cp "$PWD/binding.gyp" "$ARGV_PREFIX/binding.gyp"
+  fi
+
   pushd "$ARGV_PREFIX"
   run_install
   popd
 
   rm -f "$ARGV_PREFIX/package.json"
   rm -f "$ARGV_PREFIX/npm-shrinkwrap.json"
+  rm -f "$ARGV_PREFIX/binding.gyp"
 else
   run_install
 fi

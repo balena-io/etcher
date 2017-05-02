@@ -14,6 +14,7 @@ Prerequisites
 - [jq](https://stedolan.github.io/jq/)
 - [Codespell](https://github.com/lucasdemarchi/codespell)
 - [curl](https://curl.haxx.se/)
+- [cpplint](https://github.com/cpplint/cpplint)
 
 ### Windows
 
