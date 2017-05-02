@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.0.0-rc.5 - 2017-05-02
+
+### Fixes
+
+- Fix various elevation issues on Windows
+- Treat unknown images as octet stream
+- Fix uncaught errors when cancelling elevation requests on Windows when the system's language is not English.
+
 ## v1.0.0-rc.4 - 2017-04-22
 
 ### Fixes
