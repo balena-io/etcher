@@ -64,9 +64,6 @@
       "verbosity": 1
     }
   },
-  "optionalDependencies": {
-    "electron-installer-debian": "0.5.1"
-  },
   "dependencies": {
     "angular": "1.6.3",
     "angular-if-state": "^1.0.0",

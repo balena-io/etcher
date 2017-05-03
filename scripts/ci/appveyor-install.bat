@@ -19,16 +19,16 @@ IF "%APPVEYOR_REPO_BRANCH%"=="" (
   EXIT /B 1
 )
 
-call npm config set spin=false
-call npm install -g npm@4.4.4 uglify-es@3.0.3
+call npm config set spin=false || ( EXIT /B 1 )
+call npm install -g uglify-es@3.0.3 || ( EXIT /B 1 )
 
-call choco install nsis -version 2.51
-call choco install jq
-call choco install curl
+call choco install nsis -version 2.51 || ( EXIT /B 1 )
+call choco install jq || ( EXIT /B 1 )
+call choco install curl || ( EXIT /B 1 )
 
-call pip install codespell==1.9.2 awscli cpplint
+call pip install codespell==1.9.2 awscli cpplint || ( EXIT /B 1 )
 
-call make info
-call make electron-develop
+call make info || ( EXIT /B 1 )
+call make electron-develop || ( EXIT /B 1 )
 
 EXIT /B %ERRORLEVEL%

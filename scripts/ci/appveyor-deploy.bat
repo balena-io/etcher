@@ -20,7 +20,7 @@ IF "%APPVEYOR_REPO_BRANCH%"=="" (
 )
 
 IF %APPVEYOR_REPO_BRANCH%==master (
-  call make publish-aws-s3
+  call make publish-aws-s3 || ( EXIT /B 1 )
 )
 
 EXIT /B %ERRORLEVEL%

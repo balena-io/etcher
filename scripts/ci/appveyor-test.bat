@@ -19,7 +19,7 @@ IF "%APPVEYOR_REPO_BRANCH%"=="" (
   EXIT /B 1
 )
 
-call make sanity-checks
-call npm test
+call make sanity-checks || ( EXIT /B 1 )
+call npm test || ( EXIT /B 1 )
 
 EXIT /B %ERRORLEVEL%

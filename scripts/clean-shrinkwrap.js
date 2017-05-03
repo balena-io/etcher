@@ -15,11 +15,10 @@
 
 'use strict';
 
-const _ = require('lodash');
 const path = require('path');
 const packageJSON = require('../package.json');
 const spawn = require('child_process').spawn;
-const shrinkwrapIgnore = _.union(packageJSON.shrinkwrapIgnore, _.keys(packageJSON.optionalDependencies));
+const shrinkwrapIgnore = packageJSON.shrinkwrapIgnore;
 
 console.log('Removing:', shrinkwrapIgnore.join(', '));
 

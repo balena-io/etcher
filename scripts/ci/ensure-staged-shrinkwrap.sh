@@ -19,13 +19,18 @@
 set -e
 set -u
 
-npm run sass
+echo "node version: $(node --version)"
+echo "npm version: $(npm --version)"
 
-# From http://stackoverflow.com/a/9393642/1641422
-if [[ -n $(git status -s | grep "\\.css$" || true) ]]; then
-  echo "There are unstaged sass changes. Please commit the result of:" 1>&2
+SHRINKWRAP_FILE=npm-shrinkwrap.json
+
+npm shrinkwrap --dev
+
+if [[ -n $(git status -s "$SHRINKWRAP_FILE") ]]; then
+  echo "There are unstaged $SHRINKWRAP_FILE changes. Please commit the result of:" 1>&2
   echo ""
-  echo "    npm run sass" 1>&2
+  echo "    npm shrinkwrap --dev" 1>&2
   echo ""
+  git --no-pager diff "$SHRINKWRAP_FILE"
   exit 1
 fi
