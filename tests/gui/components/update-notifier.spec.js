@@ -33,7 +33,7 @@ describe('Browser: UpdateNotifier', function() {
         describe('given the `sleepUpdateCheck` is disabled', function() {
 
           beforeEach(function() {
-            settings.set('sleepUpdateCheck', false);
+            return settings.set('sleepUpdateCheck', false);
           });
 
           it('should return true', function() {
@@ -49,13 +49,13 @@ describe('Browser: UpdateNotifier', function() {
         describe('given the `sleepUpdateCheck` is enabled', function() {
 
           beforeEach(function() {
-            settings.set('sleepUpdateCheck', true);
+            return settings.set('sleepUpdateCheck', true);
           });
 
           describe('given the `lastUpdateNotify` was never updated', function() {
 
             beforeEach(function() {
-              settings.set('lastUpdateNotify', undefined);
+              return settings.set('lastUpdateNotify', undefined);
             });
 
             it('should return true', function() {
@@ -71,7 +71,7 @@ describe('Browser: UpdateNotifier', function() {
           describe('given the `lastUpdateNotify` was very recently updated', function() {
 
             beforeEach(function() {
-              settings.set('lastUpdateNotify', Date.now() + 1000);
+              return settings.set('lastUpdateNotify', Date.now() + 1000);
             });
 
             it('should return false', function() {
@@ -88,7 +88,7 @@ describe('Browser: UpdateNotifier', function() {
 
             beforeEach(function() {
               const SLEEP_MS = units.daysToMilliseconds(UPDATE_NOTIFIER_SLEEP_DAYS);
-              settings.set('lastUpdateNotify', Date.now() + SLEEP_MS + 1000);
+              return settings.set('lastUpdateNotify', Date.now() + SLEEP_MS + 1000);
             });
 
             it('should return true', function() {
@@ -124,13 +124,13 @@ describe('Browser: UpdateNotifier', function() {
         describe('given the `sleepUpdateCheck` is enabled', function() {
 
           beforeEach(function() {
-            settings.set('sleepUpdateCheck', true);
+            return settings.set('sleepUpdateCheck', true);
           });
 
           describe('given the `lastUpdateNotify` was very recently updated', function() {
 
             beforeEach(function() {
-              settings.set('lastUpdateNotify', Date.now() + 1000);
+              return settings.set('lastUpdateNotify', Date.now() + 1000);
             });
 
             it('should return true', function() {

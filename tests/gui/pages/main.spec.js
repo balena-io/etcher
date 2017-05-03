@@ -233,7 +233,7 @@ describe('Browser: MainPage', function() {
           flashState.setFlashingFlag();
         });
 
-        it('should report 0% if percentage == 0 but speed != 0', function() {
+        it('should report 0% if percentage == 0 but speed != 0', function(done) {
           const controller = $controller('FlashController', {
             $scope: {}
           });
@@ -245,11 +245,13 @@ describe('Browser: MainPage', function() {
             speed: 100000000000000
           });
 
-          settings.set('unmountOnSuccess', true);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('0%');
+          settings.set('unmountOnSuccess', true).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('0%');
+            done();
+          }).catch(done);
         });
 
-        it('should handle percentage == 0, type = write, unmountOnSuccess', function() {
+        it('should handle percentage == 0, type = write, unmountOnSuccess', function(done) {
           const controller = $controller('FlashController', {
             $scope: {}
           });
@@ -261,11 +263,13 @@ describe('Browser: MainPage', function() {
             speed: 0
           });
 
-          settings.set('unmountOnSuccess', true);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...');
+          settings.set('unmountOnSuccess', true).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...');
+            done();
+          }).catch(done);
         });
 
-        it('should handle percentage == 0, type = write, !unmountOnSuccess', function() {
+        it('should handle percentage == 0, type = write, !unmountOnSuccess', function(done) {
           const controller = $controller('FlashController', {
             $scope: {}
           });
@@ -277,11 +281,13 @@ describe('Browser: MainPage', function() {
             speed: 0
           });
 
-          settings.set('unmountOnSuccess', false);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...');
+          settings.set('unmountOnSuccess', false).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...');
+            done();
+          }).catch(done);
         });
 
-        it('should handle percentage == 0, type = check, unmountOnSuccess', function() {
+        it('should handle percentage == 0, type = check, unmountOnSuccess', function(done) {
           const controller = $controller('FlashController', {
             $scope: {}
           });
@@ -293,11 +299,13 @@ describe('Browser: MainPage', function() {
             speed: 0
           });
 
-          settings.set('unmountOnSuccess', true);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...');
+          settings.set('unmountOnSuccess', true).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...');
+            done();
+          }).catch(done);
         });
 
-        it('should handle percentage == 0, type = check, !unmountOnSuccess', function() {
+        it('should handle percentage == 0, type = check, !unmountOnSuccess', function(done) {
           const controller = $controller('FlashController', {
             $scope: {}
           });
@@ -309,11 +317,13 @@ describe('Browser: MainPage', function() {
             speed: 0
           });
 
-          settings.set('unmountOnSuccess', false);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...');
+          settings.set('unmountOnSuccess', false).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...');
+            done();
+          }).catch(done);
         });
 
-        it('should handle percentage == 50, type = write, unmountOnSuccess', function() {
+        it('should handle percentage == 50, type = write, unmountOnSuccess', function(done) {
           const controller = $controller('FlashController', {
             $scope: {}
           });
@@ -325,11 +335,13 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          settings.set('unmountOnSuccess', true);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('50%');
+          settings.set('unmountOnSuccess', true).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('50%');
+            done();
+          }).catch(done);
         });
 
-        it('should handle percentage == 50, type = write, !unmountOnSuccess', function() {
+        it('should handle percentage == 50, type = write, !unmountOnSuccess', function(done) {
           const controller = $controller('FlashController', {
             $scope: {}
           });
@@ -341,11 +353,13 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          settings.set('unmountOnSuccess', false);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('50%');
+          settings.set('unmountOnSuccess', false).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('50%');
+            done();
+          }).catch(done);
         });
 
-        it('should handle percentage == 50, type = check, unmountOnSuccess', function() {
+        it('should handle percentage == 50, type = check, unmountOnSuccess', function(done) {
           const controller = $controller('FlashController', {
             $scope: {}
           });
@@ -357,11 +371,13 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          settings.set('unmountOnSuccess', true);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('50% Validating...');
+          settings.set('unmountOnSuccess', true).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('50% Validating...');
+            done();
+          }).catch(done);
         });
 
-        it('should handle percentage == 50, type = check, !unmountOnSuccess', function() {
+        it('should handle percentage == 50, type = check, !unmountOnSuccess', function(done) {
           const controller = $controller('FlashController', {
             $scope: {}
           });
@@ -373,11 +389,13 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          settings.set('unmountOnSuccess', false);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('50% Validating...');
+          settings.set('unmountOnSuccess', false).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('50% Validating...');
+            done();
+          }).catch(done);
         });
 
-        it('should handle percentage == 100, type = write, unmountOnSuccess', function() {
+        it('should handle percentage == 100, type = write, unmountOnSuccess', function(done) {
           const controller = $controller('FlashController', {
             $scope: {}
           });
@@ -389,11 +407,13 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          settings.set('unmountOnSuccess', true);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('Finishing...');
+          settings.set('unmountOnSuccess', true).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Finishing...');
+            done();
+          }).catch(done);
         });
 
-        it('should handle percentage == 100, type = write, !unmountOnSuccess', function() {
+        it('should handle percentage == 100, type = write, !unmountOnSuccess', function(done) {
           const controller = $controller('FlashController', {
             $scope: {}
           });
@@ -405,11 +425,13 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          settings.set('unmountOnSuccess', false);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('Finishing...');
+          settings.set('unmountOnSuccess', false).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Finishing...');
+            done();
+          }).catch(done);
         });
 
-        it('should handle percentage == 100, type = check, unmountOnSuccess', function() {
+        it('should handle percentage == 100, type = check, unmountOnSuccess', function(done) {
           const controller = $controller('FlashController', {
             $scope: {}
           });
@@ -421,11 +443,13 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          settings.set('unmountOnSuccess', true);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('Unmounting...');
+          settings.set('unmountOnSuccess', true).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Unmounting...');
+            done();
+          }).catch(done);
         });
 
-        it('should handle percentage == 100, type = check, !unmountOnSuccess', function() {
+        it('should handle percentage == 100, type = check, !unmountOnSuccess', function(done) {
           const controller = $controller('FlashController', {
             $scope: {}
           });
@@ -437,8 +461,10 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          settings.set('unmountOnSuccess', false);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('Finishing...');
+          settings.set('unmountOnSuccess', false).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Finishing...');
+            done();
+          }).catch(done);
         });
 
       });
