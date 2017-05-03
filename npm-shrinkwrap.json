@@ -918,11 +918,6 @@
       "resolved": "http://registry.npmjs.org/combined-stream/-/combined-stream-0.0.7.tgz",
       "dev": true
     },
-    "command-join": {
-      "version": "2.0.0",
-      "from": "command-join@latest",
-      "resolved": "https://registry.npmjs.org/command-join/-/command-join-2.0.0.tgz"
-    },
     "command-line-args": {
       "version": "2.1.6",
       "from": "command-line-args@>=2.1.6 <3.0.0",
