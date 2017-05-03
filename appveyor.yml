@@ -24,28 +24,21 @@ matrix:
 
 install:
   - ps: Install-Product node $env:nodejs_version x64
-  - npm install -g npm@4.4.4
-  - choco install nsis -version 2.51
-  - choco install jq
-  - choco install curl
   - set PATH=C:\Program Files (x86)\Windows Kits\8.1\bin\x86;%PATH%
   - set PATH=C:\Program Files (x86)\NSIS;%PATH%
   - set PATH=C:\MinGW\bin;%PATH%
   - set PATH=C:\MinGW\msys\1.0\bin;%PATH%
-  - pip install codespell==1.9.2 awscli cpplint
-  - make info
-  - make electron-develop
+  - .\scripts\ci\appveyor-install.bat
 
 build: off
 
 test_script:
   - node --version
   - npm --version
-  - make sanity-checks
-  - cmd: npm test
+  - cmd: .\scripts\ci\appveyor-test.bat
 
 deploy_script:
-  - cmd: .\scripts\ci\deploy-appveyor.bat
+  - cmd: .\scripts\ci\appveyor-deploy.bat
 
 notifications:
 

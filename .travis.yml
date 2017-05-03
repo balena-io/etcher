@@ -33,30 +33,16 @@ os:
   - linux
   - osx
 
-before_install:
-  - npm config set spin=false
-
 install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      ./scripts/build/docker/run-command.sh -r "${TARGET_ARCH}" -s "${PWD}" -c "make info && make electron-develop";
-    else
-      pip install codespell==1.9.2 awscli cpplint;
-      brew install afsctool jq;
-      make info;
-      travis_wait make electron-develop;
-    fi
+  - travis_wait ./scripts/ci/travis-install.sh
 
 script:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      ./scripts/build/docker/run-command.sh -r "${TARGET_ARCH}" -s "${PWD}" -c "make sanity-checks && xvfb-run --server-args=$XVFB_ARGS npm test";
-    else
-      make sanity-checks && npm test;
-    fi
+  - ./scripts/ci/travis-test.sh
 
 deploy:
   provider: script
   skip_cleanup: true
-  script: scripts/ci/deploy-travis.sh
+  script: scripts/ci/travis-deploy.sh
   on:
     branch: master
 
