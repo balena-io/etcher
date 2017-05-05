@@ -6612,19 +6612,7 @@ body {
   max-width: 165px; }
 
 .page-finish .button-primary, .page-finish .progress-button {
-  min-width: 150px; }
-
-.page-finish .button-secondary {
-  min-width: 148px;
-  padding: 9px 10px;
-  background: transparent;
-  border: 2px solid #5793db;
-  color: #5793db;
-  font-weight: bold; }
-
-.page-finish .button-secondary:hover {
-  color: #2d78d2;
-  border-color: #2d78d2; }
+  min-width: 170px; }
 
 .page-finish .title {
   color: #fff;
@@ -6668,27 +6656,33 @@ body {
 
 .page-finish .fallback-banner {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  align-content: flex-start;
-  flex-wrap: wrap;
   width: 100%;
   height: 300px;
   position: absolute;
   top: 140px;
   left: 0;
   background-color: #535760;
-  z-index: 9001; }
-  .page-finish .fallback-banner > * {
-    flex-shrink: 0;
-    padding: 10px 6px 0 6px; }
-  .page-finish .fallback-banner span.caption {
-    font-size: 3rem;
-    color: #fff; }
+  z-index: 9001;
+  color: #fff;
+  font-weight: 300; }
+  .page-finish .fallback-banner .caption {
+    display: flex; }
+  .page-finish .fallback-banner .caption-big {
+    font-size: 30px; }
+  .page-finish .fallback-banner .caption-small {
+    font-size: 20px;
+    padding: 15px; }
   .page-finish .fallback-banner .footer-right {
-    padding: 0; }
-  .page-finish .fallback-banner .caption[os-open-external] {
-    border-bottom: 2px dashed; }
+    padding: 0;
+    border-bottom: 1px dashed; }
+  .page-finish .fallback-banner .svg-icon {
+    margin-left: 0.3em;
+    margin-right: 0.3em; }
+  .page-finish .fallback-banner .section-footer {
+    border-top: none;
+    height: 39px; }
 
 body {
   letter-spacing: 1px; }

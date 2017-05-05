@@ -5,40 +5,40 @@
         <h3 class="title"><span class="tick tick--success space-right-tiny"></span> Flash Complete!</h3>
       </div>
 
-      <div class="col-xs-7">
-        <button class="button button-primary button-brick" ng-click="finish.restart()">
+      <div class="col-xs-4">
+        <button class="button button-primary button-brick" ng-click="finish.restart({ preserveImage: true })">
           <b>Flash Another</b>
-        </button>
-
-        <button class="button button-secondary button-brick" ng-click="finish.restart({ preserveImage: true })">
-          Show Details
         </button>
       </div>
     </div>
 
     <div class="box center">
-      <safe-webview src="'https://etcher.io/'"
-        ng-show="finish.shouldShowWebview"
+      <safe-webview src="'https://etcher.io/etcher_banner/'"
         timeout="2000"
         callback="finish.setShowWebview"></safe-webview>
       <div class="fallback-banner" ng-hide="finish.shouldShowWebview">
-        <svg-icon path="../../../assets/etcher.svg"
-          width="200px"
-          height="auto"
-          os-open-external="https://etcher.io?ref=etcher_footer"></svg-icon>
-
-        <span class="caption">
-          is <span class="caption" os-open-external="https://github.com/resin-io/etcher">an open source project</span> by
-        </span>
-
-        <svg-icon path="../../../assets/resin.svg"
-          width="300px"
-          height="auto"
-          os-open-external="https://resin.io?ref=etcher"></svg-icon>
-
-        <span class="caption footer-right"
-          manifest-bind="version"
-          os-open-external="https://github.com/resin-io/etcher/blob/master/CHANGELOG.md"></span>
+        <div class="caption caption-big">We hope you enjoyed using
+          <svg-icon path="../../../assets/etcher.svg"
+            width="150px"
+            height="auto"
+            os-open-external="https://etcher.io?ref=etcher_footer"></svg-icon>
+        </div>
+        <div class="caption caption-small">
+          made with
+          <svg-icon path="../../../assets/love.svg"
+            width="20px"
+            height="auto"></svg-icon>
+          by
+          <svg-icon path="../../../assets/resin.svg"
+            width="100px"
+            height="auto"
+            os-open-external="https://resin.io?ref=etcher"></svg-icon>
+        </div>
+        <div class="section-footer">
+          <span class="caption footer-right"
+            manifest-bind="version"
+            os-open-external="https://github.com/resin-io/etcher/blob/master/CHANGELOG.md"></span>
+        </div>
       </div>
     </div>
   </div>
