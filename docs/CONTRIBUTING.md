@@ -69,6 +69,28 @@ systems as they can before sending a pull request.
 *The test suite is run automatically by CI servers when you send a pull
 request.*
 
+Diffing Binaries
+----------------
+
+Binary files are tagged as "binary" in the `.gitattributes` file, but also have
+a `diff=hex` tag, which allows you to see hexdump-style diffs for binaries,
+if you add the following to either your global or repository-local git config:
+
+```sh
+$ git config diff.hex.textconv hexdump
+$ git config diff.hex.binary true
+```
+
+And global, respectively:
+
+```sh
+$ git config --global diff.hex.textconv hexdump
+$ git config --global diff.hex.binary true
+```
+
+If you don't have `hexdump` available on your platform,
+you can try [hxd], which is also a bit faster.
+
 Sending a pull request
 ----------------------
 
@@ -108,3 +130,4 @@ Don't hesitate to get in touch if you have any questions or need any help!
 [RUNNING-LOCALLY]: https://github.com/resin-io/etcher/blob/master/docs/RUNNING-LOCALLY.md
 [EditorConfig]: http://editorconfig.org
 [shrinkwrap]: https://docs.npmjs.com/cli/shrinkwrap
+[hxd]: https://github.com/jhermsmeier/hxd
