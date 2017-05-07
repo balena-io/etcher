@@ -19,15 +19,17 @@
 set -e
 set -u
 
-./scripts/build/check-dependency.sh make
-
 if [ -z "$TRAVIS_OS_NAME" ]; then
   echo "This script is only meant to run in Travis CI" 1>&2
   exit 1
 fi
 
-if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-  ./scripts/build/docker/run-command.sh -r "$TARGET_ARCH" -s "$(pwd)" -c "make publish-aws-s3"
+if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+  ./scripts/build/docker/run-command.sh \
+    -r "$TARGET_ARCH" \
+    -s "$(pwd)" \
+    -c 'make sanity-checks && xvfb-run --server-args=$XVFB_ARGS npm test'
 else
-  make publish-aws-s3
+  make sanity-checks
+  npm test
 fi

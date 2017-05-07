@@ -19,8 +19,7 @@ IF "%APPVEYOR_REPO_BRANCH%"=="" (
   EXIT /B 1
 )
 
-IF %APPVEYOR_REPO_BRANCH%==master (
-  make publish-aws-s3
-)
+call make sanity-checks
+call npm test
 
 EXIT /B %ERRORLEVEL%
