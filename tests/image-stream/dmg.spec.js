@@ -105,4 +105,14 @@ describe('ImageStream: DMG', function() {
 
   });
 
+  context('invalid', function() {
+
+    describe('given an invalid dmg file', function() {
+      tester.expectError(
+        path.join(DATA_PATH, 'unrecognized', 'invalid.dmg'),
+        'Invalid image', 'Invalid footer');
+    });
+
+  });
+
 });
