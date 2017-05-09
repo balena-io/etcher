@@ -17,6 +17,8 @@
  * limitations under the License.
  */
 
+#ifdef _WIN32
+
 // Fix winsock.h redefinition errors
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
@@ -26,6 +28,8 @@
 // other Windows library to avoid declaration issues
 #include <windows.h>
 #include <shellapi.h>
+
+#endif
 
 #include <algorithm>
 #include <iterator>

@@ -156,6 +156,7 @@ TARGET_ARCH_DEBIAN = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET
 PRODUCT_NAME = etcher
 APPLICATION_NAME_LOWERCASE = $(shell echo $(APPLICATION_NAME) | tr A-Z a-z)
 APPLICATION_VERSION_DEBIAN = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
+CPRF = cp -RLf
 
 # ---------------------------------------------------------------------
 # Rules
@@ -180,26 +181,22 @@ $(BUILD_OUTPUT_DIRECTORY): | $(BUILD_DIRECTORY)
 $(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies: package.json npm-shrinkwrap.json \
 	| $(BUILD_DIRECTORY)
 	mkdir $@
-	cp -rf src $@
 	./scripts/build/dependencies-npm.sh -p \
 		-r "$(TARGET_ARCH)" \
 		-v "$(ELECTRON_VERSION)" \
 		-x $@ \
 		-t electron \
 		-s "$(TARGET_PLATFORM)"
-	rm -rf $@/src
 
 $(BUILD_DIRECTORY)/node-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies: package.json npm-shrinkwrap.json \
 	| $(BUILD_DIRECTORY)
 	mkdir $@
-	cp -rf src $@
 	./scripts/build/dependencies-npm.sh -p -f \
 		-r "$(TARGET_ARCH)" \
 		-v "$(NODE_VERSION)" \
 		-x $@ \
 		-t node \
 		-s "$(TARGET_PLATFORM)"
-	rm -rf $@/src
 
 $(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH)-app: \
 	$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies \
@@ -207,7 +204,7 @@ $(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_A
 	./scripts/build/electron-create-resources-app.sh -s . -o $@ \
 		-v $(APPLICATION_VERSION) \
 		-f "$(APPLICATION_FILES)"
-	cp -RLf $</* $@
+	$(CPRF) $</* $@
 
 ifdef ANALYTICS_SENTRY_TOKEN
 	./scripts/build/jq-insert.sh \
@@ -244,8 +241,8 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(TARGET_PLATFORM)-$(APPLICATION_VERS
 	| $(BUILD_DIRECTORY)
 	mkdir $@
 	cp $(word 1,$^) $@
-	cp $(word 2,$^) $@
-	cp -rf $(word 3,$^)/* $@
+	$(CPRF) $(word 2,$^) $@
+	$(CPRF) $(word 3,$^)/* $@
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH).js: \
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH)-app \
