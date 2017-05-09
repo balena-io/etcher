@@ -86,6 +86,8 @@ etcher::ELEVATE_RESULT etcher::Elevate(const std::string &command,
   if (!executeResult) {
     DWORD executeError = GetLastError();
 
+    // We map Windows error codes to our own enum class
+    // so we can normalize all Windows error handling mechanisms.
     switch (executeError) {
     case ERROR_FILE_NOT_FOUND:
       return etcher::ELEVATE_RESULT::ELEVATE_FILE_NOT_FOUND;
