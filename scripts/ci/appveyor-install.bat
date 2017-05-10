@@ -20,7 +20,7 @@ IF "%APPVEYOR_REPO_BRANCH%"=="" (
 )
 
 call npm config set spin=false
-call npm install -g npm@4.4.4
+call npm install -g npm@4.4.4 uglify-es@3.0.3
 
 call choco install nsis -version 2.51
 call choco install jq

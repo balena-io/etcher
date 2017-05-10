@@ -35,7 +35,7 @@ else
   ./scripts/build/check-dependency.sh make
   ./scripts/build/check-dependency.sh npm
 
-  npm install -g npm@3.10.10
+  npm install -g npm@3.10.10 uglify-es@3.0.3
   npm config set spin=false
 
   pip install codespell==1.9.2 awscli cpplint
