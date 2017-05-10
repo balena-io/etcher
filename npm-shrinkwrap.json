@@ -1442,10 +1442,15 @@
       "dev": true
     },
     "drivelist": {
-      "version": "5.0.19",
-      "from": "drivelist@5.0.19",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-5.0.19.tgz",
+      "version": "5.0.20",
+      "from": "drivelist@5.0.20",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-5.0.20.tgz",
       "dependencies": {
+        "bluebird": {
+          "version": "3.5.0",
+          "from": "bluebird@>=3.5.0 <4.0.0",
+          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.0.tgz"
+        },
         "lodash": {
           "version": "4.17.4",
           "from": "lodash@>=4.16.4 <5.0.0",
