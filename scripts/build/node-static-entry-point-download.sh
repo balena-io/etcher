@@ -19,7 +19,7 @@
 set -u
 set -e
 
-./scripts/build/check-dependency.sh wget
+./scripts/build/check-dependency.sh curl
 
 function usage() {
   echo "Usage: $0"
@@ -64,7 +64,7 @@ if [ "$ARGV_OPERATING_SYSTEM" == "win32" ]; then
   FILENAME="$FILENAME.exe"
 fi
 
-CHECKSUM=$(wget --no-check-certificate -O - "$DOWNLOADS_BASEURL/SHASUMS256.txt" | grep "$FILENAME" | cut -d ' ' -f 1)
+CHECKSUM=$(curl --location "$DOWNLOADS_BASEURL/SHASUMS256.txt" | grep "$FILENAME" | cut -d ' ' -f 1)
 
 ./scripts/build/download-tool.sh \
   -u "$DOWNLOADS_BASEURL/$FILENAME" \
