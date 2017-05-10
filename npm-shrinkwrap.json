@@ -823,9 +823,9 @@
       "resolved": "https://registry.npmjs.org/cli-cursor/-/cli-cursor-1.0.2.tgz"
     },
     "cli-spinner": {
-      "version": "0.2.5",
+      "version": "0.2.6",
       "from": "cli-spinner@>=0.2.1 <0.3.0",
-      "resolved": "https://registry.npmjs.org/cli-spinner/-/cli-spinner-0.2.5.tgz"
+      "resolved": "https://registry.npmjs.org/cli-spinner/-/cli-spinner-0.2.6.tgz"
     },
     "cli-width": {
       "version": "1.1.1",
@@ -3219,9 +3219,9 @@
       "resolved": "https://registry.npmjs.org/inquirer-dynamic-list/-/inquirer-dynamic-list-1.0.0.tgz",
       "dependencies": {
         "bluebird": {
-          "version": "2.10.2",
-          "from": "bluebird@>=2.10.2 <3.0.0",
-          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-2.10.2.tgz"
+          "version": "2.11.0",
+          "from": "bluebird@^2.10.2",
+          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-2.11.0.tgz"
         },
         "lodash": {
           "version": "3.10.1",
@@ -3454,6 +3454,11 @@
       "from": "is-primitive@>=2.0.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/is-primitive/-/is-primitive-2.0.0.tgz",
       "dev": true
+    },
+    "is-promise": {
+      "version": "2.1.0",
+      "from": "is-promise@>=2.1.0 <3.0.0",
+      "resolved": "https://registry.npmjs.org/is-promise/-/is-promise-2.1.0.tgz"
     },
     "is-property": {
       "version": "1.0.2",
@@ -5896,19 +5901,14 @@
       }
     },
     "resin-cli-visuals": {
-      "version": "1.2.9",
-      "from": "resin-cli-visuals@>=1.2.8 <2.0.0",
-      "resolved": "https://registry.npmjs.org/resin-cli-visuals/-/resin-cli-visuals-1.2.9.tgz",
+      "version": "1.3.1",
+      "from": "resin-cli-visuals@1.3.1",
+      "resolved": "https://registry.npmjs.org/resin-cli-visuals/-/resin-cli-visuals-1.3.1.tgz",
       "dependencies": {
         "bluebird": {
-          "version": "2.10.2",
+          "version": "2.11.0",
           "from": "bluebird@>=2.9.34 <3.0.0",
-          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-2.10.2.tgz"
-        },
-        "drivelist": {
-          "version": "3.3.4",
-          "from": "drivelist@>=3.1.0 <4.0.0",
-          "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-3.3.4.tgz"
+          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-2.11.0.tgz"
         },
         "lodash": {
           "version": "3.10.1",
@@ -6604,11 +6604,6 @@
           "dev": true
         }
       }
-    },
-    "table-parser": {
-      "version": "0.0.3",
-      "from": "table-parser@0.0.3",
-      "resolved": "https://registry.npmjs.org/table-parser/-/table-parser-0.0.3.tgz"
     },
     "tar": {
       "version": "2.2.1",
