@@ -21,6 +21,7 @@ set -e
 
 BROWSERIFY="./node_modules/.bin/browserify"
 ./scripts/build/check-dependency.sh "$BROWSERIFY"
+./scripts/build/check-dependency.sh uglifyjs
 
 function usage() {
   echo "Usage: $0"
@@ -29,16 +30,19 @@ function usage() {
   echo ""
   echo "    -e <entry point (.js)>"
   echo "    -o <output>"
+  echo "    -m minify"
   exit 1
 }
 
 ARGV_ENTRY_POINT=""
 ARGV_OUTPUT=""
+ARGV_MINIFY=false
 
-while getopts ":e:o:" option; do
+while getopts ":e:o:m" option; do
   case $option in
     e) ARGV_ENTRY_POINT=$OPTARG ;;
     o) ARGV_OUTPUT=$OPTARG ;;
+    m) ARGV_MINIFY=true ;;
     *) usage ;;
   esac
 done
@@ -48,3 +52,8 @@ if [ -z "$ARGV_ENTRY_POINT" ] || [ -z "$ARGV_OUTPUT" ]; then
 fi
 
 "$BROWSERIFY" "$ARGV_ENTRY_POINT" --node --outfile "$ARGV_OUTPUT"
+
+if [ "$ARGV_MINIFY" == "true" ]; then
+  uglifyjs --compress --output "$ARGV_OUTPUT.MIN" -- "$ARGV_OUTPUT"
+  mv "$ARGV_OUTPUT.MIN" "$ARGV_OUTPUT"
+fi
