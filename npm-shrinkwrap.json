@@ -2179,19 +2179,29 @@
       "dev": true
     },
     "etcher-image-write": {
-      "version": "9.1.2",
-      "from": "etcher-image-write@9.1.2",
-      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-9.1.2.tgz",
+      "version": "9.1.3",
+      "from": "etcher-image-write@9.1.3",
+      "resolved": "https://registry.npmjs.org/etcher-image-write/-/etcher-image-write-9.1.3.tgz",
       "dependencies": {
         "bluebird": {
           "version": "3.5.0",
           "from": "bluebird@>=3.4.7 <4.0.0",
           "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.0.tgz"
         },
+        "debug": {
+          "version": "2.6.6",
+          "from": "debug@>=2.6.6 <3.0.0",
+          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.6.tgz"
+        },
         "lodash": {
           "version": "4.17.4",
           "from": "lodash@>=4.17.4 <5.0.0",
           "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz"
+        },
+        "ms": {
+          "version": "0.7.3",
+          "from": "ms@0.7.3",
+          "resolved": "https://registry.npmjs.org/ms/-/ms-0.7.3.tgz"
         },
         "through2": {
           "version": "2.0.3",
@@ -5225,8 +5235,7 @@
     "os-tmpdir": {
       "version": "1.0.2",
       "from": "os-tmpdir@>=1.0.1 <1.1.0",
-      "resolved": "https://registry.npmjs.org/os-tmpdir/-/os-tmpdir-1.0.2.tgz",
-      "dev": true
+      "resolved": "https://registry.npmjs.org/os-tmpdir/-/os-tmpdir-1.0.2.tgz"
     },
     "osenv": {
       "version": "0.1.4",
@@ -6668,8 +6677,7 @@
     "tmp": {
       "version": "0.0.31",
       "from": "tmp@0.0.31",
-      "resolved": "https://registry.npmjs.org/tmp/-/tmp-0.0.31.tgz",
-      "dev": true
+      "resolved": "https://registry.npmjs.org/tmp/-/tmp-0.0.31.tgz"
     },
     "to-arraybuffer": {
       "version": "1.0.1",
