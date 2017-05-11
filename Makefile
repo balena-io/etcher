@@ -515,7 +515,7 @@ endif
 cli-develop:
 	./scripts/build/dependencies-npm.sh \
 		-r "$(TARGET_ARCH)" \
-		-v "$(ELECTRON_VERSION)" \
+		-v "$(NODE_VERSION)" \
 		-t node \
 		-s "$(TARGET_PLATFORM)"
 
