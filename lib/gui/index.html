@@ -51,7 +51,7 @@
         os-open-external="https://github.com/resin-io/etcher/blob/master/CHANGELOG.md"></span>
     </footer>
 
-    <section class="section-loader"
+    <div class="section-loader"
       ng-controller="StateController as state"
       ng-class="{
         isFinish: state.is('success')
@@ -59,6 +59,6 @@
       <safe-webview
         src="'https://etcher.io/success-banner/'"
         timeout="2000"></safe-webview>
-    </section>
+    </div>
   </body>
 </html>
