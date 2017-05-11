@@ -20,7 +20,6 @@ describe('Browser: DriveSelector', function() {
     let DrivesModel;
     let SelectionStateModel;
     let WarningModalService;
-    let AnalyticsService;
 
     let controller;
 
@@ -29,8 +28,7 @@ describe('Browser: DriveSelector', function() {
       _$rootScope_,
       _$q_,
       _DrivesModel_, _SelectionStateModel_,
-      _WarningModalService_,
-      _AnalyticsService_
+      _WarningModalService_
     ) {
       $controller = _$controller_;
       $rootScope = _$rootScope_;
@@ -39,7 +37,6 @@ describe('Browser: DriveSelector', function() {
       DrivesModel = _DrivesModel_;
       SelectionStateModel = _SelectionStateModel_;
       WarningModalService = _WarningModalService_;
-      AnalyticsService = _AnalyticsService_;
     }));
 
     beforeEach(() => {
@@ -49,8 +46,7 @@ describe('Browser: DriveSelector', function() {
         $uibModalInstance,
         DrivesModel,
         SelectionStateModel,
-        WarningModalService,
-        AnalyticsService
+        WarningModalService
       });
     });
 
