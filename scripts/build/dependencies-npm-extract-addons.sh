@@ -51,6 +51,7 @@ rsync \
   --prune-empty-dirs \
   --progress \
   --include='*.node' \
+  --include='*.dll' \
   --include='*/' \
   --exclude='*' \
   "$ARGV_NODE_MODULES" "$ARGV_OUTPUT_DIRECTORY"

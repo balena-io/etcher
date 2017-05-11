@@ -197,6 +197,7 @@ $(BUILD_DIRECTORY)/node-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies: package.
 		-x $@ \
 		-t node \
 		-s "$(TARGET_PLATFORM)"
+	git apply --directory $@/node_modules/lzma-native patches/cli/lzma-native-index-static-addon-require.patch
 
 $(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH)-app: \
 	$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies \
@@ -247,7 +248,7 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(TARGET_PLATFORM)-$(APPLICATION_VERS
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH).js: \
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH)-app \
 	| $(BUILD_DIRECTORY)
-	./scripts/build/concatenate-javascript.sh -e $</lib/cli/etcher.js -o $@ -m
+	./scripts/build/concatenate-javascript.sh -e lib/cli/etcher.js -b $< -o $@ -m
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH): \
 	$(BUILD_DIRECTORY)/node-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies \
