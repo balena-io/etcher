@@ -6664,7 +6664,6 @@ body {
   top: 140px;
   left: 0;
   background-color: #535760;
-  z-index: 9001;
   color: #fff;
   font-weight: 300; }
   .page-finish .fallback-banner .caption {
@@ -6714,6 +6713,19 @@ body {
     position: absolute;
     right: 0;
     top: 50%; }
+
+.section-loader webview {
+  flex: 0 1;
+  height: 0;
+  width: 0; }
+
+.section-loader.isFinish webview {
+  flex: initial;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 300px; }
 
 .wrapper {
   height: 100%;
