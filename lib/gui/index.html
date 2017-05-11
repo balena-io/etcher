@@ -31,9 +31,7 @@
     <main class="wrapper" ui-view></main>
 
     <footer class="section-footer" ng-controller="StateController as state"
-      ng-style="{
-        display: state.is('success') ? 'none' : 'flex'
-      }">
+      ng-hide="state.is('success')">
       <svg-icon path="../../../assets/etcher.svg"
         width="83px"
         height="13px"
