@@ -23,6 +23,7 @@ Makefile text
 *.bat text
 *.svg text
 *.yml text
+*.patch text
 
 # Binary files (no line-ending conversions)
 *.bz2 binary diff=hex

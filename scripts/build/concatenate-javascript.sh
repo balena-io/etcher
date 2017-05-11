@@ -29,29 +29,56 @@ function usage() {
   echo "Options"
   echo ""
   echo "    -e <entry point (.js)>"
+  echo "    -b <base directory>"
   echo "    -o <output>"
   echo "    -m minify"
   exit 1
 }
 
 ARGV_ENTRY_POINT=""
+ARGV_BASE_DIRECTORY=""
 ARGV_OUTPUT=""
 ARGV_MINIFY=false
 
-while getopts ":e:o:m" option; do
+while getopts ":e:b:o:m" option; do
   case $option in
     e) ARGV_ENTRY_POINT=$OPTARG ;;
+    b) ARGV_BASE_DIRECTORY=$OPTARG ;;
     o) ARGV_OUTPUT=$OPTARG ;;
     m) ARGV_MINIFY=true ;;
     *) usage ;;
   esac
 done
 
-if [ -z "$ARGV_ENTRY_POINT" ] || [ -z "$ARGV_OUTPUT" ]; then
+if [ -z "$ARGV_ENTRY_POINT" ] ||
+   [ -z "$ARGV_BASE_DIRECTORY" ] ||
+   [ -z "$ARGV_OUTPUT" ]; then
   usage
 fi
 
-"$BROWSERIFY" "$ARGV_ENTRY_POINT" --node --outfile "$ARGV_OUTPUT"
+"$BROWSERIFY" "$ARGV_BASE_DIRECTORY/$ARGV_ENTRY_POINT" --node --outfile "$ARGV_OUTPUT"
+
+# This hack workarounds the fact the Browserify stores absolute paths
+# of the machine that was used to produce the bundle, giving "not found"
+# module errors when executing it in another computer.
+# The fix is to replace absolute paths with `__dirname`
+node <<EOF > "$ARGV_OUTPUT.TMP"
+const separator = process.platform === 'win32' ? '\\\\\\\\\\\\\\\\' : '\\/';
+const baseDirectory = process.platform === 'win32'
+  ? "$ARGV_BASE_DIRECTORY".replace(/\//g, separator)
+  : "$ARGV_BASE_DIRECTORY";
+
+const regex = new RegExp('"(.)+' + baseDirectory.replace(/\+/g, '\\\\+') + separator, 'g');
+const contents = require('fs').readFileSync("$ARGV_OUTPUT", { encoding: 'utf8' });
+
+console.log(contents.split('\n').map((line) => {
+  if (!regex.test(line)) return line;
+  return line
+    .replace(regex, 'require("path").join(__dirname,"')
+    .replace(new RegExp(separator, 'g'), '","') + ')';
+}).join('\n'));
+EOF
+mv "$ARGV_OUTPUT.TMP" "$ARGV_OUTPUT"
 
 if [ "$ARGV_MINIFY" == "true" ]; then
   uglifyjs --compress --output "$ARGV_OUTPUT.MIN" -- "$ARGV_OUTPUT"
