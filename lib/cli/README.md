@@ -5,8 +5,8 @@ The Etcher CLI is a command line interface to the Etcher writer backend, and
 currently the only module in the "Etcher" umbrella that makes use of this
 backend directly.
 
-This module also has the task of unmounting the drives before and after
-flashing.
+This module also has the task of unmounting the drives before flashing, and
+ejecting after flashing.
 
 Notice the Etcher CLI is not worried about elevation, and assumes it has enough
 permissions to continue, throwing an error otherwise. Consult the

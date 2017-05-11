@@ -14,19 +14,9 @@
   <div class="checkbox">
     <label>
       <input type="checkbox"
-        ng-model="settings.currentData.unmountOnSuccess"
-        ng-change="settings.toggle('unmountOnSuccess')">
-
-      <!-- On Windows, "Unmounting" basically means "ejecting". -->
-      <!-- On top of that, Windows users are usually not even -->
-      <!-- familiar with the meaning of "unmount", which comes -->
-      <!-- from the UNIX world. -->
-
-      <span>
-        <span ng-show="settings.platform == 'win32'">Eject</span>
-        <span ng-hide="settings.platform == 'win32'">Auto-unmount</span>
-        on success
-      </span>
+        ng-model="settings.currentData.ejectOnSuccess"
+        ng-change="settings.toggle('ejectOnSuccess')">
+      <span>Eject on success</span>
     </label>
   </div>
 

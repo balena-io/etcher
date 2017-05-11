@@ -43,70 +43,70 @@ describe('ChildWriter CLI', function() {
 
   describe('.getArguments()', function() {
 
-    it('should return a list of arguments given validate = false, unmount = false', function() {
+    it('should return a list of arguments given validate = false, eject = false', function() {
       m.chai.expect(cli.getArguments({
         image: 'path/to/image.img',
         device: '/dev/disk2',
         entryPoint: 'path/to/app.asar',
         validateWriteOnSuccess: false,
-        unmountOnSuccess: false
+        ejectOnSuccess: false
       })).to.deep.equal([
         'path/to/app.asar',
         'path/to/image.img',
         '--drive',
         '/dev/disk2',
-        '--no-unmount',
+        '--no-eject',
         '--no-check'
       ]);
     });
 
-    it('should return a list of arguments given validate = false, unmount = true', function() {
+    it('should return a list of arguments given validate = false, eject = true', function() {
       m.chai.expect(cli.getArguments({
         image: 'path/to/image.img',
         device: '/dev/disk2',
         entryPoint: 'path/to/app.asar',
         validateWriteOnSuccess: false,
-        unmountOnSuccess: true
+        ejectOnSuccess: true
       })).to.deep.equal([
         'path/to/app.asar',
         'path/to/image.img',
         '--drive',
         '/dev/disk2',
-        '--unmount',
+        '--eject',
         '--no-check'
       ]);
     });
 
-    it('should return a list of arguments given validate = true, unmount = false', function() {
+    it('should return a list of arguments given validate = true, eject = false', function() {
       m.chai.expect(cli.getArguments({
         image: 'path/to/image.img',
         device: '/dev/disk2',
         entryPoint: 'path/to/app.asar',
         validateWriteOnSuccess: true,
-        unmountOnSuccess: false
+        ejectOnSuccess: false
       })).to.deep.equal([
         'path/to/app.asar',
         'path/to/image.img',
         '--drive',
         '/dev/disk2',
-        '--no-unmount',
+        '--no-eject',
         '--check'
       ]);
     });
 
-    it('should return a list of arguments given validate = true, unmount = true', function() {
+    it('should return a list of arguments given validate = true, eject = true', function() {
       m.chai.expect(cli.getArguments({
         image: 'path/to/image.img',
         device: '/dev/disk2',
         entryPoint: 'path/to/app.asar',
         validateWriteOnSuccess: true,
-        unmountOnSuccess: true
+        ejectOnSuccess: true
       })).to.deep.equal([
         'path/to/app.asar',
         'path/to/image.img',
         '--drive',
         '/dev/disk2',
-        '--unmount',
+        '--eject',
         '--check'
       ]);
     });
