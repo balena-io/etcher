@@ -57,7 +57,8 @@
         isFinish: state.is('success')
       }">
       <safe-webview
-        src="'https://etcher.io/success-banner/'"></safe-webview>
+        src="'https://etcher.io/success-banner/'"
+        on-state-change="state.onStateChange"></safe-webview>
     </div>
   </body>
 </html>
