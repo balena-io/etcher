@@ -6605,7 +6605,7 @@ body {
  * limitations under the License.
  */
 .page-finish {
-  margin-top: -40px; }
+  margin-top: -25px; }
 
 .page-finish .button-label {
   margin: 0 auto 15px;
@@ -6655,13 +6655,14 @@ body {
   z-index: 9001; }
 
 .page-finish .fallback-banner {
+  padding-top: 35px;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   height: 300px;
   position: absolute;
-  top: 140px;
+  top: 125px;
   left: 0;
   background-color: #535760;
   color: #fff;
@@ -6725,7 +6726,7 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 300px; }
+  height: 255px; }
 
 .wrapper {
   height: 100%;

@@ -15,7 +15,7 @@
  */
 
 .page-finish {
-  margin-top: -40px;
+  margin-top: -25px;
 }
 
 .page-finish .button-label {
@@ -82,13 +82,14 @@
 }
 
 .page-finish .fallback-banner {
+  padding-top: 35px;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   height: 300px;
   position: absolute;
-  top: 140px;
+  top: 125px;
   left: 0;
   background-color: $palette-theme-dark-background;
   color: $palette-theme-dark-foreground;
