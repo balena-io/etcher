@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.0.0 - 2017-05-12
+
+### Features
+
+- Implement a dynamic finish page.
+- Display nicer error dialog when reading an invalid image.
+
+### Fixes
+
+- Prevent drive from getting re-mounted in macOS even when the unmount on success setting is enabled.
+- Fix `ECONNRESET` and `ECONNREFUSED` errors when checking for updates on unstable connections.
+- Fix application stuck at "Starting..." on Windows.
+- Fix error on startup when Windows username contained an ampersand.
+
 ## v1.0.0-rc.5 - 2017-05-02
 
 ### Fixes

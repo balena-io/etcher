@@ -1,7 +1,7 @@
 {
   "name": "etcher",
   "displayName": "Etcher",
-  "version": "1.0.0-rc.5",
+  "version": "1.0.0",
   "updates": {
     "semverRange": "<2.0.0"
   },
@@ -58,7 +58,7 @@
   "builder": {
     "win": {
       "title": "Etcher",
-      "version": "v1.0.0-rc.5",
+      "version": "v1.0.0",
       "publisher": "Resin.io",
       "icon": "assets/icon.ico",
       "verbosity": 1
