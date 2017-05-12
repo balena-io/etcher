@@ -643,6 +643,52 @@ describe('Shared: s3Packages', function() {
 
     });
 
+    describe('given ECONNRESET', function() {
+
+      beforeEach(function() {
+        const error = new Error('ECONNRESET');
+        error.code = 'ECONNRESET';
+
+        this.requestGetAsyncStub = m.sinon.stub(request, 'getAsync');
+        this.requestGetAsyncStub.returns(Bluebird.reject(error));
+      });
+
+      afterEach(function() {
+        this.requestGetAsyncStub.restore();
+      });
+
+      it('should resolve an empty array', function(done) {
+        s3Packages.getRemoteVersions(s3Packages.BUCKET_URL.PRODUCTION).then((versions) => {
+          m.chai.expect(versions).to.deep.equal([]);
+          done();
+        }).catch(done);
+      });
+
+    });
+
+    describe('given ECONNREFUSED', function() {
+
+      beforeEach(function() {
+        const error = new Error('ECONNREFUSED');
+        error.code = 'ECONNREFUSED';
+
+        this.requestGetAsyncStub = m.sinon.stub(request, 'getAsync');
+        this.requestGetAsyncStub.returns(Bluebird.reject(error));
+      });
+
+      afterEach(function() {
+        this.requestGetAsyncStub.restore();
+      });
+
+      it('should resolve an empty array', function(done) {
+        s3Packages.getRemoteVersions(s3Packages.BUCKET_URL.PRODUCTION).then((versions) => {
+          m.chai.expect(versions).to.deep.equal([]);
+          done();
+        }).catch(done);
+      });
+
+    });
+
   });
 
   describe('.getLatestVersion()', function() {
