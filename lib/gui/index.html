@@ -30,7 +30,8 @@
 
     <main class="wrapper" ui-view></main>
 
-    <footer class="section-footer">
+    <footer class="section-footer" ng-controller="StateController as state"
+      ng-hide="state.is('success')">
       <svg-icon path="../../../assets/etcher.svg"
         width="83px"
         height="13px"
@@ -49,5 +50,14 @@
         manifest-bind="version"
         os-open-external="https://github.com/resin-io/etcher/blob/master/CHANGELOG.md"></span>
     </footer>
+
+    <div class="section-loader"
+      ng-controller="StateController as state"
+      ng-class="{
+        isFinish: state.is('success')
+      }">
+      <safe-webview
+        src="'https://etcher.io/success-banner/'"></safe-webview>
+    </div>
   </body>
 </html>

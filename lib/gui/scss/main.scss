@@ -86,6 +86,23 @@ body {
   }
 }
 
+.section-loader {
+  webview {
+    flex: 0 1;
+    height: 0;
+    width: 0;
+  }
+
+  &.isFinish webview {
+    flex: initial;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 255px;
+  }
+}
+
 .wrapper {
   height: 100%;
   margin: 20px 60px;

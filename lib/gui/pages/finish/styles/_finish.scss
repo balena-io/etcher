@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+.page-finish {
+  margin-top: -25px;
+}
+
 .page-finish .button-label {
   margin: 0 auto $spacing-medium;
 
@@ -27,6 +31,11 @@
 
 .page-finish .title {
   color: $palette-theme-dark-foreground;
+  font-weight: bold;
+}
+
+.page-finish .huge-title {
+  font-size: 3.5em;
 }
 
 .page-finish .label {
@@ -47,4 +56,70 @@
   background-color: $palette-theme-dark-soft-background;
   padding: 0px;
   min-width: 2px;
+}
+
+.page-finish .center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-finish .box > div {
+  margin-bottom: 20px;
+
+  > button {
+    margin-right: 20px;
+  }
+}
+
+.page-finish webview {
+  width: 800px;
+  height: 300px;
+  position: absolute;
+  top: 80px;
+  left: 0;
+  z-index: 9001;
+}
+
+.page-finish .fallback-banner {
+  padding-top: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 300px;
+  position: absolute;
+  top: 125px;
+  left: 0;
+  background-color: $palette-theme-dark-background;
+  color: $palette-theme-dark-foreground;
+  font-weight: 300;
+
+  .caption {
+    display: flex;
+  }
+
+  .caption-big {
+    font-size: 30px;
+  }
+
+  .caption-small {
+    font-size: 20px;
+    padding: 15px;
+  }
+
+  .footer-right {
+    padding: 0;
+    border-bottom: 1px dashed;
+  }
+
+  .svg-icon {
+    margin-left: 0.3em;
+    margin-right: 0.3em
+  }
+
+  .section-footer {
+    border-top: none;
+    height: 39px;
+  }
 }
