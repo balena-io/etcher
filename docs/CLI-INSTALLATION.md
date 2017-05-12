@@ -1,5 +1,4 @@
-macOS and GNU/Linux
--------------------
+### macOS and GNU/Linux
 
 - Extract the `.tar.gz` package by running:
 
@@ -16,8 +15,7 @@ tar fvx path/to/cli.tar.gz
 export PATH="$PATH:/opt/etcher-cli"
 ```
 
-Windows
--------
+### Windows
 
 - Unzip the `.zip` package by right-clicking on it and selecting "Extract All"
 
@@ -45,15 +43,13 @@ Windows
 
   - Re-open `cmd.exe`, or PowerShell
 
-Running
--------
+### Running
 
 ```sh
 etcher -v
 ```
 
-Options
--------
+### Options
 
 ```
   --help, -h     show help
@@ -63,5 +59,3 @@ Options
   --yes, -y      confirm non-interactively
   --unmount, -u  unmount on success
 ```
-
-
