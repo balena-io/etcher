@@ -41,7 +41,7 @@ Options
   --drive, -d    drive
   --check, -c    validate write
   --yes, -y      confirm non-interactively
-  --unmount, -u  unmount on success
+  --eject, -e    eject on success
 ```
 
 Debug mode
