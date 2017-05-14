@@ -153,9 +153,13 @@ endif
 
 TARGET_ARCH_DEBIAN = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET_ARCH) -t debian)
 
+
+TARGET_ARCH_REDHAT = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET_ARCH) -t redhat)
+
 PRODUCT_NAME = etcher
 APPLICATION_NAME_LOWERCASE = $(shell echo $(APPLICATION_NAME) | tr A-Z a-z)
 APPLICATION_VERSION_DEBIAN = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
+APPLICATION_VERSION_REDHAT = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
 CPRF = cp -RLf
 
 # ---------------------------------------------------------------------
@@ -388,6 +392,12 @@ $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_V
 	./scripts/build/electron-installer-debian-linux.sh -p $< -r "$(TARGET_ARCH)" -o $| \
 		-c scripts/build/debian/config.json
 
+$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_VERSION_REDHAT)_$(TARGET_ARCH_REDHAT).rpm: \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-linux-$(TARGET_ARCH) \
+	| $(BUILD_OUTPUT_DIRECTORY)
+	./scripts/build/electron-installer-redhat-linux.sh -p $< -r "$(TARGET_ARCH)" -o $| \
+		-c scripts/build/redhat/config.json
+
 $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-win32-$(TARGET_ARCH).zip: \
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-win32-$(TARGET_ARCH) \
 	| $(BUILD_OUTPUT_DIRECTORY)
@@ -452,16 +462,20 @@ endif
 ifeq ($(TARGET_PLATFORM),linux)
 electron-installer-appimage: $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
 electron-installer-debian: $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb
+electron-installer-redhat: $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_VERSION_REDHAT)_$(TARGET_ARCH_REDHAT).rpm
 cli-installer-tar-gz: $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).tar.gz
 TARGETS +=  \
 	electron-installer-appimage \
 	electron-installer-debian \
+	electron-installer-redhat \
 	cli-installer-tar-gz
 PUBLISH_AWS_S3 += \
 	$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip \
 	$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).tar.gz
 PUBLISH_BINTRAY_DEBIAN += \
 	$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb
+PUBLISH_BINTRAY_REDHAT += \
+	$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_VERSION_REDHAT)_$(TARGET_ARCH_REDHAT).rpm
 endif
 
 ifeq ($(TARGET_PLATFORM),win32)
@@ -509,6 +523,18 @@ publish-bintray-debian: $(PUBLISH_BINTRAY_DEBIAN)
 		-t $(RELEASE_TYPE)))
 
 TARGETS += publish-bintray-debian
+endif
+
+ifdef PUBLISH_BINTRAY_REDHAT
+publish-bintray-redhat: $(PUBLISH_BINTRAY_REDHAT)
+	$(foreach publishable,$^,$(call execute-command,./scripts/publish/bintray-redhat.sh \
+		-f $(publishable) \
+		-v $(APPLICATION_VERSION_REDHAT) \
+		-r $(TARGET_ARCH) \
+		-c $(APPLICATION_NAME_LOWERCASE) \
+		-t $(RELEASE_TYPE)))
+
+TARGETS += publish-bintray-redhat
 endif
 
 .PHONY: $(TARGETS)
