@@ -474,8 +474,6 @@ PUBLISH_AWS_S3 += \
 	$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).tar.gz
 PUBLISH_BINTRAY_DEBIAN += \
 	$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb
-PUBLISH_BINTRAY_REDHAT += \
-	$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-electron_$(APPLICATION_VERSION_REDHAT)_$(TARGET_ARCH_REDHAT).rpm
 endif
 
 ifeq ($(TARGET_PLATFORM),win32)
@@ -523,18 +521,6 @@ publish-bintray-debian: $(PUBLISH_BINTRAY_DEBIAN)
 		-t $(RELEASE_TYPE)))
 
 TARGETS += publish-bintray-debian
-endif
-
-ifdef PUBLISH_BINTRAY_REDHAT
-publish-bintray-redhat: $(PUBLISH_BINTRAY_REDHAT)
-	$(foreach publishable,$^,$(call execute-command,./scripts/publish/bintray-redhat.sh \
-		-f $(publishable) \
-		-v $(APPLICATION_VERSION_REDHAT) \
-		-r $(TARGET_ARCH) \
-		-c $(APPLICATION_NAME_LOWERCASE) \
-		-t $(RELEASE_TYPE)))
-
-TARGETS += publish-bintray-redhat
 endif
 
 .PHONY: $(TARGETS)
