@@ -35,9 +35,8 @@ else
   ./scripts/build/check-dependency.sh make
   ./scripts/build/check-dependency.sh npm
 
-  npm install -g npm@3.10.10 uglify-es@3.0.3
   npm config set spin=false
-
+  npm install -g uglify-es@3.0.3
   pip install codespell==1.9.2 awscli cpplint
   brew install afsctool jq
   make info

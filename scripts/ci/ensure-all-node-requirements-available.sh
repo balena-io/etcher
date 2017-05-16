@@ -31,7 +31,7 @@ PACKAGE_JSON=package.json
 # workaround for path-length bug in jq that only affects Windows https://github.com/stedolan/jq/issues/1155
 NODE_MODULES=($(cat "$HERE/builtin-modules.json" | jq -r '.[]'))
 NPM_MODULES=($(jq -r '.dependencies | keys | .[]' "$PACKAGE_JSON"))
-NPM_OPTIONAL_MODULES=($(jq -r '.optionalDependencies | keys | .[]' "$PACKAGE_JSON"))
+NPM_OPTIONAL_MODULES=($(jq -r '.optionalDependencies // {} | keys | .[]' "$PACKAGE_JSON"))
 NPM_DEV_MODULES=($(jq -r '.devDependencies | keys | .[]' "$PACKAGE_JSON"))
 
 DEV_FILES_REGEX=^\(tests\|scripts\)/
@@ -91,7 +91,7 @@ git ls-tree -r HEAD | while IFS='' read line; do
             done
           fi
           # Check optionalDependencies from package.json
-          if [[ $requirement_found -eq 0 ]]; then
+          if [[ $requirement_found -eq 0 ]] && [[ -n "${NPM_OPTIONAL_MODULES:-}" ]]; then
             for module in "${NPM_OPTIONAL_MODULES[@]}"; do
               if [[ "$required" == "$module" ]]; then
                 requirement_found=1

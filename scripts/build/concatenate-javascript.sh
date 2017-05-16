@@ -21,7 +21,6 @@ set -e
 
 BROWSERIFY="./node_modules/.bin/browserify"
 ./scripts/build/check-dependency.sh "$BROWSERIFY"
-./scripts/build/check-dependency.sh uglifyjs
 
 function usage() {
   echo "Usage: $0"
@@ -81,6 +80,7 @@ EOF
 mv "$ARGV_OUTPUT.TMP" "$ARGV_OUTPUT"
 
 if [ "$ARGV_MINIFY" == "true" ]; then
+  ./scripts/build/check-dependency.sh uglifyjs
   uglifyjs --compress --output "$ARGV_OUTPUT.MIN" -- "$ARGV_OUTPUT"
   mv "$ARGV_OUTPUT.MIN" "$ARGV_OUTPUT"
 fi
