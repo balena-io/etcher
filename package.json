@@ -65,7 +65,8 @@
     }
   },
   "optionalDependencies": {
-    "electron-installer-debian": "0.5.1"
+    "electron-installer-debian": "0.5.1",
+    "electron-installer-redhat" : "0.5.0"
   },
   "dependencies": {
     "angular": "1.6.3",
