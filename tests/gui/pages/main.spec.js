@@ -21,7 +21,6 @@ const _ = require('lodash')
 const path = require('path')
 const supportedFormats = require('../../../lib/shared/supported-formats')
 const angular = require('angular')
-const settings = require('../../../lib/gui/models/settings')
 const flashState = require('../../../lib/shared/models/flash-state')
 const availableDrives = require('../../../lib/shared/models/available-drives')
 const selectionState = require('../../../lib/shared/models/selection-state')
@@ -226,231 +225,19 @@ describe('Browser: MainPage', function () {
         m.chai.expect(controller.getProgressButtonLabel()).to.equal('Flash!')
       })
 
-      describe('given there is a flash in progress', function () {
-        beforeEach(function () {
-          flashState.setFlashingFlag()
+      it('should display the flashing progress', function () {
+        const controller = $controller('FlashController', {
+          $scope: {}
         })
 
-        it('should report 0% if percentage == 0 but speed != 0', function () {
-          const controller = $controller('FlashController', {
-            $scope: {}
-          })
-
-          flashState.setProgressState({
-            type: 'write',
-            percentage: 0,
-            eta: 15,
-            speed: 100000000000000
-          })
-
-          return settings.set('unmountOnSuccess', true).then(() => {
-            m.chai.expect(controller.getProgressButtonLabel()).to.equal('0%')
-          })
+        flashState.setFlashingFlag()
+        flashState.setProgressState({
+          type: 'write',
+          percentage: 85,
+          eta: 15,
+          speed: 1000
         })
-
-        it('should handle percentage == 0, type = write, unmountOnSuccess', function () {
-          const controller = $controller('FlashController', {
-            $scope: {}
-          })
-
-          flashState.setProgressState({
-            type: 'write',
-            percentage: 0,
-            eta: 15,
-            speed: 0
-          })
-
-          return settings.set('unmountOnSuccess', true).then(() => {
-            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...')
-          })
-        })
-
-        it('should handle percentage == 0, type = write, !unmountOnSuccess', function () {
-          const controller = $controller('FlashController', {
-            $scope: {}
-          })
-
-          flashState.setProgressState({
-            type: 'write',
-            percentage: 0,
-            eta: 15,
-            speed: 0
-          })
-
-          return settings.set('unmountOnSuccess', false).then(() => {
-            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...')
-          })
-        })
-
-        it('should handle percentage == 0, type = check, unmountOnSuccess', function () {
-          const controller = $controller('FlashController', {
-            $scope: {}
-          })
-
-          flashState.setProgressState({
-            type: 'check',
-            percentage: 0,
-            eta: 15,
-            speed: 0
-          })
-
-          return settings.set('unmountOnSuccess', true).then(() => {
-            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...')
-          })
-        })
-
-        it('should handle percentage == 0, type = check, !unmountOnSuccess', function () {
-          const controller = $controller('FlashController', {
-            $scope: {}
-          })
-
-          flashState.setProgressState({
-            type: 'check',
-            percentage: 0,
-            eta: 15,
-            speed: 0
-          })
-
-          return settings.set('unmountOnSuccess', false).then(() => {
-            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...')
-          })
-        })
-
-        it('should handle percentage == 50, type = write, unmountOnSuccess', function () {
-          const controller = $controller('FlashController', {
-            $scope: {}
-          })
-
-          flashState.setProgressState({
-            type: 'write',
-            percentage: 50,
-            eta: 15,
-            speed: 1000
-          })
-
-          return settings.set('unmountOnSuccess', true).then(() => {
-            m.chai.expect(controller.getProgressButtonLabel()).to.equal('50%')
-          })
-        })
-
-        it('should handle percentage == 50, type = write, !unmountOnSuccess', function () {
-          const controller = $controller('FlashController', {
-            $scope: {}
-          })
-
-          flashState.setProgressState({
-            type: 'write',
-            percentage: 50,
-            eta: 15,
-            speed: 1000
-          })
-
-          return settings.set('unmountOnSuccess', false).then(() => {
-            m.chai.expect(controller.getProgressButtonLabel()).to.equal('50%')
-          })
-        })
-
-        it('should handle percentage == 50, type = check, unmountOnSuccess', function () {
-          const controller = $controller('FlashController', {
-            $scope: {}
-          })
-
-          flashState.setProgressState({
-            type: 'check',
-            percentage: 50,
-            eta: 15,
-            speed: 1000
-          })
-
-          return settings.set('unmountOnSuccess', true).then(() => {
-            m.chai.expect(controller.getProgressButtonLabel()).to.equal('50% Validating...')
-          })
-        })
-
-        it('should handle percentage == 50, type = check, !unmountOnSuccess', function () {
-          const controller = $controller('FlashController', {
-            $scope: {}
-          })
-
-          flashState.setProgressState({
-            type: 'check',
-            percentage: 50,
-            eta: 15,
-            speed: 1000
-          })
-
-          return settings.set('unmountOnSuccess', false).then(() => {
-            m.chai.expect(controller.getProgressButtonLabel()).to.equal('50% Validating...')
-          })
-        })
-
-        it('should handle percentage == 100, type = write, unmountOnSuccess', function () {
-          const controller = $controller('FlashController', {
-            $scope: {}
-          })
-
-          flashState.setProgressState({
-            type: 'write',
-            percentage: 100,
-            eta: 15,
-            speed: 1000
-          })
-
-          return settings.set('unmountOnSuccess', true).then(() => {
-            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Finishing...')
-          })
-        })
-
-        it('should handle percentage == 100, type = write, !unmountOnSuccess', function () {
-          const controller = $controller('FlashController', {
-            $scope: {}
-          })
-
-          flashState.setProgressState({
-            type: 'write',
-            percentage: 100,
-            eta: 15,
-            speed: 1000
-          })
-
-          return settings.set('unmountOnSuccess', false).then(() => {
-            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Finishing...')
-          })
-        })
-
-        it('should handle percentage == 100, type = check, unmountOnSuccess', function () {
-          const controller = $controller('FlashController', {
-            $scope: {}
-          })
-
-          flashState.setProgressState({
-            type: 'check',
-            percentage: 100,
-            eta: 15,
-            speed: 1000
-          })
-
-          return settings.set('unmountOnSuccess', true).then(() => {
-            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Unmounting...')
-          })
-        })
-
-        it('should handle percentage == 100, type = check, !unmountOnSuccess', function () {
-          const controller = $controller('FlashController', {
-            $scope: {}
-          })
-
-          flashState.setProgressState({
-            type: 'check',
-            percentage: 100,
-            eta: 15,
-            speed: 1000
-          })
-
-          return settings.set('unmountOnSuccess', false).then(() => {
-            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Finishing...')
-          })
-        })
+        m.chai.expect(controller.getProgressButtonLabel()).to.equal('85% Flashing')
       })
     })
   })
