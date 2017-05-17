@@ -31,7 +31,7 @@
     <main class="wrapper" ui-view></main>
 
     <footer class="section-footer" ng-controller="StateController as state"
-      ng-hide="state.is('success')">
+      ng-hide="state.currentName() === 'success'">
       <svg-icon path="../../../assets/etcher.svg"
         width="83px"
         height="13px"
@@ -54,11 +54,11 @@
     <div class="section-loader"
       ng-controller="StateController as state"
       ng-class="{
-        isFinish: state.is('success')
+        isFinish: state.currentName() === 'success'
       }">
       <safe-webview
         src="'https://etcher.io/success-banner/'"
-        on-state-change="state.onStateChange"></safe-webview>
+        current-state-name="state.currentName()"></safe-webview>
     </div>
   </body>
 </html>
