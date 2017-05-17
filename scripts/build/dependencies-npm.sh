@@ -32,7 +32,6 @@ function usage() {
   echo "    -t <target platform (node|electron)>"
   echo "    -s <target operating system>"
   echo "    -x <install prefix>"
-  echo "    -f force install"
   echo "    -p production install"
   exit 1
 }
@@ -42,17 +41,15 @@ ARGV_TARGET_VERSION=""
 ARGV_TARGET_PLATFORM=""
 ARGV_TARGET_OPERATING_SYSTEM=""
 ARGV_PREFIX=""
-ARGV_FORCE=false
 ARGV_PRODUCTION=false
 
-while getopts ":r:v:t:s:x:fp" option; do
+while getopts ":r:v:t:s:x:p" option; do
   case $option in
     r) ARGV_ARCHITECTURE=$OPTARG ;;
     v) ARGV_TARGET_VERSION=$OPTARG ;;
     t) ARGV_TARGET_PLATFORM=$OPTARG ;;
     s) ARGV_TARGET_OPERATING_SYSTEM=$OPTARG ;;
     x) ARGV_PREFIX=$OPTARG ;;
-    f) ARGV_FORCE=true ;;
     p) ARGV_PRODUCTION=true ;;
     *) usage ;;
   esac
@@ -86,10 +83,6 @@ ELECTRON_ARCHITECTURE=$(./scripts/build/architecture-convert.sh -r "$ARGV_ARCHIT
 export npm_config_arch=$ELECTRON_ARCHITECTURE
 
 INSTALL_OPTS=""
-
-if [ "$ARGV_FORCE" == "true" ]; then
-  INSTALL_OPTS="$INSTALL_OPTS --force"
-fi
 
 if [ "$ARGV_PRODUCTION" == "true" ]; then
   INSTALL_OPTS="$INSTALL_OPTS --production"
