@@ -26,6 +26,9 @@ if [[ "$OS" != "Linux" ]]; then
 fi
 
 ./scripts/build/check-dependency.sh electron-installer-debian
+# electron-installer-debian is documented as requiring the fakeroot and dpkg commands
+./scripts/build/check-dependency.sh fakeroot
+./scripts/build/check-dependency.sh dpkg
 
 function usage() {
   echo "Usage: $0"
