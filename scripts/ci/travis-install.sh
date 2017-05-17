@@ -37,7 +37,7 @@ else
 
   npm config set spin=false
   npm install -g uglify-es@3.0.3
-  pip install codespell==1.9.2 awscli cpplint
+  pip install -r requirements.txt
   brew install afsctool jq
   make info
   make electron-develop
