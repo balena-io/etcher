@@ -23,7 +23,8 @@ RUN echo "deb http://archive.ubuntu.com/ubuntu precise-backports main restricted
     python-software-properties \
     unzip \
     xvfb \
-    zip
+    zip  \
+    rpm
 
 # Install a C++11 compiler
 RUN add-apt-repository ppa:ubuntu-toolchain-r/test \

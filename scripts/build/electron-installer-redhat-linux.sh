@@ -27,6 +27,9 @@ fi
 
 ./scripts/build/check-dependency.sh electron-installer-redhat
 
+# electron-installer-redhat is documented as requiring the rpmbuild commands
+./scripts/build/check-dependency.sh rpmbuild
+
 function usage() {
   echo "Usage: $0"
   echo ""
