@@ -19,7 +19,7 @@ BUILD_OUTPUT_DIRECTORY = $(BUILD_DIRECTORY)/out
 # ---------------------------------------------------------------------
 
 ELECTRON_VERSION = $(shell jq -r '.devDependencies["electron"]' package.json)
-NODE_VERSION = 6.10.3
+NODE_VERSION = 6.1.0
 COMPANY_NAME = $(shell jq -r '.companyName' package.json)
 APPLICATION_NAME = $(shell jq -r '.displayName' package.json)
 APPLICATION_DESCRIPTION = $(shell jq -r '.description' package.json)
@@ -160,6 +160,7 @@ PRODUCT_NAME = etcher
 APPLICATION_NAME_LOWERCASE = $(shell echo $(APPLICATION_NAME) | tr A-Z a-z)
 APPLICATION_VERSION_DEBIAN = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
 APPLICATION_VERSION_REDHAT = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
+# Fix hard link Appveyor issues
 CPRF = cp -RLf
 
 # ---------------------------------------------------------------------
@@ -195,7 +196,7 @@ $(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies: pack
 $(BUILD_DIRECTORY)/node-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies: package.json npm-shrinkwrap.json \
 	| $(BUILD_DIRECTORY)
 	mkdir $@
-	./scripts/build/dependencies-npm.sh -p -f \
+	./scripts/build/dependencies-npm.sh -p \
 		-r "$(TARGET_ARCH)" \
 		-v "$(NODE_VERSION)" \
 		-x $@ \
@@ -440,6 +441,7 @@ TARGETS = \
 	package-electron \
 	package-cli \
 	cli-develop \
+	installers-all \
 	electron-develop
 
 package-electron: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH)
@@ -489,6 +491,8 @@ PUBLISH_AWS_S3 += \
 	$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-win32-$(TARGET_ARCH).exe \
 	$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
 endif
+
+installers-all: $(PUBLISH_AWS_S3) $(PUBLISH_BINTRAY_DEBIAN)
 
 ifdef PUBLISH_AWS_S3
 publish-aws-s3: $(PUBLISH_AWS_S3)

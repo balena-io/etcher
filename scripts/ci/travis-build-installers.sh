@@ -24,15 +24,13 @@ if [ -z "$TRAVIS_OS_NAME" ]; then
   exit 1
 fi
 
-./scripts/build/check-dependency.sh npm
 ./scripts/build/check-dependency.sh make
 
 if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
   ./scripts/build/docker/run-command.sh \
     -r "$TARGET_ARCH" \
     -s "$(pwd)" \
-    -c 'make sanity-checks && xvfb-run --server-args=$XVFB_ARGS npm test'
+    -c 'make installers-all'
 else
-  make sanity-checks
-  npm test
+  make installers-all
 fi
