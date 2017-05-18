@@ -156,6 +156,8 @@ TARGET_ARCH_DEBIAN = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET
 PRODUCT_NAME = etcher
 APPLICATION_NAME_LOWERCASE = $(shell echo $(APPLICATION_NAME) | tr A-Z a-z)
 APPLICATION_VERSION_DEBIAN = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
+
+# Fix hard link Appveyor issues
 CPRF = cp -RLf
 
 # ---------------------------------------------------------------------
@@ -430,6 +432,7 @@ TARGETS = \
 	package-electron \
 	package-cli \
 	cli-develop \
+	installers-all \
 	electron-develop
 
 package-electron: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH)
@@ -477,6 +480,8 @@ PUBLISH_AWS_S3 += \
 	$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-win32-$(TARGET_ARCH).exe \
 	$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
 endif
+
+installers-all: $(PUBLISH_AWS_S3) $(PUBLISH_BINTRAY_DEBIAN)
 
 ifdef PUBLISH_AWS_S3
 publish-aws-s3: $(PUBLISH_AWS_S3)
