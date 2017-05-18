@@ -26,7 +26,7 @@ call choco install nsis -version 2.51 || ( EXIT /B 1 )
 call choco install jq || ( EXIT /B 1 )
 call choco install curl || ( EXIT /B 1 )
 
-call pip install codespell==1.9.2 awscli cpplint || ( EXIT /B 1 )
+call pip install -r requirements.txt || ( EXIT /B 1 )
 
 call make info || ( EXIT /B 1 )
 call make electron-develop || ( EXIT /B 1 )

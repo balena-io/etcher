@@ -41,4 +41,5 @@ RUN npm config set spin=false
 RUN npm install -g uglify-es@3.0.3 electron-installer-debian@0.5.1
 
 # Python
-RUN pip install codespell==1.9.2 awscli cpplint
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt

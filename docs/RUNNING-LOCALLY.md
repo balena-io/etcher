@@ -12,9 +12,13 @@ Prerequisites
 - [NodeJS](https://nodejs.org) (at least v6)
 - [Python](https://www.python.org)
 - [jq](https://stedolan.github.io/jq/)
-- [Codespell](https://github.com/lucasdemarchi/codespell)
 - [curl](https://curl.haxx.se/)
-- [cpplint](https://github.com/cpplint/cpplint)
+
+```sh
+pip install -r requirements.txt
+```
+
+You might need to run this with `sudo` or administrator permissions.
 
 ### Windows
 
