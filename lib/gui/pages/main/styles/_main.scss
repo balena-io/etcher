@@ -18,7 +18,16 @@
   margin-top: 75px;
 }
 
-.svg-icon[disabled] path {
+svg {
+  width: 100%;
+  height: 100%;
+}
+
+div.center-block > svg-icon {
+  display: inline-block;
+}
+
+div[disabled] > svg-icon path {
   fill: $palette-theme-dark-disabled-foreground;
 }
 
