@@ -33,17 +33,24 @@ os:
   - linux
   - osx
 
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      export HOST_OS="darwin";
+    else
+      export HOST_OS="$TRAVIS_OS_NAME";
+    fi
+
 install:
-  - travis_wait ./scripts/ci/travis-install.sh
+  - travis_wait ./scripts/ci/install.sh -o $HOST_OS -r $TARGET_ARCH
 
 script:
-  - ./scripts/ci/travis-test.sh
-  - ./scripts/ci/travis-build-installers.sh
+  - ./scripts/ci/test.sh -o $HOST_OS -r $TARGET_ARCH
+  - ./scripts/ci/build-installers.sh -o $HOST_OS -r $TARGET_ARCH
 
 deploy:
   provider: script
   skip_cleanup: true
-  script: scripts/ci/travis-deploy.sh
+  script: scripts/ci/deploy-aws-s3.sh -o $HOST_OS -r $TARGET_ARCH
   on:
     branch: master
 
