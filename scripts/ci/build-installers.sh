@@ -19,18 +19,37 @@
 set -e
 set -u
 
-if [ -z "$TRAVIS_OS_NAME" ]; then
-  echo "This script is only meant to run in Travis CI" 1>&2
+function usage() {
+  echo "Usage: $0"
+  echo ""
+  echo "Options"
+  echo ""
+  echo "    -o <operating system>"
+  echo "    -r <architecture>"
   exit 1
+}
+
+ARGV_OPERATING_SYSTEM=""
+ARGV_ARCHITECTURE=""
+
+while getopts ":o:r:" option; do
+  case $option in
+    o) ARGV_OPERATING_SYSTEM=$OPTARG ;;
+    r) ARGV_ARCHITECTURE=$OPTARG ;;
+    *) usage ;;
+  esac
+done
+
+if [ -z "$ARGV_OPERATING_SYSTEM" ] || [ -z "$ARGV_ARCHITECTURE" ]; then
+  usage
 fi
 
-./scripts/build/check-dependency.sh make
-
-if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+if [ "$ARGV_OPERATING_SYSTEM" == "linux" ]; then
   ./scripts/build/docker/run-command.sh \
     -r "$TARGET_ARCH" \
     -s "$(pwd)" \
     -c 'make installers-all'
 else
+  ./scripts/build/check-dependency.sh make
   make installers-all
 fi
