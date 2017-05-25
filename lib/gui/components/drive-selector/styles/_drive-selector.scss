@@ -78,5 +78,9 @@
     font-size: 11px;
     color: $palette-theme-light-soft-foreground;
   }
+
+  .word-keep {
+    word-break: keep-all;
+  }
 }
 

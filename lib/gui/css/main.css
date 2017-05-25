@@ -6410,6 +6410,9 @@ body {
   font-size: 11px;
   color: #b3b3b3; }
 
+.modal-drive-selector-modal .word-keep {
+  word-break: keep-all; }
+
 /*
  * Copyright 2016 resin.io
  *
