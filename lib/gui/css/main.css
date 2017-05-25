@@ -6651,7 +6651,8 @@ body {
   color: #fff;
   font-weight: 300; }
   .page-finish .fallback-banner .caption {
-    display: flex; }
+    display: flex;
+    font-weight: normal; }
   .page-finish .fallback-banner .caption-big {
     font-size: 30px; }
   .page-finish .fallback-banner .caption-small {
