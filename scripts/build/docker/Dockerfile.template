@@ -1,8 +1,16 @@
 FROM <%= image %>
 
+# Setup APT sources
+<% if (architecture == 'i686') { %>
+RUN sed s,ubuntu\.stu\.edu\.tw,archive.ubuntu.com, /etc/apt/sources.list > /tmp/sources.list \
+  && mv /tmp/sources.list /etc/apt/sources.list
+<% } %>
+<% if (architecture == 'x86_64') { %>
+RUN echo "deb http://archive.ubuntu.com/ubuntu precise-backports main restricted universe multiverse" >> /etc/apt/sources.list
+<% } %>
+
 # Install dependencies
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise-backports main restricted universe multiverse" >> /etc/apt/sources.list \
-  && apt-get update \
+RUN apt-get update \
   && apt-get install -y \
     build-essential \
     curl \
