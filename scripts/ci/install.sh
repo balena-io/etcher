@@ -68,7 +68,7 @@ else
   ./scripts/build/check-dependency.sh make
 
   npm config set spin=false
-  npm install -g uglify-es@3.0.3
+  npm install -g uglify-es@3.0.11
   pip install -r requirements.txt
 
   make info

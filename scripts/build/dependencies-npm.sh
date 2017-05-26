@@ -90,18 +90,11 @@ fi
 
 function run_install() {
 
-  # Since we use an `npm-shrinkwrap.json` file, if you pull changes
-  # that update a dependency and try to `npm install` directly, npm
-  # will complain that your `node_modules` tree is not equal to what
-  # is defined by the `npm-shrinkwrap.json` file, and will thus
-  # refuse to do anything but install from scratch.
-  npm prune
+  npm install $INSTALL_OPTS
 
   # When changing between target architectures, rebuild all dependencies,
   # since compiled add-ons will not work otherwise.
   npm rebuild
-
-  npm install $INSTALL_OPTS
 
   if [ "$ARGV_PRODUCTION" == "true" ]; then
 

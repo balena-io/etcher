@@ -39,6 +39,7 @@ before_install:
     else
       export HOST_OS="$TRAVIS_OS_NAME";
     fi
+  - npm install --global npm@5
 
 install:
   - travis_wait ./scripts/ci/install.sh -o $HOST_OS -r $TARGET_ARCH

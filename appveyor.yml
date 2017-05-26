@@ -28,6 +28,7 @@ install:
   - set PATH=C:\Program Files (x86)\NSIS;%PATH%
   - set PATH=C:\MinGW\bin;%PATH%
   - set PATH=C:\MinGW\msys\1.0\bin;%PATH%
+  - npm install --global npm@5
   - bash .\scripts\ci\install.sh -o win32 -r %TARGET_ARCH%
 
 build: off
