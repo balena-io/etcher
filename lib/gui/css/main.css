@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 /*!
- * Bootstrap v3.3.6 (http://getbootstrap.com)
- * Copyright 2011-2015 Twitter, Inc.
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -1093,7 +1093,6 @@ a {
     color: #b7b7b7;
     text-decoration: none; }
   a:focus {
-    outline: thin dotted;
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px; }
 
@@ -2309,7 +2308,6 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px; }
 
@@ -2863,7 +2861,6 @@ select[multiple].input-lg,
   -ms-user-select: none;
   user-select: none; }
   .btn:focus, .button:focus, .progress-button:focus, .btn.focus, .focus.button, .focus.progress-button, .btn:active:focus, .button:active:focus, .progress-button:active:focus, .btn:active.focus, .button:active.focus, .progress-button:active.focus, .btn.active:focus, .active.button:focus, .active.progress-button:focus, .btn.active.focus, .active.focus.button, .active.focus.progress-button {
-    outline: thin dotted;
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px; }
   .btn:hover, .button:hover, .progress-button:hover, .btn:focus, .button:focus, .progress-button:focus, .btn.focus, .focus.button, .focus.progress-button {
