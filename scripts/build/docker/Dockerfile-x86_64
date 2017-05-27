@@ -1,8 +1,13 @@
 FROM ubuntu:12.04
 
+# Setup APT sources
+
+
+RUN echo "deb http://archive.ubuntu.com/ubuntu precise-backports main restricted universe multiverse" >> /etc/apt/sources.list
+
+
 # Install dependencies
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise-backports main restricted universe multiverse" >> /etc/apt/sources.list \
-  && apt-get update \
+RUN apt-get update \
   && apt-get install -y \
     build-essential \
     curl \
