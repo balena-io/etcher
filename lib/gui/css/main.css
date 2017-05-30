@@ -6478,10 +6478,10 @@ svg {
   width: 100%;
   height: 100%; }
 
-div.center-block > svg-icon {
+svg-icon {
   display: inline-block; }
 
-div[disabled] > svg-icon path {
+svg-icon[disabled] path {
   fill: #787c7f; }
 
 .page-main .step-selection-text {

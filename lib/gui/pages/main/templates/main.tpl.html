@@ -3,7 +3,7 @@
     <div class="box text-center relative" os-dropzone="image.selectImageByPath($file)">
 
       <div class="center-block">
-        <svg-icon path="main.selection.getImageLogo() || '../../assets/image.svg'"></svg-icon>
+        <svg-icon path="main.selection.getImageLogo() || '../assets/image.svg'"></svg-icon>
       </div>
 
       <div class="space-vertical-large">
@@ -41,9 +41,9 @@
       <div class="step-border-left" ng-disabled="main.shouldDriveStepBeDisabled()"></div>
       <div class="step-border-right" ng-disabled="main.shouldFlashStepBeDisabled()"></div>
 
-      <div class="center-block"
-        ng-disabled="main.shouldDriveStepBeDisabled()">
-        <svg-icon path="'../../assets/drive.svg'"></svg-icon>
+      <div class="center-block">
+        <svg-icon path="'../assets/drive.svg'"
+          disabled="main.shouldDriveStepBeDisabled()"></svg-icon>
       </div>
 
       <div class="space-vertical-large">
@@ -79,9 +79,9 @@
 
   <div class="col-xs" ng-controller="FlashController as flash">
     <div class="box text-center">
-      <div class="center-block"
-        ng-disabled="main.shouldFlashStepBeDisabled()">
-        <svg-icon path="'../../assets/flash.svg'"></svg-icon>
+      <div class="center-block">
+        <svg-icon path="'../assets/flash.svg'"
+          disabled="main.shouldFlashStepBeDisabled()"></svg-icon>
       </div>
 
       <div class="space-vertical-large">

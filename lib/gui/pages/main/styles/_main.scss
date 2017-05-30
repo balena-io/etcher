@@ -23,11 +23,11 @@ svg {
   height: 100%;
 }
 
-div.center-block > svg-icon {
+svg-icon {
   display: inline-block;
 }
 
-div[disabled] > svg-icon path {
+svg-icon[disabled] path {
   fill: $palette-theme-dark-disabled-foreground;
 }
 
