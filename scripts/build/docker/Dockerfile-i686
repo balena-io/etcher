@@ -30,7 +30,8 @@ RUN apt-get update \
     unzip \
     xvfb \
     xauth \
-    zip
+    zip   \
+    rpm
 
 # NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
