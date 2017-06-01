@@ -11,6 +11,8 @@ RUN apt-get update \
   && apt-get install -y \
     build-essential \
     curl \
+    dpkg \
+    fakeroot \
     fuse \
     git \
     jq \
@@ -19,6 +21,7 @@ RUN apt-get update \
     libgtk2.0-0 \
     libx11-xcb1 \
     libnss3 \
+    libsass0 \
     libxss1 \
     libxtst6 \
     libyaml-dev \
@@ -26,8 +29,10 @@ RUN apt-get update \
     python-pip \
     python-dev \
     python-software-properties \
+    rsync \
     unzip \
     xvfb \
+    xauth \
     zip
 
 # Install a C++11 compiler
