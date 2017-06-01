@@ -43,7 +43,8 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
 RUN npm config set unsafe-perm=true
 
 RUN npm config set spin=false
-RUN npm install -g uglify-es@3.0.3 electron-installer-debian@0.5.1
+RUN npm install --global npm@5
+RUN npm install --global uglify-es@3.0.11 electron-installer-debian@0.5.1
 
 # Python
 COPY requirements.txt requirements.txt

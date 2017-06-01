@@ -546,7 +546,6 @@ info:
 sanity-checks:
 	./scripts/ci/ensure-all-node-requirements-available.sh
 	./scripts/ci/ensure-staged-sass.sh
-	./scripts/ci/ensure-staged-shrinkwrap.sh
 	./scripts/ci/ensure-npm-dependencies-compatibility.sh
 	./scripts/ci/ensure-npm-valid-dependencies.sh
 	./scripts/ci/ensure-npm-shrinkwrap-versions.sh
