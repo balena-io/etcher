@@ -128,7 +128,7 @@
     "mochainon": "^1.0.0",
     "nock": "^9.0.9",
     "node-gyp": "^3.5.0",
-    "node-sass": "^3.8.0",
+    "node-sass": "^4.5.3",
     "sass-lint": "^1.10.2",
     "tmp": "0.0.31",
     "versionist": "^2.1.0"
