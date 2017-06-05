@@ -4,7 +4,7 @@ const m = require('mochainon');
 const _ = require('lodash');
 const path = require('path');
 const angular = require('angular');
-const availableDrives = require('../../../lib/gui/models/drives');
+const availableDrives = require('../../../lib/gui/models/available-drives');
 require('angular-mocks');
 
 describe('Browser: SelectionState', function() {

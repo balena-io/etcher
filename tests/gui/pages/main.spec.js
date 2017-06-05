@@ -7,7 +7,7 @@ const supportedFormats = require('../../../lib/shared/supported-formats');
 const angular = require('angular');
 const settings = require('../../../lib/gui/models/settings');
 const flashState = require('../../../lib/gui/models/flash-state');
-const availableDrives = require('../../../lib/gui/models/drives');
+const availableDrives = require('../../../lib/gui/models/available-drives');
 require('angular-mocks');
 
 describe('Browser: MainPage', function() {
