@@ -368,6 +368,11 @@ describe('Browser: availableDrives', function() {
           m.chai.expect(availableDrives.getDrives()).to.deep.equal(this.drives);
         });
 
+        it('should return empty array given an empty array', function() {
+          availableDrives.setDrives([]);
+          m.chai.expect(availableDrives.getDrives()).to.deep.equal([]);
+        });
+
         it('should consider drives with different $$hashKey the same', function() {
           this.drives[0].$$haskey = 1234;
           availableDrives.setDrives(this.drives);
