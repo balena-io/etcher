@@ -6413,6 +6413,15 @@ body {
 .modal-drive-selector-modal .word-keep {
   word-break: keep-all; }
 
+svg {
+  width: 100%;
+  height: 100%; }
+
+svg-icon {
+  display: inline-block; }
+  svg-icon[disabled] path {
+    fill: #787c7f; }
+
 /*
  * Copyright 2016 resin.io
  *
@@ -6473,13 +6482,6 @@ body {
  */
 .page-main {
   margin-top: 75px; }
-
-svg {
-  width: 100%;
-  height: 100%; }
-
-svg-icon[disabled] path {
-  fill: #787c7f; }
 
 .page-main .step-selection-text {
   color: #fff; }

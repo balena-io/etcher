@@ -18,15 +18,6 @@
   margin-top: 75px;
 }
 
-svg {
-  width: 100%;
-  height: 100%;
-}
-
-svg-icon[disabled] path {
-  fill: $palette-theme-dark-disabled-foreground;
-}
-
 .page-main .step-selection-text {
   color: $palette-theme-dark-foreground;
 }
