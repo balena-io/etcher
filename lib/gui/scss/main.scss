@@ -84,6 +84,10 @@ body {
     right: 0;
     top: 50%;
   }
+
+  > span[os-open-external] {
+    display: flex;
+  }
 }
 
 .section-loader {

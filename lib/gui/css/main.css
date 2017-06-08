@@ -6699,6 +6699,8 @@ body {
     position: absolute;
     right: 0;
     top: 50%; }
+  .section-footer > span[os-open-external] {
+    display: flex; }
 
 .section-loader webview {
   flex: 0 1;
