@@ -20,12 +20,12 @@ BUILD_OUTPUT_DIRECTORY = $(BUILD_DIRECTORY)/out
 
 ELECTRON_VERSION = $(shell jq -r '.devDependencies["electron"]' package.json)
 NODE_VERSION = 6.1.0
-COMPANY_NAME = $(shell jq -r '.companyName' package.json)
-APPLICATION_NAME = $(shell jq -r '.displayName' package.json)
+COMPANY_NAME = Resinio Ltd
+APPLICATION_NAME = $(shell jq -r '.build.productName' package.json)
 APPLICATION_DESCRIPTION = $(shell jq -r '.description' package.json)
-APPLICATION_COPYRIGHT = $(shell jq -r '.copyright' package.json)
-APPLICATION_CATEGORY = public.app-category.developer-tools
-APPLICATION_BUNDLE_ID = io.resin.etcher
+APPLICATION_COPYRIGHT = $(shell jq -r '.build.copyright' package.json)
+APPLICATION_CATEGORY = $(shell jq -r '.build.mac.category' package.json)
+APPLICATION_BUNDLE_ID = $(shell jq -r '.build.appId' package.json)
 APPLICATION_FILES = lib,assets
 
 # Add the current commit to the version if release type is "snapshot"
