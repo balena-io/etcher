@@ -6419,7 +6419,7 @@ svg {
 
 svg-icon {
   display: inline-block; }
-  svg-icon[disabled] path {
+  svg-icon > div[disabled] path {
     fill: #787c7f; }
 
 /*
