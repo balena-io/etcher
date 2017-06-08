@@ -1480,9 +1480,9 @@
       "dev": true
     },
     "drivelist": {
-      "version": "5.0.20",
-      "from": "drivelist@5.0.20",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-5.0.20.tgz",
+      "version": "5.0.22",
+      "from": "drivelist@5.0.22",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-5.0.22.tgz",
       "dependencies": {
         "bluebird": {
           "version": "3.5.0",
