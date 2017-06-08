@@ -2,6 +2,7 @@
   "name": "etcher",
   "version": "1.0.0",
   "updates": {
+    "enabled": true,
     "sleepDays": 7,
     "semverRange": "<2.0.0"
   },

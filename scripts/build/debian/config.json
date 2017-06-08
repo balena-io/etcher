@@ -4,7 +4,7 @@
   "genericName": "Etcher",
   "homepage": "https://etcher.io/",
   "icon": "assets/icon.png",
-  "bin": "etcher-electron.sh",
+  "bin": "etcher",
   "categories": [
     "Utility"
   ],

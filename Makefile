@@ -150,6 +150,14 @@ $(warning No Mixpanel token found (ANALYTICS_MIXPANEL_TOKEN is not set))
 endif
 
 # ---------------------------------------------------------------------
+# Updates
+# ---------------------------------------------------------------------
+
+ifdef DISABLE_UPDATES
+$(warning Update notification dialog has been disabled (DISABLE_UPDATES is set))
+endif
+
+# ---------------------------------------------------------------------
 # Extra variables
 # ---------------------------------------------------------------------
 
@@ -219,7 +227,7 @@ $(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_A
 ifdef ANALYTICS_SENTRY_TOKEN
 	./scripts/build/jq-insert.sh \
 		-p "analytics.sentry.token" \
-		-v "$(ANALYTICS_SENTRY_TOKEN)" \
+		-v "\"$(ANALYTICS_SENTRY_TOKEN)\"" \
 		-f $@/package.json \
 		-t $(BUILD_TEMPORARY_DIRECTORY)
 endif
@@ -227,7 +235,15 @@ endif
 ifdef ANALYTICS_MIXPANEL_TOKEN
 	./scripts/build/jq-insert.sh \
 		-p "analytics.mixpanel.token" \
-		-v "$(ANALYTICS_MIXPANEL_TOKEN)" \
+		-v "\"$(ANALYTICS_MIXPANEL_TOKEN)\"" \
+		-f $@/package.json \
+		-t $(BUILD_TEMPORARY_DIRECTORY)
+endif
+
+ifdef DISABLE_UPDATES
+	./scripts/build/jq-insert.sh \
+		-p "updates.enabled" \
+		-v "false" \
 		-f $@/package.json \
 		-t $(BUILD_TEMPORARY_DIRECTORY)
 endif

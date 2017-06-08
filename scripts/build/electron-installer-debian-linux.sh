@@ -67,10 +67,8 @@ fi
 
 DEBIAN_ARCHITECTURE=$(./scripts/build/architecture-convert.sh -r "$ARGV_ARCHITECTURE" -t debian)
 
-cp scripts/build/debian/etcher-electron.sh "$ARGV_DIRECTORY"
 electron-installer-debian \
   --src "$ARGV_DIRECTORY" \
   --dest "$ARGV_OUTPUT" \
   --config "$ARGV_DEBIAN_CONFIGURATION" \
   --arch "$DEBIAN_ARCHITECTURE"
-rm "$ARGV_DIRECTORY/etcher-electron.sh"
