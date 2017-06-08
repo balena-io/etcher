@@ -18,10 +18,10 @@ See the [RUNNING-LOCALLY.md][RUNNING-LOCALLY] guide.
 Developing
 ----------
 
-We rely on various `npm` scripts to perform some common tasks:
+We rely on various `make` targets to perform some common tasks:
 
-- `npm run lint`: Run the linter.
-- `npm run sass`: Compile SCSS files.
+- `make lint`: Run the linter.
+- `make sass`: Compile SCSS files.
 
 We make use of [EditorConfig] to communicate indentation, line endings and
 other text editing default. We encourage you to install the relevant plugin in

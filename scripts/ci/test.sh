@@ -48,11 +48,8 @@ if [ "$ARGV_OPERATING_SYSTEM" == "linux" ]; then
   ./scripts/build/docker/run-command.sh \
     -r "$ARGV_ARCHITECTURE" \
     -s "$(pwd)" \
-    -c 'make sanity-checks && xvfb-run --server-args=$XVFB_ARGS npm test'
+    -c 'xvfb-run --server-args=$XVFB_ARGS make lint test sanity-checks'
 else
   ./scripts/build/check-dependency.sh make
-  ./scripts/build/check-dependency.sh npm
-
-  make sanity-checks
-  npm test
+  make lint test sanity-checks
 fi

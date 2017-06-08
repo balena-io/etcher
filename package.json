@@ -16,15 +16,7 @@
     "url": "git@github.com:resin-io/etcher.git"
   },
   "scripts": {
-    "test": "npm run lint && electron-mocha --recursive --renderer tests/gui -R spec && electron-mocha --recursive tests/shared tests/child-writer tests/image-stream -R spec",
-    "sass": "node-sass ./lib/gui/scss/main.scss > ./lib/gui/css/main.css",
-    "cpplint": "cpplint --recursive src",
-    "jslint": "eslint lib tests scripts bin versionist.conf.js",
-    "sasslint": "sass-lint lib/gui/scss",
-    "htmllint": "node scripts/html-lint.js",
-    "codespell": "codespell.py --skip *.gz,*.bz2,*.xz,*.zip,*.img,*.dmg,*.iso,*.rpi-sdcard,.DS_Store lib tests docs scripts Makefile *.md LICENSE",
-    "lint": "npm run jslint && npm run sasslint && npm run cpplint && npm run codespell && npm run htmllint",
-    "changelog": "versionist",
+    "test": "make test",
     "start": "electron lib/start.js",
     "preshrinkwrap": "node ./scripts/clean-shrinkwrap.js",
     "configure": "node-gyp configure",

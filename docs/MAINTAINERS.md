@@ -13,7 +13,7 @@ Preparing a new version
 
 - Bump the version number in the `npm-shrinkwrap.json`'s `version` property.
 
-- Add a new entry to `CHANGELOG.md` by running `npm run changelog`.
+- Add a new entry to `CHANGELOG.md` by running `make CHANGELOG.md`.
 
 - Re-take `screenshot.png` so it displays the latest version in the bottom
 right corner.
