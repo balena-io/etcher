@@ -17,7 +17,6 @@ describe('Browser: DriveSelector', function() {
     let $rootScope;
     let $q;
     let $uibModalInstance;
-    let SelectionStateModel;
     let WarningModalService;
 
     let controller;
@@ -26,14 +25,12 @@ describe('Browser: DriveSelector', function() {
       _$controller_,
       _$rootScope_,
       _$q_,
-      _SelectionStateModel_,
       _WarningModalService_
     ) {
       $controller = _$controller_;
       $rootScope = _$rootScope_;
       $q = _$q_;
       $uibModalInstance = {};
-      SelectionStateModel = _SelectionStateModel_;
       WarningModalService = _WarningModalService_;
     }));
 
@@ -42,7 +39,6 @@ describe('Browser: DriveSelector', function() {
         $scope: $rootScope.$new(),
         $q,
         $uibModalInstance,
-        SelectionStateModel,
         WarningModalService
       });
     });

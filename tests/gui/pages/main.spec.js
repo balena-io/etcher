@@ -8,6 +8,7 @@ const angular = require('angular');
 const settings = require('../../../lib/gui/models/settings');
 const flashState = require('../../../lib/gui/models/flash-state');
 const availableDrives = require('../../../lib/gui/models/available-drives');
+const selectionState = require('../../../lib/gui/models/selection-state');
 require('angular-mocks');
 
 describe('Browser: MainPage', function() {
@@ -19,11 +20,9 @@ describe('Browser: MainPage', function() {
   describe('MainController', function() {
 
     let $controller;
-    let SelectionStateModel;
 
-    beforeEach(angular.mock.inject(function(_$controller_, _SelectionStateModel_) {
+    beforeEach(angular.mock.inject(function(_$controller_) {
       $controller = _$controller_;
-      SelectionStateModel = _SelectionStateModel_;
     }));
 
     describe('.shouldDriveStepBeDisabled()', function() {
@@ -33,7 +32,7 @@ describe('Browser: MainPage', function() {
           $scope: {}
         });
 
-        SelectionStateModel.clear();
+        selectionState.clear();
 
         m.chai.expect(controller.shouldDriveStepBeDisabled()).to.be.true;
       });
@@ -43,7 +42,7 @@ describe('Browser: MainPage', function() {
           $scope: {}
         });
 
-        SelectionStateModel.setImage({
+        selectionState.setImage({
           path: 'rpi.img',
           extension: 'img',
           size: {
@@ -67,7 +66,7 @@ describe('Browser: MainPage', function() {
           $scope: {}
         });
 
-        SelectionStateModel.clear();
+        selectionState.clear();
 
         m.chai.expect(controller.shouldFlashStepBeDisabled()).to.be.true;
       });
@@ -77,8 +76,8 @@ describe('Browser: MainPage', function() {
           $scope: {}
         });
 
-        SelectionStateModel.clear();
-        SelectionStateModel.setImage({
+        selectionState.clear();
+        selectionState.setImage({
           path: 'rpi.img',
           extension: 'img',
           size: {
@@ -108,8 +107,8 @@ describe('Browser: MainPage', function() {
           }
         ]);
 
-        SelectionStateModel.clear();
-        SelectionStateModel.setDrive('/dev/disk2');
+        selectionState.clear();
+        selectionState.setDrive('/dev/disk2');
 
         m.chai.expect(controller.shouldFlashStepBeDisabled()).to.be.true;
       });
@@ -129,10 +128,10 @@ describe('Browser: MainPage', function() {
           }
         ]);
 
-        SelectionStateModel.clear();
-        SelectionStateModel.setDrive('/dev/disk2');
+        selectionState.clear();
+        selectionState.setDrive('/dev/disk2');
 
-        SelectionStateModel.setImage({
+        selectionState.setImage({
           path: 'rpi.img',
           extension: 'img',
           size: {
@@ -154,11 +153,9 @@ describe('Browser: MainPage', function() {
   describe('ImageSelectionController', function() {
 
     let $controller;
-    let SelectionStateModel;
 
-    beforeEach(angular.mock.inject(function(_$controller_, _SelectionStateModel_) {
+    beforeEach(angular.mock.inject(function(_$controller_) {
       $controller = _$controller_;
-      SelectionStateModel = _SelectionStateModel_;
     }));
 
     it('should contain all available extensions in mainSupportedExtensions and extraSupportedExtensions', function() {
@@ -178,7 +175,7 @@ describe('Browser: MainPage', function() {
           $scope: {}
         });
 
-        SelectionStateModel.setImage({
+        selectionState.setImage({
           path: path.join(__dirname, 'foo', 'bar.img'),
           extension: 'img',
           size: {
@@ -191,7 +188,7 @@ describe('Browser: MainPage', function() {
         });
 
         m.chai.expect(controller.getImageBasename()).to.equal('bar.img');
-        SelectionStateModel.removeImage();
+        selectionState.removeImage();
       });
 
       it('should return an empty string if no selected image', function() {
@@ -199,7 +196,7 @@ describe('Browser: MainPage', function() {
           $scope: {}
         });
 
-        SelectionStateModel.removeImage();
+        selectionState.removeImage();
         m.chai.expect(controller.getImageBasename()).to.equal('');
       });
 
