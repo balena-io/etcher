@@ -1,15 +1,17 @@
-FROM resin/i386-debian:jessie
+FROM erwinchang/ubuntu-12.04-32bit-build
 
 # Setup APT sources
-RUN echo "deb http://ftp.debian.org/debian jessie-backports main" >> /etc/apt/sources.list
+
+RUN sed s,ubuntu\.stu\.edu\.tw,archive.ubuntu.com, /etc/apt/sources.list > /tmp/sources.list \
+  && mv /tmp/sources.list /etc/apt/sources.list
+
+
 
 # Install dependencies
 RUN apt-get update \
   && apt-get install -y \
     build-essential \
     curl \
-    dpkg \
-    fakeroot \
     fuse \
     git \
     jq \
@@ -18,7 +20,6 @@ RUN apt-get update \
     libgtk2.0-0 \
     libx11-xcb1 \
     libnss3 \
-    libsass0 \
     libxss1 \
     libxtst6 \
     libyaml-dev \
@@ -26,12 +27,15 @@ RUN apt-get update \
     python-pip \
     python-dev \
     python-software-properties \
-    rsync \
     unzip \
     xvfb \
-    xauth \
     zip   \
     rpm
+
+# Install a C++11 compiler
+RUN add-apt-repository ppa:ubuntu-toolchain-r/test \
+  && apt-get update && apt-get install -y gcc-4.8 g++-4.8 \
+  && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
 
 # NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
