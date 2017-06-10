@@ -1,6 +1,5 @@
 {
   "name": "etcher",
-  "displayName": "Etcher",
   "version": "1.0.0",
   "updates": {
     "sleepDays": 7,
@@ -14,6 +13,14 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:resin-io/etcher.git"
+  },
+  "build": {
+    "appId": "io.resin.etcher",
+    "copyright": "Copyright 2016 Resinio Ltd",
+    "productName": "Etcher",
+    "mac": {
+      "category": "public.app-category.developer-tools"
+    }
   },
   "scripts": {
     "test": "npm run lint && electron-mocha --recursive --renderer tests/gui -R spec && electron-mocha --recursive tests/shared tests/child-writer tests/image-stream -R spec",
@@ -33,8 +40,6 @@
   },
   "author": "Juan Cruz Viotti <juan@resin.io>",
   "license": "Apache-2.0",
-  "copyright": "Copyright 2016 Resinio Ltd",
-  "companyName": "Resinio Ltd",
   "shrinkwrapIgnore": [
     "macos-alias",
     "fs-xattr",
