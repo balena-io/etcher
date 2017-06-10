@@ -2,7 +2,7 @@
 # Build configuration
 # ---------------------------------------------------------------------
 
-NODE_MODULES_BIN=./node_modules/.bin
+NPX=./node_modules/.bin/npx
 
 # This directory will be completely deleted by the `clean` rule
 BUILD_DIRECTORY ?= dist
@@ -138,15 +138,25 @@ endif
 endif
 
 # ---------------------------------------------------------------------
+# Electron Builder
+# ---------------------------------------------------------------------
+
+ELECTRON_BUILDER_OPTIONS = --$(TARGET_ARCH_ELECTRON_BUILDER) --extraMetadata.version=$(APPLICATION_VERSION)
+
+# ---------------------------------------------------------------------
 # Analytics
 # ---------------------------------------------------------------------
 
 ifndef ANALYTICS_SENTRY_TOKEN
 $(warning No Sentry token found (ANALYTICS_SENTRY_TOKEN is not set))
+else
+ELECTRON_BUILDER_OPTIONS += --extraMetadata.analytics.sentry.token=$(ANALYTICS_SENTRY_TOKEN)
 endif
 
 ifndef ANALYTICS_MIXPANEL_TOKEN
 $(warning No Mixpanel token found (ANALYTICS_MIXPANEL_TOKEN is not set))
+else
+ELECTRON_BUILDER_OPTIONS += --extraMetadata.analytics.mixpanel.token=$(ANALYTICS_MIXPANEL_TOKEN)
 endif
 
 # ---------------------------------------------------------------------
@@ -172,6 +182,8 @@ APPLICATION_VERSION_REDHAT = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
 # Fix hard link Appveyor issues
 CPRF = cp -RLf
 
+TARGET_ARCH_ELECTRON_BUILDER = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET_ARCH) -t electron-builder)
+
 # ---------------------------------------------------------------------
 # Rules
 # ---------------------------------------------------------------------
@@ -184,7 +196,7 @@ define execute-command
 endef
 
 CHANGELOG.md:
-	$(NODE_MODULES_BIN)/versionist
+	$(NPX) versionist
 
 $(BUILD_DIRECTORY):
 	mkdir $@
@@ -426,9 +438,9 @@ $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-win32-$(TAR
 	./scripts/build/zip-file.sh -f $< -s $(TARGET_PLATFORM) -o $@
 
 $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-win32-$(TARGET_ARCH).exe: \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-win32-$(TARGET_ARCH) \
-	| $(BUILD_OUTPUT_DIRECTORY) $(BUILD_TEMPORARY_DIRECTORY)
-	./scripts/build/electron-installer-nsis-win32.sh -n $(APPLICATION_NAME) -a $< -t $(BUILD_TEMPORARY_DIRECTORY) -o $@
+	| $(BUILD_OUTPUT_DIRECTORY)
+	TARGET_ARCH=$(TARGET_ARCH) $(NPX) build --win nsis $(ELECTRON_BUILDER_OPTIONS)
+	mv $(BUILD_DIRECTORY)/$(notdir $@) $@
 
 ifdef CODE_SIGN_CERTIFICATE
 ifdef CODE_SIGN_CERTIFICATE_PASSWORD
@@ -583,13 +595,13 @@ electron-develop:
 		-s "$(TARGET_PLATFORM)"
 
 sass:
-	$(NODE_MODULES_BIN)/node-sass lib/gui/scss/main.scss > lib/gui/css/main.css
+	$(NPX) node-sass lib/gui/scss/main.scss > lib/gui/css/main.css
 
 lint-js:
-	$(NODE_MODULES_BIN)/eslint lib tests scripts bin versionist.conf.js
+	$(NPX) eslint lib tests scripts bin versionist.conf.js
 
 lint-sass:
-	$(NODE_MODULES_BIN)/sass-lint lib/gui/scss
+	$(NPX) sass-lint lib/gui/scss
 
 lint-cpp:
 	cpplint --recursive src
@@ -607,10 +619,10 @@ lint: lint-js lint-sass lint-cpp lint-html lint-spell
 ELECTRON_MOCHA_OPTIONS=--recursive --reporter spec
 
 test-gui:
-	$(NODE_MODULES_BIN)/electron-mocha $(ELECTRON_MOCHA_OPTIONS) --renderer tests/gui
+	$(NPX) electron-mocha $(ELECTRON_MOCHA_OPTIONS) --renderer tests/gui
 
 test-sdk:
-	$(NODE_MODULES_BIN)/electron-mocha $(ELECTRON_MOCHA_OPTIONS) \
+	$(NPX) electron-mocha $(ELECTRON_MOCHA_OPTIONS) \
 		tests/shared \
 		tests/child-writer \
 		tests/image-stream

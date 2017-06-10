@@ -54,6 +54,14 @@ if [ "$ARGV_TYPE" == "node" ]; then
   elif [ "$ARGV_ARCHITECTURE" == "armv7l" ]; then
     RESULT=arm
   fi
+elif [ "$ARGV_TYPE" == "electron-builder" ]; then
+  if [ "$ARGV_ARCHITECTURE" == "x86" ]; then
+    RESULT=ia32
+  elif [ "$ARGV_ARCHITECTURE" == "x64" ]; then
+    RESULT=x64
+  elif [ "$ARGV_ARCHITECTURE" == "armv7l" ]; then
+    RESULT=armv7l
+  fi
 elif [ "$ARGV_TYPE" == "debian" ]; then
   if [ "$ARGV_ARCHITECTURE" == "x86" ]; then
     RESULT=i386

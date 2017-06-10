@@ -9,8 +9,6 @@ Preparing a new version
 
 - Bump the version number in the `package.json`'s `version` property.
 
-- Bump the version number in the `package.json`'s `builder.win.version`
-
 - Bump the version number in the `npm-shrinkwrap.json`'s `version` property.
 
 - Add a new entry to `CHANGELOG.md` by running `make CHANGELOG.md`.
