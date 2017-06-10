@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------------
 
 # This directory will be completely deleted by the `clean` rule
-BUILD_DIRECTORY ?= release
+BUILD_DIRECTORY ?= dist
 
 # See http://stackoverflow.com/a/20763842/1641422
 BUILD_DIRECTORY_PARENT = $(dir $(BUILD_DIRECTORY))

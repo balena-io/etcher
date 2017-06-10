@@ -71,7 +71,7 @@ employee by asking for it from the relevant people.
 Packaging
 ---------
 
-The resulting installers will be saved to `release/out`.
+The resulting installers will be saved to `dist/out`.
 
 Run the following commands:
 
