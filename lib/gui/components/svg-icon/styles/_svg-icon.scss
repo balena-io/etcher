@@ -6,8 +6,4 @@ svg {
 
 svg-icon {
   display: inline-block;
-
-  > div[disabled] path {
-    fill: $palette-theme-dark-disabled-foreground;
-  }
 }

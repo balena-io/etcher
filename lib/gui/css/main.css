@@ -6419,8 +6419,6 @@ svg {
 
 svg-icon {
   display: inline-block; }
-  svg-icon > div[disabled] path {
-    fill: #787c7f; }
 
 /*
  * Copyright 2016 resin.io
@@ -6482,6 +6480,9 @@ svg-icon {
  */
 .page-main {
   margin-top: 75px; }
+
+svg-icon > div[disabled] path {
+  fill: #787c7f; }
 
 .page-main .step-selection-text {
   color: #fff; }

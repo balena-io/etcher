@@ -18,6 +18,10 @@
   margin-top: 75px;
 }
 
+svg-icon > div[disabled] path {
+  fill: $palette-theme-dark-disabled-foreground;
+}
+
 .page-main .step-selection-text {
   color: $palette-theme-dark-foreground;
 }
