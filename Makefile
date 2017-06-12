@@ -547,7 +547,7 @@ electron-develop:
 		-s "$(TARGET_PLATFORM)"
 
 sass:
-	$(NODE_MODULES_BIN)/node-sass ./lib/gui/scss/main.scss > ./lib/gui/css/main.css
+	$(NODE_MODULES_BIN)/node-sass lib/gui/scss/main.scss > lib/gui/css/main.css
 
 lint-js:
 	$(NODE_MODULES_BIN)/eslint lib tests scripts bin versionist.conf.js
