@@ -9,20 +9,20 @@ describe('Browser: settings', function() {
 
   describe('settings', function() {
 
-    const SUPPORTED_KEYS = _.keys(Store.Defaults.get('settings').toJS());
+    const DEFAULT_KEYS = _.keys(Store.Defaults.get('settings').toJS());
 
     beforeEach(function() {
       this.settings = settings.getAll();
     });
 
     afterEach(function() {
-      _.each(SUPPORTED_KEYS, (supportedKey) => {
+      _.each(DEFAULT_KEYS, (supportedKey) => {
         settings.set(supportedKey, this.settings[supportedKey]);
       });
     });
 
     it('should be able to set and read values', function() {
-      const keyUnderTest = _.first(SUPPORTED_KEYS);
+      const keyUnderTest = _.sample(DEFAULT_KEYS);
       const originalValue = settings.get(keyUnderTest);
 
       settings.set(keyUnderTest, !originalValue);
@@ -33,10 +33,10 @@ describe('Browser: settings', function() {
 
     describe('.set()', function() {
 
-      it('should throw if the key is not supported', function() {
-        m.chai.expect(function() {
-          settings.set('foobar', true);
-        }).to.throw('Unsupported setting: foobar');
+      it('should set an unknown key', function() {
+        m.chai.expect(settings.get('foobar')).to.be.undefined;
+        settings.set('foobar', true);
+        m.chai.expect(settings.get('foobar')).to.be.true;
       });
 
       it('should throw if no key', function() {
@@ -52,23 +52,23 @@ describe('Browser: settings', function() {
       });
 
       it('should throw if setting an object', function() {
-        const keyUnderTest = _.first(SUPPORTED_KEYS);
+        const keyUnderTest = _.sample(DEFAULT_KEYS);
         m.chai.expect(function() {
           settings.set(keyUnderTest, {
             setting: 1
           });
-        }).to.throw('Invalid setting value: [object Object]');
+        }).to.throw(`Invalid setting value: [object Object] for ${keyUnderTest}`);
       });
 
       it('should throw if setting an array', function() {
-        const keyUnderTest = _.first(SUPPORTED_KEYS);
+        const keyUnderTest = _.sample(DEFAULT_KEYS);
         m.chai.expect(function() {
           settings.set(keyUnderTest, [ 1, 2, 3 ]);
-        }).to.throw('Invalid setting value: 1,2,3');
+        }).to.throw(`Invalid setting value: 1,2,3 for ${keyUnderTest}`);
       });
 
       it('should set the key to undefined if no value', function() {
-        const keyUnderTest = _.first(SUPPORTED_KEYS);
+        const keyUnderTest = _.sample(DEFAULT_KEYS);
         settings.set(keyUnderTest);
         m.chai.expect(settings.get(keyUnderTest)).to.be.undefined;
       });
@@ -80,7 +80,7 @@ describe('Browser: settings', function() {
       it('should be able to read all values', function() {
         const allValues = settings.getAll();
 
-        _.each(SUPPORTED_KEYS, function(supportedKey) {
+        _.each(DEFAULT_KEYS, function(supportedKey) {
           m.chai.expect(allValues[supportedKey]).to.equal(settings.get(supportedKey));
         });
       });
