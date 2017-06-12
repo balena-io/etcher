@@ -25,7 +25,7 @@ function usage() {
   echo "Options"
   echo ""
   echo "    -r <architecture>"
-  echo "    -t <type (debian|node)>"
+  echo "    -t <type (debian|redhat|node)>"
   exit 1
 }
 
@@ -61,6 +61,12 @@ elif [ "$ARGV_TYPE" == "debian" ]; then
     RESULT=amd64
   elif [ "$ARGV_ARCHITECTURE" == "armv7l" ]; then
     RESULT=armhf
+  fi
+elif [ "$ARGV_TYPE" == "redhat" ]; then
+  if [ "$ARGV_ARCHITECTURE" == "x86" ]; then
+    RESULT=i386
+  elif [ "$ARGV_ARCHITECTURE" == "x64" ]; then
+    RESULT='x86_64'
   fi
 else
   echo "Unsupported architecture type: $ARGV_TYPE" 1>&2

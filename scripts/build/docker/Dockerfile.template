@@ -31,7 +31,9 @@ RUN apt-get update \
     python-software-properties \
     unzip \
     xvfb \
-    zip
+
+    zip   \
+    rpm
 
 # Install a C++11 compiler
 RUN add-apt-repository ppa:ubuntu-toolchain-r/test \
@@ -46,7 +48,7 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
 RUN npm config set unsafe-perm=true
 
 RUN npm config set spin=false
-RUN npm install -g uglify-es@3.0.3 electron-installer-debian@0.5.1
+RUN npm install -g uglify-es@3.0.3 electron-installer-debian@0.5.1 electron-installer-redhat@0.5.0
 
 # Python
 COPY requirements.txt requirements.txt
