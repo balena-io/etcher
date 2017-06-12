@@ -18,7 +18,7 @@
   margin-top: 75px;
 }
 
-.svg-icon[disabled] path {
+svg-icon > div[disabled] path {
   fill: $palette-theme-dark-disabled-foreground;
 }
 

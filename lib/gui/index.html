@@ -32,19 +32,21 @@
 
     <footer class="section-footer" ng-controller="StateController as state"
       ng-hide="state.currentName === 'success'">
-      <svg-icon path="../../../assets/etcher.svg"
-        width="83px"
-        height="13px"
-        os-open-external="https://etcher.io?ref=etcher_footer"></svg-icon>
+      <span os-open-external="https://etcher.io?ref=etcher_footer">
+        <svg-icon path="'../assets/etcher.svg'"
+          width="'83px'"
+          height="'13px'"></svg-icon>
+      </span>
 
       <span class="caption">
         is <span class="caption" os-open-external="https://github.com/resin-io/etcher">an open source project</span> by
       </span>
 
-      <svg-icon path="../../../assets/resin.svg"
-        width="79px"
-        height="23px"
-        os-open-external="https://resin.io?ref=etcher"></svg-icon>
+      <span os-open-external="https://resin.io?ref=etcher">
+        <svg-icon path="'../assets/resin.svg'"
+          width="'79px'"
+          height="'23px'"></svg-icon>
+      </span>
 
       <span class="caption footer-right"
         manifest-bind="version"
