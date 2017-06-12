@@ -1,24 +1,14 @@
 'use strict';
 
+const _ = require('lodash');
 const m = require('mochainon');
 const os = require('os');
-const angular = require('angular');
 const drivelist = require('drivelist');
-require('angular-mocks');
+const driveScanner = require('../../../lib/gui/modules/drive-scanner');
 
-describe('Browser: DriveScanner', function() {
+describe('Browser: driveScanner', function() {
 
-  beforeEach(angular.mock.module(
-    require('../../../lib/gui/modules/drive-scanner')
-  ));
-
-  describe('DriveScannerService', function() {
-
-    let DriveScannerService;
-
-    beforeEach(angular.mock.inject(function(_DriveScannerService_) {
-      DriveScannerService = _DriveScannerService_;
-    }));
+  describe('driveScanner', function() {
 
     describe('given no available drives', function() {
 
@@ -32,13 +22,16 @@ describe('Browser: DriveScanner', function() {
       });
 
       it('should emit an empty array', function(done) {
-        DriveScannerService.on('drives', function(drives) {
+        let oldDate = _.now();
+        driveScanner.on('drives', function(drives) {
+          console.log(`${_.now() - oldDate}`);
+          oldDate = _.now();
           m.chai.expect(drives).to.deep.equal([]);
-          DriveScannerService.stop();
+          driveScanner.stop();
           done();
         });
 
-        DriveScannerService.start();
+        driveScanner.start();
       });
 
     });
@@ -67,13 +60,13 @@ describe('Browser: DriveScanner', function() {
       });
 
       it('should emit an empty array', function(done) {
-        DriveScannerService.on('drives', function(drives) {
+        driveScanner.on('drives', function(drives) {
           m.chai.expect(drives).to.deep.equal([]);
-          DriveScannerService.stop();
+          driveScanner.stop();
           done();
         });
 
-        DriveScannerService.start();
+        driveScanner.start();
       });
 
     });
@@ -135,7 +128,7 @@ describe('Browser: DriveScanner', function() {
         });
 
         it('should emit the non removable drives', function(done) {
-          DriveScannerService.on('drives', function(drives) {
+          driveScanner.on('drives', function(drives) {
             m.chai.expect(drives).to.deep.equal([
               {
                 device: '/dev/sdb',
@@ -163,11 +156,11 @@ describe('Browser: DriveScanner', function() {
               }
             ]);
 
-            DriveScannerService.stop();
+            driveScanner.stop();
             done();
           });
 
-          DriveScannerService.start();
+          driveScanner.start();
         });
 
       });
@@ -227,7 +220,7 @@ describe('Browser: DriveScanner', function() {
         });
 
         it('should emit the non removable drives', function(done) {
-          DriveScannerService.on('drives', function(drives) {
+          driveScanner.on('drives', function(drives) {
             m.chai.expect(drives).to.deep.equal([
               {
                 device: '\\\\.\\PHYSICALDRIVE2',
@@ -251,11 +244,11 @@ describe('Browser: DriveScanner', function() {
               }
             ]);
 
-            DriveScannerService.stop();
+            driveScanner.stop();
             done();
           });
 
-          DriveScannerService.start();
+          driveScanner.start();
         });
 
       });
@@ -284,14 +277,14 @@ describe('Browser: DriveScanner', function() {
         });
 
         it('should use the drive letter as the name', function(done) {
-          DriveScannerService.on('drives', function(drives) {
+          driveScanner.on('drives', function(drives) {
             m.chai.expect(drives).to.have.length(1);
             m.chai.expect(drives[0].name).to.equal('F:');
-            DriveScannerService.stop();
+            driveScanner.stop();
             done();
           });
 
-          DriveScannerService.start();
+          driveScanner.start();
         });
 
       });
@@ -326,14 +319,14 @@ describe('Browser: DriveScanner', function() {
         });
 
         it('should join all the mountpoints in `name`', function(done) {
-          DriveScannerService.on('drives', function(drives) {
+          driveScanner.on('drives', function(drives) {
             m.chai.expect(drives).to.have.length(1);
             m.chai.expect(drives[0].name).to.equal('F:, G:, H:');
-            DriveScannerService.stop();
+            driveScanner.stop();
             done();
           });
 
-          DriveScannerService.start();
+          driveScanner.start();
         });
 
       });
@@ -352,14 +345,14 @@ describe('Browser: DriveScanner', function() {
       });
 
       it('should emit the error', function(done) {
-        DriveScannerService.on('error', function(error) {
+        driveScanner.on('error', function(error) {
           m.chai.expect(error).to.be.an.instanceof(Error);
           m.chai.expect(error.message).to.equal('scan error');
-          DriveScannerService.stop();
+          driveScanner.stop();
           done();
         });
 
-        DriveScannerService.start();
+        driveScanner.start();
       });
 
     });
