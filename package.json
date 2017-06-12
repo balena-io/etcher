@@ -77,21 +77,18 @@
   "scripts": {
     "test": "make test",
     "start": "electron lib/start.js",
-    "preshrinkwrap": "node ./scripts/clean-shrinkwrap.js",
+    "postshrinkwrap": "node ./scripts/clean-shrinkwrap.js",
     "configure": "node-gyp configure",
     "build": "node-gyp build",
     "install": "node-gyp rebuild"
   },
   "author": "Resin Inc. <hello@etcher.io>",
   "license": "Apache-2.0",
-  "shrinkwrapIgnore": [
-    "macos-alias",
-    "fs-xattr",
-    "ds-store",
-    "appdmg",
-    "7zip-bin-mac",
-    "7zip-bin-win",
-    "7zip-bin-linux"
+  "platformSpecificDependencies": [
+    "appdmg@0.3.10",
+    "7zip-bin-mac@1.0.1",
+    "7zip-bin-win@2.1.0",
+    "7zip-bin-linux@1.1.0"
   ],
   "dependencies": {
     "angular": "1.6.3",
