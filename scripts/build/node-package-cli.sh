@@ -61,7 +61,6 @@ if [ -z "$ARGV_APPLICATION_NAME" ] \
   usage
 fi
 
-mkdir "$ARGV_OUTPUT"
 cp "$ARGV_ENTRY_POINT" "$ARGV_OUTPUT/index.js"
 
 ./scripts/build/dependencies-npm-extract-addons.sh \
