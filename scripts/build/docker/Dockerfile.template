@@ -31,8 +31,7 @@ RUN apt-get update \
     python-software-properties \
     unzip \
     xvfb \
-
-    zip   \
+    zip \
     rpm
 
 # Install a C++11 compiler
@@ -40,15 +39,22 @@ RUN add-apt-repository ppa:ubuntu-toolchain-r/test \
   && apt-get update && apt-get install -y gcc-4.8 g++-4.8 \
   && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
 
-# NodeJS
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
-  && apt-get install -y nodejs
+# Install Node@8.x.x
+RUN curl -L https://git.io/n-install | bash -s -- -y 8.1.0
 
 # See https://github.com/mapbox/node-pre-gyp/issues/165
 RUN npm config set unsafe-perm=true
 
-RUN npm config set spin=false
-RUN npm install -g uglify-es@3.0.3 electron-installer-debian@0.5.1 electron-installer-redhat@0.5.0
+# Don't display progress or the spinner while installing,
+# but log HTTP requests & cache hits
+RUN npm config set spin false && \
+  npm config set progress false && \
+  npm config set loglevel http
+
+RUN npm install --global \
+  uglify-es@^3.0.15 \
+  electron-installer-debian@^0.5.1 \
+  electron-installer-redhat@^0.5.0
 
 # Python
 COPY requirements.txt requirements.txt

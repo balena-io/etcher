@@ -20,8 +20,8 @@ BUILD_OUTPUT_DIRECTORY = $(BUILD_DIRECTORY)/out
 # Application configuration
 # ---------------------------------------------------------------------
 
-ELECTRON_VERSION = $(shell jq -r '.devDependencies["electron"]' package.json)
-NODE_VERSION = 6.1.0
+ELECTRON_VERSION = $(shell $(NPX) electron --version)
+NODE_VERSION = $(shell node --version)
 COMPANY_NAME = Resinio Ltd
 APPLICATION_NAME = $(shell jq -r '.build.productName' package.json)
 APPLICATION_DESCRIPTION = $(shell jq -r '.description' package.json)
@@ -542,7 +542,9 @@ electron-develop:
 		-s "$(TARGET_PLATFORM)"
 
 sass:
-	$(NPX) node-sass lib/gui/scss/main.scss > lib/gui/css/main.css
+	# NOTE: Since `node-sass` is a native addon, and we install all dependencies for the Electron runtime,
+	# we need to run this through Electron, so that the native module's ABI matches properly
+	$(NPX) ELECTRON_RUN_AS_NODE=1 electron $(which node-sass) lib/gui/scss/main.scss > lib/gui/css/main.css
 
 lint-js:
 	$(NPX) eslint lib tests scripts bin versionist.conf.js
