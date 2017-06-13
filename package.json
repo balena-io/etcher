@@ -35,7 +35,30 @@
       "**/*.node"
     ],
     "mac": {
+      "icon": "assets/icon.icns",
+      "artifactName": "${productName}-${version}-darwin-${env.TARGET_ARCH}.${ext}",
       "category": "public.app-category.developer-tools"
+    },
+    "dmg": {
+      "background": "assets/osx/installer.tiff",
+      "icon": "assets/icon.icns",
+      "iconSize": 110,
+      "contents": [
+        {
+          "x": 140,
+          "y": 225
+        },
+        {
+          "x": 415,
+          "y": 225,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ],
+      "window": {
+        "width": 540,
+        "height": 405
+      }
     },
     "win": {
       "icon": "assets/icon.ico"

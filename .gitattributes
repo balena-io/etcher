@@ -31,6 +31,7 @@ Makefile text
 *.gz binary diff=hex
 *.icns binary diff=hex
 *.ico binary diff=hex
+*.tiff binary diff=hex
 *.img binary diff=hex
 *.iso binary diff=hex
 *.png binary diff=hex
