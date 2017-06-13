@@ -72,6 +72,12 @@ elif [ "$ARGV_TYPE" == "debian" ]; then
   fi
 elif [ "$ARGV_TYPE" == "redhat" ]; then
   if [ "$ARGV_ARCHITECTURE" == "x86" ]; then
+    RESULT=i686
+  elif [ "$ARGV_ARCHITECTURE" == "x64" ]; then
+    RESULT='x86_64'
+  fi
+elif [ "$ARGV_TYPE" == "appimage" ]; then
+  if [ "$ARGV_ARCHITECTURE" == "x86" ]; then
     RESULT=i386
   elif [ "$ARGV_ARCHITECTURE" == "x64" ]; then
     RESULT='x86_64'
