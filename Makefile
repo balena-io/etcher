@@ -263,6 +263,7 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATF
 	$(BUILD_DIRECTORY)/node-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies \
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH).js \
 	| $(BUILD_DIRECTORY) $(BUILD_TEMPORARY_DIRECTORY)
+	mkdir $@
 	./scripts/build/node-package-cli.sh -o $@ -l $</node_modules \
 		-n $(APPLICATION_NAME) \
 		-e $(word 2,$^) \
