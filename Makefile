@@ -20,7 +20,7 @@ BUILD_OUTPUT_DIRECTORY = $(BUILD_DIRECTORY)/out
 # Application configuration
 # ---------------------------------------------------------------------
 
-ELECTRON_VERSION = $(shell $(NPX) electron --version)
+ELECTRON_VERSION = $(shell jq -r '.devDependencies["electron"]' package.json)
 NODE_VERSION = $(shell node --version)
 COMPANY_NAME = Resinio Ltd
 APPLICATION_NAME = $(shell jq -r '.build.productName' package.json)
