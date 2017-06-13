@@ -67,10 +67,8 @@ fi
 
 REDHAT_ARCHITECTURE=$(./scripts/build/architecture-convert.sh -r "$ARGV_ARCHITECTURE" -t redhat)
 
-cp scripts/build/redhat/etcher-electron.sh "$ARGV_DIRECTORY"
 electron-installer-redhat \
   --src "$ARGV_DIRECTORY" \
   --dest "$ARGV_OUTPUT" \
   --config "$ARGV_REDHAT_CONFIGURATION" \
   --arch "$REDHAT_ARCHITECTURE"
-rm "$ARGV_DIRECTORY/etcher-electron.sh"
