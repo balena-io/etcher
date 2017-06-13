@@ -155,7 +155,7 @@
     "eslint": "^3.16.1",
     "eslint-plugin-lodash": "^2.3.5",
     "file-exists": "^1.0.0",
-    "html-angular-validate": "^0.1.9",
+    "html-angular-validate": "github:jhermsmeier/html-angular-validate#fix-things",
     "mochainon": "^1.0.0",
     "nock": "^9.0.9",
     "node-gyp": "^3.5.0",
