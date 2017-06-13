@@ -19,8 +19,36 @@
     "appId": "io.resin.etcher",
     "copyright": "Copyright 2016 Resinio Ltd",
     "productName": "Etcher",
+    "npmRebuild": true,
+    "nodeGypRebuild": true,
+    "publish": null,
+    "files": [
+      "lib",
+      "assets/icon.png",
+      "node_modules/**/*"
+    ],
+    "asar": {
+      "smartUnpack": false
+    },
+    "asarUnpack": [
+      "**/*.dll",
+      "**/*.node"
+    ],
     "mac": {
       "category": "public.app-category.developer-tools"
+    },
+    "win": {
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "runAfterFinish": true,
+      "installerIcon": "assets/icon.ico",
+      "uninstallerIcon": "assets/icon.ico",
+      "deleteAppDataOnUninstall": true,
+      "license": "LICENSE",
+      "artifactName": "${productName}-${version}-win32-${env.TARGET_ARCH}.${ext}"
     }
   },
   "scripts": {
@@ -31,23 +59,17 @@
     "build": "node-gyp build",
     "install": "node-gyp rebuild"
   },
-  "author": "Juan Cruz Viotti <juan@resin.io>",
+  "author": "Resin Inc. <hello@etcher.io>",
   "license": "Apache-2.0",
   "shrinkwrapIgnore": [
     "macos-alias",
     "fs-xattr",
     "ds-store",
-    "appdmg"
+    "appdmg",
+    "7zip-bin-mac",
+    "7zip-bin-win",
+    "7zip-bin-linux"
   ],
-  "builder": {
-    "win": {
-      "title": "Etcher",
-      "version": "v1.0.0",
-      "publisher": "Resin.io",
-      "icon": "assets/icon.ico",
-      "verbosity": 1
-    }
-  },
   "dependencies": {
     "angular": "1.6.3",
     "angular-if-state": "^1.0.0",
@@ -101,7 +123,7 @@
     "asar": "^0.10.0",
     "browserify": "github:jviotti/node-browserify#dynamic-dirname-filename",
     "electron": "1.6.6",
-    "electron-builder": "^2.6.0",
+    "electron-builder": "^18.6.2",
     "electron-mocha": "^3.1.1",
     "eslint": "^3.16.1",
     "eslint-plugin-lodash": "^2.3.5",
@@ -111,6 +133,7 @@
     "nock": "^9.0.9",
     "node-gyp": "^3.5.0",
     "node-sass": "^4.5.3",
+    "npx": "^5.2.0",
     "sass-lint": "^1.10.2",
     "tmp": "0.0.31",
     "versionist": "^2.1.0"

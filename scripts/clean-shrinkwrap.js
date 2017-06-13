@@ -16,6 +16,7 @@
 'use strict';
 
 const path = require('path');
+const os = require('os');
 const packageJSON = require('../package.json');
 const spawn = require('child_process').spawn;
 const shrinkwrapIgnore = packageJSON.shrinkwrapIgnore;
@@ -28,7 +29,8 @@ console.log('Removing:', shrinkwrapIgnore.join(', '));
  * @returns {ChildProcess}
  */
 const npm = (command) => {
-  return spawn('npm', command, {
+  const npmBinary = os.platform() === 'win32' ? 'npm.cmd' : 'npm';
+  return spawn(npmBinary, command, {
     cwd: path.join(__dirname, '..'),
     env: process.env,
     stdio: [ process.stdin, process.stdout, process.stderr ]
