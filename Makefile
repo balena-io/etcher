@@ -544,7 +544,7 @@ electron-develop:
 sass:
 	# NOTE: Since `node-sass` is a native addon, and we install all dependencies for the Electron runtime,
 	# we need to run this through Electron, so that the native module's ABI matches properly
-	$(NPX) ELECTRON_RUN_AS_NODE=1 electron $(which node-sass) lib/gui/scss/main.scss > lib/gui/css/main.css
+	ELECTRON_RUN_AS_NODE=1 $(NPX) electron node_modules/.bin/node-sass lib/gui/scss/main.scss > lib/gui/css/main.css
 
 lint-js:
 	$(NPX) eslint lib tests scripts bin versionist.conf.js
