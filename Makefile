@@ -2,7 +2,7 @@
 # Build configuration
 # ---------------------------------------------------------------------
 
-NPX=./node_modules/.bin/npx
+NPX = ./node_modules/.bin/npx
 
 # This directory will be completely deleted by the `clean` rule
 BUILD_DIRECTORY ?= dist
@@ -26,8 +26,6 @@ COMPANY_NAME = Resinio Ltd
 APPLICATION_NAME = $(shell jq -r '.build.productName' package.json)
 APPLICATION_DESCRIPTION = $(shell jq -r '.description' package.json)
 APPLICATION_COPYRIGHT = $(shell jq -r '.build.copyright' package.json)
-APPLICATION_CATEGORY = $(shell jq -r '.build.mac.category' package.json)
-APPLICATION_BUNDLE_ID = $(shell jq -r '.build.appId' package.json)
 APPLICATION_FILES = lib,assets
 
 # Add the current commit to the version if release type is "snapshot"
@@ -331,17 +329,6 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)
 	$(BUILD_DIRECTORY)/electron-$(TARGET_PLATFORM)-$(APPLICATION_VERSION)-$(TARGET_ARCH)-app.asar \
 	$(BUILD_DIRECTORY)/electron-$(ELECTRON_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip \
 	| $(BUILD_DIRECTORY) $(BUILD_TEMPORARY_DIRECTORY)
-ifeq ($(TARGET_PLATFORM),darwin)
-	./scripts/build/electron-configure-package-darwin.sh -p $(word 2,$^) -a $< \
-		-n "$(APPLICATION_NAME)" \
-		-v "$(APPLICATION_VERSION)" \
-		-b "$(APPLICATION_BUNDLE_ID)" \
-		-c "$(APPLICATION_COPYRIGHT)" \
-		-t "$(APPLICATION_CATEGORY)" \
-		-i assets/icon.icns \
-		-o $@
-endif
-
 ifeq ($(TARGET_PLATFORM),linux)
 	./scripts/build/electron-configure-package-linux.sh -p $(word 2,$^) -a $< \
 		-n "$(APPLICATION_NAME)" \
@@ -371,32 +358,20 @@ endif
 endif
 endif
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-rw.dmg: \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-darwin-$(TARGET_ARCH) \
-	| $(BUILD_DIRECTORY)
-	./scripts/build/electron-create-readwrite-dmg-darwin.sh -p $< -o $@ \
-		-n "$(APPLICATION_NAME)" \
-		-i assets/icon.icns \
-		-b assets/osx/installer.png
+assets/osx/installer.tiff: assets/osx/installer.png assets/osx/installer@2x.png
+	tiffutil -cathidpicheck $^ -out $@
 
-$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-darwin-$(TARGET_ARCH).zip: \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-darwin-$(TARGET_ARCH) \
+$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-darwin-$(TARGET_ARCH).dmg: assets/osx/installer.tiff \
 	| $(BUILD_OUTPUT_DIRECTORY)
-ifdef CODE_SIGN_IDENTITY
-	./scripts/build/electron-sign-app-darwin.sh -a $</$(APPLICATION_NAME).app -i "$(CODE_SIGN_IDENTITY)"
-endif
-	./scripts/build/zip-file.sh -f $</$(APPLICATION_NAME).app -s $(TARGET_PLATFORM) -o $@
+	CSC_NAME="$(CODE_SIGN_IDENTITY)" CSC_IDENTITY_AUTO_DISCOVERY=false TARGET_ARCH=$(TARGET_ARCH) \
+		$(NPX) build --mac dmg $(ELECTRON_BUILDER_OPTIONS)
+	mv $(BUILD_DIRECTORY)/$(notdir $@) $@
 
-$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-darwin-$(TARGET_ARCH).dmg: \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-rw.dmg \
+$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-darwin-$(TARGET_ARCH).zip: assets/osx/installer.tiff \
 	| $(BUILD_OUTPUT_DIRECTORY)
-ifdef CODE_SIGN_IDENTITY
-	./scripts/build/electron-sign-dmg-darwin.sh \
-		-n "$(APPLICATION_NAME)" \
-		-d $< \
-		-i "$(CODE_SIGN_IDENTITY)"
-endif
-	./scripts/build/electron-create-readonly-dmg-darwin.sh -d $< -o $@
+	CSC_NAME="$(CODE_SIGN_IDENTITY)" CSC_IDENTITY_AUTO_DISCOVERY=false TARGET_ARCH=$(TARGET_ARCH) \
+		$(NPX) build --mac zip $(ELECTRON_BUILDER_OPTIONS)
+	mv $(BUILD_DIRECTORY)/$(notdir $@) $@
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-linux-$(TARGET_ARCH).AppDir: \
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-linux-$(TARGET_ARCH) \
