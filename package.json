@@ -72,6 +72,10 @@
       "deleteAppDataOnUninstall": true,
       "license": "LICENSE",
       "artifactName": "${productName}-${version}-win32-${env.TARGET_ARCH}.${ext}"
+    },
+    "portable": {
+      "artifactName": "${productName}-${version}-win32-${env.TARGET_ARCH}-portable.${ext}",
+      "requestExecutionLevel": "user"
     }
   },
   "scripts": {
