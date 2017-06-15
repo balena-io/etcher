@@ -4550,9 +4550,7 @@
       "integrity": "sha1-IjvUMa1/suQMVDT4peRVi+JWj70="
     },
     "node-sass": {
-      "version": "4.5.3",
-      "resolved": "https://registry.npmjs.org/node-sass/-/node-sass-4.5.3.tgz",
-      "integrity": "sha1-0JydEXlkEjnRuX/8YjH9zsU+FWg=",
+      "version": "github:sass/node-sass#61d7e1c1abf762aad22bb2a6b3fdac884ca369bd",
       "dev": true,
       "dependencies": {
         "cross-spawn": {
