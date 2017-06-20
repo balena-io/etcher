@@ -41,18 +41,17 @@ describe('ImageStream: Metadata ZIP', function() {
   describe('given an archive with an invalid `manifest.json`', function() {
 
     tester.expectError(
-      path.join(ZIP_PATH, 'rpi-invalid-manifest.zip'),
+      path.join(ZIP_PATH, 'etcher-test-invalid-manifest.zip'),
       'Invalid archive manifest.json');
 
     describe('.getImageMetadata()', function() {
 
-      it('should be rejected with an error', function(done) {
-        const image = path.join(ZIP_PATH, 'rpi-invalid-manifest.zip');
+      it('should be rejected with an error', function() {
+        const image = path.join(ZIP_PATH, 'etcher-test-invalid-manifest.zip');
 
-        imageStream.getImageMetadata(image).catch((error) => {
+        return imageStream.getImageMetadata(image).catch((error) => {
           m.chai.expect(error).to.be.an.instanceof(Error);
           m.chai.expect(error.message).to.equal('Invalid archive manifest.json');
-          done();
         });
       });
 
@@ -62,14 +61,14 @@ describe('ImageStream: Metadata ZIP', function() {
 
   describe('given an archive with a `manifest.json`', function() {
 
-    const archive = path.join(ZIP_PATH, 'rpi-with-manifest.zip');
+    const archive = path.join(ZIP_PATH, 'etcher-test-with-manifest.zip');
 
     tester.extractFromFilePath(
       archive,
-      path.join(IMAGES_PATH, 'raspberrypi.img'));
+      path.join(IMAGES_PATH, 'etcher-test.img'));
 
     it('should read the manifest name property', function() {
-      return testMetadataProperty(archive, 'name', 'Raspberry Pi');
+      return testMetadataProperty(archive, 'name', 'Etcher Test');
     });
 
     it('should read the manifest version property', function() {
@@ -77,16 +76,16 @@ describe('ImageStream: Metadata ZIP', function() {
     });
 
     it('should read the manifest url property', function() {
-      return testMetadataProperty(archive, 'url', 'https://www.raspberrypi.org');
+      return testMetadataProperty(archive, 'url', 'https://www.example.com');
     });
 
     it('should read the manifest supportUrl property', function() {
-      const expectedValue = 'https://www.raspberrypi.org/forums/';
+      const expectedValue = 'https://www.example.com/support/';
       return testMetadataProperty(archive, 'supportUrl', expectedValue);
     });
 
     it('should read the manifest releaseNotesUrl property', function() {
-      const expectedValue = 'http://downloads.raspberrypi.org/raspbian/release_notes.txt';
+      const expectedValue = 'http://downloads.example.com/release_notes.txt';
       return testMetadataProperty(archive, 'releaseNotesUrl', expectedValue);
     });
 
@@ -110,7 +109,7 @@ describe('ImageStream: Metadata ZIP', function() {
 
   describe('given an archive with a `logo.svg`', function() {
 
-    const archive = path.join(ZIP_PATH, 'rpi-with-logo.zip');
+    const archive = path.join(ZIP_PATH, 'etcher-test-with-logo.zip');
 
     const logo = [
       '<svg xmlns="http://www.w3.org/2000/svg">',
@@ -127,19 +126,18 @@ describe('ImageStream: Metadata ZIP', function() {
 
   describe('given an archive with a bmap file', function() {
 
-    const archive = path.join(ZIP_PATH, 'rpi-with-bmap.zip');
+    const archive = path.join(ZIP_PATH, 'etcher-test-with-bmap.zip');
 
     const bmap = [
       '<?xml version="1.0" ?>',
       '<bmap version="1.3">',
-      '    <ImageSize> 36864 </ImageSize>',
+      '    <ImageSize> 5242880 </ImageSize>',
       '    <BlockSize> 4096 </BlockSize>',
-      '    <BlocksCount> 9 </BlocksCount>',
-      '    <MappedBlocksCount> 4     </MappedBlocksCount>',
-      '    <BmapFileSHA1> d90f372215cbbef8801caca7b1dd7e587b2142cc </BmapFileSHA1>',
+      '    <BlocksCount> 1280 </BlocksCount>',
+      '    <MappedBlocksCount> 1280 </MappedBlocksCount>',
+      '    <BmapFileSHA1> cc6f077565c73a46198777b259c231875df4e709 </BmapFileSHA1>',
       '    <BlockMap>',
-      '        <Range sha1="193edb53bde599f58369f4e83a6c5d54b96819ce"> 0-1 </Range>',
-      '        <Range sha1="193edb53bde599f58369f4e83a6c5d54b96819ce"> 7-8 </Range>',
+      '        <Range sha1="7b7d6e1fc44ef224a8c57d3ec6ffc3717c428a14"> 0-1280 </Range>',
       '    </BlockMap>',
       '</bmap>',
       ''
@@ -153,10 +151,10 @@ describe('ImageStream: Metadata ZIP', function() {
 
   describe('given an archive with instructions', function() {
 
-    const archive = path.join(ZIP_PATH, 'rpi-with-instructions.zip');
+    const archive = path.join(ZIP_PATH, 'etcher-test-with-instructions.zip');
 
     const instructions = [
-      '# Raspberry Pi Next Steps',
+      '# Example Next Steps',
       '',
       'Lorem ipsum dolor sit amet.',
       ''

@@ -32,8 +32,8 @@ describe('ImageStream: IMG', function() {
 
     describe('given an img image', function() {
       tester.extractFromFilePath(
-        path.join(IMAGES_PATH, 'raspberrypi.img'),
-        path.join(IMAGES_PATH, 'raspberrypi.img'));
+        path.join(IMAGES_PATH, 'etcher-test.img'),
+        path.join(IMAGES_PATH, 'etcher-test.img'));
     });
 
   });
@@ -41,7 +41,7 @@ describe('ImageStream: IMG', function() {
   describe('.getImageMetadata()', function() {
 
     it('should return the correct metadata', function() {
-      const image = path.join(IMAGES_PATH, 'raspberrypi.img');
+      const image = path.join(IMAGES_PATH, 'etcher-test.img');
       const expectedSize = fs.statSync(image).size;
 
       return imageStream.getImageMetadata(image).then((metadata) => {

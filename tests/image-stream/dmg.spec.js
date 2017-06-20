@@ -29,14 +29,14 @@ describe('ImageStream: DMG', function() {
 
   this.timeout(20000);
 
-  context('compressed', function() {
+  context('zlib compressed', function() {
 
     describe('.getFromFilePath()', function() {
 
       describe('given an dmg image', function() {
         tester.extractFromFilePath(
-          path.join(DMG_PATH, 'zlib-compressed.dmg'),
-          path.join(IMAGES_PATH, 'zlib-compressed.img'));
+          path.join(DMG_PATH, 'etcher-test-zlib.dmg'),
+          path.join(IMAGES_PATH, 'etcher-test.img'));
       });
 
     });
@@ -44,8 +44,8 @@ describe('ImageStream: DMG', function() {
     describe('.getImageMetadata()', function() {
 
       it('should return the correct metadata', function() {
-        const image = path.join(DMG_PATH, 'zlib-compressed.dmg');
-        const uncompressedSize = fs.statSync(path.join(IMAGES_PATH, 'zlib-compressed.img')).size;
+        const image = path.join(DMG_PATH, 'etcher-test-zlib.dmg');
+        const uncompressedSize = fs.statSync(path.join(IMAGES_PATH, 'etcher-test.img')).size;
         const compressedSize = fs.statSync(image).size;
 
         return imageStream.getImageMetadata(image).then((metadata) => {
@@ -73,8 +73,8 @@ describe('ImageStream: DMG', function() {
 
       describe('given an dmg image', function() {
         tester.extractFromFilePath(
-          path.join(DMG_PATH, 'raw.dmg'),
-          path.join(IMAGES_PATH, 'raw.img'));
+          path.join(DMG_PATH, 'etcher-test-raw.dmg'),
+          path.join(IMAGES_PATH, 'etcher-test.img'));
       });
 
     });
@@ -82,8 +82,8 @@ describe('ImageStream: DMG', function() {
     describe('.getImageMetadata()', function() {
 
       it('should return the correct metadata', function() {
-        const image = path.join(DMG_PATH, 'raw.dmg');
-        const uncompressedSize = fs.statSync(path.join(IMAGES_PATH, 'raw.img')).size;
+        const image = path.join(DMG_PATH, 'etcher-test-raw.dmg');
+        const uncompressedSize = fs.statSync(path.join(IMAGES_PATH, 'etcher-test.img')).size;
         const compressedSize = fs.statSync(image).size;
 
         return imageStream.getImageMetadata(image).then((metadata) => {

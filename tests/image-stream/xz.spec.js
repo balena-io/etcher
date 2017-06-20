@@ -33,8 +33,8 @@ describe('ImageStream: XZ', function() {
 
     describe('given a xz image', function() {
       tester.extractFromFilePath(
-        path.join(XZ_PATH, 'raspberrypi.img.xz'),
-        path.join(IMAGES_PATH, 'raspberrypi.img'));
+        path.join(XZ_PATH, 'etcher-test.img.xz'),
+        path.join(IMAGES_PATH, 'etcher-test.img'));
     });
 
   });
@@ -42,9 +42,9 @@ describe('ImageStream: XZ', function() {
   describe('.getImageMetadata()', function() {
 
     it('should return the correct metadata', function() {
-      const image = path.join(XZ_PATH, 'raspberrypi.img.xz');
+      const image = path.join(XZ_PATH, 'etcher-test.img.xz');
       const compressedSize = fs.statSync(image).size;
-      const uncompressedSize = fs.statSync(path.join(IMAGES_PATH, 'raspberrypi.img')).size;
+      const uncompressedSize = fs.statSync(path.join(IMAGES_PATH, 'etcher-test.img')).size;
 
       return imageStream.getImageMetadata(image).then((metadata) => {
         m.chai.expect(metadata).to.deep.equal({
