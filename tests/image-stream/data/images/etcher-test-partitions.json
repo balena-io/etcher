@@ -1,34 +1,34 @@
 [
   {
-    "end": 2176,
-    "extended": false,
+    "type": 14,
     "id": null,
     "name": null,
-    "start": 128,
-    "type": 14
+    "firstLBA": 128,
+    "lastLBA": 2176,
+    "extended": false
   },
   {
-    "end": 4224,
-    "extended": false,
+    "type": 14,
     "id": null,
     "name": null,
-    "start": 2176,
-    "type": 14
+    "firstLBA": 2176,
+    "lastLBA": 4224,
+    "extended": false
   },
   {
-    "end": 0,
-    "extended": false,
+    "type": 0,
     "id": null,
     "name": null,
-    "start": 0,
-    "type": 0
+    "firstLBA": 0,
+    "lastLBA": 0,
+    "extended": false
   },
   {
-    "end": 0,
-    "extended": false,
+    "type": 0,
     "id": null,
     "name": null,
-    "start": 0,
-    "type": 0
+    "firstLBA": 0,
+    "lastLBA": 0,
+    "extended": false
   }
 ]
