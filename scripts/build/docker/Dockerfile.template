@@ -54,6 +54,7 @@ RUN npm config set spin false && \
   npm config set loglevel http
 
 RUN npm install --global \
+  node-sass@^4.5.3 \
   uglify-es@^3.0.15 \
   electron-installer-debian@^0.5.1 \
   electron-installer-redhat@^0.5.0

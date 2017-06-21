@@ -73,7 +73,7 @@ else
   # Log HTTP requests & cache hits
   npm config set loglevel http
 
-  npm install --global uglify-es@^3.0.15
+  npm install --global node-sass@^4.5.3 uglify-es@^3.0.15
   pip install -r requirements.txt
 
   make info

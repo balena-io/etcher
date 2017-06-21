@@ -159,8 +159,7 @@
     "mochainon": "^1.0.0",
     "nock": "^9.0.9",
     "node-gyp": "^3.5.0",
-    "node-sass": "github:sass/node-sass#61d7e1c1abf762aad22bb2a6b3fdac884ca369bd",
-    "npx": "^5.2.0",
+    "npx": "^6.1.0",
     "sass-lint": "^1.10.2",
     "tmp": "0.0.31",
     "versionist": "^2.1.0"
