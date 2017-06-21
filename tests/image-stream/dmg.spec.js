@@ -61,7 +61,7 @@ describe('ImageStream: DMG', function() {
             },
             hasMBR: true,
             hasGPT: false,
-            partitions: require('./data/images/etcher-test-partitions')
+            partitions: require('./data/images/etcher-test-partitions.json')
           });
         });
       });
@@ -102,7 +102,7 @@ describe('ImageStream: DMG', function() {
             },
             hasMBR: true,
             hasGPT: false,
-            partitions: require('./data/images/etcher-test-partitions')
+            partitions: require('./data/images/etcher-test-partitions.json')
           });
         });
       });
