@@ -32,8 +32,8 @@ describe('ImageStream: ISO', function() {
 
     describe('given an iso image', function() {
       tester.extractFromFilePath(
-        path.join(IMAGES_PATH, 'raspberrypi.iso'),
-        path.join(IMAGES_PATH, 'raspberrypi.iso'));
+        path.join(IMAGES_PATH, 'etcher-test.iso'),
+        path.join(IMAGES_PATH, 'etcher-test.iso'));
     });
 
   });
@@ -41,7 +41,7 @@ describe('ImageStream: ISO', function() {
   describe('.getImageMetadata()', function() {
 
     it('should return the correct metadata', function() {
-      const image = path.join(IMAGES_PATH, 'raspberrypi.iso');
+      const image = path.join(IMAGES_PATH, 'etcher-test.iso');
       const expectedSize = fs.statSync(image).size;
 
       return imageStream.getImageMetadata(image).then((metadata) => {

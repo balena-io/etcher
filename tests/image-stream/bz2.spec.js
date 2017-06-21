@@ -33,8 +33,8 @@ describe('ImageStream: BZ2', function() {
 
     describe('given a bz2 image', function() {
       tester.extractFromFilePath(
-        path.join(BZ2_PATH, 'raspberrypi.img.bz2'),
-        path.join(IMAGES_PATH, 'raspberrypi.img'));
+        path.join(BZ2_PATH, 'etcher-test.img.bz2'),
+        path.join(IMAGES_PATH, 'etcher-test.img'));
     });
 
   });
@@ -42,7 +42,7 @@ describe('ImageStream: BZ2', function() {
   describe('.getImageMetadata()', function() {
 
     it('should return the correct metadata', function() {
-      const image = path.join(BZ2_PATH, 'raspberrypi.img.bz2');
+      const image = path.join(BZ2_PATH, 'etcher-test.img.bz2');
       const expectedSize = fs.statSync(image).size;
 
       return imageStream.getImageMetadata(image).then((metadata) => {

@@ -51,14 +51,14 @@ describe('ImageStream: ZIP', function() {
 
     describe('given a zip directory containing only an image', function() {
       tester.extractFromFilePath(
-        path.join(ZIP_PATH, 'zip-directory-rpi-only.zip'),
-        path.join(IMAGES_PATH, 'raspberrypi.img'));
+        path.join(ZIP_PATH, 'zip-directory-etcher-test-only.zip'),
+        path.join(IMAGES_PATH, 'etcher-test.img'));
     });
 
     describe('given a zip directory containing an image and other misc files', function() {
       tester.extractFromFilePath(
-        path.join(ZIP_PATH, 'zip-directory-rpi-and-misc.zip'),
-        path.join(IMAGES_PATH, 'raspberrypi.img'));
+        path.join(ZIP_PATH, 'zip-directory-etcher-test-and-misc.zip'),
+        path.join(IMAGES_PATH, 'etcher-test.img'));
     });
 
   });
@@ -66,8 +66,8 @@ describe('ImageStream: ZIP', function() {
   describe('.getImageMetadata()', function() {
 
     it('should return the correct metadata', function() {
-      const image = path.join(ZIP_PATH, 'zip-directory-rpi-only.zip');
-      const expectedSize = fs.statSync(path.join(IMAGES_PATH, 'raspberrypi.img')).size;
+      const image = path.join(ZIP_PATH, 'zip-directory-etcher-test-only.zip');
+      const expectedSize = fs.statSync(path.join(IMAGES_PATH, 'etcher-test.img')).size;
 
       return imageStream.getImageMetadata(image).then((metadata) => {
         m.chai.expect(metadata).to.deep.equal({
