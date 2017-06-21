@@ -120,12 +120,6 @@
       "resolved": "https://registry.npmjs.org/ajv/-/ajv-4.11.8.tgz",
       "integrity": "sha1-gv+wKynmYq5TvcIK8VlHcGc5xTY="
     },
-    "ajv-keywords": {
-      "version": "2.1.0",
-      "resolved": "https://registry.npmjs.org/ajv-keywords/-/ajv-keywords-2.1.0.tgz",
-      "integrity": "sha1-opbhf3v658HOT34N5T0pyzIWLfA=",
-      "dev": true
-    },
     "align-text": {
       "version": "0.1.4",
       "resolved": "https://registry.npmjs.org/align-text/-/align-text-0.1.4.tgz",
@@ -1480,15 +1474,21 @@
       "dev": true
     },
     "electron-builder": {
-      "version": "18.8.1",
-      "resolved": "https://registry.npmjs.org/electron-builder/-/electron-builder-18.8.1.tgz",
-      "integrity": "sha512-NpzryxnocKYjGFUrCYYdk3aF0Bq6hEPO14uSo7aYalagVFvMrQh6riVFQixClroX9rcDU+bBbKBSPepEtu55cA==",
+      "version": "19.6.3",
+      "resolved": "https://registry.npmjs.org/electron-builder/-/electron-builder-19.6.3.tgz",
+      "integrity": "sha512-ype68gLi6CepoM06Yq+D9f0OjuEwT1ksal3W01O0ikAMIJHv/mZ6SuObXstrEtldCHvEUOqECr+tn+iu27KbKw==",
       "dev": true,
       "dependencies": {
         "ajv": {
           "version": "5.2.0",
           "resolved": "https://registry.npmjs.org/ajv/-/ajv-5.2.0.tgz",
           "integrity": "sha1-wXNQJMXaLvdcwZBxMHPUTwmL9IY=",
+          "dev": true
+        },
+        "ajv-keywords": {
+          "version": "2.1.0",
+          "resolved": "https://registry.npmjs.org/ajv-keywords/-/ajv-keywords-2.1.0.tgz",
+          "integrity": "sha1-opbhf3v658HOT34N5T0pyzIWLfA=",
           "dev": true
         },
         "camelcase": {
@@ -1503,10 +1503,34 @@
           "integrity": "sha1-BKEGZywYsIWrd02YPfo+oTjyIgU=",
           "dev": true
         },
+        "electron-builder-http": {
+          "version": "19.6.0",
+          "resolved": "https://registry.npmjs.org/electron-builder-http/-/electron-builder-http-19.6.0.tgz",
+          "integrity": "sha512-/p4EfLQA7h3YVY62GYxipKSdACa8tDI6KmiMkvyrGsr17nlb4eHN4j2LDVMVeAtNPAM2N6drO3Kpt7r38kwDzg==",
+          "dev": true
+        },
+        "electron-builder-util": {
+          "version": "19.6.0",
+          "resolved": "https://registry.npmjs.org/electron-builder-util/-/electron-builder-util-19.6.0.tgz",
+          "integrity": "sha512-2+kHBxwp7FeFYx/u0Bx8ZegQ5ej/AlX9xlWs20EEPZ+hT5JkHpxk0uptjvRhrw/z1kSJNqlEfmQc5GgDbhtTpQ==",
+          "dev": true
+        },
         "electron-download-tf": {
           "version": "4.3.1",
           "resolved": "https://registry.npmjs.org/electron-download-tf/-/electron-download-tf-4.3.1.tgz",
           "integrity": "sha1-eTDySgjjZp6q04pffyiKEEYcr3I=",
+          "dev": true
+        },
+        "electron-publish": {
+          "version": "19.6.0",
+          "resolved": "https://registry.npmjs.org/electron-publish/-/electron-publish-19.6.0.tgz",
+          "integrity": "sha512-mXG6AM/dYb0oMCGXKE5xYIbDzVJ1FHZhO9jDmilFO6himOjnAZLDcsAbmGQQM8K5fkm/CPgtFPrudG6KzU4ihw==",
+          "dev": true
+        },
+        "fcopy-pre-bundled": {
+          "version": "0.3.4",
+          "resolved": "https://registry.npmjs.org/fcopy-pre-bundled/-/fcopy-pre-bundled-0.3.4.tgz",
+          "integrity": "sha512-fRjxOMNl5wv94LaYvsozGcRBMDo+EvrC4hx3WN8HURCJUFw0NbGDfIsIw+bT97sSvnAljjdprTcxnQT62AM18w==",
           "dev": true
         },
         "find-up": {
@@ -1607,24 +1631,6 @@
         }
       }
     },
-    "electron-builder-core": {
-      "version": "18.7.0",
-      "resolved": "https://registry.npmjs.org/electron-builder-core/-/electron-builder-core-18.7.0.tgz",
-      "integrity": "sha512-gXQpgtsudDs9CuAthtQHhBDukFt8JNNxOkx60Dy8VAu6AUXmZhfdwb1XyH43axtDlJH5sFBFJVWP68h05LbGzw==",
-      "dev": true
-    },
-    "electron-builder-http": {
-      "version": "18.8.0",
-      "resolved": "https://registry.npmjs.org/electron-builder-http/-/electron-builder-http-18.8.0.tgz",
-      "integrity": "sha512-pqTGItyJs8aZLJYHtsWZQcBZFCuUrUKE966ElGEvMOySMr1WrntuOyK1CGQGZYhReXoImHzr4zcdzX1gZRsjRw==",
-      "dev": true
-    },
-    "electron-builder-util": {
-      "version": "18.8.0",
-      "resolved": "https://registry.npmjs.org/electron-builder-util/-/electron-builder-util-18.8.0.tgz",
-      "integrity": "sha512-E0J4RAoDl+95/QQAfmaSIESyUYJFuRmsLOakUvblN2KSIypJwrCKRzOIpwXphtXg1WLOegdUk/JfuzClrURb9w==",
-      "dev": true
-    },
     "electron-download": {
       "version": "3.3.0",
       "resolved": "https://registry.npmjs.org/electron-download/-/electron-download-3.3.0.tgz",
@@ -1683,12 +1689,6 @@
           "dev": true
         }
       }
-    },
-    "electron-publish": {
-      "version": "18.8.0",
-      "resolved": "https://registry.npmjs.org/electron-publish/-/electron-publish-18.8.0.tgz",
-      "integrity": "sha512-T/6zvotjnGYvLYA0AXLsV+gd5fpvltqMIYeGjlbdoQdYmifi6hS5Eq9sFepP6J6lEQhJMA70THEx1JRfu9V2YQ==",
-      "dev": true
     },
     "electron-window": {
       "version": "0.8.1",
@@ -2051,12 +2051,6 @@
       "version": "0.8.12",
       "resolved": "https://registry.npmjs.org/fbjs/-/fbjs-0.8.12.tgz",
       "integrity": "sha1-ELXZL3bUVXX9Y6IX1OoCvqL47QQ="
-    },
-    "fcopy-pre-bundled": {
-      "version": "0.1.2",
-      "resolved": "https://registry.npmjs.org/fcopy-pre-bundled/-/fcopy-pre-bundled-0.1.2.tgz",
-      "integrity": "sha512-tsboc66HjCjXf93MAA316XR4IiL+NFoohvyczR+T/YnVbqVe9V3KchaJMlWLbH+fNX4seugCx3rCqGN9KT+zkg==",
-      "dev": true
     },
     "fd-slicer": {
       "version": "1.0.1",
