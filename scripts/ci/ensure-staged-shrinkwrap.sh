@@ -24,12 +24,12 @@ echo "npm version: $(npm --version)"
 
 SHRINKWRAP_FILE=npm-shrinkwrap.json
 
-npm shrinkwrap --dev
+npm shrinkwrap
 
 if [[ -n $(git status -s "$SHRINKWRAP_FILE") ]]; then
   echo "There are unstaged $SHRINKWRAP_FILE changes. Please commit the result of:" 1>&2
   echo ""
-  echo "    npm shrinkwrap --dev" 1>&2
+  echo "    npm shrinkwrap" 1>&2
   echo ""
   git --no-pager diff "$SHRINKWRAP_FILE"
   exit 1
