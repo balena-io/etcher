@@ -82,6 +82,7 @@
     "test": "make test",
     "start": "electron lib/start.js",
     "preshrinkwrap": "node ./scripts/clean-shrinkwrap.js",
+    "postshrinkwrap": "node ./scripts/fix-shrinkwrap.js",
     "configure": "node-gyp configure",
     "build": "node-gyp build",
     "install": "node-gyp rebuild"
