@@ -27,13 +27,6 @@
       "assets/icon.png",
       "node_modules/**/*"
     ],
-    "asar": {
-      "smartUnpack": false
-    },
-    "asarUnpack": [
-      "**/*.dll",
-      "**/*.node"
-    ],
     "mac": {
       "icon": "assets/icon.icns",
       "artifactName": "${productName}-${version}-darwin-${env.TARGET_ARCH}.${ext}",
