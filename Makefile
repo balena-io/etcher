@@ -163,6 +163,7 @@ endif
 
 ifdef DISABLE_UPDATES
 $(warning Update notification dialog has been disabled (DISABLE_UPDATES is set))
+ELECTRON_BUILDER_OPTIONS += --extraMetadata.updates.enabled=false
 endif
 
 # ---------------------------------------------------------------------
@@ -433,7 +434,14 @@ TARGETS = \
 	installers-all \
 	electron-develop
 
-package-electron: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH)
+package-electron:
+	CSC_NAME="$(CODE_SIGN_IDENTITY)" \
+	CSC_IDENTITY_AUTO_DISCOVERY=false \
+	CSC_LINK=$(CODE_SIGN_CERTIFICATE) \
+	CSC_KEY_PASSWORD=$(CODE_SIGN_CERTIFICATE_PASSWORD) \
+	TARGET_ARCH=$(TARGET_ARCH) \
+	$(NPX) build --dir $(ELECTRON_BUILDER_OPTIONS)
+
 package-cli: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH)
 
 ifeq ($(TARGET_PLATFORM),darwin)
