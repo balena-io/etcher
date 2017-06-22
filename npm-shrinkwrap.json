@@ -885,16 +885,16 @@
       "resolved": "https://registry.npmjs.org/chromium-pickle-js/-/chromium-pickle-js-0.1.0.tgz",
       "dev": true
     },
+    "chs": {
+      "version": "1.0.0",
+      "from": "chs@>=1.0.0 <1.1.0",
+      "resolved": "https://registry.npmjs.org/chs/-/chs-1.0.0.tgz"
+    },
     "ci-info": {
       "version": "1.0.0",
       "from": "ci-info@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/ci-info/-/ci-info-1.0.0.tgz",
       "dev": true
-    },
-    "chs": {
-      "version": "1.0.0",
-      "from": "chs@>=1.0.0 <1.1.0",
-      "resolved": "https://registry.npmjs.org/chs/-/chs-1.0.0.tgz"
     },
     "cipher-base": {
       "version": "1.0.3",
@@ -4629,16 +4629,16 @@
       "resolved": "https://registry.npmjs.org/markdown-utils/-/markdown-utils-0.7.3.tgz",
       "dev": true
     },
+    "mbr": {
+      "version": "1.1.1",
+      "from": "mbr@latest",
+      "resolved": "https://registry.npmjs.org/mbr/-/mbr-1.1.1.tgz"
+    },
     "mem": {
       "version": "1.1.0",
       "from": "mem@>=1.1.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/mem/-/mem-1.1.0.tgz",
       "dev": true
-    },
-    "mbr": {
-      "version": "1.1.1",
-      "from": "mbr@latest",
-      "resolved": "https://registry.npmjs.org/mbr/-/mbr-1.1.1.tgz"
     },
     "meow": {
       "version": "3.7.0",
