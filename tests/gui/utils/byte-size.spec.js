@@ -11,16 +11,16 @@ describe('Browser: ByteSize', function() {
     require('../../../lib/gui/utils/byte-size/byte-size')
   ));
 
-  describe('GigabyteFilter', function() {
+  describe('ClosestUnitFilter', function() {
 
-    let gigabyteFilter;
+    let closestUnitFilter;
 
-    beforeEach(angular.mock.inject(function(_gigabyteFilter_) {
-      gigabyteFilter = _gigabyteFilter_;
+    beforeEach(angular.mock.inject(function(_closestUnitFilter_) {
+      closestUnitFilter = _closestUnitFilter_;
     }));
 
     it('should expose lib/shared/units.js bytesToGigabytes()', function() {
-      m.chai.expect(gigabyteFilter).to.equal(units.bytesToGigabytes);
+      m.chai.expect(closestUnitFilter).to.equal(units.bytesToClosestUnit);
     });
 
   });
