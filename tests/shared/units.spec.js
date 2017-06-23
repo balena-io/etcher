@@ -24,27 +24,27 @@ describe('Shared: Units', function() {
   describe('.bytesToClosestUnit()', function() {
 
     it('should convert bytes to terabytes', function() {
-      m.chai.expect(units.bytesToClosestUnit(1000000000000)).to.equal('1.000 TB');
-      m.chai.expect(units.bytesToClosestUnit(2987801405440)).to.equal('2.988 TB');
+      m.chai.expect(units.bytesToClosestUnit(1000000000000)).to.equal('1 TB');
+      m.chai.expect(units.bytesToClosestUnit(2987801405440)).to.equal('2.99 TB');
       m.chai.expect(units.bytesToClosestUnit(999900000000000)).to.equal('999.9 TB');
     });
 
     it('should convert bytes to gigabytes', function() {
-      m.chai.expect(units.bytesToClosestUnit(1000000000)).to.equal('1.000 GB');
-      m.chai.expect(units.bytesToClosestUnit(7801405440)).to.equal('7.801 GB');
+      m.chai.expect(units.bytesToClosestUnit(1000000000)).to.equal('1 GB');
+      m.chai.expect(units.bytesToClosestUnit(7801405440)).to.equal('7.8 GB');
       m.chai.expect(units.bytesToClosestUnit(999900000000)).to.equal('999.9 GB');
     });
 
     it('should convert bytes to megabytes', function() {
-      m.chai.expect(units.bytesToClosestUnit(1000000)).to.equal('1.000 MB');
-      m.chai.expect(units.bytesToClosestUnit(801405440)).to.equal('801.4 MB');
+      m.chai.expect(units.bytesToClosestUnit(1000000)).to.equal('1 MB');
+      m.chai.expect(units.bytesToClosestUnit(801405440)).to.equal('801.41 MB');
       m.chai.expect(units.bytesToClosestUnit(999900000)).to.equal('999.9 MB');
     });
 
     it('should convert bytes to kilobytes', function() {
-      m.chai.expect(units.bytesToClosestUnit(1000)).to.equal('1.000 KB');
-      m.chai.expect(units.bytesToClosestUnit(5440)).to.equal('5.440 KB');
-      m.chai.expect(units.bytesToClosestUnit(999900)).to.equal('999.9 KB');
+      m.chai.expect(units.bytesToClosestUnit(1000)).to.equal('1 kB');
+      m.chai.expect(units.bytesToClosestUnit(5440)).to.equal('5.44 kB');
+      m.chai.expect(units.bytesToClosestUnit(999900)).to.equal('999.9 kB');
     });
 
     it('should keep bytes as bytes', function() {
