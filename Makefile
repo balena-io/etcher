@@ -21,7 +21,7 @@ BUILD_OUTPUT_DIRECTORY = $(BUILD_DIRECTORY)/out
 # ---------------------------------------------------------------------
 
 ELECTRON_VERSION = $(shell jq -r '.devDependencies["electron"]' package.json)
-NODE_VERSION = 6.1.0
+NODE_VERSION = $(shell node --version)
 COMPANY_NAME = Resinio Ltd
 APPLICATION_NAME = $(shell jq -r '.build.productName' package.json)
 APPLICATION_DESCRIPTION = $(shell jq -r '.description' package.json)
@@ -550,7 +550,7 @@ electron-develop:
 		-s "$(TARGET_PLATFORM)"
 
 sass:
-	$(NPX) node-sass lib/gui/scss/main.scss > lib/gui/css/main.css
+	node-sass lib/gui/scss/main.scss > lib/gui/css/main.css
 
 lint-js:
 	$(NPX) eslint lib tests scripts bin versionist.conf.js

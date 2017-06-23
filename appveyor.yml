@@ -14,7 +14,7 @@ cache:
 environment:
   global:
     ELECTRON_NO_ATTACH_CONSOLE: true
-    nodejs_version: "6.10.3"
+    nodejs_version: "8.1.0"
   matrix:
     - TARGET_ARCH: x64
     - TARGET_ARCH: x86

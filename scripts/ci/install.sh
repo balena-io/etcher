@@ -67,8 +67,13 @@ else
   ./scripts/build/check-dependency.sh pip
   ./scripts/build/check-dependency.sh make
 
-  npm config set spin=false
-  npm install -g uglify-es@3.0.3
+  # Don't display progress or the spinner while installing
+  npm config set spin false
+  npm config set progress false
+  # Log HTTP requests & cache hits
+  npm config set loglevel http
+
+  npm install --global node-sass@^4.5.3 uglify-es@^3.0.15
   pip install -r requirements.txt
 
   make info
