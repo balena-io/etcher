@@ -69,7 +69,6 @@ else
 
   npm config set spin=false
   npm config set progress=false
-  npm install -g --silent uglify-es@3.0.3 > /dev/null
   pip install -r requirements.txt
 
   make info

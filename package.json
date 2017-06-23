@@ -83,7 +83,6 @@
   "devDependencies": {
     "angular-mocks": "1.6.3",
     "asar": "0.10.0",
-    "browserify": "github:jviotti/node-browserify#dynamic-dirname-filename",
     "electron": "1.6.6",
     "electron-builder": "19.9.1",
     "electron-mocha": "3.3.0",
@@ -96,6 +95,7 @@
     "node-gyp": "3.5.0",
     "node-sass": "4.5.3",
     "npx": "5.2.0",
+    "pkg": "4.1.1",
     "sass-lint": "1.10.2",
     "tmp": "0.0.31",
     "versionist": "2.8.1"

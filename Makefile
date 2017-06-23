@@ -14,7 +14,6 @@ $(error $(BUILD_DIRECTORY_PARENT) does not exist)
 endif
 
 BUILD_TEMPORARY_DIRECTORY = $(BUILD_DIRECTORY)/.tmp
-BUILD_OUTPUT_DIRECTORY = $(BUILD_DIRECTORY)/out
 
 # ---------------------------------------------------------------------
 # Application configuration
@@ -179,14 +178,17 @@ TARGET_ARCH_DEBIAN = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET
 TARGET_ARCH_REDHAT = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET_ARCH) -t redhat)
 TARGET_ARCH_APPIMAGE = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET_ARCH) -t appimage)
 TARGET_ARCH_ELECTRON_BUILDER = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET_ARCH) -t electron-builder)
+TARGET_PLATFORM_PKG = $(shell ./scripts/build/target-convert.sh -r $(TARGET_PLATFORM) -t pkg)
+ENTRY_POINT_CLI = lib/cli/etcher.js
+ETCHER_CLI_BINARY = $(APPLICATION_NAME_LOWERCASE)
+ifeq ($(TARGET_PLATFORM),win32)
+ETCHER_CLI_BINARY = $(APPLICATION_NAME_LOWERCASE).exe
+endif
 
 PRODUCT_NAME = etcher
 APPLICATION_NAME_LOWERCASE = $(shell echo $(APPLICATION_NAME) | tr A-Z a-z)
 APPLICATION_VERSION_DEBIAN = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
 APPLICATION_VERSION_REDHAT = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
-
-# Fix hard link Appveyor issues
-CPRF = cp -RLf
 
 # ---------------------------------------------------------------------
 # Rules
@@ -208,16 +210,14 @@ $(BUILD_DIRECTORY):
 $(BUILD_TEMPORARY_DIRECTORY): | $(BUILD_DIRECTORY)
 	mkdir $@
 
-$(BUILD_OUTPUT_DIRECTORY): | $(BUILD_DIRECTORY)
-	mkdir $@
-
 # ---------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------
 
-$(BUILD_DIRECTORY)/node-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies: package.json npm-shrinkwrap.json \
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app: \
+	package.json npm-shrinkwrap.json \
 	| $(BUILD_DIRECTORY)
-	mkdir $@
+	mkdir -p $@
 	./scripts/build/dependencies-npm.sh -p \
 		-r "$(TARGET_ARCH)" \
 		-v "$(NODE_VERSION)" \
@@ -225,54 +225,45 @@ $(BUILD_DIRECTORY)/node-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies: package.
 		-t node \
 		-s "$(TARGET_PLATFORM)"
 	git apply --directory $@/node_modules/lzma-native patches/cli/lzma-native-index-static-addon-require.patch
-
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app: \
-	package.json lib \
-	$(BUILD_DIRECTORY)/node-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies \
-	| $(BUILD_DIRECTORY)
-	mkdir $@
-	cp $(word 1,$^) $@
-	$(CPRF) $(word 2,$^) $@
-	$(CPRF) $(word 3,$^)/* $@
-
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).js: \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app \
-	| $(BUILD_DIRECTORY)
-	./scripts/build/concatenate-javascript.sh -e lib/cli/etcher.js -b $< -o $@ -m
+	cp -r lib $@
+	cp package.json $@
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH): \
-	$(BUILD_DIRECTORY)/node-$(TARGET_PLATFORM)-$(TARGET_ARCH)-dependencies \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).js \
-	| $(BUILD_DIRECTORY) $(BUILD_TEMPORARY_DIRECTORY)
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-app \
+	| $(BUILD_DIRECTORY)
 	mkdir $@
-	./scripts/build/node-package-cli.sh -o $@ -l $</node_modules \
-		-n $(APPLICATION_NAME) \
-		-e $(word 2,$^) \
-		-r $(TARGET_ARCH) \
-		-s $(TARGET_PLATFORM)
+	$(NPX) pkg --output $@/$(ETCHER_CLI_BINARY) -t node6-$(TARGET_PLATFORM_PKG)-$(TARGET_ARCH) $</$(ENTRY_POINT_CLI)
+	./scripts/build/dependencies-npm-extract-addons.sh \
+		-d $</node_modules \
+		-o $@/node_modules
+# pkg currently has a bug where darwin executables
+# can't be code-signed
+# See https://github.com/zeit/pkg/issues/128
+# ifeq ($(TARGET_PLATFORM),darwin)
+# ifdef CSC_NAME
+#		./scripts/build/electron-sign-file-darwin.sh -f $@/$(ETCHER_CLI_BINARY) -i "$(CSC_NAME)"
+# endif
+# endif
 
-ifeq ($(TARGET_PLATFORM),win32)
-	./scripts/build/electron-brand-exe.sh \
-		-f $@/etcher.exe \
-		-n $(APPLICATION_NAME) \
-		-d "$(APPLICATION_DESCRIPTION)" \
-		-v "$(APPLICATION_VERSION)" \
-		-c "$(APPLICATION_COPYRIGHT)" \
-		-m "$(COMPANY_NAME)" \
-		-i assets/icon.ico \
-		-w $(BUILD_TEMPORARY_DIRECTORY)
-endif
-
-ifeq ($(TARGET_PLATFORM),darwin)
-ifdef CSC_NAME
-	./scripts/build/electron-sign-file-darwin.sh -f $@/etcher -i "$(CSC_NAME)"
-endif
-endif
+# pkg currently has a bug where Windows executables
+# can't be branded
+# See https://github.com/zeit/pkg/issues/149
+# ifeq ($(TARGET_PLATFORM),win32)
+#		./scripts/build/electron-brand-exe.sh \
+#			-f $@/$(ETCHER_CLI_BINARY) \
+#			-n $(APPLICATION_NAME) \
+#			-d "$(APPLICATION_DESCRIPTION)" \
+#			-v "$(APPLICATION_VERSION)" \
+#			-c "$(APPLICATION_COPYRIGHT)" \
+#			-m "$(COMPANY_NAME)" \
+#			-i assets/icon.ico \
+#			-w $(BUILD_TEMPORARY_DIRECTORY)
+# endif
 
 ifeq ($(TARGET_PLATFORM),win32)
 ifdef CSC_LINK
 ifdef CSC_KEY_PASSWORD
-	./scripts/build/electron-sign-exe-win32.sh -f $@/etcher.exe \
+	./scripts/build/electron-sign-exe-win32.sh -f $@/$(ETCHER_CLI_BINARY) \
 		-d "$(APPLICATION_NAME) - $(APPLICATION_VERSION)" \
 		-c $(CSC_LINK) \
 		-p $(CSC_KEY_PASSWORD)
@@ -280,14 +271,12 @@ endif
 endif
 endif
 
-$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip: \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH) \
-	| $(BUILD_OUTPUT_DIRECTORY)
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip: \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH)
 	./scripts/build/zip-file.sh -f $< -s $(TARGET_PLATFORM) -o $@
 
-$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).tar.gz: \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH) \
-	| $(BUILD_OUTPUT_DIRECTORY)
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).tar.gz: \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH)
 	./scripts/build/tar-gz-file.sh -f $< -o $@
 
 # ---------------------------------------------------------------------
@@ -376,7 +365,7 @@ package-cli: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$
 ifeq ($(TARGET_PLATFORM),darwin)
 electron-installer-app-zip: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
 electron-installer-dmg: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).dmg
-cli-installer-tar-gz: $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).tar.gz
+cli-installer-tar-gz: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).tar.gz
 TARGETS += \
 	electron-installer-dmg \
 	electron-installer-app-zip \
@@ -384,14 +373,14 @@ TARGETS += \
 PUBLISH_AWS_S3 += \
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip \
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).dmg \
-	$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).tar.gz
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).tar.gz
 endif
 
 ifeq ($(TARGET_PLATFORM),linux)
 electron-installer-appimage: $(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
 electron-installer-debian: $(BUILD_DIRECTORY)/$(APPLICATION_NAME_ELECTRON)_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb
 electron-installer-redhat: $(BUILD_DIRECTORY)/$(APPLICATION_NAME_ELECTRON)-$(APPLICATION_VERSION_REDHAT).$(TARGET_ARCH_REDHAT).rpm
-cli-installer-tar-gz: $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).tar.gz
+cli-installer-tar-gz: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).tar.gz
 TARGETS +=  \
 	electron-installer-appimage \
 	electron-installer-debian \
@@ -399,7 +388,7 @@ TARGETS +=  \
 	cli-installer-tar-gz
 PUBLISH_AWS_S3 += \
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip \
-	$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).tar.gz
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).tar.gz
 PUBLISH_BINTRAY_DEBIAN += \
 		$(BUILD_DIRECTORY)/$(APPLICATION_NAME_ELECTRON)_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb
 PUBLISH_BINTRAY_REDHAT += \
@@ -409,7 +398,7 @@ endif
 ifeq ($(TARGET_PLATFORM),win32)
 electron-installer-portable: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-portable.exe
 electron-installer-nsis: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).exe
-cli-installer-zip: $(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
+cli-installer-zip: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
 TARGETS += \
 	electron-installer-portable \
 	electron-installer-nsis \
@@ -417,7 +406,7 @@ TARGETS += \
 PUBLISH_AWS_S3 += \
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-portable.exe \
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).exe \
-	$(BUILD_OUTPUT_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
 endif
 
 installers-all: $(PUBLISH_AWS_S3) $(PUBLISH_BINTRAY_DEBIAN) $(PUBLISH_BINTRAY_REDHAT)

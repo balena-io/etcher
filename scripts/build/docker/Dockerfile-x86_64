@@ -48,7 +48,6 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
 RUN npm config set unsafe-perm=true
 
 RUN npm config set spin=false
-RUN npm install -g uglify-es@3.0.3
 
 # Python
 COPY requirements.txt requirements.txt
