@@ -50,9 +50,9 @@ exports.expectError = function(file, errorMessage, errorDetail) {
       m.chai.expect(error.message).to.equal(errorMessage);
       if (errorDetail) {
         m.chai.expect(error.description).to.contain(errorDetail);
+        m.chai.expect(error.description).to.be.a.string;
+        m.chai.expect(error.description.length > 0).to.be.true;
       }
-      m.chai.expect(error.description).to.be.a.string;
-      m.chai.expect(error.description.length > 0).to.be.true;
     });
   });
 };
