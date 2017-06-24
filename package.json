@@ -1,5 +1,6 @@
 {
   "name": "etcher",
+  "displayName": "Etcher",
   "version": "1.0.0",
   "updates": {
     "enabled": true,
@@ -14,119 +15,6 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:resin-io/etcher.git"
-  },
-  "build": {
-    "appId": "io.resin.etcher",
-    "copyright": "Copyright 2016 Resinio Ltd",
-    "productName": "Etcher",
-    "npmRebuild": true,
-    "nodeGypRebuild": true,
-    "publish": null,
-    "files": [
-      "lib",
-      "assets/icon.png",
-      "node_modules/**/*"
-    ],
-    "mac": {
-      "icon": "assets/icon.icns",
-      "artifactName": "${productName}-${version}-darwin-${env.TARGET_ARCH}.${ext}",
-      "category": "public.app-category.developer-tools"
-    },
-    "dmg": {
-      "background": "assets/osx/installer.tiff",
-      "icon": "assets/icon.icns",
-      "iconSize": 110,
-      "contents": [
-        {
-          "x": 140,
-          "y": 225
-        },
-        {
-          "x": 415,
-          "y": 225,
-          "type": "link",
-          "path": "/Applications"
-        }
-      ],
-      "window": {
-        "width": 540,
-        "height": 405
-      }
-    },
-    "win": {
-      "icon": "assets/icon.ico"
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "runAfterFinish": true,
-      "installerIcon": "assets/icon.ico",
-      "uninstallerIcon": "assets/icon.ico",
-      "deleteAppDataOnUninstall": true,
-      "license": "LICENSE",
-      "artifactName": "${productName}-${version}-win32-${env.TARGET_ARCH}.${ext}"
-    },
-    "portable": {
-      "artifactName": "${productName}-${version}-win32-${env.TARGET_ARCH}-portable.${ext}",
-      "requestExecutionLevel": "user"
-    },
-    "linux": {
-      "category": "Utility",
-      "packageCategory": "utils",
-      "executableName": "etcher-electron",
-      "synopsis": "Etcher is a powerful OS image flasher built with web technologies to ensure flashing an SDCard or USB drive is a pleasant and safe experience. It protects you from accidentally writing to your hard-drives, ensures every byte of data was written correctly and much more."
-    },
-    "deb": {
-      "icon": "assets/icon.png",
-      "priority": "optional",
-      "depends": [
-        "gconf2",
-        "gconf-service",
-        "libappindicator1",
-        "libasound2",
-        "libatk1.0-0",
-        "libc6",
-        "libcairo2",
-        "libcups2",
-        "libdbus-1-3",
-        "libexpat1",
-        "libfontconfig1",
-        "libfreetype6",
-        "libgcc1",
-        "libgconf-2-4",
-        "libgdk-pixbuf2.0-0",
-        "libglib2.0-0",
-        "libgtk2.0-0",
-        "liblzma5",
-        "libnotify4",
-        "libnspr4",
-        "libnss3",
-        "libpango1.0-0",
-        "libstdc++6",
-        "libx11-6",
-        "libxcomposite1",
-        "libxcursor1",
-        "libxdamage1",
-        "libxext6",
-        "libxfixes3",
-        "libxi6",
-        "libxrandr2",
-        "libxrender1",
-        "libxss1",
-        "libxtst6",
-        "polkit-1-auth-agent | policykit-1-gnome | polkit-kde-1"
-      ]
-    },
-    "rpm": {
-      "icon": "assets/icon.png",
-      "depends": [
-        "lsb",
-        "libXScrnSaver"
-      ]
-    },
-    "appimage": {
-      "icon": "assets/icon.png"
-    }
   },
   "scripts": {
     "test": "make test",
