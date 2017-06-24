@@ -14,6 +14,8 @@ RUN apt-get update \
     curl \
     fuse \
     git \
+    graphicsmagick \
+    icnsutils \
     jq \
     libasound2 \
     libgconf-2-4 \
@@ -28,8 +30,10 @@ RUN apt-get update \
     python-dev \
     python-software-properties \
     unzip \
+    xorriso \
     xvfb \
-    zip   \
+    xz-utils \
+    zip \
     rpm
 
 # Install a C++11 compiler
@@ -45,7 +49,7 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
 RUN npm config set unsafe-perm=true
 
 RUN npm config set spin=false
-RUN npm install -g uglify-es@3.0.3 electron-installer-debian@0.5.1 electron-installer-redhat@0.5.0
+RUN npm install -g uglify-es@3.0.3
 
 # Python
 COPY requirements.txt requirements.txt

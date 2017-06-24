@@ -96,12 +96,6 @@ make electron-installer-zip
 make electron-installer-nsis
 ```
 
-Disabling updates
------------------
-
-You can disable updates in the final artifact by passing `DISABLE_UPDATES=1` to
-the `make` targets described above.
-
 Publishing to Bintray
 ---------------------
 
