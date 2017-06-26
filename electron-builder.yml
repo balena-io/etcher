@@ -88,5 +88,5 @@ rpm:
   depends:
     - lsb
     - libXScrnSaver
-appimage:
+appImage:
   icon: assets/icon.png
