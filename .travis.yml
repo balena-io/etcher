@@ -3,6 +3,11 @@ sudo: false
 node_js:
   - "6.10.3"
 
+cache:
+  ccache: true
+  directories:
+    - node_modules
+
 services:
   - docker
 
@@ -34,6 +39,7 @@ os:
   - osx
 
 before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then PATH=/usr/local/opt/ccache/libexec:$PATH; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       export HOST_OS="darwin";
     else
