@@ -101,7 +101,7 @@ function run_install() {
   # since compiled add-ons will not work otherwise.
   npm rebuild
 
-  npm install $INSTALL_OPTS
+  npm install $INSTALL_OPTS --fetch-retries 10 --fetch-retry-maxtimeout 180000
 
   if [ "$ARGV_PRODUCTION" == "true" ]; then
 
