@@ -99,9 +99,9 @@ function run_install() {
 
   # When changing between target architectures, rebuild all dependencies,
   # since compiled add-ons will not work otherwise.
-  npm rebuild
+  npm rebuild --silent
 
-  npm install $INSTALL_OPTS --fetch-retries 10 --fetch-retry-maxtimeout 180000
+  npm install --silent $INSTALL_OPTS --fetch-retries 10 --fetch-retry-maxtimeout 180000
 
   if [ "$ARGV_PRODUCTION" == "true" ]; then
 
