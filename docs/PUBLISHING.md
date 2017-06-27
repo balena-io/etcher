@@ -7,22 +7,18 @@ systems.
 Release Types
 -------------
 
-Etcher supports **production** and **snapshot** release types. Each is
-published to a different S3 bucket, and production release types are code
-signed, while snapshot release types aren't and include a short git commit-hash
-as a build number. For example, `1.0.0-beta.19` is a production release type,
-while `1.0.0-beta.19+531ab82` is a snapshot release type.
+Etcher supports **production** and **snapshot** release types. Both are
+published to GitHub Releases or Bintray (depending on the target), and
+production release types are code signed.
 
-In terms of comparison: `1.0.0-beta.19` (production) < `1.0.0-beta.19+531ab82`
-(snapshot) < `1.0.0-rc.1` (production) < `1.0.0-rc.1+7fde24a` (snapshot) <
-`1.0.0` (production) < `1.0.0+2201e5f` (snapshot). Keep in mind that if you're
-running a production release type, you'll only be prompted to update to
-production release types, and if you're running a snapshot release type, you'll
-only be prompted to update to other snapshot release types.
+Keep in mind that if you're running an production release type, you'll only be
+prompted to update to production release types, and if you're running a
+snapshot release type, you'll only be prompted to update to other snapshot
+release types.
 
 The build system creates (and publishes) snapshot release types by default, but
 you can build a specific release type by setting the `RELEASE_TYPE` make
-variable.  For example:
+variable. For example:
 
 ```sh
 make <target> RELEASE_TYPE=snapshot
@@ -39,12 +35,10 @@ Update Channels
 Etcher has a setting to include the unstable update channel. If this option is
 set, Etcher will consider both stable and unstable versions when showing the
 update notifier dialog. Unstable versions are the ones that contain a `beta`
-pre-release tag. For example:
+pre-release tag or a short commit hash suffix. For example:
 
-- Production unstable version: `1.4.0-beta.1`
-- Snapshot unstable version: `1.4.0-beta.1+7fde24a`
-- Production stable version: `1.4.0`
-- Snapshot stable version: `1.4.0+7fde24a`
+- Unstable version: `1.4.0-beta.1`, `1.4.0-beta.1+7fde24a`, `1.4.0+7fde24a`
+- Stable version: `1.4.0`
 
 Signing
 -------
@@ -112,24 +106,11 @@ Run the following command:
 make publish-bintray-debian
 ```
 
-Publishing to S3
-----------------
+Publishing to GitHub Releases
+-----------------------------
 
-- [AWS CLI][aws-cli]
-
-Make sure you have the [AWS CLI tool][aws-cli] installed and configured to
-access resin.io's production or snapshot S3 bucket.
-
-Run the following command to publish all files for the current combination of
-_platform_ and _arch_ (building them if necessary):
-
-```sh
-make publish-aws-s3
-```
-
-Also add links to each AWS S3 file in [GitHub Releases][github-releases]. See
-[`v1.0.0-beta.17`](https://github.com/resin-io/etcher/releases/tag/v1.0.0-beta.17)
-as an example.
+Setting `PUBLISH=1` while building any of the GUI targets will trigger GitHub
+deployments.
 
 Publishing to Homebrew Cask
 ---------------------------
@@ -147,7 +128,6 @@ Post messages to the [Etcher forum][resin-forum-etcher] and
 [Etcher gitter channel][gitter-etcher] announcing the new version
 of Etcher, and including the relevant section of the Changelog.
 
-[aws-cli]: https://aws.amazon.com/cli
 [bintray]: https://bintray.com
 [etcher-cask-file]: https://github.com/caskroom/homebrew-cask/blob/master/Casks/etcher.rb
 [homebrew-cask]: https://github.com/caskroom/homebrew-cask
