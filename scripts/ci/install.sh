@@ -52,7 +52,7 @@ if [ "$ARGV_OPERATING_SYSTEM" == "linux" ]; then
 else
   if [ "$ARGV_OPERATING_SYSTEM" == "darwin" ]; then
     ./scripts/build/check-dependency.sh brew
-    brew install jq
+    brew install ccache jq
   elif [ "$ARGV_OPERATING_SYSTEM" == "win32" ]; then
     ./scripts/build/check-dependency.sh choco
     choco install nsis -version 2.51
