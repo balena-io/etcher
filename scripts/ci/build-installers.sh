@@ -48,8 +48,8 @@ if [ "$ARGV_OPERATING_SYSTEM" == "linux" ]; then
   ./scripts/build/docker/run-command.sh \
     -r "$TARGET_ARCH" \
     -s "$(pwd)" \
-    -c 'make electron-develop installers-all'
+    -c 'make installers-all'
 else
   ./scripts/build/check-dependency.sh make
-  make electron-develop installers-all
+  make installers-all
 fi
