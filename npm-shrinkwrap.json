@@ -886,9 +886,9 @@
       "dev": true
     },
     "chs": {
-      "version": "1.0.0",
-      "from": "chs@>=1.0.0 <1.1.0",
-      "resolved": "https://registry.npmjs.org/chs/-/chs-1.0.0.tgz"
+      "version": "1.1.0",
+      "from": "chs@>=1.1.0 <1.2.0",
+      "resolved": "https://registry.npmjs.org/chs/-/chs-1.1.0.tgz"
     },
     "ci-info": {
       "version": "1.0.0",
@@ -4630,9 +4630,9 @@
       "dev": true
     },
     "mbr": {
-      "version": "1.1.1",
+      "version": "1.1.2",
       "from": "mbr@latest",
-      "resolved": "https://registry.npmjs.org/mbr/-/mbr-1.1.1.tgz"
+      "resolved": "https://registry.npmjs.org/mbr/-/mbr-1.1.2.tgz"
     },
     "mem": {
       "version": "1.1.0",
