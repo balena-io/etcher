@@ -23,9 +23,9 @@ BUILD_OUTPUT_DIRECTORY = $(BUILD_DIRECTORY)/out
 ELECTRON_VERSION = $(shell jq -r '.devDependencies["electron"]' package.json)
 NODE_VERSION = 6.1.0
 COMPANY_NAME = Resinio Ltd
-APPLICATION_NAME = $(shell jq -r '.build.productName' package.json)
+APPLICATION_NAME = $(shell jq -r '.displayName' package.json)
 APPLICATION_DESCRIPTION = $(shell jq -r '.description' package.json)
-APPLICATION_COPYRIGHT = $(shell jq -r '.build.copyright' package.json)
+APPLICATION_COPYRIGHT = $(shell cat electron-builder.yml | shyaml get-value copyright)
 
 # ---------------------------------------------------------------------
 # Release type
