@@ -43,6 +43,12 @@ describe('ImageStream: ZIP', function() {
         'Invalid archive image');
     });
 
+    describe('given a zip with an unsupported compression method', function() {
+      tester.expectError(
+        path.join(ZIP_PATH, 'zip-deflate64.zip'),
+        'unsupported compression method: 9');
+    });
+
     describe('given a zip directory containing multiple images', function() {
       tester.expectError(
         path.join(ZIP_PATH, 'zip-directory-multiple-images.zip'),
