@@ -29,13 +29,13 @@ NAN_METHOD(Elevate) {
     return Nan::ThrowError("Callback must be a function");
   }
 
-  std::vector<std::string> arguments =
+  std::vector<std::wstring> arguments =
       etcher::v8utils::GetArguments(info[0].As<v8::Array>());
   v8::Local<v8::Function> callback = info[1].As<v8::Function>();
 
   etcher::ELEVATE_RESULT result = etcher::Elevate(
       arguments.front(),
-      std::vector<std::string>(arguments.begin() + 1, arguments.end()));
+      std::vector<std::wstring>(arguments.begin() + 1, arguments.end()));
 
   // Create results object
   v8::Isolate *isolate = v8::Isolate::GetCurrent();
@@ -51,8 +51,7 @@ NAN_METHOD(Elevate) {
     YIELD_OBJECT(callback, results);
     break;
   default:
-    std::string details = etcher::ElevateResultToString(result);
-    YIELD_ERROR(callback, details.c_str());
+    YIELD_ERROR(callback, etcher::ElevateResultToString(result));
   }
 }
 
