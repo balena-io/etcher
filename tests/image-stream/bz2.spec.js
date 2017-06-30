@@ -29,9 +29,15 @@ describe('ImageStream: BZ2', function() {
 
   this.timeout(20000);
 
-  describe('.getFromFilePath()', function() {
+  describe('compression method', function() {
 
-    describe('given a bz2 image', function() {
+    describe('bzip2 level 9', function() {
+      tester.extractFromFilePath(
+        path.join(BZ2_PATH, 'etcher-test-9.img.bz2'),
+        path.join(IMAGES_PATH, 'etcher-test.img'));
+    });
+
+    describe('bzip2 level 1', function() {
       tester.extractFromFilePath(
         path.join(BZ2_PATH, 'etcher-test.img.bz2'),
         path.join(IMAGES_PATH, 'etcher-test.img'));
