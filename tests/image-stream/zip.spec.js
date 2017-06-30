@@ -69,6 +69,42 @@ describe('ImageStream: ZIP', function() {
 
   });
 
+  describe('compression method', function() {
+
+    context('DEFLATE', function() {
+      tester.extractFromFilePath(
+        path.join(ZIP_PATH, 'zip-deflate.zip'),
+        path.join(IMAGES_PATH, 'etcher-test.img'));
+    });
+
+    // NOTE: These tests are intentionally skipped, as the
+    // zip library we're currently using only supports deflate
+    context.skip('DEFLATE64', function() {
+      tester.extractFromFilePath(
+        path.join(ZIP_PATH, 'zip-deflate64.zip'),
+        path.join(IMAGES_PATH, 'etcher-test.img'));
+    });
+
+    context.skip('PPMD', function() {
+      tester.extractFromFilePath(
+        path.join(ZIP_PATH, 'zip-ppmd.zip'),
+        path.join(IMAGES_PATH, 'etcher-test.img'));
+    });
+
+    context.skip('BZIP2', function() {
+      tester.extractFromFilePath(
+        path.join(ZIP_PATH, 'zip-bzip2.zip'),
+        path.join(IMAGES_PATH, 'etcher-test.img'));
+    });
+
+    context.skip('LZMA', function() {
+      tester.extractFromFilePath(
+        path.join(ZIP_PATH, 'zip-lzma.zip'),
+        path.join(IMAGES_PATH, 'etcher-test.img'));
+    });
+
+  });
+
   describe('.getImageMetadata()', function() {
 
     it('should return the correct metadata', function() {
