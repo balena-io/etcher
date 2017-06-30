@@ -82,7 +82,7 @@ export npm_config_build_from_source=true
 ELECTRON_ARCHITECTURE=$(./scripts/build/architecture-convert.sh -r "$ARGV_ARCHITECTURE" -t node)
 export npm_config_arch=$ELECTRON_ARCHITECTURE
 
-INSTALL_OPTS=""
+INSTALL_OPTS="--fetch-retries 10 --fetch-retry-maxtimeout 180000"
 
 if [ "$ARGV_PRODUCTION" == "true" ]; then
   INSTALL_OPTS="$INSTALL_OPTS --production"
@@ -101,7 +101,7 @@ function run_install() {
   # since compiled add-ons will not work otherwise.
   npm rebuild --silent
 
-  npm install --silent $INSTALL_OPTS --fetch-retries 10 --fetch-retry-maxtimeout 180000
+  npm install --silent $INSTALL_OPTS
 
   if [ "$ARGV_PRODUCTION" == "true" ]; then
 
