@@ -29,8 +29,7 @@ dmg:
 win:
   icon: assets/icon.ico
 nsis:
-  oneClick: false
-  allowToChangeInstallationDirectory: true
+  oneClick: true
   runAfterFinish: true
   installerIcon: assets/icon.ico
   uninstallerIcon: assets/icon.ico
