@@ -40,26 +40,58 @@ describe('ImageStream: IMG', function() {
 
   describe('.getImageMetadata()', function() {
 
-    it('should return the correct metadata', function() {
-      const image = path.join(IMAGES_PATH, 'etcher-test.img');
-      const expectedSize = fs.statSync(image).size;
+    context('Master Boot Record', function() {
 
-      return imageStream.getImageMetadata(image).then((metadata) => {
-        m.chai.expect(metadata).to.deep.equal({
-          path: image,
-          extension: 'img',
-          size: {
-            original: expectedSize,
-            final: {
-              estimation: false,
-              value: expectedSize
-            }
-          },
-          hasMBR: true,
-          hasGPT: false,
-          partitions: require('./data/images/etcher-test-partitions.json')
+      it('should return the correct metadata', function() {
+        const image = path.join(IMAGES_PATH, 'etcher-test.img');
+        const expectedSize = fs.statSync(image).size;
+
+        return imageStream.getImageMetadata(image).then((metadata) => {
+          m.chai.expect(metadata).to.deep.equal({
+            path: image,
+            extension: 'img',
+            size: {
+              original: expectedSize,
+              final: {
+                estimation: false,
+                value: expectedSize
+              }
+            },
+            hasMBR: true,
+            hasGPT: false,
+            partitions: require('./data/images/etcher-test-partitions.json')
+          });
         });
       });
+
+    });
+
+    context('GUID Partition Table', function() {
+
+      it('should return the correct metadata', function() {
+        const image = path.join(IMAGES_PATH, 'etcher-gpt-test.img.gz');
+        const uncompressedSize = 134217728;
+        const expectedSize = fs.statSync(image).size;
+
+        return imageStream.getImageMetadata(image).then((metadata) => {
+          m.chai.expect(metadata).to.deep.equal({
+            path: image,
+            extension: 'img',
+            archiveExtension: 'gz',
+            size: {
+              original: expectedSize,
+              final: {
+                estimation: true,
+                value: uncompressedSize
+              }
+            },
+            hasMBR: true,
+            hasGPT: true,
+            partitions: require('./data/images/etcher-gpt-test-partitions.json')
+          });
+        });
+      });
+
     });
 
   });
