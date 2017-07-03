@@ -27,7 +27,40 @@ const tester = require('./tester');
 
 describe('ImageStream: DMG', function() {
 
-  this.timeout(20000);
+  describe('compression method', function() {
+
+    describe('NONE', function() {
+      tester.extractFromFilePath(
+        path.join(DMG_PATH, 'etcher-test-raw.dmg'),
+        path.join(IMAGES_PATH, 'etcher-test.img'));
+    });
+
+    describe('UDCO (ADC)', function() {
+      tester.extractFromFilePath(
+        path.join(DMG_PATH, 'etcher-test-adc.dmg'),
+        path.join(IMAGES_PATH, 'etcher-test.img'));
+    });
+
+    describe('UDZO (ZLIB)', function() {
+      tester.extractFromFilePath(
+        path.join(DMG_PATH, 'etcher-test-zlib.dmg'),
+        path.join(IMAGES_PATH, 'etcher-test.img'));
+    });
+
+    describe('UDBZ (BZIP2)', function() {
+      tester.extractFromFilePath(
+        path.join(DMG_PATH, 'etcher-test-bz2.dmg'),
+        path.join(IMAGES_PATH, 'etcher-test.img'));
+    });
+
+    // NOTE: Skipped, as LZFSE is not supported by `udif` module yet
+    describe.skip('ULFO (LZFSE)', function() {
+      tester.extractFromFilePath(
+        path.join(DMG_PATH, 'etcher-test-lzfse.dmg'),
+        path.join(IMAGES_PATH, 'etcher-test.img'));
+    });
+
+  });
 
   context('zlib compressed', function() {
 
