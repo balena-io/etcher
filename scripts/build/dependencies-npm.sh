@@ -99,9 +99,9 @@ function run_install() {
 
   # When changing between target architectures, rebuild all dependencies,
   # since compiled add-ons will not work otherwise.
-  npm rebuild --silent
+  npm rebuild --silent > /dev/null
 
-  npm install --silent $INSTALL_OPTS
+  npm install --silent $INSTALL_OPTS > /dev/null
 
   if [ "$ARGV_PRODUCTION" == "true" ]; then
 
