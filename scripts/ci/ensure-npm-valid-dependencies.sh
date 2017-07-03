@@ -22,4 +22,4 @@ set -e
 # This command will exit with an error code if there
 # are invalid or extraneous dependencies, printing the
 # problematic ones if so.
-npm ls
+npm ls >/dev/null
