@@ -16,11 +16,11 @@
 
 #include "os/elevate.h"
 
-static std::string JoinArguments(std::vector<std::string> arguments) {
-  std::ostringstream result;
+static std::wstring JoinArguments(std::vector<std::wstring> arguments) {
+  std::wostringstream result;
 
   std::copy(arguments.begin(), arguments.end(),
-            std::ostream_iterator<std::string>(result, " "));
+            std::ostream_iterator<std::wstring, wchar_t>(result, L" "));
 
   return result.str();
 }
@@ -28,22 +28,22 @@ static std::string JoinArguments(std::vector<std::string> arguments) {
 // Make sure to delete the result after you're done
 // with it by calling `delete[] result;`.
 // See http://stackoverflow.com/a/1201471
-static LPCTSTR ConvertStringToLPCTSTR(const std::string &string) {
-  char *result = new char[string.size() + 1];
+static LPCWSTR ConvertStringToLPCWSTR(const std::wstring &string) {
+  wchar_t *result = new wchar_t[string.size() + 1];
   std::copy(string.begin(), string.end(), result);
   result[string.size()] = 0;
   return result;
 }
 
-etcher::ELEVATE_RESULT etcher::Elevate(const std::string &command,
-                                       std::vector<std::string> arguments) {
+etcher::ELEVATE_RESULT etcher::Elevate(const std::wstring &command,
+                                       std::vector<std::wstring> arguments) {
   // Initialize the SHELLEXECUTEINFO structure. We zero it out
   // in order to be on the safe side, and set cbSize to the size
   // of the structure as recommend by MSDN
   // See: https://msdn.microsoft.com/en-us/library/windows/desktop/bb759784(v=vs.85).aspx
-  SHELLEXECUTEINFO shellExecuteInfo;
+  SHELLEXECUTEINFOW shellExecuteInfo;
   ZeroMemory(&shellExecuteInfo, sizeof(shellExecuteInfo));
-  shellExecuteInfo.cbSize = sizeof(SHELLEXECUTEINFO);
+  shellExecuteInfo.cbSize = sizeof(SHELLEXECUTEINFOW);
 
   // Flags that indicate the content and validity of the other structure member.
   shellExecuteInfo.fMask =
@@ -60,7 +60,7 @@ etcher::ELEVATE_RESULT etcher::Elevate(const std::string &command,
       SEE_MASK_FLAG_NO_UI;
 
   // The action to be performed.
-  shellExecuteInfo.lpVerb = TEXT("runas");
+  shellExecuteInfo.lpVerb = L"runas";
 
   // Run the file in the background
   shellExecuteInfo.nShow = SW_HIDE;
@@ -70,14 +70,14 @@ etcher::ELEVATE_RESULT etcher::Elevate(const std::string &command,
 
   // Set file and parameters
   // We can't just assign the result of `.c_str()`, since
-  // that pointer is owned by the `std::string` instance,
+  // that pointer is owned by the `std::wstring` instance,
   // and will not be safe after the instance is destroyed.
-  LPCTSTR file = ConvertStringToLPCTSTR(command);
-  LPCTSTR argv = ConvertStringToLPCTSTR(JoinArguments(arguments));
+  LPCWSTR file = ConvertStringToLPCWSTR(command);
+  LPCWSTR argv = ConvertStringToLPCWSTR(JoinArguments(arguments));
   shellExecuteInfo.lpFile = file;
   shellExecuteInfo.lpParameters = argv;
 
-  BOOL executeResult = ShellExecuteEx(&shellExecuteInfo);
+  BOOL executeResult = ShellExecuteExW(&shellExecuteInfo);
 
   delete[] file;
   delete[] argv;
@@ -127,32 +127,32 @@ etcher::ELEVATE_RESULT etcher::Elevate(const std::string &command,
   return etcher::ELEVATE_RESULT::ELEVATE_SUCCESS;
 }
 
-std::string
+std::wstring
 etcher::ElevateResultToString(const etcher::ELEVATE_RESULT &result) {
   switch (result) {
   case etcher::ELEVATE_RESULT::ELEVATE_SUCCESS:
-    return "Success";
+    return L"Success";
   case etcher::ELEVATE_RESULT::ELEVATE_CANCELLED:
-    return "The user cancelled the elevation request";
+    return L"The user cancelled the elevation request";
   case etcher::ELEVATE_RESULT::ELEVATE_FILE_NOT_FOUND:
-    return "The specified file was not found";
+    return L"The specified file was not found";
   case etcher::ELEVATE_RESULT::ELEVATE_PATH_NOT_FOUND:
-    return "The specified path was not found";
+    return L"The specified path was not found";
   case etcher::ELEVATE_RESULT::ELEVATE_DDE_FAIL:
-    return "The Dynamic Data Exchange (DDE) transaction failed";
+    return L"The Dynamic Data Exchange (DDE) transaction failed";
   case etcher::ELEVATE_RESULT::ELEVATE_NO_ASSOCIATION:
-    return "There is no application associated with the "
-           "specified file name extension";
+    return L"There is no application associated with the "
+            "specified file name extension";
   case etcher::ELEVATE_RESULT::ELEVATE_ACCESS_DENIED:
-    return "Access to the specified file is denied";
+    return L"Access to the specified file is denied";
   case etcher::ELEVATE_RESULT::ELEVATE_DLL_NOT_FOUND:
-    return "One of the library files necessary to run the "
-           "application can't be found";
+    return L"One of the library files necessary to run the "
+            "application can't be found";
   case etcher::ELEVATE_RESULT::ELEVATE_NOT_ENOUGH_MEMORY:
-    return "There is not enough memory to perform the specified action";
+    return L"There is not enough memory to perform the specified action";
   case etcher::ELEVATE_RESULT::ELEVATE_SHARING_VIOLATION:
-    return "A sharing violation occurred";
+    return L"A sharing violation occurred";
   default:
-    return "Unknown error";
+    return L"Unknown error";
   }
 }

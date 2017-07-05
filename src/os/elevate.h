@@ -53,10 +53,10 @@ enum class ELEVATE_RESULT {
   ELEVATE_UNKNOWN_ERROR
 };
 
-ELEVATE_RESULT Elevate(const std::string &command,
-                       std::vector<std::string> arguments);
+ELEVATE_RESULT Elevate(const std::wstring &command,
+                       std::vector<std::wstring> arguments);
 
-std::string ElevateResultToString(const ELEVATE_RESULT &result);
+std::wstring ElevateResultToString(const ELEVATE_RESULT &result);
 
 }  // namespace etcher
 

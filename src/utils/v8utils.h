@@ -20,18 +20,23 @@
 #include <nan.h>
 #include <string>
 #include <vector>
+#include <codecvt>
 
 namespace etcher {
 namespace v8utils {
-std::vector<std::string> GetArguments(v8::Local<v8::Array> arguments);
+std::vector<std::wstring> GetArguments(v8::Local<v8::Array> arguments);
 }  // namespace v8utils
 }  // namespace etcher
 
 #define YIELD_ERROR(CALLBACK, ERROR)                                           \
   {                                                                            \
-    v8::Local<v8::Value> argv[1] = {Nan::Error((ERROR))};                      \
-    Nan::MakeCallback(Nan::GetCurrentContext()->Global(), (CALLBACK), 1,       \
-                      argv);                                                   \
+    const wchar_t *message = (ERROR).c_str();                                  \
+    v8::Local<v8::Value> argv[1] = {                                           \
+      Nan::Error(v8::String::NewFromTwoByte(isolate,                           \
+                                            (const uint16_t *)message))        \
+    };                                                                         \
+    Nan::MakeCallback(Nan::GetCurrentContext()->Global(), (CALLBACK),          \
+                      1, argv);                                                \
   }                                                                            \
   return;
 
