@@ -62,7 +62,10 @@ describe('ImageStream: BZ2', function() {
               estimation: true,
               value: expectedSize
             }
-          }
+          },
+          hasMBR: true,
+          hasGPT: false,
+          partitions: require('./data/images/etcher-test-partitions.json')
         });
       });
     });

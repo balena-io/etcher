@@ -57,7 +57,10 @@ describe('ImageStream: GZ', function() {
               estimation: true,
               value: uncompressedSize
             }
-          }
+          },
+          hasMBR: true,
+          hasGPT: false,
+          partitions: require('./data/images/etcher-test-partitions.json')
         });
       });
     });

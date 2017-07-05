@@ -57,7 +57,10 @@ describe('ImageStream: XZ', function() {
               estimation: false,
               value: uncompressedSize
             }
-          }
+          },
+          hasMBR: true,
+          hasGPT: false,
+          partitions: require('./data/images/etcher-test-partitions.json')
         });
       });
     });

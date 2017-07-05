@@ -885,6 +885,11 @@
       "resolved": "https://registry.npmjs.org/chromium-pickle-js/-/chromium-pickle-js-0.1.0.tgz",
       "dev": true
     },
+    "chs": {
+      "version": "1.1.0",
+      "from": "chs@>=1.1.0 <1.2.0",
+      "resolved": "https://registry.npmjs.org/chs/-/chs-1.1.0.tgz"
+    },
     "ci-info": {
       "version": "1.0.0",
       "from": "ci-info@>=1.0.0 <2.0.0",
@@ -2869,6 +2874,11 @@
       "resolved": "https://registry.npmjs.org/got/-/got-6.7.1.tgz",
       "dev": true
     },
+    "gpt": {
+      "version": "1.0.0",
+      "from": "gpt@latest",
+      "resolved": "https://registry.npmjs.org/gpt/-/gpt-1.0.0.tgz"
+    },
     "graceful-fs": {
       "version": "4.1.11",
       "from": "graceful-fs@>=4.1.2 <5.0.0",
@@ -4618,6 +4628,11 @@
       "from": "markdown-utils@>=0.7.3 <0.8.0",
       "resolved": "https://registry.npmjs.org/markdown-utils/-/markdown-utils-0.7.3.tgz",
       "dev": true
+    },
+    "mbr": {
+      "version": "1.1.2",
+      "from": "mbr@latest",
+      "resolved": "https://registry.npmjs.org/mbr/-/mbr-1.1.2.tgz"
     },
     "mem": {
       "version": "1.1.0",
