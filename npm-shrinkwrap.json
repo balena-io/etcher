@@ -175,6 +175,12 @@
       "resolved": "https://registry.npmjs.org/ansi-align/-/ansi-align-2.0.0.tgz",
       "dev": true,
       "dependencies": {
+        "ansi-regex": {
+          "version": "3.0.0",
+          "from": "ansi-regex@>=3.0.0 <4.0.0",
+          "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-3.0.0.tgz",
+          "dev": true
+        },
         "is-fullwidth-code-point": {
           "version": "2.0.0",
           "from": "is-fullwidth-code-point@>=2.0.0 <3.0.0",
@@ -182,9 +188,15 @@
           "dev": true
         },
         "string-width": {
-          "version": "2.0.0",
+          "version": "2.1.0",
           "from": "string-width@^2.0.0",
-          "resolved": "https://registry.npmjs.org/string-width/-/string-width-2.0.0.tgz",
+          "resolved": "https://registry.npmjs.org/string-width/-/string-width-2.1.0.tgz",
+          "dev": true
+        },
+        "strip-ansi": {
+          "version": "4.0.0",
+          "from": "strip-ansi@>=4.0.0 <5.0.0",
+          "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-4.0.0.tgz",
           "dev": true
         }
       }
@@ -581,6 +593,12 @@
       "resolved": "https://registry.npmjs.org/boxen/-/boxen-1.1.0.tgz",
       "dev": true,
       "dependencies": {
+        "ansi-regex": {
+          "version": "3.0.0",
+          "from": "ansi-regex@^3.0.0",
+          "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-3.0.0.tgz",
+          "dev": true
+        },
         "camelcase": {
           "version": "4.1.0",
           "from": "camelcase@>=4.0.0 <5.0.0",
@@ -594,9 +612,15 @@
           "dev": true
         },
         "string-width": {
-          "version": "2.0.0",
+          "version": "2.1.0",
           "from": "string-width@>=2.0.0 <3.0.0",
-          "resolved": "https://registry.npmjs.org/string-width/-/string-width-2.0.0.tgz",
+          "resolved": "https://registry.npmjs.org/string-width/-/string-width-2.1.0.tgz",
+          "dev": true
+        },
+        "strip-ansi": {
+          "version": "4.0.0",
+          "from": "strip-ansi@^4.0.0",
+          "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-4.0.0.tgz",
           "dev": true
         }
       }
@@ -1586,15 +1610,15 @@
       }
     },
     "electron-builder": {
-      "version": "18.6.2",
-      "from": "electron-builder@18.6.2",
-      "resolved": "https://registry.npmjs.org/electron-builder/-/electron-builder-18.6.2.tgz",
+      "version": "19.9.1",
+      "from": "electron-builder@19.9.1",
+      "resolved": "https://registry.npmjs.org/electron-builder/-/electron-builder-19.9.1.tgz",
       "dev": true,
       "dependencies": {
         "ajv": {
-          "version": "5.1.5",
-          "from": "ajv@>=5.1.5 <6.0.0",
-          "resolved": "https://registry.npmjs.org/ajv/-/ajv-5.1.5.tgz",
+          "version": "5.2.0",
+          "from": "ajv@>=5.2.0 <6.0.0",
+          "resolved": "https://registry.npmjs.org/ajv/-/ajv-5.2.0.tgz",
           "dev": true
         },
         "ajv-keywords": {
@@ -1603,10 +1627,22 @@
           "resolved": "https://registry.npmjs.org/ajv-keywords/-/ajv-keywords-2.1.0.tgz",
           "dev": true
         },
+        "ansi-regex": {
+          "version": "3.0.0",
+          "from": "ansi-regex@^3.0.0",
+          "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-3.0.0.tgz",
+          "dev": true
+        },
+        "balanced-match": {
+          "version": "1.0.0",
+          "from": "balanced-match@>=1.0.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.0.tgz",
+          "dev": true
+        },
         "brace-expansion": {
-          "version": "1.1.7",
+          "version": "1.1.8",
           "from": "brace-expansion@>=1.1.7 <2.0.0",
-          "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.7.tgz",
+          "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.8.tgz",
           "dev": true
         },
         "camelcase": {
@@ -1625,18 +1661,6 @@
           "version": "2.6.8",
           "from": "debug@2.6.8",
           "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.8.tgz",
-          "dev": true
-        },
-        "electron-builder-core": {
-          "version": "18.4.0",
-          "from": "electron-builder-core@18.4.0",
-          "resolved": "https://registry.npmjs.org/electron-builder-core/-/electron-builder-core-18.4.0.tgz",
-          "dev": true
-        },
-        "electron-builder-http": {
-          "version": "18.6.0",
-          "from": "electron-builder-http@18.6.0",
-          "resolved": "https://registry.npmjs.org/electron-builder-http/-/electron-builder-http-18.6.0.tgz",
           "dev": true
         },
         "esprima": {
@@ -1664,9 +1688,9 @@
           "dev": true
         },
         "hosted-git-info": {
-          "version": "2.4.2",
+          "version": "2.5.0",
           "from": "hosted-git-info@>=2.4.2 <3.0.0",
-          "resolved": "https://registry.npmjs.org/hosted-git-info/-/hosted-git-info-2.4.2.tgz",
+          "resolved": "https://registry.npmjs.org/hosted-git-info/-/hosted-git-info-2.5.0.tgz",
           "dev": true
         },
         "is-fullwidth-code-point": {
@@ -1706,9 +1730,9 @@
           "dev": true
         },
         "normalize-package-data": {
-          "version": "2.3.8",
+          "version": "2.4.0",
           "from": "normalize-package-data@>=2.3.8 <3.0.0",
-          "resolved": "https://registry.npmjs.org/normalize-package-data/-/normalize-package-data-2.3.8.tgz",
+          "resolved": "https://registry.npmjs.org/normalize-package-data/-/normalize-package-data-2.4.0.tgz",
           "dev": true
         },
         "npm-run-path": {
@@ -1760,9 +1784,15 @@
           "dev": true
         },
         "string-width": {
-          "version": "2.0.0",
-          "from": "string-width@>=2.0.0 <3.0.0",
-          "resolved": "https://registry.npmjs.org/string-width/-/string-width-2.0.0.tgz",
+          "version": "2.1.0",
+          "from": "string-width@^2.0.0",
+          "resolved": "https://registry.npmjs.org/string-width/-/string-width-2.1.0.tgz",
+          "dev": true
+        },
+        "strip-ansi": {
+          "version": "4.0.0",
+          "from": "strip-ansi@^4.0.0",
+          "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-4.0.0.tgz",
           "dev": true
         },
         "strip-bom": {
@@ -1778,9 +1808,9 @@
           "dev": true
         },
         "yargs": {
-          "version": "8.0.1",
-          "from": "yargs@>=8.0.1 <9.0.0",
-          "resolved": "https://registry.npmjs.org/yargs/-/yargs-8.0.1.tgz",
+          "version": "8.0.2",
+          "from": "yargs@>=8.0.2 <9.0.0",
+          "resolved": "https://registry.npmjs.org/yargs/-/yargs-8.0.2.tgz",
           "dev": true
         },
         "yargs-parser": {
@@ -1791,22 +1821,36 @@
         }
       }
     },
+    "electron-builder-http": {
+      "version": "19.7.2",
+      "from": "electron-builder-http@19.7.2",
+      "resolved": "https://registry.npmjs.org/electron-builder-http/-/electron-builder-http-19.7.2.tgz",
+      "dev": true,
+      "dependencies": {
+        "debug": {
+          "version": "2.6.8",
+          "from": "debug@^2.6.8",
+          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.8.tgz",
+          "dev": true
+        },
+        "ms": {
+          "version": "2.0.0",
+          "from": "ms@2.0.0",
+          "resolved": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz",
+          "dev": true
+        }
+      }
+    },
     "electron-builder-util": {
-      "version": "18.6.0",
-      "from": "electron-builder-util@18.6.0",
-      "resolved": "https://registry.npmjs.org/electron-builder-util/-/electron-builder-util-18.6.0.tgz",
+      "version": "19.8.0",
+      "from": "electron-builder-util@19.8.0",
+      "resolved": "https://registry.npmjs.org/electron-builder-util/-/electron-builder-util-19.8.0.tgz",
       "dev": true,
       "dependencies": {
         "debug": {
           "version": "2.6.8",
           "from": "debug@2.6.8",
           "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.8.tgz",
-          "dev": true
-        },
-        "electron-builder-http": {
-          "version": "18.6.0",
-          "from": "electron-builder-http@~18.6.0",
-          "resolved": "https://registry.npmjs.org/electron-builder-http/-/electron-builder-http-18.6.0.tgz",
           "dev": true
         },
         "ms": {
@@ -1913,30 +1957,10 @@
       }
     },
     "electron-publish": {
-      "version": "18.6.0",
-      "from": "electron-publish@18.6.0",
-      "resolved": "https://registry.npmjs.org/electron-publish/-/electron-publish-18.6.0.tgz",
-      "dev": true,
-      "dependencies": {
-        "debug": {
-          "version": "2.6.8",
-          "from": "debug@2.6.8",
-          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.8.tgz",
-          "dev": true
-        },
-        "electron-builder-http": {
-          "version": "18.6.0",
-          "from": "electron-builder-http@~18.6.0",
-          "resolved": "https://registry.npmjs.org/electron-builder-http/-/electron-builder-http-18.6.0.tgz",
-          "dev": true
-        },
-        "ms": {
-          "version": "2.0.0",
-          "from": "ms@2.0.0",
-          "resolved": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz",
-          "dev": true
-        }
-      }
+      "version": "19.8.0",
+      "from": "electron-publish@19.8.0",
+      "resolved": "https://registry.npmjs.org/electron-publish/-/electron-publish-19.8.0.tgz",
+      "dev": true
     },
     "electron-window": {
       "version": "0.8.1",
@@ -2370,6 +2394,12 @@
       "from": "extsprintf@1.0.2",
       "resolved": "https://registry.npmjs.org/extsprintf/-/extsprintf-1.0.2.tgz"
     },
+    "fast-deep-equal": {
+      "version": "0.1.0",
+      "from": "fast-deep-equal@>=0.1.0 <0.2.0",
+      "resolved": "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-0.1.0.tgz",
+      "dev": true
+    },
     "fast-levenshtein": {
       "version": "2.0.6",
       "from": "fast-levenshtein@>=2.0.4 <2.1.0",
@@ -2387,6 +2417,12 @@
           "resolved": "https://registry.npmjs.org/core-js/-/core-js-1.2.7.tgz"
         }
       }
+    },
+    "fcopy-pre-bundled": {
+      "version": "0.3.4",
+      "from": "fcopy-pre-bundled@0.3.4",
+      "resolved": "https://registry.npmjs.org/fcopy-pre-bundled/-/fcopy-pre-bundled-0.3.4.tgz",
+      "dev": true
     },
     "fd-slicer": {
       "version": "1.0.1",
@@ -3604,6 +3640,12 @@
       "version": "0.2.3",
       "from": "json-schema@0.2.3",
       "resolved": "https://registry.npmjs.org/json-schema/-/json-schema-0.2.3.tgz"
+    },
+    "json-schema-traverse": {
+      "version": "0.3.1",
+      "from": "json-schema-traverse@>=0.3.0 <0.4.0",
+      "resolved": "https://registry.npmjs.org/json-schema-traverse/-/json-schema-traverse-0.3.1.tgz",
+      "dev": true
     },
     "json-stable-stringify": {
       "version": "0.0.1",
@@ -5048,12 +5090,6 @@
       "version": "1.6.3",
       "from": "node-fetch@>=1.0.1 <2.0.0",
       "resolved": "https://registry.npmjs.org/node-fetch/-/node-fetch-1.6.3.tgz"
-    },
-    "node-forge": {
-      "version": "0.7.1",
-      "from": "node-forge@>=0.7.1 <0.8.0",
-      "resolved": "https://registry.npmjs.org/node-forge/-/node-forge-0.7.1.tgz",
-      "dev": true
     },
     "node-gyp": {
       "version": "3.5.0",

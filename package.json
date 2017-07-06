@@ -86,7 +86,7 @@
     "asar": "0.10.0",
     "browserify": "github:jviotti/node-browserify#dynamic-dirname-filename",
     "electron": "1.6.6",
-    "electron-builder": "18.6.2",
+    "electron-builder": "19.9.1",
     "electron-mocha": "3.3.0",
     "eslint": "3.18.0",
     "eslint-plugin-lodash": "2.3.6",
