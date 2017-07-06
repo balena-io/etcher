@@ -1513,19 +1513,19 @@
       "dev": true
     },
     "drivelist": {
-      "version": "5.0.22",
-      "from": "drivelist@5.0.22",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-5.0.22.tgz",
+      "version": "5.0.25",
+      "from": "drivelist@5.0.25",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-5.0.25.tgz",
       "dependencies": {
-        "bluebird": {
-          "version": "3.5.0",
-          "from": "bluebird@>=3.5.0 <4.0.0",
-          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.0.tgz"
-        },
         "lodash": {
           "version": "4.17.4",
           "from": "lodash@>=4.16.4 <5.0.0",
           "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz"
+        },
+        "nan": {
+          "version": "2.6.2",
+          "from": "nan@>=2.6.2 <3.0.0",
+          "resolved": "https://registry.npmjs.org/nan/-/nan-2.6.2.tgz"
         }
       }
     },
