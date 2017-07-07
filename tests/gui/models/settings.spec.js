@@ -2,7 +2,7 @@
 
 const m = require('mochainon');
 const _ = require('lodash');
-const Store = require('../../../lib/gui/models/store');
+const store = require('../../../lib/shared/store');
 const settings = require('../../../lib/gui/models/settings');
 const localSettings = require('../../../lib/gui/models/local-settings');
 
@@ -12,7 +12,7 @@ describe('Browser: settings', function() {
     settings.reset();
   });
 
-  const DEFAULT_SETTINGS = Store.Defaults.get('settings').toJS();
+  const DEFAULT_SETTINGS = store.Defaults.get('settings').toJS();
 
   it('should be able to set and read values', function() {
     m.chai.expect(settings.get('foo')).to.be.undefined;
