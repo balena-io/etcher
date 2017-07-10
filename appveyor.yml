@@ -5,6 +5,8 @@ image: Visual Studio 2015
 
 cache:
   - C:\Users\appveyor\.node-gyp
+  - '%LOCALAPPDATA%\electron\Cache'
+  - '%LOCALAPPDATA%\electron-builder\cache'
   - '%AppData%\npm-cache'
   - node_modules
   - C:\ProgramData\chocolatey\bin -> appveyor.yml
