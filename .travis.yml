@@ -30,6 +30,7 @@ env:
     - CCACHE_COMPRESS=1
     - CC="clang"
     - CXX="clang++"
+    - HOMEBREW_NO_AUTO_UPDATE=1
   matrix:
     - TARGET_ARCH=x64
     - TARGET_ARCH=x86
