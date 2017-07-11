@@ -55,7 +55,6 @@ else
     brew install ccache jq
   elif [ "$ARGV_OPERATING_SYSTEM" == "win32" ]; then
     ./scripts/build/check-dependency.sh choco
-    choco install nsis -version 2.51
     choco install jq
     choco install curl
   else
