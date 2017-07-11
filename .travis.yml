@@ -3,8 +3,16 @@ sudo: false
 node_js:
   - "6.10.3"
 
+# Remove wine from cache
+before_cache:
+  - rm -rf $HOME/.cache/electron-builder/wine
+
 cache:
   ccache: true
+  directories:
+    - $HOME/.cache/electron
+    - $HOME/.cache/electron-builder
+    - $HOME/.npm/_prebuilds
 
 services:
   - docker
