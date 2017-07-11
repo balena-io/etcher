@@ -6,7 +6,13 @@ env:
   mocha: true
 plugins:
   - lodash
+  - jsdoc
 extends: 'eslint:recommended'
+settings:
+  jsdoc:
+    additionalTagNames:
+      customTags:
+        - fulfil
 rules:
 
   # Possible Errors
@@ -644,4 +650,25 @@ rules:
   lodash/prefer-startswith:
     - error
   lodash/prefer-times:
+    - error
+
+  # JSDoc
+
+  jsdoc/check-param-names:
+    - error
+  jsdoc/check-tag-names:
+    - error
+  jsdoc/newline-after-description:
+    - error
+  jsdoc/require-example:
+    - error
+  jsdoc/require-hyphen-before-param-description:
+    - error
+  jsdoc/require-param:
+    - error
+  jsdoc/require-param-description:
+    - error
+  jsdoc/require-param-type:
+    - error
+  jsdoc/require-returns-type:
     - error
