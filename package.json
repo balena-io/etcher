@@ -73,7 +73,7 @@
     "semver": "5.1.1",
     "sudo-prompt": "6.1.0",
     "trackjs": "2.3.1",
-    "udif": "0.9.0",
+    "udif": "0.10.0",
     "unbzip2-stream": "1.0.11",
     "uuid": "3.0.1",
     "xml2js": "0.4.17",
