@@ -863,6 +863,12 @@
       "from": "commander@>=2.8.1 <2.9.0",
       "resolved": "https://registry.npmjs.org/commander/-/commander-2.8.1.tgz"
     },
+    "comment-parser": {
+      "version": "0.4.0",
+      "from": "comment-parser@>=0.4.0 <0.5.0",
+      "resolved": "https://registry.npmjs.org/comment-parser/-/comment-parser-0.4.0.tgz",
+      "dev": true
+    },
     "commoner": {
       "version": "0.10.8",
       "from": "commoner@>=0.10.3 <0.11.0",
@@ -1909,6 +1915,12 @@
           "dev": true
         }
       }
+    },
+    "eslint-plugin-jsdoc": {
+      "version": "3.1.1",
+      "from": "eslint-plugin-jsdoc@latest",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-3.1.1.tgz",
+      "dev": true
     },
     "eslint-plugin-lodash": {
       "version": "2.3.6",

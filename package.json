@@ -87,6 +87,7 @@
     "electron-builder": "19.9.1",
     "electron-mocha": "3.3.0",
     "eslint": "3.18.0",
+    "eslint-plugin-jsdoc": "^3.1.1",
     "eslint-plugin-lodash": "2.3.6",
     "file-exists": "1.0.0",
     "html-angular-validate": "0.1.9",
