@@ -2,7 +2,7 @@
 
 const m = require('mochainon');
 const angular = require('angular');
-const flashState = require('../../../lib/gui/models/flash-state');
+const flashState = require('../../../lib/shared/models/flash-state');
 require('angular-mocks');
 
 describe('Browser: ImageWriter', function() {
