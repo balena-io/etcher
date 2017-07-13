@@ -54,4 +54,4 @@ RUN npm config set spin=false
 
 # Python
 COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+RUN pip install --quiet -r requirements.txt
