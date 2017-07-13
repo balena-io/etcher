@@ -17,79 +17,10 @@
 'use strict';
 
 const m = require('mochainon');
-const path = require('path');
 const StreamReadable = require('stream').Readable;
-const DATA_PATH = path.join(__dirname, 'data');
 const utils = require('../../lib/image-stream/utils');
 
 describe('ImageStream: Utils', function() {
-
-  describe('.getArchiveMimeType()', function() {
-
-    it('should resolve application/x-bzip2 for a bz2 archive', function() {
-      const file = path.join(DATA_PATH, 'bz2', 'etcher-test.img.bz2');
-      return utils.getArchiveMimeType(file).then((type) => {
-        m.chai.expect(type).to.equal('application/x-bzip2');
-      });
-    });
-
-    it('should resolve application/x-xz for a xz archive', function() {
-      const file = path.join(DATA_PATH, 'xz', 'etcher-test.img.xz');
-      return utils.getArchiveMimeType(file).then((type) => {
-        m.chai.expect(type).to.equal('application/x-xz');
-      });
-    });
-
-    it('should resolve application/gzip for a gz archive', function() {
-      const file = path.join(DATA_PATH, 'gz', 'etcher-test.img.gz');
-      return utils.getArchiveMimeType(file).then((type) => {
-        m.chai.expect(type).to.equal('application/gzip');
-      });
-    });
-
-    it('should resolve application/zip for a zip archive', function() {
-      const file = path.join(DATA_PATH, 'zip', 'zip-directory-etcher-only.zip');
-      return utils.getArchiveMimeType(file).then((type) => {
-        m.chai.expect(type).to.equal('application/zip');
-      });
-    });
-
-    it('should resolve application/octet-stream for an uncompressed image', function() {
-      const file = path.join(DATA_PATH, 'images', 'etcher-test.img');
-      return utils.getArchiveMimeType(file).then((type) => {
-        m.chai.expect(type).to.equal('application/octet-stream');
-      });
-    });
-
-    it('should resolve application/x-iso9660-image for an uncompressed iso', function() {
-      const file = path.join(DATA_PATH, 'images', 'etcher-test.iso');
-      return utils.getArchiveMimeType(file).then((type) => {
-        m.chai.expect(type).to.equal('application/x-iso9660-image');
-      });
-    });
-
-    it('should resolve application/x-apple-diskimage for a compressed Apple disk image', function() {
-      const file = path.join(DATA_PATH, 'dmg', 'etcher-test-zlib.dmg');
-      return utils.getArchiveMimeType(file).then((type) => {
-        m.chai.expect(type).to.equal('application/x-apple-diskimage');
-      });
-    });
-
-    it('should resolve application/x-apple-diskimage for an uncompressed Apple disk image', function() {
-      const file = path.join(DATA_PATH, 'dmg', 'etcher-test-raw.dmg');
-      return utils.getArchiveMimeType(file).then((type) => {
-        m.chai.expect(type).to.equal('application/x-apple-diskimage');
-      });
-    });
-
-    it('should resolve application/octet-stream for an unrecognized file type', function() {
-      const file = path.join(DATA_PATH, 'unrecognized', 'random.rpi-sdcard');
-      return utils.getArchiveMimeType(file).then((type) => {
-        m.chai.expect(type).to.equal('application/octet-stream');
-      });
-    });
-
-  });
 
   describe('.extractStream()', function() {
 
