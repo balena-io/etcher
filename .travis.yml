@@ -13,6 +13,8 @@ cache:
     - $HOME/.cache/electron
     - $HOME/.cache/electron-builder
     - $HOME/.npm/_prebuilds
+    - $HOME/Library/Caches/electron
+    - $HOME/Library/Caches/electron-builder
     - node_modules
 
 services:
