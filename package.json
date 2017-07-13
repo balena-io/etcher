@@ -2,6 +2,7 @@
   "name": "etcher",
   "displayName": "Etcher",
   "version": "1.0.0",
+  "packageType": "local",
   "updates": {
     "enabled": true,
     "sleepDays": 7,
