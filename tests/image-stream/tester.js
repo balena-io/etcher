@@ -43,6 +43,8 @@ const deleteIfExists = (file) => {
   });
 };
 
+exports.DEFAULT_IMAGE_TESTS_TIMEOUT = 20000;
+
 exports.expectError = function(file, errorMessage, errorDetail) {
   it('should be rejected with an error', function() {
     return imageStream.getFromFilePath(file).catch((error) => {

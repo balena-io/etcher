@@ -20,11 +20,12 @@ const m = require('mochainon');
 const path = require('path');
 const zipHooks = require('../../../lib/image-stream/archive-hooks/zip');
 const utils = require('../../../lib/image-stream/utils');
+const tester = require('../tester');
 const ZIP_PATH = path.join(__dirname, '..', 'data', 'zip');
 
 describe('ImageStream: Archive hooks: ZIP', function() {
 
-  this.timeout(20000);
+  this.timeout(tester.DEFAULT_IMAGE_TESTS_TIMEOUT);
 
   describe('.getEntries()', function() {
 
