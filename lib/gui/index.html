@@ -9,7 +9,12 @@
 
     <!-- Enable debug information from all modules that use `debug` -->
     <!-- See https://github.com/visionmedia/debug#browser-support -->
-    <script>window.localStorage.debug = '*';</script>
+    <script>
+      // Enable drivelist debugging information
+      // See https://github.com/resin-io-modules/drivelist
+      process.env['DRIVELIST_DEBUG'] = /drivelist|^\*$/i.test(process.env['DEBUG']) ? '1' : '';
+      window.localStorage.debug = process.env['DEBUG'];
+    </script>
 
     <script src="./app.js"></script>
   </head>
