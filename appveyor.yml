@@ -8,6 +8,7 @@ cache:
   - '%LOCALAPPDATA%\electron\Cache'
   - '%LOCALAPPDATA%\electron-builder\cache'
   - '%AppData%\npm-cache'
+  - '%USERPROFILE%\.pkg-cache'
   - node_modules -> npm-shrinkwrap.json
   - C:\ProgramData\chocolatey\bin -> appveyor.yml
   - C:\ProgramData\chocolatey\lib -> appveyor.yml
