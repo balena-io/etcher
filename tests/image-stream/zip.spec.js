@@ -27,7 +27,7 @@ const tester = require('./tester');
 
 describe('ImageStream: ZIP', function() {
 
-  this.timeout(20000);
+  this.timeout(tester.DEFAULT_IMAGE_TESTS_TIMEOUT);
 
   describe('.getFromFilePath()', function() {
 
