@@ -6597,7 +6597,9 @@ svg-icon > div[disabled] path {
   max-width: 165px; }
 
 .page-finish .button-primary, .page-finish .progress-button {
-  min-width: 170px; }
+  min-width: 255px;
+  min-height: 53px;
+  font-size: 15px; }
 
 .page-finish .title {
   color: #fff;
