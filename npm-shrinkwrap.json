@@ -1302,9 +1302,9 @@
       "dev": true
     },
     "drivelist": {
-      "version": "5.0.25",
-      "from": "drivelist@5.0.25",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-5.0.25.tgz",
+      "version": "5.0.27",
+      "from": "drivelist@5.0.27",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-5.0.27.tgz",
       "dependencies": {
         "lodash": {
           "version": "4.17.4",
