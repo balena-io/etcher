@@ -1012,8 +1012,7 @@
     "cross-spawn": {
       "version": "4.0.2",
       "from": "cross-spawn@>=4.0.0 <5.0.0",
-      "resolved": "https://registry.npmjs.org/cross-spawn/-/cross-spawn-4.0.2.tgz",
-      "dev": true
+      "resolved": "https://registry.npmjs.org/cross-spawn/-/cross-spawn-4.0.2.tgz"
     },
     "cross-spawn-async": {
       "version": "2.2.5",
@@ -3265,8 +3264,7 @@
     "isexe": {
       "version": "1.1.2",
       "from": "isexe@>=1.1.1 <2.0.0",
-      "resolved": "https://registry.npmjs.org/isexe/-/isexe-1.1.2.tgz",
-      "dev": true
+      "resolved": "https://registry.npmjs.org/isexe/-/isexe-1.1.2.tgz"
     },
     "isobject": {
       "version": "0.2.0",
@@ -3651,8 +3649,7 @@
     "lru-cache": {
       "version": "4.0.1",
       "from": "lru-cache@>=4.0.0 <5.0.0",
-      "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-4.0.1.tgz",
-      "dev": true
+      "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-4.0.1.tgz"
     },
     "lsmod": {
       "version": "1.0.0",
@@ -4329,8 +4326,7 @@
     "mem": {
       "version": "1.1.0",
       "from": "mem@>=1.1.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/mem/-/mem-1.1.0.tgz",
-      "dev": true
+      "resolved": "https://registry.npmjs.org/mem/-/mem-1.1.0.tgz"
     },
     "meow": {
       "version": "3.7.0",
@@ -4375,8 +4371,7 @@
     "mimic-fn": {
       "version": "1.1.0",
       "from": "mimic-fn@>=1.0.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/mimic-fn/-/mimic-fn-1.1.0.tgz",
-      "dev": true
+      "resolved": "https://registry.npmjs.org/mimic-fn/-/mimic-fn-1.1.0.tgz"
     },
     "minimatch": {
       "version": "3.0.3",
@@ -4410,9 +4405,9 @@
       "resolved": "https://registry.npmjs.org/mixpanel/-/mixpanel-0.6.0.tgz"
     },
     "mixpanel-browser": {
-      "version": "2.11.0",
+      "version": "2.11.1",
       "from": "mixpanel-browser@>=2.11.0 <3.0.0",
-      "resolved": "https://registry.npmjs.org/mixpanel-browser/-/mixpanel-browser-2.11.0.tgz"
+      "resolved": "https://registry.npmjs.org/mixpanel-browser/-/mixpanel-browser-2.11.1.tgz"
     },
     "mkdirp": {
       "version": "0.5.1",
@@ -8056,8 +8051,7 @@
     "p-finally": {
       "version": "1.0.0",
       "from": "p-finally@>=1.0.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/p-finally/-/p-finally-1.0.0.tgz",
-      "dev": true
+      "resolved": "https://registry.npmjs.org/p-finally/-/p-finally-1.0.0.tgz"
     },
     "p-limit": {
       "version": "1.1.0",
@@ -8402,8 +8396,7 @@
     "pseudomap": {
       "version": "1.0.2",
       "from": "pseudomap@>=1.0.1 <2.0.0",
-      "resolved": "https://registry.npmjs.org/pseudomap/-/pseudomap-1.0.2.tgz",
-      "dev": true
+      "resolved": "https://registry.npmjs.org/pseudomap/-/pseudomap-1.0.2.tgz"
     },
     "punycode": {
       "version": "1.4.1",
@@ -8440,9 +8433,9 @@
       }
     },
     "raven-js": {
-      "version": "3.14.1",
+      "version": "3.17.0",
       "from": "raven-js@>=3.12.1 <4.0.0",
-      "resolved": "https://registry.npmjs.org/raven-js/-/raven-js-3.14.1.tgz"
+      "resolved": "https://registry.npmjs.org/raven-js/-/raven-js-3.17.0.tgz"
     },
     "rc": {
       "version": "1.1.7",
@@ -8746,14 +8739,39 @@
       }
     },
     "resin-corvus": {
-      "version": "1.0.0-beta.26",
-      "from": "resin-corvus@1.0.0-beta.26",
-      "resolved": "https://registry.npmjs.org/resin-corvus/-/resin-corvus-1.0.0-beta.26.tgz",
+      "version": "1.0.0-beta.28",
+      "from": "resin-corvus@1.0.0-beta.28",
+      "resolved": "https://registry.npmjs.org/resin-corvus/-/resin-corvus-1.0.0-beta.28.tgz",
       "dependencies": {
+        "execa": {
+          "version": "0.5.1",
+          "from": "execa@>=0.5.0 <0.6.0",
+          "resolved": "https://registry.npmjs.org/execa/-/execa-0.5.1.tgz"
+        },
+        "get-stream": {
+          "version": "2.3.1",
+          "from": "get-stream@>=2.2.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/get-stream/-/get-stream-2.3.1.tgz"
+        },
         "lodash": {
           "version": "4.17.4",
           "from": "lodash@>=4.17.4 <5.0.0",
           "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz"
+        },
+        "npm-run-path": {
+          "version": "2.0.2",
+          "from": "npm-run-path@>=2.0.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/npm-run-path/-/npm-run-path-2.0.2.tgz"
+        },
+        "os-locale": {
+          "version": "2.0.0",
+          "from": "os-locale@>=2.0.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/os-locale/-/os-locale-2.0.0.tgz"
+        },
+        "path-key": {
+          "version": "2.0.1",
+          "from": "path-key@>=2.0.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/path-key/-/path-key-2.0.1.tgz"
         }
       }
     },
@@ -9010,8 +9028,7 @@
     "signal-exit": {
       "version": "3.0.2",
       "from": "signal-exit@>=3.0.0 <4.0.0",
-      "resolved": "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.2.tgz",
-      "dev": true
+      "resolved": "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.2.tgz"
     },
     "simple-bufferstream": {
       "version": "1.0.0",
@@ -9283,8 +9300,7 @@
     "strip-eof": {
       "version": "1.0.0",
       "from": "strip-eof@>=1.0.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/strip-eof/-/strip-eof-1.0.0.tgz",
-      "dev": true
+      "resolved": "https://registry.npmjs.org/strip-eof/-/strip-eof-1.0.0.tgz"
     },
     "strip-indent": {
       "version": "1.0.1",
@@ -9889,8 +9905,7 @@
     "which": {
       "version": "1.2.10",
       "from": "which@>=1.2.8 <2.0.0",
-      "resolved": "https://registry.npmjs.org/which/-/which-1.2.10.tgz",
-      "dev": true
+      "resolved": "https://registry.npmjs.org/which/-/which-1.2.10.tgz"
     },
     "which-module": {
       "version": "1.0.0",
@@ -9983,8 +9998,7 @@
     "yallist": {
       "version": "2.0.0",
       "from": "yallist@>=2.0.0 <3.0.0",
-      "resolved": "https://registry.npmjs.org/yallist/-/yallist-2.0.0.tgz",
-      "dev": true
+      "resolved": "https://registry.npmjs.org/yallist/-/yallist-2.0.0.tgz"
     },
     "yargs": {
       "version": "4.7.1",
