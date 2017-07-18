@@ -28,9 +28,15 @@
   "author": "Resin Inc. <hello@etcher.io>",
   "license": "Apache-2.0",
   "platformSpecificDependencies": [
-    [ "7zip-bin-mac" ],
-    [ "7zip-bin-win" ],
-    [ "7zip-bin-linux" ]
+    [
+      "7zip-bin-mac"
+    ],
+    [
+      "7zip-bin-win"
+    ],
+    [
+      "7zip-bin-linux"
+    ]
   ],
   "dependencies": {
     "angular": "1.6.3",
@@ -69,7 +75,7 @@
     "request": "2.81.0",
     "resin-cli-form": "1.4.1",
     "resin-cli-visuals": "1.3.1",
-    "resin-corvus": "1.0.0-beta.26",
+    "resin-corvus": "1.0.0-beta.28",
     "rx": "4.1.0",
     "semver": "5.1.1",
     "sudo-prompt": "6.1.0",
