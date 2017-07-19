@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 ###
 # Copyright 2016 resin.io
 #
@@ -28,26 +27,32 @@ function usage() {
   echo "Options"
   echo ""
   echo "    -f <file>"
-  echo "    -v <debian-friendly version>"
+  echo "    -v <version>"
   echo "    -r <architecture>"
-  echo "    -c <component name>"
   echo "    -t <release type (production|snapshot)>"
+  echo "    -o <bintray organization>"
+  echo "    -p <bintray repository>"
+  echo "    -c <bintray component>"
   exit 1
 }
 
 ARGV_FILE=""
 ARGV_VERSION=""
 ARGV_ARCHITECTURE=""
-ARGV_COMPONENT_NAME=""
 ARGV_RELEASE_TYPE=""
+ARGV_ORGANIZATION=""
+ARGV_REPOSITORY=""
+ARGV_COMPONENT=""
 
-while getopts ":f:v:r:c:t:" option; do
+while getopts ":f:v:r:t:o:p:c:" option; do
   case $option in
     f) ARGV_FILE="$OPTARG" ;;
     v) ARGV_VERSION="$OPTARG" ;;
     r) ARGV_ARCHITECTURE="$OPTARG" ;;
-    c) ARGV_COMPONENT_NAME="$OPTARG" ;;
     t) ARGV_RELEASE_TYPE="$OPTARG" ;;
+    o) ARGV_ORGANIZATION="$OPTARG" ;;
+    p) ARGV_REPOSITORY="$OPTARG" ;;
+    c) ARGV_COMPONENT="$OPTARG" ;;
     *) usage ;;
   esac
 done
@@ -55,8 +60,10 @@ done
 if [ -z "$ARGV_FILE" ] || \
    [ -z "$ARGV_VERSION" ] || \
    [ -z "$ARGV_ARCHITECTURE" ] || \
-   [ -z "$ARGV_COMPONENT_NAME" ] || \
-   [ -z "$ARGV_RELEASE_TYPE" ]
+   [ -z "$ARGV_RELEASE_TYPE" ] || \
+   [ -z "$ARGV_ORGANIZATION" ] || \
+   [ -z "$ARGV_REPOSITORY" ] || \
+   [ -z "$ARGV_COMPONENT" ]
 then
   usage
 fi
@@ -87,9 +94,10 @@ PACKAGE_ARCHITECTURE=$(./scripts/build/architecture-convert.sh -r "$ARGV_ARCHITE
 curl --upload-file $ARGV_FILE \
   --user $BINTRAY_USER:$BINTRAY_API_KEY \
   --header "X-Bintray-Debian-Distribution: $PACKAGE_DISTRIBUTION" \
-  --header "X-Bintray-Debian-Component: $ARGV_COMPONENT_NAME" \
+  --header "X-Bintray-Debian-Component: $ARGV_COMPONENT" \
   --header "X-Bintray-Debian-Architecture: $PACKAGE_ARCHITECTURE" \
+  --header "X-Bintray-Override: 1" \
   --header "X-Bintray-Publish: 1" \
-  https://api.bintray.com/content/resin-io/debian/$ARGV_COMPONENT_NAME/$ARGV_VERSION/$PACKAGE_FILE_NAME
+  https://api.bintray.com/content/$ARGV_ORGANIZATION/$ARGV_REPOSITORY/$ARGV_COMPONENT/$ARGV_VERSION/$PACKAGE_FILE_NAME
 
 echo "$ARGV_FILE has been uploaded successfully"

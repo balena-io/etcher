@@ -43,7 +43,7 @@ test_script:
   - bash .\scripts\ci\build-installers.sh -o win32 -r %TARGET_ARCH%
 
 deploy_script:
-  - bash .\scripts\ci\deploy-aws-s3.sh -o win32 -r %TARGET_ARCH%
+  - if %APPVEYOR_REPO_BRANCH%==master (bash .\scripts\ci\deploy.sh -o win32 -r %TARGET_ARCH%)
 
 notifications:
 

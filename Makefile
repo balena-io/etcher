@@ -26,6 +26,29 @@ APPLICATION_NAME = $(shell jq -r '.displayName' package.json)
 APPLICATION_DESCRIPTION = $(shell jq -r '.description' package.json)
 APPLICATION_COPYRIGHT = $(shell cat electron-builder.yml | shyaml get-value copyright)
 
+BINTRAY_ORGANIZATION = resin-io
+BINTRAY_REPOSITORY_DEBIAN = debian
+BINTRAY_REPOSITORY_REDHAT = redhat
+
+# ---------------------------------------------------------------------
+# Extra variables
+# ---------------------------------------------------------------------
+
+TARGET_ARCH_DEBIAN = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET_ARCH) -t debian)
+TARGET_ARCH_REDHAT = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET_ARCH) -t redhat)
+TARGET_ARCH_APPIMAGE = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET_ARCH) -t appimage)
+TARGET_ARCH_ELECTRON_BUILDER = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET_ARCH) -t electron-builder)
+PLATFORM_PKG = $(shell ./scripts/build/platform-convert.sh -r $(PLATFORM) -t pkg)
+ENTRY_POINT_CLI = lib/cli/etcher.js
+ETCHER_CLI_BINARY = $(APPLICATION_NAME_LOWERCASE)
+ifeq ($(TARGET_PLATFORM),win32)
+ETCHER_CLI_BINARY = $(APPLICATION_NAME_LOWERCASE).exe
+endif
+
+APPLICATION_NAME_LOWERCASE = $(shell echo $(APPLICATION_NAME) | tr A-Z a-z)
+APPLICATION_VERSION_DEBIAN = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
+APPLICATION_VERSION_REDHAT = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
+
 # ---------------------------------------------------------------------
 # Release type
 # ---------------------------------------------------------------------
@@ -36,11 +59,13 @@ PACKAGE_JSON_VERSION = $(shell jq -r '.version' package.json)
 ifeq ($(RELEASE_TYPE),production)
 APPLICATION_VERSION = $(PACKAGE_JSON_VERSION)
 S3_BUCKET = resin-production-downloads
+BINTRAY_COMPONENT = $(APPLICATION_NAME_LOWERCASE)
 endif
 ifeq ($(RELEASE_TYPE),snapshot)
 CURRENT_COMMIT_HASH = $(shell git log -1 --format="%h")
 APPLICATION_VERSION = $(PACKAGE_JSON_VERSION)+$(CURRENT_COMMIT_HASH)
 S3_BUCKET = resin-nightly-downloads
+BINTRAY_COMPONENT = $(APPLICATION_NAME_LOWERCASE)-devel
 endif
 ifndef APPLICATION_VERSION
 $(error Invalid release type: $(RELEASE_TYPE))
@@ -163,26 +188,6 @@ $(warning No Mixpanel token found (ANALYTICS_MIXPANEL_TOKEN is not set))
 else
 ELECTRON_BUILDER_OPTIONS += --extraMetadata.analytics.mixpanel.token=$(ANALYTICS_MIXPANEL_TOKEN)
 endif
-
-# ---------------------------------------------------------------------
-# Extra variables
-# ---------------------------------------------------------------------
-
-TARGET_ARCH_DEBIAN = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET_ARCH) -t debian)
-TARGET_ARCH_REDHAT = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET_ARCH) -t redhat)
-TARGET_ARCH_APPIMAGE = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET_ARCH) -t appimage)
-TARGET_ARCH_ELECTRON_BUILDER = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET_ARCH) -t electron-builder)
-PLATFORM_PKG = $(shell ./scripts/build/platform-convert.sh -r $(PLATFORM) -t pkg)
-ENTRY_POINT_CLI = lib/cli/etcher.js
-ETCHER_CLI_BINARY = $(APPLICATION_NAME_LOWERCASE)
-ifeq ($(PLATFORM),win32)
-ETCHER_CLI_BINARY = $(APPLICATION_NAME_LOWERCASE).exe
-endif
-
-PRODUCT_NAME = etcher
-APPLICATION_NAME_LOWERCASE = $(shell echo $(APPLICATION_NAME) | tr A-Z a-z)
-APPLICATION_VERSION_DEBIAN = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
-APPLICATION_VERSION_REDHAT = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
 
 # ---------------------------------------------------------------------
 # Rules
@@ -420,14 +425,14 @@ ifeq ($(RELEASE_TYPE),production)
 		-f $(publishable) \
 		-b $(S3_BUCKET) \
 		-v $(APPLICATION_VERSION) \
-		-p $(PRODUCT_NAME)))
+		-p $(APPLICATION_NAME_LOWERCASE)))
 endif
 ifeq ($(RELEASE_TYPE),snapshot)
 	$(foreach publishable,$^,$(call execute-command,./scripts/publish/aws-s3.sh \
 		-f $(publishable) \
 		-b $(S3_BUCKET) \
 		-v $(APPLICATION_VERSION) \
-		-p $(PRODUCT_NAME) \
+		-p $(APPLICATION_NAME_LOWERCASE) \
 		-k $(shell date +"%Y-%m-%d")))
 endif
 
@@ -436,19 +441,28 @@ endif
 
 ifdef PUBLISH_BINTRAY_DEBIAN
 publish-bintray-debian: $(PUBLISH_BINTRAY_DEBIAN)
-	$(foreach publishable,$^,$(call execute-command,./scripts/publish/bintray-debian.sh \
+	$(foreach publishable,$^,$(call execute-command,./scripts/publish/bintray.sh \
 		-f $(publishable) \
 		-v $(APPLICATION_VERSION_DEBIAN) \
 		-r $(TARGET_ARCH) \
-		-c $(APPLICATION_NAME_LOWERCASE) \
-		-t $(RELEASE_TYPE)))
+		-t $(RELEASE_TYPE) \
+		-o $(BINTRAY_ORGANIZATION) \
+		-p $(BINTRAY_REPOSITORY_DEBIAN) \
+		-c $(BINTRAY_COMPONENT)))
 
 TARGETS += publish-bintray-debian
 endif
 
 ifdef PUBLISH_BINTRAY_REDHAT
 publish-bintray-redhat: $(PUBLISH_BINTRAY_REDHAT)
-# TODO: Update this after we've created ./scripts/publish/bintray-redhat.sh
+	$(foreach publishable,$^,$(call execute-command,./scripts/publish/bintray.sh \
+		-f $(publishable) \
+		-v $(APPLICATION_VERSION_REDHAT) \
+		-r $(TARGET_ARCH) \
+		-t $(RELEASE_TYPE) \
+		-o $(BINTRAY_ORGANIZATION) \
+		-p $(BINTRAY_REPOSITORY_REDHAT) \
+		-c $(BINTRAY_COMPONENT)))
 
 TARGETS += publish-bintray-redhat
 endif
