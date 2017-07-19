@@ -49,9 +49,9 @@ RESULT=""
 if [ "$ARGV_TYPE" == "pkg" ]; then
   if [ "$ARGV_TARGET" == "linux" ]; then
     RESULT=linux
-  elif [ "$ARGV_ARCHITECTURE" == "win32" ]; then
+  elif [ "$ARGV_TARGET" == "win32" ]; then
     RESULT=win
-  elif [ "$ARGV_ARCHITECTURE" == "darwin" ]; then
+  elif [ "$ARGV_TARGET" == "darwin" ]; then
     RESULT=macos
   fi
 else
