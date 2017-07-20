@@ -6597,7 +6597,7 @@ svg-icon > div[disabled] path {
   max-width: 165px; }
 
 .page-finish .button-primary, .page-finish .progress-button {
-  min-width: 255px;
+  min-width: 253px;
   min-height: 53px;
   font-size: 15px; }
 
@@ -6626,7 +6626,7 @@ svg-icon > div[disabled] path {
 .page-finish .center {
   display: flex;
   align-items: center;
-  justify-content: center; }
+  justify-content: space-around; }
 
 .page-finish .box > div {
   margin-bottom: 20px; }
