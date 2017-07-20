@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.1.0 - 2017-07-20
+
+### Features
+
+- Add image name, drive name, and icon to OS notifications
+- Add support for `.sdcard` images
+- Start publishing RPM packages
+- Generate single-binary portable installers on Windows
+- Show friendlier error dialogs when opening an image results in an error
+- Generate one-click Windows NSIS installers
+- Show the application version in the WebView banners
+- Show a warning message if the selected image has no partition table
+- Make use of `pkg` to package the Etcher CLI
+- Send anonymous analytics about package types
+- Minor style improvements to the fallback success page banner
+- Turn the update notifier modal into a native dialog
+
+### Fixes
+
+- Fix "You don't have access to this resource" error at startup when behind a firewall
+- Fix `UNABLE_TO_VERIFY_LEAF_SIGNATURE` error at startup when behind a proxy
+- Reset webview after navigating away from the success screen
+- Fix occasional increased CPU usage because of perl regular expression in macOS
+- Don't install to `C:\Program Files (x86)` on 64-bit Windows systems
+- Fix "file is not accessible" error when flashing an image that lives inside a directory whose name is UTF-16 encoded on Windows.
+- Fix various interrelated Windows `.bat` spawning issues
+- Fix 0.0 GB Windows drive detection issues
+- Cleanup drive detection temporary scripts in GNU/Linux and macOS
+- Ensure no analytics events are sent if error reporting is disabled
+- Retry various times on `EAGAIN` when spawning drive scanning scripts
+- Don't break up size numbers in the drive selector
+
+### Misc
+
+- Remove "Advanced" settings subtitle
+- Remove support for the `ETCHER_DISABLE_UPDATES` environment variable
+- Swap speed and time below the flashing progress bar
+
 ## v1.0.0 - 2017-05-12
 
 ### Features

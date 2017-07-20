@@ -201,9 +201,6 @@ define execute-command
 
 endef
 
-CHANGELOG.md:
-	$(NPX) versionist
-
 $(BUILD_DIRECTORY):
 	mkdir $@
 
@@ -358,11 +355,15 @@ TARGETS = \
 	sanity-checks \
 	clean \
 	distclean \
+	changelog \
 	package-electron \
 	package-cli \
 	cli-develop \
 	installers-all \
 	electron-develop
+
+changelog:
+	$(NPX) versionist
 
 package-electron:
 	TARGET_ARCH=$(TARGET_ARCH) $(NPX) build --dir $(ELECTRON_BUILDER_OPTIONS)
