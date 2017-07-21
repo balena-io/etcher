@@ -6,6 +6,7 @@ nodeGypRebuild: true
 publish: null
 files:
   - lib
+  - build/**/*.node
   - assets/icon.png
   - node_modules/**/*
 mac:
