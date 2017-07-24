@@ -151,6 +151,6 @@ of Etcher, and including the relevant section of the Changelog.
 [bintray]: https://bintray.com
 [etcher-cask-file]: https://github.com/caskroom/homebrew-cask/blob/master/Casks/etcher.rb
 [homebrew-cask]: https://github.com/caskroom/homebrew-cask
-[resin-forum-etcher]: https://talk.resin.io/c/etcher/annoucements
+[resin-forum-etcher]: https://forums.resin.io/c/etcher
 [gitter-etcher]: https://gitter.im/resin-io/etcher
 [github-releases]: https://github.com/resin-io/etcher/releases
