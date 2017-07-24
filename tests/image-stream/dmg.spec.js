@@ -81,14 +81,13 @@ describe('ImageStream: DMG', function() {
       it('should return the correct metadata', function() {
         const image = path.join(DMG_PATH, 'etcher-test-zlib.dmg');
         const uncompressedSize = fs.statSync(path.join(IMAGES_PATH, 'etcher-test.img')).size;
-        const compressedSize = fs.statSync(image).size;
 
         return imageStream.getImageMetadata(image).then((metadata) => {
           m.chai.expect(metadata).to.deep.equal({
             path: image,
             extension: 'dmg',
             size: {
-              original: compressedSize,
+              original: uncompressedSize,
               final: {
                 estimation: false,
                 value: uncompressedSize
@@ -122,14 +121,13 @@ describe('ImageStream: DMG', function() {
       it('should return the correct metadata', function() {
         const image = path.join(DMG_PATH, 'etcher-test-raw.dmg');
         const uncompressedSize = fs.statSync(path.join(IMAGES_PATH, 'etcher-test.img')).size;
-        const compressedSize = fs.statSync(image).size;
 
         return imageStream.getImageMetadata(image).then((metadata) => {
           m.chai.expect(metadata).to.deep.equal({
             path: image,
             extension: 'dmg',
             size: {
-              original: compressedSize,
+              original: uncompressedSize,
               final: {
                 estimation: false,
                 value: uncompressedSize
