@@ -155,6 +155,27 @@ ELECTRON_BUILDER_OPTIONS += $(DISABLE_UPDATES_ELECTRON_BUILDER_OPTIONS)
 endif
 
 # ---------------------------------------------------------------------
+# Publish
+# ---------------------------------------------------------------------
+
+ifdef PUBLISH
+ifndef GH_TOKEN
+$(error No GitHub token found (GH_TOKEN is not set))
+endif
+ELECTRON_BUILDER_OPTIONS += --publish always
+ifeq ($(RELEASE_TYPE),production)
+# We want a human to push the final red button
+ELECTRON_BUILDER_OPTIONS += --draft
+else
+ifeq ($(RELEASE_TYPE),snapshot)
+ELECTRON_BUILDER_OPTIONS += --prerelease
+else
+$(error Invalid release type: $(RELEASE_TYPE))
+endif
+endif
+endif
+
+# ---------------------------------------------------------------------
 # Analytics
 # ---------------------------------------------------------------------
 
@@ -283,14 +304,12 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATF
 assets/osx/installer.tiff: assets/osx/installer.png assets/osx/installer@2x.png
 	tiffutil -cathidpicheck $^ -out $@
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-darwin-$(TARGET_ARCH).dmg: assets/osx/installer.tiff \
-	| $(BUILD_DIRECTORY)
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION).dmg: assets/osx/installer.tiff
 	TARGET_ARCH=$(TARGET_ARCH) $(NPX) build --mac dmg $(ELECTRON_BUILDER_OPTIONS) \
 		--extraMetadata.version=$(APPLICATION_VERSION) \
 		--extraMetadata.packageType=dmg
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-darwin-$(TARGET_ARCH).zip: assets/osx/installer.tiff \
-	| $(BUILD_DIRECTORY)
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-mac.zip: assets/osx/installer.tiff
 	TARGET_ARCH=$(TARGET_ARCH) $(NPX) build --mac zip $(ELECTRON_BUILDER_OPTIONS) \
 		--extraMetadata.version=$(APPLICATION_VERSION) \
 		--extraMetadata.packageType=zip
@@ -319,19 +338,16 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(TARGET
 		--extraMetadata.version=$(APPLICATION_VERSION) \
 		--extraMetadata.packageType=AppImage
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-linux-$(TARGET_ARCH).zip: \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(TARGET_ARCH_APPIMAGE).AppImage \
-	| $(BUILD_DIRECTORY)
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip: \
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(TARGET_ARCH_APPIMAGE).AppImage
 	./scripts/build/zip-file.sh -f $< -s $(TARGET_PLATFORM) -o $@
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-win32-$(TARGET_ARCH)-portable.exe: \
-	| $(BUILD_DIRECTORY)
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-Portable-$(APPLICATION_VERSION)-$(TARGET_ARCH).exe:
 	TARGET_ARCH=$(TARGET_ARCH) $(NPX) build --win portable $(ELECTRON_BUILDER_OPTIONS) \
 		--extraMetadata.version=$(APPLICATION_VERSION) \
 		--extraMetadata.packageType=portable
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-win32-$(TARGET_ARCH).exe: \
-	| $(BUILD_DIRECTORY)
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-Setup-$(APPLICATION_VERSION)-$(TARGET_ARCH).exe:
 	TARGET_ARCH=$(TARGET_ARCH) $(NPX) build --win nsis $(ELECTRON_BUILDER_OPTIONS) \
 		--extraMetadata.version=$(APPLICATION_VERSION) \
 		--extraMetadata.packageType=nsis
@@ -371,16 +387,14 @@ package-electron:
 package-cli: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH)
 
 ifeq ($(TARGET_PLATFORM),darwin)
-electron-installer-app-zip: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
-electron-installer-dmg: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).dmg
+electron-installer-dmg: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION).dmg
+electron-installer-app-zip: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-mac.zip
 cli-installer-tar-gz: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).tar.gz
 TARGETS += \
 	electron-installer-dmg \
 	electron-installer-app-zip \
 	cli-installer-tar-gz
 PUBLISH_AWS_S3 += \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).dmg \
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).tar.gz
 endif
 
@@ -395,25 +409,22 @@ TARGETS +=  \
 	electron-installer-redhat \
 	cli-installer-tar-gz
 PUBLISH_AWS_S3 += \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip \
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).tar.gz
 PUBLISH_BINTRAY_DEBIAN += \
-		$(BUILD_DIRECTORY)/$(APPLICATION_NAME_ELECTRON)_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME_ELECTRON)_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb
 PUBLISH_BINTRAY_REDHAT += \
-		$(BUILD_DIRECTORY)/$(APPLICATION_NAME_ELECTRON)-$(APPLICATION_VERSION_REDHAT).$(TARGET_ARCH_REDHAT).rpm
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME_ELECTRON)-$(APPLICATION_VERSION_REDHAT).$(TARGET_ARCH_REDHAT).rpm
 endif
 
 ifeq ($(TARGET_PLATFORM),win32)
-electron-installer-portable: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-portable.exe
-electron-installer-nsis: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).exe
+electron-installer-portable: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-Portable-$(APPLICATION_VERSION)-$(TARGET_ARCH).exe
+electron-installer-nsis: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-Setup-$(APPLICATION_VERSION)-$(TARGET_ARCH).exe
 cli-installer-zip: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
 TARGETS += \
 	electron-installer-portable \
 	electron-installer-nsis \
 	cli-installer-zip
 PUBLISH_AWS_S3 += \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH)-portable.exe \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).exe \
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(TARGET_PLATFORM)-$(TARGET_ARCH).zip
 endif
 

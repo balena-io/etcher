@@ -3,7 +3,10 @@ copyright: Copyright 2016 Resinio Ltd
 productName: Etcher
 npmRebuild: true
 nodeGypRebuild: true
-publish: null
+publish:
+  - provider: github
+    repo: etcher
+    owner: resin-io
 files:
   - lib
   - build/**/*.node
@@ -11,7 +14,6 @@ files:
   - node_modules/**/*
 mac:
   icon: assets/icon.icns
-  artifactName: "${productName}-${version}-darwin-${env.TARGET_ARCH}.${ext}"
   category: public.app-category.developer-tools
 dmg:
   background: assets/osx/installer.tiff
@@ -36,9 +38,9 @@ nsis:
   uninstallerIcon: assets/icon.ico
   deleteAppDataOnUninstall: true
   license: LICENSE
-  artifactName: "${productName}-${version}-win32-${env.TARGET_ARCH}.${ext}"
+  artifactName: "${productName}-Setup-${version}-${env.TARGET_ARCH}.${ext}"
 portable:
-  artifactName: "${productName}-${version}-win32-${env.TARGET_ARCH}-portable.${ext}"
+  artifactName: "${productName}-Portable-${version}-${env.TARGET_ARCH}.${ext}"
   requestExecutionLevel: user
 linux:
   category: Utility
@@ -48,6 +50,7 @@ linux:
 deb:
   icon: assets/icon.png
   priority: optional
+  publish: null
   depends:
     - gconf2
     - gconf-service
@@ -86,6 +89,7 @@ deb:
     - polkit-1-auth-agent | policykit-1-gnome | polkit-kde-1
 rpm:
   icon: assets/icon.png
+  publish: null
   depends:
     - lsb
     - libXScrnSaver
