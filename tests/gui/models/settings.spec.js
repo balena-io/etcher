@@ -17,6 +17,7 @@ describe('Browser: settings', function() {
   it('should be able to set and read values', function() {
     m.chai.expect(settings.get('foo')).to.be.undefined;
     settings.set('foo', true);
+    console.log(settings.getAll());
     m.chai.expect(settings.get('foo')).to.be.true;
     settings.set('foo', false);
     m.chai.expect(settings.get('foo')).to.be.false;
