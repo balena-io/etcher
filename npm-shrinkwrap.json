@@ -1095,9 +1095,16 @@
       }
     },
     "debug": {
-      "version": "2.6.0",
-      "from": "debug@>=2.2.0 <3.0.0",
-      "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.0.tgz"
+      "version": "2.6.8",
+      "from": "debug@2.6.8",
+      "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.8.tgz",
+      "dependencies": {
+        "ms": {
+          "version": "2.0.0",
+          "from": "ms@2.0.0",
+          "resolved": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz"
+        }
+      }
     },
     "decamelize": {
       "version": "1.2.0",
@@ -4797,7 +4804,8 @@
     "ms": {
       "version": "0.7.2",
       "from": "ms@0.7.2",
-      "resolved": "https://registry.npmjs.org/ms/-/ms-0.7.2.tgz"
+      "resolved": "https://registry.npmjs.org/ms/-/ms-0.7.2.tgz",
+      "dev": true
     },
     "multistream": {
       "version": "2.1.0",
@@ -8994,11 +9002,6 @@
       "version": "0.1.0",
       "from": "run-async@>=0.1.0 <0.2.0",
       "resolved": "https://registry.npmjs.org/run-async/-/run-async-0.1.0.tgz"
-    },
-    "rx": {
-      "version": "4.1.0",
-      "from": "rx@4.1.0",
-      "resolved": "https://registry.npmjs.org/rx/-/rx-4.1.0.tgz"
     },
     "rx-lite": {
       "version": "3.1.2",
