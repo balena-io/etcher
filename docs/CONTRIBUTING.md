@@ -28,6 +28,12 @@ other text editing default. We encourage you to install the relevant plugin in
 your text editor of choice to avoid having to fix any issues during the review
 process.
 
+Commit Guidelines
+-----------------
+
+See [COMMIT-GUIDELINES.md][COMMIT-GUIDELINES] for a thorough guide on how to
+write commit messages.
+
 Updating a dependency
 ---------------------
 
@@ -128,6 +134,7 @@ Don't hesitate to get in touch if you have any questions or need any help!
 
 [ARCHITECTURE]: https://github.com/resin-io/etcher/blob/master/docs/ARCHITECTURE.md
 [RUNNING-LOCALLY]: https://github.com/resin-io/etcher/blob/master/docs/RUNNING-LOCALLY.md
+[COMMIT-GUIDELINES]: https://github.com/resin-io/etcher/blob/master/docs/COMMIT-GUIDELINES.md
 [EditorConfig]: http://editorconfig.org
 [shrinkwrap]: https://docs.npmjs.com/cli/shrinkwrap
 [hxd]: https://github.com/jhermsmeier/hxd
