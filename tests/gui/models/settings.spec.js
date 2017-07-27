@@ -14,6 +14,7 @@ describe('Browser: settings', function() {
 
   const DEFAULT_SETTINGS = store.Defaults.get('settings').toJS();
 
+  // XXX https://github.com/hardchor/electron-redux#local-actions-renderer-process
   it('should be able to set and read values', function() {
     m.chai.expect(settings.get('foo')).to.be.undefined;
     settings.set('foo', true);
