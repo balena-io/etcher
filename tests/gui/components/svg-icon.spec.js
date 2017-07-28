@@ -40,6 +40,14 @@ describe('Browser: SVGIcon', function() {
       m.chai.expect(element.children().html()).to.equal(iconContents);
     });
 
+    it('should accept an SVG in the path attribute', function() {
+      const iconContents = '<svg><rect x="10" y="10" height="100" width="100" style="stroke:red;fill:blue"></rect></svg>';
+      $rootScope.iconContents = iconContents;
+      const element = $compile('<svg-icon path="iconContents">Resin.io</svg-icon>')($rootScope);
+      $rootScope.$digest();
+      m.chai.expect(element.children().html()).to.equal(iconContents);
+    });
+
     it('should default the size to 40x40 pixels', function() {
       const icon = '../../../lib/gui/assets/etcher.svg';
       const element = $compile(`<svg-icon path="'${icon}'">Resin.io</svg-icon>`)($rootScope);
