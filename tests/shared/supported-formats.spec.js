@@ -35,7 +35,7 @@ describe('Shared: SupportedFormats', function() {
 
     it('should return the supported non compressed extensions', function() {
       const extensions = supportedFormats.getNonCompressedExtensions();
-      m.chai.expect(extensions).to.deep.equal([ 'img', 'iso', 'dsk', 'hddimg', 'raw', 'dmg', 'sdcard' ]);
+      m.chai.expect(extensions).to.deep.equal([ 'img', 'iso', 'dsk', 'hddimg', 'raw', 'dmg', 'sdcard', 'rpi-sdimg' ]);
     });
 
   });
