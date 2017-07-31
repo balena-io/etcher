@@ -41,10 +41,10 @@ installers for all supported operating systems.
 
 #### Debian and Ubuntu based Package Repository (GNU/Linux x86/x64)
 
-1. Save the following as `/etc/apt/sources.list.d/etcher.list`:
+1. Add Etcher debian repository:
 
     ```
-    deb https://dl.bintray.com/resin-io/debian stable etcher
+    echo "deb https://dl.bintray.com/resin-io/debian stable etcher" | sudo tee /etc/apt/sources.list.d/etcher.list
     ```
 
 2. Trust Bintray.com's GPG key:
