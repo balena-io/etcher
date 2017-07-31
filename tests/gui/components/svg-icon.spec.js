@@ -37,15 +37,26 @@ describe('Browser: SVGIcon', function() {
 
       const element = $compile(`<svg-icon path="'${icon}'">Resin.io</svg-icon>`)($rootScope);
       $rootScope.$digest();
-      m.chai.expect(element.children().html()).to.equal(iconContents);
+
+      // We parse the SVGs to get rid of discrepancies caused by string differences
+      // in the outputs; the XML trees are still equal, as proven here.
+      const originalSVGParser = new DOMParser();
+      const originalDoc = originalSVGParser.parseFromString(iconContents, 'image/svg+xml');
+      const compiledSVGParser = new DOMParser();
+      const compiledContents = decodeURIComponent(element.children()[0].children[0].src.substr(19));
+      const compiledDoc = compiledSVGParser.parseFromString(compiledContents, 'image/svg+xml');
+
+      m.chai.expect(compiledDoc.outerHTML).to.equal(originalDoc.outerHTML);
     });
 
     it('should accept an SVG in the path attribute', function() {
-      const iconContents = '<svg><rect x="10" y="10" height="100" width="100" style="stroke:red;fill:blue"></rect></svg>';
+      const iconContents = '<svg><rect x="10" y="10" height="100" width="100" style="stroke:red;fill:blue;"/></svg>';
+      const img = `<img src="data:image/svg+xml,${encodeURIComponent(iconContents)}">`;
       $rootScope.iconContents = iconContents;
+
       const element = $compile('<svg-icon path="iconContents">Resin.io</svg-icon>')($rootScope);
       $rootScope.$digest();
-      m.chai.expect(element.children().html()).to.equal(iconContents);
+      m.chai.expect(element.children().html()).to.equal(img);
     });
 
     it('should default the size to 40x40 pixels', function() {
