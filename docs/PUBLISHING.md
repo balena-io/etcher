@@ -7,26 +7,12 @@ systems.
 Release Types
 -------------
 
-Etcher supports **production** and **snapshot** release types. Each is
-published to a different S3 bucket, and production release types are code
-signed, while snapshot release types aren't and include a short git commit-hash
-as a build number. For example, `1.0.0-beta.19` is a production release type,
-while `1.0.0-beta.19+531ab82` is a snapshot release type.
-
-In terms of comparison: `1.0.0-beta.19` (production) < `1.0.0-beta.19+531ab82`
-(snapshot) < `1.0.0-rc.1` (production) < `1.0.0-rc.1+7fde24a` (snapshot) <
-`1.0.0` (production) < `1.0.0+2201e5f` (snapshot). Keep in mind that if you're
-running a production release type, you'll only be prompted to update to
-production release types, and if you're running a snapshot release type, you'll
-only be prompted to update to other snapshot release types.
-
-The build system creates (and publishes) snapshot release types by default, but
-you can build a specific release type by setting the `RELEASE_TYPE` make
-variable.  For example:
+Etcher supports prerelease and stable release types. The build system creates
+(and publishes) prerelease types by default, but you can create a stable build
+by setting the `STABLE_RELEASE` make variable.  For example:
 
 ```sh
-make <target> RELEASE_TYPE=snapshot
-make <target> RELEASE_TYPE=production
+make <target> STABLE_RELEASE=1
 ```
 
 We can control the version range a specific Etcher version will consider when
@@ -37,14 +23,13 @@ Update Channels
 ---------------
 
 Etcher has a setting to include the unstable update channel. If this option is
-set, Etcher will consider both stable and unstable versions when showing the
-update notifier dialog. Unstable versions are the ones that contain a `beta`
-pre-release tag. For example:
+set, Etcher will consider both prerelease and stable versions when showing the
+update notifier dialog. Prerelease versions are the ones built without
+`STABLE_RELEASE`, and include a short commit hash as semver build information.
+For example:
 
-- Production unstable version: `1.4.0-beta.1`
-- Snapshot unstable version: `1.4.0-beta.1+7fde24a`
-- Production stable version: `1.4.0`
-- Snapshot stable version: `1.4.0+7fde24a`
+- Stable release: 1.1.0
+- Pre-release: 1.1.0+7fde24a
 
 Signing
 -------
@@ -118,7 +103,7 @@ Publishing to S3
 - [AWS CLI][aws-cli]
 
 Make sure you have the [AWS CLI tool][aws-cli] installed and configured to
-access resin.io's production or snapshot S3 bucket.
+access resin.io's production or prerelease S3 bucket.
 
 Run the following command to publish all files for the current combination of
 _platform_ and _arch_ (building them if necessary):

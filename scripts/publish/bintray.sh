@@ -29,30 +29,30 @@ function usage() {
   echo "    -f <file>"
   echo "    -v <version>"
   echo "    -r <architecture>"
-  echo "    -t <release type (production|snapshot)>"
   echo "    -o <bintray organization>"
   echo "    -p <bintray repository>"
   echo "    -c <bintray component>"
+  echo "    -d <bintray distribution>"
   exit 1
 }
 
 ARGV_FILE=""
 ARGV_VERSION=""
 ARGV_ARCHITECTURE=""
-ARGV_RELEASE_TYPE=""
 ARGV_ORGANIZATION=""
 ARGV_REPOSITORY=""
 ARGV_COMPONENT=""
+ARGV_DISTRIBUTION=""
 
-while getopts ":f:v:r:t:o:p:c:" option; do
+while getopts ":f:v:r:o:p:c:d:" option; do
   case $option in
     f) ARGV_FILE="$OPTARG" ;;
     v) ARGV_VERSION="$OPTARG" ;;
     r) ARGV_ARCHITECTURE="$OPTARG" ;;
-    t) ARGV_RELEASE_TYPE="$OPTARG" ;;
     o) ARGV_ORGANIZATION="$OPTARG" ;;
     p) ARGV_REPOSITORY="$OPTARG" ;;
     c) ARGV_COMPONENT="$OPTARG" ;;
+    d) ARGV_DISTRIBUTION="$OPTARG" ;;
     *) usage ;;
   esac
 done
@@ -60,10 +60,10 @@ done
 if [ -z "$ARGV_FILE" ] || \
    [ -z "$ARGV_VERSION" ] || \
    [ -z "$ARGV_ARCHITECTURE" ] || \
-   [ -z "$ARGV_RELEASE_TYPE" ] || \
    [ -z "$ARGV_ORGANIZATION" ] || \
    [ -z "$ARGV_REPOSITORY" ] || \
-   [ -z "$ARGV_COMPONENT" ]
+   [ -z "$ARGV_COMPONENT" ] || \
+   [ -z "$ARGV_DISTRIBUTION" ]
 then
   usage
 fi
@@ -78,22 +78,13 @@ if [ -z "$BINTRAY_USER" ] || [ -z "$BINTRAY_API_KEY" ]; then
 fi
 set -u
 
-if [ "$ARGV_RELEASE_TYPE" == "production" ]; then
-  PACKAGE_DISTRIBUTION=stable
-elif [ "$ARGV_RELEASE_TYPE" == "snapshot" ]; then
-  PACKAGE_DISTRIBUTION=devel
-else
-  echo "Invalid release type: $ARGV_RELEASE_TYPE" 1>&2
-  exit 1
-fi
-
 PACKAGE_FILE_NAME=$(basename $ARGV_FILE)
 PACKAGE_NAME=${PACKAGE_FILE_NAME%.*}
 PACKAGE_ARCHITECTURE=$(./scripts/build/architecture-convert.sh -r "$ARGV_ARCHITECTURE" -t debian)
 
 curl --upload-file $ARGV_FILE \
   --user $BINTRAY_USER:$BINTRAY_API_KEY \
-  --header "X-Bintray-Debian-Distribution: $PACKAGE_DISTRIBUTION" \
+  --header "X-Bintray-Debian-Distribution: $ARGV_DISTRIBUTION" \
   --header "X-Bintray-Debian-Component: $ARGV_COMPONENT" \
   --header "X-Bintray-Debian-Architecture: $PACKAGE_ARCHITECTURE" \
   --header "X-Bintray-Override: 1" \

@@ -141,7 +141,7 @@ causing the update notification dialog to be presented at startup.
 Note that the value of the variable will be ignored if it doesn't match the
 release type of the current application version. For example, setting the
 variable to a production version (e.g. `ETCHER_FAKE_S3_LATEST_VERSION=2.0.0`)
-will be ignored if you're running a snapshot build, and vice-versa.
+will be ignored if you're running a prerelease build, and vice-versa.
 
 See [`PUBLISHING.md`][publishing] for more details about release types.
 
