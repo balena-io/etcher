@@ -87,13 +87,13 @@ sudo apt-get update
 
 ##### Uninstall
 
-    ```sh
+    ```
     sudo yum remove -y etcher-electron
     sudo rm /etc/yum.repos.d/bintray-resin-io-redhat.repo
     sudo yum clean all; sudo yum makecache fast
     ```
     or
-    ```sh
+    ```
     sudo dnf remove -y etcher-electron
     sudo rm /etc/yum.repos.d/bintray-resin-io-redhat.repo
     sudo yum clean all; sudo yum makecache fast
