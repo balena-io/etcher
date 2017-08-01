@@ -67,7 +67,7 @@ script:
 deploy:
   provider: script
   skip_cleanup: true
-  script: scripts/ci/deploy-aws-s3.sh -o $HOST_OS -r $TARGET_ARCH
+  script: scripts/ci/deploy.sh -o $HOST_OS -r $TARGET_ARCH
   on:
     branch: master
 
