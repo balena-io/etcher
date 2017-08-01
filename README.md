@@ -67,7 +67,7 @@ sudo apt-get remove etcher-electron
 sudo rm /etc/apt/sources.list.d/etcher.list
 sudo apt-get update
 ```
-# Redhat(RHEL) and Fedora based Package Repository (GNU/Linux x86/x64)
+#### Redhat(RHEL) and Fedora based Package Repository (GNU/Linux x86/x64)
 
 1. Add Etcher rpm repository:
 
@@ -83,7 +83,7 @@ sudo apt-get update
     or
     ```sh
     sudo dnf install -y etcher-electron
-    ````
+    ```
 
 ##### Uninstall
 
@@ -92,9 +92,7 @@ sudo apt-get update
     sudo rm /etc/yum.repos.d/bintray-resin-io-redhat.repo
     sudo yum clean all; sudo yum makecache fast
     ```
-
     or
-
     ```sh
     sudo dnf remove -y etcher-electron
     sudo rm /etc/yum.repos.d/bintray-resin-io-redhat.repo
