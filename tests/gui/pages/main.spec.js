@@ -241,8 +241,9 @@ describe('Browser: MainPage', function() {
             speed: 100000000000000
           });
 
-          settings.set('unmountOnSuccess', true);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('0%');
+          return settings.set('unmountOnSuccess', true).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('0%');
+          });
         });
 
         it('should handle percentage == 0, type = write, unmountOnSuccess', function() {
@@ -257,8 +258,9 @@ describe('Browser: MainPage', function() {
             speed: 0
           });
 
-          settings.set('unmountOnSuccess', true);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...');
+          return settings.set('unmountOnSuccess', true).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...');
+          });
         });
 
         it('should handle percentage == 0, type = write, !unmountOnSuccess', function() {
@@ -273,8 +275,9 @@ describe('Browser: MainPage', function() {
             speed: 0
           });
 
-          settings.set('unmountOnSuccess', false);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...');
+          return settings.set('unmountOnSuccess', false).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...');
+          });
         });
 
         it('should handle percentage == 0, type = check, unmountOnSuccess', function() {
@@ -289,8 +292,9 @@ describe('Browser: MainPage', function() {
             speed: 0
           });
 
-          settings.set('unmountOnSuccess', true);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...');
+          return settings.set('unmountOnSuccess', true).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...');
+          });
         });
 
         it('should handle percentage == 0, type = check, !unmountOnSuccess', function() {
@@ -305,8 +309,9 @@ describe('Browser: MainPage', function() {
             speed: 0
           });
 
-          settings.set('unmountOnSuccess', false);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...');
+          return settings.set('unmountOnSuccess', false).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Starting...');
+          });
         });
 
         it('should handle percentage == 50, type = write, unmountOnSuccess', function() {
@@ -321,8 +326,9 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          settings.set('unmountOnSuccess', true);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('50%');
+          return settings.set('unmountOnSuccess', true).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('50%');
+          });
         });
 
         it('should handle percentage == 50, type = write, !unmountOnSuccess', function() {
@@ -337,8 +343,9 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          settings.set('unmountOnSuccess', false);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('50%');
+          return settings.set('unmountOnSuccess', false).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('50%');
+          });
         });
 
         it('should handle percentage == 50, type = check, unmountOnSuccess', function() {
@@ -353,8 +360,9 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          settings.set('unmountOnSuccess', true);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('50% Validating...');
+          return settings.set('unmountOnSuccess', true).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('50% Validating...');
+          });
         });
 
         it('should handle percentage == 50, type = check, !unmountOnSuccess', function() {
@@ -369,8 +377,9 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          settings.set('unmountOnSuccess', false);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('50% Validating...');
+          return settings.set('unmountOnSuccess', false).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('50% Validating...');
+          });
         });
 
         it('should handle percentage == 100, type = write, unmountOnSuccess', function() {
@@ -385,8 +394,9 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          settings.set('unmountOnSuccess', true);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('Finishing...');
+          return settings.set('unmountOnSuccess', true).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Finishing...');
+          });
         });
 
         it('should handle percentage == 100, type = write, !unmountOnSuccess', function() {
@@ -401,8 +411,9 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          settings.set('unmountOnSuccess', false);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('Finishing...');
+          return settings.set('unmountOnSuccess', false).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Finishing...');
+          });
         });
 
         it('should handle percentage == 100, type = check, unmountOnSuccess', function() {
@@ -417,8 +428,9 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          settings.set('unmountOnSuccess', true);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('Unmounting...');
+          return settings.set('unmountOnSuccess', true).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Unmounting...');
+          });
         });
 
         it('should handle percentage == 100, type = check, !unmountOnSuccess', function() {
@@ -433,8 +445,9 @@ describe('Browser: MainPage', function() {
             speed: 1000
           });
 
-          settings.set('unmountOnSuccess', false);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('Finishing...');
+          return settings.set('unmountOnSuccess', false).then(() => {
+            m.chai.expect(controller.getProgressButtonLabel()).to.equal('Finishing...');
+          });
         });
 
       });
