@@ -9964,11 +9964,6 @@
       "resolved": "https://registry.npmjs.org/xdg-basedir/-/xdg-basedir-3.0.0.tgz",
       "dev": true
     },
-    "xml2js": {
-      "version": "0.4.17",
-      "from": "xml2js@0.4.17",
-      "resolved": "https://registry.npmjs.org/xml2js/-/xml2js-0.4.17.tgz"
-    },
     "xmlbuilder": {
       "version": "4.2.1",
       "from": "xmlbuilder@>=4.1.0 <5.0.0",
