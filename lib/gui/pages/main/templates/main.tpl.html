@@ -62,7 +62,7 @@
             ng-class="{
               'text-disabled': main.shouldDriveStepBeDisabled()
             }"
-            uib-tooltip="{{ main.selection.getDrive().description }} ({{ main.selection.getDrive().name }})">
+            uib-tooltip="{{ main.selection.getDrive().description }} ({{ main.selection.getDrive().displayName }})">
             <span class="step-drive step-name">
               <!-- middleEllipses errors on undefined, therefore fallback to empty string -->
               {{ (main.selection.getDrive().description || "") | middleEllipses:11 }}

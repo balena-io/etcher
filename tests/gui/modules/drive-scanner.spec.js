@@ -81,6 +81,7 @@ describe('Browser: driveScanner', function() {
         this.drivelistStub.yields(null, [
           {
             device: '/dev/sda',
+            displayName: '/dev/sda',
             description: 'WDC WD10JPVX-75J',
             size: '931.5G',
             mountpoints: [
@@ -92,6 +93,7 @@ describe('Browser: driveScanner', function() {
           },
           {
             device: '/dev/sdb',
+            displayName: '/dev/sdb',
             description: 'Foo',
             size: '14G',
             mountpoints: [
@@ -103,6 +105,7 @@ describe('Browser: driveScanner', function() {
           },
           {
             device: '/dev/sdc',
+            displayName: '/dev/sdc',
             description: 'Bar',
             size: '14G',
             mountpoints: [
@@ -124,7 +127,7 @@ describe('Browser: driveScanner', function() {
           m.chai.expect(drives).to.deep.equal([
             {
               device: '/dev/sdb',
-              name: '/dev/sdb',
+              displayName: '/dev/sdb',
               description: 'Foo',
               size: '14G',
               mountpoints: [
@@ -136,7 +139,7 @@ describe('Browser: driveScanner', function() {
             },
             {
               device: '/dev/sdc',
-              name: '/dev/sdc',
+              displayName: '/dev/sdc',
               description: 'Bar',
               size: '14G',
               mountpoints: [
@@ -177,6 +180,7 @@ describe('Browser: driveScanner', function() {
         this.drivelistStub.yields(null, [
           {
             device: '\\\\.\\PHYSICALDRIVE1',
+            displayName: 'C:',
             description: 'WDC WD10JPVX-75J',
             size: '931.5G',
             mountpoints: [
@@ -188,6 +192,7 @@ describe('Browser: driveScanner', function() {
           },
           {
             device: '\\\\.\\PHYSICALDRIVE2',
+            displayName: '\\\\.\\PHYSICALDRIVE2',
             description: 'Foo',
             size: '14G',
             mountpoints: [],
@@ -195,6 +200,7 @@ describe('Browser: driveScanner', function() {
           },
           {
             device: '\\\\.\\PHYSICALDRIVE3',
+            displayName: 'F:',
             description: 'Bar',
             size: '14G',
             mountpoints: [
@@ -216,7 +222,7 @@ describe('Browser: driveScanner', function() {
           m.chai.expect(drives).to.deep.equal([
             {
               device: '\\\\.\\PHYSICALDRIVE2',
-              name: '\\\\.\\PHYSICALDRIVE2',
+              displayName: '\\\\.\\PHYSICALDRIVE2',
               description: 'Foo',
               size: '14G',
               mountpoints: [],
@@ -224,7 +230,7 @@ describe('Browser: driveScanner', function() {
             },
             {
               device: '\\\\.\\PHYSICALDRIVE3',
-              name: 'F:',
+              displayName: 'F:',
               description: 'Bar',
               size: '14G',
               mountpoints: [
@@ -252,6 +258,7 @@ describe('Browser: driveScanner', function() {
         this.drivelistStub.yields(null, [
           {
             device: '\\\\.\\PHYSICALDRIVE3',
+            displayName: 'F:',
             description: 'Bar',
             size: '14G',
             mountpoints: [
@@ -271,7 +278,7 @@ describe('Browser: driveScanner', function() {
       it('should use the drive letter as the name', function(done) {
         driveScanner.once('drives', function(drives) {
           m.chai.expect(drives).to.have.length(1);
-          m.chai.expect(drives[0].name).to.equal('F:');
+          m.chai.expect(drives[0].displayName).to.equal('F:');
           driveScanner.stop();
           done();
         });
@@ -288,6 +295,7 @@ describe('Browser: driveScanner', function() {
         this.drivesListStub.yields(null, [
           {
             device: '\\\\.\\PHYSICALDRIVE3',
+            displayName: 'F:, G:, H:',
             description: 'Bar',
             size: '14G',
             mountpoints: [
@@ -313,7 +321,7 @@ describe('Browser: driveScanner', function() {
       it('should join all the mountpoints in `name`', function(done) {
         driveScanner.once('drives', function(drives) {
           m.chai.expect(drives).to.have.length(1);
-          m.chai.expect(drives[0].name).to.equal('F:, G:, H:');
+          m.chai.expect(drives[0].displayName).to.equal('F:, G:, H:');
           driveScanner.stop();
           done();
         });

@@ -51,7 +51,7 @@
     "bootstrap-sass": "3.3.6",
     "chalk": "1.1.3",
     "command-join": "2.0.0",
-    "drivelist": "5.0.27",
+    "drivelist": "5.1.0",
     "electron-is-running-in-asar": "1.0.0",
     "etcher-image-write": "9.1.3",
     "file-type": "4.1.0",
