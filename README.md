@@ -87,17 +87,17 @@ sudo apt-get update
 
 ##### Uninstall
 
-    ```
-    sudo yum remove -y etcher-electron
-    sudo rm /etc/yum.repos.d/bintray-resin-io-redhat.repo
-    sudo yum clean all; sudo yum makecache fast
-    ```
-    or
-    ```
-    sudo dnf remove -y etcher-electron
-    sudo rm /etc/yum.repos.d/bintray-resin-io-redhat.repo
-    sudo yum clean all; sudo yum makecache fast
-    ```
+```
+sudo yum remove -y etcher-electron
+sudo rm /etc/yum.repos.d/bintray-resin-io-redhat.repo
+sudo yum clean all; sudo yum makecache fast
+```
+or
+```
+sudo dnf remove -y etcher-electron
+sudo rm /etc/yum.repos.d/bintray-resin-io-redhat.repo
+sudo yum clean all; sudo yum makecache fast
+```
 
 #### Brew Cask (macOS)
 
