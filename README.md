@@ -67,7 +67,7 @@ sudo apt-get remove etcher-electron
 sudo rm /etc/apt/sources.list.d/etcher.list
 sudo apt-get update
 ```
-#### Redhat(RHEL) and Fedora based Package Repository (GNU/Linux x86/x64)
+#### Redhat (RHEL) and Fedora based Package Repository (GNU/Linux x86/x64)
 
 1. Add Etcher rpm repository:
 
@@ -90,13 +90,15 @@ sudo apt-get update
 ```
 sudo yum remove -y etcher-electron
 sudo rm /etc/yum.repos.d/bintray-resin-io-redhat.repo
-sudo yum clean all; sudo yum makecache fast
+sudo yum clean all
+sudo yum makecache fast
 ```
 or
 ```
 sudo dnf remove -y etcher-electron
 sudo rm /etc/yum.repos.d/bintray-resin-io-redhat.repo
-sudo yum clean all; sudo yum makecache fast
+sudo dnf clean all
+sudo dnf makecache
 ```
 
 #### Brew Cask (macOS)
