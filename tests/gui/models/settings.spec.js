@@ -1,3 +1,19 @@
+/*
+ * Copyright 2017 resin.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 'use strict';
 
 const m = require('mochainon');
@@ -7,15 +23,14 @@ const store = require('../../../lib/shared/store');
 const settings = require('../../../lib/gui/models/settings');
 const localSettings = require('../../../lib/gui/models/local-settings');
 
-describe('Browser: settings', function() {
-
-  beforeEach(function() {
+describe('Browser: settings', function () {
+  beforeEach(function () {
     return settings.reset();
   });
 
   const DEFAULT_SETTINGS = store.Defaults.get('settings').toJS();
 
-  it('should be able to set and read values', function() {
+  it('should be able to set and read values', function () {
     m.chai.expect(settings.get('foo')).to.be.undefined;
     return settings.set('foo', true).then(() => {
       m.chai.expect(settings.get('foo')).to.be.true;
@@ -25,9 +40,8 @@ describe('Browser: settings', function() {
     });
   });
 
-  describe('.reset()', function() {
-
-    it('should reset the settings to their default values', function() {
+  describe('.reset()', function () {
+    it('should reset the settings to their default values', function () {
       m.chai.expect(settings.getAll()).to.deep.equal(DEFAULT_SETTINGS);
       return settings.set('foo', 1234).then(() => {
         m.chai.expect(settings.getAll()).to.not.deep.equal(DEFAULT_SETTINGS);
@@ -37,7 +51,7 @@ describe('Browser: settings', function() {
       });
     });
 
-    it('should reset the local settings to their default values', function() {
+    it('should reset the local settings to their default values', function () {
       return settings.set('foo', 1234).then(localSettings.readAll).then((data) => {
         m.chai.expect(data).to.not.deep.equal(DEFAULT_SETTINGS);
         return settings.reset();
@@ -46,25 +60,21 @@ describe('Browser: settings', function() {
       });
     });
 
-    describe('given the local settings are cleared', function() {
-
-      beforeEach(function() {
+    describe('given the local settings are cleared', function () {
+      beforeEach(function () {
         return localSettings.clear();
       });
 
-      it('should set the local settings to their default values', function() {
+      it('should set the local settings to their default values', function () {
         return settings.reset().then(localSettings.readAll).then((data) => {
           m.chai.expect(data).to.deep.equal(DEFAULT_SETTINGS);
         });
       });
-
     });
-
   });
 
-  describe('.assign()', function() {
-
-    it('should throw if no settings', function(done) {
+  describe('.assign()', function () {
+    it('should throw if no settings', function (done) {
       settings.assign().asCallback((error) => {
         m.chai.expect(error).to.be.an.instanceof(Error);
         m.chai.expect(error.message).to.equal('Missing settings');
@@ -72,7 +82,7 @@ describe('Browser: settings', function() {
       });
     });
 
-    it('should throw if setting an array', function(done) {
+    it('should throw if setting an array', function (done) {
       settings.assign({
         foo: 'bar',
         bar: [ 1, 2, 3 ]
@@ -83,7 +93,7 @@ describe('Browser: settings', function() {
       });
     });
 
-    it('should not override all settings', function() {
+    it('should not override all settings', function () {
       return settings.assign({
         foo: 'bar',
         bar: 'baz'
@@ -95,7 +105,7 @@ describe('Browser: settings', function() {
       });
     });
 
-    it('should not store invalid settings to the local machine', function() {
+    it('should not store invalid settings to the local machine', function () {
       return localSettings.readAll().then((data) => {
         m.chai.expect(data.foo).to.be.undefined;
 
@@ -113,7 +123,7 @@ describe('Browser: settings', function() {
       });
     });
 
-    it('should store the settings to the local machine', function() {
+    it('should store the settings to the local machine', function () {
       return localSettings.readAll().then((data) => {
         m.chai.expect(data.foo).to.be.undefined;
         m.chai.expect(data.bar).to.be.undefined;
@@ -128,7 +138,7 @@ describe('Browser: settings', function() {
       });
     });
 
-    it('should not change the application state if storing to the local machine results in an error', function(done) {
+    it('should not change the application state if storing to the local machine results in an error', function (done) {
       settings.set('foo', 'bar').then(() => {
         m.chai.expect(settings.get('foo')).to.equal('bar');
 
@@ -146,12 +156,10 @@ describe('Browser: settings', function() {
         });
       }).catch(done);
     });
-
   });
 
-  describe('.load()', function() {
-
-    it('should extend the application state with the local settings content', function() {
+  describe('.load()', function () {
+    it('should extend the application state with the local settings content', function () {
       const object = {
         foo: 'bar'
       };
@@ -166,25 +174,23 @@ describe('Browser: settings', function() {
       });
     });
 
-    it('should keep the application state intact if there are no local settings', function() {
+    it('should keep the application state intact if there are no local settings', function () {
       m.chai.expect(settings.getAll()).to.deep.equal(DEFAULT_SETTINGS);
       return localSettings.clear().then(settings.load).then(() => {
         m.chai.expect(settings.getAll()).to.deep.equal(DEFAULT_SETTINGS);
       });
     });
-
   });
 
-  describe('.set()', function() {
-
-    it('should set an unknown key', function() {
+  describe('.set()', function () {
+    it('should set an unknown key', function () {
       m.chai.expect(settings.get('foobar')).to.be.undefined;
       return settings.set('foobar', true).then(() => {
         m.chai.expect(settings.get('foobar')).to.be.true;
       });
     });
 
-    it('should reject if no key', function(done) {
+    it('should reject if no key', function (done) {
       settings.set(null, true).asCallback((error) => {
         m.chai.expect(error).to.be.an.instanceof(Error);
         m.chai.expect(error.message).to.equal('Missing setting key');
@@ -192,7 +198,7 @@ describe('Browser: settings', function() {
       });
     });
 
-    it('should throw if key is not a string', function(done) {
+    it('should throw if key is not a string', function (done) {
       settings.set(1234, true).asCallback((error) => {
         m.chai.expect(error).to.be.an.instanceof(Error);
         m.chai.expect(error.message).to.equal('Invalid setting key: 1234');
@@ -200,7 +206,7 @@ describe('Browser: settings', function() {
       });
     });
 
-    it('should throw if setting an object', function(done) {
+    it('should throw if setting an object', function (done) {
       settings.set('foo', {
         setting: 1
       }).asCallback((error) => {
@@ -210,7 +216,7 @@ describe('Browser: settings', function() {
       });
     });
 
-    it('should throw if setting an array', function(done) {
+    it('should throw if setting an array', function (done) {
       settings.set('foo', [ 1, 2, 3 ]).asCallback((error) => {
         m.chai.expect(error).to.be.an.instanceof(Error);
         m.chai.expect(error.message).to.equal('Invalid setting value: 1,2,3 for foo');
@@ -218,7 +224,7 @@ describe('Browser: settings', function() {
       });
     });
 
-    it('should set the key to undefined if no value', function() {
+    it('should set the key to undefined if no value', function () {
       return settings.set('foo', 'bar').then(() => {
         m.chai.expect(settings.get('foo')).to.equal('bar');
         return settings.set('foo');
@@ -227,7 +233,7 @@ describe('Browser: settings', function() {
       });
     });
 
-    it('should store the setting to the local machine', function() {
+    it('should store the setting to the local machine', function () {
       return localSettings.readAll().then((data) => {
         m.chai.expect(data.foo).to.be.undefined;
         return settings.set('foo', 'bar');
@@ -236,7 +242,7 @@ describe('Browser: settings', function() {
       });
     });
 
-    it('should not store invalid settings to the local machine', function() {
+    it('should not store invalid settings to the local machine', function () {
       return localSettings.readAll().then((data) => {
         m.chai.expect(data.foo).to.be.undefined;
 
@@ -252,7 +258,7 @@ describe('Browser: settings', function() {
       });
     });
 
-    it('should not change the application state if storing to the local machine results in an error', function(done) {
+    it('should not change the application state if storing to the local machine results in an error', function (done) {
       settings.set('foo', 'bar').then(() => {
         m.chai.expect(settings.get('foo')).to.equal('bar');
 
@@ -268,15 +274,11 @@ describe('Browser: settings', function() {
         });
       }).catch(done);
     });
-
   });
 
-  describe('.getAll()', function() {
-
-    it('should initial return all default values', function() {
+  describe('.getAll()', function () {
+    it('should initial return all default values', function () {
       m.chai.expect(settings.getAll()).to.deep.equal(DEFAULT_SETTINGS);
     });
-
   });
-
 });

@@ -25,23 +25,19 @@ const XZ_PATH = path.join(DATA_PATH, 'xz');
 const imageStream = require('../../lib/image-stream/index');
 const tester = require('./tester');
 
-describe('ImageStream: XZ', function() {
-
+describe('ImageStream: XZ', function () {
   this.timeout(tester.DEFAULT_IMAGE_TESTS_TIMEOUT);
 
-  describe('.getFromFilePath()', function() {
-
-    describe('given a xz image', function() {
+  describe('.getFromFilePath()', function () {
+    describe('given a xz image', function () {
       tester.extractFromFilePath(
         path.join(XZ_PATH, 'etcher-test.img.xz'),
         path.join(IMAGES_PATH, 'etcher-test.img'));
     });
-
   });
 
-  describe('.getImageMetadata()', function() {
-
-    it('should return the correct metadata', function() {
+  describe('.getImageMetadata()', function () {
+    it('should return the correct metadata', function () {
       const image = path.join(XZ_PATH, 'etcher-test.img.xz');
       const compressedSize = fs.statSync(image).size;
       const uncompressedSize = fs.statSync(path.join(IMAGES_PATH, 'etcher-test.img')).size;
@@ -64,7 +60,5 @@ describe('ImageStream: XZ', function() {
         });
       });
     });
-
   });
-
 });

@@ -20,16 +20,14 @@ const m = require('mochainon');
 const _ = require('lodash');
 const messages = require('../../lib/shared/messages');
 
-describe('Shared: Messages', function() {
-
-  it('should contain object properties', function() {
+describe('Shared: Messages', function () {
+  it('should contain object properties', function () {
     m.chai.expect(_.every(_.map(messages, _.isPlainObject))).to.be.true;
   });
 
-  it('should contain function properties in each category', function() {
+  it('should contain function properties in each category', function () {
     _.each(messages, (category) => {
       m.chai.expect(_.every(_.map(category, _.isFunction))).to.be.true;
     });
   });
-
 });

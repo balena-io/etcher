@@ -20,36 +20,32 @@ const m = require('mochainon');
 const _ = require('lodash');
 const imageStream = require('../../lib/image-stream/index');
 
-describe('ImageStream', function() {
-
-  describe('.supportedFileTypes', function() {
-
-    it('should be an array', function() {
+describe('ImageStream', function () {
+  describe('.supportedFileTypes', function () {
+    it('should be an array', function () {
       m.chai.expect(_.isArray(imageStream.supportedFileTypes)).to.be.true;
     });
 
-    it('should not be empty', function() {
+    it('should not be empty', function () {
       m.chai.expect(_.isEmpty(imageStream.supportedFileTypes)).to.be.false;
     });
 
-    it('should contain only strings', function() {
-      m.chai.expect(_.every(_.map(imageStream.supportedFileTypes, function(fileType) {
+    it('should contain only strings', function () {
+      m.chai.expect(_.every(_.map(imageStream.supportedFileTypes, function (fileType) {
         return _.isString(fileType.extension) && _.isString(fileType.type);
       }))).to.be.true;
     });
 
-    it('should not contain empty strings', function() {
-      m.chai.expect(_.every(_.map(imageStream.supportedFileTypes, function(fileType) {
+    it('should not contain empty strings', function () {
+      m.chai.expect(_.every(_.map(imageStream.supportedFileTypes, function (fileType) {
         return !_.isEmpty(fileType.extension) && !_.isEmpty(fileType.type);
       }))).to.be.true;
     });
 
-    it('should not contain a leading period in any file type extension', function() {
-      m.chai.expect(_.every(_.map(imageStream.supportedFileTypes, function(fileType) {
+    it('should not contain a leading period in any file type extension', function () {
+      m.chai.expect(_.every(_.map(imageStream.supportedFileTypes, function (fileType) {
         return _.first(fileType.extension) !== '.';
       }))).to.be.true;
     });
-
   });
-
 });

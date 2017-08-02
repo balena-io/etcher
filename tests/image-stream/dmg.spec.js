@@ -25,60 +25,53 @@ const DMG_PATH = path.join(DATA_PATH, 'dmg');
 const imageStream = require('../../lib/image-stream/index');
 const tester = require('./tester');
 
-describe('ImageStream: DMG', function() {
-
+describe('ImageStream: DMG', function () {
   this.timeout(tester.DEFAULT_IMAGE_TESTS_TIMEOUT);
 
-  describe('compression method', function() {
-
-    describe('NONE', function() {
+  describe('compression method', function () {
+    describe('NONE', function () {
       tester.extractFromFilePath(
         path.join(DMG_PATH, 'etcher-test-raw.dmg'),
         path.join(IMAGES_PATH, 'etcher-test.img'));
     });
 
-    describe('UDCO (ADC)', function() {
+    describe('UDCO (ADC)', function () {
       tester.extractFromFilePath(
         path.join(DMG_PATH, 'etcher-test-adc.dmg'),
         path.join(IMAGES_PATH, 'etcher-test.img'));
     });
 
-    describe('UDZO (ZLIB)', function() {
+    describe('UDZO (ZLIB)', function () {
       tester.extractFromFilePath(
         path.join(DMG_PATH, 'etcher-test-zlib.dmg'),
         path.join(IMAGES_PATH, 'etcher-test.img'));
     });
 
-    describe('UDBZ (BZIP2)', function() {
+    describe('UDBZ (BZIP2)', function () {
       tester.extractFromFilePath(
         path.join(DMG_PATH, 'etcher-test-bz2.dmg'),
         path.join(IMAGES_PATH, 'etcher-test.img'));
     });
 
     // NOTE: Skipped, as LZFSE is not supported by `udif` module yet
-    describe.skip('ULFO (LZFSE)', function() {
+    describe.skip('ULFO (LZFSE)', function () {
       tester.extractFromFilePath(
         path.join(DMG_PATH, 'etcher-test-lzfse.dmg'),
         path.join(IMAGES_PATH, 'etcher-test.img'));
     });
-
   });
 
-  context('zlib compressed', function() {
-
-    describe('.getFromFilePath()', function() {
-
-      describe('given an dmg image', function() {
+  context('zlib compressed', function () {
+    describe('.getFromFilePath()', function () {
+      describe('given an dmg image', function () {
         tester.extractFromFilePath(
           path.join(DMG_PATH, 'etcher-test-zlib.dmg'),
           path.join(IMAGES_PATH, 'etcher-test.img'));
       });
-
     });
 
-    describe('.getImageMetadata()', function() {
-
-      it('should return the correct metadata', function() {
+    describe('.getImageMetadata()', function () {
+      it('should return the correct metadata', function () {
         const image = path.join(DMG_PATH, 'etcher-test-zlib.dmg');
         const uncompressedSize = fs.statSync(path.join(IMAGES_PATH, 'etcher-test.img')).size;
 
@@ -99,26 +92,20 @@ describe('ImageStream: DMG', function() {
           });
         });
       });
-
     });
-
   });
 
-  context('uncompressed', function() {
-
-    describe('.getFromFilePath()', function() {
-
-      describe('given an dmg image', function() {
+  context('uncompressed', function () {
+    describe('.getFromFilePath()', function () {
+      describe('given an dmg image', function () {
         tester.extractFromFilePath(
           path.join(DMG_PATH, 'etcher-test-raw.dmg'),
           path.join(IMAGES_PATH, 'etcher-test.img'));
       });
-
     });
 
-    describe('.getImageMetadata()', function() {
-
-      it('should return the correct metadata', function() {
+    describe('.getImageMetadata()', function () {
+      it('should return the correct metadata', function () {
         const image = path.join(DMG_PATH, 'etcher-test-raw.dmg');
         const uncompressedSize = fs.statSync(path.join(IMAGES_PATH, 'etcher-test.img')).size;
 
@@ -139,19 +126,14 @@ describe('ImageStream: DMG', function() {
           });
         });
       });
-
     });
-
   });
 
-  context('invalid', function() {
-
-    describe('given an invalid dmg file', function() {
+  context('invalid', function () {
+    describe('given an invalid dmg file', function () {
       tester.expectError(
         path.join(DATA_PATH, 'unrecognized', 'invalid.dmg'),
         'Invalid image', 'Invalid footer');
     });
-
   });
-
 });

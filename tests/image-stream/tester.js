@@ -28,13 +28,13 @@ const doFilesContainTheSameData = (file1, file2) => {
   return Bluebird.props({
     file1: fs.readFileAsync(file1),
     file2: fs.readFileAsync(file2)
-  }).then(function(data) {
+  }).then(function (data) {
     return _.isEqual(data.file1, data.file2);
   });
 };
 
 const deleteIfExists = (file) => {
-  return Bluebird.try(function() {
+  return Bluebird.try(function () {
     if (fileExists(file)) {
       return fs.unlinkAsync(file);
     }
@@ -45,8 +45,8 @@ const deleteIfExists = (file) => {
 
 exports.DEFAULT_IMAGE_TESTS_TIMEOUT = 20000;
 
-exports.expectError = function(file, errorMessage, errorDetail) {
-  it('should be rejected with an error', function() {
+exports.expectError = function (file, errorMessage, errorDetail) {
+  it('should be rejected with an error', function () {
     return imageStream.getFromFilePath(file).catch((error) => {
       m.chai.expect(error).to.be.an.instanceof(Error);
       m.chai.expect(error.message).to.equal(errorMessage);
@@ -59,11 +59,11 @@ exports.expectError = function(file, errorMessage, errorDetail) {
   });
 };
 
-exports.extractFromFilePath = function(file, image) {
-  it('should be able to extract the image', function() {
+exports.extractFromFilePath = function (file, image) {
+  it('should be able to extract the image', function () {
     const output = tmp.tmpNameSync();
 
-    return imageStream.getFromFilePath(file).then(function(results) {
+    return imageStream.getFromFilePath(file).then(function (results) {
       m.chai.expect(results.path).to.equal(file);
       m.chai.expect(_.isString(results.extension)).to.be.true;
       m.chai.expect(_.isEmpty(_.trim(results.extension))).to.be.false;
@@ -83,11 +83,11 @@ exports.extractFromFilePath = function(file, image) {
         stream.on('error', reject);
         stream.on('close', resolve);
       });
-    }).then(function() {
+    }).then(function () {
       return doFilesContainTheSameData(image, output);
-    }).then(function(areEqual) {
+    }).then(function (areEqual) {
       m.chai.expect(areEqual).to.be.true;
-    }).finally(function() {
+    }).finally(function () {
       return deleteIfExists(output);
     });
   });

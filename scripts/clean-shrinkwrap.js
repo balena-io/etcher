@@ -113,11 +113,9 @@ const getShrinkwrapDependencyManifest = (shrinkwrapPath) => {
     .value();
 
   try {
-
     // For example
     // ./node_modules/drivelist/node_modules/lodash/package.json
     return require(`.${path.sep}${manifestPath}`);
-
   } catch (error) {
     if (error.code === 'MODULE_NOT_FOUND') {
       return null;

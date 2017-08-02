@@ -24,23 +24,19 @@ const IMAGES_PATH = path.join(DATA_PATH, 'images');
 const imageStream = require('../../lib/image-stream/index');
 const tester = require('./tester');
 
-describe('ImageStream: ISO', function() {
-
+describe('ImageStream: ISO', function () {
   this.timeout(tester.DEFAULT_IMAGE_TESTS_TIMEOUT);
 
-  describe('.getFromFilePath()', function() {
-
-    describe('given an iso image', function() {
+  describe('.getFromFilePath()', function () {
+    describe('given an iso image', function () {
       tester.extractFromFilePath(
         path.join(IMAGES_PATH, 'etcher-test.iso'),
         path.join(IMAGES_PATH, 'etcher-test.iso'));
     });
-
   });
 
-  describe('.getImageMetadata()', function() {
-
-    it('should return the correct metadata', function() {
+  describe('.getImageMetadata()', function () {
+    it('should return the correct metadata', function () {
       const image = path.join(IMAGES_PATH, 'etcher-test.iso');
       const expectedSize = fs.statSync(image).size;
 
@@ -61,7 +57,5 @@ describe('ImageStream: ISO', function() {
         });
       });
     });
-
   });
-
 });

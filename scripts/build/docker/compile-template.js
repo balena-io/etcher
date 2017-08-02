@@ -42,4 +42,3 @@ _.each([
   const filename = path.join(currentDirectory, `Dockerfile-${options.architecture}`);
   fs.writeFileSync(filename, result);
 });
-

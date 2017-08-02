@@ -24,25 +24,20 @@ const IMAGES_PATH = path.join(DATA_PATH, 'images');
 const imageStream = require('../../lib/image-stream/index');
 const tester = require('./tester');
 
-describe('ImageStream: IMG', function() {
-
+describe('ImageStream: IMG', function () {
   this.timeout(tester.DEFAULT_IMAGE_TESTS_TIMEOUT);
 
-  describe('.getFromFilePath()', function() {
-
-    describe('given an img image', function() {
+  describe('.getFromFilePath()', function () {
+    describe('given an img image', function () {
       tester.extractFromFilePath(
         path.join(IMAGES_PATH, 'etcher-test.img'),
         path.join(IMAGES_PATH, 'etcher-test.img'));
     });
-
   });
 
-  describe('.getImageMetadata()', function() {
-
-    context('Master Boot Record', function() {
-
-      it('should return the correct metadata', function() {
+  describe('.getImageMetadata()', function () {
+    context('Master Boot Record', function () {
+      it('should return the correct metadata', function () {
         const image = path.join(IMAGES_PATH, 'etcher-test.img');
         const expectedSize = fs.statSync(image).size;
 
@@ -63,12 +58,10 @@ describe('ImageStream: IMG', function() {
           });
         });
       });
-
     });
 
-    context('GUID Partition Table', function() {
-
-      it('should return the correct metadata', function() {
+    context('GUID Partition Table', function () {
+      it('should return the correct metadata', function () {
         const image = path.join(IMAGES_PATH, 'etcher-gpt-test.img.gz');
         const uncompressedSize = 134217728;
         const expectedSize = fs.statSync(image).size;
@@ -91,9 +84,6 @@ describe('ImageStream: IMG', function() {
           });
         });
       });
-
     });
-
   });
-
 });
