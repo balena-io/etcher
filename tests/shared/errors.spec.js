@@ -445,6 +445,16 @@ describe('Shared: Errors', function () {
       m.chai.expect(errors.getDescription(error)).to.equal('Something happened')
     })
 
+    it('should correctly add a code', function () {
+      const error = errors.createError({
+        title: 'Foo',
+        description: 'Something happened',
+        code: 'HELLO'
+      })
+
+      m.chai.expect(error.code).to.equal('HELLO')
+    })
+
     it('should correctly add only a title', function () {
       const error = errors.createError({
         title: 'Foo'
@@ -539,6 +549,15 @@ describe('Shared: Errors', function () {
 
       m.chai.expect(errors.getTitle(error)).to.equal('Foo')
       m.chai.expect(errors.getDescription(error)).to.equal(error.stack)
+    })
+
+    it('should correctly add a code', function () {
+      const error = errors.createUserError({
+        title: 'Foo',
+        code: 'HELLO'
+      })
+
+      m.chai.expect(error.code).to.equal('HELLO')
     })
 
     it('should ignore an empty description', function () {
