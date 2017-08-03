@@ -20,26 +20,24 @@ const m = require('mochainon');
 const angular = require('angular');
 require('angular-mocks');
 
-describe('Browser: OSDropzone', function() {
-
+describe('Browser: OSDropzone', function () {
   beforeEach(angular.mock.module(
     require('../../../lib/gui/os/dropzone/dropzone')
   ));
 
-  describe('osDropzone', function() {
-
+  describe('osDropzone', function () {
     let $compile;
     let $rootScope;
     let $timeout;
 
-    beforeEach(angular.mock.inject(function(_$compile_, _$rootScope_, _$timeout_) {
+    beforeEach(angular.mock.inject(function (_$compile_, _$rootScope_, _$timeout_) {
       $compile = _$compile_;
       $rootScope = _$rootScope_;
       $timeout = _$timeout_;
     }));
 
-    it('should pass the file back to the callback as $file', function(done) {
-      $rootScope.onDropZone = function(file) {
+    it('should pass the file back to the callback as $file', function (done) {
+      $rootScope.onDropZone = function (file) {
         m.chai.expect(file).to.deep.equal('/foo/bar');
         done();
       };
@@ -62,8 +60,8 @@ describe('Browser: OSDropzone', function() {
       $timeout.flush();
     });
 
-    it('should pass undefined to the callback if not passing $file', function(done) {
-      $rootScope.onDropZone = function(file) {
+    it('should pass undefined to the callback if not passing $file', function (done) {
+      $rootScope.onDropZone = function (file) {
         m.chai.expect(file).to.be.undefined;
         done();
       };
@@ -85,7 +83,5 @@ describe('Browser: OSDropzone', function() {
       $rootScope.$digest();
       $timeout.flush();
     });
-
   });
-
 });

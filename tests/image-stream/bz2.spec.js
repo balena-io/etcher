@@ -25,29 +25,25 @@ const BZ2_PATH = path.join(DATA_PATH, 'bz2');
 const imageStream = require('../../lib/image-stream/index');
 const tester = require('./tester');
 
-describe('ImageStream: BZ2', function() {
-
+describe('ImageStream: BZ2', function () {
   this.timeout(tester.DEFAULT_IMAGE_TESTS_TIMEOUT);
 
-  describe('compression method', function() {
-
-    describe('bzip2 level 9', function() {
+  describe('compression method', function () {
+    describe('bzip2 level 9', function () {
       tester.extractFromFilePath(
         path.join(BZ2_PATH, 'etcher-test-9.img.bz2'),
         path.join(IMAGES_PATH, 'etcher-test.img'));
     });
 
-    describe('bzip2 level 1', function() {
+    describe('bzip2 level 1', function () {
       tester.extractFromFilePath(
         path.join(BZ2_PATH, 'etcher-test.img.bz2'),
         path.join(IMAGES_PATH, 'etcher-test.img'));
     });
-
   });
 
-  describe('.getImageMetadata()', function() {
-
-    it('should return the correct metadata', function() {
+  describe('.getImageMetadata()', function () {
+    it('should return the correct metadata', function () {
       const image = path.join(BZ2_PATH, 'etcher-test.img.bz2');
       const expectedSize = fs.statSync(image).size;
 
@@ -69,7 +65,5 @@ describe('ImageStream: BZ2', function() {
         });
       });
     });
-
   });
-
 });

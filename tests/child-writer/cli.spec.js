@@ -19,31 +19,27 @@
 const m = require('mochainon');
 const cli = require('../../lib/child-writer/cli');
 
-describe('ChildWriter CLI', function() {
-
-  describe('.getBooleanArgumentForm()', function() {
-
-    it('should prepend --no if the value is false and option is long', function() {
+describe('ChildWriter CLI', function () {
+  describe('.getBooleanArgumentForm()', function () {
+    it('should prepend --no if the value is false and option is long', function () {
       m.chai.expect(cli.getBooleanArgumentForm('foo', false)).to.equal('--no-foo');
     });
 
-    it('should prepend -- if the value is true and option is long', function() {
+    it('should prepend -- if the value is true and option is long', function () {
       m.chai.expect(cli.getBooleanArgumentForm('foo', true)).to.equal('--foo');
     });
 
-    it('should prepend --no if the value is false and option is short', function() {
+    it('should prepend --no if the value is false and option is short', function () {
       m.chai.expect(cli.getBooleanArgumentForm('x', false)).to.equal('--no-x');
     });
 
-    it('should prepend - if the value is true and option is short', function() {
+    it('should prepend - if the value is true and option is short', function () {
       m.chai.expect(cli.getBooleanArgumentForm('x', true)).to.equal('-x');
     });
-
   });
 
-  describe('.getArguments()', function() {
-
-    it('should return a list of arguments given validate = false, unmount = false', function() {
+  describe('.getArguments()', function () {
+    it('should return a list of arguments given validate = false, unmount = false', function () {
       m.chai.expect(cli.getArguments({
         image: 'path/to/image.img',
         device: '/dev/disk2',
@@ -60,7 +56,7 @@ describe('ChildWriter CLI', function() {
       ]);
     });
 
-    it('should return a list of arguments given validate = false, unmount = true', function() {
+    it('should return a list of arguments given validate = false, unmount = true', function () {
       m.chai.expect(cli.getArguments({
         image: 'path/to/image.img',
         device: '/dev/disk2',
@@ -77,7 +73,7 @@ describe('ChildWriter CLI', function() {
       ]);
     });
 
-    it('should return a list of arguments given validate = true, unmount = false', function() {
+    it('should return a list of arguments given validate = true, unmount = false', function () {
       m.chai.expect(cli.getArguments({
         image: 'path/to/image.img',
         device: '/dev/disk2',
@@ -94,7 +90,7 @@ describe('ChildWriter CLI', function() {
       ]);
     });
 
-    it('should return a list of arguments given validate = true, unmount = true', function() {
+    it('should return a list of arguments given validate = true, unmount = true', function () {
       m.chai.expect(cli.getArguments({
         image: 'path/to/image.img',
         device: '/dev/disk2',
@@ -110,7 +106,5 @@ describe('ChildWriter CLI', function() {
         '--check'
       ]);
     });
-
   });
-
 });

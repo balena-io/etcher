@@ -47,7 +47,6 @@ angularValidate.validate(
   }
 ).then((result) => {
   _.each(result.failed, (failure) => {
-
     // The module has a typo in the "numbers" property
     console.error(chalk.red(`${failure.numerrs} errors at ${path.relative(PROJECT_ROOT, failure.filepath)}`));
 
@@ -77,9 +76,7 @@ angularValidate.validate(
     setTimeout(() => {
       process.exit(EXIT_CODES.GENERAL_ERROR);
     }, EXIT_TIMEOUT_MS);
-
   }
-
 }, (error) => {
   console.error(error);
   process.exit(EXIT_CODES.GENERAL_ERROR);

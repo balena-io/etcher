@@ -461,10 +461,10 @@ rules:
     - always
   operator-linebreak:
     - error
-    - before
+    - after
   padded-blocks:
     - error
-    - classes: always
+    - never
   quote-props:
     - error
     - as-needed
@@ -489,7 +489,9 @@ rules:
     - error
   space-before-function-paren:
     - error
-    - never
+    - anonymous: always
+      named: always
+      asyncArrow: never
   space-in-parens:
     - error
     - never

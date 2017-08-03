@@ -1,3 +1,19 @@
+/*
+ * Copyright 2017 resin.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 'use strict';
 
 const m = require('mochainon');
@@ -5,29 +21,25 @@ const angular = require('angular');
 const flashState = require('../../../lib/shared/models/flash-state');
 require('angular-mocks');
 
-describe('Browser: ImageWriter', function() {
-
+describe('Browser: ImageWriter', function () {
   beforeEach(angular.mock.module(
     require('../../../lib/gui/modules/image-writer')
   ));
 
-  describe('ImageWriterService', function() {
-
+  describe('ImageWriterService', function () {
     let $q;
     let $rootScope;
     let ImageWriterService;
 
-    beforeEach(angular.mock.inject(function(_$q_, _$rootScope_, _ImageWriterService_) {
+    beforeEach(angular.mock.inject(function (_$q_, _$rootScope_, _ImageWriterService_) {
       $q = _$q_;
       $rootScope = _$rootScope_;
       ImageWriterService = _ImageWriterService_;
     }));
 
-    describe('.flash()', function() {
-
-      describe('given a successful write', function() {
-
-        beforeEach(function() {
+    describe('.flash()', function () {
+      describe('given a successful write', function () {
+        beforeEach(function () {
           this.performWriteStub = m.sinon.stub(ImageWriterService, 'performWrite');
           this.performWriteStub.returns($q.resolve({
             cancelled: false,
@@ -35,11 +47,11 @@ describe('Browser: ImageWriter', function() {
           }));
         });
 
-        afterEach(function() {
+        afterEach(function () {
           this.performWriteStub.restore();
         });
 
-        it('should set flashing to false when done', function() {
+        it('should set flashing to false when done', function () {
           flashState.unsetFlashingFlag({
             cancelled: false,
             sourceChecksum: '1234'
@@ -50,7 +62,7 @@ describe('Browser: ImageWriter', function() {
           m.chai.expect(flashState.isFlashing()).to.be.false;
         });
 
-        it('should prevent writing more than once', function() {
+        it('should prevent writing more than once', function () {
           flashState.unsetFlashingFlag({
             cancelled: false,
             sourceChecksum: '1234'
@@ -62,11 +74,11 @@ describe('Browser: ImageWriter', function() {
           m.chai.expect(this.performWriteStub).to.have.been.calledOnce;
         });
 
-        it('should reject the second flash attempt', function() {
+        it('should reject the second flash attempt', function () {
           ImageWriterService.flash('foo.img', '/dev/disk2');
 
           let rejectError = null;
-          ImageWriterService.flash('foo.img', '/dev/disk2').catch(function(error) {
+          ImageWriterService.flash('foo.img', '/dev/disk2').catch(function (error) {
             rejectError = error;
           });
 
@@ -75,43 +87,41 @@ describe('Browser: ImageWriter', function() {
           m.chai.expect(rejectError).to.be.an.instanceof(Error);
           m.chai.expect(rejectError.message).to.equal('There is already a flash in progress');
         });
-
       });
 
-      describe('given an unsuccessful write', function() {
-
-        beforeEach(function() {
+      describe('given an unsuccessful write', function () {
+        beforeEach(function () {
           this.performWriteStub = m.sinon.stub(ImageWriterService, 'performWrite');
           this.error = new Error('write error');
           this.error.code = 'FOO';
           this.performWriteStub.returns($q.reject(this.error));
         });
 
-        afterEach(function() {
+        afterEach(function () {
           this.performWriteStub.restore();
         });
 
-        it('should set flashing to false when done', function() {
+        it('should set flashing to false when done', function () {
           ImageWriterService.flash('foo.img', '/dev/disk2').catch(angular.noop);
           $rootScope.$apply();
           m.chai.expect(flashState.isFlashing()).to.be.false;
         });
 
-        it('should set the error code in the flash results', function() {
+        it('should set the error code in the flash results', function () {
           ImageWriterService.flash('foo.img', '/dev/disk2').catch(angular.noop);
           $rootScope.$apply();
           const flashResults = flashState.getFlashResults();
           m.chai.expect(flashResults.errorCode).to.equal('FOO');
         });
 
-        it('should be rejected with the error', function() {
+        it('should be rejected with the error', function () {
           flashState.unsetFlashingFlag({
             cancelled: false,
             sourceChecksum: '1234'
           });
 
           let rejection;
-          ImageWriterService.flash('foo.img', '/dev/disk2').catch(function(error) {
+          ImageWriterService.flash('foo.img', '/dev/disk2').catch(function (error) {
             rejection = error;
           });
 
@@ -120,11 +130,7 @@ describe('Browser: ImageWriter', function() {
           m.chai.expect(rejection).to.be.an.instanceof(Error);
           m.chai.expect(rejection.message).to.equal('write error');
         });
-
       });
-
     });
-
   });
-
 });

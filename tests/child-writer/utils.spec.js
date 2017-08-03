@@ -19,11 +19,9 @@
 const m = require('mochainon');
 const utils = require('../../lib/child-writer/utils');
 
-describe('ChildWriter Utils', function() {
-
-  describe('.splitObjectLines()', function() {
-
-    it('should split multiple object lines', function() {
+describe('ChildWriter Utils', function () {
+  describe('.splitObjectLines()', function () {
+    it('should split multiple object lines', function () {
       const input = '{"id":"foo"}\n{"id":"bar"}\n{"id":"baz"}';
       m.chai.expect(utils.splitObjectLines(input)).to.deep.equal([
         '{"id":"foo"}',
@@ -32,7 +30,7 @@ describe('ChildWriter Utils', function() {
       ]);
     });
 
-    it('should ignore spaces in between', function() {
+    it('should ignore spaces in between', function () {
       const input = '{"id":"foo"}   \n     {"id":"bar"}\n   {"id":"baz"}';
       m.chai.expect(utils.splitObjectLines(input)).to.deep.equal([
         '{"id":"foo"}',
@@ -41,7 +39,7 @@ describe('ChildWriter Utils', function() {
       ]);
     });
 
-    it('should ignore multiple new lines', function() {
+    it('should ignore multiple new lines', function () {
       const input = '{"id":"foo"}\n\n\n\n{"id":"bar"}\n\n{"id":"baz"}';
       m.chai.expect(utils.splitObjectLines(input)).to.deep.equal([
         '{"id":"foo"}',
@@ -50,7 +48,7 @@ describe('ChildWriter Utils', function() {
       ]);
     });
 
-    it('should ignore new lines inside properties', function() {
+    it('should ignore new lines inside properties', function () {
       const input = '{"id":"foo\nbar"}\n{"id":"\nhello\n"}';
       m.chai.expect(utils.splitObjectLines(input)).to.deep.equal([
         '{"id":"foo\nbar"}',
@@ -58,7 +56,7 @@ describe('ChildWriter Utils', function() {
       ]);
     });
 
-    it('should handle carriage returns', function() {
+    it('should handle carriage returns', function () {
       const input = '{"id":"foo"}\r\n{"id":"bar"}\r\n{"id":"baz"}';
       m.chai.expect(utils.splitObjectLines(input)).to.deep.equal([
         '{"id":"foo"}',
@@ -67,7 +65,7 @@ describe('ChildWriter Utils', function() {
       ]);
     });
 
-    it('should ignore multiple carriage returns', function() {
+    it('should ignore multiple carriage returns', function () {
       const input = '{"id":"foo"}\r\n\r\n{"id":"bar"}\r\n\r\n\r\n{"id":"baz"}';
       m.chai.expect(utils.splitObjectLines(input)).to.deep.equal([
         '{"id":"foo"}',
@@ -75,7 +73,5 @@ describe('ChildWriter Utils', function() {
         '{"id":"baz"}'
       ]);
     });
-
   });
-
 });

@@ -23,33 +23,28 @@ const utils = require('../../../lib/image-stream/utils');
 const tester = require('../tester');
 const ZIP_PATH = path.join(__dirname, '..', 'data', 'zip');
 
-describe('ImageStream: Archive hooks: ZIP', function() {
-
+describe('ImageStream: Archive hooks: ZIP', function () {
   this.timeout(tester.DEFAULT_IMAGE_TESTS_TIMEOUT);
 
-  describe('.getEntries()', function() {
-
-    describe('given an empty zip', function() {
-
-      beforeEach(function() {
+  describe('.getEntries()', function () {
+    describe('given an empty zip', function () {
+      beforeEach(function () {
         this.zip = path.join(ZIP_PATH, 'zip-directory-empty.zip');
       });
 
-      it('should become an empty array', function() {
+      it('should become an empty array', function () {
         return zipHooks.getEntries(this.zip).then((entries) => {
           m.chai.expect(entries).to.deep.equal([]);
         });
       });
-
     });
 
-    describe('given a zip with multiple files in it', function() {
-
-      beforeEach(function() {
+    describe('given a zip with multiple files in it', function () {
+      beforeEach(function () {
         this.zip = path.join(ZIP_PATH, 'zip-directory-multiple-images.zip');
       });
 
-      it('should become all entries', function() {
+      it('should become all entries', function () {
         return zipHooks.getEntries(this.zip).then((entries) => {
           m.chai.expect(entries).to.deep.equal([
             {
@@ -63,16 +58,14 @@ describe('ImageStream: Archive hooks: ZIP', function() {
           ]);
         });
       });
-
     });
 
-    describe('given a zip with nested files in it', function() {
-
-      beforeEach(function() {
+    describe('given a zip with nested files in it', function () {
+      beforeEach(function () {
         this.zip = path.join(ZIP_PATH, 'zip-directory-nested-misc.zip');
       });
 
-      it('should become all entries', function() {
+      it('should become all entries', function () {
         return zipHooks.getEntries(this.zip).then((entries) => {
           m.chai.expect(entries).to.deep.equal([
             {
@@ -86,18 +79,15 @@ describe('ImageStream: Archive hooks: ZIP', function() {
           ]);
         });
       });
-
     });
-
   });
 
-  describe('.extractFile()', function() {
-
-    beforeEach(function() {
+  describe('.extractFile()', function () {
+    beforeEach(function () {
       this.zip = path.join(ZIP_PATH, 'zip-directory-nested-misc.zip');
     });
 
-    it('should be able to extract a top-level file', function() {
+    it('should be able to extract a top-level file', function () {
       const fileName = 'zip-directory-nested-misc/foo';
       return zipHooks.getEntries(this.zip).then((entries) => {
         return zipHooks.extractFile(this.zip, entries, fileName);
@@ -106,7 +96,7 @@ describe('ImageStream: Archive hooks: ZIP', function() {
       });
     });
 
-    it('should be able to extract a nested file', function() {
+    it('should be able to extract a nested file', function () {
       const fileName = 'zip-directory-nested-misc/hello/there/bar';
       return zipHooks.getEntries(this.zip).then((entries) => {
         return zipHooks.extractFile(this.zip, entries, fileName);
@@ -115,7 +105,7 @@ describe('ImageStream: Archive hooks: ZIP', function() {
       });
     });
 
-    it('should throw if the entry does not exist', function() {
+    it('should throw if the entry does not exist', function () {
       const fileName = 'zip-directory-nested-misc/xxxxxxxxxxxxxxxx';
       return zipHooks.getEntries(this.zip).then((entries) => {
         return zipHooks.extractFile(this.zip, entries, fileName);
@@ -125,7 +115,7 @@ describe('ImageStream: Archive hooks: ZIP', function() {
       });
     });
 
-    it('should throw if the entry is a directory', function() {
+    it('should throw if the entry is a directory', function () {
       const fileName = 'zip-directory-nested-misc/hello';
       return zipHooks.getEntries(this.zip).then((entries) => {
         return zipHooks.extractFile(this.zip, entries, fileName);
@@ -134,7 +124,5 @@ describe('ImageStream: Archive hooks: ZIP', function() {
         m.chai.expect(error.message).to.equal(`Invalid entry: ${fileName}`);
       });
     });
-
   });
-
 });

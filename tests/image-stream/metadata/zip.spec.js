@@ -34,19 +34,16 @@ const testMetadataProperty = (archivePath, propertyName, expectedValue) => {
   });
 };
 
-describe('ImageStream: Metadata ZIP', function() {
-
+describe('ImageStream: Metadata ZIP', function () {
   this.timeout(10000);
 
-  describe('given an archive with an invalid `manifest.json`', function() {
-
+  describe('given an archive with an invalid `manifest.json`', function () {
     tester.expectError(
       path.join(ZIP_PATH, 'etcher-test-invalid-manifest.zip'),
       'Invalid archive manifest.json');
 
-    describe('.getImageMetadata()', function() {
-
-      it('should be rejected with an error', function() {
+    describe('.getImageMetadata()', function () {
+      it('should be rejected with an error', function () {
         const image = path.join(ZIP_PATH, 'etcher-test-invalid-manifest.zip');
 
         return imageStream.getImageMetadata(image).catch((error) => {
@@ -54,61 +51,56 @@ describe('ImageStream: Metadata ZIP', function() {
           m.chai.expect(error.message).to.equal('Invalid archive manifest.json');
         });
       });
-
     });
-
   });
 
-  describe('given an archive with a `manifest.json`', function() {
-
+  describe('given an archive with a `manifest.json`', function () {
     const archive = path.join(ZIP_PATH, 'etcher-test-with-manifest.zip');
 
     tester.extractFromFilePath(
       archive,
       path.join(IMAGES_PATH, 'etcher-test.img'));
 
-    it('should read the manifest name property', function() {
+    it('should read the manifest name property', function () {
       return testMetadataProperty(archive, 'name', 'Etcher Test');
     });
 
-    it('should read the manifest version property', function() {
+    it('should read the manifest version property', function () {
       return testMetadataProperty(archive, 'version', '1.0.0');
     });
 
-    it('should read the manifest url property', function() {
+    it('should read the manifest url property', function () {
       return testMetadataProperty(archive, 'url', 'https://www.example.com');
     });
 
-    it('should read the manifest supportUrl property', function() {
+    it('should read the manifest supportUrl property', function () {
       const expectedValue = 'https://www.example.com/support/';
       return testMetadataProperty(archive, 'supportUrl', expectedValue);
     });
 
-    it('should read the manifest releaseNotesUrl property', function() {
+    it('should read the manifest releaseNotesUrl property', function () {
       const expectedValue = 'http://downloads.example.com/release_notes.txt';
       return testMetadataProperty(archive, 'releaseNotesUrl', expectedValue);
     });
 
-    it('should read the manifest checksumType property', function() {
+    it('should read the manifest checksumType property', function () {
       return testMetadataProperty(archive, 'checksumType', 'md5');
     });
 
-    it('should read the manifest checksum property', function() {
+    it('should read the manifest checksum property', function () {
       return testMetadataProperty(archive, 'checksum', 'add060b285d512f56c175b76b7ef1bee');
     });
 
-    it('should read the manifest bytesToZeroOutFromTheBeginning property', function() {
+    it('should read the manifest bytesToZeroOutFromTheBeginning property', function () {
       return testMetadataProperty(archive, 'bytesToZeroOutFromTheBeginning', 512);
     });
 
-    it('should read the manifest recommendedDriveSize property', function() {
+    it('should read the manifest recommendedDriveSize property', function () {
       return testMetadataProperty(archive, 'recommendedDriveSize', 4294967296);
     });
-
   });
 
-  describe('given an archive with a `logo.svg`', function() {
-
+  describe('given an archive with a `logo.svg`', function () {
     const archive = path.join(ZIP_PATH, 'etcher-test-with-logo.zip');
 
     const logo = [
@@ -118,14 +110,12 @@ describe('ImageStream: Metadata ZIP', function() {
       ''
     ].join('\n');
 
-    it('should read the logo contents', function() {
+    it('should read the logo contents', function () {
       return testMetadataProperty(archive, 'logo', logo);
     });
-
   });
 
-  describe('given an archive with a bmap file', function() {
-
+  describe('given an archive with a bmap file', function () {
     const archive = path.join(ZIP_PATH, 'etcher-test-with-bmap.zip');
 
     const bmap = [
@@ -143,14 +133,12 @@ describe('ImageStream: Metadata ZIP', function() {
       ''
     ].join('\n');
 
-    it('should read the bmap contents', function() {
+    it('should read the bmap contents', function () {
       return testMetadataProperty(archive, 'bmap', bmap);
     });
-
   });
 
-  describe('given an archive with instructions', function() {
-
+  describe('given an archive with instructions', function () {
     const archive = path.join(ZIP_PATH, 'etcher-test-with-instructions.zip');
 
     const instructions = [
@@ -160,10 +148,8 @@ describe('ImageStream: Metadata ZIP', function() {
       ''
     ].join('\n');
 
-    it('should read the instruction contents', function() {
+    it('should read the instruction contents', function () {
       return testMetadataProperty(archive, 'instructions', instructions);
     });
-
   });
-
 });
