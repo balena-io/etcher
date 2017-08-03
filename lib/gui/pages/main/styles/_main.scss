@@ -18,8 +18,8 @@
   margin-top: 75px;
 }
 
-svg-icon > div[disabled] img {
-  opacity: 0.2;
+svg-icon > img[disabled] {
+  opacity: $disabled-opacity;
 }
 
 .page-main .step-selection-text {
