@@ -14,39 +14,39 @@
  * limitations under the License.
  */
 
-'use strict';
+'use strict'
 
-const m = require('mochainon');
-const path = require('path');
-const DATA_PATH = path.join(__dirname, 'data');
-const IMAGES_PATH = path.join(DATA_PATH, 'images');
-const errors = require('../../lib/shared/errors');
-const imageStream = require('../../lib/image-stream/index');
+const m = require('mochainon')
+const path = require('path')
+const DATA_PATH = path.join(__dirname, 'data')
+const IMAGES_PATH = path.join(DATA_PATH, 'images')
+const errors = require('../../lib/shared/errors')
+const imageStream = require('../../lib/image-stream/index')
 
 describe('ImageStream: Directory', function () {
   describe('.getFromFilePath()', function () {
     describe('given a directory', function () {
       it('should be rejected with an error', function (done) {
         imageStream.getFromFilePath(IMAGES_PATH).catch((error) => {
-          m.chai.expect(error).to.be.an.instanceof(Error);
-          m.chai.expect(errors.getTitle(error)).to.equal('Invalid image');
-          m.chai.expect(errors.getDescription(error)).to.equal('The image must be a file');
-          m.chai.expect(errors.isUserError(error)).to.be.true;
-          done();
-        });
-      });
-    });
-  });
+          m.chai.expect(error).to.be.an.instanceof(Error)
+          m.chai.expect(errors.getTitle(error)).to.equal('Invalid image')
+          m.chai.expect(errors.getDescription(error)).to.equal('The image must be a file')
+          m.chai.expect(errors.isUserError(error)).to.be.true
+          done()
+        })
+      })
+    })
+  })
 
   describe('.getImageMetadata()', function () {
     it('should be rejected with an error', function (done) {
       imageStream.getImageMetadata(IMAGES_PATH).catch((error) => {
-        m.chai.expect(error).to.be.an.instanceof(Error);
-        m.chai.expect(errors.getTitle(error)).to.equal('Invalid image');
-        m.chai.expect(errors.getDescription(error)).to.equal('The image must be a file');
-        m.chai.expect(errors.isUserError(error)).to.be.true;
-        done();
-      });
-    });
-  });
-});
+        m.chai.expect(error).to.be.an.instanceof(Error)
+        m.chai.expect(errors.getTitle(error)).to.equal('Invalid image')
+        m.chai.expect(errors.getDescription(error)).to.equal('The image must be a file')
+        m.chai.expect(errors.isUserError(error)).to.be.true
+        done()
+      })
+    })
+  })
+})

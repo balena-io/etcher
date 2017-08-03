@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-'use strict';
+'use strict'
 
 // This script generates Dockerfiles based on a template containing all
 // the necessary dependencies/ to run and build Etcher in multiple platforms.
 
-const _ = require('lodash');
-const fs = require('fs');
-const path = require('path');
-const currentDirectory = __dirname;
+const _ = require('lodash')
+const fs = require('fs')
+const path = require('path')
+const currentDirectory = __dirname
 
 const template = fs.readFileSync(path.join(currentDirectory, 'Dockerfile.template'), {
   encoding: 'utf8'
-});
+})
 
 _.each([
   {
@@ -38,7 +38,7 @@ _.each([
     image: 'ubuntu:12.04'
   }
 ], (options) => {
-  const result = _.template(template)(options);
-  const filename = path.join(currentDirectory, `Dockerfile-${options.architecture}`);
-  fs.writeFileSync(filename, result);
-});
+  const result = _.template(template)(options)
+  const filename = path.join(currentDirectory, `Dockerfile-${options.architecture}`)
+  fs.writeFileSync(filename, result)
+})

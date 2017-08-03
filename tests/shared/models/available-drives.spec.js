@@ -14,31 +14,31 @@
  * limitations under the License.
  */
 
-'use strict';
+'use strict'
 
-const m = require('mochainon');
-const path = require('path');
-const availableDrives = require('../../../lib/shared/models/available-drives');
-const selectionState = require('../../../lib/shared/models/selection-state');
+const m = require('mochainon')
+const path = require('path')
+const availableDrives = require('../../../lib/shared/models/available-drives')
+const selectionState = require('../../../lib/shared/models/selection-state')
 
 describe('Model: availableDrives', function () {
   describe('availableDrives', function () {
     it('should have no drives by default', function () {
-      m.chai.expect(availableDrives.getDrives()).to.deep.equal([]);
-    });
+      m.chai.expect(availableDrives.getDrives()).to.deep.equal([])
+    })
 
     describe('.setDrives()', function () {
       it('should throw if no drives', function () {
         m.chai.expect(function () {
-          availableDrives.setDrives();
-        }).to.throw('Missing drives');
-      });
+          availableDrives.setDrives()
+        }).to.throw('Missing drives')
+      })
 
       it('should throw if drives is not an array', function () {
         m.chai.expect(function () {
-          availableDrives.setDrives(123);
-        }).to.throw('Invalid drives: 123');
-      });
+          availableDrives.setDrives(123)
+        }).to.throw('Invalid drives: 123')
+      })
 
       it('should throw if drives is not an array of objects', function () {
         m.chai.expect(function () {
@@ -46,17 +46,17 @@ describe('Model: availableDrives', function () {
             123,
             123,
             123
-          ]);
-        }).to.throw('Invalid drives: 123,123,123');
-      });
-    });
+          ])
+        }).to.throw('Invalid drives: 123,123,123')
+      })
+    })
 
     describe('given no drives', function () {
       describe('.hasAvailableDrives()', function () {
         it('should return false', function () {
-          m.chai.expect(availableDrives.hasAvailableDrives()).to.be.false;
-        });
-      });
+          m.chai.expect(availableDrives.hasAvailableDrives()).to.be.false
+        })
+      })
 
       describe('.setDrives()', function () {
         it('should be able to set drives', function () {
@@ -68,20 +68,20 @@ describe('Model: availableDrives', function () {
               mountpoint: '/mnt/foo',
               system: false
             }
-          ];
+          ]
 
-          availableDrives.setDrives(drives);
-          m.chai.expect(availableDrives.getDrives()).to.deep.equal(drives);
-        });
+          availableDrives.setDrives(drives)
+          m.chai.expect(availableDrives.getDrives()).to.deep.equal(drives)
+        })
 
         describe('given no selected image and no selected drive', function () {
           beforeEach(function () {
-            selectionState.removeDrive();
-            selectionState.removeImage();
-          });
+            selectionState.removeDrive()
+            selectionState.removeImage()
+          })
 
           it('should auto-select a single valid available drive', function () {
-            m.chai.expect(selectionState.hasDrive()).to.be.false;
+            m.chai.expect(selectionState.hasDrive()).to.be.false
 
             availableDrives.setDrives([
               {
@@ -92,22 +92,22 @@ describe('Model: availableDrives', function () {
                 system: false,
                 protected: false
               }
-            ]);
+            ])
 
-            m.chai.expect(selectionState.hasDrive()).to.be.true;
-            m.chai.expect(selectionState.getDrive().device).to.equal('/dev/sdb');
-          });
-        });
+            m.chai.expect(selectionState.hasDrive()).to.be.true
+            m.chai.expect(selectionState.getDrive().device).to.equal('/dev/sdb')
+          })
+        })
 
         describe('given a selected image and no selected drive', function () {
           beforeEach(function () {
             if (process.platform === 'win32') {
-              this.imagePath = 'E:\\bar\\foo.img';
+              this.imagePath = 'E:\\bar\\foo.img'
             } else {
-              this.imagePath = '/mnt/bar/foo.img';
+              this.imagePath = '/mnt/bar/foo.img'
             }
 
-            selectionState.removeDrive();
+            selectionState.removeDrive()
             selectionState.setImage({
               path: this.imagePath,
               extension: 'img',
@@ -119,15 +119,15 @@ describe('Model: availableDrives', function () {
                 }
               },
               recommendedDriveSize: 2000000000
-            });
-          });
+            })
+          })
 
           afterEach(function () {
-            selectionState.removeImage();
-          });
+            selectionState.removeImage()
+          })
 
           it('should not auto-select when there are multiple valid available drives', function () {
-            m.chai.expect(selectionState.hasDrive()).to.be.false;
+            m.chai.expect(selectionState.hasDrive()).to.be.false
 
             availableDrives.setDrives([
               {
@@ -146,13 +146,13 @@ describe('Model: availableDrives', function () {
                 system: false,
                 protected: false
               }
-            ]);
+            ])
 
-            m.chai.expect(selectionState.hasDrive()).to.be.false;
-          });
+            m.chai.expect(selectionState.hasDrive()).to.be.false
+          })
 
           it('should auto-select a single valid available drive', function () {
-            m.chai.expect(selectionState.hasDrive()).to.be.false;
+            m.chai.expect(selectionState.hasDrive()).to.be.false
 
             availableDrives.setDrives([
               {
@@ -163,7 +163,7 @@ describe('Model: availableDrives', function () {
                 system: false,
                 protected: false
               }
-            ]);
+            ])
 
             m.chai.expect(selectionState.getDrive()).to.deep.equal({
               device: '/dev/sdb',
@@ -172,11 +172,11 @@ describe('Model: availableDrives', function () {
               mountpoint: '/mnt/foo',
               system: false,
               protected: false
-            });
-          });
+            })
+          })
 
           it('should not auto-select a single too small drive', function () {
-            m.chai.expect(selectionState.hasDrive()).to.be.false;
+            m.chai.expect(selectionState.hasDrive()).to.be.false
 
             availableDrives.setDrives([
               {
@@ -187,13 +187,13 @@ describe('Model: availableDrives', function () {
                 system: false,
                 protected: false
               }
-            ]);
+            ])
 
-            m.chai.expect(selectionState.hasDrive()).to.be.false;
-          });
+            m.chai.expect(selectionState.hasDrive()).to.be.false
+          })
 
           it('should not auto-select a single drive that doesn\'t meet the recommended size', function () {
-            m.chai.expect(selectionState.hasDrive()).to.be.false;
+            m.chai.expect(selectionState.hasDrive()).to.be.false
 
             availableDrives.setDrives([
               {
@@ -204,13 +204,13 @@ describe('Model: availableDrives', function () {
                 system: false,
                 protected: false
               }
-            ]);
+            ])
 
-            m.chai.expect(selectionState.hasDrive()).to.be.false;
-          });
+            m.chai.expect(selectionState.hasDrive()).to.be.false
+          })
 
           it('should not auto-select a single protected drive', function () {
-            m.chai.expect(selectionState.hasDrive()).to.be.false;
+            m.chai.expect(selectionState.hasDrive()).to.be.false
 
             availableDrives.setDrives([
               {
@@ -221,13 +221,13 @@ describe('Model: availableDrives', function () {
                 system: false,
                 protected: true
               }
-            ]);
+            ])
 
-            m.chai.expect(selectionState.hasDrive()).to.be.false;
-          });
+            m.chai.expect(selectionState.hasDrive()).to.be.false
+          })
 
           it('should not auto-select a source drive', function () {
-            m.chai.expect(selectionState.hasDrive()).to.be.false;
+            m.chai.expect(selectionState.hasDrive()).to.be.false
 
             availableDrives.setDrives([
               {
@@ -242,13 +242,13 @@ describe('Model: availableDrives', function () {
                 system: false,
                 protected: false
               }
-            ]);
+            ])
 
-            m.chai.expect(selectionState.hasDrive()).to.be.false;
-          });
+            m.chai.expect(selectionState.hasDrive()).to.be.false
+          })
 
           it('should not auto-select a single system drive', function () {
-            m.chai.expect(selectionState.hasDrive()).to.be.false;
+            m.chai.expect(selectionState.hasDrive()).to.be.false
 
             availableDrives.setDrives([
               {
@@ -259,13 +259,13 @@ describe('Model: availableDrives', function () {
                 system: true,
                 protected: false
               }
-            ]);
+            ])
 
-            m.chai.expect(selectionState.hasDrive()).to.be.false;
-          });
-        });
-      });
-    });
+            m.chai.expect(selectionState.hasDrive()).to.be.false
+          })
+        })
+      })
+    })
 
     describe('given drives', function () {
       beforeEach(function () {
@@ -286,10 +286,10 @@ describe('Model: availableDrives', function () {
             system: false,
             protected: false
           }
-        ];
+        ]
 
-        availableDrives.setDrives(this.drives);
-      });
+        availableDrives.setDrives(this.drives)
+      })
 
       describe('given one of the drives was selected', function () {
         beforeEach(function () {
@@ -302,17 +302,17 @@ describe('Model: availableDrives', function () {
               system: false,
               protected: false
             }
-          ]);
+          ])
 
-          selectionState.setDrive('/dev/sdc');
-        });
+          selectionState.setDrive('/dev/sdc')
+        })
 
         afterEach(function () {
-          selectionState.removeDrive();
-        });
+          selectionState.removeDrive()
+        })
 
         it('should be deleted if its not contained in the available drives anymore', function () {
-          m.chai.expect(selectionState.hasDrive()).to.be.true;
+          m.chai.expect(selectionState.hasDrive()).to.be.true
 
           // We have to provide at least two drives, otherwise,
           // if we only provide one, the single drive will be
@@ -334,36 +334,36 @@ describe('Model: availableDrives', function () {
               system: false,
               protected: false
             }
-          ]);
+          ])
 
-          m.chai.expect(selectionState.hasDrive()).to.be.false;
-        });
-      });
+          m.chai.expect(selectionState.hasDrive()).to.be.false
+        })
+      })
 
       describe('.hasAvailableDrives()', function () {
         it('should return true', function () {
-          const hasDrives = availableDrives.hasAvailableDrives();
-          m.chai.expect(hasDrives).to.be.true;
-        });
-      });
+          const hasDrives = availableDrives.hasAvailableDrives()
+          m.chai.expect(hasDrives).to.be.true
+        })
+      })
 
       describe('.setDrives()', function () {
         it('should keep the same drives if equal', function () {
-          availableDrives.setDrives(this.drives);
-          m.chai.expect(availableDrives.getDrives()).to.deep.equal(this.drives);
-        });
+          availableDrives.setDrives(this.drives)
+          m.chai.expect(availableDrives.getDrives()).to.deep.equal(this.drives)
+        })
 
         it('should return empty array given an empty array', function () {
-          availableDrives.setDrives([]);
-          m.chai.expect(availableDrives.getDrives()).to.deep.equal([]);
-        });
+          availableDrives.setDrives([])
+          m.chai.expect(availableDrives.getDrives()).to.deep.equal([])
+        })
 
         it('should consider drives with different $$hashKey the same', function () {
-          this.drives[0].$$haskey = 1234;
-          availableDrives.setDrives(this.drives);
-          m.chai.expect(availableDrives.getDrives()).to.deep.equal(this.drives);
-        });
-      });
-    });
-  });
-});
+          this.drives[0].$$haskey = 1234
+          availableDrives.setDrives(this.drives)
+          m.chai.expect(availableDrives.getDrives()).to.deep.equal(this.drives)
+        })
+      })
+    })
+  })
+})

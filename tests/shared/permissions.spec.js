@@ -14,31 +14,31 @@
  * limitations under the License.
  */
 
-'use strict';
+'use strict'
 
-const m = require('mochainon');
-const os = require('os');
-const permissions = require('../../lib/shared/permissions');
+const m = require('mochainon')
+const os = require('os')
+const permissions = require('../../lib/shared/permissions')
 
 describe('Shared: permissions', function () {
   describe('.getEnvironmentCommandPrefix()', function () {
     describe('given windows', function () {
       beforeEach(function () {
-        this.osPlatformStub = m.sinon.stub(os, 'platform');
-        this.osPlatformStub.returns('win32');
-      });
+        this.osPlatformStub = m.sinon.stub(os, 'platform')
+        this.osPlatformStub.returns('win32')
+      })
 
       afterEach(function () {
-        this.osPlatformStub.restore();
-      });
+        this.osPlatformStub.restore()
+      })
 
       it('should return an empty array if no environment', function () {
-        m.chai.expect(permissions.getEnvironmentCommandPrefix()).to.deep.equal([]);
-      });
+        m.chai.expect(permissions.getEnvironmentCommandPrefix()).to.deep.equal([])
+      })
 
       it('should return an empty array if the environment is an empty object', function () {
-        m.chai.expect(permissions.getEnvironmentCommandPrefix({})).to.deep.equal([]);
-      });
+        m.chai.expect(permissions.getEnvironmentCommandPrefix({})).to.deep.equal([])
+      })
 
       it('should create an environment command prefix out of one variable', function () {
         m.chai.expect(permissions.getEnvironmentCommandPrefix({
@@ -48,8 +48,8 @@ describe('Shared: permissions', function () {
           'FOO=bar',
           '&&',
           'call'
-        ]);
-      });
+        ])
+      })
 
       it('should create an environment command prefix out of many variables', function () {
         m.chai.expect(permissions.getEnvironmentCommandPrefix({
@@ -67,8 +67,8 @@ describe('Shared: permissions', function () {
           'BAZ=qux',
           '&&',
           'call'
-        ]);
-      });
+        ])
+      })
 
       it('should ignore undefined and null variable values', function () {
         m.chai.expect(permissions.getEnvironmentCommandPrefix({
@@ -80,8 +80,8 @@ describe('Shared: permissions', function () {
           'BAR=qux',
           '&&',
           'call'
-        ]);
-      });
+        ])
+      })
 
       it('should stringify number values', function () {
         m.chai.expect(permissions.getEnvironmentCommandPrefix({
@@ -99,27 +99,27 @@ describe('Shared: permissions', function () {
           'BAZ=-1',
           '&&',
           'call'
-        ]);
-      });
-    });
+        ])
+      })
+    })
 
     describe('given linux', function () {
       beforeEach(function () {
-        this.osPlatformStub = m.sinon.stub(os, 'platform');
-        this.osPlatformStub.returns('linux');
-      });
+        this.osPlatformStub = m.sinon.stub(os, 'platform')
+        this.osPlatformStub.returns('linux')
+      })
 
       afterEach(function () {
-        this.osPlatformStub.restore();
-      });
+        this.osPlatformStub.restore()
+      })
 
       it('should return an empty array if no environment', function () {
-        m.chai.expect(permissions.getEnvironmentCommandPrefix()).to.deep.equal([]);
-      });
+        m.chai.expect(permissions.getEnvironmentCommandPrefix()).to.deep.equal([])
+      })
 
       it('should return an empty array if the environment is an empty object', function () {
-        m.chai.expect(permissions.getEnvironmentCommandPrefix({})).to.deep.equal([]);
-      });
+        m.chai.expect(permissions.getEnvironmentCommandPrefix({})).to.deep.equal([])
+      })
 
       it('should create an environment command prefix out of one variable', function () {
         m.chai.expect(permissions.getEnvironmentCommandPrefix({
@@ -127,8 +127,8 @@ describe('Shared: permissions', function () {
         })).to.deep.equal([
           'env',
           'FOO=bar'
-        ]);
-      });
+        ])
+      })
 
       it('should create an environment command prefix out of many variables', function () {
         m.chai.expect(permissions.getEnvironmentCommandPrefix({
@@ -140,8 +140,8 @@ describe('Shared: permissions', function () {
           'FOO=bar',
           'BAR=baz',
           'BAZ=qux'
-        ]);
-      });
+        ])
+      })
 
       it('should ignore undefined and null variable values', function () {
         m.chai.expect(permissions.getEnvironmentCommandPrefix({
@@ -151,8 +151,8 @@ describe('Shared: permissions', function () {
         })).to.deep.equal([
           'env',
           'BAR=qux'
-        ]);
-      });
+        ])
+      })
 
       it('should stringify number values', function () {
         m.chai.expect(permissions.getEnvironmentCommandPrefix({
@@ -164,27 +164,27 @@ describe('Shared: permissions', function () {
           'FOO=1',
           'BAR=0',
           'BAZ=-1'
-        ]);
-      });
-    });
+        ])
+      })
+    })
 
     describe('given darwin', function () {
       beforeEach(function () {
-        this.osPlatformStub = m.sinon.stub(os, 'platform');
-        this.osPlatformStub.returns('darwin');
-      });
+        this.osPlatformStub = m.sinon.stub(os, 'platform')
+        this.osPlatformStub.returns('darwin')
+      })
 
       afterEach(function () {
-        this.osPlatformStub.restore();
-      });
+        this.osPlatformStub.restore()
+      })
 
       it('should return an empty array if no environment', function () {
-        m.chai.expect(permissions.getEnvironmentCommandPrefix()).to.deep.equal([]);
-      });
+        m.chai.expect(permissions.getEnvironmentCommandPrefix()).to.deep.equal([])
+      })
 
       it('should return an empty array if the environment is an empty object', function () {
-        m.chai.expect(permissions.getEnvironmentCommandPrefix({})).to.deep.equal([]);
-      });
+        m.chai.expect(permissions.getEnvironmentCommandPrefix({})).to.deep.equal([])
+      })
 
       it('should create an environment command prefix out of one variable', function () {
         m.chai.expect(permissions.getEnvironmentCommandPrefix({
@@ -192,8 +192,8 @@ describe('Shared: permissions', function () {
         })).to.deep.equal([
           'env',
           'FOO=bar'
-        ]);
-      });
+        ])
+      })
 
       it('should create an environment command prefix out of many variables', function () {
         m.chai.expect(permissions.getEnvironmentCommandPrefix({
@@ -205,8 +205,8 @@ describe('Shared: permissions', function () {
           'FOO=bar',
           'BAR=baz',
           'BAZ=qux'
-        ]);
-      });
+        ])
+      })
 
       it('should ignore undefined and null variable values', function () {
         m.chai.expect(permissions.getEnvironmentCommandPrefix({
@@ -216,8 +216,8 @@ describe('Shared: permissions', function () {
         })).to.deep.equal([
           'env',
           'BAR=qux'
-        ]);
-      });
+        ])
+      })
 
       it('should stringify number values', function () {
         m.chai.expect(permissions.getEnvironmentCommandPrefix({
@@ -229,8 +229,8 @@ describe('Shared: permissions', function () {
           'FOO=1',
           'BAR=0',
           'BAZ=-1'
-        ]);
-      });
-    });
-  });
-});
+        ])
+      })
+    })
+  })
+})

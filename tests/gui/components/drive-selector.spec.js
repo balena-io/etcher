@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-'use strict';
+'use strict'
 
-const _ = require('lodash');
-const m = require('mochainon');
-const angular = require('angular');
-require('angular-mocks');
+const _ = require('lodash')
+const m = require('mochainon')
+const angular = require('angular')
+require('angular-mocks')
 
 describe('Browser: DriveSelector', function () {
   beforeEach(angular.mock.module(
     require('../../../lib/gui/components/drive-selector/drive-selector')
-  ));
+  ))
 
   describe('DriveSelectorController', function () {
-    let $controller;
-    let $rootScope;
-    let $q;
-    let $uibModalInstance;
-    let WarningModalService;
+    let $controller
+    let $rootScope
+    let $q
+    let $uibModalInstance
+    let WarningModalService
 
-    let controller;
+    let controller
 
     beforeEach(angular.mock.inject(function (
       _$controller_,
@@ -41,12 +41,12 @@ describe('Browser: DriveSelector', function () {
       _$q_,
       _WarningModalService_
     ) {
-      $controller = _$controller_;
-      $rootScope = _$rootScope_;
-      $q = _$q_;
-      $uibModalInstance = {};
-      WarningModalService = _WarningModalService_;
-    }));
+      $controller = _$controller_
+      $rootScope = _$rootScope_
+      $q = _$q_
+      $uibModalInstance = {}
+      WarningModalService = _WarningModalService_
+    }))
 
     beforeEach(() => {
       controller = $controller('DriveSelectorController', {
@@ -54,49 +54,49 @@ describe('Browser: DriveSelector', function () {
         $q,
         $uibModalInstance,
         WarningModalService
-      });
-    });
+      })
+    })
 
     describe('.memoizeImmutableListReference()', function () {
       it('constant true should return memoized true', function () {
-        const memoizedConstTrue = controller.memoizeImmutableListReference(_.constant(true));
-        m.chai.expect(memoizedConstTrue()).to.be.true;
-      });
+        const memoizedConstTrue = controller.memoizeImmutableListReference(_.constant(true))
+        m.chai.expect(memoizedConstTrue()).to.be.true
+      })
 
       it('should reflect state changes', function () {
-        let stateA = false;
+        let stateA = false
         const memoizedStateA = controller.memoizeImmutableListReference(() => {
-          return stateA;
-        });
+          return stateA
+        })
 
-        m.chai.expect(memoizedStateA()).to.be.false;
+        m.chai.expect(memoizedStateA()).to.be.false
 
-        stateA = true;
+        stateA = true
 
-        m.chai.expect(memoizedStateA()).to.be.true;
-      });
+        m.chai.expect(memoizedStateA()).to.be.true
+      })
 
       it('should reflect different arguments', function () {
-        const memoizedParameter = controller.memoizeImmutableListReference(_.identity);
+        const memoizedParameter = controller.memoizeImmutableListReference(_.identity)
 
-        m.chai.expect(memoizedParameter(false)).to.be.false;
-        m.chai.expect(memoizedParameter(true)).to.be.true;
-      });
+        m.chai.expect(memoizedParameter(false)).to.be.false
+        m.chai.expect(memoizedParameter(true)).to.be.true
+      })
 
       it('should handle equal angular objects with different hashes', function () {
-        const memoizedParameter = controller.memoizeImmutableListReference(_.identity);
+        const memoizedParameter = controller.memoizeImmutableListReference(_.identity)
         const angularObjectA = {
           $$hashKey: 1,
           keyA: true
-        };
+        }
         const angularObjectB = {
           $$hashKey: 2,
           keyA: true
-        };
+        }
 
-        m.chai.expect(memoizedParameter(angularObjectA)).to.equal(angularObjectA);
-        m.chai.expect(memoizedParameter(angularObjectB)).to.equal(angularObjectA);
-      });
-    });
-  });
-});
+        m.chai.expect(memoizedParameter(angularObjectA)).to.equal(angularObjectA)
+        m.chai.expect(memoizedParameter(angularObjectB)).to.equal(angularObjectA)
+      })
+    })
+  })
+})

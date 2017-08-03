@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-'use strict';
+'use strict'
 
-const m = require('mochainon');
-const _ = require('lodash');
-const path = require('path');
-const constraints = require('../../lib/shared/drive-constraints');
+const m = require('mochainon')
+const _ = require('lodash')
+const path = require('path')
+const constraints = require('../../lib/shared/drive-constraints')
 
 describe('Shared: DriveConstraints', function () {
   describe('.isDriveLocked()', function () {
@@ -29,10 +29,10 @@ describe('Shared: DriveConstraints', function () {
         name: 'USB Drive',
         size: 999999999,
         protected: true
-      });
+      })
 
-      m.chai.expect(result).to.be.true;
-    });
+      m.chai.expect(result).to.be.true
+    })
 
     it('should return false if the drive is not protected', function () {
       const result = constraints.isDriveLocked({
@@ -40,27 +40,27 @@ describe('Shared: DriveConstraints', function () {
         name: 'USB Drive',
         size: 999999999,
         protected: false
-      });
+      })
 
-      m.chai.expect(result).to.be.false;
-    });
+      m.chai.expect(result).to.be.false
+    })
 
     it('should return false if we don\'t know if the drive is protected', function () {
       const result = constraints.isDriveLocked({
         device: '/dev/disk2',
         name: 'USB Drive',
         size: 999999999
-      });
+      })
 
-      m.chai.expect(result).to.be.false;
-    });
+      m.chai.expect(result).to.be.false
+    })
 
     it('should return false if the drive is undefined', function () {
-      const result = constraints.isDriveLocked(undefined);
+      const result = constraints.isDriveLocked(undefined)
 
-      m.chai.expect(result).to.be.false;
-    });
-  });
+      m.chai.expect(result).to.be.false
+    })
+  })
 
   describe('.isSystemDrive()', function () {
     it('should return true if the drive is a system drive', function () {
@@ -70,10 +70,10 @@ describe('Shared: DriveConstraints', function () {
         size: 999999999,
         protected: true,
         system: true
-      });
+      })
 
-      m.chai.expect(result).to.be.true;
-    });
+      m.chai.expect(result).to.be.true
+    })
 
     it('should default to `false` if the `system` property is `undefined`', function () {
       const result = constraints.isSystemDrive({
@@ -81,10 +81,10 @@ describe('Shared: DriveConstraints', function () {
         name: 'USB Drive',
         size: 999999999,
         protected: true
-      });
+      })
 
-      m.chai.expect(result).to.be.false;
-    });
+      m.chai.expect(result).to.be.false
+    })
 
     it('should return false if the drive is a removable drive', function () {
       const result = constraints.isSystemDrive({
@@ -93,17 +93,17 @@ describe('Shared: DriveConstraints', function () {
         size: 999999999,
         protected: true,
         system: false
-      });
+      })
 
-      m.chai.expect(result).to.be.false;
-    });
+      m.chai.expect(result).to.be.false
+    })
 
     it('should return false if the drive is undefined', function () {
-      const result = constraints.isSystemDrive(undefined);
+      const result = constraints.isSystemDrive(undefined)
 
-      m.chai.expect(result).to.be.false;
-    });
-  });
+      m.chai.expect(result).to.be.false
+    })
+  })
 
   describe('.isSourceDrive()', function () {
     it('should return false if no image', function () {
@@ -113,18 +113,18 @@ describe('Shared: DriveConstraints', function () {
         size: 999999999,
         protected: true,
         system: false
-      }, undefined);
+      }, undefined)
 
-      m.chai.expect(result).to.be.false;
-    });
+      m.chai.expect(result).to.be.false
+    })
 
     it('should return false if no drive', function () {
       const result = constraints.isSourceDrive(undefined, {
         path: '/Volumes/Untitled/image.img'
-      });
+      })
 
-      m.chai.expect(result).to.be.false;
-    });
+      m.chai.expect(result).to.be.false
+    })
 
     it('should return false if there are no mount points', function () {
       const result = constraints.isSourceDrive({
@@ -135,20 +135,20 @@ describe('Shared: DriveConstraints', function () {
         system: false
       }, {
         path: '/Volumes/Untitled/image.img'
-      });
+      })
 
-      m.chai.expect(result).to.be.false;
-    });
+      m.chai.expect(result).to.be.false
+    })
 
     describe('given Windows paths', function () {
       beforeEach(function () {
-        this.separator = path.sep;
-        path.sep = '\\';
-      });
+        this.separator = path.sep
+        path.sep = '\\'
+      })
 
       afterEach(function () {
-        path.sep = this.separator;
-      });
+        path.sep = this.separator
+      })
 
       it('should return true if the image lives directly inside a mount point of the drive', function () {
         const result = constraints.isSourceDrive({
@@ -162,10 +162,10 @@ describe('Shared: DriveConstraints', function () {
           ]
         }, {
           path: 'E:\\image.img'
-        });
+        })
 
-        m.chai.expect(result).to.be.true;
-      });
+        m.chai.expect(result).to.be.true
+      })
 
       it('should return true if the image lives inside a mount point of the drive', function () {
         const result = constraints.isSourceDrive({
@@ -179,10 +179,10 @@ describe('Shared: DriveConstraints', function () {
           ]
         }, {
           path: 'E:\\foo\\bar\\image.img'
-        });
+        })
 
-        m.chai.expect(result).to.be.true;
-      });
+        m.chai.expect(result).to.be.true
+      })
 
       it('should return false if the image does not live inside a mount point of the drive', function () {
         const result = constraints.isSourceDrive({
@@ -196,10 +196,10 @@ describe('Shared: DriveConstraints', function () {
           ]
         }, {
           path: 'G:\\image.img'
-        });
+        })
 
-        m.chai.expect(result).to.be.false;
-      });
+        m.chai.expect(result).to.be.false
+      })
 
       it('should return false if the image is in a mount point that is a substring of the image mount point', function () {
         const result = constraints.isSourceDrive({
@@ -210,21 +210,21 @@ describe('Shared: DriveConstraints', function () {
           ]
         }, {
           path: 'E:\\foo/image.img'
-        });
+        })
 
-        m.chai.expect(result).to.be.false;
-      });
-    });
+        m.chai.expect(result).to.be.false
+      })
+    })
 
     describe('given UNIX paths', function () {
       beforeEach(function () {
-        this.separator = path.sep;
-        path.sep = '/';
-      });
+        this.separator = path.sep
+        path.sep = '/'
+      })
 
       afterEach(function () {
-        path.sep = this.separator;
-      });
+        path.sep = this.separator
+      })
 
       it('should return true if the mount point is / and the image lives directly inside it', function () {
         const result = constraints.isSourceDrive({
@@ -235,10 +235,10 @@ describe('Shared: DriveConstraints', function () {
           ]
         }, {
           path: '/image.img'
-        });
+        })
 
-        m.chai.expect(result).to.be.true;
-      });
+        m.chai.expect(result).to.be.true
+      })
 
       it('should return true if the image lives directly inside a mount point of the drive', function () {
         const result = constraints.isSourceDrive({
@@ -252,10 +252,10 @@ describe('Shared: DriveConstraints', function () {
           ]
         }, {
           path: '/Volumes/A/image.img'
-        });
+        })
 
-        m.chai.expect(result).to.be.true;
-      });
+        m.chai.expect(result).to.be.true
+      })
 
       it('should return true if the image lives inside a mount point of the drive', function () {
         const result = constraints.isSourceDrive({
@@ -269,10 +269,10 @@ describe('Shared: DriveConstraints', function () {
           ]
         }, {
           path: '/Volumes/A/foo/bar/image.img'
-        });
+        })
 
-        m.chai.expect(result).to.be.true;
-      });
+        m.chai.expect(result).to.be.true
+      })
 
       it('should return false if the image does not live inside a mount point of the drive', function () {
         const result = constraints.isSourceDrive({
@@ -286,10 +286,10 @@ describe('Shared: DriveConstraints', function () {
           ]
         }, {
           path: '/Volumes/C/image.img'
-        });
+        })
 
-        m.chai.expect(result).to.be.false;
-      });
+        m.chai.expect(result).to.be.false
+      })
 
       it('should return false if the image is in a mount point that is a substring of the image mount point', function () {
         const result = constraints.isSourceDrive({
@@ -300,12 +300,12 @@ describe('Shared: DriveConstraints', function () {
           ]
         }, {
           path: '/Volumes/foo/image.img'
-        });
+        })
 
-        m.chai.expect(result).to.be.false;
-      });
-    });
-  });
+        m.chai.expect(result).to.be.false
+      })
+    })
+  })
 
   describe('.isDriveLargeEnough()', function () {
     beforeEach(function () {
@@ -314,8 +314,8 @@ describe('Shared: DriveConstraints', function () {
         name: 'USB Drive',
         size: 1000000000,
         protected: false
-      };
-    });
+      }
+    })
 
     describe('given the final image size estimation flag is false', function () {
       describe('given the original size is less than the drive size', function () {
@@ -328,24 +328,24 @@ describe('Shared: DriveConstraints', function () {
                 estimation: false
               }
             }
-          };
-        });
+          }
+        })
 
         it('should return true if the final size is less than the drive size', function () {
-          this.image.size.final.value = this.drive.size - 1;
-          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
-        });
+          this.image.size.final.value = this.drive.size - 1
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
+        })
 
         it('should return true if the final size is equal to the drive size', function () {
-          this.image.size.final.value = this.drive.size;
-          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
-        });
+          this.image.size.final.value = this.drive.size
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
+        })
 
         it('should return false if the final size is greater than the drive size', function () {
-          this.image.size.final.value = this.drive.size + 1;
-          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false;
-        });
-      });
+          this.image.size.final.value = this.drive.size + 1
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false
+        })
+      })
 
       describe('given the original size is equal to the drive size', function () {
         beforeEach(function () {
@@ -357,24 +357,24 @@ describe('Shared: DriveConstraints', function () {
                 estimation: false
               }
             }
-          };
-        });
+          }
+        })
 
         it('should return true if the final size is less than the drive size', function () {
-          this.image.size.final.value = this.drive.size - 1;
-          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
-        });
+          this.image.size.final.value = this.drive.size - 1
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
+        })
 
         it('should return true if the final size is equal to the drive size', function () {
-          this.image.size.final.value = this.drive.size;
-          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
-        });
+          this.image.size.final.value = this.drive.size
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
+        })
 
         it('should return false if the final size is greater than the drive size', function () {
-          this.image.size.final.value = this.drive.size + 1;
-          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false;
-        });
-      });
+          this.image.size.final.value = this.drive.size + 1
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false
+        })
+      })
 
       describe('given the original size is greater than the drive size', function () {
         beforeEach(function () {
@@ -386,25 +386,25 @@ describe('Shared: DriveConstraints', function () {
                 estimation: false
               }
             }
-          };
-        });
+          }
+        })
 
         it('should return true if the final size is less than the drive size', function () {
-          this.image.size.final.value = this.drive.size - 1;
-          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
-        });
+          this.image.size.final.value = this.drive.size - 1
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
+        })
 
         it('should return true if the final size is equal to the drive size', function () {
-          this.image.size.final.value = this.drive.size;
-          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
-        });
+          this.image.size.final.value = this.drive.size
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
+        })
 
         it('should return false if the final size is greater than the drive size', function () {
-          this.image.size.final.value = this.drive.size + 1;
-          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false;
-        });
-      });
-    });
+          this.image.size.final.value = this.drive.size + 1
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false
+        })
+      })
+    })
 
     describe('given the final image size estimation flag is true', function () {
       describe('given the original size is less than the drive size', function () {
@@ -417,24 +417,24 @@ describe('Shared: DriveConstraints', function () {
                 estimation: true
               }
             }
-          };
-        });
+          }
+        })
 
         it('should return true if the final size is less than the drive size', function () {
-          this.image.size.final.value = this.drive.size - 1;
-          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
-        });
+          this.image.size.final.value = this.drive.size - 1
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
+        })
 
         it('should return true if the final size is equal to the drive size', function () {
-          this.image.size.final.value = this.drive.size;
-          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
-        });
+          this.image.size.final.value = this.drive.size
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
+        })
 
         it('should return true if the final size is greater than the drive size', function () {
-          this.image.size.final.value = this.drive.size + 1;
-          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
-        });
-      });
+          this.image.size.final.value = this.drive.size + 1
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
+        })
+      })
 
       describe('given the original size is equal to the drive size', function () {
         beforeEach(function () {
@@ -446,24 +446,24 @@ describe('Shared: DriveConstraints', function () {
                 estimation: true
               }
             }
-          };
-        });
+          }
+        })
 
         it('should return true if the final size is less than the drive size', function () {
-          this.image.size.final.value = this.drive.size - 1;
-          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
-        });
+          this.image.size.final.value = this.drive.size - 1
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
+        })
 
         it('should return true if the final size is equal to the drive size', function () {
-          this.image.size.final.value = this.drive.size;
-          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
-        });
+          this.image.size.final.value = this.drive.size
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
+        })
 
         it('should return true if the final size is greater than the drive size', function () {
-          this.image.size.final.value = this.drive.size + 1;
-          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true;
-        });
-      });
+          this.image.size.final.value = this.drive.size + 1
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
+        })
+      })
 
       describe('given the original size is greater than the drive size', function () {
         beforeEach(function () {
@@ -475,25 +475,25 @@ describe('Shared: DriveConstraints', function () {
                 estimation: true
               }
             }
-          };
-        });
+          }
+        })
 
         it('should return false if the final size is less than the drive size', function () {
-          this.image.size.final.value = this.drive.size - 1;
-          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false;
-        });
+          this.image.size.final.value = this.drive.size - 1
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false
+        })
 
         it('should return false if the final size is equal to the drive size', function () {
-          this.image.size.final.value = this.drive.size;
-          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false;
-        });
+          this.image.size.final.value = this.drive.size
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false
+        })
 
         it('should return false if the final size is greater than the drive size', function () {
-          this.image.size.final.value = this.drive.size + 1;
-          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false;
-        });
-      });
-    });
+          this.image.size.final.value = this.drive.size + 1
+          m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false
+        })
+      })
+    })
 
     it('should return false if the drive is undefined', function () {
       const result = constraints.isDriveLargeEnough(undefined, {
@@ -505,10 +505,10 @@ describe('Shared: DriveConstraints', function () {
             value: 1000000000
           }
         }
-      });
+      })
 
-      m.chai.expect(result).to.be.false;
-    });
+      m.chai.expect(result).to.be.false
+    })
 
     it('should return true if the image is undefined', function () {
       const result = constraints.isDriveLargeEnough({
@@ -516,16 +516,16 @@ describe('Shared: DriveConstraints', function () {
         name: 'USB Drive',
         size: 1000000000,
         protected: false
-      }, undefined);
+      }, undefined)
 
-      m.chai.expect(result).to.be.true;
-    });
+      m.chai.expect(result).to.be.true
+    })
 
     it('should return false if the drive and image are undefined', function () {
-      const result = constraints.isDriveLargeEnough(undefined, undefined);
-      m.chai.expect(result).to.be.true;
-    });
-  });
+      const result = constraints.isDriveLargeEnough(undefined, undefined)
+      m.chai.expect(result).to.be.true
+    })
+  })
 
   describe('.isDriveSizeRecommended()', function () {
     it('should return true if the drive size is greater than the recommended size ', function () {
@@ -538,10 +538,10 @@ describe('Shared: DriveConstraints', function () {
         path: path.join(__dirname, 'rpi.img'),
         size: 1000000000,
         recommendedDriveSize: 2000000000
-      });
+      })
 
-      m.chai.expect(result).to.be.true;
-    });
+      m.chai.expect(result).to.be.true
+    })
 
     it('should return true if the drive size is equal to recommended size', function () {
       const result = constraints.isDriveSizeRecommended({
@@ -553,10 +553,10 @@ describe('Shared: DriveConstraints', function () {
         path: path.join(__dirname, 'rpi.img'),
         size: 1000000000,
         recommendedDriveSize: 2000000000
-      });
+      })
 
-      m.chai.expect(result).to.be.true;
-    });
+      m.chai.expect(result).to.be.true
+    })
 
     it('should return false if the drive size is less than the recommended size', function () {
       const result = constraints.isDriveSizeRecommended({
@@ -568,10 +568,10 @@ describe('Shared: DriveConstraints', function () {
         path: path.join(__dirname, 'rpi.img'),
         size: 1000000000,
         recommendedDriveSize: 2000000001
-      });
+      })
 
-      m.chai.expect(result).to.be.false;
-    });
+      m.chai.expect(result).to.be.false
+    })
 
     it('should return true if the recommended drive size is undefined', function () {
       const result = constraints.isDriveSizeRecommended({
@@ -582,20 +582,20 @@ describe('Shared: DriveConstraints', function () {
       }, {
         path: path.join(__dirname, 'rpi.img'),
         size: 1000000000
-      });
+      })
 
-      m.chai.expect(result).to.be.true;
-    });
+      m.chai.expect(result).to.be.true
+    })
 
     it('should return false if the drive is undefined', function () {
       const result = constraints.isDriveSizeRecommended(undefined, {
         path: path.join(__dirname, 'rpi.img'),
         size: 1000000000,
         recommendedDriveSize: 1000000000
-      });
+      })
 
-      m.chai.expect(result).to.be.false;
-    });
+      m.chai.expect(result).to.be.false
+    })
 
     it('should return true if the image is undefined', function () {
       const result = constraints.isDriveSizeRecommended({
@@ -603,23 +603,23 @@ describe('Shared: DriveConstraints', function () {
         name: 'USB Drive',
         size: 2000000000,
         protected: false
-      }, undefined);
+      }, undefined)
 
-      m.chai.expect(result).to.be.true;
-    });
+      m.chai.expect(result).to.be.true
+    })
 
     it('should return false if the drive and image are undefined', function () {
-      const result = constraints.isDriveSizeRecommended(undefined, undefined);
-      m.chai.expect(result).to.be.true;
-    });
-  });
+      const result = constraints.isDriveSizeRecommended(undefined, undefined)
+      m.chai.expect(result).to.be.true
+    })
+  })
 
   describe('.isDriveValid()', function () {
     beforeEach(function () {
       if (process.platform === 'win32') {
-        this.mountpoint = 'E:\\foo';
+        this.mountpoint = 'E:\\foo'
       } else {
-        this.mountpoint = '/mnt/foo';
+        this.mountpoint = '/mnt/foo'
       }
 
       this.drive = {
@@ -631,13 +631,13 @@ describe('Shared: DriveConstraints', function () {
           }
         ],
         size: 4000000000
-      };
-    });
+      }
+    })
 
     describe('given the drive is locked', function () {
       beforeEach(function () {
-        this.drive.protected = true;
-      });
+        this.drive.protected = true
+      })
 
       it('should return false if the drive is not large enough and is a source drive', function () {
         m.chai.expect(constraints.isDriveValid(this.drive, {
@@ -649,8 +649,8 @@ describe('Shared: DriveConstraints', function () {
               value: 5000000000
             }
           }
-        })).to.be.false;
-      });
+        })).to.be.false
+      })
 
       it('should return false if the drive is not large enough and is not a source drive', function () {
         m.chai.expect(constraints.isDriveValid(this.drive, {
@@ -662,8 +662,8 @@ describe('Shared: DriveConstraints', function () {
               value: 5000000000
             }
           }
-        })).to.be.false;
-      });
+        })).to.be.false
+      })
 
       it('should return false if the drive is large enough and is a source drive', function () {
         m.chai.expect(constraints.isDriveValid(this.drive, {
@@ -675,8 +675,8 @@ describe('Shared: DriveConstraints', function () {
               value: 2000000000
             }
           }
-        })).to.be.false;
-      });
+        })).to.be.false
+      })
 
       it('should return false if the drive is large enough and is not a source drive', function () {
         m.chai.expect(constraints.isDriveValid(this.drive, {
@@ -688,14 +688,14 @@ describe('Shared: DriveConstraints', function () {
               value: 2000000000
             }
           }
-        })).to.be.false;
-      });
-    });
+        })).to.be.false
+      })
+    })
 
     describe('given the drive is not locked', function () {
       beforeEach(function () {
-        this.drive.protected = false;
-      });
+        this.drive.protected = false
+      })
 
       it('should return false if the drive is not large enough and is a source drive', function () {
         m.chai.expect(constraints.isDriveValid(this.drive, {
@@ -707,8 +707,8 @@ describe('Shared: DriveConstraints', function () {
               value: 5000000000
             }
           }
-        })).to.be.false;
-      });
+        })).to.be.false
+      })
 
       it('should return false if the drive is not large enough and is not a source drive', function () {
         m.chai.expect(constraints.isDriveValid(this.drive, {
@@ -720,8 +720,8 @@ describe('Shared: DriveConstraints', function () {
               value: 5000000000
             }
           }
-        })).to.be.false;
-      });
+        })).to.be.false
+      })
 
       it('should return false if the drive is large enough and is a source drive', function () {
         m.chai.expect(constraints.isDriveValid(this.drive, {
@@ -733,8 +733,8 @@ describe('Shared: DriveConstraints', function () {
               value: 2000000000
             }
           }
-        })).to.be.false;
-      });
+        })).to.be.false
+      })
 
       it('should return true if the drive is large enough and is not a source drive', function () {
         m.chai.expect(constraints.isDriveValid(this.drive, {
@@ -746,19 +746,19 @@ describe('Shared: DriveConstraints', function () {
               value: 2000000000
             }
           }
-        })).to.be.true;
-      });
-    });
-  });
+        })).to.be.true
+      })
+    })
+  })
 
   describe('.getDriveImageCompatibilityStatuses', function () {
     beforeEach(function () {
       if (process.platform === 'win32') {
-        this.mountpoint = 'E:';
-        this.separator = '\\';
+        this.mountpoint = 'E:'
+        this.separator = '\\'
       } else {
-        this.mountpoint = '/mnt/foo';
-        this.separator = '/';
+        this.mountpoint = '/mnt/foo'
+        this.separator = '/'
       }
 
       this.drive = {
@@ -772,7 +772,7 @@ describe('Shared: DriveConstraints', function () {
           }
         ],
         size: 4000000000
-      };
+      }
 
       this.image = {
         path: path.join(__dirname, 'rpi.img'),
@@ -782,8 +782,8 @@ describe('Shared: DriveConstraints', function () {
             estimation: false
           }
         }
-      };
-    });
+      }
+    })
 
     const expectStatusTypesAndMessagesToBe = (resultList, expectedTuples) => {
       // Sort so that order doesn't matter
@@ -791,162 +791,162 @@ describe('Shared: DriveConstraints', function () {
         return {
           type: constraints.COMPATIBILITY_STATUS_TYPES[tuple[0]],
           message: constraints.COMPATIBILITY_STATUS_MESSAGES[tuple[1]]
-        };
-      }), [ 'message' ]);
-      const resultTuplesSorted = _.sortBy(resultList, [ 'message' ]);
+        }
+      }), [ 'message' ])
+      const resultTuplesSorted = _.sortBy(resultList, [ 'message' ])
 
-      m.chai.expect(resultTuplesSorted).to.deep.equal(expectedTuplesSorted);
-    };
+      m.chai.expect(resultTuplesSorted).to.deep.equal(expectedTuplesSorted)
+    }
 
     describe('given there are no errors or warnings', () => {
       it('should return an empty list', function () {
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, {
           path: '/mnt/disk2/rpi.img',
           size: 1000000000
-        });
+        })
 
-        m.chai.expect(result).to.deep.equal([]);
-      });
-    });
+        m.chai.expect(result).to.deep.equal([])
+      })
+    })
 
     describe('given the drive contains the image', () => {
       it('should return the contains-image error', function () {
-        this.image.path = path.join(this.mountpoint, 'rpi.img');
+        this.image.path = path.join(this.mountpoint, 'rpi.img')
 
-        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image);
-        const expectedTuples = [ [ 'ERROR', 'CONTAINS_IMAGE' ] ];
+        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
+        const expectedTuples = [ [ 'ERROR', 'CONTAINS_IMAGE' ] ]
 
-        expectStatusTypesAndMessagesToBe(result, expectedTuples);
-      });
-    });
+        expectStatusTypesAndMessagesToBe(result, expectedTuples)
+      })
+    })
 
     describe('given the drive is a system drive', () => {
       it('should return the system drive warning', function () {
-        this.drive.system = true;
+        this.drive.system = true
 
-        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image);
-        const expectedTuples = [ [ 'WARNING', 'SYSTEM' ] ];
+        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
+        const expectedTuples = [ [ 'WARNING', 'SYSTEM' ] ]
 
-        expectStatusTypesAndMessagesToBe(result, expectedTuples);
-      });
-    });
+        expectStatusTypesAndMessagesToBe(result, expectedTuples)
+      })
+    })
 
     describe('given the drive is too small', () => {
       it('should return the too small error', function () {
-        this.image.size.final.value = this.drive.size + 1;
+        this.image.size.final.value = this.drive.size + 1
 
-        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image);
-        const expectedTuples = [ [ 'ERROR', 'TOO_SMALL' ] ];
+        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
+        const expectedTuples = [ [ 'ERROR', 'TOO_SMALL' ] ]
 
-        expectStatusTypesAndMessagesToBe(result, expectedTuples);
-      });
-    });
+        expectStatusTypesAndMessagesToBe(result, expectedTuples)
+      })
+    })
 
     describe('given the drive is locked', () => {
       it('should return the locked drive error', function () {
-        this.drive.protected = true;
+        this.drive.protected = true
 
-        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image);
-        const expectedTuples = [ [ 'ERROR', 'LOCKED' ] ];
+        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
+        const expectedTuples = [ [ 'ERROR', 'LOCKED' ] ]
 
-        expectStatusTypesAndMessagesToBe(result, expectedTuples);
-      });
-    });
+        expectStatusTypesAndMessagesToBe(result, expectedTuples)
+      })
+    })
 
     describe('given the drive is smaller than the recommended size', () => {
       it('should return the smaller than recommended size warning', function () {
-        this.image.recommendedDriveSize = this.drive.size + 1;
+        this.image.recommendedDriveSize = this.drive.size + 1
 
-        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image);
-        const expectedTuples = [ [ 'WARNING', 'SIZE_NOT_RECOMMENDED' ] ];
+        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
+        const expectedTuples = [ [ 'WARNING', 'SIZE_NOT_RECOMMENDED' ] ]
 
-        expectStatusTypesAndMessagesToBe(result, expectedTuples);
-      });
-    });
+        expectStatusTypesAndMessagesToBe(result, expectedTuples)
+      })
+    })
 
     describe('given the image is null', () => {
       it('should return an empty list', function () {
-        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, null);
+        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, null)
 
-        m.chai.expect(result).to.deep.equal([]);
-      });
-    });
+        m.chai.expect(result).to.deep.equal([])
+      })
+    })
 
     describe('given the drive is null', () => {
       it('should return an empty list', function () {
-        const result = constraints.getDriveImageCompatibilityStatuses(null, this.image);
+        const result = constraints.getDriveImageCompatibilityStatuses(null, this.image)
 
-        m.chai.expect(result).to.deep.equal([]);
-      });
-    });
+        m.chai.expect(result).to.deep.equal([])
+      })
+    })
 
     describe('given a locked drive and image is null', () => {
       it('should return locked drive error', function () {
-        this.drive.protected = true;
+        this.drive.protected = true
 
-        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, null);
-        const expectedTuples = [ [ 'ERROR', 'LOCKED' ] ];
+        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, null)
+        const expectedTuples = [ [ 'ERROR', 'LOCKED' ] ]
 
-        expectStatusTypesAndMessagesToBe(result, expectedTuples);
-      });
-    });
+        expectStatusTypesAndMessagesToBe(result, expectedTuples)
+      })
+    })
 
     describe('given a system drive and image is null', () => {
       it('should return system drive warning', function () {
-        this.drive.system = true;
+        this.drive.system = true
 
-        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, null);
-        const expectedTuples = [ [ 'WARNING', 'SYSTEM' ] ];
+        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, null)
+        const expectedTuples = [ [ 'WARNING', 'SYSTEM' ] ]
 
-        expectStatusTypesAndMessagesToBe(result, expectedTuples);
-      });
-    });
+        expectStatusTypesAndMessagesToBe(result, expectedTuples)
+      })
+    })
 
     describe('given the drive contains the image and the drive is locked', () => {
       it('should return the contains-image drive error by precedence', function () {
-        this.drive.protected = true;
-        this.image.path = path.join(this.mountpoint, 'rpi.img');
+        this.drive.protected = true
+        this.image.path = path.join(this.mountpoint, 'rpi.img')
 
-        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image);
-        const expectedTuples = [ [ 'ERROR', 'CONTAINS_IMAGE' ] ];
+        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
+        const expectedTuples = [ [ 'ERROR', 'CONTAINS_IMAGE' ] ]
 
-        expectStatusTypesAndMessagesToBe(result, expectedTuples);
-      });
-    });
+        expectStatusTypesAndMessagesToBe(result, expectedTuples)
+      })
+    })
 
     describe('given a locked and too small drive', () => {
       it('should return the locked error by precedence', function () {
-        this.drive.protected = true;
+        this.drive.protected = true
 
-        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image);
-        const expectedTuples = [ [ 'ERROR', 'LOCKED' ] ];
+        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
+        const expectedTuples = [ [ 'ERROR', 'LOCKED' ] ]
 
-        expectStatusTypesAndMessagesToBe(result, expectedTuples);
-      });
-    });
+        expectStatusTypesAndMessagesToBe(result, expectedTuples)
+      })
+    })
 
     describe('given a too small and system drive', () => {
       it('should return the too small drive error by precedence', function () {
-        this.image.size.final.value = this.drive.size + 1;
-        this.drive.system = true;
+        this.image.size.final.value = this.drive.size + 1
+        this.drive.system = true
 
-        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image);
-        const expectedTuples = [ [ 'ERROR', 'TOO_SMALL' ] ];
+        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
+        const expectedTuples = [ [ 'ERROR', 'TOO_SMALL' ] ]
 
-        expectStatusTypesAndMessagesToBe(result, expectedTuples);
-      });
-    });
+        expectStatusTypesAndMessagesToBe(result, expectedTuples)
+      })
+    })
 
     describe('given a system drive and not recommended drive size', () => {
       it('should return both warnings', function () {
-        this.drive.system = true;
-        this.image.recommendedDriveSize = this.drive.size + 1;
+        this.drive.system = true
+        this.image.recommendedDriveSize = this.drive.size + 1
 
-        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image);
-        const expectedTuples = [ [ 'WARNING', 'SIZE_NOT_RECOMMENDED' ], [ 'WARNING', 'SYSTEM' ] ];
+        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
+        const expectedTuples = [ [ 'WARNING', 'SIZE_NOT_RECOMMENDED' ], [ 'WARNING', 'SYSTEM' ] ]
 
-        expectStatusTypesAndMessagesToBe(result, expectedTuples);
-      });
-    });
-  });
-});
+        expectStatusTypesAndMessagesToBe(result, expectedTuples)
+      })
+    })
+  })
+})

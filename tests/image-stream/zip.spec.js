@@ -14,96 +14,96 @@
  * limitations under the License.
  */
 
-'use strict';
+'use strict'
 
-const m = require('mochainon');
-const fs = require('fs');
-const path = require('path');
-const DATA_PATH = path.join(__dirname, 'data');
-const IMAGES_PATH = path.join(DATA_PATH, 'images');
-const ZIP_PATH = path.join(DATA_PATH, 'zip');
-const imageStream = require('../../lib/image-stream/index');
-const tester = require('./tester');
+const m = require('mochainon')
+const fs = require('fs')
+const path = require('path')
+const DATA_PATH = path.join(__dirname, 'data')
+const IMAGES_PATH = path.join(DATA_PATH, 'images')
+const ZIP_PATH = path.join(DATA_PATH, 'zip')
+const imageStream = require('../../lib/image-stream/index')
+const tester = require('./tester')
 
 describe('ImageStream: ZIP', function () {
-  this.timeout(tester.DEFAULT_IMAGE_TESTS_TIMEOUT);
+  this.timeout(tester.DEFAULT_IMAGE_TESTS_TIMEOUT)
 
   describe('.getFromFilePath()', function () {
     describe('given an empty zip directory', function () {
       tester.expectError(
         path.join(ZIP_PATH, 'zip-directory-empty.zip'),
-        'Invalid archive image');
-    });
+        'Invalid archive image')
+    })
 
     describe('given a zip directory containing only misc files', function () {
       tester.expectError(
         path.join(ZIP_PATH, 'zip-directory-no-image-only-misc.zip'),
-        'Invalid archive image');
-    });
+        'Invalid archive image')
+    })
 
     describe('given a zip with an unsupported compression method', function () {
       tester.expectError(
         path.join(ZIP_PATH, 'zip-deflate64.zip'),
-        'unsupported compression method: 9');
-    });
+        'unsupported compression method: 9')
+    })
 
     describe('given a zip directory containing multiple images', function () {
       tester.expectError(
         path.join(ZIP_PATH, 'zip-directory-multiple-images.zip'),
-        'Invalid archive image');
-    });
+        'Invalid archive image')
+    })
 
     describe('given a zip directory containing only an image', function () {
       tester.extractFromFilePath(
         path.join(ZIP_PATH, 'zip-directory-etcher-test-only.zip'),
-        path.join(IMAGES_PATH, 'etcher-test.img'));
-    });
+        path.join(IMAGES_PATH, 'etcher-test.img'))
+    })
 
     describe('given a zip directory containing an image and other misc files', function () {
       tester.extractFromFilePath(
         path.join(ZIP_PATH, 'zip-directory-etcher-test-and-misc.zip'),
-        path.join(IMAGES_PATH, 'etcher-test.img'));
-    });
-  });
+        path.join(IMAGES_PATH, 'etcher-test.img'))
+    })
+  })
 
   describe('compression method', function () {
     context('DEFLATE', function () {
       tester.extractFromFilePath(
         path.join(ZIP_PATH, 'zip-deflate.zip'),
-        path.join(IMAGES_PATH, 'etcher-test.img'));
-    });
+        path.join(IMAGES_PATH, 'etcher-test.img'))
+    })
 
     // NOTE: These tests are intentionally skipped, as the
     // zip library we're currently using only supports deflate
     context.skip('DEFLATE64', function () {
       tester.extractFromFilePath(
         path.join(ZIP_PATH, 'zip-deflate64.zip'),
-        path.join(IMAGES_PATH, 'etcher-test.img'));
-    });
+        path.join(IMAGES_PATH, 'etcher-test.img'))
+    })
 
     context.skip('PPMD', function () {
       tester.extractFromFilePath(
         path.join(ZIP_PATH, 'zip-ppmd.zip'),
-        path.join(IMAGES_PATH, 'etcher-test.img'));
-    });
+        path.join(IMAGES_PATH, 'etcher-test.img'))
+    })
 
     context.skip('BZIP2', function () {
       tester.extractFromFilePath(
         path.join(ZIP_PATH, 'zip-bzip2.zip'),
-        path.join(IMAGES_PATH, 'etcher-test.img'));
-    });
+        path.join(IMAGES_PATH, 'etcher-test.img'))
+    })
 
     context.skip('LZMA', function () {
       tester.extractFromFilePath(
         path.join(ZIP_PATH, 'zip-lzma.zip'),
-        path.join(IMAGES_PATH, 'etcher-test.img'));
-    });
-  });
+        path.join(IMAGES_PATH, 'etcher-test.img'))
+    })
+  })
 
   describe('.getImageMetadata()', function () {
     it('should return the correct metadata', function () {
-      const image = path.join(ZIP_PATH, 'zip-directory-etcher-test-only.zip');
-      const expectedSize = fs.statSync(path.join(IMAGES_PATH, 'etcher-test.img')).size;
+      const image = path.join(ZIP_PATH, 'zip-directory-etcher-test-only.zip')
+      const expectedSize = fs.statSync(path.join(IMAGES_PATH, 'etcher-test.img')).size
 
       return imageStream.getImageMetadata(image).then((metadata) => {
         m.chai.expect(metadata).to.deep.equal({
@@ -120,8 +120,8 @@ describe('ImageStream: ZIP', function () {
           hasMBR: true,
           hasGPT: false,
           partitions: require('./data/images/etcher-test-partitions.json')
-        });
-      });
-    });
-  });
-});
+        })
+      })
+    })
+  })
+})

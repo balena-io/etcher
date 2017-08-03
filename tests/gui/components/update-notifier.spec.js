@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-'use strict';
+'use strict'
 
-const m = require('mochainon');
-const _ = require('lodash');
-const units = require('../../../lib/shared/units');
-const updateNotifier = require('../../../lib/gui/components/update-notifier');
+const m = require('mochainon')
+const _ = require('lodash')
+const units = require('../../../lib/shared/units')
+const updateNotifier = require('../../../lib/gui/components/update-notifier')
 
 describe('Browser: updateNotifier', function () {
   describe('.UPDATE_NOTIFIER_SLEEP_DAYS', function () {
     it('should be an integer', function () {
-      m.chai.expect(_.isInteger(updateNotifier.UPDATE_NOTIFIER_SLEEP_DAYS)).to.be.true;
-    });
+      m.chai.expect(_.isInteger(updateNotifier.UPDATE_NOTIFIER_SLEEP_DAYS)).to.be.true
+    })
 
     it('should be greater than 0', function () {
-      m.chai.expect(updateNotifier.UPDATE_NOTIFIER_SLEEP_DAYS > 0).to.be.true;
-    });
-  });
+      m.chai.expect(updateNotifier.UPDATE_NOTIFIER_SLEEP_DAYS > 0).to.be.true
+    })
+  })
 
   describe('.shouldCheckForUpdates()', function () {
-    const UPDATE_NOTIFIER_SLEEP_MS = units.daysToMilliseconds(updateNotifier.UPDATE_NOTIFIER_SLEEP_DAYS);
+    const UPDATE_NOTIFIER_SLEEP_MS = units.daysToMilliseconds(updateNotifier.UPDATE_NOTIFIER_SLEEP_DAYS)
 
     _.each([
 
@@ -443,8 +443,8 @@ describe('Browser: updateNotifier', function () {
         `lastSleptUpdateNotifierVersion=${testCase.options.lastSleptUpdateNotifierVersion}, and`,
         `currentVersion=${testCase.options.currentVersion}`
       ], ' '), function () {
-        m.chai.expect(updateNotifier.shouldCheckForUpdates(testCase.options)).to.equal(testCase.expected);
-      });
-    });
-  });
-});
+        m.chai.expect(updateNotifier.shouldCheckForUpdates(testCase.options)).to.equal(testCase.expected)
+      })
+    })
+  })
+})
