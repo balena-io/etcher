@@ -101,8 +101,8 @@ describe('Shared: Release', function () {
       m.chai.expect(release.isStableRelease('1.0.0-beta.1')).to.be.false
     })
 
-    it('should return true if given a snapshot stable version', function () {
-      m.chai.expect(release.isStableRelease('1.0.0+6374412')).to.be.true
+    it('should return false if given a snapshot stable version', function () {
+      m.chai.expect(release.isStableRelease('1.0.0+6374412')).to.be.false
     })
 
     it('should return false if given a snapshot release candidate version', function () {
