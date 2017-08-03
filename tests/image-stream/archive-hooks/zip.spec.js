@@ -14,35 +14,35 @@
  * limitations under the License.
  */
 
-'use strict';
+'use strict'
 
-const m = require('mochainon');
-const path = require('path');
-const zipHooks = require('../../../lib/image-stream/archive-hooks/zip');
-const utils = require('../../../lib/image-stream/utils');
-const tester = require('../tester');
-const ZIP_PATH = path.join(__dirname, '..', 'data', 'zip');
+const m = require('mochainon')
+const path = require('path')
+const zipHooks = require('../../../lib/image-stream/archive-hooks/zip')
+const utils = require('../../../lib/image-stream/utils')
+const tester = require('../tester')
+const ZIP_PATH = path.join(__dirname, '..', 'data', 'zip')
 
 describe('ImageStream: Archive hooks: ZIP', function () {
-  this.timeout(tester.DEFAULT_IMAGE_TESTS_TIMEOUT);
+  this.timeout(tester.DEFAULT_IMAGE_TESTS_TIMEOUT)
 
   describe('.getEntries()', function () {
     describe('given an empty zip', function () {
       beforeEach(function () {
-        this.zip = path.join(ZIP_PATH, 'zip-directory-empty.zip');
-      });
+        this.zip = path.join(ZIP_PATH, 'zip-directory-empty.zip')
+      })
 
       it('should become an empty array', function () {
         return zipHooks.getEntries(this.zip).then((entries) => {
-          m.chai.expect(entries).to.deep.equal([]);
-        });
-      });
-    });
+          m.chai.expect(entries).to.deep.equal([])
+        })
+      })
+    })
 
     describe('given a zip with multiple files in it', function () {
       beforeEach(function () {
-        this.zip = path.join(ZIP_PATH, 'zip-directory-multiple-images.zip');
-      });
+        this.zip = path.join(ZIP_PATH, 'zip-directory-multiple-images.zip')
+      })
 
       it('should become all entries', function () {
         return zipHooks.getEntries(this.zip).then((entries) => {
@@ -55,15 +55,15 @@ describe('ImageStream: Archive hooks: ZIP', function () {
               name: 'multiple-images/raspberrypi.img',
               size: 33554432
             }
-          ]);
-        });
-      });
-    });
+          ])
+        })
+      })
+    })
 
     describe('given a zip with nested files in it', function () {
       beforeEach(function () {
-        this.zip = path.join(ZIP_PATH, 'zip-directory-nested-misc.zip');
-      });
+        this.zip = path.join(ZIP_PATH, 'zip-directory-nested-misc.zip')
+      })
 
       it('should become all entries', function () {
         return zipHooks.getEntries(this.zip).then((entries) => {
@@ -76,53 +76,53 @@ describe('ImageStream: Archive hooks: ZIP', function () {
               name: 'zip-directory-nested-misc/hello/there/bar',
               size: 4
             }
-          ]);
-        });
-      });
-    });
-  });
+          ])
+        })
+      })
+    })
+  })
 
   describe('.extractFile()', function () {
     beforeEach(function () {
-      this.zip = path.join(ZIP_PATH, 'zip-directory-nested-misc.zip');
-    });
+      this.zip = path.join(ZIP_PATH, 'zip-directory-nested-misc.zip')
+    })
 
     it('should be able to extract a top-level file', function () {
-      const fileName = 'zip-directory-nested-misc/foo';
+      const fileName = 'zip-directory-nested-misc/foo'
       return zipHooks.getEntries(this.zip).then((entries) => {
-        return zipHooks.extractFile(this.zip, entries, fileName);
+        return zipHooks.extractFile(this.zip, entries, fileName)
       }).then(utils.extractStream).then((data) => {
-        m.chai.expect(data.toString()).to.equal('foo\n');
-      });
-    });
+        m.chai.expect(data.toString()).to.equal('foo\n')
+      })
+    })
 
     it('should be able to extract a nested file', function () {
-      const fileName = 'zip-directory-nested-misc/hello/there/bar';
+      const fileName = 'zip-directory-nested-misc/hello/there/bar'
       return zipHooks.getEntries(this.zip).then((entries) => {
-        return zipHooks.extractFile(this.zip, entries, fileName);
+        return zipHooks.extractFile(this.zip, entries, fileName)
       }).then(utils.extractStream).then((data) => {
-        m.chai.expect(data.toString()).to.equal('bar\n');
-      });
-    });
+        m.chai.expect(data.toString()).to.equal('bar\n')
+      })
+    })
 
     it('should throw if the entry does not exist', function () {
-      const fileName = 'zip-directory-nested-misc/xxxxxxxxxxxxxxxx';
+      const fileName = 'zip-directory-nested-misc/xxxxxxxxxxxxxxxx'
       return zipHooks.getEntries(this.zip).then((entries) => {
-        return zipHooks.extractFile(this.zip, entries, fileName);
+        return zipHooks.extractFile(this.zip, entries, fileName)
       }).catch((error) => {
-        m.chai.expect(error).to.be.an.instanceof(Error);
-        m.chai.expect(error.message).to.equal(`Invalid entry: ${fileName}`);
-      });
-    });
+        m.chai.expect(error).to.be.an.instanceof(Error)
+        m.chai.expect(error.message).to.equal(`Invalid entry: ${fileName}`)
+      })
+    })
 
     it('should throw if the entry is a directory', function () {
-      const fileName = 'zip-directory-nested-misc/hello';
+      const fileName = 'zip-directory-nested-misc/hello'
       return zipHooks.getEntries(this.zip).then((entries) => {
-        return zipHooks.extractFile(this.zip, entries, fileName);
+        return zipHooks.extractFile(this.zip, entries, fileName)
       }).catch((error) => {
-        m.chai.expect(error).to.be.an.instanceof(Error);
-        m.chai.expect(error.message).to.equal(`Invalid entry: ${fileName}`);
-      });
-    });
-  });
-});
+        m.chai.expect(error).to.be.an.instanceof(Error)
+        m.chai.expect(error.message).to.equal(`Invalid entry: ${fileName}`)
+      })
+    })
+  })
+})

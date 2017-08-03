@@ -14,38 +14,38 @@
  * limitations under the License.
  */
 
-'use strict';
+'use strict'
 
-const m = require('mochainon');
-const fs = require('fs');
-const path = require('path');
-const DATA_PATH = path.join(__dirname, 'data');
-const IMAGES_PATH = path.join(DATA_PATH, 'images');
-const BZ2_PATH = path.join(DATA_PATH, 'bz2');
-const imageStream = require('../../lib/image-stream/index');
-const tester = require('./tester');
+const m = require('mochainon')
+const fs = require('fs')
+const path = require('path')
+const DATA_PATH = path.join(__dirname, 'data')
+const IMAGES_PATH = path.join(DATA_PATH, 'images')
+const BZ2_PATH = path.join(DATA_PATH, 'bz2')
+const imageStream = require('../../lib/image-stream/index')
+const tester = require('./tester')
 
 describe('ImageStream: BZ2', function () {
-  this.timeout(tester.DEFAULT_IMAGE_TESTS_TIMEOUT);
+  this.timeout(tester.DEFAULT_IMAGE_TESTS_TIMEOUT)
 
   describe('compression method', function () {
     describe('bzip2 level 9', function () {
       tester.extractFromFilePath(
         path.join(BZ2_PATH, 'etcher-test-9.img.bz2'),
-        path.join(IMAGES_PATH, 'etcher-test.img'));
-    });
+        path.join(IMAGES_PATH, 'etcher-test.img'))
+    })
 
     describe('bzip2 level 1', function () {
       tester.extractFromFilePath(
         path.join(BZ2_PATH, 'etcher-test.img.bz2'),
-        path.join(IMAGES_PATH, 'etcher-test.img'));
-    });
-  });
+        path.join(IMAGES_PATH, 'etcher-test.img'))
+    })
+  })
 
   describe('.getImageMetadata()', function () {
     it('should return the correct metadata', function () {
-      const image = path.join(BZ2_PATH, 'etcher-test.img.bz2');
-      const expectedSize = fs.statSync(image).size;
+      const image = path.join(BZ2_PATH, 'etcher-test.img.bz2')
+      const expectedSize = fs.statSync(image).size
 
       return imageStream.getImageMetadata(image).then((metadata) => {
         m.chai.expect(metadata).to.deep.equal({
@@ -62,8 +62,8 @@ describe('ImageStream: BZ2', function () {
           hasMBR: true,
           hasGPT: false,
           partitions: require('./data/images/etcher-test-partitions.json')
-        });
-      });
-    });
-  });
-});
+        })
+      })
+    })
+  })
+})

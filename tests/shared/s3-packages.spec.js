@@ -14,45 +14,45 @@
  * limitations under the License.
  */
 
-'use strict';
+'use strict'
 
-const m = require('mochainon');
-const Bluebird = require('bluebird');
-const request = Bluebird.promisifyAll(require('request'));
-const nock = require('nock');
-const s3Packages = require('../../lib/shared/s3-packages');
-const release = require('../../lib/shared/release');
+const m = require('mochainon')
+const Bluebird = require('bluebird')
+const request = Bluebird.promisifyAll(require('request'))
+const nock = require('nock')
+const s3Packages = require('../../lib/shared/s3-packages')
+const release = require('../../lib/shared/release')
 
 describe('Shared: s3Packages', function () {
   describe('.getBucketUrlFromReleaseType()', function () {
     it('should return the production URL if given a production release type', function () {
-      const bucketUrl = s3Packages.getBucketUrlFromReleaseType(release.RELEASE_TYPE.PRODUCTION);
-      m.chai.expect(bucketUrl).to.equal(s3Packages.BUCKET_URL.PRODUCTION);
-    });
+      const bucketUrl = s3Packages.getBucketUrlFromReleaseType(release.RELEASE_TYPE.PRODUCTION)
+      m.chai.expect(bucketUrl).to.equal(s3Packages.BUCKET_URL.PRODUCTION)
+    })
 
     it('should return the snapshot URL if given a snapshot release type', function () {
-      const bucketUrl = s3Packages.getBucketUrlFromReleaseType(release.RELEASE_TYPE.SNAPSHOT);
-      m.chai.expect(bucketUrl).to.equal(s3Packages.BUCKET_URL.SNAPSHOT);
-    });
+      const bucketUrl = s3Packages.getBucketUrlFromReleaseType(release.RELEASE_TYPE.SNAPSHOT)
+      m.chai.expect(bucketUrl).to.equal(s3Packages.BUCKET_URL.SNAPSHOT)
+    })
 
     it('should return null if given an unknown release type', function () {
-      const bucketUrl = s3Packages.getBucketUrlFromReleaseType(release.RELEASE_TYPE.UNKNOWN);
-      m.chai.expect(bucketUrl).to.be.null;
-    });
-  });
+      const bucketUrl = s3Packages.getBucketUrlFromReleaseType(release.RELEASE_TYPE.UNKNOWN)
+      m.chai.expect(bucketUrl).to.be.null
+    })
+  })
 
   describe('.getRemoteVersions()', function () {
     beforeEach(function () {
-      s3Packages.getRemoteVersions.cache.clear();
-    });
+      s3Packages.getRemoteVersions.cache.clear()
+    })
 
     it('should be rejected if url is null', function (done) {
       s3Packages.getRemoteVersions(null).catch((error) => {
-        m.chai.expect(error).to.be.an.instanceof(Error);
-        m.chai.expect(error.message).to.equal('Invalid bucket url: null');
-        done();
-      });
-    });
+        m.chai.expect(error).to.be.an.instanceof(Error)
+        m.chai.expect(error.message).to.equal('Invalid bucket url: null')
+        done()
+      })
+    })
 
     describe('given an empty bucket', function () {
       beforeEach(function () {
@@ -64,20 +64,20 @@ describe('Shared: s3Packages', function () {
             <MaxKeys>1000</MaxKeys>
             <IsTruncated>false</IsTruncated>
           </ListBucketResult>
-        `);
-      });
+        `)
+      })
 
       afterEach(function () {
-        nock.cleanAll();
-      });
+        nock.cleanAll()
+      })
 
       it('should resolve an empty array', function (done) {
         s3Packages.getRemoteVersions(s3Packages.BUCKET_URL.PRODUCTION).then((versions) => {
-          m.chai.expect(versions).to.deep.equal([]);
-          done();
-        }).catch(done);
-      });
-    });
+          m.chai.expect(versions).to.deep.equal([])
+          done()
+        }).catch(done)
+      })
+    })
 
     describe('given many versions', function () {
       beforeEach(function () {
@@ -201,23 +201,23 @@ describe('Shared: s3Packages', function () {
               <StorageClass>STANDARD</StorageClass>
             </Contents>
           </ListBucketResult>
-        `);
-      });
+        `)
+      })
 
       afterEach(function () {
-        nock.cleanAll();
-      });
+        nock.cleanAll()
+      })
 
       it('should resolve all the available versions', function (done) {
         s3Packages.getRemoteVersions(s3Packages.BUCKET_URL.PRODUCTION).then((versions) => {
           m.chai.expect(versions).to.deep.equal([
             '1.0.0-beta.17',
             '1.0.0-beta.18'
-          ]);
-          done();
-        }).catch(done);
-      });
-    });
+          ])
+          done()
+        }).catch(done)
+      })
+    })
 
     describe('given a version is being uploaded', function () {
       beforeEach(function () {
@@ -334,22 +334,22 @@ describe('Shared: s3Packages', function () {
               <StorageClass>STANDARD</StorageClass>
             </Contents>
           </ListBucketResult>
-        `);
-      });
+        `)
+      })
 
       afterEach(function () {
-        nock.cleanAll();
-      });
+        nock.cleanAll()
+      })
 
       it('should resolve all the entirely available versions', function (done) {
         s3Packages.getRemoteVersions(s3Packages.BUCKET_URL.PRODUCTION).then((versions) => {
           m.chai.expect(versions).to.deep.equal([
             '1.0.0-beta.17'
-          ]);
-          done();
-        }).catch(done);
-      });
-    });
+          ])
+          done()
+        }).catch(done)
+      })
+    })
 
     describe('given other programs in the bucket', function () {
       beforeEach(function () {
@@ -473,22 +473,22 @@ describe('Shared: s3Packages', function () {
               <StorageClass>STANDARD</StorageClass>
             </Contents>
           </ListBucketResult>
-        `);
-      });
+        `)
+      })
 
       afterEach(function () {
-        nock.cleanAll();
-      });
+        nock.cleanAll()
+      })
 
       it('should not consider the other packages', function (done) {
         s3Packages.getRemoteVersions(s3Packages.BUCKET_URL.PRODUCTION).then((versions) => {
           m.chai.expect(versions).to.deep.equal([
             '1.0.0-beta.17'
-          ]);
-          done();
-        }).catch(done);
-      });
-    });
+          ])
+          done()
+        }).catch(done)
+      })
+    })
 
     describe('given only other programs in the bucket', function () {
       beforeEach(function () {
@@ -549,374 +549,374 @@ describe('Shared: s3Packages', function () {
               <StorageClass>STANDARD</StorageClass>
             </Contents>
           </ListBucketResult>
-        `);
-      });
+        `)
+      })
 
       afterEach(function () {
-        nock.cleanAll();
-      });
+        nock.cleanAll()
+      })
 
       it('should resolve an empty array', function (done) {
         s3Packages.getRemoteVersions(s3Packages.BUCKET_URL.PRODUCTION).then((versions) => {
-          m.chai.expect(versions).to.deep.equal([]);
-          done();
-        }).catch(done);
-      });
-    });
+          m.chai.expect(versions).to.deep.equal([])
+          done()
+        }).catch(done)
+      })
+    })
 
     describe('given an unsuccessful request', function () {
       beforeEach(function () {
-        nock(s3Packages.BUCKET_URL.PRODUCTION).get('/').reply(500);
-      });
+        nock(s3Packages.BUCKET_URL.PRODUCTION).get('/').reply(500)
+      })
 
       afterEach(function () {
-        nock.cleanAll();
-      });
+        nock.cleanAll()
+      })
 
       it('should be rejected with an error', function (done) {
         s3Packages.getRemoteVersions(s3Packages.BUCKET_URL.PRODUCTION).catch((error) => {
-          m.chai.expect(error).to.be.an.instanceof(Error);
-          done();
-        });
-      });
-    });
+          m.chai.expect(error).to.be.an.instanceof(Error)
+          done()
+        })
+      })
+    })
 
     describe('given ENOTFOUND', function () {
       beforeEach(function () {
-        const error = new Error('ENOTFOUND');
-        error.code = 'ENOTFOUND';
+        const error = new Error('ENOTFOUND')
+        error.code = 'ENOTFOUND'
 
-        this.requestGetAsyncStub = m.sinon.stub(request, 'getAsync');
-        this.requestGetAsyncStub.returns(Bluebird.reject(error));
-      });
+        this.requestGetAsyncStub = m.sinon.stub(request, 'getAsync')
+        this.requestGetAsyncStub.returns(Bluebird.reject(error))
+      })
 
       afterEach(function () {
-        this.requestGetAsyncStub.restore();
-      });
+        this.requestGetAsyncStub.restore()
+      })
 
       it('should resolve an empty array', function (done) {
         s3Packages.getRemoteVersions(s3Packages.BUCKET_URL.PRODUCTION).then((versions) => {
-          m.chai.expect(versions).to.deep.equal([]);
-          done();
-        }).catch(done);
-      });
-    });
+          m.chai.expect(versions).to.deep.equal([])
+          done()
+        }).catch(done)
+      })
+    })
 
     describe('given ETIMEDOUT', function () {
       beforeEach(function () {
-        const error = new Error('ETIMEDOUT');
-        error.code = 'ETIMEDOUT';
+        const error = new Error('ETIMEDOUT')
+        error.code = 'ETIMEDOUT'
 
-        this.requestGetAsyncStub = m.sinon.stub(request, 'getAsync');
-        this.requestGetAsyncStub.returns(Bluebird.reject(error));
-      });
+        this.requestGetAsyncStub = m.sinon.stub(request, 'getAsync')
+        this.requestGetAsyncStub.returns(Bluebird.reject(error))
+      })
 
       afterEach(function () {
-        this.requestGetAsyncStub.restore();
-      });
+        this.requestGetAsyncStub.restore()
+      })
 
       it('should resolve an empty array', function (done) {
         s3Packages.getRemoteVersions(s3Packages.BUCKET_URL.PRODUCTION).then((versions) => {
-          m.chai.expect(versions).to.deep.equal([]);
-          done();
-        }).catch(done);
-      });
-    });
+          m.chai.expect(versions).to.deep.equal([])
+          done()
+        }).catch(done)
+      })
+    })
 
     describe('given EHOSTDOWN', function () {
       beforeEach(function () {
-        const error = new Error('EHOSTDOWN');
-        error.code = 'EHOSTDOWN';
+        const error = new Error('EHOSTDOWN')
+        error.code = 'EHOSTDOWN'
 
-        this.requestGetAsyncStub = m.sinon.stub(request, 'getAsync');
-        this.requestGetAsyncStub.returns(Bluebird.reject(error));
-      });
+        this.requestGetAsyncStub = m.sinon.stub(request, 'getAsync')
+        this.requestGetAsyncStub.returns(Bluebird.reject(error))
+      })
 
       afterEach(function () {
-        this.requestGetAsyncStub.restore();
-      });
+        this.requestGetAsyncStub.restore()
+      })
 
       it('should resolve an empty array', function (done) {
         s3Packages.getRemoteVersions(s3Packages.BUCKET_URL.PRODUCTION).then((versions) => {
-          m.chai.expect(versions).to.deep.equal([]);
-          done();
-        }).catch(done);
-      });
-    });
+          m.chai.expect(versions).to.deep.equal([])
+          done()
+        }).catch(done)
+      })
+    })
 
     describe('given ECONNRESET', function () {
       beforeEach(function () {
-        const error = new Error('ECONNRESET');
-        error.code = 'ECONNRESET';
+        const error = new Error('ECONNRESET')
+        error.code = 'ECONNRESET'
 
-        this.requestGetAsyncStub = m.sinon.stub(request, 'getAsync');
-        this.requestGetAsyncStub.returns(Bluebird.reject(error));
-      });
+        this.requestGetAsyncStub = m.sinon.stub(request, 'getAsync')
+        this.requestGetAsyncStub.returns(Bluebird.reject(error))
+      })
 
       afterEach(function () {
-        this.requestGetAsyncStub.restore();
-      });
+        this.requestGetAsyncStub.restore()
+      })
 
       it('should resolve an empty array', function (done) {
         s3Packages.getRemoteVersions(s3Packages.BUCKET_URL.PRODUCTION).then((versions) => {
-          m.chai.expect(versions).to.deep.equal([]);
-          done();
-        }).catch(done);
-      });
-    });
+          m.chai.expect(versions).to.deep.equal([])
+          done()
+        }).catch(done)
+      })
+    })
 
     describe('given ECONNREFUSED', function () {
       beforeEach(function () {
-        const error = new Error('ECONNREFUSED');
-        error.code = 'ECONNREFUSED';
+        const error = new Error('ECONNREFUSED')
+        error.code = 'ECONNREFUSED'
 
-        this.requestGetAsyncStub = m.sinon.stub(request, 'getAsync');
-        this.requestGetAsyncStub.returns(Bluebird.reject(error));
-      });
+        this.requestGetAsyncStub = m.sinon.stub(request, 'getAsync')
+        this.requestGetAsyncStub.returns(Bluebird.reject(error))
+      })
 
       afterEach(function () {
-        this.requestGetAsyncStub.restore();
-      });
+        this.requestGetAsyncStub.restore()
+      })
 
       it('should resolve an empty array', function (done) {
         s3Packages.getRemoteVersions(s3Packages.BUCKET_URL.PRODUCTION).then((versions) => {
-          m.chai.expect(versions).to.deep.equal([]);
-          done();
-        }).catch(done);
-      });
-    });
+          m.chai.expect(versions).to.deep.equal([])
+          done()
+        }).catch(done)
+      })
+    })
 
     describe('given EACCES', function () {
       beforeEach(function () {
-        const error = new Error('EACCES');
-        error.code = 'EACCES';
+        const error = new Error('EACCES')
+        error.code = 'EACCES'
 
-        this.requestGetAsyncStub = m.sinon.stub(request, 'getAsync');
-        this.requestGetAsyncStub.returns(Bluebird.reject(error));
-      });
+        this.requestGetAsyncStub = m.sinon.stub(request, 'getAsync')
+        this.requestGetAsyncStub.returns(Bluebird.reject(error))
+      })
 
       afterEach(function () {
-        this.requestGetAsyncStub.restore();
-      });
+        this.requestGetAsyncStub.restore()
+      })
 
       it('should resolve an empty array', function (done) {
         s3Packages.getRemoteVersions(s3Packages.BUCKET_URL.PRODUCTION).then((versions) => {
-          m.chai.expect(versions).to.deep.equal([]);
-          done();
-        }).catch(done);
-      });
-    });
+          m.chai.expect(versions).to.deep.equal([])
+          done()
+        }).catch(done)
+      })
+    })
 
     describe('given UNABLE_TO_VERIFY_LEAF_SIGNATURE', function () {
       beforeEach(function () {
-        const error = new Error('UNABLE_TO_VERIFY_LEAF_SIGNATURE');
-        error.code = 'UNABLE_TO_VERIFY_LEAF_SIGNATURE';
+        const error = new Error('UNABLE_TO_VERIFY_LEAF_SIGNATURE')
+        error.code = 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'
 
-        this.requestGetAsyncStub = m.sinon.stub(request, 'getAsync');
-        this.requestGetAsyncStub.returns(Bluebird.reject(error));
-      });
+        this.requestGetAsyncStub = m.sinon.stub(request, 'getAsync')
+        this.requestGetAsyncStub.returns(Bluebird.reject(error))
+      })
 
       afterEach(function () {
-        this.requestGetAsyncStub.restore();
-      });
+        this.requestGetAsyncStub.restore()
+      })
 
       it('should resolve an empty array', function (done) {
         s3Packages.getRemoteVersions(s3Packages.BUCKET_URL.PRODUCTION).then((versions) => {
-          m.chai.expect(versions).to.deep.equal([]);
-          done();
-        }).catch(done);
-      });
-    });
-  });
+          m.chai.expect(versions).to.deep.equal([])
+          done()
+        }).catch(done)
+      })
+    })
+  })
 
   describe('.getLatestVersion()', function () {
     describe('given a valid production ETCHER_FAKE_S3_LATEST_VERSION environment variable', function () {
       beforeEach(function () {
-        process.env.ETCHER_FAKE_S3_LATEST_VERSION = '9.9.9';
-      });
+        process.env.ETCHER_FAKE_S3_LATEST_VERSION = '9.9.9'
+      })
 
       afterEach(function () {
-        Reflect.deleteProperty(process.env, 'ETCHER_FAKE_S3_LATEST_VERSION');
-      });
+        Reflect.deleteProperty(process.env, 'ETCHER_FAKE_S3_LATEST_VERSION')
+      })
 
       describe('given a production release type', function () {
         it('should resolve the variable', function (done) {
           s3Packages.getLatestVersion(release.RELEASE_TYPE.PRODUCTION).then((latestVersion) => {
-            m.chai.expect(latestVersion).to.equal('9.9.9');
-            done();
-          }).catch(done);
-        });
-      });
+            m.chai.expect(latestVersion).to.equal('9.9.9')
+            done()
+          }).catch(done)
+        })
+      })
 
       describe('given a snapshot release type', function () {
         it('should resolve undefined', function (done) {
           s3Packages.getLatestVersion(release.RELEASE_TYPE.SNAPSHOT).then((latestVersion) => {
-            m.chai.expect(latestVersion).to.be.undefined;
-            done();
-          }).catch(done);
-        });
-      });
-    });
+            m.chai.expect(latestVersion).to.be.undefined
+            done()
+          }).catch(done)
+        })
+      })
+    })
 
     describe('given a valid snapshot ETCHER_FAKE_S3_LATEST_VERSION environment variable', function () {
       beforeEach(function () {
-        process.env.ETCHER_FAKE_S3_LATEST_VERSION = '9.9.9+7b47334';
-      });
+        process.env.ETCHER_FAKE_S3_LATEST_VERSION = '9.9.9+7b47334'
+      })
 
       afterEach(function () {
-        Reflect.deleteProperty(process.env, 'ETCHER_FAKE_S3_LATEST_VERSION');
-      });
+        Reflect.deleteProperty(process.env, 'ETCHER_FAKE_S3_LATEST_VERSION')
+      })
 
       describe('given a snapshot release type', function () {
         it('should resolve the variable', function (done) {
           s3Packages.getLatestVersion(release.RELEASE_TYPE.SNAPSHOT).then((latestVersion) => {
-            m.chai.expect(latestVersion).to.equal('9.9.9+7b47334');
-            done();
-          }).catch(done);
-        });
-      });
+            m.chai.expect(latestVersion).to.equal('9.9.9+7b47334')
+            done()
+          }).catch(done)
+        })
+      })
 
       describe('given a production release type', function () {
         it('should resolve undefined', function (done) {
           s3Packages.getLatestVersion(release.RELEASE_TYPE.PRODUCTION).then((latestVersion) => {
-            m.chai.expect(latestVersion).to.be.undefined;
-            done();
-          }).catch(done);
-        });
-      });
-    });
+            m.chai.expect(latestVersion).to.be.undefined
+            done()
+          }).catch(done)
+        })
+      })
+    })
 
     describe('given an invalid ETCHER_FAKE_S3_LATEST_VERSION environment variable', function () {
       beforeEach(function () {
-        process.env.ETCHER_FAKE_S3_LATEST_VERSION = 'foo';
-      });
+        process.env.ETCHER_FAKE_S3_LATEST_VERSION = 'foo'
+      })
 
       afterEach(function () {
-        Reflect.deleteProperty(process.env, 'ETCHER_FAKE_S3_LATEST_VERSION');
-      });
+        Reflect.deleteProperty(process.env, 'ETCHER_FAKE_S3_LATEST_VERSION')
+      })
 
       it('should resolve undefined', function (done) {
         s3Packages.getLatestVersion(release.RELEASE_TYPE.PRODUCTION).then((latestVersion) => {
-          m.chai.expect(latestVersion).to.be.undefined;
-          done();
-        }).catch(done);
-      });
-    });
+          m.chai.expect(latestVersion).to.be.undefined
+          done()
+        }).catch(done)
+      })
+    })
 
     describe('given an invalid release type', function () {
       it('should be rejected with an error', function (done) {
         s3Packages.getLatestVersion('foobar').catch((error) => {
-          m.chai.expect(error).to.be.an.instanceof(Error);
-          m.chai.expect(error.message).to.equal('No bucket URL found for release type: foobar');
-          done();
-        });
-      });
-    });
+          m.chai.expect(error).to.be.an.instanceof(Error)
+          m.chai.expect(error.message).to.equal('No bucket URL found for release type: foobar')
+          done()
+        })
+      })
+    })
 
     describe('given no remote versions', function () {
       beforeEach(function () {
-        this.getRemoteVersionsStub = m.sinon.stub(s3Packages, 'getRemoteVersions');
-        this.getRemoteVersionsStub.returns(Bluebird.resolve([]));
-      });
+        this.getRemoteVersionsStub = m.sinon.stub(s3Packages, 'getRemoteVersions')
+        this.getRemoteVersionsStub.returns(Bluebird.resolve([]))
+      })
 
       afterEach(function () {
-        this.getRemoteVersionsStub.restore();
-      });
+        this.getRemoteVersionsStub.restore()
+      })
 
       it('should resolve undefined', function (done) {
         s3Packages.getLatestVersion(release.RELEASE_TYPE.PRODUCTION).then((latestVersion) => {
-          m.chai.expect(latestVersion).to.be.undefined;
-          done();
-        }).catch(done);
-      });
-    });
+          m.chai.expect(latestVersion).to.be.undefined
+          done()
+        }).catch(done)
+      })
+    })
 
     describe('given a single version', function () {
       beforeEach(function () {
-        this.getRemoteVersionsStub = m.sinon.stub(s3Packages, 'getRemoteVersions');
-        this.getRemoteVersionsStub.returns(Bluebird.resolve([ '0.5.0' ]));
-      });
+        this.getRemoteVersionsStub = m.sinon.stub(s3Packages, 'getRemoteVersions')
+        this.getRemoteVersionsStub.returns(Bluebird.resolve([ '0.5.0' ]))
+      })
 
       afterEach(function () {
-        this.getRemoteVersionsStub.restore();
-      });
+        this.getRemoteVersionsStub.restore()
+      })
 
       it('should resolve the version', function (done) {
         s3Packages.getLatestVersion(release.RELEASE_TYPE.PRODUCTION).then((latestVersion) => {
-          m.chai.expect(latestVersion).to.equal('0.5.0');
-          done();
-        }).catch(done);
-      });
-    });
+          m.chai.expect(latestVersion).to.equal('0.5.0')
+          done()
+        }).catch(done)
+      })
+    })
 
     describe('given multiple versions', function () {
       beforeEach(function () {
-        this.getRemoteVersionsStub = m.sinon.stub(s3Packages, 'getRemoteVersions');
+        this.getRemoteVersionsStub = m.sinon.stub(s3Packages, 'getRemoteVersions')
         this.getRemoteVersionsStub.returns(Bluebird.resolve([
           '2.1.0',
           '1.0.0',
           '0.5.0',
           '0.4.0'
-        ]));
-      });
+        ]))
+      })
 
       afterEach(function () {
-        this.getRemoteVersionsStub.restore();
-      });
+        this.getRemoteVersionsStub.restore()
+      })
 
       it('should resolve the latest version', function (done) {
         s3Packages.getLatestVersion(release.RELEASE_TYPE.PRODUCTION).then((latestVersion) => {
-          m.chai.expect(latestVersion).to.equal('2.1.0');
-          done();
-        }).catch(done);
-      });
-    });
+          m.chai.expect(latestVersion).to.equal('2.1.0')
+          done()
+        }).catch(done)
+      })
+    })
 
     describe('given a greater production version in a snapshot bucket', function () {
       beforeEach(function () {
-        this.getRemoteVersionsStub = m.sinon.stub(s3Packages, 'getRemoteVersions');
+        this.getRemoteVersionsStub = m.sinon.stub(s3Packages, 'getRemoteVersions')
         this.getRemoteVersionsStub.returns(Bluebird.resolve([
           '1.0.0+abb6139',
           '2.0.0'
-        ]));
-      });
+        ]))
+      })
 
       afterEach(function () {
-        this.getRemoteVersionsStub.restore();
-      });
+        this.getRemoteVersionsStub.restore()
+      })
 
       it('should ignore production versions', function (done) {
         s3Packages.getLatestVersion(release.RELEASE_TYPE.SNAPSHOT).then((latestVersion) => {
-          m.chai.expect(latestVersion).to.equal('1.0.0+abb6139');
-          done();
-        }).catch(done);
-      });
-    });
+          m.chai.expect(latestVersion).to.equal('1.0.0+abb6139')
+          done()
+        }).catch(done)
+      })
+    })
 
     describe('given a greater snapshot version in a production bucket', function () {
       beforeEach(function () {
-        this.getRemoteVersionsStub = m.sinon.stub(s3Packages, 'getRemoteVersions');
+        this.getRemoteVersionsStub = m.sinon.stub(s3Packages, 'getRemoteVersions')
         this.getRemoteVersionsStub.returns(Bluebird.resolve([
           '1.0.0',
           '2.0.0+abb6139'
-        ]));
-      });
+        ]))
+      })
 
       afterEach(function () {
-        this.getRemoteVersionsStub.restore();
-      });
+        this.getRemoteVersionsStub.restore()
+      })
 
       it('should ignore snapshot versions', function (done) {
         s3Packages.getLatestVersion(release.RELEASE_TYPE.PRODUCTION).then((latestVersion) => {
-          m.chai.expect(latestVersion).to.equal('1.0.0');
-          done();
-        }).catch(done);
-      });
-    });
+          m.chai.expect(latestVersion).to.equal('1.0.0')
+          done()
+        }).catch(done)
+      })
+    })
 
     describe('given production v1, v2, and v3 remote versions', function () {
       beforeEach(function () {
-        this.getRemoteVersionsStub = m.sinon.stub(s3Packages, 'getRemoteVersions');
+        this.getRemoteVersionsStub = m.sinon.stub(s3Packages, 'getRemoteVersions')
         this.getRemoteVersionsStub.returns(Bluebird.resolve([
           '3.0.1',
           '3.0.0',
@@ -928,62 +928,62 @@ describe('Shared: s3Packages', function () {
           '1.0.2',
           '1.0.1',
           '1.0.0'
-        ]));
-      });
+        ]))
+      })
 
       afterEach(function () {
-        this.getRemoteVersionsStub.restore();
-      });
+        this.getRemoteVersionsStub.restore()
+      })
 
       it('should be able to resolve the latest v1 version with a semver range', function (done) {
         s3Packages.getLatestVersion(release.RELEASE_TYPE.PRODUCTION, {
           range: '<2.0.0'
         }).then((latestVersion) => {
-          m.chai.expect(latestVersion).to.equal('1.2.0');
-          done();
-        }).catch(done);
-      });
+          m.chai.expect(latestVersion).to.equal('1.2.0')
+          done()
+        }).catch(done)
+      })
 
       it('should be able to resolve the latest v2 version with a semver range', function (done) {
         s3Packages.getLatestVersion(release.RELEASE_TYPE.PRODUCTION, {
           range: '>=2.0.0 <3.0.0'
         }).then((latestVersion) => {
-          m.chai.expect(latestVersion).to.equal('2.1.1');
-          done();
-        }).catch(done);
-      });
+          m.chai.expect(latestVersion).to.equal('2.1.1')
+          done()
+        }).catch(done)
+      })
 
       it('should be able to resolve the latest v3 version with a semver range', function (done) {
         s3Packages.getLatestVersion(release.RELEASE_TYPE.PRODUCTION, {
           range: '>=3.0.0'
         }).then((latestVersion) => {
-          m.chai.expect(latestVersion).to.equal('3.0.1');
-          done();
-        }).catch(done);
-      });
+          m.chai.expect(latestVersion).to.equal('3.0.1')
+          done()
+        }).catch(done)
+      })
 
       it('should resolve the latest version if includeUnstableChannel is true', function (done) {
         s3Packages.getLatestVersion(release.RELEASE_TYPE.PRODUCTION, {
           includeUnstableChannel: true
         }).then((latestVersion) => {
-          m.chai.expect(latestVersion).to.equal('3.0.1');
-          done();
-        }).catch(done);
-      });
+          m.chai.expect(latestVersion).to.equal('3.0.1')
+          done()
+        }).catch(done)
+      })
 
       it('should resolve the latest version if includeUnstableChannel is false', function (done) {
         s3Packages.getLatestVersion(release.RELEASE_TYPE.PRODUCTION, {
           includeUnstableChannel: false
         }).then((latestVersion) => {
-          m.chai.expect(latestVersion).to.equal('3.0.1');
-          done();
-        }).catch(done);
-      });
-    });
+          m.chai.expect(latestVersion).to.equal('3.0.1')
+          done()
+        }).catch(done)
+      })
+    })
 
     describe('given unstable and stable versions where the last version is stable', function () {
       beforeEach(function () {
-        this.getRemoteVersionsStub = m.sinon.stub(s3Packages, 'getRemoteVersions');
+        this.getRemoteVersionsStub = m.sinon.stub(s3Packages, 'getRemoteVersions')
         this.getRemoteVersionsStub.returns(Bluebird.resolve([
           '3.0.1',
           '3.0.0-beta.2',
@@ -991,35 +991,35 @@ describe('Shared: s3Packages', function () {
           '2.1.1',
           '2.1.0-beta.15',
           '1.0.0'
-        ]));
-      });
+        ]))
+      })
 
       afterEach(function () {
-        this.getRemoteVersionsStub.restore();
-      });
+        this.getRemoteVersionsStub.restore()
+      })
 
       it('should resolve the latest stable version if includeUnstableChannel is false', function (done) {
         s3Packages.getLatestVersion(release.RELEASE_TYPE.PRODUCTION, {
           includeUnstableChannel: false
         }).then((latestVersion) => {
-          m.chai.expect(latestVersion).to.equal('3.0.1');
-          done();
-        }).catch(done);
-      });
+          m.chai.expect(latestVersion).to.equal('3.0.1')
+          done()
+        }).catch(done)
+      })
 
       it('should resolve the latest stable version if includeUnstableChannel is true', function (done) {
         s3Packages.getLatestVersion(release.RELEASE_TYPE.PRODUCTION, {
           includeUnstableChannel: true
         }).then((latestVersion) => {
-          m.chai.expect(latestVersion).to.equal('3.0.1');
-          done();
-        }).catch(done);
-      });
-    });
+          m.chai.expect(latestVersion).to.equal('3.0.1')
+          done()
+        }).catch(done)
+      })
+    })
 
     describe('given unstable and stable versions where the last version is unstable', function () {
       beforeEach(function () {
-        this.getRemoteVersionsStub = m.sinon.stub(s3Packages, 'getRemoteVersions');
+        this.getRemoteVersionsStub = m.sinon.stub(s3Packages, 'getRemoteVersions')
         this.getRemoteVersionsStub.returns(Bluebird.resolve([
           '3.0.2-beta.1',
           '3.0.1',
@@ -1028,35 +1028,35 @@ describe('Shared: s3Packages', function () {
           '2.1.1',
           '2.1.0-beta.15',
           '1.0.0'
-        ]));
-      });
+        ]))
+      })
 
       afterEach(function () {
-        this.getRemoteVersionsStub.restore();
-      });
+        this.getRemoteVersionsStub.restore()
+      })
 
       it('should resolve the latest stable version if includeUnstableChannel is false', function (done) {
         s3Packages.getLatestVersion(release.RELEASE_TYPE.PRODUCTION, {
           includeUnstableChannel: false
         }).then((latestVersion) => {
-          m.chai.expect(latestVersion).to.equal('3.0.1');
-          done();
-        }).catch(done);
-      });
+          m.chai.expect(latestVersion).to.equal('3.0.1')
+          done()
+        }).catch(done)
+      })
 
       it('should resolve the latest unstable version if includeUnstableChannel is true', function (done) {
         s3Packages.getLatestVersion(release.RELEASE_TYPE.PRODUCTION, {
           includeUnstableChannel: true
         }).then((latestVersion) => {
-          m.chai.expect(latestVersion).to.equal('3.0.2-beta.1');
-          done();
-        }).catch(done);
-      });
-    });
+          m.chai.expect(latestVersion).to.equal('3.0.2-beta.1')
+          done()
+        }).catch(done)
+      })
+    })
 
     describe('given pre-release production remote versions', function () {
       beforeEach(function () {
-        this.getRemoteVersionsStub = m.sinon.stub(s3Packages, 'getRemoteVersions');
+        this.getRemoteVersionsStub = m.sinon.stub(s3Packages, 'getRemoteVersions')
         this.getRemoteVersionsStub.returns(Bluebird.resolve([
           '2.0.0-beta.3',
           '2.0.0-beta.2',
@@ -1066,36 +1066,36 @@ describe('Shared: s3Packages', function () {
           '1.0.0-beta.18',
           '1.0.0-beta.17',
           '1.0.0-beta.16'
-        ]));
-      });
+        ]))
+      })
 
       afterEach(function () {
-        this.getRemoteVersionsStub.restore();
-      });
+        this.getRemoteVersionsStub.restore()
+      })
 
       it('should be able to resolve the latest v2 pre-release version with a non pre-release semver range', function (done) {
         s3Packages.getLatestVersion(release.RELEASE_TYPE.PRODUCTION, {
           range: '>=2.0.0',
           includeUnstableChannel: true
         }).then((latestVersion) => {
-          m.chai.expect(latestVersion).to.equal('2.0.0-beta.3');
-          done();
-        }).catch(done);
-      });
+          m.chai.expect(latestVersion).to.equal('2.0.0-beta.3')
+          done()
+        }).catch(done)
+      })
 
       it('should resolve undefined if includeUnstableChannel is false', function (done) {
         s3Packages.getLatestVersion(release.RELEASE_TYPE.PRODUCTION, {
           includeUnstableChannel: false
         }).then((latestVersion) => {
-          m.chai.expect(latestVersion).to.be.undefined;
-          done();
-        }).catch(done);
-      });
-    });
+          m.chai.expect(latestVersion).to.be.undefined
+          done()
+        }).catch(done)
+      })
+    })
 
     describe('given pre-release snapshot remote versions', function () {
       beforeEach(function () {
-        this.getRemoteVersionsStub = m.sinon.stub(s3Packages, 'getRemoteVersions');
+        this.getRemoteVersionsStub = m.sinon.stub(s3Packages, 'getRemoteVersions')
         this.getRemoteVersionsStub.returns(Bluebird.resolve([
           '2.0.0-beta.3+5370ef2',
           '2.0.0-beta.2+ff495a4',
@@ -1105,31 +1105,31 @@ describe('Shared: s3Packages', function () {
           '1.0.0-beta.18+7fe503c',
           '1.0.0-beta.17+76aa05f',
           '1.0.0-beta.16+802d9ab'
-        ]));
-      });
+        ]))
+      })
 
       afterEach(function () {
-        this.getRemoteVersionsStub.restore();
-      });
+        this.getRemoteVersionsStub.restore()
+      })
 
       it('should be able to resolve the latest v2 pre-release version with a non pre-release semver range', function (done) {
         s3Packages.getLatestVersion(release.RELEASE_TYPE.SNAPSHOT, {
           range: '>=2.0.0',
           includeUnstableChannel: true
         }).then((latestVersion) => {
-          m.chai.expect(latestVersion).to.equal('2.0.0-beta.3+5370ef2');
-          done();
-        }).catch(done);
-      });
+          m.chai.expect(latestVersion).to.equal('2.0.0-beta.3+5370ef2')
+          done()
+        }).catch(done)
+      })
 
       it('should resolve undefined if includeUnstableChannel is false', function (done) {
         s3Packages.getLatestVersion(release.RELEASE_TYPE.SNAPSHOT, {
           includeUnstableChannel: false
         }).then((latestVersion) => {
-          m.chai.expect(latestVersion).to.be.undefined;
-          done();
-        }).catch(done);
-      });
-    });
-  });
-});
+          m.chai.expect(latestVersion).to.be.undefined
+          done()
+        }).catch(done)
+      })
+    })
+  })
+})

@@ -13,18 +13,18 @@
  * See: https://github.com/npm/npm/issues/2679
  */
 
-'use strict';
+'use strict'
 
-const _ = require('lodash');
-const fs = require('fs');
-const path = require('path');
-const packageJSON = require('../package.json');
-const NPM_SHRINKWRAP_FILE_PATH = path.join(__dirname, '..', 'npm-shrinkwrap.json');
-const shrinkwrapFile = require(NPM_SHRINKWRAP_FILE_PATH);
-const platformSpecificDependencies = packageJSON.platformSpecificDependencies;
-const JSON_INDENTATION_SPACES = 2;
+const _ = require('lodash')
+const fs = require('fs')
+const path = require('path')
+const packageJSON = require('../package.json')
+const NPM_SHRINKWRAP_FILE_PATH = path.join(__dirname, '..', 'npm-shrinkwrap.json')
+const shrinkwrapFile = require(NPM_SHRINKWRAP_FILE_PATH)
+const platformSpecificDependencies = packageJSON.platformSpecificDependencies
+const JSON_INDENTATION_SPACES = 2
 
-console.log('Removing:', platformSpecificDependencies.join(', '));
+console.log('Removing:', platformSpecificDependencies.join(', '))
 
 /**
  * @summary Get a shrinkwrap dependency object
@@ -46,9 +46,9 @@ console.log('Removing:', platformSpecificDependencies.join(', '));
  */
 const getShrinkwrapDependencyObject = (shrinkwrap, shrinkwrapPath) => {
   return _.reduce(shrinkwrapPath, (accumulator, dependency) => {
-    return _.get(accumulator, [ 'dependencies', dependency ], {});
-  }, shrinkwrap);
-};
+    return _.get(accumulator, [ 'dependencies', dependency ], {})
+  }, shrinkwrap)
+}
 
 /**
  * @summary Get a cleaned shrinkwrap dependency object
@@ -74,10 +74,10 @@ const getShrinkwrapDependencyObject = (shrinkwrap, shrinkwrapPath) => {
  * console.log(object.version);
  */
 const getPrettyShrinkwrapDependencyObject = (shrinkwrap, shrinkwrapPath) => {
-  const object = getShrinkwrapDependencyObject(shrinkwrap, shrinkwrapPath);
+  const object = getShrinkwrapDependencyObject(shrinkwrap, shrinkwrapPath)
 
   if (_.isEmpty(object)) {
-    return null;
+    return null
   }
 
   return {
@@ -86,8 +86,8 @@ const getPrettyShrinkwrapDependencyObject = (shrinkwrap, shrinkwrapPath) => {
     version: object.version,
     development: Boolean(object.dev),
     optional: Boolean(object.optional)
-  };
-};
+  }
+}
 
 /**
  * @summary Get the manifest (package.json) of a shrinkwrap dependency
@@ -104,26 +104,26 @@ const getPrettyShrinkwrapDependencyObject = (shrinkwrap, shrinkwrapPath) => {
 const getShrinkwrapDependencyManifest = (shrinkwrapPath) => {
   const manifestPath = _.chain(shrinkwrapPath)
     .flatMap((dependency) => {
-      return [ 'node_modules', dependency ];
+      return [ 'node_modules', dependency ]
     })
     .concat([ 'package.json' ])
     .reduce((accumulator, file) => {
-      return path.join(accumulator, file);
+      return path.join(accumulator, file)
     }, '.')
-    .value();
+    .value()
 
   try {
     // For example
     // ./node_modules/drivelist/node_modules/lodash/package.json
-    return require(`.${path.sep}${manifestPath}`);
+    return require(`.${path.sep}${manifestPath}`)
   } catch (error) {
     if (error.code === 'MODULE_NOT_FOUND') {
-      return null;
+      return null
     }
 
-    throw error;
+    throw error
   }
-};
+}
 
 /**
  * @summary Get the top level dependencies of a shrinkwrap object
@@ -141,8 +141,8 @@ const getShrinkwrapDependencyManifest = (shrinkwrapPath) => {
  * > }
  */
 const getTopLevelDependenciesForShrinkwrapPath = (shrinkwrapPath) => {
-  return _.get(getShrinkwrapDependencyManifest(shrinkwrapPath), [ 'dependencies' ], {});
-};
+  return _.get(getShrinkwrapDependencyManifest(shrinkwrapPath), [ 'dependencies' ], {})
+}
 
 /**
  * @summary Get the dependency tree of a shrinkwrap dependency
@@ -163,22 +163,22 @@ const getTopLevelDependenciesForShrinkwrapPath = (shrinkwrapPath) => {
  * })
  */
 const getDependencyTree = (shrinkwrap, shrinkwrapPath) => {
-  const dependencies = getTopLevelDependenciesForShrinkwrapPath(shrinkwrapPath);
+  const dependencies = getTopLevelDependenciesForShrinkwrapPath(shrinkwrapPath)
 
   if (_.isEmpty(dependencies)) {
-    return [];
+    return []
   }
 
-  const object = getShrinkwrapDependencyObject(shrinkwrap, shrinkwrapPath);
+  const object = getShrinkwrapDependencyObject(shrinkwrap, shrinkwrapPath)
   const result = _.map(dependencies, (version, name) => {
-    const dependencyPath = _.has(object.dependencies, name) ? _.concat(shrinkwrapPath, [ name ]) : [ name ];
-    return getPrettyShrinkwrapDependencyObject(shrinkwrap, dependencyPath);
-  });
+    const dependencyPath = _.has(object.dependencies, name) ? _.concat(shrinkwrapPath, [ name ]) : [ name ]
+    return getPrettyShrinkwrapDependencyObject(shrinkwrap, dependencyPath)
+  })
 
   return _.concat(result, _.flatMapDeep(result, (dependency) => {
-    return getDependencyTree(shrinkwrap, dependency.path);
-  }));
-};
+    return getDependencyTree(shrinkwrap, dependency.path)
+  }))
+}
 
 /**
  * @summary Remove certain development optional dependencies from a shrinkwrap file
@@ -224,16 +224,16 @@ const removeOptionalDevelopmentDependencies = (shrinkwrap, blacklist) => {
           }),
           dependency.dev,
           dependency.optional
-        ]);
+        ])
       })
       .mapValues((dependency) => {
-        return removeOptionalDevelopmentDependencies(dependency, blacklist);
+        return removeOptionalDevelopmentDependencies(dependency, blacklist)
       })
-      .value();
+      .value()
   }
 
-  return shrinkwrap;
-};
+  return shrinkwrap
+}
 
 /**
  * @summary Get the dependency tree of a dependency plus the dependency itself
@@ -256,15 +256,15 @@ const removeOptionalDevelopmentDependencies = (shrinkwrap, blacklist) => {
 const getTree = (shrinkwrap, shrinkwrapPath) => {
   return _.compact(_.concat([
     getPrettyShrinkwrapDependencyObject(shrinkwrap, shrinkwrapPath)
-  ], getDependencyTree(shrinkwrap, shrinkwrapPath)));
-};
+  ], getDependencyTree(shrinkwrap, shrinkwrapPath)))
+}
 
 const blacklist = _.reduce(platformSpecificDependencies, (accumulator, dependencyPath) => {
-  return _.concat(accumulator, getTree(shrinkwrapFile, dependencyPath));
-}, []);
+  return _.concat(accumulator, getTree(shrinkwrapFile, dependencyPath))
+}, [])
 
-const filteredShrinkwrap = removeOptionalDevelopmentDependencies(shrinkwrapFile, blacklist);
-const result = JSON.stringify(filteredShrinkwrap, null, JSON_INDENTATION_SPACES);
+const filteredShrinkwrap = removeOptionalDevelopmentDependencies(shrinkwrapFile, blacklist)
+const result = JSON.stringify(filteredShrinkwrap, null, JSON_INDENTATION_SPACES)
 
-fs.writeFileSync(NPM_SHRINKWRAP_FILE_PATH, `${result}\n`);
-console.log('Done');
+fs.writeFileSync(NPM_SHRINKWRAP_FILE_PATH, `${result}\n`)
+console.log('Done')

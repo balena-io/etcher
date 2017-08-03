@@ -14,90 +14,90 @@
  * limitations under the License.
  */
 
-'use strict';
+'use strict'
 
-const m = require('mochainon');
-const path = require('path');
-const DATA_PATH = path.join(__dirname, 'data');
-const mime = require('../../lib/image-stream/mime');
+const m = require('mochainon')
+const path = require('path')
+const DATA_PATH = path.join(__dirname, 'data')
+const mime = require('../../lib/image-stream/mime')
 
 describe('ImageStream: MIME', function () {
   describe('.getMimeTypeFromFileName()', function () {
     it('should resolve application/x-bzip2 for a bz2 archive', function () {
-      const file = path.join(DATA_PATH, 'bz2', 'etcher-test.img.bz2');
+      const file = path.join(DATA_PATH, 'bz2', 'etcher-test.img.bz2')
       return mime.getMimeTypeFromFileName(file).then((type) => {
-        m.chai.expect(type).to.equal('application/x-bzip2');
-      });
-    });
+        m.chai.expect(type).to.equal('application/x-bzip2')
+      })
+    })
 
     it('should resolve application/x-xz for a xz archive', function () {
-      const file = path.join(DATA_PATH, 'xz', 'etcher-test.img.xz');
+      const file = path.join(DATA_PATH, 'xz', 'etcher-test.img.xz')
       return mime.getMimeTypeFromFileName(file).then((type) => {
-        m.chai.expect(type).to.equal('application/x-xz');
-      });
-    });
+        m.chai.expect(type).to.equal('application/x-xz')
+      })
+    })
 
     it('should resolve application/gzip for a gz archive', function () {
-      const file = path.join(DATA_PATH, 'gz', 'etcher-test.img.gz');
+      const file = path.join(DATA_PATH, 'gz', 'etcher-test.img.gz')
       return mime.getMimeTypeFromFileName(file).then((type) => {
-        m.chai.expect(type).to.equal('application/gzip');
-      });
-    });
+        m.chai.expect(type).to.equal('application/gzip')
+      })
+    })
 
     it('should resolve application/zip for a zip archive', function () {
-      const file = path.join(DATA_PATH, 'zip', 'zip-directory-etcher-only.zip');
+      const file = path.join(DATA_PATH, 'zip', 'zip-directory-etcher-only.zip')
       return mime.getMimeTypeFromFileName(file).then((type) => {
-        m.chai.expect(type).to.equal('application/zip');
-      });
-    });
+        m.chai.expect(type).to.equal('application/zip')
+      })
+    })
 
     it('should resolve application/octet-stream for an uncompressed image', function () {
-      const file = path.join(DATA_PATH, 'images', 'etcher-test.img');
+      const file = path.join(DATA_PATH, 'images', 'etcher-test.img')
       return mime.getMimeTypeFromFileName(file).then((type) => {
-        m.chai.expect(type).to.equal('application/octet-stream');
-      });
-    });
+        m.chai.expect(type).to.equal('application/octet-stream')
+      })
+    })
 
     it('should resolve application/x-iso9660-image for an uncompressed iso', function () {
-      const file = path.join(DATA_PATH, 'images', 'etcher-test.iso');
+      const file = path.join(DATA_PATH, 'images', 'etcher-test.iso')
       return mime.getMimeTypeFromFileName(file).then((type) => {
-        m.chai.expect(type).to.equal('application/x-iso9660-image');
-      });
-    });
+        m.chai.expect(type).to.equal('application/x-iso9660-image')
+      })
+    })
 
     it('should resolve application/x-apple-diskimage for a compressed Apple disk image', function () {
-      const file = path.join(DATA_PATH, 'dmg', 'etcher-test-zlib.dmg');
+      const file = path.join(DATA_PATH, 'dmg', 'etcher-test-zlib.dmg')
       return mime.getMimeTypeFromFileName(file).then((type) => {
-        m.chai.expect(type).to.equal('application/x-apple-diskimage');
-      });
-    });
+        m.chai.expect(type).to.equal('application/x-apple-diskimage')
+      })
+    })
 
     it('should resolve application/x-apple-diskimage for an uncompressed Apple disk image', function () {
-      const file = path.join(DATA_PATH, 'dmg', 'etcher-test-raw.dmg');
+      const file = path.join(DATA_PATH, 'dmg', 'etcher-test-raw.dmg')
       return mime.getMimeTypeFromFileName(file).then((type) => {
-        m.chai.expect(type).to.equal('application/x-apple-diskimage');
-      });
-    });
+        m.chai.expect(type).to.equal('application/x-apple-diskimage')
+      })
+    })
 
     it('should resolve application/octet-stream for an unrecognized file type', function () {
-      const file = path.join(DATA_PATH, 'unrecognized', 'random.rpi-sdcard');
+      const file = path.join(DATA_PATH, 'unrecognized', 'random.rpi-sdcard')
       return mime.getMimeTypeFromFileName(file).then((type) => {
-        m.chai.expect(type).to.equal('application/octet-stream');
-      });
-    });
+        m.chai.expect(type).to.equal('application/octet-stream')
+      })
+    })
 
     it('should resolve the correct MIME type given an invalid extension', function () {
-      const file = path.join(DATA_PATH, 'unrecognized', 'xz-with-invalid-extension.foo');
+      const file = path.join(DATA_PATH, 'unrecognized', 'xz-with-invalid-extension.foo')
       return mime.getMimeTypeFromFileName(file).then((type) => {
-        m.chai.expect(type).to.equal('application/x-xz');
-      });
-    });
+        m.chai.expect(type).to.equal('application/x-xz')
+      })
+    })
 
     it('should resolve the correct MIME type given no extension', function () {
-      const file = path.join(DATA_PATH, 'unrecognized', 'xz-without-extension');
+      const file = path.join(DATA_PATH, 'unrecognized', 'xz-without-extension')
       return mime.getMimeTypeFromFileName(file).then((type) => {
-        m.chai.expect(type).to.equal('application/x-xz');
-      });
-    });
-  });
-});
+        m.chai.expect(type).to.equal('application/x-xz')
+      })
+    })
+  })
+})

@@ -14,36 +14,36 @@
  * limitations under the License.
  */
 
-'use strict';
+'use strict'
 
-const m = require('mochainon');
-const angular = require('angular');
-require('angular-mocks');
+const m = require('mochainon')
+const angular = require('angular')
+require('angular-mocks')
 
 describe('Browser: OSDropzone', function () {
   beforeEach(angular.mock.module(
     require('../../../lib/gui/os/dropzone/dropzone')
-  ));
+  ))
 
   describe('osDropzone', function () {
-    let $compile;
-    let $rootScope;
-    let $timeout;
+    let $compile
+    let $rootScope
+    let $timeout
 
     beforeEach(angular.mock.inject(function (_$compile_, _$rootScope_, _$timeout_) {
-      $compile = _$compile_;
-      $rootScope = _$rootScope_;
-      $timeout = _$timeout_;
-    }));
+      $compile = _$compile_
+      $rootScope = _$rootScope_
+      $timeout = _$timeout_
+    }))
 
     it('should pass the file back to the callback as $file', function (done) {
       $rootScope.onDropZone = function (file) {
-        m.chai.expect(file).to.deep.equal('/foo/bar');
-        done();
-      };
+        m.chai.expect(file).to.deep.equal('/foo/bar')
+        done()
+      }
 
-      const element = $compile('<div os-dropzone="onDropZone($file)">Drop a file here</div>')($rootScope);
-      $rootScope.$digest();
+      const element = $compile('<div os-dropzone="onDropZone($file)">Drop a file here</div>')($rootScope)
+      $rootScope.$digest()
 
       element[0].ondrop({
         preventDefault: angular.noop,
@@ -54,20 +54,20 @@ describe('Browser: OSDropzone', function () {
             }
           ]
         }
-      });
+      })
 
-      $rootScope.$digest();
-      $timeout.flush();
-    });
+      $rootScope.$digest()
+      $timeout.flush()
+    })
 
     it('should pass undefined to the callback if not passing $file', function (done) {
       $rootScope.onDropZone = function (file) {
-        m.chai.expect(file).to.be.undefined;
-        done();
-      };
+        m.chai.expect(file).to.be.undefined
+        done()
+      }
 
-      const element = $compile('<div os-dropzone="onDropZone()">Drop a file here</div>')($rootScope);
-      $rootScope.$digest();
+      const element = $compile('<div os-dropzone="onDropZone()">Drop a file here</div>')($rootScope)
+      $rootScope.$digest()
 
       element[0].ondrop({
         preventDefault: angular.noop,
@@ -78,10 +78,10 @@ describe('Browser: OSDropzone', function () {
             }
           ]
         }
-      });
+      })
 
-      $rootScope.$digest();
-      $timeout.flush();
-    });
-  });
-});
+      $rootScope.$digest()
+      $timeout.flush()
+    })
+  })
+})
