@@ -387,6 +387,7 @@ TARGETS = \
 	package-cli \
 	cli-develop \
 	installers-all \
+	publish-all \
 	electron-develop
 
 changelog:
@@ -464,6 +465,7 @@ ifeq ($(RELEASE_TYPE),snapshot)
 		-k $(shell date +"%Y-%m-%d")))
 endif
 
+PUBLISHABLES += publish-aws-s3
 TARGETS += publish-aws-s3
 endif
 
@@ -478,6 +480,7 @@ publish-bintray-debian: $(PUBLISH_BINTRAY_DEBIAN)
 		-p $(BINTRAY_REPOSITORY_DEBIAN) \
 		-c $(BINTRAY_COMPONENT)))
 
+PUBLISHABLES += publish-bintray-debian
 TARGETS += publish-bintray-debian
 endif
 
@@ -492,8 +495,11 @@ publish-bintray-redhat: $(PUBLISH_BINTRAY_REDHAT)
 		-p $(BINTRAY_REPOSITORY_REDHAT) \
 		-c $(BINTRAY_COMPONENT)))
 
+PUBLISHABLES += publish-bintray-redhat
 TARGETS += publish-bintray-redhat
 endif
+
+publish-all: $(PUBLISHABLES)
 
 .PHONY: $(TARGETS)
 
