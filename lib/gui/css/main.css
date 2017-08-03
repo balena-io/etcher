@@ -6480,8 +6480,8 @@ svg-icon {
 .page-main {
   margin-top: 75px; }
 
-svg-icon > div[disabled] path {
-  fill: #787c7f; }
+svg-icon > div[disabled] img {
+  opacity: 0.2; }
 
 .page-main .step-selection-text {
   color: #fff; }
