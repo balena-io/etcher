@@ -48,8 +48,8 @@ if [ "$ARGV_OPERATING_SYSTEM" == "linux" ]; then
   ./scripts/build/docker/run-command.sh \
     -r "$ARGV_ARCHITECTURE" \
     -s "$(pwd)" \
-    -c "make installers-all"
+    -c "make publish-all"
 else
   ./scripts/build/check-dependency.sh make
-  make installers-all
+  make publish-all
 fi
