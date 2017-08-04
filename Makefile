@@ -53,22 +53,19 @@ APPLICATION_VERSION_REDHAT = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
 # Release type
 # ---------------------------------------------------------------------
 
-# Add the current commit to the version if release type is "snapshot"
-RELEASE_TYPE ?= snapshot
 PACKAGE_JSON_VERSION = $(shell jq -r '.version' package.json)
-ifeq ($(RELEASE_TYPE),production)
+
+ifdef STABLE_RELEASE
 APPLICATION_VERSION = $(PACKAGE_JSON_VERSION)
 S3_BUCKET = resin-production-downloads
 BINTRAY_COMPONENT = $(APPLICATION_NAME_LOWERCASE)
-endif
-ifeq ($(RELEASE_TYPE),snapshot)
-CURRENT_COMMIT_HASH = $(shell git log -1 --format="%h")
-APPLICATION_VERSION = $(PACKAGE_JSON_VERSION)+$(CURRENT_COMMIT_HASH)
+BINTRAY_PACKAGE_DISTRIBUTION = stable
+else
+# Add the current commit hash to the version if release type is "prerelease"
+APPLICATION_VERSION = $(PACKAGE_JSON_VERSION)+$(shell git log -1 --format="%h")
 S3_BUCKET = resin-nightly-downloads
 BINTRAY_COMPONENT = $(APPLICATION_NAME_LOWERCASE)-devel
-endif
-ifndef APPLICATION_VERSION
-$(error Invalid release type: $(RELEASE_TYPE))
+BINTRAY_PACKAGE_DISTRIBUTION = devel
 endif
 
 # ---------------------------------------------------------------------
@@ -449,14 +446,13 @@ installers-all: $(PUBLISH_AWS_S3) $(PUBLISH_BINTRAY_DEBIAN) $(PUBLISH_BINTRAY_RE
 
 ifdef PUBLISH_AWS_S3
 publish-aws-s3: $(PUBLISH_AWS_S3)
-ifeq ($(RELEASE_TYPE),production)
+ifdef STABLE_RELEASE
 	$(foreach publishable,$^,$(call execute-command,./scripts/publish/aws-s3.sh \
 		-f $(publishable) \
 		-b $(S3_BUCKET) \
 		-v $(APPLICATION_VERSION) \
 		-p $(APPLICATION_NAME_LOWERCASE)))
-endif
-ifeq ($(RELEASE_TYPE),snapshot)
+else
 	$(foreach publishable,$^,$(call execute-command,./scripts/publish/aws-s3.sh \
 		-f $(publishable) \
 		-b $(S3_BUCKET) \
@@ -475,10 +471,10 @@ publish-bintray-debian: $(PUBLISH_BINTRAY_DEBIAN)
 		-f $(publishable) \
 		-v $(APPLICATION_VERSION_DEBIAN) \
 		-r $(TARGET_ARCH) \
-		-t $(RELEASE_TYPE) \
 		-o $(BINTRAY_ORGANIZATION) \
 		-p $(BINTRAY_REPOSITORY_DEBIAN) \
-		-c $(BINTRAY_COMPONENT)))
+		-c $(BINTRAY_COMPONENT) \
+		-d $(BINTRAY_PACKAGE_DISTRIBUTION)))
 
 PUBLISHABLES += publish-bintray-debian
 TARGETS += publish-bintray-debian
@@ -490,10 +486,10 @@ publish-bintray-redhat: $(PUBLISH_BINTRAY_REDHAT)
 		-f $(publishable) \
 		-v $(APPLICATION_VERSION_REDHAT) \
 		-r $(TARGET_ARCH) \
-		-t $(RELEASE_TYPE) \
 		-o $(BINTRAY_ORGANIZATION) \
 		-p $(BINTRAY_REPOSITORY_REDHAT) \
-		-c $(BINTRAY_COMPONENT)))
+		-c $(BINTRAY_COMPONENT) \
+		-d $(BINTRAY_PACKAGE_DISTRIBUTION)))
 
 PUBLISHABLES += publish-bintray-redhat
 TARGETS += publish-bintray-redhat
@@ -557,7 +553,11 @@ help:
 
 info:
 	@echo "Application version : $(APPLICATION_VERSION)"
-	@echo "Release type        : $(RELEASE_TYPE)"
+ifdef STABLE_RELEASE
+	@echo "Release type        : stable"
+else
+	@echo "Release type        : prerelease"
+endif
 	@echo "Platform            : $(PLATFORM)"
 	@echo "Host arch           : $(HOST_ARCH)"
 	@echo "Target arch         : $(TARGET_ARCH)"
