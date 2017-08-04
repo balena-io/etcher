@@ -478,7 +478,8 @@ publish-bintray-debian: $(PUBLISH_BINTRAY_DEBIAN)
 		-t $(RELEASE_TYPE) \
 		-o $(BINTRAY_ORGANIZATION) \
 		-p $(BINTRAY_REPOSITORY_DEBIAN) \
-		-c $(BINTRAY_COMPONENT)))
+		-c $(BINTRAY_COMPONENT) \
+		-y debian))
 
 PUBLISHABLES += publish-bintray-debian
 TARGETS += publish-bintray-debian
@@ -493,7 +494,8 @@ publish-bintray-redhat: $(PUBLISH_BINTRAY_REDHAT)
 		-t $(RELEASE_TYPE) \
 		-o $(BINTRAY_ORGANIZATION) \
 		-p $(BINTRAY_REPOSITORY_REDHAT) \
-		-c $(BINTRAY_COMPONENT)))
+		-c $(BINTRAY_COMPONENT) \
+		-y redhat))
 
 PUBLISHABLES += publish-bintray-redhat
 TARGETS += publish-bintray-redhat

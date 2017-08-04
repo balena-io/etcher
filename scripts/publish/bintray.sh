@@ -33,6 +33,7 @@ function usage() {
   echo "    -o <bintray organization>"
   echo "    -p <bintray repository>"
   echo "    -c <bintray component>"
+  echo "    -y <project type (debian|redhat)>"
   exit 1
 }
 
@@ -43,8 +44,9 @@ ARGV_RELEASE_TYPE=""
 ARGV_ORGANIZATION=""
 ARGV_REPOSITORY=""
 ARGV_COMPONENT=""
+ARGV_TYPE=""
 
-while getopts ":f:v:r:t:o:p:c:" option; do
+while getopts ":f:v:r:t:o:p:c:y:" option; do
   case $option in
     f) ARGV_FILE="$OPTARG" ;;
     v) ARGV_VERSION="$OPTARG" ;;
@@ -53,6 +55,7 @@ while getopts ":f:v:r:t:o:p:c:" option; do
     o) ARGV_ORGANIZATION="$OPTARG" ;;
     p) ARGV_REPOSITORY="$OPTARG" ;;
     c) ARGV_COMPONENT="$OPTARG" ;;
+    y) ARGV_TYPE="$OPTARG" ;;
     *) usage ;;
   esac
 done
@@ -63,7 +66,8 @@ if [ -z "$ARGV_FILE" ] || \
    [ -z "$ARGV_RELEASE_TYPE" ] || \
    [ -z "$ARGV_ORGANIZATION" ] || \
    [ -z "$ARGV_REPOSITORY" ] || \
-   [ -z "$ARGV_COMPONENT" ]
+   [ -z "$ARGV_COMPONENT" ] || \
+   [ -z "$ARGV_TYPE" ]
 then
   usage
 fi
@@ -89,15 +93,19 @@ fi
 
 PACKAGE_FILE_NAME=$(basename $ARGV_FILE)
 PACKAGE_NAME=${PACKAGE_FILE_NAME%.*}
-PACKAGE_ARCHITECTURE=$(./scripts/build/architecture-convert.sh -r "$ARGV_ARCHITECTURE" -t debian)
+PACKAGE_ARCHITECTURE=$(./scripts/build/architecture-convert.sh -r "$ARGV_ARCHITECTURE" -t "$ARGV_TYPE")
+
+BINTRAY_HEADERS="--header \"X-Bintray-Override: 1\" --header \"X-Bintray-Publish: 1\""
+
+if [ "$ARGV_TYPE" == "debian" ]; then
+  BINTRAY_HEADERS="$BINTRAY_HEADERS --header \"X-Bintray-Debian-Distribution: $PACKAGE_DISTRIBUTION\""
+  BINTRAY_HEADERS="$BINTRAY_HEADERS --header \"X-Bintray-Debian-Component: $ARGV_COMPONENT\""
+  BINTRAY_HEADERS="$BINTRAY_HEADERS --header \"X-Bintray-Debian-Architecture: $PACKAGE_ARCHITECTURE\""
+fi
 
 curl --upload-file $ARGV_FILE \
   --user $BINTRAY_USER:$BINTRAY_API_KEY \
-  --header "X-Bintray-Debian-Distribution: $PACKAGE_DISTRIBUTION" \
-  --header "X-Bintray-Debian-Component: $ARGV_COMPONENT" \
-  --header "X-Bintray-Debian-Architecture: $PACKAGE_ARCHITECTURE" \
-  --header "X-Bintray-Override: 1" \
-  --header "X-Bintray-Publish: 1" \
+  $BINTRAY_HEADERS \
   https://api.bintray.com/content/$ARGV_ORGANIZATION/$ARGV_REPOSITORY/$ARGV_COMPONENT/$ARGV_VERSION/$PACKAGE_FILE_NAME
 
 echo "$ARGV_FILE has been uploaded successfully"
