@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.1.2 - 2017-08-07
+
+### Features
+
+- Add support for `.rpi-sdcard` images
+
+### Fixes
+
+- Avoid "broken" icon when selecting a zip image archive with invalid SVG
+- Fix `UNABLE_TO_GET_ISSUER_CERT_LOCALLY` error at startup when behind certain proxies
+- Fix `EHOSTDOWN` error at startup
+- Display a user-friendly error message if the user is not in the sudoers file
+- Make archive-embedded SVG icons work again
+- Fix "imageBasename is not defined" error on the CLI
+- Fix various drive scanning Windows errors
+
+### Misc
+
+- Improve Windows drive detection error codes.
+
 ## v1.1.1 - 2017-07-25
 
 ### Fixes
