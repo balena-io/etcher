@@ -265,6 +265,9 @@ rules:
   operator-assignment:
     - error
     - always
+  quotes:
+    - error
+    - single
   quote-props:
     - error
     - as-needed

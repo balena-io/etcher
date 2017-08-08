@@ -75,7 +75,7 @@ describe('Browser: SVGIcon', function () {
     it('should use an empty src if there is a parsererror', function () {
       // The following is invalid, because there's no closing tag for `foreignObject`
       const iconContents = '<svg><foreignObject></svg>'
-      const imgData = `data:image/svg+xml,`
+      const imgData = 'data:image/svg+xml,'
       $rootScope.iconContents = iconContents
 
       const element = $compile('<svg-icon path="iconContents">Resin.io</svg-icon>')($rootScope)
