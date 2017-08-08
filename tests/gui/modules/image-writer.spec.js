@@ -7,10 +7,10 @@ const flashState = require('../../../lib/shared/models/flash-state')
 const imageWriter = require('../../../lib/gui/modules/image-writer')
 require('angular-mocks')
 
-describe('Browser: imageWriter', function () {
-  describe('.flash()', function () {
-    describe('given a successful write', function () {
-      beforeEach(function () {
+describe('Browser: imageWriter', () => {
+  describe('.flash()', () => {
+    describe('given a successful write', () => {
+      beforeEach(() => {
         this.performWriteStub = m.sinon.stub(imageWriter, 'performWrite')
         this.performWriteStub.returns(Bluebird.resolve({
           cancelled: false,
@@ -18,11 +18,11 @@ describe('Browser: imageWriter', function () {
         }))
       })
 
-      afterEach(function () {
+      afterEach(() => {
         this.performWriteStub.restore()
       })
 
-      it('should set flashing to false when done', function () {
+      it('should set flashing to false when done', () => {
         flashState.unsetFlashingFlag({
           cancelled: false,
           sourceChecksum: '1234'
@@ -33,7 +33,7 @@ describe('Browser: imageWriter', function () {
         })
       })
 
-      it('should prevent writing more than once', function () {
+      it('should prevent writing more than once', () => {
         flashState.unsetFlashingFlag({
           cancelled: false,
           sourceChecksum: '1234'
@@ -46,11 +46,11 @@ describe('Browser: imageWriter', function () {
         })
       })
 
-      it('should reject the second flash attempt', function () {
+      it('should reject the second flash attempt', () => {
         imageWriter.flash('foo.img', '/dev/disk2')
 
         let rejectError = null
-        imageWriter.flash('foo.img', '/dev/disk2').catch(function (error) {
+        imageWriter.flash('foo.img', '/dev/disk2').catch((error) => {
           rejectError = error
         }).finally(() => {
           m.chai.expect(rejectError).to.be.an.instanceof(Error)
@@ -59,39 +59,39 @@ describe('Browser: imageWriter', function () {
       })
     })
 
-    describe('given an unsuccessful write', function () {
-      beforeEach(function () {
+    describe('given an unsuccessful write', () => {
+      beforeEach(() => {
         this.performWriteStub = m.sinon.stub(imageWriter, 'performWrite')
         this.error = new Error('write error')
         this.error.code = 'FOO'
         this.performWriteStub.returns(Bluebird.reject(this.error))
       })
 
-      afterEach(function () {
+      afterEach(() => {
         this.performWriteStub.restore()
       })
 
-      it('should set flashing to false when done', function () {
+      it('should set flashing to false when done', () => {
         imageWriter.flash('foo.img', '/dev/disk2').catch(angular.noop).finally(() => {
           m.chai.expect(flashState.isFlashing()).to.be.false
         })
       })
 
-      it('should set the error code in the flash results', function () {
+      it('should set the error code in the flash results', () => {
         imageWriter.flash('foo.img', '/dev/disk2').catch(angular.noop).finally(() => {
           const flashResults = flashState.getFlashResults()
           m.chai.expect(flashResults.errorCode).to.equal('FOO')
         })
       })
 
-      it('should be rejected with the error', function () {
+      it('should be rejected with the error', () => {
         flashState.unsetFlashingFlag({
           cancelled: false,
           sourceChecksum: '1234'
         })
 
         let rejection
-        imageWriter.flash('foo.img', '/dev/disk2').catch(function (error) {
+        imageWriter.flash('foo.img', '/dev/disk2').catch((error) => {
           rejection = error
         }).finally(() => {
           m.chai.expect(rejection).to.be.an.instanceof(Error)
