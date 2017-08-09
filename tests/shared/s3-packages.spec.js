@@ -916,9 +916,20 @@ describe('Shared: s3Packages', function () {
         this.getRemoteVersionsStub.restore()
       })
 
-      it('should ignore production versions', function (done) {
-        s3Packages.getLatestVersion(release.RELEASE_TYPE.SNAPSHOT).then((latestVersion) => {
+      it('should ignore production versions if includeUnstableChannel is true', function (done) {
+        s3Packages.getLatestVersion(release.RELEASE_TYPE.SNAPSHOT, {
+          includeUnstableChannel: true
+        }).then((latestVersion) => {
           m.chai.expect(latestVersion).to.equal('1.0.0+abb6139')
+          done()
+        }).catch(done)
+      })
+
+      it('should return undefined if includeUnstableChannel is false', function (done) {
+        s3Packages.getLatestVersion(release.RELEASE_TYPE.SNAPSHOT, {
+          includeUnstableChannel: false
+        }).then((latestVersion) => {
+          m.chai.expect(latestVersion).to.be.undefined
           done()
         }).catch(done)
       })
