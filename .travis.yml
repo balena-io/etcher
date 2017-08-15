@@ -52,8 +52,8 @@ os:
   - osx
 
 before_install:
-  - if [ -f ${DOCKER_CACHE_FILE} ] && [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      gunzip -c ${DOCKER_CACHE_FILE} | docker load;
+  - if [ -f ${DOCKER_CACHE_FILE}.${TARGET_ARCH} ] && [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      gunzip -c ${DOCKER_CACHE_FILE}.${TARGET_ARCH} | docker load;
     fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then PATH=/usr/local/opt/ccache/libexec:$PATH; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
@@ -68,9 +68,9 @@ install:
 script:
   - ./scripts/ci/test.sh -o $HOST_OS -r $TARGET_ARCH
   - ./scripts/ci/build-installers.sh -o $HOST_OS -r $TARGET_ARCH
-  - if [[ ${TRAVIS_BRANCH} == "master" ]] && [[ ${TRAVIS_PULL_REQUEST} == "false" ]]; then
+  - if [[ ${TRAVIS_BRANCH} == "master" ]] && [[ ${TRAVIS_PULL_REQUEST} == "false" ]] && [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       mkdir -p $(dirname ${DOCKER_CACHE_FILE});
-      docker save $(docker history -q ${DOCKER_REPOSITORY}:${TRAVIS_COMMIT} | grep -v '<missing>') | gzip > ${DOCKER_CACHE_FILE};
+      docker save $(docker history -q ${DOCKER_REPOSITORY}:${TRAVIS_COMMIT} | grep -v '<missing>') | gzip > ${DOCKER_CACHE_FILE}.${TARGET_ARCH};
     fi
 
 deploy:

@@ -95,17 +95,13 @@ PACKAGE_FILE_NAME=$(basename $ARGV_FILE)
 PACKAGE_NAME=${PACKAGE_FILE_NAME%.*}
 PACKAGE_ARCHITECTURE=$(./scripts/build/architecture-convert.sh -r "$ARGV_ARCHITECTURE" -t "$ARGV_TYPE")
 
-BINTRAY_HEADERS="--header \"X-Bintray-Override: 1\" --header \"X-Bintray-Publish: 1\""
-
-if [ "$ARGV_TYPE" == "debian" ]; then
-  BINTRAY_HEADERS="$BINTRAY_HEADERS --header \"X-Bintray-Debian-Distribution: $PACKAGE_DISTRIBUTION\""
-  BINTRAY_HEADERS="$BINTRAY_HEADERS --header \"X-Bintray-Debian-Component: $ARGV_COMPONENT\""
-  BINTRAY_HEADERS="$BINTRAY_HEADERS --header \"X-Bintray-Debian-Architecture: $PACKAGE_ARCHITECTURE\""
-fi
-
 curl --upload-file $ARGV_FILE \
   --user $BINTRAY_USER:$BINTRAY_API_KEY \
-  $BINTRAY_HEADERS \
+  --header "X-Bintray-Override: 1" \
+  --header "X-Bintray-Publish: 1" \
+  --header "X-Bintray-Debian-Distribution: $PACKAGE_DISTRIBUTION" \
+  --header "X-Bintray-Debian-Component: $ARGV_COMPONENT" \
+  --header "X-Bintray-Debian-Architecture: $PACKAGE_ARCHITECTURE" \
   https://api.bintray.com/content/$ARGV_ORGANIZATION/$ARGV_REPOSITORY/$ARGV_COMPONENT/$ARGV_VERSION/$PACKAGE_FILE_NAME
 
 echo "$ARGV_FILE has been uploaded successfully"
