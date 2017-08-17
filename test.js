@@ -21,5 +21,5 @@ usbboot.scan().then((devices) => {
 
   setTimeout(() => {
     process.exit(1)
-  }, 500)
+  }, 1000)
 })
