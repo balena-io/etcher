@@ -11,7 +11,15 @@ usbboot.scan().then((devices) => {
       'start.elf': fs.readFileSync('../usbboot/msd/start.elf')
     }
   })
+}).then(() => {
+  console.log('Done')
 }).catch((error) => {
+  console.log('There was an error')
   console.error(error)
-  process.exit(1)
+  console.error(error.stack)
+  console.error(error.stacktrace)
+
+  setTimeout(() => {
+    process.exit(1)
+  }, 500)
 })
