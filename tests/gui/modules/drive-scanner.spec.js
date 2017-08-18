@@ -33,8 +33,12 @@ describe('Browser: driveScanner', function () {
     })
 
     it('should emit an empty array', function (done) {
-      driveScanner.once('drives', function (drives) {
-        m.chai.expect(drives).to.deep.equal([])
+      driveScanner.once('devices', function (devices) {
+        // eslint-disable-next-line lodash/prefer-lodash-method
+        const driveDevices = devices.filter((device) => {
+          return device.type === 'BLOCK_DEVICE'
+        })
+        m.chai.expect(driveDevices).to.deep.equal([])
         driveScanner.stop()
         done()
       })
@@ -47,6 +51,7 @@ describe('Browser: driveScanner', function () {
     beforeEach(function () {
       this.drivelistStub = m.sinon.stub(drivelist, 'list')
       this.drivelistStub.yields(null, [ {
+        type: 'BLOCK_DEVICE',
         device: '/dev/sda',
         description: 'WDC WD10JPVX-75J',
         size: '931.5G',
@@ -64,7 +69,7 @@ describe('Browser: driveScanner', function () {
     })
 
     it('should emit an empty array', function (done) {
-      driveScanner.once('drives', function (drives) {
+      driveScanner.once('devices', function (drives) {
         m.chai.expect(drives).to.deep.equal([])
         driveScanner.stop()
         done()
@@ -89,6 +94,7 @@ describe('Browser: driveScanner', function () {
         this.drivelistStub = m.sinon.stub(drivelist, 'list')
         this.drivelistStub.yields(null, [
           {
+            type: 'BLOCK_DEVICE',
             device: '/dev/sda',
             displayName: '/dev/sda',
             description: 'WDC WD10JPVX-75J',
@@ -101,6 +107,7 @@ describe('Browser: driveScanner', function () {
             system: true
           },
           {
+            type: 'BLOCK_DEVICE',
             device: '/dev/sdb',
             displayName: '/dev/sdb',
             description: 'Foo',
@@ -113,6 +120,7 @@ describe('Browser: driveScanner', function () {
             system: false
           },
           {
+            type: 'BLOCK_DEVICE',
             device: '/dev/sdc',
             displayName: '/dev/sdc',
             description: 'Bar',
@@ -132,9 +140,10 @@ describe('Browser: driveScanner', function () {
       })
 
       it('should emit the non removable drives', function (done) {
-        driveScanner.once('drives', function (drives) {
+        driveScanner.once('devices', function (drives) {
           m.chai.expect(drives).to.deep.equal([
             {
+              type: 'BLOCK_DEVICE',
               device: '/dev/sdb',
               displayName: '/dev/sdb',
               description: 'Foo',
@@ -147,6 +156,7 @@ describe('Browser: driveScanner', function () {
               system: false
             },
             {
+              type: 'BLOCK_DEVICE',
               device: '/dev/sdc',
               displayName: '/dev/sdc',
               description: 'Bar',
@@ -184,6 +194,7 @@ describe('Browser: driveScanner', function () {
         this.drivelistStub = m.sinon.stub(drivelist, 'list')
         this.drivelistStub.yields(null, [
           {
+            type: 'BLOCK_DEVICE',
             device: '\\\\.\\PHYSICALDRIVE1',
             displayName: 'C:',
             description: 'WDC WD10JPVX-75J',
@@ -196,6 +207,7 @@ describe('Browser: driveScanner', function () {
             system: true
           },
           {
+            type: 'BLOCK_DEVICE',
             device: '\\\\.\\PHYSICALDRIVE2',
             displayName: '\\\\.\\PHYSICALDRIVE2',
             description: 'Foo',
@@ -204,6 +216,7 @@ describe('Browser: driveScanner', function () {
             system: false
           },
           {
+            type: 'BLOCK_DEVICE',
             device: '\\\\.\\PHYSICALDRIVE3',
             displayName: 'F:',
             description: 'Bar',
@@ -223,9 +236,10 @@ describe('Browser: driveScanner', function () {
       })
 
       it('should emit the non removable drives', function (done) {
-        driveScanner.once('drives', function (drives) {
+        driveScanner.once('devices', function (drives) {
           m.chai.expect(drives).to.deep.equal([
             {
+              type: 'BLOCK_DEVICE',
               device: '\\\\.\\PHYSICALDRIVE2',
               displayName: '\\\\.\\PHYSICALDRIVE2',
               description: 'Foo',
@@ -234,6 +248,7 @@ describe('Browser: driveScanner', function () {
               system: false
             },
             {
+              type: 'BLOCK_DEVICE',
               device: '\\\\.\\PHYSICALDRIVE3',
               displayName: 'F:',
               description: 'Bar',
@@ -260,6 +275,7 @@ describe('Browser: driveScanner', function () {
         this.drivelistStub = m.sinon.stub(drivelist, 'list')
         this.drivelistStub.yields(null, [
           {
+            type: 'BLOCK_DEVICE',
             device: '\\\\.\\PHYSICALDRIVE3',
             displayName: 'F:',
             description: 'Bar',
@@ -279,7 +295,7 @@ describe('Browser: driveScanner', function () {
       })
 
       it('should use the drive letter as the name', function (done) {
-        driveScanner.once('drives', function (drives) {
+        driveScanner.once('devices', function (drives) {
           m.chai.expect(drives).to.have.length(1)
           m.chai.expect(drives[0].displayName).to.equal('F:')
           driveScanner.stop()
@@ -295,6 +311,7 @@ describe('Browser: driveScanner', function () {
         this.drivesListStub = m.sinon.stub(drivelist, 'list')
         this.drivesListStub.yields(null, [
           {
+            type: 'BLOCK_DEVICE',
             device: '\\\\.\\PHYSICALDRIVE3',
             displayName: 'F:, G:, H:',
             description: 'Bar',
@@ -320,7 +337,7 @@ describe('Browser: driveScanner', function () {
       })
 
       it('should join all the mountpoints in `name`', function (done) {
-        driveScanner.once('drives', function (drives) {
+        driveScanner.once('devices', function (drives) {
           m.chai.expect(drives).to.have.length(1)
           m.chai.expect(drives[0].displayName).to.equal('F:, G:, H:')
           driveScanner.stop()
@@ -343,7 +360,7 @@ describe('Browser: driveScanner', function () {
     })
 
     it('should emit the error', function (done) {
-      driveScanner.on('error', function (error) {
+      driveScanner.once('error', function (error) {
         m.chai.expect(error).to.be.an.instanceof(Error)
         m.chai.expect(error.message).to.equal('scan error')
         driveScanner.stop()
