@@ -39,6 +39,10 @@ Installers
 Refer to the [downloads page][etcher] for the latest pre-made
 installers for all supported operating systems.
 
+#### AppImage
+
+Set execution permissions on the `.AppImage` file and double-click it.
+
 #### Debian and Ubuntu based Package Repository (GNU/Linux x86/x64)
 
 1. Add Etcher debian repository:
