@@ -10,7 +10,7 @@
       ng-dblclick="modal.selectDriveAndClose(drive)"
       ng-click="modal.toggleDrive(drive)">
         <div>
-          <h4 class="list-group-item-heading">{{ drive.description }} -
+          <h4 class="list-group-item-heading">{{ drive.description }} {{ drive.size ? ' - ' : '' }}
             <span class="word-keep">{{ drive.size | closestUnit }}</span>
           </h4>
           <p class="list-group-item-text">{{ drive.displayName }}</p>
