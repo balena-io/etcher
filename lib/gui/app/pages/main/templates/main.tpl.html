@@ -66,11 +66,11 @@
               'text-disabled': main.shouldDriveStepBeDisabled()
             }">
             <span class="drive-step step-name"
-              uib-tooltip="{{ main.selection.getDrive().description }} ({{ main.selection.getDrive().displayName }})">
+              uib-tooltip="{{ main.selection.getCurrentDrive().description }} ({{ main.selection.getCurrentDrive().displayName }})">
               <!-- middleEllipses errors on undefined, therefore fallback to empty string -->
-              {{ (main.selection.getDrive().description || "") | middleEllipses:11 }}
+              {{ (main.selection.getCurrentDrive().description || "") | middleEllipses:11 }}
             </span>
-            <span class="step-drive step-size">{{ main.selection.getDrive().size | closestUnit }}</span>
+            <span class="step-drive step-size">{{ main.selection.getCurrentDrive().size | closestUnit }}</span>
             <span class="step-drive step-warning glyphicon glyphicon-exclamation-sign"
               uib-tooltip="{{ main.constraints.getDriveImageCompatibilityStatuses(main.selection.getDrive(), main.selection.getImage())[0].message }}"
               ng-show="main.constraints.hasDriveImageCompatibilityStatus(main.selection.getDrive(), main.selection.getImage())"></span>
@@ -97,7 +97,7 @@
           percentage="main.state.getFlashState().percentage"
           striped="{{ main.state.getFlashState().type == 'check' }}"
           ng-attr-active="{{ main.state.isFlashing() }}"
-          ng-click="flash.flashImageToDrive(main.selection.getImage(), main.selection.getDrive())"
+          ng-click="flash.flashImageToDrive(main.selection.getImage(), main.selection.getCurrentDrive())"
           ng-disabled="main.shouldFlashStepBeDisabled() || main.state.getLastFlashErrorCode()">
             <span ng-bind="flash.getProgressButtonLabel()"></span>
         </progress-button>
