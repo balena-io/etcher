@@ -118,7 +118,7 @@ describe('Browser: MainPage', function () {
         ])
 
         selectionState.clear()
-        selectionState.setDrive('/dev/disk2')
+        selectionState.addDrive('/dev/disk2')
 
         m.chai.expect(controller.shouldFlashStepBeDisabled()).to.be.true
       })
@@ -139,7 +139,7 @@ describe('Browser: MainPage', function () {
         ])
 
         selectionState.clear()
-        selectionState.setDrive('/dev/disk2')
+        selectionState.addDrive('/dev/disk2')
 
         selectionState.setImage({
           path: 'rpi.img',
@@ -152,6 +152,9 @@ describe('Browser: MainPage', function () {
             }
           }
         })
+
+        console.log(`hasDrive: ${selectionState.hasDrive()}`)
+        console.log(`hasImage: ${selectionState.hasImage()}`)
 
         m.chai.expect(controller.shouldFlashStepBeDisabled()).to.be.false
       })

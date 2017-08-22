@@ -28,8 +28,8 @@ describe('Model: selectionState', function () {
       selectionState.clear()
     })
 
-    it('getDrive() should return undefined', function () {
-      const drive = selectionState.getDrive()
+    it('getCurrentDrive() should return undefined', function () {
+      const drive = selectionState.getCurrentDrive()
       m.chai.expect(drive).to.be.undefined
     })
 
@@ -93,12 +93,12 @@ describe('Model: selectionState', function () {
         }
       ])
 
-      selectionState.setDrive('/dev/disk2')
+      selectionState.addDrive('/dev/disk2')
     })
 
-    describe('.getDrive()', function () {
+    describe('.getCurrentDrive()', function () {
       it('should return the drive', function () {
-        const drive = selectionState.getDrive()
+        const drive = selectionState.getCurrentDrive()
         m.chai.expect(drive).to.deep.equal({
           device: '/dev/disk2',
           name: 'USB Drive',
@@ -115,11 +115,13 @@ describe('Model: selectionState', function () {
       })
     })
 
-    describe('.setDrive()', function () {
-      it('should override the drive', function () {
-        selectionState.setDrive('/dev/disk5')
-        const drive = selectionState.getDrive()
-        m.chai.expect(drive).to.deep.equal({
+    describe('.addDrive()', function () {
+      it('should queue the drive', function () {
+        selectionState.addDrive('/dev/disk5')
+        const drives = selectionState.getSelectedDevices()
+        const lastDriveDevice = _.last(drives)
+        const lastDrive = availableDrives.findDriveByDevice(lastDriveDevice)
+        m.chai.expect(lastDrive).to.deep.equal({
           device: '/dev/disk5',
           name: 'USB Drive',
           size: 999999999,
@@ -129,16 +131,101 @@ describe('Model: selectionState', function () {
     })
 
     describe('.removeDrive()', function () {
-      it('should clear the drive', function () {
-        selectionState.removeDrive()
-        const drive = selectionState.getDrive()
+      it('should clear drives', function () {
+        const firstDrive = selectionState.getCurrentDrive()
+        selectionState.removeDrive(firstDrive.device)
+        const secondDrive = selectionState.getCurrentDrive()
+        selectionState.removeDrive(secondDrive.device)
+        const drive = selectionState.getCurrentDrive()
         m.chai.expect(drive).to.be.undefined
       })
     })
   })
 
+  describe('given several drives', function () {
+    beforeEach(function () {
+      this.drives = [
+        {
+          device: '/dev/sdb',
+          description: 'DataTraveler 2.0',
+          size: 999999999,
+          mountpoint: '/media/UNTITLED',
+          name: '/dev/sdb',
+          system: false,
+          protected: false
+        },
+        {
+          device: '/dev/disk2',
+          name: 'USB Drive 2',
+          size: 999999999,
+          protected: false
+        },
+        {
+          device: '/dev/disk3',
+          name: 'USB Drive 3',
+          size: 999999999,
+          protected: false
+        }
+      ]
+
+      availableDrives.setDrives(this.drives)
+
+      selectionState.addDrive(this.drives[0].device)
+      selectionState.addDrive(this.drives[1].device)
+    })
+
+    afterEach(function () {
+      selectionState.clear()
+      availableDrives.setDrives([])
+    })
+
+    it('should be able to add more drives', function () {
+      selectionState.addDrive(this.drives[2].device)
+      m.chai.expect(selectionState.getSelectedDevices()).to.deep.equal(_.map(this.drives, 'device'))
+    })
+
+    it('should be able to remove drives', function () {
+      selectionState.removeDrive(this.drives[1].device)
+      m.chai.expect(selectionState.getSelectedDevices()).to.deep.equal([ this.drives[0].device ])
+    })
+
+    it('current drive should be affected by add order', function () {
+      m.chai.expect(selectionState.getCurrentDrive()).to.deep.equal(this.drives[0])
+      selectionState.toggleDrive(this.drives[0].device)
+      selectionState.toggleDrive(this.drives[0].device)
+      m.chai.expect(selectionState.getCurrentDrive()).to.deep.equal(this.drives[1])
+      selectionState.toggleDrive(this.drives[1].device)
+      m.chai.expect(selectionState.getCurrentDrive()).to.deep.equal(this.drives[0])
+    })
+
+    it('should keep system drives selected', function () {
+      const systemDrive = {
+        device: '/dev/disk0',
+        name: 'USB Drive 0',
+        size: 999999999,
+        protected: false,
+        system: true
+      }
+
+      const newDrives = [ ..._.initial(this.drives), systemDrive ]
+      availableDrives.setDrives(newDrives)
+
+      selectionState.addDrive(systemDrive.device)
+      availableDrives.setDrives(newDrives)
+      m.chai.expect(selectionState.getSelectedDevices()).to.deep.equal(_.map(newDrives, 'device'))
+    })
+
+    it('should be able to remove a drive', function () {
+      m.chai.expect(selectionState.getSelectedDevices().length).to.equal(2)
+      selectionState.toggleDrive(this.drives[0].device)
+      m.chai.expect(selectionState.hasDrive()).to.be.true
+      m.chai.expect(selectionState.getSelectedDevices().length).to.equal(1)
+      m.chai.expect(selectionState.getSelectedDevices()).to.deep.equal([ this.drives[1].device ])
+    })
+  })
+
   describe('given no drive', function () {
-    describe('.setDrive()', function () {
+    describe('.addDrive()', function () {
       it('should be able to set a drive', function () {
         availableDrives.setDrives([
           {
@@ -149,8 +236,8 @@ describe('Model: selectionState', function () {
           }
         ])
 
-        selectionState.setDrive('/dev/disk5')
-        const drive = selectionState.getDrive()
+        selectionState.addDrive('/dev/disk5')
+        const drive = selectionState.getCurrentDrive()
         m.chai.expect(drive).to.deep.equal({
           device: '/dev/disk5',
           name: 'USB Drive',
@@ -170,7 +257,7 @@ describe('Model: selectionState', function () {
         ])
 
         m.chai.expect(function () {
-          selectionState.setDrive('/dev/disk1')
+          selectionState.addDrive('/dev/disk1')
         }).to.throw('The drive is write-protected')
       })
 
@@ -185,13 +272,13 @@ describe('Model: selectionState', function () {
         ])
 
         m.chai.expect(function () {
-          selectionState.setDrive('/dev/disk5')
+          selectionState.addDrive('/dev/disk5')
         }).to.throw('The drive is not available: /dev/disk5')
       })
 
       it('should throw if device is not a string', function () {
         m.chai.expect(function () {
-          selectionState.setDrive(123)
+          selectionState.addDrive(123)
         }).to.throw('Invalid drive: 123')
       })
     })
@@ -219,7 +306,7 @@ describe('Model: selectionState', function () {
       selectionState.setImage(this.image)
     })
 
-    describe('.setDrive()', function () {
+    describe('.addDrive()', function () {
       it('should throw if drive is not large enough', function () {
         availableDrives.setDrives([
           {
@@ -231,7 +318,7 @@ describe('Model: selectionState', function () {
         ])
 
         m.chai.expect(function () {
-          selectionState.setDrive('/dev/disk2')
+          selectionState.addDrive('/dev/disk2')
         }).to.throw('The drive is not large enough')
       })
     })
@@ -760,7 +847,7 @@ describe('Model: selectionState', function () {
           }
         ])
 
-        selectionState.setDrive('/dev/disk1')
+        selectionState.addDrive('/dev/disk1')
         m.chai.expect(selectionState.hasDrive()).to.be.true
 
         selectionState.setImage({
@@ -779,7 +866,7 @@ describe('Model: selectionState', function () {
         selectionState.removeImage()
       })
 
-      it('should de-select a previously selected not-recommended drive', function () {
+      it('should not de-select a previously selected not-recommended drive', function () {
         availableDrives.setDrives([
           {
             device: '/dev/disk1',
@@ -789,7 +876,7 @@ describe('Model: selectionState', function () {
           }
         ])
 
-        selectionState.setDrive('/dev/disk1')
+        selectionState.addDrive('/dev/disk1')
         m.chai.expect(selectionState.hasDrive()).to.be.true
 
         selectionState.setImage({
@@ -805,7 +892,7 @@ describe('Model: selectionState', function () {
           recommendedDriveSize: 1500000000
         })
 
-        m.chai.expect(selectionState.hasDrive()).to.be.false
+        m.chai.expect(selectionState.hasDrive()).to.be.true
         selectionState.removeImage()
       })
 
@@ -832,7 +919,7 @@ describe('Model: selectionState', function () {
           }
         ])
 
-        selectionState.setDrive('/dev/disk1')
+        selectionState.addDrive('/dev/disk1')
         m.chai.expect(selectionState.hasDrive()).to.be.true
 
         selectionState.setImage({
@@ -864,7 +951,7 @@ describe('Model: selectionState', function () {
         }
       ])
 
-      selectionState.setDrive('/dev/disk1')
+      selectionState.addDrive('/dev/disk1')
 
       selectionState.setImage({
         path: 'foo.img',
@@ -898,8 +985,94 @@ describe('Model: selectionState', function () {
         })
       })
 
-      it('getDrive() should return undefined', function () {
-        const drive = selectionState.getDrive()
+      it('getCurrentDrive() should return undefined', function () {
+        const drive = selectionState.getCurrentDrive()
+        m.chai.expect(drive).to.be.undefined
+      })
+
+      it('getImagePath() should return the image path', function () {
+        const imagePath = selectionState.getImagePath()
+        m.chai.expect(imagePath).to.equal('foo.img')
+      })
+
+      it('getImageSize() should return the image size', function () {
+        const imageSize = selectionState.getImageSize()
+        m.chai.expect(imageSize).to.equal(999999999)
+      })
+
+      it('hasDrive() should return false', function () {
+        const hasDrive = selectionState.hasDrive()
+        m.chai.expect(hasDrive).to.be.false
+      })
+
+      it('hasImage() should return true', function () {
+        const hasImage = selectionState.hasImage()
+        m.chai.expect(hasImage).to.be.true
+      })
+    })
+  })
+
+  describe('given several drives', function () {
+    beforeEach(function () {
+      availableDrives.setDrives([
+        {
+          device: '/dev/disk1',
+          name: 'USB Drive 1',
+          size: 999999999,
+          protected: false
+        },
+        {
+          device: '/dev/disk2',
+          name: 'USB Drive 2',
+          size: 999999999,
+          protected: false
+        },
+        {
+          device: '/dev/disk3',
+          name: 'USB Drive 3',
+          size: 999999999,
+          protected: false
+        }
+      ])
+
+      selectionState.addDrive('/dev/disk1')
+      selectionState.addDrive('/dev/disk2')
+      selectionState.addDrive('/dev/disk3')
+
+      selectionState.setImage({
+        path: 'foo.img',
+        extension: 'img',
+        size: {
+          original: 999999999,
+          final: {
+            estimation: false,
+            value: 999999999
+          }
+        }
+      })
+    })
+
+    describe('.clear()', function () {
+      it('should clear all selections', function () {
+        m.chai.expect(selectionState.hasDrive()).to.be.true
+        m.chai.expect(selectionState.hasImage()).to.be.true
+
+        selectionState.clear()
+
+        m.chai.expect(selectionState.hasDrive()).to.be.false
+        m.chai.expect(selectionState.hasImage()).to.be.false
+      })
+    })
+
+    describe('given the preserveImage option', function () {
+      beforeEach(function () {
+        selectionState.clear({
+          preserveImage: true
+        })
+      })
+
+      it('getCurrentDrive() should return undefined', function () {
+        const drive = selectionState.getCurrentDrive()
         m.chai.expect(drive).to.be.undefined
       })
 
@@ -940,7 +1113,12 @@ describe('Model: selectionState', function () {
           }
         ])
 
-        selectionState.setDrive('/dev/sdb')
+        selectionState.addDrive('/dev/sdb')
+      })
+
+      afterEach(function () {
+        selectionState.clear()
+        availableDrives.setDrives([])
       })
 
       it('should return false if an undefined value is passed', function () {
@@ -958,7 +1136,7 @@ describe('Model: selectionState', function () {
 
     describe('given no selected drive', function () {
       beforeEach(function () {
-        selectionState.removeDrive()
+        selectionState.clear()
       })
 
       it('should return false if an undefined value is passed', function () {
@@ -971,7 +1149,7 @@ describe('Model: selectionState', function () {
     })
   })
 
-  describe('.toggleSetDrive()', function () {
+  describe('.toggleDrive()', function () {
     describe('given a selected drive', function () {
       beforeEach(function () {
         this.drive = {
@@ -988,22 +1166,27 @@ describe('Model: selectionState', function () {
           this.drive,
           {
             device: '/dev/disk2',
-            name: 'USB Drive',
+            name: 'USB Drive 2',
             size: 999999999,
             protected: false
           }
         ])
 
-        selectionState.setDrive(this.drive.device)
+        selectionState.addDrive(this.drive.device)
+      })
+
+      afterEach(function () {
+        selectionState.clear()
+        availableDrives.setDrives([])
       })
 
       it('should be able to remove the drive', function () {
         m.chai.expect(selectionState.hasDrive()).to.be.true
-        selectionState.toggleSetDrive(this.drive.device)
+        selectionState.toggleDrive(this.drive.device)
         m.chai.expect(selectionState.hasDrive()).to.be.false
       })
 
-      it('should be able to replace the drive', function () {
+      it('should not replace a different drive', function () {
         const drive = {
           device: '/dev/disk2',
           name: 'USB Drive',
@@ -1011,29 +1194,48 @@ describe('Model: selectionState', function () {
           protected: false
         }
 
-        m.chai.expect(selectionState.getDrive()).to.deep.equal(this.drive)
-        selectionState.toggleSetDrive(drive.device)
-        m.chai.expect(selectionState.getDrive()).to.deep.equal(drive)
-        m.chai.expect(selectionState.getDrive()).to.not.deep.equal(this.drive)
+        m.chai.expect(selectionState.getCurrentDrive()).to.deep.equal(this.drive)
+        selectionState.toggleDrive(drive.device)
+        m.chai.expect(selectionState.getCurrentDrive()).to.deep.equal(this.drive)
+        m.chai.expect(selectionState.getCurrentDrive()).to.not.deep.equal(drive)
       })
     })
 
     describe('given no selected drive', function () {
       beforeEach(function () {
-        selectionState.removeDrive()
+        selectionState.clear()
+
+        availableDrives.setDrives([
+          {
+            device: '/dev/disk2',
+            name: 'USB Drive 2',
+            size: 999999999,
+            protected: false
+          },
+          {
+            device: '/dev/disk3',
+            name: 'USB Drive 3',
+            size: 999999999,
+            protected: false
+          }
+        ])
+      })
+
+      afterEach(function () {
+        availableDrives.setDrives([])
       })
 
       it('should set the drive', function () {
         const drive = {
           device: '/dev/disk2',
-          name: 'USB Drive',
+          name: 'USB Drive 2',
           size: 999999999,
           protected: false
         }
 
         m.chai.expect(selectionState.hasDrive()).to.be.false
-        selectionState.toggleSetDrive(drive.device)
-        m.chai.expect(selectionState.getDrive()).to.deep.equal(drive)
+        selectionState.toggleDrive(drive.device)
+        m.chai.expect(selectionState.getCurrentDrive()).to.deep.equal(drive)
       })
     })
   })
