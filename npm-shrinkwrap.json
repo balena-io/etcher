@@ -8995,11 +8995,6 @@
       "from": "run-async@>=0.1.0 <0.2.0",
       "resolved": "https://registry.npmjs.org/run-async/-/run-async-0.1.0.tgz"
     },
-    "rx": {
-      "version": "4.1.0",
-      "from": "rx@4.1.0",
-      "resolved": "https://registry.npmjs.org/rx/-/rx-4.1.0.tgz"
-    },
     "rx-lite": {
       "version": "3.1.2",
       "from": "rx-lite@>=3.1.2 <4.0.0",
