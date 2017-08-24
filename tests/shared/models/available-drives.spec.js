@@ -74,6 +74,41 @@ describe('Model: availableDrives', function () {
           m.chai.expect(availableDrives.getDrives()).to.deep.equal(drives)
         })
 
+        it('should be able to set drives with extra properties', function () {
+          const drives = [
+            {
+              device: '/dev/sdb',
+              description: 'Foo',
+              size: '14G',
+              mountpoint: '/mnt/foo',
+              system: false,
+              foo: {
+                bar: 'baz',
+                qux: 5
+              },
+              set: new Set()
+            }
+          ]
+
+          availableDrives.setDrives(drives)
+          m.chai.expect(availableDrives.getDrives()).to.deep.equal(drives)
+        })
+
+        it('should be able to set drives with null sizes', function () {
+          const drives = [
+            {
+              device: '/dev/sdb',
+              description: 'Foo',
+              size: null,
+              mountpoint: '/mnt/foo',
+              system: false
+            }
+          ]
+
+          availableDrives.setDrives(drives)
+          m.chai.expect(availableDrives.getDrives()).to.deep.equal(drives)
+        })
+
         describe('given no selected image and no selected drive', function () {
           beforeEach(function () {
             selectionState.removeDrive()
