@@ -83,10 +83,12 @@ deb:
     - libxss1
     - libxtst6
     - polkit-1-auth-agent | policykit-1-gnome | polkit-kde-1
+    - gksu | kdesudo
 rpm:
   icon: assets/icon.png
   depends:
     - lsb
     - libXScrnSaver
+    - beesu
 appImage:
   icon: assets/icon.png
