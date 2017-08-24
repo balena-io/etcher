@@ -58,7 +58,7 @@ before_install:
     fi
 
 install:
-  - travis_wait ./scripts/ci/install.sh -o $HOST_OS -r $TARGET_ARCH
+  - ./scripts/ci/install.sh -o $HOST_OS -r $TARGET_ARCH
 
 script:
   - ./scripts/ci/test.sh -o $HOST_OS -r $TARGET_ARCH
