@@ -527,6 +527,43 @@ describe('Shared: DriveConstraints', function () {
     })
   })
 
+  describe('.isDrivePending()', function () {
+    it('should return true if the drive is pending', function () {
+      const result = constraints.isDrivePending({
+        device: '/dev/disk1',
+        name: 'USB Drive',
+        size: 1000000000,
+        protected: false,
+        pending: true
+      })
+
+      m.chai.expect(result).to.be.true
+    })
+
+    it('should return false if the drive is not pending', function () {
+      const result = constraints.isDrivePending({
+        device: '/dev/disk1',
+        name: 'USB Drive',
+        size: 1000000000,
+        protected: false,
+        pending: false
+      })
+
+      m.chai.expect(result).to.be.false
+    })
+
+    it('should return false if "pending" is undefined', function () {
+      const result = constraints.isDrivePending({
+        device: '/dev/disk1',
+        name: 'USB Drive',
+        size: 1000000000,
+        protected: false
+      })
+
+      m.chai.expect(result).to.be.false
+    })
+  })
+
   describe('.isDriveSizeRecommended()', function () {
     it('should return true if the drive size is greater than the recommended size ', function () {
       const result = constraints.isDriveSizeRecommended({
@@ -639,56 +676,120 @@ describe('Shared: DriveConstraints', function () {
         this.drive.protected = true
       })
 
-      it('should return false if the drive is not large enough and is a source drive', function () {
-        m.chai.expect(constraints.isDriveValid(this.drive, {
-          path: path.join(this.mountpoint, 'rpi.img'),
-          size: {
-            original: 5000000000,
-            final: {
-              estimation: false,
-              value: 5000000000
+      describe('given the drive is pending', function () {
+        beforeEach(function () {
+          this.drive.pending = true
+        })
+
+        it('should return false if the drive is not large enough and is a source drive', function () {
+          m.chai.expect(constraints.isDriveValid(this.drive, {
+            path: path.join(this.mountpoint, 'rpi.img'),
+            size: {
+              original: 5000000000,
+              final: {
+                estimation: false,
+                value: 5000000000
+              }
             }
-          }
-        })).to.be.false
+          })).to.be.false
+        })
+
+        it('should return false if the drive is not large enough and is not a source drive', function () {
+          m.chai.expect(constraints.isDriveValid(this.drive, {
+            path: path.resolve(this.mountpoint, '../bar/rpi.img'),
+            size: {
+              original: 5000000000,
+              final: {
+                estimation: false,
+                value: 5000000000
+              }
+            }
+          })).to.be.false
+        })
+
+        it('should return false if the drive is large enough and is a source drive', function () {
+          m.chai.expect(constraints.isDriveValid(this.drive, {
+            path: path.join(this.mountpoint, 'rpi.img'),
+            size: {
+              original: 2000000000,
+              final: {
+                estimation: false,
+                value: 2000000000
+              }
+            }
+          })).to.be.false
+        })
+
+        it('should return false if the drive is large enough and is not a source drive', function () {
+          m.chai.expect(constraints.isDriveValid(this.drive, {
+            path: path.resolve(this.mountpoint, '../bar/rpi.img'),
+            size: {
+              original: 2000000000,
+              final: {
+                estimation: false,
+                value: 2000000000
+              }
+            }
+          })).to.be.false
+        })
       })
 
-      it('should return false if the drive is not large enough and is not a source drive', function () {
-        m.chai.expect(constraints.isDriveValid(this.drive, {
-          path: path.resolve(this.mountpoint, '../bar/rpi.img'),
-          size: {
-            original: 5000000000,
-            final: {
-              estimation: false,
-              value: 5000000000
-            }
-          }
-        })).to.be.false
-      })
+      describe('given the drive is not pending', function () {
+        beforeEach(function () {
+          this.drive.pending = false
+        })
 
-      it('should return false if the drive is large enough and is a source drive', function () {
-        m.chai.expect(constraints.isDriveValid(this.drive, {
-          path: path.join(this.mountpoint, 'rpi.img'),
-          size: {
-            original: 2000000000,
-            final: {
-              estimation: false,
-              value: 2000000000
+        it('should return false if the drive is not large enough and is a source drive', function () {
+          m.chai.expect(constraints.isDriveValid(this.drive, {
+            path: path.join(this.mountpoint, 'rpi.img'),
+            size: {
+              original: 5000000000,
+              final: {
+                estimation: false,
+                value: 5000000000
+              }
             }
-          }
-        })).to.be.false
-      })
+          })).to.be.false
+        })
 
-      it('should return false if the drive is large enough and is not a source drive', function () {
-        m.chai.expect(constraints.isDriveValid(this.drive, {
-          path: path.resolve(this.mountpoint, '../bar/rpi.img'),
-          size: {
-            original: 2000000000,
-            final: {
-              estimation: false,
-              value: 2000000000
+        it('should return false if the drive is not large enough and is not a source drive', function () {
+          m.chai.expect(constraints.isDriveValid(this.drive, {
+            path: path.resolve(this.mountpoint, '../bar/rpi.img'),
+            size: {
+              original: 5000000000,
+              final: {
+                estimation: false,
+                value: 5000000000
+              }
             }
-          }
-        })).to.be.false
+          })).to.be.false
+        })
+
+        it('should return false if the drive is large enough and is a source drive', function () {
+          m.chai.expect(constraints.isDriveValid(this.drive, {
+            path: path.join(this.mountpoint, 'rpi.img'),
+            size: {
+              original: 2000000000,
+              final: {
+                estimation: false,
+                value: 2000000000
+              }
+            }
+          })).to.be.false
+        })
+
+        it('should return false if the drive is large enough and is not a source drive', function () {
+          m.chai.expect(constraints.isDriveValid(this.drive, {
+            path: path.resolve(this.mountpoint, '../bar/rpi.img'),
+            size: {
+              original: 2000000000,
+              final: {
+                estimation: false,
+                value: 2000000000
+              }
+            }
+          })).to.be.false
+        })
       })
     })
 
@@ -697,56 +798,120 @@ describe('Shared: DriveConstraints', function () {
         this.drive.protected = false
       })
 
-      it('should return false if the drive is not large enough and is a source drive', function () {
-        m.chai.expect(constraints.isDriveValid(this.drive, {
-          path: path.join(this.mountpoint, 'rpi.img'),
-          size: {
-            original: 5000000000,
-            final: {
-              estimation: false,
-              value: 5000000000
+      describe('given the drive is pending', function () {
+        beforeEach(function () {
+          this.drive.pending = true
+        })
+
+        it('should return false if the drive is not large enough and is a source drive', function () {
+          m.chai.expect(constraints.isDriveValid(this.drive, {
+            path: path.join(this.mountpoint, 'rpi.img'),
+            size: {
+              original: 5000000000,
+              final: {
+                estimation: false,
+                value: 5000000000
+              }
             }
-          }
-        })).to.be.false
+          })).to.be.false
+        })
+
+        it('should return false if the drive is not large enough and is not a source drive', function () {
+          m.chai.expect(constraints.isDriveValid(this.drive, {
+            path: path.resolve(this.mountpoint, '../bar/rpi.img'),
+            size: {
+              original: 5000000000,
+              final: {
+                estimation: false,
+                value: 5000000000
+              }
+            }
+          })).to.be.false
+        })
+
+        it('should return false if the drive is large enough and is a source drive', function () {
+          m.chai.expect(constraints.isDriveValid(this.drive, {
+            path: path.join(this.mountpoint, 'rpi.img'),
+            size: {
+              original: 2000000000,
+              final: {
+                estimation: false,
+                value: 2000000000
+              }
+            }
+          })).to.be.false
+        })
+
+        it('should return false if the drive is large enough and is not a source drive', function () {
+          m.chai.expect(constraints.isDriveValid(this.drive, {
+            path: path.resolve(this.mountpoint, '../bar/rpi.img'),
+            size: {
+              original: 2000000000,
+              final: {
+                estimation: false,
+                value: 2000000000
+              }
+            }
+          })).to.be.false
+        })
       })
 
-      it('should return false if the drive is not large enough and is not a source drive', function () {
-        m.chai.expect(constraints.isDriveValid(this.drive, {
-          path: path.resolve(this.mountpoint, '../bar/rpi.img'),
-          size: {
-            original: 5000000000,
-            final: {
-              estimation: false,
-              value: 5000000000
-            }
-          }
-        })).to.be.false
-      })
+      describe('given the drive is not pending', function () {
+        beforeEach(function () {
+          this.drive.pending = false
+        })
 
-      it('should return false if the drive is large enough and is a source drive', function () {
-        m.chai.expect(constraints.isDriveValid(this.drive, {
-          path: path.join(this.mountpoint, 'rpi.img'),
-          size: {
-            original: 2000000000,
-            final: {
-              estimation: false,
-              value: 2000000000
+        it('should return false if the drive is not large enough and is a source drive', function () {
+          m.chai.expect(constraints.isDriveValid(this.drive, {
+            path: path.join(this.mountpoint, 'rpi.img'),
+            size: {
+              original: 5000000000,
+              final: {
+                estimation: false,
+                value: 5000000000
+              }
             }
-          }
-        })).to.be.false
-      })
+          })).to.be.false
+        })
 
-      it('should return true if the drive is large enough and is not a source drive', function () {
-        m.chai.expect(constraints.isDriveValid(this.drive, {
-          path: path.resolve(this.mountpoint, '../bar/rpi.img'),
-          size: {
-            original: 2000000000,
-            final: {
-              estimation: false,
-              value: 2000000000
+        it('should return false if the drive is not large enough and is not a source drive', function () {
+          m.chai.expect(constraints.isDriveValid(this.drive, {
+            path: path.resolve(this.mountpoint, '../bar/rpi.img'),
+            size: {
+              original: 5000000000,
+              final: {
+                estimation: false,
+                value: 5000000000
+              }
             }
-          }
-        })).to.be.true
+          })).to.be.false
+        })
+
+        it('should return false if the drive is large enough and is a source drive', function () {
+          m.chai.expect(constraints.isDriveValid(this.drive, {
+            path: path.join(this.mountpoint, 'rpi.img'),
+            size: {
+              original: 2000000000,
+              final: {
+                estimation: false,
+                value: 2000000000
+              }
+            }
+          })).to.be.false
+        })
+
+        it('should return true if the drive is large enough and is not a source drive', function () {
+          m.chai.expect(constraints.isDriveValid(this.drive, {
+            path: path.resolve(this.mountpoint, '../bar/rpi.img'),
+            size: {
+              original: 2000000000,
+              final: {
+                estimation: false,
+                value: 2000000000
+              }
+            }
+          })).to.be.true
+        })
       })
     })
   })
@@ -766,6 +931,7 @@ describe('Shared: DriveConstraints', function () {
         name: 'My Drive',
         protected: false,
         system: false,
+        pending: false,
         mountpoints: [
           {
             path: this.mountpoint
@@ -806,6 +972,19 @@ describe('Shared: DriveConstraints', function () {
         })
 
         m.chai.expect(result).to.deep.equal([])
+      })
+    })
+
+    describe('given the drive is pending', () => {
+      it('should return an empty list', function () {
+        this.drive.pending = true
+        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, {
+          path: '/mnt/disk2/rpi.img',
+          size: 1000000000
+        })
+
+        const expectedTuples = [ [ 'ERROR', 'PENDING' ] ]
+        expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
     })
 
