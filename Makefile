@@ -107,7 +107,7 @@ TARGET_ARCH_ELECTRON_BUILDER = $(shell ./scripts/build/architecture-convert.sh -
 PLATFORM_PKG = $(shell ./scripts/build/platform-convert.sh -r $(PLATFORM) -t pkg)
 ENTRY_POINT_CLI = lib/cli/etcher.js
 ETCHER_CLI_BINARY = $(APPLICATION_NAME_LOWERCASE)
-ifeq ($(TARGET_PLATFORM),win32)
+ifeq ($(PLATFORM),win32)
 ETCHER_CLI_BINARY = $(APPLICATION_NAME_LOWERCASE).exe
 endif
 
@@ -228,7 +228,7 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH)-app \
 	| $(BUILD_DIRECTORY)
 	mkdir $@
-	$(NPX) pkg --output $@/$(ETCHER_CLI_BINARY) -t node6-$(PLATFORM_PKG)-$(TARGET_ARCH) $</$(ENTRY_POINT_CLI)
+	cd $< && ../../$(NPX) pkg --output ../../$@/$(ETCHER_CLI_BINARY) -t node6-$(PLATFORM_PKG)-$(TARGET_ARCH) $(ENTRY_POINT_CLI)
 	./scripts/build/dependencies-npm-extract-addons.sh \
 		-d $</node_modules \
 		-o $@/node_modules
