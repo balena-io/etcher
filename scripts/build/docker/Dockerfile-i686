@@ -7,6 +7,7 @@ RUN sed s,ubuntu\.stu\.edu\.tw,archive.ubuntu.com, /etc/apt/sources.list > /tmp/
 
 
 
+
 # Install dependencies
 RUN apt-get update \
   && apt-get install -y \
@@ -36,10 +37,12 @@ RUN apt-get update \
     zip \
     rpm
 
+
 # Install a C++11 compiler
 RUN add-apt-repository ppa:ubuntu-toolchain-r/test \
   && apt-get update && apt-get install -y gcc-4.8 g++-4.8 \
   && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
+
 
 # NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \

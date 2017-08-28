@@ -16,6 +16,72 @@ endif
 BUILD_TEMPORARY_DIRECTORY = $(BUILD_DIRECTORY)/.tmp
 
 # ---------------------------------------------------------------------
+# Operating system and architecture detection
+# ---------------------------------------------------------------------
+
+# http://stackoverflow.com/a/12099167
+ifeq ($(OS),Windows_NT)
+	PLATFORM = win32
+
+	ifeq ($(PROCESSOR_ARCHITEW6432),AMD64)
+		HOST_ARCH = x64
+	else
+		ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
+			HOST_ARCH = x64
+		endif
+		ifeq ($(PROCESSOR_ARCHITECTURE),x86)
+			HOST_ARCH = x86
+		endif
+	endif
+else
+	ifeq ($(shell uname -s),Linux)
+		PLATFORM = linux
+
+		ifeq ($(shell uname -m),x86_64)
+			HOST_ARCH = x64
+		endif
+		ifneq ($(filter %86,$(shell uname -m)),)
+			HOST_ARCH = x86
+		endif
+		ifeq ($(shell uname -m),armv7l)
+			HOST_ARCH = armv7hf
+		endif
+	endif
+	ifeq ($(shell uname -s),Darwin)
+		PLATFORM = darwin
+
+		ifeq ($(shell uname -m),x86_64)
+			HOST_ARCH = x64
+		endif
+	endif
+endif
+
+ifndef PLATFORM
+$(error We couldn't detect your host platform)
+endif
+ifndef HOST_ARCH
+$(error We couldn't detect your host architecture)
+endif
+
+# Default to host architecture. You can override by doing:
+#
+#   make <target> TARGET_ARCH=<arch>
+#
+TARGET_ARCH ?= $(HOST_ARCH)
+
+# Support x86 builds from x64 in GNU/Linux
+# See https://github.com/addaleax/lzma-native/issues/27
+ifeq ($(PLATFORM),linux)
+	ifneq ($(HOST_ARCH),$(TARGET_ARCH))
+		ifeq ($(TARGET_ARCH),x86)
+			export CFLAGS += -m32
+		else
+$(error Can't build $(TARGET_ARCH) binaries on a $(HOST_ARCH) host)
+		endif
+	endif
+endif
+
+# ---------------------------------------------------------------------
 # Application configuration
 # ---------------------------------------------------------------------
 
@@ -69,72 +135,6 @@ BINTRAY_COMPONENT = $(APPLICATION_NAME_LOWERCASE)-devel
 endif
 ifndef APPLICATION_VERSION
 $(error Invalid release type: $(RELEASE_TYPE))
-endif
-
-# ---------------------------------------------------------------------
-# Operating system and architecture detection
-# ---------------------------------------------------------------------
-
-# http://stackoverflow.com/a/12099167
-ifeq ($(OS),Windows_NT)
-	PLATFORM = win32
-
-	ifeq ($(PROCESSOR_ARCHITEW6432),AMD64)
-		HOST_ARCH = x64
-	else
-		ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
-			HOST_ARCH = x64
-		endif
-		ifeq ($(PROCESSOR_ARCHITECTURE),x86)
-			HOST_ARCH = x86
-		endif
-	endif
-else
-	ifeq ($(shell uname -s),Linux)
-		PLATFORM = linux
-
-		ifeq ($(shell uname -m),x86_64)
-			HOST_ARCH = x64
-		endif
-		ifneq ($(filter %86,$(shell uname -m)),)
-			HOST_ARCH = x86
-		endif
-		ifeq ($(shell uname -m),armv7l)
-			HOST_ARCH = armv7l
-		endif
-	endif
-	ifeq ($(shell uname -s),Darwin)
-		PLATFORM = darwin
-
-		ifeq ($(shell uname -m),x86_64)
-			HOST_ARCH = x64
-		endif
-	endif
-endif
-
-ifndef PLATFORM
-$(error We couldn't detect your host platform)
-endif
-ifndef HOST_ARCH
-$(error We couldn't detect your host architecture)
-endif
-
-# Default to host architecture. You can override by doing:
-#
-#   make <target> TARGET_ARCH=<arch>
-#
-TARGET_ARCH ?= $(HOST_ARCH)
-
-# Support x86 builds from x64 in GNU/Linux
-# See https://github.com/addaleax/lzma-native/issues/27
-ifeq ($(PLATFORM),linux)
-	ifneq ($(HOST_ARCH),$(TARGET_ARCH))
-		ifeq ($(TARGET_ARCH),x86)
-			export CFLAGS += -m32
-		else
-$(error Can't build $(TARGET_ARCH) binaries on a $(HOST_ARCH) host)
-		endif
-	endif
 endif
 
 # ---------------------------------------------------------------------

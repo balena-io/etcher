@@ -54,16 +54,9 @@ then
   usage
 fi
 
-if [ "$ARGV_ARCHITECTURE" == "x64" ]; then
-  DOCKERFILE="$HERE/Dockerfile-x86_64"
-elif [ "$ARGV_ARCHITECTURE" == "x86" ]; then
-  DOCKERFILE="$HERE/Dockerfile-i686"
-else
-  echo "Unsupported architecture: $ARGV_ARCHITECTURE" 1>&2
-  exit 1
-fi
-
-IMAGE_ID="etcher-build-$ARGV_ARCHITECTURE"
+DOCKER_ARCHITECTURE=$(./scripts/build/architecture-convert.sh -r "$ARGV_ARCHITECTURE" -t docker)
+DOCKERFILE="$HERE/Dockerfile-$DOCKER_ARCHITECTURE"
+IMAGE_ID="etcher-build-$DOCKER_ARCHITECTURE"
 
 docker build -f "$DOCKERFILE" -t "$IMAGE_ID" "$ARGV_SOURCE_CODE_DIRECTORY"
 
