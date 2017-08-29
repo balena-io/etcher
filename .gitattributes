@@ -5,7 +5,6 @@
 *.scss text eol=lf
 
 # Text files
-dictionary text
 Dockerfile* text
 .dockerignore text
 .editorconfig text
