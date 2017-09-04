@@ -41,7 +41,7 @@ installers for all supported operating systems.
 
 #### AppImage
 
-Set execution permissions on the `.AppImage` file and double-click it.
+Set executable permissions on the `.AppImage` file and double-click it.
 
 #### Debian and Ubuntu based Package Repository (GNU/Linux x86/x64)
 
