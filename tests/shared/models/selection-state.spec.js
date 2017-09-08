@@ -370,6 +370,42 @@ describe('Model: selectionState', function () {
         m.chai.expect(imagePath).to.equal('foo.zip')
       })
 
+      it('should infer a compressed raw image if the penultimate extension is missing', function () {
+        selectionState.setImage({
+          path: 'foo.xz',
+          extension: 'img',
+          archiveExtension: 'xz',
+          size: {
+            original: 999999999,
+            final: {
+              estimation: false,
+              value: 999999999
+            }
+          }
+        })
+
+        const imagePath = selectionState.getImagePath()
+        m.chai.expect(imagePath).to.equal('foo.xz')
+      })
+
+      it('should infer a compressed raw image if the penultimate extension is not a file extension', function () {
+        selectionState.setImage({
+          path: 'something.linux-x86-64.gz',
+          extension: 'img',
+          archiveExtension: 'gz',
+          size: {
+            original: 999999999,
+            final: {
+              estimation: false,
+              value: 999999999
+            }
+          }
+        })
+
+        const imagePath = selectionState.getImagePath()
+        m.chai.expect(imagePath).to.equal('something.linux-x86-64.gz')
+      })
+
       it('should throw if no path', function () {
         m.chai.expect(function () {
           selectionState.setImage({
