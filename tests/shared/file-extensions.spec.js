@@ -101,7 +101,7 @@ describe('Shared: fileExtensions', function () {
 
   describe('.getLastFileExtension()', function () {
     it('should return undefined if the file path has no extension', function () {
-      m.chai.expect(fileExtensions.getLastFileExtension('foo')).to.be.undefined
+      m.chai.expect(fileExtensions.getLastFileExtension('foo')).to.equal(null)
     })
 
     it('should return the extension if there is only one extension', function () {
@@ -119,11 +119,11 @@ describe('Shared: fileExtensions', function () {
 
   describe('.getPenultimateFileExtension()', function () {
     it('should return undefined in the file path has no extension', function () {
-      m.chai.expect(fileExtensions.getPenultimateFileExtension('foo')).to.be.undefined
+      m.chai.expect(fileExtensions.getPenultimateFileExtension('foo')).to.equal(null)
     })
 
     it('should return undefined if there is only one extension', function () {
-      m.chai.expect(fileExtensions.getPenultimateFileExtension('foo.img')).to.be.undefined
+      m.chai.expect(fileExtensions.getPenultimateFileExtension('foo.img')).to.equal(null)
     })
 
     it('should return the penultimate extension if there are two extensions', function () {
