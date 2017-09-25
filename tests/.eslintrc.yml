@@ -1,0 +1,19 @@
+rules:
+  require-jsdoc:
+    - off
+  no-undefined:
+    - off
+  init-declarations:
+    - off
+  no-unused-expressions:
+    - off
+  prefer-arrow-callback:
+    - off
+  no-magic-numbers:
+    - off
+  id-length:
+    - error
+    - min: 2
+      exceptions:
+        - "_"
+        - "m"

@@ -1,0 +1,54 @@
+# appveyor file
+# http://www.appveyor.com/docs/appveyor-yml
+
+image: Visual Studio 2015
+
+cache:
+  - C:\Users\appveyor\.node-gyp
+  - '%LOCALAPPDATA%\electron\Cache'
+  - '%LOCALAPPDATA%\electron-builder\cache'
+  - '%AppData%\npm-cache'
+  - '%USERPROFILE%\.pkg-cache'
+  - node_modules -> npm-shrinkwrap.json
+  - C:\ProgramData\chocolatey\bin -> appveyor.yml
+  - C:\ProgramData\chocolatey\lib -> appveyor.yml
+  - C:\Users\appveyor\AppData\Local\Temp\chocolatey -> appveyor.yml
+
+# what combinations to test
+environment:
+  global:
+    ELECTRON_NO_ATTACH_CONSOLE: true
+    nodejs_version: "6.10.3"
+  matrix:
+    - TARGET_ARCH: x64
+    - TARGET_ARCH: x86
+
+matrix:
+  fast_finish: true
+
+install:
+  - ps: Update-NodeJsInstallation $env:nodejs_version $env:TARGET_ARCH
+  - set PATH=C:\Program Files (x86)\Windows Kits\8.1\bin\x86;%PATH%
+  - set PATH=C:\Program Files (x86)\NSIS;%PATH%
+  - set PATH=C:\MinGW\bin;%PATH%
+  - set PATH=C:\MinGW\msys\1.0\bin;%PATH%
+  - bash .\scripts\ci\install.sh -o win32 -r %TARGET_ARCH%
+
+build: off
+
+test_script:
+  - node --version
+  - npm --version
+  - bash .\scripts\ci\test.sh -o win32 -r %TARGET_ARCH%
+  - bash .\scripts\ci\build-installers.sh -o win32 -r %TARGET_ARCH%
+
+deploy_script:
+  - if %APPVEYOR_REPO_BRANCH%==master (bash .\scripts\ci\deploy.sh -o win32 -r %TARGET_ARCH%)
+
+notifications:
+
+  - provider: Webhook
+    url: https://webhooks.gitter.im/e/0becb34b32e20d389bb8
+    on_build_success: false
+    on_build_failure: true
+    on_build_status_changed: true

@@ -1,0 +1,108 @@
+/*
+ * Copyright 2016 resin.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.page-main {
+  margin-top: 75px;
+}
+
+svg-icon > img[disabled] {
+  opacity: $disabled-opacity;
+}
+
+.page-main .step-selection-text {
+  color: $palette-theme-dark-foreground;
+}
+
+.page-main .text-disabled > span {
+  color: $palette-theme-dark-disabled-foreground;
+}
+
+.page-main .relative {
+  position: relative;
+}
+
+.page-main .button-brick {
+  min-width: $btn-min-width;
+}
+
+%step-border {
+  height: 2px;
+  background-color: $palette-theme-dark-foreground;
+  position: absolute;
+  width: 124px;
+  top: 19px;
+
+  &[disabled] {
+    background-color: $palette-theme-dark-disabled-foreground;
+  }
+}
+
+.page-main .step-border-left {
+  @extend %step-border;
+  left: -67px;
+}
+
+.page-main .step-border-right {
+  @extend %step-border;
+  right: -67px;
+}
+
+.page-main .step-tooltip {
+  display: block;
+  margin: -5px auto -20px;
+  color: $palette-theme-dark-disabled-foreground;
+  font-size: 10px;
+}
+
+.page-main .step-footer {
+  margin-top: 10px;
+  margin-bottom: -40px;
+  color: $palette-theme-dark-disabled-foreground;
+  font-size: 10px;
+}
+
+.page-main .step-footer-split {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+  max-width: $btn-min-width;
+}
+
+.page-main .step-footer-underline {
+  border-bottom: 1px dotted;
+  padding-bottom: 2px;
+}
+
+.page-main .button.step-footer {
+  font-size: 12px;
+  color: $palette-theme-primary-background;
+  border-radius: 0;
+  padding: 0;
+}
+
+.page-main .glyphicon {
+  vertical-align: text-top;
+}
+
+.page-main .step-name {
+  font-weight: bold;
+  color: $palette-theme-primary-foreground;
+}
+
+.page-main .step-size {
+  color: $palette-theme-dark-disabled-foreground;
+}

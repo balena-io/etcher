@@ -1,0 +1,17 @@
+diff --git a/index.js b/index.js
+index 1e7c766..e42c513 100644
+--- a/index.js
++++ b/index.js
+@@ -7,11 +7,8 @@ var extend = require('util-extend');
+ var assert = require('assert');
+ var fs = require('fs');
+
+-// node-pre-gyp magic
+-var nodePreGyp = require('node-pre-gyp');
+ var path = require('path');
+-var binding_path = nodePreGyp.find(path.resolve(path.join(__dirname,'./package.json')));
+-var native = require(binding_path);
++var native = require(path.join(__dirname, 'binding', 'lzma_native.node'));
+
+ extend(exports, native);
+
