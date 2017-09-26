@@ -6132,35 +6132,49 @@ body {
 .button-no-hover, .button[disabled], [disabled].progress-button, .progress-button[active="true"] {
   pointer-events: none; }
 
+.button-default {
+  background-color: #ececec;
+  color: #b3b3b3; }
+
 .button-default,
 .button-default:focus {
-  background-color: #ececec;
-  color: #b3b3b3;
   outline: none; }
 
-.button-default:hover {
-  background-color: lightgray;
+.button-default:focus,
+.button-default:hover,
+.button-default:active {
+  background-color: #c6c6c6;
   color: #b3b3b3; }
+
+.button-primary, .progress-button {
+  background-color: #5793db;
+  color: #fff; }
 
 .button-primary, .progress-button,
 .button-primary:focus,
 .progress-button:focus {
-  background-color: #5793db;
-  color: #fff;
   outline: none; }
 
-.button-primary:hover, .progress-button:hover {
-  background-color: #2d78d2;
+.button-primary:focus, .progress-button:focus,
+.button-primary:hover,
+.progress-button:hover,
+.button-primary:active,
+.progress-button:active {
+  background-color: #296cbd;
+  color: #fff; }
+
+.button-danger {
+  background-color: #d9534f;
   color: #fff; }
 
 .button-danger,
 .button-danger:focus {
-  background-color: #d9534f;
-  color: #fff;
   outline: none; }
 
-.button-danger:hover {
-  background-color: #c9302c;
+.button-danger:focus,
+.button-danger:hover,
+.button-danger:active {
+  background-color: #b52b27;
   color: #fff; }
 
 /*
@@ -6433,6 +6447,8 @@ svg-icon {
   svg-icon img {
     width: 100%;
     height: 100%; }
+  svg-icon:hover {
+    filter: brightness(75%); }
 
 /*
  * Copyright 2016 resin.io
