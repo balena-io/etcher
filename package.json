@@ -8,7 +8,7 @@
     "sleepDays": 7,
     "semverRange": "<2.0.0"
   },
-  "main": "lib/start.js",
+  "main": "build/lib/start.js",
   "description": "Flash OS images to SD cards and USB drives, safely and easily.",
   "productDescription": "Etcher is a powerful OS image flasher built with web technologies to ensure flashing an SDCard or USB drive is a pleasant and safe experience. It protects you from accidentally writing to your hard-drives, ensures every byte of data was written correctly and much more.",
   "homepage": "https://github.com/resin-io/etcher",
@@ -19,7 +19,7 @@
   },
   "scripts": {
     "test": "make test",
-    "start": "electron lib/start.js",
+    "start": "electron build/lib/start.js",
     "postshrinkwrap": "node ./scripts/clean-shrinkwrap.js",
     "configure": "node-gyp configure",
     "build": "node-gyp build",
@@ -97,6 +97,10 @@
   "devDependencies": {
     "angular-mocks": "1.6.3",
     "asar": "0.10.0",
+    "babel-cli": "6.26.0",
+    "babel-core": "6.26.0",
+    "babel-preset-env": "1.6.0",
+    "babel-preset-react": "6.24.1",
     "electron": "1.7.9",
     "electron-builder": "19.9.1",
     "electron-mocha": "3.3.0",
@@ -107,6 +111,7 @@
     "eslint-plugin-lodash": "2.3.6",
     "eslint-plugin-node": "5.1.1",
     "eslint-plugin-promise": "3.5.0",
+    "eslint-plugin-react": "^7.4.0",
     "eslint-plugin-standard": "3.0.1",
     "file-exists": "1.0.0",
     "html-angular-validate": "0.1.9",

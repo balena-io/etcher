@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-$icon-font-path: "../../../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
+$icon-font-path: "../../../../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 $font-size-base: 13px;
 $cursor-disabled: initial;
 $link-hover-decoration: none;
@@ -22,7 +22,7 @@ $btn-min-width: 170px;
 $link-color: #ddd;
 $disabled-opacity: 0.2;
 
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "./modules/theme";
 @import "./modules/bootstrap";
 @import "./modules/space";
