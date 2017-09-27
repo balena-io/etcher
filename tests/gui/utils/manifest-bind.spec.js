@@ -18,7 +18,7 @@
 
 const m = require('mochainon')
 const angular = require('angular')
-const packageJSON = require('../../../package.json')
+const packageJSON = require('../../../../package.json')
 require('angular-mocks')
 
 describe('Browser: ManifestBind', function () {

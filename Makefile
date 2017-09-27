@@ -3,6 +3,7 @@
 # ---------------------------------------------------------------------
 
 NPX = ./node_modules/.bin/npx
+babel = ./node_modules/.bin/babel
 
 # This directory will be completely deleted by the `clean` rule
 BUILD_DIRECTORY ?= dist
@@ -519,8 +520,13 @@ electron-develop:
 		-t electron \
 		-s "$(PLATFORM)"
 
+babel:
+	$(babel) --copy-files --out-dir build/lib lib && $(babel) --copy-files --out-dir build/tests tests
+
 sass:
-	$(NPX) node-sass lib/gui/scss/main.scss > lib/gui/css/main.css
+	$(NPX) node-sass build/lib/gui/scss/main.scss > build/lib/gui/css/main.css
+
+transpile: babel sass
 
 lint-js:
 	$(NPX) eslint lib tests scripts bin versionist.conf.js
@@ -544,13 +550,13 @@ lint: lint-js lint-sass lint-cpp lint-html lint-spell
 ELECTRON_MOCHA_OPTIONS=--recursive --reporter spec
 
 test-gui:
-	$(NPX) electron-mocha $(ELECTRON_MOCHA_OPTIONS) --renderer tests/gui
+	$(NPX) electron-mocha $(ELECTRON_MOCHA_OPTIONS) --renderer build/tests/gui
 
 test-sdk:
 	$(NPX) electron-mocha $(ELECTRON_MOCHA_OPTIONS) \
-		tests/shared \
-		tests/child-writer \
-		tests/image-stream
+		build/tests/shared \
+		build/tests/child-writer \
+		build/tests/image-stream
 
 test: test-gui test-sdk
 

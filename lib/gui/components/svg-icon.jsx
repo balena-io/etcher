@@ -24,7 +24,7 @@
 
 const _ = require('lodash')
 const angular = require('angular')
-const react = require('react')
+const React = require('react')
 const propTypes = require('prop-types')
 const react2angular = require('react2angular').react2angular
 const path = require('path')
@@ -42,10 +42,10 @@ const domParser = new window.DOMParser()
  * @type {Object}
  * @public
  */
-class SVGIcon extends react.Component {
+class SVGIcon extends React.Component {
   /**
    * @summary Render the SVG
-   * @returns {react.Element}
+   * @returns {React.Element}
    */
   render () {
     // This means the path to the icon should be
@@ -72,16 +72,14 @@ class SVGIcon extends react.Component {
     const svg = doc.querySelector('svg')
     const svgXml = svg && _.isNil(parserError) ? svg.outerHTML : ''
     const svgData = `data:image/svg+xml,${encodeURIComponent(svgXml)}`
+    const styles = {
+      width,
+      height
+    }
 
-    return react.createElement('img', {
-      className: 'svg-icon',
-      style: {
-        width,
-        height
-      },
-      src: svgData,
-      disabled: this.props.disabled
-    })
+    return (
+      <img className="svg-icon" style={ styles } src={ svgData } disabled={ this.props.disabled } />
+    )
   }
 
   /**

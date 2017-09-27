@@ -82,6 +82,24 @@ VS2015_**, to ensure all Visual Studio command utilities are available in the
 make electron-develop
 ```
 
+### Transpiling
+
+Before running the application, you have to transpile the source files (e.g.
+JSX, Sass) to run the program correctly.
+
+```sh
+make transpile
+```
+
+or individually
+
+```
+# SCSS
+make sass
+# JS/JSX
+make babel
+```
+
 ### Running the application
 
 #### GUI
