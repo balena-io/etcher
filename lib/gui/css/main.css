@@ -6136,45 +6136,28 @@ body {
   background-color: #ececec;
   color: #b3b3b3; }
 
-.button-default,
-.button-default:focus {
-  outline: none; }
-
 .button-default:focus,
-.button-default:hover,
-.button-default:active {
-  background-color: #c6c6c6;
+.button-default:hover {
+  background-color: lightgray;
   color: #b3b3b3; }
 
 .button-primary, .progress-button {
   background-color: #5793db;
   color: #fff; }
 
-.button-primary, .progress-button,
-.button-primary:focus,
-.progress-button:focus {
-  outline: none; }
-
 .button-primary:focus, .progress-button:focus,
 .button-primary:hover,
-.progress-button:hover,
-.button-primary:active,
-.progress-button:active {
-  background-color: #296cbd;
+.progress-button:hover {
+  background-color: #2d78d2;
   color: #fff; }
 
 .button-danger {
   background-color: #d9534f;
   color: #fff; }
 
-.button-danger,
-.button-danger:focus {
-  outline: none; }
-
 .button-danger:focus,
-.button-danger:hover,
-.button-danger:active {
-  background-color: #b52b27;
+.button-danger:hover {
+  background-color: #c9302c;
   color: #fff; }
 
 /*
@@ -6447,8 +6430,6 @@ svg-icon {
   svg-icon img {
     width: 100%;
     height: 100%; }
-  svg-icon:hover {
-    filter: brightness(75%); }
 
 /*
  * Copyright 2016 resin.io
@@ -6757,3 +6738,12 @@ body {
   .section-header > .button, .section-header > .progress-button {
     padding-left: 3px;
     padding-right: 3px; }
+
+@keyframes focus-highlight {
+  from {
+    outline: 2px solid initial; }
+  to {
+    outline: none; } }
+
+[tabindex]:focus {
+  animation: focus-highlight 10s steps(2, end) forwards; }

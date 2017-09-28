@@ -80,19 +80,9 @@ $button-types-styles: (
     color: map-get($button-styles, "color");
   }
 
-  // Undo `:focus` styles from Bootstrap.
-  // On Electron, the user can click and press over a button,
-  // then move the mouse away from the button and release,
-  // and the button will erroneusly keep the `:focus` state style.
-  .button-#{$style},
-  .button-#{$style}:focus {
-    outline: none;
-  }
-
   .button-#{$style}:focus,
-  .button-#{$style}:hover,
-  .button-#{$style}:active {
-    background-color: darken(map-get($button-styles, "bg"), 15%);
+  .button-#{$style}:hover {
+    background-color: darken(map-get($button-styles, "bg"), 10%);
     color: map-get($button-styles, "color");
   }
 }
