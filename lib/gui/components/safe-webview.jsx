@@ -25,7 +25,7 @@ const React = require('react')
 const propTypes = require('prop-types')
 const react2angular = require('react2angular').react2angular
 const analytics = require('../modules/analytics')
-const packageJSON = require('../../../../package.json')
+const packageJSON = require('../../../package.json')
 const robot = require('../../shared/robot')
 
 const MODULE_NAME = 'Etcher.Components.SafeWebview'

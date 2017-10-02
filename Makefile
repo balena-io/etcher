@@ -521,10 +521,10 @@ electron-develop:
 		-s "$(PLATFORM)"
 
 babel:
-	$(babel) --copy-files --out-dir build/lib lib && $(babel) --copy-files --out-dir build/tests tests
+	$(babel) --copy-files --out-dir lib lib && $(babel) --copy-files --out-dir tests tests
 
 sass:
-	$(NPX) node-sass build/lib/gui/scss/main.scss > build/lib/gui/css/main.css
+	$(NPX) node-sass lib/gui/scss/main.scss > lib/gui/css/main.css
 
 transpile: babel sass
 
@@ -550,13 +550,15 @@ lint: lint-js lint-sass lint-cpp lint-html lint-spell
 ELECTRON_MOCHA_OPTIONS=--recursive --reporter spec
 
 test-gui:
-	$(NPX) electron-mocha $(ELECTRON_MOCHA_OPTIONS) --renderer build/tests/gui
+	for f in $$(find ./lib -name '*.jsx'); do if [ ! -e $$(dirname $$f)/$$(basename $$f x) ]; then make transpile; fi; done
+	$(NPX) electron-mocha $(ELECTRON_MOCHA_OPTIONS) --renderer tests/gui
 
 test-sdk:
+	for f in $$(find ./lib -name '*.jsx'); do if [ ! -e $$(dirname $$f)/$$(basename $$f x) ]; then make transpile; fi; done
 	$(NPX) electron-mocha $(ELECTRON_MOCHA_OPTIONS) \
-		build/tests/shared \
-		build/tests/child-writer \
-		build/tests/image-stream
+		tests/shared \
+		tests/child-writer \
+		tests/image-stream
 
 test: test-gui test-sdk
 
