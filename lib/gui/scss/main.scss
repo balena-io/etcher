@@ -126,7 +126,7 @@ body {
 
 @keyframes focus-highlight {
   from {
-    outline: 2px solid initial;
+    outline: 2px solid $palette-theme-warning-background;
   }
 
   to {

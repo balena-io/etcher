@@ -6741,7 +6741,7 @@ body {
 
 @keyframes focus-highlight {
   from {
-    outline: 2px solid initial; }
+    outline: 2px solid #ff912f; }
   to {
     outline: none; } }
 
