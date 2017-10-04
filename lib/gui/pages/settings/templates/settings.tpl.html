@@ -2,8 +2,9 @@
   <h1 class="title space-bottom-large">Settings</h1>
 
   <div class="checkbox">
-    <label>
+    <label tabindex="6">
       <input type="checkbox"
+        tabindex="-1"
         ng-model="settings.currentData.errorReporting"
         ng-change="settings.toggle('errorReporting')">
 
@@ -12,8 +13,9 @@
   </div>
 
   <div class="checkbox">
-    <label>
+    <label tabindex="7">
       <input type="checkbox"
+        tabindex="-1"
         ng-model="settings.currentData.unmountOnSuccess"
         ng-change="settings.toggle('unmountOnSuccess')">
 
@@ -31,8 +33,9 @@
   </div>
 
   <div class="checkbox">
-    <label>
+    <label tabindex="8">
       <input type="checkbox"
+        tabindex="-1"
         ng-model="settings.currentData.validateWriteOnSuccess"
         ng-change="settings.toggle('validateWriteOnSuccess')">
 
@@ -41,8 +44,9 @@
   </div>
 
   <div class="checkbox" ng-show="settings.model.get('updatesEnabled')">
-    <label>
+    <label tabindex="9">
       <input type="checkbox"
+        tabindex="-1"
         ng-model="settings.currentData.includeUnstableUpdateChannel"
         ng-change="settings.toggle('includeUnstableUpdateChannel')">
 
@@ -51,8 +55,9 @@
   </div>
 
   <div class="checkbox">
-    <label>
+    <label tabindex="10">
       <input type="checkbox"
+        tabindex="-1"
         ng-model="settings.currentData.unsafeMode"
         ng-change="settings.toggle('unsafeMode', {
           description: 'Are you sure you want to turn this on? You will be able to overwrite your system drives if you\'re not careful.',

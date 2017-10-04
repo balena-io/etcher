@@ -22,22 +22,22 @@
     <header class="section-header" ng-controller="HeaderController as header">
       <button class="button button-link"
         ng-click="header.openHelpPage()"
-        tabindex="4">
-        <span class="glyphicon glyphicon-question-sign"></span>
+        tabindex="-1">
+        <span tabindex="4" class="glyphicon glyphicon-question-sign"></span>
       </button>
 
       <button class="button button-link"
         ui-sref="settings"
         hide-if-state="settings"
-        tabindex="5">
-        <span class="glyphicon glyphicon-cog"></span>
+        tabindex="-1">
+        <span tabindex="5" class="glyphicon glyphicon-cog"></span>
       </button>
 
       <button class="button button-link"
+        tabindex="-1"
         ui-sref="main"
-        show-if-state="settings"
-        tabindex="5">
-        <span class="glyphicon glyphicon-chevron-left"></span> Back
+        show-if-state="settings">
+        <span tabindex="5" class="glyphicon glyphicon-chevron-left"></span> Back
       </button>
     </header>
 
@@ -46,7 +46,7 @@
     <footer class="section-footer" ng-controller="StateController as state"
       ng-hide="state.currentName === 'success'">
       <span os-open-external="https://etcher.io?ref=etcher_footer"
-        tabindex="6">
+        tabindex="11">
         <svg-icon path="'../assets/etcher.svg'"
           width="'83px'"
           height="'13px'"></svg-icon>
@@ -54,22 +54,21 @@
 
       <span class="caption">
         is <span class="caption"
-          os-open-external="https://github.com/resin-io/etcher"
-          tabindex="7"
-        >an open source project</span> by
+          tabindex="12"
+          os-open-external="https://github.com/resin-io/etcher">an open source project</span> by
       </span>
 
       <span os-open-external="https://resin.io?ref=etcher"
-        tabindex="8">
+        tabindex="12">
         <svg-icon path="'../assets/resin.svg'"
           width="'79px'"
           height="'23px'"></svg-icon>
       </span>
 
       <span class="caption footer-right"
+        tabindex="13"
         manifest-bind="version"
-        os-open-external="https://github.com/resin-io/etcher/blob/master/CHANGELOG.md"
-        tabindex="9"></span>
+        os-open-external="https://github.com/resin-io/etcher/blob/master/CHANGELOG.md"></span>
     </footer>
 
     <div class="section-loader"
