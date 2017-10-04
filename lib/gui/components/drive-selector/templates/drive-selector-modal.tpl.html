@@ -1,6 +1,6 @@
 <div class="modal-header">
   <h4 class="modal-title">Select a Drive</h4>
-  <button class="close" ng-click="modal.closeModal()">&times;</button>
+  <button tabindex="14" class="close" ng-click="modal.closeModal()">&times;</button>
 </div>
 
 <div class="modal-body">
@@ -14,10 +14,14 @@
           ng-src="./assets/{{drive.icon}}.svg"
           width="25"
           height="30">
-        <div class="list-group-item-section list-group-item-section-expanded">
-          <h4 class="list-group-item-heading">
-            {{ drive.description }} <span class="word-keep"
-              ng-show="drive.size">- {{ drive.size | closestUnit }}</span>
+        <div
+          class="list-group-item-section list-group-item-section-expanded"
+          tabindex="{{ 15 + $index }}"
+          ng-keypress="modal.keywordToggleDrive(drive, $event)">
+
+          <h4 class="list-group-item-heading">{{ drive.description }} -
+            <span class="word-keep"
+              ng-show="drive.size">{{ drive.size | closestUnit }}</span>
           </h4>
           <p class="list-group-item-text">{{ drive.displayName }}</p>
 
