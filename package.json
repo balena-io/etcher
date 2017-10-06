@@ -52,7 +52,7 @@
     "chalk": "1.1.3",
     "command-join": "2.0.0",
     "debug": "2.6.0",
-    "drivelist": "5.1.8",
+    "drivelist": "5.2.4",
     "electron-is-running-in-asar": "1.0.0",
     "etcher-image-write": "9.1.3",
     "file-type": "4.1.0",
