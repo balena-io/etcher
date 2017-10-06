@@ -550,11 +550,9 @@ lint: lint-js lint-sass lint-cpp lint-html lint-spell
 ELECTRON_MOCHA_OPTIONS=--recursive --reporter spec
 
 test-gui:
-	for f in $$(find ./lib -name '*.jsx'); do if [ ! -e $$(dirname $$f)/$$(basename $$f x) ]; then make transpile; fi; done
 	$(NPX) electron-mocha $(ELECTRON_MOCHA_OPTIONS) --renderer tests/gui
 
 test-sdk:
-	for f in $$(find ./lib -name '*.jsx'); do if [ ! -e $$(dirname $$f)/$$(basename $$f x) ]; then make transpile; fi; done
 	$(NPX) electron-mocha $(ELECTRON_MOCHA_OPTIONS) \
 		tests/shared \
 		tests/child-writer \
