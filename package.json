@@ -105,6 +105,7 @@
     "eslint-plugin-standard": "3.0.1",
     "file-exists": "1.0.0",
     "html-angular-validate": "0.1.9",
+    "landr": "^1.0.2-beta2.7",
     "mochainon": "1.0.0",
     "nock": "9.0.9",
     "node-gyp": "3.5.0",
