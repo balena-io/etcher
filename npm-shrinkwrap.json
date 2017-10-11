@@ -38,9 +38,9 @@
       "resolved": "https://registry.npmjs.org/@types/lodash.some/-/lodash.some-4.6.2.tgz"
     },
     "@types/node": {
-      "version": "7.0.44",
+      "version": "7.0.46",
       "from": "@types/node@>=7.0.18 <8.0.0",
-      "resolved": "https://registry.npmjs.org/@types/node/-/node-7.0.44.tgz",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-7.0.46.tgz",
       "dev": true
     },
     "@types/react": {
