@@ -9,7 +9,12 @@
       ng-disabled="!modal.constraints.isDriveValid(drive, modal.state.getImage())"
       ng-dblclick="modal.selectDriveAndClose(drive)"
       ng-click="modal.toggleDrive(drive)">
-        <div>
+        <img class="list-group-item-section" alt="Drive device type logo"
+          ng-if="drive.icon"
+          ng-src="./assets/device-types/{{drive.icon}}.svg"
+          width="25"
+          height="30">
+        <div class="list-group-item-section list-group-item-section-expanded">
           <h4 class="list-group-item-heading">{{ drive.description }} -
             <span class="word-keep">{{ drive.size | closestUnit }}</span>
           </h4>
@@ -27,7 +32,7 @@
 
           </footer>
         </div>
-        <span class="tick tick--success"
+        <span class="list-group-item-section tick tick--success"
           ng-show="modal.constraints.isDriveValid(drive, modal.state.getImage())"
           ng-disabled="!modal.state.isCurrentDrive(drive.device)"></span>
     </li>

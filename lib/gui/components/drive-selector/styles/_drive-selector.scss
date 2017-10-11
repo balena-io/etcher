@@ -15,7 +15,7 @@
  */
 
 .modal-drive-selector-modal .modal-content {
-  width: 300px;
+  width: 315px;
   height: 320px;
 }
 
@@ -30,7 +30,7 @@
 
 .modal-drive-selector-modal {
 
-  .list-group-item-footer {
+  .list-group-item-footer:has(span) {
     margin-top: 8px;
   }
 
@@ -52,12 +52,16 @@
     border-color: darken($palette-theme-light-background, 7%);
     padding: 12px 0;
 
-    > .tick {
-      font-size: 11px;
+    .list-group-item-section-expanded {
+      flex-grow: 1;
     }
 
-    :first-child {
-      flex-grow: 1;
+    .list-group-item-section + .list-group-item-section {
+      margin-left: 10px;
+    }
+
+    > .tick {
+      font-size: 11px;
     }
 
     &:first-child {
