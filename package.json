@@ -23,7 +23,8 @@
     "postshrinkwrap": "node ./scripts/clean-shrinkwrap.js",
     "configure": "node-gyp configure",
     "build": "node-gyp build",
-    "install": "node-gyp rebuild"
+    "install": "node-gyp rebuild",
+    "landr": "landr"
   },
   "author": "Resin Inc. <hello@etcher.io>",
   "license": "Apache-2.0",
@@ -105,7 +106,7 @@
     "eslint-plugin-standard": "3.0.1",
     "file-exists": "1.0.0",
     "html-angular-validate": "0.1.9",
-    "landr": "^1.0.2-beta2.7",
+    "landr": "1.0.2-beta2.8",
     "mochainon": "1.0.0",
     "nock": "9.0.9",
     "node-gyp": "3.5.0",
