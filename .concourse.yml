@@ -1,0 +1,11 @@
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: {repository: busybox}
+
+inputs:
+- name: etcher
+
+run:
+  path: make test
