@@ -62,12 +62,12 @@
             ng-class="{
               'text-disabled': main.shouldDriveStepBeDisabled()
             }"
+            ng-click="main.showSelectedDrivesDetails()"
             uib-tooltip="{{ main.selection.getCurrentDrive().description }} ({{ main.selection.getCurrentDrive().displayName }})">
             <span class="step-drive step-name">
-              <!-- middleEllipses errors on undefined, therefore fallback to empty string -->
-              {{ (main.selection.getCurrentDrive().description || "") | middleEllipses:11 }}
+              {{ main.getDescription() | middleEllipses:11 }}
             </span>
-            <span class="step-drive step-size">{{ main.selection.getCurrentDrive().size | closestUnit }}</span>
+            <span class="step-drive step-size">{{ main.getCurrentDrive().size | closestUnit }}</span>
           </div>
           <button class="button button-link step-footer"
             ng-click="drive.reselectDrive()"
