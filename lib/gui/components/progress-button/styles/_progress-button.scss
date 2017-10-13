@@ -47,6 +47,8 @@ $progress-button-stripes-animation-duration: 1s;
 .progress-button {
   @extend .button;
   @extend .button-primary;
+  
+  overflow: hidden;
 
   &[active="true"] {
     background-color: $palette-theme-warning-background;
