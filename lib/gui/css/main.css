@@ -6315,16 +6315,16 @@ body {
  *   <span class="progress-button__bar" style="width: 50%;"></span>
  * </button>
  */
-.progress-button[active="true"] {
-  background-color: #ff912f; }
-
-.progress-button .progress-button__bar {
-  background-color: #ff9e49; }
-
-.progress-button.progress-button--striped {
-  background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #bd6415), color-stop(0.26, #fa9134), color-stop(0.5, #fa9134), color-stop(0.51, #bd6415), color-stop(0.75, #bd6415), color-stop(0.76, #fa9134), to(#fa9134)); }
-  .progress-button.progress-button--striped .progress-button__bar {
+.progress-button {
+  overflow: hidden; }
+  .progress-button[active="true"] {
+    background-color: #ff912f; }
+  .progress-button .progress-button__bar {
     background-color: #ff9e49; }
+  .progress-button.progress-button--striped {
+    background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #bd6415), color-stop(0.26, #fa9134), color-stop(0.5, #fa9134), color-stop(0.51, #bd6415), color-stop(0.75, #bd6415), color-stop(0.76, #fa9134), to(#fa9134)); }
+    .progress-button.progress-button--striped .progress-button__bar {
+      background-color: #ff9e49; }
 
 .progress-button__content {
   position: relative;
