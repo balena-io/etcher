@@ -527,33 +527,33 @@ describe('Shared: DriveConstraints', function () {
     })
   })
 
-  describe('.isDrivePending()', function () {
-    it('should return true if the drive is pending', function () {
-      const result = constraints.isDrivePending({
+  describe('.isDriveDisabled()', function () {
+    it('should return true if the drive is disabled', function () {
+      const result = constraints.isDriveDisabled({
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 1000000000,
         protected: false,
-        pending: true
+        disabled: true
       })
 
       m.chai.expect(result).to.be.true
     })
 
-    it('should return false if the drive is not pending', function () {
-      const result = constraints.isDrivePending({
+    it('should return false if the drive is not disabled', function () {
+      const result = constraints.isDriveDisabled({
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 1000000000,
         protected: false,
-        pending: false
+        disabled: false
       })
 
       m.chai.expect(result).to.be.false
     })
 
-    it('should return false if "pending" is undefined', function () {
-      const result = constraints.isDrivePending({
+    it('should return false if "disabled" is undefined', function () {
+      const result = constraints.isDriveDisabled({
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 1000000000,
@@ -676,9 +676,9 @@ describe('Shared: DriveConstraints', function () {
         this.drive.protected = true
       })
 
-      describe('given the drive is pending', function () {
+      describe('given the drive is disabled', function () {
         beforeEach(function () {
-          this.drive.pending = true
+          this.drive.disabled = true
         })
 
         it('should return false if the drive is not large enough and is a source drive', function () {
@@ -734,9 +734,9 @@ describe('Shared: DriveConstraints', function () {
         })
       })
 
-      describe('given the drive is not pending', function () {
+      describe('given the drive is not disabled', function () {
         beforeEach(function () {
-          this.drive.pending = false
+          this.drive.disabled = false
         })
 
         it('should return false if the drive is not large enough and is a source drive', function () {
@@ -798,9 +798,9 @@ describe('Shared: DriveConstraints', function () {
         this.drive.protected = false
       })
 
-      describe('given the drive is pending', function () {
+      describe('given the drive is disabled', function () {
         beforeEach(function () {
-          this.drive.pending = true
+          this.drive.disabled = true
         })
 
         it('should return false if the drive is not large enough and is a source drive', function () {
@@ -856,9 +856,9 @@ describe('Shared: DriveConstraints', function () {
         })
       })
 
-      describe('given the drive is not pending', function () {
+      describe('given the drive is not disabled', function () {
         beforeEach(function () {
-          this.drive.pending = false
+          this.drive.disabled = false
         })
 
         it('should return false if the drive is not large enough and is a source drive', function () {
@@ -931,7 +931,7 @@ describe('Shared: DriveConstraints', function () {
         name: 'My Drive',
         protected: false,
         system: false,
-        pending: false,
+        disabled: false,
         mountpoints: [
           {
             path: this.mountpoint
@@ -975,15 +975,15 @@ describe('Shared: DriveConstraints', function () {
       })
     })
 
-    describe('given the drive is pending', () => {
+    describe('given the drive is disabled', () => {
       it('should return an empty list', function () {
-        this.drive.pending = true
+        this.drive.disabled = true
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, {
           path: '/mnt/disk2/rpi.img',
           size: 1000000000
         })
 
-        const expectedTuples = [ [ 'ERROR', 'PENDING' ] ]
+        const expectedTuples = []
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
     })
