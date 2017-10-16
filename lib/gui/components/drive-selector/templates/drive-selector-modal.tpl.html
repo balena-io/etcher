@@ -15,8 +15,9 @@
           width="25"
           height="30">
         <div class="list-group-item-section list-group-item-section-expanded">
-          <h4 class="list-group-item-heading">{{ drive.description }} -
-            <span class="word-keep">{{ drive.size | closestUnit }}</span>
+          <h4 class="list-group-item-heading">
+            {{ drive.description }} <span class="word-keep"
+              ng-show="drive.size">- {{ drive.size | closestUnit }}</span>
           </h4>
           <p class="list-group-item-text">{{ drive.displayName }}</p>
 
