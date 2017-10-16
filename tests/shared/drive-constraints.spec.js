@@ -1021,6 +1021,18 @@ describe('Shared: DriveConstraints', function () {
       })
     })
 
+    describe('given the drive size is null', () => {
+      it('should not return the too small error', function () {
+        this.image.size.final.value = this.drive.size + 1
+        this.drive.size = null
+
+        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
+        const expectedTuples = []
+
+        expectStatusTypesAndMessagesToBe(result, expectedTuples)
+      })
+    })
+
     describe('given the drive is locked', () => {
       it('should return the locked drive error', function () {
         this.drive.protected = true
