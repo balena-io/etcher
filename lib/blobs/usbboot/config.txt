@@ -1,0 +1,4 @@
+gpu_mem=16
+dtoverlay=dwc2,dr_mode=peripheral
+dtparam=act_led_trigger=none
+dtparam=act_led_activelow=off
