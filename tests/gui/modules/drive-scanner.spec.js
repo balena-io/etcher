@@ -160,7 +160,6 @@ describe('Browser: driveScanner', function () {
                   path: '/mnt/foo'
                 }
               ],
-              pending: false,
               adaptor: 'standard',
               system: false
             },
@@ -174,7 +173,6 @@ describe('Browser: driveScanner', function () {
                   path: '/mnt/bar'
                 }
               ],
-              pending: false,
               adaptor: 'standard',
               system: false
             }
@@ -256,7 +254,6 @@ describe('Browser: driveScanner', function () {
               description: 'Foo',
               size: '14G',
               mountpoints: [],
-              pending: false,
               adaptor: 'standard',
               system: false
             },
@@ -270,7 +267,6 @@ describe('Browser: driveScanner', function () {
                   path: 'F:'
                 }
               ],
-              pending: false,
               adaptor: 'standard',
               system: false
             }
