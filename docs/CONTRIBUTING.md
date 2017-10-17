@@ -53,6 +53,10 @@ The following MinGW packages are required:
 - [XCode](https://developer.apple.com/xcode/) or [XCode Command Line Tools],
 which can be installed by running `xcode-select --install`.
 
+#### Linux
+
+- `libudev-dev` for libusb (install with `sudo apt install libudev-dev` for example)
+
 ### Cloning the project
 
 ```sh
