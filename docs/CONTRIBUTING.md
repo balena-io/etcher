@@ -66,10 +66,7 @@ cd etcher
 
 ### Installing npm dependencies
 
-**Make sure you have all the pre-requisites listed above installed in your
-system before running the `install` script.**
-
-**NOTE:** Please make use of the following scripts to install npm dependencies rather
+**NOTE:** Please make use of the following command to install npm dependencies rather
 than simply running `npm install` given that we need to do extra configuration
 to make sure native dependencies are correctly compiled for Electron, otherwise
 the application might not run successfully.
