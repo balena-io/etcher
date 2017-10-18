@@ -37,6 +37,12 @@
       "from": "@types/lodash.some@>=4.6.2 <5.0.0",
       "resolved": "https://registry.npmjs.org/@types/lodash.some/-/lodash.some-4.6.2.tgz"
     },
+    "@types/node": {
+      "version": "7.0.44",
+      "from": "@types/node@>=7.0.18 <8.0.0",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-7.0.44.tgz",
+      "dev": true
+    },
     "@types/react": {
       "version": "15.0.24",
       "from": "@types/react@>=15.0.23 <16.0.0",
@@ -1354,9 +1360,9 @@
       "optional": true
     },
     "electron": {
-      "version": "1.6.6",
-      "from": "electron@1.6.6",
-      "resolved": "https://registry.npmjs.org/electron/-/electron-1.6.6.tgz",
+      "version": "1.7.9",
+      "from": "electron@1.7.9",
+      "resolved": "https://registry.npmjs.org/electron/-/electron-1.7.9.tgz",
       "dev": true,
       "dependencies": {
         "electron-download": {
@@ -1371,22 +1377,10 @@
           "resolved": "https://registry.npmjs.org/fs-extra/-/fs-extra-0.30.0.tgz",
           "dev": true
         },
-        "nugget": {
-          "version": "2.0.1",
-          "from": "nugget@>=2.0.0 <3.0.0",
-          "resolved": "https://registry.npmjs.org/nugget/-/nugget-2.0.1.tgz",
-          "dev": true
-        },
         "semver": {
-          "version": "5.3.0",
+          "version": "5.4.1",
           "from": "semver@>=5.3.0 <6.0.0",
-          "resolved": "https://registry.npmjs.org/semver/-/semver-5.3.0.tgz",
-          "dev": true
-        },
-        "single-line-log": {
-          "version": "1.1.2",
-          "from": "single-line-log@>=1.1.2 <2.0.0",
-          "resolved": "https://registry.npmjs.org/single-line-log/-/single-line-log-1.1.2.tgz",
+          "resolved": "https://registry.npmjs.org/semver/-/semver-5.4.1.tgz",
           "dev": true
         }
       }
@@ -1839,9 +1833,9 @@
       }
     },
     "es6-promise": {
-      "version": "4.1.0",
+      "version": "4.1.1",
       "from": "es6-promise@>=4.0.5 <5.0.0",
-      "resolved": "https://registry.npmjs.org/es6-promise/-/es6-promise-4.1.0.tgz",
+      "resolved": "https://registry.npmjs.org/es6-promise/-/es6-promise-4.1.1.tgz",
       "dev": true
     },
     "es6-set": {
@@ -2286,27 +2280,27 @@
       "dev": true
     },
     "extract-zip": {
-      "version": "1.6.0",
-      "from": "extract-zip@>=1.4.1 <2.0.0",
-      "resolved": "https://registry.npmjs.org/extract-zip/-/extract-zip-1.6.0.tgz",
+      "version": "1.6.5",
+      "from": "extract-zip@>=1.0.3 <2.0.0",
+      "resolved": "https://registry.npmjs.org/extract-zip/-/extract-zip-1.6.5.tgz",
       "dev": true,
       "dependencies": {
         "concat-stream": {
-          "version": "1.5.0",
-          "from": "concat-stream@1.5.0",
-          "resolved": "https://registry.npmjs.org/concat-stream/-/concat-stream-1.5.0.tgz",
+          "version": "1.6.0",
+          "from": "concat-stream@1.6.0",
+          "resolved": "https://registry.npmjs.org/concat-stream/-/concat-stream-1.6.0.tgz",
           "dev": true
         },
         "debug": {
-          "version": "0.7.4",
-          "from": "debug@0.7.4",
-          "resolved": "https://registry.npmjs.org/debug/-/debug-0.7.4.tgz",
+          "version": "2.2.0",
+          "from": "debug@2.2.0",
+          "resolved": "https://registry.npmjs.org/debug/-/debug-2.2.0.tgz",
           "dev": true
         },
-        "isarray": {
-          "version": "1.0.0",
-          "from": "isarray@~1.0.0",
-          "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz",
+        "inherits": {
+          "version": "2.0.3",
+          "from": "inherits@>=2.0.3 <3.0.0",
+          "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.3.tgz",
           "dev": true
         },
         "minimist": {
@@ -2321,10 +2315,10 @@
           "resolved": "http://registry.npmjs.org/mkdirp/-/mkdirp-0.5.0.tgz",
           "dev": true
         },
-        "readable-stream": {
-          "version": "2.0.6",
-          "from": "readable-stream@~2.0.0",
-          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.0.6.tgz",
+        "ms": {
+          "version": "0.7.1",
+          "from": "ms@0.7.1",
+          "resolved": "https://registry.npmjs.org/ms/-/ms-0.7.1.tgz",
           "dev": true
         },
         "yauzl": {
@@ -3010,9 +3004,9 @@
       "resolved": "https://registry.npmjs.org/hoek/-/hoek-2.16.3.tgz"
     },
     "home-path": {
-      "version": "1.0.3",
+      "version": "1.0.5",
       "from": "home-path@>=1.0.1 <2.0.0",
-      "resolved": "https://registry.npmjs.org/home-path/-/home-path-1.0.3.tgz",
+      "resolved": "https://registry.npmjs.org/home-path/-/home-path-1.0.5.tgz",
       "dev": true
     },
     "homedir-polyfill": {
