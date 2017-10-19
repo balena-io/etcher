@@ -93,7 +93,7 @@
     "angular-mocks": "1.6.6",
     "asar": "0.13.0",
     "electron": "1.7.9",
-    "electron-builder": "19.37.2",
+    "electron-builder": "19.9.1",
     "electron-mocha": "4.0.3",
     "eslint": "4.9.0",
     "eslint-config-standard": "10.2.1",
