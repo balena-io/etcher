@@ -515,7 +515,7 @@ electron-develop:
 		-s "$(PLATFORM)"
 
 sass:
-	$(NPX) node-sass lib/gui/scss/main.scss > lib/gui/css/main.css
+	$(NPX) node-sass --linefeed lf lib/gui/scss/main.scss > lib/gui/css/main.css
 
 lint-js:
 	$(NPX) eslint lib tests scripts bin versionist.conf.js
