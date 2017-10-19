@@ -40,6 +40,9 @@ You might need to run this with `sudo` or administrator permissions.
     C++ 2015` (see http://stackoverflow.com/a/31955339)
 - [MinGW](http://www.mingw.org)
 
+You might need to `npm config set msvs_version 2015` for node-gyp to correctly detect
+the version of Visual Studio you're using (in this example VS2015).
+
 The following MinGW packages are required:
 
 - `msys-make`
