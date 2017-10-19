@@ -27,5 +27,6 @@ if [[ -n $(git status -s | grep "\\.css$" || true) ]]; then
   echo ""
   echo "    make sass" 1>&2
   echo ""
+  git --no-pager diff "lib/gui/css"
   exit 1
 fi
