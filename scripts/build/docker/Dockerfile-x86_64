@@ -20,23 +20,24 @@ RUN apt-get update \
     libasound2 \
     libgconf-2-4 \
     libgtk2.0-0 \
+    libnss3 \
     libudev-dev \
     libusb-1.0-0-dev \
-    libnss3 \
     libx11-xcb1 \
     libxss1 \
     libxtst6 \
     libyaml-dev \
     python \
-    python-pip \
     python-dev \
+    python-pip \
     python-software-properties \
+    rpm \
+    software-properties-common \
     unzip \
     xorriso \
     xvfb \
     xz-utils \
-    zip \
-    rpm
+    zip
 
 
 # Install a C++11 compiler
