@@ -6,7 +6,7 @@ RUN sed s,ubuntu\.stu\.edu\.tw,archive.ubuntu.com, /etc/apt/sources.list > /tmp/
   && mv /tmp/sources.list /etc/apt/sources.list
 <% } %>
 <% if (architecture == 'x86_64') { %>
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise-backports main restricted universe multiverse" >> /etc/apt/sources.list
+RUN echo "deb http://archive.ubuntu.com/ubuntu xenial-backports main restricted universe multiverse" >> /etc/apt/sources.list
 <% } %>
 <% if (architecture == 'armv7hf') { %>
 RUN echo "deb http://ftp.debian.org/debian jessie-backports main" >> /etc/apt/sources.list

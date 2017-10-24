@@ -31,7 +31,7 @@ const template = fs.readFileSync(path.join(currentDirectory, 'Dockerfile.templat
 _.each([
   {
     architecture: 'i686',
-    image: 'erwinchang/ubuntu-16.04-32bit-build'
+    image: 'ioft/i386-ubuntu:16.04'
   },
   {
     architecture: 'x86_64',

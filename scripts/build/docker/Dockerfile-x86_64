@@ -3,7 +3,7 @@ FROM ubuntu:16.04
 # Setup APT sources
 
 
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise-backports main restricted universe multiverse" >> /etc/apt/sources.list
+RUN echo "deb http://archive.ubuntu.com/ubuntu xenial-backports main restricted universe multiverse" >> /etc/apt/sources.list
 
 
 
