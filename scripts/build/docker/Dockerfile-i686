@@ -1,4 +1,4 @@
-FROM erwinchang/ubuntu-12.04-32bit-build
+FROM erwinchang/ubuntu-16.04-32bit-build
 
 # Setup APT sources
 
