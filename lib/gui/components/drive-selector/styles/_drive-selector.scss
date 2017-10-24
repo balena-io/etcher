@@ -71,6 +71,26 @@
     &[disabled] .list-group-item-heading {
       color: $palette-theme-light-soft-foreground;
     }
+
+    progress {
+      appearance: none;
+      width: 100%;
+      height: 2.5px;
+      border: none;
+      border-radius: 50% 50%;
+    }
+
+    progress::-webkit-progress-bar {
+      background-color: $palette-theme-default-background;
+      border: none;
+      outline: none;
+    }
+
+    progress::-webkit-progress-value {
+      border-bottom: 1px solid darken($palette-theme-primary-background, 15);
+      background-color: $palette-theme-primary-background;
+    }
+
   }
 
   .list-group-item-heading {
