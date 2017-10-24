@@ -32,7 +32,7 @@
             </span>
 
           </footer>
-          <progress ng-if="drive.progress || true" value="{{ drive.progress || 50 }}" max="100"></progress>
+          <progress ng-if="drive.progress" value="{{ drive.progress }}" max="100"></progress>
         </div>
         <span class="list-group-item-section tick tick--success"
           ng-show="modal.constraints.isDriveValid(drive, modal.state.getImage())"
