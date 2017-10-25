@@ -26,15 +26,15 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SHRINKWRAP_JSON=npm-shrinkwrap.json
 
 # Two pair-wise arrays, because associative arrays only work in Bash 4
-MODULE_NAMES=("dependencies[\"node-gyp\"]")
-MODULE_VERSIONS=("3.5.0")
+MODULE_NAMES=()
+MODULE_VERSIONS=()
 
 if [[ ${#MODULE_NAMES[@]} -ne ${#MODULE_VERSIONS[@]} ]]; then
     echo "Lengths of MODULE_NAMES and MODULE_VERSIONS arrays must match"
     exit 1
 fi
 
-for i in ${!MODULE_NAMES[@]}; do
+for i in "${!MODULE_NAMES[@]}"; do
     name=${MODULE_NAMES[$i]}
     version=${MODULE_VERSIONS[$i]}
     shrinkwrap_version=$(jq -r ".$name.version" "$SHRINKWRAP_JSON")
