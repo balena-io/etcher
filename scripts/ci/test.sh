@@ -44,6 +44,8 @@ if [ -z "$ARGV_OPERATING_SYSTEM" ] || [ -z "$ARGV_ARCHITECTURE" ]; then
   usage
 fi
 
+make babel
+
 if [ "$ARGV_OPERATING_SYSTEM" == "linux" ]; then
   ./scripts/build/docker/run-command.sh \
     -r "$ARGV_ARCHITECTURE" \
