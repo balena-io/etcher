@@ -18,27 +18,16 @@
 
 const m = require('mochainon')
 const os = require('os')
-const Bluebird = require('bluebird')
 const drivelist = require('drivelist')
 const driveScanner = require('../../../lib/gui/modules/drive-scanner')
-const sdk = require('../../../lib/shared/sdk')
 
 describe('Browser: driveScanner', function () {
-  describe('given no available drives', function () {
-    beforeEach(function () {
-      this.sdkScanStub = m.sinon.stub(sdk, 'scan')
-      this.sdkScanStub.returns(Bluebird.resolve([]))
-    })
-
-    afterEach(function () {
-      this.sdkScanStub.restore()
-    })
-
+  describe('detected devices should be an array', function () {
     it('should emit an empty array', function (done) {
       const spy = m.sinon.spy()
 
-      driveScanner.once('drives', function (drives) {
-        m.chai.expect(drives).to.deep.equal([])
+      driveScanner.once('devices', function (drives) {
+        m.chai.expect(drives).to.be.an.instanceof(Array)
         m.chai.expect(spy).to.not.have.been.called
         driveScanner.removeListener('error', spy)
         driveScanner.stop()
@@ -75,7 +64,7 @@ describe('Browser: driveScanner', function () {
     it('should emit an empty array', function (done) {
       const spy = m.sinon.spy()
 
-      driveScanner.once('drives', function (drives) {
+      driveScanner.once('devices', function (drives) {
         m.chai.expect(drives).to.deep.equal([])
         m.chai.expect(spy).to.not.have.been.called
         driveScanner.removeListener('error', spy)
@@ -148,7 +137,7 @@ describe('Browser: driveScanner', function () {
       it('should emit the non removable drives', function (done) {
         const spy = m.sinon.spy()
 
-        driveScanner.once('drives', function (drives) {
+        driveScanner.once('devices', function (drives) {
           m.chai.expect(drives).to.deep.equal([
             {
               device: '/dev/sdb',
@@ -246,7 +235,7 @@ describe('Browser: driveScanner', function () {
       it('should emit the non removable drives', function (done) {
         const spy = m.sinon.spy()
 
-        driveScanner.once('drives', function (drives) {
+        driveScanner.once('devices', function (drives) {
           m.chai.expect(drives).to.deep.equal([
             {
               device: '\\\\.\\PHYSICALDRIVE2',
@@ -309,7 +298,7 @@ describe('Browser: driveScanner', function () {
       it('should use the drive letter as the name', function (done) {
         const spy = m.sinon.spy()
 
-        driveScanner.once('drives', function (drives) {
+        driveScanner.once('devices', function (drives) {
           m.chai.expect(drives).to.have.length(1)
           m.chai.expect(drives[0].displayName).to.equal('F:')
           m.chai.expect(spy).to.not.have.been.called
@@ -355,7 +344,7 @@ describe('Browser: driveScanner', function () {
       it('should join all the mountpoints in `name`', function (done) {
         const spy = m.sinon.spy()
 
-        driveScanner.once('drives', function (drives) {
+        driveScanner.once('devices', function (drives) {
           m.chai.expect(drives).to.have.length(1)
           m.chai.expect(drives[0].displayName).to.equal('F:, G:, H:')
           m.chai.expect(spy).to.not.have.been.called
