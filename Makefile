@@ -531,7 +531,7 @@ lint-html:
 
 lint-spell:
 	codespell.py \
-		--skip *.gz,*.bz2,*.xz,*.zip,*.img,*.dmg,*.iso,*.rpi-sdcard,.DS_Store \
+		--skip *.gz,*.bz2,*.xz,*.zip,*.img,*.dmg,*.iso,*.rpi-sdcard,.DS_Store,*.dtb,*.dtbo,*.dat,*.elf,*.bin,*.foo,xz-without-extension \
 		lib tests docs scripts Makefile *.md LICENSE
 
 lint: lint-js lint-sass lint-cpp lint-html lint-spell
