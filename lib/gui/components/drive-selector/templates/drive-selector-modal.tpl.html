@@ -17,7 +17,7 @@
         <div
           class="list-group-item-section list-group-item-section-expanded"
           tabindex="{{ 15 + $index }}"
-          ng-keypress="modal.keywordToggleDrive(drive, $event)">
+          ng-keypress="modal.keyboardToggleDrive(drive, $event)">
 
           <h4 class="list-group-item-heading">{{ drive.description }} -
             <span class="word-keep"
@@ -54,6 +54,7 @@
 
 <div class="modal-footer">
   <button class="button button-primary button-block"
+    tabindex="{{ 15 + modal.getDrives().length }}"
     ng-click="modal.closeModal()"
     ng-disabled="!modal.state.hasDrive()">Continue</button>
 </div>

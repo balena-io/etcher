@@ -3,7 +3,9 @@
     <span class="glyphicon glyphicon-exclamation-sign"></span>
     <span>Attention</span>
   </h4>
-  <button class="close" ng-click="modal.reject()">&times;</button>
+  <button class="close"
+    tabindex="11"
+    ng-click="modal.reject()">&times;</button>
 </div>
 
 <div class="modal-body">
@@ -13,8 +15,10 @@
 <div class="modal-footer">
   <div class="modal-menu">
     <button class="button button-danger button-block"
+      tabindex="13"
       ng-click="modal.accept()">{{ ::modal.options.confirmationLabel }}</button>
     <button ng-if="modal.options.rejectionLabel" class="button button-block"
+      tabindex="12"
       ng-click="modal.reject()">{{ ::modal.options.rejectionLabel }}</button>
   </div>
 </div>
