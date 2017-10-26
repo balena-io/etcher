@@ -3,7 +3,6 @@
 # ---------------------------------------------------------------------
 
 NPX = ./node_modules/.bin/npx
-babel = ./node_modules/.bin/babel
 
 # This directory will be completely deleted by the `clean` rule
 BUILD_DIRECTORY ?= dist
@@ -521,7 +520,7 @@ electron-develop:
 		-s "$(PLATFORM)"
 
 babel:
-	$(babel) --copy-files --out-dir lib lib && $(babel) --copy-files --out-dir tests tests
+	$(NPX) babel --copy-files --out-dir lib lib && $(NPX) babel --copy-files --out-dir tests tests
 
 sass:
 	$(NPX) node-sass lib/gui/scss/main.scss > lib/gui/css/main.css
