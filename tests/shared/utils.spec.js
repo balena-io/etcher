@@ -125,4 +125,27 @@ describe('Shared: Utils', function () {
       }).to.throw('Invalid percentage: 100.01')
     })
   })
+
+  describe('.percentageToFloat()', function () {
+    it('should convert milliseconds to seconds', function () {
+      const seconds = utils.millisecondsToSeconds(10000)
+      m.chai.expect(seconds).to.equal(10)
+    })
+
+    it('should throw if it is nil', function () {
+      m.chai.expect(function () {
+        utils.millisecondsToSeconds(null)
+      }).to.throw('Not a number: null')
+
+      m.chai.expect(function () {
+        utils.millisecondsToSeconds(undefined)
+      }).to.throw('Not a number: undefined')
+    })
+
+    it('should throw if it is not a number type', function () {
+      m.chai.expect(function () {
+        utils.millisecondsToSeconds('Hello, world!')
+      }).to.throw('Not a number: Hello, world!')
+    })
+  })
 })
