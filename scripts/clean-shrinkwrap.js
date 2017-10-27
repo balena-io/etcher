@@ -7,264 +7,94 @@
  * the project in another platform.
  *
  * As a workaround, we keep a list of platform dependent dependencies in
- * the `shrinkwrapIgnore` property of `package.json`, and manually remove
- * them from `npm-shrinkwrap.json` if they exists.
+ * the `platformSpecificDependencies` property of `package.json`,
+ * and manually remove them from `npm-shrinkwrap.json` if they exist.
  *
  * See: https://github.com/npm/npm/issues/2679
  */
 
+/* eslint-disable lodash/prefer-lodash-method */
+/* eslint-disable no-magic-numbers */
+/* eslint-disable no-undefined */
+
 'use strict'
 
-const _ = require('lodash')
 const fs = require('fs')
 const path = require('path')
-const packageJSON = require('../package.json')
-const NPM_SHRINKWRAP_FILE_PATH = path.join(__dirname, '..', 'npm-shrinkwrap.json')
-const shrinkwrapFile = require(NPM_SHRINKWRAP_FILE_PATH)
-const platformSpecificDependencies = packageJSON.platformSpecificDependencies
-const JSON_INDENTATION_SPACES = 2
 
-console.log('Removing:', platformSpecificDependencies.join(', '))
+const JSON_INDENT = 2
+const SHRINKWRAP_FILENAME = path.join(__dirname, '..', 'npm-shrinkwrap.json')
 
-/**
- * @summary Get a shrinkwrap dependency object
- * @function
- * @private
- *
- * @param {Object} shrinkwrap - the shrinkwrap file contents
- * @param {String[]} shrinkwrapPath - path to shrinkwrap dependency
- * @returns {Object} shrinkwrap object
- *
- * @example
- * const object = getShrinkwrapDependencyObject(require('./npm-shrinkwrap.json'), [
- *   'drivelist',
- *   'lodash'
- * ]);
- *
- * console.log(object.version);
- * console.log(object.dependencies);
- */
-const getShrinkwrapDependencyObject = (shrinkwrap, shrinkwrapPath) => {
-  return _.reduce(shrinkwrapPath, (accumulator, dependency) => {
-    return _.get(accumulator, [ 'dependencies', dependency ], {})
-  }, shrinkwrap)
-}
+const packageInfo = require('../package.json')
+const shrinkwrap = require('../npm-shrinkwrap.json')
 
 /**
- * @summary Get a cleaned shrinkwrap dependency object
- * @function
- * @private
- *
- * @description
- * This function wraps `getShrinkwrapDependencyObject()` to
- * omit unnecessary properties such as `from`, or `dependencies`.
- *
- * @param {Object} shrinkwrap - the shrinkwrap file contents
- * @param {String[]} shrinkwrapPath - path to shrinkwrap dependency
- * @returns {Object} pretty shrinkwrap object
- *
+ * @summary Traverse a shrinkwrap tree and call
+ * a given function on each dependency
+ * @param {Object} tree - shrinkwrap
+ * @param {Function} onNode - callback({Object} parent, {String} parentName, {String} name, {Object} info)
+ * @param {String} [parentName] - name of dependant (used internally)
  * @example
- * const object = getPrettyShrinkwrapDependencyObject(require('./npm-shrinkwrap.json'), [
- *   'drivelist',
- *   'lodash'
- * ]);
- *
- * console.log(object.name);
- * console.log(object.path);
- * console.log(object.version);
- */
-const getPrettyShrinkwrapDependencyObject = (shrinkwrap, shrinkwrapPath) => {
-  const object = getShrinkwrapDependencyObject(shrinkwrap, shrinkwrapPath)
-
-  if (_.isEmpty(object)) {
-    return null
-  }
-
-  return {
-    name: _.last(shrinkwrapPath),
-    path: shrinkwrapPath,
-    version: object.version,
-    development: Boolean(object.dev),
-    optional: Boolean(object.optional)
-  }
-}
-
-/**
- * @summary Get the manifest (package.json) of a shrinkwrap dependency
- * @function
- * @private
- *
- * @param {String[]} shrinkwrapPath - path to shrinkwrap dependency
- * @returns {Object} dependency manifest
- *
- * @example
- * const manifest = getShrinkwrapDependencyManifest([ 'bluebird' ]);
- * console.log(manifest.devDependencies);
- */
-const getShrinkwrapDependencyManifest = (shrinkwrapPath) => {
-  const manifestPath = _.chain(shrinkwrapPath)
-    .flatMap((dependency) => {
-      return [ 'node_modules', dependency ]
-    })
-    .concat([ 'package.json' ])
-    .reduce((accumulator, file) => {
-      return path.join(accumulator, file)
-    }, '.')
-    .value()
-
-  try {
-    // For example
-    // ./node_modules/drivelist/node_modules/lodash/package.json
-    return require(`.${path.sep}${manifestPath}`)
-  } catch (error) {
-    if (error.code === 'MODULE_NOT_FOUND') {
-      return null
-    }
-
-    throw error
-  }
-}
-
-/**
- * @summary Get the top level dependencies of a shrinkwrap object
- * @function
- * @private
- *
- * @param {String[]} shrinkwrapPath - path to shrinkwrap dependency
- * @returns {Object} top level dependencies
- *
- * @example
- * const dependencies = getTopLevelDependenciesForShrinkwrapPath([ 'debug' ]);
- * console.log(dependencies);
- * > {
- * >   "lodash": "^4.0.0"
- * > }
- */
-const getTopLevelDependenciesForShrinkwrapPath = (shrinkwrapPath) => {
-  return _.get(getShrinkwrapDependencyManifest(shrinkwrapPath), [ 'dependencies' ], {})
-}
-
-/**
- * @summary Get the dependency tree of a shrinkwrap dependency
- * @function
- * @private
- *
- * @param {Object} shrinkwrap - the shrinkwrap file contents
- * @param {String[]} shrinkwrapPath - path to shrinkwrap dependency
- * @returns {Object[]} dependency tree
- *
- * @example
- * const dependencyTree = getDependencyTree(require('./npm-shrinkwrap.json'), [ 'drivelist' ]);
- *
- * _.each(dependencyTree, (dependency) => {
- *   console.log(dependency.name);
- *   console.log(dependency.path);
- *   console.log(dependency.version);
+ * traverseDeps(shrinkwrap, (parent, parentName, name, info) => {
+ *   // ...
  * })
  */
-const getDependencyTree = (shrinkwrap, shrinkwrapPath) => {
-  const dependencies = getTopLevelDependenciesForShrinkwrapPath(shrinkwrapPath)
-
-  if (_.isEmpty(dependencies)) {
-    return []
+const traverseDeps = (tree, onNode, parentName) => {
+  if (!tree.dependencies) {
+    return
   }
 
-  const object = getShrinkwrapDependencyObject(shrinkwrap, shrinkwrapPath)
-  const result = _.map(dependencies, (version, name) => {
-    const dependencyPath = _.has(object.dependencies, name) ? _.concat(shrinkwrapPath, [ name ]) : [ name ]
-    return getPrettyShrinkwrapDependencyObject(shrinkwrap, dependencyPath)
-  })
+  const keys = Object.keys(tree.dependencies)
 
-  return _.concat(result, _.flatMapDeep(result, (dependency) => {
-    return getDependencyTree(shrinkwrap, dependency.path)
-  }))
+  let name = null
+
+  for (let index = 0; index < keys.length; index += 1) {
+    name = keys[index]
+
+    // Check for this depedency to still exist,
+    // as a node might have been removed just before this iteration
+    if (tree.dependencies[name]) {
+      onNode(tree, parentName || tree.name, name, tree.dependencies[name])
+
+      // Check that the walking function didn't remove the dependency;
+      // if so, skip it and continue with the next one
+      if (tree.dependencies[name] && tree.dependencies[name].dependencies) {
+        traverseDeps(tree.dependencies[name], onNode, name)
+      }
+    }
+  }
 }
 
-/**
- * @summary Remove certain development optional dependencies from a shrinkwrap file
- * @function
- * @private
- *
- * @description
- * A shrinkwrap object is a recursive data structure, that apart
- * from some extra metadata, has the following structure:
- *
- * {
- *   ...
- *   "dependencies": {
- *     "<dependency_name>": <recursive definition>,
- *     "<dependency_name>": <recursive definition>,
- *     "<dependency_name>": <recursive definition>,
- *     ...
- *   }
- * }
- *
- * The purpose of this function is to remove certain dependencies
- * that match a blacklist. In order to do so, we start from the top
- * level object, remove the blacklisted dependencies, and recurse
- * if possible.
- *
- * @param {Object} shrinkwrap - the shrinkwrap object
- * @param {Object[]} blacklist - dependency blacklist
- * @returns {Object} filtered shrinkwrap object
- *
- * @example
- * const shrinkwrapFile = require('./npm-shrinkwrap.json');
- * const dependencyTree = getDependencyTree(shrinkwrapFile, [ 'drivelist' ]);
- * const filteredShrinkwrap = removeOptionalDevelopmentDependencies(shrinkwrapFile, dependencyTree);
- */
-const removeOptionalDevelopmentDependencies = (shrinkwrap, blacklist) => {
-  if (!_.isEmpty(shrinkwrap.dependencies)) {
-    shrinkwrap.dependencies = _.chain(shrinkwrap.dependencies)
-      .omitBy((dependency, name) => {
-        return _.every([
-          _.find(blacklist, {
-            name,
-            version: dependency.version
-          }),
-          dependency.dev,
-          dependency.optional
-        ])
-      })
-      .mapValues((dependency) => {
-        return removeOptionalDevelopmentDependencies(dependency, blacklist)
-      })
-      .value()
+console.log('Cleaning shrinkwrap...')
+
+// Walk the generated shrinkwrap tree & apply modifications if necessary
+traverseDeps(shrinkwrap, (parent, parentName, name, info) => {
+  // If this dependency depends on a "blacklisted" optional
+  // dependency; remove it from the shrinkwrap
+  if (packageInfo.platformSpecificDependencies.includes(name)) {
+    console.log(' - Removing "%s" from "%s"', name, parentName)
+    parent.dependencies[name] = undefined
+    Reflect.deleteProperty(parent.dependencies, name)
+    return
   }
 
-  return shrinkwrap
-}
+  // Delete `from` fields to avoid different diffs
+  // on different platforms
+  info.from = undefined
+  Reflect.deleteProperty(info, 'from')
+})
 
-/**
- * @summary Get the dependency tree of a dependency plus the dependency itself
- * @function
- * @private
- *
- * @param {Object} shrinkwrap - the shrinkwrap file contents
- * @param {String[]} shrinkwrapPath - path to shrinkwrap dependency
- * @returns {Object[]} tree
- *
- * @example
- * const tree = getTree(require('./npm-shrinkwrap.json'), [ 'drivelist' ]);
- *
- * _.each(tree, (dependency) => {
- *   console.log(dependency.name);
- *   console.log(dependency.path);
- *   console.log(dependency.version);
- * });
- */
-const getTree = (shrinkwrap, shrinkwrapPath) => {
-  return _.compact(_.concat([
-    getPrettyShrinkwrapDependencyObject(shrinkwrap, shrinkwrapPath)
-  ], getDependencyTree(shrinkwrap, shrinkwrapPath)))
-}
+// Generate the new shrinkwrap JSON
+const shrinkwrapJson = JSON.stringify(shrinkwrap, null, JSON_INDENT)
 
-const blacklist = _.reduce(platformSpecificDependencies, (accumulator, dependencyPath) => {
-  return _.concat(accumulator, getTree(shrinkwrapFile, dependencyPath))
-}, [])
+// Write back the modified npm-shrinkwrap.json
+fs.writeFile(SHRINKWRAP_FILENAME, shrinkwrapJson, (error) => {
+  if (error) {
+    console.log(`[ERROR] Couldn't write shrinkwrap file: ${error.stack}`)
+    process.exit(1)
+  } else {
+    console.log(`[OK] Wrote shrinkwrap file to ${path.relative(__dirname, SHRINKWRAP_FILENAME)}`)
+  }
+})
 
-const filteredShrinkwrap = removeOptionalDevelopmentDependencies(shrinkwrapFile, blacklist)
-const result = JSON.stringify(filteredShrinkwrap, null, JSON_INDENTATION_SPACES)
-
-fs.writeFileSync(NPM_SHRINKWRAP_FILE_PATH, `${result}\n`)
-console.log('Done')
+console.log('')

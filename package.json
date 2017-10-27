@@ -28,15 +28,9 @@
   "author": "Resin Inc. <hello@etcher.io>",
   "license": "Apache-2.0",
   "platformSpecificDependencies": [
-    [
-      "7zip-bin-mac"
-    ],
-    [
-      "7zip-bin-win"
-    ],
-    [
-      "7zip-bin-linux"
-    ]
+    "7zip-bin-mac",
+    "7zip-bin-win",
+    "7zip-bin-linux"
   ],
   "dependencies": {
     "angular": "1.6.3",
