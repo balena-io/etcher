@@ -6132,33 +6132,30 @@ body {
 .button-no-hover, .button[disabled], [disabled].progress-button, .progress-button[active="true"] {
   pointer-events: none; }
 
-.button-default,
-.button-default:focus {
+.button-default {
   background-color: #ececec;
-  color: #b3b3b3;
-  outline: none; }
+  color: #b3b3b3; }
 
+.button-default:focus,
 .button-default:hover {
   background-color: lightgray;
   color: #b3b3b3; }
 
-.button-primary, .progress-button,
-.button-primary:focus,
-.progress-button:focus {
+.button-primary, .progress-button {
   background-color: #5793db;
-  color: #fff;
-  outline: none; }
+  color: #fff; }
 
-.button-primary:hover, .progress-button:hover {
+.button-primary:focus, .progress-button:focus,
+.button-primary:hover,
+.progress-button:hover {
   background-color: #2d78d2;
   color: #fff; }
 
-.button-danger,
-.button-danger:focus {
+.button-danger {
   background-color: #d9534f;
-  color: #fff;
-  outline: none; }
+  color: #fff; }
 
+.button-danger:focus,
 .button-danger:hover {
   background-color: #c9302c;
   color: #fff; }
@@ -6741,3 +6738,12 @@ body {
   .section-header > .button, .section-header > .progress-button {
     padding-left: 3px;
     padding-right: 3px; }
+
+@keyframes focus-highlight {
+  from {
+    outline: 2px solid #ff912f; }
+  to {
+    outline: none; } }
+
+[tabindex]:focus {
+  animation: focus-highlight 10s steps(2, end) forwards; }

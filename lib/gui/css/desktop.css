@@ -47,12 +47,6 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-/* Prevent blue outline */
-input:focus,
-button:focus {
-  outline: none !important;
-}
-
 /* Titles don't have margins on desktop apps */
 h1, h2, h3, h4, h5, h6 {
   margin: 0;

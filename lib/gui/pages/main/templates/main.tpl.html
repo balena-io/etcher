@@ -10,6 +10,7 @@
         <div ng-hide="main.selection.hasImage()">
           <button
             class="button button-primary button-brick"
+            tabindex="{{ main.selection.hasImage() ? -1 : 1 }}"
             ng-click="image.openImageSelector()">Select image</button>
 
           <p class="step-footer">
@@ -29,6 +30,7 @@
           </div>
 
           <button class="button button-link step-footer"
+            tabindex="1"
             ng-click="image.reselectImage()"
             ng-hide="main.state.isFlashing()">Change</button>
         </div>
@@ -51,6 +53,7 @@
 
           <div>
             <button class="button button-primary button-brick"
+              tabindex="{{ main.selection.hasDrive() ? -1 : 2 }}"
               ng-disabled="main.shouldDriveStepBeDisabled()"
               ng-click="drive.openDriveSelector()">Select drive</button>
           </div>
@@ -70,6 +73,7 @@
             <span class="step-drive step-size">{{ main.selection.getDrive().size | closestUnit }}</span>
           </div>
           <button class="button button-link step-footer"
+            tabindex="{{ main.selection.hasDrive() ? 2 : -1 }}"
             ng-click="drive.reselectDrive()"
             ng-hide="main.state.isFlashing()">Change</button>
         </div>
@@ -86,6 +90,7 @@
 
       <div class="space-vertical-large">
         <progress-button class="button-brick"
+          tabindex="3"
           percentage="main.state.getFlashState().percentage"
           striped="{{ main.state.getFlashState().type == 'check' }}"
           ng-attr-active="{{ main.state.isFlashing() }}"

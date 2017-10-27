@@ -123,3 +123,19 @@ body {
     padding-right: 3px;
   }
 }
+
+@keyframes focus-highlight {
+  from {
+    outline: 2px solid $palette-theme-warning-background;
+  }
+
+  to {
+    outline: none;
+  }
+}
+
+[tabindex] {
+  &:focus {
+    animation: focus-highlight 10s steps(2, end) forwards;
+  }
+}
