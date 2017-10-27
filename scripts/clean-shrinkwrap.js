@@ -33,7 +33,7 @@ const shrinkwrap = require('../npm-shrinkwrap.json')
  * a given function on each dependency
  * @param {Object} tree - shrinkwrap
  * @param {Function} onNode - callback({Object} parent, {String} parentName, {String} name, {Object} info)
- * @param {String} [parentName] - name of dependant (used internally)
+ * @param {String} [parentName] - name of dependent (used internally)
  * @example
  * traverseDeps(shrinkwrap, (parent, parentName, name, info) => {
  *   // ...
