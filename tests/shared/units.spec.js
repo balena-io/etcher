@@ -58,4 +58,33 @@ describe('Shared: Units', function () {
       m.chai.expect(units.bytesToMegabytes(332000)).to.equal(0.332)
     })
   })
+
+  describe('.millisecondsToSeconds()', function () {
+    it('should convert milliseconds to seconds', function () {
+      const seconds = units.millisecondsToSeconds(10000)
+      m.chai.expect(seconds).to.equal(10)
+    })
+
+    it('should throw if it is NaN', function () {
+      m.chai.expect(function () {
+        units.millisecondsToSeconds(NaN)
+      }).to.throw('Not a finite number: NaN')
+    })
+
+    it('should throw if it is nil', function () {
+      m.chai.expect(function () {
+        units.millisecondsToSeconds(null)
+      }).to.throw('Not a finite number: null')
+
+      m.chai.expect(function () {
+        units.millisecondsToSeconds(undefined)
+      }).to.throw('Not a finite number: undefined')
+    })
+
+    it('should throw if it is not a number type', function () {
+      m.chai.expect(function () {
+        units.millisecondsToSeconds('Hello, world!')
+      }).to.throw('Not a finite number: Hello, world!')
+    })
+  })
 })
