@@ -297,7 +297,7 @@
     },
     "asn1": {
       "version": "0.1.11",
-      "resolved": "http://registry.npmjs.org/asn1/-/asn1-0.1.11.tgz",
+      "resolved": "https://registry.npmjs.org/asn1/-/asn1-0.1.11.tgz",
       "dev": true
     },
     "assert-plus": {
@@ -677,7 +677,7 @@
     },
     "combined-stream": {
       "version": "0.0.7",
-      "resolved": "http://registry.npmjs.org/combined-stream/-/combined-stream-0.0.7.tgz",
+      "resolved": "https://registry.npmjs.org/combined-stream/-/combined-stream-0.0.7.tgz",
       "dev": true
     },
     "command-join": {

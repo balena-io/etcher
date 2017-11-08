@@ -78,6 +78,13 @@ traverseDeps(shrinkwrap, (parent, parentName, name, info) => {
     return
   }
 
+  // Ensure the `resolved` field contains a HTTPS registry URL,
+  // as some versions of npm apparently fall back to HTTP on some platforms
+  // under some circumstances
+  if (/^http:\/\//.test(info.resolved)) {
+    info.resolved = info.resolved.replace(/^http/, 'https')
+  }
+
   // Delete `from` fields to avoid different diffs
   // on different platforms
   info.from = undefined
@@ -85,7 +92,7 @@ traverseDeps(shrinkwrap, (parent, parentName, name, info) => {
 })
 
 // Generate the new shrinkwrap JSON
-const shrinkwrapJson = JSON.stringify(shrinkwrap, null, JSON_INDENT)
+const shrinkwrapJson = `${JSON.stringify(shrinkwrap, null, JSON_INDENT)}\n`
 
 // Write back the modified npm-shrinkwrap.json
 fs.writeFile(SHRINKWRAP_FILENAME, shrinkwrapJson, (error) => {
