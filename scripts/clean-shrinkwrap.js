@@ -85,10 +85,16 @@ traverseDeps(shrinkwrap, (parent, parentName, name, info) => {
     info.resolved = info.resolved.replace(/^http/, 'https')
   }
 
-  // Delete `from` fields to avoid different diffs
-  // on different platforms
-  info.from = undefined
-  Reflect.deleteProperty(info, 'from')
+  // Delete `from` fields to avoid different diffs on different platforms
+  // NOTE: Only do this if it's a npm package version range,
+  // as direct installs from github or git need this field
+  // to resolve properly during shrinkwrapping
+  const isScoped = /^@/.test(name)
+  const fromNpm = !/^[a-z0-9-]+\//i.test(info.from)
+  if ( isScoped || fromNpm ) {
+    info.from = undefined
+    Reflect.deleteProperty(info, 'from')
+  }
 })
 
 // Generate the new shrinkwrap JSON

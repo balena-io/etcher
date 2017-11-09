@@ -8447,6 +8447,7 @@
     },
     "usb": {
       "version": "1.3.0",
+      "from": "tessel/node-usb#1.3.0",
       "resolved": "git://github.com/tessel/node-usb.git#38cc9cc75759e74f3d3ee8c79ca852395c3529b0",
       "dependencies": {
         "nan": {
