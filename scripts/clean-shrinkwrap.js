@@ -91,7 +91,7 @@ traverseDeps(shrinkwrap, (parent, parentName, name, info) => {
   // to resolve properly during shrinkwrapping
   const isScoped = /^@/.test(name)
   const fromNpm = !/^[a-z0-9-]+\//i.test(info.from)
-  if ( isScoped || fromNpm ) {
+  if (isScoped || fromNpm) {
     info.from = undefined
     Reflect.deleteProperty(info, 'from')
   }
