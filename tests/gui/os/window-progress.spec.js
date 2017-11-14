@@ -24,38 +24,79 @@ describe('Browser: WindowProgress', function () {
     describe('given a stubbed current window', function () {
       beforeEach(function () {
         this.setProgressBarSpy = m.sinon.spy()
+        this.setTitleSpy = m.sinon.spy()
 
         windowProgress.currentWindow = {
-          setProgressBar: this.setProgressBarSpy
+          setProgressBar: this.setProgressBarSpy,
+          setTitle: this.setTitleSpy
+        }
+
+        this.state = {
+          percentage: 85,
+          speed: 100,
+          type: 'write'
         }
       })
 
       describe('.set()', function () {
         it('should translate 0-100 percentages to 0-1 ranges', function () {
-          windowProgress.set(85)
+          windowProgress.set(this.state)
           m.chai.expect(this.setProgressBarSpy).to.have.been.calledWith(0.85)
         })
 
         it('should set 0 given 0', function () {
-          windowProgress.set(0)
+          this.state.percentage = 0
+          windowProgress.set(this.state)
           m.chai.expect(this.setProgressBarSpy).to.have.been.calledWith(0)
         })
 
         it('should set 1 given 100', function () {
-          windowProgress.set(100)
+          this.state.percentage = 100
+          windowProgress.set(this.state)
           m.chai.expect(this.setProgressBarSpy).to.have.been.calledWith(1)
         })
 
         it('should throw if given a percentage higher than 100', function () {
+          this.state.percentage = 101
+          const state = this.state
           m.chai.expect(function () {
-            windowProgress.set(101)
+            windowProgress.set(state)
           }).to.throw('Invalid percentage: 101')
         })
 
         it('should throw if given a percentage less than 0', function () {
+          this.state.percentage = -1
+          const state = this.state
           m.chai.expect(function () {
-            windowProgress.set(-1)
+            windowProgress.set(state)
           }).to.throw('Invalid percentage: -1')
+        })
+
+        it('should set the flashing title', function () {
+          this.state.type = 'write'
+          windowProgress.set(this.state)
+          m.chai.expect(this.setTitleSpy).to.have.been.calledWith(' \u2013 85% Flashing')
+        })
+
+        it('should set the validating title', function () {
+          this.state.type = 'check'
+          windowProgress.set(this.state)
+          m.chai.expect(this.setTitleSpy).to.have.been.calledWith(' \u2013 85% Validating')
+        })
+
+        it('should set the starting title', function () {
+          this.state.type = 'write'
+          this.state.percentage = 0
+          this.state.speed = 0
+          windowProgress.set(this.state)
+          m.chai.expect(this.setTitleSpy).to.have.been.calledWith(' \u2013 Starting...')
+        })
+
+        it('should set the finishing title', function () {
+          this.state.type = 'write'
+          this.state.percentage = 100
+          windowProgress.set(this.state)
+          m.chai.expect(this.setTitleSpy).to.have.been.calledWith(' \u2013 Finishing...')
         })
       })
 
@@ -63,6 +104,11 @@ describe('Browser: WindowProgress', function () {
         it('should set -1', function () {
           windowProgress.clear()
           m.chai.expect(this.setProgressBarSpy).to.have.been.calledWith(-1)
+        })
+
+        it('should clear the window title', function () {
+          windowProgress.clear()
+          m.chai.expect(this.setTitleSpy).to.have.been.calledWith('')
         })
       })
     })
