@@ -1,7 +1,7 @@
 {
   "name": "etcher",
   "displayName": "Etcher",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "packageType": "local",
   "updates": {
     "enabled": true,
