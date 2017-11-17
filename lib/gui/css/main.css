@@ -6738,12 +6738,3 @@ body {
   .section-header > .button, .section-header > .progress-button {
     padding-left: 3px;
     padding-right: 3px; }
-
-@keyframes focus-highlight {
-  from {
-    outline: 2px solid #ff912f; }
-  to {
-    outline: none; } }
-
-[tabindex]:focus {
-  animation: focus-highlight 10s steps(2, end) forwards; }
