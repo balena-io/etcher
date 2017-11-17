@@ -649,6 +649,28 @@ describe('Shared: s3Packages', function () {
       })
     })
 
+    describe('given EAI_AGAIN', function () {
+      beforeEach(function () {
+        const error = new Error('EAI_AGAIN')
+        error.code = 'EAI_AGAIN'
+
+        this.requestGetAsyncStub = m.sinon.stub(request, 'getAsync')
+        this.requestGetAsyncStub.returns(Bluebird.reject(error))
+      })
+
+      afterEach(function () {
+        this.requestGetAsyncStub.restore()
+      })
+
+      it('should be rejected with a user error with code UPDATE_USER_ERROR', function (done) {
+        s3Packages.getRemoteVersions(s3Packages.BUCKET_URL.PRODUCTION).catch((error) => {
+          m.chai.expect(errors.isUserError(error)).to.be.true
+          m.chai.expect(error.code).to.equal('UPDATE_USER_ERROR')
+          done()
+        })
+      })
+    })
+
     describe('given ECONNRESET', function () {
       beforeEach(function () {
         const error = new Error('ECONNRESET')
