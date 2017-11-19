@@ -519,8 +519,13 @@ electron-develop:
 		-t electron \
 		-s "$(PLATFORM)"
 
+babel:
+	$(NPX) babel --copy-files --out-dir lib lib && $(NPX) babel --copy-files --out-dir tests tests
+
 sass:
 	$(NPX) node-sass lib/gui/scss/main.scss > lib/gui/css/main.css
+
+transpile: babel sass
 
 lint-js:
 	$(NPX) eslint lib tests scripts bin versionist.conf.js
