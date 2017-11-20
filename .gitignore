@@ -37,3 +37,7 @@ node_modules
 *.cer
 *.crt
 *.pem
+
+lib/gui/components/safe-webview.js 
+lib/gui/components/svg-icon.js
+
