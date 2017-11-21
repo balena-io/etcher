@@ -3,7 +3,7 @@
     [
       "env", {
         "targets": {
-          "electron": "1.6.6"
+          "electron": "1.7.9"
         }
       }
     ],
@@ -11,5 +11,8 @@
   ],
   "only": [
     "lib/**/*.jsx"
+  ],
+  "plugins": [
+    "babel-plugin-styled-components"
   ]
 }

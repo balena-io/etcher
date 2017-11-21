@@ -520,7 +520,8 @@ electron-develop:
 		-s "$(PLATFORM)"
 
 babel:
-	$(NPX) babel --copy-files --out-dir lib lib && $(NPX) babel --copy-files --out-dir tests tests
+		$(NPX) babel --extensions .jsx --copy-files --out-dir lib lib
+		$(NPX) babel --extensions .jsx --copy-files --out-dir tests tests
 
 sass:
 	$(NPX) node-sass lib/gui/scss/main.scss > lib/gui/css/main.css
