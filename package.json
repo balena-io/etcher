@@ -84,7 +84,7 @@
     "resin-corvus": "1.0.0-beta.30",
     "semver": "5.1.1",
     "speedometer": "1.0.0",
-    "sudo-prompt": "6.1.0",
+    "sudo-prompt": "8.0.0",
     "trackjs": "2.3.1",
     "udif": "0.10.0",
     "unbzip2-stream": "github:resin-io-modules/unbzip2-stream#core-streams",
