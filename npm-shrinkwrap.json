@@ -1,6 +1,6 @@
 {
   "name": "etcher",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "dependencies": {
     "@types/angular": {
       "version": "1.6.17",
