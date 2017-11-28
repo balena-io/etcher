@@ -3,6 +3,9 @@
 
 image: Visual Studio 2015
 
+# See https://github.com/electron/spectron#on-appveyor
+os: unstable
+
 cache:
   - C:\Users\appveyor\.node-gyp
   - '%LOCALAPPDATA%\electron\Cache'

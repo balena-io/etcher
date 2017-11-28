@@ -110,6 +110,7 @@
     "eslint-plugin-standard": "3.0.1",
     "file-exists": "1.0.0",
     "html-angular-validate": "0.1.9",
+    "mocha": "3.2.0",
     "mochainon": "1.0.0",
     "nock": "9.0.9",
     "node-gyp": "3.5.0",
@@ -117,6 +118,7 @@
     "npx": "5.2.0",
     "pkg": "4.1.1",
     "sass-lint": "1.10.2",
+    "spectron": "3.7.2",
     "tmp": "0.0.31",
     "versionist": "2.8.1"
   }
