@@ -31,31 +31,31 @@ class ProgressGauge extends React.PureComponent {
   }
 
   render() {
+    const borderSize = this.props.size / 2
+    console.log(this.props.size)
+
     const wrapStyles = {
-      border: '2px solid gray',
+      border: `${borderSize}px solid gray`,
       borderRadius: '50%',
-      width: this.props.size,
-      height: this.props.size,
+      width: Math.max(this.props.size, this.props.minSize) + 'vh',
+      height: Math.max(this.props.size, this.props.minSize) + 'vh',
       position: 'relative'
     }
 
     const clipStyles = {
       width: '100%',
       height: '100%',
-      clipPath: this.props.percentage >= 50
-        ? 'none'
-        : 'inset(-5px -5px -5px 49.5%)'
     }
 
     const sideStyles = {
-      width: 'calc(100% + 4px)',
-      height: 'calc(100% + 4px)',
-      marginTop: '-2px',
-      marginLeft: '-2px',
-      border: '5px solid #0074D9',
+      width: `calc(100% + ${borderSize * 2}px)`,
+      height: `calc(100% + ${borderSize * 2}px)`,
+      marginTop: `-${borderSize}px`,
+      marginLeft: `-${borderSize}px`,
+      border: `${borderSize}px solid #ff912f`,
       borderRadius: '50%',
       position: 'absolute',
-      clipPath: 'inset(-5px 50% -5px -5px)',
+      clipPath: 'inset(0 50% 0 0)',
       transition: 'all 0.2s'
     }
 
@@ -63,11 +63,12 @@ class ProgressGauge extends React.PureComponent {
     const progressDegrees = Math.round(this.props.percentage * degreeFactor)
 
     const leftStyles = _.assign({}, sideStyles, {
-      transform: `rotate(${progressDegrees}deg)`
+      transform: `rotate(${Math.min(progressDegrees, 180)}deg)`
     })
 
     const rightStyles = _.assign({}, sideStyles, {
-      transform: `rotate(${Math.min(progressDegrees, 180)}deg)`
+      transform: `rotate(${progressDegrees < 180 ? 0 : progressDegrees}deg)`,
+      borderColor: progressDegrees < 180 ? 'gray' : '#ff912f'
     })
 
     const labelStyles = {
@@ -97,21 +98,40 @@ const StyledProgressGauge = styled(ProgressGauge)`
 `
 
 const StyledPercentageText = styled.div`
-  font-size: 24px;
+  font-size: ${props => props.size}vh;
   color: white;
   font-weight: bold;
 `
 
 const StyledProgressGaugeWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+const StyledProgressMetadataWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5px;
+`
+
+const StyledProgressTitle = styled.div`
+  font-weight: bold;
+  color: white;
+`
+
+const StyledProgressSubtitle = styled.div`
+  color: gray;
 `
 
 class ProgressMetadata extends React.PureComponent {
   render() {
     return (
-      <div>
-        <div>{ this.props.title }</div>
-        <div>{ this.props.subtitle }</div>
-      </div>
+      <StyledProgressMetadataWrapper>
+        <StyledProgressTitle>{ this.props.title }</StyledProgressTitle>
+        <StyledProgressSubtitle>{ this.props.subtitle }</StyledProgressSubtitle>
+      </StyledProgressMetadataWrapper>
     )
   }
 }
@@ -135,20 +155,32 @@ class ProgressPage extends React.PureComponent {
   }
 
   render() {
-    const size = (60 / ((this.props.states || []).length || 1)) || 100
-    const cssSize = `${size}vh`
+    const statesLength = (this.props.states || []).length || 1
+    const size = Math.round(60 / statesLength)
 
-    const gauges = this.state.currentFlashStates.map((state) => {
+    const lengthSizes = [
+      100, 50, 33, 50, 33, 33, 25, 25, 33, 25, 25, 25
+    ]
+    const minSize = lengthSizes[statesLength]
+
+    const gauges = this.props.states.map((state) => {
+      // TODO move elsewhere in codebase
+      const stateLabels = {
+        write: 'Writing',
+        check: 'Verifying',
+        backup: 'Backing up'
+      }
+
       return (
         <StyledProgressGaugeWrapper>
-          <ProgressGauge percentage={ state.percentage } size={ cssSize }>
-            <StyledPercentageText>
+          <ProgressGauge percentage={ state.percentage } size={ size } minSize={ minSize }>
+            <StyledPercentageText size={ size / 3 }>
               { `${state.percentage}%` }
             </StyledPercentageText>
           </ProgressGauge>
           <ProgressMetadata
             title={ state.device }
-            subtitle={ `${state.speed} MB/s` }>
+            subtitle={ `${stateLabels[state.type]} - ${state.speed} MB/s` }>
           </ProgressMetadata>
         </StyledProgressGaugeWrapper>
       )
