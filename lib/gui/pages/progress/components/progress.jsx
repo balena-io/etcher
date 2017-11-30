@@ -110,7 +110,7 @@ class DriveStatus extends React.PureComponent {
   render() {
     return (
       <DriveStatusWrapper>
-        <Title>{ this.props.label }</Title> <Dim>({ this.props.quantity })</Dim>
+        <Title>{ this.props.label }</Title>&nbsp;<Dim>({ this.props.quantity })</Dim>
       </DriveStatusWrapper>
     )
   }
@@ -129,7 +129,7 @@ const StyledProgressGaugeSides = styled.div`
   height: calc(100% + 14px);
   margin-top: -7px;
   margin-left: -7px;
-  border: 7px solid #ff912f;
+  border: 7px solid ${props => props.color};
   border-radius: 50%;
   position: absolute;
   clip-path: inset(0 50% 0 0);
@@ -171,13 +171,13 @@ class ProgressGauge extends React.PureComponent {
 
     const rightStyles = {
       transform: `rotate(${progressDegrees < 180 ? 0 : progressDegrees}deg)`,
-      borderColor: progressDegrees < 180 ? 'gray' : '#ff912f'
+      borderColor: progressDegrees < 180 ? 'gray' : this.props.color
     }
 
     return (
       <StyledProgressGaugeSidesWrapper size={ this.props.size } minSize={ this.props.minSize }>
         <div style={ clipStyles }>
-          <StyledProgressGaugeSides style={ leftStyles } />
+          <StyledProgressGaugeSides style={ leftStyles } color={ this.props.color } />
           <StyledProgressGaugeSides style={ rightStyles } />
         </div>
         <StyledProgressGaugeLabel>{ this.props.children }</StyledProgressGaugeLabel>
@@ -265,7 +265,8 @@ class ProgressPage extends React.PureComponent {
     const stateLabels = {
       write: 'Writing',
       check: 'Verifying',
-      backup: 'Backing up'
+      backup: 'Backing up',
+      undefined: 'Starting'
     }
 
     const gauges = this.props.states.map((state) => {
@@ -282,12 +283,13 @@ class ProgressPage extends React.PureComponent {
       )
 
       const centerPiece = isDone ? checkmarkElement : percentageText
+      const gaugeColor = isDone ? '#5fb835' : '#ff912f'
 
       const { description } = availableDrives.findDriveByDevice(state.device) || {}
 
       return (
         <StyledProgressGaugeWrapper>
-          <ProgressGauge percentage={ state.percentage } size={ size } minSize={ minSize }>
+          <ProgressGauge percentage={ state.percentage } size={ size } minSize={ minSize } color={ gaugeColor }>
             { centerPiece }
           </ProgressGauge>
           <ProgressMetadata
@@ -301,7 +303,7 @@ class ProgressPage extends React.PureComponent {
     const totalState = flashState.getAverageFlashState()
     const { percentage } = totalState
     const totalSpeed = prettyBytes(totalState.speed) + '/s'
-    const totalEta = `ETA: ${Math.round(totalState.eta * 100) / 100}s`
+    const totalEta = `ETA: ${Math.round((totalState.eta || 0) * 100) / 100}s`
     const isTotalDone = percentage === 100
     const totalLabel = isTotalDone ? 'Done' : stateLabels[totalState.type] + '...'
 
@@ -314,7 +316,7 @@ class ProgressPage extends React.PureComponent {
       <StyledProgressPageWrapper>
         <StyledProgressHeader>
           <TitleWithProgressBar
-            leftSubtitle={ path.basename(_.get(source, [ 'path' ], '')) }
+            leftSubtitle={ path.basename(_.get(source, [ 'path' ], 'None')) }
             rightSubtitle={ '' }
             percent={ 100 }
             label={ 'Source' }
