@@ -19,6 +19,7 @@ etcher text
 LICENSE text
 Makefile text
 *.md text
+*.markdown text
 *.sh text
 *.bat text
 *.svg text
