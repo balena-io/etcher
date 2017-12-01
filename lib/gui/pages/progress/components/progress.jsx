@@ -53,7 +53,7 @@ class ProgressBar extends React.PureComponent {
 }
 
 const StyledTotalProgressBarWrapper = styled.div`
-  width: 33%;
+  width: ${props => props.width};
 `
 
 const StyledTotalProgressBarLabel = styled.div`
@@ -69,17 +69,20 @@ const StyledTotalProgressBarSubtitle = styled.div`
   justify-content: space-between;
   color: gray;
   margin-top: 5px;
+  font-size: 0.75em
 `
 
 class TitleWithProgressBar extends React.PureComponent {
   render() {
+    const width = '150px'
+
     return (
-      <StyledTotalProgressBarWrapper>
+      <StyledTotalProgressBarWrapper width={ width }>
         <StyledTotalProgressBarLabel>{ this.props.label }</StyledTotalProgressBarLabel>
         <ProgressBar
           value={ this.props.percent }
-          width={ '220px' }
-          height={ '7px' }
+          width={ width }
+          height={ '5px' }
           color={ this.props.color }
         />
         <StyledTotalProgressBarSubtitle>
@@ -316,7 +319,7 @@ class ProgressPage extends React.PureComponent {
       <StyledProgressPageWrapper>
         <StyledProgressHeader>
           <TitleWithProgressBar
-            leftSubtitle={ path.basename(_.get(source, [ 'path' ], 'None')) }
+            leftSubtitle={ path.basename(_.get(source, [ 'path' ], 'No source selected')) }
             rightSubtitle={ '' }
             percent={ 100 }
             label={ 'Source' }
