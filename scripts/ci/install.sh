@@ -68,7 +68,7 @@ else
 
   npm config set spin=false
   npm config set progress=false
-  pip install --quiet -r requirements.txt
+  pip2 install --quiet -r requirements.txt
 
   make info
   make electron-develop
