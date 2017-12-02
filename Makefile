@@ -117,6 +117,7 @@ ETCHER_CLI_BINARY = $(APPLICATION_NAME_LOWERCASE).exe
 endif
 
 APPLICATION_NAME_LOWERCASE = $(shell echo $(APPLICATION_NAME) | tr A-Z a-z)
+APPLICATION_NAME_ELECTRON = $(APPLICATION_NAME_LOWERCASE)-electron
 APPLICATION_VERSION_DEBIAN = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
 APPLICATION_VERSION_REDHAT = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
 
@@ -215,8 +216,13 @@ $(BUILD_TEMPORARY_DIRECTORY): | $(BUILD_DIRECTORY)
 # CLI
 # ---------------------------------------------------------------------
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH)-app: \
-	package.json npm-shrinkwrap.json \
+DIRNAME_CLI = $(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH)
+DIRNAME_CLI_BUILD = $(DIRNAME_CLI)-app
+
+FILENAME_CLI_ZIP = $(DIRNAME_CLI).zip
+FILENAME_CLI_TAR_GZ = $(DIRNAME_CLI).tar.gz
+
+$(BUILD_DIRECTORY)/$(DIRNAME_CLI_BUILD): package.json npm-shrinkwrap.json \
 	| $(BUILD_DIRECTORY)
 	mkdir -p $@
 	./scripts/build/dependencies-npm.sh -p \
@@ -229,8 +235,7 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(
 	cp -r lib $@
 	cp package.json $@
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH): \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH)-app \
+$(BUILD_DIRECTORY)/$(DIRNAME_CLI): $(BUILD_DIRECTORY)/$(DIRNAME_CLI_BUILD) \
 	| $(BUILD_DIRECTORY)
 	mkdir $@
 	cd $< && pkg --output ../../$@/$(ETCHER_CLI_BINARY) -t node6-$(PLATFORM_PKG)-$(TARGET_ARCH) $(ENTRY_POINT_CLI)
@@ -272,50 +277,18 @@ endif
 endif
 endif
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH).zip: \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH)
+$(BUILD_DIRECTORY)/$(FILENAME_CLI_ZIP): $(BUILD_DIRECTORY)/$(DIRNAME_CLI)
 	./scripts/build/zip-file.sh -f $< -s $(PLATFORM) -o $@
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH).tar.gz: \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH)
+$(BUILD_DIRECTORY)/$(FILENAME_CLI_TAR_GZ): $(BUILD_DIRECTORY)/$(DIRNAME_CLI)
 	./scripts/build/tar-gz-file.sh -f $< -o $@
 
 # ---------------------------------------------------------------------
 # GUI
 # ---------------------------------------------------------------------
 
-assets/osx/installer.tiff: assets/osx/installer.png assets/osx/installer@2x.png
-	tiffutil -cathidpicheck $^ -out $@
-
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION).dmg: assets/osx/installer.tiff \
-	| $(BUILD_DIRECTORY)
-	TARGET_ARCH=$(TARGET_ARCH) build --mac dmg $(ELECTRON_BUILDER_OPTIONS) \
-		--extraMetadata.version=$(APPLICATION_VERSION) \
-		--extraMetadata.packageType=dmg
-
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-mac.zip: assets/osx/installer.tiff \
-	| $(BUILD_DIRECTORY)
-	TARGET_ARCH=$(TARGET_ARCH) build --mac zip $(ELECTRON_BUILDER_OPTIONS) \
-		--extraMetadata.version=$(APPLICATION_VERSION) \
-		--extraMetadata.packageType=zip
-
-APPLICATION_NAME_ELECTRON = $(APPLICATION_NAME_LOWERCASE)-electron
-
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME_ELECTRON)-$(APPLICATION_VERSION_REDHAT).$(TARGET_ARCH_REDHAT).rpm: \
-	| $(BUILD_DIRECTORY)
-	build --linux rpm $(ELECTRON_BUILDER_OPTIONS) \
-		--extraMetadata.name=$(APPLICATION_NAME_ELECTRON) \
-		--extraMetadata.version=$(APPLICATION_VERSION_REDHAT) \
-		--extraMetadata.packageType=rpm \
-		$(DISABLE_UPDATES_ELECTRON_BUILDER_OPTIONS)
-
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME_ELECTRON)_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb: \
-	| $(BUILD_DIRECTORY)
-	build --linux deb $(ELECTRON_BUILDER_OPTIONS) \
-		--extraMetadata.name=$(APPLICATION_NAME_ELECTRON) \
-		--extraMetadata.version=$(APPLICATION_VERSION_DEBIAN) \
-		--extraMetadata.packageType=deb \
-		$(DISABLE_UPDATES_ELECTRON_BUILDER_OPTIONS)
+FILENAME_DMG = $(APPLICATION_NAME)-$(APPLICATION_VERSION).dmg
+FILENAME_APP_ZIP = $(APPLICATION_NAME)-$(APPLICATION_VERSION)-mac.zip
 
 ifeq ($(TARGET_ARCH),x64)
 ELECTRON_BUILDER_LINUX_UNPACKED_DIRECTORY = linux-unpacked
@@ -323,15 +296,56 @@ else
 ELECTRON_BUILDER_LINUX_UNPACKED_DIRECTORY = linux-$(TARGET_ARCH_ELECTRON_BUILDER)-unpacked
 endif
 
-$(BUILD_DIRECTORY)/$(ELECTRON_BUILDER_LINUX_UNPACKED_DIRECTORY)/$(APPLICATION_NAME_ELECTRON): | $(BUILD_DIRECTORY)
+DIRNAME_APPIMAGE_BUILD = $(ELECTRON_BUILDER_LINUX_UNPACKED_DIRECTORY)/$(APPLICATION_NAME_ELECTRON)
+DIRNAME_APPIMAGE_APPDIR = $(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(PLATFORM).AppDir
+FILENAME_APPIMAGE = $(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(TARGET_ARCH_APPIMAGE).AppImage
+FILENAME_APPIMAGE_ZIP = $(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH_APPIMAGE).zip
+FILENAME_REDHAT = $(APPLICATION_NAME_ELECTRON)-$(APPLICATION_VERSION_REDHAT).$(TARGET_ARCH_REDHAT).rpm
+FILENAME_DEBIAN = $(APPLICATION_NAME_ELECTRON)_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb
+
+FILENAME_PORTABLE = $(APPLICATION_NAME)-Portable-$(APPLICATION_VERSION)-$(TARGET_ARCH).exe
+FILENAME_NSIS = $(APPLICATION_NAME)-Setup-$(APPLICATION_VERSION)-$(TARGET_ARCH).exe
+
+assets/osx/installer.tiff: assets/osx/installer.png assets/osx/installer@2x.png
+	tiffutil -cathidpicheck $^ -out $@
+
+$(BUILD_DIRECTORY)/$(FILENAME_DMG): assets/osx/installer.tiff \
+	| $(BUILD_DIRECTORY)
+	TARGET_ARCH=$(TARGET_ARCH) build --mac dmg $(ELECTRON_BUILDER_OPTIONS) \
+		--extraMetadata.version=$(APPLICATION_VERSION) \
+		--extraMetadata.packageType=dmg
+
+$(BUILD_DIRECTORY)/$(FILENAME_APP_ZIP): assets/osx/installer.tiff \
+	| $(BUILD_DIRECTORY)
+	TARGET_ARCH=$(TARGET_ARCH) build --mac zip $(ELECTRON_BUILDER_OPTIONS) \
+		--extraMetadata.version=$(APPLICATION_VERSION) \
+		--extraMetadata.packageType=zip
+
+$(BUILD_DIRECTORY)/$(FILENAME_REDHAT): \
+	| $(BUILD_DIRECTORY)
+	build --linux rpm $(ELECTRON_BUILDER_OPTIONS) \
+		--extraMetadata.name=$(APPLICATION_NAME_ELECTRON) \
+		--extraMetadata.version=$(APPLICATION_VERSION_REDHAT) \
+		--extraMetadata.packageType=rpm \
+		$(DISABLE_UPDATES_ELECTRON_BUILDER_OPTIONS)
+
+$(BUILD_DIRECTORY)/$(FILENAME_DEBIAN): \
+	| $(BUILD_DIRECTORY)
+	build --linux deb $(ELECTRON_BUILDER_OPTIONS) \
+		--extraMetadata.name=$(APPLICATION_NAME_ELECTRON) \
+		--extraMetadata.version=$(APPLICATION_VERSION_DEBIAN) \
+		--extraMetadata.packageType=deb \
+		$(DISABLE_UPDATES_ELECTRON_BUILDER_OPTIONS)
+
+$(BUILD_DIRECTORY)/$(DIRNAME_APPIMAGE_BUILD): \
+	| $(BUILD_DIRECTORY)
 	build --dir --linux $(ELECTRON_BUILDER_OPTIONS) \
 		--extraMetadata.name=$(APPLICATION_NAME_ELECTRON) \
 		--extraMetadata.version=$(APPLICATION_VERSION) \
 		--extraMetadata.packageType=AppImage
 	touch $@
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(PLATFORM).AppDir: \
-	$(BUILD_DIRECTORY)/$(ELECTRON_BUILDER_LINUX_UNPACKED_DIRECTORY)/$(APPLICATION_NAME_ELECTRON) \
+$(BUILD_DIRECTORY)/$(DIRNAME_APPIMAGE_APPDIR): $(BUILD_DIRECTORY)/$(DIRNAME_APPIMAGE_BUILD) \
 	| $(BUILD_DIRECTORY)
 	./scripts/build/electron-create-appdir.sh \
 		-n $(APPLICATION_NAME) \
@@ -342,8 +356,7 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(PLATFO
 		-i assets/icon.png \
 		-o $@
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(TARGET_ARCH_APPIMAGE).AppImage: \
-	 $(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(PLATFORM).AppDir \
+$(BUILD_DIRECTORY)/$(FILENAME_APPIMAGE): $(BUILD_DIRECTORY)/$(DIRNAME_APPIMAGE_APPDIR) \
 	 | $(BUILD_DIRECTORY) $(BUILD_TEMPORARY_DIRECTORY)
 	./scripts/build/electron-create-appimage-linux.sh \
 		-d $< \
@@ -351,18 +364,17 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(TARGET
 		-w $(BUILD_TEMPORARY_DIRECTORY) \
 		-o $@
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH_APPIMAGE).zip: \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(TARGET_ARCH_APPIMAGE).AppImage \
+$(BUILD_DIRECTORY)/$(FILENAME_APPIMAGE_ZIP): $(BUILD_DIRECTORY)/$(FILENAME_APPIMAGE) \
 	| $(BUILD_DIRECTORY)
 	./scripts/build/zip-file.sh -f $< -s $(PLATFORM) -o $@
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-Portable-$(APPLICATION_VERSION)-$(TARGET_ARCH).exe: \
+$(BUILD_DIRECTORY)/$(FILENAME_PORTABLE): \
 	| $(BUILD_DIRECTORY)
 	TARGET_ARCH=$(TARGET_ARCH) build --win portable $(ELECTRON_BUILDER_OPTIONS) \
 		--extraMetadata.version=$(APPLICATION_VERSION) \
 		--extraMetadata.packageType=portable
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-Setup-$(APPLICATION_VERSION)-$(TARGET_ARCH).exe: \
+$(BUILD_DIRECTORY)/$(FILENAME_NSIS): \
 	| $(BUILD_DIRECTORY)
 	TARGET_ARCH=$(TARGET_ARCH) build --win nsis $(ELECTRON_BUILDER_OPTIONS) \
 		--extraMetadata.version=$(APPLICATION_VERSION) \
@@ -392,8 +404,6 @@ TARGETS = \
 	package-electron \
 	package-cli \
 	cli-develop \
-	installers-all \
-	publish-all \
 	electron-develop
 
 changelog:
@@ -402,59 +412,63 @@ changelog:
 package-electron:
 	TARGET_ARCH=$(TARGET_ARCH) build --dir $(ELECTRON_BUILDER_OPTIONS)
 
-package-cli: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH)
+package-cli: $(BUILD_DIRECTORY)/$(DIRNAME_CLI)
 
 ifeq ($(PLATFORM),darwin)
-electron-installer-app-zip: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-mac.zip
-electron-installer-dmg: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION).dmg
-cli-installer-tar-gz: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH).tar.gz
-TARGETS += \
+electron-installer-dmg: $(BUILD_DIRECTORY)/$(FILENAME_DMG)
+electron-installer-app-zip: $(BUILD_DIRECTORY)/$(FILENAME_APP_ZIP)
+cli-installer-tar-gz: $(BUILD_DIRECTORY)/$(FILENAME_CLI_TAR_GZ)
+INSTALLER_TARGETS += \
 	electron-installer-dmg \
 	electron-installer-app-zip \
 	cli-installer-tar-gz
-PUBLISH_AWS_S3 += \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-mac.zip \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION).dmg \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH).tar.gz
+PUBLISH_AWS_S3_FILES += \
+	$(BUILD_DIRECTORY)/$(FILENAME_DMG) \
+	$(BUILD_DIRECTORY)/$(FILENAME_APP_ZIP) \
+	$(BUILD_DIRECTORY)/$(FILENAME_CLI_TAR_GZ)
 endif
 
 ifeq ($(PLATFORM),linux)
-electron-installer-appimage: $(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH_APPIMAGE).zip
-electron-installer-debian: $(BUILD_DIRECTORY)/$(APPLICATION_NAME_ELECTRON)_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb
-electron-installer-redhat: $(BUILD_DIRECTORY)/$(APPLICATION_NAME_ELECTRON)-$(APPLICATION_VERSION_REDHAT).$(TARGET_ARCH_REDHAT).rpm
-cli-installer-tar-gz: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH).tar.gz
-TARGETS +=  \
+electron-installer-appimage: $(BUILD_DIRECTORY)/$(FILENAME_APPIMAGE_ZIP)
+electron-installer-debian: $(BUILD_DIRECTORY)/$(FILENAME_DEBIAN)
+electron-installer-redhat: $(BUILD_DIRECTORY)/$(FILENAME_REDHAT)
+cli-installer-tar-gz: $(BUILD_DIRECTORY)/$(FILENAME_CLI_TAR_GZ)
+INSTALLER_TARGETS +=  \
 	electron-installer-appimage \
 	electron-installer-debian \
 	electron-installer-redhat \
 	cli-installer-tar-gz
-PUBLISH_AWS_S3 += \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH_APPIMAGE).zip \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH).tar.gz
-PUBLISH_BINTRAY_DEBIAN += \
-		$(BUILD_DIRECTORY)/$(APPLICATION_NAME_ELECTRON)_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb
-PUBLISH_BINTRAY_REDHAT += \
-		$(BUILD_DIRECTORY)/$(APPLICATION_NAME_ELECTRON)-$(APPLICATION_VERSION_REDHAT).$(TARGET_ARCH_REDHAT).rpm
+PUBLISH_AWS_S3_FILES += \
+	$(BUILD_DIRECTORY)/$(FILENAME_APPIMAGE_ZIP) \
+	$(BUILD_DIRECTORY)/$(FILENAME_CLI_TAR_GZ)
+PUBLISH_BINTRAY_DEBIAN_FILES += \
+	$(BUILD_DIRECTORY)/$(FILENAME_DEBIAN)
+PUBLISH_BINTRAY_REDHAT_FILES += \
+	$(BUILD_DIRECTORY)/$(FILENAME_REDHAT)
 endif
 
 ifeq ($(PLATFORM),win32)
-electron-installer-portable: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-Portable-$(APPLICATION_VERSION)-$(TARGET_ARCH).exe
-electron-installer-nsis: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-Setup-$(APPLICATION_VERSION)-$(TARGET_ARCH).exe
-cli-installer-zip: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH).zip
-TARGETS += \
+electron-installer-portable: $(BUILD_DIRECTORY)/$(FILENAME_PORTABLE)
+electron-installer-nsis: $(BUILD_DIRECTORY)/$(FILENAME_NSIS)
+cli-installer-zip: $(BUILD_DIRECTORY)/$(FILENAME_CLI_ZIP)
+INSTALLER_TARGETS += \
 	electron-installer-portable \
 	electron-installer-nsis \
 	cli-installer-zip
-PUBLISH_AWS_S3 += \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-Portable-$(APPLICATION_VERSION)-$(TARGET_ARCH).exe \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-Setup-$(APPLICATION_VERSION)-$(TARGET_ARCH).exe \
-	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH).zip
+PUBLISH_AWS_S3_FILES += \
+	$(BUILD_DIRECTORY)/$(FILENAME_PORTABLE) \
+	$(BUILD_DIRECTORY)/$(FILENAME_NSIS) \
+	$(BUILD_DIRECTORY)/$(FILENAME_CLI_ZIP)
 endif
 
-installers-all: $(PUBLISH_AWS_S3) $(PUBLISH_BINTRAY_DEBIAN) $(PUBLISH_BINTRAY_REDHAT)
+ifdef INSTALLER_TARGETS
+installers-all: $(INSTALLER_TARGETS)
 
-ifdef PUBLISH_AWS_S3
-publish-aws-s3: $(PUBLISH_AWS_S3)
+TARGETS += $(INSTALLER_TARGETS) installers-all
+endif
+
+ifdef PUBLISH_AWS_S3_FILES
+publish-aws-s3: $(PUBLISH_AWS_S3_FILES)
 ifeq ($(RELEASE_TYPE),production)
 	$(foreach publishable,$^,$(call execute-command,./scripts/publish/aws-s3.sh \
 		-f $(publishable) \
@@ -471,12 +485,11 @@ ifeq ($(RELEASE_TYPE),snapshot)
 		-k $(shell date +"%Y-%m-%d")))
 endif
 
-PUBLISHABLES += publish-aws-s3
-TARGETS += publish-aws-s3
+PUBLISH_TARGETS += publish-aws-s3
 endif
 
-ifdef PUBLISH_BINTRAY_DEBIAN
-publish-bintray-debian: $(PUBLISH_BINTRAY_DEBIAN)
+ifdef PUBLISH_BINTRAY_DEBIAN_FILES
+publish-bintray-debian: $(PUBLISH_BINTRAY_DEBIAN_FILES)
 	$(foreach publishable,$^,$(call execute-command,./scripts/publish/bintray.sh \
 		-f $(publishable) \
 		-v $(APPLICATION_VERSION_DEBIAN) \
@@ -487,12 +500,11 @@ publish-bintray-debian: $(PUBLISH_BINTRAY_DEBIAN)
 		-c $(BINTRAY_COMPONENT) \
 		-y debian))
 
-PUBLISHABLES += publish-bintray-debian
-TARGETS += publish-bintray-debian
+PUBLISH_TARGETS += publish-bintray-debian
 endif
 
-ifdef PUBLISH_BINTRAY_REDHAT
-publish-bintray-redhat: $(PUBLISH_BINTRAY_REDHAT)
+ifdef PUBLISH_BINTRAY_REDHAT_FILES
+publish-bintray-redhat: $(PUBLISH_BINTRAY_REDHAT_FILES)
 	$(foreach publishable,$^,$(call execute-command,./scripts/publish/bintray.sh \
 		-f $(publishable) \
 		-v $(APPLICATION_VERSION_REDHAT) \
@@ -503,11 +515,15 @@ publish-bintray-redhat: $(PUBLISH_BINTRAY_REDHAT)
 		-c $(BINTRAY_COMPONENT) \
 		-y redhat))
 
-PUBLISHABLES += publish-bintray-redhat
-TARGETS += publish-bintray-redhat
+PUBLISH_TARGETS += publish-bintray-redhat
 endif
 
-publish-all: $(PUBLISHABLES)
+ifdef PUBLISH_TARGETS
+publish-all: $(PUBLISH_TARGETS)
+
+TARGETS += $(PUBLISH_TARGETS) publish-all
+endif
+
 
 .PHONY: $(TARGETS)
 
