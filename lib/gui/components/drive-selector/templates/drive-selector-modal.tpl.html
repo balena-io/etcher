@@ -19,9 +19,9 @@
           tabindex="{{ 15 + $index }}"
           ng-keypress="modal.keyboardToggleDrive(drive, $event)">
 
-          <h4 class="list-group-item-heading">{{ drive.description }} -
+          <h4 class="list-group-item-heading">{{ drive.description }}
             <span class="word-keep"
-              ng-show="drive.size">{{ drive.size | closestUnit }}</span>
+              ng-show="drive.size"> - {{ drive.size | closestUnit }}</span>
           </h4>
           <p class="list-group-item-text">{{ drive.displayName }}</p>
 
