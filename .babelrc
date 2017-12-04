@@ -1,0 +1,18 @@
+{
+  "presets": [
+    [
+      "env", {
+        "targets": {
+          "electron": "1.7.9"
+        }
+      }
+    ],
+    "react"
+  ],
+  "only": [
+    "lib/**/*.jsx"
+  ],
+  "plugins": [
+    "babel-plugin-styled-components"
+  ]
+}

@@ -65,12 +65,12 @@
             ng-class="{
               'text-disabled': main.shouldDriveStepBeDisabled()
             }"
-            uib-tooltip="{{ main.selection.getDrive().description }} ({{ main.selection.getDrive().displayName }})">
+            ng-click="main.showSelectedDrivesDetails()"
+            uib-tooltip="{{ main.selection.getCurrentDrive().description }} ({{ main.selection.getCurrentDrive().displayName }})">
             <span class="step-drive step-name">
-              <!-- middleEllipses errors on undefined, therefore fallback to empty string -->
-              {{ (main.selection.getDrive().description || "") | middleEllipses:11 }}
+              {{ main.getDescription() | middleEllipses:11 }}
             </span>
-            <span class="step-drive step-size">{{ main.selection.getDrive().size | closestUnit }}</span>
+            <span class="step-drive step-size">{{ main.getCurrentDrive().size | closestUnit }}</span>
           </div>
           <button class="button button-link step-footer"
             tabindex="{{ main.selection.hasDrive() ? 2 : -1 }}"
@@ -91,17 +91,17 @@
       <div class="space-vertical-large">
         <progress-button class="button-brick"
           tabindex="3"
-          percentage="main.state.getFlashState().percentage"
-          striped="{{ main.state.getFlashState().type == 'check' }}"
+          percentage="main.state.getAverageFlashState().percentage"
+          striped="{{ main.state.getAverageFlashState().type == 'check' }}"
           ng-attr-active="{{ main.state.isFlashing() }}"
-          ng-click="flash.flashImageToDrive(main.selection.getImage(), main.selection.getDrive())"
+          ng-click="flash.flashImageToDrives(main.selection.getImage(), main.selection.getSelectedDrives())"
           ng-disabled="main.shouldFlashStepBeDisabled() || main.state.getLastFlashErrorCode()">
             <span ng-bind="flash.getProgressButtonLabel()"></span>
         </progress-button>
 
-        <p class="step-footer step-footer-split" ng-show="main.state.getFlashState().speed && main.state.getFlashState().percentage != 100">
-          <span ng-bind="main.state.getFlashState().speed.toFixed(2) + ' MB/s'"></span>
-          <span>ETA: {{ main.state.getFlashState().eta | secondsToDate | amDateFormat:'m[m]ss[s]' }}</span>
+        <p class="step-footer step-footer-split" ng-show="main.state.getAverageFlashState().speed && main.state.getAverageFlashState().percentage != 100">
+          <span ng-bind="main.state.getAverageFlashState().speed.toFixed(2) + ' MB/s'"></span>
+          <span>ETA: {{ main.state.getAverageFlashState().eta | secondsToDate | amDateFormat:'m[m]ss[s]' }}</span>
         </p>
       </div>
     </div>

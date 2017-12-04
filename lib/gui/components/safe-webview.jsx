@@ -21,7 +21,7 @@
 const _ = require('lodash')
 const electron = require('electron')
 const angular = require('angular')
-const react = require('react')
+const React = require('react')
 const propTypes = require('prop-types')
 const react2angular = require('react2angular').react2angular
 const analytics = require('../modules/analytics')
@@ -77,7 +77,7 @@ const API_VERSION = 1
  * @example
  * <safe-webview src="https://etcher.io/"></safe-webview>
  */
-class SafeWebview extends react.PureComponent {
+class SafeWebview extends React.PureComponent {
   /**
    * @param {Object} props - React element properties
    */
@@ -116,17 +116,16 @@ class SafeWebview extends react.PureComponent {
   }
 
   /**
-   * @returns {react.Element}
+   * @returns {React.Element}
    */
   render () {
-    return react.createElement('webview', {
-      ref: 'webview',
-      style: {
-        flex: this.state.shouldShow ? null : '0 1',
-        width: this.state.shouldShow ? null : '0',
-        height: this.state.shouldShow ? null : '0'
-      }
-    }, [])
+    const styles = {
+      flex: this.state.shouldShow ? null : '0 1',
+      width: this.state.shouldShow ? null : '0',
+      height: this.state.shouldShow ? null : '0'
+    }
+
+    return <webview ref="webview" style={styles} />
   }
 
   /**

@@ -37,3 +37,8 @@ node_modules
 *.cer
 *.crt
 *.pem
+
+# Babel generated files
+lib/gui/components/safe-webview.js 
+lib/gui/components/svg-icon.js
+lib/gui/pages/progress/components/progress.js
