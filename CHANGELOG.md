@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.2.1 - 2017-12-06
+
+### Fixes
+
+- Fix handling of temporary read/write errors
+- Don't send initial Mixpanel events before "Anonymous Tracking" settings are loaded
+- Fix verification step reading from the cache
+
 ## v1.2.0 - 2017-11-22
 
 ### Features
