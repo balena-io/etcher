@@ -535,7 +535,9 @@ lint-html:
 	node scripts/html-lint.js
 
 lint-spell:
-	codespell.py \
+	codespell \
+		--dictionary - \
+		--dictionary dictionary.txt \
 		--skip *.gz,*.bz2,*.xz,*.zip,*.img,*.dmg,*.iso,*.rpi-sdcard,.DS_Store,*.dtb,*.dtbo,*.dat,*.elf,*.bin,*.foo,xz-without-extension \
 		lib tests docs scripts Makefile *.md LICENSE
 
