@@ -222,8 +222,7 @@ rules:
     - error
     - max: 1
   multiline-ternary:
-    - error
-    - never
+    - off
   newline-per-chained-call:
     - off
   no-bitwise:
