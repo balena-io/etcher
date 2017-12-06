@@ -43,7 +43,7 @@ RUN apt-get update \
 # Workaround: Install a newer version of `tar` to make fpm in electron-builder work again
 RUN echo "deb http://ftp.debian.org/debian wheezy main" >> /etc/apt/sources.list
 RUN echo "deb http://ftp.debian.org/debian wheezy-backports main" >> /etc/apt/sources.list
-RUN apt-get install --force-yes -y -t wheezy libacl1 && \
+RUN apt-get update && apt-get install --force-yes -y -t wheezy libacl1 && \
   apt-get install --force-yes -y -t wheezy-backports tar
 
 # Install a C++11 compiler
