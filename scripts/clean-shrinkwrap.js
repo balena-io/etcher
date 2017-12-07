@@ -51,7 +51,7 @@ const traverseDeps = (tree, onNode, parentName) => {
   for (let index = 0; index < keys.length; index += 1) {
     name = keys[index]
 
-    // Check for this depedency to still exist,
+    // Check for this dependency to still exist,
     // as a node might have been removed just before this iteration
     if (tree.dependencies[name]) {
       onNode(tree, parentName || tree.name, name, tree.dependencies[name])
