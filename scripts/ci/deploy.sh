@@ -51,5 +51,6 @@ if [ "$ARGV_OPERATING_SYSTEM" == "linux" ]; then
     -c "make publish-all"
 else
   ./scripts/build/check-dependency.sh make
+  export TARGET_ARCH="$ARGV_ARCHITECTURE"
   make publish-all
 fi
