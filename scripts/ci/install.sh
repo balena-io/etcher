@@ -72,6 +72,7 @@ else
   npm config set progress=false
   "$PIP_COMMAND" install --quiet -r requirements.txt
 
+  export TARGET_ARCH="$ARGV_ARCHITECTURE"
   make info
   make electron-develop
 fi
