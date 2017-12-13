@@ -6,7 +6,7 @@
 <div class="modal-body">
   <ul class="list-group">
     <li class="list-group-item" ng-repeat="drive in modal.getDrives() track by drive.device"
-      ng-disabled="!modal.constraints.isDriveValid(drive, modal.state.getImage())"
+      ng-disabled="!modal.constraints.isDriveValid(drive, modal.state.getImage()) && !drive.link"
       ng-dblclick="modal.selectDriveAndClose(drive)"
       ng-click="modal.toggleDrive(drive)">
         <img class="list-group-item-section" alt="Drive device type logo"
