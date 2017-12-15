@@ -23,7 +23,8 @@
     "postshrinkwrap": "node ./scripts/clean-shrinkwrap.js",
     "configure": "node-gyp configure",
     "build": "node-gyp build",
-    "install": "node-gyp rebuild"
+    "install": "node-gyp rebuild",
+    "postinstall": "rm -rf node_modules/npx/node_modules/.bin"
   },
   "author": "Resin Inc. <hello@etcher.io>",
   "license": "Apache-2.0",
