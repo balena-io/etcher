@@ -25,7 +25,7 @@ export PATH="$PATH:/opt/etcher-cli"
 
   - On Windows 10 and Windows 8
     - Open *Control Panel*
-    - Open *System
+    - Open *System*
     - Click the *Advanced system settings* link
     - Click *Environment Variables*
     - Find the `PATH` environment variable, and click *Edit*
