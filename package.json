@@ -23,7 +23,10 @@
     "postshrinkwrap": "node ./scripts/clean-shrinkwrap.js",
     "configure": "node-gyp configure",
     "build": "node-gyp build",
-    "install": "node-gyp rebuild"
+    "install": "node-gyp rebuild",
+    "concourse-dependencies": "make info && make electron-develop",
+    "concourse-test": "make lint test sanity-checks",
+    "concourse-build-installers": "make installers-all"
   },
   "author": "Resin Inc. <hello@etcher.io>",
   "license": "Apache-2.0",
