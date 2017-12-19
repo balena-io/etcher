@@ -2,8 +2,6 @@
 # Build configuration
 # ---------------------------------------------------------------------
 
-NPX = ./node_modules/.bin/npx
-
 # This directory will be completely deleted by the `clean` rule
 BUILD_DIRECTORY ?= dist
 
@@ -17,6 +15,10 @@ BUILD_TEMPORARY_DIRECTORY = $(BUILD_DIRECTORY)/.tmp
 
 # See https://github.com/electron/spectron/issues/127
 ETCHER_SPECTRON_ENTRYPOINT ?= $(shell node -e 'console.log(require("electron"))')
+
+# See https://stackoverflow.com/a/13468229/1641422
+SHELL := /bin/bash
+PATH := $(shell pwd)/node_modules/.bin:$(PATH)
 
 # ---------------------------------------------------------------------
 # Operating system and architecture detection
@@ -231,7 +233,7 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH)-app \
 	| $(BUILD_DIRECTORY)
 	mkdir $@
-	cd $< && ../../$(NPX) pkg --output ../../$@/$(ETCHER_CLI_BINARY) -t node6-$(PLATFORM_PKG)-$(TARGET_ARCH) $(ENTRY_POINT_CLI)
+	cd $< && pkg --output ../../$@/$(ETCHER_CLI_BINARY) -t node6-$(PLATFORM_PKG)-$(TARGET_ARCH) $(ENTRY_POINT_CLI)
 	./scripts/build/dependencies-npm-extract-addons.sh \
 		-d $</node_modules \
 		-o $@/node_modules
@@ -287,13 +289,13 @@ assets/osx/installer.tiff: assets/osx/installer.png assets/osx/installer@2x.png
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION).dmg: assets/osx/installer.tiff \
 	| $(BUILD_DIRECTORY)
-	TARGET_ARCH=$(TARGET_ARCH) $(NPX) build --mac dmg $(ELECTRON_BUILDER_OPTIONS) \
+	TARGET_ARCH=$(TARGET_ARCH) build --mac dmg $(ELECTRON_BUILDER_OPTIONS) \
 		--extraMetadata.version=$(APPLICATION_VERSION) \
 		--extraMetadata.packageType=dmg
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-mac.zip: assets/osx/installer.tiff \
 	| $(BUILD_DIRECTORY)
-	TARGET_ARCH=$(TARGET_ARCH) $(NPX) build --mac zip $(ELECTRON_BUILDER_OPTIONS) \
+	TARGET_ARCH=$(TARGET_ARCH) build --mac zip $(ELECTRON_BUILDER_OPTIONS) \
 		--extraMetadata.version=$(APPLICATION_VERSION) \
 		--extraMetadata.packageType=zip
 
@@ -301,7 +303,7 @@ APPLICATION_NAME_ELECTRON = $(APPLICATION_NAME_LOWERCASE)-electron
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME_ELECTRON)-$(APPLICATION_VERSION_REDHAT).$(TARGET_ARCH_REDHAT).rpm: \
 	| $(BUILD_DIRECTORY)
-	$(NPX) build --linux rpm $(ELECTRON_BUILDER_OPTIONS) \
+	build --linux rpm $(ELECTRON_BUILDER_OPTIONS) \
 		--extraMetadata.name=$(APPLICATION_NAME_ELECTRON) \
 		--extraMetadata.version=$(APPLICATION_VERSION_REDHAT) \
 		--extraMetadata.packageType=rpm \
@@ -309,7 +311,7 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME_ELECTRON)-$(APPLICATION_VERSION_REDHAT).$(
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME_ELECTRON)_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb: \
 	| $(BUILD_DIRECTORY)
-	$(NPX) build --linux deb $(ELECTRON_BUILDER_OPTIONS) \
+	build --linux deb $(ELECTRON_BUILDER_OPTIONS) \
 		--extraMetadata.name=$(APPLICATION_NAME_ELECTRON) \
 		--extraMetadata.version=$(APPLICATION_VERSION_DEBIAN) \
 		--extraMetadata.packageType=deb \
@@ -322,7 +324,7 @@ ELECTRON_BUILDER_LINUX_UNPACKED_DIRECTORY = linux-$(TARGET_ARCH_ELECTRON_BUILDER
 endif
 
 $(BUILD_DIRECTORY)/$(ELECTRON_BUILDER_LINUX_UNPACKED_DIRECTORY)/$(APPLICATION_NAME_ELECTRON): | $(BUILD_DIRECTORY)
-	$(NPX) build --dir --linux $(ELECTRON_BUILDER_OPTIONS) \
+	build --dir --linux $(ELECTRON_BUILDER_OPTIONS) \
 		--extraMetadata.name=$(APPLICATION_NAME_ELECTRON) \
 		--extraMetadata.version=$(APPLICATION_VERSION) \
 		--extraMetadata.packageType=AppImage
@@ -356,13 +358,13 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(PLATFO
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-Portable-$(APPLICATION_VERSION)-$(TARGET_ARCH).exe: \
 	| $(BUILD_DIRECTORY)
-	TARGET_ARCH=$(TARGET_ARCH) $(NPX) build --win portable $(ELECTRON_BUILDER_OPTIONS) \
+	TARGET_ARCH=$(TARGET_ARCH) build --win portable $(ELECTRON_BUILDER_OPTIONS) \
 		--extraMetadata.version=$(APPLICATION_VERSION) \
 		--extraMetadata.packageType=portable
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-Setup-$(APPLICATION_VERSION)-$(TARGET_ARCH).exe: \
 	| $(BUILD_DIRECTORY)
-	TARGET_ARCH=$(TARGET_ARCH) $(NPX) build --win nsis $(ELECTRON_BUILDER_OPTIONS) \
+	TARGET_ARCH=$(TARGET_ARCH) build --win nsis $(ELECTRON_BUILDER_OPTIONS) \
 		--extraMetadata.version=$(APPLICATION_VERSION) \
 		--extraMetadata.packageType=nsis
 
@@ -395,10 +397,10 @@ TARGETS = \
 	electron-develop
 
 changelog:
-	$(NPX) versionist
+	versionist
 
 package-electron:
-	TARGET_ARCH=$(TARGET_ARCH) $(NPX) build --dir $(ELECTRON_BUILDER_OPTIONS)
+	TARGET_ARCH=$(TARGET_ARCH) build --dir $(ELECTRON_BUILDER_OPTIONS)
 
 package-cli: $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH)
 
@@ -524,13 +526,13 @@ electron-develop:
 		-s "$(PLATFORM)"
 
 sass:
-	$(NPX) node-sass lib/gui/scss/main.scss > lib/gui/css/main.css
+	node-sass lib/gui/scss/main.scss > lib/gui/css/main.css
 
 lint-js:
-	$(NPX) eslint lib tests scripts bin versionist.conf.js
+	eslint lib tests scripts bin versionist.conf.js
 
 lint-sass:
-	$(NPX) sass-lint lib/gui/scss
+	sass-lint lib/gui/scss
 
 lint-cpp:
 	cpplint --recursive src
@@ -550,15 +552,13 @@ lint: lint-js lint-sass lint-cpp lint-html lint-spell
 MOCHA_OPTIONS=--recursive --reporter spec
 
 test-spectron:
-	$(NPX) env \
-		ETCHER_SPECTRON_ENTRYPOINT=$(ETCHER_SPECTRON_ENTRYPOINT) \
-		mocha $(MOCHA_OPTIONS) tests/spectron
+	ETCHER_SPECTRON_ENTRYPOINT="$(ETCHER_SPECTRON_ENTRYPOINT)" mocha $(MOCHA_OPTIONS) tests/spectron
 
 test-gui:
-	$(NPX) electron-mocha $(MOCHA_OPTIONS) --renderer tests/gui
+	electron-mocha $(MOCHA_OPTIONS) --renderer tests/gui
 
 test-sdk:
-	$(NPX) electron-mocha $(MOCHA_OPTIONS) \
+	electron-mocha $(MOCHA_OPTIONS) \
 		tests/shared \
 		tests/child-writer \
 		tests/image-stream
