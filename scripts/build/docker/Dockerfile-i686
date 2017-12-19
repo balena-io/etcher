@@ -39,16 +39,24 @@ RUN apt-get update \
     zip \
     rpm
 
+# NodeJS
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
+  && apt-get install -y nodejs
+
+
 
 # Install a C++11 compiler
 RUN add-apt-repository ppa:ubuntu-toolchain-r/test \
   && apt-get update && apt-get install -y gcc-4.8 g++-4.8 \
   && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
 
+# Workaround: Install a newer version of `tar` to make fpm in electron-builder work again
+RUN echo "deb http://ftp.debian.org/debian wheezy main" >> /etc/apt/sources.list
+RUN echo "deb http://ftp.debian.org/debian wheezy-backports main" >> /etc/apt/sources.list
+RUN apt-get update && apt-get install --force-yes -y -t wheezy libacl1 && \
+  apt-get install --force-yes -y -t wheezy-backports tar
 
-# NodeJS
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
-  && apt-get install -y nodejs
+
 
 # See https://github.com/mapbox/node-pre-gyp/issues/165
 RUN npm config set unsafe-perm=true

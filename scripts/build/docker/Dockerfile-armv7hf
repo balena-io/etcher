@@ -38,11 +38,11 @@ RUN apt-get update \
     zip \
     rpm
 
-
-
 # NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
   && apt-get install -y nodejs
+
+
 
 # See https://github.com/mapbox/node-pre-gyp/issues/165
 RUN npm config set unsafe-perm=true
