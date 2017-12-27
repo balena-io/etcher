@@ -18,14 +18,14 @@
     "url": "git@github.com:resin-io/etcher.git"
   },
   "scripts": {
-    "test": "make test",
+    "test": "make lint test sanity-checks",
     "start": "electron lib/start.js",
     "postshrinkwrap": "node ./scripts/clean-shrinkwrap.js",
     "configure": "node-gyp configure",
     "build": "node-gyp build",
     "install": "node-gyp rebuild",
     "concourse-dependencies": "make info && make electron-develop",
-    "concourse-test": "make lint test sanity-checks",
+    "concourse-test": "npm test",
     "concourse-build-installers": "make installers-all"
   },
   "author": "Resin Inc. <hello@etcher.io>",
