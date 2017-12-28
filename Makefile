@@ -168,17 +168,6 @@ endif
 ELECTRON_BUILDER_OPTIONS = --$(TARGET_ARCH_ELECTRON_BUILDER)
 
 # ---------------------------------------------------------------------
-# Updates
-# ---------------------------------------------------------------------
-
-DISABLE_UPDATES_ELECTRON_BUILDER_OPTIONS = --extraMetadata.analytics.updates.enabled=false
-
-ifdef DISABLE_UPDATES
-$(warning Update notification dialog has been disabled (DISABLE_UPDATES is set))
-ELECTRON_BUILDER_OPTIONS += $(DISABLE_UPDATES_ELECTRON_BUILDER_OPTIONS)
-endif
-
-# ---------------------------------------------------------------------
 # Analytics
 # ---------------------------------------------------------------------
 
@@ -306,16 +295,14 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME_ELECTRON)-$(APPLICATION_VERSION_REDHAT).$(
 	build --linux rpm $(ELECTRON_BUILDER_OPTIONS) \
 		--extraMetadata.name=$(APPLICATION_NAME_ELECTRON) \
 		--extraMetadata.version=$(APPLICATION_VERSION_REDHAT) \
-		--extraMetadata.packageType=rpm \
-		$(DISABLE_UPDATES_ELECTRON_BUILDER_OPTIONS)
+		--extraMetadata.packageType=rpm
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME_ELECTRON)_$(APPLICATION_VERSION_DEBIAN)_$(TARGET_ARCH_DEBIAN).deb: \
 	| $(BUILD_DIRECTORY)
 	build --linux deb $(ELECTRON_BUILDER_OPTIONS) \
 		--extraMetadata.name=$(APPLICATION_NAME_ELECTRON) \
 		--extraMetadata.version=$(APPLICATION_VERSION_DEBIAN) \
-		--extraMetadata.packageType=deb \
-		$(DISABLE_UPDATES_ELECTRON_BUILDER_OPTIONS)
+		--extraMetadata.packageType=deb
 
 ifeq ($(TARGET_ARCH),x64)
 ELECTRON_BUILDER_LINUX_UNPACKED_DIRECTORY = linux-unpacked
