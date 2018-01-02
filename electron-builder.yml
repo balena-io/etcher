@@ -6,6 +6,8 @@ nodeGypRebuild: true
 publish: null
 files:
   - lib
+  - "!lib/gui/app"
+  - generated
   - build/**/*.node
   - assets/icon.png
   - node_modules/**/*
