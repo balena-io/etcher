@@ -31,8 +31,8 @@
       "resolved": "https://registry.npmjs.org/@types/lodash.some/-/lodash.some-4.6.2.tgz"
     },
     "@types/node": {
-      "version": "7.0.46",
-      "resolved": "https://registry.npmjs.org/@types/node/-/node-7.0.46.tgz",
+      "version": "7.0.51",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-7.0.51.tgz",
       "dev": true
     },
     "@types/react": {
@@ -1349,8 +1349,8 @@
       "dev": true
     },
     "electron": {
-      "version": "1.7.9",
-      "resolved": "https://registry.npmjs.org/electron/-/electron-1.7.9.tgz",
+      "version": "1.7.10",
+      "resolved": "https://registry.npmjs.org/electron/-/electron-1.7.10.tgz",
       "dev": true,
       "dependencies": {
         "electron-download": {
@@ -1726,8 +1726,8 @@
       }
     },
     "es6-promise": {
-      "version": "4.1.1",
-      "resolved": "https://registry.npmjs.org/es6-promise/-/es6-promise-4.1.1.tgz",
+      "version": "4.2.2",
+      "resolved": "https://registry.npmjs.org/es6-promise/-/es6-promise-4.2.2.tgz",
       "dev": true
     },
     "es6-set": {
