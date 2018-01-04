@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.3.0 - 2018-01-04
+
+### Features
+
+- Display connected Compute Modules even if Windows doesn't have the necessary drivers to act on them
+- Add read/write retry delays with backoff to ...
+- Add native application menu (which fixes OS native window management shortcuts not working)
+
+### Fixes
+
+- Fix "Couldn't scan drives" error
+- Ensure the writer process dies when the GUI application is killed
+- Run elevated writing process asynchronously on Windows
+- Fix trailing space in environment variables during Windows elevation
+- Don't send analytics events when attempting to toggle a disabled drive
+- Fix handling of transient write errors on Linux (EBUSY)
+- Fix runaway perl process in drivelist on Mac OS
+
+### Misc
+
+- Update Electron from v1.7.9 to v1.7.10
+- Remove Angular dependency from image-writer
+
 ## v1.2.1 - 2017-12-06
 
 ### Fixes
