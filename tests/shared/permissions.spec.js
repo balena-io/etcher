@@ -45,8 +45,7 @@ describe('Shared: permissions', function () {
           FOO: 'bar'
         })).to.deep.equal([
           'set',
-          'FOO=bar',
-          '&&',
+          'FOO=bar&&',
           'call'
         ])
       })
@@ -58,14 +57,11 @@ describe('Shared: permissions', function () {
           BAZ: 'qux'
         })).to.deep.equal([
           'set',
-          'FOO=bar',
-          '&&',
+          'FOO=bar&&',
           'set',
-          'BAR=baz',
-          '&&',
+          'BAR=baz&&',
           'set',
-          'BAZ=qux',
-          '&&',
+          'BAZ=qux&&',
           'call'
         ])
       })
@@ -77,8 +73,7 @@ describe('Shared: permissions', function () {
           BAZ: undefined
         })).to.deep.equal([
           'set',
-          'BAR=qux',
-          '&&',
+          'BAR=qux&&',
           'call'
         ])
       })
@@ -90,14 +85,11 @@ describe('Shared: permissions', function () {
           BAZ: -1
         })).to.deep.equal([
           'set',
-          'FOO=1',
-          '&&',
+          'FOO=1&&',
           'set',
-          'BAR=0',
-          '&&',
+          'BAR=0&&',
           'set',
-          'BAZ=-1',
-          '&&',
+          'BAZ=-1&&',
           'call'
         ])
       })
