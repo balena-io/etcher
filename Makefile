@@ -284,16 +284,16 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(
 # GUI
 # ---------------------------------------------------------------------
 
-assets/dmg-installer.tiff: assets/dmg-installer.png assets/dmg-installer@2x.png
+assets/dmg/background.tiff: assets/dmg/background.png assets/dmg/background@2x.png
 	tiffutil -cathidpicheck $^ -out $@
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION).dmg: assets/dmg-installer.tiff \
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION).dmg: assets/dmg/background.tiff \
 	| $(BUILD_DIRECTORY)
 	TARGET_ARCH=$(TARGET_ARCH) build --mac dmg $(ELECTRON_BUILDER_OPTIONS) \
 		--extraMetadata.version=$(APPLICATION_VERSION) \
 		--extraMetadata.packageType=dmg
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-mac.zip: assets/dmg-installer.tiff \
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-mac.zip: assets/dmg/background.tiff \
 	| $(BUILD_DIRECTORY)
 	TARGET_ARCH=$(TARGET_ARCH) build --mac zip $(ELECTRON_BUILDER_OPTIONS) \
 		--extraMetadata.version=$(APPLICATION_VERSION) \
