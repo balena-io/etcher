@@ -56,7 +56,7 @@ enum class ELEVATE_RESULT {
 ELEVATE_RESULT Elevate(const std::wstring &command,
                        std::vector<std::wstring> arguments);
 
-std::wstring ElevateResultToString(const ELEVATE_RESULT &result);
+std::string ElevateResultToString(const ELEVATE_RESULT &result);
 
 }  // namespace etcher
 

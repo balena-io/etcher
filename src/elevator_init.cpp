@@ -20,7 +20,49 @@
 #include "os/elevate.h"
 #include "utils/v8utils.h"
 
-NAN_METHOD(Elevate) {
+class ElevateWorker : public Nan::AsyncWorker {
+ public:
+  ElevateWorker(Nan::Callback *callback,
+                const std::vector<std::wstring> &arguments)
+    : Nan::AsyncWorker(callback) {
+    this->arguments = arguments;
+  }
+
+  ~ElevateWorker() {}
+
+  void Execute() {
+    etcher::ELEVATE_RESULT result = etcher::Elevate(
+      this->arguments.front(),
+      std::vector<std::wstring>(this->arguments.begin() + 1,
+                                this->arguments.end()));
+
+    switch (result) {
+    case etcher::ELEVATE_RESULT::ELEVATE_SUCCESS:
+      cancelled = false;
+      break;
+    case etcher::ELEVATE_RESULT::ELEVATE_CANCELLED:
+      cancelled = true;
+      break;
+    default:
+      this->SetErrorMessage(etcher::ElevateResultToString(result).c_str());
+    }
+  }
+
+  void HandleOKCallback() {
+    v8::Local<v8::Object> results = Nan::New<v8::Object>();
+    Nan::Set(results, Nan::New<v8::String>("cancelled").ToLocalChecked(),
+      this->cancelled ? Nan::True() : Nan::False());
+    v8::Local<v8::Value> argv[2] = { Nan::Null(), results };
+    callback->Call(2, argv);
+  }
+
+ private:
+  std::vector<std::wstring> arguments;
+  v8::Local<v8::Object> results;
+  bool cancelled;
+};
+
+NAN_METHOD(elevate) {
   if (!info[0]->IsArray()) {
     return Nan::ThrowError("This function expects an array");
   }
@@ -31,30 +73,11 @@ NAN_METHOD(Elevate) {
 
   std::vector<std::wstring> arguments =
       etcher::v8utils::GetArguments(info[0].As<v8::Array>());
-  v8::Local<v8::Function> callback = info[1].As<v8::Function>();
-
-  etcher::ELEVATE_RESULT result = etcher::Elevate(
-      arguments.front(),
-      std::vector<std::wstring>(arguments.begin() + 1, arguments.end()));
-
-  // Create results object
-  v8::Isolate *isolate = v8::Isolate::GetCurrent();
-  v8::Local<v8::Object> results = v8::Object::New(isolate);
-
-  switch (result) {
-  case etcher::ELEVATE_RESULT::ELEVATE_SUCCESS:
-    results->Set(v8::String::NewFromUtf8(isolate, "cancelled"), Nan::False());
-    YIELD_OBJECT(callback, results);
-    break;
-  case etcher::ELEVATE_RESULT::ELEVATE_CANCELLED:
-    results->Set(v8::String::NewFromUtf8(isolate, "cancelled"), Nan::True());
-    YIELD_OBJECT(callback, results);
-    break;
-  default:
-    YIELD_ERROR(callback, etcher::ElevateResultToString(result));
-  }
+  Nan::Callback *callback = new Nan::Callback(info[1].As<v8::Function>());
+  Nan::AsyncQueueWorker(new ElevateWorker(callback, arguments));
+  info.GetReturnValue().SetUndefined();
 }
 
-NAN_MODULE_INIT(ElevatorInit) { NAN_SET_FUNCTION("elevate", Elevate); }
+NAN_MODULE_INIT(ElevatorInit) { NAN_EXPORT(target, elevate); }
 
 NODE_MODULE(elevator, ElevatorInit)
