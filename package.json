@@ -104,7 +104,7 @@
   "devDependencies": {
     "angular-mocks": "1.6.3",
     "asar": "0.10.0",
-    "electron": "1.7.9",
+    "electron": "1.7.10",
     "electron-builder": "19.40.0",
     "electron-mocha": "3.3.0",
     "eslint": "3.19.0",
