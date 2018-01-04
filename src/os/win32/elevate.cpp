@@ -127,32 +127,32 @@ etcher::ELEVATE_RESULT etcher::Elevate(const std::wstring &command,
   return etcher::ELEVATE_RESULT::ELEVATE_SUCCESS;
 }
 
-std::wstring
+std::string
 etcher::ElevateResultToString(const etcher::ELEVATE_RESULT &result) {
   switch (result) {
   case etcher::ELEVATE_RESULT::ELEVATE_SUCCESS:
-    return L"Success";
+    return "Success";
   case etcher::ELEVATE_RESULT::ELEVATE_CANCELLED:
-    return L"The user cancelled the elevation request";
+    return "The user cancelled the elevation request";
   case etcher::ELEVATE_RESULT::ELEVATE_FILE_NOT_FOUND:
-    return L"The specified file was not found";
+    return "The specified file was not found";
   case etcher::ELEVATE_RESULT::ELEVATE_PATH_NOT_FOUND:
-    return L"The specified path was not found";
+    return "The specified path was not found";
   case etcher::ELEVATE_RESULT::ELEVATE_DDE_FAIL:
-    return L"The Dynamic Data Exchange (DDE) transaction failed";
+    return "The Dynamic Data Exchange (DDE) transaction failed";
   case etcher::ELEVATE_RESULT::ELEVATE_NO_ASSOCIATION:
-    return L"There is no application associated with the "
-            "specified file name extension";
+    return "There is no application associated with the "
+           "specified file name extension";
   case etcher::ELEVATE_RESULT::ELEVATE_ACCESS_DENIED:
-    return L"Access to the specified file is denied";
+    return "Access to the specified file is denied";
   case etcher::ELEVATE_RESULT::ELEVATE_DLL_NOT_FOUND:
-    return L"One of the library files necessary to run the "
-            "application can't be found";
+    return "One of the library files necessary to run the "
+           "application can't be found";
   case etcher::ELEVATE_RESULT::ELEVATE_NOT_ENOUGH_MEMORY:
-    return L"There is not enough memory to perform the specified action";
+    return "There is not enough memory to perform the specified action";
   case etcher::ELEVATE_RESULT::ELEVATE_SHARING_VIOLATION:
-    return L"A sharing violation occurred";
+    return "A sharing violation occurred";
   default:
-    return L"Unknown error";
+    return "Unknown error";
   }
 }
