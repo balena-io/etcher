@@ -560,7 +560,6 @@ test-gui:
 test-sdk:
 	electron-mocha $(MOCHA_OPTIONS) \
 		tests/shared \
-		tests/child-writer \
 		tests/image-stream
 
 test: test-gui test-sdk test-spectron

@@ -1,17 +1,8 @@
 The "robot" mechanism
 =====================
 
-As discussed in [`lib/child-writer`][child-writer], communication between the
-main Etcher application and its elevated writer process happens through an IPC
-(Inter Process Communication) channel. In a nutshell, we emit every single line
-that the writer process prints to the parent as a "message". Since these
-"lines" need to convey non-trivial information such as progress information,
-speed, final computer checksums, etc we are in need of a basic form of a
-"protocol".
-
-The "robot" module is the entity that implements this protocol, and provides
-utility functions to read/send messages using the protocol targeted at both
-parties (the client and the writer processes).
+The "robot" module is an entity that implements a text-based protocol to share
+objects between processes.
 
 The contents and structure of these messages is what the "robot" module is
 mainly concerned with. Each "message" consists of a type (a "command" in robot
@@ -139,4 +130,3 @@ original error, even if this was created in another process. This is how the
 writer process propagates informational errors to the GUI.
 
 [xz-man]: https://www.freebsd.org/cgi/man.cgi?query=xz&sektion=1&manpath=FreeBSD+8.3-RELEASE
-[child-writer]: https://github.com/resin-io/etcher/tree/master/lib/child-writer

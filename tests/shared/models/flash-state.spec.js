@@ -233,6 +233,18 @@ describe('Model: flashState', function () {
           })
         }).to.not.throw('Missing state speed')
       })
+
+      it('should floor the percentage number', function () {
+        flashState.setFlashingFlag()
+        flashState.setProgressState({
+          type: 'write',
+          percentage: 50.253559459485,
+          eta: 15,
+          speed: 0
+        })
+
+        m.chai.expect(flashState.getFlashState().percentage).to.equal(50)
+      })
     })
 
     describe('.getFlashResults()', function () {
