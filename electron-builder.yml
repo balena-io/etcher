@@ -13,7 +13,7 @@ mac:
   icon: assets/icon.icns
   category: public.app-category.developer-tools
 dmg:
-  background: assets/dmg-installer.tiff
+  background: assets/dmg/background.tiff
   icon: assets/icon.icns
   iconSize: 110
   contents:
@@ -44,7 +44,7 @@ linux:
   packageCategory: utils
   executableName: etcher-electron
   synopsis: Etcher is a powerful OS image flasher built with web technologies to ensure flashing an SDCard or USB drive is a pleasant and safe experience. It protects you from accidentally writing to your hard-drives, ensures every byte of data was written correctly and much more.
-  icon: assets
+  icon: assets/iconset
 deb:
   priority: optional
   depends:
