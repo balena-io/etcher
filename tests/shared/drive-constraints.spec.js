@@ -23,29 +23,29 @@ const constraints = require('../../lib/shared/drive-constraints')
 
 describe('Shared: DriveConstraints', function () {
   describe('.isDriveLocked()', function () {
-    it('should return true if the drive is protected', function () {
+    it('should return true if the drive is read-only', function () {
       const result = constraints.isDriveLocked({
         device: '/dev/disk2',
         name: 'USB Drive',
         size: 999999999,
-        protected: true
+        isReadonly: true
       })
 
       m.chai.expect(result).to.be.true
     })
 
-    it('should return false if the drive is not protected', function () {
+    it('should return false if the drive is not read-only', function () {
       const result = constraints.isDriveLocked({
         device: '/dev/disk2',
         name: 'USB Drive',
         size: 999999999,
-        protected: false
+        isReadonly: false
       })
 
       m.chai.expect(result).to.be.false
     })
 
-    it('should return false if we don\'t know if the drive is protected', function () {
+    it('should return false if we don\'t know if the drive is read-only', function () {
       const result = constraints.isDriveLocked({
         device: '/dev/disk2',
         name: 'USB Drive',
@@ -68,8 +68,8 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk2',
         name: 'USB Drive',
         size: 999999999,
-        protected: true,
-        system: true
+        isReadonly: true,
+        isSystem: true
       })
 
       m.chai.expect(result).to.be.true
@@ -80,7 +80,7 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk2',
         name: 'USB Drive',
         size: 999999999,
-        protected: true
+        isReadonly: true
       })
 
       m.chai.expect(result).to.be.false
@@ -91,8 +91,8 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk2',
         name: 'USB Drive',
         size: 999999999,
-        protected: true,
-        system: false
+        isReadonly: true,
+        isSystem: false
       })
 
       m.chai.expect(result).to.be.false
@@ -111,8 +111,8 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk2',
         name: 'USB Drive',
         size: 999999999,
-        protected: true,
-        system: false
+        isReadonly: true,
+        isSystem: false
       }, undefined)
 
       m.chai.expect(result).to.be.false
@@ -131,8 +131,8 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk2',
         name: 'USB Drive',
         size: 999999999,
-        protected: true,
-        system: false
+        isReadonly: true,
+        isSystem: false
       }, {
         path: '/Volumes/Untitled/image.img'
       })
@@ -313,7 +313,7 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 1000000000,
-        protected: false
+        isReadonly: false
       }
     })
 
@@ -515,7 +515,7 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 1000000000,
-        protected: false
+        isReadonly: false
       }, undefined)
 
       m.chai.expect(result).to.be.true
@@ -533,7 +533,7 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 1000000000,
-        protected: false,
+        isReadonly: false,
         disabled: true
       })
 
@@ -545,7 +545,7 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 1000000000,
-        protected: false,
+        isReadonly: false,
         disabled: false
       })
 
@@ -557,7 +557,7 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 1000000000,
-        protected: false
+        isReadonly: false
       })
 
       m.chai.expect(result).to.be.false
@@ -570,7 +570,7 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 2000000001,
-        protected: false
+        isReadonly: false
       }, {
         path: path.join(__dirname, 'rpi.img'),
         size: {
@@ -591,7 +591,7 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 2000000000,
-        protected: false
+        isReadonly: false
       }, {
         path: path.join(__dirname, 'rpi.img'),
         size: {
@@ -612,7 +612,7 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 2000000000,
-        protected: false
+        isReadonly: false
       }, {
         path: path.join(__dirname, 'rpi.img'),
         size: {
@@ -633,7 +633,7 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 2000000000,
-        protected: false
+        isReadonly: false
       }, {
         path: path.join(__dirname, 'rpi.img'),
         size: {
@@ -669,7 +669,7 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 2000000000,
-        protected: false
+        isReadonly: false
       }, undefined)
 
       m.chai.expect(result).to.be.true
@@ -703,7 +703,7 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given the drive is locked', function () {
       beforeEach(function () {
-        this.drive.protected = true
+        this.drive.isReadonly = true
       })
 
       describe('given the drive is disabled', function () {
@@ -825,7 +825,7 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given the drive is not locked', function () {
       beforeEach(function () {
-        this.drive.protected = false
+        this.drive.isReadonly = false
       })
 
       describe('given the drive is disabled', function () {
@@ -959,8 +959,8 @@ describe('Shared: DriveConstraints', function () {
       this.drive = {
         device: '/dev/disk2',
         name: 'My Drive',
-        protected: false,
-        system: false,
+        isReadonly: false,
+        isSystem: false,
         disabled: false,
         mountpoints: [
           {
@@ -1026,7 +1026,7 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given the drive is a system drive', () => {
       it('should return the system drive warning', function () {
-        this.drive.system = true
+        this.drive.isSystem = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
         const expectedTuples = [ [ 'WARNING', 'SYSTEM' ] ]
@@ -1060,7 +1060,7 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given the drive is locked', () => {
       it('should return the locked drive error', function () {
-        this.drive.protected = true
+        this.drive.isReadonly = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
         const expectedTuples = [ [ 'ERROR', 'LOCKED' ] ]
@@ -1098,7 +1098,7 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given a locked drive and image is null', () => {
       it('should return locked drive error', function () {
-        this.drive.protected = true
+        this.drive.isReadonly = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, null)
         const expectedTuples = [ [ 'ERROR', 'LOCKED' ] ]
@@ -1109,7 +1109,7 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given a system drive and image is null', () => {
       it('should return system drive warning', function () {
-        this.drive.system = true
+        this.drive.isSystem = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, null)
         const expectedTuples = [ [ 'WARNING', 'SYSTEM' ] ]
@@ -1120,7 +1120,7 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given the drive contains the image and the drive is locked', () => {
       it('should return the contains-image drive error by precedence', function () {
-        this.drive.protected = true
+        this.drive.isReadonly = true
         this.image.path = path.join(this.mountpoint, 'rpi.img')
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
@@ -1132,7 +1132,7 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given a locked and too small drive', () => {
       it('should return the locked error by precedence', function () {
-        this.drive.protected = true
+        this.drive.isReadonly = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
         const expectedTuples = [ [ 'ERROR', 'LOCKED' ] ]
@@ -1144,7 +1144,7 @@ describe('Shared: DriveConstraints', function () {
     describe('given a too small and system drive', () => {
       it('should return the too small drive error by precedence', function () {
         this.image.size.final.value = this.drive.size + 1
-        this.drive.system = true
+        this.drive.isSystem = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
         const expectedTuples = [ [ 'ERROR', 'TOO_SMALL' ] ]
@@ -1155,7 +1155,7 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given a system drive and not recommended drive size', () => {
       it('should return both warnings', function () {
-        this.drive.system = true
+        this.drive.isSystem = true
         this.image.recommendedDriveSize = this.drive.size + 1
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
