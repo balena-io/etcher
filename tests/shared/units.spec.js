@@ -51,11 +51,4 @@ describe('Shared: Units', function () {
       m.chai.expect(units.bytesToClosestUnit(999)).to.equal('999 B')
     })
   })
-
-  describe('.bytesToMegabytes()', function () {
-    it('should convert bytes to megabytes', function () {
-      m.chai.expect(units.bytesToMegabytes(1.2e+7)).to.equal(12)
-      m.chai.expect(units.bytesToMegabytes(332000)).to.equal(0.332)
-    })
-  })
 })
