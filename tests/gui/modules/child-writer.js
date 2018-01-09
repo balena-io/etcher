@@ -18,6 +18,7 @@
 
 const m = require('mochainon')
 const ipc = require('node-ipc')
+// eslint-disable-next-line no-unused-vars
 const childWriter = require('../../../lib/gui/modules/child-writer')
 
 describe('Browser: childWriter', function () {
