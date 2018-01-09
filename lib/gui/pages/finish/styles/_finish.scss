@@ -26,7 +26,9 @@
 }
 
 .page-finish .button-primary {
-  min-width: $btn-min-width;
+  min-width: $btn-large-min-width;
+  min-height: 53px;
+  font-size: 15px;
 }
 
 .page-finish .title {
@@ -61,7 +63,7 @@
 .page-finish .center {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 .page-finish .box > div {
