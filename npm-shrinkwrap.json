@@ -6070,7 +6070,7 @@
     "unbzip2-stream": {
       "version": "1.2.5",
       "from": "resin-io-modules/unbzip2-stream#core-streams",
-      "resolved": "git://github.com/resin-io-modules/unbzip2-stream.git#f33fe81c5379675f2a9898e7b86886a68c32ccc8"
+      "resolved": "git://github.com/resin-io-modules/unbzip2-stream.git#942fc218013c14adab01cf693b0500cf6ac83193"
     },
     "unc-path-regex": {
       "version": "0.1.2",
