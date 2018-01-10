@@ -22,7 +22,12 @@ const ipc = require('node-ipc')
 const imageWriter = require('../../../lib/gui/modules/image-writer')
 
 describe('Browser: imageWriter', function () {
-  it('should have the ipc config set to silent', function () {
-    m.chai.expect(ipc.config.silent).to.be.true
+  describe('.performWrite', function () {
+    it('should set the ipc config to silent', function () {
+      // Reset this value as it can persist from other tests
+      ipc.config.silent = false
+      imageWriter.performWrite(undefined, undefined, undefined).cancel()
+      m.chai.expect(ipc.config.silent).to.be.true
+    })
   })
 })
