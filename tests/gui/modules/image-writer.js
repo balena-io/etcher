@@ -18,7 +18,6 @@
 
 const m = require('mochainon')
 const ipc = require('node-ipc')
-// eslint-disable-next-line no-unused-vars
 const imageWriter = require('../../../lib/gui/modules/image-writer')
 
 describe('Browser: imageWriter', function () {
