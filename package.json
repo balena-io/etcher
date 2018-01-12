@@ -35,15 +35,6 @@
     "7zip-bin-win",
     "7zip-bin-linux"
   ],
-  "concourse": {
-    "dependencies": {
-      "linux": [
-        "libudev-dev",
-        "libusb-1.0-0-dev",
-        "libyaml-dev"
-      ]
-    }
-  },
   "dependencies": {
     "angular": "1.6.3",
     "angular-if-state": "1.0.0",
