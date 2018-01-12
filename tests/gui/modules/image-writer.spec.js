@@ -1,6 +1,7 @@
 'use strict'
 
 const m = require('mochainon')
+const ipc = require('node-ipc')
 const angular = require('angular')
 const Bluebird = require('bluebird')
 const flashState = require('../../../lib/shared/models/flash-state')
@@ -98,6 +99,15 @@ describe('Browser: imageWriter', () => {
           m.chai.expect(rejection.message).to.equal('write error')
         })
       })
+    })
+  })
+
+  describe('.performWrite()', function () {
+    it('should set the ipc config to silent', function () {
+      // Reset this value as it can persist from other tests
+      ipc.config.silent = false
+      imageWriter.performWrite(undefined, undefined, undefined).cancel()
+      m.chai.expect(ipc.config.silent).to.be.true
     })
   })
 })
