@@ -97,7 +97,7 @@
     "asar": "0.10.0",
     "electron": "1.7.10",
     "electron-builder": "19.40.0",
-    "electron-mocha": "3.3.0",
+    "electron-mocha": "5.0.0",
     "eslint": "3.19.0",
     "eslint-config-standard": "10.2.1",
     "eslint-plugin-import": "2.7.0",
