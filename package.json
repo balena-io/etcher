@@ -52,7 +52,7 @@
     "command-join": "2.0.0",
     "crc32-stream": "2.0.0",
     "debug": "2.6.8",
-    "drivelist": "6.0.0",
+    "drivelist": "6.0.4",
     "electron-is-running-in-asar": "1.0.0",
     "file-type": "4.1.0",
     "flexboxgrid": "6.3.0",
