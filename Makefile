@@ -371,6 +371,7 @@ TARGETS = \
 	test-spectron \
 	test-gui \
 	test-sdk \
+	test-cli \
 	test \
 	sanity-checks \
 	clean \
@@ -546,6 +547,11 @@ test-gui:
 
 test-sdk:
 	electron-mocha $(MOCHA_OPTIONS) \
+		tests/shared \
+		tests/image-stream
+
+test-cli:
+	mocha $(MOCHA_OPTIONS) \
 		tests/shared \
 		tests/image-stream
 
