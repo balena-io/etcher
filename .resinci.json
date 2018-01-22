@@ -1,4 +1,13 @@
 {
+  "node-cli": {
+    "node": "6.1.0",
+    "dependencies": {
+      "linux": [
+        "libudev-dev",
+        "libusb-1.0-0-dev"
+      ]
+    }
+  },
   "electron": {
     "dependencies": {
       "linux": [
