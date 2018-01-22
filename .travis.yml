@@ -47,15 +47,9 @@ matrix:
 
 os:
   - linux
-  - osx
 
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then PATH=/usr/local/opt/ccache/libexec:$PATH; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      export HOST_OS="darwin";
-    else
-      export HOST_OS="$TRAVIS_OS_NAME";
-    fi
+  - export HOST_OS="$TRAVIS_OS_NAME";
 
 install:
   - ./scripts/ci/install.sh -o $HOST_OS -r $TARGET_ARCH
