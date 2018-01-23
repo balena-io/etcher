@@ -83,13 +83,13 @@ describe('Model: selectionState', function () {
           device: '/dev/disk2',
           name: 'USB Drive',
           size: 999999999,
-          isReadonly: false
+          isReadOnly: false
         },
         {
           device: '/dev/disk5',
           name: 'USB Drive',
           size: 999999999,
-          isReadonly: false
+          isReadOnly: false
         }
       ])
 
@@ -103,7 +103,7 @@ describe('Model: selectionState', function () {
           device: '/dev/disk2',
           name: 'USB Drive',
           size: 999999999,
-          isReadonly: false
+          isReadOnly: false
         })
       })
     })
@@ -123,7 +123,7 @@ describe('Model: selectionState', function () {
           device: '/dev/disk5',
           name: 'USB Drive',
           size: 999999999,
-          isReadonly: false
+          isReadOnly: false
         })
       })
     })
@@ -145,7 +145,7 @@ describe('Model: selectionState', function () {
             device: '/dev/disk5',
             name: 'USB Drive',
             size: 999999999,
-            isReadonly: false
+            isReadOnly: false
           }
         ])
 
@@ -155,7 +155,7 @@ describe('Model: selectionState', function () {
           device: '/dev/disk5',
           name: 'USB Drive',
           size: 999999999,
-          isReadonly: false
+          isReadOnly: false
         })
       })
 
@@ -165,7 +165,7 @@ describe('Model: selectionState', function () {
             device: '/dev/disk1',
             name: 'USB Drive',
             size: 999999999,
-            isReadonly: true
+            isReadOnly: true
           }
         ])
 
@@ -180,7 +180,7 @@ describe('Model: selectionState', function () {
             device: '/dev/disk1',
             name: 'USB Drive',
             size: 999999999,
-            isReadonly: true
+            isReadOnly: true
           }
         ])
 
@@ -226,7 +226,7 @@ describe('Model: selectionState', function () {
             device: '/dev/disk2',
             name: 'USB Drive',
             size: 999999998,
-            isReadonly: false
+            isReadOnly: false
           }
         ])
 
@@ -756,7 +756,7 @@ describe('Model: selectionState', function () {
             device: '/dev/disk1',
             name: 'USB Drive',
             size: 999999999,
-            isReadonly: false
+            isReadOnly: false
           }
         ])
 
@@ -785,7 +785,7 @@ describe('Model: selectionState', function () {
             device: '/dev/disk1',
             name: 'USB Drive',
             size: 1200000000,
-            isReadonly: false
+            isReadOnly: false
           }
         ])
 
@@ -828,7 +828,7 @@ describe('Model: selectionState', function () {
                 path: path.dirname(imagePath)
               }
             ],
-            isReadonly: false
+            isReadOnly: false
           }
         ])
 
@@ -860,7 +860,7 @@ describe('Model: selectionState', function () {
           device: '/dev/disk1',
           name: 'USB Drive',
           size: 999999999,
-          isReadonly: false
+          isReadOnly: false
         }
       ])
 
@@ -938,7 +938,7 @@ describe('Model: selectionState', function () {
             } ],
             name: '/dev/sdb',
             isSystem: false,
-            isReadonly: false
+            isReadOnly: false
           }
         ])
 
@@ -985,7 +985,7 @@ describe('Model: selectionState', function () {
           } ],
           name: '/dev/sdb',
           isSystem: false,
-          isReadonly: false
+          isReadOnly: false
         }
 
         availableDrives.setDrives([
@@ -994,7 +994,7 @@ describe('Model: selectionState', function () {
             device: '/dev/disk2',
             name: 'USB Drive',
             size: 999999999,
-            isReadonly: false
+            isReadOnly: false
           }
         ])
 
@@ -1012,7 +1012,7 @@ describe('Model: selectionState', function () {
           device: '/dev/disk2',
           name: 'USB Drive',
           size: 999999999,
-          isReadonly: false
+          isReadOnly: false
         }
 
         m.chai.expect(selectionState.getDrive()).to.deep.equal(this.drive)
@@ -1032,7 +1032,7 @@ describe('Model: selectionState', function () {
           device: '/dev/disk2',
           name: 'USB Drive',
           size: 999999999,
-          isReadonly: false
+          isReadOnly: false
         }
 
         m.chai.expect(selectionState.hasDrive()).to.be.false
