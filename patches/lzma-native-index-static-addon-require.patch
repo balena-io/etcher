@@ -1,7 +1,5 @@
-diff --git a/index.js b/index.js
-index 1e7c766..e42c513 100644
---- a/index.js
-+++ b/index.js
+--- b/node_modules/lzma-native/index.js	2018-01-23 14:37:50.000000000 -0400
++++ a/node_modules/lzma-native/index.js	2018-01-23 14:37:00.000000000 -0400
 @@ -7,11 +7,8 @@ var extend = require('util-extend');
  var assert = require('assert');
  var fs = require('fs');
