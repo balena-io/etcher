@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.3.1 - 2018-01-23
+
+### Fixes
+
+- Fix "stdout maxBuffer" error on Linux
+- Fix Etcher not working / crashing on older Windows systems
+- Fix not all partitions being unmounted after flashing on Linux
+- Fix selection of images in folders with file extension on Mac OS
+
+### Misc
+
+- Update Electron to v1.7.11
+
 ## v1.3.0 - 2018-01-04
 
 ### Features
