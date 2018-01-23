@@ -158,7 +158,7 @@ describe('Model: availableDrives', function () {
                   path: '/mnt/foo'
                 } ],
                 isSystem: false,
-                isReadonly: false
+                isReadOnly: false
               }
             ])
 
@@ -206,7 +206,7 @@ describe('Model: availableDrives', function () {
                   path: '/mnt/foo'
                 } ],
                 isSystem: false,
-                isReadonly: false
+                isReadOnly: false
               },
               {
                 device: '/dev/sdc',
@@ -216,7 +216,7 @@ describe('Model: availableDrives', function () {
                   path: '/mnt/bar'
                 } ],
                 isSystem: false,
-                isReadonly: false
+                isReadOnly: false
               }
             ])
 
@@ -235,7 +235,7 @@ describe('Model: availableDrives', function () {
                   path: '/mnt/foo'
                 } ],
                 isSystem: false,
-                isReadonly: false
+                isReadOnly: false
               }
             ])
 
@@ -247,7 +247,7 @@ describe('Model: availableDrives', function () {
                 path: '/mnt/foo'
               } ],
               isSystem: false,
-              isReadonly: false
+              isReadOnly: false
             })
           })
 
@@ -263,7 +263,7 @@ describe('Model: availableDrives', function () {
                   path: '/mnt/foo'
                 } ],
                 isSystem: false,
-                isReadonly: false
+                isReadOnly: false
               }
             ])
 
@@ -282,7 +282,7 @@ describe('Model: availableDrives', function () {
                   path: '/mnt/foo'
                 } ],
                 isSystem: false,
-                isReadonly: false
+                isReadOnly: false
               }
             ])
 
@@ -301,7 +301,7 @@ describe('Model: availableDrives', function () {
                   path: '/mnt/foo'
                 } ],
                 isSystem: false,
-                isReadonly: true
+                isReadOnly: true
               }
             ])
 
@@ -322,7 +322,7 @@ describe('Model: availableDrives', function () {
                   }
                 ],
                 isSystem: false,
-                isReadonly: false
+                isReadOnly: false
               }
             ])
 
@@ -341,7 +341,7 @@ describe('Model: availableDrives', function () {
                   path: '/mnt/foo'
                 } ],
                 isSystem: true,
-                isReadonly: false
+                isReadOnly: false
               }
             ])
 
@@ -362,7 +362,7 @@ describe('Model: availableDrives', function () {
               path: '/mnt/foo'
             } ],
             isSystem: false,
-            isReadonly: false
+            isReadOnly: false
           },
           {
             device: '/dev/sdc',
@@ -372,7 +372,7 @@ describe('Model: availableDrives', function () {
               path: '/mnt/bar'
             } ],
             isSystem: false,
-            isReadonly: false
+            isReadOnly: false
           }
         ]
 
@@ -390,7 +390,7 @@ describe('Model: availableDrives', function () {
                 path: '/mnt/bar'
               } ],
               isSystem: false,
-              isReadonly: false
+              isReadOnly: false
             }
           ])
 
@@ -416,7 +416,7 @@ describe('Model: availableDrives', function () {
                 path: '/mnt/bar'
               } ],
               isSystem: false,
-              isReadonly: false
+              isReadOnly: false
             },
             {
               device: '/dev/sdb',
@@ -426,7 +426,7 @@ describe('Model: availableDrives', function () {
                 path: '/mnt/foo'
               } ],
               isSystem: false,
-              isReadonly: false
+              isReadOnly: false
             }
           ])
 
