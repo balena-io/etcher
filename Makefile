@@ -214,7 +214,7 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(
 		-x $@ \
 		-t node \
 		-s "$(PLATFORM)"
-	git apply --directory $@/node_modules/lzma-native patches/cli/lzma-native-index-static-addon-require.patch
+	patch --directory=$@ --force --strip=1 --ignore-whitespace < patches/lzma-native-index-static-addon-require.patch
 	cp -r lib $@
 	cp package.json $@
 
