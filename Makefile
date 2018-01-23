@@ -30,39 +30,39 @@ PATH := $(shell pwd)/node_modules/.bin:$(PATH)
 
 # http://stackoverflow.com/a/12099167
 ifeq ($(OS),Windows_NT)
-PLATFORM = win32
+	PLATFORM = win32
 
-ifeq ($(PROCESSOR_ARCHITEW6432),AMD64)
-	HOST_ARCH = x64
+	ifeq ($(PROCESSOR_ARCHITEW6432),AMD64)
+		HOST_ARCH = x64
+	else
+		ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
+			HOST_ARCH = x64
+		endif
+		ifeq ($(PROCESSOR_ARCHITECTURE),x86)
+			HOST_ARCH = x86
+		endif
+	endif
 else
-	ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
-		HOST_ARCH = x64
-	endif
-	ifeq ($(PROCESSOR_ARCHITECTURE),x86)
-		HOST_ARCH = x86
-	endif
-endif
-else
-ifeq ($(shell uname -s),Linux)
-	PLATFORM = linux
+	ifeq ($(shell uname -s),Linux)
+		PLATFORM = linux
 
-	ifeq ($(shell uname -m),x86_64)
-		HOST_ARCH = x64
+		ifeq ($(shell uname -m),x86_64)
+			HOST_ARCH = x64
+		endif
+		ifneq ($(filter %86,$(shell uname -m)),)
+			HOST_ARCH = x86
+		endif
+		ifeq ($(shell uname -m),armv7l)
+			HOST_ARCH = armv7hf
+		endif
 	endif
-	ifneq ($(filter %86,$(shell uname -m)),)
-		HOST_ARCH = x86
-	endif
-	ifeq ($(shell uname -m),armv7l)
-		HOST_ARCH = armv7hf
-	endif
-endif
-ifeq ($(shell uname -s),Darwin)
-	PLATFORM = darwin
+	ifeq ($(shell uname -s),Darwin)
+		PLATFORM = darwin
 
-	ifeq ($(shell uname -m),x86_64)
-		HOST_ARCH = x64
+		ifeq ($(shell uname -m),x86_64)
+			HOST_ARCH = x64
+		endif
 	endif
-endif
 endif
 
 ifndef PLATFORM
@@ -81,13 +81,13 @@ TARGET_ARCH ?= $(HOST_ARCH)
 # Support x86 builds from x64 in GNU/Linux
 # See https://github.com/addaleax/lzma-native/issues/27
 ifeq ($(PLATFORM),linux)
-ifneq ($(HOST_ARCH),$(TARGET_ARCH))
-	ifeq ($(TARGET_ARCH),x86)
-		export CFLAGS += -m32
-	else
+	ifneq ($(HOST_ARCH),$(TARGET_ARCH))
+		ifeq ($(TARGET_ARCH),x86)
+			export CFLAGS += -m32
+		else
 $(error Can't build $(TARGET_ARCH) binaries on a $(HOST_ARCH) host)
+		endif
 	endif
-endif
 endif
 
 # ---------------------------------------------------------------------
@@ -194,15 +194,15 @@ endif
 # See http://stackoverflow.com/a/12528721
 # Note that the blank line before 'endef' is actually important - don't delete it
 define execute-command
-$(1)
+	$(1)
 
 endef
 
 $(BUILD_DIRECTORY):
-mkdir $@
+	mkdir $@
 
 $(BUILD_TEMPORARY_DIRECTORY): | $(BUILD_DIRECTORY)
-mkdir $@
+	mkdir $@
 
 # ---------------------------------------------------------------------
 # CLI
@@ -223,13 +223,13 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(
 	cp package.json $@
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH): \
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH)-app \
-| $(BUILD_DIRECTORY)
-mkdir $@
-cd $< && pkg --output ../../$@/$(ETCHER_CLI_BINARY) -t node6-$(PLATFORM_PKG)-$(TARGET_ARCH) $(ENTRY_POINT_CLI)
-./scripts/build/dependencies-npm-extract-addons.sh \
-	-d $</node_modules \
-	-o $@/node_modules
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH)-app \
+	| $(BUILD_DIRECTORY)
+	mkdir $@
+	cd $< && pkg --output ../../$@/$(ETCHER_CLI_BINARY) -t node6-$(PLATFORM_PKG)-$(TARGET_ARCH) $(ENTRY_POINT_CLI)
+	./scripts/build/dependencies-npm-extract-addons.sh \
+		-d $</node_modules \
+		-o $@/node_modules
 # pkg currently has a bug where darwin executables
 # can't be code-signed
 # See https://github.com/zeit/pkg/issues/128
@@ -257,39 +257,39 @@ cd $< && pkg --output ../../$@/$(ETCHER_CLI_BINARY) -t node6-$(PLATFORM_PKG)-$(T
 ifeq ($(PLATFORM),win32)
 ifdef CSC_LINK
 ifdef CSC_KEY_PASSWORD
-./scripts/build/electron-sign-exe-win32.sh -f $@/$(ETCHER_CLI_BINARY) \
-	-d "$(APPLICATION_NAME) - $(APPLICATION_VERSION)" \
-	-c $(CSC_LINK) \
-	-p $(CSC_KEY_PASSWORD)
+	./scripts/build/electron-sign-exe-win32.sh -f $@/$(ETCHER_CLI_BINARY) \
+		-d "$(APPLICATION_NAME) - $(APPLICATION_VERSION)" \
+		-c $(CSC_LINK) \
+		-p $(CSC_KEY_PASSWORD)
 endif
 endif
 endif
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH).zip: \
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH)
-./scripts/build/zip-file.sh -f $< -s $(PLATFORM) -o $@
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH)
+	./scripts/build/zip-file.sh -f $< -s $(PLATFORM) -o $@
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH).tar.gz: \
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH)
-./scripts/build/tar-gz-file.sh -f $< -o $@
+	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH)
+	./scripts/build/tar-gz-file.sh -f $< -o $@
 
 # ---------------------------------------------------------------------
 # GUI
 # ---------------------------------------------------------------------
 
 assets/dmg/background.tiff: assets/dmg/background.png assets/dmg/background@2x.png
-tiffutil -cathidpicheck $^ -out $@
+	tiffutil -cathidpicheck $^ -out $@
 
 build/js/gui.js: .FORCE
 	webpack
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION).dmg: assets/dmg-installer.tiff build/js/gui.js \
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION).dmg: assets/dmg/background.tiff build/js/gui.js \
 	| $(BUILD_DIRECTORY)
 	TARGET_ARCH=$(TARGET_ARCH) build --mac dmg $(ELECTRON_BUILDER_OPTIONS) \
 		--extraMetadata.version=$(APPLICATION_VERSION) \
 		--extraMetadata.packageType=dmg
 
-$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-mac.zip: assets/dmg-installer.tiff build/js/gui.js \
+$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION)-mac.zip: assets/dmg/background.tiff build/js/gui.js \
 	| $(BUILD_DIRECTORY)
 	TARGET_ARCH=$(TARGET_ARCH) build --mac zip $(ELECTRON_BUILDER_OPTIONS) \
 		--extraMetadata.version=$(APPLICATION_VERSION) \
