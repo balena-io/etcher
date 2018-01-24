@@ -1025,8 +1025,8 @@
       "dev": true,
       "dependencies": {
         "semver": {
-          "version": "5.4.1",
-          "resolved": "https://registry.npmjs.org/semver/-/semver-5.4.1.tgz",
+          "version": "5.5.0",
+          "resolved": "https://registry.npmjs.org/semver/-/semver-5.5.0.tgz",
           "dev": true
         }
       }
@@ -1306,37 +1306,37 @@
       "resolved": "https://registry.npmjs.org/binary-extensions/-/binary-extensions-1.11.0.tgz",
       "dev": true
     },
-    "drivelist": {
-      "version": "6.0.4",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-6.0.4.tgz",
+    "bindings": {
+      "version": "1.2.1",
+      "resolved": "https://registry.npmjs.org/bindings/-/bindings-1.2.1.tgz"
+    },
+    "bl": {
+      "version": "0.9.5",
+      "resolved": "https://registry.npmjs.org/bl/-/bl-0.9.5.tgz",
+      "dev": true,
+      "dependencies": {
+        "readable-stream": {
+          "version": "1.0.34",
+          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-1.0.34.tgz",
+          "dev": true
+        }
+      }
+    },
+    "block-stream": {
+      "version": "0.0.9",
+      "resolved": "https://registry.npmjs.org/block-stream/-/block-stream-0.0.9.tgz"
+    },
+    "blockmap": {
+      "version": "2.0.2",
+      "resolved": "https://registry.npmjs.org/blockmap/-/blockmap-2.0.2.tgz",
       "dependencies": {
         "debug": {
           "version": "3.1.0",
           "resolved": "https://registry.npmjs.org/debug/-/debug-3.1.0.tgz"
         },
-        "esprima": {
-          "version": "4.0.0",
-          "resolved": "https://registry.npmjs.org/esprima/-/esprima-4.0.0.tgz"
-        },
-        "js-yaml": {
-          "version": "3.10.0",
-          "resolved": "https://registry.npmjs.org/js-yaml/-/js-yaml-3.10.0.tgz"
-        },
         "ms": {
           "version": "2.0.0",
           "resolved": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz"
-        },
-        "nan": {
-          "version": "2.8.0",
-          "resolved": "https://registry.npmjs.org/nan/-/nan-2.8.0.tgz"
-        },
-        "prebuild-install": {
-          "version": "2.4.1",
-          "resolved": "https://registry.npmjs.org/prebuild-install/-/prebuild-install-2.4.1.tgz"
-        },
-        "xtend": {
-          "version": "4.0.1",
-          "resolved": "https://registry.npmjs.org/xtend/-/xtend-4.0.1.tgz"
         }
       }
     },
@@ -1348,11 +1348,12 @@
       "version": "3.4.1",
       "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.4.1.tgz"
     },
-    "electron": {
-      "version": "1.7.11",
-      "resolved": "https://registry.npmjs.org/electron/-/electron-1.7.11.tgz",
+    "bluebird-lst": {
+      "version": "1.0.5",
+      "resolved": "https://registry.npmjs.org/bluebird-lst/-/bluebird-lst-1.0.5.tgz",
       "dev": true,
       "dependencies": {
+<<<<<<< HEAD
         "electron-download": {
           "version": "3.3.0",
           "resolved": "https://registry.npmjs.org/electron-download/-/electron-download-3.3.0.tgz",
@@ -1378,6 +1379,11 @@
         "semver": {
           "version": "5.5.0",
           "resolved": "https://registry.npmjs.org/semver/-/semver-5.5.0.tgz",
+=======
+        "bluebird": {
+          "version": "3.5.1",
+          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.1.tgz",
+>>>>>>> Update shrinkwrap file
           "dev": true
         }
       }
@@ -1506,8 +1512,8 @@
       "dev": true
     },
     "browserslist": {
-      "version": "2.10.0",
-      "resolved": "https://registry.npmjs.org/browserslist/-/browserslist-2.10.0.tgz",
+      "version": "2.11.3",
+      "resolved": "https://registry.npmjs.org/browserslist/-/browserslist-2.11.3.tgz",
       "dev": true
     },
     "buffer": {
@@ -1634,92 +1640,22 @@
         }
       }
     },
-    "electron-is-running-in-asar": {
-      "version": "1.0.0",
-      "resolved": "https://registry.npmjs.org/electron-is-running-in-asar/-/electron-is-running-in-asar-1.0.0.tgz"
-    },
-    "electron-mocha": {
-      "version": "5.0.0",
-      "resolved": "https://registry.npmjs.org/electron-mocha/-/electron-mocha-5.0.0.tgz",
+    "builder-util-runtime": {
+      "version": "2.4.0",
+      "resolved": "https://registry.npmjs.org/builder-util-runtime/-/builder-util-runtime-2.4.0.tgz",
       "dev": true,
       "dependencies": {
-        "balanced-match": {
-          "version": "1.0.0",
-          "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.0.tgz",
-          "dev": true
-        },
-        "brace-expansion": {
-          "version": "1.1.8",
-          "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.8.tgz",
-          "dev": true
-        },
-        "commander": {
-          "version": "2.13.0",
-          "resolved": "https://registry.npmjs.org/commander/-/commander-2.13.0.tgz",
-          "dev": true
-        },
         "debug": {
           "version": "3.1.0",
           "resolved": "https://registry.npmjs.org/debug/-/debug-3.1.0.tgz",
           "dev": true
-        },
-        "diff": {
-          "version": "3.3.1",
-          "resolved": "https://registry.npmjs.org/diff/-/diff-3.3.1.tgz",
-          "dev": true
-        },
-        "fs-extra": {
-          "version": "4.0.3",
-          "resolved": "https://registry.npmjs.org/fs-extra/-/fs-extra-4.0.3.tgz",
-          "dev": true
-        },
-        "glob": {
-          "version": "7.1.2",
-          "resolved": "https://registry.npmjs.org/glob/-/glob-7.1.2.tgz",
-          "dev": true
-        },
-        "growl": {
-          "version": "1.10.3",
-          "resolved": "https://registry.npmjs.org/growl/-/growl-1.10.3.tgz",
-          "dev": true
-        },
-        "has-flag": {
-          "version": "2.0.0",
-          "resolved": "https://registry.npmjs.org/has-flag/-/has-flag-2.0.0.tgz",
-          "dev": true
-        },
-        "isexe": {
-          "version": "2.0.0",
-          "resolved": "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz",
-          "dev": true
-        },
-        "jsonfile": {
-          "version": "4.0.0",
-          "resolved": "https://registry.npmjs.org/jsonfile/-/jsonfile-4.0.0.tgz",
-          "dev": true
-        },
-        "minimatch": {
-          "version": "3.0.4",
-          "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.0.4.tgz",
-          "dev": true
-        },
-        "mocha": {
-          "version": "4.1.0",
-          "resolved": "https://registry.npmjs.org/mocha/-/mocha-4.1.0.tgz",
-          "dev": true,
-          "dependencies": {
-            "commander": {
-              "version": "2.11.0",
-              "resolved": "https://registry.npmjs.org/commander/-/commander-2.11.0.tgz",
-              "dev": true
-            }
-          }
         },
         "ms": {
           "version": "2.0.0",
           "resolved": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz",
           "dev": true
         },
+<<<<<<< HEAD
         "supports-color": {
           "version": "4.4.0",
           "resolved": "https://registry.npmjs.org/supports-color/-/supports-color-4.4.0.tgz",
@@ -1772,6 +1708,8 @@
 =======
 >>>>>>> feat(GUI): bundle the GUI code with Webpack
         },
+=======
+>>>>>>> Update shrinkwrap file
         "sax": {
           "version": "1.2.4",
           "resolved": "https://registry.npmjs.org/sax/-/sax-1.2.4.tgz",
@@ -1823,8 +1761,8 @@
       }
     },
     "caniuse-lite": {
-      "version": "1.0.30000784",
-      "resolved": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000784.tgz",
+      "version": "1.0.30000792",
+      "resolved": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000792.tgz",
       "dev": true
     },
     "capture-stack-trace": {
@@ -1851,9 +1789,9 @@
       "resolved": "https://registry.npmjs.org/chai-as-promised/-/chai-as-promised-5.3.0.tgz",
       "dev": true
     },
-    "es6-promise": {
-      "version": "4.2.2",
-      "resolved": "https://registry.npmjs.org/es6-promise/-/es6-promise-4.2.2.tgz",
+    "chai-datetime": {
+      "version": "1.4.1",
+      "resolved": "https://registry.npmjs.org/chai-datetime/-/chai-datetime-1.4.1.tgz",
       "dev": true
     },
     "chai-interface": {
@@ -2949,8 +2887,8 @@
       "dev": true
     },
     "drivelist": {
-      "version": "5.2.4",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-5.2.4.tgz",
+      "version": "6.0.4",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-6.0.4.tgz",
       "dependencies": {
         "bindings": {
           "version": "1.3.0",
@@ -2968,17 +2906,21 @@
           "version": "3.10.0",
           "resolved": "https://registry.npmjs.org/js-yaml/-/js-yaml-3.10.0.tgz"
         },
-        "lodash": {
-          "version": "4.17.4",
-          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz"
-        },
         "ms": {
           "version": "2.0.0",
           "resolved": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz"
         },
         "nan": {
-          "version": "2.7.0",
-          "resolved": "https://registry.npmjs.org/nan/-/nan-2.7.0.tgz"
+          "version": "2.8.0",
+          "resolved": "https://registry.npmjs.org/nan/-/nan-2.8.0.tgz"
+        },
+        "prebuild-install": {
+          "version": "2.4.1",
+          "resolved": "https://registry.npmjs.org/prebuild-install/-/prebuild-install-2.4.1.tgz"
+        },
+        "xtend": {
+          "version": "4.0.1",
+          "resolved": "https://registry.npmjs.org/xtend/-/xtend-4.0.1.tgz"
         }
       }
     },
@@ -3002,8 +2944,8 @@
       "dev": true
     },
     "electron": {
-      "version": "1.7.9",
-      "resolved": "https://registry.npmjs.org/electron/-/electron-1.7.9.tgz",
+      "version": "1.7.11",
+      "resolved": "https://registry.npmjs.org/electron/-/electron-1.7.11.tgz",
       "dev": true,
       "dependencies": {
         "electron-download": {
@@ -3017,8 +2959,8 @@
           "dev": true
         },
         "semver": {
-          "version": "5.4.1",
-          "resolved": "https://registry.npmjs.org/semver/-/semver-5.4.1.tgz",
+          "version": "5.5.0",
+          "resolved": "https://registry.npmjs.org/semver/-/semver-5.5.0.tgz",
           "dev": true
         }
       }
@@ -3251,18 +3193,95 @@
       "resolved": "https://registry.npmjs.org/electron-is-running-in-asar/-/electron-is-running-in-asar-1.0.0.tgz"
     },
     "electron-mocha": {
-      "version": "3.3.0",
-      "resolved": "https://registry.npmjs.org/electron-mocha/-/electron-mocha-3.3.0.tgz",
+      "version": "5.0.0",
+      "resolved": "https://registry.npmjs.org/electron-mocha/-/electron-mocha-5.0.0.tgz",
       "dev": true,
       "dependencies": {
+        "balanced-match": {
+          "version": "1.0.0",
+          "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.0.tgz",
+          "dev": true
+        },
+        "brace-expansion": {
+          "version": "1.1.8",
+          "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.8.tgz",
+          "dev": true
+        },
         "commander": {
-          "version": "2.9.0",
-          "resolved": "https://registry.npmjs.org/commander/-/commander-2.9.0.tgz",
+          "version": "2.13.0",
+          "resolved": "https://registry.npmjs.org/commander/-/commander-2.13.0.tgz",
+          "dev": true
+        },
+        "debug": {
+          "version": "3.1.0",
+          "resolved": "https://registry.npmjs.org/debug/-/debug-3.1.0.tgz",
+          "dev": true
+        },
+        "diff": {
+          "version": "3.3.1",
+          "resolved": "https://registry.npmjs.org/diff/-/diff-3.3.1.tgz",
           "dev": true
         },
         "fs-extra": {
-          "version": "1.0.0",
-          "resolved": "https://registry.npmjs.org/fs-extra/-/fs-extra-1.0.0.tgz",
+          "version": "4.0.3",
+          "resolved": "https://registry.npmjs.org/fs-extra/-/fs-extra-4.0.3.tgz",
+          "dev": true
+        },
+        "glob": {
+          "version": "7.1.2",
+          "resolved": "https://registry.npmjs.org/glob/-/glob-7.1.2.tgz",
+          "dev": true
+        },
+        "growl": {
+          "version": "1.10.3",
+          "resolved": "https://registry.npmjs.org/growl/-/growl-1.10.3.tgz",
+          "dev": true
+        },
+        "has-flag": {
+          "version": "2.0.0",
+          "resolved": "https://registry.npmjs.org/has-flag/-/has-flag-2.0.0.tgz",
+          "dev": true
+        },
+        "isexe": {
+          "version": "2.0.0",
+          "resolved": "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz",
+          "dev": true
+        },
+        "jsonfile": {
+          "version": "4.0.0",
+          "resolved": "https://registry.npmjs.org/jsonfile/-/jsonfile-4.0.0.tgz",
+          "dev": true
+        },
+        "minimatch": {
+          "version": "3.0.4",
+          "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.0.4.tgz",
+          "dev": true
+        },
+        "mocha": {
+          "version": "4.1.0",
+          "resolved": "https://registry.npmjs.org/mocha/-/mocha-4.1.0.tgz",
+          "dev": true,
+          "dependencies": {
+            "commander": {
+              "version": "2.11.0",
+              "resolved": "https://registry.npmjs.org/commander/-/commander-2.11.0.tgz",
+              "dev": true
+            }
+          }
+        },
+        "ms": {
+          "version": "2.0.0",
+          "resolved": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz",
+          "dev": true
+        },
+        "supports-color": {
+          "version": "4.4.0",
+          "resolved": "https://registry.npmjs.org/supports-color/-/supports-color-4.4.0.tgz",
+          "dev": true
+        },
+        "which": {
+          "version": "1.3.0",
+          "resolved": "https://registry.npmjs.org/which/-/which-1.3.0.tgz",
           "dev": true
         }
       }
@@ -3306,14 +3325,9 @@
         }
       }
     },
-    "electron-releases": {
-      "version": "2.1.0",
-      "resolved": "https://registry.npmjs.org/electron-releases/-/electron-releases-2.1.0.tgz",
-      "dev": true
-    },
     "electron-to-chromium": {
-      "version": "1.3.30",
-      "resolved": "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.30.tgz",
+      "version": "1.3.31",
+      "resolved": "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.31.tgz",
       "dev": true
     },
     "electron-window": {
@@ -3409,8 +3423,8 @@
       }
     },
     "es6-promise": {
-      "version": "4.1.1",
-      "resolved": "https://registry.npmjs.org/es6-promise/-/es6-promise-4.1.1.tgz",
+      "version": "4.2.2",
+      "resolved": "https://registry.npmjs.org/es6-promise/-/es6-promise-4.2.2.tgz",
       "dev": true
     },
     "es6-set": {
@@ -5211,9 +5225,16 @@
           "dev": true
         },
         "uglify-js": {
-          "version": "3.3.3",
-          "resolved": "https://registry.npmjs.org/uglify-js/-/uglify-js-3.3.3.tgz",
-          "dev": true
+          "version": "3.3.8",
+          "resolved": "https://registry.npmjs.org/uglify-js/-/uglify-js-3.3.8.tgz",
+          "dev": true,
+          "dependencies": {
+            "commander": {
+              "version": "2.13.0",
+              "resolved": "https://registry.npmjs.org/commander/-/commander-2.13.0.tgz",
+              "dev": true
+            }
+          }
         }
       }
     },
@@ -7595,8 +7616,8 @@
       "dev": true
     },
     "randombytes": {
-      "version": "2.0.5",
-      "resolved": "https://registry.npmjs.org/randombytes/-/randombytes-2.0.5.tgz",
+      "version": "2.0.6",
+      "resolved": "https://registry.npmjs.org/randombytes/-/randombytes-2.0.6.tgz",
       "dev": true,
       "dependencies": {
         "safe-buffer": {
@@ -8247,8 +8268,8 @@
       "resolved": "https://registry.npmjs.org/setimmediate/-/setimmediate-1.0.5.tgz"
     },
     "sha.js": {
-      "version": "2.4.9",
-      "resolved": "https://registry.npmjs.org/sha.js/-/sha.js-2.4.9.tgz",
+      "version": "2.4.10",
+      "resolved": "https://registry.npmjs.org/sha.js/-/sha.js-2.4.10.tgz",
       "dev": true
     },
     "shebang-command": {
@@ -8458,8 +8479,8 @@
       "dev": true
     },
     "stream-http": {
-      "version": "2.7.2",
-      "resolved": "https://registry.npmjs.org/stream-http/-/stream-http-2.7.2.tgz",
+      "version": "2.8.0",
+      "resolved": "https://registry.npmjs.org/stream-http/-/stream-http-2.8.0.tgz",
       "dev": true,
       "dependencies": {
         "xtend": {
@@ -8736,8 +8757,8 @@
 <<<<<<< HEAD
 =======
     "timers-browserify": {
-      "version": "2.0.4",
-      "resolved": "https://registry.npmjs.org/timers-browserify/-/timers-browserify-2.0.4.tgz",
+      "version": "2.0.5",
+      "resolved": "https://registry.npmjs.org/timers-browserify/-/timers-browserify-2.0.5.tgz",
       "dev": true
     },
     "tmp": {
