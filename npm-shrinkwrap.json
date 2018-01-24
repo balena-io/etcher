@@ -204,8 +204,8 @@
       }
     },
     "apple-data-compression": {
-      "version": "0.1.0",
-      "resolved": "https://registry.npmjs.org/apple-data-compression/-/apple-data-compression-0.1.0.tgz"
+      "version": "0.2.0",
+      "resolved": "https://registry.npmjs.org/apple-data-compression/-/apple-data-compression-0.2.0.tgz"
     },
     "aproba": {
       "version": "1.1.1",
@@ -413,8 +413,7 @@
     },
     "base64-js": {
       "version": "1.2.0",
-      "resolved": "https://registry.npmjs.org/base64-js/-/base64-js-1.2.0.tgz",
-      "dev": true
+      "resolved": "https://registry.npmjs.org/base64-js/-/base64-js-1.2.0.tgz"
     },
     "bcrypt-pbkdf": {
       "version": "1.0.1",
@@ -4913,12 +4912,10 @@
     "plist": {
       "version": "2.1.0",
       "resolved": "https://registry.npmjs.org/plist/-/plist-2.1.0.tgz",
-      "dev": true,
       "dependencies": {
         "xmlbuilder": {
           "version": "8.2.2",
-          "resolved": "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-8.2.2.tgz",
-          "dev": true
+          "resolved": "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-8.2.2.tgz"
         }
       }
     },
@@ -6230,22 +6227,8 @@
       "resolved": "https://registry.npmjs.org/ua-parser-js/-/ua-parser-js-0.7.12.tgz"
     },
     "udif": {
-      "version": "0.10.0",
-      "resolved": "https://registry.npmjs.org/udif/-/udif-0.10.0.tgz",
-      "dependencies": {
-        "base64-js": {
-          "version": "1.1.2",
-          "resolved": "https://registry.npmjs.org/base64-js/-/base64-js-1.1.2.tgz"
-        },
-        "plist": {
-          "version": "2.0.1",
-          "resolved": "https://registry.npmjs.org/plist/-/plist-2.0.1.tgz"
-        },
-        "xmlbuilder": {
-          "version": "8.2.2",
-          "resolved": "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-8.2.2.tgz"
-        }
-      }
+      "version": "0.13.0",
+      "resolved": "https://registry.npmjs.org/udif/-/udif-0.13.0.tgz"
     },
     "uglify-js": {
       "version": "2.8.13",
