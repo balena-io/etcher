@@ -23,7 +23,7 @@ require('angular-mocks')
 
 describe('Browser: OSOpenExternal', function () {
   beforeEach(angular.mock.module(
-    require('../../../lib/gui/os/open-external/open-external')
+    require('../../../lib/gui/app/os/open-external/open-external')
   ))
 
   describe('osOpenExternal', function () {

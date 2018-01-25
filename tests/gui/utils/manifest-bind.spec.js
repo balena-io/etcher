@@ -23,7 +23,7 @@ require('angular-mocks')
 
 describe('Browser: ManifestBind', function () {
   beforeEach(angular.mock.module(
-    require('../../../lib/gui/utils/manifest-bind/manifest-bind')
+    require('../../../lib/gui/app/utils/manifest-bind/manifest-bind')
   ))
 
   let $compile

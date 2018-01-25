@@ -25,7 +25,7 @@ require('angular-mocks')
 
 describe('Browser: SVGIcon', function () {
   beforeEach(angular.mock.module(
-    require('../../../lib/gui/components/svg-icon')
+    require('../../../lib/gui/app/components/svg-icon')
   ))
 
   describe('svgIcon', function () {

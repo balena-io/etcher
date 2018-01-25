@@ -23,7 +23,7 @@ const units = require('../../../lib/shared/units')
 
 describe('Browser: ByteSize', function () {
   beforeEach(angular.mock.module(
-    require('../../../lib/gui/utils/byte-size/byte-size')
+    require('../../../lib/gui/app/utils/byte-size/byte-size')
   ))
 
   describe('ClosestUnitFilter', function () {

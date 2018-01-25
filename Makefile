@@ -514,7 +514,7 @@ electron-develop:
 		-s "$(PLATFORM)"
 
 sass:
-	node-sass lib/gui/scss/main.scss > lib/gui/css/main.css
+	node-sass lib/gui/app/scss/main.scss > lib/gui/css/main.css
 
 lint-js:
 	eslint lib tests scripts bin versionist.conf.js

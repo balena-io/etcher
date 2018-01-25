@@ -17,7 +17,7 @@
 'use strict'
 
 const m = require('mochainon')
-const windowProgress = require('../../../lib/gui/os/window-progress')
+const windowProgress = require('../../../lib/gui/app/os/window-progress')
 
 describe('Browser: WindowProgress', function () {
   describe('windowProgress', function () {
