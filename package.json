@@ -94,11 +94,11 @@
   "devDependencies": {
     "angular-mocks": "1.6.3",
     "asar": "0.10.0",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
+    "babel-core": "6.26.0",
+    "babel-loader": "7.1.2",
+    "babel-preset-env": "1.6.1",
+    "babel-preset-react": "6.24.1",
+    "babel-preset-stage-0": "6.24.1",
     "electron": "1.7.11",
     "electron-builder": "19.40.0",
     "electron-mocha": "5.0.0",
@@ -111,7 +111,7 @@
     "eslint-plugin-promise": "3.6.0",
     "eslint-plugin-standard": "3.0.1",
     "html-angular-validate": "0.1.9",
-    "html-loader": "^0.5.1",
+    "html-loader": "0.5.1",
     "mocha": "3.2.0",
     "mochainon": "1.0.0",
     "nock": "9.0.9",
@@ -121,6 +121,6 @@
     "sass-lint": "1.10.2",
     "spectron": "3.7.2",
     "versionist": "2.8.1",
-    "webpack": "^3.10.0"
+    "webpack": "3.10.0"
   }
 }
