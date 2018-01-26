@@ -18,7 +18,6 @@
 
 const m = require('mochainon')
 const _ = require('lodash')
-const fs = require('fs')
 const path = require('path')
 const supportedFormats = require('../../../lib/shared/supported-formats')
 const angular = require('angular')
