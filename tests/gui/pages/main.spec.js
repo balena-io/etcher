@@ -27,14 +27,6 @@ const availableDrives = require('../../../lib/shared/models/available-drives')
 const selectionState = require('../../../lib/shared/models/selection-state')
 require('angular-mocks')
 
-// Mock HTML requires by reading from the file-system
-// eslint-disable-next-line node/no-deprecated-api
-require.extensions['.html'] = (module, filename) => {
-  return fs.readFileSync(filename, {
-    encoding: 'utf8'
-  })
-}
-
 describe('Browser: MainPage', function () {
   beforeEach(angular.mock.module(
     require('../../../lib/gui/app/pages/main/main')
