@@ -19,7 +19,7 @@
 const m = require('mochainon')
 const _ = require('lodash')
 const units = require('../../../lib/shared/units')
-const updateNotifier = require('../../../lib/gui/components/update-notifier')
+const updateNotifier = require('../../../lib/gui/app/components/update-notifier')
 
 describe('Browser: updateNotifier', function () {
   describe('.UPDATE_NOTIFIER_SLEEP_DAYS', function () {

@@ -23,7 +23,7 @@ require('angular-mocks')
 
 describe('Browser: DriveSelector', function () {
   beforeEach(angular.mock.module(
-    require('../../../lib/gui/components/drive-selector/drive-selector')
+    require('../../../lib/gui/app/components/drive-selector/drive-selector')
   ))
 
   describe('DriveSelectorController', function () {

@@ -28,7 +28,7 @@ require('angular-mocks')
 
 describe('Browser: MainPage', function () {
   beforeEach(angular.mock.module(
-    require('../../../lib/gui/pages/main/main')
+    require('../../../lib/gui/app/pages/main/main')
   ))
 
   describe('MainController', function () {

@@ -19,7 +19,7 @@
 const m = require('mochainon')
 const os = require('os')
 const drivelist = require('drivelist')
-const driveScanner = require('../../../lib/gui/modules/drive-scanner')
+const driveScanner = require('../../../lib/gui/app/modules/drive-scanner')
 
 describe('Browser: driveScanner', function () {
   describe('detected devices should be an array', function () {

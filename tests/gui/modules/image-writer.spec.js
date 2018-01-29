@@ -5,7 +5,7 @@ const ipc = require('node-ipc')
 const angular = require('angular')
 const Bluebird = require('bluebird')
 const flashState = require('../../../lib/shared/models/flash-state')
-const imageWriter = require('../../../lib/gui/modules/image-writer')
+const imageWriter = require('../../../lib/gui/app/modules/image-writer')
 require('angular-mocks')
 
 describe('Browser: imageWriter', () => {

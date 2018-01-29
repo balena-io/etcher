@@ -1,8 +1,8 @@
 'use strict'
 
 const m = require('mochainon')
-const settings = require('../../../lib/gui/models/settings')
-const progressStatus = require('../../../lib/gui/modules/progress-status')
+const settings = require('../../../lib/gui/app/models/settings')
+const progressStatus = require('../../../lib/gui/app/modules/progress-status')
 
 describe('Browser: progressStatus', function () {
   describe('.fromFlashState()', function () {
