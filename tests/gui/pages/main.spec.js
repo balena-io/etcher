@@ -18,6 +18,7 @@
 
 const m = require('mochainon')
 const _ = require('lodash')
+const fs = require('fs')
 const path = require('path')
 const supportedFormats = require('../../../lib/shared/supported-formats')
 const angular = require('angular')
@@ -25,6 +26,14 @@ const flashState = require('../../../lib/shared/models/flash-state')
 const availableDrives = require('../../../lib/shared/models/available-drives')
 const selectionState = require('../../../lib/shared/models/selection-state')
 require('angular-mocks')
+
+// Mock HTML requires by reading from the file-system
+// eslint-disable-next-line node/no-deprecated-api
+require.extensions['.html'] = (module, filename) => {
+  module.exports = fs.readFileSync(filename, {
+    encoding: 'utf8'
+  })
+}
 
 describe('Browser: MainPage', function () {
   beforeEach(angular.mock.module(
@@ -239,6 +248,24 @@ describe('Browser: MainPage', function () {
         })
         m.chai.expect(controller.getProgressButtonLabel()).to.equal('85% Flashing')
       })
+    })
+  })
+
+  describe('page template', function () {
+    let $state
+
+    beforeEach(angular.mock.inject(function (_$state_) {
+      $state = _$state_
+    }))
+
+    it('should match the file contents', function () {
+      const {
+        template
+      } = $state.get('main')
+      const contents = fs.readFileSync('lib/gui/app/pages/main/templates/main.tpl.html', {
+        encoding: 'utf-8'
+      })
+      m.chai.expect(template).to.equal(contents)
     })
   })
 })
