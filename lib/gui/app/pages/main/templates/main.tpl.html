@@ -64,13 +64,16 @@
           <div class="step-selection-text"
             ng-class="{
               'text-disabled': main.shouldDriveStepBeDisabled()
-            }"
-            uib-tooltip="{{ main.selection.getDrive().description }} ({{ main.selection.getDrive().displayName }})">
-            <span class="step-drive step-name">
+            }">
+            <span class="drive-step step-name"
+              uib-tooltip="{{ main.selection.getDrive().description }} ({{ main.selection.getDrive().displayName }})">
               <!-- middleEllipses errors on undefined, therefore fallback to empty string -->
               {{ (main.selection.getDrive().description || "") | middleEllipses:11 }}
             </span>
             <span class="step-drive step-size">{{ main.selection.getDrive().size | closestUnit }}</span>
+            <span class="step-drive step-warning glyphicon glyphicon-exclamation-sign"
+              uib-tooltip="{{ main.constraints.getDriveImageCompatibilityStatuses(main.selection.getDrive(), main.selection.getImage())[0].message }}"
+              ng-show="main.constraints.hasDriveImageCompatibilityStatus(main.selection.getDrive(), main.selection.getImage())"></span>
           </div>
           <button class="button button-link step-footer"
             tabindex="{{ main.selection.hasDrive() ? 2 : -1 }}"
