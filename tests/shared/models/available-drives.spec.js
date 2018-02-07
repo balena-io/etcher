@@ -142,8 +142,8 @@ describe('Model: availableDrives', function () {
 
         describe('given no selected image and no selected drive', function () {
           beforeEach(function () {
-            selectionState.removeDrive()
-            selectionState.removeImage()
+            selectionState.unselectDrive()
+            selectionState.unselectImage()
           })
 
           it('should auto-select a single valid available drive', function () {
@@ -175,8 +175,8 @@ describe('Model: availableDrives', function () {
               this.imagePath = '/mnt/bar/foo.img'
             }
 
-            selectionState.removeDrive()
-            selectionState.setImage({
+            selectionState.unselectDrive()
+            selectionState.selectImage({
               path: this.imagePath,
               extension: 'img',
               size: {
@@ -191,7 +191,7 @@ describe('Model: availableDrives', function () {
           })
 
           afterEach(function () {
-            selectionState.removeImage()
+            selectionState.unselectImage()
           })
 
           it('should not auto-select when there are multiple valid available drives', function () {
@@ -394,11 +394,11 @@ describe('Model: availableDrives', function () {
             }
           ])
 
-          selectionState.setDrive('/dev/sdc')
+          selectionState.selectDrive('/dev/sdc')
         })
 
         afterEach(function () {
-          selectionState.removeDrive()
+          selectionState.unselectDrive()
         })
 
         it('should be deleted if its not contained in the available drives anymore', function () {

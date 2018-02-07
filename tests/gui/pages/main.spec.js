@@ -54,7 +54,7 @@ describe('Browser: MainPage', function () {
           $scope: {}
         })
 
-        selectionState.setImage({
+        selectionState.selectImage({
           path: 'rpi.img',
           extension: 'img',
           size: {
@@ -87,7 +87,7 @@ describe('Browser: MainPage', function () {
         })
 
         selectionState.clear()
-        selectionState.setImage({
+        selectionState.selectImage({
           path: 'rpi.img',
           extension: 'img',
           size: {
@@ -118,7 +118,7 @@ describe('Browser: MainPage', function () {
         ])
 
         selectionState.clear()
-        selectionState.setDrive('/dev/disk2')
+        selectionState.selectDrive('/dev/disk2')
 
         m.chai.expect(controller.shouldFlashStepBeDisabled()).to.be.true
       })
@@ -139,9 +139,9 @@ describe('Browser: MainPage', function () {
         ])
 
         selectionState.clear()
-        selectionState.setDrive('/dev/disk2')
+        selectionState.selectDrive('/dev/disk2')
 
-        selectionState.setImage({
+        selectionState.selectImage({
           path: 'rpi.img',
           extension: 'img',
           size: {
@@ -181,7 +181,7 @@ describe('Browser: MainPage', function () {
           $scope: {}
         })
 
-        selectionState.setImage({
+        selectionState.selectImage({
           path: path.join(__dirname, 'foo', 'bar.img'),
           extension: 'img',
           size: {
@@ -194,7 +194,7 @@ describe('Browser: MainPage', function () {
         })
 
         m.chai.expect(controller.getImageBasename()).to.equal('bar.img')
-        selectionState.removeImage()
+        selectionState.unselectImage()
       })
 
       it('should return an empty string if no selected image', function () {
@@ -202,7 +202,7 @@ describe('Browser: MainPage', function () {
           $scope: {}
         })
 
-        selectionState.removeImage()
+        selectionState.unselectImage()
         m.chai.expect(controller.getImageBasename()).to.equal('')
       })
     })
