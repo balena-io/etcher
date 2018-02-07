@@ -7,7 +7,7 @@
       </div>
 
       <div class="space-vertical-large">
-        <div ng-hide="main.selection.hasImage()">
+        <div ng-if="!main.selection.hasImage()">
           <button
             class="button button-primary button-brick"
             tabindex="{{ main.selection.hasImage() ? -1 : 1 }}"
@@ -49,7 +49,7 @@
       </div>
 
       <div class="space-vertical-large">
-        <div ng-hide="main.selection.hasDrive()">
+        <div ng-if="!main.selection.hasDrive()">
 
           <div>
             <button class="button button-primary button-brick"
@@ -59,7 +59,7 @@
           </div>
 
         </div>
-        <div ng-show="main.selection.hasDrive()">
+        <div ng-if="main.selection.hasDrive()">
 
           <div class="step-selection-text"
             ng-class="{
@@ -99,7 +99,7 @@
             <span ng-bind="flash.getProgressButtonLabel()"></span>
         </progress-button>
 
-        <p class="step-footer step-footer-split" ng-show="main.state.getFlashState().speed && main.state.getFlashState().percentage != 100">
+        <p class="step-footer step-footer-split" ng-if="main.state.getFlashState().speed && main.state.getFlashState().percentage != 100">
           <span ng-bind="main.state.getFlashState().speed.toFixed(2) + ' MB/s'"></span>
           <span>ETA: {{ main.state.getFlashState().eta | secondsToDate | amDateFormat:'m[m]ss[s]' }}</span>
         </p>
