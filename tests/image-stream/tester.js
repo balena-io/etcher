@@ -21,7 +21,8 @@ const _ = require('lodash')
 const Bluebird = require('bluebird')
 const fileExists = require('file-exists')
 const fs = Bluebird.promisifyAll(require('fs'))
-const tmp = require('tmp')
+const os = require('os')
+const path = require('path')
 const imageStream = require('../../lib/image-stream/index')
 
 const doFilesContainTheSameData = (file1, file2) => {
@@ -61,7 +62,7 @@ exports.expectError = function (file, errorMessage, errorDetail) {
 
 exports.extractFromFilePath = function (file, image) {
   it('should be able to extract the image', function () {
-    const output = tmp.tmpNameSync()
+    const output = path.join(os.tmpdir(), path.basename(file))
 
     return imageStream.getFromFilePath(file).then(function (results) {
       m.chai.expect(results.path).to.equal(file)
