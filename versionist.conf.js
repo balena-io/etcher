@@ -38,7 +38,11 @@ module.exports = {
   },
 
   getIncrementLevelFromCommit: (commit) => {
-    return commit.footer['Change-Type']
+    if (/none/i.test(commit.footer['Change-Type'])) {
+      return null
+    }
+    return commit.footer['Change-Type'] &&
+      _.toLower(commit.footer['Change-Type'])
   },
 
   transformTemplateData: (data) => {

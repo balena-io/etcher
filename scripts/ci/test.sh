@@ -51,5 +51,6 @@ if [ "$ARGV_OPERATING_SYSTEM" == "linux" ]; then
     -c 'xvfb-run --server-args=$XVFB_ARGS make lint test sanity-checks'
 else
   ./scripts/build/check-dependency.sh make
+  export TARGET_ARCH="$ARGV_ARCHITECTURE"
   make lint test sanity-checks
 fi

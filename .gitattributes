@@ -5,7 +5,6 @@
 *.scss text eol=lf
 
 # Text files
-dictionary text
 Dockerfile* text
 .dockerignore text
 .editorconfig text
@@ -35,8 +34,14 @@ Makefile text
 *.img binary diff=hex
 *.iso binary diff=hex
 *.png binary diff=hex
+*.bin binary diff=hex
+*.elf binary diff=hex
 *.xz binary diff=hex
 *.zip binary diff=hex
+*.dtb binary diff=hex
+*.dtbo binary diff=hex
+*.dat binary diff=hex
+*.bin binary diff=hex
 *.dmg binary diff=hex
 *.rpi-sdcard binary diff=hex
 *.foo binary diff=hex

@@ -25,8 +25,10 @@ RUN apt-get update \
     libasound2 \
     libgconf-2-4 \
     libgtk2.0-0 \
-    libx11-xcb1 \
+    libudev-dev \
+    libusb-1.0-0-dev \
     libnss3 \
+    libx11-xcb1 \
     libxss1 \
     libxtst6 \
     libyaml-dev \
@@ -41,16 +43,24 @@ RUN apt-get update \
     zip \
     rpm
 
+# NodeJS
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
+  && apt-get install -y nodejs
+
 <% if (architecture != 'armv7hf') { %>
+
 # Install a C++11 compiler
 RUN add-apt-repository ppa:ubuntu-toolchain-r/test \
   && apt-get update && apt-get install -y gcc-4.8 g++-4.8 \
   && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
-<% } %>
 
-# NodeJS
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
-  && apt-get install -y nodejs
+# Workaround: Install a newer version of `tar` to make fpm in electron-builder work again
+RUN echo "deb http://ftp.debian.org/debian wheezy main" >> /etc/apt/sources.list
+RUN echo "deb http://ftp.debian.org/debian wheezy-backports main" >> /etc/apt/sources.list
+RUN apt-get update && apt-get install --force-yes -y -t wheezy libacl1 && \
+  apt-get install --force-yes -y -t wheezy-backports tar
+
+<% } %>
 
 # See https://github.com/mapbox/node-pre-gyp/issues/165
 RUN npm config set unsafe-perm=true
@@ -59,4 +69,11 @@ RUN npm config set spin=false
 
 # Python
 COPY requirements.txt requirements.txt
-RUN pip install --quiet -r requirements.txt
+
+# FIXME: Work around "Cannot fetch index base URL http://pypi.python.org/simple/" error
+RUN curl "https://pypi.python.org/packages/11/b6/abcb525026a4be042b486df43905d6893fb04f05aac21c32c638e939e447/pip-9.0.1.tar.gz" > pip-9.0.1.tar.gz \
+  && tar xvfz pip-9.0.1.tar.gz \
+  && cd pip-9.0.1 \
+  && python setup.py install
+
+RUN pip --version && pip install --quiet -r requirements.txt

@@ -65,13 +65,40 @@ describe('Model: availableDrives', function () {
               device: '/dev/sdb',
               description: 'Foo',
               size: '14G',
-              mountpoint: '/mnt/foo',
-              system: false
+              mountpoints: [ {
+                path: '/mnt/foo'
+              } ],
+              isSystem: false
             }
           ]
 
           availableDrives.setDrives(drives)
           m.chai.expect(availableDrives.getDrives()).to.deep.equal(drives)
+        })
+
+        it('should be able to set non-plain drive objects', function () {
+          class Device {
+            constructor () {
+              this.device = '/dev/sdb'
+              this.description = 'Foo'
+              this.mountpoints = [ {
+                path: '/mnt/foo'
+              } ]
+              this.isSystem = false
+            }
+          }
+
+          availableDrives.setDrives([ new Device() ])
+          m.chai.expect(availableDrives.getDrives()).to.deep.equal([
+            {
+              device: '/dev/sdb',
+              description: 'Foo',
+              mountpoints: [ {
+                path: '/mnt/foo'
+              } ],
+              isSystem: false
+            }
+          ])
         })
 
         it('should be able to set drives with extra properties', function () {
@@ -80,8 +107,10 @@ describe('Model: availableDrives', function () {
               device: '/dev/sdb',
               description: 'Foo',
               size: '14G',
-              mountpoint: '/mnt/foo',
-              system: false,
+              mountpoints: [ {
+                path: '/mnt/foo'
+              } ],
+              isSystem: false,
               foo: {
                 bar: 'baz',
                 qux: 5
@@ -100,8 +129,10 @@ describe('Model: availableDrives', function () {
               device: '/dev/sdb',
               description: 'Foo',
               size: null,
-              mountpoint: '/mnt/foo',
-              system: false
+              mountpoints: [ {
+                path: '/mnt/foo'
+              } ],
+              isSystem: false
             }
           ]
 
@@ -123,9 +154,11 @@ describe('Model: availableDrives', function () {
                 device: '/dev/sdb',
                 name: 'Foo',
                 size: 999999999,
-                mountpoint: '/mnt/foo',
-                system: false,
-                protected: false
+                mountpoints: [ {
+                  path: '/mnt/foo'
+                } ],
+                isSystem: false,
+                isReadOnly: false
               }
             ])
 
@@ -169,17 +202,21 @@ describe('Model: availableDrives', function () {
                 device: '/dev/sdb',
                 name: 'Foo',
                 size: 999999999,
-                mountpoint: '/mnt/foo',
-                system: false,
-                protected: false
+                mountpoints: [ {
+                  path: '/mnt/foo'
+                } ],
+                isSystem: false,
+                isReadOnly: false
               },
               {
                 device: '/dev/sdc',
                 name: 'Bar',
                 size: 999999999,
-                mountpoint: '/mnt/bar',
-                system: false,
-                protected: false
+                mountpoints: [ {
+                  path: '/mnt/bar'
+                } ],
+                isSystem: false,
+                isReadOnly: false
               }
             ])
 
@@ -194,9 +231,11 @@ describe('Model: availableDrives', function () {
                 device: '/dev/sdb',
                 name: 'Foo',
                 size: 2000000000,
-                mountpoint: '/mnt/foo',
-                system: false,
-                protected: false
+                mountpoints: [ {
+                  path: '/mnt/foo'
+                } ],
+                isSystem: false,
+                isReadOnly: false
               }
             ])
 
@@ -204,9 +243,11 @@ describe('Model: availableDrives', function () {
               device: '/dev/sdb',
               name: 'Foo',
               size: 2000000000,
-              mountpoint: '/mnt/foo',
-              system: false,
-              protected: false
+              mountpoints: [ {
+                path: '/mnt/foo'
+              } ],
+              isSystem: false,
+              isReadOnly: false
             })
           })
 
@@ -218,9 +259,11 @@ describe('Model: availableDrives', function () {
                 device: '/dev/sdb',
                 name: 'Foo',
                 size: 99999999,
-                mountpoint: '/mnt/foo',
-                system: false,
-                protected: false
+                mountpoints: [ {
+                  path: '/mnt/foo'
+                } ],
+                isSystem: false,
+                isReadOnly: false
               }
             ])
 
@@ -235,9 +278,11 @@ describe('Model: availableDrives', function () {
                 device: '/dev/sdb',
                 name: 'Foo',
                 size: 1500000000,
-                mountpoint: '/mnt/foo',
-                system: false,
-                protected: false
+                mountpoints: [ {
+                  path: '/mnt/foo'
+                } ],
+                isSystem: false,
+                isReadOnly: false
               }
             ])
 
@@ -252,9 +297,11 @@ describe('Model: availableDrives', function () {
                 device: '/dev/sdb',
                 name: 'Foo',
                 size: 2000000000,
-                mountpoint: '/mnt/foo',
-                system: false,
-                protected: true
+                mountpoints: [ {
+                  path: '/mnt/foo'
+                } ],
+                isSystem: false,
+                isReadOnly: true
               }
             ])
 
@@ -274,8 +321,8 @@ describe('Model: availableDrives', function () {
                     path: path.dirname(this.imagePath)
                   }
                 ],
-                system: false,
-                protected: false
+                isSystem: false,
+                isReadOnly: false
               }
             ])
 
@@ -290,9 +337,11 @@ describe('Model: availableDrives', function () {
                 device: '/dev/sdb',
                 name: 'Foo',
                 size: 2000000000,
-                mountpoint: '/mnt/foo',
-                system: true,
-                protected: false
+                mountpoints: [ {
+                  path: '/mnt/foo'
+                } ],
+                isSystem: true,
+                isReadOnly: false
               }
             ])
 
@@ -309,17 +358,21 @@ describe('Model: availableDrives', function () {
             device: '/dev/sdb',
             name: 'SD Card',
             size: 9999999,
-            mountpoint: '/mnt/foo',
-            system: false,
-            protected: false
+            mountpoints: [ {
+              path: '/mnt/foo'
+            } ],
+            isSystem: false,
+            isReadOnly: false
           },
           {
             device: '/dev/sdc',
             name: 'USB Drive',
             size: 9999999,
-            mountpoint: '/mnt/bar',
-            system: false,
-            protected: false
+            mountpoints: [ {
+              path: '/mnt/bar'
+            } ],
+            isSystem: false,
+            isReadOnly: false
           }
         ]
 
@@ -333,9 +386,11 @@ describe('Model: availableDrives', function () {
               device: '/dev/sdc',
               name: 'USB Drive',
               size: 9999999,
-              mountpoint: '/mnt/bar',
-              system: false,
-              protected: false
+              mountpoints: [ {
+                path: '/mnt/bar'
+              } ],
+              isSystem: false,
+              isReadOnly: false
             }
           ])
 
@@ -357,17 +412,21 @@ describe('Model: availableDrives', function () {
               device: '/dev/sda',
               name: 'USB Drive',
               size: 9999999,
-              mountpoint: '/mnt/bar',
-              system: false,
-              protected: false
+              mountpoints: [ {
+                path: '/mnt/bar'
+              } ],
+              isSystem: false,
+              isReadOnly: false
             },
             {
               device: '/dev/sdb',
               name: 'SD Card',
               size: 9999999,
-              mountpoint: '/mnt/foo',
-              system: false,
-              protected: false
+              mountpoints: [ {
+                path: '/mnt/foo'
+              } ],
+              isSystem: false,
+              isReadOnly: false
             }
           ])
 

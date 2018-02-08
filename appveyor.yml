@@ -3,6 +3,9 @@
 
 image: Visual Studio 2015
 
+# See https://github.com/electron/spectron#on-appveyor
+os: unstable
+
 cache:
   - C:\Users\appveyor\.node-gyp
   - '%LOCALAPPDATA%\electron\Cache'
@@ -19,31 +22,32 @@ environment:
   global:
     ELECTRON_NO_ATTACH_CONSOLE: true
     nodejs_version: "6.10.3"
-  matrix:
-    - TARGET_ARCH: x64
-    - TARGET_ARCH: x86
+
+platform:
+  - x86
+  - x64
 
 matrix:
   fast_finish: true
 
 install:
-  - ps: Update-NodeJsInstallation $env:nodejs_version $env:TARGET_ARCH
+  - ps: Update-NodeJsInstallation $env:nodejs_version $env:Platform
   - set PATH=C:\Program Files (x86)\Windows Kits\8.1\bin\x86;%PATH%
   - set PATH=C:\Program Files (x86)\NSIS;%PATH%
   - set PATH=C:\MinGW\bin;%PATH%
   - set PATH=C:\MinGW\msys\1.0\bin;%PATH%
-  - bash .\scripts\ci\install.sh -o win32 -r %TARGET_ARCH%
+  - bash .\scripts\ci\install.sh -o win32 -r %Platform%
 
 build: off
 
 test_script:
   - node --version
   - npm --version
-  - bash .\scripts\ci\test.sh -o win32 -r %TARGET_ARCH%
-  - bash .\scripts\ci\build-installers.sh -o win32 -r %TARGET_ARCH%
+  - bash .\scripts\ci\test.sh -o win32 -r %Platform%
+  - bash .\scripts\ci\build-installers.sh -o win32 -r %Platform%
 
 deploy_script:
-  - if %APPVEYOR_REPO_BRANCH%==master (bash .\scripts\ci\deploy.sh -o win32 -r %TARGET_ARCH%)
+  - if %APPVEYOR_REPO_BRANCH%==master (bash .\scripts\ci\deploy.sh -o win32 -r %Platform%)
 
 notifications:
 

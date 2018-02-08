@@ -22,7 +22,7 @@ require('angular-mocks')
 
 describe('Browser: OSDropzone', function () {
   beforeEach(angular.mock.module(
-    require('../../../lib/gui/os/dropzone/dropzone')
+    require('../../../lib/gui/app/os/dropzone/dropzone')
   ))
 
   describe('osDropzone', function () {

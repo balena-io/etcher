@@ -1,0 +1,126 @@
+/*
+ * Copyright 2016 resin.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * A button with a progress bar inside.
+ *
+ * From http://tympanus.net/Development/ProgressButtonStyles/
+ *
+ * The state of the progress bar is controller by the width, in percentage,
+ * of `.progress-button__bar`.
+ *
+ * If there is an action in place, the `active` attribute must be set to `true`.
+ * This is useful to determine if the progress bar is paused from the point of view
+ * of the styling.
+ *
+ * You can optionally pass the `.progress-button--striped` modified to get a striped
+ * progress bar.
+ *
+ * The stripe implementation idea was taken from:
+ *
+ *   https://css-tricks.com/css3-progress-bars/
+ *
+ * Usage:
+ *
+ * <button class="progress-button" active="true">
+ *   <span class="progress-button__content">Button text</span>
+ *   <span class="progress-button__bar" style="width: 50%;"></span>
+ * </button>
+ */
+
+$progress-button-stripes-width: 20px;
+$progress-button-stripes-animation-duration: 1s;
+
+.progress-button {
+  @extend .button;
+  @extend .button-primary;
+  
+  overflow: hidden;
+
+  &[active="true"] {
+    background-color: $palette-theme-warning-background;
+  }
+
+  .progress-button__bar {
+    background-color: lighten($palette-theme-warning-background, 5%);
+  }
+
+  &.progress-button--striped {
+    $progress-button-stripes-background-color: desaturate($palette-theme-warning-background, 5%);
+    $progress-button-stripes-foreground-color: desaturate(darken($palette-theme-warning-background, 18%), 20%);
+
+    // Notice that we add `0.01` to certain gradient stop positions.
+    // That workarounds a Chrome rendering issue where diagonal
+    // lines look spiky.
+    // See https://github.com/resin-io/etcher/issues/472
+    background-image: -webkit-gradient(linear, 0 0, 100% 100%,
+      color-stop(0.25, $progress-button-stripes-foreground-color),
+      color-stop(0.25 + 0.01, $progress-button-stripes-background-color),
+      color-stop(0.50, $progress-button-stripes-background-color),
+      color-stop(0.50 + 0.01, $progress-button-stripes-foreground-color),
+      color-stop(0.75, $progress-button-stripes-foreground-color),
+      color-stop(0.75 + 0.01, $progress-button-stripes-background-color),
+      to($progress-button-stripes-background-color));
+
+    .progress-button__bar {
+      background-color: lighten($palette-theme-warning-background, 5%);
+    }
+
+  }
+
+}
+
+// Prevent the button from being clickable
+// when it has an active progress bar.
+.progress-button[active="true"] {
+  @extend .button-no-hover;
+}
+
+.progress-button__content {
+  position: relative;
+  z-index: 10;
+}
+
+.progress-button__bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 0;
+  height: 100%;
+
+  // Subtle progress bar animation
+  transition: width 0.3s;
+
+}
+
+.progress-button--striped {
+  background-size: $progress-button-stripes-width $progress-button-stripes-width;
+  animation: progress-button-stripes $progress-button-stripes-animation-duration linear infinite;
+  overflow: hidden;
+}
+
+@keyframes progress-button-stripes {
+
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: $progress-button-stripes-width $progress-button-stripes-width;
+  }
+
+}

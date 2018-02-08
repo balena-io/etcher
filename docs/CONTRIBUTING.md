@@ -18,7 +18,7 @@ Developing
 #### Common
 
 - [NodeJS](https://nodejs.org) (at least v6)
-- [Python](https://www.python.org)
+- [Python 2.7](https://www.python.org)
 - [jq](https://stedolan.github.io/jq/)
 - [curl](https://curl.haxx.se/)
 
@@ -40,6 +40,9 @@ You might need to run this with `sudo` or administrator permissions.
     C++ 2015` (see http://stackoverflow.com/a/31955339)
 - [MinGW](http://www.mingw.org)
 
+You might need to `npm config set msvs_version 2015` for node-gyp to correctly detect
+the version of Visual Studio you're using (in this example VS2015).
+
 The following MinGW packages are required:
 
 - `msys-make`
@@ -53,6 +56,10 @@ The following MinGW packages are required:
 - [XCode](https://developer.apple.com/xcode/) or [XCode Command Line Tools],
 which can be installed by running `xcode-select --install`.
 
+#### Linux
+
+- `libudev-dev` for libusb (install with `sudo apt install libudev-dev` for example)
+
 ### Cloning the project
 
 ```sh
@@ -62,10 +69,7 @@ cd etcher
 
 ### Installing npm dependencies
 
-**Make sure you have all the pre-requisites listed above installed in your
-system before running the `install` script.**
-
-**NOTE:** Please make use of the following scripts to install npm dependencies rather
+**NOTE:** Please make use of the following command to install npm dependencies rather
 than simply running `npm install` given that we need to do extra configuration
 to make sure native dependencies are correctly compiled for Electron, otherwise
 the application might not run successfully.

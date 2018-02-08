@@ -20,8 +20,8 @@ const m = require('mochainon')
 const _ = require('lodash')
 const Bluebird = require('bluebird')
 const store = require('../../../lib/shared/store')
-const settings = require('../../../lib/gui/models/settings')
-const localSettings = require('../../../lib/gui/models/local-settings')
+const settings = require('../../../lib/gui/app/models/settings')
+const localSettings = require('../../../lib/gui/app/models/local-settings')
 
 describe('Browser: settings', function () {
   beforeEach(function () {

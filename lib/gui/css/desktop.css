@@ -48,8 +48,10 @@ body {
 }
 
 /* Prevent blue outline */
+a:focus,
 input:focus,
-button:focus {
+button:focus,
+[tabindex]:focus {
   outline: none !important;
 }
 

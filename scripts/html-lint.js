@@ -43,7 +43,10 @@ angularValidate.validate(
     doctype: 'HTML5',
     charset: 'utf-8',
     reportpath: null,
-    reportCheckstylePath: null
+    reportCheckstylePath: null,
+    relaxerror: [
+      'Expected a minus sign or a digit'
+    ]
   }
 ).then((result) => {
   _.each(result.failed, (failure) => {

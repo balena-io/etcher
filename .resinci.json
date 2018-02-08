@@ -1,0 +1,59 @@
+{
+  "node-cli": {
+    "node": "6.1.0",
+    "main": "lib/cli/etcher.js",
+    "dependencies": {
+      "linux": [
+        "libudev-dev",
+        "libusb-1.0-0-dev"
+      ]
+    }
+  },
+  "electron": {
+    "dependencies": {
+      "linux": [
+        "libudev-dev",
+        "libusb-1.0-0-dev",
+        "libyaml-dev"
+      ]
+    },
+    "builder": {
+      "appId": "io.resin.etcher",
+      "copyright": "Copyright 2016 Resinio Ltd",
+      "productName": "Etcher",
+      "mac": {
+        "category": "public.app-category.developer-tools"
+      },
+      "dmg": {
+        "iconSize": 110,
+        "contents": [
+          {
+            "x": 140,
+            "y": 225
+          },
+          {
+            "x": 415,
+            "y": 225,
+            "type": "link",
+            "path": "/Applications"
+          }
+        ],
+        "window": {
+          "width": 540,
+          "height": 405
+        }
+      },
+      "linux": {
+        "category": "Utility",
+        "packageCategory": "utils",
+        "synopsis": "Etcher is a powerful OS image flasher built with web technologies to ensure flashing an SDCard or USB drive is a pleasant and safe experience. It protects you from accidentally writing to your hard-drives, ensures every byte of data was written correctly and much more."
+      },
+      "deb": {
+        "priority": "optional",
+        "depends": [
+          "polkit-1-auth-agent | policykit-1-gnome | polkit-kde-1"
+        ]
+      }
+    }
+  }
+}

@@ -6132,33 +6132,30 @@ body {
 .button-no-hover, .button[disabled], [disabled].progress-button, .progress-button[active="true"] {
   pointer-events: none; }
 
-.button-default,
-.button-default:focus {
+.button-default {
   background-color: #ececec;
-  color: #b3b3b3;
-  outline: none; }
+  color: #b3b3b3; }
 
+.button-default:focus,
 .button-default:hover {
   background-color: lightgray;
   color: #b3b3b3; }
 
-.button-primary, .progress-button,
-.button-primary:focus,
-.progress-button:focus {
+.button-primary, .progress-button {
   background-color: #5793db;
-  color: #fff;
-  outline: none; }
+  color: #fff; }
 
-.button-primary:hover, .progress-button:hover {
+.button-primary:focus, .progress-button:focus,
+.button-primary:hover,
+.progress-button:hover {
   background-color: #2d78d2;
   color: #fff; }
 
-.button-danger,
-.button-danger:focus {
+.button-danger {
   background-color: #d9534f;
-  color: #fff;
-  outline: none; }
+  color: #fff; }
 
+.button-danger:focus,
 .button-danger:hover {
   background-color: #c9302c;
   color: #fff; }
@@ -6315,16 +6312,16 @@ body {
  *   <span class="progress-button__bar" style="width: 50%;"></span>
  * </button>
  */
-.progress-button[active="true"] {
-  background-color: #ff912f; }
-
-.progress-button .progress-button__bar {
-  background-color: #ff9e49; }
-
-.progress-button.progress-button--striped {
-  background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #bd6415), color-stop(0.26, #fa9134), color-stop(0.5, #fa9134), color-stop(0.51, #bd6415), color-stop(0.75, #bd6415), color-stop(0.76, #fa9134), to(#fa9134)); }
-  .progress-button.progress-button--striped .progress-button__bar {
+.progress-button {
+  overflow: hidden; }
+  .progress-button[active="true"] {
+    background-color: #ff912f; }
+  .progress-button .progress-button__bar {
     background-color: #ff9e49; }
+  .progress-button.progress-button--striped {
+    background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #bd6415), color-stop(0.26, #fa9134), color-stop(0.5, #fa9134), color-stop(0.51, #bd6415), color-stop(0.75, #bd6415), color-stop(0.76, #fa9134), to(#fa9134)); }
+    .progress-button.progress-button--striped .progress-button__bar {
+      background-color: #ff9e49; }
 
 .progress-button__content {
   position: relative;
@@ -6365,7 +6362,7 @@ body {
  * limitations under the License.
  */
 .modal-drive-selector-modal .modal-content {
-  width: 300px;
+  width: 315px;
   height: 320px; }
 
 .modal-drive-selector-modal .modal-body {
@@ -6375,7 +6372,7 @@ body {
 .modal-drive-selector-modal .list-group-item[disabled] {
   cursor: not-allowed; }
 
-.modal-drive-selector-modal .list-group-item-footer {
+.modal-drive-selector-modal .list-group-item-footer:has(span) {
   margin-top: 8px; }
 
 .modal-drive-selector-modal .list-group-item-heading,
@@ -6393,14 +6390,29 @@ body {
   border-radius: 0;
   border-color: #ededed;
   padding: 12px 0; }
+  .modal-drive-selector-modal .list-group-item .list-group-item-section-expanded {
+    flex-grow: 1; }
+  .modal-drive-selector-modal .list-group-item .list-group-item-section + .list-group-item-section {
+    margin-left: 10px; }
   .modal-drive-selector-modal .list-group-item > .tick {
     font-size: 11px; }
-  .modal-drive-selector-modal .list-group-item :first-child {
-    flex-grow: 1; }
   .modal-drive-selector-modal .list-group-item:first-child {
     border-top: 0; }
   .modal-drive-selector-modal .list-group-item[disabled] .list-group-item-heading {
     color: #b3b3b3; }
+  .modal-drive-selector-modal .list-group-item progress {
+    appearance: none;
+    width: 100%;
+    height: 2.5px;
+    border: none;
+    border-radius: 50% 50%; }
+  .modal-drive-selector-modal .list-group-item progress::-webkit-progress-bar {
+    background-color: #ececec;
+    border: none;
+    outline: none; }
+  .modal-drive-selector-modal .list-group-item progress::-webkit-progress-value {
+    border-bottom: 1px solid #296cbd;
+    background-color: #5793db; }
 
 .modal-drive-selector-modal .list-group-item-heading {
   font-size: 13px; }

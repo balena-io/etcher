@@ -50,9 +50,11 @@ if [ "$ARGV_OPERATING_SYSTEM" == "linux" ]; then
     -s "$(pwd)" \
     -c "make info && make electron-develop"
 else
+  PIP_COMMAND=pip
   if [ "$ARGV_OPERATING_SYSTEM" == "darwin" ]; then
     ./scripts/build/check-dependency.sh brew
     brew install ccache jq --force-bottle
+    PIP_COMMAND=pip2
   elif [ "$ARGV_OPERATING_SYSTEM" == "win32" ]; then
     ./scripts/build/check-dependency.sh choco
     choco install jq
@@ -63,13 +65,14 @@ else
   fi
 
   ./scripts/build/check-dependency.sh npm
-  ./scripts/build/check-dependency.sh pip
+  ./scripts/build/check-dependency.sh "$PIP_COMMAND"
   ./scripts/build/check-dependency.sh make
 
   npm config set spin=false
   npm config set progress=false
-  pip install --quiet -r requirements.txt
+  "$PIP_COMMAND" install --quiet -r requirements.txt
 
+  export TARGET_ARCH="$ARGV_ARCHITECTURE"
   make info
   make electron-develop
 fi

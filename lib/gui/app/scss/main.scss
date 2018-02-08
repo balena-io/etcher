@@ -1,0 +1,125 @@
+/*
+ * Copyright 2016 resin.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+$icon-font-path: "../../../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
+$font-size-base: 13px;
+$cursor-disabled: initial;
+$link-hover-decoration: none;
+$btn-min-width: 170px;
+$link-color: #ddd;
+$disabled-opacity: 0.2;
+
+@import "../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "./modules/theme";
+@import "./modules/bootstrap";
+@import "./modules/space";
+@import "./components/label";
+@import "./components/badge";
+@import "./components/caption";
+@import "./components/button";
+@import "./components/tick";
+@import "../components/modal/styles/modal";
+@import "../components/progress-button/styles/progress-button";
+@import "../components/drive-selector/styles/drive-selector";
+@import "../components/svg-icon/styles/svg-icon";
+@import "../components/tooltip-modal/styles/tooltip-modal";
+@import "../components/warning-modal/styles/warning-modal";
+@import "../pages/main/styles/main";
+@import "../pages/settings/styles/settings";
+@import "../pages/finish/styles/finish";
+
+body {
+  letter-spacing: 1px;
+}
+
+.section-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  color: $palette-theme-dark-disabled-foreground;
+  margin: 0 60px;
+  padding-top: 15px;
+  border-top: 2px solid $palette-theme-dark-soft-background;
+  text-align: center;
+
+  // Override default column padding
+  // set by flexboxgrid.
+  .col-xs {
+    padding: 0;
+  }
+
+  .svg-icon {
+    margin: 0 13px;
+  }
+
+  .caption[os-open-external] {
+    border-bottom: 1px dashed;
+    padding-bottom: 2px;
+
+    &:hover {
+      color: lighten($palette-theme-dark-disabled-foreground, 5%);
+    }
+  }
+
+  .footer-right {
+    font-size: 10px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+  }
+
+  > span[os-open-external] {
+    display: flex;
+  }
+}
+
+.section-loader {
+  webview {
+    flex: 0 1;
+    height: 0;
+    width: 0;
+  }
+
+  &.isFinish webview {
+    flex: initial;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 255px;
+  }
+}
+
+.wrapper {
+  height: 100%;
+  margin: 20px 60px;
+}
+
+.section-header {
+  text-align: right;
+  padding: 5px 8px;
+  font-size: 15px;
+
+  > .button {
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+}

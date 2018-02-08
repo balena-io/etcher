@@ -3,6 +3,84 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.3.1 - 2018-01-23
+
+### Fixes
+
+- Fix "stdout maxBuffer" error on Linux
+- Fix Etcher not working / crashing on older Windows systems
+- Fix not all partitions being unmounted after flashing on Linux
+- Fix selection of images in folders with file extension on Mac OS
+
+### Misc
+
+- Update Electron to v1.7.11
+
+## v1.3.0 - 2018-01-04
+
+### Features
+
+- Display connected Compute Modules even if Windows doesn't have the necessary drivers to act on them
+- Add read/write retry delays with backoff to ...
+- Add native application menu (which fixes OS native window management shortcuts not working)
+
+### Fixes
+
+- Fix "Couldn't scan drives" error
+- Ensure the writer process dies when the GUI application is killed
+- Run elevated writing process asynchronously on Windows
+- Fix trailing space in environment variables during Windows elevation
+- Don't send analytics events when attempting to toggle a disabled drive
+- Fix handling of transient write errors on Linux (EBUSY)
+- Fix runaway perl process in drivelist on Mac OS
+
+### Misc
+
+- Update Electron from v1.7.9 to v1.7.10
+- Remove Angular dependency from image-writer
+
+## v1.2.1 - 2017-12-06
+
+### Fixes
+
+- Fix handling of temporary read/write errors
+- Don't send initial Mixpanel events before "Anonymous Tracking" settings are loaded
+- Fix verification step reading from the cache
+
+## v1.2.0 - 2017-11-22
+
+### Features
+
+- Display actual write speed
+- Add the progress and status to the window title.
+- Add a sudo-prompt upon launch on Linux-based systems.
+- Add optional progress bars to drive-selector drives.
+- Increase the flashing speed of usbboot discovered devices.
+- Add eye candy to usbboot initialized devices.
+- Integrate Raspberry Pi's usbboot technology.
+
+### Fixes
+
+- Fix bzip2 streaming with the new pipelines
+- Remove Linux elevation meant for usbboot.
+- Fix `LIBUSB_ERROR_NO_DEVICE` error at the end of usbboot.
+- Gracefully handle scenarios where a USB drive is disconnected halfway through the usbboot procedure.
+- Make sure the progress button is always rounded.
+- Fix permission denied issues when XDG_RUNTIME_DIR is mounted with the `noexec` option.
+- Fix Etcher being unable to read certain zip files
+- Fix "Couldn't scan the drives: An unknown error occurred" error when there is a drive locked with BitLocker.
+- Fix "Missing state eta" error when speed is zero
+- Fix "Stuck on Starting..." error
+- Fix situations where the process would get stuck while flashing
+
+### Misc
+
+- Add the Python version (2.7) to the CONTRIBUTING doc.
+- Remove duplicate debug enabling in usbboot module.
+- Update Electron to v1.7.9
+- Retry ejection various times before giving up on Windows.
+- Try to use `$XDG_RUNTIME_DIR` to extract temporary scripts on GNU/Linux.
+
 ## v1.1.2 - 2017-08-07
 
 ### Features
@@ -412,7 +490,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Fix broken image drag and drop functionality.
 - Prevent global shortcuts from interferring with another applications.
-- Prevent re-activating the "Flash" button with the keybaord shortcuts when a flash is already in process.
+- Prevent re-activating the "Flash" button with the keyboard shortcuts when a flash is already in process.
 - Fix certain non-removable Windows devices not being filtered out.
 - Display non-mountable Windows drives in the drive selector.
 

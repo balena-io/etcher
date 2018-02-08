@@ -23,29 +23,29 @@ const constraints = require('../../lib/shared/drive-constraints')
 
 describe('Shared: DriveConstraints', function () {
   describe('.isDriveLocked()', function () {
-    it('should return true if the drive is protected', function () {
+    it('should return true if the drive is read-only', function () {
       const result = constraints.isDriveLocked({
         device: '/dev/disk2',
         name: 'USB Drive',
         size: 999999999,
-        protected: true
+        isReadOnly: true
       })
 
       m.chai.expect(result).to.be.true
     })
 
-    it('should return false if the drive is not protected', function () {
+    it('should return false if the drive is not read-only', function () {
       const result = constraints.isDriveLocked({
         device: '/dev/disk2',
         name: 'USB Drive',
         size: 999999999,
-        protected: false
+        isReadOnly: false
       })
 
       m.chai.expect(result).to.be.false
     })
 
-    it('should return false if we don\'t know if the drive is protected', function () {
+    it('should return false if we don\'t know if the drive is read-only', function () {
       const result = constraints.isDriveLocked({
         device: '/dev/disk2',
         name: 'USB Drive',
@@ -68,8 +68,8 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk2',
         name: 'USB Drive',
         size: 999999999,
-        protected: true,
-        system: true
+        isReadOnly: true,
+        isSystem: true
       })
 
       m.chai.expect(result).to.be.true
@@ -80,7 +80,7 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk2',
         name: 'USB Drive',
         size: 999999999,
-        protected: true
+        isReadOnly: true
       })
 
       m.chai.expect(result).to.be.false
@@ -91,8 +91,8 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk2',
         name: 'USB Drive',
         size: 999999999,
-        protected: true,
-        system: false
+        isReadOnly: true,
+        isSystem: false
       })
 
       m.chai.expect(result).to.be.false
@@ -111,8 +111,8 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk2',
         name: 'USB Drive',
         size: 999999999,
-        protected: true,
-        system: false
+        isReadOnly: true,
+        isSystem: false
       }, undefined)
 
       m.chai.expect(result).to.be.false
@@ -131,8 +131,8 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk2',
         name: 'USB Drive',
         size: 999999999,
-        protected: true,
-        system: false
+        isReadOnly: true,
+        isSystem: false
       }, {
         path: '/Volumes/Untitled/image.img'
       })
@@ -313,7 +313,7 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 1000000000,
-        protected: false
+        isReadOnly: false
       }
     })
 
@@ -325,14 +325,14 @@ describe('Shared: DriveConstraints', function () {
             size: {
               original: this.drive.size - 1,
               final: {
-                estimation: false
+                estimation: false,
+                value: this.drive.size - 1
               }
             }
           }
         })
 
         it('should return true if the final size is less than the drive size', function () {
-          this.image.size.final.value = this.drive.size - 1
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
         })
 
@@ -354,7 +354,8 @@ describe('Shared: DriveConstraints', function () {
             size: {
               original: this.drive.size,
               final: {
-                estimation: false
+                estimation: false,
+                value: this.drive.size
               }
             }
           }
@@ -366,7 +367,6 @@ describe('Shared: DriveConstraints', function () {
         })
 
         it('should return true if the final size is equal to the drive size', function () {
-          this.image.size.final.value = this.drive.size
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
         })
 
@@ -383,7 +383,8 @@ describe('Shared: DriveConstraints', function () {
             size: {
               original: this.drive.size + 1,
               final: {
-                estimation: false
+                estimation: false,
+                value: this.drive.size + 1
               }
             }
           }
@@ -400,7 +401,6 @@ describe('Shared: DriveConstraints', function () {
         })
 
         it('should return false if the final size is greater than the drive size', function () {
-          this.image.size.final.value = this.drive.size + 1
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false
         })
       })
@@ -414,14 +414,14 @@ describe('Shared: DriveConstraints', function () {
             size: {
               original: this.drive.size - 1,
               final: {
-                estimation: true
+                estimation: true,
+                value: this.drive.size - 1
               }
             }
           }
         })
 
         it('should return true if the final size is less than the drive size', function () {
-          this.image.size.final.value = this.drive.size - 1
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
         })
 
@@ -443,7 +443,8 @@ describe('Shared: DriveConstraints', function () {
             size: {
               original: this.drive.size,
               final: {
-                estimation: true
+                estimation: true,
+                value: this.drive.size
               }
             }
           }
@@ -455,7 +456,6 @@ describe('Shared: DriveConstraints', function () {
         })
 
         it('should return true if the final size is equal to the drive size', function () {
-          this.image.size.final.value = this.drive.size
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
         })
 
@@ -472,7 +472,8 @@ describe('Shared: DriveConstraints', function () {
             size: {
               original: this.drive.size + 1,
               final: {
-                estimation: true
+                estimation: true,
+                value: this.drive.size + 1
               }
             }
           }
@@ -489,7 +490,6 @@ describe('Shared: DriveConstraints', function () {
         })
 
         it('should return false if the final size is greater than the drive size', function () {
-          this.image.size.final.value = this.drive.size + 1
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false
         })
       })
@@ -515,7 +515,7 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 1000000000,
-        protected: false
+        isReadOnly: false
       }, undefined)
 
       m.chai.expect(result).to.be.true
@@ -527,37 +527,37 @@ describe('Shared: DriveConstraints', function () {
     })
   })
 
-  describe('.isDrivePending()', function () {
-    it('should return true if the drive is pending', function () {
-      const result = constraints.isDrivePending({
+  describe('.isDriveDisabled()', function () {
+    it('should return true if the drive is disabled', function () {
+      const result = constraints.isDriveDisabled({
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 1000000000,
-        protected: false,
-        pending: true
+        isReadOnly: false,
+        disabled: true
       })
 
       m.chai.expect(result).to.be.true
     })
 
-    it('should return false if the drive is not pending', function () {
-      const result = constraints.isDrivePending({
+    it('should return false if the drive is not disabled', function () {
+      const result = constraints.isDriveDisabled({
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 1000000000,
-        protected: false,
-        pending: false
+        isReadOnly: false,
+        disabled: false
       })
 
       m.chai.expect(result).to.be.false
     })
 
-    it('should return false if "pending" is undefined', function () {
-      const result = constraints.isDrivePending({
+    it('should return false if "disabled" is undefined', function () {
+      const result = constraints.isDriveDisabled({
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 1000000000,
-        protected: false
+        isReadOnly: false
       })
 
       m.chai.expect(result).to.be.false
@@ -570,10 +570,16 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 2000000001,
-        protected: false
+        isReadOnly: false
       }, {
         path: path.join(__dirname, 'rpi.img'),
-        size: 1000000000,
+        size: {
+          original: 1000000000,
+          final: {
+            estimation: false,
+            value: 1000000000
+          }
+        },
         recommendedDriveSize: 2000000000
       })
 
@@ -585,10 +591,16 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 2000000000,
-        protected: false
+        isReadOnly: false
       }, {
         path: path.join(__dirname, 'rpi.img'),
-        size: 1000000000,
+        size: {
+          original: 1000000000,
+          final: {
+            estimation: false,
+            value: 1000000000
+          }
+        },
         recommendedDriveSize: 2000000000
       })
 
@@ -600,10 +612,16 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 2000000000,
-        protected: false
+        isReadOnly: false
       }, {
         path: path.join(__dirname, 'rpi.img'),
-        size: 1000000000,
+        size: {
+          original: 1000000000,
+          final: {
+            estimation: false,
+            value: 1000000000
+          }
+        },
         recommendedDriveSize: 2000000001
       })
 
@@ -615,10 +633,16 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 2000000000,
-        protected: false
+        isReadOnly: false
       }, {
         path: path.join(__dirname, 'rpi.img'),
-        size: 1000000000
+        size: {
+          original: 1000000000,
+          final: {
+            estimation: false,
+            value: 1000000000
+          }
+        }
       })
 
       m.chai.expect(result).to.be.true
@@ -627,7 +651,13 @@ describe('Shared: DriveConstraints', function () {
     it('should return false if the drive is undefined', function () {
       const result = constraints.isDriveSizeRecommended(undefined, {
         path: path.join(__dirname, 'rpi.img'),
-        size: 1000000000,
+        size: {
+          original: 1000000000,
+          final: {
+            estimation: false,
+            value: 1000000000
+          }
+        },
         recommendedDriveSize: 1000000000
       })
 
@@ -639,7 +669,7 @@ describe('Shared: DriveConstraints', function () {
         device: '/dev/disk1',
         name: 'USB Drive',
         size: 2000000000,
-        protected: false
+        isReadOnly: false
       }, undefined)
 
       m.chai.expect(result).to.be.true
@@ -673,12 +703,12 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given the drive is locked', function () {
       beforeEach(function () {
-        this.drive.protected = true
+        this.drive.isReadOnly = true
       })
 
-      describe('given the drive is pending', function () {
+      describe('given the drive is disabled', function () {
         beforeEach(function () {
-          this.drive.pending = true
+          this.drive.disabled = true
         })
 
         it('should return false if the drive is not large enough and is a source drive', function () {
@@ -734,9 +764,9 @@ describe('Shared: DriveConstraints', function () {
         })
       })
 
-      describe('given the drive is not pending', function () {
+      describe('given the drive is not disabled', function () {
         beforeEach(function () {
-          this.drive.pending = false
+          this.drive.disabled = false
         })
 
         it('should return false if the drive is not large enough and is a source drive', function () {
@@ -795,12 +825,12 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given the drive is not locked', function () {
       beforeEach(function () {
-        this.drive.protected = false
+        this.drive.isReadOnly = false
       })
 
-      describe('given the drive is pending', function () {
+      describe('given the drive is disabled', function () {
         beforeEach(function () {
-          this.drive.pending = true
+          this.drive.disabled = true
         })
 
         it('should return false if the drive is not large enough and is a source drive', function () {
@@ -856,9 +886,9 @@ describe('Shared: DriveConstraints', function () {
         })
       })
 
-      describe('given the drive is not pending', function () {
+      describe('given the drive is not disabled', function () {
         beforeEach(function () {
-          this.drive.pending = false
+          this.drive.disabled = false
         })
 
         it('should return false if the drive is not large enough and is a source drive', function () {
@@ -929,9 +959,9 @@ describe('Shared: DriveConstraints', function () {
       this.drive = {
         device: '/dev/disk2',
         name: 'My Drive',
-        protected: false,
-        system: false,
-        pending: false,
+        isReadOnly: false,
+        isSystem: false,
+        disabled: false,
         mountpoints: [
           {
             path: this.mountpoint
@@ -945,7 +975,8 @@ describe('Shared: DriveConstraints', function () {
         size: {
           original: this.drive.size - 1,
           final: {
-            estimation: false
+            estimation: false,
+            value: this.drive.size - 1
           }
         }
       }
@@ -966,24 +997,18 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given there are no errors or warnings', () => {
       it('should return an empty list', function () {
-        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, {
-          path: '/mnt/disk2/rpi.img',
-          size: 1000000000
-        })
+        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
 
         m.chai.expect(result).to.deep.equal([])
       })
     })
 
-    describe('given the drive is pending', () => {
+    describe('given the drive is disabled', () => {
       it('should return an empty list', function () {
-        this.drive.pending = true
-        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, {
-          path: '/mnt/disk2/rpi.img',
-          size: 1000000000
-        })
+        this.drive.disabled = true
+        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
 
-        const expectedTuples = [ [ 'ERROR', 'PENDING' ] ]
+        const expectedTuples = []
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
     })
@@ -1001,7 +1026,7 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given the drive is a system drive', () => {
       it('should return the system drive warning', function () {
-        this.drive.system = true
+        this.drive.isSystem = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
         const expectedTuples = [ [ 'WARNING', 'SYSTEM' ] ]
@@ -1021,9 +1046,21 @@ describe('Shared: DriveConstraints', function () {
       })
     })
 
+    describe('given the drive size is null', () => {
+      it('should not return the too small error', function () {
+        this.image.size.final.value = this.drive.size + 1
+        this.drive.size = null
+
+        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
+        const expectedTuples = []
+
+        expectStatusTypesAndMessagesToBe(result, expectedTuples)
+      })
+    })
+
     describe('given the drive is locked', () => {
       it('should return the locked drive error', function () {
-        this.drive.protected = true
+        this.drive.isReadOnly = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
         const expectedTuples = [ [ 'ERROR', 'LOCKED' ] ]
@@ -1061,7 +1098,7 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given a locked drive and image is null', () => {
       it('should return locked drive error', function () {
-        this.drive.protected = true
+        this.drive.isReadOnly = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, null)
         const expectedTuples = [ [ 'ERROR', 'LOCKED' ] ]
@@ -1072,7 +1109,7 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given a system drive and image is null', () => {
       it('should return system drive warning', function () {
-        this.drive.system = true
+        this.drive.isSystem = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, null)
         const expectedTuples = [ [ 'WARNING', 'SYSTEM' ] ]
@@ -1083,7 +1120,7 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given the drive contains the image and the drive is locked', () => {
       it('should return the contains-image drive error by precedence', function () {
-        this.drive.protected = true
+        this.drive.isReadOnly = true
         this.image.path = path.join(this.mountpoint, 'rpi.img')
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
@@ -1095,7 +1132,7 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given a locked and too small drive', () => {
       it('should return the locked error by precedence', function () {
-        this.drive.protected = true
+        this.drive.isReadOnly = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
         const expectedTuples = [ [ 'ERROR', 'LOCKED' ] ]
@@ -1107,7 +1144,7 @@ describe('Shared: DriveConstraints', function () {
     describe('given a too small and system drive', () => {
       it('should return the too small drive error by precedence', function () {
         this.image.size.final.value = this.drive.size + 1
-        this.drive.system = true
+        this.drive.isSystem = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
         const expectedTuples = [ [ 'ERROR', 'TOO_SMALL' ] ]
@@ -1118,7 +1155,7 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given a system drive and not recommended drive size', () => {
       it('should return both warnings', function () {
-        this.drive.system = true
+        this.drive.isSystem = true
         this.image.recommendedDriveSize = this.drive.size + 1
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
