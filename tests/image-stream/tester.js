@@ -34,17 +34,17 @@ const doFilesContainTheSameData = (file1, file2) => {
 }
 
 const deleteIfExists = (file) => {
-  return Bluebird.try(() => {
+  return new Bluebird((resolve, reject) => {
     try {
       fs.accessSync(file)
       fs.unlinkSync(file)
     } catch (error) {
       if (error.code !== 'ENOENT') {
-        return Bluebird.reject(error)
+        return reject(error)
       }
     }
 
-    return Bluebird.resolve()
+    resolve()
   })
 }
 

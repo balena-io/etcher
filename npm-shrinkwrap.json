@@ -6339,10 +6339,6 @@
       "resolved": "https://registry.npmjs.org/tracery/-/tracery-1.0.3.tgz",
       "dev": true
     },
-    "trackjs": {
-      "version": "2.3.1",
-      "resolved": "https://registry.npmjs.org/trackjs/-/trackjs-2.3.1.tgz"
-    },
     "traverse": {
       "version": "0.3.9",
       "resolved": "https://registry.npmjs.org/traverse/-/traverse-0.3.9.tgz",
