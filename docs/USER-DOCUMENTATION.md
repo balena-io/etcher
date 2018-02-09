@@ -14,8 +14,8 @@ images, usually available from the image publishers themselves.
 
 Images known to require special treatment:
 
-- Microsoft Windows (use [Windows USB/DVD Download Tool][windows-usb-tool], or
-  [Rufus][rufus]).
+- Microsoft Windows (use [Windows USB/DVD Download Tool][windows-usb-tool], 
+  [Rufus][rufus], or [WoeUSB][woeusb]).
 
 - Windows 10 IoT (use the [Windows 10 IoT Core Dashboard][windows-iot-dashboard])
 
@@ -224,3 +224,4 @@ platforms.
 [rufus]: https://rufus.akeo.ie
 [unetbootin]: https://unetbootin.github.io
 [windows-iot-dashboard]: https://developer.microsoft.com/en-us/windows/iot/downloads
+[woeusb]: https://github.com/slacka/WoeUSB
