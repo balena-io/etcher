@@ -1909,8 +1909,8 @@
       "dev": true
     },
     "eslint": {
-      "version": "4.16.0",
-      "resolved": "https://registry.npmjs.org/eslint/-/eslint-4.16.0.tgz",
+      "version": "4.17.0",
+      "resolved": "https://registry.npmjs.org/eslint/-/eslint-4.17.0.tgz",
       "dev": true,
       "dependencies": {
         "acorn": {
@@ -1949,8 +1949,8 @@
           "dev": true
         },
         "brace-expansion": {
-          "version": "1.1.8",
-          "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.8.tgz",
+          "version": "1.1.9",
+          "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.9.tgz",
           "dev": true
         },
         "chalk": {
