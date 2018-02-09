@@ -832,8 +832,8 @@
       "resolved": "https://registry.npmjs.org/commander/-/commander-2.8.1.tgz"
     },
     "comment-parser": {
-      "version": "0.4.0",
-      "resolved": "https://registry.npmjs.org/comment-parser/-/comment-parser-0.4.0.tgz",
+      "version": "0.4.2",
+      "resolved": "https://registry.npmjs.org/comment-parser/-/comment-parser-0.4.2.tgz",
       "dev": true
     },
     "commoner": {
@@ -2112,18 +2112,23 @@
       "dev": true
     },
     "eslint-import-resolver-node": {
-      "version": "0.3.1",
-      "resolved": "https://registry.npmjs.org/eslint-import-resolver-node/-/eslint-import-resolver-node-0.3.1.tgz",
+      "version": "0.3.2",
+      "resolved": "https://registry.npmjs.org/eslint-import-resolver-node/-/eslint-import-resolver-node-0.3.2.tgz",
       "dev": true,
       "dependencies": {
         "debug": {
-          "version": "2.6.8",
-          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.8.tgz",
+          "version": "2.6.9",
+          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz",
           "dev": true
         },
         "ms": {
           "version": "2.0.0",
           "resolved": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz",
+          "dev": true
+        },
+        "resolve": {
+          "version": "1.5.0",
+          "resolved": "https://registry.npmjs.org/resolve/-/resolve-1.5.0.tgz",
           "dev": true
         }
       }
@@ -2134,8 +2139,8 @@
       "dev": true,
       "dependencies": {
         "debug": {
-          "version": "2.6.8",
-          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.8.tgz",
+          "version": "2.6.9",
+          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz",
           "dev": true
         },
         "ms": {
@@ -2146,13 +2151,13 @@
       }
     },
     "eslint-plugin-import": {
-      "version": "2.7.0",
-      "resolved": "https://registry.npmjs.org/eslint-plugin-import/-/eslint-plugin-import-2.7.0.tgz",
+      "version": "2.8.0",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-import/-/eslint-plugin-import-2.8.0.tgz",
       "dev": true,
       "dependencies": {
         "debug": {
-          "version": "2.6.8",
-          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.8.tgz",
+          "version": "2.6.9",
+          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz",
           "dev": true
         },
         "doctrine": {
@@ -2203,18 +2208,32 @@
       }
     },
     "eslint-plugin-jsdoc": {
-      "version": "3.1.1",
-      "resolved": "https://registry.npmjs.org/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-3.1.1.tgz",
-      "dev": true
+      "version": "3.3.1",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-3.3.1.tgz",
+      "dev": true,
+      "dependencies": {
+        "lodash": {
+          "version": "4.17.5",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.5.tgz",
+          "dev": true
+        }
+      }
     },
     "eslint-plugin-lodash": {
-      "version": "2.3.6",
-      "resolved": "https://registry.npmjs.org/eslint-plugin-lodash/-/eslint-plugin-lodash-2.3.6.tgz",
-      "dev": true
+      "version": "2.6.1",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-lodash/-/eslint-plugin-lodash-2.6.1.tgz",
+      "dev": true,
+      "dependencies": {
+        "lodash": {
+          "version": "4.17.5",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.5.tgz",
+          "dev": true
+        }
+      }
     },
     "eslint-plugin-node": {
-      "version": "5.1.1",
-      "resolved": "https://registry.npmjs.org/eslint-plugin-node/-/eslint-plugin-node-5.1.1.tgz",
+      "version": "6.0.0",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-node/-/eslint-plugin-node-6.0.0.tgz",
       "dev": true,
       "dependencies": {
         "balanced-match": {
@@ -2223,13 +2242,13 @@
           "dev": true
         },
         "brace-expansion": {
-          "version": "1.1.8",
-          "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.8.tgz",
+          "version": "1.1.9",
+          "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.9.tgz",
           "dev": true
         },
         "ignore": {
-          "version": "3.3.3",
-          "resolved": "https://registry.npmjs.org/ignore/-/ignore-3.3.3.tgz",
+          "version": "3.3.7",
+          "resolved": "https://registry.npmjs.org/ignore/-/ignore-3.3.7.tgz",
           "dev": true
         },
         "minimatch": {
@@ -2238,15 +2257,15 @@
           "dev": true
         },
         "semver": {
-          "version": "5.3.0",
-          "resolved": "https://registry.npmjs.org/semver/-/semver-5.3.0.tgz",
+          "version": "5.5.0",
+          "resolved": "https://registry.npmjs.org/semver/-/semver-5.5.0.tgz",
           "dev": true
         }
       }
     },
     "eslint-plugin-promise": {
-      "version": "3.5.0",
-      "resolved": "https://registry.npmjs.org/eslint-plugin-promise/-/eslint-plugin-promise-3.5.0.tgz",
+      "version": "3.6.0",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-promise/-/eslint-plugin-promise-3.6.0.tgz",
       "dev": true
     },
     "eslint-plugin-standard": {
@@ -2711,8 +2730,8 @@
       }
     },
     "function-bind": {
-      "version": "1.1.0",
-      "resolved": "https://registry.npmjs.org/function-bind/-/function-bind-1.1.0.tgz",
+      "version": "1.1.1",
+      "resolved": "https://registry.npmjs.org/function-bind/-/function-bind-1.1.1.tgz",
       "dev": true
     },
     "functional-red-black-tree": {
@@ -5603,8 +5622,8 @@
       }
     },
     "resolve": {
-      "version": "1.4.0",
-      "resolved": "https://registry.npmjs.org/resolve/-/resolve-1.4.0.tgz",
+      "version": "1.5.0",
+      "resolved": "https://registry.npmjs.org/resolve/-/resolve-1.5.0.tgz",
       "dev": true
     },
     "resolve-dir": {
