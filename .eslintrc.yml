@@ -254,7 +254,7 @@ rules:
     - allowAfterThis: false
   object-curly-newline:
     - error
-    - minProperties: 2
+    - minProperties: 3
       consistent: true
   object-curly-spacing:
     - error
