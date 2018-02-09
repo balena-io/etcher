@@ -19,8 +19,7 @@
 const m = require('mochainon')
 const _ = require('lodash')
 const Bluebird = require('bluebird')
-const fileExists = require('file-exists')
-const fs = Bluebird.promisifyAll(require('fs'))
+const fs = require('fs')
 const os = require('os')
 const path = require('path')
 const imageStream = require('../../lib/image-stream/index')
@@ -35,9 +34,14 @@ const doFilesContainTheSameData = (file1, file2) => {
 }
 
 const deleteIfExists = (file) => {
-  return Bluebird.try(function () {
-    if (fileExists(file)) {
-      return fs.unlinkAsync(file)
+  return Bluebird.try(() => {
+    try {
+      fs.accessSync(file)
+      fs.unlinkSync(file)
+    } catch (error) {
+      if (error.code !== 'ENOENT') {
+        return Bluebird.reject(error)
+      }
     }
 
     return Bluebird.resolve()
