@@ -194,7 +194,7 @@ describe('Browser: MainPage', function () {
         })
 
         m.chai.expect(controller.getImageBasename()).to.equal('bar.img')
-        selectionState.unselectImage()
+        selectionState.deselectImage()
       })
 
       it('should return an empty string if no selected image', function () {
@@ -202,7 +202,7 @@ describe('Browser: MainPage', function () {
           $scope: {}
         })
 
-        selectionState.unselectImage()
+        selectionState.deselectImage()
         m.chai.expect(controller.getImageBasename()).to.equal('')
       })
     })

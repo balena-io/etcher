@@ -130,7 +130,7 @@ describe('Model: selectionState', function () {
 
     describe('.removeDrive()', function () {
       it('should clear the drive', function () {
-        selectionState.unselectDrive()
+        selectionState.deselectDrive()
         const drive = selectionState.getDrive()
         m.chai.expect(drive).to.be.undefined
       })
@@ -321,7 +321,7 @@ describe('Model: selectionState', function () {
 
     describe('.removeImage()', function () {
       it('should clear the image', function () {
-        selectionState.unselectImage()
+        selectionState.deselectImage()
 
         const imagePath = selectionState.getImagePath()
         m.chai.expect(imagePath).to.be.undefined
@@ -776,7 +776,7 @@ describe('Model: selectionState', function () {
         })
 
         m.chai.expect(selectionState.hasDrive()).to.be.false
-        selectionState.unselectImage()
+        selectionState.deselectImage()
       })
 
       it('should de-select a previously selected not-recommended drive', function () {
@@ -806,7 +806,7 @@ describe('Model: selectionState', function () {
         })
 
         m.chai.expect(selectionState.hasDrive()).to.be.false
-        selectionState.unselectImage()
+        selectionState.deselectImage()
       })
 
       it('should de-select a previously selected source drive', function () {
@@ -848,7 +848,7 @@ describe('Model: selectionState', function () {
         })
 
         m.chai.expect(selectionState.hasDrive()).to.be.false
-        selectionState.unselectImage()
+        selectionState.deselectImage()
       })
     })
   })
@@ -960,7 +960,7 @@ describe('Model: selectionState', function () {
 
     describe('given no selected drive', function () {
       beforeEach(function () {
-        selectionState.unselectDrive()
+        selectionState.deselectDrive()
       })
 
       it('should return false if an undefined value is passed', function () {
@@ -1024,7 +1024,7 @@ describe('Model: selectionState', function () {
 
     describe('given no selected drive', function () {
       beforeEach(function () {
-        selectionState.unselectDrive()
+        selectionState.deselectDrive()
       })
 
       it('should set the drive', function () {
