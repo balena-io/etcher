@@ -19,7 +19,7 @@
 const m = require('mochainon')
 const _ = require('lodash')
 const Bluebird = require('bluebird')
-const fs = require('fs')
+const fs = Bluebird.promisifyAll(require('fs'))
 const os = require('os')
 const path = require('path')
 const imageStream = require('../../lib/image-stream/index')
@@ -30,21 +30,6 @@ const doFilesContainTheSameData = (file1, file2) => {
     file2: fs.readFileAsync(file2)
   }).then(function (data) {
     return _.isEqual(data.file1, data.file2)
-  })
-}
-
-const deleteIfExists = (file) => {
-  return new Bluebird((resolve, reject) => {
-    try {
-      fs.accessSync(file)
-      fs.unlinkSync(file)
-    } catch (error) {
-      if (error.code !== 'ENOENT') {
-        return reject(error)
-      }
-    }
-
-    resolve()
   })
 }
 
@@ -93,7 +78,8 @@ exports.extractFromFilePath = function (file, image) {
     }).then(function (areEqual) {
       m.chai.expect(areEqual).to.be.true
     }).finally(function () {
-      return deleteIfExists(output)
+      return fs.unlinkAsync(output)
+        .catch({ code: 'ENOENT' }, _.noop)
     })
   })
 }
