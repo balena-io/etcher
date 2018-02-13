@@ -2512,11 +2512,6 @@
       "resolved": "https://registry.npmjs.org/file-entry-cache/-/file-entry-cache-2.0.0.tgz",
       "dev": true
     },
-    "file-exists": {
-      "version": "1.0.0",
-      "resolved": "https://registry.npmjs.org/file-exists/-/file-exists-1.0.0.tgz",
-      "dev": true
-    },
     "file-name": {
       "version": "0.1.0",
       "resolved": "https://registry.npmjs.org/file-name/-/file-name-0.1.0.tgz",
@@ -6343,10 +6338,6 @@
       "version": "1.0.3",
       "resolved": "https://registry.npmjs.org/tracery/-/tracery-1.0.3.tgz",
       "dev": true
-    },
-    "trackjs": {
-      "version": "2.3.1",
-      "resolved": "https://registry.npmjs.org/trackjs/-/trackjs-2.3.1.tgz"
     },
     "traverse": {
       "version": "0.3.9",

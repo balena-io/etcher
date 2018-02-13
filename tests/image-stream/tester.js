@@ -19,7 +19,6 @@
 const m = require('mochainon')
 const _ = require('lodash')
 const Bluebird = require('bluebird')
-const fileExists = require('file-exists')
 const fs = Bluebird.promisifyAll(require('fs'))
 const os = require('os')
 const path = require('path')
@@ -31,16 +30,6 @@ const doFilesContainTheSameData = (file1, file2) => {
     file2: fs.readFileAsync(file2)
   }).then(function (data) {
     return _.isEqual(data.file1, data.file2)
-  })
-}
-
-const deleteIfExists = (file) => {
-  return Bluebird.try(function () {
-    if (fileExists(file)) {
-      return fs.unlinkAsync(file)
-    }
-
-    return Bluebird.resolve()
   })
 }
 
@@ -89,7 +78,8 @@ exports.extractFromFilePath = function (file, image) {
     }).then(function (areEqual) {
       m.chai.expect(areEqual).to.be.true
     }).finally(function () {
-      return deleteIfExists(output)
+      return fs.unlinkAsync(output)
+        .catch({ code: 'ENOENT' }, _.noop)
     })
   })
 }
