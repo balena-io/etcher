@@ -6160,6 +6160,15 @@ body {
   background-color: #c9302c;
   color: #fff; }
 
+.button-warning {
+  background-color: #ff912f;
+  color: #fff; }
+
+.button-warning:focus,
+.button-warning:hover {
+  background-color: #fb7600;
+  color: #fff; }
+
 /*
  * Copyright 2016 resin.io
  *
