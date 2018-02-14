@@ -110,7 +110,7 @@
     "mochainon": "1.0.0",
     "nock": "9.0.9",
     "node-gyp": "3.5.0",
-    "node-sass": "4.5.3",
+    "node-sass": "4.7.2",
     "pkg": "4.1.1",
     "sass-lint": "1.10.2",
     "spectron": "3.7.2",
