@@ -19,7 +19,7 @@
 const m = require('mochainon')
 const path = require('path')
 const DATA_PATH = path.join(__dirname, 'data')
-const mime = require('../../lib/image-stream/mime')
+const mime = require('../../lib/sdk/image-stream/mime')
 
 describe('ImageStream: MIME', function () {
   describe('.getMimeTypeFromFileName()', function () {

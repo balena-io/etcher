@@ -22,7 +22,7 @@ const path = require('path')
 const DATA_PATH = path.join(__dirname, 'data')
 const IMAGES_PATH = path.join(DATA_PATH, 'images')
 const ZIP_PATH = path.join(DATA_PATH, 'zip')
-const imageStream = require('../../lib/image-stream/index')
+const imageStream = require('../../lib/sdk/image-stream/index')
 const tester = require('./tester')
 
 describe('ImageStream: ZIP', function () {

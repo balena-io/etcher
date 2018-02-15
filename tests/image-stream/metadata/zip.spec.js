@@ -22,7 +22,7 @@ const DATA_PATH = path.join(__dirname, '..', 'data')
 const IMAGES_PATH = path.join(DATA_PATH, 'images')
 const ZIP_PATH = path.join(DATA_PATH, 'metadata', 'zip')
 const tester = require('../tester')
-const imageStream = require('../../../lib/image-stream/index')
+const imageStream = require('../../../lib/sdk/image-stream/index')
 
 const testMetadataProperty = (archivePath, propertyName, expectedValue) => {
   return imageStream.getFromFilePath(archivePath).then((image) => {

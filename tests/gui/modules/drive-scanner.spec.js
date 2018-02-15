@@ -164,7 +164,7 @@ describe('Browser: driveScanner', function () {
                     path: '/mnt/foo'
                   }
                 ],
-                adapter: 'standard',
+                adapter: 'blockdevice',
                 isSystem: false,
                 isRemovable: false
               },
@@ -178,7 +178,7 @@ describe('Browser: driveScanner', function () {
                     path: '/mnt/bar'
                   }
                 ],
-                adapter: 'standard',
+                adapter: 'blockdevice',
                 isSystem: false,
                 isRemovable: false
               }
@@ -268,7 +268,7 @@ describe('Browser: driveScanner', function () {
                 description: 'Foo',
                 size: '14G',
                 mountpoints: [],
-                adapter: 'standard',
+                adapter: 'blockdevice',
                 isSystem: false,
                 isRemovable: false
               },
@@ -282,7 +282,7 @@ describe('Browser: driveScanner', function () {
                     path: 'F:'
                   }
                 ],
-                adapter: 'standard',
+                adapter: 'blockdevice',
                 isSystem: false,
                 isRemovable: false
               }

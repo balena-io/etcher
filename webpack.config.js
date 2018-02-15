@@ -39,7 +39,7 @@ module.exports = {
       // on the tree (for testing purposes) or inside a generated
       // bundle (for production purposes), by translating
       // relative require paths within the bundle.
-      if (/\.\/(shared|image-stream)/i.test(request)) {
+      if (/\/(sdk|shared)/i.test(request)) {
         return callback(null, `commonjs ../../../lib/${_.replace(request, /(\.\.\/)*/, '')}`)
       }
 

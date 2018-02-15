@@ -22,7 +22,7 @@ const path = require('path')
 const DATA_PATH = path.join(__dirname, 'data')
 const IMAGES_PATH = path.join(DATA_PATH, 'images')
 const GZ_PATH = path.join(DATA_PATH, 'gz')
-const imageStream = require('../../lib/image-stream/index')
+const imageStream = require('../../lib/sdk/image-stream/index')
 const tester = require('./tester')
 
 describe('ImageStream: GZ', function () {
