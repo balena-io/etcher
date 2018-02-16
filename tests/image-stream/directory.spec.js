@@ -21,7 +21,7 @@ const path = require('path')
 const DATA_PATH = path.join(__dirname, 'data')
 const IMAGES_PATH = path.join(DATA_PATH, 'images')
 const errors = require('../../lib/shared/errors')
-const imageStream = require('../../lib/image-stream/index')
+const imageStream = require('../../lib/sdk/image-stream/index')
 
 describe('ImageStream: Directory', function () {
   describe('.getFromFilePath()', function () {

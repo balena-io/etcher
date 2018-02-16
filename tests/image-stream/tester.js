@@ -22,7 +22,7 @@ const Bluebird = require('bluebird')
 const fs = Bluebird.promisifyAll(require('fs'))
 const os = require('os')
 const path = require('path')
-const imageStream = require('../../lib/image-stream/index')
+const imageStream = require('../../lib/sdk/image-stream/index')
 
 const doFilesContainTheSameData = (file1, file2) => {
   return Bluebird.props({

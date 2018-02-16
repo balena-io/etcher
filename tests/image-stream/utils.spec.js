@@ -18,7 +18,7 @@
 
 const m = require('mochainon')
 const StreamReadable = require('stream').Readable
-const utils = require('../../lib/image-stream/utils')
+const utils = require('../../lib/sdk/image-stream/utils')
 
 describe('ImageStream: Utils', function () {
   describe('.extractStream()', function () {

@@ -18,8 +18,8 @@
 
 const m = require('mochainon')
 const path = require('path')
-const zipHooks = require('../../../lib/image-stream/archive-hooks/zip')
-const utils = require('../../../lib/image-stream/utils')
+const zipHooks = require('../../../lib/sdk/image-stream/archive-hooks/zip')
+const utils = require('../../../lib/sdk/image-stream/utils')
 const tester = require('../tester')
 const ZIP_PATH = path.join(__dirname, '..', 'data', 'zip')
 

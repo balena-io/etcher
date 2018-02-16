@@ -18,7 +18,7 @@
 
 const m = require('mochainon')
 const _ = require('lodash')
-const imageStream = require('../../lib/image-stream/index')
+const imageStream = require('../../lib/sdk/image-stream/index')
 
 describe('ImageStream', function () {
   describe('.supportedFileTypes', function () {
