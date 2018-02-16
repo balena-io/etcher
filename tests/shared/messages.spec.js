@@ -30,4 +30,14 @@ describe('Shared: Messages', function () {
       m.chai.expect(_.every(_.map(category, _.isFunction))).to.be.true
     })
   })
+
+  it('should not contain leftover template expressions', function () {
+    _.each(messages, (subMessages) => {
+      _.each(subMessages, (messageFunc) => {
+        const message = messageFunc(..._.fill(Array(10), ''))
+        m.chai.expect(message).to.not.contain('${')
+        m.chai.expect(message).to.not.contain('<%=')
+      })
+    })
+  })
 })
