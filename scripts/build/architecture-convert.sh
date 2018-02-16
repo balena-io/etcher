@@ -53,6 +53,8 @@ if [ "$ARGV_TYPE" == "node" ]; then
     RESULT=x64
   elif [ "$ARGV_ARCHITECTURE" == "armv7hf" ]; then
     RESULT=arm
+  elif [ "$ARGV_ARCHITECTURE" == "aarch64" ]; then
+    RESULT=arm64
   fi
 elif [ "$ARGV_TYPE" == "electron-builder" ]; then
   if [ "$ARGV_ARCHITECTURE" == "x86" ]; then
@@ -61,6 +63,8 @@ elif [ "$ARGV_TYPE" == "electron-builder" ]; then
     RESULT=x64
   elif [ "$ARGV_ARCHITECTURE" == "armv7hf" ]; then
     RESULT=armv7l
+  elif [ "$ARGV_ARCHITECTURE" == "aarch64" ]; then
+    RESULT=arm64
   fi
 elif [ "$ARGV_TYPE" == "debian" ]; then
   if [ "$ARGV_ARCHITECTURE" == "x86" ]; then
@@ -69,6 +73,8 @@ elif [ "$ARGV_TYPE" == "debian" ]; then
     RESULT=amd64
   elif [ "$ARGV_ARCHITECTURE" == "armv7hf" ]; then
     RESULT=armhf
+  elif [ "$ARGV_ARCHITECTURE" == "aarch64" ]; then
+    RESULT=arm64
   fi
 elif [ "$ARGV_TYPE" == "redhat" ]; then
   if [ "$ARGV_ARCHITECTURE" == "x86" ]; then
@@ -77,6 +83,8 @@ elif [ "$ARGV_TYPE" == "redhat" ]; then
     RESULT='x86_64'
   elif [ "$ARGV_ARCHITECTURE" == "armv7hf" ]; then
     RESULT=armhfp
+  elif [ "$ARGV_ARCHITECTURE" == "aarch64" ]; then
+    RESULT=aarch64
   fi
 elif [ "$ARGV_TYPE" == "appimage" ]; then
   if [ "$ARGV_ARCHITECTURE" == "x86" ]; then
@@ -85,6 +93,8 @@ elif [ "$ARGV_TYPE" == "appimage" ]; then
     RESULT='x86_64'
   elif [ "$ARGV_ARCHITECTURE" == "armv7hf" ]; then
     RESULT=armhf
+  elif [ "$ARGV_ARCHITECTURE" == "aarch64" ]; then
+    RESULT=arm64
   fi
 elif [ "$ARGV_TYPE" == "docker" ]; then
   if [ "$ARGV_ARCHITECTURE" == "x64" ]; then
@@ -93,6 +103,8 @@ elif [ "$ARGV_TYPE" == "docker" ]; then
     RESULT=i686
   elif [ "$ARGV_ARCHITECTURE" == "armv7hf" ]; then
     RESULT=armv7hf
+  elif [ "$ARGV_ARCHITECTURE" == "aarch64" ]; then
+    RESULT=arm64v8
   fi
 else
   echo "Unsupported architecture type: $ARGV_TYPE" 1>&2
