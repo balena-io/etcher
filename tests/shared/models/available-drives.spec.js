@@ -20,6 +20,7 @@ const m = require('mochainon')
 const path = require('path')
 const availableDrives = require('../../../lib/shared/models/available-drives')
 const selectionState = require('../../../lib/shared/models/selection-state')
+const constraints = require('../../../lib/shared/drive-constraints')
 
 describe('Model: availableDrives', function () {
   describe('availableDrives', function () {
@@ -342,6 +343,27 @@ describe('Model: availableDrives', function () {
                 } ],
                 isSystem: true,
                 isReadOnly: false
+              }
+            ])
+
+            m.chai.expect(selectionState.hasDrive()).to.be.false
+          })
+
+          it('should not auto-select a single large size drive', function () {
+            m.chai.expect(selectionState.hasDrive()).to.be.false
+
+            availableDrives.setDrives([
+              {
+                device: '/dev/sdb',
+                name: 'Foo',
+                size: constraints.LARGE_DRIVE_SIZE + 1,
+                mountpoints: [
+                  {
+                    path: '/mnt/foo'
+                  }
+                ],
+                system: false,
+                protected: false
               }
             ])
 

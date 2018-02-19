@@ -946,6 +946,48 @@ describe('Shared: DriveConstraints', function () {
     })
   })
 
+  describe('.isDriveSizeLarge()', function () {
+    beforeEach(function () {
+      this.drive = {
+        device: '/dev/disk2',
+        name: 'My Drive',
+        isReadonly: false,
+        isSystem: false,
+        disabled: false,
+        mountpoints: [
+          {
+            path: this.mountpoint
+          }
+        ],
+        size: constraints.LARGE_DRIVE_SIZE + 1
+      }
+
+      this.image = {
+        path: path.join(__dirname, 'rpi.img'),
+        size: {
+          original: this.drive.size - 1,
+          final: {
+            estimation: false,
+            value: this.drive.size - 1
+          }
+        }
+      }
+    })
+
+    describe('given a drive bigger than the unusually large drive size', function () {
+      it('should return true', function () {
+        m.chai.expect(constraints.isDriveSizeLarge(this.drive)).to.be.true
+      })
+    })
+
+    describe('given a drive smaller than the unusually large drive size', function () {
+      it('should return false', function () {
+        this.drive.size = constraints.LARGE_DRIVE_SIZE - 1
+        m.chai.expect(constraints.isDriveSizeLarge(this.drive)).to.be.false
+      })
+    })
+  })
+
   describe('.getDriveImageCompatibilityStatuses', function () {
     beforeEach(function () {
       if (process.platform === 'win32') {
@@ -1075,6 +1117,17 @@ describe('Shared: DriveConstraints', function () {
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
         const expectedTuples = [ [ 'WARNING', 'SIZE_NOT_RECOMMENDED' ] ]
+
+        expectStatusTypesAndMessagesToBe(result, expectedTuples)
+      })
+    })
+
+    describe('given the drive is unusually large', function () {
+      it('should return the large drive size warning', function () {
+        this.drive.size = constraints.LARGE_DRIVE_SIZE + 1
+
+        const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
+        const expectedTuples = [ [ 'WARNING', 'LARGE_DRIVE' ] ]
 
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
