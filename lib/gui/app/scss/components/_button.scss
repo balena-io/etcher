@@ -69,6 +69,10 @@ $button-types-styles: (
   danger: (
     bg: $palette-theme-danger-background,
     color: $palette-theme-danger-foreground
+  ),
+  warning: (
+    bg: $palette-theme-warning-background,
+    color: $palette-theme-danger-foreground
   )
 );
 
