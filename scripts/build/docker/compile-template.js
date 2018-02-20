@@ -40,6 +40,10 @@ _.each([
   {
     architecture: 'armv7hf',
     image: 'resin/armv7hf-debian:jessie'
+  },
+  {
+    architecture: 'arm64',
+    image: 'resin/arm64-debian:jessie'
   }
 ], (options) => {
   const result = _.template(template)(options)

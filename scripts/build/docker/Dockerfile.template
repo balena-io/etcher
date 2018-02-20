@@ -11,6 +11,9 @@ RUN echo "deb http://archive.ubuntu.com/ubuntu precise-backports main restricted
 <% if (architecture == 'armv7hf') { %>
 RUN echo "deb http://ftp.debian.org/debian jessie-backports main" >> /etc/apt/sources.list
 <% } %>
+<% if (architecture == 'arm64') { %>
+RUN echo "deb http://ftp.debian.org/debian jessie-backports main" >> /etc/apt/sources.list
+<% } %>
 
 # Install dependencies
 RUN apt-get update \
@@ -47,7 +50,7 @@ RUN apt-get update \
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
   && apt-get install -y nodejs
 
-<% if (architecture != 'armv7hf') { %>
+<% if (architecture == 'i686' || architecture == 'x86_64') { %>
 
 # Install a C++11 compiler
 RUN add-apt-repository ppa:ubuntu-toolchain-r/test \
