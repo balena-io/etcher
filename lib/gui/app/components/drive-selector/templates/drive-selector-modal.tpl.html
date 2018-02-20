@@ -31,9 +31,7 @@
               ng-class="{
                 'label-warning': status.type === modal.constraints.COMPATIBILITY_STATUS_TYPES.WARNING,
                 'label-danger': status.type === modal.constraints.COMPATIBILITY_STATUS_TYPES.ERROR
-              }">
-              {{ status.message }}
-            </span>
+              }">{{ status.message }}</span>
 
           </footer>
           <progress ng-if="drive.progress" value="{{ drive.progress }}" max="100"></progress>
