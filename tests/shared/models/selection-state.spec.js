@@ -418,7 +418,7 @@ describe('Model: selectionState', function () {
               }
             }
           })
-        }).to.throw('Missing image path')
+        }).to.throw('Missing image fields: path')
       })
 
       it('should throw if path is not a string', function () {
@@ -449,7 +449,7 @@ describe('Model: selectionState', function () {
               }
             }
           })
-        }).to.throw('Missing image extension')
+        }).to.throw('Missing image fields: extension')
       })
 
       it('should throw if extension is not a string', function () {
@@ -574,7 +574,7 @@ describe('Model: selectionState', function () {
             path: 'foo.img',
             extension: 'img'
           })
-        }).to.throw('Missing image size')
+        }).to.throw('Missing image fields: size')
       })
 
       it('should throw if size is not a plain object', function () {

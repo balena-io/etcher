@@ -102,7 +102,7 @@ describe('Model: flashState', function () {
             eta: 15,
             speed: 100000000000
           })
-        }).to.throw('Missing state type')
+        }).to.throw('Missing flash fields: type')
       })
 
       it('should throw if type is not a string', function () {
@@ -126,7 +126,7 @@ describe('Model: flashState', function () {
             eta: 15,
             speed: 100000000000
           })
-        }).to.not.throw('Missing state percentage')
+        }).to.not.throw('Missing flash fields: percentage')
       })
 
       it('should throw if percentage is missing', function () {
@@ -137,7 +137,7 @@ describe('Model: flashState', function () {
             eta: 15,
             speed: 100000000000
           })
-        }).to.throw('Missing state percentage')
+        }).to.throw('Missing flash fields: percentage')
       })
 
       it('should throw if percentage is not a number', function () {
@@ -184,7 +184,7 @@ describe('Model: flashState', function () {
             percentage: 50,
             speed: 100000000000
           })
-        }).to.throw('Missing state eta')
+        }).to.throw('Missing flash fields: eta')
       })
 
       it('should not throw if eta is equal to zero', function () {
@@ -196,7 +196,7 @@ describe('Model: flashState', function () {
             eta: 0,
             speed: 100000000000
           })
-        }).to.not.throw('Missing state eta')
+        }).to.not.throw('Missing flash field eta')
       })
 
       it('should throw if eta is not a number', function () {
@@ -219,7 +219,7 @@ describe('Model: flashState', function () {
             percentage: 50,
             eta: 15
           })
-        }).to.throw('Missing state speed')
+        }).to.throw('Missing flash fields: speed')
       })
 
       it('should not throw if speed is 0', function () {
@@ -231,7 +231,7 @@ describe('Model: flashState', function () {
             eta: 15,
             speed: 0
           })
-        }).to.not.throw('Missing state speed')
+        }).to.not.throw('Missing flash fields: speed')
       })
 
       it('should floor the percentage number', function () {
