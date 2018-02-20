@@ -33,7 +33,8 @@
   "platformSpecificDependencies": [
     "7zip-bin-mac",
     "7zip-bin-win",
-    "7zip-bin-linux"
+    "7zip-bin-linux",
+    "fsevents"
   ],
   "dependencies": {
     "angular": "1.6.3",
