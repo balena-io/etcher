@@ -602,5 +602,6 @@ clean:
 distclean: clean
 	rm -rf node_modules
 	rm -rf build
+	rm -rf generated
 
 .DEFAULT_GOAL = help
