@@ -482,6 +482,7 @@ PUBLISHABLES += publish-aws-s3
 TARGETS += publish-aws-s3
 endif
 
+ifeq ($(RELEASE_TYPE),production)
 ifdef PUBLISH_BINTRAY_DEBIAN
 publish-bintray-debian: $(PUBLISH_BINTRAY_DEBIAN)
 	$(foreach publishable,$^,$(call execute-command,./scripts/publish/bintray.sh \
@@ -512,6 +513,7 @@ publish-bintray-redhat: $(PUBLISH_BINTRAY_REDHAT)
 
 PUBLISHABLES += publish-bintray-redhat
 TARGETS += publish-bintray-redhat
+endif
 endif
 
 publish-all: $(PUBLISHABLES)
