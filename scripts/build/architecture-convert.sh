@@ -25,7 +25,7 @@ function usage() {
   echo "Options"
   echo ""
   echo "    -r <architecture>"
-  echo "    -t <type (debian|redhat|node|docker)>"
+  echo "    -t <type (debian|redhat|node|docker|electron-builder|appimage)>"
   exit 1
 }
 
