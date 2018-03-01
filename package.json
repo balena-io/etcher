@@ -113,7 +113,7 @@
     "eslint-plugin-node": "6.0.0",
     "eslint-plugin-promise": "3.6.0",
     "eslint-plugin-standard": "3.0.1",
-    "html-angular-validate": "0.1.9",
+    "html-angular-validate": "0.2.3",
     "html-loader": "0.5.1",
     "mocha": "5.0.1",
     "mochainon": "1.0.0",
