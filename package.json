@@ -104,7 +104,7 @@
     "babel-preset-stage-0": "6.24.1",
     "electron": "1.7.11",
     "electron-builder": "19.40.0",
-    "electron-mocha": "5.0.0",
+    "electron-mocha": "6.0.0",
     "eslint": "4.17.0",
     "eslint-config-standard": "10.2.1",
     "eslint-plugin-import": "2.8.0",
