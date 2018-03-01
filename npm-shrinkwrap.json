@@ -5467,8 +5467,8 @@
       "resolved": "https://registry.npmjs.org/mute-stream/-/mute-stream-0.0.5.tgz"
     },
     "nan": {
-      "version": "2.3.5",
-      "resolved": "https://registry.npmjs.org/nan/-/nan-2.3.5.tgz"
+      "version": "2.9.2",
+      "resolved": "https://registry.npmjs.org/nan/-/nan-2.9.2.tgz"
     },
     "native-promise-only": {
       "version": "0.8.1",
