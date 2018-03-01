@@ -120,7 +120,7 @@
     "nock": "9.2.3",
     "node-gyp": "3.5.0",
     "node-sass": "4.7.2",
-    "pkg": "4.1.1",
+    "pkg": "4.3.0",
     "sass-lint": "1.12.1",
     "spectron": "3.7.2",
     "versionist": "2.8.1",
