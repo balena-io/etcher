@@ -2404,48 +2404,18 @@
       "resolved": "https://registry.npmjs.org/electron-is-running-in-asar/-/electron-is-running-in-asar-1.0.0.tgz"
     },
     "electron-mocha": {
-      "version": "6.0.0",
-      "resolved": "https://registry.npmjs.org/electron-mocha/-/electron-mocha-6.0.0.tgz",
+      "version": "6.0.1",
+      "resolved": "https://registry.npmjs.org/electron-mocha/-/electron-mocha-6.0.1.tgz",
       "dev": true,
       "dependencies": {
-        "balanced-match": {
-          "version": "1.0.0",
-          "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.0.tgz",
-          "dev": true
-        },
-        "brace-expansion": {
-          "version": "1.1.11",
-          "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
-          "dev": true
-        },
         "commander": {
           "version": "2.14.1",
           "resolved": "https://registry.npmjs.org/commander/-/commander-2.14.1.tgz",
           "dev": true
         },
-        "diff": {
-          "version": "3.3.1",
-          "resolved": "https://registry.npmjs.org/diff/-/diff-3.3.1.tgz",
-          "dev": true
-        },
         "fs-extra": {
-          "version": "4.0.3",
-          "resolved": "https://registry.npmjs.org/fs-extra/-/fs-extra-4.0.3.tgz",
-          "dev": true
-        },
-        "glob": {
-          "version": "7.1.2",
-          "resolved": "https://registry.npmjs.org/glob/-/glob-7.1.2.tgz",
-          "dev": true
-        },
-        "growl": {
-          "version": "1.10.3",
-          "resolved": "https://registry.npmjs.org/growl/-/growl-1.10.3.tgz",
-          "dev": true
-        },
-        "has-flag": {
-          "version": "2.0.0",
-          "resolved": "https://registry.npmjs.org/has-flag/-/has-flag-2.0.0.tgz",
+          "version": "5.0.0",
+          "resolved": "https://registry.npmjs.org/fs-extra/-/fs-extra-5.0.0.tgz",
           "dev": true
         },
         "isexe": {
@@ -2456,28 +2426,6 @@
         "jsonfile": {
           "version": "4.0.0",
           "resolved": "https://registry.npmjs.org/jsonfile/-/jsonfile-4.0.0.tgz",
-          "dev": true
-        },
-        "minimatch": {
-          "version": "3.0.4",
-          "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.0.4.tgz",
-          "dev": true
-        },
-        "mocha": {
-          "version": "4.1.0",
-          "resolved": "https://registry.npmjs.org/mocha/-/mocha-4.1.0.tgz",
-          "dev": true,
-          "dependencies": {
-            "commander": {
-              "version": "2.11.0",
-              "resolved": "https://registry.npmjs.org/commander/-/commander-2.11.0.tgz",
-              "dev": true
-            }
-          }
-        },
-        "supports-color": {
-          "version": "4.4.0",
-          "resolved": "https://registry.npmjs.org/supports-color/-/supports-color-4.4.0.tgz",
           "dev": true
         },
         "which": {
