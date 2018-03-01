@@ -87,6 +87,9 @@ make electron-develop
 #### GUI
 
 ```sh
+# Build the GUI
+make webpack
+# Start Electron
 npm start
 ```
 
