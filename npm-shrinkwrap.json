@@ -1515,6 +1515,11 @@
       "resolved": "https://registry.npmjs.org/chardet/-/chardet-0.4.2.tgz",
       "dev": true
     },
+    "check-error": {
+      "version": "1.0.2",
+      "resolved": "https://registry.npmjs.org/check-error/-/check-error-1.0.2.tgz",
+      "dev": true
+    },
     "chokidar": {
       "version": "1.7.0",
       "resolved": "https://registry.npmjs.org/chokidar/-/chokidar-1.7.0.tgz",
@@ -1921,6 +1926,11 @@
           "dev": true
         }
       }
+    },
+    "deep-equal": {
+      "version": "1.0.1",
+      "resolved": "https://registry.npmjs.org/deep-equal/-/deep-equal-1.0.1.tgz",
+      "dev": true
     },
     "deep-extend": {
       "version": "0.4.1",
@@ -3708,6 +3718,11 @@
     "get-caller-file": {
       "version": "1.0.2",
       "resolved": "https://registry.npmjs.org/get-caller-file/-/get-caller-file-1.0.2.tgz"
+    },
+    "get-func-name": {
+      "version": "2.0.0",
+      "resolved": "https://registry.npmjs.org/get-func-name/-/get-func-name-2.0.0.tgz",
+      "dev": true
     },
     "get-object": {
       "version": "0.2.0",
@@ -5715,28 +5730,38 @@
       "dev": true
     },
     "nock": {
-      "version": "9.0.9",
-      "resolved": "https://registry.npmjs.org/nock/-/nock-9.0.9.tgz",
+      "version": "9.2.3",
+      "resolved": "https://registry.npmjs.org/nock/-/nock-9.2.3.tgz",
       "dev": true,
       "dependencies": {
-        "debug": {
-          "version": "2.6.9",
-          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz",
+        "chai": {
+          "version": "4.1.2",
+          "resolved": "https://registry.npmjs.org/chai/-/chai-4.1.2.tgz",
           "dev": true
         },
-        "deep-equal": {
-          "version": "1.0.1",
-          "resolved": "https://registry.npmjs.org/deep-equal/-/deep-equal-1.0.1.tgz",
+        "deep-eql": {
+          "version": "3.0.1",
+          "resolved": "https://registry.npmjs.org/deep-eql/-/deep-eql-3.0.1.tgz",
           "dev": true
         },
         "lodash": {
-          "version": "4.17.4",
-          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz",
+          "version": "4.17.5",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.5.tgz",
           "dev": true
         },
-        "ms": {
-          "version": "2.0.0",
-          "resolved": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz",
+        "qs": {
+          "version": "6.5.1",
+          "resolved": "https://registry.npmjs.org/qs/-/qs-6.5.1.tgz",
+          "dev": true
+        },
+        "semver": {
+          "version": "5.5.0",
+          "resolved": "https://registry.npmjs.org/semver/-/semver-5.5.0.tgz",
+          "dev": true
+        },
+        "type-detect": {
+          "version": "4.0.8",
+          "resolved": "https://registry.npmjs.org/type-detect/-/type-detect-4.0.8.tgz",
           "dev": true
         }
       }
@@ -6148,6 +6173,11 @@
         }
       }
     },
+    "pathval": {
+      "version": "1.1.0",
+      "resolved": "https://registry.npmjs.org/pathval/-/pathval-1.1.0.tgz",
+      "dev": true
+    },
     "pbkdf2": {
       "version": "3.0.14",
       "resolved": "https://registry.npmjs.org/pbkdf2/-/pbkdf2-3.0.14.tgz",
@@ -6334,8 +6364,8 @@
       }
     },
     "propagate": {
-      "version": "0.4.0",
-      "resolved": "https://registry.npmjs.org/propagate/-/propagate-0.4.0.tgz",
+      "version": "1.0.0",
+      "resolved": "https://registry.npmjs.org/propagate/-/propagate-1.0.0.tgz",
       "dev": true
     },
     "proxy-agent": {
