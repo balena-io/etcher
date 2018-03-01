@@ -1457,18 +1457,18 @@
       "dev": true
     },
     "chai": {
-      "version": "3.5.0",
-      "resolved": "https://registry.npmjs.org/chai/-/chai-3.5.0.tgz",
+      "version": "4.1.2",
+      "resolved": "https://registry.npmjs.org/chai/-/chai-4.1.2.tgz",
       "dev": true
     },
     "chai-as-promised": {
-      "version": "5.3.0",
-      "resolved": "https://registry.npmjs.org/chai-as-promised/-/chai-as-promised-5.3.0.tgz",
+      "version": "7.1.1",
+      "resolved": "https://registry.npmjs.org/chai-as-promised/-/chai-as-promised-7.1.1.tgz",
       "dev": true
     },
     "chai-datetime": {
-      "version": "1.4.1",
-      "resolved": "https://registry.npmjs.org/chai-datetime/-/chai-datetime-1.4.1.tgz",
+      "version": "1.5.0",
+      "resolved": "https://registry.npmjs.org/chai-datetime/-/chai-datetime-1.5.0.tgz",
       "dev": true
     },
     "chai-interface": {
@@ -1477,8 +1477,8 @@
       "dev": true
     },
     "chai-string": {
-      "version": "1.3.0",
-      "resolved": "https://registry.npmjs.org/chai-string/-/chai-string-1.3.0.tgz",
+      "version": "1.4.0",
+      "resolved": "https://registry.npmjs.org/chai-string/-/chai-string-1.4.0.tgz",
       "dev": true
     },
     "chai-things": {
@@ -1864,16 +1864,9 @@
       }
     },
     "deep-eql": {
-      "version": "0.1.3",
-      "resolved": "https://registry.npmjs.org/deep-eql/-/deep-eql-0.1.3.tgz",
-      "dev": true,
-      "dependencies": {
-        "type-detect": {
-          "version": "0.1.1",
-          "resolved": "https://registry.npmjs.org/type-detect/-/type-detect-0.1.1.tgz",
-          "dev": true
-        }
-      }
+      "version": "3.0.1",
+      "resolved": "https://registry.npmjs.org/deep-eql/-/deep-eql-3.0.1.tgz",
+      "dev": true
     },
     "deep-equal": {
       "version": "1.0.1",
@@ -3488,8 +3481,8 @@
       }
     },
     "formatio": {
-      "version": "1.1.1",
-      "resolved": "https://registry.npmjs.org/formatio/-/formatio-1.1.1.tgz",
+      "version": "1.2.0",
+      "resolved": "https://registry.npmjs.org/formatio/-/formatio-1.2.0.tgz",
       "dev": true
     },
     "formidable": {
@@ -4614,8 +4607,8 @@
       "dev": true
     },
     "lolex": {
-      "version": "1.3.2",
-      "resolved": "https://registry.npmjs.org/lolex/-/lolex-1.3.2.tgz",
+      "version": "1.6.0",
+      "resolved": "https://registry.npmjs.org/lolex/-/lolex-1.6.0.tgz",
       "dev": true
     },
     "longest": {
@@ -5477,8 +5470,8 @@
       }
     },
     "mochainon": {
-      "version": "1.0.0",
-      "resolved": "https://registry.npmjs.org/mochainon/-/mochainon-1.0.0.tgz",
+      "version": "2.0.0",
+      "resolved": "https://registry.npmjs.org/mochainon/-/mochainon-2.0.0.tgz",
       "dev": true
     },
     "moment": {
@@ -5528,6 +5521,11 @@
     "nan": {
       "version": "2.3.5",
       "resolved": "https://registry.npmjs.org/nan/-/nan-2.3.5.tgz"
+    },
+    "native-promise-only": {
+      "version": "0.8.1",
+      "resolved": "https://registry.npmjs.org/native-promise-only/-/native-promise-only-0.8.1.tgz",
+      "dev": true
     },
     "natives": {
       "version": "1.1.0",
@@ -5957,6 +5955,11 @@
     "path-parse": {
       "version": "1.0.5",
       "resolved": "https://registry.npmjs.org/path-parse/-/path-parse-1.0.5.tgz",
+      "dev": true
+    },
+    "path-to-regexp": {
+      "version": "1.7.0",
+      "resolved": "https://registry.npmjs.org/path-to-regexp/-/path-to-regexp-1.7.0.tgz",
       "dev": true
     },
     "path-type": {
@@ -6814,8 +6817,8 @@
       "resolved": "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.0.1.tgz"
     },
     "samsam": {
-      "version": "1.1.2",
-      "resolved": "https://registry.npmjs.org/samsam/-/samsam-1.1.2.tgz",
+      "version": "1.3.0",
+      "resolved": "https://registry.npmjs.org/samsam/-/samsam-1.3.0.tgz",
       "dev": true
     },
     "sanitize-filename": {
@@ -7007,13 +7010,13 @@
       "dev": true
     },
     "sinon": {
-      "version": "1.17.7",
-      "resolved": "https://registry.npmjs.org/sinon/-/sinon-1.17.7.tgz",
+      "version": "2.4.1",
+      "resolved": "https://registry.npmjs.org/sinon/-/sinon-2.4.1.tgz",
       "dev": true
     },
     "sinon-chai": {
-      "version": "2.8.0",
-      "resolved": "https://registry.npmjs.org/sinon-chai/-/sinon-chai-2.8.0.tgz",
+      "version": "2.14.0",
+      "resolved": "https://registry.npmjs.org/sinon-chai/-/sinon-chai-2.14.0.tgz",
       "dev": true
     },
     "ski": {
@@ -7465,6 +7468,11 @@
       "resolved": "https://registry.npmjs.org/term-size/-/term-size-1.2.0.tgz",
       "dev": true
     },
+    "text-encoding": {
+      "version": "0.6.4",
+      "resolved": "https://registry.npmjs.org/text-encoding/-/text-encoding-0.6.4.tgz",
+      "dev": true
+    },
     "text-table": {
       "version": "0.2.0",
       "resolved": "https://registry.npmjs.org/text-table/-/text-table-0.2.0.tgz",
@@ -7624,8 +7632,8 @@
       "dev": true
     },
     "type-detect": {
-      "version": "1.0.0",
-      "resolved": "https://registry.npmjs.org/type-detect/-/type-detect-1.0.0.tgz",
+      "version": "4.0.8",
+      "resolved": "https://registry.npmjs.org/type-detect/-/type-detect-4.0.8.tgz",
       "dev": true
     },
     "typedarray": {
@@ -7748,18 +7756,6 @@
       "version": "2.0.1",
       "resolved": "https://registry.npmjs.org/unzip-response/-/unzip-response-2.0.1.tgz",
       "dev": true
-    },
-    "update-json": {
-      "version": "1.0.0",
-      "resolved": "git+https://github.com/resin-io-modules/update-json.git#d240386af16525abd5327e7994e7c601d1887122",
-      "dev": true,
-      "dependencies": {
-        "async": {
-          "version": "1.5.2",
-          "resolved": "https://registry.npmjs.org/async/-/async-1.5.2.tgz",
-          "dev": true
-        }
-      }
     },
     "update-notifier": {
       "version": "2.3.0",
@@ -7895,6 +7891,18 @@
           "version": "1.0.0",
           "resolved": "https://registry.npmjs.org/touch/-/touch-1.0.0.tgz",
           "dev": true
+        },
+        "update-json": {
+          "version": "1.0.0",
+          "resolved": "git+https://github.com/resin-io-modules/update-json.git#d240386af16525abd5327e7994e7c601d1887122",
+          "dev": true,
+          "dependencies": {
+            "async": {
+              "version": "1.5.2",
+              "resolved": "https://registry.npmjs.org/async/-/async-1.5.2.tgz",
+              "dev": true
+            }
+          }
         },
         "window-size": {
           "version": "0.2.0",
