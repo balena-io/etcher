@@ -3030,8 +3030,8 @@
       }
     },
     "eslint-plugin-jsdoc": {
-      "version": "3.3.1",
-      "resolved": "https://registry.npmjs.org/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-3.3.1.tgz",
+      "version": "3.5.0",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-3.5.0.tgz",
       "dev": true,
       "dependencies": {
         "lodash": {
