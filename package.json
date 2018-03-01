@@ -110,7 +110,7 @@
     "eslint-plugin-import": "2.8.0",
     "eslint-plugin-jsdoc": "3.3.1",
     "eslint-plugin-lodash": "2.6.1",
-    "eslint-plugin-node": "6.0.0",
+    "eslint-plugin-node": "6.0.1",
     "eslint-plugin-promise": "3.6.0",
     "eslint-plugin-standard": "3.0.1",
     "html-angular-validate": "0.2.3",

@@ -3054,8 +3054,8 @@
       }
     },
     "eslint-plugin-node": {
-      "version": "6.0.0",
-      "resolved": "https://registry.npmjs.org/eslint-plugin-node/-/eslint-plugin-node-6.0.0.tgz",
+      "version": "6.0.1",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-node/-/eslint-plugin-node-6.0.1.tgz",
       "dev": true,
       "dependencies": {
         "balanced-match": {
@@ -3064,13 +3064,8 @@
           "dev": true
         },
         "brace-expansion": {
-          "version": "1.1.9",
-          "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.9.tgz",
-          "dev": true
-        },
-        "ignore": {
-          "version": "3.3.7",
-          "resolved": "https://registry.npmjs.org/ignore/-/ignore-3.3.7.tgz",
+          "version": "1.1.11",
+          "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
           "dev": true
         },
         "minimatch": {
