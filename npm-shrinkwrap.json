@@ -7757,6 +7757,18 @@
       "resolved": "https://registry.npmjs.org/unzip-response/-/unzip-response-2.0.1.tgz",
       "dev": true
     },
+    "update-json": {
+      "version": "1.0.0",
+      "resolved": "git+https://github.com/resin-io-modules/update-json.git#d240386af16525abd5327e7994e7c601d1887122",
+      "dev": true,
+      "dependencies": {
+        "async": {
+          "version": "1.5.2",
+          "resolved": "https://registry.npmjs.org/async/-/async-1.5.2.tgz",
+          "dev": true
+        }
+      }
+    },
     "update-notifier": {
       "version": "2.3.0",
       "resolved": "https://registry.npmjs.org/update-notifier/-/update-notifier-2.3.0.tgz",
@@ -7891,18 +7903,6 @@
           "version": "1.0.0",
           "resolved": "https://registry.npmjs.org/touch/-/touch-1.0.0.tgz",
           "dev": true
-        },
-        "update-json": {
-          "version": "1.0.0",
-          "resolved": "git+https://github.com/resin-io-modules/update-json.git#d240386af16525abd5327e7994e7c601d1887122",
-          "dev": true,
-          "dependencies": {
-            "async": {
-              "version": "1.5.2",
-              "resolved": "https://registry.npmjs.org/async/-/async-1.5.2.tgz",
-              "dev": true
-            }
-          }
         },
         "window-size": {
           "version": "0.2.0",
