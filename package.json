@@ -121,7 +121,7 @@
     "node-gyp": "3.5.0",
     "node-sass": "4.7.2",
     "pkg": "4.1.1",
-    "sass-lint": "1.10.2",
+    "sass-lint": "1.12.1",
     "spectron": "3.7.2",
     "versionist": "2.8.1",
     "webpack": "3.10.0"
