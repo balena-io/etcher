@@ -116,7 +116,7 @@ describe('Model: availableDrives', function () {
                 bar: 'baz',
                 qux: 5
               },
-              set: new Set()
+              set: {}
             }
           ]
 
