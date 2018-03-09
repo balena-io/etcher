@@ -77,31 +77,6 @@ describe('Model: availableDrives', function () {
           m.chai.expect(availableDrives.getDrives()).to.deep.equal(drives)
         })
 
-        it('should be able to set non-plain drive objects', function () {
-          class Device {
-            constructor () {
-              this.device = '/dev/sdb'
-              this.description = 'Foo'
-              this.mountpoints = [ {
-                path: '/mnt/foo'
-              } ]
-              this.isSystem = false
-            }
-          }
-
-          availableDrives.setDrives([ new Device() ])
-          m.chai.expect(availableDrives.getDrives()).to.deep.equal([
-            {
-              device: '/dev/sdb',
-              description: 'Foo',
-              mountpoints: [ {
-                path: '/mnt/foo'
-              } ],
-              isSystem: false
-            }
-          ])
-        })
-
         it('should be able to set drives with extra properties', function () {
           const drives = [
             {
