@@ -6627,6 +6627,10 @@
       "resolved": "https://registry.npmjs.org/ripemd160/-/ripemd160-2.0.1.tgz",
       "dev": true
     },
+    "roboto-fontface": {
+      "version": "0.9.0",
+      "resolved": "https://registry.npmjs.org/roboto-fontface/-/roboto-fontface-0.9.0.tgz"
+    },
     "run-async": {
       "version": "0.1.0",
       "resolved": "https://registry.npmjs.org/run-async/-/run-async-0.1.0.tgz"
