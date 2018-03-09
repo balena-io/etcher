@@ -1706,12 +1706,14 @@
       "resolved": "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.2.tgz"
     },
     "crc": {
-      "version": "3.4.4",
-      "resolved": "https://registry.npmjs.org/crc/-/crc-3.4.4.tgz"
+      "version": "3.5.0",
+      "resolved": "https://registry.npmjs.org/crc/-/crc-3.5.0.tgz",
+      "dev": true
     },
     "crc32-stream": {
       "version": "2.0.0",
-      "resolved": "https://registry.npmjs.org/crc32-stream/-/crc32-stream-2.0.0.tgz"
+      "resolved": "https://registry.npmjs.org/crc32-stream/-/crc32-stream-2.0.0.tgz",
+      "dev": true
     },
     "create-ecdh": {
       "version": "4.0.0",
