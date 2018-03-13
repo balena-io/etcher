@@ -2,6 +2,20 @@
   "name": "etcher",
   "version": "1.3.1",
   "dependencies": {
+    "@ronomon/direct-io": {
+      "version": "2.3.0",
+      "resolved": "https://registry.npmjs.org/@ronomon/direct-io/-/direct-io-2.3.0.tgz",
+      "dependencies": {
+        "nan": {
+          "version": "2.9.2",
+          "resolved": "https://registry.npmjs.org/nan/-/nan-2.9.2.tgz"
+        }
+      }
+    },
+    "@ronomon/queue": {
+      "version": "3.0.0",
+      "resolved": "https://registry.npmjs.org/@ronomon/queue/-/queue-3.0.0.tgz"
+    },
     "@types/angular": {
       "version": "1.6.17",
       "resolved": "https://registry.npmjs.org/@types/angular/-/angular-1.6.17.tgz"

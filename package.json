@@ -38,6 +38,7 @@
     "fsevents"
   ],
   "dependencies": {
+    "@ronomon/direct-io": "2.3.0",
     "angular": "1.6.3",
     "angular-if-state": "1.0.0",
     "angular-middle-ellipses": "1.0.0",
