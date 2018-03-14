@@ -6499,7 +6499,7 @@ svg-icon {
  * limitations under the License.
  */
 .page-main {
-  margin-top: 75px; }
+  margin-top: 50px; }
 
 svg-icon > img[disabled] {
   opacity: 0.2; }
@@ -6539,7 +6539,6 @@ svg-icon > img[disabled] {
 
 .page-main .step-footer {
   margin-top: 10px;
-  margin-bottom: -40px;
   color: #787c7f;
   font-size: 10px; }
 
@@ -6569,6 +6568,37 @@ svg-icon > img[disabled] {
 
 .page-main .step-size {
   color: #787c7f; }
+
+.target-status-wrap {
+  display: flex;
+  flex-direction: column;
+  margin: 8px 28px;
+  align-items: flex-start; }
+
+.target-status-line {
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+  font-family: inherit; }
+  .target-status-line > .target-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 5px; }
+  .target-status-line.target-status-flashing > .target-status-dot {
+    background-color: #ff912f; }
+  .target-status-line.target-status-validating > .target-status-dot {
+    background-color: #5793db; }
+  .target-status-line.target-status-succeeded > .target-status-dot {
+    background-color: #5fb835; }
+  .target-status-line.target-status-failed > .target-status-dot {
+    background-color: #d9534f; }
+  .target-status-line > .target-status-quantity {
+    color: white;
+    font-weight: bold;
+    min-width: 32px; }
+  .target-status-line > .target-status-message {
+    color: gray; }
 
 /*
  * Copyright 2016 resin.io

@@ -32,9 +32,12 @@ describe('Browser: WindowProgress', function () {
         }
 
         this.state = {
+          flashing: 1,
+          validating: 0,
+          succeeded: 0,
+          failed: 0,
           percentage: 85,
-          speed: 100,
-          type: 'write'
+          speed: 100
         }
       })
 
@@ -73,19 +76,18 @@ describe('Browser: WindowProgress', function () {
         })
 
         it('should set the flashing title', function () {
-          this.state.type = 'write'
           windowProgress.set(this.state)
           m.chai.expect(this.setTitleSpy).to.have.been.calledWith(' \u2013 85% Flashing')
         })
 
         it('should set the validating title', function () {
-          this.state.type = 'check'
+          this.state.flashing = 0
+          this.state.validating = 1
           windowProgress.set(this.state)
           m.chai.expect(this.setTitleSpy).to.have.been.calledWith(' \u2013 85% Validating')
         })
 
         it('should set the starting title', function () {
-          this.state.type = 'write'
           this.state.percentage = 0
           this.state.speed = 0
           windowProgress.set(this.state)
@@ -93,7 +95,6 @@ describe('Browser: WindowProgress', function () {
         })
 
         it('should set the finishing title', function () {
-          this.state.type = 'write'
           this.state.percentage = 100
           windowProgress.set(this.state)
           m.chai.expect(this.setTitleSpy).to.have.been.calledWith(' \u2013 Finishing...')
