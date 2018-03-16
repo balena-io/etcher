@@ -33,7 +33,7 @@ describe('Browser: WindowProgress', function () {
 
         this.state = {
           flashing: 1,
-          validating: 0,
+          verifying: 0,
           succeeded: 0,
           failed: 0,
           percentage: 85,
@@ -80,9 +80,9 @@ describe('Browser: WindowProgress', function () {
           m.chai.expect(this.setTitleSpy).to.have.been.calledWith(' \u2013 85% Flashing')
         })
 
-        it('should set the validating title', function () {
+        it('should set the verifying title', function () {
           this.state.flashing = 0
-          this.state.validating = 1
+          this.state.verifying = 1
           windowProgress.set(this.state)
           m.chai.expect(this.setTitleSpy).to.have.been.calledWith(' \u2013 85% Validating')
         })

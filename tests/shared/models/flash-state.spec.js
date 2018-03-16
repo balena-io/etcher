@@ -39,7 +39,7 @@ describe('Model: flashState', function () {
 
         m.chai.expect(flashState.getFlashState()).to.deep.equal({
           flashing: 0,
-          validating: 0,
+          verifying: 0,
           succeeded: 0,
           failed: 0,
           percentage: 0,
@@ -96,18 +96,6 @@ describe('Model: flashState', function () {
             speed: 100000000000
           })
         }).to.throw('Can\'t set the flashing state when not flashing')
-      })
-
-      it('should throw if type is not a string', function () {
-        flashState.setFlashingFlag()
-        m.chai.expect(function () {
-          flashState.setProgressState({
-            type: 1234,
-            percentage: 50,
-            eta: 15,
-            speed: 100000000000
-          })
-        }).to.throw('Invalid state type: 1234')
       })
 
       it('should not throw if percentage is 0', function () {
@@ -261,7 +249,7 @@ describe('Model: flashState', function () {
         const currentFlashState = flashState.getFlashState()
         m.chai.expect(currentFlashState).to.deep.equal({
           flashing: 0,
-          validating: 0,
+          verifying: 0,
           succeeded: 0,
           failed: 0,
           percentage: 0,
@@ -271,7 +259,10 @@ describe('Model: flashState', function () {
 
       it('should return the current flash state', function () {
         const state = {
-          type: 'write',
+          flashing: 1,
+          verifying: 0,
+          succeeded: 0,
+          failed: 0,
           percentage: 50,
           eta: 15,
           speed: 0
@@ -282,7 +273,7 @@ describe('Model: flashState', function () {
         const currentFlashState = flashState.getFlashState()
         m.chai.expect(currentFlashState).to.deep.equal({
           flashing: 1,
-          validating: 0,
+          verifying: 0,
           succeeded: 0,
           failed: 0,
           percentage: 50,
@@ -383,7 +374,7 @@ describe('Model: flashState', function () {
 
         m.chai.expect(flashState.getFlashState()).to.not.deep.equal({
           flashing: 0,
-          validating: 0,
+          verifying: 0,
           succeeded: 0,
           failed: 0,
           percentage: 0,
@@ -397,7 +388,7 @@ describe('Model: flashState', function () {
 
         m.chai.expect(flashState.getFlashState()).to.deep.equal({
           flashing: 0,
-          validating: 0,
+          verifying: 0,
           succeeded: 0,
           failed: 0,
           percentage: 0,

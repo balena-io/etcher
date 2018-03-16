@@ -9,7 +9,7 @@ describe('Browser: progressStatus', function () {
     beforeEach(function () {
       this.state = {
         flashing: 1,
-        validating: 0,
+        verifying: 0,
         succeeded: 0,
         failed: 0,
         percentage: 0,
@@ -36,17 +36,17 @@ describe('Browser: progressStatus', function () {
       m.chai.expect(progressStatus.fromFlashState(this.state)).to.equal('Starting...')
     })
 
-    it('should handle percentage == 0, validating, unmountOnSuccess', function () {
+    it('should handle percentage == 0, verifying, unmountOnSuccess', function () {
       this.state.speed = 0
       this.state.flashing = 0
-      this.state.validating = 1
+      this.state.verifying = 1
       m.chai.expect(progressStatus.fromFlashState(this.state)).to.equal('Validating...')
     })
 
-    it('should handle percentage == 0, validating, !unmountOnSuccess', function () {
+    it('should handle percentage == 0, verifying, !unmountOnSuccess', function () {
       this.state.speed = 0
       this.state.flashing = 0
-      this.state.validating = 1
+      this.state.verifying = 1
       settings.set('unmountOnSuccess', false)
       m.chai.expect(progressStatus.fromFlashState(this.state)).to.equal('Validating...')
     })
@@ -62,16 +62,16 @@ describe('Browser: progressStatus', function () {
       m.chai.expect(progressStatus.fromFlashState(this.state)).to.equal('50% Flashing')
     })
 
-    it('should handle percentage == 50, validating, unmountOnSuccess', function () {
+    it('should handle percentage == 50, verifying, unmountOnSuccess', function () {
       this.state.flashing = 0
-      this.state.validating = 1
+      this.state.verifying = 1
       this.state.percentage = 50
       m.chai.expect(progressStatus.fromFlashState(this.state)).to.equal('50% Validating')
     })
 
-    it('should handle percentage == 50, validating, !unmountOnSuccess', function () {
+    it('should handle percentage == 50, verifying, !unmountOnSuccess', function () {
       this.state.flashing = 0
-      this.state.validating = 1
+      this.state.verifying = 1
       this.state.percentage = 50
       settings.set('unmountOnSuccess', false)
       m.chai.expect(progressStatus.fromFlashState(this.state)).to.equal('50% Validating')
@@ -95,16 +95,16 @@ describe('Browser: progressStatus', function () {
       m.chai.expect(progressStatus.fromFlashState(this.state)).to.equal('Finishing...')
     })
 
-    it('should handle percentage == 100, validating, unmountOnSuccess', function () {
+    it('should handle percentage == 100, verifying, unmountOnSuccess', function () {
       this.state.flashing = 0
-      this.state.validating = 1
+      this.state.verifying = 1
       this.state.percentage = 100
       m.chai.expect(progressStatus.fromFlashState(this.state)).to.equal('Unmounting...')
     })
 
     it('should handle percentage == 100, validatinf, !unmountOnSuccess', function () {
       this.state.flashing = 0
-      this.state.validating = 1
+      this.state.verifying = 1
       this.state.percentage = 100
       settings.set('unmountOnSuccess', false)
       m.chai.expect(progressStatus.fromFlashState(this.state)).to.equal('Finishing...')
