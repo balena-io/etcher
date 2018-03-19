@@ -30,6 +30,7 @@ function usage() {
   echo "    -r <application architecture>"
   echo "    -b <application binary name>"
   echo "    -i <application icon (.png)>"
+  echo "    -c <application menu categories>"
   echo "    -o <output>"
   exit 1
 }
@@ -40,9 +41,10 @@ ARGV_PACKAGE=""
 ARGV_ARCHITECTURE=""
 ARGV_BINARY=""
 ARGV_ICON=""
+ARGV_MENU_CATEGORIES=""
 ARGV_OUTPUT=""
 
-while getopts ":n:d:p:r:b:i:o:" option; do
+while getopts ":n:d:p:r:b:i:c:o:" option; do
   case $option in
     n) ARGV_APPLICATION_NAME="$OPTARG" ;;
     d) ARGV_DESCRIPTION="$OPTARG" ;;
@@ -51,6 +53,7 @@ while getopts ":n:d:p:r:b:i:o:" option; do
     b) ARGV_BINARY="$OPTARG" ;;
     i) ARGV_ICON="$OPTARG" ;;
     o) ARGV_OUTPUT="$OPTARG" ;;
+    c) ARGV_MENU_CATEGORIES="$OPTARG" ;;
     *) usage ;;
   esac
 done
@@ -61,6 +64,7 @@ if [ -z "$ARGV_APPLICATION_NAME" ] \
   || [ -z "$ARGV_ARCHITECTURE" ] \
   || [ -z "$ARGV_BINARY" ] \
   || [ -z "$ARGV_ICON" ] \
+  || [ -z "$ARGV_MENU_CATEGORIES" ] \
   || [ -z "$ARGV_OUTPUT" ]
 then
   usage
@@ -77,6 +81,7 @@ Exec=$ARGV_BINARY.wrapper
 Comment=$ARGV_DESCRIPTION
 Icon=$APPDIR_ICON_FILENAME
 Type=Application
+Categories=$ARGV_MENU_CATEGORIES
 EOF
 
 cp "$ARGV_ICON" "$ARGV_OUTPUT/$APPDIR_ICON_FILENAME.png"

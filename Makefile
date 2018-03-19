@@ -109,6 +109,7 @@ COMPANY_NAME = Resinio Ltd
 APPLICATION_NAME = $(shell jq -r '.displayName' package.json)
 APPLICATION_DESCRIPTION = $(shell jq -r '.description' package.json)
 APPLICATION_COPYRIGHT = $(shell cat electron-builder.yml | shyaml get-value copyright)
+APPLICATION_MENU_CATEGORIES = $(shell cat electron-builder.yml | shyaml get-value linux.category)
 
 BINTRAY_ORGANIZATION = resin-io
 BINTRAY_REPOSITORY_DEBIAN = debian
@@ -343,6 +344,7 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(PLATFO
 		-r $(TARGET_ARCH) \
 		-b $(APPLICATION_NAME_ELECTRON) \
 		-i assets/icon.png \
+		-c $(APPLICATION_MENU_CATEGORIES) \
 		-o $@
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(TARGET_ARCH_APPIMAGE).AppImage: \
