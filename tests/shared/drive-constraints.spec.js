@@ -20,6 +20,7 @@ const m = require('mochainon')
 const _ = require('lodash')
 const path = require('path')
 const constraints = require('../../lib/shared/drive-constraints')
+const messages = require('../../lib/shared/messages')
 
 describe('Shared: DriveConstraints', function () {
   describe('.isDriveLocked()', function () {
@@ -1029,7 +1030,7 @@ describe('Shared: DriveConstraints', function () {
       const expectedTuplesSorted = _.sortBy(_.map(expectedTuples, (tuple) => {
         return {
           type: constraints.COMPATIBILITY_STATUS_TYPES[tuple[0]],
-          message: constraints.COMPATIBILITY_STATUS_MESSAGES[tuple[1]]
+          message: messages.compatibility[tuple[1]]()
         }
       }), [ 'message' ])
       const resultTuplesSorted = _.sortBy(resultList, [ 'message' ])
@@ -1060,7 +1061,7 @@ describe('Shared: DriveConstraints', function () {
         this.image.path = path.join(this.mountpoint, 'rpi.img')
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
-        const expectedTuples = [ [ 'ERROR', 'CONTAINS_IMAGE' ] ]
+        const expectedTuples = [ [ 'ERROR', 'containsImage' ] ]
 
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
@@ -1071,7 +1072,7 @@ describe('Shared: DriveConstraints', function () {
         this.drive.isSystem = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
-        const expectedTuples = [ [ 'WARNING', 'SYSTEM' ] ]
+        const expectedTuples = [ [ 'WARNING', 'system' ] ]
 
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
@@ -1082,9 +1083,14 @@ describe('Shared: DriveConstraints', function () {
         this.image.size.final.value = this.drive.size + 1
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
-        const expectedTuples = [ [ 'ERROR', 'TOO_SMALL' ] ]
+        const expected = [
+          {
+            message: messages.compatibility.tooSmall('1 B'),
+            type: constraints.COMPATIBILITY_STATUS_TYPES.ERROR
+          }
+        ]
 
-        expectStatusTypesAndMessagesToBe(result, expectedTuples)
+        m.chai.expect(result).to.deep.equal(expected)
       })
     })
 
@@ -1105,7 +1111,7 @@ describe('Shared: DriveConstraints', function () {
         this.drive.isReadOnly = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
-        const expectedTuples = [ [ 'ERROR', 'LOCKED' ] ]
+        const expectedTuples = [ [ 'ERROR', 'locked' ] ]
 
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
@@ -1116,7 +1122,7 @@ describe('Shared: DriveConstraints', function () {
         this.image.recommendedDriveSize = this.drive.size + 1
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
-        const expectedTuples = [ [ 'WARNING', 'SIZE_NOT_RECOMMENDED' ] ]
+        const expectedTuples = [ [ 'WARNING', 'sizeNotRecommended' ] ]
 
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
@@ -1127,7 +1133,7 @@ describe('Shared: DriveConstraints', function () {
         this.drive.size = constraints.LARGE_DRIVE_SIZE + 1
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
-        const expectedTuples = [ [ 'WARNING', 'LARGE_DRIVE' ] ]
+        const expectedTuples = [ [ 'WARNING', 'largeDrive' ] ]
 
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
@@ -1154,7 +1160,7 @@ describe('Shared: DriveConstraints', function () {
         this.drive.isReadOnly = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, null)
-        const expectedTuples = [ [ 'ERROR', 'LOCKED' ] ]
+        const expectedTuples = [ [ 'ERROR', 'locked' ] ]
 
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
@@ -1165,7 +1171,7 @@ describe('Shared: DriveConstraints', function () {
         this.drive.isSystem = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, null)
-        const expectedTuples = [ [ 'WARNING', 'SYSTEM' ] ]
+        const expectedTuples = [ [ 'WARNING', 'system' ] ]
 
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
@@ -1177,7 +1183,7 @@ describe('Shared: DriveConstraints', function () {
         this.image.path = path.join(this.mountpoint, 'rpi.img')
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
-        const expectedTuples = [ [ 'ERROR', 'CONTAINS_IMAGE' ] ]
+        const expectedTuples = [ [ 'ERROR', 'containsImage' ] ]
 
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
@@ -1188,7 +1194,7 @@ describe('Shared: DriveConstraints', function () {
         this.drive.isReadOnly = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
-        const expectedTuples = [ [ 'ERROR', 'LOCKED' ] ]
+        const expectedTuples = [ [ 'ERROR', 'locked' ] ]
 
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
@@ -1200,9 +1206,14 @@ describe('Shared: DriveConstraints', function () {
         this.drive.isSystem = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
-        const expectedTuples = [ [ 'ERROR', 'TOO_SMALL' ] ]
+        const expected = [
+          {
+            message: messages.compatibility.tooSmall('1 B'),
+            type: constraints.COMPATIBILITY_STATUS_TYPES.ERROR
+          }
+        ]
 
-        expectStatusTypesAndMessagesToBe(result, expectedTuples)
+        m.chai.expect(result).to.deep.equal(expected)
       })
     })
 
@@ -1212,7 +1223,7 @@ describe('Shared: DriveConstraints', function () {
         this.image.recommendedDriveSize = this.drive.size + 1
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
-        const expectedTuples = [ [ 'WARNING', 'SIZE_NOT_RECOMMENDED' ], [ 'WARNING', 'SYSTEM' ] ]
+        const expectedTuples = [ [ 'WARNING', 'sizeNotRecommended' ], [ 'WARNING', 'system' ] ]
 
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
