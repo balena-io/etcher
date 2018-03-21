@@ -36,7 +36,7 @@ NPM_DEV_MODULES=($(jq -r '.devDependencies | keys | .[]' "$PACKAGE_JSON"))
 
 DEV_FILES_REGEX=^\(tests\|scripts\)/
 # need to do a non-greedy match, which is why we're not using (.*)
-REQUIRE_REGEX=require\\\(\'\([-_/\.a-z0-9]+\)\'\\\)
+REQUIRE_REGEX=require\\\(\'\(@?[-_/\.a-z0-9]+\)\'\\\)
 JS_OR_JSON_REGEX=\.js\(on\)?$
 HTML_REGEX=\.html$
 
@@ -68,7 +68,9 @@ git ls-tree -r HEAD | while IFS='' read line; do
               requirement_found=1
             fi
           else
-            required=${required%%/*}
+            if [[ ! "$required" =~ ^@ ]]; then
+              required=${required%%/*}
+            fi
           fi
         fi
         if [[ $is_local -eq 0 ]]; then
