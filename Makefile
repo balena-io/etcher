@@ -104,7 +104,7 @@ endif
 # ---------------------------------------------------------------------
 
 ELECTRON_VERSION = $(shell jq -r '.devDependencies["electron"]' package.json)
-NODE_VERSION = 6.1.0
+NODE_VERSION = 8.10.0
 COMPANY_NAME = Resinio Ltd
 APPLICATION_NAME = $(shell jq -r '.displayName' package.json)
 APPLICATION_DESCRIPTION = $(shell jq -r '.description' package.json)
