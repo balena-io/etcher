@@ -20,7 +20,6 @@
   "scripts": {
     "test": "make lint test sanity-checks",
     "start": "electron lib/start.js",
-    "postshrinkwrap": "node ./scripts/clean-shrinkwrap.js",
     "configure": "node-gyp configure",
     "build": "node-gyp build",
     "install": "node-gyp rebuild",
