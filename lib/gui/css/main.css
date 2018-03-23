@@ -6543,11 +6543,14 @@ svg-icon > img[disabled] {
   font-size: 10px; }
 
 .page-main .step-footer-split {
+  position: absolute;
+  top: 39px;
+  left: 28px;
   margin-left: auto;
   margin-right: auto;
   display: flex;
   justify-content: space-between;
-  max-width: 170px; }
+  width: 170px; }
 
 .page-main .step-footer-underline {
   border-bottom: 1px dotted;
@@ -6571,6 +6574,8 @@ svg-icon > img[disabled] {
 
 .target-status-wrap {
   display: flex;
+  position: absolute;
+  top: 62px;
   flex-direction: column;
   margin: 8px 28px;
   align-items: flex-start; }
@@ -6602,6 +6607,9 @@ svg-icon > img[disabled] {
 
 .tooltip-inner {
   white-space: pre-line; }
+
+.space-vertical-large {
+  position: relative; }
 
 /*
  * Copyright 2016 resin.io
