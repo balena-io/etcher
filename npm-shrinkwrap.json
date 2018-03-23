@@ -2032,40 +2032,36 @@
       "dev": true
     },
     "drivelist": {
-      "version": "6.0.4",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-6.0.4.tgz",
+      "version": "6.1.3",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-6.1.3.tgz",
       "dependencies": {
-        "bindings": {
-          "version": "1.3.0",
-          "resolved": "https://registry.npmjs.org/bindings/-/bindings-1.3.0.tgz"
-        },
-        "debug": {
-          "version": "3.1.0",
-          "resolved": "https://registry.npmjs.org/debug/-/debug-3.1.0.tgz"
-        },
         "esprima": {
           "version": "4.0.0",
           "resolved": "https://registry.npmjs.org/esprima/-/esprima-4.0.0.tgz"
         },
         "js-yaml": {
-          "version": "3.10.0",
-          "resolved": "https://registry.npmjs.org/js-yaml/-/js-yaml-3.10.0.tgz"
+          "version": "3.11.0",
+          "resolved": "https://registry.npmjs.org/js-yaml/-/js-yaml-3.11.0.tgz"
         },
-        "ms": {
-          "version": "2.0.0",
-          "resolved": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz"
-        },
-        "nan": {
-          "version": "2.8.0",
-          "resolved": "https://registry.npmjs.org/nan/-/nan-2.8.0.tgz"
+        "node-abi": {
+          "version": "2.3.0",
+          "resolved": "https://registry.npmjs.org/node-abi/-/node-abi-2.3.0.tgz"
         },
         "prebuild-install": {
-          "version": "2.4.1",
-          "resolved": "https://registry.npmjs.org/prebuild-install/-/prebuild-install-2.4.1.tgz"
+          "version": "2.5.1",
+          "resolved": "https://registry.npmjs.org/prebuild-install/-/prebuild-install-2.5.1.tgz"
         },
-        "xtend": {
-          "version": "4.0.1",
-          "resolved": "https://registry.npmjs.org/xtend/-/xtend-4.0.1.tgz"
+        "pump": {
+          "version": "2.0.1",
+          "resolved": "https://registry.npmjs.org/pump/-/pump-2.0.1.tgz"
+        },
+        "semver": {
+          "version": "5.5.0",
+          "resolved": "https://registry.npmjs.org/semver/-/semver-5.5.0.tgz"
+        },
+        "simple-get": {
+          "version": "2.7.0",
+          "resolved": "https://registry.npmjs.org/simple-get/-/simple-get-2.7.0.tgz"
         }
       }
     },
@@ -3191,6 +3187,10 @@
       "version": "2.0.6",
       "resolved": "https://registry.npmjs.org/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz",
       "dev": true
+    },
+    "fast-plist": {
+      "version": "0.1.2",
+      "resolved": "https://registry.npmjs.org/fast-plist/-/fast-plist-0.1.2.tgz"
     },
     "fastparse": {
       "version": "1.1.1",
