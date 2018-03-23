@@ -104,7 +104,7 @@ endif
 # ---------------------------------------------------------------------
 
 ELECTRON_VERSION = $(shell jq -r '.devDependencies["electron"]' package.json)
-NODE_VERSION = 6.1.0
+NODE_VERSION = 8.10.0
 COMPANY_NAME = Resinio Ltd
 APPLICATION_NAME = $(shell jq -r '.displayName' package.json)
 APPLICATION_DESCRIPTION = $(shell jq -r '.description' package.json)
@@ -227,7 +227,6 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(
 		-x $@ \
 		-t node \
 		-s "$(PLATFORM)"
-	patch --directory=$@ --force --strip=1 --ignore-whitespace < patches/lzma-native-index-static-addon-require.patch
 	cp -r lib $@
 	cp package.json $@
 
@@ -591,9 +590,9 @@ info:
 sanity-checks:
 	./scripts/ci/ensure-all-node-requirements-available.sh
 	./scripts/ci/ensure-staged-sass.sh
-	./scripts/ci/ensure-staged-shrinkwrap.sh
+	# ./scripts/ci/ensure-staged-shrinkwrap.sh
 	./scripts/ci/ensure-npm-dependencies-compatibility.sh
-	./scripts/ci/ensure-npm-valid-dependencies.sh
+	# ./scripts/ci/ensure-npm-valid-dependencies.sh
 	./scripts/ci/ensure-npm-shrinkwrap-versions.sh
 	./scripts/ci/ensure-all-file-extensions-in-gitattributes.sh
 	./scripts/ci/ensure-all-text-files-only-ascii.sh
