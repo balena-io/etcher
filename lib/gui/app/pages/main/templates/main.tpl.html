@@ -66,14 +66,14 @@
               'text-disabled': main.shouldDriveStepBeDisabled()
             }">
             <span class="drive-step step-name"
-              uib-tooltip="{{ main.selection.getCurrentDrive().description }} ({{ main.selection.getCurrentDrive().displayName }})">
+              uib-tooltip="{{ drive.getDriveListLabel() }}">
               <!-- middleEllipses errors on undefined, therefore fallback to empty string -->
-              {{ (main.selection.getCurrentDrive().description || "") | middleEllipses:11 }}
+              {{ drive.getDrivesTitle() | middleEllipses:20 }}
             </span>
             <span class="step-drive step-size">{{ main.selection.getCurrentDrive().size | closestUnit }}</span>
             <span class="step-drive step-warning glyphicon glyphicon-exclamation-sign"
-              uib-tooltip="{{ main.constraints.getDriveImageCompatibilityStatuses(main.selection.getDrive(), main.selection.getImage())[0].message }}"
-              ng-show="main.constraints.hasDriveImageCompatibilityStatus(main.selection.getDrive(), main.selection.getImage())"></span>
+              uib-tooltip="{{ main.constraints.getListDriveImageCompatibilityStatuses(main.selection.getSelectedDrives(), main.selection.getImage())[0].message }}"
+              ng-show="main.constraints.hasListDriveImageCompatibilityStatus(main.selection.getSelectedDrives(), main.selection.getImage())"></span>
           </div>
           <button class="button button-link step-footer"
             tabindex="{{ main.selection.hasDrive() ? 2 : -1 }}"
@@ -97,7 +97,7 @@
           percentage="main.state.getFlashState().percentage"
           striped="{{ main.state.getFlashState().type == 'check' }}"
           ng-attr-active="{{ main.state.isFlashing() }}"
-          ng-click="flash.flashImageToDrive(main.selection.getImage(), main.selection.getCurrentDrive())"
+          ng-click="flash.flashImageToDrive(main.selection.getImage(), main.selection.getSelectedDevices())"
           ng-disabled="main.shouldFlashStepBeDisabled() || main.state.getLastFlashErrorCode()">
             <span ng-bind="flash.getProgressButtonLabel()"></span>
         </progress-button>

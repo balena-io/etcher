@@ -6587,7 +6587,7 @@ svg-icon > img[disabled] {
     margin-right: 5px; }
   .target-status-line.target-status-flashing > .target-status-dot {
     background-color: #ff912f; }
-  .target-status-line.target-status-validating > .target-status-dot {
+  .target-status-line.target-status-verifying > .target-status-dot {
     background-color: #5793db; }
   .target-status-line.target-status-succeeded > .target-status-dot {
     background-color: #5fb835; }
@@ -6599,6 +6599,9 @@ svg-icon > img[disabled] {
     min-width: 32px; }
   .target-status-line > .target-status-message {
     color: gray; }
+
+.tooltip-inner {
+  white-space: pre-line; }
 
 /*
  * Copyright 2016 resin.io

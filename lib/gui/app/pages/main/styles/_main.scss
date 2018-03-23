@@ -129,7 +129,7 @@ svg-icon > img[disabled] {
   &.target-status-flashing > .target-status-dot {
     background-color: $palette-theme-warning-background;
   }
-  &.target-status-validating > .target-status-dot {
+  &.target-status-verifying > .target-status-dot {
     background-color: $palette-theme-primary-background;
   }
   &.target-status-succeeded > .target-status-dot {
@@ -148,4 +148,8 @@ svg-icon > img[disabled] {
   > .target-status-message {
     color: gray;
   }
+}
+
+.tooltip-inner {
+  white-space: pre-line;
 }

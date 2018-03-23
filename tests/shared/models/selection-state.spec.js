@@ -74,6 +74,10 @@ describe('Model: selectionState', function () {
       const hasImage = selectionState.hasImage()
       m.chai.expect(hasImage).to.be.false
     })
+
+    it('.getSelectedDrives() should return []', function () {
+      m.chai.expect(selectionState.getSelectedDrives()).to.deep.equal([])
+    })
   })
 
   describe('given a drive', function () {
@@ -94,6 +98,10 @@ describe('Model: selectionState', function () {
       ])
 
       selectionState.selectDrive('/dev/disk2')
+    })
+
+    afterEach(function () {
+      selectionState.clear()
     })
 
     describe('.getCurrentDrive()', function () {
@@ -131,13 +139,24 @@ describe('Model: selectionState', function () {
     })
 
     describe('.deselectDrive()', function () {
-      it('should clear drives', function () {
+      it('should clear drive', function () {
         const firstDrive = selectionState.getCurrentDrive()
         selectionState.deselectDrive(firstDrive.device)
-        const secondDrive = selectionState.getCurrentDrive()
-        selectionState.deselectDrive(secondDrive.device)
         const drive = selectionState.getCurrentDrive()
         m.chai.expect(drive).to.be.undefined
+      })
+    })
+
+    describe('.getSelectedDrives()', function () {
+      it('should return that single selected drive', function () {
+        m.chai.expect(selectionState.getSelectedDrives()).to.deep.equal([
+          {
+            device: '/dev/disk2',
+            name: 'USB Drive',
+            size: 999999999,
+            isReadOnly: false
+          }
+        ])
       })
     })
   })
@@ -235,6 +254,39 @@ describe('Model: selectionState', function () {
       it('should not remove the specified drive', function () {
         selectionState.deselectOtherDrives(this.drives[0].device)
         m.chai.expect(selectionState.getSelectedDevices()).to.deep.equal([ this.drives[0].device ])
+      })
+    })
+
+    describe('.deselectDrive()', function () {
+      it('should clear drives', function () {
+        const firstDrive = selectionState.getCurrentDrive()
+        selectionState.deselectDrive(firstDrive.device)
+        const secondDrive = selectionState.getCurrentDrive()
+        selectionState.deselectDrive(secondDrive.device)
+        const drive = selectionState.getCurrentDrive()
+        m.chai.expect(drive).to.be.undefined
+      })
+    })
+
+    describe('.getSelectedDrives()', function () {
+      it('should return the selected drives', function () {
+        m.chai.expect(selectionState.getSelectedDrives()).to.deep.equal([
+          {
+            device: '/dev/sdb',
+            description: 'DataTraveler 2.0',
+            size: 999999999,
+            mountpoint: '/media/UNTITLED',
+            name: '/dev/sdb',
+            system: false,
+            isReadOnly: false
+          },
+          {
+            device: '/dev/disk2',
+            name: 'USB Drive 2',
+            size: 999999999,
+            isReadOnly: false
+          }
+        ])
       })
     })
   })
