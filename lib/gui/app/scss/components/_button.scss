@@ -17,16 +17,17 @@
 .button {
   @extend .btn;
 
-  padding: 10px;
-  padding-top: 11px;
+  height: 36px;
 
-  border-radius: 2px;
+  border-radius: 3px;
   border: 0;
 
   letter-spacing: .5px;
   outline: none;
 
   position: relative;
+
+  font-weight: bold;
 
   > .glyphicon {
     top: 2px;
