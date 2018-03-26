@@ -52,7 +52,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.jsx$/,
         include: [ path.resolve(__dirname, 'lib/gui') ],
         use: {
           loader: 'babel-loader',
