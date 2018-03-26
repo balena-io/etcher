@@ -89,6 +89,6 @@
     "eslint-plugin-standard": "3.0.1",
     "html-loader": "0.5.1",
     "simple-progress-webpack-plugin": "1.1.2",
-    "webpack": "^4.2.0"
+    "webpack": "^2.4.0"
   }
 }
