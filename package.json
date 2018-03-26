@@ -68,6 +68,7 @@
     "semver": "5.1.1",
     "sudo-prompt": "8.0.0",
     "uuid": "3.0.1",
+    "webpack-cli": "^2.0.13",
     "xml2js": "0.4.17",
     "yargs": "11.0.0"
   },
@@ -88,6 +89,6 @@
     "eslint-plugin-standard": "3.0.1",
     "html-loader": "0.5.1",
     "simple-progress-webpack-plugin": "1.1.2",
-    "webpack": "^3.0.0"
+    "webpack": "^4.2.0"
   }
 }
