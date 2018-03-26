@@ -17,9 +17,11 @@
 'use strict'
 
 const path = require('path')
+const v8 = require('v8')
 const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin')
 
 console.log(JSON.stringify(process.env, null, 2))
+console.log(v8.getHeapSpaceStatistics())
 
 module.exports = {
   entry: {
