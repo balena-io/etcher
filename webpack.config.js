@@ -35,6 +35,8 @@ module.exports = {
   },
   externals: [
     (context, request, callback) => {
+      console.log(request)
+
       // We want to keep the SDK code outside the GUI bundle.
       // This piece of code allows us to run the GUI directly
       // on the tree (for testing purposes) or inside a generated
