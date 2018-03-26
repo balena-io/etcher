@@ -19,6 +19,8 @@
 const path = require('path')
 const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin')
 
+console.log(JSON.stringify(process.env, null, 2))
+
 module.exports = {
   entry: {
     gui: path.join(__dirname, 'lib', 'gui', 'app', 'app.js')
