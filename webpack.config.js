@@ -58,13 +58,6 @@ module.exports = {
             presets: [ 'react', 'env', 'stage-0' ]
           }
         }
-      },
-      {
-        test: /\.html$/,
-        include: [ path.resolve(__dirname, 'lib/gui/app') ],
-        use: {
-          loader: 'html-loader'
-        }
       }
     ]
   },
