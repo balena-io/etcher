@@ -49,22 +49,8 @@ module.exports = {
       return callback()
     }
   ],
-  module: {
-    rules: [
-      {
-        test: /\.jsx$/,
-        include: [ path.resolve(__dirname, 'lib/gui') ],
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [ 'react', 'env', 'stage-0' ]
-          }
-        }
-      }
-    ]
-  },
   resolve: {
-    extensions: [ '.js', '.jsx', '.json' ]
+    extensions: [ '.js', '.json' ]
   },
   plugins: [
     new SimpleProgressWebpackPlugin({
