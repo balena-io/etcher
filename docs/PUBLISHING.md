@@ -143,8 +143,7 @@ Publishing to Homebrew Cask
 Announcing
 ----------
 
-Post messages to the [Etcher forum][resin-forum-etcher] and
-[Etcher gitter channel][gitter-etcher] announcing the new version
+Post messages to the [Etcher forum][resin-forum-etcher] announcing the new version
 of Etcher, and including the relevant section of the Changelog.
 
 [aws-cli]: https://aws.amazon.com/cli
@@ -152,5 +151,4 @@ of Etcher, and including the relevant section of the Changelog.
 [etcher-cask-file]: https://github.com/caskroom/homebrew-cask/blob/master/Casks/etcher.rb
 [homebrew-cask]: https://github.com/caskroom/homebrew-cask
 [resin-forum-etcher]: https://forums.resin.io/c/etcher
-[gitter-etcher]: https://gitter.im/resin-io/etcher
 [github-releases]: https://github.com/resin-io/etcher/releases
