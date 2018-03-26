@@ -289,8 +289,10 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(
 assets/dmg/background.tiff: assets/dmg/background.png assets/dmg/background@2x.png
 	tiffutil -cathidpicheck $^ -out $@
 
+# Fix "FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - process out of memory"
+# See https://github.com/webpack/webpack/issues/1914
 build/js/gui.js: .FORCE
-	webpack
+	node --max-old-space-size=8192 ./node_modules/.bin/webpack
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-$(APPLICATION_VERSION).dmg: assets/dmg/background.tiff build/js/gui.js \
 	| $(BUILD_DIRECTORY)
