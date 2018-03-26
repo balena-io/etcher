@@ -16,16 +16,10 @@
 
 'use strict'
 
-const _ = require('lodash')
 const path = require('path')
 const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin')
 
 module.exports = {
-  target: 'electron-main',
-  node: {
-    __dirname: true,
-    __filename: true
-  },
   entry: {
     gui: path.join(__dirname, 'lib', 'gui', 'app', 'app.js')
   },
