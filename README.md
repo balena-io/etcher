@@ -13,7 +13,7 @@ was written correctly and much more.
 [![Travis CI status](https://img.shields.io/travis/resin-io/etcher/master.svg?style=flat-square&label=linux%20|%20mac)](https://travis-ci.org/resin-io/etcher/branches)
 [![AppVeyor status](https://img.shields.io/appveyor/ci/resin-io/etcher/master.svg?style=flat-square&label=windows)](https://ci.appveyor.com/project/resin-io/etcher/branch/master)
 [![Dependency status](https://img.shields.io/david/resin-io/etcher.svg?style=flat-square)](https://david-dm.org/resin-io/etcher)
-[![Gitter Chat](https://img.shields.io/gitter/room/resin-io/etcher.svg?style=flat-square)](https://gitter.im/resin-io/etcher)
+[![Resin.io Forums](https://img.shields.io/discourse/https/forums.resin.io/topics.svg?style=flat-square&label=resin.io%20forums)](https://forums.resin.io/c/etcher)
 [![Stories in Progress](https://img.shields.io/waffle/label/resin-io/etcher/in%20progress.svg?style=flat-square)](https://waffle.io/resin-io/etcher)
 
 ***
