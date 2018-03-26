@@ -1,5 +1,3 @@
-SHELL := /bin/bash
-
 .PHONY: webpack electron-develop
 
 webpack:
