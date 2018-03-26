@@ -33,25 +33,6 @@ module.exports = {
     path: path.join(__dirname, 'generated'),
     filename: '[name].js'
   },
-  externals: [
-    (context, request, callback) => {
-      console.log(request)
-
-      // We want to keep the SDK code outside the GUI bundle.
-      // This piece of code allows us to run the GUI directly
-      // on the tree (for testing purposes) or inside a generated
-      // bundle (for production purposes), by translating
-      // relative require paths within the bundle.
-      if (/\/(sdk|shared)/i.test(request)) {
-        return callback(null, `commonjs ../../../lib/${_.replace(request, /(\.\.\/)*/, '')}`)
-      }
-
-      return callback()
-    }
-  ],
-  resolve: {
-    extensions: [ '.js', '.json' ]
-  },
   plugins: [
     new SimpleProgressWebpackPlugin({
       format: process.env.WEBPACK_PROGRESS || 'verbose'
