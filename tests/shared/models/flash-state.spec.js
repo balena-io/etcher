@@ -29,7 +29,7 @@ describe('Model: flashState', function () {
       it('should be able to reset the progress state', function () {
         flashState.setFlashingFlag()
         flashState.setProgressState({
-          flashing: 0,
+          flashing: 2,
           verifying: 0,
           succeeded: 0,
           failed: 0,
@@ -324,6 +324,38 @@ describe('Model: flashState', function () {
         })
 
         m.chai.expect(flashState.getFlashState().percentage).to.equal(50)
+      })
+
+      it('should error when any field is non-nil but not a finite number', function () {
+        m.chai.expect(() => {
+          flashState.setFlashingFlag()
+          flashState.setProgressState({
+            flashing: {},
+            verifying: [],
+            succeeded: true,
+            failed: 'string',
+            percentage: 0,
+            eta: 0,
+            speed: 0,
+            totalSpeed: 0
+          })
+        }).to.throw('State quantity field(s) not finite number')
+      })
+
+      it('should not error when all quantity fields are zero', function () {
+        m.chai.expect(() => {
+          flashState.setFlashingFlag()
+          flashState.setProgressState({
+            flashing: 0,
+            verifying: 0,
+            succeeded: 0,
+            failed: 0,
+            percentage: 0,
+            eta: 0,
+            speed: 0,
+            totalSpeed: 0
+          })
+        }).to.not.throw()
       })
     })
 
