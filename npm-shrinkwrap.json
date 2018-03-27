@@ -7757,9 +7757,7 @@
       }
     },
     "webpack": {
-      "version": "2.4.0",
-      "resolved": "https://registry.npmjs.org/webpack/-/webpack-2.4.0.tgz",
-      "integrity": "sha1-BMwkdHCZbQdlmzlWMECkvAD+MB4=",
+      "version": "github:jviotti/webpack#5b7af6b2a2a5a2ab8364e7c587ce09ce3ac5d070",
       "dev": true,
       "requires": {
         "acorn": "https://registry.npmjs.org/acorn/-/acorn-5.5.3.tgz",
@@ -7768,6 +7766,7 @@
         "ajv-keywords": "1.5.1",
         "async": "2.6.0",
         "enhanced-resolve": "3.4.1",
+        "graceful-fs": "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.1.11.tgz",
         "interpret": "1.1.0",
         "json-loader": "0.5.7",
         "json5": "https://registry.npmjs.org/json5/-/json5-0.5.1.tgz",
