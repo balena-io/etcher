@@ -27,6 +27,9 @@ module.exports = {
   entry: {
     gui: path.join(__dirname, 'lib', 'gui', 'app', 'app.js')
   },
+  resolve: {
+    symlinks: false
+  },
   output: {
     path: path.join(__dirname, 'generated'),
     filename: '[name].js'
