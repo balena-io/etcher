@@ -20,6 +20,7 @@
   flex-direction: column;
   margin: 0 auto;
   height: auto;
+  overflow: hidden;
 }
 
 .modal-header {
@@ -101,5 +102,4 @@
 .modal-dialog {
   margin: 0;
   position: initial;
-  max-width: 50%;
 }
