@@ -16,58 +16,27 @@
 
 'use strict'
 
-const _ = require('lodash')
 const path = require('path')
+const v8 = require('v8')
+const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin')
+
+console.log(JSON.stringify(process.env, null, 2))
+console.log(v8.getHeapSpaceStatistics())
 
 module.exports = {
-  target: 'electron-main',
-  node: {
-    __dirname: true,
-    __filename: true
-  },
   entry: {
     gui: path.join(__dirname, 'lib', 'gui', 'app', 'app.js')
+  },
+  resolve: {
+    symlinks: false
   },
   output: {
     path: path.join(__dirname, 'generated'),
     filename: '[name].js'
   },
-  externals: [
-    (context, request, callback) => {
-      // We want to keep the SDK code outside the GUI bundle.
-      // This piece of code allows us to run the GUI directly
-      // on the tree (for testing purposes) or inside a generated
-      // bundle (for production purposes), by translating
-      // relative require paths within the bundle.
-      if (/\/(sdk|shared)/i.test(request)) {
-        return callback(null, `commonjs ../../../lib/${_.replace(request, /(\.\.\/)*/, '')}`)
-      }
-
-      return callback()
-    }
-  ],
-  module: {
-    rules: [
-      {
-        test: /\.jsx?$/,
-        include: [ path.resolve(__dirname, 'lib/gui') ],
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [ 'react', 'env', 'stage-0' ]
-          }
-        }
-      },
-      {
-        test: /\.html$/,
-        include: [ path.resolve(__dirname, 'lib/gui/app') ],
-        use: {
-          loader: 'html-loader'
-        }
-      }
-    ]
-  },
-  resolve: {
-    extensions: [ '.js', '.jsx', '.json' ]
-  }
+  plugins: [
+    new SimpleProgressWebpackPlugin({
+      format: process.env.WEBPACK_PROGRESS || 'verbose'
+    })
+  ]
 }
