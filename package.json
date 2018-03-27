@@ -124,6 +124,6 @@
     "sass-lint": "1.12.1",
     "spectron": "3.7.2",
     "versionist": "2.8.1",
-    "webpack": "3.10.0"
+    "webpack": "github:jviotti/webpack#logs-etcher"
   }
 }
