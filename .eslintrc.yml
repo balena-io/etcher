@@ -7,6 +7,7 @@ env:
 plugins:
   - lodash
   - jsdoc
+  - node
 extends: 'standard'
 parserOptions:
   sourceType: 'script'
@@ -424,3 +425,19 @@ rules:
     - error
   jsdoc/require-returns-type:
     - error
+
+  # Node
+
+  node/no-deprecated-api:
+    - error
+  node/no-missing-import:
+    - error
+  node/no-missing-require:
+    - error
+  node/process-exit-as-throw:
+    - error
+  node/no-extraneous-require:
+    - error
+  node/no-extraneous-import:
+    - error
+
