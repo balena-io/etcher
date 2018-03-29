@@ -4929,6 +4929,58 @@
       "resolved": "https://registry.npmjs.org/lodash.toarray/-/lodash.toarray-4.4.0.tgz",
       "dev": true
     },
+    "log-update": {
+      "version": "2.3.0",
+      "resolved": "https://registry.npmjs.org/log-update/-/log-update-2.3.0.tgz",
+      "dev": true,
+      "dependencies": {
+        "ansi-escapes": {
+          "version": "3.1.0",
+          "resolved": "https://registry.npmjs.org/ansi-escapes/-/ansi-escapes-3.1.0.tgz",
+          "dev": true
+        },
+        "ansi-regex": {
+          "version": "3.0.0",
+          "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-3.0.0.tgz",
+          "dev": true
+        },
+        "cli-cursor": {
+          "version": "2.1.0",
+          "resolved": "https://registry.npmjs.org/cli-cursor/-/cli-cursor-2.1.0.tgz",
+          "dev": true
+        },
+        "is-fullwidth-code-point": {
+          "version": "2.0.0",
+          "resolved": "https://registry.npmjs.org/is-fullwidth-code-point/-/is-fullwidth-code-point-2.0.0.tgz",
+          "dev": true
+        },
+        "onetime": {
+          "version": "2.0.1",
+          "resolved": "https://registry.npmjs.org/onetime/-/onetime-2.0.1.tgz",
+          "dev": true
+        },
+        "restore-cursor": {
+          "version": "2.0.0",
+          "resolved": "https://registry.npmjs.org/restore-cursor/-/restore-cursor-2.0.0.tgz",
+          "dev": true
+        },
+        "string-width": {
+          "version": "2.1.1",
+          "resolved": "https://registry.npmjs.org/string-width/-/string-width-2.1.1.tgz",
+          "dev": true
+        },
+        "strip-ansi": {
+          "version": "4.0.0",
+          "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-4.0.0.tgz",
+          "dev": true
+        },
+        "wrap-ansi": {
+          "version": "3.0.1",
+          "resolved": "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-3.0.1.tgz",
+          "dev": true
+        }
+      }
+    },
     "logging-helpers": {
       "version": "0.4.0",
       "resolved": "https://registry.npmjs.org/logging-helpers/-/logging-helpers-0.4.0.tgz",
@@ -7354,6 +7406,38 @@
         "xtend": {
           "version": "4.0.1",
           "resolved": "https://registry.npmjs.org/xtend/-/xtend-4.0.1.tgz"
+        }
+      }
+    },
+    "simple-progress-webpack-plugin": {
+      "version": "1.1.2",
+      "resolved": "https://registry.npmjs.org/simple-progress-webpack-plugin/-/simple-progress-webpack-plugin-1.1.2.tgz",
+      "dev": true,
+      "dependencies": {
+        "ansi-styles": {
+          "version": "3.2.1",
+          "resolved": "https://registry.npmjs.org/ansi-styles/-/ansi-styles-3.2.1.tgz",
+          "dev": true
+        },
+        "chalk": {
+          "version": "2.3.2",
+          "resolved": "https://registry.npmjs.org/chalk/-/chalk-2.3.2.tgz",
+          "dev": true
+        },
+        "figures": {
+          "version": "2.0.0",
+          "resolved": "https://registry.npmjs.org/figures/-/figures-2.0.0.tgz",
+          "dev": true
+        },
+        "has-flag": {
+          "version": "3.0.0",
+          "resolved": "https://registry.npmjs.org/has-flag/-/has-flag-3.0.0.tgz",
+          "dev": true
+        },
+        "supports-color": {
+          "version": "5.3.0",
+          "resolved": "https://registry.npmjs.org/supports-color/-/supports-color-5.3.0.tgz",
+          "dev": true
         }
       }
     },

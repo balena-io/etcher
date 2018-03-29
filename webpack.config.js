@@ -18,6 +18,7 @@
 
 const _ = require('lodash')
 const path = require('path')
+const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin')
 
 module.exports = {
   target: 'electron-main',
@@ -69,5 +70,10 @@ module.exports = {
   },
   resolve: {
     extensions: [ '.js', '.jsx', '.json' ]
-  }
+  },
+  plugins: [
+    new SimpleProgressWebpackPlugin({
+      format: process.env.WEBPACK_PROGRESS || 'verbose'
+    })
+  ]
 }
