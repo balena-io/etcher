@@ -23,6 +23,9 @@ svg-icon > img[disabled] {
 }
 
 .page-main .step-selection-text {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   color: $palette-theme-dark-foreground;
 }
 
@@ -101,6 +104,7 @@ svg-icon > img[disabled] {
 }
 
 .page-main .step-name {
+  margin-right: 4.5px;
   font-weight: bold;
   color: $palette-theme-primary-foreground;
 }

@@ -6505,6 +6505,9 @@ svg-icon > img[disabled] {
   opacity: 0.2; }
 
 .page-main .step-selection-text {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   color: #fff; }
 
 .page-main .text-disabled > span {
@@ -6566,6 +6569,7 @@ svg-icon > img[disabled] {
   vertical-align: text-top; }
 
 .page-main .step-name {
+  margin-right: 4.5px;
   font-weight: bold;
   color: #fff; }
 
