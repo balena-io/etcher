@@ -18,6 +18,7 @@
 
 const Bluebird = require('bluebird')
 const spectron = require('spectron')
+const m = require('mochainon')
 const EXIT_CODES = require('../../lib/shared/exit-codes')
 const entrypoint = process.env.ETCHER_SPECTRON_ENTRYPOINT
 
@@ -30,22 +31,40 @@ describe('Spectron', function () {
   // Mainly for CI jobs
   this.timeout(20000)
 
-  beforeEach(function () {
-    this.app = new spectron.Application({
+  let app = null
+
+  before('app:start', function () {
+    app = new spectron.Application({
       path: entrypoint,
       args: [ '.' ]
     })
 
-    return this.app.start()
+    return app.start()
   })
 
-  afterEach(function () {
-    if (this.app && this.app.isRunning()) {
-      return this.app.stop()
+  after('app:stop', function () {
+    if (app && app.isRunning()) {
+      return app.stop()
     }
 
     return Bluebird.resolve()
   })
 
-  require('./browser-window')()
+  after('app:deref', function () {
+    app = null
+  })
+
+  describe('Browser Window', function () {
+    it('should open a browser window', function () {
+      return app.browserWindow.isVisible().then((isVisible) => {
+        m.chai.expect(isVisible).to.be.true
+      })
+    })
+
+    it('should set a proper title', function () {
+      return app.client.getTitle().then((title) => {
+        m.chai.expect(title).to.equal('Etcher')
+      })
+    })
+  })
 })
