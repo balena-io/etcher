@@ -120,10 +120,6 @@
         }
       }
     },
-    "angular-middle-ellipses": {
-      "version": "1.0.0",
-      "resolved": "https://registry.npmjs.org/angular-middle-ellipses/-/angular-middle-ellipses-1.0.0.tgz"
-    },
     "angular-mocks": {
       "version": "1.6.3",
       "resolved": "https://registry.npmjs.org/angular-mocks/-/angular-mocks-1.6.3.tgz",

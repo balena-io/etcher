@@ -24,7 +24,7 @@
             <span
               ng-click="main.showSelectedImageDetails()"
               class="step-image step-name"
-              ng-bind="main.selection.getImageName() || image.getImageBasename() | middleEllipses:20"
+              ng-bind="main.selection.getImageName() || image.getImageBasename() | middleEllipsis:20"
               uib-tooltip="{{ image.getImageBasename() }}"></span>
             <span class="step-image step-size">{{ main.selection.getImageSize() | closestUnit }}</span>
           </div>
@@ -67,8 +67,8 @@
             }">
             <span class="drive-step step-name"
               uib-tooltip="{{ drive.getDriveListLabel() }}">
-              <!-- middleEllipses errors on undefined, therefore fallback to empty string -->
-              {{ drive.getDrivesTitle() | middleEllipses:20 }}
+              <!-- middleEllipsis errors on undefined, therefore fallback to empty string -->
+              {{ drive.getDrivesTitle() | middleEllipsis:20 }}
             </span>
             <span class="step-drive step-size">{{ main.selection.getCurrentDrive().size | closestUnit }}</span>
             <span class="step-drive step-warning glyphicon glyphicon-exclamation-sign"
