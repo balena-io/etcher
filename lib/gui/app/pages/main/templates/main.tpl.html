@@ -70,7 +70,11 @@
               <!-- middleEllipsis errors on undefined, therefore fallback to empty string -->
               {{ drive.getDrivesTitle() | middleEllipsis:20 }}
             </span>
-            <span class="step-drive step-size">{{ main.selection.getCurrentDrive().size | closestUnit }}</span>
+            <span
+              ng-if="main.selection.getSelectedDevices().length === 1"
+              class="step-drive step-size">
+              {{ main.selection.getCurrentDrive().size | closestUnit }}
+            </span>
             <span class="step-drive step-warning glyphicon glyphicon-exclamation-sign"
               uib-tooltip="{{ main.constraints.getListDriveImageCompatibilityStatuses(main.selection.getSelectedDrives(), main.selection.getImage())[0].message }}"
               ng-show="main.constraints.hasListDriveImageCompatibilityStatus(main.selection.getSelectedDrives(), main.selection.getImage())"></span>
