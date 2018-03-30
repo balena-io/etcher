@@ -19,7 +19,7 @@
     },
     "builder": {
       "appId": "io.resin.etcher",
-      "copyright": "Copyright 2016 Resinio Ltd",
+      "copyright": "Copyright 2016-2018 Resinio Ltd",
       "productName": "Etcher",
       "files": [
         "!lib/gui/app",
