@@ -2622,8 +2622,8 @@
       }
     },
     "electron-chromedriver": {
-      "version": "1.7.1",
-      "resolved": "https://registry.npmjs.org/electron-chromedriver/-/electron-chromedriver-1.7.1.tgz",
+      "version": "1.8.0",
+      "resolved": "https://registry.npmjs.org/electron-chromedriver/-/electron-chromedriver-1.8.0.tgz",
       "dev": true,
       "dependencies": {
         "debug": {
@@ -7609,8 +7609,8 @@
       "resolved": "https://registry.npmjs.org/spdx-license-ids/-/spdx-license-ids-1.2.1.tgz"
     },
     "spectron": {
-      "version": "3.7.3",
-      "resolved": "https://registry.npmjs.org/spectron/-/spectron-3.7.3.tgz",
+      "version": "3.8.0",
+      "resolved": "https://registry.npmjs.org/spectron/-/spectron-3.8.0.tgz",
       "dev": true
     },
     "speedometer": {
