@@ -45,7 +45,8 @@ angularValidate.validate(
     reportpath: null,
     reportCheckstylePath: null,
     relaxerror: [
-      'Expected a minus sign or a digit'
+      'Expected a minus sign or a digit',
+      'Consider adding a “lang” attribute to the “html” start tag to declare the language of this document.'
     ]
   }
 ).then((result) => {
