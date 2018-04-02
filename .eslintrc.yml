@@ -189,6 +189,9 @@ rules:
     - min: 2
       exceptions:
         - "_"
+  id-match:
+    - error
+    - "^[_0-9A-Za-z\\$]+$"
   line-comment-position:
     - error
     - position: above
