@@ -31,8 +31,8 @@
       "resolved": "https://registry.npmjs.org/@types/lodash.some/-/lodash.some-4.6.2.tgz"
     },
     "@types/node": {
-      "version": "7.0.52",
-      "resolved": "https://registry.npmjs.org/@types/node/-/node-7.0.52.tgz",
+      "version": "8.10.1",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-8.10.1.tgz",
       "dev": true
     },
     "@types/react": {
@@ -2458,30 +2458,23 @@
       "dev": true
     },
     "electron": {
-      "version": "1.7.11",
-      "resolved": "https://registry.npmjs.org/electron/-/electron-1.7.11.tgz",
+      "version": "1.8.4",
+      "resolved": "https://registry.npmjs.org/electron/-/electron-1.8.4.tgz",
       "dev": true,
       "dependencies": {
+        "debug": {
+          "version": "2.6.9",
+          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz",
+          "dev": true
+        },
         "electron-download": {
           "version": "3.3.0",
           "resolved": "https://registry.npmjs.org/electron-download/-/electron-download-3.3.0.tgz",
-          "dev": true,
-          "dependencies": {
-            "debug": {
-              "version": "2.6.9",
-              "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz",
-              "dev": true
-            }
-          }
+          "dev": true
         },
         "fs-extra": {
           "version": "0.30.0",
           "resolved": "https://registry.npmjs.org/fs-extra/-/fs-extra-0.30.0.tgz",
-          "dev": true
-        },
-        "ms": {
-          "version": "2.0.0",
-          "resolved": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz",
           "dev": true
         },
         "semver": {
@@ -2629,8 +2622,8 @@
       }
     },
     "electron-chromedriver": {
-      "version": "1.7.1",
-      "resolved": "https://registry.npmjs.org/electron-chromedriver/-/electron-chromedriver-1.7.1.tgz",
+      "version": "1.8.0",
+      "resolved": "https://registry.npmjs.org/electron-chromedriver/-/electron-chromedriver-1.8.0.tgz",
       "dev": true,
       "dependencies": {
         "debug": {
@@ -7616,8 +7609,8 @@
       "resolved": "https://registry.npmjs.org/spdx-license-ids/-/spdx-license-ids-1.2.1.tgz"
     },
     "spectron": {
-      "version": "3.7.3",
-      "resolved": "https://registry.npmjs.org/spectron/-/spectron-3.7.3.tgz",
+      "version": "3.8.0",
+      "resolved": "https://registry.npmjs.org/spectron/-/spectron-3.8.0.tgz",
       "dev": true
     },
     "speedometer": {
@@ -7765,11 +7758,6 @@
         "debug": {
           "version": "2.6.9",
           "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz",
-          "dev": true
-        },
-        "ms": {
-          "version": "2.0.0",
-          "resolved": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz",
           "dev": true
         }
       }
