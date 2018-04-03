@@ -6565,6 +6565,9 @@ svg-icon > img[disabled] {
   border-radius: 0;
   padding: 0; }
 
+.page-main .step-drive.glyphicon, .page-main .step-drive.tick {
+  margin-top: 1px; }
+
 .page-main .glyphicon, .page-main .tick {
   vertical-align: text-top; }
 
@@ -6574,6 +6577,7 @@ svg-icon > img[disabled] {
   color: #fff; }
 
 .page-main .step-size {
+  margin-right: 4.5px;
   color: #787c7f; }
 
 .target-status-wrap {
