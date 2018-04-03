@@ -54,7 +54,7 @@
   <button class="button button-primary button-block"
     tabindex="{{ 15 + modal.getDrives().length }}"
     ng-class="{
-      'button-warning': modal.constraints.hasDriveImageCompatibilityStatus(modal.state.getDrive(), modal.state.getImage())
+      'button-warning': modal.constraints.hasListDriveImageCompatibilityStatus(modal.state.getSelectedDrives(), modal.state.getImage())
     }"
     ng-click="modal.closeModal()"
     ng-disabled="!modal.state.hasDrive()">Continue</button>
