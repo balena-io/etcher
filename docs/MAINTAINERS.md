@@ -16,13 +16,13 @@ Releasing
 #### Preparation
 
 - [Prepare the new version](#preparing-a-new-version)
-- [Generate build artefacts](#generating-binaries) (binaries, archives, etc.)
+- [Generate build artifacts](#generating-binaries) (binaries, archives, etc.)
 - [Draft a release on GitHub](https://github.com/resin-io/etcher/releases)
-    - Upload build artefacts to GitHub release draft
+    - Upload build artifacts to GitHub release draft
 
 #### Testing
 
-- Test the prepared release and build artefacts properly on **all supported operating systems** to prevent regressions that went uncaught by the CI tests (see [MANUAL-TESTING.md](MANUAL-TESTING.md))
+- Test the prepared release and build artifacts properly on **all supported operating systems** to prevent regressions that went uncaught by the CI tests (see [MANUAL-TESTING.md](MANUAL-TESTING.md))
 - If regressions or other issues arise, create issues on the repository for each one, and decide whether to fix them in this release (meaning repeating the process up until this point), or to follow up with a patch release
 
 #### Publishing
@@ -33,7 +33,7 @@ Releasing
 - Wait 2-3 hours for analytics (Sentry, Mixpanel) to trickle in and check for elevated error rates, or regressions
 - If regressions arise; pull the release, and release a patched version, else:
 - [Upload deb & rpm packages to Bintray](#uploading-packages-to-bintray)
-- [Upload build artefacts to Amazon S3](#uploading-binaries-to-amazon-s3)
+- [Upload build artifacts to Amazon S3](#uploading-binaries-to-amazon-s3)
 - Post changelog with `#release-notes` tag on Flowdock
 - If this release packs noteworthy major changes:
   - Write a blog post about it, and / or
@@ -93,7 +93,7 @@ export ANALYTICS_MIXPANEL_TOKEN="xxxxxx"
 ./scripts/build/docker/run-command.sh -r x64 -s . -c "make distclean"
 ```
 
-##### Generating artefacts
+##### Generating artifacts
 
 ```bash
 # x64
@@ -144,7 +144,7 @@ and set `CSC_LINK`, and `CSC_KEY_PASSWORD` to generate signed binaries on Window
 
 **NOTE:**
 - The CLI is not code-signed for either at this time.
-- Keep in mind to also generate artefacts for x86, with `TARGET_ARCH=x86`.
+- Keep in mind to also generate artifacts for x86, with `TARGET_ARCH=x86`.
 
 ```bash
 make electron-develop

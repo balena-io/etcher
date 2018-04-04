@@ -69,7 +69,7 @@
 // window, causing the window content to overflow and get
 // pushed to the bottom.
 // The `!important` flag is needed since UI Bootstrap inlines
-// the styles programatically to the element.
+// the styles programmatically to the element.
 .modal-open {
   padding-right: 0 !important;
 }

@@ -97,7 +97,7 @@ describe('Browser: SVGIcon', function () {
       m.chai.expect(element.children().attr('src')).to.equal(imgData)
     })
 
-    it('should prioritise the contents attribute over the paths attribute', function () {
+    it('should prioritize the contents attribute over the paths attribute', function () {
       const iconContents = '<svg><rect x="10" y="10" height="100" width="100" style="stroke:red;fill:blue;"/></svg>'
       const imgData = `data:image/svg+xml,${encodeURIComponent(iconContents)}`
       $rootScope.iconContents = iconContents
