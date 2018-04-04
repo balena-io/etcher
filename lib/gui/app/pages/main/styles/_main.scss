@@ -99,6 +99,10 @@ svg-icon > img[disabled] {
   padding: 0;
 }
 
+.page-main .step-drive.glyphicon {
+  margin-top: 1px;
+}
+
 .page-main .glyphicon {
   vertical-align: text-top;
 }
@@ -110,6 +114,7 @@ svg-icon > img[disabled] {
 }
 
 .page-main .step-size {
+  margin-right: 4.5px;
   color: $palette-theme-dark-disabled-foreground;
 }
 
