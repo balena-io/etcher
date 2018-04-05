@@ -489,7 +489,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixes
 
 - Fix broken image drag and drop functionality.
-- Prevent global shortcuts from interferring with another applications.
+- Prevent global shortcuts from interfering with another applications.
 - Prevent re-activating the "Flash" button with the keyboard shortcuts when a flash is already in process.
 - Fix certain non-removable Windows devices not being filtered out.
 - Display non-mountable Windows drives in the drive selector.

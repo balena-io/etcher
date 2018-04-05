@@ -85,19 +85,19 @@ describe('Shared: Errors', function () {
       m.chai.expect(errors.getTitle(error)).to.equal('Error code: MYERROR')
     })
 
-    it('should prioritise the message over the code', function () {
+    it('should prioritize the message over the code', function () {
       const error = new Error('Foo bar')
       error.code = 'MYERROR'
       m.chai.expect(errors.getTitle(error)).to.equal('Foo bar')
     })
 
-    it('should prioritise the code over the message if the message is an empty string', function () {
+    it('should prioritize the code over the message if the message is an empty string', function () {
       const error = new Error('')
       error.code = 'MYERROR'
       m.chai.expect(errors.getTitle(error)).to.equal('Error code: MYERROR')
     })
 
-    it('should prioritise the code over the message if the message is a blank string', function () {
+    it('should prioritize the code over the message if the message is a blank string', function () {
       const error = new Error('    ')
       error.code = 'MYERROR'
       m.chai.expect(errors.getTitle(error)).to.equal('Error code: MYERROR')
