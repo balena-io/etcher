@@ -6483,6 +6483,10 @@ svg-icon {
 .modal-warning-modal .modal-title .glyphicon, .modal-warning-modal .modal-title .tick {
   color: #d9534f; }
 
+.modal-warning-modal .modal-body {
+  max-height: 200px;
+  overflow-y: auto; }
+
 /*
  * Copyright 2016 resin.io
  *
