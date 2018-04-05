@@ -6576,6 +6576,7 @@ svg-icon > img[disabled] {
   vertical-align: text-top; }
 
 .page-main .step-name {
+  width: 100%;
   margin-right: 4.5px;
   font-weight: bold;
   color: #fff; }
