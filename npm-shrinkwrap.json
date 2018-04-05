@@ -2405,8 +2405,8 @@
       "dev": true
     },
     "drivelist": {
-      "version": "6.1.3",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-6.1.3.tgz",
+      "version": "6.1.5",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-6.1.5.tgz",
       "dependencies": {
         "esprima": {
           "version": "4.0.0",
@@ -2415,6 +2415,10 @@
         "js-yaml": {
           "version": "3.11.0",
           "resolved": "https://registry.npmjs.org/js-yaml/-/js-yaml-3.11.0.tgz"
+        },
+        "nan": {
+          "version": "2.10.0",
+          "resolved": "https://registry.npmjs.org/nan/-/nan-2.10.0.tgz"
         },
         "node-abi": {
           "version": "2.3.0",
