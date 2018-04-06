@@ -3,6 +3,56 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.4.0 - 2018-04-05
+
+### Features
+
+- Move the drive selector warning dialog to the flash step
+- Display image size for comparison if drive is too small
+- Implement writing to multiple destinations simultaneously
+- Add colorised multi-writes progress status dots
+- Move CLI write preparation logic into SDK
+- Make the drive-selector button orange on warnings
+- Warn the user on selection of large drives
+- Consolidate low-level components into Etcher SDK
+- Use native code to clean drives on Windows
+- Increase UV_THREADPOOL_SIZE to allocate 4 threads per CPU
+- Add icon next to drive size when compatibility warnings exist
+- Display number of active devices while flashing in CLI
+- Replace CRC32 checksums with SHA512
+- Enable usbboot on Linux if run as root
+
+### Fixes
+
+- Improve spacing to the drive-selector warning/error labels
+- Line wrap selector size subtitles wholly
+- Hide the size label given multiple devices
+- Use correct usbboot blob path in AppImages
+- Fix EINVAL error on Linux
+- Fix enabling debug output
+- Fix DevTools opening in docked mode
+- Fix menu's application name
+- Fix "Array buffer allocation failed" when flashing some .dmg images
+- Log the banner load event to analytics
+- Warn on usbboot load error in the console on Linux
+- Ensure image/drive size is displayed on new line
+- Don't force-inherit process environment on Windows
+
+### Misc
+
+- Replace Helvetica as the main font with Roboto
+- Update Electron to v1.7.13
+- Add spacing to the drive warning icon
+- Use multi-drive methods with drive-list warning button
+- Remove unused & deprecated robot protocol
+- Update copyright years
+- Update instructions in ISSUE_TEMPLATE
+- Use Concourse CI for automated release builds
+- Only publish production packages to Bintray (remove devel)
+- Replace Gitter with Resin.io Forums for support
+- Add support for arm64 / armv8 / aarch64 in build scripts
+- Add descriptive name to modal popup windows
+
 ## v1.3.1 - 2018-01-23
 
 ### Fixes
