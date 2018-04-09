@@ -16,7 +16,6 @@
 
 'use strict'
 
-const _ = require('lodash')
 const path = require('path')
 const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin')
 
@@ -40,8 +39,11 @@ module.exports = {
       // on the tree (for testing purposes) or inside a generated
       // bundle (for production purposes), by translating
       // relative require paths within the bundle.
-      if (/\/(sdk|shared)/i.test(request)) {
-        return callback(null, `commonjs ../../../lib/${_.replace(request, /(\.\.\/)*/, '')}`)
+      if (/\/(sdk|shared)/i.test(request) || /package\.json$/.test(request)) {
+        const output = path.join(__dirname, 'generated')
+        const dirname = path.join(context, request)
+        const relative = path.relative(output, dirname)
+        return callback(null, `commonjs ${path.join('..', '..', relative)}`)
       }
 
       return callback()
