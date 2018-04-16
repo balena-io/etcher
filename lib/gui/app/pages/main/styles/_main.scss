@@ -14,12 +14,17 @@
  * limitations under the License.
  */
 
-.page-main {
-margin-top: 50px;
-}
-
 svg-icon > img[disabled] {
   opacity: $disabled-opacity;
+}
+
+.page-main {
+  flex: 1;
+  align-self: center;
+}
+
+.page-main > .col-xs {
+  height: 165px;
 }
 
 .page-main .step-selection-text {

@@ -72,6 +72,21 @@ $disabled-opacity: 0.2;
 
 body {
   letter-spacing: 1px;
+  display: flex;
+  flex-direction: column;
+
+  > header {
+    flex: 0 0 auto;
+  }
+
+  > main {
+    flex: 1;
+    display: flex;
+  }
+
+  > footer {
+    flex: 0 0 auto;
+  }
 }
 
 body,
@@ -84,13 +99,10 @@ body,
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 
-  position: fixed;
-  bottom: 20px;
-  left: 0;
-  right: 0;
   color: $palette-theme-dark-disabled-foreground;
-  margin: 0 60px;
+  margin: 0 60px 20px 60px;
   padding-top: 15px;
   border-top: 2px solid $palette-theme-dark-soft-background;
   text-align: center;
@@ -139,7 +151,7 @@ body,
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 255px;
+    height: 355px;
   }
 }
 
