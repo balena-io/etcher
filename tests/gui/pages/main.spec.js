@@ -305,7 +305,7 @@ describe('Browser: MainPage', function () {
       it('should return a consolidated title with quantity when there are multiple drives', function () {
         selectionState.selectDrive(drives[0].device)
         selectionState.selectDrive(drives[1].device)
-        m.chai.expect(DriveSelectionController.getDrivesTitle()).to.equal('Multiple Devices (2)')
+        m.chai.expect(DriveSelectionController.getDrivesTitle()).to.equal('2 Devices')
       })
     })
 
