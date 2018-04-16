@@ -646,7 +646,12 @@ describe('Shared: Errors', function () {
         description: undefined,
         message: 'My error',
         stack: error.stack,
-        report: undefined
+        report: undefined,
+        stderr: undefined,
+        stdout: undefined,
+        syscall: undefined,
+        name: 'Error',
+        errno: undefined
       })
     })
 
@@ -659,7 +664,12 @@ describe('Shared: Errors', function () {
         description: 'My description',
         message: 'My error',
         stack: error.stack,
-        report: undefined
+        report: undefined,
+        stderr: undefined,
+        stdout: undefined,
+        syscall: undefined,
+        name: 'Error',
+        errno: undefined
       })
     })
 
@@ -672,7 +682,12 @@ describe('Shared: Errors', function () {
         description: undefined,
         message: 'My error',
         stack: error.stack,
-        report: undefined
+        report: undefined,
+        stderr: undefined,
+        stdout: undefined,
+        syscall: undefined,
+        name: 'Error',
+        errno: undefined
       })
     })
 
@@ -686,7 +701,12 @@ describe('Shared: Errors', function () {
         description: 'My description',
         message: 'My error',
         stack: error.stack,
-        report: undefined
+        report: undefined,
+        stderr: undefined,
+        stdout: undefined,
+        syscall: undefined,
+        name: 'Error',
+        errno: undefined
       })
     })
 
@@ -699,7 +719,12 @@ describe('Shared: Errors', function () {
         description: undefined,
         message: 'My error',
         stack: error.stack,
-        report: true
+        report: true,
+        stderr: undefined,
+        stdout: undefined,
+        syscall: undefined,
+        name: 'Error',
+        errno: undefined
       })
     })
 
@@ -711,7 +736,12 @@ describe('Shared: Errors', function () {
         description: undefined,
         message: '',
         stack: error.stack,
-        report: undefined
+        report: undefined,
+        stderr: undefined,
+        stdout: undefined,
+        syscall: undefined,
+        name: 'Error',
+        errno: undefined
       })
     })
   })
