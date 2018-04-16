@@ -6328,9 +6328,9 @@ body {
   .progress-button .progress-button__bar {
     background-color: #ff9e49; }
   .progress-button.progress-button--striped {
-    background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #bd6415), color-stop(0.26, #fa9134), color-stop(0.5, #fa9134), color-stop(0.51, #bd6415), color-stop(0.75, #bd6415), color-stop(0.76, #fa9134), to(#fa9134)); }
+    background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #3b679b), color-stop(0.26, #5c93d6), color-stop(0.5, #5c93d6), color-stop(0.51, #3b679b), color-stop(0.75, #3b679b), color-stop(0.76, #5c93d6), to(#5c93d6)); }
     .progress-button.progress-button--striped .progress-button__bar {
-      background-color: #ff9e49; }
+      background-color: #6ca1e0; }
 
 .progress-button__content {
   position: relative;

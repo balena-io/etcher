@@ -59,8 +59,8 @@ $progress-button-stripes-animation-duration: 1s;
   }
 
   &.progress-button--striped {
-    $progress-button-stripes-background-color: desaturate($palette-theme-warning-background, 5%);
-    $progress-button-stripes-foreground-color: desaturate(darken($palette-theme-warning-background, 18%), 20%);
+    $progress-button-stripes-background-color: desaturate($palette-theme-primary-background, 5%);
+    $progress-button-stripes-foreground-color: desaturate(darken($palette-theme-primary-background, 18%), 20%);
 
     // Notice that we add `0.01` to certain gradient stop positions.
     // That workarounds a Chrome rendering issue where diagonal
@@ -76,7 +76,7 @@ $progress-button-stripes-animation-duration: 1s;
       to($progress-button-stripes-background-color));
 
     .progress-button__bar {
-      background-color: lighten($palette-theme-warning-background, 5%);
+      background-color: lighten($palette-theme-primary-background, 5%);
     }
 
   }
