@@ -6595,24 +6595,24 @@ svg-icon > img[disabled] {
 
 .target-status-line {
   display: flex;
-  align-items: center;
-  font-size: 10px;
+  align-items: baseline;
+  font-size: 11px;
   font-family: inherit; }
   .target-status-line > .target-status-dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    margin-right: 5px; }
+    margin-right: 6px; }
   .target-status-line.target-status-succeeded > .target-status-dot {
     background-color: #5fb835; }
   .target-status-line.target-status-failed > .target-status-dot {
     background-color: #d9534f; }
   .target-status-line > .target-status-quantity {
     color: white;
-    font-weight: bold;
-    min-width: 32px; }
+    font-weight: bold; }
   .target-status-line > .target-status-message {
-    color: gray; }
+    color: gray;
+    margin-left: 6px; }
 
 .tooltip-inner {
   white-space: pre-line; }
@@ -6739,6 +6739,21 @@ svg-icon > img[disabled] {
   .page-finish .fallback-banner .section-footer {
     border-top: none;
     height: 39px; }
+
+.inline-flex {
+  display: inline-flex; }
+
+.items-baseline {
+  align-items: baseline; }
+
+.page-finish .tick--success {
+  /* hack(Shou): for some reason the height is stretched */
+  height: 28.9px; }
+
+.title-wrap {
+  margin-left: 5px; }
+  .title-wrap > .title {
+    margin-bottom: 3px; }
 
 @font-face {
   font-family: Roboto;

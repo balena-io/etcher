@@ -651,7 +651,8 @@ describe('Shared: Errors', function () {
         stdout: undefined,
         syscall: undefined,
         name: 'Error',
-        errno: undefined
+        errno: undefined,
+        device: undefined
       })
     })
 
@@ -669,7 +670,8 @@ describe('Shared: Errors', function () {
         stdout: undefined,
         syscall: undefined,
         name: 'Error',
-        errno: undefined
+        errno: undefined,
+        device: undefined
       })
     })
 
@@ -687,7 +689,8 @@ describe('Shared: Errors', function () {
         stdout: undefined,
         syscall: undefined,
         name: 'Error',
-        errno: undefined
+        errno: undefined,
+        device: undefined
       })
     })
 
@@ -706,7 +709,8 @@ describe('Shared: Errors', function () {
         stdout: undefined,
         syscall: undefined,
         name: 'Error',
-        errno: undefined
+        errno: undefined,
+        device: undefined
       })
     })
 
@@ -724,7 +728,8 @@ describe('Shared: Errors', function () {
         stdout: undefined,
         syscall: undefined,
         name: 'Error',
-        errno: undefined
+        errno: undefined,
+        device: undefined
       })
     })
 
@@ -741,7 +746,8 @@ describe('Shared: Errors', function () {
         stdout: undefined,
         syscall: undefined,
         name: 'Error',
-        errno: undefined
+        errno: undefined,
+        device: undefined
       })
     })
   })
