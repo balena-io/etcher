@@ -111,12 +111,13 @@
           <span>ETA: {{ main.state.getFlashState().eta | secondsToDate | amDateFormat:'m[m]ss[s]' }}</span>
         </p>
 
-        <div class="target-status-wrap" ng-if="main.state.isFlashing()">
-          <div class="target-status-line target-status-{{ type }}"
-            ng-repeat="(type, quantity) in main.state.getFlashQuantities()">
-              <span class="target-status-dot"></span>
-              <span class="target-status-quantity">{{ quantity }}</span>
-              <span class="target-status-message">{{ main.progressMessage[type]() }}</span>
+        <div class="target-status-wrap" ng-if="main.state.getFlashState().failed">
+          <div class="target-status-line target-status-failed">
+            <span class="target-status-dot"></span>
+            <span class="target-status-quantity">{{ main.state.getFlashState().failed }}</span>
+            <span class="target-status-message">{{
+              main.progressMessage.failed(main.state.getFlashState().failed)
+            }}</span>
           </div>
         </div>
       </div>
