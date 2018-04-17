@@ -35,7 +35,8 @@ angularValidate.validate(
       // External
       'hide-if-state',
       'show-if-state',
-      'uib-tooltip'
+      'uib-tooltip',
+      'tooltip-placement'
 
     ],
     angular: true,
