@@ -16,25 +16,27 @@
 
 'use strict'
 
-const os = require('os')
-const fs = require('fs')
-const EventEmitter = require('events').EventEmitter
-const mountutils = require('mountutils')
-const drivelist = require('drivelist')
-const stream = require('readable-stream')
-const Pipage = require('pipage')
-const BlockMap = require('blockmap')
-const BlockStream = require('./block-stream')
-const BlockWriteStream = require('./block-write-stream')
-const BlockReadStream = require('./block-read-stream')
-const ChecksumStream = require('./checksum-stream')
-const ProgressStream = require('./progress-stream')
-const imageStream = require('../image-stream')
-const diskpart = require('../../cli/diskpart')
-const constraints = require('../../shared/drive-constraints')
-const errors = require('../../shared/errors')
-const debug = require('debug')('etcher:writer')
-const _ = require('lodash')
+import * as os from 'os'
+import * as fs from 'fs'
+import { EventEmitter } from 'events'
+import * as mountutils from 'mountutils'
+import * as drivelist from 'drivelist'
+import * as stream from 'readable-stream'
+import * as Pipage from 'pipage'
+import * as BlockMap from 'blockmap'
+import * as BlockStream from './block-stream'
+import * as BlockWriteStream from './block-write-stream'
+import * as BlockReadStream from './block-read-stream'
+import * as ChecksumStream from './checksum-stream'
+import * as ProgressStream from './progress-stream'
+import * as imageStream from '../image-stream'
+import * as diskpart from '../../cli/diskpart'
+import * as constraints from '../../shared/drive-constraints'
+import * as errors from '../../shared/errors'
+import * as debug_ from 'debug'
+import * as _ from 'lodash'
+
+const debug = debug_('etcher:writer')
 
 /* eslint-disable prefer-reflect */
 /* eslint-disable callback-return */
@@ -66,7 +68,7 @@ const runSeries = (tasks, callback) => {
    * @example
    * run()
    */
-  const run = (error) => {
+  const run = (error?) => {
     const task = tasks.shift()
     if (error || task == null) {
       callback(error)
@@ -113,6 +115,17 @@ const runParallel = (tasks, callback) => {
  * @class
  */
 class ImageWriter extends EventEmitter {
+  unmountOnSuccess: any
+  verifyChecksums: any
+  checksumAlgorithms: any
+  source: any
+  pipeline: any
+  destinations: any
+  finished: any
+  hadError: any
+  bytesRead: any
+  bytesWritten: any
+  checksum: any
   /**
    * @summary ImageWriter constructor
    * @param {Object} options - options
@@ -811,4 +824,4 @@ class ImageWriter extends EventEmitter {
   }
 }
 
-module.exports = ImageWriter
+export default ImageWriter

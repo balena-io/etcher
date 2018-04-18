@@ -16,9 +16,9 @@
 
 'use strict'
 
-const _ = require('lodash')
-const store = require('../store')
-const availableDrives = require('./available-drives')
+import * as _ from 'lodash'
+import * as store from '../store'
+import * as availableDrives from './available-drives'
 
 /**
  * @summary Select a drive by its device path
@@ -30,7 +30,7 @@ const availableDrives = require('./available-drives')
  * @example
  * selectionState.selectDrive('/dev/disk2');
  */
-exports.selectDrive = (driveDevice) => {
+export const selectDrive = (driveDevice) => {
   store.dispatch({
     type: store.Actions.SELECT_DRIVE,
     data: driveDevice
@@ -47,11 +47,11 @@ exports.selectDrive = (driveDevice) => {
  * @example
  * selectionState.toggleDrive('/dev/disk2');
  */
-exports.toggleDrive = (driveDevice) => {
-  if (exports.isDriveSelected(driveDevice)) {
-    exports.deselectDrive(driveDevice)
+export const toggleDrive = (driveDevice) => {
+  if (isDriveSelected(driveDevice)) {
+    deselectDrive(driveDevice)
   } else {
-    exports.selectDrive(driveDevice)
+    selectDrive(driveDevice)
   }
 }
 
@@ -74,12 +74,12 @@ exports.toggleDrive = (driveDevice) => {
  * console.log(selectionState.getSelectedDevices())
  * > [ '/dev/disk2' ]
  */
-exports.deselectOtherDrives = (driveDevice) => {
-  if (exports.isDriveSelected(driveDevice)) {
-    const otherDevices = _.reject(exports.getSelectedDevices(), _.partial(_.isEqual, driveDevice))
-    _.each(otherDevices, exports.deselectDrive)
+export const deselectOtherDrives = (driveDevice) => {
+  if (isDriveSelected(driveDevice)) {
+    const otherDevices = _.reject(getSelectedDevices(), _.partial(_.isEqual, driveDevice))
+    _.each(otherDevices, deselectDrive)
   } else {
-    exports.deselectAllDrives()
+    deselectAllDrives()
   }
 }
 
@@ -102,7 +102,7 @@ exports.deselectOtherDrives = (driveDevice) => {
  *   }
  * });
  */
-exports.selectImage = (image) => {
+export const selectImage = (image) => {
   store.dispatch({
     type: store.Actions.SELECT_IMAGE,
     data: image
@@ -123,7 +123,7 @@ exports.selectImage = (image) => {
  * > '/dev/disk1'
  * > '/dev/disk2'
  */
-exports.getSelectedDevices = () => {
+export const getSelectedDevices = () => {
   return store.getState().getIn([ 'selection', 'devices' ]).toJS()
 }
 
@@ -141,9 +141,9 @@ exports.getSelectedDevices = () => {
  * > '{ device: '/dev/disk1', size: 123456789, ... }'
  * > '{ device: '/dev/disk2', size: 987654321, ... }'
  */
-exports.getSelectedDrives = () => {
+export const getSelectedDrives = () => {
   const drives = availableDrives.getDrives()
-  return _.map(exports.getSelectedDevices(), (device) => {
+  return _.map(getSelectedDevices(), (device) => {
     return _.find(drives, { device })
   })
 }
@@ -160,8 +160,8 @@ exports.getSelectedDrives = () => {
  * console.log(drive)
  * > { device: '/dev/disk1', name: 'Flash drive', ... }
  */
-exports.getCurrentDrive = () => {
-  const device = _.head(exports.getSelectedDevices())
+export const getCurrentDrive = () => {
+  const device = _.head(getSelectedDevices())
   return _.find(availableDrives.getDrives(), { device })
 }
 
@@ -175,7 +175,7 @@ exports.getCurrentDrive = () => {
  * @example
  * const image = selectionState.getImage();
  */
-exports.getImage = () => {
+export const getImage = () => {
   return _.get(store.getState().toJS(), [ 'selection', 'image' ])
 }
 
@@ -189,7 +189,7 @@ exports.getImage = () => {
  * @example
  * const imagePath = selectionState.getImagePath();
  */
-exports.getImagePath = () => {
+export const getImagePath = () => {
   return _.get(store.getState().toJS(), [
     'selection',
     'image',
@@ -207,7 +207,7 @@ exports.getImagePath = () => {
  * @example
  * const imageSize = selectionState.getImageSize();
  */
-exports.getImageSize = () => {
+export const getImageSize = () => {
   return _.get(store.getState().toJS(), [
     'selection',
     'image',
@@ -227,7 +227,7 @@ exports.getImageSize = () => {
  * @example
  * const imageUrl = selectionState.getImageUrl();
  */
-exports.getImageUrl = () => {
+export const getImageUrl = () => {
   return _.get(store.getState().toJS(), [
     'selection',
     'image',
@@ -245,7 +245,7 @@ exports.getImageUrl = () => {
  * @example
  * const imageName = selectionState.getImageName();
  */
-exports.getImageName = () => {
+export const getImageName = () => {
   return _.get(store.getState().toJS(), [
     'selection',
     'image',
@@ -263,7 +263,7 @@ exports.getImageName = () => {
  * @example
  * const imageLogo = selectionState.getImageLogo();
  */
-exports.getImageLogo = () => {
+export const getImageLogo = () => {
   return _.get(store.getState().toJS(), [
     'selection',
     'image',
@@ -281,7 +281,7 @@ exports.getImageLogo = () => {
  * @example
  * const imageSupportUrl = selectionState.getImageSupportUrl();
  */
-exports.getImageSupportUrl = () => {
+export const getImageSupportUrl = () => {
   return _.get(store.getState().toJS(), [
     'selection',
     'image',
@@ -299,7 +299,7 @@ exports.getImageSupportUrl = () => {
  * @example
  * const imageRecommendedDriveSize = selectionState.getImageRecommendedDriveSize();
  */
-exports.getImageRecommendedDriveSize = () => {
+export const getImageRecommendedDriveSize = () => {
   return _.get(store.getState().toJS(), [
     'selection',
     'image',
@@ -319,8 +319,8 @@ exports.getImageRecommendedDriveSize = () => {
  *   console.log('There is a drive!');
  * }
  */
-exports.hasDrive = () => {
-  return Boolean(exports.getSelectedDevices().length)
+export const hasDrive = () => {
+  return Boolean(getSelectedDevices().length)
 }
 
 /**
@@ -335,8 +335,8 @@ exports.hasDrive = () => {
  *   console.log('There is an image!');
  * }
  */
-exports.hasImage = () => {
-  return Boolean(exports.getImage())
+export const hasImage = () => {
+  return Boolean(getImage())
 }
 
 /**
@@ -352,7 +352,7 @@ exports.hasImage = () => {
  * @example
  * selectionState.deselectDrive('\\\\.\\PHYSICALDRIVE3');
  */
-exports.deselectDrive = (driveDevice) => {
+export const deselectDrive = (driveDevice) => {
   store.dispatch({
     type: store.Actions.DESELECT_DRIVE,
     data: driveDevice
@@ -367,7 +367,7 @@ exports.deselectDrive = (driveDevice) => {
  * @example
  * selectionState.deselectImage();
  */
-exports.deselectImage = () => {
+export const deselectImage = () => {
   store.dispatch({
     type: store.Actions.DESELECT_IMAGE
   })
@@ -381,8 +381,8 @@ exports.deselectImage = () => {
  * @example
  * selectionState.deselectAllDrives()
  */
-exports.deselectAllDrives = () => {
-  _.each(exports.getSelectedDevices(), exports.deselectDrive)
+export const deselectAllDrives = () => {
+  _.each(getSelectedDevices(), deselectDrive)
 }
 
 /**
@@ -393,9 +393,9 @@ exports.deselectAllDrives = () => {
  * @example
  * selectionState.clear();
  */
-exports.clear = () => {
-  exports.deselectImage()
-  exports.deselectAllDrives()
+export const clear = () => {
+  deselectImage()
+  deselectAllDrives()
 }
 
 /**
@@ -411,12 +411,12 @@ exports.clear = () => {
  *   console.log('This is the current drive!');
  * }
  */
-exports.isCurrentDrive = (driveDevice) => {
+export const isCurrentDrive = (driveDevice) => {
   if (!driveDevice) {
     return false
   }
 
-  return driveDevice === _.get(exports.getCurrentDrive(), [ 'device' ])
+  return driveDevice === _.get(getCurrentDrive(), [ 'device' ])
 }
 
 /**
@@ -434,11 +434,11 @@ exports.isCurrentDrive = (driveDevice) => {
  *   selectionState.deselectDrive(driveDevice)
  * }
  */
-exports.isDriveSelected = (driveDevice) => {
+export const isDriveSelected = (driveDevice) => {
   if (!driveDevice) {
     return false
   }
 
-  const selectedDriveDevices = exports.getSelectedDevices()
+  const selectedDriveDevices = getSelectedDevices()
   return _.includes(selectedDriveDevices, driveDevice)
 }

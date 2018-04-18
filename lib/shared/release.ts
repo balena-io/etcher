@@ -16,15 +16,15 @@
 
 'use strict'
 
-const _ = require('lodash')
-const semver = require('semver')
+import * as _ from 'lodash'
+import * as semver from 'semver'
 
 /**
  * @summary Application release types
  * @namespace RELEASE_TYPE
  * @public
  */
-exports.RELEASE_TYPE = {
+export const RELEASE_TYPE = {
 
   /**
    * @property {String} PRODUCTION
@@ -68,21 +68,21 @@ exports.RELEASE_TYPE = {
  *   console.log('This is a production release!');
  * }
  */
-exports.getReleaseType = (version) => {
+export const getReleaseType = (version) => {
   const GIT_HASH_REGEX = /^[0-9a-f]{7,40}$/
   const buildNumber = _.get(semver.parse(version), [ 'build' ])
 
   if (!_.isNil(buildNumber)) {
     if (_.isEmpty(buildNumber)) {
-      return exports.RELEASE_TYPE.PRODUCTION
+      return RELEASE_TYPE.PRODUCTION
     }
 
     if (GIT_HASH_REGEX.test(_.first(buildNumber))) {
-      return exports.RELEASE_TYPE.SNAPSHOT
+      return RELEASE_TYPE.SNAPSHOT
     }
   }
 
-  return exports.RELEASE_TYPE.UNKNOWN
+  return RELEASE_TYPE.UNKNOWN
 }
 
 /**
@@ -98,7 +98,7 @@ exports.getReleaseType = (version) => {
  *   console.log('This is a stable release');
  * }
  */
-exports.isStableRelease = (version) => {
+export const isStableRelease = (version) => {
   const parsedVersion = semver.parse(version)
   return _.every([
     _.isEmpty(_.get(parsedVersion, [ 'prerelease' ])),

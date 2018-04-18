@@ -16,10 +16,10 @@
 
 'use strict'
 
-const _ = require('lodash')
-const pathIsInside = require('path-is-inside')
-const prettyBytes = require('pretty-bytes')
-const messages = require('./messages')
+import * as _ from 'lodash'
+import * as pathIsInside from 'path-is-inside'
+import * as prettyBytes from 'pretty-bytes'
+import * as messages from './messages'
 
 /**
  * @summary The default unknown size for things such as images and drives
@@ -50,7 +50,7 @@ const UNKNOWN_SIZE = 0
  *   console.log('This drive is locked (e.g: write-protected)');
  * }
  */
-exports.isDriveLocked = (drive) => {
+export const isDriveLocked = (drive) => {
   return Boolean(_.get(drive, [ 'isReadOnly' ], false))
 }
 
@@ -72,7 +72,7 @@ exports.isDriveLocked = (drive) => {
  *   console.log('This drive is a system drive!');
  * }
  */
-exports.isSystemDrive = (drive) => {
+export const isSystemDrive = (drive) => {
   return Boolean(_.get(drive, [ 'isSystem' ], false))
 }
 
@@ -115,7 +115,7 @@ exports.isSystemDrive = (drive) => {
  *   console.log('This drive is a source drive!');
  * }
  */
-exports.isSourceDrive = (drive, image) => {
+export const isSourceDrive = (drive, image) => {
   const mountpoints = _.get(drive, [ 'mountpoints' ], [])
   const imagePath = _.get(image, [ 'path' ])
 
@@ -155,7 +155,7 @@ exports.isSourceDrive = (drive, image) => {
  *   console.log('We can flash the image to this drive!');
  * }
  */
-exports.isDriveLargeEnough = (drive, image) => {
+export const isDriveLargeEnough = (drive, image) => {
   const driveSize = _.get(drive, [ 'size' ], UNKNOWN_SIZE)
 
   if (_.get(image, [ 'size', 'final', 'estimation' ])) {
@@ -199,7 +199,7 @@ exports.isDriveLargeEnough = (drive, image) => {
  *   console.log('The drive is disabled');
  * }
  */
-exports.isDriveDisabled = (drive) => {
+export const isDriveDisabled = (drive) => {
   return _.get(drive, [ 'disabled' ], false)
 }
 
@@ -232,7 +232,7 @@ exports.isDriveDisabled = (drive) => {
  *   console.log('This drive is valid!');
  * }
  */
-exports.isDriveValid = (drive, image) => {
+export const isDriveValid = (drive, image) => {
   return !this.isDriveLocked(drive) &&
     this.isDriveLargeEnough(drive, image) &&
     !this.isSourceDrive(drive, image) &&
@@ -274,7 +274,7 @@ exports.isDriveValid = (drive, image) => {
  *   console.log('We meet the recommended drive size!');
  * }
  */
-exports.isDriveSizeRecommended = (drive, image) => {
+export const isDriveSizeRecommended = (drive, image) => {
   return _.get(drive, [ 'size' ], UNKNOWN_SIZE) >= _.get(image, [ 'recommendedDriveSize' ], UNKNOWN_SIZE)
 }
 
@@ -283,7 +283,7 @@ exports.isDriveSizeRecommended = (drive, image) => {
  * @private
  * @constant
  */
-exports.LARGE_DRIVE_SIZE = 64e9
+export const LARGE_DRIVE_SIZE = 64e9
 
 /**
  * @summary Check whether a drive's size is 'large'
@@ -297,8 +297,8 @@ exports.LARGE_DRIVE_SIZE = 64e9
  *   console.log('Impressive')
  * }
  */
-exports.isDriveSizeLarge = (drive) => {
-  return _.get(drive, [ 'size' ], UNKNOWN_SIZE) > exports.LARGE_DRIVE_SIZE
+export const isDriveSizeLarge = (drive) => {
+  return _.get(drive, [ 'size' ], UNKNOWN_SIZE) > LARGE_DRIVE_SIZE
 }
 
 /**
@@ -309,7 +309,7 @@ exports.isDriveSizeLarge = (drive) => {
  * @description
  * Status types classifying what kind of message it is, i.e. error, warning.
  */
-exports.COMPATIBILITY_STATUS_TYPES = {
+export const COMPATIBILITY_STATUS_TYPES = {
   WARNING: 1,
   ERROR: 2
 }
@@ -357,45 +357,45 @@ exports.COMPATIBILITY_STATUS_TYPES = {
  *   }
  * }
  */
-exports.getDriveImageCompatibilityStatuses = (drive, image) => {
+export const getDriveImageCompatibilityStatuses = (drive, image) => {
   const statusList = []
 
   // Mind the order of the if-statements if you modify.
-  if (exports.isSourceDrive(drive, image)) {
+  if (isSourceDrive(drive, image)) {
     statusList.push({
-      type: exports.COMPATIBILITY_STATUS_TYPES.ERROR,
+      type: COMPATIBILITY_STATUS_TYPES.ERROR,
       message: messages.compatibility.containsImage()
     })
-  } else if (exports.isDriveLocked(drive)) {
+  } else if (isDriveLocked(drive)) {
     statusList.push({
-      type: exports.COMPATIBILITY_STATUS_TYPES.ERROR,
+      type: COMPATIBILITY_STATUS_TYPES.ERROR,
       message: messages.compatibility.locked()
     })
-  } else if (!_.isNil(drive) && !_.isNil(drive.size) && !exports.isDriveLargeEnough(drive, image)) {
+  } else if (!_.isNil(drive) && !_.isNil(drive.size) && !isDriveLargeEnough(drive, image)) {
     const imageSize = _.get(image, [ 'size', 'final', 'estimation' ]) ? image.size.original : image.size.final.value
     const relativeBytes = imageSize - drive.size
     statusList.push({
-      type: exports.COMPATIBILITY_STATUS_TYPES.ERROR,
+      type: COMPATIBILITY_STATUS_TYPES.ERROR,
       message: messages.compatibility.tooSmall(prettyBytes(relativeBytes))
     })
   } else {
-    if (exports.isSystemDrive(drive)) {
+    if (isSystemDrive(drive)) {
       statusList.push({
-        type: exports.COMPATIBILITY_STATUS_TYPES.WARNING,
+        type: COMPATIBILITY_STATUS_TYPES.WARNING,
         message: messages.compatibility.system()
       })
     }
 
-    if (exports.isDriveSizeLarge(drive)) {
+    if (isDriveSizeLarge(drive)) {
       statusList.push({
-        type: exports.COMPATIBILITY_STATUS_TYPES.WARNING,
+        type: COMPATIBILITY_STATUS_TYPES.WARNING,
         message: messages.compatibility.largeDrive()
       })
     }
 
-    if (!_.isNil(drive) && !exports.isDriveSizeRecommended(drive, image)) {
+    if (!_.isNil(drive) && !isDriveSizeRecommended(drive, image)) {
       statusList.push({
-        type: exports.COMPATIBILITY_STATUS_TYPES.WARNING,
+        type: COMPATIBILITY_STATUS_TYPES.WARNING,
         message: messages.compatibility.sizeNotRecommended()
       })
     }
@@ -453,9 +453,9 @@ exports.getDriveImageCompatibilityStatuses = (drive, image) => {
  *   }
  * }
  */
-exports.getListDriveImageCompatibilityStatuses = (drives, image) => {
+export const getListDriveImageCompatibilityStatuses = (drives, image) => {
   return _.flatMap(drives, (drive) => {
-    return exports.getDriveImageCompatibilityStatuses(drive, image)
+    return getDriveImageCompatibilityStatuses(drive, image)
   })
 }
 
@@ -476,8 +476,8 @@ exports.getListDriveImageCompatibilityStatuses = (drives, image) => {
  *   console.log('This drive-image pair has a compatibility status message!')
  * }
  */
-exports.hasDriveImageCompatibilityStatus = (drive, image) => {
-  return Boolean(exports.getDriveImageCompatibilityStatuses(drive, image).length)
+export const hasDriveImageCompatibilityStatus = (drive, image) => {
+  return Boolean(getDriveImageCompatibilityStatuses(drive, image).length)
 }
 
 /**
@@ -497,6 +497,6 @@ exports.hasDriveImageCompatibilityStatus = (drive, image) => {
  *   console.log('This drive-image pair has a compatibility status message!')
  * }
  */
-exports.hasListDriveImageCompatibilityStatus = (drives, image) => {
-  return Boolean(exports.getListDriveImageCompatibilityStatuses(drives, image).length)
+export const hasListDriveImageCompatibilityStatus = (drives, image) => {
+  return Boolean(getListDriveImageCompatibilityStatuses(drives, image).length)
 }

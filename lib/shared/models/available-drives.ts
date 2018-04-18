@@ -16,8 +16,8 @@
 
 'use strict'
 
-const _ = require('lodash')
-const store = require('../store')
+import * as _ from 'lodash'
+import * as store from '../store'
 
 /**
  * @summary Check if there are available drives
@@ -31,8 +31,8 @@ const store = require('../store')
  *   console.log('There are available drives!');
  * }
  */
-exports.hasAvailableDrives = () => {
-  return !_.isEmpty(exports.getDrives())
+export const hasAvailableDrives = () => {
+  return !_.isEmpty(getDrives())
 }
 
 /**
@@ -48,7 +48,7 @@ exports.hasAvailableDrives = () => {
  * @example
  * availableDrives.setDrives([ ... ]);
  */
-exports.setDrives = (drives) => {
+export const setDrives = (drives) => {
   store.dispatch({
     type: store.Actions.SET_AVAILABLE_DRIVES,
     data: drives
@@ -65,6 +65,6 @@ exports.setDrives = (drives) => {
  * @example
  * const drives = availableDrives.getDrives();
  */
-exports.getDrives = () => {
+export const getDrives = () => {
   return store.getState().toJS().availableDrives
 }

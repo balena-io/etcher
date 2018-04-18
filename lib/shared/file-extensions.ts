@@ -16,8 +16,8 @@
 
 'use strict'
 
-const mime = require('mime-types')
-const _ = require('lodash')
+import * as mime from 'mime-types'
+import * as _ from 'lodash'
 
 /**
  * @summary Get the extensions of a file
@@ -32,7 +32,7 @@ const _ = require('lodash')
  * console.log(extensions);
  * > [ 'img', 'gz' ]
  */
-exports.getFileExtensions = _.memoize((filePath) => {
+export const getFileExtensions = _.memoize((filePath) => {
   return _.chain(filePath)
     .split('.')
     .tail()
@@ -53,8 +53,8 @@ exports.getFileExtensions = _.memoize((filePath) => {
  * console.log(extension);
  * > 'gz'
  */
-exports.getLastFileExtension = (filePath) => {
-  return _.last(exports.getFileExtensions(filePath)) || null
+export const getLastFileExtension = (filePath) => {
+  return _.last(getFileExtensions(filePath)) || null
 }
 
 /**
@@ -70,7 +70,7 @@ exports.getLastFileExtension = (filePath) => {
  * console.log(extension);
  * > 'img'
  */
-exports.getPenultimateFileExtension = (filePath) => {
-  const ext = _.last(_.initial(exports.getFileExtensions(filePath)))
+export const getPenultimateFileExtension = (filePath) => {
+  const ext = _.last(_.initial(getFileExtensions(filePath)))
   return !_.isNil(ext) && mime.lookup(ext) ? ext : null
 }

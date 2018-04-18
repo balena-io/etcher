@@ -16,10 +16,12 @@
 
 'use strict'
 
-const stream = require('readable-stream')
-const fs = require('fs')
-const debug = require('debug')('etcher:writer:block-read-stream')
-const errors = require('./error-types')
+import * as stream from 'readable-stream'
+import * as fs from 'fs'
+import * as debug_ from 'debug'
+import * as errors from './error-types'
+
+const debug = debug_('etcher:writer:block-read-stream')
 
 const CHUNK_SIZE = 64 * 1024
 const MIN_CHUNK_SIZE = 512
@@ -36,6 +38,35 @@ const RETRY_BASE_TIMEOUT = 100
  * @class
  */
 class BlockReadStream extends stream.Readable {
+  /**
+   * @summary Default options
+   * @type {Object}
+   * @constant
+   */
+  static defaults = {
+    fs,
+    fd: null,
+    path: null,
+    flags: 'r',
+    mode: 0o666,
+    autoClose: true
+  }
+
+  fs: any
+  fd: any
+  path: any
+  flags: any
+  mode: any
+  end: any
+  autoClose: any
+  maxRetries: any
+  retries: any
+  position: any
+  bytesRead: any
+  closed: any
+  destroyed: any
+  _onRead: any
+
   /**
    * @summary BlockReadStream constructor
    * @param {Object} [options] - options
@@ -221,18 +252,4 @@ class BlockReadStream extends stream.Readable {
   }
 }
 
-/**
- * @summary Default options
- * @type {Object}
- * @constant
- */
-BlockReadStream.defaults = {
-  fs,
-  fd: null,
-  path: null,
-  flags: 'r',
-  mode: 0o666,
-  autoClose: true
-}
-
-module.exports = BlockReadStream
+export default BlockReadStream

@@ -16,9 +16,9 @@
 
 'use strict'
 
-const stream = require('readable-stream')
-const crypto = require('crypto')
-const _ = require('lodash')
+import * as stream from 'readable-stream'
+import * as crypto from 'crypto'
+import * as _ from 'lodash'
 
 /**
  * @summary Create an instance of ChecksumStream
@@ -26,6 +26,9 @@ const _ = require('lodash')
  * @class
  */
 class ChecksumStream extends stream.Transform {
+  results: any
+  algorithms: any
+  hashes: any
   /**
    * @summary Create an instance of ChecksumStream
    * @name ChecksumStream
@@ -128,4 +131,4 @@ class ChecksumStream extends stream.Transform {
   }
 }
 
-module.exports = ChecksumStream
+export default ChecksumStream

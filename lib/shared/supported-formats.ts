@@ -16,10 +16,10 @@
 
 'use strict'
 
-const _ = require('lodash')
-const path = require('path')
-const imageStream = require('../sdk/image-stream')
-const fileExtensions = require('./file-extensions')
+import * as _ from 'lodash'
+import * as path from 'path'
+import * as imageStream from '../sdk/image-stream'
+import * as fileExtensions from './file-extensions'
 
 /**
  * @summary Build an extension list getter from a type
@@ -52,7 +52,7 @@ const getExtensionsFromTypeGetter = (type) => {
  *   console.log('We support the ' + extension + ' compressed file format');
  * });
  */
-exports.getCompressedExtensions = getExtensionsFromTypeGetter('compressed')
+export const getCompressedExtensions = getExtensionsFromTypeGetter('compressed')
 
 /**
  * @summary Get non compressed extensions
@@ -66,7 +66,7 @@ exports.getCompressedExtensions = getExtensionsFromTypeGetter('compressed')
  *   console.log('We support the ' + extension + ' file format');
  * });
  */
-exports.getNonCompressedExtensions = getExtensionsFromTypeGetter('image')
+export const getNonCompressedExtensions = getExtensionsFromTypeGetter('image')
 
 /**
  * @summary Get archive extensions
@@ -80,7 +80,7 @@ exports.getNonCompressedExtensions = getExtensionsFromTypeGetter('image')
  *   console.log('We support the ' + extension + ' file format');
  * });
  */
-exports.getArchiveExtensions = getExtensionsFromTypeGetter('archive')
+export const getArchiveExtensions = getExtensionsFromTypeGetter('archive')
 
 /**
  * @summary Get all supported extensions
@@ -94,7 +94,7 @@ exports.getArchiveExtensions = getExtensionsFromTypeGetter('archive')
  *   console.log('We support the ' + extension + ' format');
  * });
  */
-exports.getAllExtensions = () => {
+export const getAllExtensions = () => {
   return _.map(imageStream.supportedFileTypes, 'extension')
 }
 
@@ -111,26 +111,26 @@ exports.getAllExtensions = () => {
  *   console.log('The image is supported!');
  * }
  */
-exports.isSupportedImage = (imagePath) => {
+export const isSupportedImage = (imagePath) => {
   const lastExtension = fileExtensions.getLastFileExtension(imagePath)
   const penultimateExtension = fileExtensions.getPenultimateFileExtension(imagePath)
 
   if (_.some([
-    _.includes(exports.getNonCompressedExtensions(), lastExtension),
-    _.includes(exports.getArchiveExtensions(), lastExtension)
+    _.includes(getNonCompressedExtensions(), lastExtension),
+    _.includes(getArchiveExtensions(), lastExtension)
   ])) {
     return true
   }
 
   if (_.every([
-    _.includes(exports.getCompressedExtensions(), lastExtension),
-    _.includes(exports.getNonCompressedExtensions(), penultimateExtension)
+    _.includes(getCompressedExtensions(), lastExtension),
+    _.includes(getNonCompressedExtensions(), penultimateExtension)
   ])) {
     return true
   }
 
   return _.isNil(penultimateExtension) &&
-    _.includes(exports.getCompressedExtensions(), lastExtension)
+    _.includes(getCompressedExtensions(), lastExtension)
 }
 
 /**
@@ -146,7 +146,7 @@ exports.isSupportedImage = (imagePath) => {
  *   console.log('Looks like a Windows image');
  * }
  */
-exports.looksLikeWindowsImage = (imagePath) => {
+export const looksLikeWindowsImage = (imagePath) => {
   const regex = /windows|win7|win8|win10|winxp/i
   return regex.test(path.basename(imagePath))
 }

@@ -16,8 +16,10 @@
 
 'use strict'
 
-const stream = require('readable-stream')
-const debug = require('debug')('etcher:writer:block-stream')
+import * as stream from 'readable-stream'
+import * as debug_ from 'debug'
+
+const debug = debug_('etcher:writer:block-stream')
 
 const MIN_BLOCK_SIZE = 512
 const CHUNK_SIZE = 64 * 1024
@@ -27,6 +29,13 @@ const CHUNK_SIZE = 64 * 1024
  * @class
  */
 class BlockStream extends stream.Transform {
+  blockSize: any
+  chunkSize: any
+  bytesRead: any
+  bytesWritten: any
+  _buffers: any
+  _bytes: any
+
   /**
    * @summary BlockStream constructor
    * @param {Object} [options] - options
@@ -133,4 +142,4 @@ BlockStream.defaults = {
   chunkSize: CHUNK_SIZE
 }
 
-module.exports = BlockStream
+export default BlockStream

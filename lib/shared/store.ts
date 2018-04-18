@@ -16,16 +16,17 @@
 
 'use strict'
 
-const Immutable = require('immutable')
-const _ = require('lodash')
-const redux = require('redux')
-const uuidV4 = require('uuid/v4')
-const constraints = require('./drive-constraints')
-const supportedFormats = require('./supported-formats')
-const errors = require('./errors')
-const release = require('./release')
-const fileExtensions = require('./file-extensions')
-const utils = require('./utils')
+import * as Immutable from 'immutable'
+import * as _ from 'lodash'
+import * as redux from 'redux'
+import * as uuidV4 from 'uuid/v4'
+import * as constraints from './drive-constraints'
+import * as supportedFormats from './supported-formats'
+import * as errors from './errors'
+import * as release from './release'
+import * as fileExtensions from './file-extensions'
+import * as utils from './utils'
+
 const packageJSON = require('../../package.json')
 
 /**
@@ -541,7 +542,7 @@ const storeReducer = (state = DEFAULT_STATE, action) => {
   }
 }
 
-module.exports = _.merge(redux.createStore(storeReducer, DEFAULT_STATE), {
+export default _.merge(redux.createStore(storeReducer, DEFAULT_STATE), {
   Actions: ACTIONS,
   Defaults: DEFAULT_STATE
 })

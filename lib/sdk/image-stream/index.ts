@@ -16,15 +16,16 @@
 
 'use strict'
 
-const _ = require('lodash')
-const Bluebird = require('bluebird')
-const fs = Bluebird.promisifyAll(require('fs'))
-const stream = require('stream')
-const mime = require('./mime')
-const handlers = require('./handlers')
-const supportedFileTypes = require('./supported')
-const errors = require('../../shared/errors')
-const parsePartitions = require('./parse-partitions')
+import * as _ from 'lodash'
+import * as Bluebird from 'bluebird'
+import * as fs_ from 'fs'
+import * as stream from 'stream'
+import * as mime from './mime'
+import * as handlers from './handlers'
+import * as errors from '../../shared/errors'
+import * as parsePartitions from './parse-partitions'
+
+const fs = Bluebird.promisifyAll(fs_)
 
 /**
  * @summary Get an image stream from a file
@@ -67,7 +68,7 @@ const parsePartitions = require('./parse-partitions')
  *     .pipe(fs.createWriteStream('/dev/disk2'));
  * });
  */
-exports.getFromFilePath = (file) => {
+export const getFromFilePath = (file) => {
   return fs.statAsync(file).then((fileStats) => {
     if (!fileStats.isFile()) {
       throw errors.createUserError({
@@ -115,8 +116,8 @@ exports.getFromFilePath = (file) => {
  *   console.log(`The image logo is: ${metadata.logo}`);
  * });
  */
-exports.getImageMetadata = (file) => {
-  return exports.getFromFilePath(file)
+export const getImageMetadata = (file) => {
+  return getFromFilePath(file)
     .then(parsePartitions)
     .then((image) => {
       return _.omitBy(image, (property) => {
@@ -137,4 +138,4 @@ exports.getImageMetadata = (file) => {
  *   console.log('Supported file type: ' + fileType.extension);
  * });
  */
-exports.supportedFileTypes = supportedFileTypes
+export { default as supportedFileTypes } from './supported'

@@ -16,8 +16,8 @@
 
 'use strict'
 
-const Stream = require('stream')
-const speedometer = require('speedometer')
+import * as Stream from 'stream'
+import * as speedometer from 'speedometer'
 
 const PERCENT = 100
 const DEFAULT_TIME_MS = 500
@@ -27,6 +27,14 @@ const DEFAULT_TIME_MS = 500
  * @public
  */
 class ProgressStream extends Stream.Transform {
+  start: any
+  interval: any
+  timer: any
+  meter: any
+  delta: any
+  state: any
+  clear: any
+  update: any
   /**
    * @summary ProgressStream constructor
    * @param {Object} options - options
@@ -114,4 +122,4 @@ class ProgressStream extends Stream.Transform {
   }
 }
 
-module.exports = ProgressStream
+export default ProgressStream

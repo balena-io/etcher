@@ -16,10 +16,12 @@
 
 'use strict'
 
-const _ = require('lodash')
-const EventEmitter = require('events')
-const debug = require('debug')('etcher:sdk:scanner')
-const SDK = require('./')
+import * as _ from 'lodash'
+import * as EventEmitter from 'events'
+import * as debug_ from 'debug'
+import * as SDK from './'
+
+const debug = debug_('etcher:sdk:scanner')
 
 debug.enabled = true
 
@@ -31,6 +33,17 @@ debug.enabled = true
  * @memberOf SDK
  */
 class Scanner extends EventEmitter {
+  /**
+   * @summary Minimum delay between scans in ms
+   * @const
+   * @type {Number}
+   */
+  static MIN_SCAN_DELAY = 500
+
+  options: any
+  isScanning: any
+  adapters: any
+
   /**
    * @summary Adapter Scanner constructor
    * @param {Object<String,Object>} [options] - device adapter options
@@ -222,11 +235,4 @@ class Scanner extends EventEmitter {
   }
 }
 
-/**
- * @summary Minimum delay between scans in ms
- * @const
- * @type {Number}
- */
-Scanner.MIN_SCAN_DELAY = 500
-
-module.exports = Scanner
+export default Scanner

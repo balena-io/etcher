@@ -16,14 +16,17 @@
 
 'use strict'
 
-const os = require('os')
-const nativeModule = require('./native-module')
-const Bluebird = require('bluebird')
-const childProcess = Bluebird.promisifyAll(require('child_process'))
-const sudoPrompt = Bluebird.promisifyAll(require('sudo-prompt'))
-const commandJoin = require('command-join')
-const _ = require('lodash')
-const errors = require('./errors')
+import * as os from 'os'
+import * as nativeModule from './native-module'
+import * as Bluebird from 'bluebird'
+import * as childProcess_ from 'child_process'
+import * as sudoPrompt_ from 'sudo-prompt'
+import * as commandJoin from 'command-join'
+import * as _ from 'lodash'
+import * as errors from './errors'
+
+const childProcess = Bluebird.promisifyAll(childProcess_)
+const sudoPrompt = Bluebird.promisifyAll(sudoPrompt_)
 
 /**
  * @summary The user id of the UNIX "superuser"
@@ -55,7 +58,7 @@ const UNIX_SUPERUSER_USER_ID = 0
  *   }
  * });
  */
-exports.isElevated = () => {
+export const isElevated = () => {
   if (os.platform() === 'win32') {
     // `fltmc` is available on WinPE, XP, Vista, 7, 8, and 10
     // Works even when the "Server" service is disabled
@@ -86,7 +89,7 @@ exports.isElevated = () => {
  *
  * childProcess.execSync(_.join(_.concat(commandPrefix, [ 'mycommand' ]), ' '));
  */
-exports.getEnvironmentCommandPrefix = (environment) => {
+export const getEnvironmentCommandPrefix = (environment) => {
   const isWindows = os.platform() === 'win32'
 
   if (_.isEmpty(environment)) {
@@ -158,11 +161,11 @@ const quoteString = (string) => {
  *   }
  * });
  */
-exports.elevateCommand = (command, options) => {
+export const elevateCommand = (command, options) => {
   const isWindows = os.platform() === 'win32'
 
   const prefixedCommand = _.concat(
-    exports.getEnvironmentCommandPrefix(options.environment),
+    getEnvironmentCommandPrefix(options.environment),
     _.map(command, (string) => {
       return isWindows ? quoteString(string) : string
     })

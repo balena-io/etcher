@@ -16,26 +16,32 @@
 
 'use strict'
 
-const path = require('path')
-const bindings = require('bindings')
+import * as Scanner from './scanner'
 
 /**
- * @summary Load a native module
- * @function
- * @public
- *
- * @param {String} moduleName - native module name
- * @returns {Object} native module
- *
- * @example
- * const elevator = nativeModule.load('elevator');
+ * Adapter Scanner
+ * @see scanner.js
+ * @ignore
  */
-exports.load = (moduleName) => {
-  return bindings({
-    bindings: moduleName,
+export const Scanner = Scanner
 
-    // eslint-disable-next-line camelcase
-    module_root: path.join(__dirname, '..', '..')
+/**
+ * @summary Initialised adapters
+ * @type {Object<String,Adapter>}
+ * @constant
+ */
+export { default as adapters } from './adapters'
 
-  })
+/**
+ * @summary Create a new Scanner
+ * @param {Object} [options] - options
+ * @returns {SDK.Scanner}
+ * @example
+ * SDK.createScanner({
+ *   blockdevice: { ... },
+ *   usbboot: { ... }
+ * })
+ */
+export const createScanner = (options) => {
+  return new Scanner(options)
 }

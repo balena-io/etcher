@@ -16,9 +16,9 @@
 
 'use strict'
 
-const _ = require('lodash')
+import * as _ from 'lodash'
 
-const prettyBytes = require('pretty-bytes')
+import * as prettyBytes from 'pretty-bytes'
 
 /**
  * @summary Megabyte to byte ratio
@@ -53,7 +53,7 @@ const MILLISECONDS_IN_A_DAY = 86400000
  * @example
  * const result = units.bytesToMegabytes(7801405440);
  */
-exports.bytesToMegabytes = (bytes) => {
+export const bytesToMegabytes = (bytes) => {
   return bytes / MEGABYTE_TO_BYTE_RATIO
 }
 
@@ -69,7 +69,7 @@ exports.bytesToMegabytes = (bytes) => {
  * const humanReadable = units.bytesToClosestUnit(7801405440);
  * > '7.8 GB'
  */
-exports.bytesToClosestUnit = (bytes) => {
+export const bytesToClosestUnit = (bytes) => {
   if (_.isNumber(bytes)) {
     return prettyBytes(bytes)
   }
@@ -88,6 +88,6 @@ exports.bytesToClosestUnit = (bytes) => {
  * @example
  * const result = units.daysToMilliseconds(2);
  */
-exports.daysToMilliseconds = (days) => {
+export const daysToMilliseconds = (days) => {
   return days * MILLISECONDS_IN_A_DAY
 }

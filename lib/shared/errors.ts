@@ -16,7 +16,7 @@
 
 'use strict'
 
-const _ = require('lodash')
+import * as _ from 'lodash'
 
 /**
  * @summary Create an error details object
@@ -47,7 +47,7 @@ const createErrorDetails = (options) => {
  * @namespace HUMAN_FRIENDLY
  * @public
  */
-exports.HUMAN_FRIENDLY = {
+export const HUMAN_FRIENDLY = {
 
   /* eslint-disable new-cap */
 
@@ -119,7 +119,7 @@ const getUserFriendlyMessageProperty = (error, property) => {
     return null
   }
 
-  return _.invoke(exports.HUMAN_FRIENDLY, [ code, property ], error)
+  return _.invoke(HUMAN_FRIENDLY, [ code, property ], error)
 }
 
 /**
@@ -154,7 +154,7 @@ const isBlank = _.flow([ _.trim, _.isEmpty ])
  * const title = errors.getTitle(error);
  * console.log(title);
  */
-exports.getTitle = (error) => {
+export const getTitle = (error) => {
   if (!_.isError(error) && !_.isPlainObject(error) && !_.isNil(error)) {
     return _.toString(error)
   }
@@ -192,7 +192,7 @@ exports.getTitle = (error) => {
  * const description = errors.getDescription(error);
  * console.log(description);
  */
-exports.getDescription = (error, options = {}) => {
+export const getDescription = (error, options = {}) => {
   _.defaults(options, {
     userFriendlyDescriptionsOnly: false
   })
@@ -245,7 +245,7 @@ exports.getDescription = (error, options = {}) => {
  *
  * throw error;
  */
-exports.createError = (options) => {
+export const createError = (options) => {
   if (isBlank(options.title)) {
     throw new Error(`Invalid error title: ${options.title}`)
   }
@@ -288,8 +288,8 @@ exports.createError = (options) => {
  *
  * throw error;
  */
-exports.createUserError = (options) => {
-  return exports.createError({
+export const createUserError = (options) => {
+  return createError({
     title: options.title,
     description: options.description,
     report: false,
@@ -312,7 +312,7 @@ exports.createUserError = (options) => {
  *   console.log('This error is a user error');
  * }
  */
-exports.isUserError = (error) => {
+export const isUserError = (error) => {
   return _.isNil(error.report) ? false : !error.report
 }
 
@@ -330,7 +330,7 @@ exports.isUserError = (error) => {
  * console.log(error.message);
  * > 'foo'
  */
-exports.toJSON = (error) => {
+export const toJSON = (error) => {
   // Handle string error objects to be on the safe side
   const isErrorLike = _.isError(error) || _.isPlainObject(error)
   const errorObject = isErrorLike ? error : new Error(error)
@@ -364,6 +364,6 @@ exports.toJSON = (error) => {
  * console.log(error.message);
  * > 'foo'
  */
-exports.fromJSON = (json) => {
+export const fromJSON = (json) => {
   return _.assign(new Error(json.message), json)
 }

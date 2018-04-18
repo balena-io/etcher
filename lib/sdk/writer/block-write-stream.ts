@@ -16,11 +16,13 @@
 
 'use strict'
 
-const stream = require('readable-stream')
-const fs = require('fs')
-const speedometer = require('speedometer')
-const debug = require('debug')('etcher:writer:block-write-stream')
-const errors = require('./error-types')
+import * as stream from 'readable-stream'
+import * as fs from 'fs'
+import * as speedometer from 'speedometer'
+import * as debug_ from 'debug'
+import * as errors from './error-types'
+
+const debug = debug_('etcher:writer:block-write-stream')
 
 const CHUNK_SIZE = 64 * 1024
 const UPDATE_INTERVAL_MS = 500
@@ -37,6 +39,29 @@ const RETRY_BASE_TIMEOUT = 100
  * @class
  */
 class BlockWriteStream extends stream.Writable {
+  fs: any
+  fd: any
+  path: any
+  flags: any
+  mode: any
+  autoClose: any
+  maxRetries: any
+  position: any
+  bytesRead: any
+  blocksRead: any
+  bytesWritten: any
+  blocksWritten: any
+  retries: any
+  meter: any
+  delta: any
+  speed: any
+  clear: any
+  update: any
+  closed: any
+  destroyed: any
+  _flushing: any
+  _firstBlocks: any
+
   /**
    * @summary BlockWriteStream constructor
    * @param {Object} [options] - options
@@ -189,7 +214,7 @@ class BlockWriteStream extends stream.Writable {
      * @example
      * writeNext()
      */
-    const writeNext = (error) => {
+    const writeNext = (error?) => {
       if (error) {
         this.destroy(error)
         return
@@ -309,4 +334,4 @@ BlockWriteStream.defaults = {
   autoClose: true
 }
 
-module.exports = BlockWriteStream
+export default BlockWriteStream

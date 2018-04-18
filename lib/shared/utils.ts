@@ -16,8 +16,8 @@
 
 'use strict'
 
-const _ = require('lodash')
-const errors = require('./errors')
+import * as _ from 'lodash'
+import * as errors from './errors'
 
 /**
  * @summary Minimum percentage value
@@ -25,7 +25,7 @@ const errors = require('./errors')
  * @public
  * @type {Number}
  */
-exports.PERCENTAGE_MINIMUM = 0
+export const PERCENTAGE_MINIMUM = 0
 
 /**
  * @summary Maximum percentage value
@@ -33,7 +33,7 @@ exports.PERCENTAGE_MINIMUM = 0
  * @public
  * @type {Number}
  */
-exports.PERCENTAGE_MAXIMUM = 100
+export const PERCENTAGE_MAXIMUM = 100
 
 /**
  * @summary Check if a percentage is valid
@@ -48,11 +48,11 @@ exports.PERCENTAGE_MAXIMUM = 100
  *   console.log('The percentage is valid');
  * }
  */
-exports.isValidPercentage = (percentage) => {
+export const isValidPercentage = (percentage) => {
   return _.every([
     _.isNumber(percentage),
-    percentage >= exports.PERCENTAGE_MINIMUM,
-    percentage <= exports.PERCENTAGE_MAXIMUM
+    percentage >= PERCENTAGE_MINIMUM,
+    percentage <= PERCENTAGE_MAXIMUM
   ])
 }
 
@@ -69,14 +69,14 @@ exports.isValidPercentage = (percentage) => {
  * console.log(value);
  * > 0.5
  */
-exports.percentageToFloat = (percentage) => {
-  if (!exports.isValidPercentage(percentage)) {
+export const percentageToFloat = (percentage) => {
+  if (!isValidPercentage(percentage)) {
     throw errors.createError({
       title: `Invalid percentage: ${percentage}`
     })
   }
 
-  return percentage / exports.PERCENTAGE_MAXIMUM
+  return percentage / PERCENTAGE_MAXIMUM
 }
 
 /**
@@ -105,7 +105,7 @@ exports.percentageToFloat = (percentage) => {
  *
  * const memoizedFunction = memoize(getList, angular.equals);
  */
-exports.memoize = (func, comparer) => {
+export const memoize = (func, comparer) => {
   let previousTuples = []
 
   return (...restArgs) => {

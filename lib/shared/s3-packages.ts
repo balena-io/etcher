@@ -16,20 +16,23 @@
 
 'use strict'
 
-const _ = require('lodash')
-const semver = require('semver')
-const Bluebird = require('bluebird')
-const request = Bluebird.promisifyAll(require('request'))
-const xml = Bluebird.promisifyAll(require('xml2js'))
-const release = require('./release')
-const errors = require('./errors')
+import * as _ from 'lodash'
+import * as semver from 'semver'
+import * as Bluebird from 'bluebird'
+import * as request_ from 'request'
+import * as xml_ from 'xml2js'
+import * as release from './release'
+import * as errors from './errors'
+
+const request = Bluebird.promisifyAll(request_)
+const xml = Bluebird.promisifyAll(xml_)
 
 /**
  * @summary Etcher S3 bucket URLs
  * @namespace BUCKET_URL
  * @public
  */
-exports.BUCKET_URL = {
+export const BUCKET_URL = {
 
   /**
    * @property {String} PRODUCTION
@@ -80,13 +83,13 @@ const NUMBER_OF_PACKAGES = 8
  *   console.log(bucketUrl);
  * }
  */
-exports.getBucketUrlFromReleaseType = (releaseType) => {
+export const getBucketUrlFromReleaseType = (releaseType) => {
   if (releaseType === release.RELEASE_TYPE.PRODUCTION) {
-    return exports.BUCKET_URL.PRODUCTION
+    return BUCKET_URL.PRODUCTION
   }
 
   if (releaseType === release.RELEASE_TYPE.SNAPSHOT) {
-    return exports.BUCKET_URL.SNAPSHOT
+    return BUCKET_URL.SNAPSHOT
   }
 
   return null
@@ -112,7 +115,7 @@ exports.getBucketUrlFromReleaseType = (releaseType) => {
  *   });
  * });
  */
-exports.getRemoteVersions = _.memoize((bucketUrl) => {
+export const getRemoteVersions = _.memoize((bucketUrl) => {
   if (_.isNil(bucketUrl)) {
     return Bluebird.reject(new Error(`Invalid bucket url: ${bucketUrl}`))
   }
@@ -228,7 +231,7 @@ const semverSatisfies = (version, range) => {
  *   console.log(`The latest version is: ${latestVersion}`);
  * });
  */
-exports.getLatestVersion = (releaseType, options = {}) => {
+export const getLatestVersion = (releaseType, options = {}) => {
   // For manual testing purposes
   const ETCHER_FAKE_S3_LATEST_VERSION = process.env.ETCHER_FAKE_S3_LATEST_VERSION
   if (!_.isNil(ETCHER_FAKE_S3_LATEST_VERSION)) {
@@ -239,13 +242,13 @@ exports.getLatestVersion = (releaseType, options = {}) => {
     return Bluebird.resolve()
   }
 
-  const bucketUrl = exports.getBucketUrlFromReleaseType(releaseType)
+  const bucketUrl = getBucketUrlFromReleaseType(releaseType)
   if (_.isNil(bucketUrl)) {
     return Bluebird.reject(new Error(`No bucket URL found for release type: ${releaseType}`))
   }
 
   /* eslint-disable lodash/prefer-lodash-method */
-  return exports.getRemoteVersions(bucketUrl).filter((version) => {
+  return getRemoteVersions(bucketUrl).filter((version) => {
   /* eslint-enable lodash/prefer-lodash-method */
     if (_.some([
 
