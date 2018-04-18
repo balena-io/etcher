@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.4.2 - 2018-04-18
+
+### Features
+
+- Make the progress button blue on verification
+- Display succeeded and failed devices on finish screen
+
+### Fixes
+
+- Exclude RAID devices from drive selection list
+- Display untitled device when device lacks description
+- Prefix multiple devices label with quantity
+- Fix handling of errors over IPC
+- Fix usbboot blob loading
+- Revert using native binding to clean disks on Windows
+
 ## v1.4.1 - 2018-04-10
 
 ### Fixes
