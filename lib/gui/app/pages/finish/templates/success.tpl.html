@@ -6,7 +6,7 @@
         <div uib-tooltip="{{ finish.formattedErrors() }}" tooltip-placement="bottom" class="title-wrap">
           <h3 class="title">Flash Complete!</h3>
           <div class="target-status-line target-status-{{ type }}"
-            ng-repeat="(type, quantity) in finish.flash.getFlashResults().devices">
+            ng-repeat="(type, quantity) in finish.flash.getFlashResults().results.devices">
             <span class="target-status-dot"></span>
             <span class="target-status-quantity">{{ quantity }}</span>
             <span class="target-status-message">{{ finish.progressMessage[type](quantity) }}</span>
