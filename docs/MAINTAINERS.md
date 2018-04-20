@@ -29,6 +29,7 @@ Releasing
 
 - [Publish release draft on GitHub](https://github.com/resin-io/etcher/releases)
 - [Post release note to forums](https://forums.resin.io/c/etcher)
+- [Submit Windows binaries to Symantec for whitelisting](#submitting-binaries-to-symantec)
 - [Update the website](https://github.com/resin-io/etcher-homepage)
 - Wait 2-3 hours for analytics (Sentry, Mixpanel) to trickle in and check for elevated error rates, or regressions
 - If regressions arise; pull the release, and release a patched version, else:
@@ -203,3 +204,15 @@ aws s3api delete-object --bucket <bucket name> --key <file name>
 ```
 
 The Bintray dashboard provides an easy way to delete a version's files.
+
+
+### Submitting binaries to Symantec
+
+- [Report a Suspected Erroneous Detection](https://submit.symantec.com/false_positive/standard/)
+- Fill out form:
+  - **Select Submission Type:** "Provide a direct download URL"
+  - **Name of the software being detected:** Etcher
+  - **Name of detection given by Symantec product:** WS.Reputation.1
+  - **Contact name:** Resin.io Ltd
+  - **E-mail address:** hello@etcher.io
+  - **Are you the creator or distributor of the software in question?** Yes
