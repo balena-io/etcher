@@ -1322,7 +1322,7 @@ describe('Shared: DriveConstraints', function () {
       it('should return contains image error', function () {
         m.chai.expect(constraints.getListDriveImageCompatibilityStatuses([ drives[0] ], image)).to.deep.equal([
           {
-            message: 'Drive Contains Image',
+            message: 'Target Contains Image',
             type: 2
           }
         ])
@@ -1349,7 +1349,7 @@ describe('Shared: DriveConstraints', function () {
       it('should return system drive warning', function () {
         m.chai.expect(constraints.getListDriveImageCompatibilityStatuses([ drives[3] ], image)).to.deep.equal([
           {
-            message: 'System Drive',
+            message: 'System Target',
             type: 1
           }
         ])
@@ -1358,7 +1358,7 @@ describe('Shared: DriveConstraints', function () {
       it('should return large drive warning', function () {
         m.chai.expect(constraints.getListDriveImageCompatibilityStatuses([ drives[4] ], image)).to.deep.equal([
           {
-            message: 'Large Drive',
+            message: 'Large Target',
             type: 1
           }
         ])
@@ -1378,7 +1378,7 @@ describe('Shared: DriveConstraints', function () {
       it('should return all statuses', function () {
         m.chai.expect(constraints.getListDriveImageCompatibilityStatuses(drives, image)).to.deep.equal([
           {
-            message: 'Drive Contains Image',
+            message: 'Target Contains Image',
             type: 2
           },
           {
@@ -1390,11 +1390,11 @@ describe('Shared: DriveConstraints', function () {
             type: 2
           },
           {
-            message: 'System Drive',
+            message: 'System Target',
             type: 1
           },
           {
-            message: 'Large Drive',
+            message: 'Large Target',
             type: 1
           },
           {
