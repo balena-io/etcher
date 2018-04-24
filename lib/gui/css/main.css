@@ -6603,7 +6603,7 @@ svg-icon > img[disabled] {
     height: 8px;
     border-radius: 50%;
     margin-right: 6px; }
-  .target-status-line.target-status-succeeded > .target-status-dot {
+  .target-status-line.target-status-successful > .target-status-dot {
     background-color: #5fb835; }
   .target-status-line.target-status-failed > .target-status-dot {
     background-color: #d9534f; }
