@@ -80,6 +80,40 @@ describe('Model: selectionState', function () {
     })
   })
 
+  describe('given one available drive', function () {
+    beforeEach(function () {
+      this.drives = [
+        {
+          device: '/dev/disk2',
+          name: 'USB Drive',
+          size: 999999999,
+          isReadOnly: false
+        }
+      ]
+    })
+
+    afterEach(function () {
+      selectionState.clear()
+      availableDrives.setDrives([])
+    })
+
+    describe('.selectDrive()', function () {
+      it('should not deselect when warning is attached to image-drive pair', function () {
+        this.drives[0].size = 64e10
+
+        availableDrives.setDrives(this.drives)
+        selectionState.selectDrive('/dev/disk2')
+        availableDrives.setDrives(this.drives)
+        m.chai.expect(selectionState.getCurrentDrive()).to.deep.equal({
+          device: '/dev/disk2',
+          name: 'USB Drive',
+          size: 64e10,
+          isReadOnly: false
+        })
+      })
+    })
+  })
+
   describe('given a drive', function () {
     beforeEach(function () {
       availableDrives.setDrives([
