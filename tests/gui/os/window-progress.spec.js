@@ -34,7 +34,7 @@ describe('Browser: WindowProgress', function () {
         this.state = {
           flashing: 1,
           verifying: 0,
-          succeeded: 0,
+          successful: 0,
           failed: 0,
           percentage: 85,
           speed: 100

@@ -49,7 +49,7 @@ describe('Shared: Messages', function () {
       it('should use singular when there are single results', function () {
         const msg = messages.info.flashComplete('image.img', this.drives, {
           failed: 1,
-          succeeded: 1
+          successful: 1
         })
 
         m.chai.expect(msg).to.equal('image.img was successfully flashed to 1 target and failed to be flashed to 1 target')
@@ -58,7 +58,7 @@ describe('Shared: Messages', function () {
       it('should use plural when there are multiple results', function () {
         const msg = messages.info.flashComplete('image.img', this.drives, {
           failed: 2,
-          succeeded: 2
+          successful: 2
         })
 
         m.chai.expect(msg).to.equal('image.img was successfully flashed to 2 targets and failed to be flashed to 2 targets')
@@ -67,7 +67,7 @@ describe('Shared: Messages', function () {
       it('should not contain failed target part when there are none', function () {
         const msg = messages.info.flashComplete('image.img', this.drives, {
           failed: 0,
-          succeeded: 2
+          successful: 2
         })
 
         m.chai.expect(msg).to.equal('image.img was successfully flashed to 2 targets')
@@ -76,7 +76,7 @@ describe('Shared: Messages', function () {
       it('should show drive name and description when only target', function () {
         const msg = messages.info.flashComplete('image.img', this.drives, {
           failed: 0,
-          succeeded: 1
+          successful: 1
         })
 
         m.chai.expect(msg).to.equal('image.img was successfully flashed to My Drive (/dev/disk1)')

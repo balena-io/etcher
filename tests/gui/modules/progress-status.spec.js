@@ -10,7 +10,7 @@ describe('Browser: progressStatus', function () {
       this.state = {
         flashing: 1,
         verifying: 0,
-        succeeded: 0,
+        successful: 0,
         failed: 0,
         percentage: 0,
         eta: 15,

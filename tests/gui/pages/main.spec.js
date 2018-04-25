@@ -243,7 +243,7 @@ describe('Browser: MainPage', function () {
         flashState.setProgressState({
           flashing: 1,
           verifying: 0,
-          succeeded: 0,
+          successful: 0,
           failed: 0,
           percentage: 85,
           eta: 15,
