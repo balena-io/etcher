@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.4.4 - 2018-04-24
+
+### Fixes
+
+- Don't display status dots with a quantity of zero on success screen
+- Correct wording of flash status to use "successful" instead of "succeeded"
+- Keep single drive-image pairs with warnings selected
+
+### Misc
+
+- Improve notification messages
+
 ## v1.4.3 - 2018-04-19
 
 ### Fixes
