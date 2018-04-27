@@ -1,5 +1,4 @@
 /*
- * Copyright 2016 Juan Cruz Viotti. https://github.com/jviotti
  * Copyright 2018 resin.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,26 +14,13 @@
  * limitations under the License.
  */
 
-'use strict'
-
-/**
- * The purpose of this module is to provide utilities
- * to work with sizes in bytes.
- *
- * @module Etcher.Utils.MiddleEllipsis
- */
-
-const _ = require('lodash')
-const angular = require('angular')
+const React = require('react')
 const middleEllipsis = require('../middle-ellipsis')
 
-const MODULE_NAME = 'Etcher.Utils.MiddleEllipsis'
-const MiddleEllipsis = angular.module(MODULE_NAME, [])
+class MiddleEllipsis extends React.PureComponent {
+	render () {
+		return <span>{ middleEllipsis(this.props.children, this.props.limit) }</span>
+	}
+}
 
-/* eslint-disable lodash/prefer-lodash-method */
-
-MiddleEllipsis.filter('middleEllipsis', _.constant(middleEllipsis))
-
-/* eslint-enable lodash/prefer-lodash-method */
-
-module.exports = MODULE_NAME
+module.exports = MiddleEllipsis
