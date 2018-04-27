@@ -9081,6 +9081,10 @@
       "resolved": "https://registry.npmjs.org/xtend/-/xtend-2.1.2.tgz",
       "dev": true
     },
+    "xxhash": {
+      "version": "0.2.4",
+      "resolved": "https://registry.npmjs.org/xxhash/-/xxhash-0.2.4.tgz"
+    },
     "y18n": {
       "version": "3.2.1",
       "resolved": "https://registry.npmjs.org/y18n/-/y18n-3.2.1.tgz"
