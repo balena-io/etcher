@@ -564,7 +564,7 @@ test-spectron:
 	ETCHER_SPECTRON_ENTRYPOINT="$(ETCHER_SPECTRON_ENTRYPOINT)" mocha $(MOCHA_OPTIONS) tests/spectron
 
 test-gui:
-	electron-mocha $(MOCHA_OPTIONS) --renderer tests/gui
+	ETCHER_TEST=1 electron-mocha $(MOCHA_OPTIONS) --renderer tests/gui
 
 test-sdk:
 	electron-mocha $(MOCHA_OPTIONS) \
