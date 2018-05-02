@@ -106,6 +106,12 @@
             <span ng-bind="flash.getProgressButtonLabel()"></span>
         </progress-button>
 
+        <button class="button button-link button-abort-write"
+          ng-if="main.state.isFlashing()"
+          ng-click="flash.cancelFlash()">
+          <span class="glyphicon glyphicon-remove-sign"></span>
+        </button>
+
         <p class="step-footer step-footer-split" ng-if="main.state.getFlashState().speed && main.state.getFlashState().percentage != 100">
           <span ng-bind="main.state.getFlashState().speed.toFixed(2) + ' MB/s'"></span>
           <span>ETA: {{ main.state.getFlashState().eta | secondsToDate | amDateFormat:'m[m]ss[s]' }}</span>

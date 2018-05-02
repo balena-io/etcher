@@ -6523,6 +6523,9 @@ svg-icon > img[disabled] {
 .page-main .button-brick {
   min-width: 170px; }
 
+.page-main .button-abort-write {
+  margin-right: -35px; }
+
 .page-main .step-border-left, .page-main .step-border-right {
   height: 2px;
   background-color: #fff;

@@ -41,6 +41,10 @@ svg-icon > img[disabled] {
   min-width: $btn-min-width;
 }
 
+.page-main .button-abort-write {
+  margin-right: -35px;
+}
+
 %step-border {
   height: 2px;
   background-color: $palette-theme-dark-foreground;
