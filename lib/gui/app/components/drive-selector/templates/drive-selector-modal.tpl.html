@@ -6,7 +6,7 @@
 <div class="modal-body">
   <ul class="list-group">
     <li class="list-group-item" ng-repeat="drive in modal.getDrives() track by drive.device"
-      ng-disabled="!modal.constraints.isDriveValid(drive, modal.state.getImage()) && !drive.link"
+      ng-disabled="!modal.constraints.isDriveValid(drive, modal.state.getImage())"
       ng-dblclick="modal.selectDriveAndClose(drive)"
       ng-click="modal.toggleDrive(drive)">
         <img class="list-group-item-section" alt="Drive device type logo"
@@ -23,7 +23,8 @@
             <span class="word-keep"
               ng-show="drive.size"> - {{ drive.size | closestUnit }}</span>
           </h4>
-          <p class="list-group-item-text">{{ drive.displayName }}</p>
+          <p class="list-group-item-text" ng-if="!drive.link">{{ drive.displayName }}</p>
+          <p class="list-group-item-text" ng-if="drive.link">{{ drive.displayName }} - <b><a ng-click="modal.installMissingDrivers(drive)">{{ drive.linkCTA }}</a></b></p>
 
           <footer class="list-group-item-footer">
 
