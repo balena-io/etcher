@@ -4,3 +4,4 @@ rules:
   no-param-reassign: off
   no-underscore-dangle: off
   lodash/prefer-lodash-method: off
+  lodash/prefer-get: off
