@@ -6517,6 +6517,9 @@ svg-icon > img[disabled] {
 .page-main .text-disabled > span {
   color: #787c7f; }
 
+.page-main .step-drive.text-warning {
+  color: #ff912f; }
+
 .page-main .relative {
   position: relative; }
 
@@ -6586,8 +6589,13 @@ svg-icon > img[disabled] {
   vertical-align: text-top; }
 
 .page-main .step-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 39px;
   width: 100%;
   margin-right: 4.5px;
+  margin-bottom: 10px;
   font-weight: bold;
   color: #fff; }
 

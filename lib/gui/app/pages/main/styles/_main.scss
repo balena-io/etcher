@@ -33,6 +33,10 @@ svg-icon > img[disabled] {
   color: $palette-theme-dark-disabled-foreground;
 }
 
+.page-main .step-drive.text-warning {
+  color: $palette-theme-warning-background;
+}
+
 .page-main .relative {
   position: relative;
 }
@@ -123,8 +127,13 @@ svg-icon > img[disabled] {
 }
 
 .page-main .step-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 39px;
   width: 100%;
   margin-right: 4.5px;
+  margin-bottom: 10px;
   font-weight: bold;
   color: $palette-theme-primary-foreground;
 }
