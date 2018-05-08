@@ -107,6 +107,17 @@ svg-icon > img[disabled] {
   margin-top: 1px;
 }
 
+.page-main .step-drive.step-list {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $palette-theme-dark-disabled-foreground;
+    border-radius: 4px;
+  }
+}
+
 .page-main .glyphicon {
   vertical-align: text-top;
 }
@@ -120,6 +131,13 @@ svg-icon > img[disabled] {
 
 .page-main .step-size {
   margin-right: 4.5px;
+  color: $palette-theme-dark-disabled-foreground;
+}
+
+.page-main .step-list {
+  height: 80px;
+  margin: 15px;
+  overflow-y: auto;
   color: $palette-theme-dark-disabled-foreground;
 }
 

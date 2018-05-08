@@ -84,6 +84,13 @@
             ng-click="drive.reselectDrive()"
             ng-hide="main.state.isFlashing()">Change</button>
         </div>
+        <div ng-if="main.selection.getSelectedDevices().length > 1"
+          class="step-drive step-list">
+          <div ng-repeat="driveObj in drive.getMemoizedSelectedDrives()"
+            uib-tooltip="{{ driveObj.description }} ({{ driveObj.displayName }})">
+            {{ driveObj.description | middleEllipsis:14 }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
