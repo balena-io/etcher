@@ -38,6 +38,8 @@
     "fsevents"
   ],
   "dependencies": {
+    "@fortawesome/fontawesome": "1.1.5",
+    "@fortawesome/fontawesome-free-solid": "5.0.9",
     "angular": "1.6.3",
     "angular-if-state": "1.0.0",
     "angular-moment": "1.0.1",

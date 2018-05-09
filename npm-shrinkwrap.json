@@ -2,6 +2,18 @@
   "name": "etcher",
   "version": "1.4.4",
   "dependencies": {
+    "@fortawesome/fontawesome": {
+      "version": "1.1.5",
+      "resolved": "https://registry.npmjs.org/@fortawesome/fontawesome/-/fontawesome-1.1.5.tgz"
+    },
+    "@fortawesome/fontawesome-common-types": {
+      "version": "0.1.3",
+      "resolved": "https://registry.npmjs.org/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.1.3.tgz"
+    },
+    "@fortawesome/fontawesome-free-solid": {
+      "version": "5.0.9",
+      "resolved": "https://registry.npmjs.org/@fortawesome/fontawesome-free-solid/-/fontawesome-free-solid-5.0.9.tgz"
+    },
     "@types/angular": {
       "version": "1.6.17",
       "resolved": "https://registry.npmjs.org/@types/angular/-/angular-1.6.17.tgz"
