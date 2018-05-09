@@ -23,7 +23,8 @@
             <span class="word-keep"
               ng-show="drive.size"> - {{ drive.size | closestUnit }}</span>
           </h4>
-          <p class="list-group-item-text">{{ drive.displayName }}</p>
+          <p class="list-group-item-text" ng-if="!drive.link">{{ drive.displayName }}</p>
+          <p class="list-group-item-text" ng-if="drive.link">{{ drive.displayName }} - <b><a ng-click="modal.installMissingDrivers(drive)">{{ drive.linkCTA }}</a></b></p>
 
           <footer class="list-group-item-footer">
 

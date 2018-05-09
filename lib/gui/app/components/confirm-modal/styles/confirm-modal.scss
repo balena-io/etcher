@@ -14,22 +14,15 @@
  * limitations under the License.
  */
 
-'use strict'
+.modal-confirm-modal .modal-content {
+  width: 350px;
+}
 
-/**
- * @module Etcher.Components.DriveSelector
- */
+.modal-confirm-modal .modal-title .glyphicon {
+  color: $palette-theme-danger-background;
+}
 
-const angular = require('angular')
-const MODULE_NAME = 'Etcher.Components.DriveSelector'
-const DriveSelector = angular.module(MODULE_NAME, [
-  require('../modal/modal'),
-  require('../confirm-modal/confirm-modal'),
-  require('../../utils/byte-size/byte-size'),
-  require('../../os/open-external/open-external')
-])
-
-DriveSelector.controller('DriveSelectorController', require('./controllers/drive-selector'))
-DriveSelector.service('DriveSelectorService', require('./services/drive-selector'))
-
-module.exports = MODULE_NAME
+.modal-confirm-modal .modal-body {
+  max-height: 200px;
+  overflow-y: auto;
+}
