@@ -34,6 +34,9 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
+    "@fortawesome/fontawesome-free-solid": "5.0.13",
+    "@types/react": "16.3.14",
+    "@types/react-dom": "16.0.5",
     "angular": "1.7.6",
     "angular-if-state": "^1.0.0",
     "angular-moment": "^1.0.1",
