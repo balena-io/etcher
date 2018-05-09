@@ -47,7 +47,8 @@ angularValidate.validate(
     reportCheckstylePath: null,
     relaxerror: [
       'Expected a minus sign or a digit',
-      'Consider adding a “lang” attribute to the “html” start tag to declare the language of this document.'
+      'Consider adding a “lang” attribute to the “html” start tag to declare the language of this document.',
+      'Element “wifi” not allowed as child of element “body” in this context'
     ]
   }
 ).then((result) => {

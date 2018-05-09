@@ -37,6 +37,8 @@ $disabled-opacity: 0.2;
 @import "../components/tooltip-modal/styles/tooltip-modal";
 @import "../components/warning-modal/styles/warning-modal";
 @import "../components/file-selector/styles/file-selector";
+@import "../components/wifi/react/keyboard/style.scss";
+@import "../components/wifi/styles/wifi";
 @import "../pages/main/styles/main";
 @import "../pages/settings/styles/settings";
 @import "../pages/finish/styles/finish";
