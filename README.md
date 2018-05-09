@@ -50,7 +50,7 @@ installers for all supported operating systems.
 2. Trust Bintray.com's GPG key:
 
     ```sh
-    sudo apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 379CE192D401AB61
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61
     ```
 
 3. Update and install:
