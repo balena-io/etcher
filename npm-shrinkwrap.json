@@ -2417,8 +2417,8 @@
       "dev": true
     },
     "drivelist": {
-      "version": "6.1.7",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-6.1.7.tgz",
+      "version": "6.2.2",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-6.2.2.tgz",
       "dependencies": {
         "esprima": {
           "version": "4.0.0",
@@ -2433,12 +2433,12 @@
           "resolved": "https://registry.npmjs.org/nan/-/nan-2.10.0.tgz"
         },
         "node-abi": {
-          "version": "2.3.0",
-          "resolved": "https://registry.npmjs.org/node-abi/-/node-abi-2.3.0.tgz"
+          "version": "2.4.1",
+          "resolved": "https://registry.npmjs.org/node-abi/-/node-abi-2.4.1.tgz"
         },
         "prebuild-install": {
-          "version": "2.5.3",
-          "resolved": "https://registry.npmjs.org/prebuild-install/-/prebuild-install-2.5.3.tgz"
+          "version": "4.0.0",
+          "resolved": "https://registry.npmjs.org/prebuild-install/-/prebuild-install-4.0.0.tgz"
         },
         "pump": {
           "version": "2.0.1",
@@ -2449,8 +2449,8 @@
           "resolved": "https://registry.npmjs.org/semver/-/semver-5.5.0.tgz"
         },
         "simple-get": {
-          "version": "2.7.0",
-          "resolved": "https://registry.npmjs.org/simple-get/-/simple-get-2.7.0.tgz"
+          "version": "2.8.1",
+          "resolved": "https://registry.npmjs.org/simple-get/-/simple-get-2.8.1.tgz"
         }
       }
     },
