@@ -79,9 +79,13 @@ svg-icon > img[disabled] {
 }
 
 .page-main .step-footer {
-  margin-top: 10px;
+  width: 100%;
   color: $palette-theme-dark-disabled-foreground;
   font-size: 10px;
+}
+
+.page-main p.step-footer {
+  margin-top: 9px;
 }
 
 .page-main .step-footer-split {
@@ -111,6 +115,10 @@ svg-icon > img[disabled] {
   margin-top: 1px;
 }
 
+.page-main div.step-fill {
+  margin-top: 25px;
+}
+
 .page-main .step-drive.step-list {
   &::-webkit-scrollbar {
     width: 4px;
@@ -133,7 +141,6 @@ svg-icon > img[disabled] {
   height: 39px;
   width: 100%;
   margin-right: 4.5px;
-  margin-bottom: 10px;
   font-weight: bold;
   color: $palette-theme-primary-foreground;
 }
@@ -141,6 +148,7 @@ svg-icon > img[disabled] {
 .page-main .step-size {
   margin-right: 4.5px;
   color: $palette-theme-dark-disabled-foreground;
+  margin-top: 10px;
 }
 
 .page-main .step-list {

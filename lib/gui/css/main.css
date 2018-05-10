@@ -6142,13 +6142,13 @@ body {
   color: #b3b3b3; }
 
 .button-primary, .progress-button {
-  background-color: #5793db;
+  background-color: #2297de;
   color: #fff; }
 
 .button-primary:focus, .progress-button:focus,
 .button-primary:hover,
 .progress-button:hover {
-  background-color: #2d78d2;
+  background-color: #1b79b2;
   color: #fff; }
 
 .button-danger {
@@ -6246,7 +6246,7 @@ body {
   max-height: 250px;
   overflow: auto; }
   .modal-body a {
-    color: #5793db; }
+    color: #2297de; }
   .modal-body > p {
     white-space: pre-line; }
   .modal-body > p:last-child {
@@ -6328,9 +6328,9 @@ body {
   .progress-button .progress-button__bar {
     background-color: #ff9e49; }
   .progress-button.progress-button--striped {
-    background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #3b679b), color-stop(0.26, #5c93d6), color-stop(0.5, #5c93d6), color-stop(0.51, #3b679b), color-stop(0.75, #3b679b), color-stop(0.76, #5c93d6), to(#5c93d6)); }
+    background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #265d7e), color-stop(0.26, #2895d8), color-stop(0.5, #2895d8), color-stop(0.51, #265d7e), color-stop(0.75, #265d7e), color-stop(0.76, #2895d8), to(#2895d8)); }
     .progress-button.progress-button--striped .progress-button__bar {
-      background-color: #6ca1e0; }
+      background-color: #38a1e1; }
 
 .progress-button__content {
   position: relative;
@@ -6420,8 +6420,8 @@ body {
     border: none;
     outline: none; }
   .modal-drive-selector-modal .list-group-item progress::-webkit-progress-value {
-    border-bottom: 1px solid #296cbd;
-    background-color: #5793db; }
+    border-bottom: 1px solid #176a9c;
+    background-color: #2297de; }
 
 .modal-drive-selector-modal .list-group-item-heading {
   font-size: 13px; }
@@ -6551,9 +6551,12 @@ svg-icon > img[disabled] {
   font-size: 10px; }
 
 .page-main .step-footer {
-  margin-top: 10px;
+  width: 100%;
   color: #787c7f;
   font-size: 10px; }
+
+.page-main p.step-footer {
+  margin-top: 9px; }
 
 .page-main .step-footer-split {
   position: absolute;
@@ -6571,12 +6574,15 @@ svg-icon > img[disabled] {
 
 .page-main .button.step-footer, .page-main .step-footer.progress-button {
   font-size: 12px;
-  color: #5793db;
+  color: #2297de;
   border-radius: 0;
   padding: 0; }
 
 .page-main .step-drive.glyphicon, .page-main .step-drive.tick {
   margin-top: 1px; }
+
+.page-main div.step-fill {
+  margin-top: 25px; }
 
 .page-main .step-drive.step-list::-webkit-scrollbar {
   width: 4px; }
@@ -6595,13 +6601,13 @@ svg-icon > img[disabled] {
   height: 39px;
   width: 100%;
   margin-right: 4.5px;
-  margin-bottom: 10px;
   font-weight: bold;
   color: #fff; }
 
 .page-main .step-size {
   margin-right: 4.5px;
-  color: #787c7f; }
+  color: #787c7f;
+  margin-top: 10px; }
 
 .page-main .step-list {
   height: 80px;
