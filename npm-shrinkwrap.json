@@ -4363,6 +4363,16 @@
       "resolved": "https://registry.npmjs.org/in-publish/-/in-publish-2.0.0.tgz",
       "dev": true
     },
+    "inactivity-timer": {
+      "version": "1.0.0",
+      "resolved": "https://registry.npmjs.org/inactivity-timer/-/inactivity-timer-1.0.0.tgz",
+      "dependencies": {
+        "ms": {
+          "version": "2.1.1",
+          "resolved": "https://registry.npmjs.org/ms/-/ms-2.1.1.tgz"
+        }
+      }
+    },
     "indent-string": {
       "version": "2.1.0",
       "resolved": "https://registry.npmjs.org/indent-string/-/indent-string-2.1.0.tgz"
