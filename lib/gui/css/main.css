@@ -5964,10 +5964,10 @@ button.close {
  * limitations under the License.
  */
 html {
-  background-color: #535760; }
+  background-color: #4d5057; }
 
 body {
-  background-color: #535760; }
+  background-color: #4d5057; }
 
 .checkbox input[type="checkbox"] {
   position: initial;
@@ -6045,7 +6045,7 @@ body {
   padding: 8px 25px; }
 
 .label-inset {
-  background-color: #3b3e45;
+  background-color: #35373c;
   color: #919191; }
 
 .label-danger {
@@ -6581,7 +6581,8 @@ svg-icon > img[disabled] {
 .page-main .step-drive.glyphicon, .page-main .step-drive.tick {
   margin-top: 1px; }
 
-.page-main div.step-fill {
+.page-main div.step-fill,
+.page-main span.step-fill {
   margin-top: 25px; }
 
 .page-main .step-drive.step-list::-webkit-scrollbar {
@@ -6600,12 +6601,10 @@ svg-icon > img[disabled] {
   align-items: center;
   height: 39px;
   width: 100%;
-  margin-right: 4.5px;
   font-weight: bold;
   color: #fff; }
 
 .page-main .step-size {
-  margin-right: 4.5px;
   color: #787c7f;
   margin-top: 10px; }
 
@@ -6749,7 +6748,7 @@ svg-icon > img[disabled] {
   position: absolute;
   top: 125px;
   left: 0;
-  background-color: #535760;
+  background-color: #4d5057;
   color: #fff;
   font-weight: 300; }
   .page-finish .fallback-banner .caption {
