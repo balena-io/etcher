@@ -216,8 +216,8 @@ class RecentFilesUnstyled extends React.PureComponent {
     super(props)
 
     this.state = {
-      recents: recentStorage.get('recents'),
-      favorites: recentStorage.get('favorites')
+      recents: recentStorage.get('recents', []),
+      favorites: recentStorage.get('favorites', [])
     }
   }
 
