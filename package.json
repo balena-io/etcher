@@ -63,6 +63,7 @@
     "file-type": "4.1.0",
     "flexboxgrid": "6.3.0",
     "gpt": "1.0.0",
+    "i2c-bus": "3.2.0",
     "immutable": "3.8.1",
     "inactivity-timer": "1.0.0",
     "lodash": "4.13.1",

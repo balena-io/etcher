@@ -4456,6 +4456,16 @@
       "resolved": "https://registry.npmjs.org/https-browserify/-/https-browserify-1.0.0.tgz",
       "dev": true
     },
+    "i2c-bus": {
+      "version": "3.2.0",
+      "resolved": "https://registry.npmjs.org/i2c-bus/-/i2c-bus-3.2.0.tgz",
+      "dependencies": {
+        "nan": {
+          "version": "2.10.0",
+          "resolved": "https://registry.npmjs.org/nan/-/nan-2.10.0.tgz"
+        }
+      }
+    },
     "iconv-lite": {
       "version": "0.4.15",
       "resolved": "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.4.15.tgz"
