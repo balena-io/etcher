@@ -18,6 +18,7 @@
 
 const _ = require('lodash')
 const os = require('os')
+const fs = require('fs')
 const path = require('path')
 const React = require('react')
 const propTypes = require('prop-types')
@@ -224,7 +225,7 @@ class RecentFilesUnstyled extends React.PureComponent {
   render () {
     const existing = (fileObjs) => {
       return _.filter(fileObjs, (fileObj) => {
-        return files.exists(fileObj.fullpath)
+        return fs.existsSync(fileObj.fullpath)
       })
     }
 
@@ -460,7 +461,7 @@ class FileSelector extends React.PureComponent {
   }
 
   setFilesProgressively (dirname) {
-    return files.getDirectory(dirname).then((basenames) => {
+    return fs.readdirAsync(dirname).then((basenames) => {
       const fileObjs = basenames.map((basename) => {
         return {
           dirname: this.state.path,
@@ -496,6 +497,8 @@ class FileSelector extends React.PureComponent {
 
     this.setFilesProgressively(file.fullpath).then(() => {
       this.setState({ path: file.fullpath })
+    }).catch((error) => {
+      this.setState({ error: error.message })
     })
   }
 
