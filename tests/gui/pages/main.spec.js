@@ -35,6 +35,10 @@ require.extensions['.html'] = (module, filename) => {
   })
 }
 
+// NOTE(Shou): since we don't test React yet we just ignore JSX files
+// eslint-disable-next-line node/no-deprecated-api
+require.extensions['.jsx'] = _.constant(null)
+
 describe('Browser: MainPage', function () {
   beforeEach(angular.mock.module(
     require('../../../lib/gui/app/pages/main/main')
