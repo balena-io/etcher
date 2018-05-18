@@ -85,7 +85,7 @@ module.exports = {
   },
   plugins: [
     new SimpleProgressWebpackPlugin({
-      format: process.env.WEBPACK_PROGRESS || 'verbose'
+      format: process.env.WEBPACK_PROGRESS || 'compact'
     })
   ]
 }
