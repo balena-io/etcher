@@ -24,6 +24,8 @@
     "configure": "node-gyp configure",
     "build": "node-gyp build",
     "install": "node-gyp rebuild",
+    "webpack": "webpack",
+    "watch": "webpack --watch",
     "concourse-build-electron": "make webpack",
     "concourse-test": "npm test",
     "concourse-test-electron": "npm test",
