@@ -16,6 +16,7 @@
 
 'use strict'
 
+const webpack = require('webpack')
 const path = require('path')
 const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
@@ -89,6 +90,9 @@ module.exports = {
   plugins: [
     new SimpleProgressWebpackPlugin({
       format: process.env.WEBPACK_PROGRESS || 'verbose'
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
     })
   ]
 }
