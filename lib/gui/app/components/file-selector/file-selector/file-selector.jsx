@@ -317,6 +317,7 @@ const Breadcrumbs = styled((props) => {
         _.map(dirs.slice(-MAX_DIR_CRUMBS), (dir, index) => {
           return (
             <rendition.Button
+              key={ dir.fullpath }
               onClick={ () => props.selectFile(dir) }
               plaintext={ true }>
               <rendition.Txt bold={ index === dirs.length - 1 }>
@@ -427,6 +428,7 @@ class FileSelector extends React.PureComponent {
                   items.map((item, index) => {
                     return (
                       <FileLink { ...item }
+                        key={ item.fullpath }
                         highlight={ _.get(this.state.highlighted, 'fullpath') === _.get(item, 'fullpath') }
                         onClick={ () => this.setState({ highlighted: item }) }
                         onDoubleClick={ _.partial(this.selectFile, item) }
