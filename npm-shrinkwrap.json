@@ -15,8 +15,8 @@
       "resolved": "https://registry.npmjs.org/@fortawesome/fontawesome-free-solid/-/fontawesome-free-solid-5.0.9.tgz"
     },
     "@types/angular": {
-      "version": "1.6.17",
-      "resolved": "https://registry.npmjs.org/@types/angular/-/angular-1.6.17.tgz"
+      "version": "1.6.45",
+      "resolved": "https://registry.npmjs.org/@types/angular/-/angular-1.6.45.tgz"
     },
     "@types/chart.js": {
       "version": "2.7.18",
@@ -38,10 +38,6 @@
       "version": "3.2.2",
       "resolved": "https://registry.npmjs.org/@types/grid-styled/-/grid-styled-3.2.2.tgz"
     },
-    "@types/jquery": {
-      "version": "2.0.43",
-      "resolved": "https://registry.npmjs.org/@types/jquery/-/jquery-2.0.43.tgz"
-    },
     "@types/json-schema": {
       "version": "6.0.1",
       "resolved": "https://registry.npmjs.org/@types/json-schema/-/json-schema-6.0.1.tgz"
@@ -50,25 +46,13 @@
       "version": "4.14.64",
       "resolved": "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.64.tgz"
     },
-    "@types/lodash.assign": {
-      "version": "4.2.2",
-      "resolved": "https://registry.npmjs.org/@types/lodash.assign/-/lodash.assign-4.2.2.tgz"
-    },
     "@types/lodash.frompairs": {
-      "version": "4.0.2",
-      "resolved": "https://registry.npmjs.org/@types/lodash.frompairs/-/lodash.frompairs-4.0.2.tgz"
-    },
-    "@types/lodash.mapvalues": {
-      "version": "4.6.2",
-      "resolved": "https://registry.npmjs.org/@types/lodash.mapvalues/-/lodash.mapvalues-4.6.2.tgz"
+      "version": "4.0.3",
+      "resolved": "https://registry.npmjs.org/@types/lodash.frompairs/-/lodash.frompairs-4.0.3.tgz"
     },
     "@types/lodash.memoize": {
       "version": "4.1.3",
       "resolved": "https://registry.npmjs.org/@types/lodash.memoize/-/lodash.memoize-4.1.3.tgz"
-    },
-    "@types/lodash.some": {
-      "version": "4.6.2",
-      "resolved": "https://registry.npmjs.org/@types/lodash.some/-/lodash.some-4.6.2.tgz"
     },
     "@types/node": {
       "version": "7.0.58",
@@ -79,12 +63,12 @@
       "resolved": "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.5.2.tgz"
     },
     "@types/react": {
-      "version": "15.0.24",
-      "resolved": "https://registry.npmjs.org/@types/react/-/react-15.0.24.tgz"
+      "version": "16.3.14",
+      "resolved": "https://registry.npmjs.org/@types/react/-/react-16.3.14.tgz"
     },
     "@types/react-dom": {
-      "version": "15.5.0",
-      "resolved": "https://registry.npmjs.org/@types/react-dom/-/react-dom-15.5.0.tgz"
+      "version": "16.0.5",
+      "resolved": "https://registry.npmjs.org/@types/react-dom/-/react-dom-16.0.5.tgz"
     },
     "@types/react-icon-base": {
       "version": "2.1.1",
@@ -5061,10 +5045,6 @@
       "resolved": "https://registry.npmjs.org/lodash.kebabcase/-/lodash.kebabcase-4.1.1.tgz",
       "dev": true
     },
-    "lodash.mapvalues": {
-      "version": "4.6.0",
-      "resolved": "https://registry.npmjs.org/lodash.mapvalues/-/lodash.mapvalues-4.6.0.tgz"
-    },
     "lodash.memoize": {
       "version": "4.1.2",
       "resolved": "https://registry.npmjs.org/lodash.memoize/-/lodash.memoize-4.1.2.tgz"
@@ -5073,10 +5053,6 @@
       "version": "4.6.1",
       "resolved": "https://registry.npmjs.org/lodash.mergewith/-/lodash.mergewith-4.6.1.tgz",
       "dev": true
-    },
-    "lodash.some": {
-      "version": "4.6.0",
-      "resolved": "https://registry.npmjs.org/lodash.some/-/lodash.some-4.6.0.tgz"
     },
     "lodash.toarray": {
       "version": "4.4.0",
@@ -6077,12 +6053,16 @@
       "dev": true
     },
     "ngcomponent": {
-      "version": "3.0.1",
-      "resolved": "https://registry.npmjs.org/ngcomponent/-/ngcomponent-3.0.1.tgz",
+      "version": "4.1.0",
+      "resolved": "https://registry.npmjs.org/ngcomponent/-/ngcomponent-4.1.0.tgz",
       "dependencies": {
-        "lodash.assign": {
-          "version": "4.2.0",
-          "resolved": "https://registry.npmjs.org/lodash.assign/-/lodash.assign-4.2.0.tgz"
+        "@types/lodash": {
+          "version": "4.14.108",
+          "resolved": "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.108.tgz"
+        },
+        "lodash": {
+          "version": "4.17.10",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.10.tgz"
         }
       }
     },
@@ -7005,12 +6985,68 @@
       "resolved": "https://registry.npmjs.org/rc/-/rc-1.1.7.tgz"
     },
     "react": {
-      "version": "15.5.4",
-      "resolved": "https://registry.npmjs.org/react/-/react-15.5.4.tgz"
+      "version": "16.3.2",
+      "resolved": "https://registry.npmjs.org/react/-/react-16.3.2.tgz",
+      "dependencies": {
+        "core-js": {
+          "version": "1.2.7",
+          "resolved": "https://registry.npmjs.org/core-js/-/core-js-1.2.7.tgz"
+        },
+        "fbjs": {
+          "version": "0.8.16",
+          "resolved": "https://registry.npmjs.org/fbjs/-/fbjs-0.8.16.tgz"
+        },
+        "js-tokens": {
+          "version": "3.0.2",
+          "resolved": "https://registry.npmjs.org/js-tokens/-/js-tokens-3.0.2.tgz"
+        },
+        "object-assign": {
+          "version": "4.1.1",
+          "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
+        },
+        "prop-types": {
+          "version": "15.6.1",
+          "resolved": "https://registry.npmjs.org/prop-types/-/prop-types-15.6.1.tgz",
+          "dependencies": {
+            "loose-envify": {
+              "version": "1.3.1",
+              "resolved": "https://registry.npmjs.org/loose-envify/-/loose-envify-1.3.1.tgz"
+            }
+          }
+        }
+      }
     },
     "react-dom": {
-      "version": "15.5.4",
-      "resolved": "https://registry.npmjs.org/react-dom/-/react-dom-15.5.4.tgz"
+      "version": "16.3.2",
+      "resolved": "https://registry.npmjs.org/react-dom/-/react-dom-16.3.2.tgz",
+      "dependencies": {
+        "core-js": {
+          "version": "1.2.7",
+          "resolved": "https://registry.npmjs.org/core-js/-/core-js-1.2.7.tgz"
+        },
+        "fbjs": {
+          "version": "0.8.16",
+          "resolved": "https://registry.npmjs.org/fbjs/-/fbjs-0.8.16.tgz"
+        },
+        "js-tokens": {
+          "version": "3.0.2",
+          "resolved": "https://registry.npmjs.org/js-tokens/-/js-tokens-3.0.2.tgz"
+        },
+        "object-assign": {
+          "version": "4.1.1",
+          "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
+        },
+        "prop-types": {
+          "version": "15.6.1",
+          "resolved": "https://registry.npmjs.org/prop-types/-/prop-types-15.6.1.tgz",
+          "dependencies": {
+            "loose-envify": {
+              "version": "1.3.1",
+              "resolved": "https://registry.npmjs.org/loose-envify/-/loose-envify-1.3.1.tgz"
+            }
+          }
+        }
+      }
     },
     "react-icon-base": {
       "version": "2.1.0",
@@ -7031,8 +7067,8 @@
       }
     },
     "react2angular": {
-      "version": "1.1.3",
-      "resolved": "https://registry.npmjs.org/react2angular/-/react2angular-1.1.3.tgz"
+      "version": "4.0.2",
+      "resolved": "https://registry.npmjs.org/react2angular/-/react2angular-4.0.2.tgz"
     },
     "read-config-file": {
       "version": "1.2.0",
