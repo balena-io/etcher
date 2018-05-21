@@ -11,6 +11,8 @@ plugins:
 extends: 'standard'
 parserOptions:
   sourceType: 'script'
+  ecmaFeatures:
+    jsx: true
 settings:
   jsdoc:
     additionalTagNames:
