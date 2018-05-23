@@ -19,7 +19,6 @@
 const m = require('mochainon')
 const _ = require('lodash')
 const Bluebird = require('bluebird')
-const store = require('../../../lib/gui/app/models/store')
 const settings = require('../../../lib/gui/app/models/settings')
 const localSettings = require('../../../lib/gui/app/models/local-settings')
 
@@ -28,7 +27,7 @@ describe('Browser: settings', function () {
     return settings.reset()
   })
 
-  const DEFAULT_SETTINGS = store.Defaults.get('settings').toJS()
+  const DEFAULT_SETTINGS = settings.getDefaults()
 
   it('should be able to set and read values', function () {
     m.chai.expect(settings.get('foo')).to.be.undefined
@@ -82,17 +81,6 @@ describe('Browser: settings', function () {
       })
     })
 
-    it('should throw if setting an array', function (done) {
-      settings.assign({
-        foo: 'bar',
-        bar: [ 1, 2, 3 ]
-      }).asCallback((error) => {
-        m.chai.expect(error).to.be.an.instanceof(Error)
-        m.chai.expect(error.message).to.equal('Invalid setting value: 1,2,3 for bar')
-        done()
-      })
-    })
-
     it('should not override all settings', function () {
       return settings.assign({
         foo: 'bar',
@@ -102,24 +90,6 @@ describe('Browser: settings', function () {
           foo: 'bar',
           bar: 'baz'
         }))
-      })
-    })
-
-    it('should not store invalid settings to the local machine', function () {
-      return localSettings.readAll().then((data) => {
-        m.chai.expect(data.foo).to.be.undefined
-
-        return new Bluebird((resolve) => {
-          settings.assign({
-            foo: [ 1, 2, 3 ]
-          }).asCallback((error) => {
-            m.chai.expect(error).to.be.an.instanceof(Error)
-            m.chai.expect(error.message).to.equal('Invalid setting value: 1,2,3 for foo')
-            return resolve()
-          })
-        })
-      }).then(localSettings.readAll).then((data) => {
-        m.chai.expect(data.foo).to.be.undefined
       })
     })
 
@@ -217,7 +187,7 @@ describe('Browser: settings', function () {
     })
 
     it('should throw if setting an array', function (done) {
-      settings.set('foo', [ 1, 2, 3 ]).asCallback((error) => {
+      settings.assign([ 1, 2, 3 ]).asCallback((error) => {
         m.chai.expect(error).to.be.an.instanceof(Error)
         m.chai.expect(error.message).to.equal('Invalid setting value: 1,2,3 for foo')
         done()
