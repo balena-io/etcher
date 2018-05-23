@@ -6522,11 +6522,15 @@ svg-icon {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.page-main {
-  margin-top: 50px; }
-
 svg-icon > img[disabled] {
   opacity: 0.2; }
+
+.page-main {
+  flex: 1;
+  align-self: center; }
+
+.page-main > .col-xs {
+  height: 165px; }
 
 .page-main .step-selection-text {
   display: flex;
@@ -6709,7 +6713,8 @@ svg-icon > img[disabled] {
  * limitations under the License.
  */
 .page-finish {
-  margin-top: -25px; }
+  margin-top: -25px;
+  flex: 1; }
 
 .page-finish .button-label {
   margin: 0 auto 15px;
@@ -6829,7 +6834,16 @@ svg-icon > img[disabled] {
   font-style: normal; }
 
 body {
-  letter-spacing: 1px; }
+  letter-spacing: 1px;
+  display: flex;
+  flex-direction: column; }
+  body > header {
+    flex: 0 0 auto; }
+  body > main {
+    flex: 1;
+    display: flex; }
+  body > footer {
+    flex: 0 0 auto; }
 
 body,
 .tooltip,
@@ -6840,12 +6854,9 @@ body,
   display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed;
-  bottom: 20px;
-  left: 0;
-  right: 0;
+  position: relative;
   color: #787c7f;
-  margin: 0 60px;
+  margin: 0 60px 20px 60px;
   padding-top: 15px;
   border-top: 2px solid #64686a;
   text-align: center; }
@@ -6877,7 +6888,7 @@ body,
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 255px; }
+  height: 355px; }
 
 .wrapper {
   height: 100%;
