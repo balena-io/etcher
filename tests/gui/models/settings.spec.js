@@ -176,20 +176,10 @@ describe('Browser: settings', function () {
       })
     })
 
-    it('should throw if setting an object', function (done) {
-      settings.set('foo', {
-        setting: 1
-      }).asCallback((error) => {
-        m.chai.expect(error).to.be.an.instanceof(Error)
-        m.chai.expect(error.message).to.equal('Invalid setting value: [object Object] for foo')
-        done()
-      })
-    })
-
     it('should throw if setting an array', function (done) {
       settings.assign([ 1, 2, 3 ]).asCallback((error) => {
         m.chai.expect(error).to.be.an.instanceof(Error)
-        m.chai.expect(error.message).to.equal('Invalid setting value: 1,2,3 for foo')
+        m.chai.expect(error.message).to.equal('Settings must be an object')
         done()
       })
     })
@@ -209,22 +199,6 @@ describe('Browser: settings', function () {
         return settings.set('foo', 'bar')
       }).then(localSettings.readAll).then((data) => {
         m.chai.expect(data.foo).to.equal('bar')
-      })
-    })
-
-    it('should not store invalid settings to the local machine', function () {
-      return localSettings.readAll().then((data) => {
-        m.chai.expect(data.foo).to.be.undefined
-
-        return new Bluebird((resolve) => {
-          settings.set('foo', [ 1, 2, 3 ]).asCallback((error) => {
-            m.chai.expect(error).to.be.an.instanceof(Error)
-            m.chai.expect(error.message).to.equal('Invalid setting value: 1,2,3 for foo')
-            return resolve()
-          })
-        })
-      }).then(localSettings.readAll).then((data) => {
-        m.chai.expect(data.foo).to.be.undefined
       })
     })
 

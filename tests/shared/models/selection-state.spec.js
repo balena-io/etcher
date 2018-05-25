@@ -19,8 +19,8 @@
 const m = require('mochainon')
 const _ = require('lodash')
 const path = require('path')
-const availableDrives = require('../../../lib/gui/app/available-drives')
-const selectionState = require('../../../lib/gui/app/selection-state')
+const availableDrives = require('../../../lib/gui/app/models/available-drives')
+const selectionState = require('../../../lib/gui/app/models/selection-state')
 
 describe('Model: selectionState', function () {
   describe('given a clean state', function () {
