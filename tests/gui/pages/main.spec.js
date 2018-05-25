@@ -22,9 +22,9 @@ const fs = require('fs')
 const path = require('path')
 const supportedFormats = require('../../../lib/shared/supported-formats')
 const angular = require('angular')
-const flashState = require('../../../lib/shared/models/flash-state')
-const availableDrives = require('../../../lib/shared/models/available-drives')
-const selectionState = require('../../../lib/shared/models/selection-state')
+const flashState = require('../../../lib/gui/app/models/flash-state')
+const availableDrives = require('../../../lib/gui/app/models/available-drives')
+const selectionState = require('../../../lib/gui/app/models/selection-state')
 require('angular-mocks')
 
 // Mock HTML requires by reading from the file-system

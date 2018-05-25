@@ -17,7 +17,7 @@
 'use strict'
 
 const m = require('mochainon')
-const flashState = require('../../../lib/shared/models/flash-state')
+const flashState = require('../../../lib/gui/app/models/flash-state')
 
 describe('Model: flashState', function () {
   beforeEach(function () {

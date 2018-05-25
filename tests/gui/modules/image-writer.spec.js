@@ -4,7 +4,7 @@ const m = require('mochainon')
 const ipc = require('node-ipc')
 const angular = require('angular')
 const Bluebird = require('bluebird')
-const flashState = require('../../../lib/shared/models/flash-state')
+const flashState = require('../../../lib/gui/app/models/flash-state')
 const imageWriter = require('../../../lib/gui/app/modules/image-writer')
 require('angular-mocks')
 
