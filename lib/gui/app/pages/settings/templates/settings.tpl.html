@@ -65,5 +65,16 @@
         })">
       <span>Unsafe mode <span class="label label-danger">Dangerous</span></span>
     </label>
+
+    <div class="checkbox" ng-show="settings.model.get('resinUpdateLock')">
+      <label>
+        <input type="checkbox"
+          tabindex="11"
+          ng-model="settings.currentData.disableResinUpdates"
+          ng-change="settings.toggle('disableResinUpdates')">
+
+        <span>Disable Resin updates</span>
+      </label>
+    </div>
   </div>
 </div>
