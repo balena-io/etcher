@@ -170,3 +170,25 @@ body,
     padding-right: 3px;
   }
 }
+
+.section-update {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: $palette-theme-dark-background;
+  color: $palette-theme-dark-disabled-foreground;
+
+  > h3 {
+    margin: 25px 0;
+  }
+
+  > span {
+    font-style: italic;
+  }
+}

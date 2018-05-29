@@ -72,5 +72,15 @@
         src="'https://etcher.io/success-banner/'"
         refresh-now="state.previousName === 'success'"></safe-webview>
     </div>
+
+    <div class="section-update"
+      ng-controller="UpdateController as update"
+      ng-show="update.updatingState">
+      <svg-icon paths="[ '../../assets/etcher-pro.svg' ]"
+        width="'184px'"
+        height="'21px'"></svg-icon>
+      <h3>Updating...</h3>
+      <span>please wait</span>
+    </div>
   </body>
 </html>

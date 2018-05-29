@@ -6901,3 +6901,20 @@ body,
   .section-header > .button, .section-header > .progress-button {
     padding-left: 3px;
     padding-right: 3px; }
+
+.section-update {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #4d5057;
+  color: #787c7f; }
+  .section-update > h3 {
+    margin: 25px 0; }
+  .section-update > span {
+    font-style: italic; }
