@@ -6505,7 +6505,7 @@ svg-icon {
 .modal-file-selector-modal {
   width: calc(100vw - 10px); }
   .modal-file-selector-modal > .modal-content {
-    height: calc(100vh - 10px); }
+    height: calc(100vh - 20px); }
 
 /*
  * Copyright 2016 resin.io

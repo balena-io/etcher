@@ -17,7 +17,6 @@
 'use strict'
 
 const _ = require('lodash')
-const os = require('os')
 const fs = require('fs')
 const path = require('path')
 const React = require('react')
@@ -36,7 +35,7 @@ const {
 const Storage = require('../../../models/storage')
 const analytics = require('../../../modules/analytics')
 const middleEllipsis = require('../../../utils/middle-ellipsis')
-const files = require('../../../../../shared/files')
+const files = require('../../../models/files')
 const selectionState = require('../../../models/selection-state')
 const imageStream = require('../../../../../sdk/image-stream')
 const errors = require('../../../../../shared/errors')
@@ -92,6 +91,9 @@ const colors = {
   highlight: {
     color: 'white',
     background: '#2297de'
+  },
+  soft: {
+    color: '#4d5056'
   }
 }
 
@@ -109,16 +111,25 @@ const icons = {
 
 /**
  * @summary Icon React component
- * @function
+ * @class
  * @type {ReactElement}
  */
-const Icon = styled((props) => {
-  const { type, ...restProps } = props
+class UnstyledIcon extends React.PureComponent {
+  render () {
+    const { type, ...restProps } = this.props
 
-  return (
-    <span className={ props.className } dangerouslySetInnerHTML={ { __html: icons[type] } } { ...restProps } />
-  )
-})`
+    return (
+      <span className={ this.props.className } dangerouslySetInnerHTML={ { __html: icons[type] } } { ...restProps } />
+    )
+  }
+}
+
+/**
+ * @summary Icon Styled component
+ * @function
+ * @type {StyledComponent}
+ */
+const Icon = styled(UnstyledIcon)`
   color: ${props => props.color};
   font-size: ${props => props.size};
 `
@@ -138,25 +149,44 @@ const Flex = styled.div`
   flex-grow: ${ props => props.grow };
 `
 
-const FileLink = styled((props) => {
-  const icon = props.isDirectory ? 'faFolder' : 'faFileAlt'
+class UnstyledFileLink extends React.PureComponent {
+  constructor (props) {
+    super(props)
 
-  return (
-    <Flex
-      direction="column"
-      alignItems="stretch"
-      className={ props.className }
-      onClick={ props.onClick }
-      onDoubleClick={ props.onDoubleClick }>
-      <Icon type={ icon } size="48px" />
-      <rendition.Button plaintext={ true }>
-        { middleEllipsis(props.basename || '', FILENAME_CHAR_LIMIT) }
-      </rendition.Button>
-      <div>{ prettyBytes(props.size || 0) }</div>
-    </Flex>
-  )
-})`
-  width: 80px;
+    this.highlightFile = this.highlightFile.bind(this)
+    this.selectFile = this.selectFile.bind(this)
+  }
+
+  render () {
+    const icon = this.props.file.isDirectory ? 'faFolder' : 'faFileAlt'
+
+    return (
+      <Flex
+        direction="column"
+        alignItems="stretch"
+        className={ this.props.className }
+        onClick={ this.highlightFile }
+        onDoubleClick={ this.selectFile }>
+        <Icon type={ icon } size="48px" />
+        <span>
+          { middleEllipsis(this.props.file.basename || '', FILENAME_CHAR_LIMIT_SHORT) }
+        </span>
+        <div>{ prettyBytes(this.props.file.size || 0) }</div>
+      </Flex>
+    )
+  }
+
+  highlightFile () {
+    this.props.highlightFile(this.props.file)
+  }
+
+  selectFile () {
+    this.props.selectFile(this.props.file)
+  }
+}
+
+const FileLink = styled(UnstyledFileLink)`
+  width: 100px;
   max-height: 128px;
   margin: 5px 10px;
   padding: 5px;
@@ -166,17 +196,19 @@ const FileLink = styled((props) => {
   cursor: pointer;
   border-radius: 5px;
 
-  > span:first-child {
+  > span:first-of-type {
     align-self: center;
     line-height: 1;
     margin-bottom: 6px;
+    color: ${ props => props.highlight ? colors.highlight.color : colors.soft.color }
   }
 
-  > button,
-  > button:hover,
-  > button:focus {
-    color: inherit;
+  > span:last-of-type {
+    display: flex;
+    justify-content: center;
+    text-align: center;
     word-break: break-all;
+    font-size: 16px;
   }
 
   > div:last-child {
@@ -206,11 +238,65 @@ const Footer = Flex.extend`
   }
 `
 
-const FileListWrap = Flex.extend`
+class UnstyledFileListWrap extends React.PureComponent {
+  constructor (props) {
+    super(props)
+
+    this.scrollElem = null
+
+    this.setScrollElem = this.setScrollElem.bind(this)
+  }
+
+  render () {
+    return (
+      <Flex
+        className={ this.props.className }
+        innerRef={ this.setScrollElem }
+        wrap="wrap"
+      >
+        { this.props.children }
+      </Flex>
+    )
+  }
+
+  setScrollElem (scrollElem) {
+    this.scrollElem = scrollElem
+  }
+
+  componentDidUpdate (prevProps) {
+    if (prevProps.path !== this.props.path && this.scrollElem) {
+      this.scrollElem.scrollTop = 0
+    }
+  }
+}
+
+const FileListWrap = styled(UnstyledFileListWrap)`
   overflow-x: hidden;
   overflow-y: auto;
   padding: 0 20px;
 `
+
+class RecentFileLink extends React.PureComponent {
+  constructor (props) {
+    super(props)
+
+    this.select = this.select.bind(this)
+  }
+
+  render () {
+    return (
+      <rendition.Button
+        onClick={ this.select }
+        plaintext={ true }>
+        { middleEllipsis(path.basename(this.props.title), FILENAME_CHAR_LIMIT_SHORT) }
+      </rendition.Button>
+    )
+  }
+
+  select () {
+    files.getFileMetadataAsync(this.props.fullpath).then(this.props.selectFile)
+  }
+}
 
 class RecentFilesUnstyled extends React.PureComponent {
   constructor (props) {
@@ -223,37 +309,31 @@ class RecentFilesUnstyled extends React.PureComponent {
   }
 
   render () {
-    const existing = (fileObjs) => {
-      return _.filter(fileObjs, (fileObj) => {
-        return fs.existsSync(fileObj.fullpath)
-      })
-    }
-
     return (
       <Flex className={ this.props.className }>
         <h5>Recent</h5>
         {
-          _.map(existing(this.state.recents), (file) => {
+          _.map(this.state.recents, (file) => {
             return (
-              <rendition.Button
-                key={ file.fullpath }
-                onClick={ () => this.props.selectFile(files.getFileMetadataSync(file.dirname)) }
-                plaintext={ true }>
-                { middleEllipsis(path.basename(file.dirname), FILENAME_CHAR_LIMIT_SHORT) }
-              </rendition.Button>
+              <RecentFileLink
+                key={ file.dirname }
+                fullpath={ file.dirname }
+                title={ path.basename(file.dirname) }
+                selectFile={ this.props.selectFile }
+              />
             )
           })
         }
         <h5>Favorite</h5>
         {
-          _.map(existing(this.state.favorites.slice(0, 4)), (file) => {
+          _.map(this.state.favorites.slice(0, 4), (file) => {
             return (
-              <rendition.Button
+              <RecentFileLink
                 key={ file.fullpath }
-                onClick={ () => this.props.selectFile(files.getFileMetadataSync(file.fullpath)) }
-                plaintext={ true }>
-                { middleEllipsis(file.basename, FILENAME_CHAR_LIMIT_SHORT) }
-              </rendition.Button>
+                fullpath={ file.fullpath }
+                title={ file.basename }
+                selectFile={ this.props.selectFile }
+              />
             )
           })
         }
@@ -269,6 +349,32 @@ class RecentFilesUnstyled extends React.PureComponent {
     window.removeEventListener('storage', this.onStorage)
   }
 
+  componentDidMount () {
+    Bluebird.reduce(this.state.recents, (newRecents, recent) => {
+      return files.existsAsync(recent.fullpath).then((exists) => {
+        if (exists) {
+          return newRecents.concat(recent)
+        }
+
+        return newRecents
+      })
+    }, []).then((recents) => {
+      this.setState({ recents })
+    })
+
+    Bluebird.reduce(this.state.favorites, (newFavorites, favorite) => {
+      return files.existsAsync(favorite.fullpath).then((exists) => {
+        if (exists) {
+          return newFavorites.concat(favorite)
+        }
+
+        return newFavorites
+      })
+    }, []).then((favorites) => {
+      this.setState({ favorites })
+    })
+  }
+
   onStorage (event) {
     if (event.key === RECENT_FILES_KEY) {
       this.setState(event.newValue)
@@ -278,6 +384,7 @@ class RecentFilesUnstyled extends React.PureComponent {
 
 const RecentFiles = styled(RecentFilesUnstyled)`
   display: flex;
+  flex: 0 0 auto;
   flex-direction: column;
   align-items: flex-start;
   width: 130px;
@@ -293,43 +400,80 @@ const RecentFiles = styled(RecentFilesUnstyled)`
     margin-bottom: 15px;
   }
 
+  > h5:last-of-type {
+    margin-top: 20px;
+  }
+
   > button {
     margin-bottom: 10px;
     text-align: start;
+    font-size: 16px;
   }
 `
 
 const labels = {
-  '/': 'Root'
+  '/': 'Root',
+  'mountpoints': 'Mountpoints'
 }
 
-const Breadcrumbs = styled((props) => {
-  const folderConstraint = props.constraint || path.parse(props.path).root
-  const dirs = files.subpaths(props.path).filter((subpath) => {
-    // Guard against displaying folders outside the constrained folder
-    return !path.relative(folderConstraint, subpath.fullpath).startsWith('..')
-  })
+class Crumb extends React.PureComponent {
+  constructor (props) {
+    super(props)
 
-  return (
-    <div className={ props.className }>
-      { dirs.length > MAX_DIR_CRUMBS ? '... / ' : null }
-      {
-        _.map(dirs.slice(-MAX_DIR_CRUMBS), (dir, index) => {
-          return (
-            <rendition.Button
-              key={ dir.fullpath }
-              onClick={ () => props.selectFile(dir) }
-              plaintext={ true }>
-              <rendition.Txt bold={ index === dirs.length - 1 }>
-                { middleEllipsis(labels[dir.fullpath] || dir.basename, FILENAME_CHAR_LIMIT_SHORT) }
-              </rendition.Txt>
-            </rendition.Button>
-          )
-        })
-      }
-    </div>
-  )
-})`
+    this.selectFile = this.selectFile.bind(this)
+  }
+
+  render () {
+    return (
+      <rendition.Button
+        onClick={ this.selectFile }
+        plaintext={ true }>
+        <rendition.Txt bold={ this.props.bold }>
+          { middleEllipsis(labels[this.props.dir.fullpath] || this.props.dir.basename, FILENAME_CHAR_LIMIT_SHORT) }
+        </rendition.Txt>
+      </rendition.Button>
+    )
+  }
+
+  selectFile () {
+    this.props.selectFile(this.props.dir)
+  }
+}
+
+class UnstyledBreadcrumbs extends React.PureComponent {
+  render () {
+    const folderConstraints = this.props.constraints.length
+      ? this.props.constraints
+      : [ path.parse(this.props.path).root ]
+
+    const dirs = files.subpaths(this.props.path).filter((subpath) => {
+      // Guard against displaying folders outside the constrained folders
+      return folderConstraints.some((folderConstraint) => {
+        return !path.relative(folderConstraint, subpath.fullpath).startsWith('..')
+      })
+    })
+
+    return (
+      <div className={ this.props.className }>
+        { dirs.length > MAX_DIR_CRUMBS ? '... / ' : null }
+        {
+          _.map(dirs.slice(-MAX_DIR_CRUMBS), (dir, index) => {
+            return (
+              <Crumb
+                key={ dir.fullpath }
+                bold={ index === dirs.length - 1 }
+                dir={ dir }
+                selectFile={ this.props.selectFile }
+              />
+            )
+          })
+        }
+      </div>
+    )
+  }
+}
+
+const Breadcrumbs = styled(UnstyledBreadcrumbs)`
   font-size: 18px;
 
   & > button:not(:last-child)::after {
@@ -342,15 +486,12 @@ class FileSelector extends React.PureComponent {
   constructor (props) {
     super(props)
 
-    const fullpath = props.path || os.homedir()
-
     this.state = {
-      path: fullpath,
+      path: props.path,
       files: [],
       history: [],
       highlighted: null,
-      error: null,
-      filters: []
+      error: null
     }
 
     // Filters schema
@@ -370,13 +511,15 @@ class FileSelector extends React.PureComponent {
     }
 
     this.closeModal = this.closeModal.bind(this)
+    this.resolveModal = this.resolveModal.bind(this)
     this.browsePath = this.browsePath.bind(this)
     this.selectFile = this.selectFile.bind(this)
+    this.highlightFile = this.highlightFile.bind(this)
     this.previousDirectory = this.previousDirectory.bind(this)
   }
 
   render () {
-    const items = rendition.SchemaSieve.filter(this.state.filters, this.state.files)
+    const items = this.state.files
 
     const styles = {
       display: 'flex',
@@ -412,26 +555,21 @@ class FileSelector extends React.PureComponent {
             <Breadcrumbs
               path={ this.state.path }
               selectFile={ this.selectFile }
-              constraint={ this.props.constraint }
+              constraints={ this.props.constraints }
             />
           </Header>
           <Main flex="1">
             <Flex direction="column" grow="1">
-              <rendition.Filters
-                onFiltersUpdate={ filters => this.setFilters(filters) }
-                onViewsUpdate={ views => this.setViews(views) }
-                schema={ this.schema }
-                renderMode={ [] } />
-
-              <FileListWrap wrap="wrap">
+              <FileListWrap path={ this.state.path }>
                 {
-                  items.map((item, index) => {
+                  items.map((item) => {
                     return (
-                      <FileLink { ...item }
+                      <FileLink
                         key={ item.fullpath }
+                        file={ item }
                         highlight={ _.get(this.state.highlighted, 'fullpath') === _.get(item, 'fullpath') }
-                        onClick={ () => this.setState({ highlighted: item }) }
-                        onDoubleClick={ _.partial(this.selectFile, item) }
+                        highlightFile={ this.highlightFile }
+                        selectFile={ this.selectFile }
                       />
                     )
                   })
@@ -443,7 +581,7 @@ class FileSelector extends React.PureComponent {
             <rendition.Button onClick={ this.closeModal }>Cancel</rendition.Button>
             <rendition.Button
               primary
-              onClick={ _.partial(this.selectFile, this.state.highlighted) }
+              onClick={ this.resolveModal }
               disabled={ !this.state.highlighted }>
               Select file
             </rendition.Button>
@@ -462,20 +600,21 @@ class FileSelector extends React.PureComponent {
     this.props.close()
   }
 
+  resolveModal () {
+    this.selectFile(this.state.highlighted)
+  }
+
   setFilesProgressively (dirname) {
     return fs.readdirAsync(dirname).then((basenames) => {
-      const fileObjs = basenames.map((basename) => {
-        return {
-          dirname: this.state.path,
-          basename,
-          fullpath: path.join(dirname, basename)
-        }
-      })
-
-      this.setState({ files: fileObjs })
-
       return files.getAllFilesMetadataAsync(dirname, basenames)
     }).then((fileObjs) => {
+      // Sort folders first and ignore case
+      fileObjs.sort((fileA, fileB) => {
+        // NOTE(Shou): the multiplication is an arbitrarily large enough number
+        // to ensure folders have precedence over filenames
+        const directoryPrecedence = (-Number(fileA.isDirectory) + Number(fileB.isDirectory)) * 3
+        return directoryPrecedence + fileA.basename.localeCompare(fileB.basename, undefined, { sensitivity: 'base' })
+      })
       this.setState({ files: fileObjs })
     })
   }
@@ -487,11 +626,16 @@ class FileSelector extends React.PureComponent {
       'dirname'
     ]))
 
-    const folderConstraint = this.props.constraint || path.parse(this.state.path).root
+    const folderConstraints = this.props.constraints.length
+      ? this.props.constraints
+      : [ path.parse(this.props.path).root ]
 
     // Guard against browsing outside the constrained folder
-    if (path.relative(folderConstraint, file.fullpath).startsWith('..')) {
-      const error = `Cannot browse outside constrained folder ${constrainedFolder}`
+    const isWithinAnyConstraint = folderConstraints.some((folderConstraint) => {
+      return !path.relative(folderConstraint, file.fullpath).startsWith('..')
+    })
+    if (!isWithinAnyConstraint) {
+      const error = `Cannot browse outside constrained folders ${folderConstraints}`
       analytics.logException(new Error(error))
       this.setState({ error })
       return
@@ -595,6 +739,10 @@ class FileSelector extends React.PureComponent {
     }
   }
 
+  highlightFile (file) {
+    this.setState({ highlighted: file })
+  }
+
   previousDirectory () {
     analytics.logEvent('Prev directory', null)
     const dir = this.state.history.shift()
@@ -604,14 +752,6 @@ class FileSelector extends React.PureComponent {
       this.browsePath(dir)
     }
   }
-
-  setFilters (filters) {
-    this.setState({ filters })
-  }
-
-  setViews (views) {
-    this.setState({ views })
-  }
 }
 
 FileSelector.propTypes = {
@@ -619,7 +759,7 @@ FileSelector.propTypes = {
 
   close: propTypes.func,
 
-  constraint: propTypes.string
+  constraints: propTypes.arrayOf(propTypes.string)
 }
 
 module.exports = FileSelector

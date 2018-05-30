@@ -18,7 +18,7 @@
 
 const m = require('mochainon')
 const path = require('path')
-const files = require('../../lib/shared/files')
+const files = require('../../../lib/gui/app/models/files')
 
 describe('Shared: Files', function () {
   describe('.splitPath()', function () {
