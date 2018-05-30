@@ -5010,8 +5010,8 @@
       }
     },
     "lodash": {
-      "version": "4.13.1",
-      "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.13.1.tgz"
+      "version": "4.17.10",
+      "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.10.tgz"
     },
     "lodash-deep": {
       "version": "2.0.0",
