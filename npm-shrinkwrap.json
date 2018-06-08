@@ -2550,10 +2550,15 @@
       "dev": true
     },
     "electron": {
-      "version": "1.7.13",
-      "resolved": "https://registry.npmjs.org/electron/-/electron-1.7.13.tgz",
+      "version": "2.0.2",
+      "resolved": "https://registry.npmjs.org/electron/-/electron-2.0.2.tgz",
       "dev": true,
       "dependencies": {
+        "@types/node": {
+          "version": "8.10.19",
+          "resolved": "https://registry.npmjs.org/@types/node/-/node-8.10.19.tgz",
+          "dev": true
+        },
         "debug": {
           "version": "2.6.9",
           "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz",
@@ -4355,8 +4360,8 @@
       "resolved": "https://registry.npmjs.org/home-or-tmp/-/home-or-tmp-2.0.0.tgz"
     },
     "home-path": {
-      "version": "1.0.5",
-      "resolved": "https://registry.npmjs.org/home-path/-/home-path-1.0.5.tgz",
+      "version": "1.0.6",
+      "resolved": "https://registry.npmjs.org/home-path/-/home-path-1.0.6.tgz",
       "dev": true
     },
     "homedir-polyfill": {
