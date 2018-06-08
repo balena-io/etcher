@@ -66,7 +66,7 @@ deb:
     - libgconf-2-4
     - libgdk-pixbuf2.0-0
     - libglib2.0-0
-    - libgtk3.0-0
+    - libgtk-3-0
     - liblzma5
     - libnotify4
     - libnspr4
