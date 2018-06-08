@@ -24,7 +24,7 @@ RUN apt-get update \
     jq \
     libasound2 \
     libgconf-2-4 \
-    libgtk2.0-0 \
+    libgtk3.0-0 \
     libudev-dev \
     libusb-1.0-0-dev \
     libnss3 \
