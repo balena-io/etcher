@@ -18,6 +18,7 @@
 
 const path = require('path')
 const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin')
+const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
   target: 'electron-main',
@@ -33,6 +34,7 @@ module.exports = {
     filename: '[name].js'
   },
   externals: [
+    nodeExternals(),
     (context, request, callback) => {
       // eslint-disable-next-line lodash/prefer-lodash-method
       const absoluteContext = path.resolve(context)
