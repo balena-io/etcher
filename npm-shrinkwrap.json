@@ -9437,6 +9437,11 @@
         }
       }
     },
+    "webpack-node-externals": {
+      "version": "1.7.2",
+      "resolved": "https://registry.npmjs.org/webpack-node-externals/-/webpack-node-externals-1.7.2.tgz",
+      "dev": true
+    },
     "webpack-sources": {
       "version": "1.1.0",
       "resolved": "https://registry.npmjs.org/webpack-sources/-/webpack-sources-1.1.0.tgz",
