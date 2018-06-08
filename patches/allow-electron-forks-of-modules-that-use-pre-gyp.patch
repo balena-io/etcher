@@ -1,0 +1,29 @@
+--- a/node_modules/lzma-native/node_modules/node-pre-gyp/lib/util/versioning.js
++++ b/node_modules/lzma-native/node_modules/node-pre-gyp/lib/util/versioning.js
+@@ -70,7 +70,14 @@ function get_runtime_abi(runtime, target_version) {
+     if (runtime === 'node-webkit') {
+         return get_node_webkit_abi(runtime, target_version || process.versions['node-webkit']);
+     } else if (runtime === 'electron') {
+-        return get_electron_abi(runtime, target_version || process.versions.electron);
++        var electron_version = target_version || process.versions.electron;
++        if (!electron_version) {
++            // TODO PR something to electron to pass in the version number for forks
++            // https://github.com/electron/electron/issues/9058
++            try { electron_version = require('electron/package.json').version; }
++            catch (_) {}
++        }
++        return get_electron_abi(runtime, electron_version);
+     } else {
+         if (runtime != 'node') {
+             throw new Error("Unknown Runtime: '" + runtime + "'");
+@@ -245,7 +252,8 @@ function get_process_runtime(versions) {
+     var runtime = 'node';
+     if (versions['node-webkit']) {
+         runtime = 'node-webkit';
+-    } else if (versions.electron) {
++    } else if (versions.electron || process.env.ELECTRON_RUN_AS_NODE) {
++        // Running in electron or a childProcess.fork of electron
+         runtime = 'electron';
+     }
+     return runtime;
+
