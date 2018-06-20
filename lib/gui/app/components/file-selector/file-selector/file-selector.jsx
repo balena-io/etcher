@@ -57,7 +57,8 @@ const Flex = styled.div`
 `
 
 const Header = Flex.extend`
-  margin: 10px 15px 0;
+  padding: 10px 15px 0;
+  border-bottom: 1px solid ${ colors.primary.faded };
 
   > * {
     margin: 5px;
@@ -67,8 +68,9 @@ const Header = Flex.extend`
 const Main = Flex.extend``
 
 const Footer = Flex.extend`
-  margin: 10px 20px;
+  padding: 10px;
   flex: 0 0 auto;
+  border-top: 1px solid ${ colors.primary.faded };
 
   > * {
     margin: 0 10px;
