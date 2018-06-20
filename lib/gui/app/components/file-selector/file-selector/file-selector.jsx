@@ -53,6 +53,7 @@ const Flex = styled.div`
   align-items: ${ props => props.alignItems };
   flex-wrap: ${ props => props.wrap };
   flex-grow: ${ props => props.grow };
+  overflow: ${ props => props.overflow };
 `
 
 const Header = Flex.extend`
@@ -72,21 +73,54 @@ const Footer = Flex.extend`
   > * {
     margin: 0 10px;
   }
+
+  > button {
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+`
+
+class UnstyledFilePath extends React.PureComponent {
+  render () {
+    return (
+      <div className={ this.props.className }>
+        <span>{
+          this.props.file && !this.props.file.isDirectory
+            ? this.props.file.basename
+            : ''
+        }</span>
+      </div>
+    )
+  }
+}
+
+const FilePath = styled(UnstyledFilePath)`
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  overflow: hidden;
+
+  > span {
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 `
 
 class FileSelector extends React.PureComponent {
   constructor (props) {
     super(props)
-    this.highlighted = null
     this.state = {
       path: props.path,
+      highlighted: null,
       files: [],
     }
   }
 
   confirmSelection () {
-    if (this.highlighted) {
-      this.selectFile(this.highlighted)
+    if (this.state.highlighted) {
+      this.selectFile(this.state.highlighted)
     }
   }
 
@@ -192,7 +226,7 @@ class FileSelector extends React.PureComponent {
   }
 
   onHighlight (file) {
-    this.highlighted = file
+    this.setState({ highlighted: file })
   }
 
   render () {
@@ -205,7 +239,7 @@ class FileSelector extends React.PureComponent {
         {/*<RecentFiles flex="0 0 auto"
           selectFile={ ::this.selectFile }
           navigate={ ::this.navigate } />*/}
-        <Flex direction="column" grow="1">
+        <Flex direction="column" grow="1" overflow="auto">
           <Header flex="0 0 auto" alignItems="baseline">
             <rendition.Button
               bg={ colors.secondary.background }
@@ -229,6 +263,7 @@ class FileSelector extends React.PureComponent {
             </Flex>
           </Main>
           <Footer justifyContent="flex-end">
+            <FilePath file={ this.state.highlighted }></FilePath>
             <rendition.Button onClick={ ::this.close }>Cancel</rendition.Button>
             <rendition.Button
               primary
