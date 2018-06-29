@@ -174,7 +174,7 @@ class FileSelector extends React.PureComponent {
     if (!supportedFormats.isSupportedImage(image.path)) {
       const invalidImageError = errors.createUserError({
         title: 'Invalid image',
-        description: messages.error.invalidImage(image)
+        description: messages.error.invalidImage(image.path)
       })
 
       osDialog.showError(invalidImageError)
@@ -229,7 +229,7 @@ class FileSelector extends React.PureComponent {
       // An easy way so we can quickly identify if we're making use of
       // certain features without printing pages of text to DevTools.
       image.logo = Boolean(image.logo)
-      image.bmap = Boolean(image.bmap)
+      image.blockMap = Boolean(image.blockMap)
 
       analytics.logEvent('Select image', {
         image,
