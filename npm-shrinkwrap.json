@@ -34,6 +34,10 @@
       "version": "0.0.30",
       "resolved": "https://registry.npmjs.org/@types/debug/-/debug-0.0.30.tgz"
     },
+    "@types/events": {
+      "version": "1.2.0",
+      "resolved": "https://registry.npmjs.org/@types/events/-/events-1.2.0.tgz"
+    },
     "@types/file-type": {
       "version": "5.2.1",
       "resolved": "https://registry.npmjs.org/@types/file-type/-/file-type-5.2.1.tgz"
@@ -101,6 +105,10 @@
     "@types/uuid": {
       "version": "3.4.4",
       "resolved": "https://registry.npmjs.org/@types/uuid/-/uuid-3.4.4.tgz"
+    },
+    "@types/yauzl": {
+      "version": "2.9.0",
+      "resolved": "https://registry.npmjs.org/@types/yauzl/-/yauzl-2.9.0.tgz"
     },
     "7zip-bin": {
       "version": "2.4.1",
@@ -642,8 +650,8 @@
       "dev": true
     },
     "aws-sdk": {
-      "version": "2.260.1",
-      "resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.260.1.tgz",
+      "version": "2.263.1",
+      "resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.263.1.tgz",
       "dependencies": {
         "ieee754": {
           "version": "1.1.8",
@@ -3042,7 +3050,7 @@
     },
     "etcher-sdk": {
       "version": "0.0.1",
-      "resolved": "git://github.com/resin-io-modules/etcher-sdk.git#b12e63b49c4a01305a2809b504859a3940927399",
+      "resolved": "git://github.com/resin-io-modules/etcher-sdk.git#bda51535715edb3691b783973801434bb3d78b30",
       "dependencies": {
         "@types/lodash": {
           "version": "4.14.110",
@@ -3067,6 +3075,10 @@
         "bluebird": {
           "version": "3.5.1",
           "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.1.tgz"
+        },
+        "fd-slicer": {
+          "version": "1.1.0",
+          "resolved": "https://registry.npmjs.org/fd-slicer/-/fd-slicer-1.1.0.tgz"
         },
         "file-type": {
           "version": "8.0.0",
@@ -3111,6 +3123,10 @@
         "xmlbuilder": {
           "version": "9.0.7",
           "resolved": "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-9.0.7.tgz"
+        },
+        "yauzl": {
+          "version": "2.9.2",
+          "resolved": "https://registry.npmjs.org/yauzl/-/yauzl-2.9.2.tgz"
         }
       }
     },
