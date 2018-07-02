@@ -3050,7 +3050,7 @@
     },
     "etcher-sdk": {
       "version": "0.0.1",
-      "resolved": "git://github.com/resin-io-modules/etcher-sdk.git#bda51535715edb3691b783973801434bb3d78b30",
+      "resolved": "git://github.com/resin-io-modules/etcher-sdk.git#9d483eec059a9e149d0f1c2e2746b8a816f87bb4",
       "dependencies": {
         "@types/lodash": {
           "version": "4.14.110",
@@ -3107,6 +3107,10 @@
         "safe-buffer": {
           "version": "5.1.2",
           "resolved": "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.1.2.tgz"
+        },
+        "semver": {
+          "version": "5.5.0",
+          "resolved": "https://registry.npmjs.org/semver/-/semver-5.5.0.tgz"
         },
         "string_decoder": {
           "version": "1.1.1",
