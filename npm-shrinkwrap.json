@@ -11,8 +11,8 @@
       "resolved": "https://registry.npmjs.org/@types/angular/-/angular-1.6.51.tgz"
     },
     "@types/bluebird": {
-      "version": "3.5.20",
-      "resolved": "https://registry.npmjs.org/@types/bluebird/-/bluebird-3.5.20.tgz"
+      "version": "3.5.21",
+      "resolved": "https://registry.npmjs.org/@types/bluebird/-/bluebird-3.5.21.tgz"
     },
     "@types/chart.js": {
       "version": "2.7.40",
@@ -650,8 +650,8 @@
       "dev": true
     },
     "aws-sdk": {
-      "version": "2.263.1",
-      "resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.263.1.tgz",
+      "version": "2.267.1",
+      "resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.267.1.tgz",
       "dependencies": {
         "ieee754": {
           "version": "1.1.8",
@@ -3050,7 +3050,7 @@
     },
     "etcher-sdk": {
       "version": "0.0.1",
-      "resolved": "git://github.com/resin-io-modules/etcher-sdk.git#9d483eec059a9e149d0f1c2e2746b8a816f87bb4",
+      "resolved": "git://github.com/resin-io-modules/etcher-sdk.git#356e40b2190492cec55fd92d58f0cc218cae4ed2",
       "dependencies": {
         "@types/lodash": {
           "version": "4.14.110",
@@ -3129,8 +3129,8 @@
           "resolved": "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-9.0.7.tgz"
         },
         "yauzl": {
-          "version": "2.9.2",
-          "resolved": "https://registry.npmjs.org/yauzl/-/yauzl-2.9.2.tgz"
+          "version": "2.10.0",
+          "resolved": "https://registry.npmjs.org/yauzl/-/yauzl-2.10.0.tgz"
         }
       }
     },
@@ -5678,8 +5678,8 @@
       }
     },
     "node-raspberrypi-usbboot": {
-      "version": "0.0.5",
-      "resolved": "https://registry.npmjs.org/node-raspberrypi-usbboot/-/node-raspberrypi-usbboot-0.0.5.tgz",
+      "version": "0.0.6",
+      "resolved": "https://registry.npmjs.org/node-raspberrypi-usbboot/-/node-raspberrypi-usbboot-0.0.6.tgz",
       "dependencies": {
         "@types/node": {
           "version": "6.0.113",
