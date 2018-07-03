@@ -28,6 +28,7 @@ const colors = require('./colors')
 const Breadcrumbs = require('./path-breadcrumbs')
 const FileList = require('./file-list')
 const RecentFiles = require('./recent-files')
+const files = require('../../../models/files')
 
 const selectionState = require('../../../models/selection-state')
 const osDialog = require('../../../os/dialog')
@@ -113,10 +114,19 @@ const FilePath = styled(UnstyledFilePath)`
 class FileSelector extends React.PureComponent {
   constructor (props) {
     super(props)
+
     this.state = {
       path: props.path,
       highlighted: null,
+      constraint: null,
       files: [],
+    }
+
+    if (props.constraintpath) {
+      files.getConstraintDevice(props.constraintpath, (error, device) => {
+        debug('FileSelector:getConstraintDevice', error || device)
+        this.setState({ constraint: device })
+      })
     }
   }
 
@@ -134,13 +144,25 @@ class FileSelector extends React.PureComponent {
     debug('FileSelector:componentDidUpdate')
   }
 
+  containPath (newPath) {
+    if (this.state.constraint) {
+      const isContained = this.state.constraint.mountpoints.some((mount) => {
+        return !path.relative(mount.path, newPath).startsWith('..')
+      })
+      if (!isContained) {
+        return '/'
+      }
+    }
+    return newPath
+  }
+
   navigate (newPath) {
     debug('FileSelector:navigate', newPath)
-    this.setState({ path: newPath })
+    this.setState({ path: this.containPath(newPath) })
   }
 
   navigateUp () {
-    const newPath = path.join( this.state.path, '..' )
+    let newPath = this.containPath(path.join(this.state.path, '..'))
     debug('FileSelector:navigateUp', this.state.path, '->', newPath)
     this.setState({ path: newPath })
   }
@@ -254,12 +276,15 @@ class FileSelector extends React.PureComponent {
             <Breadcrumbs
               path={ this.state.path }
               navigate={ ::this.navigate }
-              constraints={ this.props.constraints }
+              constraintPath={ this.props.constraintpath }
+              constraint={ this.state.constraint }
             />
           </Header>
           <Main flex="1">
             <Flex direction="column" grow="1">
               <FileList path={ this.state.path }
+                constraintPath={ this.props.constraintpath }
+                constraint={ this.state.constraint }
                 onHighlight={ ::this.onHighlight }
                 onSelect={ ::this.selectFile }></FileList>
             </Flex>
@@ -282,7 +307,7 @@ class FileSelector extends React.PureComponent {
 FileSelector.propTypes = {
   path: propTypes.string,
   close: propTypes.func,
-  constraints: propTypes.arrayOf(propTypes.string)
+  constraintpath: propTypes.string,
 }
 
 module.exports = FileSelector
