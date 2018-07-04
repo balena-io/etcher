@@ -36,6 +36,7 @@ RUN apt-get update \
     python-pip \
     python-dev \
     python-software-properties \
+    software-properties-common \
     unzip \
     xorriso \
     xvfb \
