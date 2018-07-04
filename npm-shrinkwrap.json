@@ -2550,13 +2550,13 @@
       "dev": true
     },
     "electron": {
-      "version": "2.0.2",
-      "resolved": "https://registry.npmjs.org/electron/-/electron-2.0.2.tgz",
+      "version": "2.0.4",
+      "resolved": "https://registry.npmjs.org/electron/-/electron-2.0.4.tgz",
       "dev": true,
       "dependencies": {
         "@types/node": {
-          "version": "8.10.19",
-          "resolved": "https://registry.npmjs.org/@types/node/-/node-8.10.19.tgz",
+          "version": "8.10.20",
+          "resolved": "https://registry.npmjs.org/@types/node/-/node-8.10.20.tgz",
           "dev": true
         },
         "debug": {
