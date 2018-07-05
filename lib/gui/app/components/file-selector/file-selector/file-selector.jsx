@@ -17,6 +17,7 @@
 'use strict'
 
 const path = require('path')
+const sdk = require('etcher-sdk')
 
 const Bluebird = require('bluebird')
 const React = require('react')
@@ -36,7 +37,6 @@ const osDialog = require('../../../os/dialog')
 const exceptionReporter = require('../../../modules/exception-reporter')
 const messages = require('../../../../../shared/messages')
 const errors = require('../../../../../shared/errors')
-const imageStream = require('../../../../../sdk/image-stream')
 const supportedFormats = require('../../../../../shared/supported-formats')
 const analytics = require('../../../modules/analytics')
 
@@ -183,7 +183,7 @@ class FileSelector extends React.PureComponent {
         applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
         flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
       })
-      return
+      return Bluebird.resolve()
     }
 
     return Bluebird.try(() => {
@@ -247,23 +247,47 @@ class FileSelector extends React.PureComponent {
       return
     }
 
+    if (!supportedFormats.isSupportedImage(file.path)) {
+      const invalidImageError = errors.createUserError({
+        title: 'Invalid image',
+        description: messages.error.invalidImage(file.path)
+      })
+
+      osDialog.showError(invalidImageError)
+      analytics.logEvent('Invalid image', { path: file.path })
+      return
+    }
+
     debug('FileSelector:getImageMetadata', file)
 
-    imageStream.getImageMetadata(file.path)
+    const source = new sdk.sourceDestination.File(file.path, sdk.sourceDestination.File.OpenFlags.Read)
+    source.getInnerSource()
+    .then((innerSource) => {
+      return innerSource.getMetadata()
       .then((imageMetadata) => {
         debug('FileSelector:getImageMetadata', imageMetadata)
-        return this.selectImage(imageMetadata)
-      })
-      .catch((error) => {
-        debug('FileSelector:getImageMetadata', error)
-        const imageError = errors.createUserError({
-          title: 'Error opening image',
-          description: messages.error.openImage(path.basename(file.path), error.message)
+        imageMetadata.path = file.path
+        imageMetadata.extension = path.extname(file.path).slice(1)
+        return innerSource.getPartitionTable()
+        .then((partitionTable) => {
+          if (partitionTable !== undefined) {
+            imageMetadata.hasMBR = true
+            imageMetadata.partitions = partitionTable.partitions
+          }
+          return this.selectImage(imageMetadata)
         })
-
-        osDialog.showError(imageError)
-        analytics.logException(error)
       })
+    })
+    .catch((error) => {
+      debug('FileSelector:getImageMetadata', error)
+      const imageError = errors.createUserError({
+        title: 'Error opening image',
+        description: messages.error.openImage(path.basename(file.path), error.message)
+      })
+
+      osDialog.showError(imageError)
+      analytics.logException(error)
+    })
   }
 
   onHighlight (file) {
