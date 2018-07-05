@@ -164,7 +164,6 @@ TARGETS = \
 	lint-spell \
 	test-spectron \
 	test-gui \
-	test-sdk \
 	test-cli \
 	test \
 	sanity-checks \
@@ -221,17 +220,11 @@ test-spectron:
 test-gui:
 	electron-mocha $(MOCHA_OPTIONS) --renderer tests/gui
 
-test-sdk:
-	electron-mocha $(MOCHA_OPTIONS) \
-		tests/shared \
-		tests/image-stream
-
 test-cli:
 	mocha $(MOCHA_OPTIONS) \
-		tests/shared \
-		tests/image-stream
+		tests/shared
 
-test: test-gui test-sdk test-spectron
+test: test-gui test-spectron
 
 help:
 	@echo "Available targets: $(TARGETS)"
