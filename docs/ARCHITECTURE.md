@@ -40,24 +40,6 @@ to submit their work or bug reports.
 
 These are the main Etcher components, in a nutshell:
 
-- [Etcher Image Write][etcher-image-write]
-
-This is the repository that implements the actual procedures to write an image
-to a raw device and the place where image validation resides. Its main purpose
-is to abstract the messy details of interacting with raw devices in all major
-operating systems.
-
-- [Etcher Image Stream](../lib/image-stream)
-
-> (Moved from a separate repository into the main Etcher codebase)
-
-This module converts any kind of input into a readable stream
-representing the image so it can be plugged to [etcher-image-write]. Inputs
-that this module might handle could be, for example: a simple image file, a URL
-to an image, a compressed image, an image inside a ZIP archive, etc. Together
-with [etcher-image-write], these modules are the building blocks needed to take
-an image representation to the user's device, the "Etcher's backend".
-
 - [Drivelist](https://github.com/balena-io-modules/drivelist)
 
 As the name implies, this module's duty is to detect the connected drives
@@ -106,7 +88,6 @@ since fresh eyes could help unveil things that we take for granted, but should
 be documented instead!
 
 [lego-blocks]: https://github.com/sindresorhus/ama/issues/10#issuecomment-117766328
-[etcher-image-write]: https://github.com/balena-io-modules/etcher-image-write
 [exit-codes]: https://github.com/balena-io/etcher/blob/master/lib/shared/exit-codes.js
 [cli-dir]: https://github.com/balena-io/etcher/tree/master/lib/cli
 [gui-dir]: https://github.com/balena-io/etcher/tree/master/lib/gui
