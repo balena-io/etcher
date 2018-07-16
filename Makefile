@@ -220,11 +220,15 @@ test-spectron:
 test-gui:
 	electron-mocha $(MOCHA_OPTIONS) --renderer tests/gui
 
+test-sdk:
+	electron-mocha $(MOCHA_OPTIONS) \
+		tests/shared
+
 test-cli:
 	mocha $(MOCHA_OPTIONS) \
 		tests/shared
 
-test: test-gui test-spectron
+test: test-gui test-sdk test-spectron
 
 help:
 	@echo "Available targets: $(TARGETS)"
