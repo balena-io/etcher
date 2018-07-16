@@ -49,9 +49,9 @@ describe('Shared: SupportedFormats', function () {
       const archiveExtensions = supportedFormats.getArchiveExtensions()
       const compressedExtensions = supportedFormats.getCompressedExtensions()
       const nonCompressedExtensions = supportedFormats.getNonCompressedExtensions()
-      const expected = _.union(archiveExtensions, compressedExtensions, nonCompressedExtensions)
+      const expected = _.union(archiveExtensions, compressedExtensions, nonCompressedExtensions).sort()
       const extensions = supportedFormats.getAllExtensions()
-      m.chai.expect(extensions).to.deep.equal(expected)
+      m.chai.expect(extensions.sort()).to.deep.equal(expected)
     })
   })
 
