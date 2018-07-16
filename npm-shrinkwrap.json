@@ -5329,12 +5329,12 @@
       "dev": true
     },
     "mime-db": {
-      "version": "1.27.0",
-      "resolved": "https://registry.npmjs.org/mime-db/-/mime-db-1.27.0.tgz"
+      "version": "1.33.0",
+      "resolved": "https://registry.npmjs.org/mime-db/-/mime-db-1.33.0.tgz"
     },
     "mime-types": {
-      "version": "2.1.15",
-      "resolved": "https://registry.npmjs.org/mime-types/-/mime-types-2.1.15.tgz"
+      "version": "2.1.18",
+      "resolved": "https://registry.npmjs.org/mime-types/-/mime-types-2.1.18.tgz"
     },
     "mimic-fn": {
       "version": "1.2.0",
