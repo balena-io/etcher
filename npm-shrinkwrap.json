@@ -6985,6 +6985,17 @@
       "resolved": "https://registry.npmjs.org/jellyschema/-/jellyschema-0.11.10.tgz",
       "integrity": "sha512-aYGNa5XwFKgahnxu1cloyOog8GcefeMl6rZpaieBYPAZsmXvPeJ+cf+mjito65hBLVOz0PmA45YHv+OXsgRcOw=="
     },
+    "jquery": {
+      "version": "3.4.1",
+      "resolved": "https://registry.npmjs.org/jquery/-/jquery-3.4.1.tgz",
+      "integrity": "sha512-36+AdBzCL+y6qjw5Tx7HgzeGCzC81MDDgaUP8ld2zhx58HdqXGoBd+tHdrBMiyjGQs0Hxs/MLZTu/eHNJJuWPw=="
+    },
+    "jquery-ui": {
+      "version": "1.12.1",
+      "resolved": "https://registry.npmjs.org/jquery-ui/-/jquery-ui-1.12.1.tgz",
+      "integrity": "sha1-vLQEXI3QU5wTS8FIjN0+dop6nlE=",
+      "optional": true
+    },
     "js-base64": {
       "version": "2.5.1",
       "resolved": "https://registry.npmjs.org/js-base64/-/js-base64-2.5.1.tgz",
@@ -9564,6 +9575,16 @@
       "version": "3.0.4",
       "resolved": "https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz",
       "integrity": "sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA=="
+    },
+    "react-virtual-keyboard": {
+      "version": "1.0.2",
+      "resolved": "https://registry.npmjs.org/react-virtual-keyboard/-/react-virtual-keyboard-1.0.2.tgz",
+      "integrity": "sha512-3kooErTxnlSF82KflBYHqIJIZYFUFXkNqvzs3Od2h9DCSmUdnPnZYVkhb0vFIxrT169MhAiIrxa03B/xSkPx1g==",
+      "requires": {
+        "jquery": ">=1.4.3",
+        "prop-types": "^15.6.0",
+        "virtual-keyboard": "^1.25.28"
+      }
     },
     "react2angular": {
       "version": "4.0.5",
@@ -12591,6 +12612,15 @@
         "assert-plus": "^1.0.0",
         "core-util-is": "1.0.2",
         "extsprintf": "^1.2.0"
+      }
+    },
+    "virtual-keyboard": {
+      "version": "1.29.1",
+      "resolved": "https://registry.npmjs.org/virtual-keyboard/-/virtual-keyboard-1.29.1.tgz",
+      "integrity": "sha512-SNTS/nGeqTKyVJgc/RCOg4YOSO+BQJ0vt4YWMgh/O8I0+eYe0BSBUNBuDeJynMlTDIw/nzARnqq3BDrcz4FytA==",
+      "requires": {
+        "jquery": ">=3.3.1",
+        "jquery-ui": ">=1.12.1"
       }
     },
     "vm-browserify": {

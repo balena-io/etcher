@@ -47,27 +47,43 @@
   background-color: black;
   padding: 0.5em;
 
-	.ui-keyboard-button {
-		background-color: #3e3e3e;
-		color: whitesmoke;
+  .ui-keyboard-button {
+    background-color: #7e8085;
+    color: whitesmoke;
     padding: 0.5em 1.5em;
-    margin: 0.2em;
+    margin: 0.12em;
     border: 0;
     border-radius: 0.1em;
-    font-size: 1.75em;
-    border-top: 1px solid #4e4e4e;
+    font-size: 1.8em;
+    border-top: 1px solid #7e8085;
 	}
 
-	.ui-keyboard-space {
-		width: 40%;
+  .ui-keyboard-space {
+    width: 40%;
   }
-  
+
+  /*
+  First row colors
+  */
+  @for $i from 0 through 9 {
+    .ui-keyboard-button.ui-keyboard-#{$i} {
+      background-color: #4d5057;
+    }
+  }
+  .ui-keyboard-button.ui-keyboard-33,
+  .ui-keyboard-button.ui-keyboard-64,
+  .ui-keyboard-button.ui-keyboard-44,
+  .ui-keyboard-button.ui-keyboard-46,
+  .ui-keyboard-button.ui-keyboard-47 {
+    background-color: #4d5057;
+  }
+
   .ui-keyboard-bksp,
   .ui-keyboard-enter,
   .ui-keyboard-shift,
   .ui-keyboard-meta-1,
   .ui-keyboard-meta-2 {
-    background-color: #1c1c1c;
+    background-color: #2f3033;
   }
 }
 
@@ -76,6 +92,6 @@
   border-radius: 3px;
   font-size: 1.5em;
   height: 2.2em;
-  width: 19em;
+  width: 55vw;
   padding: 0 1em;
 }
