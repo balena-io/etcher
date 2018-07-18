@@ -6393,31 +6393,60 @@ svg-icon {
   bottom: 0;
   text-align: center;
   background-color: black;
-  padding: 0.5em; }
+  padding: 0.5em;
+  /*
+  First row colors
+  */ }
   .ui-keyboard .ui-keyboard-button {
-    background-color: #3e3e3e;
+    background-color: #7e8085;
     color: whitesmoke;
     padding: 0.5em 1.5em;
-    margin: 0.2em;
+    margin: 0.12em;
     border: 0;
     border-radius: 0.1em;
-    font-size: 1.75em;
-    border-top: 1px solid #4e4e4e; }
+    font-size: 1.8em;
+    border-top: 1px solid #7e8085; }
   .ui-keyboard .ui-keyboard-space {
     width: 40%; }
+  .ui-keyboard .ui-keyboard-button.ui-keyboard-0 {
+    background-color: #4d5057; }
+  .ui-keyboard .ui-keyboard-button.ui-keyboard-1 {
+    background-color: #4d5057; }
+  .ui-keyboard .ui-keyboard-button.ui-keyboard-2 {
+    background-color: #4d5057; }
+  .ui-keyboard .ui-keyboard-button.ui-keyboard-3 {
+    background-color: #4d5057; }
+  .ui-keyboard .ui-keyboard-button.ui-keyboard-4 {
+    background-color: #4d5057; }
+  .ui-keyboard .ui-keyboard-button.ui-keyboard-5 {
+    background-color: #4d5057; }
+  .ui-keyboard .ui-keyboard-button.ui-keyboard-6 {
+    background-color: #4d5057; }
+  .ui-keyboard .ui-keyboard-button.ui-keyboard-7 {
+    background-color: #4d5057; }
+  .ui-keyboard .ui-keyboard-button.ui-keyboard-8 {
+    background-color: #4d5057; }
+  .ui-keyboard .ui-keyboard-button.ui-keyboard-9 {
+    background-color: #4d5057; }
+  .ui-keyboard .ui-keyboard-button.ui-keyboard-33,
+  .ui-keyboard .ui-keyboard-button.ui-keyboard-64,
+  .ui-keyboard .ui-keyboard-button.ui-keyboard-44,
+  .ui-keyboard .ui-keyboard-button.ui-keyboard-46,
+  .ui-keyboard .ui-keyboard-button.ui-keyboard-47 {
+    background-color: #4d5057; }
   .ui-keyboard .ui-keyboard-bksp,
   .ui-keyboard .ui-keyboard-enter,
   .ui-keyboard .ui-keyboard-shift,
   .ui-keyboard .ui-keyboard-meta-1,
   .ui-keyboard .ui-keyboard-meta-2 {
-    background-color: #1c1c1c; }
+    background-color: #2f3033; }
 
 .keyboard-wrapper input.ui-keyboard-input {
   border: 1px solid #c6c8c9;
   border-radius: 3px;
   font-size: 1.5em;
   height: 2.2em;
-  width: 19em;
+  width: 55vw;
   padding: 0 1em; }
 
 /*
@@ -6438,6 +6467,13 @@ svg-icon {
 div.modal-wifi-modal {
   width: initial;
   max-width: initial; }
+
+.wifi-modal-main,
+.wifi-networks-list {
+  height: 80%; }
+
+.wifi-networks-list {
+  overflow-y: scroll; }
 
 /*
  * Copyright 2016 resin.io
@@ -9944,6 +9980,17 @@ readers do not read off random characters that represent icons */
 .fas {
   font-family: 'Font Awesome 5 Free';
   font-weight: 900; }
+
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../../../node_modules/@fortawesome/fontawesome-free-webfonts/webfonts/fa-regular-400.eot");
+  src: url("../../../node_modules/@fortawesome/fontawesome-free-webfonts/webfonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("../../../node_modules/@fortawesome/fontawesome-free-webfonts/webfonts/fa-regular-400.woff2") format("woff2"), url("../../../node_modules/@fortawesome/fontawesome-free-webfonts/webfonts/fa-regular-400.woff") format("woff"), url("../../../node_modules/@fortawesome/fontawesome-free-webfonts/webfonts/fa-regular-400.ttf") format("truetype"), url("../../../node_modules/@fortawesome/fontawesome-free-webfonts/webfonts/fa-regular-400.svg#fontawesome") format("svg"); }
+
+.far {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 400; }
 
 @font-face {
   font-family: Roboto;

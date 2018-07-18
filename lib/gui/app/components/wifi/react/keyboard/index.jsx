@@ -18,7 +18,7 @@
 
 const Types = require('prop-types')
 const React = require('react')
-const Keyboard = require('react-virtual-keyboard')
+const Keyboard = require('react-virtual-keyboard').default
 
 class KBInput extends React.PureComponent {
   componentDidMount () {
@@ -28,8 +28,6 @@ class KBInput extends React.PureComponent {
   }
 
   render () {
-    console.log('value', this.props.value, typeof this.props.value)
-    console.log('type', this.props.type, typeof this.props.type)
     return (<Keyboard
       value={this.props.value || ''}
       type={this.props.type || 'text'}
@@ -47,45 +45,49 @@ class KBInput extends React.PureComponent {
           keyboard.$keyboard.show('slide')
         },
         display: {
-          'meta-1': '?123',
+          'meta-1': '#%&',
           'meta-2': 'ABC'
         },
         customLayout: {
           normal: [
-            'q w e r t y u i o p {b}',
-            'a s d f g h j k l {e}',
-            '{s} z x c v b n m , . {s}',
-            '{meta-1} / {space} \' - {meta-1}'
+            '1 2 3 4 5 6 7 8 9 0 {b}',
+            'q w e r t y u i o p',
+            'a s d f g h j k l',
+            '{s} z x c v b n m {s}',
+            '{meta-1} ! @ {space} , . /'
           ],
           'meta-2': [
-            'q w e r t y u i o p {b}',
-            'a s d f g h j k l {e}',
-            '{s} z x c v b n m , . {s}',
-            '{meta-1} / {space} \' - {meta-1}'
+            '1 2 3 4 5 6 7 8 9 0 {b}',
+            'q w e r t y u i o p',
+            'a s d f g h j k l',
+            '{s} z x c v b n m {s}',
+            '{meta-1} ! @ {space} , . /'
           ],
           shift: [
-            'Q W E R T Y U I O P {b}',
-            'A S D F G H J K L {e}',
-            '{s} Z X C V B N M , . {s}',
-            '{meta-1} / {space} \' - {meta-1}'
+            '1 2 3 4 5 6 7 8 9 0 {b}',
+            'Q W E R T Y U I O P',
+            'A S D F G H J K L',
+            '{s} Z X C V B N M {e}',
+            '{meta-1} ! @ {space} , . /'
           ],
           'meta-2-shift': [
-            'Q W E R T Y U I O P {b}',
-            'A S D F G H J K L {e}',
-            '{s} Z X C V B N M , . {s}',
-            '{meta-1} / {space} \' - {meta-1}'
+            '1 2 3 4 5 6 7 8 9 0 {b}',
+            'Q W E R T Y U I O P',
+            'A S D F G H J K L',
+            '{s} Z X C V B N M {s}',
+            '{meta-1} ! @ {space} , . /'
           ],
           'meta-1': [
             '1 2 3 4 5 6 7 8 9 0 {b}',
-            '@ # $ _ & - + ( ) {e}',
+            '@ # $ _ & - + ( )',
             '{s} * " \' : ; ! ? / {s}',
-            '{meta-2} / {space} \' - {meta-2}'
+            '{meta-2} ! @ {space} , . /'
           ],
           'meta-1-shift': [
             '~ ` | • √ π ÷ x ¶ ∆ {b}',
-            '£ ¢ € ¥ ^ ° = { } {e}',
+            '£ ¢ € ¥ ^ ° = { }',
             '{s} % © ® ™ ✔ [ ] \\ {s}',
-            '{meta-2} / {space} \' - {meta-2}'
+            '{meta-2} ! @ {space} , . /'
           ]
         }
       }}

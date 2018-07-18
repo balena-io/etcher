@@ -27,31 +27,14 @@ const {
   DeleteButton,
   Divider,
   Heading,
-  Input,
+  Pill,
   Provider,
   Txt
 } = require('rendition')
 const styled = require('styled-components').default
-const fontAwesome = require('@fortawesome/fontawesome')
-const {
-  faWifi,
-  faLock,
-  faWrench,
-  faAngleLeft,
-  faTimes
-} = require('@fortawesome/fontawesome-free-solid')
 const analytics = require('../../../modules/analytics')
 const actions = require('./actions.js')
 const KBInput = require('./keyboard/index.jsx')
-
-/**
- * @summary Font awesome icon constants
- */
-const faWifiHTML = fontAwesome.icon(faWifi).html.join('\n')
-const faLockHTML = fontAwesome.icon(faLock).html.join('\n')
-const faWrenchHTML = fontAwesome.icon(faWrench).html.join('\n')
-const faAngleLeftHTML = fontAwesome.icon(faAngleLeft).html.join('\n')
-const faTimesHTML = fontAwesome.icon(faTimes).html.join('\n')
 
 const rootStyles = {
   display: 'flex',
@@ -69,37 +52,6 @@ const colors = {
   textBlack: '#3a3c41'
 }
 
-const mockWifiCtrl = {
-  disable: _.noop,
-  enable: _.noop,
-  connect: _.noop,
-  remove: _.noop,
-  disconnect: _.noop,
-  getSavedConnections: _.constant([]),
-  getAvailableConnections: _.constant([
-    {
-      ssid: 'resin_io',
-      security: 'WPA-PSK'
-    },
-    {
-      ssid: 'Thumbs Up 👍',
-      security: 'open'
-    },
-    {
-      ssid: 'Virgin Media',
-      security: 'open'
-    },
-    {
-      ssid: 'TALKTALK-69C360',
-      security: 'WPA-PSK'
-    }
-  ]),
-  getCurrentConnection: _.constant({
-    ssid: 'resin_io',
-    security: 'WPA-PSK'
-  })
-}
-
 const ToggleButton = styled((props) => {
   return (
     <div className={ props.className }>
@@ -115,7 +67,7 @@ const ToggleButton = styled((props) => {
         bold={ props.toggle }>On</Txt>
     </div>
   )
-})`
+}) `
   display: flex;
 
   > label {
@@ -152,7 +104,7 @@ const ConnectionUnstyled = styled((props) => {
       onClick={ () => { return props.configureConnection(props.connection) }}
       plaintext
       primary>
-      <span dangerouslySetInnerHTML={ { __html: faWrenchHTML } } />
+      <span className="fas fa-wrench"></span>
       <Txt bold>Configuration</Txt>
     </Button>
   )
@@ -174,25 +126,26 @@ const ConnectionUnstyled = styled((props) => {
 
   return (
     <div className={ props.className }>
-      <span dangerouslySetInnerHTML={ { __html: faWifiHTML } } />
+      { props.selected ? <span className="fas fa-wifi"/> : <span style={ { width: '2.15em' } }/> }
       <span
         style={ { opacity: isOpen ? '0' : '1' } }
-        dangerouslySetInnerHTML={ { __html: faLockHTML } } />
+        className="fas fa-lock" />
       { labelElem }
       { props.selected ? configureButton : null }
     </div>
   )
 })
+
 const Connection = ConnectionUnstyled `
   display: flex;
   align-items: stretch;
   height: 30px;
-  
+
   > * {
     display: flex;
     align-items: center;
   }
-  
+
   > span {
     flex: 0 0 auto;
     padding: 0 7px;
@@ -247,6 +200,23 @@ const Connection = ConnectionUnstyled `
   }
 `
 
+const WifiNetworksList = styled((props) => {
+  return (
+    <div>
+      { _.chain(props.networkList)
+        .reject({ ssid: props.currentNetwork.ssid })
+        .map((connection) => {
+          return (
+            <Connection
+              key={props.currentNetwork.ssid + props.currentNetwork}
+              onClick={ props.configureNetwork(connection).bind(this) }
+              connection={ connection } />
+          )
+        }).value() }
+    </div>
+  )
+}) ``
+
 const Header = styled.div `
   display: flex;
   justify-content: space-between;
@@ -258,19 +228,37 @@ const Main = styled.div `
   flex: 1;
 `
 
+const ErrorAlert = styled((props) => {
+  return (
+    <Alert {...props} emphasized>
+      {props.wifiSettingsError.message}
+    </Alert>
+  )
+}) `
+{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+
+  > div {
+    margin: auto;
+  }
+}
+`
+
 const Footer = styled((props) => {
   return (
     <Container className={ props.className } align="center">
-      <Button emphasized primary w={ 200 } onClick={ props.close }>{props.text || 'OK'}</Button>
     </Container>
   )
-})`
+}) `
   flex: 0 0 auto;
 `
 
 const Label = styled.label `
   margin: 30px 0.5em 12px 0;
-  
+
   > div {
     margin-bottom: 10px;
     font-size: 11px;
@@ -288,7 +276,16 @@ const Corner = styled.div `
   }
 `
 
+/**
+ * WiFi modal React component
+ */
 class Wifi extends React.PureComponent {
+  /**
+   *
+   * @param {*} props - React props
+   *
+   * @example <Wifi close={() => console.log('wifi modal closed')} />
+   */
   constructor (props) {
     super(props)
 
@@ -298,16 +295,23 @@ class Wifi extends React.PureComponent {
       isWifiEnabled: false,
       showPassphrase: false,
       currentNetwork: {},
-      networkList: []
+      networkList: [],
+      wifiSettingsError: null
     }
 
+    this.scanNetworks = true
     this.selectedEdit = {}
     this.browse = this.browse.bind(this)
     this.toggleWifi = this.toggleWifi.bind(this)
     this.togglePassphraseVisibility = this.togglePassphraseVisibility.bind(this)
   }
 
+  componentWillUnmount () {
+    this.scanNetworks = false
+  }
+
   render () {
+    console.log(this.state.currentNetwork)
     if (this.state.page === 'list') {
       return (
         <Provider style={ rootStyles }>
@@ -324,24 +328,18 @@ class Wifi extends React.PureComponent {
               <DeleteButton onClick={ this.props.close } />
             </Corner>
           </Header>
-          {!this.state.loading && this.state.isWifiEnabled && <Main>
+          {!this.state.loading && this.state.isWifiEnabled && <Main className="wifi-modal-main">
             {!_.isEmpty(this.state.currentNetwork) && <div><Connection
               connection={ this.state.currentNetwork }
               selected
               configureConnection={ this.configureNetwork(this.state.currentNetwork).bind(this) } />
             <Divider color={ colors.divider } /></div> }
-            <div>
-              { _.chain(this.state.networkList)
-                .reject({ ssid: this.state.currentNetwork.ssid })
-                .map((connection) => {
-                  return (
-                    <Connection
-                      onClick={ this.configureNetwork(connection).bind(this) }
-                      connection={ connection } />
-                  )
-                }).value() }
-            </div>
+            <WifiNetworksList
+              networkList={this.state.networkList}
+              currentNetwork={this.state.currentNetwork}
+              configureNetwork={this.configureNetwork}/>
           </Main>}
+          {this.state.wifiSettingsError && <ErrorAlert danger wifiSettingsError={this.state.wifiSettingsError}/>}
           <Footer close={ this.props.close } text="Close"/>
         </Provider>
       )
@@ -350,22 +348,11 @@ class Wifi extends React.PureComponent {
     if (this.state.page === 'configure') {
       return (
         <Provider style={ rootStyles }>
-          <Header>
-            <Button
-              onClick={ _.partial(this.browse, 'list') }
-              bg={ colors.activeGray }
-              color={ colors.textBlack }>
-              <span dangerouslySetInnerHTML={ { __html: faAngleLeftHTML } } />&nbsp;
-              Back
-            </Button>
-            <Corner>
-              <DeleteButton onClick={ this.props.close } />
-            </Corner>
-          </Header>
           <Main>
-            <Heading.h4 bold>{ this.selectedEdit.ssid }</Heading.h4>
             <Label>
-              <div>WIFI PASSPHRASE</div>
+              <div>
+                WIFI PASSPHRASE FOR "{ this.selectedEdit.ssid }"
+              </div>
               <KBInput
                 key="network-name"
                 value={ this.selectedEdit.passphrase }
@@ -385,13 +372,29 @@ class Wifi extends React.PureComponent {
               plaintext>
               { this.state.showPassphrase ? 'Hide' : 'Show' }
             </Button>
+            <span className="far fa-eye" />
+            <Button
+              emphasized
+              primary
+              w={ 200 }
+              onClick={ this.closeConfiguration.bind(this) }>
+              OK
+            </Button>
+            <Button
+              onClick={ _.partial(this.browse, 'list') }
+              bg={ colors.activeGray }
+              color={ colors.textBlack }>
+              <span className="fas fa-angle-left" />&nbsp;
+              Cancel
+            </Button>
             <Divider color={ colors.divider } />
             <Button danger plaintext onClick={this.forget(this.selectedEdit).bind(this)}>
-              <span dangerouslySetInnerHTML={ { __html: faTimesHTML } } />&nbsp;
+              <span className="fas fa-times" />&nbsp;
               Forget network
             </Button>
           </Main>
-          <Footer close={this.closeConfiguration.bind(this)} />
+          {this.state.wifiSettingsError && <ErrorAlert warning wifiSettingsError={this.state.wifiSettingsError}/>}
+          <Footer />
         </Provider>
       )
     }
@@ -400,56 +403,95 @@ class Wifi extends React.PureComponent {
   }
 
   componentDidMount () {
-    // Check if wifi is active
-    actions.isActive()
+    this.checkWifiActive()
+  }
+
+  /**
+   *
+   * @returns {Promise}
+   *
+   * @example checkWifiActive()
+   */
+  checkWifiActive () {
+    const retryPeriod = 5000
+    return actions.isActive()
       .then(this.handleWifiActive.bind(this))
       .catch((err) => {
-        console.log('err :(((', err)
+        this.setState({ isWifiEnabled: false })
+        this.handleError(err)
+        setTimeout(() => {
+          return this.checkWifiActive()
+        }, retryPeriod)
       })
   }
 
+  /**
+   *
+   * @param {Boolean} active - Whether WiFi is active or not
+   *
+   * @example handleWifiActive(true)
+   */
   handleWifiActive (active) {
     if (active) {
       this.setState({
         loading: false,
-        isWifiEnabled: true,
+        isWifiEnabled: true
       })
       Bluebird.all([
         actions.getNetworks(),
         actions.getCurrentNetwork()
       ])
         .then(this.handleNetworksList.bind(this))
-        .catch(this.handleNetworksListError.bind(this))
+        .catch(this.handleError.bind(this))
+    } else {
+      this.setState({ isWifiEnabled: false })
     }
   }
 
   handleNetworksList ([ networkList, currentNetwork ]) {
-    console.log('currentNetwork', _.uniqBy(currentNetwork, (n) => n.ssid))
+    const retryPeriod = 5000
     this.setState({
-      networkList,
-      currentNetwork: _.find(networkList, {ssid: currentNetwork.Id}) || {}
+      networkList: _.filter(networkList, (network) => {
+        return !_.isEmpty(network.ssid)
+      }),
+      currentNetwork: _.find(networkList, { ssid: (currentNetwork.ssid || this.state.currentNetwork.ssid) }) || {}
     })
     setTimeout(() => {
-      return actions.getNetworks()
-      .then((networks) => {
-        return [networks, this.state.currentNetwork]
-      })
-      .then(this.handleNetworksList.bind(this))
-      .catch(this.handleNetworksListError.bind(this))
-    }, 5000)
+      if (this.scanNetworks) {
+        return Bluebird.all([
+          actions.getNetworks(),
+          actions.getCurrentNetwork()
+        ])
+          .then(this.handleNetworksList.bind(this))
+          .catch((err) => {
+            this.handleNetworksList([ this.state.networkList, this.state.currentNetwork ])
+            return this.handleError.bind(this, err)
+          })
+      }
+      return Bluebird.resolve()
+    }, retryPeriod)
   }
 
-  handleNetworksListError (err) {
-    /*
-    Function to set error to the pertaining form control
-    error(formControl, errorMessage)
-    */
+  /**
+   *
+   * @param {*} err - Error to be shown
+   *
+   * @example handleError(new Error('example'))
+   */
+  handleError (err) {
+    analytics.logException(err)
+    const message = (!_.isEmpty(err.data) && _.head(err.data)) || err.message
     this.setState({
-      'x-error': err.message
+      wifiSettingsError: new Error(message)
     })
-    console.log('err???', err)
   }
 
+  /**
+   *
+   * @returns {Promise}
+   *
+   * @example toggleWifi()
+   */
   toggleWifi () {
     const newState = !this.state.isWifiEnabled
     return actions.toggleWifi(newState)
@@ -460,11 +502,19 @@ class Wifi extends React.PureComponent {
         this.handleWifiActive(active)
       })
       .catch((err) => {
-        // Handle errors
-        console.log('err', err)
+        this.setState({ isWifiEnabled: false })
+        this.handleError(err)
       })
   }
 
+  /**
+   *
+   * @param {*} network - Network to connect to
+   *
+   * @returns {Promise}
+   *
+   * @example connect({ssid: 'example', passphrase: '1234'})
+   */
   connect (network) {
     return actions.connect(network)
       .then((success) => {
@@ -473,31 +523,67 @@ class Wifi extends React.PureComponent {
             currentNetwork: network
           })
         } else {
-          console.log(`Could not connect to network ${network.ssid}`)
+          throw success
         }
       })
       .catch((err) => {
-        console.log('err?', err)
+        this.handleError(err)
       })
   }
 
-  closeConfiguration () {
+  /**
+   *
+   * @param {*} evt - DOM Event
+   *
+   * @returns {Promise}
+   *
+   * @example closeConfiguration(evt)
+   */
+  closeConfiguration (evt) {
+    evt.preventDefault()
     return this.connect(this.selectedEdit)
-      .then(() => {
-        this.props.close()
+      .then((res) => {
+        if (res) {
+          this.props.close()
+        }
       })
       .catch((err) => {
-        console.log('err :(', err)
+        this.handleError(err)
       })
   }
 
+  /**
+   *
+   * @param {*} page - Page to switch state to
+   *
+   * @example browse('configure')
+   */
   browse (page) {
+    if (page === 'configure') {
+      this.scanNetworks = false
+    } else {
+      this.scanNetworks = true
+      actions.getNetworks()
+        .then((networks) => {
+          return [ networks, this.state.currentNetwork ]
+        })
+        .then(this.handleNetworksList.bind(this))
+        .catch(this.handleError.bind(this))
+    }
     analytics.logEvent('Wifi change page', {
       page
     })
     this.setState({ page })
   }
 
+  /**
+   *
+   * @param {*} connection - Connection to be forgotten
+   *
+   * @returns {Function}
+   *
+   * @example forget({ssid: 'example'})
+   */
   forget (connection) {
     return () => {
       return actions.forget(connection)
@@ -511,20 +597,30 @@ class Wifi extends React.PureComponent {
           this.setState(newState)
         })
         .catch((err) => {
-          console.log('err :/', err)
+          this.handleError(err)
         })
     }
   }
 
+  /**
+   *
+   * @param {*} network - Network to be forgotten
+   *
+   * @returns {Function}
+   *
+   * @example configureNetwork({ssid: 'example'})
+   */
   configureNetwork (network) {
     return () => {
       this.selectedEdit = network
-      this.setState({
-        page: 'configure'
-      })
+      this.browse('configure')
     }
   }
 
+  /**
+   *
+   * @example togglePassphraseVisibility()
+   */
   togglePassphraseVisibility () {
     this.setState({ showPassphrase: !this.state.showPassphrase })
   }

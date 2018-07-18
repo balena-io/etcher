@@ -18,3 +18,11 @@ div.modal-wifi-modal {
   width: initial;
   max-width: initial;
 }
+
+.wifi-modal-main,
+.wifi-networks-list {
+  height: 80%;
+}
+.wifi-networks-list {
+  overflow-y: scroll;
+}
