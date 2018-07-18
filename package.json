@@ -1,5 +1,6 @@
 {
   "name": "etcher",
+  "private": true,
   "displayName": "Etcher",
   "version": "1.4.4",
   "packageType": "local",
