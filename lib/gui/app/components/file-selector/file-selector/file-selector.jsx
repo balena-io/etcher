@@ -177,7 +177,11 @@ class FileSelector extends React.PureComponent {
       })
 
       osDialog.showError(invalidImageError)
-      analytics.logEvent('Invalid image', image)
+      analytics.logEvent('Invalid image', {
+        image,
+        applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
+        flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
+      })
       return
     }
 
@@ -185,10 +189,18 @@ class FileSelector extends React.PureComponent {
       let message = null
 
       if (supportedFormats.looksLikeWindowsImage(image.path)) {
-        analytics.logEvent('Possibly Windows image', image)
+        analytics.logEvent('Possibly Windows image', {
+          image,
+          applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
+          flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
+        })
         message = messages.warning.looksLikeWindowsImage()
       } else if (!image.hasMBR) {
-        analytics.logEvent('Missing partition table', image)
+        analytics.logEvent('Missing partition table', {
+          image,
+          applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
+          flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
+        })
         message = messages.warning.missingPartitionTable()
       }
 
@@ -218,7 +230,11 @@ class FileSelector extends React.PureComponent {
       image.logo = Boolean(image.logo)
       image.bmap = Boolean(image.bmap)
 
-      analytics.logEvent('Select image', image)
+      analytics.logEvent('Select image', {
+        image,
+        applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
+        flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
+      })
     }).catch(exceptionReporter.report)
   }
 
