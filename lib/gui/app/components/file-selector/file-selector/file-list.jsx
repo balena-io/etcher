@@ -228,15 +228,38 @@ const File = styled(UnstyledFile)`
 class FileList extends React.Component {
   constructor (props) {
     super(props)
+
     this.state = {
       path: props.path,
       highlighted: null,
       files: [],
     }
+
+    debug('FileList', props)
   }
 
   readdir (dirname) {
     debug('FileList:readdir', dirname)
+
+    if (this.props.constraintPath && dirname === '/') {
+      if (this.props.constraint) {
+        const mountpoints = this.props.constraint.mountpoints.map(( mount ) => {
+          const entry = new files.FileEntry(mount.path, {
+            size: 0,
+            isFile: () => false,
+            isDirectory: () => true
+          })
+          entry.name = mount.label
+          return entry
+        })
+        debug('FileList:readdir', mountpoints)
+        window.requestAnimationFrame(() => {
+          this.setState({ files: mountpoints })
+        })
+      }
+      return
+    }
+
     files.readdirAsync(dirname).then((files) => {
       window.requestAnimationFrame(() => {
         this.setState({ files: files })
@@ -263,8 +286,10 @@ class FileList extends React.Component {
   shouldComponentUpdate (nextProps, nextState) {
     const shouldUpdate = (this.state.files !== nextState.files)
     debug('FileList:shouldComponentUpdate', shouldUpdate)
-    if (this.props.path !== nextProps.path) {
-      this.readdir(nextProps.path)
+    if (this.props.path !== nextProps.path || this.props.constraint !== nextProps.constraint) {
+      process.nextTick(() => {
+        this.readdir(nextProps.path)
+      })
     }
     return shouldUpdate
   }
@@ -291,13 +316,6 @@ class FileList extends React.Component {
       </FileListWrap>
     )
   }
-}
-
-FileList.propTypes = {
-  path: propTypes.string,
-  onNavigate: propTypes.func,
-  onSelect: propTypes.func,
-  constraints: propTypes.arrayOf(propTypes.string)
 }
 
 module.exports = FileList
