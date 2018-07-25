@@ -21,3 +21,8 @@
 .modal-warning-modal .modal-title .glyphicon {
   color: $palette-theme-danger-background;
 }
+
+.modal-warning-modal .modal-body {
+  max-height: 200px;
+  overflow-y: auto;
+}

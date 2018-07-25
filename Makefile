@@ -482,6 +482,7 @@ PUBLISHABLES += publish-aws-s3
 TARGETS += publish-aws-s3
 endif
 
+ifeq ($(RELEASE_TYPE),production)
 ifdef PUBLISH_BINTRAY_DEBIAN
 publish-bintray-debian: $(PUBLISH_BINTRAY_DEBIAN)
 	$(foreach publishable,$^,$(call execute-command,./scripts/publish/bintray.sh \
@@ -512,6 +513,7 @@ publish-bintray-redhat: $(PUBLISH_BINTRAY_REDHAT)
 
 PUBLISHABLES += publish-bintray-redhat
 TARGETS += publish-bintray-redhat
+endif
 endif
 
 publish-all: $(PUBLISHABLES)
@@ -587,14 +589,12 @@ info:
 	@echo "Target arch         : $(TARGET_ARCH)"
 
 sanity-checks:
-	./scripts/ci/ensure-all-node-requirements-available.sh
 	./scripts/ci/ensure-staged-sass.sh
 	./scripts/ci/ensure-staged-shrinkwrap.sh
 	./scripts/ci/ensure-npm-dependencies-compatibility.sh
 	./scripts/ci/ensure-npm-valid-dependencies.sh
 	./scripts/ci/ensure-npm-shrinkwrap-versions.sh
 	./scripts/ci/ensure-all-file-extensions-in-gitattributes.sh
-	./scripts/ci/ensure-all-text-files-only-ascii.sh
 
 clean:
 	rm -rf $(BUILD_DIRECTORY)
@@ -602,5 +602,6 @@ clean:
 distclean: clean
 	rm -rf node_modules
 	rm -rf build
+	rm -rf generated
 
 .DEFAULT_GOAL = help

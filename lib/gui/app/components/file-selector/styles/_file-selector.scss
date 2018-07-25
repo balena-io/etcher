@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 resin.io
+ * Copyright 2018 resin.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,10 @@
  * limitations under the License.
  */
 
-'use strict'
+.modal-file-selector-modal {
+  width: calc(100vw - 10px);
 
-const m = require('mochainon')
-
-module.exports = () => {
-  describe('Browser Window', function () {
-    it('should set a proper title', function () {
-      return this.app.client.getTitle().then((title) => {
-        m.chai.expect(title).to.equal('Etcher')
-      })
-    })
-
-    it('should open a browser window', function () {
-      return this.app.browserWindow.isVisible().then((isVisible) => {
-        m.chai.expect(isVisible).to.be.true
-      })
-    })
-  })
+  > .modal-content {
+    height: calc(100vh - 20px);
+  }
 }

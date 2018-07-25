@@ -20,6 +20,7 @@ const m = require('mochainon')
 const _ = require('lodash')
 const path = require('path')
 const constraints = require('../../lib/shared/drive-constraints')
+const messages = require('../../lib/shared/messages')
 
 describe('Shared: DriveConstraints', function () {
   describe('.isDriveLocked()', function () {
@@ -1029,7 +1030,7 @@ describe('Shared: DriveConstraints', function () {
       const expectedTuplesSorted = _.sortBy(_.map(expectedTuples, (tuple) => {
         return {
           type: constraints.COMPATIBILITY_STATUS_TYPES[tuple[0]],
-          message: constraints.COMPATIBILITY_STATUS_MESSAGES[tuple[1]]
+          message: messages.compatibility[tuple[1]]()
         }
       }), [ 'message' ])
       const resultTuplesSorted = _.sortBy(resultList, [ 'message' ])
@@ -1060,7 +1061,7 @@ describe('Shared: DriveConstraints', function () {
         this.image.path = path.join(this.mountpoint, 'rpi.img')
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
-        const expectedTuples = [ [ 'ERROR', 'CONTAINS_IMAGE' ] ]
+        const expectedTuples = [ [ 'ERROR', 'containsImage' ] ]
 
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
@@ -1071,7 +1072,7 @@ describe('Shared: DriveConstraints', function () {
         this.drive.isSystem = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
-        const expectedTuples = [ [ 'WARNING', 'SYSTEM' ] ]
+        const expectedTuples = [ [ 'WARNING', 'system' ] ]
 
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
@@ -1082,9 +1083,14 @@ describe('Shared: DriveConstraints', function () {
         this.image.size.final.value = this.drive.size + 1
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
-        const expectedTuples = [ [ 'ERROR', 'TOO_SMALL' ] ]
+        const expected = [
+          {
+            message: messages.compatibility.tooSmall('1 B'),
+            type: constraints.COMPATIBILITY_STATUS_TYPES.ERROR
+          }
+        ]
 
-        expectStatusTypesAndMessagesToBe(result, expectedTuples)
+        m.chai.expect(result).to.deep.equal(expected)
       })
     })
 
@@ -1105,7 +1111,7 @@ describe('Shared: DriveConstraints', function () {
         this.drive.isReadOnly = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
-        const expectedTuples = [ [ 'ERROR', 'LOCKED' ] ]
+        const expectedTuples = [ [ 'ERROR', 'locked' ] ]
 
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
@@ -1116,7 +1122,7 @@ describe('Shared: DriveConstraints', function () {
         this.image.recommendedDriveSize = this.drive.size + 1
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
-        const expectedTuples = [ [ 'WARNING', 'SIZE_NOT_RECOMMENDED' ] ]
+        const expectedTuples = [ [ 'WARNING', 'sizeNotRecommended' ] ]
 
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
@@ -1127,7 +1133,7 @@ describe('Shared: DriveConstraints', function () {
         this.drive.size = constraints.LARGE_DRIVE_SIZE + 1
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
-        const expectedTuples = [ [ 'WARNING', 'LARGE_DRIVE' ] ]
+        const expectedTuples = [ [ 'WARNING', 'largeDrive' ] ]
 
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
@@ -1154,7 +1160,7 @@ describe('Shared: DriveConstraints', function () {
         this.drive.isReadOnly = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, null)
-        const expectedTuples = [ [ 'ERROR', 'LOCKED' ] ]
+        const expectedTuples = [ [ 'ERROR', 'locked' ] ]
 
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
@@ -1165,7 +1171,7 @@ describe('Shared: DriveConstraints', function () {
         this.drive.isSystem = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, null)
-        const expectedTuples = [ [ 'WARNING', 'SYSTEM' ] ]
+        const expectedTuples = [ [ 'WARNING', 'system' ] ]
 
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
@@ -1177,7 +1183,7 @@ describe('Shared: DriveConstraints', function () {
         this.image.path = path.join(this.mountpoint, 'rpi.img')
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
-        const expectedTuples = [ [ 'ERROR', 'CONTAINS_IMAGE' ] ]
+        const expectedTuples = [ [ 'ERROR', 'containsImage' ] ]
 
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
@@ -1188,7 +1194,7 @@ describe('Shared: DriveConstraints', function () {
         this.drive.isReadOnly = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
-        const expectedTuples = [ [ 'ERROR', 'LOCKED' ] ]
+        const expectedTuples = [ [ 'ERROR', 'locked' ] ]
 
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
       })
@@ -1200,9 +1206,14 @@ describe('Shared: DriveConstraints', function () {
         this.drive.isSystem = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
-        const expectedTuples = [ [ 'ERROR', 'TOO_SMALL' ] ]
+        const expected = [
+          {
+            message: messages.compatibility.tooSmall('1 B'),
+            type: constraints.COMPATIBILITY_STATUS_TYPES.ERROR
+          }
+        ]
 
-        expectStatusTypesAndMessagesToBe(result, expectedTuples)
+        m.chai.expect(result).to.deep.equal(expected)
       })
     })
 
@@ -1212,9 +1223,310 @@ describe('Shared: DriveConstraints', function () {
         this.image.recommendedDriveSize = this.drive.size + 1
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
-        const expectedTuples = [ [ 'WARNING', 'SIZE_NOT_RECOMMENDED' ], [ 'WARNING', 'SYSTEM' ] ]
+        const expectedTuples = [ [ 'WARNING', 'sizeNotRecommended' ], [ 'WARNING', 'system' ] ]
 
         expectStatusTypesAndMessagesToBe(result, expectedTuples)
+      })
+    })
+  })
+
+  describe('.getListDriveImageCompatibilityStatuses()', function () {
+    const drivePaths = process.platform === 'win32'
+      ? [ 'E:\\', 'F:\\', 'G:\\', 'H:\\', 'J:\\', 'K:\\' ]
+      : [ '/dev/disk1', '/dev/disk2', '/dev/disk3', '/dev/disk4', '/dev/disk5', '/dev/disk6' ]
+    const drives = [
+      {
+        device: drivePaths[0],
+        description: 'My Drive',
+        size: 123456789,
+        displayName: drivePaths[0],
+        mountpoints: [ { path: __dirname } ],
+        isSystem: false,
+        isReadOnly: false
+      },
+      {
+        device: drivePaths[1],
+        description: 'My Other Drive',
+        size: 123456789,
+        displayName: drivePaths[1],
+        mountpoints: [],
+        isSystem: false,
+        isReadOnly: true
+      },
+      {
+        device: drivePaths[2],
+        description: 'My Drive',
+        size: 1234567,
+        displayName: drivePaths[2],
+        mountpoints: [],
+        isSystem: false,
+        isReadOnly: false
+      },
+      {
+        device: drivePaths[3],
+        description: 'My Drive',
+        size: 123456789,
+        displayName: drivePaths[3],
+        mountpoints: [],
+        isSystem: true,
+        isReadOnly: false
+      },
+      {
+        device: drivePaths[4],
+        description: 'My Drive',
+        size: 64000000001,
+        displayName: drivePaths[4],
+        mountpoints: [],
+        isSystem: false,
+        isReadOnly: false
+      },
+      {
+        device: drivePaths[5],
+        description: 'My Drive',
+        size: 12345678,
+        displayName: drivePaths[5],
+        mountpoints: [],
+        isSystem: false,
+        isReadOnly: false
+      },
+      {
+        device: drivePaths[6],
+        description: 'My Drive',
+        size: 123456789,
+        displayName: drivePaths[6],
+        mountpoints: [],
+        isSystem: false,
+        isReadOnly: false
+      }
+    ]
+
+    const image = {
+      path: path.join(__dirname, 'rpi.img'),
+      size: {
+        original: drives[2].size + 1,
+        final: {
+          estimation: false,
+          value: drives[2].size + 1
+        }
+      },
+      recommendedDriveSize: drives[5].size + 1
+    }
+
+    describe('given no drives', function () {
+      it('should return no statuses', function () {
+        m.chai.expect(constraints.getListDriveImageCompatibilityStatuses([], image)).to.deep.equal([])
+      })
+    })
+
+    describe('given one drive', function () {
+      it('should return contains image error', function () {
+        m.chai.expect(constraints.getListDriveImageCompatibilityStatuses([ drives[0] ], image)).to.deep.equal([
+          {
+            message: 'Drive Contains Image',
+            type: 2
+          }
+        ])
+      })
+
+      it('should return locked error', function () {
+        m.chai.expect(constraints.getListDriveImageCompatibilityStatuses([ drives[1] ], image)).to.deep.equal([
+          {
+            message: 'Locked',
+            type: 2
+          }
+        ])
+      })
+
+      it('should return too small for image error', function () {
+        m.chai.expect(constraints.getListDriveImageCompatibilityStatuses([ drives[2] ], image)).to.deep.equal([
+          {
+            message: 'Insufficient space, additional 1 B required',
+            type: 2
+          }
+        ])
+      })
+
+      it('should return system drive warning', function () {
+        m.chai.expect(constraints.getListDriveImageCompatibilityStatuses([ drives[3] ], image)).to.deep.equal([
+          {
+            message: 'System Drive',
+            type: 1
+          }
+        ])
+      })
+
+      it('should return large drive warning', function () {
+        m.chai.expect(constraints.getListDriveImageCompatibilityStatuses([ drives[4] ], image)).to.deep.equal([
+          {
+            message: 'Large Drive',
+            type: 1
+          }
+        ])
+      })
+
+      it('should return not recommended warning', function () {
+        m.chai.expect(constraints.getListDriveImageCompatibilityStatuses([ drives[5] ], image)).to.deep.equal([
+          {
+            message: 'Not Recommended',
+            type: 1
+          }
+        ])
+      })
+    })
+
+    describe('given multiple drives with all warnings/errors', function () {
+      it('should return all statuses', function () {
+        m.chai.expect(constraints.getListDriveImageCompatibilityStatuses(drives, image)).to.deep.equal([
+          {
+            message: 'Drive Contains Image',
+            type: 2
+          },
+          {
+            message: 'Locked',
+            type: 2
+          },
+          {
+            message: 'Insufficient space, additional 1 B required',
+            type: 2
+          },
+          {
+            message: 'System Drive',
+            type: 1
+          },
+          {
+            message: 'Large Drive',
+            type: 1
+          },
+          {
+            message: 'Not Recommended',
+            type: 1
+          }
+        ])
+      })
+    })
+  })
+
+  describe('.hasListDriveImageCompatibilityStatus()', function () {
+    const drivePaths = process.platform === 'win32'
+      ? [ 'E:\\', 'F:\\', 'G:\\', 'H:\\', 'J:\\', 'K:\\' ]
+      : [ '/dev/disk1', '/dev/disk2', '/dev/disk3', '/dev/disk4', '/dev/disk5', '/dev/disk6' ]
+    const drives = [
+      {
+        device: drivePaths[0],
+        description: 'My Drive',
+        size: 123456789,
+        displayName: drivePaths[0],
+        mountpoints: [ { path: __dirname } ],
+        isSystem: false,
+        isReadOnly: false
+      },
+      {
+        device: drivePaths[1],
+        description: 'My Other Drive',
+        size: 123456789,
+        displayName: drivePaths[1],
+        mountpoints: [],
+        isSystem: false,
+        isReadOnly: true
+      },
+      {
+        device: drivePaths[2],
+        description: 'My Drive',
+        size: 1234567,
+        displayName: drivePaths[2],
+        mountpoints: [],
+        isSystem: false,
+        isReadOnly: false
+      },
+      {
+        device: drivePaths[3],
+        description: 'My Drive',
+        size: 123456789,
+        displayName: drivePaths[3],
+        mountpoints: [],
+        isSystem: true,
+        isReadOnly: false
+      },
+      {
+        device: drivePaths[4],
+        description: 'My Drive',
+        size: 64000000001,
+        displayName: drivePaths[4],
+        mountpoints: [],
+        isSystem: false,
+        isReadOnly: false
+      },
+      {
+        device: drivePaths[5],
+        description: 'My Drive',
+        size: 12345678,
+        displayName: drivePaths[5],
+        mountpoints: [],
+        isSystem: false,
+        isReadOnly: false
+      },
+      {
+        device: drivePaths[6],
+        description: 'My Drive',
+        size: 123456789,
+        displayName: drivePaths[6],
+        mountpoints: [],
+        isSystem: false,
+        isReadOnly: false
+      }
+    ]
+
+    const image = {
+      path: path.join(__dirname, 'rpi.img'),
+      size: {
+        original: drives[2].size + 1,
+        final: {
+          estimation: false,
+          value: drives[2].size + 1
+        }
+      },
+      recommendedDriveSize: drives[5].size + 1
+    }
+
+    describe('given no drives', function () {
+      it('should return false', function () {
+        m.chai.expect(constraints.hasListDriveImageCompatibilityStatus([], image)).to.be.false
+      })
+    })
+
+    describe('given one drive', function () {
+      it('should return true given a drive that contains the image', function () {
+        m.chai.expect(constraints.hasListDriveImageCompatibilityStatus([ drives[0] ], image)).to.be.true
+      })
+
+      it('should return true given a drive that is locked', function () {
+        m.chai.expect(constraints.hasListDriveImageCompatibilityStatus([ drives[1] ], image)).to.be.true
+      })
+
+      it('should return true given a drive that is too small for the image', function () {
+        m.chai.expect(constraints.hasListDriveImageCompatibilityStatus([ drives[2] ], image)).to.be.true
+      })
+
+      it('should return true given a drive that is a system drive', function () {
+        m.chai.expect(constraints.hasListDriveImageCompatibilityStatus([ drives[3] ], image)).to.be.true
+      })
+
+      it('should return true given a drive that is large', function () {
+        m.chai.expect(constraints.hasListDriveImageCompatibilityStatus([ drives[4] ], image)).to.be.true
+      })
+
+      it('should return true given a drive that is not recommended', function () {
+        m.chai.expect(constraints.hasListDriveImageCompatibilityStatus([ drives[5] ], image)).to.be.true
+      })
+
+      it('should return false given a drive with no warnings or errors', function () {
+        m.chai.expect(constraints.hasListDriveImageCompatibilityStatus([ drives[6] ], image)).to.be.false
+      })
+    })
+
+    describe('given many drives', function () {
+      it('should return true given some drives with errors or warnings', function () {
+        m.chai.expect(constraints.hasListDriveImageCompatibilityStatus(drives, image)).to.be.true
       })
     })
   })

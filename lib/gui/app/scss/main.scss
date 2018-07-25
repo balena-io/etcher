@@ -37,25 +37,77 @@ $disabled-opacity: 0.2;
 @import "../components/svg-icon/styles/svg-icon";
 @import "../components/tooltip-modal/styles/tooltip-modal";
 @import "../components/warning-modal/styles/warning-modal";
+@import "../components/file-selector/styles/file-selector";
 @import "../pages/main/styles/main";
 @import "../pages/settings/styles/settings";
 @import "../pages/finish/styles/finish";
 
+$fa-font-path: "../../../node_modules/@fortawesome/fontawesome-free-webfonts/webfonts";
+
+@import "../../../../node_modules/@fortawesome/fontawesome-free-webfonts/scss/fontawesome";
+@import "../../../../node_modules/@fortawesome/fontawesome-free-webfonts/scss/fa-solid";
+
+@font-face {
+  font-family: Roboto;
+  src: url('../../../node_modules/roboto-fontface/fonts/roboto/Roboto-Thin.woff');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url('../../../node_modules/roboto-fontface/fonts/roboto/Roboto-Light.woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url('../../../node_modules/roboto-fontface/fonts/roboto/Roboto-Regular.woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url('../../../node_modules/roboto-fontface/fonts/roboto/Roboto-Bold.woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
 body {
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  display: flex;
+  flex-direction: column;
+
+  > header {
+    flex: 0 0 auto;
+  }
+
+  > main {
+    flex: 1;
+    display: flex;
+  }
+
+  > footer {
+    flex: 0 0 auto;
+  }
+}
+
+body,
+.tooltip,
+.popover {
+  font-family: Roboto;
 }
 
 .section-footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 
-  position: fixed;
-  bottom: 20px;
-  left: 0;
-  right: 0;
   color: $palette-theme-dark-disabled-foreground;
-  margin: 0 60px;
+  margin: 0 60px 20px 60px;
   padding-top: 15px;
   border-top: 2px solid $palette-theme-dark-soft-background;
   text-align: center;

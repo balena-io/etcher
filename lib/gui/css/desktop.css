@@ -21,8 +21,12 @@ body {
 
 
 /* Allow window to be dragged from anywhere */
-* {
+body > header {
   -webkit-app-region: drag;
+}
+
+.modal-body {
+  -webkit-app-region: no-drag;
 }
 
 button,

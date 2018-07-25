@@ -17,7 +17,7 @@
 'use strict'
 
 const m = require('mochainon')
-const flashState = require('../../../lib/shared/models/flash-state')
+const flashState = require('../../../lib/gui/app/models/flash-state')
 
 describe('Model: flashState', function () {
   beforeEach(function () {
@@ -29,17 +29,27 @@ describe('Model: flashState', function () {
       it('should be able to reset the progress state', function () {
         flashState.setFlashingFlag()
         flashState.setProgressState({
+          flashing: 2,
+          verifying: 0,
+          successful: 0,
+          failed: 0,
           type: 'write',
           percentage: 50,
           eta: 15,
-          speed: 100000000000
+          speed: 100000000000,
+          totalSpeed: 200000000000
         })
 
         flashState.resetState()
 
         m.chai.expect(flashState.getFlashState()).to.deep.equal({
+          flashing: 0,
+          verifying: 0,
+          successful: 0,
+          failed: 0,
           percentage: 0,
-          speed: 0
+          speed: 0,
+          totalSpeed: 0
         })
       })
 
@@ -86,68 +96,65 @@ describe('Model: flashState', function () {
 
         m.chai.expect(function () {
           flashState.setProgressState({
+            flashing: 2,
+            verifying: 0,
+            successful: 0,
+            failed: 0,
             type: 'write',
             percentage: 50,
             eta: 15,
-            speed: 100000000000
+            speed: 100000000000,
+            totalSpeed: 200000000000
           })
         }).to.throw('Can\'t set the flashing state when not flashing')
-      })
-
-      it('should throw if type is missing', function () {
-        flashState.setFlashingFlag()
-        m.chai.expect(function () {
-          flashState.setProgressState({
-            percentage: 50,
-            eta: 15,
-            speed: 100000000000
-          })
-        }).to.throw('Missing state type')
-      })
-
-      it('should throw if type is not a string', function () {
-        flashState.setFlashingFlag()
-        m.chai.expect(function () {
-          flashState.setProgressState({
-            type: 1234,
-            percentage: 50,
-            eta: 15,
-            speed: 100000000000
-          })
-        }).to.throw('Invalid state type: 1234')
       })
 
       it('should not throw if percentage is 0', function () {
         flashState.setFlashingFlag()
         m.chai.expect(function () {
           flashState.setProgressState({
+            flashing: 2,
+            verifying: 0,
+            successful: 0,
+            failed: 0,
             type: 'write',
             percentage: 0,
             eta: 15,
-            speed: 100000000000
+            speed: 100000000000,
+            totalSpeed: 200000000000
           })
-        }).to.not.throw('Missing state percentage')
+        }).to.not.throw('Missing flash fields: percentage')
       })
 
       it('should throw if percentage is missing', function () {
         flashState.setFlashingFlag()
         m.chai.expect(function () {
           flashState.setProgressState({
+            flashing: 2,
+            verifying: 0,
+            successful: 0,
+            failed: 0,
             type: 'write',
             eta: 15,
-            speed: 100000000000
+            speed: 100000000000,
+            totalSpeed: 200000000000
           })
-        }).to.throw('Missing state percentage')
+        }).to.throw('Missing flash fields: percentage')
       })
 
       it('should throw if percentage is not a number', function () {
         flashState.setFlashingFlag()
         m.chai.expect(function () {
           flashState.setProgressState({
+            flashing: 2,
+            verifying: 0,
+            successful: 0,
+            failed: 0,
             type: 'write',
             percentage: '50',
             eta: 15,
-            speed: 100000000000
+            speed: 100000000000,
+            totalSpeed: 200000000000
           })
         }).to.throw('Invalid state percentage: 50')
       })
@@ -156,10 +163,15 @@ describe('Model: flashState', function () {
         flashState.setFlashingFlag()
         m.chai.expect(function () {
           flashState.setProgressState({
+            flashing: 2,
+            verifying: 0,
+            successful: 0,
+            failed: 0,
             type: 'write',
             percentage: 101,
             eta: 15,
-            speed: 0
+            speed: 0,
+            totalSpeed: 1
           })
         }).to.throw('Invalid state percentage: 101')
       })
@@ -168,10 +180,15 @@ describe('Model: flashState', function () {
         flashState.setFlashingFlag()
         m.chai.expect(function () {
           flashState.setProgressState({
+            flashing: 2,
+            verifying: 0,
+            successful: 0,
+            failed: 0,
             type: 'write',
             percentage: -1,
             eta: 15,
-            speed: 0
+            speed: 0,
+            totalSpeed: 1
           })
         }).to.throw('Invalid state percentage: -1')
       })
@@ -180,33 +197,48 @@ describe('Model: flashState', function () {
         flashState.setFlashingFlag()
         m.chai.expect(function () {
           flashState.setProgressState({
+            flashing: 2,
+            verifying: 0,
+            successful: 0,
+            failed: 0,
             type: 'write',
             percentage: 50,
-            speed: 100000000000
+            speed: 100000000000,
+            totalSpeed: 200000000000
           })
-        }).to.throw('Missing state eta')
+        }).to.throw('Missing flash fields: eta')
       })
 
       it('should not throw if eta is equal to zero', function () {
         flashState.setFlashingFlag()
         m.chai.expect(function () {
           flashState.setProgressState({
+            flashing: 2,
+            verifying: 0,
+            successful: 0,
+            failed: 0,
             type: 'write',
             percentage: 50,
             eta: 0,
-            speed: 100000000000
+            speed: 100000000000,
+            totalSpeed: 200000000000
           })
-        }).to.not.throw('Missing state eta')
+        }).to.not.throw('Missing flash field eta')
       })
 
       it('should throw if eta is not a number', function () {
         flashState.setFlashingFlag()
         m.chai.expect(function () {
           flashState.setProgressState({
+            flashing: 2,
+            verifying: 0,
+            successful: 0,
+            failed: 0,
             type: 'write',
             percentage: 50,
             eta: '15',
-            speed: 100000000000
+            speed: 100000000000,
+            totalSpeed: 200000000000
           })
         }).to.throw('Invalid state eta: 15')
       })
@@ -215,35 +247,115 @@ describe('Model: flashState', function () {
         flashState.setFlashingFlag()
         m.chai.expect(function () {
           flashState.setProgressState({
+            flashing: 2,
+            verifying: 0,
+            successful: 0,
+            failed: 0,
             type: 'write',
             percentage: 50,
-            eta: 15
+            eta: 15,
+            totalSpeed: 1
           })
-        }).to.throw('Missing state speed')
+        }).to.throw('Missing flash fields: speed')
       })
 
       it('should not throw if speed is 0', function () {
         flashState.setFlashingFlag()
         m.chai.expect(function () {
           flashState.setProgressState({
+            flashing: 2,
+            verifying: 0,
+            successful: 0,
+            failed: 0,
             type: 'write',
             percentage: 50,
             eta: 15,
-            speed: 0
+            speed: 0,
+            totalSpeed: 1
           })
-        }).to.not.throw('Missing state speed')
+        }).to.not.throw('Missing flash fields: speed')
+      })
+
+      it('should throw if totalSpeed is missing', function () {
+        flashState.setFlashingFlag()
+        m.chai.expect(function () {
+          flashState.setProgressState({
+            flashing: 2,
+            verifying: 0,
+            successful: 0,
+            failed: 0,
+            type: 'write',
+            percentage: 50,
+            eta: 15,
+            speed: 1
+          })
+        }).to.throw('Missing flash fields: totalSpeed')
+      })
+
+      it('should not throw if totalSpeed is 0', function () {
+        flashState.setFlashingFlag()
+        m.chai.expect(function () {
+          flashState.setProgressState({
+            flashing: 2,
+            verifying: 0,
+            successful: 0,
+            failed: 0,
+            type: 'write',
+            percentage: 50,
+            eta: 15,
+            speed: 0,
+            totalSpeed: 0
+          })
+        }).to.not.throw('Missing flash fields: totalSpeed')
       })
 
       it('should floor the percentage number', function () {
         flashState.setFlashingFlag()
         flashState.setProgressState({
+          flashing: 2,
+          verifying: 0,
+          successful: 0,
+          failed: 0,
           type: 'write',
           percentage: 50.253559459485,
           eta: 15,
-          speed: 0
+          speed: 0,
+          totalSpeed: 1
         })
 
         m.chai.expect(flashState.getFlashState().percentage).to.equal(50)
+      })
+
+      it('should error when any field is non-nil but not a finite number', function () {
+        m.chai.expect(() => {
+          flashState.setFlashingFlag()
+          flashState.setProgressState({
+            flashing: {},
+            verifying: [],
+            successful: true,
+            failed: 'string',
+            percentage: 0,
+            eta: 0,
+            speed: 0,
+            totalSpeed: 0
+          })
+        }).to.throw('State quantity field(s) not finite number')
+      })
+
+      it('should not error when all quantity fields are zero', function () {
+        m.chai.expect(() => {
+          flashState.setFlashingFlag()
+          flashState.setProgressState({
+            flashing: 0,
+            verifying: 0,
+            successful: 0,
+            failed: 0,
+            percentage: 0,
+            eta: 0,
+            speed: 0,
+            totalSpeed: 0
+          })
+        }).to.not.throw()
       })
     })
 
@@ -267,23 +379,41 @@ describe('Model: flashState', function () {
         flashState.resetState()
         const currentFlashState = flashState.getFlashState()
         m.chai.expect(currentFlashState).to.deep.equal({
+          flashing: 0,
+          verifying: 0,
+          successful: 0,
+          failed: 0,
           percentage: 0,
-          speed: 0
+          speed: 0,
+          totalSpeed: 0
         })
       })
 
       it('should return the current flash state', function () {
         const state = {
-          type: 'write',
+          flashing: 1,
+          verifying: 0,
+          successful: 0,
+          failed: 0,
           percentage: 50,
           eta: 15,
-          speed: 0
+          speed: 0,
+          totalSpeed: 0
         }
 
         flashState.setFlashingFlag()
         flashState.setProgressState(state)
         const currentFlashState = flashState.getFlashState()
-        m.chai.expect(currentFlashState).to.deep.equal(state)
+        m.chai.expect(currentFlashState).to.deep.equal({
+          flashing: 1,
+          verifying: 0,
+          successful: 0,
+          failed: 0,
+          percentage: 50,
+          eta: 15,
+          speed: 0,
+          totalSpeed: 0
+        })
       })
     })
 
@@ -370,15 +500,25 @@ describe('Model: flashState', function () {
         flashState.setFlashingFlag()
 
         flashState.setProgressState({
+          flashing: 2,
+          verifying: 0,
+          successful: 0,
+          failed: 0,
           type: 'write',
           percentage: 50,
           eta: 15,
-          speed: 100000000000
+          speed: 100000000000,
+          totalSpeed: 200000000000
         })
 
         m.chai.expect(flashState.getFlashState()).to.not.deep.equal({
+          flashing: 2,
+          verifying: 0,
+          successful: 0,
+          failed: 0,
           percentage: 0,
-          speed: 0
+          speed: 0,
+          totalSpeed: 0
         })
 
         flashState.unsetFlashingFlag({
@@ -387,8 +527,13 @@ describe('Model: flashState', function () {
         })
 
         m.chai.expect(flashState.getFlashState()).to.deep.equal({
+          flashing: 0,
+          verifying: 0,
+          successful: 0,
+          failed: 0,
           percentage: 0,
-          speed: 0
+          speed: 0,
+          totalSpeed: 0
         })
       })
 

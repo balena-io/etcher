@@ -20,7 +20,6 @@ const m = require('mochainon')
 const _ = require('lodash')
 const Bluebird = require('bluebird')
 const fs = Bluebird.promisifyAll(require('fs'))
-const os = require('os')
 const path = require('path')
 const imageStream = require('../../lib/sdk/image-stream/index')
 
@@ -51,35 +50,41 @@ exports.expectError = function (file, errorMessage, errorDetail) {
 
 exports.extractFromFilePath = function (file, image) {
   it('should be able to extract the image', function () {
-    const output = path.join(os.tmpdir(), path.basename(file))
+    const dirname = path.join(__dirname, 'output')
+    const output = path.join(dirname, path.basename(file))
 
-    return imageStream.getFromFilePath(file).then(function (results) {
-      m.chai.expect(results.path).to.equal(file)
-      m.chai.expect(_.isString(results.extension)).to.be.true
-      m.chai.expect(_.isEmpty(_.trim(results.extension))).to.be.false
-
-      if (!_.some([
-        results.size.original === fs.statSync(file).size,
-        results.size.original === fs.statSync(image).size
-      ])) {
-        throw new Error(`Invalid size: ${results.size.original}`)
-      }
-
-      const stream = results.stream
-        .pipe(results.transform)
-        .pipe(fs.createWriteStream(output))
-
-      return new Bluebird((resolve, reject) => {
-        stream.on('error', reject)
-        stream.on('close', resolve)
+    return fs.mkdirAsync(dirname)
+      .catch({ code: 'EEXIST' }, _.noop)
+      .then(function () {
+        return imageStream.getFromFilePath(file)
       })
-    }).then(function () {
-      return doFilesContainTheSameData(image, output)
-    }).then(function (areEqual) {
-      m.chai.expect(areEqual).to.be.true
-    }).finally(function () {
-      return fs.unlinkAsync(output)
-        .catch({ code: 'ENOENT' }, _.noop)
-    })
+      .then(function (results) {
+        m.chai.expect(results.path).to.equal(file)
+        m.chai.expect(_.isString(results.extension)).to.be.true
+        m.chai.expect(_.isEmpty(_.trim(results.extension))).to.be.false
+
+        if (!_.some([
+          results.size.original === fs.statSync(file).size,
+          results.size.original === fs.statSync(image).size
+        ])) {
+          throw new Error(`Invalid size: ${results.size.original}`)
+        }
+
+        const stream = results.stream
+          .pipe(results.transform)
+          .pipe(fs.createWriteStream(output))
+
+        return new Bluebird((resolve, reject) => {
+          stream.on('error', reject)
+          stream.on('close', resolve)
+        })
+      }).then(function () {
+        return doFilesContainTheSameData(image, output)
+      }).then(function (areEqual) {
+        m.chai.expect(areEqual).to.be.true
+      }).finally(function () {
+        return fs.unlinkAsync(output)
+          .catch({ code: 'ENOENT' }, _.noop)
+      })
   })
 }

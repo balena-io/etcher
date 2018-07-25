@@ -11,7 +11,7 @@
       ng-click="modal.toggleDrive(drive)">
         <img class="list-group-item-section" alt="Drive device type logo"
           ng-if="drive.icon"
-          ng-src="./assets/{{drive.icon}}.svg"
+          ng-src="../assets/{{drive.icon}}.svg"
           width="25"
           height="30">
         <div
@@ -23,7 +23,8 @@
             <span class="word-keep"
               ng-show="drive.size"> - {{ drive.size | closestUnit }}</span>
           </h4>
-          <p class="list-group-item-text">{{ drive.displayName }}</p>
+          <p class="list-group-item-text" ng-if="!drive.link">{{ drive.displayName }}</p>
+          <p class="list-group-item-text" ng-if="drive.link">{{ drive.displayName }} - <b><a ng-click="modal.installMissingDrivers(drive)">{{ drive.linkCTA }}</a></b></p>
 
           <footer class="list-group-item-footer">
 
@@ -31,16 +32,14 @@
               ng-class="{
                 'label-warning': status.type === modal.constraints.COMPATIBILITY_STATUS_TYPES.WARNING,
                 'label-danger': status.type === modal.constraints.COMPATIBILITY_STATUS_TYPES.ERROR
-              }">
-              {{ status.message }}
-            </span>
+              }">{{ status.message }}</span>
 
           </footer>
           <progress ng-if="drive.progress" value="{{ drive.progress }}" max="100"></progress>
         </div>
         <span class="list-group-item-section tick tick--success"
           ng-show="modal.constraints.isDriveValid(drive, modal.state.getImage())"
-          ng-disabled="!modal.state.isCurrentDrive(drive.device)"></span>
+          ng-disabled="!modal.state.isDriveSelected(drive.device)"></span>
     </li>
     <li class="list-group-item"
       ng-show="!modal.drives.hasAvailableDrives()">
@@ -56,7 +55,7 @@
   <button class="button button-primary button-block"
     tabindex="{{ 15 + modal.getDrives().length }}"
     ng-class="{
-      'button-warning': modal.constraints.hasDriveImageCompatibilityStatus(modal.state.getDrive(), modal.state.getImage())
+      'button-warning': modal.constraints.hasListDriveImageCompatibilityStatus(modal.state.getSelectedDrives(), modal.state.getImage())
     }"
     ng-click="modal.closeModal()"
     ng-disabled="!modal.state.hasDrive()">Continue</button>

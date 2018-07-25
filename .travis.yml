@@ -67,9 +67,3 @@ deploy:
 
 notifications:
   email: false
-  webhooks:
-    urls:
-      - https://webhooks.gitter.im/e/0a019c8b9828eb9f6a72
-    on_success: change
-    on_failure: always
-    on_start: never

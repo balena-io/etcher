@@ -16,6 +16,7 @@
 
 .page-finish {
   margin-top: -25px;
+  flex: 1;
 }
 
 .page-finish .button-label {
@@ -122,5 +123,26 @@
   .section-footer {
     border-top: none;
     height: 39px;
+  }
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.items-baseline {
+  align-items: baseline;
+}
+
+.page-finish .tick--success {
+  /* hack(Shou): for some reason the height is stretched */
+  height: 28.9px;
+}
+
+.title-wrap {
+  margin-left: 5px;
+
+  > .title {
+    margin-bottom: 3px;
   }
 }

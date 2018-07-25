@@ -22,9 +22,9 @@ const fs = require('fs')
 const path = require('path')
 const supportedFormats = require('../../../lib/shared/supported-formats')
 const angular = require('angular')
-const flashState = require('../../../lib/shared/models/flash-state')
-const availableDrives = require('../../../lib/shared/models/available-drives')
-const selectionState = require('../../../lib/shared/models/selection-state')
+const flashState = require('../../../lib/gui/app/models/flash-state')
+const availableDrives = require('../../../lib/gui/app/models/available-drives')
+const selectionState = require('../../../lib/gui/app/models/selection-state')
 require('angular-mocks')
 
 // Mock HTML requires by reading from the file-system
@@ -34,6 +34,10 @@ require.extensions['.html'] = (module, filename) => {
     encoding: 'utf8'
   })
 }
+
+// NOTE(Shou): since we don't test React yet we just ignore JSX files
+// eslint-disable-next-line node/no-deprecated-api
+require.extensions['.jsx'] = _.constant(null)
 
 describe('Browser: MainPage', function () {
   beforeEach(angular.mock.module(
@@ -241,12 +245,99 @@ describe('Browser: MainPage', function () {
 
         flashState.setFlashingFlag()
         flashState.setProgressState({
-          type: 'write',
+          flashing: 1,
+          verifying: 0,
+          successful: 0,
+          failed: 0,
           percentage: 85,
           eta: 15,
-          speed: 1000
+          speed: 1000,
+          totalSpeed: 2000
         })
         m.chai.expect(controller.getProgressButtonLabel()).to.equal('85% Flashing')
+      })
+    })
+  })
+
+  describe('DriveSelectionController', function () {
+    let $controller
+    let DriveSelectionController
+
+    const drivePaths = process.platform === 'win32'
+      ? [ '\\\\.\\PhysicalDrive1', '\\\\.\\PhysicalDrive2', '\\\\.\\PhysicalDrive3' ]
+      : [ '/dev/disk1', '/dev/disk2', '/dev/disk3' ]
+    const drives = [
+      {
+        device: drivePaths[0],
+        description: 'My Drive',
+        size: 123456789,
+        displayName: drivePaths[0],
+        mountpoints: [ drivePaths[0] ],
+        isSystem: false,
+        isReadOnly: false
+      },
+      {
+        device: drivePaths[1],
+        description: 'My Other Drive',
+        size: 987654321,
+        displayName: drivePaths[1],
+        mountpoints: [ drivePaths[1] ],
+        isSystem: false,
+        isReadOnly: false
+      },
+      {
+        device: drivePaths[2],
+        size: 987654321,
+        displayName: drivePaths[2],
+        mountpoints: [],
+        isSystem: false,
+        isReadOnly: false
+      }
+    ]
+
+    beforeEach(angular.mock.inject(function (_$controller_) {
+      $controller = _$controller_
+      DriveSelectionController = $controller('DriveSelectionController', {
+        $scope: {}
+      })
+
+      availableDrives.setDrives(drives)
+    }))
+
+    afterEach(() => {
+      selectionState.clear()
+    })
+
+    describe('.getDrivesTitle()', function () {
+      it('should return the drive description when there is one drive', function () {
+        selectionState.selectDrive(drives[0].device)
+        m.chai.expect(DriveSelectionController.getDrivesTitle()).to.equal(drives[0].description)
+      })
+
+      it('should return untitled when there is no description', function () {
+        selectionState.selectDrive(drives[2].device)
+        m.chai.expect(DriveSelectionController.getDrivesTitle()).to.equal('Untitled Device')
+      })
+
+      it('should return a consolidated title with quantity when there are multiple drives', function () {
+        selectionState.selectDrive(drives[0].device)
+        selectionState.selectDrive(drives[1].device)
+        m.chai.expect(DriveSelectionController.getDrivesTitle()).to.equal('2 Devices')
+      })
+    })
+
+    describe('.getDriveListLabel()', function () {
+      it('should return the drive description and display name when there is one drive', function () {
+        const label = `${drives[0].description} (${drives[0].displayName})`
+        selectionState.selectDrive(drives[0].device)
+        m.chai.expect(DriveSelectionController.getDriveListLabel()).to.equal(label)
+      })
+
+      it('should return drive descriptions and display names of all drives separated by newlines', function () {
+        const label = `${drives[0].description} (${drives[0].displayName})\n${drives[1].description} (${drives[1].displayName})`
+        selectionState.selectDrive(drives[0].device)
+        selectionState.selectDrive(drives[1].device)
+        m.chai.expect(DriveSelectionController.getDriveListLabel()).to.equal(label)
       })
     })
   })

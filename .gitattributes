@@ -1,5 +1,6 @@
 # Javascript files must retain LF line-endings (to keep eslint happy)
 *.js text eol=lf
+*.jsx text eol=lf
 # CSS and SCSS files must retain LF line-endings (to keep ensure-staged-sass.sh happy)
 *.css text eol=lf
 *.scss text eol=lf

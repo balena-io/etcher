@@ -18,8 +18,8 @@
 
 const m = require('mochainon')
 const path = require('path')
-const availableDrives = require('../../../lib/shared/models/available-drives')
-const selectionState = require('../../../lib/shared/models/selection-state')
+const availableDrives = require('../../../lib/gui/app/models/available-drives')
+const selectionState = require('../../../lib/gui/app/models/selection-state')
 const constraints = require('../../../lib/shared/drive-constraints')
 
 describe('Model: availableDrives', function () {
@@ -77,31 +77,6 @@ describe('Model: availableDrives', function () {
           m.chai.expect(availableDrives.getDrives()).to.deep.equal(drives)
         })
 
-        it('should be able to set non-plain drive objects', function () {
-          class Device {
-            constructor () {
-              this.device = '/dev/sdb'
-              this.description = 'Foo'
-              this.mountpoints = [ {
-                path: '/mnt/foo'
-              } ]
-              this.isSystem = false
-            }
-          }
-
-          availableDrives.setDrives([ new Device() ])
-          m.chai.expect(availableDrives.getDrives()).to.deep.equal([
-            {
-              device: '/dev/sdb',
-              description: 'Foo',
-              mountpoints: [ {
-                path: '/mnt/foo'
-              } ],
-              isSystem: false
-            }
-          ])
-        })
-
         it('should be able to set drives with extra properties', function () {
           const drives = [
             {
@@ -116,7 +91,7 @@ describe('Model: availableDrives', function () {
                 bar: 'baz',
                 qux: 5
               },
-              set: new Set()
+              set: {}
             }
           ]
 
@@ -143,8 +118,7 @@ describe('Model: availableDrives', function () {
 
         describe('given no selected image and no selected drive', function () {
           beforeEach(function () {
-            selectionState.deselectDrive()
-            selectionState.deselectImage()
+            selectionState.clear()
           })
 
           it('should auto-select a single valid available drive', function () {
@@ -164,7 +138,7 @@ describe('Model: availableDrives', function () {
             ])
 
             m.chai.expect(selectionState.hasDrive()).to.be.true
-            m.chai.expect(selectionState.getDrive().device).to.equal('/dev/sdb')
+            m.chai.expect(selectionState.getCurrentDrive().device).to.equal('/dev/sdb')
           })
         })
 
@@ -176,7 +150,7 @@ describe('Model: availableDrives', function () {
               this.imagePath = '/mnt/bar/foo.img'
             }
 
-            selectionState.deselectDrive()
+            selectionState.clear()
             selectionState.selectImage({
               path: this.imagePath,
               extension: 'img',
@@ -240,7 +214,7 @@ describe('Model: availableDrives', function () {
               }
             ])
 
-            m.chai.expect(selectionState.getDrive()).to.deep.equal({
+            m.chai.expect(selectionState.getCurrentDrive()).to.deep.equal({
               device: '/dev/sdb',
               name: 'Foo',
               size: 2000000000,
@@ -420,7 +394,7 @@ describe('Model: availableDrives', function () {
         })
 
         afterEach(function () {
-          selectionState.deselectDrive()
+          selectionState.clear()
         })
 
         it('should be deleted if its not contained in the available drives anymore', function () {

@@ -4,12 +4,13 @@ Getting help with Etcher
 There are various ways to get support for Etcher if you experience an issue or
 have an idea you'd like to share with us.
 
-Gitter
+Forums
 ------
 
-We have a [Gitter chat room][gitter] for Etcher which is open to everyone,
-please come join us :). Drop us a line there and the resin.io staff and
-community users will be happy to assist.
+We have a [Discourse forum][discourse] which is open to everyone, so please
+come join us :). Drop us a line there and the resin.io staff and community
+users will be happy to assist. Your question might already be answered, so take
+a look at the existing threads before opening a new one!
 
 Make sure to mention the following information to help us provide better
 support:
@@ -19,7 +20,7 @@ support:
 - The operating system you're running Etcher in.
 
 - Relevant logging output, if any, from DevTools, which you can open by
-  pressing `Ctrl+Alt+I` or `Cmd+Alt+I` depending on your platform.
+  pressing `Ctrl+Shift+I` or `Cmd+Alt+I` depending on your platform.
 
 GitHub
 ------
@@ -28,6 +29,6 @@ If you encounter an issue or have a suggestion, head on over to Etcher's [issue
 tracker][issues] and if there isn't a ticket covering it, [create
 one][new-issue].
 
-[gitter]: https://gitter.im/resin-io/etcher
+[discourse]: https://forums.resin.io/c/etcher
 [issues]: https://github.com/resin-io/etcher/issues
 [new-issue]: https://github.com/resin-io/etcher/issues/new

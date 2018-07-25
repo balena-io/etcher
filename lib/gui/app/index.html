@@ -12,6 +12,7 @@
   <body>
     <header class="section-header" ng-controller="HeaderController as header">
       <button class="button button-link"
+        ng-if="header.shouldShowHelp()"
         ng-click="header.openHelpPage()"
         tabindex="4">
         <span class="glyphicon glyphicon-question-sign"></span>

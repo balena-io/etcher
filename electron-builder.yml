@@ -1,12 +1,11 @@
 appId: io.resin.etcher
-copyright: Copyright 2016 Resinio Ltd
+copyright: Copyright 2016-2018 Resinio Ltd
 productName: Etcher
-npmRebuild: true
-nodeGypRebuild: true
+npmRebuild: false
+nodeGypRebuild: false
 publish: null
 files:
   - lib
-  - "!lib/gui/app"
   - lib/gui/app/index.html
   - generated
   - build/**/*.node
