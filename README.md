@@ -101,6 +101,18 @@ sudo dnf clean all
 sudo dnf makecache
 ```
 
+#### Solus (GNU/Linux x64)
+
+```
+sudo eopkg it etcher
+```
+
+##### Uninstall
+
+```
++sudo eopkg rm etcher
+```
+
 #### Brew Cask (macOS)
 
 Note that the Etcher Cask has to be updated manually to point to new versions,
