@@ -460,7 +460,8 @@
     },
     "argparse": {
       "version": "1.0.7",
-      "resolved": "https://registry.npmjs.org/argparse/-/argparse-1.0.7.tgz"
+      "resolved": "https://registry.npmjs.org/argparse/-/argparse-1.0.7.tgz",
+      "dev": true
     },
     "arr-diff": {
       "version": "2.0.0",
@@ -2500,24 +2501,16 @@
       "dev": true
     },
     "drivelist": {
-      "version": "6.2.2",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-6.2.2.tgz",
+      "version": "6.4.0",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-6.4.0.tgz",
       "dependencies": {
-        "esprima": {
-          "version": "4.0.0",
-          "resolved": "https://registry.npmjs.org/esprima/-/esprima-4.0.0.tgz"
-        },
-        "js-yaml": {
-          "version": "3.11.0",
-          "resolved": "https://registry.npmjs.org/js-yaml/-/js-yaml-3.11.0.tgz"
-        },
         "nan": {
           "version": "2.10.0",
           "resolved": "https://registry.npmjs.org/nan/-/nan-2.10.0.tgz"
         },
         "node-abi": {
-          "version": "2.4.1",
-          "resolved": "https://registry.npmjs.org/node-abi/-/node-abi-2.4.1.tgz"
+          "version": "2.4.3",
+          "resolved": "https://registry.npmjs.org/node-abi/-/node-abi-2.4.3.tgz"
         },
         "prebuild-install": {
           "version": "4.0.0",
