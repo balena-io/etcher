@@ -6,8 +6,6 @@ RUN sed s,ubuntu\.stu\.edu\.tw,archive.ubuntu.com, /etc/apt/sources.list > /tmp/
   && mv /tmp/sources.list /etc/apt/sources.list
 
 
-
-
 # Install dependencies
 RUN apt-get update \
   && apt-get install -y \
@@ -50,12 +48,6 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
 RUN add-apt-repository ppa:ubuntu-toolchain-r/test \
   && apt-get update && apt-get install -y gcc-4.8 g++-4.8 \
   && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
-
-# Workaround: Install a newer version of `tar` to make fpm in electron-builder work again
-RUN echo "deb http://ftp.debian.org/debian wheezy main" >> /etc/apt/sources.list
-RUN echo "deb http://ftp.debian.org/debian wheezy-backports main" >> /etc/apt/sources.list
-RUN apt-get update && apt-get install --force-yes -y -t wheezy libacl1 && \
-  apt-get install --force-yes -y -t wheezy-backports tar
 
 
 
