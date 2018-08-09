@@ -44,7 +44,7 @@ installers for all supported operating systems.
 1. Add Etcher debian repository:
 
     ```
-    echo "deb https://dl.bintray.com/resin-io/debian stable etcher" | sudo tee /etc/apt/sources.list.d/etcher.list
+    echo "deb https://deb.etcher.io stable etcher" | sudo tee /etc/apt/sources.list.d/etcher.list
     ```
 
 2. Trust Bintray.com's GPG key:
@@ -72,7 +72,7 @@ sudo apt-get update
 1. Add Etcher rpm repository:
 
     ```sh
-    sudo wget https://bintray.com/resin-io/redhat/rpm -O /etc/yum.repos.d/bintray-resin-io-redhat.repo
+    sudo wget https://etcher.io/static/etcher-rpm.repo -O /etc/yum.repos.d/etcher-rpm.repo
     ```
 
 2. Update and install:
@@ -89,14 +89,14 @@ sudo apt-get update
 
 ```
 sudo yum remove -y etcher-electron
-sudo rm /etc/yum.repos.d/bintray-resin-io-redhat.repo
+sudo rm /etc/yum.repos.d/etcher-rpm.repo
 sudo yum clean all
 sudo yum makecache fast
 ```
 or
 ```
 sudo dnf remove -y etcher-electron
-sudo rm /etc/yum.repos.d/bintray-resin-io-redhat.repo
+sudo rm /etc/yum.repos.d/etcher-rpm.repo
 sudo dnf clean all
 sudo dnf makecache
 ```
