@@ -110,7 +110,7 @@ APPLICATION_NAME = $(shell jq -r '.displayName' package.json)
 APPLICATION_DESCRIPTION = $(shell jq -r '.description' package.json)
 APPLICATION_COPYRIGHT = $(shell cat electron-builder.yml | shyaml get-value copyright)
 
-BINTRAY_ORGANIZATION = resin-io
+BINTRAY_ORGANIZATION = etcher
 BINTRAY_REPOSITORY_DEBIAN = debian
 BINTRAY_REPOSITORY_REDHAT = redhat
 
