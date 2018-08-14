@@ -21,7 +21,7 @@ set -e
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-"$HERE/../build/check-dependency.sh" git
+"$HERE/../build/shared/check-dependency.sh" git
 
 # Read list of wildcards from .gitattributes
 wildcards=()

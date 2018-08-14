@@ -52,11 +52,11 @@ if [ "$ARGV_OPERATING_SYSTEM" == "linux" ]; then
 else
   PIP_COMMAND=pip
   if [ "$ARGV_OPERATING_SYSTEM" == "darwin" ]; then
-    ./scripts/build/check-dependency.sh brew
+    ./scripts/build/shared/check-dependency.sh brew
     brew install ccache jq --force-bottle
     PIP_COMMAND=pip2
   elif [ "$ARGV_OPERATING_SYSTEM" == "win32" ]; then
-    ./scripts/build/check-dependency.sh choco
+    ./scripts/build/shared/check-dependency.sh choco
     choco install jq
     choco install curl
   else
@@ -64,9 +64,9 @@ else
     exit 1
   fi
 
-  ./scripts/build/check-dependency.sh npm
-  ./scripts/build/check-dependency.sh "$PIP_COMMAND"
-  ./scripts/build/check-dependency.sh make
+  ./scripts/build/shared/check-dependency.sh npm
+  ./scripts/build/shared/check-dependency.sh "$PIP_COMMAND"
+  ./scripts/build/shared/check-dependency.sh make
 
   npm config set spin=false
   npm config set progress=false

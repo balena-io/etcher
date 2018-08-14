@@ -118,10 +118,10 @@ BINTRAY_REPOSITORY_REDHAT = redhat
 # Extra variables
 # ---------------------------------------------------------------------
 
-TARGET_ARCH_DEBIAN = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET_ARCH) -t debian)
-TARGET_ARCH_REDHAT = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET_ARCH) -t redhat)
-TARGET_ARCH_APPIMAGE = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET_ARCH) -t appimage)
-TARGET_ARCH_ELECTRON_BUILDER = $(shell ./scripts/build/architecture-convert.sh -r $(TARGET_ARCH) -t electron-builder)
+TARGET_ARCH_DEBIAN = $(shell ./scripts/build/shared/architecture-convert.sh -r $(TARGET_ARCH) -t debian)
+TARGET_ARCH_REDHAT = $(shell ./scripts/build/shared/architecture-convert.sh -r $(TARGET_ARCH) -t redhat)
+TARGET_ARCH_APPIMAGE = $(shell ./scripts/build/shared/architecture-convert.sh -r $(TARGET_ARCH) -t appimage)
+TARGET_ARCH_ELECTRON_BUILDER = $(shell ./scripts/build/shared/architecture-convert.sh -r $(TARGET_ARCH) -t electron-builder)
 PLATFORM_PKG = $(shell ./scripts/build/platform-convert.sh -r $(PLATFORM) -t pkg)
 ENTRY_POINT_CLI = lib/cli/etcher.js
 ETCHER_CLI_BINARY = $(APPLICATION_NAME_LOWERCASE)
@@ -221,7 +221,7 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(
 	package.json npm-shrinkwrap.json \
 	| $(BUILD_DIRECTORY)
 	mkdir -p $@
-	./scripts/build/dependencies-npm.sh -p \
+	./scripts/build/shared/npm-install.sh -p \
 		-r "$(TARGET_ARCH)" \
 		-v "$(NODE_VERSION)" \
 		-x $@ \
@@ -236,37 +236,14 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(
 	| $(BUILD_DIRECTORY)
 	mkdir $@
 	cd $< && pkg --output ../../$@/$(ETCHER_CLI_BINARY) -t node6-$(PLATFORM_PKG)-$(TARGET_ARCH) $(ENTRY_POINT_CLI)
-	./scripts/build/dependencies-npm-extract-addons.sh \
+	./scripts/build/node-cli/pkg.sh \
 		-d $</node_modules \
 		-o $@/node_modules
-# pkg currently has a bug where darwin executables
-# can't be code-signed
-# See https://github.com/zeit/pkg/issues/128
-# ifeq ($(PLATFORM),darwin)
-# ifdef CSC_NAME
-#		./scripts/build/electron-sign-file-darwin.sh -f $@/$(ETCHER_CLI_BINARY) -i "$(CSC_NAME)"
-# endif
-# endif
-
-# pkg currently has a bug where Windows executables
-# can't be branded
-# See https://github.com/zeit/pkg/issues/149
-# ifeq ($(PLATFORM),win32)
-#		./scripts/build/electron-brand-exe.sh \
-#			-f $@/$(ETCHER_CLI_BINARY) \
-#			-n $(APPLICATION_NAME) \
-#			-d "$(APPLICATION_DESCRIPTION)" \
-#			-v "$(APPLICATION_VERSION)" \
-#			-c "$(APPLICATION_COPYRIGHT)" \
-#			-m "$(COMPANY_NAME)" \
-#			-i assets/icon.ico \
-#			-w $(BUILD_TEMPORARY_DIRECTORY)
-# endif
 
 ifeq ($(PLATFORM),win32)
 ifdef CSC_LINK
 ifdef CSC_KEY_PASSWORD
-	./scripts/build/electron-sign-exe-win32.sh -f $@/$(ETCHER_CLI_BINARY) \
+	./scripts/build/shared/sign-exe.sh -f $@/$(ETCHER_CLI_BINARY) \
 		-d "$(APPLICATION_NAME) - $(APPLICATION_VERSION)" \
 		-c $(CSC_LINK) \
 		-p $(CSC_KEY_PASSWORD)
@@ -276,11 +253,11 @@ endif
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH).zip: \
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH)
-	./scripts/build/zip-file.sh -f $< -s $(PLATFORM) -o $@
+	./scripts/build/shared/zip-file.sh -f $< -s $(PLATFORM) -o $@
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH).tar.gz: \
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME)-cli-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH)
-	./scripts/build/tar-gz-file.sh -f $< -o $@
+	./scripts/build/shared/tar-gz-file.sh -f $< -o $@
 
 # ---------------------------------------------------------------------
 # GUI
@@ -336,7 +313,7 @@ $(BUILD_DIRECTORY)/$(ELECTRON_BUILDER_LINUX_UNPACKED_DIRECTORY)/$(APPLICATION_NA
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(PLATFORM).AppDir: \
 	$(BUILD_DIRECTORY)/$(ELECTRON_BUILDER_LINUX_UNPACKED_DIRECTORY)/$(APPLICATION_NAME_ELECTRON) \
 	| $(BUILD_DIRECTORY)
-	./scripts/build/electron-create-appdir.sh \
+	./scripts/build/electron/electron-create-appdir.sh \
 		-n $(APPLICATION_NAME) \
 		-d "$(APPLICATION_DESCRIPTION)" \
 		-p $(dir $<) \
@@ -348,7 +325,7 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(PLATFO
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(TARGET_ARCH_APPIMAGE).AppImage: \
 	 $(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(PLATFORM).AppDir \
 	 | $(BUILD_DIRECTORY) $(BUILD_TEMPORARY_DIRECTORY)
-	./scripts/build/electron-create-appimage-linux.sh \
+	./scripts/build/electron/electron-create-appimage.sh \
 		-d $< \
 		-r $(TARGET_ARCH) \
 		-w $(BUILD_TEMPORARY_DIRECTORY) \
@@ -357,7 +334,7 @@ $(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(TARGET
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(PLATFORM)-$(TARGET_ARCH_APPIMAGE).zip: \
 	$(BUILD_DIRECTORY)/$(APPLICATION_NAME_LOWERCASE)-$(APPLICATION_VERSION)-$(TARGET_ARCH_APPIMAGE).AppImage \
 	| $(BUILD_DIRECTORY)
-	./scripts/build/zip-file.sh -f $< -s $(PLATFORM) -o $@
+	./scripts/build/shared/zip-file.sh -f $< -s $(PLATFORM) -o $@
 
 $(BUILD_DIRECTORY)/$(APPLICATION_NAME)-Portable-$(APPLICATION_VERSION)-$(TARGET_ARCH).exe: build/js/gui.js \
 	| $(BUILD_DIRECTORY)
@@ -521,14 +498,14 @@ publish-all: $(PUBLISHABLES)
 .PHONY: $(TARGETS)
 
 cli-develop:
-	./scripts/build/dependencies-npm.sh \
+	./scripts/build/shared/npm-install.sh \
 		-r "$(TARGET_ARCH)" \
 		-v "$(NODE_VERSION)" \
 		-t node \
 		-s "$(PLATFORM)"
 
 electron-develop:
-	./scripts/build/dependencies-npm.sh \
+	./scripts/build/shared/npm-install.sh \
 		-r "$(TARGET_ARCH)" \
 		-v "$(ELECTRON_VERSION)" \
 		-t electron \
@@ -590,9 +567,9 @@ info:
 
 sanity-checks:
 	./scripts/ci/ensure-staged-sass.sh
-	./scripts/ci/ensure-staged-shrinkwrap.sh
+	./scripts/build/shared/ensure-staged-shrinkwrap.sh -b .
 	./scripts/ci/ensure-npm-dependencies-compatibility.sh
-	./scripts/ci/ensure-npm-valid-dependencies.sh
+	./scripts/build/shared/ensure-npm-valid-dependencies.sh -b .
 	./scripts/ci/ensure-npm-shrinkwrap-versions.sh
 	./scripts/ci/ensure-all-file-extensions-in-gitattributes.sh
 

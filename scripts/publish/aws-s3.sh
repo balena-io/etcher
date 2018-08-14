@@ -20,7 +20,7 @@
 set -u
 set -e
 
-./scripts/build/check-dependency.sh aws
+./scripts/build/shared/check-dependency.sh aws
 
 function usage() {
   echo "Usage: $0"

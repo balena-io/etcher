@@ -1,0 +1,3 @@
+[submodule "scripts/build"]
+	path = scripts/build
+	url = https://github.com/resin-io/scripts.git

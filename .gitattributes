@@ -9,6 +9,7 @@
 Dockerfile* text
 .dockerignore text
 .editorconfig text
+.eslintignore text
 etcher text
 .git* text
 *.html text
