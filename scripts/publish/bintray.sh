@@ -19,7 +19,7 @@
 set -u
 set -e
 
-./scripts/build/check-dependency.sh curl
+./scripts/build/shared/check-dependency.sh curl
 
 function usage() {
   echo "Usage: $0"
@@ -93,7 +93,6 @@ fi
 
 PACKAGE_FILE_NAME=$(basename $ARGV_FILE)
 PACKAGE_NAME=${PACKAGE_FILE_NAME%.*}
-PACKAGE_ARCHITECTURE=$(./scripts/build/architecture-convert.sh -r "$ARGV_ARCHITECTURE" -t "$ARGV_TYPE")
 
 curl --upload-file $ARGV_FILE \
   --user $BINTRAY_USER:$BINTRAY_API_KEY \

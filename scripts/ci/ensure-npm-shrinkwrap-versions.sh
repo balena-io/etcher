@@ -21,7 +21,7 @@ set -e
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-"$HERE/../build/check-dependency.sh" jq
+"$HERE/../build/shared/check-dependency.sh" jq
 
 SHRINKWRAP_JSON=npm-shrinkwrap.json
 
