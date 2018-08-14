@@ -75,4 +75,5 @@ else
   export TARGET_ARCH="$ARGV_ARCHITECTURE"
   make info
   make electron-develop
+  make webpack
 fi
