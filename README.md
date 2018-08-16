@@ -110,7 +110,7 @@ sudo eopkg it etcher
 ##### Uninstall
 
 ```
-+sudo eopkg rm etcher
+sudo eopkg rm etcher
 ```
 
 #### Brew Cask (macOS)
