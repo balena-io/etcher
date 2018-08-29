@@ -126,22 +126,6 @@ describe('Model: flashState', function () {
         }).to.not.throw('Missing flash fields: percentage')
       })
 
-      it('should throw if percentage is missing', function () {
-        flashState.setFlashingFlag()
-        m.chai.expect(function () {
-          flashState.setProgressState({
-            flashing: 2,
-            verifying: 0,
-            successful: 0,
-            failed: 0,
-            type: 'write',
-            eta: 15,
-            speed: 100000000000,
-            totalSpeed: 200000000000
-          })
-        }).to.throw('Missing flash fields: percentage')
-      })
-
       it('should throw if percentage is not a number', function () {
         flashState.setFlashingFlag()
         m.chai.expect(function () {
@@ -191,22 +175,6 @@ describe('Model: flashState', function () {
             totalSpeed: 1
           })
         }).to.throw('Invalid state percentage: -1')
-      })
-
-      it('should throw if eta is missing', function () {
-        flashState.setFlashingFlag()
-        m.chai.expect(function () {
-          flashState.setProgressState({
-            flashing: 2,
-            verifying: 0,
-            successful: 0,
-            failed: 0,
-            type: 'write',
-            percentage: 50,
-            speed: 100000000000,
-            totalSpeed: 200000000000
-          })
-        }).to.throw('Missing flash fields: eta')
       })
 
       it('should not throw if eta is equal to zero', function () {
