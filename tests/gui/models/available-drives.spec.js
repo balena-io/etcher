@@ -154,13 +154,8 @@ describe('Model: availableDrives', function () {
             selectionState.selectImage({
               path: this.imagePath,
               extension: 'img',
-              size: {
-                original: 999999999,
-                final: {
-                  estimation: false,
-                  value: 999999999
-                }
-              },
+              size: 999999999,
+              isSizeEstimated: false,
               recommendedDriveSize: 2000000000
             })
           })

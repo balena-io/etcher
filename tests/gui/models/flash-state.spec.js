@@ -48,8 +48,8 @@ describe('Model: flashState', function () {
           successful: 0,
           failed: 0,
           percentage: 0,
-          speed: 0,
-          totalSpeed: 0
+          speed: null,
+          totalSpeed: null
         })
       })
 
@@ -352,8 +352,8 @@ describe('Model: flashState', function () {
           successful: 0,
           failed: 0,
           percentage: 0,
-          speed: 0,
-          totalSpeed: 0
+          speed: null,
+          totalSpeed: null
         })
       })
 
@@ -500,8 +500,8 @@ describe('Model: flashState', function () {
           successful: 0,
           failed: 0,
           percentage: 0,
-          speed: 0,
-          totalSpeed: 0
+          speed: null,
+          totalSpeed: null
         })
       })
 
