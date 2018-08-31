@@ -111,14 +111,14 @@
       </div>
 
       <div class="space-vertical-large">
-        <progress-button class="button-brick"
+        <progress-button
           tabindex="3"
+          striped="main.state.getFlashState().type == 'check'"
+          active = "main.state.isFlashing()"
           percentage="main.state.getFlashState().percentage"
-          striped="{{ main.state.getFlashState().type == 'check' }}"
-          ng-attr-active="{{ main.state.isFlashing() }}"
-          ng-click="flash.flashImageToDrive(main.selection.getImage(), main.selection.getSelectedDevices())"
-          ng-disabled="main.shouldFlashStepBeDisabled() || main.state.getLastFlashErrorCode()">
-            <span ng-bind="flash.getProgressButtonLabel()"></span>
+          label="flash.getProgressButtonLabel()"
+          disabled="main.state.getLastFlashErrorCode() || main.shouldFlashStepBeDisabled()"
+          callback="flash.flashImageToDrive" >
         </progress-button>
 
         <button class="button button-link button-abort-write"
