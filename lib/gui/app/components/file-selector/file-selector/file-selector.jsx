@@ -31,6 +31,7 @@ const RecentFiles = require('./recent-files')
 const files = require('../../../models/files')
 
 const selectionState = require('../../../models/selection-state')
+const store = require('../../../models/store')
 const osDialog = require('../../../os/dialog')
 const exceptionReporter = require('../../../modules/exception-reporter')
 const messages = require('../../../../../shared/messages')
