@@ -333,12 +333,12 @@ describe('Shared: DriveConstraints', function () {
         })
 
         it('should return true if the final size is equal to the drive size', function () {
-          this.image.size.final.value = this.drive.size
+          this.image.size = this.drive.size
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
         })
 
         it('should return false if the final size is greater than the drive size', function () {
-          this.image.size.final.value = this.drive.size + 1
+          this.image.size = this.drive.size + 1
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false
         })
       })
@@ -353,7 +353,7 @@ describe('Shared: DriveConstraints', function () {
         })
 
         it('should return true if the final size is less than the drive size', function () {
-          this.image.size.final.value = this.drive.size - 1
+          this.image.size = this.drive.size - 1
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
         })
 
@@ -362,7 +362,7 @@ describe('Shared: DriveConstraints', function () {
         })
 
         it('should return false if the final size is greater than the drive size', function () {
-          this.image.size.final.value = this.drive.size + 1
+          this.image.size = this.drive.size + 1
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false
         })
       })
@@ -377,12 +377,12 @@ describe('Shared: DriveConstraints', function () {
         })
 
         it('should return true if the final size is less than the drive size', function () {
-          this.image.size.final.value = this.drive.size - 1
+          this.image.size = this.drive.size - 1
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
         })
 
         it('should return true if the final size is equal to the drive size', function () {
-          this.image.size.final.value = this.drive.size
+          this.image.size = this.drive.size
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
         })
 
@@ -408,12 +408,12 @@ describe('Shared: DriveConstraints', function () {
         })
 
         it('should return true if the final size is equal to the drive size', function () {
-          this.image.size.final.value = this.drive.size
+          this.image.size = this.drive.size
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
         })
 
         it('should return true if the final size is greater than the drive size', function () {
-          this.image.size.final.value = this.drive.size + 1
+          this.image.size = this.drive.size + 1
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
         })
       })
@@ -429,7 +429,7 @@ describe('Shared: DriveConstraints', function () {
         })
 
         it('should return true if the final size is less than the drive size', function () {
-          this.image.size.final.value = this.drive.size - 1
+          this.image.size = this.drive.size - 1
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
         })
 
@@ -438,7 +438,7 @@ describe('Shared: DriveConstraints', function () {
         })
 
         it('should return true if the final size is greater than the drive size', function () {
-          this.image.size.final.value = this.drive.size + 1
+          this.image.size = this.drive.size + 1
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
         })
       })
@@ -454,12 +454,12 @@ describe('Shared: DriveConstraints', function () {
         })
 
         it('should return false if the final size is less than the drive size', function () {
-          this.image.size.final.value = this.drive.size - 1
+          this.image.size = this.drive.size - 1
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false
         })
 
         it('should return false if the final size is equal to the drive size', function () {
-          this.image.size.final.value = this.drive.size
+          this.image.size = this.drive.size
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false
         })
 
@@ -933,7 +933,7 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given the drive is too small', () => {
       it('should return the too small error', function () {
-        this.image.size.final.value = this.drive.size + 1
+        this.image.size = this.drive.size + 1
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
         const expected = [
@@ -949,7 +949,7 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given the drive size is null', () => {
       it('should not return the too small error', function () {
-        this.image.size.final.value = this.drive.size + 1
+        this.image.size = this.drive.size + 1
         this.drive.size = null
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
@@ -1055,7 +1055,7 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given a too small and system drive', () => {
       it('should return the too small drive error by precedence', function () {
-        this.image.size.final.value = this.drive.size + 1
+        this.image.size = this.drive.size + 1
         this.drive.isSystem = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
