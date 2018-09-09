@@ -21,7 +21,7 @@ cache:
 environment:
   global:
     ELECTRON_NO_ATTACH_CONSOLE: true
-    nodejs_version: "6.10.3"
+    nodejs_version: 10
 
 platform:
   - x86
