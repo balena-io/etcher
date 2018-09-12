@@ -22,13 +22,13 @@ const propTypes = require('prop-types')
 
 const middleEllipsis = require('./../../utils/middle-ellipsis')
 
-const { Provider } = require('rendition')
+const { Provider, Button, Modal, Txt } = require('rendition')
 
 const shared = require('/./../../../../../lib/shared/units')
 const { StepButton, StepNameButton, StepSelection,
   Footer, Underline, DetailsText, ChangeButton } = require('./../../styled-components')
 
-const SelectImageButton = props => {
+class SelectImageButton extends React.Component {
 
   if (props.hasImage){
     return (
@@ -46,34 +46,52 @@ const SelectImageButton = props => {
           { !props.flashing &&
             <ChangeButton
               plaintext
-              onClick={props.reselectImage}
+              onClick={() => this.props.showSelectedImageDetails()}
+              tooltip={this.props.imageBasename}
             >
-              Change
-            </ChangeButton>
-          }
-      </Provider>
-    )
+              ( {middleEllipsis(this.props.imageName || this.props.imageBasename , 20)} )
+              <Txt onClick={this.props.showSelectedImageDetails}> Show original modal </Txt>
+            </StepNameButton>
+            <SizeText>
+              {shared.bytesToClosestUnit(this.props.imageSize)}
+            </SizeText>
+            { this.props.flashing ?
+              null
+              :
+              <ChangeButton
+                plaintext
+                onClick={() => this.props.reselectImage()}
+              >
+                Change
+              </ChangeButton>
+            }
+          </StepSelection>
+        </Provider>
+      )
+    }
+    else {
+      return (
+        <Provider>
+          <StepSelection>
+            <StepButton
+              primary
+              onClick={() => this.props.openImageSelector()}
+            >
+              Select image
+            </StepButton>
+            <Footer>
+              { this.props.mainSupportedExtensions.join(', ') }, and
+              <Underline
+                tooltip={ this.props.extraSupportedExtensions.join(', ') }
+              >
+                {' '}others
+              </Underline>
+            </Footer>
+          </StepSelection>
+        </Provider>
+      )
+    }
   }
-  return (
-    <Provider>
-      <StepSelection>
-        <StepButton
-          primary
-          onClick={props.openImageSelector}
-        >
-          Select image
-        </StepButton>
-        <Footer>
-          { props.mainSupportedExtensions.join(', ') }, and{' '}
-          <Underline
-            tooltip={ props.extraSupportedExtensions.join(', ') }
-          >
-            many more
-          </Underline>
-        </Footer>
-      </StepSelection>
-    </Provider>
-  )
 }
 
 SelectImageButton.propTypes = {
