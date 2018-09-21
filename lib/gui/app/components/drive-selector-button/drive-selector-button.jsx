@@ -22,14 +22,23 @@ const propTypes = require('prop-types')
 const Color = require('color')
 
 const middleEllipsis = require('./../../utils/middle-ellipsis')
+const shared = require('/./../../../../../lib/shared/units')
 
 const { Provider, Txt } = require('rendition')
 const { StepButton, StepNameButton, StepSelection,
   DetailsText, ChangeButton } = require('./../../styled-components')
 
-const DetailsModal = require('./../details-modal/details-modal')
+const { DetailsModal } = require('./../details-modal/details-modal')
 
 class DriveSelectorButton extends React.PureComponent {
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      showDetailsModal: false,
+    }
+  }
 
   allDevicesFooter() {
     return this.props.selectedDevices.map((device) =>
@@ -40,11 +49,13 @@ class DriveSelectorButton extends React.PureComponent {
   }
 
   selectedDevicesDetails() {
-    let details = ''
-    this.props.selectedDevices.forEach(function(device){
-      details += device.description + '(' + device.displayName + ') \r'
-    })
-    return details
+    return this.props.selectedDevices.map((device) =>
+      ({
+        name: device.description || device.displayName,
+        size: shared.bytesToClosestUnit(device.size),
+        path: device.device
+      })
+    )
   }
 
   render() {
@@ -57,13 +68,13 @@ class DriveSelectorButton extends React.PureComponent {
                 disabled={this.props.disabled}
                 tooltip={this.props.driveListLabel}
                 warning={!this.props.howManyDeviceSelected}
-                onClick={() => this.setState({show: true})}
+                onClick={() => this.setState({showDetailsModal: true})}
               >
                 { middleEllipsis(this.props.drivesTitle, 20) }
-                { this.props.hasCompatibilityStatus(this.props.drives(), this.props.image()) &&
+                { this.props.hasCompatibilityStatus &&
                   <Txt.span className='glyphicon glyphicon-exclamation-sign'
                     ml='10px'
-                    tooltip={this.props.getCompatibilityStatuses(this.props.drives(),this.props.image())[0].message}
+                    tooltip={this.props.getCompatibilityStatuses}
                   />
                 }
               </StepNameButton>
@@ -86,32 +97,29 @@ class DriveSelectorButton extends React.PureComponent {
               }
             </DetailsText>
           </StepSelection>
-          {this.state.show ?
+          {this.state.showDetailsModal &&
             <DetailsModal
-              title={'Selected Drivers'}
+              title={ this.props.selectedDevices.length > 1 ? 'DRIVERS DETAILS' : 'DRIVER DETAILS'}
               details={this.selectedDevicesDetails()}
-              callback={() => this.setState({ show: false })}
+              callback={() => this.setState({ showDetailsModal: false })}
             />
-          : null
           }
         </Provider>
       )
     }
-    else {
-      return (
-        <Provider>
-          <StepSelection>
-            <StepButton
-              primary
-              disabled={this.props.disabled}
-              onClick={this.props.openDriveSelector}
-            >
-              Select drive
-            </StepButton>
-          </StepSelection>
-        </Provider>
-      )
-    }
+    return (
+      <Provider>
+        <StepSelection>
+          <StepButton
+            primary
+            disabled={this.props.disabled}
+            onClick={this.props.openDriveSelector}
+          >
+            Select drive
+          </StepButton>
+        </StepSelection>
+      </Provider>
+    )
   }
 }
 
@@ -125,10 +133,8 @@ DriveSelectorButton.propTypes = {
   howManyDeviceSelected: propTypes.number,
   reselectDrive: propTypes.func,
   driveSize: propTypes.string,
-  hasCompatibilityStatus: propTypes.func,
-  getCompatibilityStatuses: propTypes.func,
-  drives: propTypes.func,
-  image: propTypes.func,
+  hasCompatibilityStatus: propTypes.bool,
+  getCompatibilityStatuses: propTypes.array,
   selectedDevices: propTypes.array,
 }
 

@@ -59,10 +59,8 @@
           how-many-device-selected="main.selection.getSelectedDevices().length"
           reselect-drive="drive.reselectDrive"
           drive-size="drive.getDrivesSubtitle()"
-          has-compatibility-status="main.constraints.hasListDriveImageCompatibilityStatus"
-          get-compatibility-statuses="main.constraints.getListDriveImageCompatibilityStatuses"
-          drives="main.selection.getSelectedDrives"
-          image="main.selection.getImage"
+          has-compatibility-status="main.constraints.hasListDriveImageCompatibilityStatus(main.selection.getSelectedDrives(),main.selection.getImage())"
+          get-compatibility-statuses="main.constraints.getListDriveImageCompatibilityStatuses(main.selection.getSelectedDrives(),main.selection.getImage())[0].message"
           selected-devices="drive.getMemoizedSelectedDrives()"
           >
         </drive-selector-button>
