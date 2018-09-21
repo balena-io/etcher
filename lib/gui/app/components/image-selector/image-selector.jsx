@@ -22,75 +22,86 @@ const propTypes = require('prop-types')
 
 const middleEllipsis = require('./../../utils/middle-ellipsis')
 
-const { Provider, Button, Modal, Txt } = require('rendition')
+const { Provider } = require('rendition')
 
 const shared = require('/./../../../../../lib/shared/units')
 const { StepButton, StepNameButton, StepSelection,
   Footer, Underline, DetailsText, ChangeButton } = require('./../../styled-components')
 
+const DetailsModal = require('./../details-modal/details-modal')
+
 class SelectImageButton extends React.Component {
 
-  if (props.hasImage){
-    return (
-      <Provider>
-          <StepNameButton
-            plaintext
-            onClick={props.showSelectedImageDetails}
-            tooltip={props.imageBasename}
-          >
-            { middleEllipsis(props.imageName || props.imageBasename , 20) }
-          </StepNameButton>
-          <DetailsText>
-            {shared.bytesToClosestUnit(props.imageSize)}
-          </DetailsText>
-          { !props.flashing &&
-            <ChangeButton
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      showImageDetails: false
+    }
+  }
+
+  render() {
+    let imageSize = shared.bytesToClosestUnit(this.props.imageSize)
+    if (this.props.hasImage){
+      return (
+        <Provider>
+          <StepSelection>
+            <StepNameButton
               plaintext
-              onClick={() => this.props.showSelectedImageDetails()}
+              onClick={() => this.setState({ showImageDetails: true })}
               tooltip={this.props.imageBasename}
             >
-              ( {middleEllipsis(this.props.imageName || this.props.imageBasename , 20)} )
-              <Txt onClick={this.props.showSelectedImageDetails}> Show original modal </Txt>
+              {middleEllipsis(this.props.imageName || this.props.imageBasename , 20)}
             </StepNameButton>
-            <SizeText>
+            <DetailsText>
               {shared.bytesToClosestUnit(this.props.imageSize)}
-            </SizeText>
-            { this.props.flashing ?
-              null
-              :
+            </DetailsText>
+            { !this.props.flashing &&
               <ChangeButton
                 plaintext
-                onClick={() => this.props.reselectImage()}
+                onClick={this.props.reselectImage}
+                primary
               >
                 Change
               </ChangeButton>
             }
           </StepSelection>
+          {this.state.showImageDetails &&
+            <DetailsModal
+              title={'IMAGE DETAILS'}
+              details={
+                [{
+                  path: this.props.imagePath,
+                  name: this.props.imageName || this.props.imageBasename,
+                  size: imageSize
+                }]
+              }
+              callback={() => this.setState({ showImageDetails: false })}
+            />
+          }
         </Provider>
       )
     }
-    else {
-      return (
-        <Provider>
-          <StepSelection>
-            <StepButton
-              primary
-              onClick={() => this.props.openImageSelector()}
+    return (
+      <Provider>
+        <StepSelection>
+          <StepButton
+            primary
+            onClick={this.props.openImageSelector}
+          >
+            Select image
+          </StepButton>
+          <Footer>
+            { this.props.mainSupportedExtensions.join(', ') }, and {' '}
+            <Underline
+              tooltip={ this.props.extraSupportedExtensions.join(', ') }
             >
-              Select image
-            </StepButton>
-            <Footer>
-              { this.props.mainSupportedExtensions.join(', ') }, and
-              <Underline
-                tooltip={ this.props.extraSupportedExtensions.join(', ') }
-              >
-                {' '}others
-              </Underline>
-            </Footer>
-          </StepSelection>
-        </Provider>
-      )
-    }
+              others
+            </Underline>
+          </Footer>
+        </StepSelection>
+      </Provider>
+    )
   }
 }
 
@@ -99,12 +110,12 @@ SelectImageButton.propTypes = {
   mainSupportedExtensions: propTypes.array,
   extraSupportedExtensions: propTypes.array,
   hasImage: propTypes.bool,
-  showSelectedImageDetails: propTypes.func,
   imageName: propTypes.string,
   imageBasename: propTypes.string,
   reselectImage: propTypes.func,
   flashing: propTypes.bool,
   imageSize: propTypes.number,
+  imagePath: propTypes.string
 }
 
 module.exports = SelectImageButton
