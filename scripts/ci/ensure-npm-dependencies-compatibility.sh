@@ -19,10 +19,6 @@
 set -u
 set -e
 
-HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-"$HERE/../build/check-dependency.sh" jq
-
 PACKAGE_JSON=package.json
 
 # Two pair-wise arrays, because associative arrays only work in Bash 4
