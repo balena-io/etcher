@@ -131,7 +131,7 @@ endif
 
 APPLICATION_NAME_LOWERCASE = $(shell echo $(APPLICATION_NAME) | tr A-Z a-z)
 APPLICATION_VERSION_DEBIAN = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
-APPLICATION_VERSION_REDHAT = $(shell echo $(APPLICATION_VERSION) | tr "-" "~")
+APPLICATION_VERSION_REDHAT = $(APPLICATION_VERSION)
 
 # ---------------------------------------------------------------------
 # Release type
