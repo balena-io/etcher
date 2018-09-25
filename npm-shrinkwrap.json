@@ -2501,12 +2501,12 @@
       "dev": true
     },
     "drivelist": {
-      "version": "6.4.0",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-6.4.0.tgz",
+      "version": "6.4.2",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-6.4.2.tgz",
       "dependencies": {
         "nan": {
-          "version": "2.10.0",
-          "resolved": "https://registry.npmjs.org/nan/-/nan-2.10.0.tgz"
+          "version": "2.11.0",
+          "resolved": "https://registry.npmjs.org/nan/-/nan-2.11.0.tgz"
         },
         "node-abi": {
           "version": "2.4.3",
@@ -2521,8 +2521,8 @@
           "resolved": "https://registry.npmjs.org/pump/-/pump-2.0.1.tgz"
         },
         "semver": {
-          "version": "5.5.0",
-          "resolved": "https://registry.npmjs.org/semver/-/semver-5.5.0.tgz"
+          "version": "5.5.1",
+          "resolved": "https://registry.npmjs.org/semver/-/semver-5.5.1.tgz"
         },
         "simple-get": {
           "version": "2.8.1",
