@@ -8223,8 +8223,8 @@
       "resolved": "https://registry.npmjs.org/stylis-rule-sheet/-/stylis-rule-sheet-0.0.10.tgz"
     },
     "sudo-prompt": {
-      "version": "8.0.0",
-      "resolved": "https://registry.npmjs.org/sudo-prompt/-/sudo-prompt-8.0.0.tgz"
+      "version": "8.2.3",
+      "resolved": "https://registry.npmjs.org/sudo-prompt/-/sudo-prompt-8.2.3.tgz"
     },
     "sumchecker": {
       "version": "1.3.1",
