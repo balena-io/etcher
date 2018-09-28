@@ -166,10 +166,10 @@ export BINTRAY_API_KEY="youruserapikey"
 ```
 
 ```bash
-./scripts/publish/bintray.sh -c "etcher" -t "production" -v "1.2.1" -o "resin-io" -p "debian" -y "debian" -r "x64" -f "dist/etcher-electron_1.2.1_amd64.deb"
-./scripts/publish/bintray.sh -c "etcher" -t "production" -v "1.2.1" -o "resin-io" -p "debian" -y "debian" -r "x86" -f "dist/etcher-electron_1.2.1_i386.deb"
-./scripts/publish/bintray.sh -c "etcher" -t "production" -v "1.2.1" -o "resin-io" -p "redhat" -y "redhat" -r "x64" -f "dist/etcher-electron-1.2.1.x86_64.rpm"
-./scripts/publish/bintray.sh -c "etcher" -t "production" -v "1.2.1" -o "resin-io" -p "redhat" -y "redhat" -r "x86" -f "dist/etcher-electron-1.2.1.i686.rpm"
+./scripts/publish/bintray.sh -c "etcher" -t "production" -v "1.2.1" -o "etcher" -p "debian" -y "debian" -r "x64" -f "dist/etcher-electron_1.2.1_amd64.deb"
+./scripts/publish/bintray.sh -c "etcher" -t "production" -v "1.2.1" -o "etcher" -p "debian" -y "debian" -r "x86" -f "dist/etcher-electron_1.2.1_i386.deb"
+./scripts/publish/bintray.sh -c "etcher" -t "production" -v "1.2.1" -o "etcher" -p "redhat" -y "redhat" -r "x64" -f "dist/etcher-electron-1.2.1.x86_64.rpm"
+./scripts/publish/bintray.sh -c "etcher" -t "production" -v "1.2.1" -o "etcher" -p "redhat" -y "redhat" -r "x86" -f "dist/etcher-electron-1.2.1.i686.rpm"
 ```
 
 ### Uploading binaries to Amazon S3
