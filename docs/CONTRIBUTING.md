@@ -204,7 +204,7 @@ Before your pull request can be merged, the following conditions must hold:
 
 - The linter doesn't throw any warning.
 
-- All the tests passes.
+- All the tests pass.
 
 - The coding style aligns with the project's convention.
 
