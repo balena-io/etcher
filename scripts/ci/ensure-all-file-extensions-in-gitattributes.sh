@@ -37,7 +37,7 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
 done < .gitattributes
 
 # Verify those wildcards against all files stored in the repo
-git ls-tree -r HEAD | while IFS='' read line; do
+git ls-tree -r HEAD | while IFS='' read -r line; do
   if [[ "$(echo $line | cut -d ' ' -f 2)" == "blob" ]]; then
     # the cut delimiter in the line below is actually a tab character, not a space
     filename=$(basename $(echo "$line" | cut -d '	' -f 2))
