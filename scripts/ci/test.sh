@@ -48,7 +48,7 @@ if [ "$ARGV_OPERATING_SYSTEM" == "linux" ]; then
   ./scripts/build/docker/run-command.sh \
     -r "$ARGV_ARCHITECTURE" \
     -s "$(pwd)" \
-    -c 'xvfb-run --server-args=$XVFB_ARGS make webpack lint test sanity-checks'
+    -c "xvfb-run --server-args=$XVFB_ARGS make webpack lint test sanity-checks"
 else
   ./scripts/build/check-dependency.sh make
   export TARGET_ARCH="$ARGV_ARCHITECTURE"
