@@ -118,4 +118,4 @@ SelectImageButton.propTypes = {
   imagePath: propTypes.string
 }
 
-module.exports = SelectImageButton
+exports.SelectImageButton = SelectImageButton
