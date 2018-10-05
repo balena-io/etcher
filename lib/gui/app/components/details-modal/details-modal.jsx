@@ -46,18 +46,6 @@ const ModalBody = styled(Box) `
   margin: -35px 15px -45px 15px;
 `
 
-const CloseButton = styled(Button) `
-  font-size: 19.5px;
-  font-weight: bold;
-  line-height: 1
-  color: ${colors.light.soft.foreground};;
-  cursor: pointer;
-
-  &:hover {
-    color: ${colors.dark.background};
-  }
-`
-
 class DetailsModal extends React.Component {
 
   renderDetails() {
@@ -79,12 +67,6 @@ class DetailsModal extends React.Component {
             <React.Fragment>
               <ModalHeader>
                 <Txt>{this.props.title}</Txt>
-                <CloseButton
-                  plaintext
-                  onClick={this.props.callback}
-                >
-                &times;
-                </CloseButton>
               </ModalHeader>
             </React.Fragment>
           }
