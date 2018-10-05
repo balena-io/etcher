@@ -4441,6 +4441,16 @@
       "resolved": "https://registry.npmjs.org/https-browserify/-/https-browserify-1.0.0.tgz",
       "dev": true
     },
+    "i2c-bus": {
+      "version": "3.2.0",
+      "resolved": "https://registry.npmjs.org/i2c-bus/-/i2c-bus-3.2.0.tgz",
+      "dependencies": {
+        "nan": {
+          "version": "2.10.0",
+          "resolved": "https://registry.npmjs.org/nan/-/nan-2.10.0.tgz"
+        }
+      }
+    },
     "iconv-lite": {
       "version": "0.4.15",
       "resolved": "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.4.15.tgz"
@@ -6584,6 +6594,16 @@
       "resolved": "https://registry.npmjs.org/pbkdf2/-/pbkdf2-3.0.14.tgz",
       "dev": true
     },
+    "pca9685": {
+      "version": "4.0.3",
+      "resolved": "https://registry.npmjs.org/pca9685/-/pca9685-4.0.3.tgz",
+      "dependencies": {
+        "debug": {
+          "version": "2.6.9",
+          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz"
+        }
+      }
+    },
     "pend": {
       "version": "1.2.0",
       "resolved": "https://registry.npmjs.org/pend/-/pend-1.2.0.tgz"
@@ -7549,6 +7569,16 @@
       "version": "4.0.8",
       "resolved": "https://registry.npmjs.org/rx-lite-aggregates/-/rx-lite-aggregates-4.0.8.tgz",
       "dev": true
+    },
+    "rxjs": {
+      "version": "5.0.0-rc.4",
+      "resolved": "https://registry.npmjs.org/rxjs/-/rxjs-5.0.0-rc.4.tgz",
+      "dependencies": {
+        "symbol-observable": {
+          "version": "1.2.0",
+          "resolved": "https://registry.npmjs.org/symbol-observable/-/symbol-observable-1.2.0.tgz"
+        }
+      }
     },
     "safe-buffer": {
       "version": "5.0.1",
