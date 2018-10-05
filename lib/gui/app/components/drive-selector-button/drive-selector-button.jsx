@@ -138,4 +138,4 @@ DriveSelectorButton.propTypes = {
   selectedDevices: propTypes.array,
 }
 
-module.exports = DriveSelectorButton
+exports.DriveSelectorButton = DriveSelectorButton
