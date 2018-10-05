@@ -45,12 +45,6 @@ class DetailsModal extends React.Component {
             <React.Fragment>
               <ModalHeader>
                 <Txt>{this.props.title}</Txt>
-                <CloseButton
-                  plaintext
-                  onClick={this.props.callback}
-                >
-                &times;
-                </CloseButton>
               </ModalHeader>
             </React.Fragment>
           }
