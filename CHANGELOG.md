@@ -3,6 +3,48 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.4.5 - 2018-08-08
+
+### Features
+
+- Center content independent to window resolution.
+- Add electron-native file-picker component.
+- Hide unsafe mode option toggle with an env var.
+- Use new design background color and drive step size ordering.
+- Add a convenience Storage class on top of localStorage.
+- Introduce env var to toggle autoselection of all drives.
+- Add font-awesome.
+- Add support for configuration files
+- Use GTK-3 darkTheme mode.
+- Add environment variable to toggle fullscreen.
+- Allow blacklisting of drives through and environment variable ETCHER_BLACKLISTED_DRIVES.
+- Show selected drives below drive selection step.
+- Add a button to cancel the flash process.
+- Download usbboot drivers installer when clicking a driverless usbboot device on Windows.
+- Allow disabling links and hiding help link with an env var.
+
+### Fixes
+
+- Add "make webpack" to travis-ci build script
+- Makefile: Don't use tilde in rpm versions
+- Change Spectron port so not to overlap with other builds
+- Fix multi-writes analytics by reusing existing logic in multi-write events.
+- Load usbboot adapter on start on GNU/Linux if running as root.
+
+### Misc
+
+- Update drivelist to v6.4.2
+- Add instructions for installing and uninstalling on Solus.
+
+**Release Checklist:**
+
+- [] Manual regression testing
+- [] Merge this
+- [] Tag the commit on master
+- [] Forum post
+- [] Update Etcher website
+- [] Mailing List update
+
 ## v1.4.4 - 2018-04-24
 
 ### Fixes

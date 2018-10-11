@@ -1,6 +1,6 @@
 {
   "name": "etcher",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "dependencies": {
     "@fortawesome/fontawesome-free-webfonts": {
       "version": "1.0.9",
@@ -35,8 +35,8 @@
       "resolved": "https://registry.npmjs.org/@types/json-schema/-/json-schema-6.0.1.tgz"
     },
     "@types/lodash": {
-      "version": "4.14.116",
-      "resolved": "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.116.tgz"
+      "version": "4.14.117",
+      "resolved": "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.117.tgz"
     },
     "@types/lodash.frompairs": {
       "version": "4.0.4",
@@ -47,8 +47,8 @@
       "resolved": "https://registry.npmjs.org/@types/lodash.memoize/-/lodash.memoize-4.1.4.tgz"
     },
     "@types/node": {
-      "version": "10.11.4",
-      "resolved": "https://registry.npmjs.org/@types/node/-/node-10.11.4.tgz"
+      "version": "10.11.6",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-10.11.6.tgz"
     },
     "@types/prop-types": {
       "version": "15.5.6",
@@ -1491,8 +1491,8 @@
       "resolved": "https://registry.npmjs.org/camelcase-keys/-/camelcase-keys-2.1.0.tgz"
     },
     "caniuse-lite": {
-      "version": "1.0.30000889",
-      "resolved": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000889.tgz",
+      "version": "1.0.30000890",
+      "resolved": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000890.tgz",
       "dev": true
     },
     "capture-stack-trace": {
@@ -1801,8 +1801,8 @@
       "resolved": "https://registry.npmjs.org/command-join/-/command-join-2.0.0.tgz"
     },
     "commander": {
-      "version": "2.18.0",
-      "resolved": "https://registry.npmjs.org/commander/-/commander-2.18.0.tgz"
+      "version": "2.19.0",
+      "resolved": "https://registry.npmjs.org/commander/-/commander-2.19.0.tgz"
     },
     "comment-parser": {
       "version": "0.4.2",
@@ -2277,8 +2277,8 @@
       "dev": true,
       "dependencies": {
         "@types/node": {
-          "version": "7.0.71",
-          "resolved": "https://registry.npmjs.org/@types/node/-/node-7.0.71.tgz",
+          "version": "7.10.0",
+          "resolved": "https://registry.npmjs.org/@types/node/-/node-7.10.0.tgz",
           "dev": true
         }
       }
@@ -2529,8 +2529,8 @@
       }
     },
     "electron-to-chromium": {
-      "version": "1.3.73",
-      "resolved": "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.73.tgz",
+      "version": "1.3.75",
+      "resolved": "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.75.tgz",
       "dev": true
     },
     "electron-window": {
@@ -5402,8 +5402,8 @@
       "dev": true
     },
     "npm-packlist": {
-      "version": "1.1.11",
-      "resolved": "https://registry.npmjs.org/npm-packlist/-/npm-packlist-1.1.11.tgz"
+      "version": "1.1.12",
+      "resolved": "https://registry.npmjs.org/npm-packlist/-/npm-packlist-1.1.12.tgz"
     },
     "npm-run-path": {
       "version": "2.0.2",
@@ -7297,8 +7297,8 @@
       }
     },
     "source-list-map": {
-      "version": "2.0.0",
-      "resolved": "https://registry.npmjs.org/source-list-map/-/source-list-map-2.0.0.tgz",
+      "version": "2.0.1",
+      "resolved": "https://registry.npmjs.org/source-list-map/-/source-list-map-2.0.1.tgz",
       "dev": true
     },
     "source-map": {
@@ -8737,8 +8737,8 @@
       "resolved": "https://registry.npmjs.org/xtend/-/xtend-4.0.1.tgz"
     },
     "xterm": {
-      "version": "3.7.0",
-      "resolved": "https://registry.npmjs.org/xterm/-/xterm-3.7.0.tgz"
+      "version": "3.8.0",
+      "resolved": "https://registry.npmjs.org/xterm/-/xterm-3.8.0.tgz"
     },
     "xxhash": {
       "version": "0.2.4",
