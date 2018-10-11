@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## v1.4.5 - 2018-08-08
+## v1.4.5 - 2018-10-11
 
 ### Features
 
@@ -35,15 +35,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Update drivelist to v6.4.2
 - Add instructions for installing and uninstalling on Solus.
-
-**Release Checklist:**
-
-- [] Manual regression testing
-- [] Merge this
-- [] Tag the commit on master
-- [] Forum post
-- [] Update Etcher website
-- [] Mailing List update
 
 ## v1.4.4 - 2018-04-24
 
