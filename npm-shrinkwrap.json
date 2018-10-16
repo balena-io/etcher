@@ -492,6 +492,11 @@
       "version": "1.0.2",
       "resolved": "https://registry.npmjs.org/array-find-index/-/array-find-index-1.0.2.tgz"
     },
+    "array-includes": {
+      "version": "3.0.3",
+      "resolved": "https://registry.npmjs.org/array-includes/-/array-includes-3.0.3.tgz",
+      "dev": true
+    },
     "array-slice": {
       "version": "0.2.3",
       "resolved": "https://registry.npmjs.org/array-slice/-/array-slice-0.2.3.tgz",
@@ -2128,6 +2133,18 @@
       "version": "1.0.3",
       "resolved": "https://registry.npmjs.org/defaults/-/defaults-1.0.3.tgz"
     },
+    "define-properties": {
+      "version": "1.1.3",
+      "resolved": "https://registry.npmjs.org/define-properties/-/define-properties-1.1.3.tgz",
+      "dev": true,
+      "dependencies": {
+        "object-keys": {
+          "version": "1.0.12",
+          "resolved": "https://registry.npmjs.org/object-keys/-/object-keys-1.0.12.tgz",
+          "dev": true
+        }
+      }
+    },
     "define-property": {
       "version": "0.2.5",
       "resolved": "https://registry.npmjs.org/define-property/-/define-property-0.2.5.tgz",
@@ -2600,6 +2617,16 @@
       "version": "1.3.2",
       "resolved": "https://registry.npmjs.org/error-ex/-/error-ex-1.3.2.tgz"
     },
+    "es-abstract": {
+      "version": "1.12.0",
+      "resolved": "https://registry.npmjs.org/es-abstract/-/es-abstract-1.12.0.tgz",
+      "dev": true
+    },
+    "es-to-primitive": {
+      "version": "1.2.0",
+      "resolved": "https://registry.npmjs.org/es-to-primitive/-/es-to-primitive-1.2.0.tgz",
+      "dev": true
+    },
     "es5-ext": {
       "version": "0.10.46",
       "resolved": "https://registry.npmjs.org/es5-ext/-/es5-ext-0.10.46.tgz"
@@ -2847,6 +2874,18 @@
       "version": "3.6.0",
       "resolved": "https://registry.npmjs.org/eslint-plugin-promise/-/eslint-plugin-promise-3.6.0.tgz",
       "dev": true
+    },
+    "eslint-plugin-react": {
+      "version": "7.11.1",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-react/-/eslint-plugin-react-7.11.1.tgz",
+      "dev": true,
+      "dependencies": {
+        "prop-types": {
+          "version": "15.6.2",
+          "resolved": "https://registry.npmjs.org/prop-types/-/prop-types-15.6.2.tgz",
+          "dev": true
+        }
+      }
     },
     "eslint-plugin-standard": {
       "version": "3.0.1",
@@ -3480,6 +3519,11 @@
       "version": "1.0.0",
       "resolved": "https://registry.npmjs.org/has-flag/-/has-flag-1.0.0.tgz"
     },
+    "has-symbols": {
+      "version": "1.0.0",
+      "resolved": "https://registry.npmjs.org/has-symbols/-/has-symbols-1.0.0.tgz",
+      "dev": true
+    },
     "has-unicode": {
       "version": "2.0.1",
       "resolved": "https://registry.npmjs.org/has-unicode/-/has-unicode-2.0.1.tgz"
@@ -3866,6 +3910,11 @@
       "version": "1.0.0",
       "resolved": "https://registry.npmjs.org/is-builtin-module/-/is-builtin-module-1.0.0.tgz"
     },
+    "is-callable": {
+      "version": "1.1.4",
+      "resolved": "https://registry.npmjs.org/is-callable/-/is-callable-1.1.4.tgz",
+      "dev": true
+    },
     "is-ci": {
       "version": "1.2.1",
       "resolved": "https://registry.npmjs.org/is-ci/-/is-ci-1.2.1.tgz",
@@ -3874,6 +3923,11 @@
     "is-data-descriptor": {
       "version": "0.1.4",
       "resolved": "https://registry.npmjs.org/is-data-descriptor/-/is-data-descriptor-0.1.4.tgz",
+      "dev": true
+    },
+    "is-date-object": {
+      "version": "1.0.1",
+      "resolved": "https://registry.npmjs.org/is-date-object/-/is-date-object-1.0.1.tgz",
       "dev": true
     },
     "is-descriptor": {
@@ -4024,6 +4078,11 @@
       "resolved": "https://registry.npmjs.org/is-redirect/-/is-redirect-1.0.0.tgz",
       "dev": true
     },
+    "is-regex": {
+      "version": "1.0.4",
+      "resolved": "https://registry.npmjs.org/is-regex/-/is-regex-1.0.4.tgz",
+      "dev": true
+    },
     "is-relative": {
       "version": "0.2.1",
       "resolved": "https://registry.npmjs.org/is-relative/-/is-relative-0.2.1.tgz",
@@ -4042,6 +4101,11 @@
     "is-stream": {
       "version": "1.1.0",
       "resolved": "https://registry.npmjs.org/is-stream/-/is-stream-1.1.0.tgz"
+    },
+    "is-symbol": {
+      "version": "1.0.2",
+      "resolved": "https://registry.npmjs.org/is-symbol/-/is-symbol-1.0.2.tgz",
+      "dev": true
     },
     "is-typedarray": {
       "version": "1.0.0",
@@ -4174,6 +4238,11 @@
           "resolved": "https://registry.npmjs.org/assert-plus/-/assert-plus-1.0.0.tgz"
         }
       }
+    },
+    "jsx-ast-utils": {
+      "version": "2.0.1",
+      "resolved": "https://registry.npmjs.org/jsx-ast-utils/-/jsx-ast-utils-2.0.1.tgz",
+      "dev": true
     },
     "kind-of": {
       "version": "3.2.2",

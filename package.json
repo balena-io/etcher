@@ -121,6 +121,7 @@
     "eslint-plugin-lodash": "2.6.1",
     "eslint-plugin-node": "6.0.1",
     "eslint-plugin-promise": "3.6.0",
+    "eslint-plugin-react": "7.11.1",
     "eslint-plugin-standard": "3.0.1",
     "html-angular-validate": "0.2.3",
     "html-loader": "0.5.1",
