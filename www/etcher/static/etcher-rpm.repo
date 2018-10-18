@@ -1,0 +1,7 @@
+#etcher-rpm - Etcher packages 
+[etcher-rpm]
+name=etcher-rpm
+baseurl=https://rpm.etcher.io
+gpgcheck=0
+repo_gpgcheck=0
+enabled=1
