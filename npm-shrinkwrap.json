@@ -614,10 +614,6 @@
       "resolved": "https://registry.npmjs.org/async-foreach/-/async-foreach-0.1.3.tgz",
       "dev": true
     },
-    "async-mutex": {
-      "version": "0.1.3",
-      "resolved": "https://registry.npmjs.org/async-mutex/-/async-mutex-0.1.3.tgz"
-    },
     "asynckit": {
       "version": "0.4.0",
       "resolved": "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz"
@@ -3054,8 +3050,8 @@
       "resolved": "https://registry.npmjs.org/esutils/-/esutils-2.0.2.tgz"
     },
     "etcher-sdk": {
-      "version": "0.1.27",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-0.1.27.tgz",
+      "version": "0.1.28",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-0.1.28.tgz",
       "dependencies": {
         "@types/node": {
           "version": "6.14.0",
@@ -3064,6 +3060,10 @@
         "bluebird": {
           "version": "3.5.2",
           "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.2.tgz"
+        },
+        "node-raspberrypi-usbboot": {
+          "version": "0.0.12",
+          "resolved": "https://registry.npmjs.org/node-raspberrypi-usbboot/-/node-raspberrypi-usbboot-0.0.12.tgz"
         }
       }
     },
@@ -5564,16 +5564,6 @@
         "semver": {
           "version": "5.6.0",
           "resolved": "https://registry.npmjs.org/semver/-/semver-5.6.0.tgz"
-        }
-      }
-    },
-    "node-raspberrypi-usbboot": {
-      "version": "0.0.10",
-      "resolved": "https://registry.npmjs.org/node-raspberrypi-usbboot/-/node-raspberrypi-usbboot-0.0.10.tgz",
-      "dependencies": {
-        "@types/node": {
-          "version": "6.14.0",
-          "resolved": "https://registry.npmjs.org/@types/node/-/node-6.14.0.tgz"
         }
       }
     },
