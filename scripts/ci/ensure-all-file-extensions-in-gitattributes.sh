@@ -19,10 +19,6 @@
 set -u
 set -e
 
-HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-"$HERE/../build/check-dependency.sh" git
-
 # Read list of wildcards from .gitattributes
 wildcards=()
 while IFS='' read -r line || [[ -n "$line" ]]; do

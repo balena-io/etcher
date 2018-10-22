@@ -1,0 +1,3 @@
+[submodule "scripts/resin"]
+	path = scripts/resin
+	url = git@github.com:resin-io/scripts.git

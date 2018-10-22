@@ -19,46 +19,39 @@
 set -u
 set -e
 
-HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-"$HERE/../check-dependency.sh" docker
-
 function usage() {
   echo "Usage: $0"
   echo ""
   echo "Options"
   echo ""
-  echo "    -r <architecture>"
+  echo "    -d <dockerfile>"
   echo "    -s <source code directory>"
   echo "    -c <command>"
   exit 1
 }
 
-ARGV_ARCHITECTURE=""
+ARGV_DOCKERFILE=""
 ARGV_SOURCE_CODE_DIRECTORY=""
 ARGV_COMMAND=""
 
-while getopts ":r:s:c:" option; do
+while getopts ":d:s:c:" option; do
   case $option in
-    r) ARGV_ARCHITECTURE=$OPTARG ;;
+    d) ARGV_DOCKERFILE=$OPTARG ;;
     s) ARGV_SOURCE_CODE_DIRECTORY=$OPTARG ;;
     c) ARGV_COMMAND=$OPTARG ;;
     *) usage ;;
   esac
 done
 
-if [ -z "$ARGV_ARCHITECTURE" ] \
+if [ -z "$ARGV_DOCKERFILE" ] \
   || [ -z "$ARGV_SOURCE_CODE_DIRECTORY" ] \
   || [ -z "$ARGV_COMMAND" ]
 then
   usage
 fi
 
-DOCKER_ARCHITECTURE=$(./scripts/build/architecture-convert.sh -r "$ARGV_ARCHITECTURE" -t docker)
-DOCKERFILE="$HERE/Dockerfile-$DOCKER_ARCHITECTURE"
-IMAGE_ID="etcher-build-$DOCKER_ARCHITECTURE"
-
-docker build -f "$DOCKERFILE" -t "$IMAGE_ID" "$ARGV_SOURCE_CODE_DIRECTORY"
+IMAGE_ID="etcher-build-$(basename "$ARGV_DOCKERFILE")"
+docker build -f "$ARGV_DOCKERFILE" -t "$IMAGE_ID" "$ARGV_SOURCE_CODE_DIRECTORY"
 
 # Docker complains with: ". includes invalid characters for a local
 # volume name, only [a-zA-Z0-9][a-zA-Z0-9_.-] are allowed" otherwise
@@ -73,7 +66,7 @@ fi
 # and http://mywiki.wooledge.org/BashFAQ/050
 # and http://stackoverflow.com/a/7577209
 DOCKER_ENVVARS=()
-for COPYVAR in AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY ANALYTICS_SENTRY_TOKEN ANALYTICS_MIXPANEL_TOKEN RELEASE_TYPE BINTRAY_USER BINTRAY_API_KEY CI; do
+for COPYVAR in AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY ANALYTICS_SENTRY_TOKEN ANALYTICS_MIXPANEL_TOKEN CI; do
   eval "if [ ! -z \${$COPYVAR+x} ]; then DOCKER_ENVVARS+=(\"--env\" \"$COPYVAR=\$$COPYVAR\"); fi"
 done
 
@@ -82,7 +75,6 @@ done
 # The `-t` and TERM setup is needed to display coloured output.
 docker run -t \
   --env "TERM=xterm-256color" \
-  --env "TARGET_ARCH=$ARGV_ARCHITECTURE" \
   ${DOCKER_ENVVARS[@]+"${DOCKER_ENVVARS[@]}"} \
   --privileged \
   --cap-add SYS_ADMIN \
