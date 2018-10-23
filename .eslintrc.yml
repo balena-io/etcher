@@ -8,6 +8,7 @@ plugins:
   - lodash
   - jsdoc
   - node
+  - react
 extends: 'standard'
 parserOptions:
   sourceType: 'script'
@@ -446,3 +447,13 @@ rules:
   node/no-extraneous-import:
     - error
 
+  # React
+
+  react/jsx-uses-vars:
+    - error
+
+overrides:
+  files: ['*.jsx']
+  rules:
+    require-jsdoc:
+    - off
