@@ -122,8 +122,8 @@ A commit can include multiple instances of this tag.
 Examples:
 
 ```
-Closes: https://github.com/resin-io/etcher/issues/XXX
-Fixes: https://github.com/resin-io/etcher/issues/XXX
+Closes: https://github.com/balena-io/etcher/issues/XXX
+Fixes: https://github.com/balena-io/etcher/issues/XXX
 ```
 
 ### `Change-Type: <type>`
@@ -198,7 +198,7 @@ first non compressed extension.
 
 Change-Type: patch
 Changelog-Entry: Don't interpret image file name information between dots as image extensions.
-Fixes: https://github.com/resin-io/etcher/issues/492
+Fixes: https://github.com/balena-io/etcher/issues/492
 ```
 
 ***
@@ -212,8 +212,8 @@ the operating system still thinks the drive has a file system.
 
 Change-Type: patch
 Changelog-Entry: Upgrade `etcher-image-write` to v5.0.2.
-Link: https://github.com/resin-io-modules/etcher-image-write/blob/master/CHANGELOG.md#502---2016-06-27
-Fixes: https://github.com/resin-io/etcher/issues/531
+Link: https://github.com/balena-io-modules/etcher-image-write/blob/master/CHANGELOG.md#502---2016-06-27
+Fixes: https://github.com/balena-io/etcher/issues/531
 ```
 
 ***
@@ -243,7 +243,7 @@ re-used by other services.
 
 Change-Type: minor
 Changelog-Entry: Check for updates and show a modal prompting the user to download the latest version.
-Closes: https://github.com/resin-io/etcher/issues/396
+Closes: https://github.com/balena-io/etcher/issues/396
 ```
 
 [angular-commit-guidelines]: https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#commit

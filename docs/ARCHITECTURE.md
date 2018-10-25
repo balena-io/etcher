@@ -58,14 +58,14 @@ to an image, a compressed image, an image inside a ZIP archive, etc. Together
 with [etcher-image-write], these modules are the building blocks needed to take
 an image representation to the user's device, the "Etcher's backend".
 
-- [Drivelist](https://github.com/resin-io-modules/drivelist)
+- [Drivelist](https://github.com/balena-io-modules/drivelist)
 
 As the name implies, this module's duty is to detect the connected drives
 uniformly in all major operating systems, along with valuable metadata, like if
 a drive is removable or not, to prevent users from trying to write an image to
 a system drive.
 
-- [Etcher](https://github.com/resin-io/etcher)
+- [Etcher](https://github.com/balena-io/etcher)
 
 This is the *"main repository"*, from which you're reading this from, which is
 basically the front-end and glue for all previously listed projects.
@@ -106,10 +106,10 @@ since fresh eyes could help unveil things that we take for granted, but should
 be documented instead!
 
 [lego-blocks]: https://github.com/sindresorhus/ama/issues/10#issuecomment-117766328
-[etcher-image-write]: https://github.com/resin-io-modules/etcher-image-write
-[exit-codes]: https://github.com/resin-io/etcher/blob/master/lib/shared/exit-codes.js
-[cli-dir]: https://github.com/resin-io/etcher/tree/master/lib/cli
-[gui-dir]: https://github.com/resin-io/etcher/tree/master/lib/gui
+[etcher-image-write]: https://github.com/balena-io-modules/etcher-image-write
+[exit-codes]: https://github.com/balena-io/etcher/blob/master/lib/shared/exit-codes.js
+[cli-dir]: https://github.com/balena-io/etcher/tree/master/lib/cli
+[gui-dir]: https://github.com/balena-io/etcher/tree/master/lib/gui
 [electron]: http://electron.atom.io
 [nodejs]: https://nodejs.org
 [angularjs]: https://angularjs.org

@@ -211,15 +211,15 @@ macOS 10.9 and newer versions][electron-supported-platforms].
 You can however, run the [Etcher CLI][etcher-cli], which should work in older
 platforms.
 
-[resin.io]: https://resin.io
+[balena.io]: https://balena.io
 [appimage]: http://appimage.org
 [xwayland]: https://wayland.freedesktop.org/xserver.html
 [weston.ini]: http://manpages.ubuntu.com/manpages/wily/man5/weston.ini.5.html
 [diskpart]: https://technet.microsoft.com/en-us/library/cc770877(v=ws.11).aspx
 [electron]: http://electron.atom.io
 [electron-supported-platforms]: https://github.com/electron/electron/blob/master/docs/tutorial/supported-platforms.md
-[etcher-cli]: https://github.com/resin-io/etcher/blob/master/docs/CLI.md
-[publishing]: https://github.com/resin-io/etcher/blob/master/docs/PUBLISHING.md
+[etcher-cli]: https://github.com/balena-io/etcher/blob/master/docs/CLI.md
+[publishing]: https://github.com/balena-io/etcher/blob/master/docs/PUBLISHING.md
 [windows-usb-tool]: https://www.microsoft.com/en-us/download/windows-usb-dvd-download-tool
 [rufus]: https://rufus.akeo.ie
 [unetbootin]: https://unetbootin.github.io

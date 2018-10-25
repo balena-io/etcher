@@ -63,7 +63,7 @@ which can be installed by running `xcode-select --install`.
 ### Cloning the project
 
 ```sh
-git clone https://github.com/resin-io/etcher
+git clone https://github.com/balena-io/etcher
 cd etcher
 ```
 
@@ -213,8 +213,8 @@ systems we support.
 
 Don't hesitate to get in touch if you have any questions or need any help!
 
-[ARCHITECTURE]: https://github.com/resin-io/etcher/blob/master/docs/ARCHITECTURE.md
-[COMMIT-GUIDELINES]: https://github.com/resin-io/etcher/blob/master/docs/COMMIT-GUIDELINES.md
+[ARCHITECTURE]: https://github.com/balena-io/etcher/blob/master/docs/ARCHITECTURE.md
+[COMMIT-GUIDELINES]: https://github.com/balena-io/etcher/blob/master/docs/COMMIT-GUIDELINES.md
 [EditorConfig]: http://editorconfig.org
 [shrinkwrap]: https://docs.npmjs.com/cli/shrinkwrap
 [hxd]: https://github.com/jhermsmeier/hxd

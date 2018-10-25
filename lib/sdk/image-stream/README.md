@@ -73,4 +73,4 @@ and the leftover extension examined to determine the uncompressed image format (
 As an archive (such as `.tar`) might be additionally compressed, this will allow for constructs such as
 `.tar.gz` (a compressed archive, containing a file with an extension tagged as `image`) to be handled correctly.
 
-[etcher-image-write]: https://github.com/resin-io-modules/etcher-image-write
+[etcher-image-write]: https://github.com/balena-io-modules/etcher-image-write
