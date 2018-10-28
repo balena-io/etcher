@@ -12,11 +12,11 @@
   "main": "lib/start.js",
   "description": "Flash OS images to SD cards and USB drives, safely and easily.",
   "productDescription": "Etcher is a powerful OS image flasher built with web technologies to ensure flashing an SDCard or USB drive is a pleasant and safe experience. It protects you from accidentally writing to your hard-drives, ensures every byte of data was written correctly and much more.",
-  "homepage": "https://github.com/resin-io/etcher",
+  "homepage": "https://github.com/balena-io/etcher",
   "gypfile": true,
   "repository": {
     "type": "git",
-    "url": "git@github.com:resin-io/etcher.git"
+    "url": "git@github.com:balena-io/etcher.git"
   },
   "scripts": {
     "test": "make lint test sanity-checks",
@@ -32,7 +32,7 @@
     "concourse-test-electron": "npm test",
     "concourse-test-node-cli": "make webpack lint-js lint-cpp lint-spell test-cli"
   },
-  "author": "Resin Inc. <hello@etcher.io>",
+  "author": "Balena Inc. <hello@etcher.io>",
   "license": "Apache-2.0",
   "platformSpecificDependencies": [
     "7zip-bin-mac",

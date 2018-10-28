@@ -43,3 +43,7 @@ node_modules
 *.cer
 *.crt
 *.pem
+
+# OSX files
+
+.DS_Store

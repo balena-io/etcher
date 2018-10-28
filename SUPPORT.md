@@ -8,7 +8,7 @@ Forums
 ------
 
 We have a [Discourse forum][discourse] which is open to everyone, so please
-come join us :). Drop us a line there and the resin.io staff and community
+come join us :). Drop us a line there and the balena.io staff and community
 users will be happy to assist. Your question might already be answered, so take
 a look at the existing threads before opening a new one!
 
@@ -29,6 +29,6 @@ If you encounter an issue or have a suggestion, head on over to Etcher's [issue
 tracker][issues] and if there isn't a ticket covering it, [create
 one][new-issue].
 
-[discourse]: https://forums.resin.io/c/etcher
-[issues]: https://github.com/resin-io/etcher/issues
-[new-issue]: https://github.com/resin-io/etcher/issues/new
+[discourse]: https://forums.balena.io/c/etcher
+[issues]: https://github.com/balena-io/etcher/issues
+[new-issue]: https://github.com/balena-io/etcher/issues/new

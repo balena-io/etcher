@@ -52,7 +52,7 @@ Signing
 ### OS X
 
 1. Get our Apple Developer ID certificate for signing applications distributed
-outside the Mac App Store from the resin.io Apple account.
+outside the Mac App Store from the balena.io Apple account.
 
 2. Install the Developer ID certificate to your Mac's Keychain by double
 clicking on the certificate file.
@@ -62,7 +62,7 @@ packaging for OS X.
 
 ### Windows
 
-1. Get access to our code signing certificate and decryption key as a resin.io
+1. Get access to our code signing certificate and decryption key as a balena.io
 employee by asking for it from the relevant people.
 
 2. Place the certificate in the root of the Etcher repository naming it
@@ -118,7 +118,7 @@ Publishing to S3
 - [AWS CLI][aws-cli]
 
 Make sure you have the [AWS CLI tool][aws-cli] installed and configured to
-access resin.io's production or snapshot S3 bucket.
+access balena.io's production or snapshot S3 bucket.
 
 Run the following command to publish all files for the current combination of
 _platform_ and _arch_ (building them if necessary):
@@ -128,7 +128,7 @@ make publish-aws-s3
 ```
 
 Also add links to each AWS S3 file in [GitHub Releases][github-releases]. See
-[`v1.0.0-beta.17`](https://github.com/resin-io/etcher/releases/tag/v1.0.0-beta.17)
+[`v1.0.0-beta.17`](https://github.com/balena-io/etcher/releases/tag/v1.0.0-beta.17)
 as an example.
 
 Publishing to Homebrew Cask
@@ -143,12 +143,12 @@ Publishing to Homebrew Cask
 Announcing
 ----------
 
-Post messages to the [Etcher forum][resin-forum-etcher] announcing the new version
+Post messages to the [Etcher forum][balena-forum-etcher] announcing the new version
 of Etcher, and including the relevant section of the Changelog.
 
 [aws-cli]: https://aws.amazon.com/cli
 [bintray]: https://bintray.com
 [etcher-cask-file]: https://github.com/caskroom/homebrew-cask/blob/master/Casks/etcher.rb
 [homebrew-cask]: https://github.com/caskroom/homebrew-cask
-[resin-forum-etcher]: https://forums.resin.io/c/etcher
-[github-releases]: https://github.com/resin-io/etcher/releases
+[balena-forum-etcher]: https://forums.balena.io/c/etcher
+[github-releases]: https://github.com/balena-io/etcher/releases

@@ -17,7 +17,7 @@ Releasing
 
 - [Prepare the new version](#preparing-a-new-version)
 - [Generate build artifacts](#generating-binaries) (binaries, archives, etc.)
-- [Draft a release on GitHub](https://github.com/resin-io/etcher/releases)
+- [Draft a release on GitHub](https://github.com/balena-io/etcher/releases)
     - Upload build artifacts to GitHub release draft
 
 #### Testing
@@ -27,10 +27,10 @@ Releasing
 
 #### Publishing
 
-- [Publish release draft on GitHub](https://github.com/resin-io/etcher/releases)
-- [Post release note to forums](https://forums.resin.io/c/etcher)
+- [Publish release draft on GitHub](https://github.com/balena-io/etcher/releases)
+- [Post release note to forums](https://forums.balena.io/c/etcher)
 - [Submit Windows binaries to Symantec for whitelisting](#submitting-binaries-to-symantec)
-- [Update the website](https://github.com/resin-io/etcher-homepage)
+- [Update the website](https://github.com/balena-io/etcher-homepage)
 - Wait 2-3 hours for analytics (Sentry, Mixpanel) to trickle in and check for elevated error rates, or regressions
 - If regressions arise; pull the release, and release a patched version, else:
 - [Upload deb & rpm packages to Bintray](#uploading-packages-to-bintray)
@@ -179,7 +179,7 @@ export S3_KEY="..."
 ```
 
 ```bash
-./scripts/publish/aws-s3.sh -b "resin-production-downloads" -v "1.2.1" -p "etcher" -f "dist/<filename>"
+./scripts/publish/aws-s3.sh -b "balena-production-downloads" -v "1.2.1" -p "etcher" -f "dist/<filename>"
 ```
 
 ### Dealing with a Problematic Release
@@ -190,7 +190,7 @@ revert the problematic release as soon as possible, until the bugs are fixed.
 
 You can revert a version by deleting its builds from the S3 bucket and Bintray.
 Refer to the `Makefile` for the up to date information about the S3 bucket
-where we push builds to, and get in touch with the resin.io operations team to
+where we push builds to, and get in touch with the balena.io operations team to
 get write access to it.
 
 The Etcher update notifier dialog and the website only show the a certain
@@ -213,6 +213,6 @@ The Bintray dashboard provides an easy way to delete a version's files.
   - **Select Submission Type:** "Provide a direct download URL"
   - **Name of the software being detected:** Etcher
   - **Name of detection given by Symantec product:** WS.Reputation.1
-  - **Contact name:** Resin.io Ltd
+  - **Contact name:** Balena.io Ltd
   - **E-mail address:** hello@etcher.io
   - **Are you the creator or distributor of the software in question?** Yes
