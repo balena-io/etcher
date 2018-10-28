@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.4.6 - 2018-10-28
+
+### Fixes
+
+- Provide a Buffer to xxhash.Stream
+- Fix 64 bit detection on arm
+- Fix incorrect file constraint path
+- Fix flash cancel button interaction
+
+### Misc
+
+- Add new balena.io logos
+- Use Resin CI scripts to build Etcher
+- Enable React lint rules
+- Convert Progress Button to Rendition
+
 ## v1.4.5 - 2018-10-11
 
 ### Features
