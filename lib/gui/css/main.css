@@ -6428,7 +6428,8 @@ svg-icon > img[disabled] {
   min-width: 170px; }
 
 .page-main .button-abort-write {
-  margin-right: -35px; }
+  margin-right: -35px;
+  z-index: 1; }
 
 .page-main .step-border-left, .page-main .step-border-right {
   height: 2px;
