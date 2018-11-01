@@ -11168,12 +11168,12 @@
       }
     },
     "prop-types": {
-      "version": "15.5.9",
-      "resolved": "https://registry.npmjs.org/prop-types/-/prop-types-15.5.9.tgz",
-      "integrity": "sha1-1Hju8OdhOWlC9wx453L3bovnR8k=",
+      "version": "15.6.2",
+      "resolved": "https://registry.npmjs.org/prop-types/-/prop-types-15.6.2.tgz",
+      "integrity": "sha512-3pboPvLiWD7dkI3qf3KbUe6hKFKa52w+AE0VCqECtf+QHAKgOL37tTaNCnuX1nAAQ4ZhyP+kYVKf8rLmJ/feDQ==",
       "requires": {
-        "fbjs": "0.8.17",
-        "loose-envify": "1.4.0"
+        "loose-envify": "1.4.0",
+        "object-assign": "4.1.1"
       }
     },
     "propagate": {
