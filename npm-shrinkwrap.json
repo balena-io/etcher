@@ -11454,25 +11454,14 @@
       }
     },
     "react-dom": {
-      "version": "16.3.2",
-      "resolved": "https://registry.npmjs.org/react-dom/-/react-dom-16.3.2.tgz",
-      "integrity": "sha512-MMPko3zYncNrz/7gG17wJWUREZDvskZHXOwbttzl0F0L3wDmToyuETuo/r8Y5yvDejwYcRyWI1lvVBjLJWFwKA==",
+      "version": "16.6.0",
+      "resolved": "https://registry.npmjs.org/react-dom/-/react-dom-16.6.0.tgz",
+      "integrity": "sha512-Stm2D9dXEUUAQdvpvhvFj/DEXwC2PAL/RwEMhoN4dvvD2ikTlJegEXf97xryg88VIAU22ZAP7n842l+9BTz6+w==",
       "requires": {
-        "fbjs": "0.8.17",
         "loose-envify": "1.4.0",
         "object-assign": "4.1.1",
-        "prop-types": "15.6.2"
-      },
-      "dependencies": {
-        "prop-types": {
-          "version": "15.6.2",
-          "resolved": "https://registry.npmjs.org/prop-types/-/prop-types-15.6.2.tgz",
-          "integrity": "sha512-3pboPvLiWD7dkI3qf3KbUe6hKFKa52w+AE0VCqECtf+QHAKgOL37tTaNCnuX1nAAQ4ZhyP+kYVKf8rLmJ/feDQ==",
-          "requires": {
-            "loose-envify": "1.4.0",
-            "object-assign": "4.1.1"
-          }
-        }
+        "prop-types": "15.6.2",
+        "scheduler": "0.10.0"
       }
     },
     "react-icon-base": {
@@ -13211,6 +13200,15 @@
       "version": "1.2.4",
       "resolved": "https://registry.npmjs.org/sax/-/sax-1.2.4.tgz",
       "integrity": "sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw=="
+    },
+    "scheduler": {
+      "version": "0.10.0",
+      "resolved": "https://registry.npmjs.org/scheduler/-/scheduler-0.10.0.tgz",
+      "integrity": "sha512-+TSTVTCBAA3h8Anei3haDc1IRwMeDmtI/y/o3iBe3Mjl2vwYF9DtPDt929HyRmV/e7au7CLu8sc4C4W0VOs29w==",
+      "requires": {
+        "loose-envify": "1.4.0",
+        "object-assign": "4.1.1"
+      }
     },
     "scss-tokenizer": {
       "version": "0.2.3",
