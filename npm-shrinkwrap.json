@@ -2306,9 +2306,9 @@
       "integrity": "sha1-E/kwNaTtPG0pUwgkkkWg7XZ7NeI="
     },
     "bluebird": {
-      "version": "3.4.1",
-      "resolved": "http://registry.npmjs.org/bluebird/-/bluebird-3.4.1.tgz",
-      "integrity": "sha1-tzHd9I4t077awudeEhWhG8uR+gc="
+      "version": "3.5.2",
+      "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.2.tgz",
+      "integrity": "sha512-dhHTWMI7kMx5whMQntl7Vr9C6BvV10lFXDAasnqnrMYhXVCzzk6IO9Fo2L75jXHT07WrOngL1WDXOp+yYS91Yg=="
     },
     "bluebird-lst": {
       "version": "1.0.6",
