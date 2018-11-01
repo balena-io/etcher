@@ -16129,9 +16129,9 @@
       "dev": true
     },
     "winusb-driver-generator": {
-      "version": "1.2.1",
-      "resolved": "https://registry.npmjs.org/winusb-driver-generator/-/winusb-driver-generator-1.2.1.tgz",
-      "integrity": "sha512-FWsO5iiU8va96eH6w7gsii3NUooNml2eLEwvwTFsEJy/BOHvLJm3/VQRrgsUOXcSum0ZewrEbc7QRZfq0oHrFw==",
+      "version": "1.2.2",
+      "resolved": "https://registry.npmjs.org/winusb-driver-generator/-/winusb-driver-generator-1.2.2.tgz",
+      "integrity": "sha1-xr7k1v2hPHipyXeTrUaWZ7Ynklw=",
       "requires": {
         "bindings": "1.3.0",
         "nan": "2.11.1",
