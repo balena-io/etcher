@@ -315,9 +315,9 @@
       }
     },
     "angular-mocks": {
-      "version": "1.6.3",
-      "resolved": "https://registry.npmjs.org/angular-mocks/-/angular-mocks-1.6.3.tgz",
-      "integrity": "sha1-Evr8Dx4JA/FoZABLo3W/P7kQHvE=",
+      "version": "1.7.5",
+      "resolved": "https://registry.npmjs.org/angular-mocks/-/angular-mocks-1.7.5.tgz",
+      "integrity": "sha512-I+Ue2Bkx6R9W5178DYrNvzjIdGh4wKKoCWsgz8dc7ysH4mA70Q3M9v5xRF0RUu7r+2CZj+nDeUecvh2paxcYvg==",
       "dev": true
     },
     "angular-moment": {
