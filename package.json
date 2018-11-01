@@ -131,7 +131,7 @@
     "nock": "9.2.3",
     "node-gyp": "3.5.0",
     "node-sass": "4.7.2",
-    "pkg": "4.3.0",
+    "pkg": "4.3.4",
     "sass-lint": "1.12.1",
     "simple-progress-webpack-plugin": "1.1.2",
     "spectron": "5.0.0",
