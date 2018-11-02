@@ -49,7 +49,7 @@
     "angular-moment": "1.0.1",
     "angular-seconds-to-date": "1.0.0",
     "angular-ui-bootstrap": "2.5.0",
-    "angular-ui-router": "0.4.2",
+    "angular-ui-router": "1.0.20",
     "bindings": "1.3.0",
     "blockmap": "2.0.2",
     "bluebird": "3.5.2",

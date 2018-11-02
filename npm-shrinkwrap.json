@@ -262,6 +262,11 @@
         "@types/node": "10.12.1"
       }
     },
+    "@uirouter/core": {
+      "version": "5.0.21",
+      "resolved": "https://registry.npmjs.org/@uirouter/core/-/core-5.0.21.tgz",
+      "integrity": "sha512-QWHc0wT00qtYNkT0BXZaFNLLHZyux0qJjF8c2WklW5/Q0Z866NoJjJErEMWjQb/AR+olkR2NlfEEi8KTQU2OpA=="
+    },
     "abbrev": {
       "version": "1.1.1",
       "resolved": "https://registry.npmjs.org/abbrev/-/abbrev-1.1.1.tgz",
@@ -408,11 +413,11 @@
       "integrity": "sha1-L6zvuRU4ZlXcX0QVAlgDJRcjbQE="
     },
     "angular-ui-router": {
-      "version": "0.4.2",
-      "resolved": "https://registry.npmjs.org/angular-ui-router/-/angular-ui-router-0.4.2.tgz",
-      "integrity": "sha1-tq7Rymmmg8guOZKJjqvUuhWGhgg=",
+      "version": "1.0.20",
+      "resolved": "https://registry.npmjs.org/angular-ui-router/-/angular-ui-router-1.0.20.tgz",
+      "integrity": "sha512-D9Y+qOq6StinrlyeiHp7wbOBL5UbwaHW1dgpfQZ6fWuQ5Q5UOrJfe3S28XWDt8ybOKaUh2ds/IFXib5vCu8Opg==",
       "requires": {
-        "angular": "1.6.3"
+        "@uirouter/core": "5.0.21"
       }
     },
     "ansi-align": {
