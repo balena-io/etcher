@@ -14913,22 +14913,12 @@
       }
     },
     "styled-system": {
-      "version": "1.1.7",
-      "resolved": "http://registry.npmjs.org/styled-system/-/styled-system-1.1.7.tgz",
-      "integrity": "sha512-OV+OrU83pfwxlvs7JGWisS9esa9rkmGM6z3v1/JG+fn+PSoqDBmdoV2sWEbQF0mOFxyxgoXcu3R6Q0RtUgcTMw==",
+      "version": "3.1.11",
+      "resolved": "https://registry.npmjs.org/styled-system/-/styled-system-3.1.11.tgz",
+      "integrity": "sha512-d0p32F7Y55uRWNDb1P0JcIiGVi13ZxiSCvn8zNS68exAKW9Q5jp+IGTXUIavQOD/J8r3tydtE3vRk8Ii2i39HA==",
       "requires": {
+        "@babel/runtime": "7.1.2",
         "prop-types": "15.6.2"
-      },
-      "dependencies": {
-        "prop-types": {
-          "version": "15.6.2",
-          "resolved": "https://registry.npmjs.org/prop-types/-/prop-types-15.6.2.tgz",
-          "integrity": "sha512-3pboPvLiWD7dkI3qf3KbUe6hKFKa52w+AE0VCqECtf+QHAKgOL37tTaNCnuX1nAAQ4ZhyP+kYVKf8rLmJ/feDQ==",
-          "requires": {
-            "loose-envify": "1.4.0",
-            "object-assign": "4.1.1"
-          }
-        }
       }
     },
     "stylis": {
