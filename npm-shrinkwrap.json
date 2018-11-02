@@ -8677,11 +8677,6 @@
         "lodash": "4.17.10"
       }
     },
-    "lodash-es": {
-      "version": "4.17.11",
-      "resolved": "https://registry.npmjs.org/lodash-es/-/lodash-es-4.17.11.tgz",
-      "integrity": "sha512-DHb1ub+rMjjrxqlB3H56/6MXtm1lSksDp2rA2cNWjG8mlDUYFhUj3Di2Zn5IwSU87xLv8tNIQ7sSwE/YOX/D/Q=="
-    },
     "lodash.assign": {
       "version": "4.2.0",
       "resolved": "https://registry.npmjs.org/lodash.assign/-/lodash.assign-4.2.0.tgz",
@@ -12637,14 +12632,12 @@
       }
     },
     "redux": {
-      "version": "3.5.2",
-      "resolved": "http://registry.npmjs.org/redux/-/redux-3.5.2.tgz",
-      "integrity": "sha1-RTN0XpcLZH7CYGaoOqMOnib6+EM=",
+      "version": "4.0.1",
+      "resolved": "https://registry.npmjs.org/redux/-/redux-4.0.1.tgz",
+      "integrity": "sha512-R7bAtSkk7nY6O/OYMVR9RiBI+XghjF9rlbl5806HJbQph0LJVHZrU5oaO4q70eUKiqMRqm4y07KLTlMZ2BlVmg==",
       "requires": {
-        "lodash": "4.17.10",
-        "lodash-es": "4.17.11",
         "loose-envify": "1.4.0",
-        "symbol-observable": "0.2.4"
+        "symbol-observable": "1.2.0"
       }
     },
     "regenerate": {
@@ -14902,9 +14895,9 @@
       "integrity": "sha1-U10EXOa2Nj+kARcIRimZXp3zJMc="
     },
     "symbol-observable": {
-      "version": "0.2.4",
-      "resolved": "https://registry.npmjs.org/symbol-observable/-/symbol-observable-0.2.4.tgz",
-      "integrity": "sha1-lag9smGG1q9+ehjb2XYKL4bQj0A="
+      "version": "1.2.0",
+      "resolved": "https://registry.npmjs.org/symbol-observable/-/symbol-observable-1.2.0.tgz",
+      "integrity": "sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ=="
     },
     "table": {
       "version": "4.0.3",
