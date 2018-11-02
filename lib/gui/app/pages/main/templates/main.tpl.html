@@ -7,32 +7,19 @@
       </div>
 
       <div class="space-vertical-large">
-        <div ng-if="!main.selection.hasImage()">
-          <button
-            class="button button-primary button-brick"
-            tabindex="{{ main.selection.hasImage() ? -1 : 1 }}"
-            ng-click="image.openImageSelector()">Select image</button>
-
-          <p class="step-footer">
-            {{ ::image.mainSupportedExtensions.join(', ') }}, and
-            <span class="step-footer-underline"
-              uib-tooltip="{{ image.extraSupportedExtensions.join(', ') }}">others</span>
-          </p>
-        </div>
-        <div ng-if="main.selection.hasImage()">
-          <div class="step-selection-text">
-            <span
-              ng-click="main.showSelectedImageDetails()"
-              class="step-image step-name"
-              ng-bind="main.selection.getImageName() || image.getImageBasename() | middleEllipsis:20"
-              uib-tooltip="{{ image.getImageBasename() }}"></span>
-            <button class="button button-link step-footer"
-              tabindex="1"
-              ng-click="image.reselectImage()"
-              ng-hide="main.state.isFlashing()">Change</button>
-            <span class="step-image step-size">{{ main.selection.getImageSize() | closestUnit }}</span>
-          </div>
-        </div>
+        <image-selector
+          has-image="main.selection.hasImage()"
+          open-image-selector="image.openImageSelector"
+          main-supported-extensions="image.mainSupportedExtensions"
+          extra-supported-extensions="image.extraSupportedExtensions"
+          show-selected-image-details="main.showSelectedImageDetails"
+          image-name="main.selection.getImageName()"
+          image-basename="image.getImageBasename()"
+          reselect-image="image.reselectImage"
+          flashing="main.state.isFlashing()"
+          image-size="main.selection.getImageSize()"
+        >
+        </image-selector>
       </div>
     </div>
   </div>
