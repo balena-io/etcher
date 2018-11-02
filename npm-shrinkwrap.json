@@ -5161,9 +5161,9 @@
       }
     },
     "eslint-plugin-standard": {
-      "version": "3.0.1",
-      "resolved": "https://registry.npmjs.org/eslint-plugin-standard/-/eslint-plugin-standard-3.0.1.tgz",
-      "integrity": "sha1-NNDJFbRe3G8BA5PH7vOCOwhWXPI=",
+      "version": "3.1.0",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-standard/-/eslint-plugin-standard-3.1.0.tgz",
+      "integrity": "sha512-fVcdyuKRr0EZ4fjWl3c+gp1BANFJD1+RaWa2UPYfMZ6jCtp5RG00kSaXnK/dE5sYzt4kaWJ9qdxqUfc0d9kX0w==",
       "dev": true
     },
     "eslint-scope": {
