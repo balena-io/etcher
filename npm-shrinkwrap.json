@@ -362,9 +362,9 @@
       "integrity": "sha1-XTS3mSNOj6F8ajoU4CWHM5NfQ+c="
     },
     "angular-if-state": {
-      "version": "1.0.0",
-      "resolved": "https://registry.npmjs.org/angular-if-state/-/angular-if-state-1.0.0.tgz",
-      "integrity": "sha1-NqQ4N88nHs73F/bJCw3/L76WTOQ=",
+      "version": "1.0.1",
+      "resolved": "https://registry.npmjs.org/angular-if-state/-/angular-if-state-1.0.1.tgz",
+      "integrity": "sha1-1hfphBf9rIP8GWMSvQRypxEdQSw=",
       "requires": {
         "angular": "1.6.3",
         "angular-ui-router": "0.3.2"
