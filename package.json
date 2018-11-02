@@ -81,7 +81,7 @@
     "react": "16.3.2",
     "react-dom": "16.6.0",
     "react2angular": "4.0.4",
-    "readable-stream": "2.3.3",
+    "readable-stream": "3.0.6",
     "redux": "4.0.1",
     "rendition": "4.6.0",
     "request": "2.81.0",
