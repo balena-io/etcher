@@ -12269,9 +12269,9 @@
       }
     },
     "react2angular": {
-      "version": "4.0.2",
-      "resolved": "https://registry.npmjs.org/react2angular/-/react2angular-4.0.2.tgz",
-      "integrity": "sha1-1J7EAU3dBpwrU7mGg/wMXWtL1pc=",
+      "version": "4.0.4",
+      "resolved": "https://registry.npmjs.org/react2angular/-/react2angular-4.0.4.tgz",
+      "integrity": "sha1-UB51p8oZHEr29VglE8RanuA3VgI=",
       "requires": {
         "@types/lodash.frompairs": "4.0.4",
         "angular": "1.6.3",
