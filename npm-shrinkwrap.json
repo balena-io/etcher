@@ -6000,9 +6000,9 @@
       }
     },
     "file-type": {
-      "version": "4.1.0",
-      "resolved": "https://registry.npmjs.org/file-type/-/file-type-4.1.0.tgz",
-      "integrity": "sha1-aQtwKTcV1/05aX4496EI66slUbk="
+      "version": "10.4.0",
+      "resolved": "https://registry.npmjs.org/file-type/-/file-type-10.4.0.tgz",
+      "integrity": "sha512-/Ha0T7TRFOFKgj36icy46h93By2tTwHirW9qeNLslo5NYmd7BbITVv2tkcuohmZWsNLqg9/dKNKwRXF3OVgVdA=="
     },
     "file-uri-to-path": {
       "version": "1.0.0",
