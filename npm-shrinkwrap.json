@@ -17086,12 +17086,22 @@
       }
     },
     "yauzl": {
-      "version": "2.6.0",
-      "resolved": "https://registry.npmjs.org/yauzl/-/yauzl-2.6.0.tgz",
-      "integrity": "sha1-QIlNRYe7ElUA0F30VHHNXhFKdvk=",
+      "version": "2.10.0",
+      "resolved": "https://registry.npmjs.org/yauzl/-/yauzl-2.10.0.tgz",
+      "integrity": "sha1-x+sXyT4RLLEIb6bY5R+wZnt5pfk=",
       "requires": {
         "buffer-crc32": "0.2.13",
-        "fd-slicer": "1.0.1"
+        "fd-slicer": "1.1.0"
+      },
+      "dependencies": {
+        "fd-slicer": {
+          "version": "1.1.0",
+          "resolved": "https://registry.npmjs.org/fd-slicer/-/fd-slicer-1.1.0.tgz",
+          "integrity": "sha1-JcfInLH5B3+IkbvmHY85Dq4lbx4=",
+          "requires": {
+            "pend": "1.2.0"
+          }
+        }
       }
     },
     "zip-stream": {
