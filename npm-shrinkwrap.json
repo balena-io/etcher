@@ -1894,9 +1894,9 @@
       }
     },
     "babel-preset-env": {
-      "version": "1.6.1",
-      "resolved": "https://registry.npmjs.org/babel-preset-env/-/babel-preset-env-1.6.1.tgz",
-      "integrity": "sha512-W6VIyA6Ch9ePMI7VptNn2wBM6dbG0eSz25HEiL40nQXCsXGTGZSTZu1Iap+cj3Q0S5a7T9+529l/5Bkvd+afNA==",
+      "version": "1.7.0",
+      "resolved": "https://registry.npmjs.org/babel-preset-env/-/babel-preset-env-1.7.0.tgz",
+      "integrity": "sha512-9OR2afuKDneX2/q2EurSftUYM0xGu4O2D9adAhVfADDhrYDaxXV0rBbevVYoY9n6nyX1PmQW/0jtpJvUNr9CHg==",
       "dev": true,
       "requires": {
         "babel-plugin-check-es2015-constants": "6.22.0",
@@ -1926,7 +1926,7 @@
         "babel-plugin-transform-es2015-unicode-regex": "6.24.1",
         "babel-plugin-transform-exponentiation-operator": "6.24.1",
         "babel-plugin-transform-regenerator": "6.26.0",
-        "browserslist": "2.11.3",
+        "browserslist": "3.2.8",
         "invariant": "2.2.4",
         "semver": "5.6.0"
       },
@@ -2552,9 +2552,9 @@
       }
     },
     "browserslist": {
-      "version": "2.11.3",
-      "resolved": "https://registry.npmjs.org/browserslist/-/browserslist-2.11.3.tgz",
-      "integrity": "sha512-yWu5cXT7Av6mVwzWc8lMsJMHWn4xyjSuGYi4IozbVTLUOEYPSagUB8kiMDUHA1fS3zjr8nkxkn9jdvug4BBRmA==",
+      "version": "3.2.8",
+      "resolved": "https://registry.npmjs.org/browserslist/-/browserslist-3.2.8.tgz",
+      "integrity": "sha512-WHVocJYavUwVgVViC0ORikPHQquXwVh939TaelZ4WDqpWgTX/FsGhl/+P4qBUAGcRvtOgDgC+xftNWWp2RUTAQ==",
       "dev": true,
       "requires": {
         "caniuse-lite": "1.0.30000903",
