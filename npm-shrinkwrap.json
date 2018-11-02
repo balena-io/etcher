@@ -10699,9 +10699,9 @@
       }
     },
     "node-stream-zip": {
-      "version": "1.3.7",
-      "resolved": "https://registry.npmjs.org/node-stream-zip/-/node-stream-zip-1.3.7.tgz",
-      "integrity": "sha1-uImTxhXT9hNM9e0ckT/uvNvlAw4="
+      "version": "1.7.0",
+      "resolved": "https://registry.npmjs.org/node-stream-zip/-/node-stream-zip-1.7.0.tgz",
+      "integrity": "sha512-kYVtF3lK++53Bg6hZNplYVMrR7Lt0IYdLWehgoHUJLJcSwg/xd2Rm2Z7kJ5W8ZA7pdeg/DiUQDatbYwL3C7qSw=="
     },
     "node.extend": {
       "version": "2.0.1",
