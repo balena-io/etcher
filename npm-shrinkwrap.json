@@ -3614,11 +3614,18 @@
       }
     },
     "debug": {
-      "version": "3.1.0",
-      "resolved": "https://registry.npmjs.org/debug/-/debug-3.1.0.tgz",
-      "integrity": "sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==",
+      "version": "4.1.0",
+      "resolved": "https://registry.npmjs.org/debug/-/debug-4.1.0.tgz",
+      "integrity": "sha512-heNPJUJIqC+xB6ayLAMHaIrmN9HKa7aQO8MGqKpvCA+uJYVcvR6l5kgdrhRuwPFHU7P5/A1w0BjByPHwpfTDKg==",
       "requires": {
-        "ms": "2.0.0"
+        "ms": "2.1.1"
+      },
+      "dependencies": {
+        "ms": {
+          "version": "2.1.1",
+          "resolved": "https://registry.npmjs.org/ms/-/ms-2.1.1.tgz",
+          "integrity": "sha512-tgp+dl5cGk28utYktBsrFqA7HKgrhgPsg6Z/EfhWI4gl1Hwq8B/GmY/0oXZ6nF8hDVesS/FpnYaD/kOWhYQvyg=="
+        }
       }
     },
     "decamelize": {
