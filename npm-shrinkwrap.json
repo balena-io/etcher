@@ -10188,13 +10188,13 @@
       }
     },
     "nock": {
-      "version": "9.2.3",
-      "resolved": "http://registry.npmjs.org/nock/-/nock-9.2.3.tgz",
-      "integrity": "sha512-4XYNSJDJ/PvNoH+cCRWcGOOFsq3jtZdNTRIlPIBA7CopGWJO56m5OaPEjjJ3WddxNYfe5HL9sQQAtMt8oyR9AA==",
+      "version": "10.0.2",
+      "resolved": "https://registry.npmjs.org/nock/-/nock-10.0.2.tgz",
+      "integrity": "sha512-uWrdlRzG28SXM5yqYsUHfYBRqljF8P6aTRDh6Y5kTgs/Q4GB59QWlpiegmDHQouvmX/rDyKkC/nk+k4nA+QPNw==",
       "dev": true,
       "requires": {
         "chai": "4.2.0",
-        "debug": "3.1.0",
+        "debug": "4.1.0",
         "deep-equal": "1.0.1",
         "json-stringify-safe": "5.0.1",
         "lodash": "4.17.10",
@@ -10204,6 +10204,21 @@
         "semver": "5.6.0"
       },
       "dependencies": {
+        "debug": {
+          "version": "4.1.0",
+          "resolved": "https://registry.npmjs.org/debug/-/debug-4.1.0.tgz",
+          "integrity": "sha512-heNPJUJIqC+xB6ayLAMHaIrmN9HKa7aQO8MGqKpvCA+uJYVcvR6l5kgdrhRuwPFHU7P5/A1w0BjByPHwpfTDKg==",
+          "dev": true,
+          "requires": {
+            "ms": "2.1.1"
+          }
+        },
+        "ms": {
+          "version": "2.1.1",
+          "resolved": "https://registry.npmjs.org/ms/-/ms-2.1.1.tgz",
+          "integrity": "sha512-tgp+dl5cGk28utYktBsrFqA7HKgrhgPsg6Z/EfhWI4gl1Hwq8B/GmY/0oXZ6nF8hDVesS/FpnYaD/kOWhYQvyg==",
+          "dev": true
+        },
         "qs": {
           "version": "6.5.2",
           "resolved": "https://registry.npmjs.org/qs/-/qs-6.5.2.tgz",
