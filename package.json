@@ -106,7 +106,7 @@
   },
   "devDependencies": {
     "angular-mocks": "1.7.5",
-    "asar": "0.14.2",
+    "asar": "0.14.5",
     "babel-core": "6.26.3",
     "babel-loader": "7.1.2",
     "babel-preset-env": "1.7.0",
