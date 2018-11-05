@@ -1,7 +1,7 @@
 {
-  "name": "etcher",
+  "name": "balena-etcher",
   "private": true,
-  "displayName": "Etcher",
+  "displayName": "balenaEtcher",
   "version": "1.4.6",
   "packageType": "local",
   "updates": {

@@ -1,5 +1,5 @@
 {
-  "name": "etcher",
+  "name": "balena-etcher",
   "version": "1.4.6",
   "dependencies": {
     "@fortawesome/fontawesome-free-webfonts": {
