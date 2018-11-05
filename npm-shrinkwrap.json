@@ -941,9 +941,9 @@
       "integrity": "sha1-5QNHYR1+aQlDIIu9r+vLwvuGbUY="
     },
     "asar": {
-      "version": "0.14.2",
-      "resolved": "http://registry.npmjs.org/asar/-/asar-0.14.2.tgz",
-      "integrity": "sha512-eKo4ywQDq9dC/0Pu6UJsX4PxNi5ZlC4/NQ1JORUW4xkMRrEWpoLPpkngmQ6K7ZkioVjE2ZafLMmHPAQKMO0BdA==",
+      "version": "0.14.5",
+      "resolved": "https://registry.npmjs.org/asar/-/asar-0.14.5.tgz",
+      "integrity": "sha512-2Di/TnY1sridHFKMFgxBh0Wk0gVxSZN4qQhRhjJn3UywZAvP5MHI0RNVSkpzmJ+n6t0BC8w/+1257wtSgQ3Kdg==",
       "dev": true,
       "requires": {
         "chromium-pickle-js": "0.2.0",
