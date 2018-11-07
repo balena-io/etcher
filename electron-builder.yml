@@ -1,6 +1,6 @@
-appId: io.resin.etcher
-copyright: Copyright 2016-2018 Resinio Ltd
-productName: Etcher
+appId: io.balena.etcher
+copyright: Copyright 2016-2018 Balena Ltd
+productName: balenaEtcher
 npmRebuild: false
 nodeGypRebuild: false
 publish: null
@@ -44,8 +44,8 @@ portable:
 linux:
   category: Utility
   packageCategory: utils
-  executableName: etcher-electron
-  synopsis: Etcher is a powerful OS image flasher built with web technologies to ensure flashing an SDCard or USB drive is a pleasant and safe experience. It protects you from accidentally writing to your hard-drives, ensures every byte of data was written correctly and much more.
+  executableName: balena-etcher-electron
+  synopsis: balenaEtcher is a powerful OS image flasher built with web technologies to ensure flashing an SDCard or USB drive is a pleasant and safe experience. It protects you from accidentally writing to your hard-drives, ensures every byte of data was written correctly and much more.
   icon: assets/iconset
 deb:
   priority: optional
