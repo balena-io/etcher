@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.4.7 - 2018-11-12
+
+### Fixes
+
+- Fix typo in contributing guidelines
+- Modify versionist.conf.js to match new internal commit guidelines
+
+### Misc
+
+- Rename etcher to balena-etcher
+- Convert Select Image button to Rendition
+
 ## v1.4.6 - 2018-10-28
 
 ### Fixes
