@@ -34,15 +34,15 @@ module.exports = {
   },
 
   includeCommitWhen: (commit) => {
-    return commit.footer['Changelog-Entry']
+    return commit.footer['Changelog-entry']
   },
 
   getIncrementLevelFromCommit: (commit) => {
-    if (/none/i.test(commit.footer['Change-Type'])) {
+    if (/none/i.test(commit.footer['Change-type'])) {
       return null
     }
-    return commit.footer['Change-Type'] &&
-      _.toLower(commit.footer['Change-Type'])
+    return commit.footer['Change-type'] &&
+      _.toLower(commit.footer['Change-type'])
   },
 
   transformTemplateData: (data) => {
@@ -73,7 +73,7 @@ module.exports = {
     '',
     '{{#each features}}',
     '{{#with footer}}',
-    '- {{capitalize Changelog-Entry}}',
+    '- {{capitalize Changelog-entry}}',
     '{{/with}}',
     '{{/each}}',
     '{{/if}}',
@@ -83,7 +83,7 @@ module.exports = {
     '',
     '{{#each fixes}}',
     '{{#with footer}}',
-    '- {{capitalize Changelog-Entry}}',
+    '- {{capitalize Changelog-entry}}',
     '{{/with}}',
     '{{/each}}',
     '{{/if}}',
@@ -93,7 +93,7 @@ module.exports = {
     '',
     '{{#each misc}}',
     '{{#with footer}}',
-    '- {{capitalize Changelog-Entry}}',
+    '- {{capitalize Changelog-entry}}',
     '{{/with}}',
     '{{/each}}',
     '{{/if}}'
