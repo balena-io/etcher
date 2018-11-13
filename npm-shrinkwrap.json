@@ -648,8 +648,8 @@
       "dev": true
     },
     "aws-sdk": {
-      "version": "2.331.0",
-      "resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.331.0.tgz",
+      "version": "2.354.0",
+      "resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.354.0.tgz",
       "dependencies": {
         "uuid": {
           "version": "3.1.0",
@@ -1807,8 +1807,8 @@
       "resolved": "https://registry.npmjs.org/command-join/-/command-join-2.0.0.tgz"
     },
     "commander": {
-      "version": "2.19.0",
-      "resolved": "https://registry.npmjs.org/commander/-/commander-2.19.0.tgz"
+      "version": "2.8.1",
+      "resolved": "https://registry.npmjs.org/commander/-/commander-2.8.1.tgz"
     },
     "comment-parser": {
       "version": "0.4.2",
@@ -2293,6 +2293,18 @@
         "esprima": {
           "version": "3.1.3",
           "resolved": "https://registry.npmjs.org/esprima/-/esprima-3.1.3.tgz",
+          "dev": true
+        }
+      }
+    },
+    "del": {
+      "version": "3.0.0",
+      "resolved": "https://registry.npmjs.org/del/-/del-3.0.0.tgz",
+      "dev": true,
+      "dependencies": {
+        "pify": {
+          "version": "3.0.0",
+          "resolved": "https://registry.npmjs.org/pify/-/pify-3.0.0.tgz",
           "dev": true
         }
       }
@@ -3081,16 +3093,12 @@
       "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-0.1.28.tgz",
       "dependencies": {
         "@types/node": {
-          "version": "6.14.0",
-          "resolved": "https://registry.npmjs.org/@types/node/-/node-6.14.0.tgz"
+          "version": "6.14.1",
+          "resolved": "https://registry.npmjs.org/@types/node/-/node-6.14.1.tgz"
         },
         "bluebird": {
-          "version": "3.5.2",
-          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.2.tgz"
-        },
-        "node-raspberrypi-usbboot": {
-          "version": "0.0.12",
-          "resolved": "https://registry.npmjs.org/node-raspberrypi-usbboot/-/node-raspberrypi-usbboot-0.0.12.tgz"
+          "version": "3.5.3",
+          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.3.tgz"
         }
       }
     },
@@ -3140,12 +3148,12 @@
       "dev": true
     },
     "ext2fs": {
-      "version": "1.0.17",
-      "resolved": "https://registry.npmjs.org/ext2fs/-/ext2fs-1.0.17.tgz",
+      "version": "1.0.18",
+      "resolved": "https://registry.npmjs.org/ext2fs/-/ext2fs-1.0.18.tgz",
       "dependencies": {
         "bluebird": {
-          "version": "3.5.2",
-          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.2.tgz"
+          "version": "3.5.3",
+          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.3.tgz"
         },
         "prebuild-install": {
           "version": "2.5.3",
@@ -3276,8 +3284,8 @@
       "resolved": "https://registry.npmjs.org/file-disk/-/file-disk-4.1.3.tgz",
       "dependencies": {
         "bluebird": {
-          "version": "3.5.2",
-          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.2.tgz"
+          "version": "3.5.3",
+          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.3.tgz"
         }
       }
     },
@@ -5679,6 +5687,16 @@
         }
       }
     },
+    "node-raspberrypi-usbboot": {
+      "version": "0.0.12",
+      "resolved": "https://registry.npmjs.org/node-raspberrypi-usbboot/-/node-raspberrypi-usbboot-0.0.12.tgz",
+      "dependencies": {
+        "@types/node": {
+          "version": "6.14.1",
+          "resolved": "https://registry.npmjs.org/@types/node/-/node-6.14.1.tgz"
+        }
+      }
+    },
     "node-sass": {
       "version": "4.7.2",
       "resolved": "https://registry.npmjs.org/node-sass/-/node-sass-4.7.2.tgz",
@@ -5898,6 +5916,11 @@
     "p-locate": {
       "version": "2.0.0",
       "resolved": "https://registry.npmjs.org/p-locate/-/p-locate-2.0.0.tgz"
+    },
+    "p-map": {
+      "version": "1.2.0",
+      "resolved": "https://registry.npmjs.org/p-map/-/p-map-1.2.0.tgz",
+      "dev": true
     },
     "p-try": {
       "version": "1.0.0",
@@ -7104,8 +7127,8 @@
       "resolved": "https://registry.npmjs.org/resin-image-fs/-/resin-image-fs-5.0.4.tgz",
       "dependencies": {
         "bluebird": {
-          "version": "3.5.2",
-          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.2.tgz"
+          "version": "3.5.3",
+          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.3.tgz"
         }
       }
     },
@@ -7398,13 +7421,7 @@
     },
     "seek-bzip": {
       "version": "1.0.5",
-      "resolved": "https://registry.npmjs.org/seek-bzip/-/seek-bzip-1.0.5.tgz",
-      "dependencies": {
-        "commander": {
-          "version": "2.8.1",
-          "resolved": "https://registry.npmjs.org/commander/-/commander-2.8.1.tgz"
-        }
-      }
+      "resolved": "https://registry.npmjs.org/seek-bzip/-/seek-bzip-1.0.5.tgz"
     },
     "semver": {
       "version": "5.1.1",
