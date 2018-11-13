@@ -1219,10 +1219,6 @@
         }
       }
     },
-    "bluebird-retry": {
-      "version": "0.11.0",
-      "resolved": "https://registry.npmjs.org/bluebird-retry/-/bluebird-retry-0.11.0.tgz"
-    },
     "bn.js": {
       "version": "4.11.8",
       "resolved": "https://registry.npmjs.org/bn.js/-/bn.js-4.11.8.tgz",

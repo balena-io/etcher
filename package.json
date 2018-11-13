@@ -52,7 +52,6 @@
     "angular-ui-router": "0.4.2",
     "bindings": "1.3.0",
     "bluebird": "3.4.1",
-    "bluebird-retry": "0.11.0",
     "bootstrap-sass": "3.3.6",
     "chalk": "1.1.3",
     "color": "2.0.1",
