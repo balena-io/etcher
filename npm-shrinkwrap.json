@@ -51,8 +51,8 @@
       "resolved": "https://registry.npmjs.org/@types/marked/-/marked-0.3.0.tgz"
     },
     "@types/node": {
-      "version": "10.12.6",
-      "resolved": "https://registry.npmjs.org/@types/node/-/node-10.12.6.tgz"
+      "version": "10.12.7",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-10.12.7.tgz"
     },
     "@types/prop-types": {
       "version": "15.5.6",
@@ -624,8 +624,8 @@
       "dev": true
     },
     "aws-sdk": {
-      "version": "2.354.0",
-      "resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.354.0.tgz",
+      "version": "2.355.0",
+      "resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.355.0.tgz",
       "dependencies": {
         "uuid": {
           "version": "3.1.0",
@@ -3106,8 +3106,8 @@
       "dev": true
     },
     "ext2fs": {
-      "version": "1.0.18",
-      "resolved": "https://registry.npmjs.org/ext2fs/-/ext2fs-1.0.18.tgz",
+      "version": "1.0.19",
+      "resolved": "https://registry.npmjs.org/ext2fs/-/ext2fs-1.0.19.tgz",
       "dependencies": {
         "bluebird": {
           "version": "3.5.3",
