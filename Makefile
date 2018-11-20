@@ -134,6 +134,7 @@ cli-test:
 	$(RESIN_SCRIPTS)/node-cli/test.sh \
 		-b $(shell pwd)
 
+
 cli-build: | $(BUILD_TEMPORARY_DIRECTORY)
 	$(RESIN_SCRIPTS)/electron/build.sh \
 		-b $(shell pwd) \
