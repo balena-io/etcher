@@ -136,6 +136,7 @@ cli-test:
 
 
 cli-build: | $(BUILD_TEMPORARY_DIRECTORY)
+	npm i -g pkg@4.3.0
 	$(RESIN_SCRIPTS)/electron/build.sh \
 		-b $(shell pwd) \
 		-r $(TARGET_ARCH) \
