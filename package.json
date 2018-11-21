@@ -59,7 +59,7 @@
     "debug": "3.1.0",
     "drivelist": "6.4.2",
     "electron-is-running-in-asar": "1.0.0",
-    "etcher-sdk": "^0.1.28",
+    "etcher-sdk": "^0.1.29",
     "flexboxgrid": "6.3.0",
     "immutable": "3.8.1",
     "inactivity-timer": "1.0.0",

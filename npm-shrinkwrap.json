@@ -51,8 +51,8 @@
       "resolved": "https://registry.npmjs.org/@types/marked/-/marked-0.3.0.tgz"
     },
     "@types/node": {
-      "version": "10.12.7",
-      "resolved": "https://registry.npmjs.org/@types/node/-/node-10.12.7.tgz"
+      "version": "10.12.10",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-10.12.10.tgz"
     },
     "@types/prop-types": {
       "version": "15.5.6",
@@ -624,8 +624,8 @@
       "dev": true
     },
     "aws-sdk": {
-      "version": "2.355.0",
-      "resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.355.0.tgz",
+      "version": "2.360.0",
+      "resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.360.0.tgz",
       "dependencies": {
         "uuid": {
           "version": "3.1.0",
@@ -1474,8 +1474,8 @@
       "resolved": "https://registry.npmjs.org/camelcase-keys/-/camelcase-keys-2.1.0.tgz"
     },
     "caniuse-lite": {
-      "version": "1.0.30000907",
-      "resolved": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000907.tgz",
+      "version": "1.0.30000910",
+      "resolved": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000910.tgz",
       "dev": true
     },
     "capture-stack-trace": {
@@ -2255,18 +2255,6 @@
         }
       }
     },
-    "del": {
-      "version": "3.0.0",
-      "resolved": "https://registry.npmjs.org/del/-/del-3.0.0.tgz",
-      "dev": true,
-      "dependencies": {
-        "pify": {
-          "version": "3.0.0",
-          "resolved": "https://registry.npmjs.org/pify/-/pify-3.0.0.tgz",
-          "dev": true
-        }
-      }
-    },
     "delayed-stream": {
       "version": "1.0.0",
       "resolved": "https://registry.npmjs.org/delayed-stream/-/delayed-stream-1.0.0.tgz"
@@ -2402,8 +2390,8 @@
       "dev": true,
       "dependencies": {
         "@types/node": {
-          "version": "7.10.1",
-          "resolved": "https://registry.npmjs.org/@types/node/-/node-7.10.1.tgz",
+          "version": "7.10.2",
+          "resolved": "https://registry.npmjs.org/@types/node/-/node-7.10.2.tgz",
           "dev": true
         }
       }
@@ -3047,12 +3035,12 @@
       "resolved": "https://registry.npmjs.org/esutils/-/esutils-2.0.2.tgz"
     },
     "etcher-sdk": {
-      "version": "0.1.28",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-0.1.28.tgz",
+      "version": "0.1.29",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-0.1.29.tgz",
       "dependencies": {
         "@types/node": {
-          "version": "6.14.1",
-          "resolved": "https://registry.npmjs.org/@types/node/-/node-6.14.1.tgz"
+          "version": "6.14.2",
+          "resolved": "https://registry.npmjs.org/@types/node/-/node-6.14.2.tgz"
         },
         "bluebird": {
           "version": "3.5.3",
@@ -3106,16 +3094,20 @@
       "dev": true
     },
     "ext2fs": {
-      "version": "1.0.20",
-      "resolved": "https://registry.npmjs.org/ext2fs/-/ext2fs-1.0.20.tgz",
+      "version": "1.0.22",
+      "resolved": "https://registry.npmjs.org/ext2fs/-/ext2fs-1.0.22.tgz",
       "dependencies": {
         "bluebird": {
           "version": "3.5.3",
           "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.3.tgz"
         },
+        "nan": {
+          "version": "2.11.1",
+          "resolved": "https://registry.npmjs.org/nan/-/nan-2.11.1.tgz"
+        },
         "prebuild-install": {
-          "version": "2.5.3",
-          "resolved": "https://registry.npmjs.org/prebuild-install/-/prebuild-install-2.5.3.tgz"
+          "version": "5.2.1",
+          "resolved": "https://registry.npmjs.org/prebuild-install/-/prebuild-install-5.2.1.tgz"
         }
       }
     },
@@ -3320,8 +3312,8 @@
       }
     },
     "flat-cache": {
-      "version": "1.3.2",
-      "resolved": "https://registry.npmjs.org/flat-cache/-/flat-cache-1.3.2.tgz",
+      "version": "1.3.4",
+      "resolved": "https://registry.npmjs.org/flat-cache/-/flat-cache-1.3.4.tgz",
       "dev": true
     },
     "flexboxgrid": {
@@ -3329,8 +3321,8 @@
       "resolved": "https://registry.npmjs.org/flexboxgrid/-/flexboxgrid-6.3.0.tgz"
     },
     "follow-redirects": {
-      "version": "1.5.9",
-      "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.5.9.tgz"
+      "version": "1.5.10",
+      "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.5.10.tgz"
     },
     "for-in": {
       "version": "0.1.8",
@@ -4184,16 +4176,6 @@
         }
       }
     },
-    "is-path-cwd": {
-      "version": "1.0.0",
-      "resolved": "https://registry.npmjs.org/is-path-cwd/-/is-path-cwd-1.0.0.tgz",
-      "dev": true
-    },
-    "is-path-in-cwd": {
-      "version": "1.0.1",
-      "resolved": "https://registry.npmjs.org/is-path-in-cwd/-/is-path-in-cwd-1.0.1.tgz",
-      "dev": true
-    },
     "is-path-inside": {
       "version": "1.0.1",
       "resolved": "https://registry.npmjs.org/is-path-inside/-/is-path-inside-1.0.1.tgz",
@@ -4608,14 +4590,8 @@
       "dev": true
     },
     "lru-cache": {
-      "version": "4.1.3",
-      "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-4.1.3.tgz",
-      "dependencies": {
-        "yallist": {
-          "version": "2.1.2",
-          "resolved": "https://registry.npmjs.org/yallist/-/yallist-2.1.2.tgz"
-        }
-      }
+      "version": "4.1.4",
+      "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-4.1.4.tgz"
     },
     "lzma-native": {
       "version": "3.0.8",
@@ -5423,6 +5399,10 @@
         }
       }
     },
+    "napi-build-utils": {
+      "version": "1.0.1",
+      "resolved": "https://registry.npmjs.org/napi-build-utils/-/napi-build-utils-1.0.1.tgz"
+    },
     "native-promise-only": {
       "version": "0.8.1",
       "resolved": "https://registry.npmjs.org/native-promise-only/-/native-promise-only-0.8.1.tgz",
@@ -5554,8 +5534,8 @@
       "resolved": "https://registry.npmjs.org/node-raspberrypi-usbboot/-/node-raspberrypi-usbboot-0.0.12.tgz",
       "dependencies": {
         "@types/node": {
-          "version": "6.14.1",
-          "resolved": "https://registry.npmjs.org/@types/node/-/node-6.14.1.tgz"
+          "version": "6.14.2",
+          "resolved": "https://registry.npmjs.org/@types/node/-/node-6.14.2.tgz"
         }
       }
     },
@@ -5778,11 +5758,6 @@
     "p-locate": {
       "version": "2.0.0",
       "resolved": "https://registry.npmjs.org/p-locate/-/p-locate-2.0.0.tgz"
-    },
-    "p-map": {
-      "version": "1.2.0",
-      "resolved": "https://registry.npmjs.org/p-map/-/p-map-1.2.0.tgz",
-      "dev": true
     },
     "p-try": {
       "version": "1.0.0",
