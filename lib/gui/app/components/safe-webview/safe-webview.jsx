@@ -20,17 +20,12 @@
 
 const _ = require('lodash')
 const electron = require('electron')
-const angular = require('angular')
 const react = require('react')
 const propTypes = require('prop-types')
-const { react2angular } = require('react2angular')
-const analytics = require('../modules/analytics')
-const store = require('../models/store')
-const settings = require('../models/settings')
-const packageJSON = require('../../../../package.json')
-
-const MODULE_NAME = 'Etcher.Components.SafeWebview'
-const angularSafeWebview = angular.module(MODULE_NAME, [])
+const analytics = require('../../modules/analytics')
+const store = require('../../models/store')
+const settings = require('../../models/settings')
+const packageJSON = require('../../../../../package.json')
 
 /**
  * @summary Electron session identifier
@@ -274,6 +269,4 @@ SafeWebview.propTypes = {
 
 }
 
-angularSafeWebview.component('safeWebview', react2angular(SafeWebview))
-
-module.exports = MODULE_NAME
+module.exports = SafeWebview

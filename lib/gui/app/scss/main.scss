@@ -155,7 +155,7 @@ body,
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 255px;
+    height: 320px;
   }
 }
 
@@ -172,5 +172,24 @@ body,
   > .button {
     padding-left: 3px;
     padding-right: 3px;
+  }
+}
+
+featured-project {
+  webview {
+    flex: 0 1;
+    height: 0;
+    width: 0;
+  }
+
+  &.isFlashing webview {
+    width: 480px;
+    height: 360px;
+    position: absolute;
+    z-index: 1;
+    left: 5%;
+    top: 10%;
+    border-radius: 7px;
+    overflow: hidden;
   }
 }

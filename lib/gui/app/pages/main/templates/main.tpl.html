@@ -90,6 +90,12 @@
     </div>
   </div>
 
+  <featured-project
+    ng-class="{
+      isFlashing: main.state.isFlashing()
+    }">
+  </featured-project>
+
   <div class="col-xs" ng-controller="FlashController as flash">
     <div class="box text-center">
       <div class="center-block">
