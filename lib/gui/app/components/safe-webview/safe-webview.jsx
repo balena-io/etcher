@@ -202,6 +202,9 @@ class SafeWebview extends react.PureComponent {
       this.setState({
         shouldShow: event.httpResponseCode === HTTP_OK
       })
+      if (this.props.onWebviewShow) {
+        this.props.onWebviewShow(event.httpResponseCode === HTTP_OK)
+      }
     }
   }
 
@@ -265,7 +268,12 @@ SafeWebview.propTypes = {
   /**
    * @summary Refresh the webview
    */
-  refreshNow: propTypes.bool
+  refreshNow: propTypes.bool,
+
+  /**
+   * @summary Webview lifecycle event
+   */
+  onWebviewShow: propTypes.func
 
 }
 

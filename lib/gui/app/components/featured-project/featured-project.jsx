@@ -17,28 +17,25 @@
 'use strict'
 
 const React = require('react')
+const propTypes = require('prop-types')
 const SafeWebview = require('../safe-webview/safe-webview.jsx')
 const settings = require('../../models/settings')
 const analytics = require('../../modules/analytics')
-const endpoint = null
 
 class FeaturedProject extends React.Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      endpoint
+      endpoint: null
     }
   }
 
   componentDidMount () {
     return settings.load()
       .then(() => {
-        if (settings.has('featuredProjectEndpoint')) {
-          this.setState({ endpoint: settings.get('featuredProjectEndpoint') })
-        } else {
-          this.setState({ endpoint: 'https://assets.balena.io/etcher-featured/index.html' })
-        }
+        const endpoint = settings.get('featuredProjectEndpoint') || 'https://assets.balena.io/etcher-featured/index.html'
+        this.setState({ endpoint })
       })
       .catch(analytics.logException)
   }
@@ -51,6 +48,10 @@ class FeaturedProject extends React.Component {
       </SafeWebview>
     ) : null
   }
+}
+
+FeaturedProject.propTypes = {
+  onWebviewShow: propTypes.func
 }
 
 module.exports = FeaturedProject

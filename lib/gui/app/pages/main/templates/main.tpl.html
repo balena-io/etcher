@@ -26,8 +26,8 @@
 
   <div class="col-xs" ng-controller="DriveSelectionController as drive">
     <div class="box text-center relative">
-      <div class="step-border-left" ng-disabled="main.shouldDriveStepBeDisabled()"></div>
-      <div class="step-border-right" ng-disabled="main.shouldFlashStepBeDisabled()"></div>
+      <div class="step-border-left" ng-disabled="main.shouldDriveStepBeDisabled()" ng-hide="main.state.isFlashing() && main.isWebviewShowing"></div>
+      <div class="step-border-right" ng-disabled="main.shouldFlashStepBeDisabled()" ng-hide="main.state.isFlashing() && main.isWebviewShowing"></div>
 
       <div class="center-block">
         <svg-icon paths="[ '../../assets/drive.svg' ]"
@@ -90,11 +90,24 @@
     </div>
   </div>
 
-  <featured-project
-    ng-class="{
-      isFlashing: main.state.isFlashing()
-    }">
-  </featured-project>
+  <div>
+    <featured-project
+      ng-class="{
+        'fp-visible': main.state.isFlashing() && main.isWebviewShowing
+      }"
+      on-webview-show="main.setWebviewShowing"
+    ></featured-project>
+  </div>
+
+  <div>
+    <reduced-flashing-infos
+      image-logo="main.selection.getImageLogo()"
+      image-name="main.selection.getImageName() || main.getImageBasename() | middleEllipsis:16"
+      image-size="main.selection.getImageSize() | closestUnit"
+      drive-title="main.getDrivesTitle() | middleEllipsis:16"
+      should-show="main.state.isFlashing() && main.isWebviewShowing"
+    ></reduced-flashing-infos>
+  </div>
 
   <div class="col-xs" ng-controller="FlashController as flash">
     <div class="box text-center">
