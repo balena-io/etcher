@@ -65,7 +65,7 @@ describe('Model: availableDrives', function () {
             {
               device: '/dev/sdb',
               description: 'Foo',
-              size: '14G',
+              size: 14000000000,
               mountpoints: [ {
                 path: '/mnt/foo'
               } ],
@@ -82,7 +82,7 @@ describe('Model: availableDrives', function () {
             {
               device: '/dev/sdb',
               description: 'Foo',
-              size: '14G',
+              size: 14000000000,
               mountpoints: [ {
                 path: '/mnt/foo'
               } ],

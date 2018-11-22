@@ -118,7 +118,7 @@ describe('Browser: driveScanner', function () {
             device: '/dev/sdb',
             displayName: '/dev/sdb',
             description: 'Foo',
-            size: '14G',
+            size: 14000000000,
             mountpoints: [
               {
                 path: '/mnt/foo'
@@ -131,7 +131,7 @@ describe('Browser: driveScanner', function () {
             device: '/dev/sdc',
             displayName: '/dev/sdc',
             description: 'Bar',
-            size: '14G',
+            size: 14000000000,
             mountpoints: [
               {
                 path: '/mnt/bar'
@@ -158,7 +158,7 @@ describe('Browser: driveScanner', function () {
                 device: '/dev/sdb',
                 displayName: '/dev/sdb',
                 description: 'Foo',
-                size: '14G',
+                size: 14000000000,
                 mountpoints: [
                   {
                     path: '/mnt/foo'
@@ -172,7 +172,7 @@ describe('Browser: driveScanner', function () {
                 device: '/dev/sdc',
                 displayName: '/dev/sdc',
                 description: 'Bar',
-                size: '14G',
+                size: 14000000000,
                 mountpoints: [
                   {
                     path: '/mnt/bar'
@@ -230,7 +230,7 @@ describe('Browser: driveScanner', function () {
             device: '\\\\.\\PHYSICALDRIVE2',
             displayName: '\\\\.\\PHYSICALDRIVE2',
             description: 'Foo',
-            size: '14G',
+            size: 14000000000,
             mountpoints: [],
             isSystem: false,
             isRemovable: false
@@ -239,7 +239,7 @@ describe('Browser: driveScanner', function () {
             device: '\\\\.\\PHYSICALDRIVE3',
             displayName: 'F:',
             description: 'Bar',
-            size: '14G',
+            size: 14000000000,
             mountpoints: [
               {
                 path: 'F:'
@@ -266,7 +266,7 @@ describe('Browser: driveScanner', function () {
                 device: '\\\\.\\PHYSICALDRIVE2',
                 displayName: '\\\\.\\PHYSICALDRIVE2',
                 description: 'Foo',
-                size: '14G',
+                size: 14000000000,
                 mountpoints: [],
                 adapter: 'blockdevice',
                 isSystem: false,
@@ -276,7 +276,7 @@ describe('Browser: driveScanner', function () {
                 device: '\\\\.\\PHYSICALDRIVE3',
                 displayName: 'F:',
                 description: 'Bar',
-                size: '14G',
+                size: 14000000000,
                 mountpoints: [
                   {
                     path: 'F:'
@@ -309,7 +309,7 @@ describe('Browser: driveScanner', function () {
             device: '\\\\.\\PHYSICALDRIVE3',
             raw: '\\\\.\\PHYSICALDRIVE3',
             description: 'Bar',
-            size: '14G',
+            size: 14000000000,
             mountpoints: [
               {
                 path: 'F:'
@@ -355,7 +355,7 @@ describe('Browser: driveScanner', function () {
             device: '\\\\.\\PHYSICALDRIVE3',
             raw: '\\\\.\\PHYSICALDRIVE3',
             description: 'Bar',
-            size: '14G',
+            size: 14000000000,
             mountpoints: [
               {
                 path: 'F:'
