@@ -48,11 +48,20 @@ svg-icon > img[disabled] {
 
 .page-main .button-brick {
   min-width: $btn-min-width;
+  width: 200px;
+  height: 48px;
+  font-size: 16px;
 }
 
 .page-main .button-abort-write {
-  margin-right: -35px;
-  z-index: 1;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  position: absolute;
+  right: -17px;
+  top: 30%;
 }
 
 %step-border {

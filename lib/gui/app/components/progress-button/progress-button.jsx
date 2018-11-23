@@ -24,7 +24,7 @@ const { default: styled, keyframes } = require('styled-components')
 
 const { ProgressBar, Provider } = require('rendition')
 
-const { colors, consts } = require('./../../theme')
+const { colors } = require('./../../theme')
 const { StepButton, StepSelection } = require('./../../styled-components')
 
 const darkenForegroundStripes = 0.18
@@ -51,13 +51,16 @@ const ProgressButtonStripes = keyframes `
 
 const FlashProgressBar = styled(ProgressBar) `
   > div {
+    width: 200px;
+    height: 48px;
     color: white !important;
     text-shadow: none !important;
   }
 
-  width: 100%;
-  max-width: ${consts.btnMaxWidth};
-  margin: auto;
+  width: 200px;
+  height: 48px;
+  font-size: 16px;
+  line-height: 48px;
 
   background: ${Color(colors.warning.background).darken(darkenForegroundStripes).string()};
 `
