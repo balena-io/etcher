@@ -102,7 +102,7 @@ electron-develop: | $(BUILD_TEMPORARY_DIRECTORY)
 		-a $(S3_BUCKET)
 	# patch from https://github.com/mapbox/node-pre-gyp/pull/279/files , required for lzma-native in electron child processes
 	# we only apply the patch if it hasn't been applied
-	if ! [ -f node_modules/lzma-native/node_modules/node-pre-gyp/lib/util/versioning.js.orig ]; \
+	if ! [ -f node_modules/node-pre-gyp/lib/util/versioning.js.orig ]; \
 		then patch --backup --force --strip=1 --ignore-whitespace < patches/allow-electron-forks-of-modules-that-use-pre-gyp.patch; \
 	fi;
 
