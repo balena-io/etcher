@@ -69,6 +69,13 @@ $fa-font-path: "../../../node_modules/@fortawesome/fontawesome-free-webfonts/web
 
 @font-face {
   font-family: Roboto;
+  src: url('../../../node_modules/roboto-fontface/fonts/roboto/Roboto-Medium.woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Roboto;
   src: url('../../../node_modules/roboto-fontface/fonts/roboto/Roboto-Bold.woff');
   font-weight: 700;
   font-style: normal;
@@ -106,7 +113,7 @@ body,
   position: relative;
 
   color: $palette-theme-dark-disabled-foreground;
-  margin: 0 60px 20px 60px;
+  margin: 0 30px 16px 30px;
   padding-top: 15px;
   border-top: 2px solid $palette-theme-dark-soft-background;
   text-align: center;
@@ -134,7 +141,6 @@ body,
     font-size: 10px;
     position: absolute;
     right: 0;
-    top: 50%;
   }
 
   > span[os-open-external] {
@@ -161,7 +167,7 @@ body,
 
 .wrapper {
   height: 100%;
-  margin: 20px 60px;
+  margin: 20px 50px;
 }
 
 .section-header {
@@ -187,8 +193,8 @@ featured-project {
     height: 360px;
     position: absolute;
     z-index: 1;
-    left: 5%;
-    top: 10%;
+    left: 30px;
+    top: 45px;
     border-radius: 7px;
     overflow: hidden;
   }

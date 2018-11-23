@@ -24,14 +24,22 @@ const SvgIcon = require('../svg-icon/svg-icon.jsx')
 const Div = styled.div `
   position: absolute;
   top: 45px;
-  left: 550px;
+  left: 545px;
 
   > span.step-name {
     justify-content: flex-start;
 
     > span {
-      margin-left: 5px;
-      font-weight: normal;
+      margin-left: 10px;
+    }
+
+    > span:nth-child(2) {
+      font-weight: 500;
+    }
+
+    > span:nth-child(3) {
+      font-weight: 400;
+      font-style: italic;
     }
   }
 
