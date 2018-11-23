@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.4.8 - 2018-11-23
+
+### Features
+
+- Added featured-project while flashing
+
+### Fixes
+
+- Moved back the write cancel button
+- Reject drives with null size (fixes pretty-bytes error)
+
 ## v1.4.7 - 2018-11-12
 
 ### Fixes
