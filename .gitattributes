@@ -45,5 +45,6 @@ Makefile text
 *.bin binary diff=hex
 *.dmg binary diff=hex
 *.rpi-sdcard binary diff=hex
+*.wic binary diff=hex
 *.foo binary diff=hex
 xz-without-extension binary diff=hex

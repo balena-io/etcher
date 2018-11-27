@@ -31,7 +31,9 @@ describe('Shared: SupportedFormats', function () {
   describe('.getNonCompressedExtensions()', function () {
     it('should return the supported non compressed extensions', function () {
       const extensions = supportedFormats.getNonCompressedExtensions()
-      m.chai.expect(extensions).to.deep.equal([ 'img', 'iso', 'bin', 'dsk', 'hddimg', 'raw', 'dmg', 'sdcard', 'rpi-sdimg' ])
+      m.chai.expect(extensions).to.deep.equal([
+        'img', 'iso', 'bin', 'dsk', 'hddimg', 'raw', 'dmg', 'sdcard', 'rpi-sdimg', 'wic'
+      ])
     })
   })
 
@@ -72,7 +74,8 @@ describe('Shared: SupportedFormats', function () {
       'path/to/filename.hddimg',
       'path/to/filename.raw',
       'path/to/filename.dmg',
-      'path/to/filename.sdcard'
+      'path/to/filename.sdcard',
+      'path/to/filename.wic'
 
     ], (filename) => {
       it(`should return true for ${filename}`, function () {
