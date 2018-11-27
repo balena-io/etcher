@@ -10,8 +10,6 @@ was written correctly and much more.
 
 [![Current Release](https://img.shields.io/github/release/balena-io/etcher.svg?style=flat-square)](https://etcher.io)
 ![License](https://img.shields.io/github/license/balena-io/etcher.svg?style=flat-square)
-[![Travis CI status](https://img.shields.io/travis/balena-io/etcher/master.svg?style=flat-square&label=linux)](https://travis-ci.org/balena-io/etcher/branches)
-[![AppVeyor status](https://img.shields.io/appveyor/ci/balena-io/etcher/master.svg?style=flat-square&label=windows)](https://ci.appveyor.com/project/balena-io/etcher/branch/master)
 [![Dependency status](https://img.shields.io/david/balena-io/etcher.svg?style=flat-square)](https://david-dm.org/balena-io/etcher)
 [![Balena.io Forums](https://img.shields.io/discourse/https/forums.balena.io/topics.svg?style=flat-square&label=balena.io%20forums)](https://forums.balena.io/c/etcher)
 [![Stories in Progress](https://img.shields.io/waffle/label/balena-io/etcher/in%20progress.svg?style=flat-square)](https://waffle.io/balena-io/etcher)
