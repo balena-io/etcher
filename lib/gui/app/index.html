@@ -37,7 +37,7 @@
 
     <footer class="section-footer" ng-controller="StateController as state"
       ng-hide="state.currentName === 'success'">
-      <span os-open-external="https://etcher.io?ref=etcher_footer"
+      <span os-open-external="https://www.balena.io/etcher?ref=etcher_footer"
         tabindex="100">
         <svg-icon paths="[ '../../assets/etcher.svg' ]"
           width="'123px'"
@@ -47,10 +47,10 @@
       <span class="caption">
         is <span class="caption"
           tabindex="101"
-          os-open-external="https://github.com/resin-io/etcher">an open source project</span> by
+          os-open-external="https://github.com/balena-io/etcher">an open source project</span> by
       </span>
 
-      <span os-open-external="https://resin.io?ref=etcher"
+      <span os-open-external="https://www.balena.io?ref=etcher"
         tabindex="102">
         <svg-icon paths="[ '../../assets/balena.svg' ]"
           width="'79px'"
@@ -60,7 +60,7 @@
       <span class="caption footer-right"
         tabindex="103"
         manifest-bind="version"
-        os-open-external="https://github.com/resin-io/etcher/blob/master/CHANGELOG.md"></span>
+        os-open-external="https://github.com/balena-io/etcher/blob/master/CHANGELOG.md"></span>
     </footer>
 
     <div class="section-loader"
@@ -69,7 +69,7 @@
         isFinish: state.currentName === 'success'
       }">
       <safe-webview
-        src="'https://etcher.io/success-banner/'"
+        src="'https://www.balena.io/etcher/success-banner/'"
         refresh-now="state.previousName === 'success'"></safe-webview>
     </div>
   </body>
