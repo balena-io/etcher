@@ -120,13 +120,13 @@ so it might not refer to the latest version immediately after an Etcher
 release.
 
 ```sh
-brew cask install etcher
+brew cask install balenaetcher
 ```
 
 ##### Uninstall
 
 ```sh
-brew cask uninstall etcher
+brew cask uninstall balenaetcher
 ```
 
 #### Chocolatey (Windows)
