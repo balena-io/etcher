@@ -1,3 +1,4 @@
 [submodule "scripts/resin"]
 	path = scripts/resin
-	url = git@github.com:balena-io/scripts.git
+	url = https://github.com/balena-io/scripts.git
+	branch = master
