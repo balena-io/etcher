@@ -586,8 +586,8 @@
       "dev": true
     },
     "ast-types": {
-      "version": "0.11.6",
-      "resolved": "https://registry.npmjs.org/ast-types/-/ast-types-0.11.6.tgz",
+      "version": "0.11.7",
+      "resolved": "https://registry.npmjs.org/ast-types/-/ast-types-0.11.7.tgz",
       "dev": true
     },
     "async": {
@@ -624,8 +624,8 @@
       "dev": true
     },
     "aws-sdk": {
-      "version": "2.361.0",
-      "resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.361.0.tgz",
+      "version": "2.364.0",
+      "resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.364.0.tgz",
       "dependencies": {
         "uuid": {
           "version": "3.1.0",
@@ -1474,8 +1474,8 @@
       "resolved": "https://registry.npmjs.org/camelcase-keys/-/camelcase-keys-2.1.0.tgz"
     },
     "caniuse-lite": {
-      "version": "1.0.30000910",
-      "resolved": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000910.tgz",
+      "version": "1.0.30000912",
+      "resolved": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000912.tgz",
       "dev": true
     },
     "capture-stack-trace": {
@@ -2657,8 +2657,8 @@
       }
     },
     "electron-to-chromium": {
-      "version": "1.3.84",
-      "resolved": "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.84.tgz",
+      "version": "1.3.85",
+      "resolved": "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.85.tgz",
       "dev": true
     },
     "electron-window": {
@@ -2691,8 +2691,8 @@
       "dev": true,
       "dependencies": {
         "tapable": {
-          "version": "1.1.0",
-          "resolved": "https://registry.npmjs.org/tapable/-/tapable-1.1.0.tgz",
+          "version": "1.1.1",
+          "resolved": "https://registry.npmjs.org/tapable/-/tapable-1.1.1.tgz",
           "dev": true
         }
       }
@@ -3035,8 +3035,8 @@
       "resolved": "https://registry.npmjs.org/esutils/-/esutils-2.0.2.tgz"
     },
     "etcher-sdk": {
-      "version": "0.1.30",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-0.1.30.tgz",
+      "version": "0.1.31",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-0.1.31.tgz",
       "dependencies": {
         "@types/node": {
           "version": "6.14.2",
@@ -4711,8 +4711,8 @@
       "dev": true
     },
     "mime": {
-      "version": "2.3.1",
-      "resolved": "https://registry.npmjs.org/mime/-/mime-2.3.1.tgz",
+      "version": "2.4.0",
+      "resolved": "https://registry.npmjs.org/mime/-/mime-2.4.0.tgz",
       "dev": true
     },
     "mime-db": {
@@ -4779,8 +4779,8 @@
       "resolved": "https://registry.npmjs.org/mixpanel/-/mixpanel-0.7.0.tgz"
     },
     "mixpanel-browser": {
-      "version": "2.23.0",
-      "resolved": "https://registry.npmjs.org/mixpanel-browser/-/mixpanel-browser-2.23.0.tgz"
+      "version": "2.24.0",
+      "resolved": "https://registry.npmjs.org/mixpanel-browser/-/mixpanel-browser-2.24.0.tgz"
     },
     "mkdirp": {
       "version": "0.5.1",
@@ -4988,8 +4988,8 @@
       "dev": true,
       "dependencies": {
         "qs": {
-          "version": "6.5.2",
-          "resolved": "https://registry.npmjs.org/qs/-/qs-6.5.2.tgz",
+          "version": "6.6.0",
+          "resolved": "https://registry.npmjs.org/qs/-/qs-6.6.0.tgz",
           "dev": true
         },
         "semver": {
@@ -5114,8 +5114,8 @@
       }
     },
     "node.extend": {
-      "version": "2.0.1",
-      "resolved": "https://registry.npmjs.org/node.extend/-/node.extend-2.0.1.tgz",
+      "version": "2.0.2",
+      "resolved": "https://registry.npmjs.org/node.extend/-/node.extend-2.0.2.tgz",
       "dev": true
     },
     "noop-logger": {
@@ -7256,8 +7256,8 @@
           "dev": true
         },
         "qs": {
-          "version": "6.5.2",
-          "resolved": "https://registry.npmjs.org/qs/-/qs-6.5.2.tgz",
+          "version": "6.6.0",
+          "resolved": "https://registry.npmjs.org/qs/-/qs-6.6.0.tgz",
           "dev": true
         }
       }
@@ -7327,8 +7327,8 @@
       "resolved": "https://registry.npmjs.org/tag-hoc/-/tag-hoc-1.0.0.tgz"
     },
     "tapable": {
-      "version": "0.2.8",
-      "resolved": "https://registry.npmjs.org/tapable/-/tapable-0.2.8.tgz",
+      "version": "0.2.9",
+      "resolved": "https://registry.npmjs.org/tapable/-/tapable-0.2.9.tgz",
       "dev": true
     },
     "tar": {
