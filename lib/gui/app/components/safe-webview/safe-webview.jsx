@@ -194,7 +194,8 @@ class SafeWebview extends react.PureComponent {
     if (event.resourceType === 'mainFrame') {
       const HTTP_OK = 200
 
-      analytics.logEvent(event, {
+      analytics.logEvent('SafeWebview loaded', {
+        event,
         applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
         flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
       })
@@ -250,7 +251,8 @@ class SafeWebview extends react.PureComponent {
     if (message.command === 'error') {
       analytics.logException(message.data)
     } else {
-      analytics.logEvent(message.data || message, {
+      analytics.logEvent('SafeWebview console message', {
+        message,
         applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
         flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
       })
