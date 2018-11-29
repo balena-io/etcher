@@ -139,8 +139,8 @@
       }
     },
     "ajv": {
-      "version": "6.5.5",
-      "resolved": "https://registry.npmjs.org/ajv/-/ajv-6.5.5.tgz"
+      "version": "6.6.1",
+      "resolved": "https://registry.npmjs.org/ajv/-/ajv-6.6.1.tgz"
     },
     "ajv-keywords": {
       "version": "3.2.0",
@@ -624,8 +624,8 @@
       "dev": true
     },
     "aws-sdk": {
-      "version": "2.364.0",
-      "resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.364.0.tgz",
+      "version": "2.366.0",
+      "resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.366.0.tgz",
       "dependencies": {
         "uuid": {
           "version": "3.1.0",
@@ -1204,20 +1204,13 @@
       "resolved": "https://registry.npmjs.org/bloodline/-/bloodline-1.0.1.tgz"
     },
     "bluebird": {
-      "version": "3.4.1",
-      "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.4.1.tgz"
+      "version": "3.5.3",
+      "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.3.tgz"
     },
     "bluebird-lst": {
       "version": "1.0.6",
       "resolved": "https://registry.npmjs.org/bluebird-lst/-/bluebird-lst-1.0.6.tgz",
-      "dev": true,
-      "dependencies": {
-        "bluebird": {
-          "version": "3.5.3",
-          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.3.tgz",
-          "dev": true
-        }
-      }
+      "dev": true
     },
     "bn.js": {
       "version": "4.11.8",
@@ -1974,8 +1967,8 @@
       "dev": true
     },
     "cyclic-32": {
-      "version": "1.0.1",
-      "resolved": "https://registry.npmjs.org/cyclic-32/-/cyclic-32-1.0.1.tgz"
+      "version": "1.0.2",
+      "resolved": "https://registry.npmjs.org/cyclic-32/-/cyclic-32-1.0.2.tgz"
     },
     "d": {
       "version": "1.0.0",
@@ -2607,11 +2600,6 @@
           "resolved": "https://registry.npmjs.org/base64-js/-/base64-js-1.2.0.tgz",
           "dev": true
         },
-        "bluebird": {
-          "version": "3.5.3",
-          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.3.tgz",
-          "dev": true
-        },
         "debug": {
           "version": "2.6.9",
           "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz",
@@ -3041,10 +3029,6 @@
         "@types/node": {
           "version": "6.14.2",
           "resolved": "https://registry.npmjs.org/@types/node/-/node-6.14.2.tgz"
-        },
-        "bluebird": {
-          "version": "3.5.3",
-          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.3.tgz"
         }
       }
     },
@@ -3097,17 +3081,17 @@
       "version": "1.0.22",
       "resolved": "https://registry.npmjs.org/ext2fs/-/ext2fs-1.0.22.tgz",
       "dependencies": {
-        "bluebird": {
-          "version": "3.5.3",
-          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.3.tgz"
+        "expand-template": {
+          "version": "2.0.3",
+          "resolved": "https://registry.npmjs.org/expand-template/-/expand-template-2.0.3.tgz"
         },
         "nan": {
           "version": "2.11.1",
           "resolved": "https://registry.npmjs.org/nan/-/nan-2.11.1.tgz"
         },
         "prebuild-install": {
-          "version": "5.2.1",
-          "resolved": "https://registry.npmjs.org/prebuild-install/-/prebuild-install-5.2.1.tgz"
+          "version": "5.2.2",
+          "resolved": "https://registry.npmjs.org/prebuild-install/-/prebuild-install-5.2.2.tgz"
         }
       }
     },
@@ -3216,13 +3200,7 @@
     },
     "file-disk": {
       "version": "4.1.3",
-      "resolved": "https://registry.npmjs.org/file-disk/-/file-disk-4.1.3.tgz",
-      "dependencies": {
-        "bluebird": {
-          "version": "3.5.3",
-          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.3.tgz"
-        }
-      }
+      "resolved": "https://registry.npmjs.org/file-disk/-/file-disk-4.1.3.tgz"
     },
     "file-entry-cache": {
       "version": "2.0.0",
@@ -6403,10 +6381,6 @@
           "version": "3.2.1",
           "resolved": "https://registry.npmjs.org/ansi-styles/-/ansi-styles-3.2.1.tgz"
         },
-        "bluebird": {
-          "version": "3.5.3",
-          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.3.tgz"
-        },
         "chalk": {
           "version": "2.4.1",
           "resolved": "https://registry.npmjs.org/chalk/-/chalk-2.4.1.tgz"
@@ -6477,13 +6451,7 @@
     },
     "resin-image-fs": {
       "version": "5.0.4",
-      "resolved": "https://registry.npmjs.org/resin-image-fs/-/resin-image-fs-5.0.4.tgz",
-      "dependencies": {
-        "bluebird": {
-          "version": "3.5.3",
-          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.5.3.tgz"
-        }
-      }
+      "resolved": "https://registry.npmjs.org/resin-image-fs/-/resin-image-fs-5.0.4.tgz"
     },
     "resin-semver": {
       "version": "1.4.0",
