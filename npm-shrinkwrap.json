@@ -51,8 +51,8 @@
       "resolved": "https://registry.npmjs.org/@types/marked/-/marked-0.3.0.tgz"
     },
     "@types/node": {
-      "version": "10.12.10",
-      "resolved": "https://registry.npmjs.org/@types/node/-/node-10.12.10.tgz"
+      "version": "10.12.12",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-10.12.12.tgz"
     },
     "@types/prop-types": {
       "version": "15.5.6",
@@ -75,8 +75,8 @@
       "resolved": "https://registry.npmjs.org/@types/react-icons/-/react-icons-2.2.6.tgz"
     },
     "@types/react-jsonschema-form": {
-      "version": "1.0.11",
-      "resolved": "https://registry.npmjs.org/@types/react-jsonschema-form/-/react-jsonschema-form-1.0.11.tgz"
+      "version": "1.0.12",
+      "resolved": "https://registry.npmjs.org/@types/react-jsonschema-form/-/react-jsonschema-form-1.0.12.tgz"
     },
     "@types/recompose": {
       "version": "0.26.5",
@@ -1446,8 +1446,8 @@
       "resolved": "https://registry.npmjs.org/camelcase-keys/-/camelcase-keys-2.1.0.tgz"
     },
     "caniuse-lite": {
-      "version": "1.0.30000912",
-      "resolved": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000912.tgz",
+      "version": "1.0.30000914",
+      "resolved": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000914.tgz",
       "dev": true
     },
     "capture-stack-trace": {
@@ -1921,8 +1921,8 @@
       "dev": true
     },
     "csstype": {
-      "version": "2.5.7",
-      "resolved": "https://registry.npmjs.org/csstype/-/csstype-2.5.7.tgz"
+      "version": "2.5.8",
+      "resolved": "https://registry.npmjs.org/csstype/-/csstype-2.5.8.tgz"
     },
     "cuint": {
       "version": "0.2.2",
@@ -2617,8 +2617,8 @@
       }
     },
     "electron-to-chromium": {
-      "version": "1.3.85",
-      "resolved": "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.85.tgz",
+      "version": "1.3.88",
+      "resolved": "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.88.tgz",
       "dev": true
     },
     "electron-window": {
@@ -3675,8 +3675,8 @@
       "dev": true
     },
     "hash.js": {
-      "version": "1.1.5",
-      "resolved": "https://registry.npmjs.org/hash.js/-/hash.js-1.1.5.tgz",
+      "version": "1.1.7",
+      "resolved": "https://registry.npmjs.org/hash.js/-/hash.js-1.1.7.tgz",
       "dev": true
     },
     "hawk": {
@@ -5635,8 +5635,8 @@
       "resolved": "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.0.tgz"
     },
     "progress": {
-      "version": "2.0.1",
-      "resolved": "https://registry.npmjs.org/progress/-/progress-2.0.1.tgz",
+      "version": "2.0.2",
+      "resolved": "https://registry.npmjs.org/progress/-/progress-2.0.2.tgz",
       "dev": true
     },
     "progress-bar-formatter": {
@@ -7907,8 +7907,8 @@
       "dev": true
     },
     "webdriverio": {
-      "version": "4.14.0",
-      "resolved": "https://registry.npmjs.org/webdriverio/-/webdriverio-4.14.0.tgz",
+      "version": "4.14.1",
+      "resolved": "https://registry.npmjs.org/webdriverio/-/webdriverio-4.14.1.tgz",
       "dev": true,
       "dependencies": {
         "ansi-escapes": {
