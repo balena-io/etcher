@@ -6076,7 +6076,8 @@ body {
     margin-right: 2px; }
   .button[disabled] {
     background-color: #3a3c41;
-    color: #787c7f; }
+    color: #787c7f;
+    opacity: 1; }
 
 .button-block {
   display: block;
@@ -6425,7 +6426,6 @@ svg-icon > img[disabled] {
   position: relative; }
 
 .page-main .button-brick {
-  min-width: 170px;
   width: 200px;
   height: 48px;
   font-size: 16px; }
@@ -6439,6 +6439,11 @@ svg-icon > img[disabled] {
   position: absolute;
   right: -17px;
   top: 30%; }
+
+.button-brick {
+  width: 200px;
+  height: 48px;
+  font-size: 16px; }
 
 .page-main .step-border-left, .page-main .step-border-right {
   height: 2px;

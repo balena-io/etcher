@@ -47,7 +47,6 @@ svg-icon > img[disabled] {
 }
 
 .page-main .button-brick {
-  min-width: $btn-min-width;
   width: 200px;
   height: 48px;
   font-size: 16px;
@@ -62,6 +61,12 @@ svg-icon > img[disabled] {
   position: absolute;
   right: -17px;
   top: 30%;
+}
+
+.button-brick {
+  width: 200px;
+  height: 48px;
+  font-size: 16px;
 }
 
 %step-border {
