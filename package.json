@@ -89,7 +89,6 @@
   },
   "devDependencies": {
     "angular-mocks": "1.6.3",
-    "asar": "0.14.2",
     "babel-core": "6.26.0",
     "babel-loader": "7.1.2",
     "babel-preset-env": "1.6.1",
@@ -118,7 +117,7 @@
     "sass-lint": "1.12.1",
     "simple-progress-webpack-plugin": "1.1.2",
     "spectron": "3.7.3",
-    "versionist": "2.8.1",
+    "versionist": "4.0.1",
     "webpack": "github:jviotti/webpack#symlink-fix",
     "webpack-node-externals": "1.7.2"
   }
