@@ -21,7 +21,7 @@ Developing
 - [Python 2.7](https://www.python.org)
 - [jq](https://stedolan.github.io/jq/)
 - [curl](https://curl.haxx.se/)
-- [npm](https://www.npmjs.com/) (version 3.10)
+- [npm](https://www.npmjs.com/) (version 6.7)
 
 ```sh
 pip install -r requirements.txt
