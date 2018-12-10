@@ -123,7 +123,7 @@
           active = "main.state.isFlashing()"
           percentage="main.state.getFlashState().percentage"
           label="flash.getProgressButtonLabel()"
-          disabled="main.state.getLastFlashErrorCode() || main.shouldFlashStepBeDisabled()"
+          disabled="!!main.state.getLastFlashErrorCode() || main.shouldFlashStepBeDisabled()"
           callback="flash.flashImageToDrive" >
         </progress-button>
 
