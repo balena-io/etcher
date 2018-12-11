@@ -1322,7 +1322,7 @@ describe('Shared: DriveConstraints', function () {
       it('should return contains image error', function () {
         m.chai.expect(constraints.getListDriveImageCompatibilityStatuses([ drives[0] ], image)).to.deep.equal([
           {
-            message: 'Drive Contains Image',
+            message: 'Drive Mountpoint Contains Image',
             type: 2
           }
         ])
@@ -1378,7 +1378,7 @@ describe('Shared: DriveConstraints', function () {
       it('should return all statuses', function () {
         m.chai.expect(constraints.getListDriveImageCompatibilityStatuses(drives, image)).to.deep.equal([
           {
-            message: 'Drive Contains Image',
+            message: 'Drive Mountpoint Contains Image',
             type: 2
           },
           {
