@@ -15,8 +15,12 @@
  */
 
 .page-finish {
-  margin-top: -25px;
+  margin-top: -15px;
   flex: 1;
+
+  .col-xs-5.inline-flex.items-baseline > span, .col-xs-5.inline-flex.items-baseline > div {
+    margin-bottom: -10px;
+  }
 }
 
 .page-finish .button-label {
@@ -30,7 +34,8 @@
   min-width: $btn-min-width;
 }
 
-.page-finish .title {
+.page-finish .title,
+.page-finish .title h3 {
   color: $palette-theme-dark-foreground;
   font-weight: bold;
 }
@@ -65,12 +70,8 @@
   justify-content: center;
 }
 
-.page-finish .box > div {
-  margin-bottom: 20px;
-
-  > button {
-    margin-right: 20px;
-  }
+.page-finish .box > div > button {
+  margin-right: 20px;
 }
 
 .page-finish webview {
@@ -83,46 +84,58 @@
 }
 
 .page-finish .fallback-banner {
-  padding-top: 35px;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 300px;
+  flex-direction: column;
   position: absolute;
-  top: 125px;
-  left: 0;
-  background-color: $palette-theme-dark-background;
-  color: $palette-theme-dark-foreground;
-  font-weight: 300;
+  bottom: 0;
+  color: white;
+  height: 320px;
+  width: 100vw;
+
+  > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   .caption {
     display: flex;
-    font-weight: normal;
+    font-weight: 500;
   }
 
   .caption-big {
-    font-size: 30px;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 75px;
   }
 
   .caption-small {
-    font-size: 20px;
-    padding: 15px;
+    font-size: 12px;
   }
 
-  .footer-right {
-    padding: 0;
-    border-bottom: 1px dashed;
+  .fallback-footer {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    max-height: 21px;
+    margin-bottom: 17px;
   }
 
   .svg-icon {
-    margin-left: 0.3em;
-    margin-right: 0.3em
+    margin: 0 10px;
   }
 
   .section-footer {
-    border-top: none;
-    height: 39px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
   }
 }
 
@@ -136,7 +149,15 @@
 
 .page-finish .tick--success {
   /* hack(Shou): for some reason the height is stretched */
-  height: 28.9px;
+  height: 24px;
+  width: 24px;
+  border: none;
+  padding: 0;
+  margin: 0 15px 0 0;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 16px;
 }
 
 .title-wrap {

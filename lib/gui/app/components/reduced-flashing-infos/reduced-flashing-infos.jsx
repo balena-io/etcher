@@ -19,6 +19,7 @@
 const React = require('react')
 const propTypes = require('prop-types')
 const styled = require('styled-components').default
+const { color } = require('styled-system')
 const SvgIcon = require('../svg-icon/svg-icon.jsx')
 
 const Div = styled.div `
@@ -48,19 +49,23 @@ const Div = styled.div `
   }
 `
 
+const Span = styled.span `
+  ${color}
+`
+
 const ReducedFlashingInfos = (props) => {
   return (props.shouldShow) ? (
     <Div>
-      <span className="step-name">
+      <Span className="step-name">
         <SvgIcon disabled contents={[ props.imageLogo ]} paths={[ '../../assets/image.svg' ]} width='20px'></SvgIcon>
-        <span>{ props.imageName }</span>
-        <span style={{ color: '#7e8085' }}>{ props.imageSize }</span>
-      </span>
+        <Span>{ props.imageName }</Span>
+        <Span color='#7e8085'>{ props.imageSize }</Span>
+      </Span>
 
-      <span className="step-name">
+      <Span className="step-name">
         <SvgIcon disabled paths={[ '../../assets/drive.svg' ]} width='20px'></SvgIcon>
-        <span>{ props.driveTitle }</span>
-      </span>
+        <Span>{ props.driveTitle }</Span>
+      </Span>
     </Div>
   ) : null
 }

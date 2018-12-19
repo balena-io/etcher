@@ -298,9 +298,6 @@ rules:
 
   # ECMAScript 6
 
-  arrow-body-style:
-    - error
-    - always
   arrow-parens:
     - error
     - always

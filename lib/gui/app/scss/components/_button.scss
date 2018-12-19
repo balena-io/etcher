@@ -37,6 +37,7 @@
     @extend .button-no-hover;
     background-color: $palette-theme-dark-disabled-background;
     color: $palette-theme-dark-disabled-foreground;
+    opacity: 1;
   }
 }
 
