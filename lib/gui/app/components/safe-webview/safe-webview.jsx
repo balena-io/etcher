@@ -101,8 +101,7 @@ class SafeWebview extends react.PureComponent {
     this.eventTuples = [
       [ 'did-fail-load', this.didFailLoad ],
       [ 'did-get-response-details', this.didGetResponseDetails ],
-      [ 'new-window', this.constructor.newWindow ],
-      [ 'console-message', this.constructor.consoleMessage ]
+      [ 'new-window', this.constructor.newWindow ]
     ]
 
     // Make a persistent electron session for the webview
@@ -224,38 +223,6 @@ class SafeWebview extends react.PureComponent {
       !settings.get('disableExternalLinks')
     ])) {
       electron.shell.openExternal(url.href)
-    }
-  }
-
-  /**
-   * @summary Forward specially-formatted console messages from the webview
-   * @param {Event} event - event object
-   *
-   * @example
-   *
-   * // In the webview
-   * console.log('Good night!')
-   */
-  static consoleMessage (event) {
-    if (_.isNil(event.message)) {
-      return
-    }
-
-    let message = event.message
-    try {
-      message = JSON.parse(event.message)
-    } catch (error) {
-      // Ignore
-    }
-
-    if (message.command === 'error') {
-      analytics.logException(message.data)
-    } else {
-      analytics.logEvent('SafeWebview console message', {
-        message,
-        applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-        flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
-      })
     }
   }
 }
