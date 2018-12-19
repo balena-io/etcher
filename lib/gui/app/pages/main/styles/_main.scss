@@ -189,14 +189,14 @@ svg-icon > img[disabled] {
 .target-status-line {
   display: flex;
   align-items: baseline;
-  font-size: 11px;
+  font-size: 14px;
   font-family: inherit;
 
   > .target-status-dot {
-    width: 8px;
-    height: 8px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    margin-right: 6px;
+    margin-right: 10px;
   }
 
   &.target-status-successful > .target-status-dot {
@@ -213,7 +213,7 @@ svg-icon > img[disabled] {
 
   > .target-status-message {
     color: gray;
-    margin-left: 6px;
+    margin-left: 10px;
   }
 }
 

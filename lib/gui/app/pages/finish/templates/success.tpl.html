@@ -1,19 +1,11 @@
 <div class="page-finish row around-xs">
   <div class="col-xs">
     <div class="box center">
-      <div class="col-xs-5 inline-flex items-baseline">
-        <span class="tick tick--success space-right-tiny"></span>
-        <div uib-tooltip="{{ finish.formattedErrors() }}" tooltip-placement="bottom" class="title-wrap">
-          <h3 class="title">Flash Complete!</h3>
-          <div class="target-status-line target-status-{{ type }}"
-            ng-repeat="(type, quantity) in finish.flash.getFlashResults().results.devices"
-            ng-if="quantity">
-            <span class="target-status-dot"></span>
-            <span class="target-status-quantity">{{ quantity }}</span>
-            <span class="target-status-message">{{ finish.progressMessage[type](quantity) }}</span>
-          </div>
-        </div>
-      </div>
+      <flash-results
+        results="finish.results"
+        message="finish.progressMessage"
+        errors="finish.formattedErrors">
+      </flash-results>
 
       <flash-another on-click="finish.restart">
       </flash-another>
@@ -29,23 +21,23 @@
             </svg-icon>
           </span>
         </div>
-        <div class="caption caption-small">
+        <div class="caption caption-small fallback-footer">
           made with
           <svg-icon paths="[ '../../assets/love.svg' ]"
-            width="'20px'"
-            height="'auto'"></svg-icon>
+            width="'auto'"
+            height="'20px'"></svg-icon>
           by
           <span os-open-external="https://resin.io?ref=etcher_success">
             <svg-icon paths="[ '../../assets/balena.svg' ]"
-              width="'100px'"
-              height="'auto'">
+              width="'auto'"
+              height="'20px'">
             </svg-icon>
           </span>
-        </div>
-        <div class="section-footer">
-          <span class="caption footer-right"
-            manifest-bind="version"
-            os-open-external="https://github.com/resin-io/etcher/blob/master/CHANGELOG.md"></span>
+          <div class="section-footer">
+            <span class="caption footer-right"
+              manifest-bind="version"
+              os-open-external="https://github.com/resin-io/etcher/blob/master/CHANGELOG.md"></span>
+          </div>
         </div>
       </div>
     </div>
