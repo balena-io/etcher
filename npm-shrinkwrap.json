@@ -1,6 +1,6 @@
 {
   "name": "balena-etcher",
-  "version": "1.4.8",
+  "version": "1.4.9",
   "dependencies": {
     "@babel/runtime": {
       "version": "7.2.0",
