@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.4.9 - 2018-12-19
+
+### Fixes
+
+- Fix update notifier error popping up on v1.4.1->1.4.8
+
+### Misc
+
+- Added React component for the Flash Results button
+- Added React component for the Flash Another button
+- Restyle success screen and enlarge UI elements
+- Use https for fetching sub modules
+- Add `.wic` image extension as supported format
+
 ## v1.4.8 - 2018-11-23
 
 ### Features
