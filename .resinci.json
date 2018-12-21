@@ -35,18 +35,18 @@
         "contents": [
           {
             "x": 140,
-            "y": 225
+            "y": 245
           },
           {
             "x": 415,
-            "y": 225,
+            "y": 245,
             "type": "link",
             "path": "/Applications"
           }
         ],
         "window": {
-          "width": 540,
-          "height": 405
+          "width": 544,
+          "height": 407
         }
       },
       "linux": {
