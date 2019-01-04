@@ -8,10 +8,8 @@ flashing an SDCard or USB drive is a pleasant and safe experience. It protects
 you from accidentally writing to your hard-drives, ensures every byte of data
 was written correctly and much more.
 
-[![Current Release](https://img.shields.io/github/release/balena-io/etcher.svg?style=flat-square)](https://etcher.io)
+[![Current Release](https://img.shields.io/github/release/balena-io/etcher.svg?style=flat-square)](https://balena.io/etcher)
 ![License](https://img.shields.io/github/license/balena-io/etcher.svg?style=flat-square)
-[![Travis CI status](https://img.shields.io/travis/balena-io/etcher/master.svg?style=flat-square&label=linux)](https://travis-ci.org/balena-io/etcher/branches)
-[![AppVeyor status](https://img.shields.io/appveyor/ci/balena-io/etcher/master.svg?style=flat-square&label=windows)](https://ci.appveyor.com/project/balena-io/etcher/branch/master)
 [![Dependency status](https://img.shields.io/david/balena-io/etcher.svg?style=flat-square)](https://david-dm.org/balena-io/etcher)
 [![Balena.io Forums](https://img.shields.io/discourse/https/forums.balena.io/topics.svg?style=flat-square&label=balena.io%20forums)](https://forums.balena.io/c/etcher)
 [![Stories in Progress](https://img.shields.io/waffle/label/balena-io/etcher/in%20progress.svg?style=flat-square)](https://waffle.io/balena-io/etcher)
@@ -44,7 +42,7 @@ installers for all supported operating systems.
 1. Add Etcher debian repository:
 
     ```
-    echo "deb https://deb.etcher.io stable etcher" | sudo tee /etc/apt/sources.list.d/etcher.list
+    echo "deb https://deb.etcher.io stable etcher" | sudo tee /etc/apt/sources.list.d/balena-etcher.list
     ```
 
 2. Trust Bintray.com's GPG key:
@@ -57,14 +55,14 @@ installers for all supported operating systems.
 
     ```sh
     sudo apt-get update
-    sudo apt-get install etcher-electron
+    sudo apt-get install balena-etcher-electron
     ```
 
 ##### Uninstall
 
 ```sh
-sudo apt-get remove etcher-electron
-sudo rm /etc/apt/sources.list.d/etcher.list
+sudo apt-get remove balena-etcher-electron
+sudo rm /etc/apt/sources.list.d/balena-etcher.list
 sudo apt-get update
 ```
 #### Redhat (RHEL) and Fedora based Package Repository (GNU/Linux x86/x64)
@@ -72,30 +70,30 @@ sudo apt-get update
 1. Add Etcher rpm repository:
 
     ```sh
-    sudo wget https://etcher.io/static/etcher-rpm.repo -O /etc/yum.repos.d/etcher-rpm.repo
+    sudo wget https://balena.io/etcher/static/etcher-rpm.repo -O /etc/yum.repos.d/etcher-rpm.repo
     ```
 
 2. Update and install:
 
     ```sh
-    sudo yum install -y etcher-electron
+    sudo yum install -y balena-etcher-electron
     ```
     or
     ```sh
-    sudo dnf install -y etcher-electron
+    sudo dnf install -y balena-etcher-electron
     ```
 
 ##### Uninstall
 
 ```
-sudo yum remove -y etcher-electron
+sudo yum remove -y balena-etcher-electron
 sudo rm /etc/yum.repos.d/etcher-rpm.repo
 sudo yum clean all
 sudo yum makecache fast
 ```
 or
 ```
-sudo dnf remove -y etcher-electron
+sudo dnf remove -y balena-etcher-electron
 sudo rm /etc/yum.repos.d/etcher-rpm.repo
 sudo dnf clean all
 sudo dnf makecache
@@ -156,7 +154,7 @@ License
 Etcher is free software, and may be redistributed under the terms specified in
 the [license].
 
-[etcher]: https://etcher.io
+[etcher]: https://balena.io/etcher
 [electron]: http://electron.atom.io
 [electron-supported-platforms]: http://electron.atom.io/docs/tutorial/supported-platforms/
 [SUPPORT]: https://github.com/balena-io/etcher/blob/master/SUPPORT.md
