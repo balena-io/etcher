@@ -6696,6 +6696,10 @@ svg-icon > img[disabled] {
     position: absolute;
     right: 0;
     bottom: 0; }
+    .page-finish .fallback-banner .section-footer .footer-right {
+      color: #7e8085;
+      font-size: 12px;
+      margin-right: 30px; }
 
 .inline-flex {
   display: inline-flex; }
