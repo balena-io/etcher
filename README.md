@@ -1,5 +1,4 @@
-Etcher
-======
+# Etcher
 
 > Flash OS images to SD cards & USB drives, safely and easily.
 
@@ -20,8 +19,7 @@ was written correctly and much more.
 
 ![Etcher](https://raw.githubusercontent.com/balena-io/etcher/master/screenshot.png)
 
-Supported Operating Systems
----------------------------
+## Supported Operating Systems
 
 - Linux (most distros)
 - macOS 10.9 and later
@@ -31,8 +29,7 @@ Note that Etcher will run on any platform officially supported by
 [Electron][electron]. Read more in their
 [documentation][electron-supported-platforms].
 
-Installers
-----------
+## Installers
 
 Refer to the [downloads page][etcher] for the latest pre-made
 installers for all supported operating systems.
@@ -41,7 +38,7 @@ installers for all supported operating systems.
 
 1. Add Etcher debian repository:
 
-    ```
+    ```sh
     echo "deb https://deb.etcher.io stable etcher" | sudo tee /etc/apt/sources.list.d/balena-etcher.list
     ```
 
@@ -85,14 +82,14 @@ sudo apt-get update
 
 ##### Uninstall
 
-```
+```sh
 sudo yum remove -y balena-etcher-electron
 sudo rm /etc/yum.repos.d/etcher-rpm.repo
 sudo yum clean all
 sudo yum makecache fast
 ```
 or
-```
+```sh
 sudo dnf remove -y balena-etcher-electron
 sudo rm /etc/yum.repos.d/etcher-rpm.repo
 sudo dnf clean all
@@ -101,14 +98,14 @@ sudo dnf makecache
 
 #### Solus (GNU/Linux x64)
 
-```
+```sh
 sudo eopkg it etcher
 ```
 
 ##### Uninstall
 
-```
-+sudo eopkg rm etcher
+```sh
+sudo eopkg rm etcher
 ```
 
 #### Brew Cask (macOS)
@@ -138,18 +135,16 @@ choco install etcher
 
 ##### Uninstall
 
-```
+```sh
 choco uninstall etcher
 ```
 
-Support
--------
+## Support
 
 If you're having any problem, please [raise an issue][newissue] on GitHub and
 the balena.io team will be happy to help.
 
-License
--------
+## License
 
 Etcher is free software, and may be redistributed under the terms specified in
 the [license].
