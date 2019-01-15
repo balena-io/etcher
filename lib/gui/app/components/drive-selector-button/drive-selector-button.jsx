@@ -16,46 +16,51 @@
 
 'use strict'
 
+const _ = require('lodash')
 const React = require('react')
-const ReactDOM = require('react-dom')
 const propTypes = require('prop-types')
-const Color = require('color')
+
+/* eslint-disable no-magic-numbers */
 
 const middleEllipsis = require('./../../utils/middle-ellipsis')
 
 const { Provider, Txt } = require('rendition')
-const { StepButton, StepNameButton, StepSelection,
-  DetailsText, ChangeButton } = require('./../../styled-components')
+const {
+  StepButton,
+  StepNameButton,
+  StepSelection,
+  DetailsText,
+  ChangeButton
+} = require('./../../styled-components')
 
 class DriveSelectorButton extends React.PureComponent {
-
-  allDevicesFooter() {
-    return this.props.selectedDevices.map((device) =>
-      <Txt key={device.device} tooltip={device.description + '(' + device.displayName + ')'}>
+  allDevicesFooter () {
+    return _.map(this.props.selectedDevices, (device) =>
+      <Txt key={device.device} tooltip={ `${device.description}(${device.displayName})` }>
         { middleEllipsis(device.description, 14) }
       </Txt>
     )
   }
 
-  render() {
+  render () {
     if (this.props.hasDrive || !this.props.shouldShowDrivesButton) {
       return (
         <Provider>
           <StepSelection>
-              <StepNameButton
-                plaintext
-                disabled={this.props.disabled}
-                tooltip={this.props.driveListLabel}
-                warning={!this.props.howManyDeviceSelected}
-              >
-                { middleEllipsis(this.props.drivesTitle, 20) }
-                { this.props.hasCompatibilityStatus &&
-                  <Txt.span className='glyphicon glyphicon-exclamation-sign'
-                    ml={2}
-                    tooltip={this.props.getCompatibilityStatuses}
-                  />
-                }
-              </StepNameButton>
+            <StepNameButton
+              plaintext
+              disabled={this.props.disabled}
+              tooltip={this.props.driveListLabel}
+              warning={!this.props.howManyDeviceSelected}
+            >
+              { middleEllipsis(this.props.drivesTitle, 20) }
+              { this.props.hasCompatibilityStatus &&
+                <Txt.span className='glyphicon glyphicon-exclamation-sign'
+                  ml={2}
+                  tooltip={this.props.getCompatibilityStatuses}
+                />
+              }
+            </StepNameButton>
 
             <DetailsText>
               {this.props.driveSize}
@@ -106,7 +111,7 @@ DriveSelectorButton.propTypes = {
   driveSize: propTypes.string,
   hasCompatibilityStatus: propTypes.bool,
   getCompatibilityStatuses: propTypes.array,
-  selectedDevices: propTypes.array,
+  selectedDevices: propTypes.array
 }
 
 module.exports = DriveSelectorButton
