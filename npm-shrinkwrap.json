@@ -8794,12 +8794,14 @@
       "dev": true
     },
     "winusb-driver-generator": {
-      "version": "1.2.1",
-      "resolved": "https://registry.npmjs.org/winusb-driver-generator/-/winusb-driver-generator-1.2.1.tgz",
+      "version": "1.2.3",
+      "resolved": "https://registry.npmjs.org/winusb-driver-generator/-/winusb-driver-generator-1.2.3.tgz",
+      "optional": true,
       "dependencies": {
         "nan": {
           "version": "2.11.1",
-          "resolved": "https://registry.npmjs.org/nan/-/nan-2.11.1.tgz"
+          "resolved": "https://registry.npmjs.org/nan/-/nan-2.11.1.tgz",
+          "optional": true
         }
       }
     },
