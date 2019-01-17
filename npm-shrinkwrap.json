@@ -2371,12 +2371,12 @@
       "dev": true
     },
     "drivelist": {
-      "version": "6.4.2",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-6.4.2.tgz",
+      "version": "6.4.6",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-6.4.6.tgz",
       "dependencies": {
         "nan": {
-          "version": "2.11.1",
-          "resolved": "https://registry.npmjs.org/nan/-/nan-2.11.1.tgz"
+          "version": "2.12.1",
+          "resolved": "https://registry.npmjs.org/nan/-/nan-2.12.1.tgz"
         }
       }
     },
@@ -6880,6 +6880,10 @@
           "version": "1.1.1",
           "resolved": "https://registry.npmjs.org/cli-width/-/cli-width-1.1.1.tgz"
         },
+        "drivelist": {
+          "version": "6.4.6",
+          "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-6.4.6.tgz"
+        },
         "figures": {
           "version": "1.7.0",
           "resolved": "https://registry.npmjs.org/figures/-/figures-1.7.0.tgz"
@@ -6909,6 +6913,10 @@
         "lodash": {
           "version": "3.10.1",
           "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz"
+        },
+        "nan": {
+          "version": "2.12.1",
+          "resolved": "https://registry.npmjs.org/nan/-/nan-2.12.1.tgz"
         },
         "onetime": {
           "version": "1.1.0",
