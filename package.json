@@ -70,7 +70,7 @@
     "lzma-native": "1.5.2",
     "mbr": "1.1.2",
     "mime-types": "2.1.15",
-    "mountutils": "1.3.15",
+    "mountutils": "1.3.16",
     "nan": "2.9.2",
     "node-ipc": "9.1.1",
     "node-stream-zip": "1.3.7",
