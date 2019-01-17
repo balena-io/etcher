@@ -99,7 +99,7 @@
     "usb": "github:resin-io/node-usb#1.3.5",
     "uuid": "3.0.1",
     "xml2js": "0.4.17",
-    "xxhash": "0.2.4",
+    "xxhash": "github:balena-io-modules/node-xxhash#70ac31da1a41c6f8c53d931b5802c6c93f7b6b83",
     "yargs": "11.0.0",
     "yauzl": "2.6.0"
   },

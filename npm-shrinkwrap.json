@@ -8874,7 +8874,7 @@
     },
     "xxhash": {
       "version": "0.2.4",
-      "resolved": "https://registry.npmjs.org/xxhash/-/xxhash-0.2.4.tgz"
+      "resolved": "git://github.com/balena-io-modules/node-xxhash.git#70ac31da1a41c6f8c53d931b5802c6c93f7b6b83"
     },
     "y18n": {
       "version": "3.2.1",
