@@ -17,8 +17,18 @@
           "libraries": [
             "-lShell32.lib",
           ],
-        } ]
+        } ],
 
+        [ 'OS=="mac"', {
+          "xcode_settings": {
+            "OTHER_CPLUSPLUSFLAGS": [
+              "-stdlib=libc++"
+            ],
+            "OTHER_LDFLAGS": [
+              "-stdlib=libc++"
+            ]
+          }
+        } ]
       ],
     }
   ],
