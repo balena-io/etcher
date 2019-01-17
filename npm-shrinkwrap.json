@@ -422,6 +422,16 @@
       "resolved": "https://registry.npmjs.org/@babel/preset-react/-/preset-react-7.0.0.tgz",
       "dev": true
     },
+    "@babel/runtime": {
+      "version": "7.2.0",
+      "resolved": "https://registry.npmjs.org/@babel/runtime/-/runtime-7.2.0.tgz",
+      "dependencies": {
+        "regenerator-runtime": {
+          "version": "0.12.1",
+          "resolved": "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.12.1.tgz"
+        }
+      }
+    },
     "@babel/template": {
       "version": "7.2.2",
       "resolved": "https://registry.npmjs.org/@babel/template/-/template-7.2.2.tgz",
@@ -463,7 +473,17 @@
     },
     "@balena/grid-styled": {
       "version": "3.1.1",
-      "resolved": "https://registry.npmjs.org/@balena/grid-styled/-/grid-styled-3.1.1.tgz"
+      "resolved": "https://registry.npmjs.org/@balena/grid-styled/-/grid-styled-3.1.1.tgz",
+      "dependencies": {
+        "prop-types": {
+          "version": "15.6.2",
+          "resolved": "https://registry.npmjs.org/prop-types/-/prop-types-15.6.2.tgz"
+        },
+        "styled-system": {
+          "version": "1.1.7",
+          "resolved": "https://registry.npmjs.org/styled-system/-/styled-system-1.1.7.tgz"
+        }
+      }
     },
     "@fortawesome/fontawesome-free-webfonts": {
       "version": "1.0.9",
@@ -6252,6 +6272,14 @@
       "version": "4.41.1",
       "resolved": "https://registry.npmjs.org/rendition/-/rendition-4.41.1.tgz",
       "dependencies": {
+        "prop-types": {
+          "version": "15.6.2",
+          "resolved": "https://registry.npmjs.org/prop-types/-/prop-types-15.6.2.tgz"
+        },
+        "styled-system": {
+          "version": "1.1.7",
+          "resolved": "https://registry.npmjs.org/styled-system/-/styled-system-1.1.7.tgz"
+        },
         "uuid": {
           "version": "3.3.2",
           "resolved": "https://registry.npmjs.org/uuid/-/uuid-3.3.2.tgz"
@@ -7288,8 +7316,8 @@
       }
     },
     "styled-system": {
-      "version": "1.1.7",
-      "resolved": "https://registry.npmjs.org/styled-system/-/styled-system-1.1.7.tgz",
+      "version": "3.1.11",
+      "resolved": "https://registry.npmjs.org/styled-system/-/styled-system-3.1.11.tgz",
       "dependencies": {
         "prop-types": {
           "version": "15.6.2",
