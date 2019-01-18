@@ -8164,8 +8164,8 @@
     },
     "unbzip2-stream": {
       "version": "1.2.5",
-      "from": "resin-io-modules/unbzip2-stream#core-streams",
-      "resolved": "git://github.com/resin-io-modules/unbzip2-stream.git#942fc218013c14adab01cf693b0500cf6ac83193"
+      "from": "balena-io-modules/unbzip2-stream#core-streams",
+      "resolved": "git://github.com/balena-io-modules/unbzip2-stream.git#942fc218013c14adab01cf693b0500cf6ac83193"
     },
     "unc-path-regex": {
       "version": "0.1.2",
@@ -8314,8 +8314,8 @@
     },
     "usb": {
       "version": "1.3.5",
-      "from": "resin-io/node-usb#1.3.5",
-      "resolved": "git://github.com/resin-io/node-usb.git#1521d10bdfe09ef2ca1f259972dee27c6c35f821"
+      "from": "balena-io/node-usb#1.3.5",
+      "resolved": "git://github.com/balena-io/node-usb.git#1521d10bdfe09ef2ca1f259972dee27c6c35f821"
     },
     "use": {
       "version": "3.1.1",
