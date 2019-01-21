@@ -92,21 +92,22 @@ TARGET_ARCH ?= $(HOST_ARCH)
 # ---------------------------------------------------------------------
 # Electron
 # ---------------------------------------------------------------------
+patches:
+	# patch from https://github.com/mapbox/node-pre-gyp/pull/279/files , required for lzma-native in electron child processes
+	# we only apply the patch if it hasn't been applied
+	if ! [ -f node_modules/node-pre-gyp/lib/util/versioning.js.orig ]; \
+		then patch --backup --force --strip=1 --ignore-whitespace < node_modules_patches/allow-electron-forks-of-modules-that-use-pre-gyp.patch; \
+	fi;
 
-electron-develop: | $(BUILD_TEMPORARY_DIRECTORY)
+electron-develop: patches | $(BUILD_TEMPORARY_DIRECTORY)
 	$(RESIN_SCRIPTS)/electron/install.sh \
 		-b $(shell pwd) \
 		-r $(TARGET_ARCH) \
 		-s $(PLATFORM) \
 		-n $(BUILD_TEMPORARY_DIRECTORY)/npm \
 		-a $(S3_BUCKET)
-	# patch from https://github.com/mapbox/node-pre-gyp/pull/279/files , required for lzma-native in electron child processes
-	# we only apply the patch if it hasn't been applied
-	if ! [ -f node_modules/node-pre-gyp/lib/util/versioning.js.orig ]; \
-		then patch --backup --force --strip=1 --ignore-whitespace < patches/allow-electron-forks-of-modules-that-use-pre-gyp.patch; \
-	fi;
 
-electron-test:
+electron-test: patches
 	$(RESIN_SCRIPTS)/electron/test.sh \
 		-b $(shell pwd) \
 		-s $(PLATFORM)
@@ -114,7 +115,7 @@ electron-test:
 assets/dmg/background.tiff: assets/dmg/background.png assets/dmg/background@2x.png
 	tiffutil -cathidpicheck $^ -out $@
 
-electron-build: assets/dmg/background.tiff | $(BUILD_TEMPORARY_DIRECTORY)
+electron-build: patches assets/dmg/background.tiff | $(BUILD_TEMPORARY_DIRECTORY)
 	$(RESIN_SCRIPTS)/electron/build.sh \
 		-b $(shell pwd) \
 		-r $(TARGET_ARCH) \
