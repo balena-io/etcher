@@ -39,6 +39,7 @@
     "7zip-bin-win",
     "7zip-bin-linux",
     "fsevents",
+    "napi-build-utils",
     "winusb-driver-generator"
   ],
   "dependencies": {
