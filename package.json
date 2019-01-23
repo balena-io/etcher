@@ -132,7 +132,7 @@
     "mocha": "5.0.1",
     "mochainon": "2.0.0",
     "nock": "9.2.3",
-    "node-gyp": "3.5.0",
+    "node-gyp": "3.8.0",
     "node-sass": "4.7.2",
     "pkg": "4.3.0",
     "sass-lint": "1.12.1",
