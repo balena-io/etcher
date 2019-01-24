@@ -4609,10 +4609,6 @@
         }
       }
     },
-    "napi-build-utils": {
-      "version": "1.0.1",
-      "resolved": "https://registry.npmjs.org/napi-build-utils/-/napi-build-utils-1.0.1.tgz"
-    },
     "native-promise-only": {
       "version": "0.8.1",
       "resolved": "https://registry.npmjs.org/native-promise-only/-/native-promise-only-0.8.1.tgz",
