@@ -2919,8 +2919,8 @@
       "resolved": "https://registry.npmjs.org/expand-template/-/expand-template-1.1.1.tgz"
     },
     "ext2fs": {
-      "version": "1.0.24",
-      "resolved": "https://registry.npmjs.org/ext2fs/-/ext2fs-1.0.24.tgz",
+      "version": "1.0.25",
+      "resolved": "https://registry.npmjs.org/ext2fs/-/ext2fs-1.0.25.tgz",
       "dependencies": {
         "expand-template": {
           "version": "2.0.3",
