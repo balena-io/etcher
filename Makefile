@@ -92,7 +92,7 @@ TARGET_ARCH ?= $(HOST_ARCH)
 # ---------------------------------------------------------------------
 # Electron
 # ---------------------------------------------------------------------
-patches:
+patches: node_modules_patches/allow-electron-forks-of-modules-that-use-pre-gyp.patch node_modules/node-pre-gyp/lib/util/versioning.js
 	# patch from https://github.com/mapbox/node-pre-gyp/pull/279/files , required for lzma-native in electron child processes
 	# we only apply the patch if it hasn't been applied
 	if ! [ -f node_modules/node-pre-gyp/lib/util/versioning.js.orig ]; \
