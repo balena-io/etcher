@@ -390,13 +390,7 @@ describe('Model: selectionState', function () {
       this.image = {
         path: 'foo.img',
         extension: 'img',
-        size: {
-          original: 999999999,
-          final: {
-            estimation: false,
-            value: 999999999
-          }
-        },
+        size: 999999999,
         recommendedDriveSize: 1000000000,
         url: 'https://www.raspbian.org',
         supportUrl: 'https://www.raspbian.org/forums/',
@@ -491,13 +485,8 @@ describe('Model: selectionState', function () {
         selectionState.selectImage({
           path: 'bar.img',
           extension: 'img',
-          size: {
-            original: 999999999,
-            final: {
-              estimation: false,
-              value: 999999999
-            }
-          }
+          size: 999999999,
+          isSizeEstimated: false
         })
 
         const imagePath = selectionState.getImagePath()
@@ -527,13 +516,8 @@ describe('Model: selectionState', function () {
         selectionState.selectImage({
           path: 'foo.img',
           extension: 'img',
-          size: {
-            original: 999999999,
-            final: {
-              estimation: false,
-              value: 999999999
-            }
-          }
+          size: 999999999,
+          isSizeEstimated: false
         })
 
         const imagePath = selectionState.getImagePath()
@@ -547,13 +531,8 @@ describe('Model: selectionState', function () {
           path: 'foo.zip',
           extension: 'img',
           archiveExtension: 'zip',
-          size: {
-            original: 999999999,
-            final: {
-              estimation: false,
-              value: 999999999
-            }
-          }
+          size: 999999999,
+          isSizeEstimated: false
         })
 
         const imagePath = selectionState.getImagePath()
@@ -565,13 +544,8 @@ describe('Model: selectionState', function () {
           path: 'foo.xz',
           extension: 'img',
           archiveExtension: 'xz',
-          size: {
-            original: 999999999,
-            final: {
-              estimation: false,
-              value: 999999999
-            }
-          }
+          size: 999999999,
+          isSizeEstimated: false
         })
 
         const imagePath = selectionState.getImagePath()
@@ -583,13 +557,8 @@ describe('Model: selectionState', function () {
           path: 'something.linux-x86-64.gz',
           extension: 'img',
           archiveExtension: 'gz',
-          size: {
-            original: 999999999,
-            final: {
-              estimation: false,
-              value: 999999999
-            }
-          }
+          size: 999999999,
+          isSizeEstimated: false
         })
 
         const imagePath = selectionState.getImagePath()
@@ -600,13 +569,8 @@ describe('Model: selectionState', function () {
         m.chai.expect(function () {
           selectionState.selectImage({
             extension: 'img',
-            size: {
-              original: 999999999,
-              final: {
-                estimation: false,
-                value: 999999999
-              }
-            }
+            size: 999999999,
+            isSizeEstimated: false
           })
         }).to.throw('Missing image fields: path')
       })
@@ -616,13 +580,8 @@ describe('Model: selectionState', function () {
           selectionState.selectImage({
             path: 123,
             extension: 'img',
-            size: {
-              original: 999999999,
-              final: {
-                estimation: false,
-                value: 999999999
-              }
-            }
+            size: 999999999,
+            isSizeEstimated: false
           })
         }).to.throw('Invalid image path: 123')
       })
@@ -631,13 +590,8 @@ describe('Model: selectionState', function () {
         m.chai.expect(function () {
           selectionState.selectImage({
             path: 'foo.img',
-            size: {
-              original: 999999999,
-              final: {
-                estimation: false,
-                value: 999999999
-              }
-            }
+            size: 999999999,
+            isSizeEstimated: false
           })
         }).to.throw('Missing image fields: extension')
       })
@@ -647,13 +601,8 @@ describe('Model: selectionState', function () {
           selectionState.selectImage({
             path: 'foo.img',
             extension: 1,
-            size: {
-              original: 999999999,
-              final: {
-                estimation: false,
-                value: 999999999
-              }
-            }
+            size: 999999999,
+            isSizeEstimated: false
           })
         }).to.throw('Invalid image extension: 1')
       })
@@ -663,13 +612,8 @@ describe('Model: selectionState', function () {
           selectionState.selectImage({
             path: 'foo.img',
             extension: 'iso',
-            size: {
-              original: 999999999,
-              final: {
-                estimation: false,
-                value: 999999999
-              }
-            }
+            size: 999999999,
+            isSizeEstimated: false
           })
         }).to.throw('Missing image archive extension')
       })
@@ -680,15 +624,10 @@ describe('Model: selectionState', function () {
             path: 'foo.img',
             extension: 'iso',
             archiveExtension: 1,
-            size: {
-              original: 999999999,
-              final: {
-                estimation: false,
-                value: 999999999
-              }
-            }
+            size: 999999999,
+            isSizeEstimated: false
           })
-        }).to.throw('Invalid image archive extension: 1')
+        }).to.throw('Missing image archive extension')
       })
 
       it('should throw if the archive extension doesn\'t match the last path extension in a compressed image', function () {
@@ -697,13 +636,8 @@ describe('Model: selectionState', function () {
             path: 'foo.img.xz',
             extension: 'img',
             archiveExtension: 'gz',
-            size: {
-              original: 999999999,
-              final: {
-                estimation: false,
-                value: 999999999
-              }
-            }
+            size: 999999999,
+            isSizeEstimated: false
           })
         }).to.throw('Image archive extension mismatch: gz and xz')
       })
@@ -713,13 +647,8 @@ describe('Model: selectionState', function () {
           selectionState.selectImage({
             path: 'foo.ifg',
             extension: 'ifg',
-            size: {
-              original: 999999999,
-              final: {
-                estimation: false,
-                value: 999999999
-              }
-            }
+            size: 999999999,
+            isSizeEstimated: false
           })
         }).to.throw('Invalid image extension: ifg')
       })
@@ -730,13 +659,8 @@ describe('Model: selectionState', function () {
             path: 'foo.ifg.gz',
             extension: 'ifg',
             archiveExtension: 'gz',
-            size: {
-              original: 999999999,
-              final: {
-                estimation: false,
-                value: 999999999
-              }
-            }
+            size: 999999999,
+            isSizeEstimated: false
           })
         }).to.throw('Invalid image extension: ifg')
       })
@@ -747,34 +671,10 @@ describe('Model: selectionState', function () {
             path: 'foo.img.ifg',
             extension: 'img',
             archiveExtension: 'ifg',
-            size: {
-              original: 999999999,
-              final: {
-                estimation: false,
-                value: 999999999
-              }
-            }
+            size: 999999999,
+            isSizeEstimated: false
           })
         }).to.throw('Invalid image archive extension: ifg')
-      })
-
-      it('should throw if no size', function () {
-        m.chai.expect(function () {
-          selectionState.selectImage({
-            path: 'foo.img',
-            extension: 'img'
-          })
-        }).to.throw('Missing image fields: size')
-      })
-
-      it('should throw if size is not a plain object', function () {
-        m.chai.expect(function () {
-          selectionState.selectImage({
-            path: 'foo.img',
-            extension: 'img',
-            size: 999999999
-          })
-        }).to.throw('Invalid image size: 999999999')
       })
 
       it('should throw if the original size is not a number', function () {
@@ -782,15 +682,11 @@ describe('Model: selectionState', function () {
           selectionState.selectImage({
             path: 'foo.img',
             extension: 'img',
-            size: {
-              original: '999999999',
-              final: {
-                estimation: false,
-                value: 999999999
-              }
-            }
+            size: 999999999,
+            compressedSize: '999999999',
+            isSizeEstimated: false
           })
-        }).to.throw('Invalid original image size: 999999999')
+        }).to.throw('Invalid image compressed size: 999999999')
       })
 
       it('should throw if the original size is a float number', function () {
@@ -798,15 +694,11 @@ describe('Model: selectionState', function () {
           selectionState.selectImage({
             path: 'foo.img',
             extension: 'img',
-            size: {
-              original: 999999999.999,
-              final: {
-                estimation: false,
-                value: 999999999
-              }
-            }
+            size: 999999999,
+            compressedSize: 999999999.999,
+            isSizeEstimated: false
           })
-        }).to.throw('Invalid original image size: 999999999.999')
+        }).to.throw('Invalid image compressed size: 999999999.999')
       })
 
       it('should throw if the original size is negative', function () {
@@ -814,15 +706,11 @@ describe('Model: selectionState', function () {
           selectionState.selectImage({
             path: 'foo.img',
             extension: 'img',
-            size: {
-              original: -1,
-              final: {
-                estimation: false,
-                value: 999999999
-              }
-            }
+            size: 999999999,
+            compressedSize: -1,
+            isSizeEstimated: false
           })
-        }).to.throw('Invalid original image size: -1')
+        }).to.throw('Invalid image compressed size: -1')
       })
 
       it('should throw if the final size is not a number', function () {
@@ -830,15 +718,10 @@ describe('Model: selectionState', function () {
           selectionState.selectImage({
             path: 'foo.img',
             extension: 'img',
-            size: {
-              original: 999999999,
-              final: {
-                estimation: false,
-                value: '999999999'
-              }
-            }
+            size: '999999999',
+            isSizeEstimated: false
           })
-        }).to.throw('Invalid final image size: 999999999')
+        }).to.throw('Invalid image size: 999999999')
       })
 
       it('should throw if the final size is a float number', function () {
@@ -846,15 +729,10 @@ describe('Model: selectionState', function () {
           selectionState.selectImage({
             path: 'foo.img',
             extension: 'img',
-            size: {
-              original: 999999999,
-              final: {
-                estimation: false,
-                value: 999999999.999
-              }
-            }
+            size: 999999999.999,
+            isSizeEstimated: false
           })
-        }).to.throw('Invalid final image size: 999999999.999')
+        }).to.throw('Invalid image size: 999999999.999')
       })
 
       it('should throw if the final size is negative', function () {
@@ -862,31 +740,10 @@ describe('Model: selectionState', function () {
           selectionState.selectImage({
             path: 'foo.img',
             extension: 'img',
-            size: {
-              original: 999999999,
-              final: {
-                estimation: false,
-                value: -1
-              }
-            }
+            size: -1,
+            isSizeEstimated: false
           })
-        }).to.throw('Invalid final image size: -1')
-      })
-
-      it('should throw if the final size estimation flag is not a boolean', function () {
-        m.chai.expect(function () {
-          selectionState.selectImage({
-            path: 'foo.img',
-            extension: 'img',
-            size: {
-              original: 999999999,
-              final: {
-                estimation: 'false',
-                value: 999999999
-              }
-            }
-          })
-        }).to.throw('Invalid final image size estimation flag: false')
+        }).to.throw('Invalid image size: -1')
       })
 
       it('should throw if url is defined but it\'s not a string', function () {
@@ -894,13 +751,8 @@ describe('Model: selectionState', function () {
           selectionState.selectImage({
             path: 'foo.img',
             extension: 'img',
-            size: {
-              original: 999999999,
-              final: {
-                estimation: false,
-                value: 999999999
-              }
-            },
+            size: 999999999,
+            isSizeEstimated: false,
             url: 1234
           })
         }).to.throw('Invalid image url: 1234')
@@ -911,13 +763,8 @@ describe('Model: selectionState', function () {
           selectionState.selectImage({
             path: 'foo.img',
             extension: 'img',
-            size: {
-              original: 999999999,
-              final: {
-                estimation: false,
-                value: 999999999
-              }
-            },
+            size: 999999999,
+            isSizeEstimated: false,
             name: 1234
           })
         }).to.throw('Invalid image name: 1234')
@@ -928,13 +775,8 @@ describe('Model: selectionState', function () {
           selectionState.selectImage({
             path: 'foo.img',
             extension: 'img',
-            size: {
-              original: 999999999,
-              final: {
-                estimation: false,
-                value: 999999999
-              }
-            },
+            size: 999999999,
+            isSizeEstimated: false,
             logo: 1234
           })
         }).to.throw('Invalid image logo: 1234')
@@ -956,13 +798,8 @@ describe('Model: selectionState', function () {
         selectionState.selectImage({
           path: 'foo.img',
           extension: 'img',
-          size: {
-            original: 1234567890,
-            final: {
-              estimation: false,
-              value: 1234567890
-            }
-          }
+          size: 1234567890,
+          isSizeEstimated: false
         })
 
         m.chai.expect(selectionState.hasDrive()).to.be.false
@@ -985,13 +822,8 @@ describe('Model: selectionState', function () {
         selectionState.selectImage({
           path: 'foo.img',
           extension: 'img',
-          size: {
-            original: 999999999,
-            final: {
-              estimation: false,
-              value: 999999999
-            }
-          },
+          size: 999999999,
+          isSizeEstimated: false,
           recommendedDriveSize: 1500000000
         })
 
@@ -1028,13 +860,8 @@ describe('Model: selectionState', function () {
         selectionState.selectImage({
           path: imagePath,
           extension: 'img',
-          size: {
-            original: 999999999,
-            final: {
-              estimation: false,
-              value: 999999999
-            }
-          }
+          size: 999999999,
+          isSizeEstimated: false
         })
 
         m.chai.expect(selectionState.hasDrive()).to.be.false
@@ -1059,13 +886,8 @@ describe('Model: selectionState', function () {
       selectionState.selectImage({
         path: 'foo.img',
         extension: 'img',
-        size: {
-          original: 999999999,
-          final: {
-            estimation: false,
-            value: 999999999
-          }
-        }
+        size: 999999999,
+        isSizeEstimated: false
       })
     })
 
@@ -1177,13 +999,8 @@ describe('Model: selectionState', function () {
       selectionState.selectImage({
         path: 'foo.img',
         extension: 'img',
-        size: {
-          original: 999999999,
-          final: {
-            estimation: false,
-            value: 999999999
-          }
-        }
+        size: 999999999,
+        isSizeEstimated: false
       })
     })
 

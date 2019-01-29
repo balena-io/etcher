@@ -70,13 +70,8 @@ describe('Browser: MainPage', function () {
         selectionState.selectImage({
           path: 'rpi.img',
           extension: 'img',
-          size: {
-            original: 99999,
-            final: {
-              estimation: false,
-              value: 99999
-            }
-          }
+          size: 99999,
+          isSizeEstimated: false
         })
 
         m.chai.expect(controller.shouldDriveStepBeDisabled()).to.be.false
@@ -103,13 +98,8 @@ describe('Browser: MainPage', function () {
         selectionState.selectImage({
           path: 'rpi.img',
           extension: 'img',
-          size: {
-            original: 99999,
-            final: {
-              estimation: false,
-              value: 99999
-            }
-          }
+          size: 99999,
+          isSizeEstimated: false
         })
 
         m.chai.expect(controller.shouldFlashStepBeDisabled()).to.be.true
@@ -157,13 +147,8 @@ describe('Browser: MainPage', function () {
         selectionState.selectImage({
           path: 'rpi.img',
           extension: 'img',
-          size: {
-            original: 99999,
-            final: {
-              estimation: false,
-              value: 99999
-            }
-          }
+          size: 99999,
+          isSizeEstimated: false
         })
 
         m.chai.expect(controller.shouldFlashStepBeDisabled()).to.be.false
@@ -197,13 +182,8 @@ describe('Browser: MainPage', function () {
         selectionState.selectImage({
           path: path.join(__dirname, 'foo', 'bar.img'),
           extension: 'img',
-          size: {
-            original: 999999999,
-            final: {
-              estimation: false,
-              value: 999999999
-            }
-          }
+          size: 999999999,
+          isSizeEstimated: false
         })
 
         m.chai.expect(controller.getImageBasename()).to.equal('bar.img')

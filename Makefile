@@ -92,7 +92,6 @@ TARGET_ARCH ?= $(HOST_ARCH)
 # ---------------------------------------------------------------------
 # Electron
 # ---------------------------------------------------------------------
-
 electron-develop: | $(BUILD_TEMPORARY_DIRECTORY)
 	$(RESIN_SCRIPTS)/electron/install.sh \
 		-b $(shell pwd) \
@@ -159,7 +158,6 @@ TARGETS = \
 	lint-spell \
 	test-spectron \
 	test-gui \
-	test-sdk \
 	test-cli \
 	test \
 	sanity-checks \
@@ -218,13 +216,11 @@ test-gui:
 
 test-sdk:
 	electron-mocha $(MOCHA_OPTIONS) \
-		tests/shared \
-		tests/image-stream
+		tests/shared
 
 test-cli:
 	mocha $(MOCHA_OPTIONS) \
-		tests/shared \
-		tests/image-stream
+		tests/shared
 
 test: test-gui test-sdk test-spectron
 

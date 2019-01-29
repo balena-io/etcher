@@ -23,8 +23,8 @@ const supportedFormats = require('../../lib/shared/supported-formats')
 describe('Shared: SupportedFormats', function () {
   describe('.getCompressedExtensions()', function () {
     it('should return the supported compressed extensions', function () {
-      const extensions = supportedFormats.getCompressedExtensions()
-      m.chai.expect(extensions).to.deep.equal([ 'gz', 'bz2', 'xz' ])
+      const extensions = supportedFormats.getCompressedExtensions().sort()
+      m.chai.expect(extensions).to.deep.equal([ 'bz2', 'gz', 'xz' ].sort())
     })
   })
 
@@ -49,9 +49,9 @@ describe('Shared: SupportedFormats', function () {
       const archiveExtensions = supportedFormats.getArchiveExtensions()
       const compressedExtensions = supportedFormats.getCompressedExtensions()
       const nonCompressedExtensions = supportedFormats.getNonCompressedExtensions()
-      const expected = _.union(archiveExtensions, compressedExtensions, nonCompressedExtensions)
+      const expected = _.union(archiveExtensions, compressedExtensions, nonCompressedExtensions).sort()
       const extensions = supportedFormats.getAllExtensions()
-      m.chai.expect(extensions).to.deep.equal(expected)
+      m.chai.expect(extensions.sort()).to.deep.equal(expected)
     })
   })
 

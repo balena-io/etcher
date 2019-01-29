@@ -323,13 +323,8 @@ describe('Shared: DriveConstraints', function () {
         beforeEach(function () {
           this.image = {
             path: path.join(__dirname, 'rpi.img'),
-            size: {
-              original: this.drive.size - 1,
-              final: {
-                estimation: false,
-                value: this.drive.size - 1
-              }
-            }
+            size: this.drive.size - 1,
+            isSizeEstimated: false
           }
         })
 
@@ -338,12 +333,12 @@ describe('Shared: DriveConstraints', function () {
         })
 
         it('should return true if the final size is equal to the drive size', function () {
-          this.image.size.final.value = this.drive.size
+          this.image.size = this.drive.size
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
         })
 
         it('should return false if the final size is greater than the drive size', function () {
-          this.image.size.final.value = this.drive.size + 1
+          this.image.size = this.drive.size + 1
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false
         })
       })
@@ -352,18 +347,13 @@ describe('Shared: DriveConstraints', function () {
         beforeEach(function () {
           this.image = {
             path: path.join(__dirname, 'rpi.img'),
-            size: {
-              original: this.drive.size,
-              final: {
-                estimation: false,
-                value: this.drive.size
-              }
-            }
+            size: this.drive.size,
+            isSizeEstimated: false
           }
         })
 
         it('should return true if the final size is less than the drive size', function () {
-          this.image.size.final.value = this.drive.size - 1
+          this.image.size = this.drive.size - 1
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
         })
 
@@ -372,7 +362,7 @@ describe('Shared: DriveConstraints', function () {
         })
 
         it('should return false if the final size is greater than the drive size', function () {
-          this.image.size.final.value = this.drive.size + 1
+          this.image.size = this.drive.size + 1
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false
         })
       })
@@ -381,23 +371,18 @@ describe('Shared: DriveConstraints', function () {
         beforeEach(function () {
           this.image = {
             path: path.join(__dirname, 'rpi.img'),
-            size: {
-              original: this.drive.size + 1,
-              final: {
-                estimation: false,
-                value: this.drive.size + 1
-              }
-            }
+            size: this.drive.size + 1,
+            isSizeEstimated: false
           }
         })
 
         it('should return true if the final size is less than the drive size', function () {
-          this.image.size.final.value = this.drive.size - 1
+          this.image.size = this.drive.size - 1
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
         })
 
         it('should return true if the final size is equal to the drive size', function () {
-          this.image.size.final.value = this.drive.size
+          this.image.size = this.drive.size
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
         })
 
@@ -412,13 +397,9 @@ describe('Shared: DriveConstraints', function () {
         beforeEach(function () {
           this.image = {
             path: path.join(__dirname, 'rpi.img'),
-            size: {
-              original: this.drive.size - 1,
-              final: {
-                estimation: true,
-                value: this.drive.size - 1
-              }
-            }
+            size: this.drive.size - 1,
+            compressedSize: this.drive.size - 1,
+            isSizeEstimated: true
           }
         })
 
@@ -427,12 +408,12 @@ describe('Shared: DriveConstraints', function () {
         })
 
         it('should return true if the final size is equal to the drive size', function () {
-          this.image.size.final.value = this.drive.size
+          this.image.size = this.drive.size
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
         })
 
         it('should return true if the final size is greater than the drive size', function () {
-          this.image.size.final.value = this.drive.size + 1
+          this.image.size = this.drive.size + 1
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
         })
       })
@@ -441,18 +422,14 @@ describe('Shared: DriveConstraints', function () {
         beforeEach(function () {
           this.image = {
             path: path.join(__dirname, 'rpi.img'),
-            size: {
-              original: this.drive.size,
-              final: {
-                estimation: true,
-                value: this.drive.size
-              }
-            }
+            size: this.drive.size,
+            compressedSize: this.drive.size,
+            isSizeEstimated: true
           }
         })
 
         it('should return true if the final size is less than the drive size', function () {
-          this.image.size.final.value = this.drive.size - 1
+          this.image.size = this.drive.size - 1
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
         })
 
@@ -461,7 +438,7 @@ describe('Shared: DriveConstraints', function () {
         })
 
         it('should return true if the final size is greater than the drive size', function () {
-          this.image.size.final.value = this.drive.size + 1
+          this.image.size = this.drive.size + 1
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.true
         })
       })
@@ -470,23 +447,19 @@ describe('Shared: DriveConstraints', function () {
         beforeEach(function () {
           this.image = {
             path: path.join(__dirname, 'rpi.img'),
-            size: {
-              original: this.drive.size + 1,
-              final: {
-                estimation: true,
-                value: this.drive.size + 1
-              }
-            }
+            size: this.drive.size + 1,
+            compressedSize: this.drive.size + 1,
+            isSizeEstimated: true
           }
         })
 
         it('should return false if the final size is less than the drive size', function () {
-          this.image.size.final.value = this.drive.size - 1
+          this.image.size = this.drive.size - 1
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false
         })
 
         it('should return false if the final size is equal to the drive size', function () {
-          this.image.size.final.value = this.drive.size
+          this.image.size = this.drive.size
           m.chai.expect(constraints.isDriveLargeEnough(this.drive, this.image)).to.be.false
         })
 
@@ -499,13 +472,8 @@ describe('Shared: DriveConstraints', function () {
     it('should return false if the drive is undefined', function () {
       const result = constraints.isDriveLargeEnough(undefined, {
         path: path.join(__dirname, 'rpi.img'),
-        size: {
-          original: 1000000000,
-          final: {
-            estimation: false,
-            value: 1000000000
-          }
-        }
+        size: 1000000000,
+        isSizeEstimated: false
       })
 
       m.chai.expect(result).to.be.false
@@ -574,13 +542,8 @@ describe('Shared: DriveConstraints', function () {
         isReadOnly: false
       }, {
         path: path.join(__dirname, 'rpi.img'),
-        size: {
-          original: 1000000000,
-          final: {
-            estimation: false,
-            value: 1000000000
-          }
-        },
+        size: 1000000000,
+        isSizeEstimated: false,
         recommendedDriveSize: 2000000000
       })
 
@@ -595,13 +558,8 @@ describe('Shared: DriveConstraints', function () {
         isReadOnly: false
       }, {
         path: path.join(__dirname, 'rpi.img'),
-        size: {
-          original: 1000000000,
-          final: {
-            estimation: false,
-            value: 1000000000
-          }
-        },
+        size: 1000000000,
+        isSizeEstimated: false,
         recommendedDriveSize: 2000000000
       })
 
@@ -616,13 +574,8 @@ describe('Shared: DriveConstraints', function () {
         isReadOnly: false
       }, {
         path: path.join(__dirname, 'rpi.img'),
-        size: {
-          original: 1000000000,
-          final: {
-            estimation: false,
-            value: 1000000000
-          }
-        },
+        size: 1000000000,
+        isSizeEstimated: false,
         recommendedDriveSize: 2000000001
       })
 
@@ -637,13 +590,8 @@ describe('Shared: DriveConstraints', function () {
         isReadOnly: false
       }, {
         path: path.join(__dirname, 'rpi.img'),
-        size: {
-          original: 1000000000,
-          final: {
-            estimation: false,
-            value: 1000000000
-          }
-        }
+        size: 1000000000,
+        isSizeEstimated: false
       })
 
       m.chai.expect(result).to.be.true
@@ -652,13 +600,8 @@ describe('Shared: DriveConstraints', function () {
     it('should return false if the drive is undefined', function () {
       const result = constraints.isDriveSizeRecommended(undefined, {
         path: path.join(__dirname, 'rpi.img'),
-        size: {
-          original: 1000000000,
-          final: {
-            estimation: false,
-            value: 1000000000
-          }
-        },
+        size: 1000000000,
+        isSizeEstimated: false,
         recommendedDriveSize: 1000000000
       })
 
@@ -715,52 +658,32 @@ describe('Shared: DriveConstraints', function () {
         it('should return false if the drive is not large enough and is a source drive', function () {
           m.chai.expect(constraints.isDriveValid(this.drive, {
             path: path.join(this.mountpoint, 'rpi.img'),
-            size: {
-              original: 5000000000,
-              final: {
-                estimation: false,
-                value: 5000000000
-              }
-            }
+            size: 5000000000,
+            isSizeEstimated: false
           })).to.be.false
         })
 
         it('should return false if the drive is not large enough and is not a source drive', function () {
           m.chai.expect(constraints.isDriveValid(this.drive, {
             path: path.resolve(this.mountpoint, '../bar/rpi.img'),
-            size: {
-              original: 5000000000,
-              final: {
-                estimation: false,
-                value: 5000000000
-              }
-            }
+            size: 5000000000,
+            isSizeEstimated: false
           })).to.be.false
         })
 
         it('should return false if the drive is large enough and is a source drive', function () {
           m.chai.expect(constraints.isDriveValid(this.drive, {
             path: path.join(this.mountpoint, 'rpi.img'),
-            size: {
-              original: 2000000000,
-              final: {
-                estimation: false,
-                value: 2000000000
-              }
-            }
+            size: 2000000000,
+            isSizeEstimated: false
           })).to.be.false
         })
 
         it('should return false if the drive is large enough and is not a source drive', function () {
           m.chai.expect(constraints.isDriveValid(this.drive, {
             path: path.resolve(this.mountpoint, '../bar/rpi.img'),
-            size: {
-              original: 2000000000,
-              final: {
-                estimation: false,
-                value: 2000000000
-              }
-            }
+            size: 2000000000,
+            isSizeEstimated: false
           })).to.be.false
         })
       })
@@ -773,52 +696,32 @@ describe('Shared: DriveConstraints', function () {
         it('should return false if the drive is not large enough and is a source drive', function () {
           m.chai.expect(constraints.isDriveValid(this.drive, {
             path: path.join(this.mountpoint, 'rpi.img'),
-            size: {
-              original: 5000000000,
-              final: {
-                estimation: false,
-                value: 5000000000
-              }
-            }
+            size: 5000000000,
+            isSizeEstimated: false
           })).to.be.false
         })
 
         it('should return false if the drive is not large enough and is not a source drive', function () {
           m.chai.expect(constraints.isDriveValid(this.drive, {
             path: path.resolve(this.mountpoint, '../bar/rpi.img'),
-            size: {
-              original: 5000000000,
-              final: {
-                estimation: false,
-                value: 5000000000
-              }
-            }
+            size: 5000000000,
+            isSizeEstimated: false
           })).to.be.false
         })
 
         it('should return false if the drive is large enough and is a source drive', function () {
           m.chai.expect(constraints.isDriveValid(this.drive, {
             path: path.join(this.mountpoint, 'rpi.img'),
-            size: {
-              original: 2000000000,
-              final: {
-                estimation: false,
-                value: 2000000000
-              }
-            }
+            size: 2000000000,
+            isSizeEstimated: false
           })).to.be.false
         })
 
         it('should return false if the drive is large enough and is not a source drive', function () {
           m.chai.expect(constraints.isDriveValid(this.drive, {
             path: path.resolve(this.mountpoint, '../bar/rpi.img'),
-            size: {
-              original: 2000000000,
-              final: {
-                estimation: false,
-                value: 2000000000
-              }
-            }
+            size: 2000000000,
+            isSizeEstimated: false
           })).to.be.false
         })
       })
@@ -837,52 +740,32 @@ describe('Shared: DriveConstraints', function () {
         it('should return false if the drive is not large enough and is a source drive', function () {
           m.chai.expect(constraints.isDriveValid(this.drive, {
             path: path.join(this.mountpoint, 'rpi.img'),
-            size: {
-              original: 5000000000,
-              final: {
-                estimation: false,
-                value: 5000000000
-              }
-            }
+            size: 5000000000,
+            isSizeEstimated: false
           })).to.be.false
         })
 
         it('should return false if the drive is not large enough and is not a source drive', function () {
           m.chai.expect(constraints.isDriveValid(this.drive, {
             path: path.resolve(this.mountpoint, '../bar/rpi.img'),
-            size: {
-              original: 5000000000,
-              final: {
-                estimation: false,
-                value: 5000000000
-              }
-            }
+            size: 5000000000,
+            isSizeEstimated: false
           })).to.be.false
         })
 
         it('should return false if the drive is large enough and is a source drive', function () {
           m.chai.expect(constraints.isDriveValid(this.drive, {
             path: path.join(this.mountpoint, 'rpi.img'),
-            size: {
-              original: 2000000000,
-              final: {
-                estimation: false,
-                value: 2000000000
-              }
-            }
+            size: 2000000000,
+            isSizeEstimated: false
           })).to.be.false
         })
 
         it('should return false if the drive is large enough and is not a source drive', function () {
           m.chai.expect(constraints.isDriveValid(this.drive, {
             path: path.resolve(this.mountpoint, '../bar/rpi.img'),
-            size: {
-              original: 2000000000,
-              final: {
-                estimation: false,
-                value: 2000000000
-              }
-            }
+            size: 2000000000,
+            isSizeEstimated: false
           })).to.be.false
         })
       })
@@ -895,52 +778,32 @@ describe('Shared: DriveConstraints', function () {
         it('should return false if the drive is not large enough and is a source drive', function () {
           m.chai.expect(constraints.isDriveValid(this.drive, {
             path: path.join(this.mountpoint, 'rpi.img'),
-            size: {
-              original: 5000000000,
-              final: {
-                estimation: false,
-                value: 5000000000
-              }
-            }
+            size: 5000000000,
+            isSizeEstimated: false
           })).to.be.false
         })
 
         it('should return false if the drive is not large enough and is not a source drive', function () {
           m.chai.expect(constraints.isDriveValid(this.drive, {
             path: path.resolve(this.mountpoint, '../bar/rpi.img'),
-            size: {
-              original: 5000000000,
-              final: {
-                estimation: false,
-                value: 5000000000
-              }
-            }
+            size: 5000000000,
+            isSizeEstimated: false
           })).to.be.false
         })
 
         it('should return false if the drive is large enough and is a source drive', function () {
           m.chai.expect(constraints.isDriveValid(this.drive, {
             path: path.join(this.mountpoint, 'rpi.img'),
-            size: {
-              original: 2000000000,
-              final: {
-                estimation: false,
-                value: 2000000000
-              }
-            }
+            size: 2000000000,
+            isSizeEstimated: false
           })).to.be.false
         })
 
         it('should return true if the drive is large enough and is not a source drive', function () {
           m.chai.expect(constraints.isDriveValid(this.drive, {
             path: path.resolve(this.mountpoint, '../bar/rpi.img'),
-            size: {
-              original: 2000000000,
-              final: {
-                estimation: false,
-                value: 2000000000
-              }
-            }
+            size: 2000000000,
+            isSizeEstimated: false
           })).to.be.true
         })
       })
@@ -965,13 +828,8 @@ describe('Shared: DriveConstraints', function () {
 
       this.image = {
         path: path.join(__dirname, 'rpi.img'),
-        size: {
-          original: this.drive.size - 1,
-          final: {
-            estimation: false,
-            value: this.drive.size - 1
-          }
-        }
+        size: this.drive.size - 1,
+        isSizeEstimated: false
       }
     })
 
@@ -1015,13 +873,8 @@ describe('Shared: DriveConstraints', function () {
 
       this.image = {
         path: path.join(__dirname, 'rpi.img'),
-        size: {
-          original: this.drive.size - 1,
-          final: {
-            estimation: false,
-            value: this.drive.size - 1
-          }
-        }
+        size: this.drive.size - 1,
+        isSizeEstimated: false
       }
     })
 
@@ -1080,7 +933,7 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given the drive is too small', () => {
       it('should return the too small error', function () {
-        this.image.size.final.value = this.drive.size + 1
+        this.image.size = this.drive.size + 1
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
         const expected = [
@@ -1096,7 +949,7 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given the drive size is null', () => {
       it('should not return the too small error', function () {
-        this.image.size.final.value = this.drive.size + 1
+        this.image.size = this.drive.size + 1
         this.drive.size = null
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
@@ -1202,7 +1055,7 @@ describe('Shared: DriveConstraints', function () {
 
     describe('given a too small and system drive', () => {
       it('should return the too small drive error by precedence', function () {
-        this.image.size.final.value = this.drive.size + 1
+        this.image.size = this.drive.size + 1
         this.drive.isSystem = true
 
         const result = constraints.getDriveImageCompatibilityStatuses(this.drive, this.image)
@@ -1302,13 +1155,8 @@ describe('Shared: DriveConstraints', function () {
 
     const image = {
       path: path.join(__dirname, 'rpi.img'),
-      size: {
-        original: drives[2].size + 1,
-        final: {
-          estimation: false,
-          value: drives[2].size + 1
-        }
-      },
+      size: drives[2].size + 1,
+      isSizeEstimated: false,
       recommendedDriveSize: drives[5].size + 1
     }
 
@@ -1478,13 +1326,8 @@ describe('Shared: DriveConstraints', function () {
 
     const image = {
       path: path.join(__dirname, 'rpi.img'),
-      size: {
-        original: drives[2].size + 1,
-        final: {
-          estimation: false,
-          value: drives[2].size + 1
-        }
-      },
+      size: drives[2].size + 1,
+      isSizeEstimated: false,
       recommendedDriveSize: drives[5].size + 1
     }
 
