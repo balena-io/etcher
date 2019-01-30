@@ -16,7 +16,11 @@
       "linux": [
         "libudev-dev",
         "libusb-1.0-0-dev",
-        "libyaml-dev"
+        "libyaml-dev",
+        "libgtk-3-0",
+        "libatk-bridge2.0-0",
+        "libdbus-1-3",
+        "libc6"
       ]
     },
     "builder": {

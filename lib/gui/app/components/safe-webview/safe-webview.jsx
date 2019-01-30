@@ -100,12 +100,11 @@ class SafeWebview extends react.PureComponent {
 
     this.eventTuples = [
       [ 'did-fail-load', this.didFailLoad ],
-      [ 'did-get-response-details', this.didGetResponseDetails ],
       [ 'new-window', this.constructor.newWindow ]
     ]
 
     // Make a persistent electron session for the webview
-    electron.remote.session.fromPartition(ELECTRON_SESSION, {
+    this.session = electron.remote.session.fromPartition(ELECTRON_SESSION, {
 
       // Disable the cache for the session such that new content shows up when refreshing
       cache: false
@@ -118,6 +117,7 @@ class SafeWebview extends react.PureComponent {
   render () {
     return react.createElement('webview', {
       ref: 'webview',
+      partition: ELECTRON_SESSION,
       style: {
         flex: this.state.shouldShow ? null : '0 1',
         width: this.state.shouldShow ? null : '0',
@@ -135,8 +135,7 @@ class SafeWebview extends react.PureComponent {
       this.refs.webview.addEventListener(...tuple)
     })
 
-    // Use the 'success-banner' session
-    this.refs.webview.partition = ELECTRON_SESSION
+    this.session.webRequest.onCompleted(this.didGetResponseDetails)
 
     // It's important that this comes after the partition setting, otherwise it will
     // use another session and we can't change it without destroying the element again
@@ -151,6 +150,7 @@ class SafeWebview extends react.PureComponent {
     _.map(this.eventTuples, (tuple) => {
       this.refs.webview.removeEventListener(...tuple)
     })
+    this.session.webRequest.onCompleted(null)
   }
 
   /**
@@ -200,10 +200,10 @@ class SafeWebview extends react.PureComponent {
       })
 
       this.setState({
-        shouldShow: event.httpResponseCode === HTTP_OK
+        shouldShow: event.statusCode === HTTP_OK
       })
       if (this.props.onWebviewShow) {
-        this.props.onWebviewShow(event.httpResponseCode === HTTP_OK)
+        this.props.onWebviewShow(event.statusCode === HTTP_OK)
       }
     }
   }
