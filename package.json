@@ -27,8 +27,8 @@
     "webpack": "webpack",
     "watch": "webpack --watch",
     "concourse-build-electron": "make webpack",
-    "concourse-test": "npm test",
-    "concourse-test-electron": "npm test",
+    "concourse-test": "npx npm@6.7.0 test",
+    "concourse-test-electron": "npx npm@6.7.0 test",
     "concourse-test-node-cli": "make webpack lint-js lint-cpp lint-spell test-cli"
   },
   "author": "Balena Inc. <hello@etcher.io>",
