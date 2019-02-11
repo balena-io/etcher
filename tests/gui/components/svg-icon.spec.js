@@ -85,7 +85,7 @@ describe('Browser: SVGIcon', function () {
       const compiledDoc = compiledSVGParser.parseFromString(compiledContents, 'image/svg+xml')
 
       m.chai.expect(compiledDoc.outerHTML).to.equal(originalDoc.outerHTML)
-    })
+    }).timeout(10000)
 
     it('should accept an SVG in the contents attribute', function () {
       const iconContents = '<svg><rect x="10" y="10" height="100" width="100" style="stroke:red;fill:blue;"/></svg>'
