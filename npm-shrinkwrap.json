@@ -4727,9 +4727,9 @@
       }
     },
     "electron-chromedriver": {
-      "version": "1.8.0",
-      "resolved": "https://registry.npmjs.org/electron-chromedriver/-/electron-chromedriver-1.8.0.tgz",
-      "integrity": "sha512-m1f3nle5MaGp94bcDTtMZZMMOgPO54+TXoPBlTbBSUjfINR5SJ46yQXLfuE79/qsFfJKslZB1UzWURDDFIRmpQ==",
+      "version": "3.0.0",
+      "resolved": "https://registry.npmjs.org/electron-chromedriver/-/electron-chromedriver-3.0.0.tgz",
+      "integrity": "sha512-xWivZRiPTtDFJt+qXv7Ax/Dmhxj0iqESOxoLZ2szu3fv6k1vYDUDJUMHfdfVAke9D2gBRIgChuGb5j3YEt6hxQ==",
       "dev": true,
       "requires": {
         "electron-download": "^4.1.0",
@@ -12586,16 +12586,16 @@
       "integrity": "sha512-uBIcIl3Ih6Phe3XHK1NqboJLdGfwr1UN3k6wSD1dZpmPsIkb8AGNbZYJ1fOBk834+Gxy8rpfDxrS6XLEMZMY2g=="
     },
     "spectron": {
-      "version": "3.8.0",
-      "resolved": "https://registry.npmjs.org/spectron/-/spectron-3.8.0.tgz",
-      "integrity": "sha512-fQ7gFp6UuEaONjXFLifLeIUI022pOsm3b+NFAm696r2umUkSZ9IbnEgHwrvBX+pJ3QUDyCEs5bPHUieYU7FvaQ==",
+      "version": "5.0.0",
+      "resolved": "https://registry.npmjs.org/spectron/-/spectron-5.0.0.tgz",
+      "integrity": "sha512-wJrFe8EZ7xvarYawBPd1pDegmSz81U1jG0rSCx+yXqD1TISUH9ASB21KysLXkPylAnc2vhbpGiWQxrqVFtsiJg==",
       "dev": true,
       "requires": {
         "dev-null": "^0.1.1",
-        "electron-chromedriver": "~1.8.0",
-        "request": "^2.81.0",
+        "electron-chromedriver": "~3.0.0",
+        "request": "^2.87.0",
         "split": "^1.0.0",
-        "webdriverio": "^4.8.0"
+        "webdriverio": "^4.13.0"
       }
     },
     "speedometer": {

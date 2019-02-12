@@ -109,7 +109,7 @@
     "pkg": "^4.3.0",
     "sass-lint": "^1.12.1",
     "simple-progress-webpack-plugin": "^1.1.2",
-    "spectron": "^3.7.3",
+    "spectron": "^5.0.0",
     "versionist": "^4.0.1",
     "webpack": "^4.27.0",
     "webpack-cli": "^3.1.2",
