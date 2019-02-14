@@ -118,32 +118,6 @@ electron-build: assets/dmg/background.tiff | $(BUILD_TEMPORARY_DIRECTORY)
 		-w $(BUILD_TEMPORARY_DIRECTORY)
 
 # ---------------------------------------------------------------------
-# CLI
-# ---------------------------------------------------------------------
-
-cli-develop: | $(BUILD_TEMPORARY_DIRECTORY)
-	$(RESIN_SCRIPTS)/node-cli/install.sh \
-		-b $(shell pwd) \
-		-r $(TARGET_ARCH) \
-		-s $(PLATFORM) \
-		-n $(BUILD_TEMPORARY_DIRECTORY)/npm \
-		-a $(S3_BUCKET)
-
-cli-test:
-	$(RESIN_SCRIPTS)/node-cli/test.sh \
-		-b $(shell pwd)
-
-cli-build: | $(BUILD_TEMPORARY_DIRECTORY)
-	$(RESIN_SCRIPTS)/electron/build.sh \
-		-b $(shell pwd) \
-		-r $(TARGET_ARCH) \
-		-s $(PLATFORM) \
-		-v production \
-		-n $(BUILD_TEMPORARY_DIRECTORY)/npm \
-		-w $(BUILD_TEMPORARY_DIRECTORY) \
-		-a $(S3_BUCKET)
-
-# ---------------------------------------------------------------------
 # Phony targets
 # ---------------------------------------------------------------------
 
@@ -158,16 +132,12 @@ TARGETS = \
 	lint-spell \
 	test-spectron \
 	test-gui \
-	test-cli \
 	test \
 	sanity-checks \
 	clean \
 	distclean \
 	changelog \
 	webpack \
-	cli-develop \
-	cli-test \
-	cli-build \
 	electron-develop \
 	electron-test \
 	electron-build
@@ -217,10 +187,6 @@ test-gui:
 
 test-sdk:
 	electron-mocha $(MOCHA_OPTIONS) \
-		tests/shared
-
-test-cli:
-	mocha $(MOCHA_OPTIONS) \
 		tests/shared
 
 test: test-gui test-sdk test-spectron

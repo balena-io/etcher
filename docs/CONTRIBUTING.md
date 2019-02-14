@@ -94,12 +94,6 @@ make webpack
 npm start
 ```
 
-#### CLI
-
-```sh
-node bin/etcher
-```
-
 Testing
 -------
 

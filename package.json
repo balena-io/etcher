@@ -28,8 +28,7 @@
     "watch": "webpack --watch",
     "concourse-build-electron": "make webpack",
     "concourse-test": "npx npm@6.7.0 test",
-    "concourse-test-electron": "npx npm@6.7.0 test",
-    "concourse-test-node-cli": "make webpack lint-js lint-cpp lint-spell test-cli"
+    "concourse-test-electron": "npx npm@6.7.0 test"
   },
   "author": "Balena Inc. <hello@etcher.io>",
   "license": "Apache-2.0",
@@ -44,7 +43,6 @@
     "bindings": "^1.3.0",
     "bluebird": "^3.5.3",
     "bootstrap-sass": "^3.3.6",
-    "chalk": "^1.1.3",
     "color": "^2.0.1",
     "command-join": "^2.0.0",
     "d3": "^4.13.0",
@@ -68,8 +66,6 @@
     "redux": "^3.5.2",
     "rendition": "4.41.1",
     "request": "^2.81.0",
-    "resin-cli-form": "^1.4.1",
-    "resin-cli-visuals": "^1.4.1",
     "resin-corvus": "^2.0.1",
     "roboto-fontface": "^0.9.0",
     "semver": "^5.1.1",
@@ -77,8 +73,7 @@
     "styled-system": "^3.1.11",
     "sudo-prompt": "^8.2.3",
     "uuid": "^3.0.1",
-    "xml2js": "^0.4.17",
-    "yargs": "^11.0.0"
+    "xml2js": "^0.4.17"
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",
@@ -88,6 +83,7 @@
     "acorn": "^6.0.5",
     "angular-mocks": "1.7.6",
     "babel-loader": "^8.0.4",
+    "chalk": "^1.1.3",
     "electron": "3.1.3",
     "electron-builder": "^20.38.5",
     "electron-mocha": "^6.0.4",

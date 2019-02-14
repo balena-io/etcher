@@ -15,7 +15,7 @@ was written correctly and much more.
 
 ***
 
-[**Download**][etcher] | [**Support**][SUPPORT] | [**Documentation**][USER-DOCUMENTATION] | [**Contributing**][CONTRIBUTING] | [**Roadmap**][milestones] | [**CLI**][CLI]
+[**Download**][etcher] | [**Support**][SUPPORT] | [**Documentation**][USER-DOCUMENTATION] | [**Contributing**][CONTRIBUTING] | [**Roadmap**][milestones]
 
 ![Etcher](https://raw.githubusercontent.com/balena-io/etcher/master/screenshot.png)
 
@@ -154,7 +154,6 @@ the [license].
 [electron-supported-platforms]: http://electron.atom.io/docs/tutorial/supported-platforms/
 [SUPPORT]: https://github.com/balena-io/etcher/blob/master/SUPPORT.md
 [CONTRIBUTING]: https://github.com/balena-io/etcher/blob/master/docs/CONTRIBUTING.md
-[CLI]: https://github.com/balena-io/etcher/blob/master/docs/CLI.md
 [USER-DOCUMENTATION]: https://github.com/balena-io/etcher/blob/master/docs/USER-DOCUMENTATION.md
 [milestones]: https://github.com/balena-io/etcher/milestones
 [newissue]: https://github.com/balena-io/etcher/issues/new
