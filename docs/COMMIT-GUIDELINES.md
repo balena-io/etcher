@@ -56,11 +56,6 @@ The scope is required for types that make sense, such as `feat`, `fix`,
 `test`, etc. Certain commit types, such as `chore` might not have a clearly
 defined scope, in which case its better to omit it.
 
-When it applies, the scope must be either `GUI` or `CLI`.
-
-A commit that takes part in both the GUI and CLI scopes, and makes more logical
-sense that way, might entirely omit the scope.
-
 Subject
 -------
 

@@ -52,32 +52,6 @@ a system drive.
 This is the *"main repository"*, from which you're reading this from, which is
 basically the front-end and glue for all previously listed projects.
 
-Front-ends
-----------
-
-The main repository consists of the implementation of the Etcher CLI and the
-Etcher GUI (the desktop application), located at [`lib/cli/`][cli-dir] and
-[`lib/gui/`][gui-dir], respectively.
-
-In fact, the only front-end that interacts directly with Etcher's backend is
-the CLI. The GUI merely forks the CLI and communicates with its child process
-to get state information.
-
-In this sense, you can consider the GUI as being the front-end to the CLI,
-which is in turn the front-end to the actual image writing functionality.
-
-As a way to simplify how the GUI forks the CLI in a packaged and distributed
-context, both the CLI and GUI share the same application entry point. This
-means that the same Etcher binary can behave as CLI or GUI as needed.
-
-## Process communication
-
-As mentioned before, the Etcher GUI forks the CLI and retrieves information
-from it to update its state. In order to accomplish this, the Etcher CLI
-contains certain features to ease communication:
-
-- [Well-documented exit codes.][exit-codes]
-
 Summary
 -------
 
@@ -89,7 +63,6 @@ be documented instead!
 
 [lego-blocks]: https://github.com/sindresorhus/ama/issues/10#issuecomment-117766328
 [exit-codes]: https://github.com/balena-io/etcher/blob/master/lib/shared/exit-codes.js
-[cli-dir]: https://github.com/balena-io/etcher/tree/master/lib/cli
 [gui-dir]: https://github.com/balena-io/etcher/tree/master/lib/gui
 [electron]: http://electron.atom.io
 [nodejs]: https://nodejs.org

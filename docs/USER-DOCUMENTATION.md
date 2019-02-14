@@ -208,9 +208,6 @@ Running in older macOS versions
 Etcher GUI is based on the [Electron][electron] framework, [which only supports
 macOS 10.9 and newer versions][electron-supported-platforms].
 
-You can however, run the [Etcher CLI][etcher-cli], which should work in older
-platforms.
-
 [balena.io]: https://balena.io
 [appimage]: http://appimage.org
 [xwayland]: https://wayland.freedesktop.org/xserver.html
@@ -218,7 +215,6 @@ platforms.
 [diskpart]: https://technet.microsoft.com/en-us/library/cc770877(v=ws.11).aspx
 [electron]: http://electron.atom.io
 [electron-supported-platforms]: https://github.com/electron/electron/blob/master/docs/tutorial/supported-platforms.md
-[etcher-cli]: https://github.com/balena-io/etcher/blob/master/docs/CLI.md
 [publishing]: https://github.com/balena-io/etcher/blob/master/docs/PUBLISHING.md
 [windows-usb-tool]: https://www.microsoft.com/en-us/download/windows-usb-dvd-download-tool
 [rufus]: https://rufus.akeo.ie

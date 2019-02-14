@@ -105,8 +105,6 @@ export ANALYTICS_MIXPANEL_TOKEN="xxxxxx"
 ./scripts/build/docker/run-command.sh -r x64 -s . -c "make electron-develop && make RELEASE_TYPE=production electron-installer-redhat"
 # Build AppImages
 ./scripts/build/docker/run-command.sh -r x64 -s . -c "make electron-develop && make RELEASE_TYPE=production electron-installer-appimage"
-# Build CLI
-./scripts/build/docker/run-command.sh -r x64 -s . -c "make electron-develop && make RELEASE_TYPE=production cli-installer-tar-gz"
 
 # x86
 
@@ -116,8 +114,6 @@ export ANALYTICS_MIXPANEL_TOKEN="xxxxxx"
 ./scripts/build/docker/run-command.sh -r x86 -s . -c "make electron-develop && make RELEASE_TYPE=production electron-installer-redhat"
 # Build AppImages
 ./scripts/build/docker/run-command.sh -r x86 -s . -c "make electron-develop && make RELEASE_TYPE=production electron-installer-appimage"
-# Build CLI
-./scripts/build/docker/run-command.sh -r x86 -s . -c "make electron-develop && make RELEASE_TYPE=production cli-installer-tar-gz"
 ```
 
 #### Mac OS
@@ -125,13 +121,9 @@ export ANALYTICS_MIXPANEL_TOKEN="xxxxxx"
 **ATTENTION:** For production releases you'll need the code-signing key,
 and set `CSC_NAME` to generate signed binaries on Mac OS.
 
-**NOTE:** The CLI is not code-signed for either at this time.
-
 ```bash
 make electron-develop
 
-# Build the CLI
-make RELEASE_TYPE=production cli-installer-tar-gz
 # Build the zip
 make RELEASE_TYPE=production electron-installer-app-zip
 # Build the dmg
@@ -144,14 +136,11 @@ make RELEASE_TYPE=production electron-installer-dmg
 and set `CSC_LINK`, and `CSC_KEY_PASSWORD` to generate signed binaries on Windows.
 
 **NOTE:**
-- The CLI is not code-signed for either at this time.
 - Keep in mind to also generate artifacts for x86, with `TARGET_ARCH=x86`.
 
 ```bash
 make electron-develop
 
-# Build the CLI
-make RELEASE_TYPE=production cli-installer-zip
 # Build the Portable version
 make RELEASE_TYPE=production electron-installer-portable
 # Build the Installer
