@@ -123,11 +123,15 @@ class FileSelector extends React.PureComponent {
       files: [],
     }
 
-    if (props.constraintpath) {
-      files.getConstraintDevice(props.constraintpath, (error, device) => {
-        debug('FileSelector:getConstraintDevice', error || device)
-        this.setState({ constraint: device })
-      })
+  }
+
+  componentDidMount() {
+    if (this.props.constraintpath) {
+      const device = files.getConstraintDevice(this.props.constraintpath)
+      debug('FileSelector:getConstraintDevice', device)
+      if (device !== undefined) {
+        this.setState({ constraint: device.drive  })
+      }
     }
   }
 
