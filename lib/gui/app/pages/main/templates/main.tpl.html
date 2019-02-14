@@ -92,6 +92,7 @@
 
   <div>
     <featured-project
+      ng-if="main.state.isFlashing()"
       ng-class="{
         'fp-visible': main.state.isFlashing() && main.isWebviewShowing
       }"
