@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.5.0 - 2019-02-16
+
+### Misc
+
+- Reworked flashing logic with etcher-sdk
+- Upgrade to Electron v3.
+- Upgrade to NPM 6.7.0
+- Fix incorrect drives list on Linux
+- Changed “Drive Contains Image” to “Drive Mountpoint Contains Image”
+- Removed etcher-cli
+
 ## v1.4.9 - 2018-12-19
 
 ### Fixes

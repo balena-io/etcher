@@ -1,6 +1,6 @@
 {
   "name": "balena-etcher",
-  "version": "1.4.9",
+  "version": "1.5.0",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -4530,14 +4530,44 @@
       "dev": true
     },
     "drivelist": {
-      "version": "7.0.1",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-7.0.1.tgz",
-      "integrity": "sha512-p5f4sLknSMpg923Vj1xBlxj3uzaKTAOFy7ywkGXFD5+yp8aWd0aAPgTSD7ns/EPUCjTMEGKsdqw34/fjwwT0oQ==",
+      "version": "7.0.3",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-7.0.3.tgz",
+      "integrity": "sha512-Ocre4NNHZTEK5T6HsTq/BphnJRWBK9w8IJyQVR2JWV2cb/lFppWsmoNHTQeUcPnNjlTmPJ/eFurCECuHU91nOQ==",
       "requires": {
         "bindings": "^1.3.0",
         "debug": "^3.1.0",
         "nan": "^2.10.0",
-        "prebuild-install": "^4.0.0"
+        "prebuild-install": "^5.2.4"
+      },
+      "dependencies": {
+        "expand-template": {
+          "version": "2.0.3",
+          "resolved": "https://registry.npmjs.org/expand-template/-/expand-template-2.0.3.tgz",
+          "integrity": "sha512-XYfuKMvj4O35f/pOXLObndIRvyQ+/+6AhODh+OKWj9S9498pHHn/IMszH+gt0fBCRWMNfk1ZSp5x3AifmnI2vg=="
+        },
+        "prebuild-install": {
+          "version": "5.2.4",
+          "resolved": "https://registry.npmjs.org/prebuild-install/-/prebuild-install-5.2.4.tgz",
+          "integrity": "sha512-CG3JnpTZXdmr92GW4zbcba4jkDha6uHraJ7hW4Fn8j0mExxwOKK20hqho8ZuBDCKYCHYIkFM1P2jhtG+KpP4fg==",
+          "requires": {
+            "detect-libc": "^1.0.3",
+            "expand-template": "^2.0.3",
+            "github-from-package": "0.0.0",
+            "minimist": "^1.2.0",
+            "mkdirp": "^0.5.1",
+            "napi-build-utils": "^1.0.1",
+            "node-abi": "^2.7.0",
+            "noop-logger": "^0.1.1",
+            "npmlog": "^4.0.1",
+            "os-homedir": "^1.0.1",
+            "pump": "^2.0.1",
+            "rc": "^1.2.7",
+            "simple-get": "^2.7.0",
+            "tar-fs": "^1.13.0",
+            "tunnel-agent": "^0.6.0",
+            "which-pm-runs": "^1.0.0"
+          }
+        }
       }
     },
     "duplexer3": {
