@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Misc
 
 - Reworked flashing logic with etcher-sdk
+- Add support for flashing Raspberry Pi CM3+
 - Upgrade to Electron v3.
 - Upgrade to NPM 6.7.0
 - Fix incorrect drives list on Linux
