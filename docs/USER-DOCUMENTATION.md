@@ -30,7 +30,7 @@ if you require this functionality, we advise to fallback to
 Deactivate desktop shortcut prompt on GNU/Linux
 -----------------------------------------------
 
-This is a feature provided by [AppImages](appimage), where the applications
+This is a feature provided by [AppImages][appimage], where the applications
 prompts the user to automatically register a desktop shortcut to easily access
 the application.
 
