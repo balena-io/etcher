@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.5.1 - 2019-02-22
+
+### Misc
+
+- Removed lodash dependency in versionist.conf.js
+
 ## v1.5.0 - 2019-02-16
 
 ### Misc
