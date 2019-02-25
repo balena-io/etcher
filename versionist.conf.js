@@ -16,8 +16,6 @@
 
 'use strict'
 
-const _ = require('lodash')
-
 module.exports = {
 
   subjectParser: 'angular',
@@ -42,24 +40,20 @@ module.exports = {
       return null
     }
     return commit.footer['Change-type'] &&
-      _.toLower(commit.footer['Change-type'])
+      commit.footer['Change-type'].toLowerCase()
   },
 
   transformTemplateData: (data) => {
-    data.features = _.filter(data.commits, {
-      subject: {
-        type: 'feat'
-      }
+    data.features = data.commits.filter((commit) => {
+      return commit.subject.type === 'feat'
     })
 
-    data.fixes = _.filter(data.commits, {
-      subject: {
-        type: 'fix'
-      }
+    data.fixes = data.commits.filter((commit) => {
+      return commit.subject.type === 'fix'
     })
 
-    data.misc = _.filter(data.commits, (commit) => {
-      return !_.includes([ 'fix', 'feat' ], commit.subject.type)
+    data.misc = data.commits.filter((commit) => {
+      return !([ 'fix', 'feat' ].includes(commit.subject.type))
     })
 
     return data

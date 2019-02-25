@@ -155,7 +155,7 @@ sass:
 	node-sass lib/gui/app/scss/main.scss > lib/gui/css/main.css
 
 lint-js:
-	eslint --ignore-pattern scripts/resin/**/*.js lib tests scripts bin versionist.conf.js webpack.config.js
+	eslint --ignore-pattern scripts/resin/**/*.js lib tests scripts bin webpack.config.js
 
 lint-sass:
 	sass-lint lib/gui/scss
