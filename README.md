@@ -22,7 +22,7 @@ was written correctly and much more.
 ## Supported Operating Systems
 
 - Linux (most distros)
-- macOS 10.9 and later
+- macOS 10.10 (Yosemite) and later
 - Microsoft Windows 7 and later
 
 Note that Etcher will run on any platform officially supported by

@@ -206,7 +206,7 @@ Running in older macOS versions
 -------------------------------
 
 Etcher GUI is based on the [Electron][electron] framework, [which only supports
-macOS 10.9 and newer versions][electron-supported-platforms].
+macOS 10.10 (Yosemite) and newer versions][electron-supported-platforms].
 
 [balena.io]: https://balena.io
 [appimage]: http://appimage.org
