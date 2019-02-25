@@ -150,8 +150,8 @@ Etcher is free software, and may be redistributed under the terms specified in
 the [license].
 
 [etcher]: https://balena.io/etcher
-[electron]: http://electron.atom.io
-[electron-supported-platforms]: http://electron.atom.io/docs/tutorial/supported-platforms/
+[electron]: https://electronjs.org/
+[electron-supported-platforms]: https://electronjs.org/docs/tutorial/support#supported-platforms
 [SUPPORT]: https://github.com/balena-io/etcher/blob/master/SUPPORT.md
 [CONTRIBUTING]: https://github.com/balena-io/etcher/blob/master/docs/CONTRIBUTING.md
 [USER-DOCUMENTATION]: https://github.com/balena-io/etcher/blob/master/docs/USER-DOCUMENTATION.md
