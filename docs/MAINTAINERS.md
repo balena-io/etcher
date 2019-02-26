@@ -47,8 +47,6 @@ Releasing
 - Bump the version number in the `npm-shrinkwrap.json`'s `version` property
 - Add a new entry to `CHANGELOG.md` by running `make changelog`
 - Manually revise the `CHANGELOG.md` versionist output
-- Update `screenshot.png` so it displays the latest version in the bottom
-right corner
 - Revise the `updates.semverRange` version in `package.json`
 - Commit the changes with the version number as the commit title, including the `v` prefix, to `master`. For example:
 
