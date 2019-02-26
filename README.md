@@ -17,8 +17,6 @@ was written correctly and much more.
 
 [**Download**][etcher] | [**Support**][SUPPORT] | [**Documentation**][USER-DOCUMENTATION] | [**Contributing**][CONTRIBUTING] | [**Roadmap**][milestones]
 
-![Etcher](https://raw.githubusercontent.com/balena-io/etcher/master/screenshot.png)
-
 ## Supported Operating Systems
 
 - Linux (most distros)
