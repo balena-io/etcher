@@ -24,7 +24,7 @@ module.exports = {
 
   editChangelog: true,
 
-  editVersion: false,
+  editVersion: true,
 
   addEntryToChangelog: {
     preset: 'prepend',
