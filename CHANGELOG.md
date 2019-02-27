@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.5.3 - 2019-02-27
+
+### Misc
+
+- Throw error if no commit is annotated with a changelog entry
+
 ## v1.5.2 - 2019-02-26
 
 - Enable versionist editVersion
