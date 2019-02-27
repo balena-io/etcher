@@ -31,9 +31,7 @@ module.exports = {
     fromLine: 5
   },
 
-  includeCommitWhen: (commit) => {
-    return commit.footer['Changelog-entry']
-  },
+  includeCommitWhen: 'has-changelog-entry',
 
   getIncrementLevelFromCommit: (commit) => {
     if (/none/i.test(commit.footer['Change-type'])) {
@@ -44,6 +42,9 @@ module.exports = {
   },
 
   transformTemplateData: (data) => {
+    if (data.commits.length === 0) {
+      throw new Error('No commits annotated with Changelog-entry')
+    }
     data.features = data.commits.filter((commit) => {
       return commit.subject.type === 'feat'
     })

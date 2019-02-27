@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v1.5.2 - 2019-02-26
 
+- Enable versionist editVersion
+
 ## v1.5.1 - 2019-02-22
 
 ### Misc
