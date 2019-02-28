@@ -36,7 +36,10 @@ const commonConfig = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [ '@babel/preset-react', '@babel/preset-env' ],
+            presets: [
+              '@babel/preset-react',
+              [ '@babel/preset-env', { targets: { electron: '3' } } ]
+            ],
             plugins: [ '@babel/plugin-proposal-function-bind' ],
             cacheDirectory: true
           }
