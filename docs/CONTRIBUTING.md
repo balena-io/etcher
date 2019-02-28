@@ -64,7 +64,7 @@ which can be installed by running `xcode-select --install`.
 ### Cloning the project
 
 ```sh
-git clone https://github.com/balena-io/etcher
+git clone --recursive https://github.com/balena-io/etcher
 cd etcher
 ```
 
