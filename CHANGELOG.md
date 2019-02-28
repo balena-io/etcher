@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.5.5 - 2019-02-28
+
+### Misc
+
+- Don't pass undefined sockets to ipc.server.emit()
+- Fix error when event.dataTransfer.files is empty
+- Fix error message not showing when an unsupported image is selected
+- Avoid `Invalid percentage` exceptions
+- Update etcher-sdk to 1.1.0
+
 ## v1.5.4 - 2019-02-27
 
 ### Misc
