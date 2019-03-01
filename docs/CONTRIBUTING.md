@@ -52,10 +52,12 @@ The following MinGW packages are required:
 - `msys-bash`
 - `msys-coreutils`
 
-#### OS X
+#### macOS
 
-- [XCode](https://developer.apple.com/xcode/) or [XCode Command Line Tools],
-which can be installed by running `xcode-select --install`.
+- [Xcode](https://developer.apple.com/xcode/)
+
+It's not enough to have [Xcode Command Line Tools] installed. Xcode must be installed
+as well.
 
 #### Linux
 
@@ -213,4 +215,4 @@ Don't hesitate to get in touch if you have any questions or need any help!
 [EditorConfig]: http://editorconfig.org
 [shrinkwrap]: https://docs.npmjs.com/cli/shrinkwrap
 [hxd]: https://github.com/jhermsmeier/hxd
-[XCode Command Line Tools]: https://developer.apple.com/library/content/technotes/tn2339/_index.html
+[Xcode Command Line Tools]: https://developer.apple.com/library/content/technotes/tn2339/_index.html

@@ -30,7 +30,7 @@ if you require this functionality, we advise to fallback to
 Deactivate desktop shortcut prompt on GNU/Linux
 -----------------------------------------------
 
-This is a feature provided by [AppImages](appimage), where the applications
+This is a feature provided by [AppImages][appimage], where the applications
 prompts the user to automatically register a desktop shortcut to easily access
 the application.
 
@@ -206,15 +206,15 @@ Running in older macOS versions
 -------------------------------
 
 Etcher GUI is based on the [Electron][electron] framework, [which only supports
-macOS 10.9 and newer versions][electron-supported-platforms].
+macOS 10.10 (Yosemite) and newer versions][electron-supported-platforms].
 
 [balena.io]: https://balena.io
 [appimage]: http://appimage.org
 [xwayland]: https://wayland.freedesktop.org/xserver.html
 [weston.ini]: http://manpages.ubuntu.com/manpages/wily/man5/weston.ini.5.html
 [diskpart]: https://technet.microsoft.com/en-us/library/cc770877(v=ws.11).aspx
-[electron]: http://electron.atom.io
-[electron-supported-platforms]: https://github.com/electron/electron/blob/master/docs/tutorial/supported-platforms.md
+[electron]: https://electronjs.org/
+[electron-supported-platforms]: https://electronjs.org/docs/tutorial/support#supported-platforms
 [publishing]: https://github.com/balena-io/etcher/blob/master/docs/PUBLISHING.md
 [windows-usb-tool]: https://www.microsoft.com/en-us/download/windows-usb-dvd-download-tool
 [rufus]: https://rufus.akeo.ie

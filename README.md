@@ -17,12 +17,10 @@ was written correctly and much more.
 
 [**Download**][etcher] | [**Support**][SUPPORT] | [**Documentation**][USER-DOCUMENTATION] | [**Contributing**][CONTRIBUTING] | [**Roadmap**][milestones]
 
-![Etcher](https://raw.githubusercontent.com/balena-io/etcher/master/screenshot.png)
-
 ## Supported Operating Systems
 
 - Linux (most distros)
-- macOS 10.9 and later
+- macOS 10.10 (Yosemite) and later
 - Microsoft Windows 7 and later
 
 Note that Etcher will run on any platform officially supported by
@@ -150,8 +148,8 @@ Etcher is free software, and may be redistributed under the terms specified in
 the [license].
 
 [etcher]: https://balena.io/etcher
-[electron]: http://electron.atom.io
-[electron-supported-platforms]: http://electron.atom.io/docs/tutorial/supported-platforms/
+[electron]: https://electronjs.org/
+[electron-supported-platforms]: https://electronjs.org/docs/tutorial/support#supported-platforms
 [SUPPORT]: https://github.com/balena-io/etcher/blob/master/SUPPORT.md
 [CONTRIBUTING]: https://github.com/balena-io/etcher/blob/master/docs/CONTRIBUTING.md
 [USER-DOCUMENTATION]: https://github.com/balena-io/etcher/blob/master/docs/USER-DOCUMENTATION.md
