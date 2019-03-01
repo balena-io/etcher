@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.5.7 - 2019-03-01
+
+### Fixes
+
+- Update docs
+- Fix disappearing modal window
+
+### Misc
+
+- Fix blurred background image
+
 ## v1.5.6 - 2019-02-28
 
 ### Misc
