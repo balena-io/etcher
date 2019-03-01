@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.5.6 - 2019-02-28
+
+### Misc
+
+- Target electron 3 runtime in babel options
+
 ## v1.5.5 - 2019-02-28
 
 ### Misc
