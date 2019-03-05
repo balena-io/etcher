@@ -42,7 +42,7 @@
     "angular-ui-router": "^0.4.2",
     "bindings": "^1.3.0",
     "bluebird": "^3.5.3",
-    "bootstrap-sass": "^3.3.6",
+    "bootstrap-sass": "^3.4.1",
     "color": "^2.0.1",
     "command-join": "^2.0.0",
     "d3": "^4.13.0",

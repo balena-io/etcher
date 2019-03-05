@@ -2503,9 +2503,9 @@
       "dev": true
     },
     "bootstrap-sass": {
-      "version": "3.4.0",
-      "resolved": "https://registry.npmjs.org/bootstrap-sass/-/bootstrap-sass-3.4.0.tgz",
-      "integrity": "sha512-qdUyw4KmNNPSIdBadn+eyuuQFH0LsZlRCs6tor1zN8sQas7mnY5JNfemauraOdNPiFQd2gFeeo3gZjZZCuohZg=="
+      "version": "3.4.1",
+      "resolved": "https://registry.npmjs.org/bootstrap-sass/-/bootstrap-sass-3.4.1.tgz",
+      "integrity": "sha512-p5rxsK/IyEDQm2CwiHxxUi0MZZtvVFbhWmyMOt4lLkA4bujDA1TGoKT0i1FKIWiugAdP+kK8T5KMDFIKQCLYIA=="
     },
     "boxen": {
       "version": "1.3.0",
