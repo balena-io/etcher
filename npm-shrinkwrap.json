@@ -5721,12 +5721,12 @@
       }
     },
     "eslint-plugin-lodash": {
-      "version": "2.7.0",
-      "resolved": "https://registry.npmjs.org/eslint-plugin-lodash/-/eslint-plugin-lodash-2.7.0.tgz",
-      "integrity": "sha512-sIEzx85Sy+Higf4W+oLCIyh7ym0OEcmJCzY8ukptlGfkcyVagzYBjhUt1JfkcpT4qZC68+7TzceJSqLu+qwYMg==",
+      "version": "5.1.0",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-lodash/-/eslint-plugin-lodash-5.1.0.tgz",
+      "integrity": "sha512-mMKmf1OMLS8VExtaHCcrwBmsYIiOVYEibnAFDzXrbJdtFGOcLEw37tryN/WGYKBiJy6nAIGC43i5Wh3KA9lO2g==",
       "dev": true,
       "requires": {
-        "lodash": "~4.17.0"
+        "lodash": "4.17.11"
       }
     },
     "eslint-plugin-node": {

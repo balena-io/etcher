@@ -90,7 +90,7 @@
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsdoc": "^3.5.0",
-    "eslint-plugin-lodash": "^2.6.1",
+    "eslint-plugin-lodash": "^5.1.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-react": "^7.11.1",
