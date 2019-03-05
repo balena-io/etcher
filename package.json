@@ -69,7 +69,7 @@
     "roboto-fontface": "^0.9.0",
     "semver": "^5.1.1",
     "styled-components": "^3.2.3",
-    "styled-system": "^3.1.11",
+    "styled-system": "^4.0.1",
     "sudo-prompt": "^8.2.3",
     "uuid": "^3.0.1",
     "xml2js": "^0.4.17"
