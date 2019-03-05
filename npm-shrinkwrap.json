@@ -2414,9 +2414,9 @@
       }
     },
     "before-after-hook": {
-      "version": "1.3.2",
-      "resolved": "https://registry.npmjs.org/before-after-hook/-/before-after-hook-1.3.2.tgz",
-      "integrity": "sha512-zyPgY5dgbf99c0uGUjhY4w+mxqEGxPKg9RQDl34VvrVh2bM31lFN+mwR1ZHepq/KA3VCPk1gwJZL6IIJqjLy2w==",
+      "version": "1.4.0",
+      "resolved": "https://registry.npmjs.org/before-after-hook/-/before-after-hook-1.4.0.tgz",
+      "integrity": "sha512-l5r9ir56nda3qu14nAXIlyq1MmUSs0meCIaFAh8HwkFwP1F8eToOuS3ah2VAHHcY04jaYD7FpJC5JTXHYRbkzg==",
       "dev": true
     },
     "big.js": {
@@ -7229,9 +7229,9 @@
       }
     },
     "highlight.js": {
-      "version": "9.14.2",
-      "resolved": "https://registry.npmjs.org/highlight.js/-/highlight.js-9.14.2.tgz",
-      "integrity": "sha512-Nc6YNECYpxyJABGYJAyw7dBAYbXEuIzwzkqoJnwbc1nIpCiN+3ioYf0XrBnLiyyG0JLuJhpPtt2iTSbXiKLoyA==",
+      "version": "9.15.6",
+      "resolved": "https://registry.npmjs.org/highlight.js/-/highlight.js-9.15.6.tgz",
+      "integrity": "sha512-zozTAWM1D6sozHo8kqhfYgsac+B+q0PmsjXeyDrYIHHcBN0zTVT66+s2GW1GZv7DbyaROdLXKdabwS/WqPyIdQ==",
       "dev": true
     },
     "hmac-drbg": {
@@ -11284,12 +11284,6 @@
             "underscore": "~1.7.0",
             "underscore.string": "~2.4.0"
           }
-        },
-        "underscore.string": {
-          "version": "2.4.0",
-          "resolved": "https://registry.npmjs.org/underscore.string/-/underscore.string-2.4.0.tgz",
-          "integrity": "sha1-jN2PusTi0uoefi6Al8QvRCKA+Fs=",
-          "dev": true
         }
       }
     },
@@ -13759,6 +13753,12 @@
       "integrity": "sha1-a7rwh3UA02vjTsqlhODbn+8DUgk=",
       "dev": true
     },
+    "underscore.string": {
+      "version": "2.4.0",
+      "resolved": "https://registry.npmjs.org/underscore.string/-/underscore.string-2.4.0.tgz",
+      "integrity": "sha1-jN2PusTi0uoefi6Al8QvRCKA+Fs=",
+      "dev": true
+    },
     "unicode-canonical-property-names-ecmascript": {
       "version": "1.0.4",
       "resolved": "https://registry.npmjs.org/unicode-canonical-property-names-ecmascript/-/unicode-canonical-property-names-ecmascript-1.0.4.tgz",
@@ -14165,9 +14165,9 @@
       }
     },
     "versionist": {
-      "version": "4.0.1",
-      "resolved": "https://registry.npmjs.org/versionist/-/versionist-4.0.1.tgz",
-      "integrity": "sha512-DbYy+cYSaMfnmQcYtGd9joGlxtbHut4ktuORWNxqyUTUBNb2Z9/FxLxABTpzPZ5l8lsTV31lqtZ8PIXxgoPeOA==",
+      "version": "4.0.2",
+      "resolved": "https://registry.npmjs.org/versionist/-/versionist-4.0.2.tgz",
+      "integrity": "sha512-RwobmLODe8eWJvuWQzzsbcfZeG3r9Ewr0yvgqnJu599gFfxwC/xP/KJkIhnw4orCzymED4roGcUxt12jqFjtAg==",
       "dev": true,
       "requires": {
         "@octokit/rest": "^15.10.0",
