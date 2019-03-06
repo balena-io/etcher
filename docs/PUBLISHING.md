@@ -148,7 +148,7 @@ of Etcher, and including the relevant section of the Changelog.
 
 [aws-cli]: https://aws.amazon.com/cli
 [bintray]: https://bintray.com
-[etcher-cask-file]: https://github.com/caskroom/homebrew-cask/blob/master/Casks/etcher.rb
+[etcher-cask-file]: https://github.com/caskroom/homebrew-cask/blob/master/Casks/balenaetcher.rb
 [homebrew-cask]: https://github.com/caskroom/homebrew-cask
 [balena-forum-etcher]: https://forums.balena.io/c/etcher
 [github-releases]: https://github.com/balena-io/etcher/releases
