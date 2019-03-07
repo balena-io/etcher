@@ -3,6 +3,7 @@
 # ---------------------------------------------------------------------
 
 RESIN_SCRIPTS ?= ./scripts/resin
+NPM_VERSION ?= 6.7.0
 S3_BUCKET = artifacts.ci.balena-cloud.com
 
 # This directory will be completely deleted by the `clean` rule
@@ -97,8 +98,7 @@ electron-develop: | $(BUILD_TEMPORARY_DIRECTORY)
 		-b $(shell pwd) \
 		-r $(TARGET_ARCH) \
 		-s $(PLATFORM) \
-		-n $(BUILD_TEMPORARY_DIRECTORY)/npm \
-		-a $(S3_BUCKET)
+		-m $(NPM_VERSION)
 
 electron-test:
 	$(RESIN_SCRIPTS)/electron/test.sh \
