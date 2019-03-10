@@ -9339,13 +9339,13 @@
       }
     },
     "nock": {
-      "version": "9.6.1",
-      "resolved": "https://registry.npmjs.org/nock/-/nock-9.6.1.tgz",
-      "integrity": "sha512-EDgl/WgNQ0C1BZZlASOQkQdE6tAWXJi8QQlugqzN64JJkvZ7ILijZuG24r4vCC7yOfnm6HKpne5AGExLGCeBWg==",
+      "version": "10.0.6",
+      "resolved": "https://registry.npmjs.org/nock/-/nock-10.0.6.tgz",
+      "integrity": "sha512-b47OWj1qf/LqSQYnmokNWM8D88KvUl2y7jT0567NB3ZBAZFz2bWp2PC81Xn7u8F2/vJxzkzNZybnemeFa7AZ2w==",
       "dev": true,
       "requires": {
         "chai": "^4.1.2",
-        "debug": "^3.1.0",
+        "debug": "^4.1.0",
         "deep-equal": "^1.0.0",
         "json-stringify-safe": "^5.0.1",
         "lodash": "^4.17.5",
@@ -9353,6 +9353,17 @@
         "propagate": "^1.0.0",
         "qs": "^6.5.1",
         "semver": "^5.5.0"
+      },
+      "dependencies": {
+        "debug": {
+          "version": "4.1.1",
+          "resolved": "https://registry.npmjs.org/debug/-/debug-4.1.1.tgz",
+          "integrity": "sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==",
+          "dev": true,
+          "requires": {
+            "ms": "^2.1.1"
+          }
+        }
       }
     },
     "node-abi": {
