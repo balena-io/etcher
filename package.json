@@ -57,7 +57,7 @@
     "nan": "^2.9.2",
     "node-ipc": "^9.1.1",
     "path-is-inside": "^1.0.2",
-    "pretty-bytes": "^1.0.4",
+    "pretty-bytes": "^5.1.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.4",
     "react-dom": "^16.3.2",
