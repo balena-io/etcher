@@ -79,7 +79,7 @@
     "@babel/plugin-proposal-function-bind": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
-    "acorn": "^6.0.5",
+    "acorn": "^6.1.1",
     "angular-mocks": "1.7.6",
     "babel-loader": "^8.0.4",
     "chalk": "^1.1.3",
