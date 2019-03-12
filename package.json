@@ -97,7 +97,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "html-angular-validate": "^0.2.3",
     "html-loader": "^0.5.1",
-    "mocha": "^5.0.1",
+    "mocha": "^6.0.2",
     "mochainon": "^2.0.0",
     "nock": "^10.0.6",
     "node-gyp": "^3.8.0",
