@@ -87,7 +87,7 @@
     "electron-builder": "^20.38.5",
     "electron-mocha": "^6.0.4",
     "eslint": "^4.17.0",
-    "eslint-config-standard": "^10.2.1",
+    "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsdoc": "^3.5.0",
     "eslint-plugin-lodash": "^5.1.0",
