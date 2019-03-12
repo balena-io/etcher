@@ -1144,6 +1144,11 @@
         "@types/node": "*"
       }
     },
+    "@uirouter/core": {
+      "version": "5.0.23",
+      "resolved": "https://registry.npmjs.org/@uirouter/core/-/core-5.0.23.tgz",
+      "integrity": "sha512-rwFOH++z/KY8y+h0IOpQ5uC8Nim6E0EBCQrIjhVCr+XKYXgpK+VdtuOLFdogvbJ3AAi5Z7ei00qdEr7Did5CAg=="
+    },
     "@webassemblyjs/ast": {
       "version": "1.7.11",
       "resolved": "https://registry.npmjs.org/@webassemblyjs/ast/-/ast-1.7.11.tgz",
@@ -1450,11 +1455,11 @@
       "integrity": "sha512-yzcHpPMLQl0232nDzm5P4iAFTFQ9dMw0QgFLuKYbDj9M0xJ62z0oudYD/Lvh1pWfRsukiytP4Xj6BHOSrSXP8A=="
     },
     "angular-ui-router": {
-      "version": "0.4.3",
-      "resolved": "https://registry.npmjs.org/angular-ui-router/-/angular-ui-router-0.4.3.tgz",
-      "integrity": "sha512-EGBG7G7ArFVkJPM+ZIgPKuMYuT16UQrr3zj3BEiXHKwxss867bGt3u7QD9g4BxR+K2qQOSWok6JGvgTWXAko3A==",
+      "version": "1.0.22",
+      "resolved": "https://registry.npmjs.org/angular-ui-router/-/angular-ui-router-1.0.22.tgz",
+      "integrity": "sha512-cuq0+Di6spKEIQ1aZCGORPU9uZzJRFzuiMQDB2vLUDlo1DS8tR8/KxlThqmz6iw+8KtmUArI+5IMINSp/jwUKg==",
       "requires": {
-        "angular": "^1.0.8"
+        "@uirouter/core": "5.0.23"
       }
     },
     "ansi-align": {
