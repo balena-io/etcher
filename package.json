@@ -43,7 +43,7 @@
     "bindings": "^1.5.0",
     "bluebird": "^3.5.3",
     "bootstrap-sass": "^3.4.1",
-    "color": "^2.0.1",
+    "color": "^3.1.0",
     "command-join": "^2.0.0",
     "d3": "^4.13.0",
     "debug": "^3.1.0",
