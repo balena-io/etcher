@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.5.10 - 2019-03-12
+
+### Misc
+
+- Update resin-scripts
+
 ## v1.5.9 - 2019-03-05
 
 ### Misc
