@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.5.11 - 2019-03-12
+
+### Misc
+
+- Fixed broken Hombrew cask link for etcher
+- Remove no longer used travis and appveyor configs
+
 ## v1.5.10 - 2019-03-12
 
 ### Misc
