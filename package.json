@@ -61,7 +61,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.4",
     "react-dom": "^16.3.2",
-    "react2angular": "^4.0.2",
+    "react2angular": "^4.0.6",
     "redux": "^4.0.1",
     "rendition": "4.41.1",
     "request": "^2.81.0",

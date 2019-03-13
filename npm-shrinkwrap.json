@@ -1059,9 +1059,9 @@
       "integrity": "sha512-jQ21kQ120mo+IrDs1nFNVm/AsdFxIx2+vZ347DbogHJPd/JzKNMOqU6HCYin1W6v8l5R9XSO2/e9cxmn7HAnVw=="
     },
     "@types/lodash.frompairs": {
-      "version": "4.0.4",
-      "resolved": "https://registry.npmjs.org/@types/lodash.frompairs/-/lodash.frompairs-4.0.4.tgz",
-      "integrity": "sha512-u/Ifsrh5yJ3j4DJ+sHiWeORyeQhDpSlVmdLqb4Z27pB0Vkp6ECw24mBEY0KxRXDi1Hy/NqVL7Cq3vqNEddQgcA==",
+      "version": "4.0.6",
+      "resolved": "https://registry.npmjs.org/@types/lodash.frompairs/-/lodash.frompairs-4.0.6.tgz",
+      "integrity": "sha512-rwCUf4NMKhXpiVjL/RXP8YOk+rd02/J4tACADEgaMXRVnzDbSSlBMKFZoX/ARmHVLg3Qc98Um4PErGv8FbxU7w==",
       "requires": {
         "@types/lodash": "*"
       }
@@ -11322,11 +11322,11 @@
       }
     },
     "react2angular": {
-      "version": "4.0.5",
-      "resolved": "https://registry.npmjs.org/react2angular/-/react2angular-4.0.5.tgz",
-      "integrity": "sha512-w9bM5xkbaZbSfVWdisFwhGrTIoj9g2qN1AyhfTgjmIbbgaNKH2IgDg6KslGLNktvqPA3dUO4KFyYwhiN1/XsQQ==",
+      "version": "4.0.6",
+      "resolved": "https://registry.npmjs.org/react2angular/-/react2angular-4.0.6.tgz",
+      "integrity": "sha512-MDl2WRoTyu7Gyh4+FAIlmsM2mxIa/DjSz6G/d90L1tK8ZRubqVEayKF6IPyAruC5DMhGDVJ7tlAIcu/gMNDjXg==",
       "requires": {
-        "@types/lodash.frompairs": "^4.0.3",
+        "@types/lodash.frompairs": "^4.0.5",
         "angular": ">=1.5",
         "lodash.frompairs": "^4.0.1",
         "ngcomponent": "^4.1.0"
