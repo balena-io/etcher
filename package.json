@@ -83,7 +83,7 @@
     "angular-mocks": "1.7.8",
     "babel-loader": "^8.0.4",
     "chalk": "^2.4.2",
-    "electron": "4.0.7",
+    "electron": "4.1.0",
     "electron-builder": "^20.39.0",
     "electron-mocha": "^6.0.4",
     "eslint": "^4.17.0",
