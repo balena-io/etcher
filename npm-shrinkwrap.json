@@ -5903,12 +5903,12 @@
       }
     },
     "eslint-plugin-jsdoc": {
-      "version": "3.15.1",
-      "resolved": "https://registry.npmjs.org/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-3.15.1.tgz",
-      "integrity": "sha512-xIQ+ajO6M6zsu5XEn5+1QyE1/P1w/l3yAXPCToZjRcrsKsg5yLTsYnrkdoJZJegE70dTZZwQ5bYPCjEbPey6cw==",
+      "version": "4.4.1",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-4.4.1.tgz",
+      "integrity": "sha512-scDqhjrt75NgspUqcLStxNCAKeAFFMngS+cKNqQoJ86INGyu52ZID1Y72BJb67QtSZYh6fRXmHRIxhxyiXf5eQ==",
       "dev": true,
       "requires": {
-        "comment-parser": "^0.5.1",
+        "comment-parser": "^0.5.4",
         "jsdoctypeparser": "^2.0.0-alpha-8",
         "lodash": "^4.17.11"
       }
