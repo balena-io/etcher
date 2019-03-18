@@ -13650,12 +13650,12 @@
       }
     },
     "styled-system": {
-      "version": "4.0.1",
-      "resolved": "https://registry.npmjs.org/styled-system/-/styled-system-4.0.1.tgz",
-      "integrity": "sha512-wb7dA8gpl9gr04HLWAaPUABmp7QGICpqB2rUMGbC2Ho0sTgjTeUgLTHTWZBiYR3yybYyVysdku7SXFvLtOh4fg==",
+      "version": "4.0.5",
+      "resolved": "https://registry.npmjs.org/styled-system/-/styled-system-4.0.5.tgz",
+      "integrity": "sha512-9oTFHe5Wrtxw7+vOzano0hXZiRDh6JW5fH025kxCvw7r4YHyrV6HXw8qjcK2MxjrqF+p7ayVhzU7OIy6x8Dj1w==",
       "requires": {
-        "@babel/runtime": "^7.3.1",
-        "prop-types": "^15.6.2"
+        "@babel/runtime": "^7.3.4",
+        "prop-types": "^15.7.2"
       }
     },
     "stylis": {
