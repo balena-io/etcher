@@ -34,7 +34,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
-    "angular": "1.7.6",
+    "angular": "1.7.8",
     "angular-if-state": "^1.0.0",
     "angular-moment": "^1.0.1",
     "angular-seconds-to-date": "^1.0.0",
