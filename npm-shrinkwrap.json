@@ -1136,6 +1136,14 @@
       "resolved": "https://registry.npmjs.org/@types/semver/-/semver-5.5.0.tgz",
       "integrity": "sha512-41qEJgBH/TWgo5NFSvBCJ1qkoi3Q6ONSF2avrHq1LVEZfYpdHmj0y9SuTK+u9ZhG1sYQKBL1AWXKyLWP4RaUoQ=="
     },
+    "@types/usb": {
+      "version": "1.5.1",
+      "resolved": "https://registry.npmjs.org/@types/usb/-/usb-1.5.1.tgz",
+      "integrity": "sha512-1qhcYMLJ0I2HcRG3G/nBcRZ0KrrTdGdUNcCkEVgcga4KMlDXWh6LZJjVA6MiWEDa+BOaQTEfGJfuNaQ71IQOpg==",
+      "requires": {
+        "@types/node": "*"
+      }
+    },
     "@types/uuid": {
       "version": "3.4.4",
       "resolved": "https://registry.npmjs.org/@types/uuid/-/uuid-3.4.4.tgz",
@@ -5838,9 +5846,9 @@
       "integrity": "sha1-Cr9PHKpbyx96nYrMbepPqqBLrJs="
     },
     "etcher-sdk": {
-      "version": "1.3.0",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-1.3.0.tgz",
-      "integrity": "sha512-HgVB8fJLiEU+zyB/9e/6mMnzPzWLF7ii85O0A2f+6mMPSAuR+xzhW6LoeY6nrWh1LkWTs11riOppKppvjFzu/A==",
+      "version": "1.3.5-upgrade-usbboot-9bda77ad0d87dd76a7837118d1954cd989915734",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-1.3.5-upgrade-usbboot-9bda77ad0d87dd76a7837118d1954cd989915734.tgz",
+      "integrity": "sha512-8rRKC8/30PH7F37Lu5ZzgrDM9BlEylJ8GjJVKKDAuPpxNXgpOz5TqTK+xnF5moz/i7Rvve30A9rKjB1+fPruBw==",
       "requires": {
         "@types/node": "^6.0.112",
         "axios": "^0.18.0",
@@ -5853,7 +5861,7 @@
         "lodash": "^4.17.10",
         "lzma-native": "^4.0.3",
         "mountutils": "^1.3.15",
-        "node-raspberrypi-usbboot": "^0.1.0",
+        "node-raspberrypi-usbboot": "^0.2.1-usbboot-stalls-9d6be4db6e4279e9df9e3bfc8385ab7ebb5edd82",
         "outdent": "^0.5.0",
         "partitioninfo": "^5.3.0",
         "readable-stream": "^2.3.6",
@@ -9512,13 +9520,14 @@
       }
     },
     "node-raspberrypi-usbboot": {
-      "version": "0.1.0",
-      "resolved": "https://registry.npmjs.org/node-raspberrypi-usbboot/-/node-raspberrypi-usbboot-0.1.0.tgz",
-      "integrity": "sha512-x4eJiKKkybf1SXUbqjvZLcUejNm0LEYu3RsvPjZ9MPMQPsY+Yo6VuyKisdBX8NFc/Q1akJ4iguScVu/8sZ/g1A==",
+      "version": "0.2.1-usbboot-stalls-9d6be4db6e4279e9df9e3bfc8385ab7ebb5edd82",
+      "resolved": "https://registry.npmjs.org/node-raspberrypi-usbboot/-/node-raspberrypi-usbboot-0.2.1-usbboot-stalls-9d6be4db6e4279e9df9e3bfc8385ab7ebb5edd82.tgz",
+      "integrity": "sha512-V//HIa6H8ioaBDclupb02D8Vnymghx92JeQt1QjlJbeYUou3vc214YH18OLU9DjeMnQwy3Qs2jeB7DAJsqn+uA==",
       "requires": {
         "@types/node": "^6.0.112",
+        "@types/usb": "^1.5.1",
         "debug": "^3.1.0",
-        "usb": "github:resin-io/node-usb#1.3.5"
+        "usb": "github:resin-io/node-usb#1521d10bdfe09ef2ca1f259972dee27c6c35f821"
       }
     },
     "node-releases": {
