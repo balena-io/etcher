@@ -54,7 +54,7 @@
     "inactivity-timer": "^1.0.0",
     "lodash": "^4.17.10",
     "mime-types": "^2.1.22",
-    "nan": "^2.9.2",
+    "nan": "^2.13.1",
     "node-ipc": "^9.1.1",
     "path-is-inside": "^1.0.2",
     "pretty-bytes": "^5.1.0",

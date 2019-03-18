@@ -9955,9 +9955,9 @@
       }
     },
     "nan": {
-      "version": "2.12.1",
-      "resolved": "https://registry.npmjs.org/nan/-/nan-2.12.1.tgz",
-      "integrity": "sha512-JY7V6lRkStKcKTvHO5NVSQRv+RV+FIL5pvDoLiAtSL9pKlC5x9PKQcZDsq7m4FO4d57mkhC6Z+QhAh3Jdk5JFw=="
+      "version": "2.13.1",
+      "resolved": "https://registry.npmjs.org/nan/-/nan-2.13.1.tgz",
+      "integrity": "sha512-I6YB/YEuDeUZMmhscXKxGgZlFnhsn5y0hgOZBadkzfTRrZBtJDZeg6eQf7PYMIEclwmorTKK8GztsyOUSVBREA=="
     },
     "nanomatch": {
       "version": "1.2.13",
