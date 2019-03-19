@@ -86,7 +86,7 @@
     "electron": "4.1.0",
     "electron-builder": "^20.39.0",
     "electron-mocha": "^6.0.4",
-    "eslint": "^4.17.0",
+    "eslint": "^5.15.3",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsdoc": "^4.4.1",
