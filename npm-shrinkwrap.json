@@ -1324,6 +1324,14 @@
       "resolved": "https://registry.npmjs.org/@types/semver/-/semver-5.5.0.tgz",
       "integrity": "sha512-41qEJgBH/TWgo5NFSvBCJ1qkoi3Q6ONSF2avrHq1LVEZfYpdHmj0y9SuTK+u9ZhG1sYQKBL1AWXKyLWP4RaUoQ=="
     },
+    "@types/usb": {
+      "version": "1.5.1",
+      "resolved": "https://registry.npmjs.org/@types/usb/-/usb-1.5.1.tgz",
+      "integrity": "sha512-1qhcYMLJ0I2HcRG3G/nBcRZ0KrrTdGdUNcCkEVgcga4KMlDXWh6LZJjVA6MiWEDa+BOaQTEfGJfuNaQ71IQOpg==",
+      "requires": {
+        "@types/node": "*"
+      }
+    },
     "@types/uuid": {
       "version": "3.4.4",
       "resolved": "https://registry.npmjs.org/@types/uuid/-/uuid-3.4.4.tgz",
@@ -4512,9 +4520,9 @@
       "dev": true
     },
     "drivelist": {
-      "version": "8.0.2",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-8.0.2.tgz",
-      "integrity": "sha512-m9HUfndFQjdvrxiBpP1nRz/r9zvG0LQF591G5/3N0eJYJI7E6fbOV+NStQMU3AOW2InZsxG27D3v0aNtweFfCg==",
+      "version": "8.0.6",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-8.0.6.tgz",
+      "integrity": "sha512-KkXaGslqZP7Y13rofyFZBUl9dQrs0wqT5aXq5PAr67uPE2IDXEUYH+LNGTv69xpd7cUImjQvvB9H4bkziLIs1w==",
       "requires": {
         "bindings": "^1.3.0",
         "debug": "^3.1.0",
@@ -5921,22 +5929,22 @@
       "integrity": "sha1-Cr9PHKpbyx96nYrMbepPqqBLrJs="
     },
     "etcher-sdk": {
-      "version": "1.3.2",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-1.3.2.tgz",
-      "integrity": "sha512-OFPA5hNV9EjmetroC+oW41nIizUlZT4USsRNvS+INIIJ3xdOV+92xonDfxVjrehXiZtS9fwOZJaTYnu/z0xcLw==",
+      "version": "1.3.11",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-1.3.11.tgz",
+      "integrity": "sha512-tPT3sOWF0mfXwSXEGTAY8RjN8XB7c0NhbhvlqQWzRKYlZ5xcMspAeVwzWfGeNJm/tiYh4uM3l10QdFkAHKl0qw==",
       "requires": {
         "@types/node": "^6.0.112",
         "axios": "^0.18.0",
         "blockmap": "^3.4.2",
         "bluebird": "^3.5.1",
         "debug": "^3.1.0",
-        "drivelist": "^8.0.0",
+        "drivelist": "^8.0.4",
         "file-disk": "^5.0.0",
         "file-type": "^8.0.0",
         "lodash": "^4.17.10",
         "lzma-native": "^4.0.3",
         "mountutils": "^1.3.15",
-        "node-raspberrypi-usbboot": "^0.1.0",
+        "node-raspberrypi-usbboot": "^0.2.3",
         "outdent": "^0.5.0",
         "partitioninfo": "^5.3.0",
         "readable-stream": "^2.3.6",
@@ -9876,9 +9884,9 @@
       "integrity": "sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg=="
     },
     "mountutils": {
-      "version": "1.3.16",
-      "resolved": "https://registry.npmjs.org/mountutils/-/mountutils-1.3.16.tgz",
-      "integrity": "sha512-HuOJOP3IsZr734+CBxUHlu+CfHJZiMhSWqzURSDRNxARiilKBFOpUuF+sBfc/IyJK4Tx+Y09Cna0LCPhZ4ey8A==",
+      "version": "1.3.17",
+      "resolved": "https://registry.npmjs.org/mountutils/-/mountutils-1.3.17.tgz",
+      "integrity": "sha512-SWFO5QYxKo7MMYRiir2GTudY4/Si5e9jUrFmckZz1ZALJjjZluwsxVBSbIfsOA5ISznt0Ahkfi2NuVbAkBRkRQ==",
       "requires": {
         "bindings": "^1.3.0",
         "nan": "^2.10.0",
@@ -10252,13 +10260,14 @@
       }
     },
     "node-raspberrypi-usbboot": {
-      "version": "0.1.0",
-      "resolved": "https://registry.npmjs.org/node-raspberrypi-usbboot/-/node-raspberrypi-usbboot-0.1.0.tgz",
-      "integrity": "sha512-x4eJiKKkybf1SXUbqjvZLcUejNm0LEYu3RsvPjZ9MPMQPsY+Yo6VuyKisdBX8NFc/Q1akJ4iguScVu/8sZ/g1A==",
+      "version": "0.2.3",
+      "resolved": "https://registry.npmjs.org/node-raspberrypi-usbboot/-/node-raspberrypi-usbboot-0.2.3.tgz",
+      "integrity": "sha512-Qfwq9BDsNxBpIwPZlNA/5DFzb7iTSJfZh1T1oGQV63LoXWDcZ1thLNydjGBXaSwOpDt90NdNOcedsiSm745n3g==",
       "requires": {
         "@types/node": "^6.0.112",
+        "@types/usb": "^1.5.1",
         "debug": "^3.1.0",
-        "usb": "github:resin-io/node-usb#1.3.5"
+        "usb": "github:resin-io/node-usb#1.3.6"
       },
       "dependencies": {
         "debug": {
@@ -14705,8 +14714,8 @@
       "dev": true
     },
     "usb": {
-      "version": "github:resin-io/node-usb#1521d10bdfe09ef2ca1f259972dee27c6c35f821",
-      "from": "github:resin-io/node-usb#1.3.5",
+      "version": "github:resin-io/node-usb#087be4b07474e7cbf6d857f477650e110d36dcb0",
+      "from": "github:resin-io/node-usb#1.3.6",
       "requires": {
         "nan": "^2.8.0",
         "node-pre-gyp": "^0.11.0"
