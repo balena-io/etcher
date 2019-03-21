@@ -46,6 +46,17 @@
   <div class="checkbox">
     <label>
       <input type="checkbox"
+        tabindex="8"
+        ng-model="settings.currentData.trim"
+        ng-change="settings.toggle('trim')">
+
+      <span>Trim ext{2,3,4} partitions before writing (raw images only)</span>
+    </label>
+  </div>
+
+  <div class="checkbox">
+    <label>
+      <input type="checkbox"
         tabindex="9"
         ng-model="settings.currentData.updatesEnabled"
         ng-change="settings.toggle('updatesEnabled')">
