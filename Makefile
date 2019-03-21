@@ -136,14 +136,10 @@ TARGETS = \
 	sanity-checks \
 	clean \
 	distclean \
-	changelog \
 	webpack \
 	electron-develop \
 	electron-test \
 	electron-build
-
-changelog:
-	versionist
 
 webpack:
 	./node_modules/.bin/webpack

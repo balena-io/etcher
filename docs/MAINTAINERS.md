@@ -40,37 +40,6 @@ Releasing
   - Write a blog post about it, and / or
   - Write about it to the Etcher mailing list
 
-### Preparing a New Version
-
-- Create & hop onto a new release branch, i.e. `release-1.0.0`
-- Bump the version number in the `package.json`'s `version` property.
-- Bump the version number in the `npm-shrinkwrap.json`'s `version` property
-- Add a new entry to `CHANGELOG.md` by running `make changelog`
-- Manually revise the `CHANGELOG.md` versionist output
-- Revise the `updates.semverRange` version in `package.json`
-- Commit the changes with the version number as the commit title, including the `v` prefix, to `master`. For example:
-
-**NOTE:** The version **MUST** be prefixed with a "v"
-
-```bash
-git commit -m "v1.0.0" # not 1.0.0
-```
-
-- Create an annotated tag for the new version. The commit title should equal the annotated tag name. For example:
-
-```bash
-git tag -a v1.0.0 -m "v1.0.0"
-```
-
-- Push the commit and the annotated tag.
-
-```bash
-git push
-git push --tags
-```
-
-- Open a pull request against `master` titled "Release v1.0.0"
-
 ### Generating binaries
 
 **Environment**
