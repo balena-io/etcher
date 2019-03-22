@@ -4271,6 +4271,10 @@
       "dev": true
     },
     "drivelist": {
+
+      "version": "8.0.6",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-8.0.6.tgz",
+      "integrity": "sha512-KkXaGslqZP7Y13rofyFZBUl9dQrs0wqT5aXq5PAr67uPE2IDXEUYH+LNGTv69xpd7cUImjQvvB9H4bkziLIs1w==",
       "version": "8.0.4",
       "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-8.0.4.tgz",
       "integrity": "sha512-3biGOJ217vd0rE29E1k+OmZ+vdEgUx4i9tOriyS2ua1rVgQ2EauRCMfQgIzkxzU5Uk0xwAlyxIojPTIUMHNxjQ==",
@@ -5536,6 +5540,11 @@
     },
     "etcher-sdk": {
 
+      "version": "1.3.11",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-1.3.11.tgz",
+      "integrity": "sha512-tPT3sOWF0mfXwSXEGTAY8RjN8XB7c0NhbhvlqQWzRKYlZ5xcMspAeVwzWfGeNJm/tiYh4uM3l10QdFkAHKl0qw==",
+
+
       "version": "1.3.2",
       "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-1.3.2.tgz",
       "integrity": "sha512-OFPA5hNV9EjmetroC+oW41nIizUlZT4USsRNvS+INIIJ3xdOV+92xonDfxVjrehXiZtS9fwOZJaTYnu/z0xcLw==",
@@ -5543,6 +5552,7 @@
       "version": "1.3.11",
       "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-1.3.11.tgz",
       "integrity": "sha512-tPT3sOWF0mfXwSXEGTAY8RjN8XB7c0NhbhvlqQWzRKYlZ5xcMspAeVwzWfGeNJm/tiYh4uM3l10QdFkAHKl0qw==",
+
 
       "requires": {
         "@types/node": "^6.0.112",
@@ -9677,9 +9687,9 @@
       "integrity": "sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg=="
     },
     "mountutils": {
-      "version": "1.3.16",
-      "resolved": "https://registry.npmjs.org/mountutils/-/mountutils-1.3.16.tgz",
-      "integrity": "sha512-HuOJOP3IsZr734+CBxUHlu+CfHJZiMhSWqzURSDRNxARiilKBFOpUuF+sBfc/IyJK4Tx+Y09Cna0LCPhZ4ey8A==",
+      "version": "1.3.17",
+      "resolved": "https://registry.npmjs.org/mountutils/-/mountutils-1.3.17.tgz",
+      "integrity": "sha512-SWFO5QYxKo7MMYRiir2GTudY4/Si5e9jUrFmckZz1ZALJjjZluwsxVBSbIfsOA5ISznt0Ahkfi2NuVbAkBRkRQ==",
       "requires": {
         "bindings": "^1.3.0",
         "nan": "^2.10.0",
@@ -10061,7 +10071,11 @@
         "@types/usb": "^1.5.1",
         "debug": "^3.1.0",
 
+        "usb": "github:resin-io/node-usb#1.3.6"
+
+
         "usb": "github:resin-io/node-usb#1.3.5"
+
       },
       "dependencies": {
         "debug": {
