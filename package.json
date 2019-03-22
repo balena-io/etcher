@@ -75,7 +75,7 @@
     "xml2js": "^0.4.17"
   },
   "devDependencies": {
-    "@babel/core": "^7.3.4",
+    "@babel/core": "^7.4.0",
     "@babel/plugin-proposal-function-bind": "^7.2.0",
     "@babel/preset-env": "^7.4.1",
     "@babel/preset-react": "^7.0.0",
