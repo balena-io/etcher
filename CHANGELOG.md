@@ -3,6 +3,43 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.5.15 - 2019-03-20
+
+### Misc
+
+- Show the correct logo on usbboot devices on Ubuntu
+
+## v1.5.14 - 2019-03-20
+
+### Misc
+
+- Update etcher-sdk to ^1.3.10
+
+## v1.5.13 - 2019-03-18
+
+### Misc
+
+- 
+
+## v1.5.12 - 2019-03-15
+
+### Misc
+
+- Update build scripts
+
+## v1.5.11 - 2019-03-12
+
+### Misc
+
+- Fixed broken Hombrew cask link for etcher
+- Remove no longer used travis and appveyor configs
+
+## v1.5.10 - 2019-03-12
+
+### Misc
+
+- Update resin-scripts
+
 ## v1.5.9 - 2019-03-05
 
 ### Misc
