@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.5.16 - 2019-03-25
+
+### Misc
+
+- 
+
 ## v1.5.15 - 2019-03-20
 
 ### Misc
