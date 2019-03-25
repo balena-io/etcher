@@ -1,0 +1,6 @@
+type: electron 
+sentry:
+    org: balenaetcher
+    team: resinio
+    type: electron
+

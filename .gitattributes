@@ -12,7 +12,7 @@ Dockerfile* text
 etcher text
 .git* text
 *.html text
-*.json text
+*.json text eol=lf
 *.cpp text
 *.h text
 *.gyp text
