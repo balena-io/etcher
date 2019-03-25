@@ -7,7 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Misc
 
-- 
+- Add repo.yml
 
 ## v1.5.15 - 2019-03-20
 
@@ -25,7 +25,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Misc
 
-- 
+- Update build scripts
 
 ## v1.5.12 - 2019-03-15
 
