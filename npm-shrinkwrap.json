@@ -8260,17 +8260,17 @@
       }
     },
     "mixpanel": {
-      "version": "0.10.1",
-      "resolved": "https://registry.npmjs.org/mixpanel/-/mixpanel-0.10.1.tgz",
-      "integrity": "sha512-jP2z5mxsewcHHtx5ZPrDf7U/ERPKyNTbpjGN5fdUPxDQk8C7+XoDO5SYZgBUtQ8SqEjZ+Yvw9lot3ec++EaYGA==",
+      "version": "0.10.2",
+      "resolved": "https://registry.npmjs.org/mixpanel/-/mixpanel-0.10.2.tgz",
+      "integrity": "sha512-+zbBQGd/Q5LLRooqJ2iyEDzKz2/ly4TipH5tE9te0BDMJpROxUMGffPulyHbh4FtMcbJuPmIUSIfy//JhhnlnA==",
       "requires": {
         "https-proxy-agent": "2.2.1"
       }
     },
     "mixpanel-browser": {
-      "version": "2.26.0",
-      "resolved": "https://registry.npmjs.org/mixpanel-browser/-/mixpanel-browser-2.26.0.tgz",
-      "integrity": "sha512-aIRtoMvv6B+syslAvYyk+seuYObm0TeOxQz2JZqquZTEa+Kw9cNTVRA+H1s7QY1QFOKrk94gkmLdKJbwcOcG5w=="
+      "version": "2.27.1",
+      "resolved": "https://registry.npmjs.org/mixpanel-browser/-/mixpanel-browser-2.27.1.tgz",
+      "integrity": "sha512-M3D2emnY5zKX9ZzokNp07JEc/1e4JBeViedxyPDLDaaYWhMEyBmeY8dJctUPksCpJ4rqSCg2PHIoiPt9Z4oxzg=="
     },
     "mkdirp": {
       "version": "0.5.1",
@@ -10621,9 +10621,9 @@
       }
     },
     "resin-corvus": {
-      "version": "2.0.1",
-      "resolved": "https://registry.npmjs.org/resin-corvus/-/resin-corvus-2.0.1.tgz",
-      "integrity": "sha512-/bRPSAJplO3pj+YIcqkbziJ0YYeArcakEUpEdHRjLZB7VUKbse0hCxfXbGsL26yRz9Iajou8WV7Q4+Y+j+eqQw==",
+      "version": "2.0.2",
+      "resolved": "https://registry.npmjs.org/resin-corvus/-/resin-corvus-2.0.2.tgz",
+      "integrity": "sha512-3X88eWi2YBuLjU5NCMkxyyTUIE86euz0GHZT6WicGSnQjJHBB5HxMQG00sSGZ4NH75wO+VsQ/VIhXkmOIjYWww==",
       "requires": {
         "arch": "^2.1.0",
         "deep-map-keys": "^1.2.0",
