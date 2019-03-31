@@ -1,0 +1,6 @@
+type: electron
+release: github
+sentry:
+    org: balenaetcher
+    team: resinio
+    type: electron

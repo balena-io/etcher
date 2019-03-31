@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.19
+## (2019-03-28)
+
+* Update resin-corvus to ^2.0.2 [Alexis Svinartchouk]
+* Better reporting of unhandled rejections to sentry [Alexis Svinartchouk]
+
+# v1.5.18
+## (2019-03-26)
+
+* Update build scripts [Giovanni Garufi]
+
+## v1.5.17 - 2019-03-25
+
+### Misc
+
+- Automatically publish github release from CI
+
+## v1.5.16 - 2019-03-25
+
+### Misc
+
+- Add repo.yml
+
 ## v1.5.15 - 2019-03-20
 
 ### Misc
@@ -19,7 +42,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Misc
 
-- 
+- Update build scripts
 
 ## v1.5.12 - 2019-03-15
 

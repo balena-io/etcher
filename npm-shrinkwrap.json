@@ -1,6 +1,6 @@
 {
   "name": "balena-etcher",
-  "version": "1.5.15",
+  "version": "1.5.19",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -8540,6 +8540,10 @@
       "version": "2.2.1",
       "resolved": "https://registry.npmjs.org/isomorphic-fetch/-/isomorphic-fetch-2.2.1.tgz",
       "integrity": "sha1-YRrhrPFPXoH3KVB0coGf6XM1WKk=",
+    "mixpanel": {
+      "version": "0.10.2",
+      "resolved": "https://registry.npmjs.org/mixpanel/-/mixpanel-0.10.2.tgz",
+      "integrity": "sha512-+zbBQGd/Q5LLRooqJ2iyEDzKz2/ly4TipH5tE9te0BDMJpROxUMGffPulyHbh4FtMcbJuPmIUSIfy//JhhnlnA==",
       "requires": {
         "node-fetch": "^1.0.1",
         "whatwg-fetch": ">=0.10.0"
@@ -8549,6 +8553,10 @@
       "version": "0.1.2",
       "resolved": "https://registry.npmjs.org/isstream/-/isstream-0.1.2.tgz",
       "integrity": "sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo="
+    "mixpanel-browser": {
+      "version": "2.27.1",
+      "resolved": "https://registry.npmjs.org/mixpanel-browser/-/mixpanel-browser-2.27.1.tgz",
+      "integrity": "sha512-M3D2emnY5zKX9ZzokNp07JEc/1e4JBeViedxyPDLDaaYWhMEyBmeY8dJctUPksCpJ4rqSCg2PHIoiPt9Z4oxzg=="
     },
     "jellyschema": {
       "version": "0.11.8",
@@ -10729,6 +10737,68 @@
         "evp_bytestokey": "^1.0.0",
         "pbkdf2": "^3.0.3",
         "safe-buffer": "^5.1.1"
+        "caller-path": "^0.1.0",
+        "resolve-from": "^1.0.0"
+      }
+    },
+    "resin-corvus": {
+      "version": "2.0.2",
+      "resolved": "https://registry.npmjs.org/resin-corvus/-/resin-corvus-2.0.2.tgz",
+      "integrity": "sha512-3X88eWi2YBuLjU5NCMkxyyTUIE86euz0GHZT6WicGSnQjJHBB5HxMQG00sSGZ4NH75wO+VsQ/VIhXkmOIjYWww==",
+      "requires": {
+        "arch": "^2.1.0",
+        "deep-map-keys": "^1.2.0",
+        "detect-process": "^1.0.4",
+        "electron-is-running-in-asar": "^1.0.0",
+        "flat": "^4.0.0",
+        "lodash": "^4.17.4",
+        "lodash-deep": "^2.0.0",
+        "mixpanel": "^0.10.1",
+        "mixpanel-browser": "^2.11.0",
+        "os-locale": "^2.0.0",
+        "raven": "^2.2.1",
+        "raven-js": "^3.19.1"
+      }
+    },
+    "resin-device-status": {
+      "version": "1.1.1",
+      "resolved": "https://registry.npmjs.org/resin-device-status/-/resin-device-status-1.1.1.tgz",
+      "integrity": "sha1-ZuUKLw5Cq2H1uPaQIwrG+nUJ3yo=",
+      "requires": {
+        "lodash": "^4.0.0"
+      }
+    },
+    "resin-image-fs": {
+      "version": "5.0.6",
+      "resolved": "https://registry.npmjs.org/resin-image-fs/-/resin-image-fs-5.0.6.tgz",
+      "integrity": "sha512-HSk4yxxxqqI8ofJs9IA/n5aGQFvKbOw+9SPxuPF/acWUPy/UKm2Ke4Xd0CFTggjD3BEiqsBQ/qmyKP0ORcyaiQ==",
+      "requires": {
+        "bluebird": "^3.5.1",
+        "ext2fs": "^1.0.23",
+        "fatfs": "^0.10.6",
+        "file-disk": "^5.0.0",
+        "lodash": "^4.17.5",
+        "partitioninfo": "^5.2.0",
+        "replacestream": "^4.0.0"
+      }
+    },
+    "resin-semver": {
+      "version": "1.5.0",
+      "resolved": "https://registry.npmjs.org/resin-semver/-/resin-semver-1.5.0.tgz",
+      "integrity": "sha512-a4i2PSVb9uhbnwzfxF1UfpBNGt6juoBFF/sRyWPShbF9P7Vg6jiGXceHEN9FSda6tszHIblolFIgbc8ASyLuAw==",
+      "requires": {
+        "@types/lodash.memoize": "^4.1.2",
+        "@types/semver": "^5.4.0",
+        "lodash.memoize": "^4.1.2",
+        "semver": "^5.3.0"
+      }
+    },
+    "resolve": {
+      "version": "1.10.0",
+      "resolved": "https://registry.npmjs.org/resolve/-/resolve-1.10.0.tgz",
+      "integrity": "sha512-3sUr9aq5OfSg2S9pNtPA9hL1FVEAjvfOC4leW0SNf/mpnaakz2a9femSd6LqAww2RaFctwyf1lCqnTHuF1rxDg==",
+      "requires": {
+        "path-parse": "^1.0.6"
       }
     },
     "parse-color": {
