@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.20
+## (2019-04-01)
+
+* Don't try to flash when no device is selected [Alexis Svinartchouk]
+* Reformat changelog [Giovanni Garufi]
+* Avoid "Error: There is already a flash in progress" errors [Alexis Svinartchouk]
+
 # v1.5.19
 ## (2019-03-28)
 
