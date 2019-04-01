@@ -1,5 +1,6 @@
 type: electron
 release: github
+publishMetadata: true
 sentry:
     org: balenaetcher
     team: resinio
