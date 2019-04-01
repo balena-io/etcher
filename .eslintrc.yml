@@ -289,7 +289,7 @@ rules:
     - error
     - anonymous: always
       named: always
-      asyncArrow: never
+      asyncArrow: always
   template-tag-spacing:
     - error
     - always
