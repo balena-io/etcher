@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.22
+## (2019-04-02)
+
+* (Windows): Use full path to wmic as some systems don't have it in their PATH [Alexis Svinartchouk]
+
 # v1.5.21
 ## (2019-04-02)
 
