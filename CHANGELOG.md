@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.21
+## (2019-04-02)
+
+* Fix error when config.analytics was undefined [Alexis Svinartchouk]
+
 # v1.5.20
 ## (2019-04-01)
 
