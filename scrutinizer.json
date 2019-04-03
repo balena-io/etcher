@@ -1,0 +1,236 @@
+{
+  "license": "Apache-2.0",
+  "contributing": "Contributing Guide\n==================\n\nThanks for your interest in contributing to this project! This document aims to\nserve as a friendly guide for making your first contribution.\n\nHigh-level Etcher overview\n--------------------------\n\nMake sure you checkout our [ARCHITECTURE.md][ARCHITECTURE] guide, which aims to\nexplain how all the pieces fit together.\n\nDeveloping\n----------\n\n### Prerequisites\n\n#### Common\n\n- [NodeJS](https://nodejs.org) (at least v6.11)\n- [Python 2.7](https://www.python.org)\n- [jq](https://stedolan.github.io/jq/)\n- [curl](https://curl.haxx.se/)\n- [npm](https://www.npmjs.com/) (version 6.7)\n\n```sh\npip install -r requirements.txt\n```\n\nYou might need to run this with `sudo` or administrator permissions.\n\n#### Windows\n\n- [NSIS v2.51](http://nsis.sourceforge.net/Main_Page) (v3.x won't work)\n- Either one of the following:\n  - [Visual C++ 2015 Build Tools](http://landinghub.visualstudio.com/visual-cpp-build-tools) containing standalone compilers, libraries and scripts\n  - Install the [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools) via npm with `npm install --global windows-build-tools`\n  - [Visual Studio Community 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48146) (free) (other editions, like Professional and Enterprise, should work too)\n    **NOTE:** Visual Studio 2015 doesn't install C++ by default. You have to rerun the\n    setup, select \"Modify\" and then check `Visual C++ -> Common Tools for Visual\n    C++ 2015` (see http://stackoverflow.com/a/31955339)\n- [MinGW](http://www.mingw.org)\n\nYou might need to `npm config set msvs_version 2015` for node-gyp to correctly detect\nthe version of Visual Studio you're using (in this example VS2015).\n\nThe following MinGW packages are required:\n\n- `msys-make`\n- `msys-unzip`\n- `msys-zip`\n- `msys-bash`\n- `msys-coreutils`\n\n#### macOS\n\n- [Xcode](https://developer.apple.com/xcode/)\n\nIt's not enough to have [Xcode Command Line Tools] installed. Xcode must be installed\nas well.\n\n#### Linux\n\n- `libudev-dev` for libusb (install with `sudo apt install libudev-dev` for example)\n\n### Cloning the project\n\n```sh\ngit clone --recursive https://github.com/balena-io/etcher\ncd etcher\n```\n\n### Installing npm dependencies\n\n**NOTE:** Please make use of the following command to install npm dependencies rather\nthan simply running `npm install` given that we need to do extra configuration\nto make sure native dependencies are correctly compiled for Electron, otherwise\nthe application might not run successfully.\n\nIf you're on Windows, **run the command from the _Developer Command Prompt for\nVS2015_**, to ensure all Visual Studio command utilities are available in the\n`%PATH%`.\n\n```sh\nmake electron-develop\n```\n\n### Running the application\n\n#### GUI\n\n```sh\n# Build the GUI\nmake webpack\n# Start Electron\nnpm start\n```\n\nTesting\n-------\n\nTo run the test suite, run the following command:\n\n```sh\nnpm test\n```\n\nGiven the nature of this application, not everything can be unit tested. For\nexample:\n\n- The writing operating on real raw devices.\n- Platform inconsistencies.\n- Style changes.\n- Artwork.\n\nWe encourage our contributors to test the application on as many operating\nsystems as they can before sending a pull request.\n\n*The test suite is run automatically by CI servers when you send a pull\nrequest.*\n\nWe also rely on various `make` targets to perform some common tasks:\n\n- `make lint`: Run the linter.\n- `make sass`: Compile SCSS files.\n\nWe make use of [EditorConfig] to communicate indentation, line endings and\nother text editing default. We encourage you to install the relevant plugin in\nyour text editor of choice to avoid having to fix any issues during the review\nprocess.\n\nUpdating a dependency\n---------------------\n\nGiven we use [npm shrinkwrap][shrinkwrap], we have to take extra steps to make\nsure the `npm-shrinkwrap.json` file gets updated correctly when we update a\ndependency.\n\nUse the following steps to ensure everything goes flawlessly:\n\n- Run `make electron-develop` to ensure you don't have extraneous dependencies\n  you might have brought during development, or you are running older\n  dependencies because you come from another branch or reference.\n\n- Install the new version of the dependency. For example: `npm install --save\n  <package>@<version>`. This will update the `npm-shrinkwrap.json` file.\n\n- Commit *both* `package.json` and `npm-shrinkwrap.json`.\n\nDiffing Binaries\n----------------\n\nBinary files are tagged as \"binary\" in the `.gitattributes` file, but also have\na `diff=hex` tag, which allows you to see hexdump-style diffs for binaries,\nif you add the following to either your global or repository-local git config:\n\n```sh\n$ git config diff.hex.textconv hexdump\n$ git config diff.hex.binary true\n```\n\nAnd global, respectively:\n\n```sh\n$ git config --global diff.hex.textconv hexdump\n$ git config --global diff.hex.binary true\n```\n\nIf you don't have `hexdump` available on your platform,\nyou can try [hxd], which is also a bit faster.\n\nCommit Guidelines\n-----------------\n\nSee [COMMIT-GUIDELINES.md][COMMIT-GUIDELINES] for a thorough guide on how to\nwrite commit messages.\n\nSending a pull request\n----------------------\n\nWhen sending a pull request, consider the following guidelines:\n\n- Write a concise commit message explaining your changes.\n\n- If applies, write more descriptive information in the commit body.\n\n- Mention the operating systems with the corresponding versions in which you\ntested your changes.\n\n- If your change affects the visuals of the application, consider attaching a\nscreenshot.\n\n- Refer to the issue/s your pull request fixes, so they're closed automatically\nwhen your pull request is merged.\n\n- Write a descriptive pull request title.\n\n- Squash commits when possible, for example, when committing review changes.\n\nBefore your pull request can be merged, the following conditions must hold:\n\n- The linter doesn't throw any warning.\n\n- All the tests pass.\n\n- The coding style aligns with the project's convention.\n\n- Your changes are confirmed to be working in recent versions of the operating\nsystems we support.\n\nDon't hesitate to get in touch if you have any questions or need any help!\n\n[ARCHITECTURE]: https://github.com/balena-io/etcher/blob/master/docs/ARCHITECTURE.md\n[COMMIT-GUIDELINES]: https://github.com/balena-io/etcher/blob/master/docs/COMMIT-GUIDELINES.md\n[EditorConfig]: http://editorconfig.org\n[shrinkwrap]: https://docs.npmjs.com/cli/shrinkwrap\n[hxd]: https://github.com/jhermsmeier/hxd\n[Xcode Command Line Tools]: https://developer.apple.com/library/content/technotes/tn2339/_index.html\n",
+  "architecture": "Etcher Architecture\n===================\n\nThis document aims to serve as a high-level overview of how Etcher works,\nspecially oriented for contributors who want to understand the big picture.\n\nTechnologies\n------------\n\nThis is a non exhaustive list of the major frameworks, libraries, and other\ntechnologies used in Etcher that you should become familiar with:\n\n- [Electron][electron]\n- [NodeJS][nodejs]\n- [AngularJS][angularjs]\n- [Redux][redux]\n- [ImmutableJS][immutablejs]\n- [Bootstrap][bootstrap]\n- [Sass][sass]\n- [Flexbox Grid][flexbox-grid]\n- [Mocha][mocha]\n- [JSDoc][jsdoc]\n\nModule architecture\n-------------------\n\nInstead of embedding all the functionality required to create a full-featured\nimage writer as a monolithic project, we try to hard to follow the [\"lego block\napproach\"][lego-blocks].\n\nThis has the advantage of allowing other applications to re-use logic we\nimplemented for Etcher in their own project, even for things we didn't expect,\nwhich leads to users benefitting from what we've built, and we benefitting from\nuser's bug reports, suggestions, etc, as an indirect way to make Etcher better.\n\nThe fact that low-level details are scattered around many different modules can\nmake it challenging for a new contributor to wrap their heads around the\nproject as a whole, and get a clear high level view of how things work or where\nto submit their work or bug reports.\n\nThese are the main Etcher components, in a nutshell:\n\n- [Drivelist](https://github.com/balena-io-modules/drivelist)\n\nAs the name implies, this module's duty is to detect the connected drives\nuniformly in all major operating systems, along with valuable metadata, like if\na drive is removable or not, to prevent users from trying to write an image to\na system drive.\n\n- [Etcher](https://github.com/balena-io/etcher)\n\nThis is the *\"main repository\"*, from which you're reading this from, which is\nbasically the front-end and glue for all previously listed projects.\n\nSummary\n-------\n\nWe always welcome contributions to Etcher as well as our documentation. If you\nwant to give back, but feel that your knowledge on how Etcher works is not\nenough to tackle a bug report or feature request, use that as your advantage,\nsince fresh eyes could help unveil things that we take for granted, but should\nbe documented instead!\n\n[lego-blocks]: https://github.com/sindresorhus/ama/issues/10#issuecomment-117766328\n[exit-codes]: https://github.com/balena-io/etcher/blob/master/lib/shared/exit-codes.js\n[gui-dir]: https://github.com/balena-io/etcher/tree/master/lib/gui\n[electron]: http://electron.atom.io\n[nodejs]: https://nodejs.org\n[angularjs]: https://angularjs.org\n[redux]: http://redux.js.org\n[immutablejs]: http://facebook.github.io/immutable-js/\n[bootstrap]: http://getbootstrap.com\n[sass]: http://sass-lang.com\n[flexbox-grid]: http://flexboxgrid.com\n[mocha]: http://mochajs.org\n[jsdoc]: http://usejsdoc.org\n",
+  "public": true,
+  "dependencies": [
+    "@fortawesome/fontawesome-free-webfonts",
+    "angular",
+    "angular-if-state",
+    "angular-moment",
+    "angular-seconds-to-date",
+    "angular-ui-bootstrap",
+    "angular-ui-router",
+    "bindings",
+    "bluebird",
+    "bootstrap-sass",
+    "color",
+    "command-join",
+    "d3",
+    "debug",
+    "electron-is-running-in-asar",
+    "etcher-sdk",
+    "flexboxgrid",
+    "immutable",
+    "inactivity-timer",
+    "lodash",
+    "mime-types",
+    "nan",
+    "node-ipc",
+    "path-is-inside",
+    "pretty-bytes",
+    "prop-types",
+    "react",
+    "react-dom",
+    "react2angular",
+    "redux",
+    "rendition",
+    "request",
+    "resin-corvus",
+    "roboto-fontface",
+    "semver",
+    "styled-components",
+    "styled-system",
+    "sudo-prompt",
+    "uuid",
+    "xml2js"
+  ],
+  "lastCommitDate": "2019-04-03T10:19:19Z",
+  "latestRelease": {
+    "tagName": "v1.5.19",
+    "asssets": [
+      {
+        "name": "balena-etcher-electron-1.5.19-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/balena-etcher-electron-1.5.19-linux-ia32.zip"
+      },
+      {
+        "name": "balena-etcher-electron-1.5.19-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/balena-etcher-electron-1.5.19-linux-x64.zip"
+      },
+      {
+        "name": "balena-etcher-electron-1.5.19.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/balena-etcher-electron-1.5.19.i686.rpm"
+      },
+      {
+        "name": "balena-etcher-electron-1.5.19.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/balena-etcher-electron-1.5.19.x86_64.rpm"
+      },
+      {
+        "name": "balena-etcher-electron_1.5.19_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/balena-etcher-electron_1.5.19_amd64.deb"
+      },
+      {
+        "name": "balena-etcher-electron_1.5.19_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/balena-etcher-electron_1.5.19_i386.deb"
+      },
+      {
+        "name": "balenaEtcher-1.5.19-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/balenaEtcher-1.5.19-ia32.AppImage"
+      },
+      {
+        "name": "balenaEtcher-1.5.19-mac.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/balenaEtcher-1.5.19-mac.zip"
+      },
+      {
+        "name": "balenaEtcher-1.5.19-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/balenaEtcher-1.5.19-x64.AppImage"
+      },
+      {
+        "name": "balenaEtcher-1.5.19.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/balenaEtcher-1.5.19.dmg"
+      },
+      {
+        "name": "balenaEtcher-1.5.19.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/balenaEtcher-1.5.19.dmg.blockmap"
+      },
+      {
+        "name": "balenaEtcher-Portable-1.5.19-x64.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/balenaEtcher-Portable-1.5.19-x64.exe"
+      },
+      {
+        "name": "balenaEtcher-Portable-1.5.19-x86.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/balenaEtcher-Portable-1.5.19-x86.exe"
+      },
+      {
+        "name": "balenaEtcher-Setup-1.5.19-x64.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/balenaEtcher-Setup-1.5.19-x64.exe"
+      },
+      {
+        "name": "balenaEtcher-Setup-1.5.19-x64.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/balenaEtcher-Setup-1.5.19-x64.exe.blockmap"
+      },
+      {
+        "name": "balenaEtcher-Setup-1.5.19-x86.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/balenaEtcher-Setup-1.5.19-x86.exe"
+      },
+      {
+        "name": "balenaEtcher-Setup-1.5.19-x86.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/balenaEtcher-Setup-1.5.19-x86.exe.blockmap"
+      },
+      {
+        "name": "builder-effective-config.yaml",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/builder-effective-config.yaml"
+      },
+      {
+        "name": "latest-linux-ia32.yml",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/latest-linux-ia32.yml"
+      },
+      {
+        "name": "latest-linux.yml",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/latest-linux.yml"
+      },
+      {
+        "name": "latest-mac.yml",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/latest-mac.yml"
+      },
+      {
+        "name": "latest.yml",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.19/latest.yml"
+      }
+    ]
+  },
+  "latestPreRelease": {
+    "tagName": "v1.5.23",
+    "assets": [
+      {
+        "name": "balena-etcher-electron_1.5.23_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/balena-etcher-electron_1.5.23_amd64.deb"
+      },
+      {
+        "name": "balena-etcher-electron-1.5.23.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/balena-etcher-electron-1.5.23.x86_64.rpm"
+      },
+      {
+        "name": "balenaEtcher-1.5.23-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/balenaEtcher-1.5.23-x64.AppImage"
+      },
+      {
+        "name": "latest-linux.yml",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/latest-linux.yml"
+      },
+      {
+        "name": "balena-etcher-electron-1.5.23-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/balena-etcher-electron-1.5.23-linux-x64.zip"
+      },
+      {
+        "name": "balenaEtcher-Portable-1.5.23-x64.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/balenaEtcher-Portable-1.5.23-x64.exe"
+      },
+      {
+        "name": "balenaEtcher-Setup-1.5.23-x64.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/balenaEtcher-Setup-1.5.23-x64.exe"
+      },
+      {
+        "name": "balenaEtcher-Setup-1.5.23-x64.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/balenaEtcher-Setup-1.5.23-x64.exe.blockmap"
+      },
+      {
+        "name": "balenaEtcher-1.5.23-mac.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/balenaEtcher-1.5.23-mac.zip"
+      },
+      {
+        "name": "balenaEtcher-1.5.23.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/balenaEtcher-1.5.23.dmg"
+      },
+      {
+        "name": "balenaEtcher-1.5.23.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/balenaEtcher-1.5.23.dmg.blockmap"
+      },
+      {
+        "name": "latest-mac.yml",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/latest-mac.yml"
+      },
+      {
+        "name": "builder-effective-config.yaml",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/builder-effective-config.yaml"
+      },
+      {
+        "name": "balena-etcher-electron_1.5.23_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/balena-etcher-electron_1.5.23_i386.deb"
+      },
+      {
+        "name": "balena-etcher-electron-1.5.23.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/balena-etcher-electron-1.5.23.i686.rpm"
+      },
+      {
+        "name": "balenaEtcher-1.5.23-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/balenaEtcher-1.5.23-ia32.AppImage"
+      },
+      {
+        "name": "latest-linux-ia32.yml",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/latest-linux-ia32.yml"
+      },
+      {
+        "name": "balena-etcher-electron-1.5.23-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/balena-etcher-electron-1.5.23-linux-ia32.zip"
+      },
+      {
+        "name": "balenaEtcher-Portable-1.5.23-x86.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/balenaEtcher-Portable-1.5.23-x86.exe"
+      },
+      {
+        "name": "balenaEtcher-Setup-1.5.23-x86.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/balenaEtcher-Setup-1.5.23-x86.exe"
+      },
+      {
+        "name": "balenaEtcher-Setup-1.5.23-x86.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/balenaEtcher-Setup-1.5.23-x86.exe.blockmap"
+      },
+      {
+        "name": "latest.yml",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.23/latest.yml"
+      }
+    ]
+  },
+  "version": "1.5.23"
+}
