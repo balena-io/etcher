@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.23
+## (2019-04-03)
+
+* Configure versionbot to publish repo metadata to github pages [Giovanni Garufi]
+
 # v1.5.22
 ## (2019-04-02)
 
