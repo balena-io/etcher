@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.22
+## (2019-04-02)
+
+* (Windows): Use full path to wmic as some systems don't have it in their PATH [Alexis Svinartchouk]
+
+# v1.5.21
+## (2019-04-02)
+
+* Fix error when config.analytics was undefined [Alexis Svinartchouk]
+
+# v1.5.20
+## (2019-04-01)
+
+* Don't try to flash when no device is selected [Alexis Svinartchouk]
+* Reformat changelog [Giovanni Garufi]
+* Avoid "Error: There is already a flash in progress" errors [Alexis Svinartchouk]
+
 # v1.5.19
 ## (2019-03-28)
 
