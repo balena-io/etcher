@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.25
+## (2019-04-09)
+
+* New parameter in webview for opt-out analytics [Lorenzo Alberto Maria Ambrosi]
+
 # v1.5.24
 ## (2019-04-05)
 
