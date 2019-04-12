@@ -1,6 +1,6 @@
 {
   "name": "balena-etcher",
-  "version": "1.5.25",
+  "version": "1.5.26",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -5845,6 +5845,17 @@
         "chardet": "^0.4.0",
         "iconv-lite": "^0.4.17",
         "tmp": "^0.0.33"
+      },
+      "dependencies": {
+        "tmp": {
+          "version": "0.0.33",
+          "resolved": "https://registry.npmjs.org/tmp/-/tmp-0.0.33.tgz",
+          "integrity": "sha512-jRCJlojKnZ3addtTOjdIqoRuPEKBvNXcGYqzO6zWZX8KfKEpnGY5jfggJQ3EjKuu8D4bJRr0y+cYJFmYbImXGw==",
+          "dev": true,
+          "requires": {
+            "os-tmpdir": "~1.0.2"
+          }
+        }
       }
     },
     "extglob": {
@@ -14577,6 +14588,27 @@
       "integrity": "sha512-KY9Frmirql91X2Qgjry0Wd4Y+YTdrdZheS8TFwvkbLWf/G5KNJDCh6pKL5OZctEW4+0Baa5idK2ZQuELRwPznQ==",
       "requires": {
         "punycode": "^2.1.0"
+
+    "timed-out": {
+      "version": "4.0.1",
+      "resolved": "https://registry.npmjs.org/timed-out/-/timed-out-4.0.1.tgz",
+      "integrity": "sha1-8y6srFoXW+ol1/q1Zas+2HQe9W8="
+    },
+    "timers-browserify": {
+      "version": "2.0.10",
+      "resolved": "https://registry.npmjs.org/timers-browserify/-/timers-browserify-2.0.10.tgz",
+      "integrity": "sha512-YvC1SV1XdOUaL6gx5CoGroT3Gu49pK9+TZ38ErPldOWW4j49GI1HKs9DV+KGq/w6y+LZ72W1c8cKz2vzY+qpzg==",
+      "dev": true,
+      "requires": {
+        "setimmediate": "^1.0.4"
+      }
+    },
+    "tmp": {
+      "version": "0.1.0",
+      "resolved": "https://registry.npmjs.org/tmp/-/tmp-0.1.0.tgz",
+      "integrity": "sha512-J7Z2K08jbGcdA1kkQpJSqLF6T0tdQqpR2pnSUXsIchbPdTI9v3e85cLW0d6WDhwuAleOV71j2xWs8qMPfK7nKw==",
+      "requires": {
+        "rimraf": "^2.6.3"
       }
     },
     "urix": {
