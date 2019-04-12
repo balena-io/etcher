@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.26
+## (2019-04-12)
+
+* (Windows): Fix reading images from network drives containing non ascii characters [Alexis Svinartchouk]
+
 # v1.5.25
 ## (2019-04-09)
 
