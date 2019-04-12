@@ -18,12 +18,11 @@
 
 const { readFile } = require('fs')
 const os = require('os')
-const cp = require('child_process')
 const m = require('mochainon')
 const { env } = require('process')
 const { promisify } = require('util')
 
-const { replaceWindowsNetworkDriveLetter } = require('../../../lib/gui/app/os/windows-network-drives')
+const wnd = require('../../../lib/gui/app/os/windows-network-drives')
 
 const readFileAsync = promisify(readFile)
 
@@ -32,20 +31,20 @@ describe('Network drives on Windows', () => {
     this.osPlatformStub = m.sinon.stub(os, 'platform')
     this.osPlatformStub.returns('win32')
     const wmicOutput = await readFileAsync('tests/data/wmic-output.txt', { encoding: 'ucs2' })
-    this.execFileStub = m.sinon.stub(cp, 'execFile')
-    this.execFileStub.callsArgWith(3, null, wmicOutput)
+    this.outputStub = m.sinon.stub(wnd, 'getWmicNetworkDrivesOutput')
+    this.outputStub.resolves(wmicOutput)
     this.oldSystemRoot = env.SystemRoot
     env.SystemRoot = 'C:\\Windows'
   })
 
   it('should parse network drive mapping on Windows', async () => {
-    m.chai.expect(await replaceWindowsNetworkDriveLetter('Z:\\some-folder\\some-file'))
-      .to.equal('\\\\192.168.1.1\\Public\\some-folder\\some-file')
+    m.chai.expect(await wnd.replaceWindowsNetworkDriveLetter('Z:\\some-folder\\some-file'))
+      .to.equal('\\\\192.168.1.1\\Publicé\\some-folder\\some-file')
   })
 
   after(() => {
     this.osPlatformStub.restore()
-    this.execFileStub.restore()
+    this.outputStub.restore()
     env.SystemRoot = this.oldSystemRoot
   })
 })
