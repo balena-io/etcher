@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.27
+## (2019-04-16)
+
+* (Windows): Fix reading images from network drives when the tmp dir has spaces [Alexis Svinartchouk]
+
 # v1.5.26
 ## (2019-04-12)
 
