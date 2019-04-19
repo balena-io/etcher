@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.28
+## (2019-04-18)
+
+* Update electron-builder to ^20.40.2 [Alexis Svinartchouk]
+* Update etcher-sdk to ^2.0.1 [Alexis Svinartchouk]
+
 # v1.5.27
 ## (2019-04-16)
 
