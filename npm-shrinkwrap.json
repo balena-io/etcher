@@ -2180,7 +2180,6 @@
       "version": "1.0.7",
       "resolved": "https://registry.npmjs.org/bluebird-lst/-/bluebird-lst-1.0.7.tgz",
       "integrity": "sha512-5ix04IbXVIZ6nSRM4aZnwQfk40Td0D57WAl8LfhnICF6XwT4efCZYh0veOHvfDmgpbqE4ju5L5XEAMIcAe13Kw==",
-      "dev": true,
       "requires": {
         "bluebird": "^3.5.3"
       }
@@ -2574,6 +2573,7 @@
           "version": "4.1.1",
           "resolved": "https://registry.npmjs.org/debug/-/debug-4.1.1.tgz",
           "integrity": "sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==",
+          "dev": true,
           "requires": {
             "ms": "^2.1.1"
           }
@@ -4436,6 +4436,25 @@
         "source-map-support": "^0.5.9"
       },
       "dependencies": {
+        "builder-util-runtime": {
+          "version": "8.1.1",
+          "resolved": "https://registry.npmjs.org/builder-util-runtime/-/builder-util-runtime-8.1.1.tgz",
+          "integrity": "sha512-+ieS4PMB33vVE2S3ZNWBEQJ1zKmAs/agrBdh7XadE1lKLjrH4aXYuOh9OOGdxqIRldhlhNBaF+yKMMEFOdNVig==",
+          "requires": {
+            "bluebird-lst": "^1.0.6",
+            "debug": "^4.1.1",
+            "fs-extra-p": "^7.0.0",
+            "sax": "^1.2.4"
+          }
+        },
+        "debug": {
+          "version": "4.1.1",
+          "resolved": "https://registry.npmjs.org/debug/-/debug-4.1.1.tgz",
+          "integrity": "sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==",
+          "requires": {
+            "ms": "^2.1.1"
+          }
+        },
         "source-map": {
           "version": "0.6.1",
           "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.6.1.tgz",
@@ -5908,7 +5927,6 @@
       "version": "7.0.1",
       "resolved": "https://registry.npmjs.org/fs-extra-p/-/fs-extra-p-7.0.1.tgz",
       "integrity": "sha512-yhd2OV0HnHt2oitlp+X9hl2ReX4X/7kQeL7/72qzPHTZj5eUPGzAKOvEglU02Fa1OeG2rSy/aKB4WGVaLiF8tw==",
-      "dev": true,
       "requires": {
         "bluebird-lst": "^1.0.7",
         "fs-extra": "^7.0.1"
@@ -7227,8 +7245,7 @@
     "lazy-val": {
       "version": "1.0.4",
       "resolved": "https://registry.npmjs.org/lazy-val/-/lazy-val-1.0.4.tgz",
-      "integrity": "sha512-u93kb2fPbIrfzBuLjZE+w+fJbUUMhNDXxNmMfaqNgpfQf1CO5ZSe2LfsnBqVAk7i/2NF48OSoRj+Xe2VT+lE8Q==",
-      "dev": true
+      "integrity": "sha512-u93kb2fPbIrfzBuLjZE+w+fJbUUMhNDXxNmMfaqNgpfQf1CO5ZSe2LfsnBqVAk7i/2NF48OSoRj+Xe2VT+lE8Q=="
     },
     "lazystream": {
       "version": "1.0.0",
