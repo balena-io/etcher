@@ -43,14 +43,14 @@
     </label>
   </div>
 
-  <div class="checkbox" ng-show="settings.model.get('updatesEnabled')">
+  <div class="checkbox">
     <label>
       <input type="checkbox"
         tabindex="9"
-        ng-model="settings.currentData.includeUnstableUpdateChannel"
-        ng-change="settings.toggle('includeUnstableUpdateChannel')">
+        ng-model="settings.currentData.updatesEnabled"
+        ng-change="settings.toggle('updatesEnabled')">
 
-      <span>Include unstable update channel</span>
+      <span>Auto-updates enabled</span>
     </label>
   </div>
 

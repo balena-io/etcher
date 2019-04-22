@@ -20,7 +20,7 @@
   },
   "scripts": {
     "test": "make lint test sanity-checks",
-    "start": "electron lib/start.js",
+    "start": "./node_modules/.bin/electron .",
     "configure": "node-gyp configure",
     "build": "node-gyp build",
     "install": "node-gyp rebuild",
@@ -49,6 +49,7 @@
     "debug": "^3.1.0",
     "electron-is-running-in-asar": "^1.0.0",
     "etcher-sdk": "^2.0.1",
+    "electron-updater": "4.0.6",
     "flexboxgrid": "^6.3.0",
     "immutable": "^3.8.1",
     "inactivity-timer": "^1.0.0",
