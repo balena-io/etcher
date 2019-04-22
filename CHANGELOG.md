@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.29
+## (2019-04-19)
+
+* Add support for auto-updating feature [Giovanni Garufi]
+
 # v1.5.28
 ## (2019-04-18)
 
