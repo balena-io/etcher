@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.30
+## (2019-04-24)
+
+* Don't show a dialog when the write fails. [Alexis Svinartchouk]
+
 # v1.5.29
 ## (2019-04-19)
 
