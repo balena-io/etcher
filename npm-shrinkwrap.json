@@ -5273,9 +5273,9 @@
       "integrity": "sha1-Cr9PHKpbyx96nYrMbepPqqBLrJs="
     },
     "etcher-sdk": {
-      "version": "2.0.1",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-2.0.1.tgz",
-      "integrity": "sha512-8C5uUq+CaQLCU4PuIRNJJ43mR7NN6tTpxUr5CVAroXtlJ360uq2eFa6AsuxOdQv+vZXxY345thqoF0flrHBeBQ==",
+      "version": "2.0.3",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-2.0.3.tgz",
+      "integrity": "sha512-Ix+d7czuIMXyjCztmqD75iJdAY4b17HdLhMDjXd5vLUhWdq/qBPkjyuNn1TZosyrEyZ+hoe3+ZOSLjLFL2GHLA==",
       "requires": {
         "@types/node": "^6.0.112",
         "axios": "^0.18.0",
@@ -8348,9 +8348,9 @@
       "dev": true
     },
     "needle": {
-      "version": "2.3.0",
-      "resolved": "https://registry.npmjs.org/needle/-/needle-2.3.0.tgz",
-      "integrity": "sha512-QBZu7aAFR0522EyaXZM0FZ9GLpq6lvQ3uq8gteiDUp7wKdy0lSd2hPlgFwVuW1CBkfEs9PfDQsQzZghLs/psdg==",
+      "version": "2.3.1",
+      "resolved": "https://registry.npmjs.org/needle/-/needle-2.3.1.tgz",
+      "integrity": "sha512-CaLXV3W8Vnbps8ZANqDGz7j4x7Yj1LW4TWF/TQuDfj7Cfx4nAPTvw98qgTevtto1oHDrh3pQkaODbqupXlsWTg==",
       "requires": {
         "debug": "^4.1.0",
         "iconv-lite": "^0.4.4",
@@ -8428,9 +8428,9 @@
       }
     },
     "node-abi": {
-      "version": "2.7.1",
-      "resolved": "https://registry.npmjs.org/node-abi/-/node-abi-2.7.1.tgz",
-      "integrity": "sha512-OV8Bq1OrPh6z+Y4dqwo05HqrRL9YNF7QVMRfq1/pguwKLG+q9UB/Lk0x5qXjO23JjJg+/jqCHSTaG1P3tfKfuw==",
+      "version": "2.8.0",
+      "resolved": "https://registry.npmjs.org/node-abi/-/node-abi-2.8.0.tgz",
+      "integrity": "sha512-1/aa2clS0pue0HjckL62CsbhWWU35HARvBDXcJtYKbYR7LnIutmpxmXbuDMV9kEviD2lP/wACOgWmmwljghHyQ==",
       "requires": {
         "semver": "^5.4.1"
       }
@@ -9457,9 +9457,9 @@
       "integrity": "sha512-pISE66AbVkp4fDQ7VHBwRNXzAAKJjw4Vw7nWI/+Q3vuly7SNfgYXvm6i5IgFylHGK5sP/xHAbB7N49OS4gWNyQ=="
     },
     "prebuild-install": {
-      "version": "5.2.5",
-      "resolved": "https://registry.npmjs.org/prebuild-install/-/prebuild-install-5.2.5.tgz",
-      "integrity": "sha512-6uZgMVg7yDfqlP5CPurVhtq3hUKBFNufiar4J5hZrlHTo59DDBEtyxw01xCdFss9j0Zb9+qzFVf/s4niayba3w==",
+      "version": "5.3.0",
+      "resolved": "https://registry.npmjs.org/prebuild-install/-/prebuild-install-5.3.0.tgz",
+      "integrity": "sha512-aaLVANlj4HgZweKttFNUVNRxDukytuIuxeK2boIMHjagNJCiVKWFsKF4tCE3ql3GbrD2tExPQ7/pwtEJcHNZeg==",
       "requires": {
         "detect-libc": "^1.0.3",
         "expand-template": "^2.0.3",
