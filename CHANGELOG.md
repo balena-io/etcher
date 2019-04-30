@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.32
+## (2019-04-30)
+
+* Export NPM_VERSION variable in Makefile [Lorenzo Alberto Maria Ambrosi]
+
 # v1.5.31
 ## (2019-04-29)
 
