@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.31
+## (2019-04-29)
+
+* Update etcher-sdk to ^2.0.3 [Alexis Svinartchouk]
+* Update electron to 4.1.5 [Alexis Svinartchouk]
+
 # v1.5.30
 ## (2019-04-24)
 
