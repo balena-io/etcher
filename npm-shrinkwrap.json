@@ -5273,9 +5273,9 @@
       "integrity": "sha1-Cr9PHKpbyx96nYrMbepPqqBLrJs="
     },
     "etcher-sdk": {
-      "version": "2.0.3",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-2.0.3.tgz",
-      "integrity": "sha512-Ix+d7czuIMXyjCztmqD75iJdAY4b17HdLhMDjXd5vLUhWdq/qBPkjyuNn1TZosyrEyZ+hoe3+ZOSLjLFL2GHLA==",
+      "version": "2.0.5",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-2.0.5.tgz",
+      "integrity": "sha512-222NEcUeKQqvBf0rPL0mmuEIuxpuQpmMSZRLv3mCXsOT4/cgtYPbwQAlEtTbRPRbFMfyO+7yhwf20PXgfhU5/A==",
       "requires": {
         "@types/node": "^6.0.112",
         "axios": "^0.18.0",
