@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.33
+## (2019-04-30)
+
+* Fix gzipped files verification percentage and dmg verification. [Alexis Svinartchouk]
+
 # v1.5.32
 ## (2019-04-30)
 
