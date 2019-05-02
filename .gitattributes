@@ -25,6 +25,7 @@ Makefile text
 *.yml text
 *.patch text
 *.txt text
+CODEOWNERS text
 
 # Binary files (no line-ending conversions)
 *.bz2 binary diff=hex

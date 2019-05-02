@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.33
+## (2019-04-30)
+
+* Fix gzipped files verification percentage and dmg verification. [Alexis Svinartchouk]
+
+# v1.5.32
+## (2019-04-30)
+
+* Export NPM_VERSION variable in Makefile [Lorenzo Alberto Maria Ambrosi]
+
+# v1.5.31
+## (2019-04-29)
+
+* Update etcher-sdk to ^2.0.3 [Alexis Svinartchouk]
+* Update electron to 4.1.5 [Alexis Svinartchouk]
+
+# v1.5.30
+## (2019-04-24)
+
+* Don't show a dialog when the write fails. [Alexis Svinartchouk]
+
+# v1.5.29
+## (2019-04-19)
+
+* Add support for auto-updating feature [Giovanni Garufi]
+
+# v1.5.28
+## (2019-04-18)
+
+* Update electron-builder to ^20.40.2 [Alexis Svinartchouk]
+* Update etcher-sdk to ^2.0.1 [Alexis Svinartchouk]
+
 # v1.5.27
 ## (2019-04-16)
 
