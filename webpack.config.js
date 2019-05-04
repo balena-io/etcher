@@ -38,7 +38,7 @@ const commonConfig = {
           options: {
             presets: [
               '@babel/preset-react',
-              [ '@babel/preset-env', { targets: { electron: '4' } } ]
+              [ '@babel/preset-env', { targets: { electron: '5' } } ]
             ],
             plugins: [ '@babel/plugin-proposal-function-bind' ],
             cacheDirectory: true
