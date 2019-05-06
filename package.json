@@ -21,6 +21,7 @@
   "scripts": {
     "test": "make lint test sanity-checks",
     "start": "./node_modules/.bin/electron .",
+    "postshrinkwrap": "node ./scripts/clean-shrinkwrap.js",
     "configure": "node-gyp configure",
     "build": "node-gyp build",
     "install": "node-gyp rebuild",
@@ -32,6 +33,10 @@
   },
   "author": "Balena Inc. <hello@etcher.io>",
   "license": "Apache-2.0",
+  "platformSpecificDependencies": [
+    "fsevents",
+    "winusb-driver-generator"
+  ],
   "dependencies": {
     "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
     "angular": "1.7.6",
@@ -104,6 +109,7 @@
     "nock": "^9.2.3",
     "node-gyp": "^3.8.0",
     "node-sass": "^4.7.2",
+    "omit-deep-lodash": "1.1.4",
     "pkg": "^4.3.0",
     "sass-lint": "^1.12.1",
     "simple-progress-webpack-plugin": "^1.1.2",

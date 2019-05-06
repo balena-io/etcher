@@ -318,8 +318,6 @@ rules:
     - always
   prefer-const:
     - error
-  prefer-reflect:
-    - error
   prefer-spread:
     - error
   prefer-numeric-literals:

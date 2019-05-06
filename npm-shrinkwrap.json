@@ -8844,6 +8844,15 @@
         "isobject": "^3.0.1"
       }
     },
+    "omit-deep-lodash": {
+      "version": "1.1.4",
+      "resolved": "https://registry.npmjs.org/omit-deep-lodash/-/omit-deep-lodash-1.1.4.tgz",
+      "integrity": "sha512-5ge7dBDVDYEU8YiqYlKxjsVesB3wqXejgluGx+9Xd8+PJH7VEEK9D4Pqpq7VE0ZtQh9HBz0LMNRk1BA3+bsd4Q==",
+      "dev": true,
+      "requires": {
+        "lodash": "~4.17.11"
+      }
+    },
     "once": {
       "version": "1.4.0",
       "resolved": "https://registry.npmjs.org/once/-/once-1.4.0.tgz",
