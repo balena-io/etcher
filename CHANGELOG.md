@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.35
+## (2019-05-10)
+
+* Downgrade electron 4.1.5 -> 3.1.9 [Alexis Svinartchouk]
+
 # v1.5.34
 ## (2019-05-09)
 
