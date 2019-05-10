@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.34
+## (2019-05-09)
+
+* Use https url for fetching config, avoid redirection [Alexis Svinartchouk]
+* win32: fix running diskpart when the tmp file path contains spaces [Alexis Svinartchouk]
+
 # v1.5.33
 ## (2019-04-30)
 
