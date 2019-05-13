@@ -5,7 +5,7 @@
 Etcher is a powerful OS image flasher built with web technologies to ensure
 flashing an SDCard or USB drive is a pleasant and safe experience. It protects
 you from accidentally writing to your hard-drives, ensures every byte of data
-was written correctly and much more.
+was written correctly and much more. It can also flash directly Raspberry Pi devices that support the usbboot protocol
 
 [![Current Release](https://img.shields.io/github/release/balena-io/etcher.svg?style=flat-square)](https://balena.io/etcher)
 ![License](https://img.shields.io/github/license/balena-io/etcher.svg?style=flat-square)
