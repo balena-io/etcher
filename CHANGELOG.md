@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.38
+## (2019-05-13)
+
+* Add mention to usbboot compatibility [Carlo Maria Curinga]
+
 # v1.5.37
 ## (2019-05-13)
 
