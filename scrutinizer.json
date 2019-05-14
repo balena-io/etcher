@@ -48,97 +48,97 @@
     "uuid",
     "xml2js"
   ],
-  "lastCommitDate": "2019-05-13T22:47:31Z",
+  "lastCommitDate": "2019-05-14T10:27:35Z",
   "latestRelease": {
-    "tagName": "v1.5.38",
+    "tagName": "v1.5.39",
     "asssets": [
       {
-        "name": "balena-etcher-electron-1.5.38-linux-ia32.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/balena-etcher-electron-1.5.38-linux-ia32.zip"
+        "name": "balena-etcher-electron-1.5.39-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/balena-etcher-electron-1.5.39-linux-ia32.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.38-linux-x64.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/balena-etcher-electron-1.5.38-linux-x64.zip"
+        "name": "balena-etcher-electron-1.5.39-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/balena-etcher-electron-1.5.39-linux-x64.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.38.i686.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/balena-etcher-electron-1.5.38.i686.rpm"
+        "name": "balena-etcher-electron-1.5.39.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/balena-etcher-electron-1.5.39.i686.rpm"
       },
       {
-        "name": "balena-etcher-electron-1.5.38.x86_64.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/balena-etcher-electron-1.5.38.x86_64.rpm"
+        "name": "balena-etcher-electron-1.5.39.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/balena-etcher-electron-1.5.39.x86_64.rpm"
       },
       {
-        "name": "balena-etcher-electron_1.5.38_amd64.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/balena-etcher-electron_1.5.38_amd64.deb"
+        "name": "balena-etcher-electron_1.5.39_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/balena-etcher-electron_1.5.39_amd64.deb"
       },
       {
-        "name": "balena-etcher-electron_1.5.38_i386.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/balena-etcher-electron_1.5.38_i386.deb"
+        "name": "balena-etcher-electron_1.5.39_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/balena-etcher-electron_1.5.39_i386.deb"
       },
       {
-        "name": "balenaEtcher-1.5.38-ia32.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/balenaEtcher-1.5.38-ia32.AppImage"
+        "name": "balenaEtcher-1.5.39-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/balenaEtcher-1.5.39-ia32.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.38-mac.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/balenaEtcher-1.5.38-mac.zip"
+        "name": "balenaEtcher-1.5.39-mac.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/balenaEtcher-1.5.39-mac.zip"
       },
       {
-        "name": "balenaEtcher-1.5.38-x64.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/balenaEtcher-1.5.38-x64.AppImage"
+        "name": "balenaEtcher-1.5.39-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/balenaEtcher-1.5.39-x64.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.38.dmg",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/balenaEtcher-1.5.38.dmg"
+        "name": "balenaEtcher-1.5.39.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/balenaEtcher-1.5.39.dmg"
       },
       {
-        "name": "balenaEtcher-1.5.38.dmg.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/balenaEtcher-1.5.38.dmg.blockmap"
+        "name": "balenaEtcher-1.5.39.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/balenaEtcher-1.5.39.dmg.blockmap"
       },
       {
-        "name": "balenaEtcher-Portable-1.5.38-x64.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/balenaEtcher-Portable-1.5.38-x64.exe"
+        "name": "balenaEtcher-Portable-1.5.39-x64.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/balenaEtcher-Portable-1.5.39-x64.exe"
       },
       {
-        "name": "balenaEtcher-Portable-1.5.38-x86.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/balenaEtcher-Portable-1.5.38-x86.exe"
+        "name": "balenaEtcher-Portable-1.5.39-x86.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/balenaEtcher-Portable-1.5.39-x86.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.38-x64.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/balenaEtcher-Setup-1.5.38-x64.exe"
+        "name": "balenaEtcher-Setup-1.5.39-x64.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/balenaEtcher-Setup-1.5.39-x64.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.38-x64.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/balenaEtcher-Setup-1.5.38-x64.exe.blockmap"
+        "name": "balenaEtcher-Setup-1.5.39-x64.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/balenaEtcher-Setup-1.5.39-x64.exe.blockmap"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.38-x86.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/balenaEtcher-Setup-1.5.38-x86.exe"
+        "name": "balenaEtcher-Setup-1.5.39-x86.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/balenaEtcher-Setup-1.5.39-x86.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.38-x86.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/balenaEtcher-Setup-1.5.38-x86.exe.blockmap"
+        "name": "balenaEtcher-Setup-1.5.39-x86.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/balenaEtcher-Setup-1.5.39-x86.exe.blockmap"
       },
       {
         "name": "builder-effective-config.yaml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/builder-effective-config.yaml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/builder-effective-config.yaml"
       },
       {
         "name": "latest-linux-ia32.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/latest-linux-ia32.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/latest-linux-ia32.yml"
       },
       {
         "name": "latest-linux.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/latest-linux.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/latest-linux.yml"
       },
       {
         "name": "latest-mac.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/latest-mac.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/latest-mac.yml"
       },
       {
         "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.38/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.39/latest.yml"
       }
     ]
   },
@@ -235,5 +235,5 @@
       }
     ]
   },
-  "version": "1.5.38"
+  "version": "1.5.39"
 }
