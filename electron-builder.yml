@@ -1,8 +1,8 @@
 appId: io.balena.etcher
 copyright: Copyright 2016-2019 Balena Ltd
 productName: balenaEtcher
-npmRebuild: false
-nodeGypRebuild: false
+npmRebuild: true
+nodeGypRebuild: true
 publish: null
 files:
   - lib
@@ -37,9 +37,9 @@ nsis:
   uninstallerIcon: assets/icon.ico
   deleteAppDataOnUninstall: true
   license: LICENSE
-  artifactName: "${productName}-Setup-${version}-${env.TARGET_ARCH}.${ext}"
+  artifactName: "${productName}-Setup-${version}.${ext}"
 portable:
-  artifactName: "${productName}-Portable-${version}-${env.TARGET_ARCH}.${ext}"
+  artifactName: "${productName}-Portable-${version}.${ext}"
   requestExecutionLevel: user
 linux:
   category: Utility
