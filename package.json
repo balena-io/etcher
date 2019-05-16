@@ -2,7 +2,7 @@
   "name": "balena-etcher",
   "private": true,
   "displayName": "balenaEtcher",
-  "version": "1.5.35",
+  "version": "1.5.39",
   "packageType": "local",
   "updates": {
     "enabled": true,
@@ -21,6 +21,7 @@
   "scripts": {
     "test": "make lint test sanity-checks",
     "start": "./node_modules/.bin/electron .",
+    "postshrinkwrap": "node ./scripts/clean-shrinkwrap.js",
     "configure": "node-gyp configure",
     "build": "node-gyp build",
     "install": "node-gyp rebuild",
@@ -32,6 +33,10 @@
   },
   "author": "Balena Inc. <hello@etcher.io>",
   "license": "Apache-2.0",
+  "platformSpecificDependencies": [
+    "fsevents",
+    "winusb-driver-generator"
+  ],
   "dependencies": {
     "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
     "angular": "1.7.8",
@@ -49,7 +54,7 @@
     "debug": "^4.1.1",
     "electron-is-running-in-asar": "^1.0.0",
     "electron-updater": "4.0.6",
-    "etcher-sdk": "^2.0.7",
+    "etcher-sdk": "^2.0.9",
     "flexboxgrid": "^6.3.0",
     "immutable": "^3.8.1",
     "inactivity-timer": "^1.0.0",
@@ -104,6 +109,7 @@
     "nock": "^10.0.6",
     "node-gyp": "^3.8.0",
     "node-sass": "^4.7.2",
+    "omit-deep-lodash": "1.1.4",
     "pkg": "^4.3.0",
     "sass-lint": "^1.12.1",
     "simple-progress-webpack-plugin": "^1.1.2",

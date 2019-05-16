@@ -1,6 +1,6 @@
 {
   "name": "balena-etcher",
-  "version": "1.5.35",
+  "version": "1.5.39",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
@@ -5816,9 +5816,9 @@
       "integrity": "sha1-Cr9PHKpbyx96nYrMbepPqqBLrJs="
     },
     "etcher-sdk": {
-      "version": "2.0.7",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-2.0.7.tgz",
-      "integrity": "sha512-flZ3wklxD72aY3Rt1YiUuvrvjOA/SVzvVXYa9Q2rQsweDlSoQFFIKO9Gr9qj7Nvf+1B9uzQFI+aQ4a720Iu0Mg==",
+      "version": "2.0.9",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-2.0.9.tgz",
+      "integrity": "sha512-jCgKgwQO13/jaTx651GP2DhfCKDEnYG4YSAasBgIej1OgoP8FeBCoci88ycPPuz1gyalN08IwuxZRFcjYzk1pw==",
       "requires": {
         "@types/node": "^6.0.112",
         "axios": "^0.18.0",
@@ -11027,6 +11027,15 @@
         "isobject": "^3.0.1"
       }
     },
+    "omit-deep-lodash": {
+      "version": "1.1.4",
+      "resolved": "https://registry.npmjs.org/omit-deep-lodash/-/omit-deep-lodash-1.1.4.tgz",
+      "integrity": "sha512-5ge7dBDVDYEU8YiqYlKxjsVesB3wqXejgluGx+9Xd8+PJH7VEEK9D4Pqpq7VE0ZtQh9HBz0LMNRk1BA3+bsd4Q==",
+      "dev": true,
+      "requires": {
+        "lodash": "~4.17.11"
+      }
+    },
     "once": {
       "version": "1.4.0",
       "resolved": "https://registry.npmjs.org/once/-/once-1.4.0.tgz",
@@ -12034,20 +12043,20 @@
       }
     },
     "react": {
-      "version": "16.8.4",
-      "resolved": "https://registry.npmjs.org/react/-/react-16.8.4.tgz",
-      "integrity": "sha512-0GQ6gFXfUH7aZcjGVymlPOASTuSjlQL4ZtVC5YKH+3JL6bBLCVO21DknzmaPlI90LN253ojj02nsapy+j7wIjg==",
+      "version": "16.8.5",
+      "resolved": "https://registry.npmjs.org/react/-/react-16.8.5.tgz",
+      "integrity": "sha512-daCb9TD6FZGvJ3sg8da1tRAtIuw29PbKZW++NN4wqkbEvxL+bZpaaYb4xuftW/SpXmgacf1skXl/ddX6CdOlDw==",
       "requires": {
         "loose-envify": "^1.1.0",
         "object-assign": "^4.1.1",
         "prop-types": "^15.6.2",
-        "scheduler": "^0.13.4"
+        "scheduler": "^0.13.5"
       },
       "dependencies": {
         "scheduler": {
-          "version": "0.13.4",
-          "resolved": "https://registry.npmjs.org/scheduler/-/scheduler-0.13.4.tgz",
-          "integrity": "sha512-cvSOlRPxOHs5dAhP9yiS/6IDmVAVxmk33f0CtTJRkmUWcb1Us+t7b1wqdzoC0REw2muC9V5f1L/w5R5uKGaepA==",
+          "version": "0.13.6",
+          "resolved": "https://registry.npmjs.org/scheduler/-/scheduler-0.13.6.tgz",
+          "integrity": "sha512-IWnObHt413ucAYKsD9J1QShUKkbKLQQHdxRyw73sw4FN26iWr3DY/H34xGPe4nmL1DwXyWmSWmMrA9TfQbE/XQ==",
           "requires": {
             "loose-envify": "^1.1.0",
             "object-assign": "^4.1.1"

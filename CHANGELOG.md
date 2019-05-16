@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.39
+## (2019-05-14)
+
+* Add clean-shrinkwrap script to postshrinkwrap step [Lorenzo Alberto Maria Ambrosi]
+
+# v1.5.38
+## (2019-05-13)
+
+* Add mention to usbboot compatibility [Carlo Maria Curinga]
+
+# v1.5.37
+## (2019-05-13)
+
+* Bump react dependency to v16.8.5 [Lorenzo Alberto Maria Ambrosi]
+
+# v1.5.36
+## (2019-05-13)
+
+* Update etcher-sdk to ^2.0.9 [Alexis Svinartchouk]
+
 # v1.5.35
 ## (2019-05-10)
 
