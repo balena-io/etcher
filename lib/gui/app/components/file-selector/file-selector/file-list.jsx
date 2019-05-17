@@ -87,7 +87,7 @@ class UnstyledFileListWrap extends React.PureComponent {
   render () {
     return (
       <Flex className={ this.props.className }
-        innerRef={ ::this.setScrollElem }
+        ref={ ::this.setScrollElem }
         wrap="wrap">
         { this.props.children }
       </Flex>
