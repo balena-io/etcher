@@ -146,10 +146,6 @@ webpack:
 
 .PHONY: $(TARGETS)
 
-sass:
-	npm rebuild node-sass
-	node-sass lib/gui/app/scss/main.scss > lib/gui/css/main.css
-
 lint-js:
 	eslint --ignore-pattern scripts/resin/**/*.js lib tests scripts bin webpack.config.js
 
@@ -196,7 +192,6 @@ info:
 	@echo "Target arch         : $(TARGET_ARCH)"
 
 sanity-checks:
-	./scripts/ci/ensure-staged-sass.sh
 	./scripts/ci/ensure-npm-dependencies-compatibility.sh
 	./scripts/ci/ensure-all-file-extensions-in-gitattributes.sh
 
