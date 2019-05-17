@@ -40,7 +40,7 @@ const SelectImageButton = (props) => {
     return (
       <Provider>
         <StepNameButton
-          plaintext
+          plain
           onClick={props.showSelectedImageDetails}
           tooltip={props.imageBasename}
         >
@@ -52,7 +52,7 @@ const SelectImageButton = (props) => {
         </DetailsText>
         { !props.flashing &&
           <ChangeButton
-            plaintext
+            plain
             onClick={props.reselectImage}
           >
             Change

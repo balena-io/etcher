@@ -62,18 +62,18 @@
             <span class="step-drive step-warning glyphicon glyphicon-exclamation-sign"
               uib-tooltip="{{ main.constraints.getListDriveImageCompatibilityStatuses(main.selection.getSelectedDrives(), main.selection.getImage())[0].message }}"
               ng-show="main.constraints.hasListDriveImageCompatibilityStatus(main.selection.getSelectedDrives(), main.selection.getImage())"></span>
-            <button class="button button-link step-footer"
-              tabindex="{{ main.selection.hasDrive() ? 2 : -1 }}"
-              ng-hide="main.state.isFlashing() || !drive.shouldShowDrivesButton()"
-              ng-click="drive.reselectDrive()">Change</button>
-            <span
+            <p
               ng-if="main.selection.getSelectedDevices().length <= 1"
               ng-class="{
                 'step-fill': !drive.shouldShowDrivesButton()
               }"
               class="step-drive step-size">
               {{ drive.getDrivesSubtitle() }}
-            </span>
+            </p>
+            <button class="button button-link step-footer"
+              tabindex="{{ main.selection.hasDrive() ? 2 : -1 }}"
+              ng-hide="main.state.isFlashing() || !drive.shouldShowDrivesButton()"
+              ng-click="drive.reselectDrive()">Change</button>
           </div>
         </div>
         <div ng-if="main.selection.getSelectedDevices().length > 1"

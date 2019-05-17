@@ -72,7 +72,7 @@ class Crumb extends React.PureComponent {
     return (
       <rendition.Button
         onClick={ ::this.navigate }
-        plaintext={ true }>
+        plain={ true }>
         <rendition.Txt bold={ this.props.bold }>
           { middleEllipsis(this.props.dir.name, FILENAME_CHAR_LIMIT_SHORT) }
         </rendition.Txt>
