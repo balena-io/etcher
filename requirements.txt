@@ -1,4 +1,4 @@
-codespell==1.14.0
+codespell==1.15.0
 cpplint==1.4.4
-awscli==1.16.135 
+awscli==1.16.16
 shyaml==0.6.1
