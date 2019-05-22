@@ -138,7 +138,6 @@ class ProgressButton extends React.Component {
       <Provider>
         <StepSelection>
           <StepButton
-            primary
             onClick= { this.props.callback }
             disabled= { this.props.disabled }
           >

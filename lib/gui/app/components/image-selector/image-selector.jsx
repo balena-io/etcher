@@ -65,7 +65,6 @@ const SelectImageButton = (props) => {
     <Provider>
       <StepSelection>
         <StepButton
-          primary
           onClick={props.openImageSelector}
         >
           Select image

@@ -46,12 +46,6 @@ svg-icon > img[disabled] {
   position: relative;
 }
 
-.page-main .button-brick {
-  width: 200px;
-  height: 48px;
-  font-size: 16px;
-}
-
 .page-main .button-abort-write {
   width: 20px;
   height: 20px;
@@ -67,6 +61,7 @@ svg-icon > img[disabled] {
   width: 200px;
   height: 48px;
   font-size: 16px;
+  font-weight: 300;
 }
 
 %step-border {
