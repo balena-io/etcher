@@ -49,7 +49,6 @@
     "bluebird": "^3.5.3",
     "bootstrap-sass": "^3.3.6",
     "color": "^2.0.1",
-    "command-join": "^2.0.0",
     "d3": "^4.13.0",
     "debug": "^3.1.0",
     "electron-is-running-in-asar": "^1.0.0",

@@ -3131,11 +3131,6 @@
         "delayed-stream": "~1.0.0"
       }
     },
-    "command-join": {
-      "version": "2.0.0",
-      "resolved": "https://registry.npmjs.org/command-join/-/command-join-2.0.0.tgz",
-      "integrity": "sha1-Uui5hPSHLZUv8b3IuYOX0nxxRM8="
-    },
     "commander": {
       "version": "2.8.1",
       "resolved": "https://registry.npmjs.org/commander/-/commander-2.8.1.tgz",
