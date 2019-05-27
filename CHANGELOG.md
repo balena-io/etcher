@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.41
+## (2019-05-27)
+
+* waffle.io removal and adding a link to the license [Mateusz Hajder]
+
 # v1.5.40
 ## (2019-05-24)
 
