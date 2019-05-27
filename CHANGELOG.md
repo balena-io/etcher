@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.40
+## (2019-05-24)
+
+* windows installer and portable version support both ia32 and x64 [Alexis Svinartchouk]
+
 # v1.5.39
 ## (2019-05-14)
 
