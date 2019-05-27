@@ -8,10 +8,9 @@ you from accidentally writing to your hard-drives, ensures every byte of data
 was written correctly and much more. It can also flash directly Raspberry Pi devices that support the usbboot protocol
 
 [![Current Release](https://img.shields.io/github/release/balena-io/etcher.svg?style=flat-square)](https://balena.io/etcher)
-![License](https://img.shields.io/github/license/balena-io/etcher.svg?style=flat-square)
+[![License](https://img.shields.io/github/license/balena-io/etcher.svg?style=flat-square)](https://github.com/balena-io/etcher/blob/master/LICENSE)
 [![Dependency status](https://img.shields.io/david/balena-io/etcher.svg?style=flat-square)](https://david-dm.org/balena-io/etcher)
 [![Balena.io Forums](https://img.shields.io/discourse/https/forums.balena.io/topics.svg?style=flat-square&label=balena.io%20forums)](https://forums.balena.io/c/etcher)
-[![Stories in Progress](https://img.shields.io/waffle/label/balena-io/etcher/in%20progress.svg?style=flat-square)](https://waffle.io/balena-io/etcher)
 
 ***
 
