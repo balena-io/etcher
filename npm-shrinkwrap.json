@@ -7325,6 +7325,14 @@
         }
       }
     },
+    "lockfile": {
+      "version": "1.0.4",
+      "resolved": "https://registry.npmjs.org/lockfile/-/lockfile-1.0.4.tgz",
+      "integrity": "sha512-cvbTwETRfsFh4nHsL1eGWapU1XFi5Ot9E85sWAwia7Y7EgB7vfqcZhTKZ+l7hCGxSPoushMv5GKhT5PdLv03WA==",
+      "requires": {
+        "signal-exit": "^3.0.2"
+      }
+    },
     "lodash": {
       "version": "4.17.11",
       "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.11.tgz",
@@ -9889,6 +9897,21 @@
           "requires": {
             "minimist": "^1.2.0"
           }
+        }
+      }
+    },
+    "read-env": {
+      "version": "1.3.0",
+      "resolved": "https://registry.npmjs.org/read-env/-/read-env-1.3.0.tgz",
+      "integrity": "sha512-DbCgZ8oHwZreK/E2E27RGk3EUPapMhYGSGIt02k9sX6R3tCFc4u4tkltKvkCvzEQ3SOLUaiYHAnGb+TdsnPp0A==",
+      "requires": {
+        "camelcase": "5.0.0"
+      },
+      "dependencies": {
+        "camelcase": {
+          "version": "5.0.0",
+          "resolved": "https://registry.npmjs.org/camelcase/-/camelcase-5.0.0.tgz",
+          "integrity": "sha512-faqwZqnWxbxn+F1d399ygeamQNy3lPp/H9H6rNrqYh4FSVCtcY+3cub1MxA8o9mDd55mM8Aghuu/kuyYA6VTsA=="
         }
       }
     },
