@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-$icon-font-path: "../../../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
+$icon-font-path: "../../../../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 $font-size-base: 13px;
 $cursor-disabled: initial;
 $link-hover-decoration: none;
@@ -22,7 +22,7 @@ $btn-min-width: 170px;
 $link-color: #ddd;
 $disabled-opacity: 0.2;
 
-@import "../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 @import "./modules/theme";
 @import "./modules/bootstrap";
 @import "./modules/space";
@@ -41,42 +41,42 @@ $disabled-opacity: 0.2;
 @import "../pages/settings/styles/settings";
 @import "../pages/finish/styles/finish";
 
-$fa-font-path: "../../../node_modules/@fortawesome/fontawesome-free-webfonts/webfonts";
+$fa-font-path: "../../../../node_modules/@fortawesome/fontawesome-free-webfonts/webfonts";
 
-@import "../../../../node_modules/@fortawesome/fontawesome-free-webfonts/scss/fontawesome";
-@import "../../../../node_modules/@fortawesome/fontawesome-free-webfonts/scss/fa-solid";
+@import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-solid";
 
 @font-face {
   font-family: Roboto;
-  src: url('../../../node_modules/roboto-fontface/fonts/roboto/Roboto-Thin.woff');
+  src: url('../../../../node_modules/roboto-fontface/fonts/roboto/Roboto-Thin.woff');
   font-weight: 100;
   font-style: normal;
 }
 
 @font-face {
   font-family: Roboto;
-  src: url('../../../node_modules/roboto-fontface/fonts/roboto/Roboto-Light.woff');
+  src: url('../../../../node_modules/roboto-fontface/fonts/roboto/Roboto-Light.woff');
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
   font-family: Roboto;
-  src: url('../../../node_modules/roboto-fontface/fonts/roboto/Roboto-Regular.woff');
+  src: url('../../../../node_modules/roboto-fontface/fonts/roboto/Roboto-Regular.woff');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: Roboto;
-  src: url('../../../node_modules/roboto-fontface/fonts/roboto/Roboto-Medium.woff');
+  src: url('../../../../node_modules/roboto-fontface/fonts/roboto/Roboto-Medium.woff');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: Roboto;
-  src: url('../../../node_modules/roboto-fontface/fonts/roboto/Roboto-Bold.woff');
+  src: url('../../../../node_modules/roboto-fontface/fonts/roboto/Roboto-Bold.woff');
   font-weight: 700;
   font-style: normal;
 }
