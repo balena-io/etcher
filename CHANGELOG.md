@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.43
+## (2019-05-28)
+
+* Revert "Include sass in webpack configs" [Lorenzo Alberto Maria Ambrosi]
+
 # v1.5.42
 ## (2019-05-28)
 
