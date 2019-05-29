@@ -48,4 +48,10 @@ CODEOWNERS text
 *.rpi-sdcard binary diff=hex
 *.wic binary diff=hex
 *.foo binary diff=hex
+*.eot binary diff=hex
+*.otf binary diff=hex
+*.woff binary diff=hex
+*.woff2 binary diff=hex
+*.ttf binary diff=hex
 xz-without-extension binary diff=hex
+wmic-output.txt binary diff=hex

@@ -1041,6 +1041,7 @@
       "version": "16.8.4",
       "resolved": "https://registry.npmjs.org/@types/react-dom/-/react-dom-16.8.4.tgz",
       "integrity": "sha512-eIRpEW73DCzPIMaNBDP5pPIpK1KXyZwNgfxiVagb5iGiz6da+9A5hslSX6GAQKdO7SayVCS/Fr2kjqprgAvkfA==",
+      "dev": true,
       "requires": {
         "@types/react": "*"
       }

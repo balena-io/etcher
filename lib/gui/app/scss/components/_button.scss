@@ -20,7 +20,7 @@
   padding: 10px;
   padding-top: 11px;
 
-  border-radius: 2px;
+  border-radius: 24px;
   border: 0;
 
   letter-spacing: .5px;
@@ -31,6 +31,11 @@
   > .glyphicon {
     top: 2px;
     margin-right: 2px;
+  }
+
+  &.button-primary{
+    width: 200px;
+    height: 48px;
   }
 
   &[disabled] {

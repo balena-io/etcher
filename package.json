@@ -39,7 +39,6 @@
   ],
   "dependencies": {
     "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
-    "@types/react-dom": "^16.8.4",
     "angular": "1.7.6",
     "angular-if-state": "^1.0.0",
     "angular-moment": "^1.0.1",
@@ -86,6 +85,7 @@
     "@babel/plugin-proposal-function-bind": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
+    "@types/react-dom": "^16.8.4",
     "acorn": "^6.0.5",
     "angular-mocks": "1.7.6",
     "babel-loader": "^8.0.4",
