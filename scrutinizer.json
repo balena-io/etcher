@@ -50,73 +50,85 @@
     "uuid",
     "xml2js"
   ],
-  "lastCommitDate": "2019-06-03T18:16:49Z",
+  "lastCommitDate": "2019-06-04T09:58:44Z",
   "latestRelease": {
-    "tagName": "v1.5.44",
+    "tagName": "v1.5.45",
     "asssets": [
       {
-        "name": "balenaEtcher-1.5.44.dmg",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.44/balenaEtcher-1.5.44.dmg"
+        "name": "balena-etcher-electron-1.5.45-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.45/balena-etcher-electron-1.5.45-linux-ia32.zip"
       },
       {
-        "name": "balenaEtcher-1.5.44.dmg.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.44/balenaEtcher-1.5.44.dmg.blockmap"
+        "name": "balena-etcher-electron-1.5.45-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.45/balena-etcher-electron-1.5.45-linux-x64.zip"
       },
       {
-        "name": "balena-etcher-electron_1.5.44_amd64.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.44/balena-etcher-electron_1.5.44_amd64.deb"
+        "name": "balena-etcher-electron-1.5.45.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.45/balena-etcher-electron-1.5.45.i686.rpm"
       },
       {
-        "name": "balenaEtcher-1.5.44-x64.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.44/balenaEtcher-1.5.44-x64.AppImage"
+        "name": "balena-etcher-electron-1.5.45.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.45/balena-etcher-electron-1.5.45.x86_64.rpm"
       },
       {
-        "name": "balenaEtcher-Portable-1.5.44.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.44/balenaEtcher-Portable-1.5.44.exe"
+        "name": "balena-etcher-electron_1.5.45_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.45/balena-etcher-electron_1.5.45_amd64.deb"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.44.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.44/balenaEtcher-Setup-1.5.44.exe"
+        "name": "balena-etcher-electron_1.5.45_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.45/balena-etcher-electron_1.5.45_i386.deb"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.44.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.44/balenaEtcher-Setup-1.5.44.exe.blockmap"
+        "name": "balenaEtcher-1.5.45-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.45/balenaEtcher-1.5.45-ia32.AppImage"
+      },
+      {
+        "name": "balenaEtcher-1.5.45-mac.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.45/balenaEtcher-1.5.45-mac.zip"
+      },
+      {
+        "name": "balenaEtcher-1.5.45-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.45/balenaEtcher-1.5.45-x64.AppImage"
+      },
+      {
+        "name": "balenaEtcher-1.5.45.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.45/balenaEtcher-1.5.45.dmg"
+      },
+      {
+        "name": "balenaEtcher-1.5.45.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.45/balenaEtcher-1.5.45.dmg.blockmap"
+      },
+      {
+        "name": "balenaEtcher-Portable-1.5.45.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.45/balenaEtcher-Portable-1.5.45.exe"
+      },
+      {
+        "name": "balenaEtcher-Setup-1.5.45.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.45/balenaEtcher-Setup-1.5.45.exe"
+      },
+      {
+        "name": "balenaEtcher-Setup-1.5.45.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.45/balenaEtcher-Setup-1.5.45.exe.blockmap"
       },
       {
         "name": "builder-effective-config.yaml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.44/builder-effective-config.yaml"
-      },
-      {
-        "name": "balena-etcher-electron_1.5.44_i386.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.44/balena-etcher-electron_1.5.44_i386.deb"
-      },
-      {
-        "name": "balena-etcher-electron-1.5.44.i686.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.44/balena-etcher-electron-1.5.44.i686.rpm"
-      },
-      {
-        "name": "balenaEtcher-1.5.44-ia32.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.44/balenaEtcher-1.5.44-ia32.AppImage"
-      },
-      {
-        "name": "balena-etcher-electron-1.5.44-linux-ia32.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.44/balena-etcher-electron-1.5.44-linux-ia32.zip"
-      },
-      {
-        "name": "latest-mac.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.44/latest-mac.yml"
-      },
-      {
-        "name": "latest-linux.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.44/latest-linux.yml"
-      },
-      {
-        "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.44/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.45/builder-effective-config.yaml"
       },
       {
         "name": "latest-linux-ia32.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.44/latest-linux-ia32.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.45/latest-linux-ia32.yml"
+      },
+      {
+        "name": "latest-linux.yml",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.45/latest-linux.yml"
+      },
+      {
+        "name": "latest-mac.yml",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.45/latest-mac.yml"
+      },
+      {
+        "name": "latest.yml",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.45/latest.yml"
       }
     ]
   },
@@ -213,5 +225,5 @@
       }
     ]
   },
-  "version": "1.5.44"
+  "version": "1.5.45"
 }
