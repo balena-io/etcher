@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "moduleResolution": "node",
+    "module": "esNext",
+    "target": "es2017",
+    "jsx": "react"
+  },
+  "include": [
+    "lib/**/*.ts",
+    "typings/**/*.d.ts"
+  ]
+}

@@ -150,6 +150,9 @@ sass:
 	npm rebuild node-sass
 	node-sass lib/gui/app/scss/main.scss > lib/gui/css/main.css
 
+lint-ts:
+	resin-lint --typescript lib
+
 lint-js:
 	eslint --ignore-pattern scripts/resin/**/*.js lib tests scripts bin webpack.config.js
 
@@ -169,7 +172,7 @@ lint-spell:
 		--skip *.svg *.gz,*.bz2,*.xz,*.zip,*.img,*.dmg,*.iso,*.rpi-sdcard,*.wic,.DS_Store,*.dtb,*.dtbo,*.dat,*.elf,*.bin,*.foo,xz-without-extension \
 		lib tests docs scripts Makefile *.md LICENSE
 
-lint: lint-js lint-sass lint-cpp lint-html lint-spell
+lint: lint-ts lint-js lint-sass lint-cpp lint-html lint-spell
 
 MOCHA_OPTIONS=--recursive --reporter spec
 
