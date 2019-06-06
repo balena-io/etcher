@@ -20,6 +20,7 @@
   },
   "scripts": {
     "test": "make lint test sanity-checks",
+    "prettier": "prettier --config ./node_modules/resin-lint/config/.prettierrc --write \"lib/**/*.ts\"",
     "start": "./node_modules/.bin/electron .",
     "postshrinkwrap": "node ./scripts/clean-shrinkwrap.js",
     "configure": "node-gyp configure",
@@ -111,10 +112,14 @@
     "node-sass": "^4.7.2",
     "omit-deep-lodash": "1.1.4",
     "pkg": "^4.3.0",
+    "resin-lint": "^3.0.4",
     "sass-lint": "^1.12.1",
     "simple-progress-webpack-plugin": "^1.1.2",
     "spectron": "^5.0.0",
-    "webpack": "^4.27.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.31.0",
+    "ts-loader": "^6.0.2",
+    "typescript": "^3.5.1",
     "webpack-cli": "^3.1.2",
     "webpack-node-externals": "^1.7.2"
   }
