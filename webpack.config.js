@@ -18,6 +18,7 @@
 
 const _ = require('lodash')
 const path = require('path')
+const os = require('os')
 const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
 
@@ -69,12 +70,25 @@ const commonConfig = {
   ]
 }
 
+// eslint-disable-next-line func-style,require-jsdoc,space-before-function-paren
+function platformSpecificModule(platform, module) {
+  // Resolves module on platform, otherwise resolves an empty file
+  return (context, request, callback) => {
+    if ((request === module) && (os.platform() !== platform)) {
+      callback(null, `commonjs ${path.resolve(__dirname, 'lib', 'nothing')}`)
+      return
+    }
+    callback()
+  }
+}
+
 const guiConfig = _.assign({
   node: {
     __dirname: true,
     __filename: true
   },
   externals: [
+    platformSpecificModule('linux', 'udev'),
     nodeExternals(),
     (context, request, callback) => {
       // eslint-disable-next-line lodash/prefer-lodash-method
@@ -117,6 +131,7 @@ const etcherConfig = _.assign({
     __filename: true
   },
   externals: [
+    platformSpecificModule('linux', 'udev'),
     nodeExternals(),
     (context, request, callback) => {
       // eslint-disable-next-line lodash/prefer-lodash-method

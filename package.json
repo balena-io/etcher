@@ -36,6 +36,7 @@
   "license": "Apache-2.0",
   "platformSpecificDependencies": [
     "fsevents",
+    "udev",
     "winusb-driver-generator"
   ],
   "dependencies": {
@@ -81,11 +82,15 @@
     "uuid": "^3.0.1",
     "xml2js": "^0.4.17"
   },
+  "optionalDependencies": {
+    "udev": "^0.5.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.2.0",
     "@babel/plugin-proposal-function-bind": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
+    "@types/node": "^10.14.8",
     "acorn": "^6.0.5",
     "angular-mocks": "1.7.6",
     "babel-loader": "^8.0.4",
