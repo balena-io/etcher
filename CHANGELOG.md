@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.46
+## (2019-06-09)
+
+* Update ext2fs to 1.0.29 [Alexis Svinartchouk]
+
 # v1.5.45
 ## (2019-06-04)
 
