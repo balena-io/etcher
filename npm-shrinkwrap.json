@@ -5413,9 +5413,9 @@
       }
     },
     "ext2fs": {
-      "version": "1.0.28",
-      "resolved": "https://registry.npmjs.org/ext2fs/-/ext2fs-1.0.28.tgz",
-      "integrity": "sha512-ykykxISMMrFlFywtRDDdLiiMrnvVi8u+CEzf+DAxmE7mR71w+MLCp8/MS3ePtG3SeDZlp7cJV/DkkPrR4a0Evg==",
+      "version": "1.0.29",
+      "resolved": "https://registry.npmjs.org/ext2fs/-/ext2fs-1.0.29.tgz",
+      "integrity": "sha512-AoHwqSNx8SLZizLCMs+etrvdethI+jzak5yVmHACV+G0ziiLd19E3OQpC+SMmGOL1V+uRz3om7VxT5itfThYfQ==",
       "requires": {
         "async": "^2.6.1",
         "bindings": "^1.3.0",
