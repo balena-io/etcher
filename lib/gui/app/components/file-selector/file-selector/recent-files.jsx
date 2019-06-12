@@ -49,7 +49,7 @@ class RecentFileLink extends React.PureComponent {
     return (
       <rendition.Button
         onClick={ ::this.select }
-        plaintext={ true }>
+        plain={ true }>
         { middleEllipsis(file.name, FILENAME_CHAR_LIMIT_SHORT) }
       </rendition.Button>
     )

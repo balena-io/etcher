@@ -22,8 +22,6 @@ const propTypes = require('prop-types')
 
 const middleEllipsis = require('./../../utils/middle-ellipsis')
 
-const { Provider } = require('rendition')
-
 const shared = require('./../../../../shared/units')
 const {
   StepButton,
@@ -32,40 +30,41 @@ const {
   Footer,
   Underline,
   DetailsText,
-  ChangeButton
+  ChangeButton,
+  ThemedProvider
 } = require('./../../styled-components')
 
 const SelectImageButton = (props) => {
   if (props.hasImage) {
     return (
-      <Provider>
+      <ThemedProvider>
         <StepNameButton
-          plaintext
+          plain
           onClick={props.showSelectedImageDetails}
           tooltip={props.imageBasename}
         >
           {/* eslint-disable no-magic-numbers */}
           { middleEllipsis(props.imageName || props.imageBasename, 20) }
         </StepNameButton>
-        <DetailsText>
-          {shared.bytesToClosestUnit(props.imageSize)}
-        </DetailsText>
         { !props.flashing &&
           <ChangeButton
-            plaintext
+            plain
+            mb={14}
             onClick={props.reselectImage}
           >
             Change
           </ChangeButton>
         }
-      </Provider>
+        <DetailsText>
+          {shared.bytesToClosestUnit(props.imageSize)}
+        </DetailsText>
+      </ThemedProvider>
     )
   }
   return (
-    <Provider>
+    <ThemedProvider>
       <StepSelection>
         <StepButton
-          primary
           onClick={props.openImageSelector}
         >
           Select image
@@ -79,7 +78,7 @@ const SelectImageButton = (props) => {
           </Underline>
         </Footer>
       </StepSelection>
-    </Provider>
+    </ThemedProvider>
   )
 }
 

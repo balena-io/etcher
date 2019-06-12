@@ -20,7 +20,11 @@ const React = require('react')
 const propTypes = require('prop-types')
 const Color = require('color')
 
-const { default: styled, keyframes } = require('styled-components')
+const {
+  default: styled,
+  css,
+  keyframes
+} = require('styled-components')
 
 const { ProgressBar, Provider } = require('rendition')
 
@@ -47,6 +51,10 @@ const ProgressButtonStripes = keyframes `
   100% {
     background-position: 20px 20px;
   }
+`
+
+const ProgressButtonStripesRule = css `
+  ${ProgressButtonStripes} 1s linear infinite;
 `
 
 const FlashProgressBar = styled(ProgressBar) `
@@ -83,7 +91,7 @@ const FlashProgressBarValidating = styled(FlashProgressBar) `
 
   background-color: white;
 
-  animation: ${ProgressButtonStripes} 1s linear infinite;
+  animation: ${ProgressButtonStripesRule};
   overflow: hidden;
 
   background-size: 20px 20px;
@@ -130,7 +138,6 @@ class ProgressButton extends React.Component {
       <Provider>
         <StepSelection>
           <StepButton
-            primary
             onClick= { this.props.callback }
             disabled= { this.props.disabled }
           >

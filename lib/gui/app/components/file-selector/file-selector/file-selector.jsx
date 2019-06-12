@@ -58,7 +58,7 @@ const Flex = styled.div`
   overflow: ${ props => props.overflow };
 `
 
-const Header = Flex.extend`
+const Header = styled(Flex) `
   padding: 10px 15px 0;
   border-bottom: 1px solid ${ colors.primary.faded };
 
@@ -67,9 +67,9 @@ const Header = Flex.extend`
   }
 `
 
-const Main = Flex.extend``
+const Main = styled(Flex) ``
 
-const Footer = Flex.extend`
+const Footer = styled(Flex) `
   padding: 10px;
   flex: 0 0 auto;
   border-top: 1px solid ${ colors.primary.faded };

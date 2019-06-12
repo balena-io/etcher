@@ -16,10 +16,12 @@
 
 'use strict'
 
+// eslint-disable-next-line no-unused-vars
 const React = require('react')
 const PropTypes = require('prop-types')
 const styled = require('styled-components').default
 const { position, right } = require('styled-system')
+const { BaseButton, ThemedProvider } = require('../../styled-components')
 
 const Div = styled.div `
   ${position}
@@ -28,11 +30,15 @@ const Div = styled.div `
 
 const FlashAnother = (props) => {
   return (
-    <Div position='absolute' right='152px'>
-      <button className="button button-primary button-brick" onClick={props.onClick.bind(null, { preserveImage: true })}>
-        <b>Flash Another</b>
-      </button>
-    </Div>
+    <ThemedProvider>
+      <Div position='absolute' right='152px'>
+        <BaseButton
+          primary
+          onClick={props.onClick.bind(null, { preserveImage: true })}>
+          Flash Another
+        </BaseButton>
+      </Div>
+    </ThemedProvider>
   )
 }
 

@@ -46,12 +46,6 @@ svg-icon > img[disabled] {
   position: relative;
 }
 
-.page-main .button-brick {
-  width: 200px;
-  height: 48px;
-  font-size: 16px;
-}
-
 .page-main .button-abort-write {
   width: 20px;
   height: 20px;
@@ -67,6 +61,7 @@ svg-icon > img[disabled] {
   width: 200px;
   height: 48px;
   font-size: 16px;
+  font-weight: 300;
 }
 
 %step-border {
@@ -125,10 +120,13 @@ svg-icon > img[disabled] {
 }
 
 .page-main .button.step-footer {
-  font-size: 12px;
+  font-size: 14px;
   color: $palette-theme-primary-background;
   border-radius: 0;
   padding: 0;
+  width: 100%;
+  font-weight: 300;
+  height: 21px;
 }
 
 .page-main .step-drive.glyphicon {
@@ -167,7 +165,11 @@ svg-icon > img[disabled] {
 
 .page-main .step-size {
   color: $palette-theme-dark-disabled-foreground;
-  margin-top: 10px;
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  line-height: 1.5;
+  height: 21px;
+  width: 100%;
 }
 
 .page-main .step-list {
