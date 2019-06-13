@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.49
+## (2019-06-13)
+
+* Make window size configurable [Alexis Svinartchouk]
+
 # v1.5.48
 ## (2019-06-13)
 
