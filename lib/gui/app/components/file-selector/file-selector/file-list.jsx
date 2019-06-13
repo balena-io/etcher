@@ -25,7 +25,7 @@ const colors = require('./colors')
 const prettyBytes = require('pretty-bytes')
 const files = require('../../../models/files')
 const middleEllipsis = require('../../../utils/middle-ellipsis')
-const supportedFormats = require('../../../../../shared/supported-formats')
+const supportedFormats = require('../../../../../gui/app/modules/supported-formats')
 
 const debug = require('debug')('etcher:gui:file-selector')
 

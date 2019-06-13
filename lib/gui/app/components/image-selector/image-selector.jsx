@@ -22,7 +22,7 @@ const propTypes = require('prop-types')
 
 const middleEllipsis = require('./../../utils/middle-ellipsis')
 
-const shared = require('./../../../../shared/units')
+const shared = require('./../../../../gui/app/modules/units')
 const {
   StepButton,
   StepNameButton,

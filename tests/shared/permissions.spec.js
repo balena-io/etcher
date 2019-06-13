@@ -20,7 +20,7 @@
 
 const m = require('mochainon')
 const os = require('os')
-const permissions = require('../../lib/shared/permissions')
+const permissions = require('../../lib/gui/app/modules/permissions')
 
 describe('Shared: permissions', function () {
   describe('.createLaunchScript()', function () {
