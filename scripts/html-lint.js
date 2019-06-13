@@ -14,7 +14,7 @@ const chalk = require('chalk')
 const path = require('path')
 const _ = require('lodash')
 const angularValidate = require('html-angular-validate')
-const EXIT_CODES = require('../lib/shared/exit-codes')
+const EXIT_CODES = require('../lib/gui/app/modules/exit-codes')
 const PROJECT_ROOT = path.join(__dirname, '..')
 const FILENAME = path.relative(PROJECT_ROOT, __filename)
 

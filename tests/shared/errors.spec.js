@@ -18,7 +18,7 @@
 
 const m = require('mochainon')
 const _ = require('lodash')
-const errors = require('../../lib/shared/errors')
+const errors = require('../../lib/gui/app/modules/errors')
 
 describe('Shared: Errors', function () {
   describe('.HUMAN_FRIENDLY', function () {

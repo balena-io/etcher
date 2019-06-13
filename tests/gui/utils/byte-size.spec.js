@@ -19,7 +19,7 @@
 const m = require('mochainon')
 const angular = require('angular')
 require('angular-mocks')
-const units = require('../../../lib/shared/units')
+const units = require('../../../lib/gui/app/modules/units')
 
 describe('Browser: ByteSize', function () {
   beforeEach(angular.mock.module(
@@ -33,7 +33,7 @@ describe('Browser: ByteSize', function () {
       closestUnitFilter = _closestUnitFilter_
     }))
 
-    it('should expose lib/shared/units.js bytesToGigabytes()', function () {
+    it('should expose lib/gui/app/modules/units.js bytesToGigabytes()', function () {
       m.chai.expect(closestUnitFilter).to.equal(units.bytesToClosestUnit)
     })
   })

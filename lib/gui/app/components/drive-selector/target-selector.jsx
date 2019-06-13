@@ -31,7 +31,7 @@ const {
 } = require('./../../styled-components')
 const { Txt } = require('rendition')
 const middleEllipsis = require('./../../utils/middle-ellipsis')
-const { bytesToClosestUnit } = require('./../../../../shared/units')
+const { bytesToClosestUnit } = require('./../../../../gui/app/modules/units')
 
 const TargetDetail = styled((props) => (
   <Txt.span {...props}>

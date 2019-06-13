@@ -18,7 +18,7 @@
 
 const m = require('mochainon')
 const _ = require('lodash')
-const messages = require('../../lib/shared/messages')
+const messages = require('../../lib/gui/app/modules/messages')
 
 describe('Shared: Messages', function () {
   beforeEach(function () {

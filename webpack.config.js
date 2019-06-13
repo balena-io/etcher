@@ -27,7 +27,6 @@ const commonConfig = {
     // Minification breaks angular.
     minimize: false
   },
-  target: 'electron-main',
   module: {
     rules: [
       {
@@ -69,89 +68,75 @@ const commonConfig = {
   ]
 }
 
-const guiConfig = _.assign({
-  node: {
-    __dirname: true,
-    __filename: true
-  },
-  externals: [
-    nodeExternals(),
-    (context, request, callback) => {
-      // eslint-disable-next-line lodash/prefer-lodash-method
-      const absoluteContext = path.resolve(context)
-      const absoluteNodeModules = path.resolve('node_modules')
+const guiConfig = _.assign(
+  {},
+  commonConfig,
+  {
+    node: {
+      __dirname: true,
+      __filename: true
+    },
+    target: 'electron-renderer',
+    externals: [
+      nodeExternals(),
+      (context, request, callback) => {
+        // eslint-disable-next-line lodash/prefer-lodash-method
+        const absoluteContext = path.resolve(context)
+        const absoluteNodeModules = path.resolve('node_modules')
 
-      // We shouldn't rewrite any node_modules import paths
-      // eslint-disable-next-line lodash/prefer-lodash-method
-      if (!path.relative(absoluteNodeModules, absoluteContext).startsWith('..')) {
+        // We shouldn't rewrite any node_modules import paths
+        // eslint-disable-next-line lodash/prefer-lodash-method
+        if (!path.relative(absoluteNodeModules, absoluteContext).startsWith('..')) {
+          return callback()
+        }
+
         return callback()
       }
-
-      // We want to keep the SDK code outside the GUI bundle.
-      // This piece of code allows us to run the GUI directly
-      // on the tree (for testing purposes) or inside a generated
-      // bundle (for production purposes), by translating
-      // relative require paths within the bundle.
-      if (/\/(sdk|shared)/i.test(request) || /package\.json$/.test(request)) {
-        const output = path.join(__dirname, 'generated')
-        const dirname = path.join(context, request)
-        const relative = path.relative(output, dirname)
-        return callback(null, `commonjs ${path.join('..', '..', relative)}`)
-      }
-
-      return callback()
+    ],
+    entry: {
+      gui: path.join(__dirname, 'lib', 'gui', 'app', 'app.js')
+    },
+    output: {
+      path: path.join(__dirname, 'generated'),
+      filename: '[name].js'
     }
-  ],
-  entry: {
-    gui: path.join(__dirname, 'lib', 'gui', 'app', 'app.js')
-  },
-  output: {
-    path: path.join(__dirname, 'generated'),
-    filename: '[name].js'
   }
-}, commonConfig)
+)
 
-const etcherConfig = _.assign({
-  node: {
-    __dirname: false,
-    __filename: true
-  },
-  externals: [
-    nodeExternals(),
-    (context, request, callback) => {
-      // eslint-disable-next-line lodash/prefer-lodash-method
-      const absoluteContext = path.resolve(context)
-      const absoluteNodeModules = path.resolve('node_modules')
+const etcherConfig = _.assign(
+  {},
+  commonConfig,
+  {
+    node: {
+      __dirname: false,
+      __filename: true
+    },
+    target: 'electron-main',
+    externals: [
+      nodeExternals(),
+      (context, request, callback) => {
+        // eslint-disable-next-line lodash/prefer-lodash-method
+        const absoluteContext = path.resolve(context)
+        const absoluteNodeModules = path.resolve('node_modules')
 
-      // We shouldn't rewrite any node_modules import paths
-      // eslint-disable-next-line lodash/prefer-lodash-method
-      if (!path.relative(absoluteNodeModules, absoluteContext).startsWith('..')) {
+        // We shouldn't rewrite any node_modules import paths
+        // eslint-disable-next-line lodash/prefer-lodash-method
+        if (!path.relative(absoluteNodeModules, absoluteContext).startsWith('..')) {
+          return callback()
+        }
+
         return callback()
       }
-
-      // We want to keep the SDK code outside the GUI bundle.
-      // This piece of code allows us to run the GUI directly
-      // on the tree (for testing purposes) or inside a generated
-      // bundle (for production purposes), by translating
-      // relative require paths within the bundle.
-      if (/\/shared/i.test(request) || /package\.json$/.test(request)) {
-        const output = path.join(__dirname, 'generated')
-        const dirname = path.join(context, request)
-        const relative = path.relative(output, dirname)
-        return callback(null, `commonjs ${path.join('..', 'lib', relative)}`)
-      }
-
-      return callback()
+    ],
+    entry: {
+      etcher: path.join(__dirname, 'lib', 'gui', 'etcher.js')
+    },
+    output: {
+      path: path.join(__dirname, 'generated'),
+      filename: '[name].js'
     }
-  ],
-  entry: {
-    etcher: path.join(__dirname, 'lib', 'gui', 'etcher.js')
-  },
-  output: {
-    path: path.join(__dirname, 'generated'),
-    filename: '[name].js'
   }
-}, commonConfig)
+)
 
 module.exports = [
   guiConfig,
