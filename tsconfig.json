@@ -11,6 +11,7 @@
   },
   "include": [
     "lib/**/*.ts",
+    "node_modules/electron/**/*.d.ts",
     "typings/**/*.d.ts"
   ]
 }

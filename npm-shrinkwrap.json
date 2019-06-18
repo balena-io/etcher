@@ -1054,9 +1054,9 @@
       "dev": true
     },
     "@types/node": {
-      "version": "6.14.3",
-      "resolved": "https://registry.npmjs.org/@types/node/-/node-6.14.3.tgz",
-      "integrity": "sha512-V2VrQBCKo4U0rni6tW4AASRDqIO5ZTLDN/Xzrm4mNBr9SGQYZ+7zZJn+hMs89Q8ZCIHzp4aWQPyCpK+rux1YGA=="
+      "version": "10.14.9",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-10.14.9.tgz",
+      "integrity": "sha512-NelG/dSahlXYtSoVPErrp06tYFrvzj8XLWmKA+X8x0W//4MqbUyZu++giUG/v0bjAT6/Qxa8IjodrfdACyb0Fg=="
     },
     "@types/optimist": {
       "version": "0.0.29",
@@ -5500,6 +5500,13 @@
         "unzip-stream": "^0.3.0",
         "xxhash": "github:balena-io-modules/node-xxhash#70ac31da1a41c6f8c53d931b5802c6c93f7b6b83",
         "yauzl": "^2.9.2"
+      },
+      "dependencies": {
+        "@types/node": {
+          "version": "6.14.6",
+          "resolved": "https://registry.npmjs.org/@types/node/-/node-6.14.6.tgz",
+          "integrity": "sha512-rFs9zCFtSHuseiNXxYxFlun8ibu+jtZPgRM+2ILCmeLiGeGLiIGxuOzD+cNyHegI1GD+da3R/cIbs9+xCLp13w=="
+        }
       }
     },
     "event-emitter": {
@@ -8670,6 +8677,13 @@
         "@types/usb": "^1.5.1",
         "debug": "^3.1.0",
         "usb": "github:resin-io/node-usb#1.3.6"
+      },
+      "dependencies": {
+        "@types/node": {
+          "version": "6.14.6",
+          "resolved": "https://registry.npmjs.org/@types/node/-/node-6.14.6.tgz",
+          "integrity": "sha512-rFs9zCFtSHuseiNXxYxFlun8ibu+jtZPgRM+2ILCmeLiGeGLiIGxuOzD+cNyHegI1GD+da3R/cIbs9+xCLp13w=="
+        }
       }
     },
     "node-releases": {

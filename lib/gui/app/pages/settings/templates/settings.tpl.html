@@ -77,4 +77,14 @@
       <span>Unsafe mode <span class="label label-danger">Dangerous</span></span>
     </label>
   </div>
+
+  <div class="checkbox" ng-if="settings.shouldShowEnableScreensaver()">
+    <label>
+      <input type="checkbox"
+        tabindex="11"
+        ng-model="settings.currentData.enableScreensaver"
+        ng-change="settings.toggle('enableScreensaver')">
+      <span>Enable screensaver</span>
+    </label>
+  </div>
 </div>
