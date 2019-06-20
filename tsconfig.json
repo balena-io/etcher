@@ -4,8 +4,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
     "moduleResolution": "node",
-    "module": "esNext",
+    "module": "commonjs",
     "target": "es2017",
     "jsx": "react"
   },

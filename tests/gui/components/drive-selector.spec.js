@@ -20,6 +20,7 @@ const _ = require('lodash')
 const m = require('mochainon')
 const angular = require('angular')
 require('angular-mocks')
+// eslint-disable-next-line node/no-missing-require
 const utils = require('../../../lib/gui/app/modules/utils')
 
 describe('Browser: DriveSelector', function () {

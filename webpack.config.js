@@ -138,7 +138,22 @@ const etcherConfig = _.assign(
   }
 )
 
+const childWriterConfig = _.assign(
+  {},
+  etcherConfig,
+  {
+    entry: {
+      etcher: path.join(__dirname, 'lib', 'gui', 'app', 'modules', 'child-writer.js')
+    },
+    output: {
+      path: path.join(__dirname, 'generated'),
+      filename: 'child-writer.js'
+    }
+  }
+)
+
 module.exports = [
   guiConfig,
-  etcherConfig
+  etcherConfig,
+  childWriterConfig
 ]

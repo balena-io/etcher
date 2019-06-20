@@ -18,6 +18,7 @@
 
 const _ = require('lodash')
 const m = require('mochainon')
+// eslint-disable-next-line node/no-missing-require
 const utils = require('../../lib/gui/app/modules/utils')
 
 describe('Shared: Utils', function () {

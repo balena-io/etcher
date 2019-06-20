@@ -18,8 +18,9 @@
 
 const m = require('mochainon')
 const _ = require('lodash')
-const Bluebird = require('bluebird')
+// eslint-disable-next-line node/no-missing-require
 const settings = require('../../../lib/gui/app/models/settings')
+// eslint-disable-next-line node/no-missing-require
 const localSettings = require('../../../lib/gui/app/models/local-settings')
 
 describe('Browser: settings', function () {
@@ -73,12 +74,14 @@ describe('Browser: settings', function () {
   })
 
   describe('.assign()', function () {
-    it('should throw if no settings', function (done) {
-      settings.assign().asCallback((error) => {
+    it('should throw if no settings', async () => {
+      try {
+        await settings.assign()
+        m.chai.expect(true).to.be.false
+      } catch (error) {
         m.chai.expect(error).to.be.an.instanceof(Error)
-        m.chai.expect(error.message).to.equal('Missing settings')
-        done()
-      })
+        m.chai.expect(error.message).to.equal('Settings must be an object')
+      }
     })
 
     it('should not override all settings', function () {
@@ -108,23 +111,22 @@ describe('Browser: settings', function () {
       })
     })
 
-    it('should not change the application state if storing to the local machine results in an error', function (done) {
-      settings.set('foo', 'bar').then(() => {
-        m.chai.expect(settings.get('foo')).to.equal('bar')
+    it('should not change the application state if storing to the local machine results in an error', async () => {
+      await settings.set('foo', 'bar')
+      m.chai.expect(settings.get('foo')).to.equal('bar')
 
-        const localSettingsWriteAllStub = m.sinon.stub(localSettings, 'writeAll')
-        localSettingsWriteAllStub.returns(Bluebird.reject(new Error('localSettings error')))
+      const localSettingsWriteAllStub = m.sinon.stub(localSettings, 'writeAll')
+      localSettingsWriteAllStub.returns(Promise.reject(new Error('localSettings error')))
 
-        settings.assign({
-          foo: 'baz'
-        }).asCallback((error) => {
-          m.chai.expect(error).to.be.an.instanceof(Error)
-          m.chai.expect(error.message).to.equal('localSettings error')
-          localSettingsWriteAllStub.restore()
-          m.chai.expect(settings.get('foo')).to.equal('bar')
-          done()
-        })
-      }).catch(done)
+      try {
+        await settings.assign({ foo: 'baz' })
+        m.chai.expect(true).to.be.false
+      } catch (error) {
+        m.chai.expect(error).to.be.an.instanceof(Error)
+        m.chai.expect(error.message).to.equal('localSettings error')
+      }
+      localSettingsWriteAllStub.restore()
+      m.chai.expect(settings.get('foo')).to.equal('bar')
     })
   })
 
@@ -160,28 +162,34 @@ describe('Browser: settings', function () {
       })
     })
 
-    it('should reject if no key', function (done) {
-      settings.set(null, true).asCallback((error) => {
+    it('should reject if no key', async () => {
+      try {
+        await settings.set(null, true)
+        m.chai.expect(true).to.be.false
+      } catch (error) {
         m.chai.expect(error).to.be.an.instanceof(Error)
-        m.chai.expect(error.message).to.equal('Missing setting key')
-        done()
-      })
+        m.chai.expect(error.message).to.equal('Invalid setting key: null')
+      }
     })
 
-    it('should throw if key is not a string', function (done) {
-      settings.set(1234, true).asCallback((error) => {
+    it('should throw if key is not a string', async () => {
+      try {
+        await settings.set(1234, true)
+        m.chai.expect(true).to.be.false
+      } catch (error) {
         m.chai.expect(error).to.be.an.instanceof(Error)
         m.chai.expect(error.message).to.equal('Invalid setting key: 1234')
-        done()
-      })
+      }
     })
 
-    it('should throw if setting an array', function (done) {
-      settings.assign([ 1, 2, 3 ]).asCallback((error) => {
+    it('should throw if setting an array', async () => {
+      try {
+        await settings.assign([ 1, 2, 3 ])
+        m.chai.expect(true).to.be.false
+      } catch (error) {
         m.chai.expect(error).to.be.an.instanceof(Error)
         m.chai.expect(error.message).to.equal('Settings must be an object')
-        done()
-      })
+      }
     })
 
     it('should set the key to undefined if no value', function () {
@@ -202,21 +210,22 @@ describe('Browser: settings', function () {
       })
     })
 
-    it('should not change the application state if storing to the local machine results in an error', function (done) {
-      settings.set('foo', 'bar').then(() => {
+    it('should not change the application state if storing to the local machine results in an error', async () => {
+      await settings.set('foo', 'bar')
+      m.chai.expect(settings.get('foo')).to.equal('bar')
+
+      const localSettingsWriteAllStub = m.sinon.stub(localSettings, 'writeAll')
+      localSettingsWriteAllStub.returns(Promise.reject(new Error('localSettings error')))
+
+      try {
+        await settings.set('foo', 'baz')
+        m.chai.expect(true).to.be.false
+      } catch (error) {
+        m.chai.expect(error).to.be.an.instanceof(Error)
+        m.chai.expect(error.message).to.equal('localSettings error')
+        localSettingsWriteAllStub.restore()
         m.chai.expect(settings.get('foo')).to.equal('bar')
-
-        const localSettingsWriteAllStub = m.sinon.stub(localSettings, 'writeAll')
-        localSettingsWriteAllStub.returns(Bluebird.reject(new Error('localSettings error')))
-
-        settings.set('foo', 'baz').asCallback((error) => {
-          m.chai.expect(error).to.be.an.instanceof(Error)
-          m.chai.expect(error.message).to.equal('localSettings error')
-          localSettingsWriteAllStub.restore()
-          m.chai.expect(settings.get('foo')).to.equal('bar')
-          done()
-        })
-      }).catch(done)
+      }
     })
   })
 

@@ -174,7 +174,7 @@ lint-spell:
 
 lint: lint-ts lint-js lint-sass lint-cpp lint-html lint-spell
 
-MOCHA_OPTIONS=--recursive --reporter spec
+MOCHA_OPTIONS=--recursive --reporter spec --require ts-node/register
 
 # See https://github.com/electron/spectron/issues/127
 ETCHER_SPECTRON_ENTRYPOINT ?= $(shell node -e 'console.log(require("electron"))')

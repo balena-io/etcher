@@ -14,18 +14,21 @@
  * limitations under the License.
  */
 
-'use strict'
+import { app, remote } from 'electron';
+import { readFile, unlink, writeFile } from 'fs';
+import { join } from 'path';
+import { promisify } from 'util';
 
-const Bluebird = require('bluebird')
-const fs = require('fs')
-const path = require('path')
+const readFileAsync = promisify(readFile);
+const writeFileAsync = promisify(writeFile);
+const unlinkAsync = promisify(unlink);
 
 /**
  * @summary Number of spaces to indent JSON output with
  * @type {Number}
  * @constant
  */
-const JSON_INDENT = 2
+const JSON_INDENT = 2;
 
 /**
  * @summary Userdata directory path
@@ -38,21 +41,16 @@ const JSON_INDENT = 2
  * @constant
  * @type {String}
  */
-const USER_DATA_DIR = (() => {
-  // NOTE: The ternary is due to this module being loaded both,
-  // Electron's main process and renderer process
-  const electron = require('electron')
-  return electron.app
-    ? electron.app.getPath('userData')
-    : electron.remote.app.getPath('userData')
-})()
+// NOTE: The ternary is due to this module being loaded both,
+// Electron's main process and renderer process
+const USER_DATA_DIR = (app || remote.app).getPath('userData');
 
 /**
  * @summary Configuration file path
  * @type {String}
  * @constant
  */
-const CONFIG_PATH = path.join(USER_DATA_DIR, 'config.json')
+const CONFIG_PATH = join(USER_DATA_DIR, 'config.json');
 
 /**
  * @summary Read a local config.json file
@@ -68,26 +66,22 @@ const CONFIG_PATH = path.join(USER_DATA_DIR, 'config.json')
  *   console.log(settings)
  * })
  */
-const readConfigFile = (filename) => {
-  return new Bluebird((resolve, reject) => {
-    fs.readFile(filename, { encoding: 'utf8' }, (error, contents) => {
-      let data = {}
-      if (error) {
-        if (error.code === 'ENOENT') {
-          resolve(data)
-        } else {
-          reject(error)
-        }
-      } else {
-        try {
-          data = JSON.parse(contents)
-        } catch (parseError) {
-          console.error(parseError)
-        }
-        resolve(data)
-      }
-    })
-  })
+async function readConfigFile(filename: string): Promise<any> {
+	let contents = '{}';
+	try {
+		contents = await readFileAsync(filename, { encoding: 'utf8' });
+	} catch (error) {
+		if (error.code === 'ENOENT') {
+			return {};
+		}
+		throw error;
+	}
+	try {
+		return JSON.parse(contents);
+	} catch (error) {
+		console.error(error);
+		return {};
+	}
 }
 
 /**
@@ -106,17 +100,10 @@ const readConfigFile = (filename) => {
  *     console.log('data written')
  *   })
  */
-const writeConfigFile = (filename, data) => {
-  return new Bluebird((resolve, reject) => {
-    const contents = JSON.stringify(data, null, JSON_INDENT)
-    fs.writeFile(filename, contents, (error) => {
-      if (error) {
-        reject(error)
-      } else {
-        resolve(data)
-      }
-    })
-  })
+async function writeConfigFile(filename: string, data: any) {
+	const contents = JSON.stringify(data, null, JSON_INDENT);
+	await writeFileAsync(filename, contents);
+	return data;
 }
 
 /**
@@ -132,8 +119,8 @@ const writeConfigFile = (filename, data) => {
  *   console.log(settings);
  * });
  */
-exports.readAll = () => {
-  return readConfigFile(CONFIG_PATH)
+export async function readAll(): Promise<any> {
+	return await readConfigFile(CONFIG_PATH);
 }
 
 /**
@@ -152,8 +139,8 @@ exports.readAll = () => {
  *   console.log('Done!');
  * });
  */
-exports.writeAll = (settings) => {
-  return writeConfigFile(CONFIG_PATH, settings)
+export async function writeAll(settings: any) {
+	return await writeConfigFile(CONFIG_PATH, settings);
 }
 
 /**
@@ -171,14 +158,6 @@ exports.writeAll = (settings) => {
  *   console.log('Done!');
  * });
  */
-exports.clear = () => {
-  return new Bluebird((resolve, reject) => {
-    fs.unlink(CONFIG_PATH, (error) => {
-      if (error) {
-        reject(error)
-      } else {
-        resolve()
-      }
-    })
-  })
+export async function clear(): Promise<void> {
+	await unlinkAsync(CONFIG_PATH);
 }

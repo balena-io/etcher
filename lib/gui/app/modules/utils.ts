@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-'use strict'
+import * as Bluebird from 'bluebird';
+import * as _ from 'lodash';
+import * as request from 'request';
+import * as tmp from 'tmp';
+import { promisify } from 'util';
 
-const _ = require('lodash')
-const Bluebird = require('bluebird')
-const request = Bluebird.promisifyAll(require('request'))
-const tmp = require('tmp')
+import * as errors from './errors';
 
-const errors = require('./errors')
+const getAsync = promisify(request.get);
 
 /**
  * @summary Minimum percentage value
@@ -29,7 +30,7 @@ const errors = require('./errors')
  * @public
  * @type {Number}
  */
-exports.PERCENTAGE_MINIMUM = 0
+export const PERCENTAGE_MINIMUM = 0;
 
 /**
  * @summary Maximum percentage value
@@ -37,7 +38,7 @@ exports.PERCENTAGE_MINIMUM = 0
  * @public
  * @type {Number}
  */
-exports.PERCENTAGE_MAXIMUM = 100
+export const PERCENTAGE_MAXIMUM = 100;
 
 /**
  * @summary Check if a percentage is valid
@@ -52,12 +53,12 @@ exports.PERCENTAGE_MAXIMUM = 100
  *   console.log('The percentage is valid');
  * }
  */
-exports.isValidPercentage = (percentage) => {
-  return _.every([
-    _.isNumber(percentage),
-    percentage >= exports.PERCENTAGE_MINIMUM,
-    percentage <= exports.PERCENTAGE_MAXIMUM
-  ])
+export function isValidPercentage(percentage: number) {
+	return _.every([
+		_.isNumber(percentage),
+		percentage >= exports.PERCENTAGE_MINIMUM,
+		percentage <= exports.PERCENTAGE_MAXIMUM,
+	]);
 }
 
 /**
@@ -73,14 +74,14 @@ exports.isValidPercentage = (percentage) => {
  * console.log(value);
  * > 0.5
  */
-exports.percentageToFloat = (percentage) => {
-  if (!exports.isValidPercentage(percentage)) {
-    throw errors.createError({
-      title: `Invalid percentage: ${percentage}`
-    })
-  }
+export function percentageToFloat(percentage: number) {
+	if (!isValidPercentage(percentage)) {
+		throw errors.createError({
+			title: `Invalid percentage: ${percentage}`,
+		});
+	}
 
-  return percentage / exports.PERCENTAGE_MAXIMUM
+	return percentage / PERCENTAGE_MAXIMUM;
 }
 
 /**
@@ -109,37 +110,40 @@ exports.percentageToFloat = (percentage) => {
  *
  * const memoizedFunction = memoize(getList, angular.equals);
  */
-exports.memoize = (func, comparer) => {
-  let previousTuples = []
+export function memoize(
+	func: (...args: any[]) => any,
+	comparer: (a: any, b: any) => boolean,
+) {
+	let previousTuples: any[] = [];
 
-  return (...restArgs) => {
-    let areArgsInTuple = false
-    let state = Reflect.apply(func, this, restArgs)
+	return (...restArgs: any[]) => {
+		let areArgsInTuple = false;
+		let state = Reflect.apply(func, this, restArgs);
 
-    previousTuples = _.map(previousTuples, ([ oldArgs, oldState ]) => {
-      if (comparer(oldArgs, restArgs)) {
-        areArgsInTuple = true
+		previousTuples = _.map(previousTuples, ([oldArgs, oldState]) => {
+			if (comparer(oldArgs, restArgs)) {
+				areArgsInTuple = true;
 
-        if (comparer(state, oldState)) {
-          // Use the previously memoized state for this argument
-          state = oldState
-        }
+				if (comparer(state, oldState)) {
+					// Use the previously memoized state for this argument
+					state = oldState;
+				}
 
-        // Update the tuple state
-        return [ oldArgs, state ]
-      }
+				// Update the tuple state
+				return [oldArgs, state];
+			}
 
-      // Return the tuple unchanged
-      return [ oldArgs, oldState ]
-    })
+			// Return the tuple unchanged
+			return [oldArgs, oldState];
+		});
 
-    // Add the state associated with these args to be memoized
-    if (!areArgsInTuple) {
-      previousTuples.push([ restArgs, state ])
-    }
+		// Add the state associated with these args to be memoized
+		if (!areArgsInTuple) {
+			previousTuples.push([restArgs, state]);
+		}
 
-    return state
-  }
+		return state;
+	};
 }
 
 /**
@@ -155,20 +159,19 @@ exports.memoize = (func, comparer) => {
  * @example
  * const doesIt = hasProps({ foo: 'bar' }, [ 'foo' ]);
  */
-exports.hasProps = (obj, props) => {
-  return _.every(props, (prop) => {
-    return _.has(obj, prop)
-  })
+export function hasProps(obj: any, props: string[]) {
+	return _.every(props, prop => {
+		return _.has(obj, prop);
+	});
 }
 
 /**
-* @summary Get etcher configs stored online
-* @param {String} - url where config.json is stored
-*/
-// eslint-disable-next-line
-exports.getConfig = (configUrl) => {
-  return request.getAsync(configUrl, { json: true })
-    .get('body')
+ * @summary Get etcher configs stored online
+ * @param {String} - url where config.json is stored
+ */
+export async function getConfig(configUrl: string) {
+	// @ts-ignore
+	return (await getAsync(configUrl, { json: true })).body;
 }
 
 /**
@@ -186,16 +189,16 @@ exports.getConfig = (configUrl) => {
  *     cleanup()
  *   });
  */
-const tmpFileAsync = (options) => {
-  return new Promise((resolve, reject) => {
-    tmp.file(options, (error, path, _fd, cleanup) => {
-      if (error) {
-        reject(error)
-      } else {
-        resolve({ path, cleanup })
-      }
-    })
-  })
+function tmpFileAsync(options: tmp.FileOptions) {
+	return new Promise((resolve, reject) => {
+		tmp.file(options, (error, path, _fd, cleanup) => {
+			if (error) {
+				reject(error);
+			} else {
+				resolve({ path, cleanup });
+			}
+		});
+	});
 }
 
 /**
@@ -211,9 +214,12 @@ const tmpFileAsync = (options) => {
  *   console.log(path);
  * })
  */
-exports.tmpFileDisposer = (options) => {
-  return Bluebird.resolve(tmpFileAsync(options))
-    .disposer(({ cleanup }) => {
-      cleanup()
-    })
+export function tmpFileDisposer(options: tmp.FileOptions) {
+	return Bluebird.resolve(tmpFileAsync(options)).disposer(({ cleanup }) => {
+		cleanup();
+	});
+}
+
+export interface Dict<T> {
+	[key: string]: T;
 }
