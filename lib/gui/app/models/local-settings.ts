@@ -17,7 +17,7 @@
 import { app, remote } from 'electron';
 import { readFile, unlink, writeFile } from 'fs';
 import { join } from 'path';
-import { promisify } from 'util';
+import { inspect, promisify } from 'util';
 
 const readFileAsync = promisify(readFile);
 const writeFileAsync = promisify(writeFile);
@@ -67,19 +67,12 @@ const CONFIG_PATH = join(USER_DATA_DIR, 'config.json');
  * })
  */
 async function readConfigFile(filename: string): Promise<any> {
-	let contents = '{}';
 	try {
-		contents = await readFileAsync(filename, { encoding: 'utf8' });
+		return JSON.parse(await readFileAsync(filename, { encoding: 'utf8' }));
 	} catch (error) {
-		if (error.code === 'ENOENT') {
-			return {};
-		}
-		throw error;
-	}
-	try {
-		return JSON.parse(contents);
-	} catch (error) {
-		console.error(error);
+		console.error(
+			`Failed to load settings from ${filename}: ${inspect(error)}`,
+		);
 		return {};
 	}
 }
