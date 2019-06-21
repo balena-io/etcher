@@ -15,7 +15,7 @@
  */
 
 import * as debug_ from 'debug';
-import { cloneDeep, isPlainObject } from 'lodash';
+import { cloneDeep } from 'lodash';
 
 import { createError } from '../modules/errors';
 import { Dict } from '../modules/utils';
@@ -46,17 +46,6 @@ export async function reset(): Promise<void> {
 	// TODO: Remove default settings from config file (?)
 	settings = cloneDeep(DEFAULT_SETTINGS);
 	await writeAll(settings);
-}
-
-export async function assign(value: any): Promise<void> {
-	debug('assign', value);
-	if (!isPlainObject(value)) {
-		throw createError({ title: 'Settings must be an object' });
-	}
-	const newSettings = { ...settings, ...value };
-	const updatedSettings = await writeAll(newSettings);
-	// NOTE: Only update in memory settings when successfully written
-	settings = updatedSettings;
 }
 
 export async function load(): Promise<any> {

@@ -73,63 +73,6 @@ describe('Browser: settings', function () {
     })
   })
 
-  describe('.assign()', function () {
-    it('should throw if no settings', async () => {
-      try {
-        await settings.assign()
-        m.chai.expect(true).to.be.false
-      } catch (error) {
-        m.chai.expect(error).to.be.an.instanceof(Error)
-        m.chai.expect(error.message).to.equal('Settings must be an object')
-      }
-    })
-
-    it('should not override all settings', function () {
-      return settings.assign({
-        foo: 'bar',
-        bar: 'baz'
-      }).then(() => {
-        m.chai.expect(settings.getAll()).to.deep.equal(_.assign({}, DEFAULT_SETTINGS, {
-          foo: 'bar',
-          bar: 'baz'
-        }))
-      })
-    })
-
-    it('should store the settings to the local machine', function () {
-      return localSettings.readAll().then((data) => {
-        m.chai.expect(data.foo).to.be.undefined
-        m.chai.expect(data.bar).to.be.undefined
-
-        return settings.assign({
-          foo: 'bar',
-          bar: 'baz'
-        })
-      }).then(localSettings.readAll).then((data) => {
-        m.chai.expect(data.foo).to.equal('bar')
-        m.chai.expect(data.bar).to.equal('baz')
-      })
-    })
-
-    it('should not change the application state if storing to the local machine results in an error', async () => {
-      await settings.set('foo', 'bar')
-      m.chai.expect(settings.get('foo')).to.equal('bar')
-
-      const localSettingsWriteAllStub = m.sinon.stub(localSettings, 'writeAll')
-      localSettingsWriteAllStub.returns(Promise.reject(new Error('localSettings error')))
-
-      try {
-        await settings.assign({ foo: 'baz' })
-        m.chai.expect(true).to.be.false
-      } catch (error) {
-        m.chai.expect(error).to.be.an.instanceof(Error)
-        m.chai.expect(error.message).to.equal('localSettings error')
-      }
-      localSettingsWriteAllStub.restore()
-      m.chai.expect(settings.get('foo')).to.equal('bar')
-    })
-  })
-
   describe('.load()', function () {
     it('should extend the application state with the local settings content', function () {
       const object = {
@@ -179,16 +122,6 @@ describe('Browser: settings', function () {
       } catch (error) {
         m.chai.expect(error).to.be.an.instanceof(Error)
         m.chai.expect(error.message).to.equal('Invalid setting key: 1234')
-      }
-    })
-
-    it('should throw if setting an array', async () => {
-      try {
-        await settings.assign([ 1, 2, 3 ])
-        m.chai.expect(true).to.be.false
-      } catch (error) {
-        m.chai.expect(error).to.be.an.instanceof(Error)
-        m.chai.expect(error.message).to.equal('Settings must be an object')
       }
     })
 
