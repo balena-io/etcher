@@ -15,6 +15,7 @@
  */
 
 import * as debug_ from 'debug';
+import { EventEmitter } from 'events';
 import { cloneDeep } from 'lodash';
 
 import { createError } from '../modules/errors';
@@ -41,9 +42,11 @@ const DEFAULT_SETTINGS = {
 
 let settings: Dict<any> = cloneDeep(DEFAULT_SETTINGS);
 
+export const events = new EventEmitter();
+
+// Exported for tests only, don't use that
 export async function reset(): Promise<void> {
 	debug('reset');
-	// TODO: Remove default settings from config file (?)
 	settings = cloneDeep(DEFAULT_SETTINGS);
 	await writeAll(settings);
 }
@@ -51,7 +54,14 @@ export async function reset(): Promise<void> {
 export async function load(): Promise<any> {
 	debug('load');
 	const loadedSettings = await readAll();
+	const oldSettings = cloneDeep(settings);
 	settings = { ...settings, ...loadedSettings };
+	for (const key of Object.keys(settings)) {
+		const value = settings[key];
+		if (!oldSettings.hasOwnProperty(key) || value !== oldSettings[key]) {
+			events.emit(key, value);
+		}
+	}
 	return settings;
 }
 
@@ -68,6 +78,9 @@ export async function set(key: string, value: any): Promise<void> {
 		// Revert to previous value if persisting settings failed
 		settings[key] = previousValue;
 		throw error;
+	}
+	if (value !== previousValue) {
+		events.emit(key, value);
 	}
 }
 

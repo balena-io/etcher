@@ -17,6 +17,8 @@
 import { execFile } from 'child_process';
 import { promisify } from 'util';
 
+import * as settings from '../models/settings';
+
 const execFileAsync = promisify(execFile);
 const EVENT_TYPES = [
 	'focus',
@@ -51,13 +53,47 @@ async function off() {
 	await Promise.all([ledsOff(), screenOff()]);
 }
 
-export function init(): void {
-	let timeout = setTimeout(screenOff, SCREENSAVER_DELAY);
-	for (const eventType of EVENT_TYPES) {
-		addEventListener(eventType, async () => {
-			clearTimeout(timeout);
-			timeout = setTimeout(off, SCREENSAVER_DELAY);
-			await ledsOn();
-		});
+let timeout: NodeJS.Timeout;
+let delay: number | null = null;
+
+async function listener() {
+	if (timeout !== undefined) {
+		clearTimeout(timeout);
 	}
+	if (delay !== null) {
+		timeout = setTimeout(off, delay);
+	}
+	await ledsOn();
+}
+
+async function setDelay($delay: number | null) {
+	const listenersSetUp = delay === null;
+	delay = $delay;
+	if (timeout !== undefined) {
+		clearTimeout(timeout);
+	}
+	if (delay === null) {
+		for (const eventType of EVENT_TYPES) {
+			removeEventListener(eventType, listener);
+		}
+	} else {
+		timeout = setTimeout(screenOff, delay);
+		if (!listenersSetUp) {
+			for (const eventType of EVENT_TYPES) {
+				addEventListener(eventType, listener);
+			}
+		}
+	}
+}
+
+async function getDelay() {
+	const enabled = await settings.get('enableScreensaver');
+	return enabled ? SCREENSAVER_DELAY : null;
+}
+
+export async function init(): Promise<void> {
+	setDelay(await getDelay());
+	settings.events.on('enableScreensaver', enabled => {
+		setDelay(enabled ? SCREENSAVER_DELAY : null);
+	});
 }
