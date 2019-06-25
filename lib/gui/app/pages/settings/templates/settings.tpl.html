@@ -78,13 +78,40 @@
     </label>
   </div>
 
-  <div class="checkbox" ng-if="settings.shouldShowEnableScreensaver()">
+  <div ng-if="settings.shouldShowScreensaverDelay()">
+    <h4>
+      Screensaver
+    </h4>
     <label>
-      <input type="checkbox"
+      <input
+        ng-model="settings.currentData.screensaverDelay"
+        ng-change="settings.set('screensaverDelay', '5')"
+        type="radio"
+        value="5"
         tabindex="11"
-        ng-model="settings.currentData.enableScreensaver"
-        ng-change="settings.toggle('enableScreensaver')">
-      <span>Enable screensaver</span>
+        >
+      5 min
+    </label>
+    <label>
+      <input
+        ng-model="settings.currentData.screensaverDelay"
+        ng-change="settings.set('screensaverDelay', '10')"
+        type="radio"
+        value="10"
+        tabindex="12"
+        >
+      10 min
+    </label>
+    <label>
+      <input
+        ng-model="settings.currentData.screensaverDelay"
+        ng-change="settings.set('screensaverDelay', 'never')"
+        type="radio"
+        value="never"
+        tabindex="13"
+        >
+      never
     </label>
   </div>
+
 </div>
