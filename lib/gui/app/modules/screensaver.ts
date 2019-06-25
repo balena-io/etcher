@@ -28,7 +28,6 @@ const EVENT_TYPES = [
 	'pointermove',
 	'pointerup',
 ] as const;
-const SCREENSAVER_DELAY = 30 * 1000; // TODO: make this configurable
 
 function exec(
 	command: string,
@@ -86,14 +85,16 @@ async function setDelay($delay: number | null) {
 	}
 }
 
-async function getDelay() {
-	const enabled = await settings.get('enableScreensaver');
-	return enabled ? SCREENSAVER_DELAY : null;
+function delayValue(d?: string): number | null {
+	if (d === undefined || d === 'never') {
+		return null;
+	}
+	return parseInt(d, 10) * 60 * 1000;
 }
 
 export async function init(): Promise<void> {
-	setDelay(await getDelay());
-	settings.events.on('enableScreensaver', enabled => {
-		setDelay(enabled ? SCREENSAVER_DELAY : null);
+	setDelay(delayValue(await settings.get('screensaverDelay')));
+	settings.events.on('screensaverDelay', d => {
+		setDelay(delayValue(d));
 	});
 }
