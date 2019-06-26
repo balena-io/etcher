@@ -1085,6 +1085,15 @@
       "integrity": "sha1-qIc1gLOoS2msHmhzI7Ffu+uQR5o=",
       "dev": true
     },
+    "@types/pigpio": {
+      "version": "1.2.1",
+      "resolved": "https://registry.npmjs.org/@types/pigpio/-/pigpio-1.2.1.tgz",
+      "integrity": "sha512-R0czS/QbWS/vU7rSp6MMcRu+zCZENcrYo/aDNDkF6RNSaKax6J+H45E9183AQtjJVb2N9VOCGrUfnHgyZ19WvQ==",
+      "dev": true,
+      "requires": {
+        "@types/node": "*"
+      }
+    },
     "@types/prettier": {
       "version": "1.16.4",
       "resolved": "https://registry.npmjs.org/@types/prettier/-/prettier-1.16.4.tgz",
@@ -9375,6 +9384,30 @@
       "version": "2.3.0",
       "resolved": "https://registry.npmjs.org/pify/-/pify-2.3.0.tgz",
       "integrity": "sha1-7RQaasBDqEnqWISY59yosVMw6Qw="
+    },
+    "pigpio": {
+      "version": "1.2.3",
+      "resolved": "https://registry.npmjs.org/pigpio/-/pigpio-1.2.3.tgz",
+      "integrity": "sha512-3ySsqR2Dxvl8p/vY1MMwF6dVYXTNnK4uuGaYy7gQvQ65GIOtiqpU4N4Ylq1MoKJbfXY9SJbW2PLhkprzQks3dA==",
+      "requires": {
+        "bindings": "^1.5.0",
+        "nan": "^2.14.0"
+      },
+      "dependencies": {
+        "bindings": {
+          "version": "1.5.0",
+          "resolved": "https://registry.npmjs.org/bindings/-/bindings-1.5.0.tgz",
+          "integrity": "sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==",
+          "requires": {
+            "file-uri-to-path": "1.0.0"
+          }
+        },
+        "nan": {
+          "version": "2.14.0",
+          "resolved": "https://registry.npmjs.org/nan/-/nan-2.14.0.tgz",
+          "integrity": "sha512-INOFj37C7k3AfaNTtX8RhsTw7qRy7eLET14cROi9+5HAVbbHuIWUHEauBv5qT4Av2tWasiTY1Jw6puUNqRJXQg=="
+        }
+      }
     },
     "pinkie": {
       "version": "2.0.4",
