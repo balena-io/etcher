@@ -75,7 +75,7 @@
     "semver": "^5.1.1",
     "styled-components": "^4.2.0",
     "styled-system": "^4.1.0",
-    "sudo-prompt": "^8.2.3",
+    "sudo-prompt": "^9.0.0",
     "tmp": "^0.1.0",
     "uuid": "^3.0.1",
     "xml2js": "^0.4.17"

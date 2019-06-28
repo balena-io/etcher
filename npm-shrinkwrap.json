@@ -11554,9 +11554,9 @@
       "integrity": "sha512-nTbZoaqoBnmK+ptANthb10ZRZOGC+EmTLLUxeYIuHNkEKcmKgXX1XWKkUBT2Ac4es3NybooPe0SmvKdhKJZAuw=="
     },
     "sudo-prompt": {
-      "version": "8.2.5",
-      "resolved": "https://registry.npmjs.org/sudo-prompt/-/sudo-prompt-8.2.5.tgz",
-      "integrity": "sha512-rlBo3HU/1zAJUrkY6jNxDOC9eVYliG6nS4JA8u8KAshITd07tafMc/Br7xQwCSseXwJ2iCcHCE8SNWX3q8Z+kw=="
+      "version": "9.0.0",
+      "resolved": "https://registry.npmjs.org/sudo-prompt/-/sudo-prompt-9.0.0.tgz",
+      "integrity": "sha512-kUn5fiOk0nhY2oKD9onIkcNCE4Zt85WTsvOfSmqCplmlEvXCcPOmp1npH5YWuf8Bmyy9wLWkIxx+D+8cThBORQ=="
     },
     "sumchecker": {
       "version": "2.0.2",
