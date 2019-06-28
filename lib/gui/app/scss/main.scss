@@ -238,3 +238,19 @@ featured-project {
     overflow: hidden;
   }
 }
+
+.sleep-button {
+  float: left;
+  background-color: #3c3e42;
+  width: 76px;
+  height: 24px;
+  border-radius: 24px;
+  padding: 0px;
+  margin-top: 10px;
+  margin-left: 6px;
+  font-size: 12px;
+
+  &:hover {
+    background-color: #414347;
+  }
+}
