@@ -48,7 +48,7 @@ async function ledsOff(): Promise<void> {
 	// TODO
 }
 
-async function off() {
+export async function off() {
 	await Promise.all([ledsOff(), screenOff()]);
 }
 

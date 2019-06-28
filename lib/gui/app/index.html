@@ -11,22 +11,36 @@
   </head>
   <body>
     <header class="section-header" ng-controller="HeaderController as header">
+      <button
+        class="button button-link sleep-button"
+        tabindex="4"
+        ng-if="header.shouldShowSleep()"
+        ng-click="header.sleep()"
+      >
+        <svg-icon paths="[ '../../assets/moon.svg' ]"
+          width="'14px'"
+          height="'14px'"></svg-icon>
+        <span >
+          Sleep
+        </span>
+      </button>
+
       <button class="button button-link"
         ng-if="header.shouldShowHelp()"
         ng-click="header.openHelpPage()"
-        tabindex="4">
+        tabindex="5">
         <span class="glyphicon glyphicon-question-sign"></span>
       </button>
 
       <button class="button button-link"
         ui-sref="settings"
         hide-if-state="settings"
-        tabindex="5">
+        tabindex="6">
         <span class="glyphicon glyphicon-cog"></span>
       </button>
 
       <button class="button button-link"
-        tabindex="5"
+        tabindex="7"
         ui-sref="main"
         show-if-state="settings">
         <span class="glyphicon glyphicon-chevron-left"></span> Back
