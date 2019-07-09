@@ -1,0 +1,26 @@
+version: '2'
+volumes:
+  resin-data:
+services:
+  etcher:
+    build:
+      context: ./
+    network_mode: host
+    privileged: true
+    labels:
+      io.balena.features.dbus: '1'
+    devices:
+      - '/dev:/dev'
+    volumes:
+      - 'resin-data:/data'
+    depends_on:
+      - network
+  network:
+    build: ./docker/network
+    network_mode: host
+    privileged: true
+    labels:
+      io.balena.features.dbus: '1'
+      io.balena.features.firmware: '1'
+    ports:
+      - "80:80"

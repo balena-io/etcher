@@ -1,0 +1,115 @@
+FROM balenalib/%%BALENA_MACHINE_NAME%%-debian-node:10.16.0-stretch AS buildstep
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    build-essential \
+    curl \
+    git \
+    jq \
+    libgconf-2-4 \
+    libgtk-3-0 \
+    libnss3 \
+    libudev-dev \
+    libusb-1.0-0-dev \
+    libxss1 \
+    libxtst6 \
+    libxtst-dev \
+    libyaml-dev \
+    python \
+    python-dev \
+    python-pip \
+    pigpio \
+  && rm -rf /var/lib/apt/lists/*
+
+RUN npm i -g npm@6.7.0
+
+# Move to app dir
+WORKDIR /usr/src/app
+
+# Move package.json to filesystem
+COPY ./package.json .
+COPY ./npm-shrinkwrap.json .
+COPY ./Makefile .
+
+# Move scripts
+COPY ./scripts ./scripts
+RUN find . -name '*.sh' -type f | xargs chmod +x
+
+# Export variables to be used in the Makefile scope
+RUN export npm_config_unsafe_perm=true
+
+# Move patches folder
+COPY ./patches ./patches
+COPY ./binding.gyp .
+COPY ./.git ./.git
+
+# Install dependencies
+RUN JOBS=MAX make electron-develop-balena
+
+COPY ./lib ./lib
+COPY ./src ./src
+
+# Generate the webpack bundle
+COPY ./webpack.config.js .
+RUN make webpack
+
+COPY docker/etcher/app/automount /usr/src/automount
+WORKDIR /usr/src/automount
+RUN npm i
+RUN npm run lint
+RUN npm run build
+RUN npm uninstall resin-lint typescript
+
+FROM balenalib/%%BALENA_MACHINE_NAME%%-debian-node:10.16.0-stretch
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    exfat-fuse \
+    exfat-utils \
+    fuse \
+    hfsprogs \
+    libasound2 \
+    libgconf-2-4 \
+    libgtk-3-0 \
+    libnss3 \
+    libx11-xcb1 \
+    libxcb-image0 \
+    libxcb-util0 \
+    libxss1 \
+    libxtst6 \
+    ntfs-3g \
+    xinit \
+    xserver-xorg \
+    xserver-xorg-input-evdev \
+    xserver-xorg-video-fbdev \
+    pigpio \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+COPY --from=buildstep /usr/src/app/node_modules /usr/src/app/node_modules
+COPY --from=buildstep /usr/src/app/generated /usr/src/app/generated
+COPY --from=buildstep /usr/src/app/package.json /usr/src/app/package.json
+COPY --from=buildstep /usr/src/app/lib /usr/src/app/lib
+COPY --from=buildstep /usr/src/automount /usr/src/automount
+
+# Move to app dir
+WORKDIR /usr/src/app
+
+# Required by write-env-config.js
+RUN npm i read-env
+
+RUN mkdir -p /root/.config/Electron
+
+COPY ./docker/etcher/app/write-env-config.js ./
+COPY ./docker/etcher/app/start.sh ./
+COPY ./docker/etcher/app/xinitrc /root/.xinitrc
+
+# Configure X window server
+RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
+  && echo "" >> /etc/X11/xinit/xserverrc \
+  && echo 'exec /usr/bin/X -s 0 dpms -nocursor -nolisten tcp "$@"' >> /etc/X11/xinit/xserverrc
+
+ENV DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
+ENV UDEV=true
+# Start app
+CMD ["bash", "/usr/src/app/start.sh"]

@@ -1,0 +1,21 @@
+{
+  "name": "automount",
+  "version": "1.0.0",
+  "description": "Automounts partitions of block devices",
+  "scripts": {
+    "lint": "resin-lint --typescript index.ts",
+    "prettier": "prettier --config ./node_modules/resin-lint/config/.prettierrc --write \"index.ts\"",
+    "build": "rm -rf build && tsc",
+    "start": "node build/index.js"
+  },
+  "author": "Alexis Svinartchouk <alexis@balena.io>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@types/node": "^10.14.9",
+    "udev": "balena-io-modules/node-udev#7ea2fa912910de84dc5e410f056399c70d4549a9"
+  },
+  "devDependencies": {
+    "resin-lint": "^3.0.4",
+    "typescript": "^3.5.1"
+  }
+}

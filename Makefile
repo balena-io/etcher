@@ -100,6 +100,14 @@ electron-develop: | $(BUILD_TEMPORARY_DIRECTORY)
 		-s $(PLATFORM) \
 		-m $(NPM_VERSION)
 
+electron-develop-balena: | $(BUILD_TEMPORARY_DIRECTORY)
+	$(RESIN_SCRIPTS)/electron/install.sh \
+		-b $(shell pwd) \
+		-r $(TARGET_ARCH) \
+		-s $(PLATFORM) \
+		-m $(NPM_VERSION) \
+		-c
+
 electron-test:
 	$(RESIN_SCRIPTS)/electron/test.sh \
 		-b $(shell pwd) \
@@ -164,9 +172,9 @@ lint-html:
 
 lint-spell:
 	codespell \
-		--dictionary - \
-		--dictionary dictionary.txt \
-		--skip *.svg *.gz,*.bz2,*.xz,*.zip,*.img,*.dmg,*.iso,*.rpi-sdcard,*.wic,.DS_Store,*.dtb,*.dtbo,*.dat,*.elf,*.bin,*.foo,xz-without-extension \
+		--dictionary=- \
+		--dictionary=dictionary.txt \
+		--skip="*.svg *.gz,*.bz2,*.xz,*.zip,*.img,*.dmg,*.iso,*.rpi-sdcard,*.wic,.DS_Store,*.dtb,*.dtbo,*.dat,*.elf,*.bin,*.foo,xz-without-extension,scripts/resin" \
 		lib tests docs scripts Makefile *.md LICENSE
 
 lint: lint-js lint-sass lint-cpp lint-html lint-spell

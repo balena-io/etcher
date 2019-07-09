@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
+exec /usr/src/app/node_modules/.bin/electron /usr/src/app/lib/start.js --enable-logging
+# exec ELECTRON_ENABLE_LOGGING=1 npm --prefix /usr/src/app start

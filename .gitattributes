@@ -1,6 +1,9 @@
 # Javascript files must retain LF line-endings (to keep eslint happy)
 *.js text eol=lf
 *.jsx text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+
 # CSS and SCSS files must retain LF line-endings (to keep ensure-staged-sass.sh happy)
 *.css text eol=lf
 *.scss text eol=lf
@@ -26,6 +29,7 @@ Makefile text
 *.patch text
 *.txt text
 CODEOWNERS text
+xinitrc text
 
 # Binary files (no line-ending conversions)
 *.bz2 binary diff=hex
@@ -54,4 +58,3 @@ CODEOWNERS text
 *.woff2 binary diff=hex
 *.ttf binary diff=hex
 xz-without-extension binary diff=hex
-wmic-output.txt binary diff=hex

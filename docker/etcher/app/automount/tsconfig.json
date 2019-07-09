@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"outDir": "build",
+		"noImplicitAny": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"strictNullChecks": true,
+		"moduleResolution": "node",
+		"module": "commonjs",
+		"target": "es2017"
+	},
+	"include": [
+		"index.ts",
+		"typings/**/*.d.ts"
+	]
+}

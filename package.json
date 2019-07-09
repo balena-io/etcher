@@ -35,7 +35,8 @@
   "license": "Apache-2.0",
   "platformSpecificDependencies": [
     "fsevents",
-    "winusb-driver-generator"
+    "winusb-driver-generator",
+    "pigpio"
   ],
   "dependencies": {
     "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
