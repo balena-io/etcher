@@ -26,6 +26,12 @@
   </div>
 
   <div class="col-xs" ng-controller="DriveSelectionController as drive">
+    <drive-selector-2
+      ng-if="drive.driveSelectorModalOpen"
+      close="drive.closeDriveSelectorModal"
+      wololo="wololo"
+    >
+    </drive-selector-2>
     <div class="box text-center relative">
 
       <div class="step-border-left" ng-disabled="main.shouldDriveStepBeDisabled()" ng-hide="main.state.isFlashing() && main.isWebviewShowing"></div>

@@ -19,6 +19,7 @@
 /* eslint-disable no-unused-vars */
 const React = require('react')
 const propTypes = require('prop-types')
+const { Badge, Select } = require('rendition')
 
 const middleEllipsis = require('./../../utils/middle-ellipsis')
 
@@ -64,6 +65,13 @@ const SelectImageButton = (props) => {
   return (
     <ThemedProvider>
       <StepSelection>
+        <Select
+          value={props.sourceType}
+          onChange={(e) => {console.log('changed')}}
+        >
+          <option value={'image'}>Select image file</option>
+          <option value={'drive'}>Duplicate drive</option>
+        </Select>
         <StepButton
           onClick={props.openImageSelector}
         >
@@ -92,7 +100,8 @@ SelectImageButton.propTypes = {
   imageBasename: propTypes.string,
   reselectImage: propTypes.func,
   flashing: propTypes.bool,
-  imageSize: propTypes.number
+  imageSize: propTypes.number,
+  sourceType: propTypes.string
 }
 
 module.exports = SelectImageButton

@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-'use strict'
-
 /**
  * @module Etcher.Components.TargetSelector
  */
 
-const angular = require('angular')
-const { react2angular } = require('react2angular')
+import * as angular from 'angular';
+import { react2angular } from 'react2angular';
 
 const MODULE_NAME = 'Etcher.Components.TargetSelector'
 const SelectTargetButton = angular.module(MODULE_NAME, [])
@@ -31,4 +29,4 @@ SelectTargetButton.component(
   react2angular(require('./target-selector.jsx'))
 )
 
-module.exports = MODULE_NAME
+export = MODULE_NAME;

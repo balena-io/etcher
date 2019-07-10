@@ -16,14 +16,17 @@
 
 import { Meter } from 'grommet';
 import * as React from 'react';
-import { Badge, Heading, Modal, Table } from 'rendition';
+import { Badge, Modal, Table } from 'rendition';
 
 import { getDrives } from '../../models/available-drives';
-import { getDriveImageCompatibilityStatuses } from '../../modules/drive-constraints';
+import {
+  COMPATIBILITY_STATUS_TYPES,
+  getDriveImageCompatibilityStatuses,
+  isDriveValid,
+} from '../../modules/drive-constraints';
 import {
   deselectDrive,
   getImage,
-  getSelectedDrives,
   isDriveSelected,
   selectDrive,
 } from '../../models/selection-state';
@@ -58,18 +61,17 @@ interface CompatibilityStatus {
 }
 
 interface DriveSelectorProps {
+  close: () => void;
   unique: boolean;  // TODO
 }
 
 interface DriveSelectorState {
-  open: boolean;
   drives: Drive[];
+  selected: Drive[];
   image: Image;
-  selectedDrivesCount: number;
+  disabledDrives: string[];
 }
 
-
-// TODO: no hardcoded size
 const modalStyle = {
   width: '800px',
   height: '600px',
@@ -96,8 +98,13 @@ const wrapperStyle = {
 }
 
 export class DriveSelector2 extends React.Component<DriveSelectorProps, DriveSelectorState> {
-  private table: React.RefObject<Table<Drive>>;
-  private columns: any;  // TODO
+  private table: Table<Drive> | null = null;
+  private columns: {
+    field: keyof Drive,
+    label: string,
+    render?: (value: any, row: Drive) => string | number | JSX.Element | null,
+  }[];
+  private unsubscribe?: () => void;
 
   constructor(props: DriveSelectorProps) {
     super(props);
@@ -122,28 +129,43 @@ export class DriveSelector2 extends React.Component<DriveSelectorProps, DriveSel
         render: this.renderBadges.bind(this),
       } as const,
     ];
-    this.state = {
-      drives: getDrives(),
-      selectedDrivesCount: getSelectedDrives().length,
-      image: getImage(),
-      open: true,
-    };
-    this.table = React.createRef();
-    subscribe(() => {
-      const drives: Drive[] = getDrives();
-      for (let i = 0; i < drives.length; i++) {
-        drives[i] = {...drives[i]};
-      }
-      const selected = drives.filter(d => isDriveSelected(d.device));
-      this.setState({
-        drives,
-        selectedDrivesCount: selected.length,
-        image: getImage(),
-      });
-      if (this.table.current != null) {
-        this.table.current.setRowSelection(selected);
-      }
-    });
+    this.state = this.getNewState();
+  }
+
+  public componentDidMount() {
+    this.update();
+    if (this.unsubscribe === undefined) {
+      this.unsubscribe = subscribe(this.update.bind(this));
+    }
+  }
+
+  public componentWillUnmount() {
+    if (this.unsubscribe !== undefined) {
+      this.unsubscribe();
+      this.unsubscribe = undefined;
+    }
+  }
+
+  private getNewState() {
+    const drives: Drive[] = getDrives();
+    for (let i = 0; i < drives.length; i++) {
+      drives[i] = {...drives[i]};
+    }
+    const selected = drives.filter(d => isDriveSelected(d.device));
+    const image = getImage();
+    const disabledDrives = drives.filter(d => !isDriveValid(d, image)).map(d => d.device);
+    return { drives, disabledDrives, image, selected };
+  }
+
+  private update() {
+    this.setState(this.getNewState());
+    this.updateTableSelection();
+  }
+
+  private updateTableSelection() {
+    if (this.table !== null) {
+      this.table.setRowSelection(this.state.selected);
+    }
   }
 
   private renderSize(size: number) {
@@ -179,11 +201,15 @@ export class DriveSelector2 extends React.Component<DriveSelectorProps, DriveSel
         }
         />);
     }
-    result.push(...getDriveImageCompatibilityStatuses(row, this.state.image).map((status: CompatibilityStatus) => {  // TODO: badge color
-      return <Badge xsmall>{status.message}</Badge>
+    result.push(...getDriveImageCompatibilityStatuses(row, this.state.image).map((status: CompatibilityStatus) => {
+      const props: { key: string, xsmall: true, danger?: boolean, warning?: boolean} = { xsmall: true, key: status.message };
+      if (status.type === COMPATIBILITY_STATUS_TYPES.ERROR) {
+        props.danger = true;
+      } else if (status.type === COMPATIBILITY_STATUS_TYPES.WARNING) {
+        props.warning = true;
+      }
+      return <Badge {...props}>{status.message}</Badge>
     }))
-    // TODO: drive contains source mountpoint
-    // TODO: large drive
     return <React.Fragment>{result}</React.Fragment>;
   }
 
@@ -202,38 +228,37 @@ export class DriveSelector2 extends React.Component<DriveSelectorProps, DriveSel
   }
 
   public render() {
-    console.log('render', this.state.drives.map(d => d.device));
-    if (this.state.open) {
-      return <ThemedProvider>
-        <Modal
-          titleElement={
-            <Heading.h3 style={titleStyle}>
-              Available targets
-              <span style={subtitleStyle}>
-                {this.state.drives.length} found
-              </span>
-            </Heading.h3>
-          }
-          action={`Select (${this.state.selectedDrivesCount})`}
-          style={modalStyle}
-          done={() => {this.setState({open: false})}}
-        >
-          <div style={wrapperStyle}>
-            <Table<Drive>
-              ref={this.table}
-              rowKey='device'
-              onCheck={this.onCheck}
-              columns={this.columns}
-              data={this.state.drives}
-              tbodyPrefix={this.renderTbodyPrefix()}
-            >
-            </Table>
+    return <ThemedProvider>
+      <Modal
+        titleElement={
+          <div style={titleStyle}>
+            Available targets
+            <span style={subtitleStyle}>
+              {this.state.drives.length} found
+            </span>
           </div>
-        </Modal>
-      </ThemedProvider>
-    } else {
-      return null;
-    }
+        }
+        action={`Select (${this.state.selected.length})`}
+        style={modalStyle}
+        done={this.props.close}
+      >
+        <div style={wrapperStyle}>
+          <Table<Drive>
+            ref={(t) => {
+              this.table = t;
+              this.updateTableSelection();
+            }}
+            rowKey='device'
+            onCheck={this.onCheck}
+            columns={this.columns}
+            data={this.state.drives}
+            disabledRows={this.state.disabledDrives}
+            tbodyPrefix={this.renderTbodyPrefix()}
+          >
+          </Table>
+        </div>
+      </Modal>
+    </ThemedProvider>
   }
 
   private onCheck(checkedDrives: Drive[]): void {

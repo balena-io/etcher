@@ -23,6 +23,6 @@ const MODULE_NAME = 'Etcher.Components.DriveSelector2'
 
 angular
 	.module(MODULE_NAME, [])
-	.component('driveSelector2', react2angular(DriveSelector2))
+	.component('driveSelector2', react2angular(DriveSelector2, ['close']))
 
 export = MODULE_NAME;
