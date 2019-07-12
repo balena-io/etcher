@@ -19,10 +19,16 @@ import { react2angular } from 'react2angular';
 
 import { DriveSelector2 } from './drive-selector.tsx';
 
-const MODULE_NAME = 'Etcher.Components.DriveSelector2'
+const MODULE_NAME = 'Etcher.Components.DriveSelector2';
 
 angular
 	.module(MODULE_NAME, [])
-	.component('driveSelector2', react2angular(DriveSelector2, ['close']))
+	.component(
+		'driveSelector2',
+		react2angular(
+			DriveSelector2,
+			['close', 'selectDrive', 'deselectDrive', 'isDriveSelected', 'isDriveValid', 'getDriveBadges']
+		)
+	)
 
 export = MODULE_NAME;

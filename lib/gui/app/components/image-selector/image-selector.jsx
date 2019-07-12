@@ -19,7 +19,8 @@
 /* eslint-disable no-unused-vars */
 const React = require('react')
 const propTypes = require('prop-types')
-const { Badge, Select } = require('rendition')
+const { Badge, DropDownButton, Select } = require('rendition')
+const { default: styled } = require('styled-components')
 
 const middleEllipsis = require('./../../utils/middle-ellipsis')
 
@@ -34,6 +35,17 @@ const {
   ChangeButton,
   ThemedProvider
 } = require('./../../styled-components')
+
+const DropdownItem = styled.p`
+  padding-top: 10px;
+  text-align: left;
+  width: 150px;
+  cursor: pointer;
+`
+
+const DropdownItemIcon = styled.i`
+  padding-right: 10px;
+`
 
 const SelectImageButton = (props) => {
   if (props.hasImage) {
@@ -51,9 +63,9 @@ const SelectImageButton = (props) => {
           <ChangeButton
             plain
             mb={14}
-            onClick={props.reselectImage}
+            onClick={props.deselectImage}
           >
-            Change
+            Remove
           </ChangeButton>
         }
         <DetailsText>
@@ -65,18 +77,26 @@ const SelectImageButton = (props) => {
   return (
     <ThemedProvider>
       <StepSelection>
-        <Select
-          value={props.sourceType}
-          onChange={(e) => {console.log('changed')}}
+        <DropDownButton
+          primary
+          label={
+            <div onClick={props.openImageSelector}>Select image</div>
+          }
+          style={{height: '48px'}}
         >
-          <option value={'image'}>Select image file</option>
-          <option value={'drive'}>Duplicate drive</option>
-        </Select>
-        <StepButton
-          onClick={props.openImageSelector}
-        >
-          Select image
-        </StepButton>
+          <DropdownItem
+            onClick={props.openImageSelector}
+          >
+            <DropdownItemIcon className="far fa-file"/>
+            Select image file
+          </DropdownItem>
+          <DropdownItem
+            onClick={props.openDriveSelector}
+          >
+            <DropdownItemIcon className="far fa-copy"/>
+            Duplicate drive
+          </DropdownItem>
+        </DropDownButton>
         <Footer>
           { props.mainSupportedExtensions.join(', ') }, and{' '}
           <Underline
@@ -92,13 +112,14 @@ const SelectImageButton = (props) => {
 
 SelectImageButton.propTypes = {
   openImageSelector: propTypes.func,
+  openDriveSelector: propTypes.func,
   mainSupportedExtensions: propTypes.array,
   extraSupportedExtensions: propTypes.array,
   hasImage: propTypes.bool,
   showSelectedImageDetails: propTypes.func,
   imageName: propTypes.string,
   imageBasename: propTypes.string,
-  reselectImage: propTypes.func,
+  deselectImage: propTypes.func,
   flashing: propTypes.bool,
   imageSize: propTypes.number,
   sourceType: propTypes.string

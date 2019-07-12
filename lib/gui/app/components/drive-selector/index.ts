@@ -21,12 +21,12 @@
 import * as angular from 'angular';
 import { react2angular } from 'react2angular';
 
-const MODULE_NAME = 'Etcher.Components.TargetSelector'
-const SelectTargetButton = angular.module(MODULE_NAME, [])
+const MODULE_NAME = 'Etcher.Components.TargetSelector';
+const SelectTargetButton = angular.module(MODULE_NAME, []);
 
 SelectTargetButton.component(
-  'targetSelector',
-  react2angular(require('./target-selector.jsx'))
-)
+	'targetSelector',
+	react2angular(require('./target-selector.jsx')),
+);
 
 export = MODULE_NAME;

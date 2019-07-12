@@ -1,5 +1,15 @@
 <div class="page-main row around-xs">
   <div class="col-xs" ng-controller="ImageSelectionController as image">
+    <drive-selector-2
+      ng-if="image.driveSelectorModalOpen"
+      close="image.closeDriveSelectorModal"
+      select-drive="image.selectDrive"
+      deselect-drive="image.deselectDrive"
+      is-drive-selected="image.isDriveSelected"
+      is-drive-valid="image.isDriveValid"
+      get-drive-badges="image.getDriveBadges"
+    >
+    </drive-selector-2>
     <div class="box text-center relative" os-dropzone="image.selectImageByPath($file)">
 
       <div class="center-block">
@@ -10,12 +20,13 @@
         <image-selector
           has-image="main.selection.hasImage()"
           open-image-selector="image.openImageSelector"
+          open-drive-selector="image.openDriveSelector"
           main-supported-extensions="image.mainSupportedExtensions"
           extra-supported-extensions="image.extraSupportedExtensions"
           show-selected-image-details="main.showSelectedImageDetails"
           image-name="main.selection.getImageName()"
           image-basename="image.getImageBasename()"
-          reselect-image="image.reselectImage"
+          deselect-image="image.deselectImage"
           flashing="main.state.isFlashing()"
           image-size="main.selection.getImageSize()"
         >
@@ -29,7 +40,11 @@
     <drive-selector-2
       ng-if="drive.driveSelectorModalOpen"
       close="drive.closeDriveSelectorModal"
-      wololo="wololo"
+      select-drive="drive.selectDrive"
+      deselect-drive="drive.deselectDrive"
+      is-drive-selected="drive.isDriveSelected"
+      is-drive-valid="drive.isDriveValid"
+      get-drive-badges="drive.getDriveBadges"
     >
     </drive-selector-2>
     <div class="box text-center relative">

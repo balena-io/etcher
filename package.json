@@ -20,7 +20,7 @@
   },
   "scripts": {
     "test": "make lint test sanity-checks",
-    "prettier": "prettier --config ./node_modules/resin-lint/config/.prettierrc --write \"lib/**/*.ts\"",
+    "prettier": "prettier --config ./node_modules/resin-lint/config/.prettierrc --write \"lib/**/*.ts\" \"lib/**/*.tsx\"",
     "start": "./node_modules/.bin/electron .",
     "postshrinkwrap": "node ./scripts/clean-shrinkwrap.js",
     "configure": "node-gyp configure",
