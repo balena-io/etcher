@@ -43,10 +43,10 @@ interface CompatibilityStatus {
 }
 
 interface DriveSelectorProps {
+	title: string;
 	close: () => void;
-  selectDrive: (drive: Drive) => void;
-  deselectDrive: (drive: Drive) => void;
-  isDriveSelected: (drive: Drive) => boolean;
+	setSelectedDrives: (drives: Drive[]) => void;
+	isDriveSelected: (drive: Drive) => boolean;
 	isDriveValid: (drive: Drive) => boolean;
 	getDriveBadges: (drive: Drive) => CompatibilityStatus[];
 }
@@ -139,7 +139,7 @@ export class DriveSelector2 extends React.Component<
 		for (let i = 0; i < drives.length; i++) {
 			drives[i] = { ...drives[i] };
 		}
-    drives = sortBy(drives, 'device');
+		drives = sortBy(drives, 'device');
 		const selected = drives.filter(d => this.props.isDriveSelected(d));
 		const disabledDrives = drives
 			.filter(d => !this.props.isDriveValid(d))
@@ -192,22 +192,20 @@ export class DriveSelector2 extends React.Component<
 			);
 		}
 		result.push(
-			...this.props.getDriveBadges(row).map(
-				(status: CompatibilityStatus) => {
-					const props: {
-						key: string;
-						xsmall: true;
-						danger?: boolean;
-						warning?: boolean;
-					} = { xsmall: true, key: status.message };
-					if (status.type === COMPATIBILITY_STATUS_TYPES.ERROR) {
-						props.danger = true;
-					} else if (status.type === COMPATIBILITY_STATUS_TYPES.WARNING) {
-						props.warning = true;
-					}
-					return <Badge {...props}>{status.message}</Badge>;
-				},
-			),
+			...this.props.getDriveBadges(row).map((status: CompatibilityStatus) => {
+				const props: {
+					key: string;
+					xsmall: true;
+					danger?: boolean;
+					warning?: boolean;
+				} = { xsmall: true, key: status.message };
+				if (status.type === COMPATIBILITY_STATUS_TYPES.ERROR) {
+					props.danger = true;
+				} else if (status.type === COMPATIBILITY_STATUS_TYPES.WARNING) {
+					props.warning = true;
+				}
+				return <Badge {...props}>{status.message}</Badge>;
+			}),
 		);
 		return <React.Fragment>{result}</React.Fragment>;
 	}
@@ -231,7 +229,7 @@ export class DriveSelector2 extends React.Component<
 				<Modal
 					titleElement={
 						<div style={titleStyle}>
-							Available targets
+							{this.props.title}
 							<span style={subtitleStyle}>
 								{this.state.drives.length} found
 							</span>
@@ -261,13 +259,6 @@ export class DriveSelector2 extends React.Component<
 	}
 
 	private onCheck(checkedDrives: Drive[]): void {
-		const checkedDevices = checkedDrives.map(d => d.device);
-		for (const drive of getDrives()) {
-			if (checkedDevices.indexOf(drive.device) !== -1) {
-				this.props.selectDrive(drive);
-			} else {
-				this.props.deselectDrive(drive);
-			}
-		}
+		this.props.setSelectedDrives(checkedDrives);
 	}
 }

@@ -25,10 +25,14 @@ angular
 	.module(MODULE_NAME, [])
 	.component(
 		'driveSelector2',
-		react2angular(
-			DriveSelector2,
-			['close', 'selectDrive', 'deselectDrive', 'isDriveSelected', 'isDriveValid', 'getDriveBadges']
-		)
-	)
+		react2angular(DriveSelector2, [
+			'close',
+			'getDriveBadges',
+			'isDriveSelected',
+			'isDriveValid',
+			'setSelectedDrives',
+			'title',
+		]),
+	);
 
 export = MODULE_NAME;

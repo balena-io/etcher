@@ -2,9 +2,9 @@
   <div class="col-xs" ng-controller="ImageSelectionController as image">
     <drive-selector-2
       ng-if="image.driveSelectorModalOpen"
+      title="'Select a source drive'"
       close="image.closeDriveSelectorModal"
-      select-drive="image.selectDrive"
-      deselect-drive="image.deselectDrive"
+      set-selected-drives="image.setSelectedDrives"
       is-drive-selected="image.isDriveSelected"
       is-drive-valid="image.isDriveValid"
       get-drive-badges="image.getDriveBadges"
@@ -39,9 +39,9 @@
   <div class="col-xs" ng-controller="DriveSelectionController as drive">
     <drive-selector-2
       ng-if="drive.driveSelectorModalOpen"
+      title="'Available targets'"
       close="drive.closeDriveSelectorModal"
-      select-drive="drive.selectDrive"
-      deselect-drive="drive.deselectDrive"
+      set-selected-drives="drive.setSelectedDrives"
       is-drive-selected="drive.isDriveSelected"
       is-drive-valid="drive.isDriveValid"
       get-drive-badges="drive.getDriveBadges"
