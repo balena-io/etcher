@@ -14,3 +14,9 @@ trim_trailing_whitespace = false
 
 [Makefile]
 indent_style = tab
+
+[*.ts]
+indent_style = tab
+
+[*.tsx]
+indent_style = tab
