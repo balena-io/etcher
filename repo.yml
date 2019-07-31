@@ -5,3 +5,5 @@ sentry:
     org: balenaetcher
     team: resinio
     type: electron
+triggerNotification:
+    version: 1.5.52
