@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "target": "es2017",
+    "jsx": "react"
+  },
+  "include": [
+    "lib/**/*.ts",
+    "node_modules/electron/**/*.d.ts",
+    "typings/**/*.d.ts"
+  ]
+}

@@ -51,11 +51,16 @@ const commonConfig = {
         use: {
           loader: 'html-loader'
         }
+      },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
       }
     ]
   },
   resolve: {
-    extensions: [ '.js', '.jsx', '.json' ]
+    extensions: [ '.js', '.jsx', '.json', '.ts', '.tsx' ]
   },
   plugins: [
     new SimpleProgressWebpackPlugin({
