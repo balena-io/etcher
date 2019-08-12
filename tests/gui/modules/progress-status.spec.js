@@ -1,7 +1,7 @@
 'use strict'
 
 const m = require('mochainon')
-const settings = require('../../../lib/gui/app/models/settings')
+const settings = require('../../../lib/gui/app/models/settings.ts')
 const progressStatus = require('../../../lib/gui/app/modules/progress-status')
 
 describe('Browser: progressStatus', function () {

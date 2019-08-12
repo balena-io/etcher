@@ -24,7 +24,7 @@ const react = require('react')
 const propTypes = require('prop-types')
 const analytics = require('../../modules/analytics')
 const store = require('../../models/store')
-const settings = require('../../models/settings')
+const settings = require('../../models/settings.ts')
 const packageJSON = require('../../../../../package.json')
 
 /**

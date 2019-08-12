@@ -19,7 +19,7 @@
 const React = require('react')
 const propTypes = require('prop-types')
 const SafeWebview = require('../safe-webview/safe-webview.jsx')
-const settings = require('../../models/settings')
+const settings = require('../../models/settings.ts')
 const analytics = require('../../modules/analytics')
 
 class FeaturedProject extends React.Component {

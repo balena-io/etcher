@@ -19,8 +19,8 @@
 const m = require('mochainon')
 const _ = require('lodash')
 const path = require('path')
-const constraints = require('../../lib/shared/drive-constraints')
-const messages = require('../../lib/shared/messages')
+const constraints = require('../../../lib/gui/app/modules/drive-constraints')
+const messages = require('../../../lib/gui/app/modules/messages')
 
 describe('Shared: DriveConstraints', function () {
   describe('.isDriveLocked()', function () {

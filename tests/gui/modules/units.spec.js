@@ -17,7 +17,7 @@
 'use strict'
 
 const m = require('mochainon')
-const units = require('../../lib/shared/units')
+const units = require('../../../lib/gui/app/modules/units')
 
 describe('Shared: Units', function () {
   describe('.bytesToClosestUnit()', function () {

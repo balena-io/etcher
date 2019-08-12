@@ -19,7 +19,7 @@
 const Bluebird = require('bluebird')
 const spectron = require('spectron')
 const m = require('mochainon')
-const EXIT_CODES = require('../../lib/shared/exit-codes')
+const EXIT_CODES = require('../../lib/gui/app/modules/exit-codes')
 const entrypoint = process.env.ETCHER_SPECTRON_ENTRYPOINT
 
 if (!entrypoint) {

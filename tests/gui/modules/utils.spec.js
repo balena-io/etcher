@@ -18,7 +18,7 @@
 
 const _ = require('lodash')
 const m = require('mochainon')
-const utils = require('../../lib/shared/utils')
+const utils = require('../../../lib/gui/app/modules/utils.ts')
 
 describe('Shared: Utils', function () {
   describe('.isValidPercentage()', function () {

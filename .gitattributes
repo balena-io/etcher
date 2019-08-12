@@ -1,3 +1,6 @@
+# Typescript files
+*.ts text eol=lf
+*.tsx text eol=lf
 # Javascript files must retain LF line-endings (to keep eslint happy)
 *.js text eol=lf
 *.jsx text eol=lf

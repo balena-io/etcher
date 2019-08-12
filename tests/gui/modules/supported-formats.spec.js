@@ -18,7 +18,7 @@
 
 const m = require('mochainon')
 const _ = require('lodash')
-const supportedFormats = require('../../lib/shared/supported-formats')
+const supportedFormats = require('../../../lib/gui/app/modules/supported-formats')
 
 describe('Shared: SupportedFormats', function () {
   describe('.getCompressedExtensions()', function () {

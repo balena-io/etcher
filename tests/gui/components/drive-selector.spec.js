@@ -20,7 +20,7 @@ const _ = require('lodash')
 const m = require('mochainon')
 const angular = require('angular')
 require('angular-mocks')
-const utils = require('../../../lib/shared/utils')
+const utils = require('../../../lib/gui/app/modules/utils.ts')
 
 describe('Browser: DriveSelector', function () {
   beforeEach(angular.mock.module(

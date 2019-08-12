@@ -18,7 +18,7 @@
 
 const m = require('mochainon')
 const _ = require('lodash')
-const fileExtensions = require('../../lib/shared/file-extensions')
+const fileExtensions = require('../../../lib/gui/app/modules/file-extensions')
 
 describe('Shared: fileExtensions', function () {
   describe('.getFileExtensions()', function () {

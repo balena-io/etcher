@@ -20,7 +20,7 @@ const m = require('mochainon')
 const path = require('path')
 const availableDrives = require('../../../lib/gui/app/models/available-drives')
 const selectionState = require('../../../lib/gui/app/models/selection-state')
-const constraints = require('../../../lib/shared/drive-constraints')
+const constraints = require('../../../lib/gui/app/modules/drive-constraints')
 
 describe('Model: availableDrives', function () {
   describe('availableDrives', function () {

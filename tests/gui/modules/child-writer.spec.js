@@ -18,7 +18,7 @@
 
 const m = require('mochainon')
 const ipc = require('node-ipc')
-require('../../../lib/gui/modules/child-writer')
+require('../../../generated/child-writer')
 
 describe('Browser: childWriter', function () {
   it('should have the ipc config set to silent', function () {

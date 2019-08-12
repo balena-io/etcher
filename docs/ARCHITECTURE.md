@@ -62,7 +62,7 @@ since fresh eyes could help unveil things that we take for granted, but should
 be documented instead!
 
 [lego-blocks]: https://github.com/sindresorhus/ama/issues/10#issuecomment-117766328
-[exit-codes]: https://github.com/balena-io/etcher/blob/master/lib/shared/exit-codes.js
+[exit-codes]: https://github.com/balena-io/etcher/blob/master/lib/gui/app/modules/exit-codes.js
 [gui-dir]: https://github.com/balena-io/etcher/tree/master/lib/gui
 [electron]: http://electron.atom.io
 [nodejs]: https://nodejs.org
