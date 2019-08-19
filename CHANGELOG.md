@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.54
+## (2019-08-07)
+
+* Fix auto-updater check for updates [Lorenzo Alberto Maria Ambrosi]
+
 # v1.5.53
 ## (2019-08-06)
 
