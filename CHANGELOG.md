@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.56
+## (2019-08-20)
+
+* Fix windows portable download [Lorenzo Alberto Maria Ambrosi]
+
 # v1.5.55
 ## (2019-08-19)
 
