@@ -130,7 +130,7 @@ body {
   letter-spacing: 0.5px;
   display: flex;
   flex-direction: column;
-  font-family: 'CircularStd';
+  font-family: 'Nunito';
 
   > header {
     flex: 0 0 auto;
@@ -138,52 +138,6 @@ body {
 
   > main {
     flex: 1;
-    display: flex;
-  }
-
-  > footer {
-    flex: 0 0 auto;
-  }
-}
-
-.section-footer-main {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-
-  color: $palette-theme-dark-disabled-foreground;
-  margin: 0 30px 16px 30px;
-  padding-top: 15px;
-  border-top: 2px solid $palette-theme-dark-soft-background;
-  text-align: center;
-
-  // Override default column padding
-  // set by flexboxgrid.
-  .col-xs {
-    padding: 0;
-  }
-
-  .svg-icon {
-    margin: 0 13px;
-  }
-
-  .caption[os-open-external] {
-    border-bottom: 1px dashed;
-    padding-bottom: 2px;
-
-    &:hover {
-      color: lighten($palette-theme-dark-disabled-foreground, 5%);
-    }
-  }
-
-  .footer-right {
-    font-size: 10px;
-    position: absolute;
-    right: 0;
-  }
-
-  > span[os-open-external] {
     display: flex;
   }
 }

@@ -22,7 +22,7 @@ describe('Browser: progressStatus', function () {
     })
 
     it('should report 0% if percentage == 0 but speed != 0', function () {
-      m.chai.expect(progressStatus.fromFlashState(this.state)).to.equal('0% Flashing')
+      m.chai.expect(progressStatus.fromFlashState(this.state, true)).to.equal('Flashing... 0%')
     })
 
     it('should handle percentage == 0, flashing, unmountOnSuccess', function () {
@@ -53,20 +53,20 @@ describe('Browser: progressStatus', function () {
 
     it('should handle percentage == 50, flashing, unmountOnSuccess', function () {
       this.state.percentage = 50
-      m.chai.expect(progressStatus.fromFlashState(this.state)).to.equal('50% Flashing')
+      m.chai.expect(progressStatus.fromFlashState(this.state, true)).to.equal('Flashing... 50%')
     })
 
     it('should handle percentage == 50, flashing, !unmountOnSuccess', function () {
       this.state.percentage = 50
       settings.set('unmountOnSuccess', false)
-      m.chai.expect(progressStatus.fromFlashState(this.state)).to.equal('50% Flashing')
+      m.chai.expect(progressStatus.fromFlashState(this.state, true)).to.equal('Flashing... 50%')
     })
 
     it('should handle percentage == 50, verifying, unmountOnSuccess', function () {
       this.state.flashing = 0
       this.state.verifying = 1
       this.state.percentage = 50
-      m.chai.expect(progressStatus.fromFlashState(this.state)).to.equal('50% Validating')
+      m.chai.expect(progressStatus.fromFlashState(this.state, true)).to.equal('Validating... 50%')
     })
 
     it('should handle percentage == 50, verifying, !unmountOnSuccess', function () {
@@ -74,7 +74,7 @@ describe('Browser: progressStatus', function () {
       this.state.verifying = 1
       this.state.percentage = 50
       settings.set('unmountOnSuccess', false)
-      m.chai.expect(progressStatus.fromFlashState(this.state)).to.equal('50% Validating')
+      m.chai.expect(progressStatus.fromFlashState(this.state, true)).to.equal('Validating... 50%')
     })
 
     it('should handle percentage == 100, flashing, unmountOnSuccess, validateWriteOnSuccess', function () {

@@ -19,17 +19,18 @@
 const React = require('react')
 const propTypes = require('prop-types')
 const Color = require('color')
-
 const {
   default: styled,
   css,
   keyframes
 } = require('styled-components')
-
-const { ProgressBar, Provider } = require('rendition')
-
-const { colors } = require('./../../theme')
-const { StepButton, StepSelection } = require('./../../styled-components')
+const {
+  Button,
+  ProgressBar,
+  Provider
+} = require('rendition')
+const { colors } = require('../../theme')
+const { StepButton, StepSelection: StepSelectionBase } = require('../../styled-components')
 
 const darkenForegroundStripes = 0.18
 const desaturateForegroundStripes = 0.2
@@ -57,20 +58,32 @@ const ProgressButtonStripesRule = css `
   ${ProgressButtonStripes} 1s linear infinite;
 `
 
+const FlashProgressLabel = styled.div `
+  font-size: 16px;
+  color: white;
+  text-align: left;
+  margin-bottom: 10px;
+  float: left;
+
+  > strong {
+    color: #1ac135
+  }
+`
+
 const FlashProgressBar = styled(ProgressBar) `
   > div {
-    width: 200px;
-    height: 48px;
+    width: 220px;
+    height: 12px;
     color: white !important;
     text-shadow: none !important;
   }
 
-  width: 200px;
-  height: 48px;
+  width: 220px;
+  height: 12px;
   font-size: 16px;
-  line-height: 48px;
+  line-height: 12px;
 
-  background: ${Color(colors.warning.background).darken(darkenForegroundStripes).string()};
+  background: #2f3033;
 `
 
 const FlashProgressBarValidating = styled(FlashProgressBar) `
@@ -97,6 +110,28 @@ const FlashProgressBarValidating = styled(FlashProgressBar) `
   background-size: 20px 20px;
 `
 
+const StepSelection = styled(StepSelectionBase) `
+  width: 220px;
+  margin: auto;
+`
+
+const CancelButton = styled(({ cancel, ...props }) => {
+  return (
+    <Button
+      {...props}
+      onClick={ cancel }
+      plain
+      p='0'
+      width='auto'
+      color={colors.primary.background}
+    >
+      Cancel
+    </Button>
+  )
+}) `
+  float: right;
+`
+
 /**
  * Progress Button component
  */
@@ -107,12 +142,19 @@ class ProgressButton extends React.Component {
         return (
           <Provider>
             <StepSelection>
+              <FlashProgressLabel
+                dangerouslySetInnerHTML={{ __html: this.props.label }}
+              >
+              </FlashProgressLabel>
+              <CancelButton
+                cancel={ this.props.cancel }
+              >
+              </CancelButton>
               <FlashProgressBarValidating
                 primary
                 emphasized
                 value= { this.props.percentage }
               >
-                { this.props.label }
               </FlashProgressBarValidating>
             </StepSelection>
           </Provider>
@@ -122,13 +164,18 @@ class ProgressButton extends React.Component {
       return (
         <Provider>
           <StepSelection>
+            <FlashProgressLabel
+              dangerouslySetInnerHTML={{ __html: this.props.label }}
+            >
+            </FlashProgressLabel>
+            <CancelButton
+              cancel={ this.props.cancel }
+            ></CancelButton>
             <FlashProgressBar
-              warning
               emphasized
               value= { this.props.percentage }
-            >
-              { this.props.label }
-            </FlashProgressBar>
+              background='#1ac135'
+            />
           </StepSelection>
         </Provider>
       )
@@ -141,7 +188,7 @@ class ProgressButton extends React.Component {
             onClick= { this.props.callback }
             disabled= { this.props.disabled }
           >
-            {this.props.label}
+            { this.props.label }
           </StepButton>
         </StepSelection>
       </Provider>
@@ -155,7 +202,8 @@ ProgressButton.propTypes = {
   percentage: propTypes.number,
   label: propTypes.string,
   disabled: propTypes.bool,
-  callback: propTypes.func
+  callback: propTypes.func,
+  cancel: propTypes.func
 }
 
 module.exports = ProgressButton

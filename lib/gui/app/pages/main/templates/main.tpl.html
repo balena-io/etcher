@@ -89,14 +89,9 @@
           percentage="main.state.getFlashState().percentage"
           label="flash.getProgressButtonLabel()"
           disabled="!!main.state.getLastFlashErrorCode() || main.shouldFlashStepBeDisabled()"
-          callback="flash.flashImageToDrive" >
+          callback="flash.flashImageToDrive"
+          cancel="flash.cancelFlash">
         </progress-button>
-
-        <button class="button button-link button-abort-write"
-          ng-if="main.state.isFlashing()"
-          ng-click="flash.cancelFlash()">
-          <span class="glyphicon glyphicon-remove-sign"></span>
-        </button>
 
         <p class="step-footer step-footer-split" ng-if="main.state.getFlashState().speed != null && main.state.getFlashState().percentage != 100">
           <span ng-bind="main.state.getFlashState().speed.toFixed(2) + ' MB/s'"></span>

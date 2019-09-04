@@ -234,7 +234,7 @@ describe('Browser: MainPage', function () {
           speed: 1000,
           totalSpeed: 2000
         })
-        m.chai.expect(controller.getProgressButtonLabel()).to.equal('85% Flashing')
+        m.chai.expect(controller.getProgressButtonLabel()).to.equal('Flashing... <strong>85%</strong>')
       })
     })
   })

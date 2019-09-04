@@ -77,14 +77,14 @@ describe('Browser: WindowProgress', function () {
 
         it('should set the flashing title', function () {
           windowProgress.set(this.state)
-          m.chai.expect(this.setTitleSpy).to.have.been.calledWith(' \u2013 85% Flashing')
+          m.chai.expect(this.setTitleSpy).to.have.been.calledWith(' \u2013 Flashing... 85%')
         })
 
         it('should set the verifying title', function () {
           this.state.flashing = 0
           this.state.verifying = 1
           windowProgress.set(this.state)
-          m.chai.expect(this.setTitleSpy).to.have.been.calledWith(' \u2013 85% Validating')
+          m.chai.expect(this.setTitleSpy).to.have.been.calledWith(' \u2013 Validating... 85%')
         })
 
         it('should set the starting title', function () {
