@@ -115,32 +115,8 @@
     font-size: 12px;
   }
 
-  .fallback-footer {
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    max-height: 21px;
-    margin-bottom: 17px;
-  }
-
   .svg-icon {
     margin: 0 10px;
-  }
-
-  .section-footer {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-
-    .footer-right {
-      color: #7e8085;
-      font-size: 12px;
-      margin-right: 30px;
-    }
   }
 }
 
