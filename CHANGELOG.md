@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.57
+## (2019-09-16)
+
+* Fix entrypoint when options are passed to electron [Alexis Svinartchouk]
+
 # v1.5.56
 ## (2019-08-20)
 
