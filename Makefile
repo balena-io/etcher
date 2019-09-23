@@ -182,11 +182,10 @@ test-spectron:
 	ETCHER_SPECTRON_ENTRYPOINT="$(ETCHER_SPECTRON_ENTRYPOINT)" mocha $(MOCHA_OPTIONS) tests/spectron
 
 test-gui:
-	electron-mocha $(MOCHA_OPTIONS) --renderer tests/gui
+	electron-mocha $(MOCHA_OPTIONS) --full-trace --no-sandbox --renderer tests/gui
 
 test-sdk:
-	electron-mocha $(MOCHA_OPTIONS) \
-		tests/shared
+	electron-mocha $(MOCHA_OPTIONS) --full-trace --no-sandbox tests/shared
 
 test: test-gui test-sdk test-spectron
 

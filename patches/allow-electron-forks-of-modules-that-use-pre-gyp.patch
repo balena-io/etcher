@@ -10,7 +10,7 @@
 +            // TODO PR something to electron to pass in the version number for forks
 +            // https://github.com/electron/electron/issues/9058
 +            try { electron_version = require('electron/package.json').version; }
-+            catch (_) { electron_version = '3.1.9'; }
++            catch (_) { electron_version = '6.0.10'; }
 +        }
 +        return get_electron_abi(runtime, electron_version);
      } else {

@@ -56,7 +56,7 @@
     "d3": "^4.13.0",
     "debug": "^3.1.0",
     "electron-updater": "4.0.6",
-    "etcher-sdk": "^2.0.13",
+    "etcher-sdk": "^2.0.15",
     "flexboxgrid": "^6.3.0",
     "immutable": "^3.8.1",
     "inactivity-timer": "^1.0.0",
@@ -84,16 +84,16 @@
     "xml2js": "^0.4.17"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.0",
+    "@babel/core": "^7.6.0",
     "@babel/plugin-proposal-function-bind": "^7.2.0",
-    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-env": "^7.6.0",
     "@babel/preset-react": "^7.0.0",
     "@types/react-dom": "^16.8.4",
     "acorn": "^6.0.5",
     "angular-mocks": "1.7.6",
     "babel-loader": "^8.0.4",
     "chalk": "^1.1.3",
-    "electron": "3.1.9",
+    "electron": "6.0.10",
     "electron-builder": "^22.1.0",
     "electron-mocha": "^6.0.4",
     "electron-notarize": "^0.1.1",
@@ -112,7 +112,7 @@
     "mochainon": "^2.0.0",
     "nock": "^9.2.3",
     "node-gyp": "^3.8.0",
-    "node-sass": "^4.7.2",
+    "node-sass": "^4.12.0",
     "omit-deep-lodash": "1.1.4",
     "pkg": "^4.3.0",
     "resin-lint": "^3.1.0",
@@ -122,8 +122,8 @@
     "ts-loader": "^6.0.4",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3",
-    "webpack": "^4.31.0",
-    "webpack-cli": "^3.1.2",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9",
     "webpack-node-externals": "^1.7.2"
   }
 }
