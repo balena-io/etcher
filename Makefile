@@ -147,7 +147,6 @@ webpack:
 .PHONY: $(TARGETS)
 
 sass:
-	npm rebuild node-sass
 	node-sass lib/gui/app/scss/main.scss > lib/gui/css/main.css
 
 lint-ts:

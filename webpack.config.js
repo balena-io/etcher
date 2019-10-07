@@ -16,10 +16,53 @@
 
 'use strict'
 
-const _ = require('lodash')
+const os = require('os')
 const path = require('path')
+const { createLoader } = require('simple-functional-loader')
 const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin')
-const nodeExternals = require('webpack-node-externals')
+
+// eslint-disable-next-line func-style,require-jsdoc,space-before-function-paren
+function platformSpecificModule(platform, module) {
+  // Resolves module on platform, otherwise resolves an empty file
+  return (context, request, callback) => {
+    if ((request === module) && (os.platform() !== platform)) {
+      callback(null, `commonjs ${path.resolve(__dirname, 'lib', 'nothing')}`)
+      return
+    }
+    callback()
+  }
+}
+
+function fakeBindings(opts) {
+  // TODO: elevator.node (windows only)
+  const MAPPING = {
+    MountUtils: 'mountutils/build/Release/MountUtils.node',
+    bindings: 'ext2fs/build/Release/bindings.node',
+    drivelist: 'drivelist/build/Release/drivelist.node',
+  }
+  if (typeof opts === 'string') {
+    opts = { bindings: opts }
+  }
+  const { bindings, module_root } = opts;
+  return __non_webpack_require__(MAPPING[bindings]);
+}
+
+const fakeNodePreGypFind = (package_json_path, opts) => {
+  // Return an empty string as we will replace the line that requires the native module anyway
+  return '';
+}
+
+function externalNativeModules(context, request, callback) {
+  if (request.toLowerCase().search('mountutils') !== -1 || context.toLowerCase().search('mountutils') !== -1) {
+    console.log('walala', context, request);
+  }
+  // TODO
+  if ((context === '/home/alexis/dev/resin.io/etcher/node_modules/xxhash/lib') && (request === '../build/Release/hash')) {
+    callback(null, `commonjs xxhash/build/Release/hash`)
+  } else {
+    callback()
+  }
+}
 
 const commonConfig = {
   mode: 'production',
@@ -27,12 +70,52 @@ const commonConfig = {
     // Minification breaks angular.
     minimize: false
   },
-  target: 'electron-main',
   module: {
     rules: [
       {
+        // remove node-pre-gyp magic from lzma-native
+        test: /lzma\-native\/index\.js$/,
+        loader: "string-replace-loader",
+        options: {
+          search: 'require\(binding_path\)',
+          // TODO: automatically find version
+          replace: '__non_webpack_require__("lzma-native/binding-v4.0.5-electron-v6.0-linux-x64/lzma_native.node")',
+          strict: true,
+        },
+      },
+      {
+        // remove node-pre-gyp magic from usb
+        test: /usb\/usb\.js$/,
+        loader: "string-replace-loader",
+        options: {
+          search: 'require\(binding_path\)',
+          replace: '__non_webpack_require__("usb/build/Release/usb_bindings.node")',
+          strict: true,
+        },
+      },
+      {
+        // Replaces node-pre-gyp find function with a mock one
+        test: /node-pre-gyp\/lib\/node-pre-gyp\.js$/,
+        use: createLoader(function(source, map) {
+          return `module.exports = { find: ${fakeNodePreGypFind.toString()} }`;
+        }),
+      },
+      {
+        test: /bindings\/bindings\.js$/,
+        use: createLoader(function(source, map) {
+          return `module.exports = ${fakeBindings.toString()}`;
+        }),
+      },
+      {
+        // these files require aws-sdk which is not installed
+        test: /node-pre-gyp\/lib\/(publish|unpublish|info)\.js$/,
+        use: createLoader(function(source, map) {
+          return '';
+        }),
+      },
+      {
         test: /\.jsx?$/,
-        include: [ path.resolve(__dirname, 'lib/gui') ],
+        include: [ path.resolve(__dirname, 'lib', 'gui') ],
         use: {
           loader: 'babel-loader',
           options: {
@@ -47,7 +130,7 @@ const commonConfig = {
       },
       {
         test: /\.html$/,
-        include: [ path.resolve(__dirname, 'lib/gui/app') ],
+        include: [ path.resolve(__dirname, 'lib', 'gui', 'app') ],
         use: {
           loader: 'html-loader'
         }
@@ -60,100 +143,48 @@ const commonConfig = {
     ]
   },
   resolve: {
-    extensions: [ '.js', '.jsx', '.json', '.ts', '.tsx' ]
+    extensions: [ '.js', '.jsx', '.json', '.ts', '.tsx', '.node' ]
   },
   plugins: [
     new SimpleProgressWebpackPlugin({
       format: process.env.WEBPACK_PROGRESS || 'verbose'
     })
-  ]
+  ],
+  externals: [
+    platformSpecificModule('win32', 'winusb-driver-generator'),
+    externalNativeModules,
+  ],
+  output: {
+    path: path.join(__dirname, 'generated'),
+    filename: '[name].js',
+  },
 }
 
-const guiConfig = _.assign({
+const guiConfig = {
+  ...commonConfig,
+  target: 'electron-renderer',
   node: {
     __dirname: true,
     __filename: true
   },
-  externals: [
-    nodeExternals(),
-    (context, request, callback) => {
-      // eslint-disable-next-line lodash/prefer-lodash-method
-      const absoluteContext = path.resolve(context)
-      const absoluteNodeModules = path.resolve('node_modules')
-
-      // We shouldn't rewrite any node_modules import paths
-      // eslint-disable-next-line lodash/prefer-lodash-method
-      if (!path.relative(absoluteNodeModules, absoluteContext).startsWith('..')) {
-        return callback()
-      }
-
-      // We want to keep the SDK code outside the GUI bundle.
-      // This piece of code allows us to run the GUI directly
-      // on the tree (for testing purposes) or inside a generated
-      // bundle (for production purposes), by translating
-      // relative require paths within the bundle.
-      if (/\/(sdk|shared)/i.test(request) || /package\.json$/.test(request)) {
-        const output = path.join(__dirname, 'generated')
-        const dirname = path.join(context, request)
-        const relative = path.relative(output, dirname)
-        return callback(null, `commonjs ${path.join('..', '..', relative)}`)
-      }
-
-      return callback()
-    }
-  ],
   entry: {
     gui: path.join(__dirname, 'lib', 'gui', 'app', 'app.js')
   },
-  output: {
-    path: path.join(__dirname, 'generated'),
-    filename: '[name].js'
-  }
-}, commonConfig)
+}
 
-const etcherConfig = _.assign({
+const etcherConfig = {
+  ...commonConfig,
+  target: 'electron-main',
   node: {
     __dirname: false,
     __filename: true
   },
-  externals: [
-    nodeExternals(),
-    (context, request, callback) => {
-      // eslint-disable-next-line lodash/prefer-lodash-method
-      const absoluteContext = path.resolve(context)
-      const absoluteNodeModules = path.resolve('node_modules')
-
-      // We shouldn't rewrite any node_modules import paths
-      // eslint-disable-next-line lodash/prefer-lodash-method
-      if (!path.relative(absoluteNodeModules, absoluteContext).startsWith('..')) {
-        return callback()
-      }
-
-      // We want to keep the SDK code outside the GUI bundle.
-      // This piece of code allows us to run the GUI directly
-      // on the tree (for testing purposes) or inside a generated
-      // bundle (for production purposes), by translating
-      // relative require paths within the bundle.
-      if (/\/shared/i.test(request) || /package\.json$/.test(request)) {
-        const output = path.join(__dirname, 'generated')
-        const dirname = path.join(context, request)
-        const relative = path.relative(output, dirname)
-        return callback(null, `commonjs ${path.join('..', 'lib', relative)}`)
-      }
-
-      return callback()
-    }
-  ],
   entry: {
-    etcher: path.join(__dirname, 'lib', 'gui', 'etcher.js')
+    etcher: path.join(__dirname, 'lib', 'start.js')
   },
-  output: {
-    path: path.join(__dirname, 'generated'),
-    filename: '[name].js'
-  }
-}, commonConfig)
+}
 
 module.exports = [
   guiConfig,
-  etcherConfig
+  etcherConfig,
 ]

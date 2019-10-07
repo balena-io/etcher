@@ -5,12 +5,17 @@ npmRebuild: true
 nodeGypRebuild: true
 publish: null
 files:
-  - lib
+  - "!**/*"
   - lib/gui/app/index.html
   - generated
-  - build/**/*.node
   - assets/icon.png
-  - node_modules/**/*
+  - build/Release/elevator.node
+  - node_modules/xxhash/build/Release/hash.node
+  - node_modules/lzma-native/binding-v4.0.5-electron-v6.0-linux-x64/lzma_native.node
+  - node_modules/mountutils/build/Release/MountUtils.node
+  - node_modules/ext2fs/build/Release/bindings.node
+  - node_modules/usb/build/Release/usb_bindings.node
+  - node_modules/drivelist/build/Release/drivelist.node
 mac:
   icon: assets/icon.icns
   category: public.app-category.developer-tools
@@ -47,6 +52,10 @@ linux:
   executableName: balena-etcher-electron
   synopsis: balenaEtcher is a powerful OS image flasher built with web technologies to ensure flashing an SDCard or USB drive is a pleasant and safe experience. It protects you from accidentally writing to your hard-drives, ensures every byte of data was written correctly and much more.
   icon: assets/iconset
+  target:
+    - AppImage
+    - rpm
+    - deb
 deb:
   priority: optional
   depends:

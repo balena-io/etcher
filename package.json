@@ -9,7 +9,7 @@
     "sleepDays": 7,
     "semverRange": "<2.0.0"
   },
-  "main": "lib/start.js",
+  "main": "generated/etcher.js",
   "description": "Flash OS images to SD cards and USB drives, safely and easily.",
   "productDescription": "Etcher is a powerful OS image flasher built with web technologies to ensure flashing an SDCard or USB drive is a pleasant and safe experience. It protects you from accidentally writing to your hard-drives, ensures every byte of data was written correctly and much more.",
   "homepage": "https://github.com/balena-io/etcher",
@@ -114,13 +114,14 @@
     "pkg": "^4.3.0",
     "resin-lint": "^3.1.0",
     "sass-lint": "^1.12.1",
+    "simple-functional-loader": "^1.1.0",
     "simple-progress-webpack-plugin": "^1.1.2",
     "spectron": "^5.0.0",
+    "string-replace-loader": "^2.2.0",
     "ts-loader": "^6.0.4",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3",
     "webpack": "^4.40.2",
-    "webpack-cli": "^3.3.9",
-    "webpack-node-externals": "^1.7.2"
+    "webpack-cli": "^3.3.9"
   }
 }
