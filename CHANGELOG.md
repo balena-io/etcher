@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.58
+## (2019-10-10)
+
+* Remove leftover GH-pages configuration file [Dimitrios Lytras]
+
 # v1.5.57
 ## (2019-09-16)
 
