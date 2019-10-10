@@ -18,7 +18,6 @@
 
 const m = require('mochainon')
 const angular = require('angular')
-require('angular-mocks')
 
 describe('Browser: OSDropzone', function () {
   beforeEach(angular.mock.module(

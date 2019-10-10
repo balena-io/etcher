@@ -19,7 +19,6 @@
 const m = require('mochainon')
 const fs = require('fs')
 const angular = require('angular')
-require('angular-mocks')
 
 describe('Browser: SettingsPage', function () {
   beforeEach(angular.mock.module(
