@@ -108,7 +108,6 @@
     "node-gyp": "^3.8.0",
     "node-sass": "^4.12.0",
     "omit-deep-lodash": "1.1.4",
-    "pkg": "^4.3.0",
     "resin-lint": "^3.1.0",
     "sass-lint": "^1.12.1",
     "simple-progress-webpack-plugin": "^1.1.2",
