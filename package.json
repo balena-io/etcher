@@ -78,8 +78,7 @@
     "styled-system": "^4.1.0",
     "sudo-prompt": "^9.0.0",
     "tmp": "^0.1.0",
-    "uuid": "^3.0.1",
-    "xml2js": "^0.4.17"
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",

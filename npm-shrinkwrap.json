@@ -14772,15 +14772,6 @@
         "sax": "^1.2.4"
       }
     },
-    "xml2js": {
-      "version": "0.4.19",
-      "resolved": "https://registry.npmjs.org/xml2js/-/xml2js-0.4.19.tgz",
-      "integrity": "sha512-esZnJZJOiJR9wWKMyuvSE1y6Dq5LCuJanqhxslH2bxM6duahNZ+HMpCLhBQGZkbX6xRf8x1Y2eJlgt2q3qo49Q==",
-      "requires": {
-        "sax": ">=0.6.0",
-        "xmlbuilder": "~9.0.1"
-      }
-    },
     "xmlbuilder": {
       "version": "9.0.7",
       "resolved": "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-9.0.7.tgz",
