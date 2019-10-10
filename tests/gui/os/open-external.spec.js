@@ -19,7 +19,6 @@
 const m = require('mochainon')
 const angular = require('angular')
 const electron = require('electron')
-require('angular-mocks')
 
 describe('Browser: OSOpenExternal', function () {
   beforeEach(angular.mock.module(
