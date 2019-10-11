@@ -145,7 +145,7 @@ const etcherConfig = _.assign({
     }
   ],
   entry: {
-    etcher: path.join(__dirname, 'lib', 'gui', 'etcher.js')
+    etcher: path.join(__dirname, 'lib', 'start.js')
   },
   output: {
     path: path.join(__dirname, 'generated'),
