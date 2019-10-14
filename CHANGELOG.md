@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.59
+## (2019-10-14)
+
+* Catch console log messages from SafeWebView [Roman Mazur]
+
 # v1.5.58
 ## (2019-10-10)
 
