@@ -36,8 +36,7 @@ describe('Spectron', function () {
   before('app:start', function () {
     app = new spectron.Application({
       path: entrypoint,
-      port: 9995,
-      args: [ '.' ]
+      args: [ '--no-sandbox', '.' ]
     })
 
     return app.start()
