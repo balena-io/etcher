@@ -16,7 +16,6 @@
 
 'use strict'
 
-const _ = require('lodash')
 const path = require('path')
 const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
@@ -27,12 +26,11 @@ const commonConfig = {
     // Minification breaks angular.
     minimize: false
   },
-  target: 'electron-main',
   module: {
     rules: [
       {
         test: /\.jsx?$/,
-        include: [ path.resolve(__dirname, 'lib/gui') ],
+        include: [ path.resolve(__dirname, 'lib', 'gui') ],
         use: {
           loader: 'babel-loader',
           options: {
@@ -47,15 +45,11 @@ const commonConfig = {
       },
       {
         test: /\.html$/,
-        include: [ path.resolve(__dirname, 'lib/gui/app') ],
-        use: {
-          loader: 'html-loader'
-        }
+        use: 'html-loader'
       },
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
+        use: 'ts-loader'
       }
     ]
   },
@@ -66,92 +60,39 @@ const commonConfig = {
     new SimpleProgressWebpackPlugin({
       format: process.env.WEBPACK_PROGRESS || 'verbose'
     })
-  ]
+  ],
+  externals: [
+    nodeExternals()
+  ],
+  output: {
+    path: path.join(__dirname, 'generated'),
+    filename: '[name].js'
+  }
 }
 
-const guiConfig = _.assign({
+const guiConfig = {
+  ...commonConfig,
+  target: 'electron-renderer',
   node: {
     __dirname: true,
     __filename: true
   },
-  externals: [
-    nodeExternals(),
-    (context, request, callback) => {
-      // eslint-disable-next-line lodash/prefer-lodash-method
-      const absoluteContext = path.resolve(context)
-      const absoluteNodeModules = path.resolve('node_modules')
-
-      // We shouldn't rewrite any node_modules import paths
-      // eslint-disable-next-line lodash/prefer-lodash-method
-      if (!path.relative(absoluteNodeModules, absoluteContext).startsWith('..')) {
-        return callback()
-      }
-
-      // We want to keep the SDK code outside the GUI bundle.
-      // This piece of code allows us to run the GUI directly
-      // on the tree (for testing purposes) or inside a generated
-      // bundle (for production purposes), by translating
-      // relative require paths within the bundle.
-      if (/\/(sdk|shared)/i.test(request) || /package\.json$/.test(request)) {
-        const output = path.join(__dirname, 'generated')
-        const dirname = path.join(context, request)
-        const relative = path.relative(output, dirname)
-        return callback(null, `commonjs ${path.join('..', '..', relative)}`)
-      }
-
-      return callback()
-    }
-  ],
   entry: {
     gui: path.join(__dirname, 'lib', 'gui', 'app', 'app.js')
-  },
-  output: {
-    path: path.join(__dirname, 'generated'),
-    filename: '[name].js'
   }
-}, commonConfig)
+}
 
-const etcherConfig = _.assign({
+const etcherConfig = {
+  ...commonConfig,
+  target: 'electron-main',
   node: {
     __dirname: false,
     __filename: true
   },
-  externals: [
-    nodeExternals(),
-    (context, request, callback) => {
-      // eslint-disable-next-line lodash/prefer-lodash-method
-      const absoluteContext = path.resolve(context)
-      const absoluteNodeModules = path.resolve('node_modules')
-
-      // We shouldn't rewrite any node_modules import paths
-      // eslint-disable-next-line lodash/prefer-lodash-method
-      if (!path.relative(absoluteNodeModules, absoluteContext).startsWith('..')) {
-        return callback()
-      }
-
-      // We want to keep the SDK code outside the GUI bundle.
-      // This piece of code allows us to run the GUI directly
-      // on the tree (for testing purposes) or inside a generated
-      // bundle (for production purposes), by translating
-      // relative require paths within the bundle.
-      if (/\/shared/i.test(request) || /package\.json$/.test(request)) {
-        const output = path.join(__dirname, 'generated')
-        const dirname = path.join(context, request)
-        const relative = path.relative(output, dirname)
-        return callback(null, `commonjs ${path.join('..', 'lib', relative)}`)
-      }
-
-      return callback()
-    }
-  ],
   entry: {
     etcher: path.join(__dirname, 'lib', 'start.js')
-  },
-  output: {
-    path: path.join(__dirname, 'generated'),
-    filename: '[name].js'
   }
-}, commonConfig)
+}
 
 module.exports = [
   guiConfig,

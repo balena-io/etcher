@@ -6,6 +6,7 @@ nodeGypRebuild: true
 publish: null
 files:
   - generated
+  - lib/shared/catalina-sudo/sudo-askpass.osascript.js
   - lib/gui/app/index.html
   - lib/gui/css/*.css
   - lib/gui/css/fonts/*.woff2
