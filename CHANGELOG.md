@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.60
+## (2019-10-18)
+
+* Upgrade ext2fs to 1.0.30 [Matthew McGinn]
+
 # v1.5.59
 ## (2019-10-14)
 
