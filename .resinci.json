@@ -17,6 +17,7 @@
       "copyright": "Copyright 2016-2019 Balena Ltd",
       "productName": "balenaEtcher",
       "nodeGypRebuild": true,
+      "afterPack": "./afterPack.js",
       "files": [
         "generated",
         "lib/shared/catalina-sudo/sudo-askpass.osascript.js",

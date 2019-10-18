@@ -4,6 +4,7 @@ productName: balenaEtcher
 npmRebuild: true
 nodeGypRebuild: true
 publish: null
+afterPack: "./afterPack.js"
 files:
   - generated
   - lib/shared/catalina-sudo/sudo-askpass.osascript.js
