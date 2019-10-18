@@ -14,6 +14,9 @@ files:
 mac:
   icon: assets/icon.icns
   category: public.app-category.developer-tools
+  hardenedRuntime: true
+  entitlements: "entitlements.mac.plist"
+  entitlementsInherit: "entitlements.mac.plist"
 dmg:
   background: assets/dmg/background.tiff
   icon: assets/icon.icns
