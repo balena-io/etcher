@@ -1,4 +1,4 @@
-# Etcher
+![Etcher](https://raw.githubusercontent.com/balena-io/etcher/landr-preview/assets/balena-etcher.png)
 
 > Flash OS images to SD cards & USB drives, safely and easily.
 
