@@ -12,6 +12,7 @@ files:
   - assets/icon.png
   - node_modules/**/*
 mac:
+  asar: false
   icon: assets/icon.icns
   category: public.app-category.developer-tools
   hardenedRuntime: true

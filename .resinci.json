@@ -80,6 +80,7 @@
       ],
       "afterSign": "./afterSignHook.js",
       "mac": {
+        "asar": false,
         "category": "public.app-category.developer-tools",
         "hardenedRuntime": true,
         "entitlements": "entitlements.mac.plist",
