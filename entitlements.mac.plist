@@ -14,5 +14,9 @@
     <true/>
     <key>com.apple.security.network.client</key>
     <true/>
+    <key>com.apple.security.sudo</key>
+    <true/>
+    <key>com.apple.security.inherit</key>
+    <true/>
   </dict>
 </plist>
