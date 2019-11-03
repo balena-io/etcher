@@ -92,7 +92,7 @@
     "babel-loader": "^8.0.4",
     "chalk": "^1.1.3",
     "electron": "3.1.9",
-    "electron-builder": "^20.44.4",
+    "electron-builder": "^22.1.0",
     "electron-mocha": "^6.0.4",
     "electron-notarize": "^0.1.1",
     "eslint": "^4.17.0",
