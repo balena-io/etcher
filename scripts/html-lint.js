@@ -25,6 +25,9 @@ angularValidate.validate(
     path.join(PROJECT_ROOT, 'lib', 'gui', '**/*.html')
   ],
   {
+    customtags: [
+      'settings'
+    ],
     customattrs: [
 
       // Internal

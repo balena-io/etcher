@@ -11,25 +11,14 @@
   </head>
   <body>
     <header class="section-header" ng-controller="HeaderController as header">
+      <settings tabindex="4">
+      </settings>
+
       <button class="button button-link"
         ng-if="header.shouldShowHelp()"
         ng-click="header.openHelpPage()"
-        tabindex="4">
-        <span class="glyphicon glyphicon-question-sign"></span>
-      </button>
-
-      <button class="button button-link"
-        ui-sref="settings"
-        hide-if-state="settings"
         tabindex="5">
-        <span class="glyphicon glyphicon-cog"></span>
-      </button>
-
-      <button class="button button-link"
-        tabindex="5"
-        ui-sref="main"
-        show-if-state="settings">
-        <span class="glyphicon glyphicon-chevron-left"></span> Back
+        <span class="glyphicon glyphicon-question-sign"></span>
       </button>
     </header>
 
