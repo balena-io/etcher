@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.62
+## (2019-11-06)
+
+* Update drivelist to 8.0.9 [Alexis Svinartchouk]
+
 # v1.5.61
 ## (2019-11-05)
 
