@@ -42,6 +42,9 @@
         "!node_modules/**/.eslintrc.yml",
         "!node_modules/**/.eslintignore",
         "!node_modules/**/.publishrc",
+        "assets/icon.png",
+        "build/**/*.node",
+        "lib",
         "!lib/gui/app",
         "lib/gui/app/index.html",
         "generated",
@@ -78,8 +81,13 @@
         "node_modules/roboto-fontface/fonts/roboto/Roboto-Medium.woff",
         "node_modules/roboto-fontface/fonts/roboto/Roboto-Bold.woff"
       ],
+      "afterSign": "./afterSignHook.js",
       "mac": {
-        "category": "public.app-category.developer-tools"
+        "asar": false,
+        "category": "public.app-category.developer-tools",
+        "hardenedRuntime": true,
+        "entitlements": "entitlements.mac.plist",
+        "entitlementsInherit": "entitlements.mac.plist"
       },
       "dmg": {
         "iconSize": 110,

@@ -170,7 +170,7 @@ lint-spell:
 		--dictionary - \
 		--dictionary dictionary.txt \
 		--skip *.svg *.gz,*.bz2,*.xz,*.zip,*.img,*.dmg,*.iso,*.rpi-sdcard,*.wic,.DS_Store,*.dtb,*.dtbo,*.dat,*.elf,*.bin,*.foo,xz-without-extension \
-		lib tests docs scripts Makefile *.md LICENSE
+		lib tests docs Makefile *.md LICENSE
 
 lint: lint-ts lint-js lint-sass lint-cpp lint-html lint-spell
 

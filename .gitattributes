@@ -26,6 +26,7 @@ Makefile text
 *.patch text
 *.txt text
 CODEOWNERS text
+*.plist text
 
 # Binary files (no line-ending conversions)
 *.bz2 binary diff=hex
