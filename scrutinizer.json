@@ -45,6 +45,10 @@
       "avatar": "https://avatars0.githubusercontent.com/u/963645?v=4"
     },
     {
+      "username": "dimitrisnl",
+      "avatar": "https://avatars2.githubusercontent.com/u/4951004?v=4"
+    },
+    {
       "username": "chrisys",
       "avatar": "https://avatars0.githubusercontent.com/u/521698?v=4"
     },
@@ -59,10 +63,6 @@
     {
       "username": "Dark-Passenger",
       "avatar": "https://avatars2.githubusercontent.com/u/3381534?v=4"
-    },
-    {
-      "username": "dimitrisnl",
-      "avatar": "https://avatars2.githubusercontent.com/u/4951004?v=4"
     },
     {
       "username": "brownjohnf",
@@ -152,7 +152,173 @@
     }
   ],
   "security": null,
-  "faq": null,
+  "faq": [
+    {
+      "title": "Why is my drive not bootable?",
+      "content": [
+        [
+          "para",
+          "Etcher copies images to drives byte by byte, without doing any transformation to the final device, which means images that require special treatment to be made bootable, like Windows images, will not work out of the box. In these cases, the general advice is to use software specific to those kind of images, usually available from the image publishers themselves. You can find more information ",
+          [
+            "link",
+            {
+              "href": "https://github.com/balena-io/etcher/blob/master/docs/USER-DOCUMENTATION.md#why-is-my-drive-not-bootable"
+            },
+            "here"
+          ],
+          "."
+        ]
+      ]
+    },
+    {
+      "title": "How can I configure persistent storage?",
+      "content": [
+        [
+          "para",
+          "Some programs, usually oriented at making GNU/Linux live USB drives, include an option to set persistent storage. This is currently not supported by Etcher, so if you require this functionality, we advise to fallback to ",
+          [
+            "link",
+            {
+              "href": "https://unetbootin.github.io/"
+            },
+            "UNetbootin"
+          ],
+          "."
+        ]
+      ]
+    },
+    {
+      "title": "How do I flash Ubuntu ISOs",
+      "content": [
+        [
+          "para",
+          "Ubuntu images (and potentially some other related GNU/Linux distributions) have a peculiar format that allows the image to boot without any further modification from both CDs and USB drives.\nA consequence of this enhancement is that some programs, like parted get confused about the drive's format and partition table, printing warnings such as:"
+        ],
+        [
+          "blockquote",
+          [
+            "para",
+            "/dev/xxx contains GPT signatures, indicating that it has a GPT table. However, it does not have a valid fake msdos partition table, as it should. Perhaps it was corrupted -- possibly by a program that doesn't understand GPT partition tables. Or perhaps you deleted the GPT table, and are now using an msdos partition table. Is this a GPT partition table? Both the primary and backup GPT tables are corrupt. Try making a fresh table, and using Parted's rescue feature to recover partitions."
+          ],
+          [
+            "para",
+            "Warning: The driver descriptor says the physical block size is 2048 bytes, but Linux says it is 512 bytes."
+          ]
+        ],
+        [
+          "para",
+          "All these warnings are safe to ignore, and your drive should be able to boot without any problems.\nRefer to ",
+          [
+            "link",
+            {
+              "href": "https://lists.ubuntu.com/archives/ubuntu-devel/2011-June/033495.html"
+            },
+            "the following message from Ubuntu's mailing list"
+          ],
+          " if you want to learn more."
+        ]
+      ]
+    },
+    {
+      "title": "How do I run Etcher on Wayland?",
+      "content": [
+        [
+          "para",
+          "The XWayland Server provides backwards compatibility to run any X client on Wayland, including Etcher.\nThis usually works out of the box on mainstream GNU/Linux distributions that properly support Wayland. If it doesn't, make sure the xwayland.so module is being loaded by declaring it in your ",
+          [
+            "link",
+            {
+              "href": "http://manpages.ubuntu.com/manpages/wily/man5/weston.ini.5.html"
+            },
+            "weston.ini"
+          ],
+          ":"
+        ],
+        [
+          "para",
+          [
+            "inlinecode",
+            "\n[core]\nmodules=xwayland.so\n"
+          ]
+        ]
+      ]
+    },
+    {
+      "title": "What are the runtime GNU/LINUX dependencies?",
+      "content": [
+        [
+          "para",
+          [
+            "link",
+            {
+              "href": "https://github.com/balena-io/etcher/blob/master/docs/USER-DOCUMENTATION.md#runtime-gnulinux-dependencies"
+            },
+            "This entry"
+          ],
+          " aims to provide an up to date list of runtime dependencies needed to run Etcher on a GNU/Linux system."
+        ]
+      ]
+    },
+    {
+      "title": "How can I recover the broken drive?",
+      "content": [
+        [
+          "para",
+          "Sometimes, things might go wrong, and you end up with a half-flashed drive that is unusable by your operating systems, and common graphical tools might even refuse to get it back to a normal state.\nTo solve these kinds of problems, we've collected ",
+          [
+            "link",
+            {
+              "href": "https://github.com/balena-io/etcher/blob/master/docs/USER-DOCUMENTATION.md#recovering-broken-drives"
+            },
+            "a list of fail-proof methods"
+          ],
+          " to completely erase your drive in major operating systems."
+        ]
+      ]
+    },
+    {
+      "title": "I receive ”No polkit authentication agent found” error in GNU/Linux",
+      "content": [
+        [
+          "para",
+          "Etcher requires an available ",
+          [
+            "link",
+            {
+              "href": "https://wiki.archlinux.org/index.php/Polkit#Authentication_agents"
+            },
+            "polkit authentication agent"
+          ],
+          " in your system in order to show a secure password prompt dialog to perform elevation. Make sure you have one installed for the desktop environment of your choice."
+        ]
+      ]
+    },
+    {
+      "title": "May I run Etcher in older macOS versions?",
+      "content": [
+        [
+          "para",
+          "Etcher GUI is based on the ",
+          [
+            "link",
+            {
+              "href": "http://electron.atom.io/"
+            },
+            "Electron"
+          ],
+          " framework, ",
+          [
+            "link",
+            {
+              "href": "https://github.com/electron/electron/blob/master/docs/tutorial/support.md#supported-platforms"
+            },
+            "which only supports macOS 10.9 and newer versions"
+          ],
+          "."
+        ]
+      ]
+    }
+  ],
   "codeOfConduct": null,
   "architecture": "Etcher Architecture\n===================\n\nThis document aims to serve as a high-level overview of how Etcher works,\nspecially oriented for contributors who want to understand the big picture.\n\nTechnologies\n------------\n\nThis is a non exhaustive list of the major frameworks, libraries, and other\ntechnologies used in Etcher that you should become familiar with:\n\n- [Electron][electron]\n- [NodeJS][nodejs]\n- [AngularJS][angularjs]\n- [Redux][redux]\n- [ImmutableJS][immutablejs]\n- [Bootstrap][bootstrap]\n- [Sass][sass]\n- [Flexbox Grid][flexbox-grid]\n- [Mocha][mocha]\n- [JSDoc][jsdoc]\n\nModule architecture\n-------------------\n\nInstead of embedding all the functionality required to create a full-featured\nimage writer as a monolithic project, we try to hard to follow the [\"lego block\napproach\"][lego-blocks].\n\nThis has the advantage of allowing other applications to re-use logic we\nimplemented for Etcher in their own project, even for things we didn't expect,\nwhich leads to users benefitting from what we've built, and we benefitting from\nuser's bug reports, suggestions, etc, as an indirect way to make Etcher better.\n\nThe fact that low-level details are scattered around many different modules can\nmake it challenging for a new contributor to wrap their heads around the\nproject as a whole, and get a clear high level view of how things work or where\nto submit their work or bug reports.\n\nThese are the main Etcher components, in a nutshell:\n\n- [Drivelist](https://github.com/balena-io-modules/drivelist)\n\nAs the name implies, this module's duty is to detect the connected drives\nuniformly in all major operating systems, along with valuable metadata, like if\na drive is removable or not, to prevent users from trying to write an image to\na system drive.\n\n- [Etcher](https://github.com/balena-io/etcher)\n\nThis is the *\"main repository\"*, from which you're reading this from, which is\nbasically the front-end and glue for all previously listed projects.\n\nSummary\n-------\n\nWe always welcome contributions to Etcher as well as our documentation. If you\nwant to give back, but feel that your knowledge on how Etcher works is not\nenough to tackle a bug report or feature request, use that as your advantage,\nsince fresh eyes could help unveil things that we take for granted, but should\nbe documented instead!\n\n[lego-blocks]: https://github.com/sindresorhus/ama/issues/10#issuecomment-117766328\n[exit-codes]: https://github.com/balena-io/etcher/blob/master/lib/shared/exit-codes.js\n[gui-dir]: https://github.com/balena-io/etcher/tree/master/lib/gui\n[electron]: http://electron.atom.io\n[nodejs]: https://nodejs.org\n[angularjs]: https://angularjs.org\n[redux]: http://redux.js.org\n[immutablejs]: http://facebook.github.io/immutable-js/\n[bootstrap]: http://getbootstrap.com\n[sass]: http://sass-lang.com\n[flexbox-grid]: http://flexboxgrid.com\n[mocha]: http://mochajs.org\n[jsdoc]: http://usejsdoc.org\n",
   "maintainers": [
@@ -173,7 +339,7 @@
   "public": true,
   "fork": false,
   "description": "Flash OS images to SD cards & USB drives, safely and easily.",
-  "stars": 16052,
+  "stars": 16065,
   "homepage": "https://etcher.io",
   "repositoryUrl": "https://github.com/balena-io/etcher.git",
   "active": true,
@@ -225,85 +391,85 @@
     "uuid",
     "xml2js"
   ],
-  "lastCommitDate": "2019-11-06T17:38:02Z",
+  "lastCommitDate": "2019-11-08T13:02:17Z",
   "latestRelease": {
-    "tagName": "v1.5.62",
+    "tagName": "v1.5.63",
     "asssets": [
       {
-        "name": "balena-etcher-electron-1.5.62-linux-ia32.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.62/balena-etcher-electron-1.5.62-linux-ia32.zip"
+        "name": "balena-etcher-electron-1.5.63-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.63/balena-etcher-electron-1.5.63-linux-ia32.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.62-linux-x64.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.62/balena-etcher-electron-1.5.62-linux-x64.zip"
+        "name": "balena-etcher-electron-1.5.63-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.63/balena-etcher-electron-1.5.63-linux-x64.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.62.i686.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.62/balena-etcher-electron-1.5.62.i686.rpm"
+        "name": "balena-etcher-electron-1.5.63.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.63/balena-etcher-electron-1.5.63.i686.rpm"
       },
       {
-        "name": "balena-etcher-electron-1.5.62.x86_64.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.62/balena-etcher-electron-1.5.62.x86_64.rpm"
+        "name": "balena-etcher-electron-1.5.63.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.63/balena-etcher-electron-1.5.63.x86_64.rpm"
       },
       {
-        "name": "balena-etcher-electron_1.5.62_amd64.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.62/balena-etcher-electron_1.5.62_amd64.deb"
+        "name": "balena-etcher-electron_1.5.63_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.63/balena-etcher-electron_1.5.63_amd64.deb"
       },
       {
-        "name": "balena-etcher-electron_1.5.62_i386.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.62/balena-etcher-electron_1.5.62_i386.deb"
+        "name": "balena-etcher-electron_1.5.63_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.63/balena-etcher-electron_1.5.63_i386.deb"
       },
       {
-        "name": "balenaEtcher-1.5.62-ia32.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.62/balenaEtcher-1.5.62-ia32.AppImage"
+        "name": "balenaEtcher-1.5.63-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.63/balenaEtcher-1.5.63-ia32.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.62-mac.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.62/balenaEtcher-1.5.62-mac.zip"
+        "name": "balenaEtcher-1.5.63-mac.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.63/balenaEtcher-1.5.63-mac.zip"
       },
       {
-        "name": "balenaEtcher-1.5.62-x64.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.62/balenaEtcher-1.5.62-x64.AppImage"
+        "name": "balenaEtcher-1.5.63-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.63/balenaEtcher-1.5.63-x64.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.62.dmg",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.62/balenaEtcher-1.5.62.dmg"
+        "name": "balenaEtcher-1.5.63.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.63/balenaEtcher-1.5.63.dmg"
       },
       {
-        "name": "balenaEtcher-1.5.62.dmg.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.62/balenaEtcher-1.5.62.dmg.blockmap"
+        "name": "balenaEtcher-1.5.63.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.63/balenaEtcher-1.5.63.dmg.blockmap"
       },
       {
-        "name": "balenaEtcher-Portable-1.5.62.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.62/balenaEtcher-Portable-1.5.62.exe"
+        "name": "balenaEtcher-Portable-1.5.63.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.63/balenaEtcher-Portable-1.5.63.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.62.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.62/balenaEtcher-Setup-1.5.62.exe"
+        "name": "balenaEtcher-Setup-1.5.63.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.63/balenaEtcher-Setup-1.5.63.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.62.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.62/balenaEtcher-Setup-1.5.62.exe.blockmap"
+        "name": "balenaEtcher-Setup-1.5.63.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.63/balenaEtcher-Setup-1.5.63.exe.blockmap"
       },
       {
         "name": "builder-effective-config.yaml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.62/builder-effective-config.yaml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.63/builder-effective-config.yaml"
       },
       {
         "name": "latest-linux-ia32.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.62/latest-linux-ia32.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.63/latest-linux-ia32.yml"
       },
       {
         "name": "latest-linux.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.62/latest-linux.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.63/latest-linux.yml"
       },
       {
         "name": "latest-mac.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.62/latest-mac.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.63/latest-mac.yml"
       },
       {
         "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.62/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.63/latest.yml"
       }
     ]
   },
@@ -401,12 +567,8 @@
     ]
   },
   "openIssues": {
-    "numberOfIssues": 188,
+    "numberOfIssues": 186,
     "latestIssues": [
-      {
-        "title": "docs: Introduce an FAQ file",
-        "url": "https://github.com/balena-io/etcher/pull/2964"
-      },
       {
         "title": "balenaEtcher is barely accessible on Windows 10 with NVDA",
         "url": "https://github.com/balena-io/etcher/issues/2960"
@@ -482,10 +644,14 @@
       {
         "title": "Handling Arch Linux ARM archives for the Raspberry Pi?",
         "url": "https://github.com/balena-io/etcher/issues/2915"
+      },
+      {
+        "title": "EACCES: permission denied",
+        "url": "https://github.com/balena-io/etcher/issues/2909"
       }
     ]
   },
-  "version": "1.5.62",
+  "version": "1.5.63",
   "screenshot": null,
   "logo": null
 }
