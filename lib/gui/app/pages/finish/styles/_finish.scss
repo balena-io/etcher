@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+@import '../../../scss/variables.scss';
+@import '../../../scss/modules/space';
+@import '../../../scss/modules/theme';
+
 .page-finish {
   margin-top: -15px;
   flex: 1;
@@ -26,7 +30,6 @@
 .page-finish .button-label {
   margin: 0 auto $spacing-medium;
 
-  // Keep some spacing at the sides
   max-width: $btn-min-width - 5px;
 }
 
@@ -88,6 +91,7 @@
   align-items: center;
   flex-direction: column;
   position: absolute;
+  left: 0;
   bottom: 0;
   color: white;
   height: 320px;
