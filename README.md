@@ -16,6 +16,21 @@ was written correctly and much more. It can also flash directly Raspberry Pi dev
 
 [**Download**][etcher] | [**Support**][SUPPORT] | [**Documentation**][USER-DOCUMENTATION] | [**Contributing**][CONTRIBUTING] | [**Roadmap**][milestones]
 
+## Highlights
+
+- **Validated Flashing**: No more writing images on corrupted cards and wondering why your device isn't booting
+- **Hard Drive Friendly**: Makes drive selection obvious to avoid wiping your entire hard-drive
+- **Beautiful Interface**: Who said flashing SD cards has to be an eyesore
+- **Open Source**: Made with JS, HTML, node.js and [Electron](http://electron.atom.io/). Dive in and contribute!
+- **Cross Platform**: Works for everyone, no more complicated install instructions.
+- **More on the way**: 50% faster flashes, simultaneous writing for multiple drives. [View our roadmap](https://github.com/balena-io/etcher/milestones)
+
+## Motivation
+
+Here at balena we have thousands of users working through our getting started process and until recently we were embarassed about the steps that involved flashing an SD card. There was a separate track for each Mac/Windows/Linux and several manual and error-prone steps along the way.
+
+To our surprise there was nothing out there that fit our needs. So we built Etcher, an SD card flasher app that is simple for end users, extensible for developers, and works on any platform.
+
 ## Supported Operating Systems
 
 - Linux (most distros)
