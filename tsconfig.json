@@ -9,7 +9,8 @@
     "moduleResolution": "node",
     "module": "commonjs",
     "target": "es2017",
-    "jsx": "react"
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "lib/**/*.ts",

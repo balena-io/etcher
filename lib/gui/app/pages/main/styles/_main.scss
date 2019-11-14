@@ -120,7 +120,7 @@ svg-icon > img[disabled] {
 }
 
 .page-main .button.step-footer {
-  font-size: 14px;
+  font-size: 16px;
   color: $palette-theme-primary-background;
   border-radius: 0;
   padding: 0;
@@ -166,7 +166,7 @@ svg-icon > img[disabled] {
 .page-main .step-size {
   color: $palette-theme-dark-disabled-foreground;
   margin: 0 0 8px 0;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.5;
   height: 21px;
   width: 100%;
@@ -191,7 +191,7 @@ svg-icon > img[disabled] {
 .target-status-line {
   display: flex;
   align-items: baseline;
-  font-size: 14px;
+  font-size: 16px;
   font-family: inherit;
 
   > .target-status-dot {
@@ -225,4 +225,18 @@ svg-icon > img[disabled] {
 
 .space-vertical-large {
   position: relative;
+}
+
+body.rendition-modal-open > div:last-child > div > div > div:last-child {
+  top: unset;
+  bottom: -200px;
+}
+
+#app-logo {
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 123px;
 }

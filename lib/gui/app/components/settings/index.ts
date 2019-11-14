@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 resin.io
+ * Copyright 2019 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,15 @@
  * limitations under the License.
  */
 
-'use strict'
-
 /**
  * @module Etcher.Components.FeaturedProject
  */
 
-const angular = require('angular')
-const { react2angular } = require('react2angular')
+import * as angular from 'angular';
+import { react2angular } from 'react2angular';
+import { SettingsButton } from './settings';
 
-const MODULE_NAME = 'Etcher.Components.Settings'
-const Settings = angular.module(MODULE_NAME, [])
+export const MODULE_NAME = 'Etcher.Components.Settings';
+const Settings = angular.module(MODULE_NAME, []);
 
-Settings.component(
-  'settings',
-  react2angular(require('./settings.jsx').SettingsButton)
-)
-
-module.exports = MODULE_NAME
+Settings.component('settings', react2angular(SettingsButton));
