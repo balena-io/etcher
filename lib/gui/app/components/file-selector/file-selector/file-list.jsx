@@ -189,7 +189,7 @@ const File = styled(UnstyledFile)`
     display: flex;
     justify-content: center;
     text-align: center;
-    font-size: 14px;
+    font-size: 16px;
   }
 
   > div:last-child {

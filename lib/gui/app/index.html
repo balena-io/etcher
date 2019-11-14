@@ -11,6 +11,15 @@
   </head>
   <body>
     <header class="section-header" ng-controller="HeaderController as header">
+      <span
+        id="app-logo"
+        os-open-external="https://www.balena.io/etcher?ref=etcher_footer"
+        tabindex="100">
+        <svg-icon paths="[ '../../assets/etcher.svg' ]"
+          width="'123px'"
+          height="'22px'"></svg-icon>
+      </span>
+
       <settings tabindex="4">
       </settings>
 
@@ -23,34 +32,6 @@
     </header>
 
     <main class="wrapper" ui-view></main>
-
-    <footer class="section-footer-main" ng-controller="StateController as state"
-      ng-hide="state.currentName === 'success'">
-      <span os-open-external="https://www.balena.io/etcher?ref=etcher_footer"
-        tabindex="100">
-        <svg-icon paths="[ '../../assets/etcher.svg' ]"
-          width="'123px'"
-          height="'22px'"></svg-icon>
-      </span>
-
-      <span class="caption">
-        is <span class="caption"
-          tabindex="101"
-          os-open-external="https://github.com/balena-io/etcher">an open source project</span> by
-      </span>
-
-      <span os-open-external="https://www.balena.io?ref=etcher"
-        tabindex="102">
-        <svg-icon paths="[ '../../assets/balena.svg' ]"
-          width="'79px'"
-          height="'23px'"></svg-icon>
-      </span>
-
-      <span class="caption footer-right"
-        tabindex="103"
-        manifest-bind="version"
-        os-open-external="https://github.com/balena-io/etcher/blob/master/CHANGELOG.md"></span>
-    </footer>
 
     <div class="section-loader"
       ng-controller="StateController as state"
