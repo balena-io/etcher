@@ -17,6 +17,7 @@ files:
   - "node_modules/**/*.js"
   - "node_modules/**/*.json"
   - "node_modules/**/*.node"
+  - "node_modules/**/*.dll"
   - node_modules/node-raspberrypi-usbboot/blobs/**
   - node_modules/flexboxgrid/dist/flexboxgrid.css
   - node_modules/roboto-fontface/fonts/roboto/Roboto-Thin.woff
