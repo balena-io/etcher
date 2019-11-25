@@ -6306,7 +6306,8 @@ img[disabled] {
 
 .page-main {
   flex: 1;
-  align-self: center; }
+  align-self: center;
+  margin: 20px; }
 
 .page-main > .col-xs {
   height: 165px; }
@@ -6365,10 +6366,6 @@ img[disabled] {
   display: flex;
   justify-content: space-between;
   width: 170px; }
-
-.page-main .step-footer-underline {
-  border-bottom: 1px dotted;
-  padding-bottom: 2px; }
 
 .page-main .button.step-footer {
   font-size: 16px;
@@ -6430,8 +6427,7 @@ img[disabled] {
 .target-status-line {
   display: flex;
   align-items: baseline;
-  font-size: 16px;
-  font-family: inherit; }
+  margin-bottom: 9px; }
   .target-status-line > .target-status-dot {
     width: 12px;
     height: 12px;
@@ -6477,11 +6473,8 @@ img[disabled] {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.page-finish {
-  margin-top: -15px;
-  flex: 1; }
-  .page-finish .col-xs-5.inline-flex.items-baseline > span, .page-finish .col-xs-5.inline-flex.items-baseline > div {
-    margin-bottom: -10px; }
+.col-xs-5.inline-flex.items-baseline > span, .col-xs-5.inline-flex.items-baseline > div {
+  margin-bottom: -10px; }
 
 .page-finish .button-label {
   margin: 0 auto 15px;
@@ -9886,6 +9879,8 @@ body {
     vertical-align: middle;
     height: 24px;
     margin: 0 10px; }
+  .section-header * {
+    z-index: 1; }
 
 featured-project webview {
   flex: 0 1;
