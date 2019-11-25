@@ -16,7 +16,7 @@
 
 'use strict';
 
-import _ from 'lodash';
+import * as _ from 'lodash';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import styled from 'styled-components';
