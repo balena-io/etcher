@@ -10,6 +10,7 @@
     <script src="../../../generated/gui.js"></script>
   </head>
   <body>
+
     <header class="section-header" ng-controller="HeaderController as header">
       <span
         id="app-logo"
@@ -31,7 +32,7 @@
       </button>
     </header>
 
-    <main class="wrapper" ui-view></main>
+    <main ui-view></main>
 
     <div class="section-loader"
       ng-controller="StateController as state"
@@ -41,5 +42,6 @@
       <safe-webview src="'https://www.balena.io/etcher/success-banner/'">
       </safe-webview>
     </div>
+
   </body>
 </html>

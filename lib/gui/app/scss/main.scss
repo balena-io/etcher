@@ -224,6 +224,10 @@ body {
     height: 24px;
     margin: 0 10px;
   }
+
+  * {
+    z-index: 1;
+  }
 }
 
 featured-project {
