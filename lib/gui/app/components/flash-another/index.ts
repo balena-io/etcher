@@ -14,21 +14,15 @@
  * limitations under the License.
  */
 
-'use strict'
-
 /**
  * @module Etcher.Components.FlashAnother
  */
 
-const angular = require('angular')
-const { react2angular } = require('react2angular')
+import * as angular from 'angular';
+import { react2angular } from 'react2angular';
+import * as FlashAnother from './flash-another';
 
-const MODULE_NAME = 'Etcher.Components.FlashAnother'
-const FlashAnother = angular.module(MODULE_NAME, [])
+export const MODULE_NAME = 'Etcher.Components.FlashAnother';
+const FlashAnotherModule = angular.module(MODULE_NAME, []);
 
-FlashAnother.component(
-  'flashAnother',
-  react2angular(require('./flash-another.jsx'))
-)
-
-module.exports = MODULE_NAME
+FlashAnotherModule.component('flashAnother', react2angular(FlashAnother));

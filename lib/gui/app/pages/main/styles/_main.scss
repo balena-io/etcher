@@ -21,6 +21,7 @@ img[disabled] {
 .page-main {
   flex: 1;
   align-self: center;
+  margin: 20px;
 }
 
 .page-main > .col-xs {
@@ -90,11 +91,6 @@ img[disabled] {
   display: flex;
   justify-content: space-between;
   width: $btn-min-width;
-}
-
-.page-main .step-footer-underline {
-  border-bottom: 1px dotted;
-  padding-bottom: 2px;
 }
 
 .page-main .button.step-footer {
@@ -169,8 +165,7 @@ img[disabled] {
 .target-status-line {
   display: flex;
   align-items: baseline;
-  font-size: 16px;
-  font-family: inherit;
+  margin-bottom: 9px;
 
   > .target-status-dot {
     width: 12px;

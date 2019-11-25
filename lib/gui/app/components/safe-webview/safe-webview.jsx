@@ -108,8 +108,8 @@ class SafeWebview extends react.PureComponent {
     this.didGetResponseDetails = _.bind(this.didGetResponseDetails, this)
 
     const logWebViewMessage = (event) => {
-      console.log('Message from SafeWebview:', event.message);
-    };
+      console.log('Message from SafeWebview:', event.message)
+    }
 
     this.eventTuples = [
       [ 'did-fail-load', this.didFailLoad ],
@@ -174,6 +174,9 @@ class SafeWebview extends react.PureComponent {
     this.setState({
       shouldShow: false
     })
+    if (this.props.onWebviewShow) {
+      this.props.onWebviewShow(false)
+    }
   }
 
   /**
