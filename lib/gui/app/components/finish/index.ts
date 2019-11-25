@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 resin.io
+ * Copyright 2019 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,22 @@
  * limitations under the License.
  */
 
-'use strict'
-
 /**
- * @module Etcher.Components.FlashResults
+ * @module Etcher.Pages.Finish
  */
 
-const angular = require('angular')
-const { react2angular } = require('react2angular')
+import * as angular from 'angular';
+import { react2angular } from 'react2angular';
+import FinishPage from './finish';
 
-const MODULE_NAME = 'Etcher.Components.FlashResults'
-const FlashResults = angular.module(MODULE_NAME, [])
+export const MODULE_NAME = 'Etcher.Pages.Finish';
+const Finish = angular.module(MODULE_NAME, []);
 
-FlashResults.component(
-  'flashResults',
-  react2angular(require('./flash-results.jsx'))
-)
+Finish.component('finish', react2angular(FinishPage, [], ['$state']));
 
-module.exports = MODULE_NAME
+Finish.config(($stateProvider: any) => {
+	$stateProvider.state('success', {
+		url: '/success',
+		template: '<finish style="width:100%"></finish>',
+	});
+});
