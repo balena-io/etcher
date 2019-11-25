@@ -6548,6 +6548,48 @@ body.rendition-modal-open > div:last-child > div > div > div:last-child {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*
+ * Copyright 2016 resin.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.space-medium {
+  margin: 15px; }
+
+.space-vertical-medium {
+  margin-top: 15px;
+  margin-bottom: 15px; }
+
+.space-vertical-small {
+  margin-top: 10px;
+  margin-bottom: 10px; }
+
+.space-top-large {
+  margin-top: 30px; }
+
+.space-vertical-large {
+  margin-top: 30px;
+  margin-bottom: 30px; }
+
+.space-bottom-medium {
+  margin-bottom: 15px; }
+
+.space-bottom-large {
+  margin-bottom: 30px; }
+
+.space-right-tiny {
+  margin-right: 5px; }
+
 .page-finish {
   margin-top: -15px;
   flex: 1; }
@@ -6605,6 +6647,7 @@ body.rendition-modal-open > div:last-child > div > div > div:last-child {
   align-items: center;
   flex-direction: column;
   position: absolute;
+  left: 0;
   bottom: 0;
   color: white;
   height: 320px;
