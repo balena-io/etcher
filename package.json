@@ -107,6 +107,7 @@
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-standard": "^3.0.1",
+    "fibers": "^4.0.2",
     "html-angular-validate": "^0.2.3",
     "html-loader": "^0.5.1",
     "mocha": "^5.0.1",
@@ -117,6 +118,7 @@
     "omit-deep-lodash": "1.1.4",
     "pkg": "^4.3.0",
     "resin-lint": "^3.1.0",
+    "sass": "^1.23.7",
     "sass-lint": "^1.12.1",
     "sass-loader": "^8.0.0",
     "simple-progress-webpack-plugin": "^1.1.2",
@@ -125,7 +127,7 @@
     "ts-loader": "^6.0.4",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3",
-    "webpack": "^4.31.0",
+    "webpack": "^4.36.1",
     "webpack-cli": "^3.1.2",
     "webpack-node-externals": "^1.7.2"
   }
