@@ -29,7 +29,7 @@ const Div: any = styled.div`
 
 const FlashAnother = ({ onClick, ...props }: any) => {
 	return (
-		<ThemedProvider {...props} marginTop='21px'>
+		<ThemedProvider {...props} marginTop="21px">
 			<Div>
 				<BaseButton
 					primary

@@ -24,8 +24,8 @@ import { Flex, Txt } from 'rendition';
 
 const FlashResults = ({ errors, results, message }: any) => {
 	return (
-		<Flex flexDirection='column'>
-			<Txt tooltip={errors()} margin='auto'>
+		<Flex flexDirection="column">
+			<Txt tooltip={errors()} margin="auto">
 				{_.map(results.devices, (quantity, type) => {
 					return quantity ? (
 						<div
