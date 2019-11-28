@@ -17,54 +17,32 @@
 'use strict';
 
 import * as _ from 'lodash';
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import styled from 'styled-components';
-import { left, position, space, top } from 'styled-system';
-import { Underline } from './../../styled-components';
-
-const Div: any = styled.div`
-  ${position}
-  ${top}
-  ${left}
-  ${space}
-`;
+import { Flex, Txt } from 'rendition';
 
 /* eslint-disable no-inline-comments */
 
-const FlashResults = (props: any) => {
+const FlashResults = ({ errors, results, message }: any) => {
 	return (
-		<Div position="absolute" left="153px" top="66px">
-			<div className="inline-flex title">
-				<span className="tick tick--success space-right-medium"></span>
-				<h3>Flash Complete!</h3>
-			</div>
-			<Div className="results" mt="11px" mr="0" mb="0" ml="40px">
-				<Underline tooltip={props.errors()}>
-					{_.map(props.results.devices, (quantity, type) => {
-						return quantity ? (
-							<div
-								key={type}
-								className={`target-status-line target-status-${type}`}
-							>
-								<span className="target-status-dot"></span>
-								<span className="target-status-quantity">{quantity}</span>
-								<span className="target-status-message">
-									{props.message[type](quantity)}
-								</span>
-							</div>
-						) : null;
-					})}
-				</Underline>
-			</Div>
-		</Div>
+		<Flex flexDirection='column'>
+			<Txt tooltip={errors()} margin='auto'>
+				{_.map(results.devices, (quantity, type) => {
+					return quantity ? (
+						<div
+							key={type}
+							className={`target-status-line target-status-${type}`}
+						>
+							<span className="target-status-dot"></span>
+							<span className="target-status-quantity">{quantity}</span>
+							<span className="target-status-message">
+								{message[type](quantity)}
+							</span>
+						</div>
+					) : null;
+				})}
+			</Txt>
+		</Flex>
 	);
-};
-
-FlashResults.propTypes = {
-	results: PropTypes.object,
-	message: PropTypes.object,
-	errors: PropTypes.func,
 };
 
 export default FlashResults;

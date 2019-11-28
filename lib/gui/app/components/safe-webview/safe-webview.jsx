@@ -108,8 +108,8 @@ class SafeWebview extends react.PureComponent {
     this.didGetResponseDetails = _.bind(this.didGetResponseDetails, this)
 
     const logWebViewMessage = (event) => {
-      console.log('Message from SafeWebview:', event.message);
-    };
+      console.log('Message from SafeWebview:', event.message)
+    }
 
     this.eventTuples = [
       [ 'did-fail-load', this.didFailLoad ],
@@ -134,8 +134,8 @@ class SafeWebview extends react.PureComponent {
       partition: ELECTRON_SESSION,
       style: {
         flex: this.state.shouldShow ? null : '0 1',
-        width: this.state.shouldShow ? null : '0',
-        height: this.state.shouldShow ? null : '0'
+        width: this.state.shouldShow ? '100%' : '0',
+        height: this.state.shouldShow ? '100%' : '0'
       }
     }, [])
   }
@@ -195,6 +195,7 @@ class SafeWebview extends react.PureComponent {
     this.setState({
       shouldShow: false
     })
+    this.props.onWebviewShow(false)
   }
 
   /**

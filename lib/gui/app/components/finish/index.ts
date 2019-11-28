@@ -30,6 +30,6 @@ Finish.component('finish', react2angular(FinishPage, [], ['$state']));
 Finish.config(($stateProvider: any) => {
 	$stateProvider.state('success', {
 		url: '/success',
-		template: '<finish></finish>',
+		template: '<finish style="width:100%"></finish>',
 	});
 });

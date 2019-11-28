@@ -17,7 +17,6 @@
 'use strict';
 
 // eslint-disable-next-line no-unused-vars
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import styled from 'styled-components';
 import { position, right } from 'styled-system';
@@ -28,10 +27,10 @@ const Div: any = styled.div`
 	${right}
 `;
 
-const FlashAnother: any = ({ onClick }: any) => {
+const FlashAnother = ({ onClick, ...props }: any) => {
 	return (
-		<ThemedProvider>
-			<Div position="absolute" right="152px">
+		<ThemedProvider {...props} marginTop='21px'>
+			<Div>
 				<BaseButton
 					primary
 					onClick={onClick.bind(null, { preserveImage: true })}
@@ -41,10 +40,6 @@ const FlashAnother: any = ({ onClick }: any) => {
 			</Div>
 		</ThemedProvider>
 	);
-};
-
-FlashAnother.propTypes = {
-	onClick: PropTypes.func,
 };
 
 export default FlashAnother;
