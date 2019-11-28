@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-'use strict';
-
 import * as _ from 'lodash';
 import * as React from 'react';
 import { Flex, Txt } from 'rendition';
