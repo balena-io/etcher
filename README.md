@@ -59,6 +59,21 @@ sudo apt-get remove balena-etcher-electron
 sudo rm /etc/apt/sources.list.d/balena-etcher.list
 sudo apt-get update
 ```
+
+##### OpenSUSE LEAP & Tumbleweed install
+
+```sh
+sudo zypper ar https://balena.io/etcher/static/etcher-rpm.repo
+sudo zypper ref
+sudo zypper in balena-etcher-electron
+```
+
+##### Uninstall
+
+```sh
+sudo zypper rm balena-etcher-electron
+```
+
 #### Redhat (RHEL) and Fedora based Package Repository (GNU/Linux x86/x64)
 
 1. Add Etcher rpm repository:
