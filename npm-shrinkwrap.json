@@ -10781,6 +10781,28 @@
         }
       }
     },
+    "react-dropzone": {
+      "version": "10.2.1",
+      "resolved": "https://registry.npmjs.org/react-dropzone/-/react-dropzone-10.2.1.tgz",
+      "integrity": "sha512-Me5nOu8hK9/Xyg5easpdfJ6SajwUquqYR/2YTdMotsCUgJ1pHIIwNsv0n+qcIno0tWR2V2rVQtj2r/hXYs2TnQ==",
+      "requires": {
+        "attr-accept": "^2.0.0",
+        "file-selector": "^0.1.12",
+        "prop-types": "^15.7.2"
+      },
+      "dependencies": {
+        "prop-types": {
+          "version": "15.7.2",
+          "resolved": "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz",
+          "integrity": "sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==",
+          "requires": {
+            "loose-envify": "^1.4.0",
+            "object-assign": "^4.1.1",
+            "react-is": "^16.8.1"
+          }
+        }
+      }
+    },
     "react-google-recaptcha": {
       "version": "2.0.1",
       "resolved": "https://registry.npmjs.org/react-google-recaptcha/-/react-google-recaptcha-2.0.1.tgz",
