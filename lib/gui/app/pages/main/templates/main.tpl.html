@@ -1,28 +1,10 @@
 <div class="page-main row around-xs">
-  <div class="col-xs" ng-controller="ImageSelectionController as image">
-    <div class="box text-center relative" os-dropzone="image.selectImageByPath($file)">
-
-      <div class="center-block">
-        <svg-icon contents="[ main.selection.getImageLogo() ]" paths="[ '../../assets/image.svg' ]"></svg-icon>
-      </div>
-
-      <div class="space-vertical-large">
-        <image-selector
-          has-image="main.selection.hasImage()"
-          open-image-selector="image.openImageSelector"
-          main-supported-extensions="image.mainSupportedExtensions"
-          extra-supported-extensions="image.extraSupportedExtensions"
-          show-selected-image-details="main.showSelectedImageDetails"
-          image-name="main.selection.getImageName()"
-          image-basename="image.getImageBasename()"
-          reselect-image="image.reselectImage"
-          flashing="main.state.isFlashing()"
-          image-size="main.selection.getImageSize()"
-        >
-        </image-selector>
-      </div>
-
-    </div>
+  <div class="col-xs">
+    <image-selector
+      flashing="main.state.isFlashing()"
+      showSelectedImageDetails={main.showSelectedImageDetails}
+    >
+    </image-selector>
   </div>
 
   <div class="col-xs" ng-controller="DriveSelectionController as drive">

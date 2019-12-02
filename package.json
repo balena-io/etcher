@@ -70,6 +70,7 @@
     "prop-types": "^15.5.9",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
+    "react-dropzone": "^10.2.1",
     "react2angular": "^4.0.2",
     "redux": "^3.5.2",
     "rendition": "^11.24.0",
