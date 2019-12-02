@@ -19,8 +19,6 @@
 const m = require('mochainon')
 const _ = require('lodash')
 const fs = require('fs')
-const path = require('path')
-const supportedFormats = require('../../../lib/shared/supported-formats')
 const angular = require('angular')
 const flashState = require('../../../lib/gui/app/models/flash-state')
 const availableDrives = require('../../../lib/gui/app/models/available-drives')
@@ -53,7 +51,9 @@ describe('Browser: MainPage', function () {
     describe('.shouldDriveStepBeDisabled()', function () {
       it('should return true if there is no drive', function () {
         const controller = $controller('MainController', {
-          $scope: {}
+          $scope: {
+            $apply: _.noop
+          }
         })
 
         selectionState.clear()
@@ -63,7 +63,9 @@ describe('Browser: MainPage', function () {
 
       it('should return false if there is a drive', function () {
         const controller = $controller('MainController', {
-          $scope: {}
+          $scope: {
+            $apply: _.noop
+          }
         })
 
         selectionState.selectImage({
@@ -80,7 +82,9 @@ describe('Browser: MainPage', function () {
     describe('.shouldFlashStepBeDisabled()', function () {
       it('should return true if there is no selected drive nor image', function () {
         const controller = $controller('MainController', {
-          $scope: {}
+          $scope: {
+            $apply: _.noop
+          }
         })
 
         selectionState.clear()
@@ -90,7 +94,9 @@ describe('Browser: MainPage', function () {
 
       it('should return true if there is a selected image but no drive', function () {
         const controller = $controller('MainController', {
-          $scope: {}
+          $scope: {
+            $apply: _.noop
+          }
         })
 
         selectionState.clear()
@@ -106,7 +112,9 @@ describe('Browser: MainPage', function () {
 
       it('should return true if there is a selected drive but no image', function () {
         const controller = $controller('MainController', {
-          $scope: {}
+          $scope: {
+            $apply: _.noop
+          }
         })
 
         availableDrives.setDrives([
@@ -127,7 +135,9 @@ describe('Browser: MainPage', function () {
 
       it('should return false if there is a selected drive and a selected image', function () {
         const controller = $controller('MainController', {
-          $scope: {}
+          $scope: {
+            $apply: _.noop
+          }
         })
 
         availableDrives.setDrives([
@@ -151,51 +161,6 @@ describe('Browser: MainPage', function () {
         })
 
         m.chai.expect(controller.shouldFlashStepBeDisabled()).to.be.false
-      })
-    })
-  })
-
-  describe('ImageSelectionController', function () {
-    let $controller
-
-    beforeEach(angular.mock.inject(function (_$controller_) {
-      $controller = _$controller_
-    }))
-
-    it('should contain all available extensions in mainSupportedExtensions and extraSupportedExtensions', function () {
-      const $scope = {}
-      const controller = $controller('ImageSelectionController', {
-        $scope
-      })
-
-      const extensions = controller.mainSupportedExtensions.concat(controller.extraSupportedExtensions)
-      m.chai.expect(_.sortBy(extensions)).to.deep.equal(_.sortBy(supportedFormats.getAllExtensions()))
-    })
-
-    describe('.getImageBasename()', function () {
-      it('should return the basename of the selected image', function () {
-        const controller = $controller('ImageSelectionController', {
-          $scope: {}
-        })
-
-        selectionState.selectImage({
-          path: path.join(__dirname, 'foo', 'bar.img'),
-          extension: 'img',
-          size: 999999999,
-          isSizeEstimated: false
-        })
-
-        m.chai.expect(controller.getImageBasename()).to.equal('bar.img')
-        selectionState.deselectImage()
-      })
-
-      it('should return an empty string if no selected image', function () {
-        const controller = $controller('ImageSelectionController', {
-          $scope: {}
-        })
-
-        selectionState.deselectImage()
-        m.chai.expect(controller.getImageBasename()).to.equal('')
       })
     })
   })

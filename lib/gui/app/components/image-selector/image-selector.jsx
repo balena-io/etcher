@@ -16,13 +16,24 @@
 
 'use strict'
 
-/* eslint-disable no-unused-vars */
-const React = require('react')
+const Bluebird = require('bluebird')
+const sdk = require('etcher-sdk')
+const _ = require('lodash')
+const path = require('path')
 const propTypes = require('prop-types')
-
-const middleEllipsis = require('./../../utils/middle-ellipsis')
-
-const shared = require('./../../../../shared/units')
+const React = require('react')
+const Dropzone = require('react-dropzone').default
+const errors = require('../../../../shared/errors')
+const messages = require('../../../../shared/messages')
+const supportedFormats = require('../../../../shared/supported-formats')
+const shared = require('../../../../shared/units')
+const selectionState = require('../../models/selection-state')
+const settings = require('../../models/settings')
+const store = require('../../models/store')
+const analytics = require('../../modules/analytics')
+const exceptionReporter = require('../../modules/exception-reporter')
+const osDialog = require('../../os/dialog')
+const { replaceWindowsNetworkDriveLetter } = require('../../os/windows-network-drives')
 const {
   StepButton,
   StepNameButton,
@@ -32,67 +43,309 @@ const {
   DetailsText,
   ChangeButton,
   ThemedProvider
-} = require('./../../styled-components')
+} = require('../../styled-components')
+const middleEllipsis = require('../../utils/middle-ellipsis')
+const SVGIcon = require('../svg-icon/svg-icon.jsx')
 
-const SelectImageButton = (props) => {
-  if (props.hasImage) {
+/**
+ * @summary Main supported extensions
+ * @constant
+ * @type {String[]}
+ * @public
+ */
+const mainSupportedExtensions = _.intersection([
+  'img',
+  'iso',
+  'zip'
+], supportedFormats.getAllExtensions())
+
+/**
+ * @summary Extra supported extensions
+ * @constant
+ * @type {String[]}
+ * @public
+ */
+const extraSupportedExtensions = _.difference(
+  supportedFormats.getAllExtensions(),
+  mainSupportedExtensions
+).sort()
+
+const getState = () => {
+  return {
+    hasImage: selectionState.hasImage(),
+    imageName: selectionState.getImageName(),
+    imageSize: selectionState.getImageSize()
+  }
+}
+
+class ImageSelector extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = getState()
+
+    this.openImageSelector = this.openImageSelector.bind(this)
+    this.reselectImage = this.reselectImage.bind(this)
+    this.handleOnDrop = this.handleOnDrop.bind(this)
+  }
+
+  componentDidMount () {
+    this.unsubscribe = store.observe(() => {
+      this.setState(getState())
+    })
+  }
+
+  componentWillUnmount () {
+    this.unsubscribe()
+  }
+
+  reselectImage () {
+    analytics.logEvent('Reselect image', {
+      previousImage: selectionState.getImage(),
+      applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
+      flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
+    })
+
+    this.openImageSelector()
+  }
+
+  selectImage (image) {
+    const {
+      WarningModalService
+    } = this.props
+
+    if (!supportedFormats.isSupportedImage(image.path)) {
+      const invalidImageError = errors.createUserError({
+        title: 'Invalid image',
+        description: messages.error.invalidImage(image)
+      })
+
+      osDialog.showError(invalidImageError)
+      analytics.logEvent('Invalid image', _.merge({
+        applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
+        flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
+      }, image))
+      return
+    }
+
+    Bluebird.try(() => {
+      let message = null
+
+      if (supportedFormats.looksLikeWindowsImage(image.path)) {
+        analytics.logEvent('Possibly Windows image', {
+          image,
+          applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
+          flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
+        })
+        message = messages.warning.looksLikeWindowsImage()
+      } else if (!image.hasMBR) {
+        analytics.logEvent('Missing partition table', {
+          image,
+          applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
+          flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
+        })
+        message = messages.warning.missingPartitionTable()
+      }
+
+      if (message) {
+        // TODO: `Continue` should be on a red background (dangerous action) instead of `Change`.
+        // We want `X` to act as `Continue`, that's why `Continue` is the `rejectionLabel`
+        return WarningModalService.display({
+          confirmationLabel: 'Change',
+          rejectionLabel: 'Continue',
+          description: message
+        })
+      }
+
+      return false
+    }).then((shouldChange) => {
+      if (shouldChange) {
+        return this.reselectImage()
+      }
+
+      selectionState.selectImage(image)
+
+      // An easy way so we can quickly identify if we're making use of
+      // certain features without printing pages of text to DevTools.
+      image.logo = Boolean(image.logo)
+      image.blockMap = Boolean(image.blockMap)
+
+      return analytics.logEvent('Select image', {
+        image,
+        applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
+        flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
+      })
+    }).catch(exceptionReporter.report)
+  }
+
+  async selectImageByPath (imagePath) {
+    try {
+      // eslint-disable-next-line no-param-reassign
+      imagePath = await replaceWindowsNetworkDriveLetter(imagePath)
+    } catch (error) {
+      analytics.logException(error)
+    }
+    if (!supportedFormats.isSupportedImage(imagePath)) {
+      const invalidImageError = errors.createUserError({
+        title: 'Invalid image',
+        description: messages.error.invalidImage(imagePath)
+      })
+
+      osDialog.showError(invalidImageError)
+      analytics.logEvent('Invalid image', { path: imagePath })
+      return
+    }
+
+    const source = new sdk.sourceDestination.File(imagePath, sdk.sourceDestination.File.OpenFlags.Read)
+    try {
+      const innerSource = await source.getInnerSource()
+      const metadata = await innerSource.getMetadata()
+      const partitionTable = await innerSource.getPartitionTable()
+      if (partitionTable) {
+        metadata.hasMBR = true
+        metadata.partitions = partitionTable.partitions
+      }
+      metadata.path = imagePath
+      // eslint-disable-next-line no-magic-numbers
+      metadata.extension = path.extname(imagePath).slice(1)
+      this.selectImage(metadata)
+    } catch (error) {
+      const imageError = errors.createUserError({
+        title: 'Error opening image',
+        description: messages.error.openImage(path.basename(imagePath), error.message)
+      })
+      osDialog.showError(imageError)
+      analytics.logException(error)
+    } finally {
+      try {
+        await source.close()
+      } catch (error) {
+        // Noop
+      }
+    }
+  }
+
+  /**
+   * @summary Open image selector
+   * @function
+   * @public
+   *
+   * @example
+   * ImageSelectionController.openImageSelector();
+   */
+  openImageSelector () {
+    analytics.logEvent('Open image selector', {
+      applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
+      flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
+    })
+
+    if (settings.get('experimentalFilePicker')) {
+      const {
+        FileSelectorService
+      } = this.props
+
+      FileSelectorService.open()
+    } else {
+      osDialog.selectImage().then((imagePath) => {
+        // Avoid analytics and selection state changes
+        // if no file was resolved from the dialog.
+        if (!imagePath) {
+          analytics.logEvent('Image selector closed', {
+            applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
+            flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
+          })
+          return
+        }
+
+        this.selectImageByPath(imagePath)
+      }).catch(exceptionReporter.report)
+    }
+  }
+
+  handleOnDrop (acceptedFiles) {
+    const [ file ] = acceptedFiles
+
+    if (file) {
+      this.selectImageByPath(file.path)
+    }
+  }
+
+  // TODO add a visual change when dragging a file over the selector
+  render () {
+    const {
+      flashing,
+      showSelectedImageDetails
+    } = this.props
+
+    const hasImage = selectionState.hasImage()
+
+    const imageBasename = hasImage ? path.basename(selectionState.getImagePath()) : ''
+    const imageName = selectionState.getImageName()
+    const imageSize = selectionState.getImageSize()
+
     return (
       <ThemedProvider>
-        <StepNameButton
-          plain
-          onClick={props.showSelectedImageDetails}
-          tooltip={props.imageBasename}
-        >
-          {/* eslint-disable no-magic-numbers */}
-          { middleEllipsis(props.imageName || props.imageBasename, 20) }
-        </StepNameButton>
-        { !props.flashing &&
-          <ChangeButton
-            plain
-            mb={14}
-            onClick={props.reselectImage}
-          >
-            Change
-          </ChangeButton>
-        }
-        <DetailsText>
-          {shared.bytesToClosestUnit(props.imageSize)}
-        </DetailsText>
+        <Dropzone multiple={false} noClick onDrop={this.handleOnDrop}>
+          {({ getRootProps, getInputProps }) => (
+            <div className="box text-center relative" {...getRootProps()}>
+              <input {...getInputProps()} />
+              <div className="center-block">
+                <SVGIcon contents={selectionState.getImageLogo()} paths={[ '../../assets/image.svg' ]} />
+              </div>
+
+              <div className="space-vertical-large">
+                {hasImage ? (
+                  <React.Fragment>
+                    <StepNameButton
+                      plain
+                      onClick={showSelectedImageDetails}
+                      tooltip={imageBasename}
+                    >
+                      {/* eslint-disable no-magic-numbers */}
+                      { middleEllipsis(imageName || imageBasename, 20) }
+                    </StepNameButton>
+                    { !flashing &&
+                      <ChangeButton
+                        plain
+                        mb={14}
+                        onClick={this.reselectImage}
+                      >
+                        Change
+                      </ChangeButton>
+                    }
+                    <DetailsText>
+                      {shared.bytesToClosestUnit(imageSize)}
+                    </DetailsText>
+                  </React.Fragment>
+                ) : (
+                  <StepSelection>
+                    <StepButton
+                      onClick={this.openImageSelector}
+                    >
+                      Select image
+                    </StepButton>
+                    <Footer>
+                      { mainSupportedExtensions.join(', ') }, and{' '}
+                      <Underline
+                        tooltip={ extraSupportedExtensions.join(', ') }
+                      >
+                        many more
+                      </Underline>
+                    </Footer>
+                  </StepSelection>
+                )}
+              </div>
+            </div>
+          )}
+        </Dropzone>
       </ThemedProvider>
     )
   }
-  return (
-    <ThemedProvider>
-      <StepSelection>
-        <StepButton
-          onClick={props.openImageSelector}
-        >
-          Select image
-        </StepButton>
-        <Footer>
-          { props.mainSupportedExtensions.join(', ') }, and{' '}
-          <Underline
-            tooltip={ props.extraSupportedExtensions.join(', ') }
-          >
-            many more
-          </Underline>
-        </Footer>
-      </StepSelection>
-    </ThemedProvider>
-  )
 }
 
-SelectImageButton.propTypes = {
-  openImageSelector: propTypes.func,
-  mainSupportedExtensions: propTypes.array,
-  extraSupportedExtensions: propTypes.array,
-  hasImage: propTypes.bool,
-  showSelectedImageDetails: propTypes.func,
-  imageName: propTypes.string,
-  imageBasename: propTypes.string,
-  reselectImage: propTypes.func,
+ImageSelector.propTypes = {
   flashing: propTypes.bool,
-  imageSize: propTypes.number
+  showSelectedImageDetails: propTypes.func
 }
 
-module.exports = SelectImageButton
+module.exports = ImageSelector
