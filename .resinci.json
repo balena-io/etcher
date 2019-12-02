@@ -19,6 +19,7 @@
       "nodeGypRebuild": true,
       "afterPack": "./afterPack.js",
       "files": [
+        "build/Release/elevator.node",
         "generated",
         "lib/shared/catalina-sudo/sudo-askpass.osascript.js",
         "lib/gui/app/index.html",
