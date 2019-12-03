@@ -6368,9 +6368,8 @@ svg-icon {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- img[disabled] {
-  opacity: 0.2; 
-}
+img[disabled] {
+  opacity: 0.2; }
 
 .page-main {
   flex: 1;
@@ -6536,10 +6535,6 @@ svg-icon {
 
 .space-vertical-large {
   position: relative; }
-
-body.rendition-modal-open > div:last-child > div > div > div:last-child {
-  top: unset;
-  bottom: -200px; }
 
 #app-logo {
   position: fixed;
