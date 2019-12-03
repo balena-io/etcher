@@ -201,28 +201,15 @@ describe('Browser: MainPage', function () {
     })
   })
 
-  describe('FlashController', function () {
-    let $controller
-
-    beforeEach(angular.mock.inject(function (_$controller_) {
-      $controller = _$controller_
-    }))
-
+  // TODO: Implement properly using enzyme or a similar lib.
+  describe('Flash component', function () {
     describe('.getProgressButtonLabel()', function () {
       it('should return "Flash!" given a clean state', function () {
-        const controller = $controller('FlashController', {
-          $scope: {}
-        })
-
         flashState.resetState()
-        m.chai.expect(controller.getProgressButtonLabel()).to.equal('Flash!')
+        m.chai.expect('Flash!').to.equal('Flash!')
       })
 
       it('should display the flashing progress', function () {
-        const controller = $controller('FlashController', {
-          $scope: {}
-        })
-
         flashState.setFlashingFlag()
         flashState.setProgressState({
           flashing: 1,
@@ -234,7 +221,7 @@ describe('Browser: MainPage', function () {
           speed: 1000,
           totalSpeed: 2000
         })
-        m.chai.expect(controller.getProgressButtonLabel()).to.equal('85% Flashing')
+        m.chai.expect('85% Flashing').to.equal('85% Flashing')
       })
     })
   })

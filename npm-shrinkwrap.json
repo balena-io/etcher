@@ -1566,22 +1566,6 @@
       "integrity": "sha512-t3eQmuAZczdOVdOQj7muCBwH+MBNwd+/FaAsV1SNp+597EQVWABQwxI6KXE0k0ZlyJ5JbtkNIKU8kGAj1znxhw==",
       "dev": true
     },
-    "angular-moment": {
-      "version": "1.3.0",
-      "resolved": "https://registry.npmjs.org/angular-moment/-/angular-moment-1.3.0.tgz",
-      "integrity": "sha512-KG8rvO9MoaBLwtGnxTeUveSyNtrL+RNgGl1zqWN36+HDCCVGk2DGWOzqKWB6o+eTTbO3Opn4hupWKIElc8XETA==",
-      "requires": {
-        "moment": ">=2.8.0 <3.0.0"
-      }
-    },
-    "angular-seconds-to-date": {
-      "version": "1.0.1",
-      "resolved": "https://registry.npmjs.org/angular-seconds-to-date/-/angular-seconds-to-date-1.0.1.tgz",
-      "integrity": "sha1-mTi6xPKkeyvJVc0h0TwU8s3odj0=",
-      "requires": {
-        "angular": "^1.5.6"
-      }
-    },
     "angular-ui-bootstrap": {
       "version": "2.5.6",
       "resolved": "https://registry.npmjs.org/angular-ui-bootstrap/-/angular-ui-bootstrap-2.5.6.tgz",
