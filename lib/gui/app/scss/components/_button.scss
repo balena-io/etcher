@@ -29,8 +29,9 @@
   position: relative;
 
   > .glyphicon {
-    top: 2px;
-    margin-right: 2px;
+    top: 0;
+    width: 24px;
+    height: 24px;
   }
 
   &.button-primary{

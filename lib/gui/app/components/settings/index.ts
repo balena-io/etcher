@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 resin.io
+ * Copyright 2019 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-.page-settings .checkbox input[type="checkbox"] + * {
-  color: $palette-theme-dark-foreground;
-}
+/**
+ * @module Etcher.Components.FeaturedProject
+ */
 
-.page-settings .checkbox input[type="checkbox"]:not(:checked) + * {
-  color: $palette-theme-dark-soft-foreground;
-}
+import * as angular from 'angular';
+import { react2angular } from 'react2angular';
+import { SettingsButton } from './settings';
 
-.page-settings .title {
-  color: $palette-theme-dark-foreground;
-}
+export const MODULE_NAME = 'Etcher.Components.Settings';
+const Settings = angular.module(MODULE_NAME, []);
+
+Settings.component('settings', react2angular(SettingsButton));

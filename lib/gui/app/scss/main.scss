@@ -38,7 +38,6 @@ $disabled-opacity: 0.2;
 @import "../components/warning-modal/styles/warning-modal";
 @import "../components/file-selector/styles/file-selector";
 @import "../pages/main/styles/main";
-@import "../pages/settings/styles/settings";
 @import "../pages/finish/styles/finish";
 
 $fa-font-path: "../../../node_modules/@fortawesome/fontawesome-free-webfonts/webfonts";
@@ -212,11 +211,21 @@ body {
 
 .section-header {
   text-align: right;
-  padding: 5px 8px;
+  padding: 13px 14px;
 
   > .button {
-    padding-left: 3px;
-    padding-right: 3px;
+    padding: 0;
+
+    > .glyphicon {
+      font-size: 24px;
+    }
+  }
+
+  > * {
+    display: inline-block;
+    vertical-align: middle;
+    height: 24px;
+    margin: 0 10px;
   }
 }
 

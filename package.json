@@ -40,6 +40,9 @@
   ],
   "dependencies": {
     "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
+    "@fortawesome/fontawesome-svg-core": "^1.2.25",
+    "@fortawesome/free-solid-svg-icons": "^5.11.2",
+    "@fortawesome/react-fontawesome": "^0.1.7",
     "angular": "1.7.6",
     "angular-if-state": "^1.0.0",
     "angular-moment": "^1.0.1",
@@ -68,7 +71,7 @@
     "react-dom": "^16.8.5",
     "react2angular": "^4.0.2",
     "redux": "^3.5.2",
-    "rendition": "^8.7.2",
+    "rendition": "^11.24.0",
     "request": "^2.81.0",
     "resin-corvus": "^2.0.3",
     "roboto-fontface": "^0.9.0",
