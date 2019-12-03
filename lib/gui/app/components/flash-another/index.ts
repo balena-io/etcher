@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 resin.io
+ * Copyright 2019 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,9 @@
  * limitations under the License.
  */
 
-/**
- * @module Etcher.Components.FlashAnother
- */
-
 import * as angular from 'angular';
 import { react2angular } from 'react2angular';
-import * as FlashAnother from './flash-another';
+import FlashAnother from './flash-another';
 
 export const MODULE_NAME = 'Etcher.Components.FlashAnother';
 const FlashAnotherModule = angular.module(MODULE_NAME, []);
