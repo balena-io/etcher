@@ -23,14 +23,15 @@ import * as selectionState from '../../models/selection-state';
 import * as store from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import * as updateLock from '../../modules/update-lock';
-import FlashAnother from '../flash-another/flash-another';
-import FlashResults from '../flash-results/flash-results';
+import { FlashAnother } from '../flash-another/flash-another';
+import { FlashResults } from '../flash-results/flash-results';
 import * as SVGIcon from '../svg-icon/svg-icon';
 
 const restart = (options: any, $state: any) => {
 	const {
 		applicationSessionUuid,
 		flashingWorkflowUuid,
+		// @ts-ignore
 	} = store.getState().toJS();
 	if (!options.preserveImage) {
 		selectionState.deselectImage();
@@ -65,6 +66,7 @@ const formattedErrors = () => {
 };
 
 function FinishPage({ $state }: any) {
+	// @ts-ignore
 	const results = flashState.getFlashResults().results || {};
 	const progressMessage = messages.progress;
 	return (
@@ -86,7 +88,7 @@ function FinishPage({ $state }: any) {
 					<div className="fallback-banner">
 						<div className="caption caption-big">
 							Thanks for using
-							<span os-open-external="https://etcher.io?ref=etcher_offline_banner">
+							<span os-open-external="https://balena.io/etcher?ref=etcher_offline_banner">
 								<SVGIcon
 									paths={['../../assets/etcher.svg']}
 									width="165px"
@@ -102,7 +104,7 @@ function FinishPage({ $state }: any) {
 								height="20px"
 							></SVGIcon>
 							by
-							<span os-open-external="https://resin.io?ref=etcher_success">
+							<span os-open-external="https://balena.io?ref=etcher_success">
 								<SVGIcon
 									paths={['../../assets/balena.svg']}
 									width="auto"
@@ -113,7 +115,7 @@ function FinishPage({ $state }: any) {
 								<span
 									className="caption caption-small footer-right"
 									manifest-bind="version"
-									os-open-external="https://github.com/resin-io/etcher/blob/master/CHANGELOG.md"
+									os-open-external="https://github.com/balena-io/etcher/blob/master/CHANGELOG.md"
 								></span>
 							</div>
 						</div>
