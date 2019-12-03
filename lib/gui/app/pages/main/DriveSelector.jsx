@@ -104,8 +104,9 @@ const getDriveListLabel = () => {
  * @example
  * openDriveSelector(DriveSelectorService);
  */
-const openDriveSelector = (DriveSelectorService) => {
-  DriveSelectorService.open().then((drive) => {
+const openDriveSelector = async (DriveSelectorService) => {
+  try {
+    const drive = await DriveSelectorService.open()
     if (!drive) {
       return
     }
@@ -118,7 +119,9 @@ const openDriveSelector = (DriveSelectorService) => {
       applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
       flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
     })
-  }).catch(exceptionReporter.report)
+  } catch (error) {
+    exceptionReporter.report(error)
+  }
 }
 
 /**
