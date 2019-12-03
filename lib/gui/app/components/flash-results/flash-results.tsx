@@ -15,7 +15,6 @@
  */
 
 import * as _ from 'lodash';
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import styled from 'styled-components';
 import { left, position, space, top } from 'styled-system';
@@ -28,7 +27,7 @@ const Div: any = styled.div<any>`
   ${space}
 `;
 
-const FlashResults: any = ({
+export const FlashResults: any = ({
 	errors,
 	results,
 	message,
@@ -64,11 +63,3 @@ const FlashResults: any = ({
 		</Div>
 	);
 };
-
-FlashResults.propTypes = {
-	results: PropTypes.object,
-	message: PropTypes.object,
-	errors: PropTypes.func,
-};
-
-export default FlashResults;

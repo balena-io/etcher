@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import styled from 'styled-components';
 import { position, right } from 'styled-system';
@@ -25,7 +24,11 @@ const Div = styled.div<any>`
 	${right}
 `;
 
-const FlashAnother = (props: any) => {
+export interface FlashAnotherProps {
+	onClick: (options: { preserveImage: boolean }) => void;
+}
+
+export const FlashAnother = (props: FlashAnotherProps) => {
 	return (
 		<ThemedProvider>
 			<Div position="absolute" right="152px">
@@ -39,9 +42,3 @@ const FlashAnother = (props: any) => {
 		</ThemedProvider>
 	);
 };
-
-FlashAnother.propTypes = {
-	onClick: PropTypes.func,
-};
-
-export default FlashAnother;
