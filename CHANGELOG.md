@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.66
+## (2019-12-03)
+
+* Update spectron to ^8 [Alexis Svinartchouk]
+* Update dependencies, get node-usb from npm [Alexis Svinartchouk]
+* Update nan to ^2.14 [Alexis Svinartchouk]
+* Use the same entrypoint for etcher and the child writer [Alexis Svinartchouk]
+* Require angular-mocks only when needed [Alexis Svinartchouk]
+* Remove no longer needed pkg dev dependency [Alexis Svinartchouk]
+* Update mocha, remove nock [Alexis Svinartchouk]
+* Remove no longer needed xml2js [Alexis Svinartchouk]
+* Remove node-pre-gyp patch that is no longer needed with electron 6 [Alexis Svinartchouk]
+* Update electron-mocha to ^8.1.2, remove acorn [Alexis Svinartchouk]
+* Update electron to 6.0.10 [Alexis Svinartchouk]
+
 # v1.5.65
 ## (2019-12-02)
 
