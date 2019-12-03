@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 resin.io
+ * Copyright 2019 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 
 import * as angular from 'angular';
 import { react2angular } from 'react2angular';
-import * as FlashResults from './flash-results';
+import FlashResults from './flash-results';
 
 export const MODULE_NAME = 'Etcher.Components.FlashResults';
 const FlashResultsModule = angular.module(MODULE_NAME, []);
