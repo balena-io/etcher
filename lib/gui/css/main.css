@@ -6368,8 +6368,9 @@ svg-icon {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-svg-icon > img[disabled] {
-  opacity: 0.2; }
+ img[disabled] {
+  opacity: 0.2; 
+}
 
 .page-main {
   flex: 1;

@@ -46,8 +46,6 @@
     "@fortawesome/react-fontawesome": "^0.1.7",
     "angular": "1.7.6",
     "angular-if-state": "^1.0.0",
-    "angular-moment": "^1.0.1",
-    "angular-seconds-to-date": "^1.0.0",
     "angular-ui-bootstrap": "^2.5.0",
     "angular-ui-router": "^0.4.2",
     "bindings": "^1.3.0",
