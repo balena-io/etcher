@@ -19,14 +19,9 @@
 const _ = require('lodash')
 const m = require('mochainon')
 const angular = require('angular')
-require('angular-mocks')
 const utils = require('../../../lib/shared/utils')
 
 describe('Browser: DriveSelector', function () {
-  beforeEach(angular.mock.module(
-    require('../../../lib/gui/app/components/drive-selector/drive-selector')
-  ))
-
   describe('DriveSelectorController', function () {
     describe('.memoize()', function () {
       it('should handle equal angular objects with different hashes', function () {

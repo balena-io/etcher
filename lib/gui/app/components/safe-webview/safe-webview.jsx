@@ -168,27 +168,6 @@ class SafeWebview extends react.PureComponent {
   }
 
   /**
-   * @summary Refresh the webview if we are navigating away from the success page
-   * @param {Object} nextProps - upcoming properties
-   */
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.refreshNow && !this.props.refreshNow) {
-      // Reload the page if it hasn't changed, otherwise reset the source URL,
-      // because reload interferes with 'src' setting, resetting the 'src' attribute
-      // to what it was was just prior.
-      if (this.refs.webview.src === this.entryHref) {
-        this.refs.webview.reload()
-      } else {
-        this.refs.webview.src = this.entryHref
-      }
-
-      this.setState({
-        shouldShow: true
-      })
-    }
-  }
-
-  /**
    * @summary Set the element state to hidden
    */
   didFailLoad () {

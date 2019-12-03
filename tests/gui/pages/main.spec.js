@@ -25,7 +25,6 @@ const angular = require('angular')
 const flashState = require('../../../lib/gui/app/models/flash-state')
 const availableDrives = require('../../../lib/gui/app/models/available-drives')
 const selectionState = require('../../../lib/gui/app/models/selection-state')
-require('angular-mocks')
 
 // Mock HTML requires by reading from the file-system
 // eslint-disable-next-line node/no-deprecated-api

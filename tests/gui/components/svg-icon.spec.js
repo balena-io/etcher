@@ -21,7 +21,6 @@ const _ = require('lodash')
 const fs = require('fs')
 const path = require('path')
 const angular = require('angular')
-require('angular-mocks')
 
 describe('Browser: SVGIcon', function () {
   beforeEach(angular.mock.module(

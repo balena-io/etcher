@@ -139,9 +139,16 @@ interface SettingsModalProps {
 	toggleModal: (value: boolean) => void;
 }
 
+interface Dictionary<T> {
+	[key: string]: T;
+}
+
 export const SettingsModal: any = styled(
 	({ toggleModal }: SettingsModalProps) => {
-		const [currentSettings, setCurrentSettings] = useState(settings.getAll());
+		const [currentSettings, setCurrentSettings]: [
+			Dictionary<any>,
+			React.Dispatch<React.SetStateAction<Dictionary<any>>>,
+		] = useState(settings.getAll());
 		const [warning, setWarning]: [
 			any,
 			React.Dispatch<React.SetStateAction<any>>,
@@ -155,6 +162,7 @@ export const SettingsModal: any = styled(
 				setting,
 				value,
 				dangerous,
+				// @ts-ignore
 				applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
 			});
 
