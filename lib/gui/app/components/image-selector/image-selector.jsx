@@ -44,8 +44,23 @@ const {
   ChangeButton,
   ThemedProvider
 } = require('../../styled-components')
+const {
+  Modal
+} = require('rendition')
 const middleEllipsis = require('../../utils/middle-ellipsis')
 const SVGIcon = require('../svg-icon/svg-icon.jsx')
+const { default: styled } = require('styled-components')
+
+// TODO move these styles to rendition
+const ModalText = styled.p `
+  a {
+    color: rgb(0, 174, 239);
+
+    &:hover {
+      color: rgb(0, 139, 191);
+    }
+  }
+`
 
 /**
  * @summary Main supported extensions
@@ -82,7 +97,10 @@ class ImageSelector extends React.Component {
   constructor (props) {
     super(props)
 
-    this.state = getState()
+    this.state = {
+      ...getState(),
+      warning: null
+    }
 
     this.openImageSelector = this.openImageSelector.bind(this)
     this.reselectImage = this.reselectImage.bind(this)
@@ -110,10 +128,6 @@ class ImageSelector extends React.Component {
   }
 
   selectImage (image) {
-    const {
-      WarningModalService
-    } = this.props
-
     if (!supportedFormats.isSupportedImage(image.path)) {
       const invalidImageError = errors.createUserError({
         title: 'Invalid image',
@@ -130,6 +144,7 @@ class ImageSelector extends React.Component {
 
     Bluebird.try(() => {
       let message = null
+      let title = null
 
       if (supportedFormats.looksLikeWindowsImage(image.path)) {
         analytics.logEvent('Possibly Windows image', {
@@ -138,31 +153,30 @@ class ImageSelector extends React.Component {
           flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
         })
         message = messages.warning.looksLikeWindowsImage()
+        title = 'Possible Windows image detected'
       } else if (!image.hasMBR) {
         analytics.logEvent('Missing partition table', {
           image,
           applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
           flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
         })
+        title = 'Missing partition table'
         message = messages.warning.missingPartitionTable()
       }
 
       if (message) {
-        // TODO: `Continue` should be on a red background (dangerous action) instead of `Change`.
-        // We want `X` to act as `Continue`, that's why `Continue` is the `rejectionLabel`
-        return WarningModalService.display({
-          confirmationLabel: 'Change',
-          rejectionLabel: 'Continue',
-          description: message
+        this.setState({
+          warning: {
+            message,
+            title
+          }
         })
+
+        return
       }
 
       return false
-    }).then((shouldChange) => {
-      if (shouldChange) {
-        return this.reselectImage()
-      }
-
+    }).then(() => {
       selectionState.selectImage(image)
 
       // An easy way so we can quickly identify if we're making use of
@@ -338,6 +352,29 @@ class ImageSelector extends React.Component {
             </div>
           )}
         </Dropzone>
+
+        {Boolean(this.state.warning) && (
+          <Modal
+            title={(
+              <span>
+                <span style={{ color: '#d9534f' }} className="glyphicon glyphicon-exclamation-sign"></span>
+                {' '}
+                <span>{this.state.warning.title}</span>
+              </span>
+            )}
+            action='Continue'
+            cancel={() => {
+              this.setState({ warning: null })
+              this.reselectImage()
+            }}
+            done={() => {
+              this.setState({ warning: null })
+            }}
+            primaryButtonProps={{ warning: true, primary: false }}
+          >
+            <ModalText dangerouslySetInnerHTML={{ __html: this.state.warning.message }} />
+          </Modal>
+        )}
       </ThemedProvider>
     )
   }
