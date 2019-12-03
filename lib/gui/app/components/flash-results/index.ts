@@ -20,7 +20,7 @@
 
 import * as angular from 'angular';
 import { react2angular } from 'react2angular';
-import FlashResults from './flash-results';
+import { FlashResults } from './flash-results';
 
 export const MODULE_NAME = 'Etcher.Components.FlashResults';
 const FlashResultsModule = angular.module(MODULE_NAME, []);
