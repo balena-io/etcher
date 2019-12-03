@@ -56,45 +56,11 @@
     ></reduced-flashing-infos>
   </div>
 
-  <div class="col-xs" ng-controller="FlashController as flash">
-    <div class="box text-center">
-      <div class="center-block">
-        <svg-icon paths="[ '../../assets/flash.svg' ]"
-          disabled="main.shouldFlashStepBeDisabled()"></svg-icon>
-      </div>
-
-      <div class="space-vertical-large">
-        <progress-button
-          tabindex="3"
-          striped="main.state.getFlashState().type == 'verifying'"
-          active = "main.state.isFlashing()"
-          percentage="main.state.getFlashState().percentage"
-          label="flash.getProgressButtonLabel()"
-          disabled="!!main.state.getLastFlashErrorCode() || main.shouldFlashStepBeDisabled()"
-          callback="flash.flashImageToDrive" >
-        </progress-button>
-
-        <button class="button button-link button-abort-write"
-          ng-if="main.state.isFlashing()"
-          ng-click="flash.cancelFlash()">
-          <span class="glyphicon glyphicon-remove-sign"></span>
-        </button>
-
-        <p class="step-footer step-footer-split" ng-if="main.state.getFlashState().speed != null && main.state.getFlashState().percentage != 100">
-          <span ng-bind="main.state.getFlashState().speed.toFixed(2) + ' MB/s'"></span>
-          <span ng-if="main.state.getFlashState().eta != null">ETA: {{ main.state.getFlashState().eta | secondsToDate | amDateFormat:'m[m]ss[s]' }}</span>
-        </p>
-
-        <div class="target-status-wrap" ng-if="main.state.getFlashState().failed">
-          <div class="target-status-line target-status-failed">
-            <span class="target-status-dot"></span>
-            <span class="target-status-quantity">{{ main.state.getFlashState().failed }}</span>
-            <span class="target-status-message">{{
-              main.progressMessage.failed(main.state.getFlashState().failed)
-            }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="col-xs">
+    <flash
+      should-flash-step-be-disabled="main.shouldFlashStepBeDisabled"
+      last-flash-error-code="main.state.getLastFlashErrorCode"
+      progress-image="main.progressImage"
+    ></flash>
   </div>
 </div>

@@ -20,7 +20,6 @@ const m = require('mochainon')
 const _ = require('lodash')
 const fs = require('fs')
 const angular = require('angular')
-const flashState = require('../../../lib/gui/app/models/flash-state')
 const availableDrives = require('../../../lib/gui/app/models/available-drives')
 const selectionState = require('../../../lib/gui/app/models/selection-state')
 
@@ -161,44 +160,6 @@ describe('Browser: MainPage', function () {
         })
 
         m.chai.expect(controller.shouldFlashStepBeDisabled()).to.be.false
-      })
-    })
-  })
-
-  describe('FlashController', function () {
-    let $controller
-
-    beforeEach(angular.mock.inject(function (_$controller_) {
-      $controller = _$controller_
-    }))
-
-    describe('.getProgressButtonLabel()', function () {
-      it('should return "Flash!" given a clean state', function () {
-        const controller = $controller('FlashController', {
-          $scope: {}
-        })
-
-        flashState.resetState()
-        m.chai.expect(controller.getProgressButtonLabel()).to.equal('Flash!')
-      })
-
-      it('should display the flashing progress', function () {
-        const controller = $controller('FlashController', {
-          $scope: {}
-        })
-
-        flashState.setFlashingFlag()
-        flashState.setProgressState({
-          flashing: 1,
-          verifying: 0,
-          successful: 0,
-          failed: 0,
-          percentage: 85,
-          eta: 15,
-          speed: 1000,
-          totalSpeed: 2000
-        })
-        m.chai.expect(controller.getProgressButtonLabel()).to.equal('85% Flashing')
       })
     })
   })
