@@ -133,15 +133,6 @@ class SVGIcon extends react.Component {
       disabled: this.props.disabled
     })
   }
-
-  /**
-   * @summary Cause a re-render due to changed element properties
-   * @param {Object} nextProps - the new properties
-   */
-  componentWillReceiveProps (nextProps) {
-    // This will update the element if the properties change
-    this.setState(nextProps)
-  }
 }
 
 SVGIcon.propTypes = {
