@@ -30,8 +30,8 @@ import MainPage from './MainPage';
 
 import * as driveSelector from '../../components/drive-selector';
 import * as driveSelectorService from '../../components/drive-selector/drive-selector';
-import * as flashAnother from '../../components/flash-another';
-import * as flashResults from '../../components/flash-results';
+import { MODULE_NAME as flashAnother } from '../../components/flash-another';
+import { MODULE_NAME as flashResults } from '../../components/flash-results';
 import * as openExternal from '../../os/open-external/open-external';
 import * as byteSize from '../../utils/byte-size/byte-size';
 

@@ -23,8 +23,8 @@ import * as selectionState from '../../models/selection-state';
 import * as store from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import * as updateLock from '../../modules/update-lock';
-import * as FlashAnother from '../flash-another/flash-another';
-import * as FlashResults from '../flash-results/flash-results';
+import FlashAnother from '../flash-another/flash-another';
+import FlashResults from '../flash-results/flash-results';
 import * as SVGIcon from '../svg-icon/svg-icon';
 
 const restart = (options: any, $state: any) => {
