@@ -7,33 +7,14 @@
     </image-selector>
   </div>
 
-  <div class="col-xs" ng-controller="DriveSelectionController as drive">
-    <div class="box text-center relative">
-
-      <div class="step-border-left" ng-disabled="main.shouldDriveStepBeDisabled()" ng-hide="main.state.isFlashing() && main.isWebviewShowing"></div>
-      <div class="step-border-right" ng-disabled="main.shouldFlashStepBeDisabled()" ng-hide="main.state.isFlashing() && main.isWebviewShowing"></div>
-
-      <div class="center-block">
-        <svg-icon paths="[ '../../assets/drive.svg' ]"
-          disabled="main.shouldDriveStepBeDisabled()"></svg-icon>
-      </div>
-
-      <div class="space-vertical-large">
-        <target-selector
-          disabled="main.shouldDriveStepBeDisabled()"
-          show="!main.selection.hasDrive() && drive.shouldShowDrivesButton()"
-          tooltip="drive.getDriveListLabel()"
-          selection="main.selection"
-          open-drive-selector="drive.openDriveSelector"
-          reselect-drive="drive.reselectDrive"
-          flashing="main.state.isFlashing()"
-          constraints="main.constraints"
-          targets="drive.getMemoizedSelectedDrives()"
-        >
-        </target-selector>
-      </div>
-
-    </div>
+  <div class="col-xs">
+    <drive-selector
+      webview-showing="main.isWebviewShowing"
+      disabled="main.shouldDriveStepBeDisabled()"
+      next-step-disabled="main.shouldFlashStepBeDisabled()"
+      has-drive="main.selection.hasDrive()"
+      flashing="main.state.isFlashing()"
+    ></drive-selector>
   </div>
 
   <div>
