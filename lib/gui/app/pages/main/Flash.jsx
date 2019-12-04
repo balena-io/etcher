@@ -18,6 +18,9 @@
 
 const React = require('react')
 const _ = require('lodash')
+
+const { Modal, Txt } = require('rendition')
+const { ThemedProvider } = require('../../styled-components')
 const messages = require('../../../../shared/messages')
 const flashState = require('../../models/flash-state')
 const driveScanner = require('../../modules/drive-scanner')
@@ -36,49 +39,7 @@ const ProgressButton = require('../../components/progress-button/progress-button
 const COMPLETED_PERCENTAGE = 100
 const SPEED_PRECISION = 2
 
-/**
-* @summary Spawn a confirmation warning modal
-* @function
-* @public
-*
-* @param {Array<String>} warningMessages - warning messages
-* @param {Object} WarningModalService - warning modal service
-* @returns {Promise} warning modal promise
-*
-* @example
-* confirmationWarningModal([ 'Hello, World!' ])
-*/
-const confirmationWarningModal = (warningMessages, WarningModalService) => {
-  return WarningModalService.display({
-    confirmationLabel: 'Continue',
-    rejectionLabel: 'Change',
-    description: [
-      warningMessages.join('\n\n'),
-      'Are you sure you want to continue?'
-    ].join(' ')
-  })
-}
-
-/**
-* @summary Display warning tailored to the warning of the current drives-image pair
-* @function
-* @public
-*
-* @param {Array<Object>} drives - list of drive objects
-* @param {Object} image - image object
-* @param {Object} WarningModalService - warning modal service
-* @returns {Promise<Boolean>}
-*
-* @example
-* displayTailoredWarning(drives, image).then((ok) => {
-*   if (ok) {
-*     console.log('No warning was shown or continue was pressed')
-*   } else {
-*     console.log('Change was pressed')
-*   }
-* })
-*/
-const displayTailoredWarning = async (drives, image, WarningModalService) => {
+const getWarningMessages = (drives, image) => {
   const warningMessages = []
   for (const drive of drives) {
     if (constraints.isDriveSizeLarge(drive)) {
@@ -90,29 +51,28 @@ const displayTailoredWarning = async (drives, image, WarningModalService) => {
     // TODO(Shou): we should consider adding the same warning dialog for system drives and remove unsafe mode
   }
 
-  if (!warningMessages.length) {
-    return true
-  }
-
-  return confirmationWarningModal(warningMessages, WarningModalService)
+  return warningMessages
 }
 
-/**
-* @summary Flash image to drives
-* @function
-* @public
-*
-* @param {Object} $timeout - angular's timeout object
-* @param {Object} $state - angular's state object
-* @param {Object} WarningModalService - warning modal service
-* @param {Object} DriveSelectorService - drive selector service
-* @param {Object} FlashErrorModalService - flash error modal service
-*
-* @example
-* flashImageToDrive($timeout, $state, WarningModalService, DriveSelectorService, FlashErrorModalService)
-*/
-const flashImageToDrive = async ($timeout, $state,
-  WarningModalService, DriveSelectorService, FlashErrorModalService) => {
+const getErrorMessageFromCode = (errorCode) => {
+  // TODO: All these error codes to messages translations
+  // should go away if the writer emitted user friendly
+  // messages on the first place.
+  if (errorCode === 'EVALIDATION') {
+    return messages.error.validation()
+  } else if (errorCode === 'EUNPLUGGED') {
+    return messages.error.driveUnplugged()
+  } else if (errorCode === 'EIO') {
+    return messages.error.inputOutput()
+  } else if (errorCode === 'ENOSPC') {
+    return messages.error.notEnoughSpaceInDrive()
+  } else if (errorCode === 'ECHILDDIED') {
+    return messages.error.childWriterDied()
+  }
+  return ''
+}
+
+const flashImageToDrive = async ($timeout, $state) => {
   const devices = selection.getSelectedDevices()
   const image = selection.getImage()
   const drives = _.filter(availableDrives.getDrives(), (drive) => {
@@ -120,20 +80,8 @@ const flashImageToDrive = async ($timeout, $state,
   })
 
   // eslint-disable-next-line no-magic-numbers
-  if (drives.length === 0) {
-    return
-  }
-
-  const hasDangerStatus = constraints.hasListDriveImageCompatibilityStatus(drives, image)
-  if (hasDangerStatus) {
-    if (!(await displayTailoredWarning(drives, image, WarningModalService))) {
-      DriveSelectorService.open()
-      return
-    }
-  }
-
-  if (flashState.isFlashing()) {
-    return
+  if (drives.length === 0 || flashState.isFlashing()) {
+    return ''
   }
 
   // Trigger Angular digests along with store updates, as the flash state
@@ -160,7 +108,7 @@ const flashImageToDrive = async ($timeout, $state,
   } catch (error) {
     // When flashing is cancelled before starting above there is no error
     if (!error) {
-      return
+      return ''
     }
 
     notification.send('Oops! Looks like the flash failed.', {
@@ -168,29 +116,21 @@ const flashImageToDrive = async ($timeout, $state,
       icon: iconPath
     })
 
-    // TODO: All these error codes to messages translations
-    // should go away if the writer emitted user friendly
-    // messages on the first place.
-    if (error.code === 'EVALIDATION') {
-      FlashErrorModalService.show(messages.error.validation())
-    } else if (error.code === 'EUNPLUGGED') {
-      FlashErrorModalService.show(messages.error.driveUnplugged())
-    } else if (error.code === 'EIO') {
-      FlashErrorModalService.show(messages.error.inputOutput())
-    } else if (error.code === 'ENOSPC') {
-      FlashErrorModalService.show(messages.error.notEnoughSpaceInDrive())
-    } else if (error.code === 'ECHILDDIED') {
-      FlashErrorModalService.show(messages.error.childWriterDied())
-    } else {
-      FlashErrorModalService.show(messages.error.genericFlashError())
+    let errorMessage = getErrorMessageFromCode(error.code)
+    if (!errorMessage) {
       error.image = basename
       analytics.logException(error)
+      errorMessage = messages.error.genericFlashError()
     }
+
+    return errorMessage
   } finally {
     availableDrives.setDrives([])
     driveScanner.start()
     unsubscribe()
   }
+
+  // Return ''
 }
 
 /**
@@ -225,7 +165,7 @@ const formatSeconds = (totalSeconds) => {
 
 const Flash = ({
   shouldFlashStepBeDisabled, lastFlashErrorCode, progressMessage,
-  $timeout, $state, WarningModalService, DriveSelectorService, FlashErrorModalService
+  $timeout, $state, DriveSelectorService
 }) => {
   // This is a hack to re-render the component whenever the global state changes. Remove once we get rid of angular and use redux correctly.
   // eslint-disable-next-line no-magic-numbers
@@ -235,53 +175,132 @@ const Flash = ({
   const isFlashStepDisabled = shouldFlashStepBeDisabled()
   const flashErrorCode = lastFlashErrorCode()
 
+  const [ warningMessages, setWarningMessages ] = React.useState([])
+  const [ errorMessage, setErrorMessage ] = React.useState('')
+
   React.useEffect(() => {
     return store.observe(() => {
       setRefresh((ref) => !ref)
     })
   }, [])
 
-  return <div className="box text-center">
-    <div className="center-block">
-      <SvgIcon paths={[ '../../assets/flash.svg' ]} disabled={isFlashStepDisabled}/>
-    </div>
+  const handleWarningResponse = async (shouldContinue) => {
+    setWarningMessages([])
 
-    <div className="space-vertical-large">
-      <ProgressButton
-        tabindex="3"
-        striped={state.type === 'verifying'}
-        active={isFlashing}
-        percentage={state.percentage}
-        label={getProgressButtonLabel()}
-        disabled={Boolean(flashErrorCode) || isFlashStepDisabled}
-        callback={() =>
-          flashImageToDrive($timeout, $state, WarningModalService, DriveSelectorService, FlashErrorModalService)}>
-      </ProgressButton>
+    if (!shouldContinue) {
+      DriveSelectorService.open()
+      return
+    }
 
-      {
-        isFlashing && <button className="button button-link button-abort-write" onClick={imageWriter.cancel}>
-          <span className="glyphicon glyphicon-remove-sign"></span>
-        </button>
-      }
-      {
-        !_.isNil(state.speed) && state.percentage !== COMPLETED_PERCENTAGE &&
+    setErrorMessage(await flashImageToDrive($timeout, $state))
+  }
+
+  const handleFlashErrorResponse = (shouldRetry) => {
+    setErrorMessage('')
+    flashState.resetState()
+    if (shouldRetry) {
+      analytics.logEvent('Restart after failure', {
+        applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
+        flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
+      })
+    } else {
+      selection.clear()
+    }
+  }
+
+  const tryFlash = async () => {
+    const devices = selection.getSelectedDevices()
+    const image = selection.getImage()
+    const drives = _.filter(availableDrives.getDrives(), (drive) => {
+      return _.includes(devices, drive.device)
+    })
+
+    // eslint-disable-next-line no-magic-numbers
+    if (drives.length === 0 || flashState.isFlashing()) {
+      return
+    }
+
+    const hasDangerStatus = constraints.hasListDriveImageCompatibilityStatus(drives, image)
+    if (hasDangerStatus) {
+      setWarningMessages(getWarningMessages(drives, image))
+      return
+    }
+
+    setErrorMessage(await flashImageToDrive($timeout, $state))
+  }
+
+  return <ThemedProvider>
+    <div className="box text-center">
+      <div className="center-block">
+        <SvgIcon paths={[ '../../assets/flash.svg' ]} disabled={isFlashStepDisabled}/>
+      </div>
+
+      <div className="space-vertical-large">
+        <ProgressButton
+          tabindex="3"
+          striped={state.type === 'verifying'}
+          active={isFlashing}
+          percentage={state.percentage}
+          label={getProgressButtonLabel()}
+          disabled={Boolean(flashErrorCode) || isFlashStepDisabled}
+          callback={tryFlash}>
+        </ProgressButton>
+
+        {
+          isFlashing && <button className="button button-link button-abort-write" onClick={imageWriter.cancel}>
+            <span className="glyphicon glyphicon-remove-sign"></span>
+          </button>
+        }
+        {
+          !_.isNil(state.speed) && state.percentage !== COMPLETED_PERCENTAGE &&
           <p className="step-footer step-footer-split">
             {Boolean(state.speed) && <span >{`${state.speed.toFixed(SPEED_PRECISION)} MB/s`}</span>}
             {!_.isNil(state.eta) && <span>{`ETA: ${formatSeconds(state.eta)}` }</span>}
           </p>
-      }
+        }
 
-      {
-        Boolean(state.failed) && <div className="target-status-wrap">
-          <div className="target-status-line target-status-failed">
-            <span className="target-status-dot"></span>
-            <span className="target-status-quantity">{state.failed}</span>
-            <span className="target-status-message">{progressMessage.failed(state.failed)} </span>
+        {
+          Boolean(state.failed) && <div className="target-status-wrap">
+            <div className="target-status-line target-status-failed">
+              <span className="target-status-dot"></span>
+              <span className="target-status-quantity">{state.failed}</span>
+              <span className="target-status-message">{progressMessage.failed(state.failed)} </span>
+            </div>
           </div>
-        </div>
-      }
+        }
+      </div>
     </div>
-  </div>
+
+    {/* eslint-disable-next-line no-magic-numbers */}
+    {warningMessages && warningMessages.length > 0 && <Modal
+      width={400}
+      titleElement={'Attention'}
+      cancel={() => handleWarningResponse(false)}
+      done={() => handleWarningResponse(true)}
+      cancelButtonProps={{
+        children: 'Change'
+      }}
+      action={'Continue'}
+      primaryButtonProps={{ primary: false, warning: true }}
+    >
+      {
+        _.map(warningMessages, (message) => <Txt whitespace="pre-line" mt={2}>{message}</Txt>)
+      }
+    </Modal>
+    }
+
+    {errorMessage && <Modal
+      width={400}
+      titleElement={'Attention'}
+      cancel={() => handleFlashErrorResponse(false)}
+      done={() => handleFlashErrorResponse(true)}
+      action={'Retry'}
+    >
+      <Txt>{errorMessage}</Txt>
+    </Modal>
+    }
+
+  </ThemedProvider>
 }
 
 module.exports = Flash
