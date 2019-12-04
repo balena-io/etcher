@@ -26,7 +26,7 @@ const {
   keyframes
 } = require('styled-components')
 
-const { ProgressBar, Provider } = require('rendition')
+const { ProgressBar } = require('rendition')
 
 const { colors } = require('./../../theme')
 const { StepButton, StepSelection } = require('./../../styled-components')
@@ -105,46 +105,40 @@ class ProgressButton extends React.Component {
     if (this.props.active) {
       if (this.props.striped) {
         return (
-          <Provider>
-            <StepSelection>
-              <FlashProgressBarValidating
-                primary
-                emphasized
-                value= { this.props.percentage }
-              >
-                { this.props.label }
-              </FlashProgressBarValidating>
-            </StepSelection>
-          </Provider>
-        )
-      }
-
-      return (
-        <Provider>
           <StepSelection>
-            <FlashProgressBar
-              warning
+            <FlashProgressBarValidating
+              primary
               emphasized
               value= { this.props.percentage }
             >
               { this.props.label }
-            </FlashProgressBar>
+            </FlashProgressBarValidating>
           </StepSelection>
-        </Provider>
+        )
+      }
+
+      return (
+        <StepSelection>
+          <FlashProgressBar
+            warning
+            emphasized
+            value= { this.props.percentage }
+          >
+            { this.props.label }
+          </FlashProgressBar>
+        </StepSelection>
       )
     }
 
     return (
-      <Provider>
-        <StepSelection>
-          <StepButton
-            onClick= { this.props.callback }
-            disabled= { this.props.disabled }
-          >
-            {this.props.label}
-          </StepButton>
-        </StepSelection>
-      </Provider>
+      <StepSelection>
+        <StepButton
+          onClick= { this.props.callback }
+          disabled= { this.props.disabled }
+        >
+          {this.props.label}
+        </StepButton>
+      </StepSelection>
     )
   }
 }
