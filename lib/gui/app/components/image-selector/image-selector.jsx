@@ -99,12 +99,14 @@ class ImageSelector extends React.Component {
 
     this.state = {
       ...getState(),
-      warning: null
+      warning: null,
+      showImageDetails: false
     }
 
     this.openImageSelector = this.openImageSelector.bind(this)
     this.reselectImage = this.reselectImage.bind(this)
     this.handleOnDrop = this.handleOnDrop.bind(this)
+    this.showSelectedImageDetails = this.showSelectedImageDetails.bind(this)
   }
 
   componentDidMount () {
@@ -284,12 +286,26 @@ class ImageSelector extends React.Component {
     }
   }
 
+  showSelectedImageDetails () {
+    analytics.logEvent('Show selected image tooltip', {
+      imagePath: selectionState.getImagePath(),
+      flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
+      applicationSessionUuid: store.getState().toJS().applicationSessionUuid
+    })
+
+    this.setState({
+      showImageDetails: true
+    })
+  }
+
   // TODO add a visual change when dragging a file over the selector
   render () {
     const {
-      flashing,
-      showSelectedImageDetails
+      flashing
     } = this.props
+    const {
+      showImageDetails
+    } = this.state
 
     const hasImage = selectionState.hasImage()
 
@@ -299,59 +315,59 @@ class ImageSelector extends React.Component {
 
     return (
       <ThemedProvider>
-        <Dropzone multiple={false} noClick onDrop={this.handleOnDrop}>
-          {({ getRootProps, getInputProps }) => (
-            <div className="box text-center relative" {...getRootProps()}>
-              <input {...getInputProps()} />
-              <div className="center-block">
+        <div className="box text-center relative">
+          <Dropzone multiple={false} onDrop={this.handleOnDrop}>
+            {({ getRootProps, getInputProps }) => (
+              <div className="center-block" {...getRootProps()}>
+                <input {...getInputProps()} />
                 <SVGIcon contents={selectionState.getImageLogo()} paths={[ '../../assets/image.svg' ]} />
               </div>
+            )}
+          </Dropzone>
 
-              <div className="space-vertical-large">
-                {hasImage ? (
-                  <React.Fragment>
-                    <StepNameButton
-                      plain
-                      onClick={showSelectedImageDetails}
-                      tooltip={imageBasename}
-                    >
-                      {/* eslint-disable no-magic-numbers */}
-                      { middleEllipsis(imageName || imageBasename, 20) }
-                    </StepNameButton>
-                    { !flashing &&
-                      <ChangeButton
-                        plain
-                        mb={14}
-                        onClick={this.reselectImage}
-                      >
-                        Change
-                      </ChangeButton>
-                    }
-                    <DetailsText>
-                      {shared.bytesToClosestUnit(imageSize)}
-                    </DetailsText>
-                  </React.Fragment>
-                ) : (
-                  <StepSelection>
-                    <StepButton
-                      onClick={this.openImageSelector}
-                    >
-                      Select image
-                    </StepButton>
-                    <Footer>
-                      { mainSupportedExtensions.join(', ') }, and{' '}
-                      <Underline
-                        tooltip={ extraSupportedExtensions.join(', ') }
-                      >
-                        many more
-                      </Underline>
-                    </Footer>
-                  </StepSelection>
-                )}
-              </div>
-            </div>
-          )}
-        </Dropzone>
+          <div className="space-vertical-large">
+            {hasImage ? (
+              <React.Fragment>
+                <StepNameButton
+                  plain
+                  onClick={this.showSelectedImageDetails}
+                  tooltip={imageBasename}
+                >
+                  {/* eslint-disable no-magic-numbers */}
+                  { middleEllipsis(imageName || imageBasename, 20) }
+                </StepNameButton>
+                { !flashing &&
+                  <ChangeButton
+                    plain
+                    mb={14}
+                    onClick={this.reselectImage}
+                  >
+                    Change
+                  </ChangeButton>
+                }
+                <DetailsText>
+                  {shared.bytesToClosestUnit(imageSize)}
+                </DetailsText>
+              </React.Fragment>
+            ) : (
+              <StepSelection>
+                <StepButton
+                  onClick={this.openImageSelector}
+                >
+                  Select image
+                </StepButton>
+                <Footer>
+                  { mainSupportedExtensions.join(', ') }, and{' '}
+                  <Underline
+                    tooltip={ extraSupportedExtensions.join(', ') }
+                  >
+                    many more
+                  </Underline>
+                </Footer>
+              </StepSelection>
+            )}
+          </div>
+        </div>
 
         {Boolean(this.state.warning) && (
           <Modal
@@ -375,14 +391,24 @@ class ImageSelector extends React.Component {
             <ModalText dangerouslySetInnerHTML={{ __html: this.state.warning.message }} />
           </Modal>
         )}
+
+        {showImageDetails && (
+          <Modal
+            title="Image File Name"
+            done={() => {
+              this.setState({ showImageDetails: false })
+            }}
+          >
+            {selectionState.getImagePath()}
+          </Modal>
+        )}
       </ThemedProvider>
     )
   }
 }
 
 ImageSelector.propTypes = {
-  flashing: propTypes.bool,
-  showSelectedImageDetails: propTypes.func
+  flashing: propTypes.bool
 }
 
 module.exports = ImageSelector

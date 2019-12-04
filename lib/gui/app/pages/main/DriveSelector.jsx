@@ -20,6 +20,9 @@ const _ = require('lodash')
 const prettyBytes = require('pretty-bytes')
 const propTypes = require('prop-types')
 const React = require('react')
+const {
+  ThemedProvider
+} = require('../../styled-components')
 const driveConstraints = require('../../../../shared/drive-constraints')
 const utils = require('../../../../shared/utils')
 const TargetSelector = require('../../components/drive-selector/target-selector')
@@ -29,54 +32,6 @@ const settings = require('../../models/settings')
 const store = require('../../models/store')
 const analytics = require('../../modules/analytics')
 const exceptionReporter = require('../../modules/exception-reporter')
-
-/**
- * @summary Get drive title based on device quantity
- * @function
- * @public
- *
- * @returns {String} - drives title
- *
- * @example
- * console.log(getDrivesTitle())
- * > 'Multiple Drives (4)'
- */
-const getDrivesTitle = () => {
-  const drives = selectionState.getSelectedDrives()
-
-  // eslint-disable-next-line no-magic-numbers
-  if (drives.length === 1) {
-    return _.head(drives).description || 'Untitled Device'
-  }
-
-  // eslint-disable-next-line no-magic-numbers
-  if (drives.length === 0) {
-    return 'No targets found'
-  }
-
-  return `${drives.length} Devices`
-}
-
-/**
- * @summary Get drive subtitle
- * @function
- * @public
- *
- * @returns {String} - drives subtitle
- *
- * @example
- * console.log(getDrivesSubtitle())
- * > '32 GB'
- */
-const getDrivesSubtitle = () => {
-  const drive = selectionState.getCurrentDrive()
-
-  if (drive) {
-    return prettyBytes(drive.size)
-  }
-
-  return 'Please insert at least one target device'
-}
 
 /**
  * @summary Get drive list label
@@ -195,43 +150,44 @@ const DriveSelector = ({
   const showStepConnectingLines = !webviewShowing || !flashing
 
   return (
-    <div className="box text-center relative">
+    <ThemedProvider>
+      <div className="box text-center relative">
 
-      {showStepConnectingLines && (
-        <React.Fragment>
-          <div
-            className="step-border-left"
+        {showStepConnectingLines && (
+          <React.Fragment>
+            <div
+              className="step-border-left"
+              disabled={disabled}
+            ></div>
+            <div
+              className="step-border-right"
+              disabled={nextStepDisabled}
+            ></div>
+          </React.Fragment>
+        )}
+
+        <div className="center-block">
+          <SvgIcon
+            paths={[ '../../assets/drive.svg' ]}
             disabled={disabled}
-          ></div>
-          <div
-            className="step-border-right"
-            disabled={nextStepDisabled}
-          ></div>
-        </React.Fragment>
-      )}
+          />
+        </div>
 
-      <div className="center-block">
-        <SvgIcon
-          paths={[ '../../assets/drive.svg' ]}
-          disabled={disabled}
-        />
+        <div className="space-vertical-large">
+          <TargetSelector
+            disabled={disabled}
+            show={!hasDrive && showDrivesButton}
+            tooltip={driveListLabel}
+            selection={selectionState}
+            openDriveSelector={() => openDriveSelector(DriveSelectorService)}
+            reselectDrive={() => reselectDrive(DriveSelectorService)}
+            flashing={flashing}
+            constraints={driveConstraints}
+            targets={targets}
+          />
+        </div>
       </div>
-
-      <div className="space-vertical-large">
-        <TargetSelector
-          disabled={disabled}
-          show={!hasDrive && showDrivesButton}
-          tooltip={driveListLabel}
-          selection={selectionState}
-          openDriveSelector={() => openDriveSelector(DriveSelectorService)}
-          reselectDrive={() => reselectDrive(DriveSelectorService)}
-          flashing={flashing}
-          constraints={driveConstraints}
-          targets={targets}
-        />
-      </div>
-
-    </div>
+    </ThemedProvider>
   )
 }
 
