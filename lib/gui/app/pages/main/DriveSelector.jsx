@@ -20,8 +20,16 @@ const _ = require('lodash')
 const prettyBytes = require('pretty-bytes')
 const propTypes = require('prop-types')
 const React = require('react')
+const {
+  Flex,
+  Modal
+} = require('rendition')
+const {
+  ThemedProvider
+} = require('../../styled-components')
 const driveConstraints = require('../../../../shared/drive-constraints')
 const utils = require('../../../../shared/utils')
+const { bytesToClosestUnit } = require('../../../../shared/units')
 const TargetSelector = require('../../components/drive-selector/target-selector')
 const SvgIcon = require('../../components/svg-icon/svg-icon.jsx')
 const selectionState = require('../../models/selection-state')
@@ -195,43 +203,44 @@ const DriveSelector = ({
   const showStepConnectingLines = !webviewShowing || !flashing
 
   return (
-    <div className="box text-center relative">
+    <ThemedProvider>
+      <div className="box text-center relative">
 
-      {showStepConnectingLines && (
-        <React.Fragment>
-          <div
-            className="step-border-left"
+        {showStepConnectingLines && (
+          <React.Fragment>
+            <div
+              className="step-border-left"
+              disabled={disabled}
+            ></div>
+            <div
+              className="step-border-right"
+              disabled={nextStepDisabled}
+            ></div>
+          </React.Fragment>
+        )}
+
+        <div className="center-block">
+          <SvgIcon
+            paths={[ '../../assets/drive.svg' ]}
             disabled={disabled}
-          ></div>
-          <div
-            className="step-border-right"
-            disabled={nextStepDisabled}
-          ></div>
-        </React.Fragment>
-      )}
+          />
+        </div>
 
-      <div className="center-block">
-        <SvgIcon
-          paths={[ '../../assets/drive.svg' ]}
-          disabled={disabled}
-        />
+        <div className="space-vertical-large">
+          <TargetSelector
+            disabled={disabled}
+            show={!hasDrive && showDrivesButton}
+            tooltip={driveListLabel}
+            selection={selectionState}
+            openDriveSelector={() => openDriveSelector(DriveSelectorService)}
+            reselectDrive={() => reselectDrive(DriveSelectorService)}
+            flashing={flashing}
+            constraints={driveConstraints}
+            targets={targets}
+          />
+        </div>
       </div>
-
-      <div className="space-vertical-large">
-        <TargetSelector
-          disabled={disabled}
-          show={!hasDrive && showDrivesButton}
-          tooltip={driveListLabel}
-          selection={selectionState}
-          openDriveSelector={() => openDriveSelector(DriveSelectorService)}
-          reselectDrive={() => reselectDrive(DriveSelectorService)}
-          flashing={flashing}
-          constraints={driveConstraints}
-          targets={targets}
-        />
-      </div>
-
-    </div>
+    </ThemedProvider>
   )
 }
 
