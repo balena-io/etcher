@@ -79,7 +79,8 @@ const guiConfig = {
   },
   entry: {
     gui: path.join(__dirname, 'lib', 'gui', 'app', 'app.js')
-  }
+  },
+  devtool: 'source-map'
 }
 
 const etcherConfig = {
