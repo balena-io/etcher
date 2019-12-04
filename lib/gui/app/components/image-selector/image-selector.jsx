@@ -118,6 +118,7 @@ class ImageSelector extends React.Component {
   }
 
   reselectImage () {
+    console.log('reselecting image')
     analytics.logEvent('Reselect image', {
       previousImage: selectionState.getImage(),
       applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
@@ -299,59 +300,59 @@ class ImageSelector extends React.Component {
 
     return (
       <ThemedProvider>
-        <Dropzone multiple={false} noClick onDrop={this.handleOnDrop}>
-          {({ getRootProps, getInputProps }) => (
-            <div className="box text-center relative" {...getRootProps()}>
-              <input {...getInputProps()} />
-              <div className="center-block">
+        <div className="box text-center relative">
+          <Dropzone multiple={false} onDrop={this.handleOnDrop}>
+            {({ getRootProps, getInputProps }) => (
+              <div className="center-block" {...getRootProps()}>
+                <input {...getInputProps()} />
                 <SVGIcon contents={selectionState.getImageLogo()} paths={[ '../../assets/image.svg' ]} />
               </div>
+            )}
+          </Dropzone>
 
-              <div className="space-vertical-large">
-                {hasImage ? (
-                  <React.Fragment>
-                    <StepNameButton
-                      plain
-                      onClick={showSelectedImageDetails}
-                      tooltip={imageBasename}
-                    >
-                      {/* eslint-disable no-magic-numbers */}
-                      { middleEllipsis(imageName || imageBasename, 20) }
-                    </StepNameButton>
-                    { !flashing &&
-                      <ChangeButton
-                        plain
-                        mb={14}
-                        onClick={this.reselectImage}
-                      >
-                        Change
-                      </ChangeButton>
-                    }
-                    <DetailsText>
-                      {shared.bytesToClosestUnit(imageSize)}
-                    </DetailsText>
-                  </React.Fragment>
-                ) : (
-                  <StepSelection>
-                    <StepButton
-                      onClick={this.openImageSelector}
-                    >
-                      Select image
-                    </StepButton>
-                    <Footer>
-                      { mainSupportedExtensions.join(', ') }, and{' '}
-                      <Underline
-                        tooltip={ extraSupportedExtensions.join(', ') }
-                      >
-                        many more
-                      </Underline>
-                    </Footer>
-                  </StepSelection>
-                )}
-              </div>
-            </div>
-          )}
-        </Dropzone>
+          <div className="space-vertical-large">
+            {hasImage ? (
+              <React.Fragment>
+                <StepNameButton
+                  plain
+                  onClick={showSelectedImageDetails}
+                  tooltip={imageBasename}
+                >
+                  {/* eslint-disable no-magic-numbers */}
+                  { middleEllipsis(imageName || imageBasename, 20) }
+                </StepNameButton>
+                { !flashing &&
+                  <ChangeButton
+                    plain
+                    mb={14}
+                    onClick={this.reselectImage}
+                  >
+                    Change
+                  </ChangeButton>
+                }
+                <DetailsText>
+                  {shared.bytesToClosestUnit(imageSize)}
+                </DetailsText>
+              </React.Fragment>
+            ) : (
+              <StepSelection>
+                <StepButton
+                  onClick={this.openImageSelector}
+                >
+                  Select image
+                </StepButton>
+                <Footer>
+                  { mainSupportedExtensions.join(', ') }, and{' '}
+                  <Underline
+                    tooltip={ extraSupportedExtensions.join(', ') }
+                  >
+                    many more
+                  </Underline>
+                </Footer>
+              </StepSelection>
+            )}
+          </div>
+        </div>
 
         {Boolean(this.state.warning) && (
           <Modal
