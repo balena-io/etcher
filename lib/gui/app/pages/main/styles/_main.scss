@@ -227,11 +227,6 @@ img[disabled] {
   position: relative;
 }
 
-body.rendition-modal-open > div:last-child > div > div > div:last-child {
-  top: unset;
-  bottom: -200px;
-}
-
 #app-logo {
   position: fixed;
   left: 0;
