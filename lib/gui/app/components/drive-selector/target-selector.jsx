@@ -26,8 +26,7 @@ const {
   ChangeButton,
   DetailsText,
   StepButton,
-  StepNameButton,
-  ThemedProvider
+  StepNameButton
 } = require('./../../styled-components')
 const { Txt } = require('rendition')
 const middleEllipsis = require('./../../utils/middle-ellipsis')
@@ -66,7 +65,7 @@ const TargetSelector = (props) => {
   if (targets.length === 1) {
     const target = targets[0]
     return (
-      <ThemedProvider>
+      <React.Fragment>
         <StepNameButton
           plain
           tooltip={props.tooltip}
@@ -74,7 +73,7 @@ const TargetSelector = (props) => {
           {/* eslint-disable no-magic-numbers */}
           { middleEllipsis(target.description, 20) }
         </StepNameButton>
-        { !props.flashing &&
+        {!props.flashing &&
           <ChangeButton
             plain
             mb={14}
@@ -94,7 +93,7 @@ const TargetSelector = (props) => {
           }
           { bytesToClosestUnit(target.size) }
         </DetailsText>
-      </ThemedProvider>
+      </React.Fragment>
     )
   }
 
@@ -118,7 +117,7 @@ const TargetSelector = (props) => {
       ))
     }
     return (
-      <ThemedProvider>
+      <React.Fragment>
         <StepNameButton
           plain
           tooltip={props.tooltip}
@@ -135,20 +134,18 @@ const TargetSelector = (props) => {
           </ChangeButton>
         }
         {targetsTemplate}
-      </ThemedProvider>
+      </React.Fragment>
     )
   }
 
   return (
-    <ThemedProvider>
-      <StepButton
-        tabindex={(targets.length > 0) ? -1 : 2 }
-        disabled={props.disabled}
-        onClick={props.openDriveSelector}
-      >
-        Select target
-      </StepButton>
-    </ThemedProvider>
+    <StepButton
+      tabindex={(targets.length > 0) ? -1 : 2 }
+      disabled={props.disabled}
+      onClick={props.openDriveSelector}
+    >
+      Select target
+    </StepButton>
   )
 }
 
