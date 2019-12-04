@@ -255,27 +255,19 @@ class ImageSelector extends React.Component {
       flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
     })
 
-    if (settings.get('experimentalFilePicker')) {
-      const {
-        FileSelectorService
-      } = this.props
+    osDialog.selectImage().then((imagePath) => {
+      // Avoid analytics and selection state changes
+      // if no file was resolved from the dialog.
+      if (!imagePath) {
+        analytics.logEvent('Image selector closed', {
+          applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
+          flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
+        })
+        return
+      }
 
-      FileSelectorService.open()
-    } else {
-      osDialog.selectImage().then((imagePath) => {
-        // Avoid analytics and selection state changes
-        // if no file was resolved from the dialog.
-        if (!imagePath) {
-          analytics.logEvent('Image selector closed', {
-            applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-            flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
-          })
-          return
-        }
-
-        this.selectImageByPath(imagePath)
-      }).catch(exceptionReporter.report)
-    }
+      this.selectImageByPath(imagePath)
+    }).catch(exceptionReporter.report)
   }
 
   handleOnDrop (acceptedFiles) {
