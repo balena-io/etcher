@@ -120,7 +120,6 @@ class ImageSelector extends React.Component {
   }
 
   reselectImage () {
-    console.log('reselecting image')
     analytics.logEvent('Reselect image', {
       previousImage: selectionState.getImage(),
       applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
