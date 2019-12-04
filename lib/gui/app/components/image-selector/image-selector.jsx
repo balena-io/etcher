@@ -99,12 +99,14 @@ class ImageSelector extends React.Component {
 
     this.state = {
       ...getState(),
-      warning: null
+      warning: null,
+      showImageDetails: false
     }
 
     this.openImageSelector = this.openImageSelector.bind(this)
     this.reselectImage = this.reselectImage.bind(this)
     this.handleOnDrop = this.handleOnDrop.bind(this)
+    this.showSelectedImageDetails = this.showSelectedImageDetails.bind(this)
   }
 
   componentDidMount () {
@@ -285,12 +287,26 @@ class ImageSelector extends React.Component {
     }
   }
 
+  showSelectedImageDetails () {
+    analytics.logEvent('Show selected image tooltip', {
+      imagePath: selectionState.getImagePath(),
+      flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
+      applicationSessionUuid: store.getState().toJS().applicationSessionUuid
+    })
+
+    this.setState({
+      showImageDetails: true
+    })
+  }
+
   // TODO add a visual change when dragging a file over the selector
   render () {
     const {
-      flashing,
-      showSelectedImageDetails
+      flashing
     } = this.props
+    const {
+      showImageDetails
+    } = this.state
 
     const hasImage = selectionState.hasImage()
 
@@ -315,7 +331,7 @@ class ImageSelector extends React.Component {
               <React.Fragment>
                 <StepNameButton
                   plain
-                  onClick={showSelectedImageDetails}
+                  onClick={this.showSelectedImageDetails}
                   tooltip={imageBasename}
                 >
                   {/* eslint-disable no-magic-numbers */}
@@ -376,14 +392,24 @@ class ImageSelector extends React.Component {
             <ModalText dangerouslySetInnerHTML={{ __html: this.state.warning.message }} />
           </Modal>
         )}
+
+        {showImageDetails && (
+          <Modal
+            title="Image File Name"
+            done={() => {
+              this.setState({ showImageDetails: false })
+            }}
+          >
+            {selectionState.getImagePath()}
+          </Modal>
+        )}
       </ThemedProvider>
     )
   }
 }
 
 ImageSelector.propTypes = {
-  flashing: propTypes.bool,
-  showSelectedImageDetails: propTypes.func
+  flashing: propTypes.bool
 }
 
 module.exports = ImageSelector
