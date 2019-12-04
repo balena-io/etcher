@@ -34,54 +34,6 @@ const analytics = require('../../modules/analytics')
 const exceptionReporter = require('../../modules/exception-reporter')
 
 /**
- * @summary Get drive title based on device quantity
- * @function
- * @public
- *
- * @returns {String} - drives title
- *
- * @example
- * console.log(getDrivesTitle())
- * > 'Multiple Drives (4)'
- */
-const getDrivesTitle = () => {
-  const drives = selectionState.getSelectedDrives()
-
-  // eslint-disable-next-line no-magic-numbers
-  if (drives.length === 1) {
-    return _.head(drives).description || 'Untitled Device'
-  }
-
-  // eslint-disable-next-line no-magic-numbers
-  if (drives.length === 0) {
-    return 'No targets found'
-  }
-
-  return `${drives.length} Devices`
-}
-
-/**
- * @summary Get drive subtitle
- * @function
- * @public
- *
- * @returns {String} - drives subtitle
- *
- * @example
- * console.log(getDrivesSubtitle())
- * > '32 GB'
- */
-const getDrivesSubtitle = () => {
-  const drive = selectionState.getCurrentDrive()
-
-  if (drive) {
-    return prettyBytes(drive.size)
-  }
-
-  return 'Please insert at least one target device'
-}
-
-/**
  * @summary Get drive list label
  * @function
  * @public
