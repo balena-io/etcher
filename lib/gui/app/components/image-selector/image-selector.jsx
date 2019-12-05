@@ -28,7 +28,6 @@ const messages = require('../../../../shared/messages')
 const supportedFormats = require('../../../../shared/supported-formats')
 const shared = require('../../../../shared/units')
 const selectionState = require('../../models/selection-state')
-const settings = require('../../models/settings')
 const store = require('../../models/store')
 const analytics = require('../../modules/analytics')
 const exceptionReporter = require('../../modules/exception-reporter')
@@ -41,8 +40,7 @@ const {
   Footer,
   Underline,
   DetailsText,
-  ChangeButton,
-  ThemedProvider
+  ChangeButton
 } = require('../../styled-components')
 const {
   Modal
@@ -306,7 +304,7 @@ class ImageSelector extends React.Component {
     const imageSize = selectionState.getImageSize()
 
     return (
-      <ThemedProvider>
+      <React.Fragment>
         <div className="box text-center relative">
           <Dropzone multiple={false} onDrop={this.handleOnDrop}>
             {({ getRootProps, getInputProps }) => (
@@ -394,7 +392,7 @@ class ImageSelector extends React.Component {
             {selectionState.getImagePath()}
           </Modal>
         )}
-      </ThemedProvider>
+      </React.Fragment>
     )
   }
 }

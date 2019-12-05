@@ -20,7 +20,6 @@ const React = require('react')
 const _ = require('lodash')
 
 const { Modal, Txt } = require('rendition')
-const { ThemedProvider } = require('../../styled-components')
 const messages = require('../../../../shared/messages')
 const flashState = require('../../models/flash-state')
 const driveScanner = require('../../modules/drive-scanner')
@@ -93,7 +92,7 @@ const flashImageToDrive = async ($timeout, $state) => {
   // otherwise Windows throws EPERM
   driveScanner.stop()
 
-  const iconPath = '../../../assets/icon.png'
+  const iconPath = '../../assets/icon.png'
   const basename = path.basename(image.path)
   try {
     await imageWriter.flash(image.path, drives)
@@ -167,22 +166,12 @@ const Flash = ({
   shouldFlashStepBeDisabled, lastFlashErrorCode, progressMessage,
   $timeout, $state, DriveSelectorService
 }) => {
-  // This is a hack to re-render the component whenever the global state changes. Remove once we get rid of angular and use redux correctly.
-  // eslint-disable-next-line no-magic-numbers
-  const setRefresh = React.useState(false)[1]
   const state = flashState.getFlashState()
   const isFlashing = flashState.isFlashing()
-  const isFlashStepDisabled = shouldFlashStepBeDisabled()
   const flashErrorCode = lastFlashErrorCode()
 
   const [ warningMessages, setWarningMessages ] = React.useState([])
   const [ errorMessage, setErrorMessage ] = React.useState('')
-
-  React.useEffect(() => {
-    return store.observe(() => {
-      setRefresh((ref) => !ref)
-    })
-  }, [])
 
   const handleWarningResponse = async (shouldContinue) => {
     setWarningMessages([])
@@ -229,10 +218,10 @@ const Flash = ({
     setErrorMessage(await flashImageToDrive($timeout, $state))
   }
 
-  return <ThemedProvider>
+  return <React.Fragment>
     <div className="box text-center">
       <div className="center-block">
-        <SvgIcon paths={[ '../../assets/flash.svg' ]} disabled={isFlashStepDisabled}/>
+        <SvgIcon paths={[ '../../assets/flash.svg' ]} disabled={shouldFlashStepBeDisabled}/>
       </div>
 
       <div className="space-vertical-large">
@@ -242,7 +231,7 @@ const Flash = ({
           active={isFlashing}
           percentage={state.percentage}
           label={getProgressButtonLabel()}
-          disabled={Boolean(flashErrorCode) || isFlashStepDisabled}
+          disabled={Boolean(flashErrorCode) || shouldFlashStepBeDisabled}
           callback={tryFlash}>
         </ProgressButton>
 
@@ -300,7 +289,7 @@ const Flash = ({
     </Modal>
     }
 
-  </ThemedProvider>
+  </React.Fragment>
 }
 
 module.exports = Flash
