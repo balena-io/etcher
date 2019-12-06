@@ -49,7 +49,7 @@ const Main = angular.module(MODULE_NAME, [
 
 Main.component(
 	'mainPage',
-	react2angular(MainPage, [], ['DriveSelectorService', '$timeout', '$state']),
+	react2angular(MainPage, [], ['DriveSelectorService', '$state']),
 );
 
 Main.config(($stateProvider: any) => {

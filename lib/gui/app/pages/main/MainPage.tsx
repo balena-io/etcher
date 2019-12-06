@@ -28,8 +28,8 @@ import * as middleEllipsis from '../../utils/middle-ellipsis';
 import * as messages from '../../../../shared/messages';
 import { bytesToClosestUnit } from '../../../../shared/units';
 
-import * as DriveSelector from './DriveSelector';
-import * as Flash from './Flash';
+import { DriveSelector } from './DriveSelector';
+import { Flash } from './Flash';
 
 const getDrivesTitle = (selection: any) => {
 	const drives = selection.getSelectedDrives();
@@ -55,7 +55,7 @@ const getImageBasename = (selection: any) => {
 	return selectionImageName || imageBasename;
 };
 
-const MainPage = ({ DriveSelectorService, $timeout, $state }: any) => {
+const MainPage = ({ DriveSelectorService, $state }: any) => {
 	const setRefresh = React.useState(false)[1];
 	const [isWebviewShowing, setIsWebviewShowing] = React.useState(false);
 	React.useEffect(() => {
@@ -127,8 +127,7 @@ const MainPage = ({ DriveSelectorService, $timeout, $state }: any) => {
 				<div className="col-xs">
 					<Flash
 						DriveSelectorService={DriveSelectorService}
-						$timeout={$timeout}
-						$state={$state}
+						goToSuccess={() => $state.go('success')}
 						shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
 						lastFlashErrorCode={lastFlashErrorCode}
 						progressMessage={progressMessage}
