@@ -18,6 +18,8 @@ import * as _ from 'lodash';
 import * as propTypes from 'prop-types';
 import * as React from 'react';
 import styled from 'styled-components';
+import * as driveConstraints from '../../../../shared/drive-constraints';
+import * as utils from '../../../../shared/utils';
 import * as TargetSelector from '../../components/drive-selector/target-selector.jsx';
 import * as SvgIcon from '../../components/svg-icon/svg-icon.jsx';
 import * as selectionState from '../../models/selection-state';
@@ -25,8 +27,6 @@ import * as settings from '../../models/settings';
 import * as store from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import * as exceptionReporter from '../../modules/exception-reporter';
-import * as driveConstraints from '../../../../shared/drive-constraints';
-import * as utils from '../../../../shared/utils';
 
 const StepBorder = styled.div<{
 	disabled: boolean;
@@ -68,8 +68,10 @@ const openDriveSelector = async (DriveSelectorService: any) => {
 			device: drive.device,
 			unsafeMode:
 				settings.get('unsafeMode') && !settings.get('disableUnsafeMode'),
-			applicationSessionUuid: (store as any).getState().toJS().applicationSessionUuid,
-			flashingWorkflowUuid: (store as any).getState().toJS().flashingWorkflowUuid,
+			applicationSessionUuid: (store as any).getState().toJS()
+				.applicationSessionUuid,
+			flashingWorkflowUuid: (store as any).getState().toJS()
+				.flashingWorkflowUuid,
 		});
 	} catch (error) {
 		exceptionReporter.report(error);
@@ -79,7 +81,8 @@ const openDriveSelector = async (DriveSelectorService: any) => {
 const reselectDrive = (DriveSelectorService: any) => {
 	openDriveSelector(DriveSelectorService);
 	analytics.logEvent('Reselect drive', {
-		applicationSessionUuid: (store as any).getState().toJS().applicationSessionUuid,
+		applicationSessionUuid: (store as any).getState().toJS()
+			.applicationSessionUuid,
 		flashingWorkflowUuid: (store as any).getState().toJS().flashingWorkflowUuid,
 	});
 };
