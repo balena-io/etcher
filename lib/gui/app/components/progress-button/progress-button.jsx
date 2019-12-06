@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 resin.io
+ * Copyright 2016 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,7 +78,7 @@ const FlashProgressBarValidating = styled(FlashProgressBar) `
   // Notice that we add 0.01 to certain gradient stop positions.
   // That workarounds a Chrome rendering issue where diagonal
   // lines look spiky.
-  // See https://github.com/resin-io/etcher/issues/472
+  // See https://github.com/balena-io/etcher/issues/472
 
   background-image: -webkit-gradient(linear, 0 0, 100% 100%,
     color-stop(0.25, ${progressButtonStripesForegroundColor}),
