@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 resin.io
+ * Copyright 2016 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,23 +35,23 @@ describe('Browser: OSOpenExternal', function () {
     }))
 
     it('should set the element cursor to pointer', function () {
-      const element = $compile('<span os-open-external="https://resin.io">Resin.io</span>')($rootScope)
+      const element = $compile('<span os-open-external="https://balena.io">Balena.io</span>')($rootScope)
       $rootScope.$digest()
       m.chai.expect(element.css('cursor')).to.equal('pointer')
     })
 
     it('should call Electron shell.openExternal with the attribute value', function () {
       const shellExternalStub = m.sinon.stub(electron.shell, 'openExternal')
-      const element = $compile('<span os-open-external="https://resin.io">Resin.io</span>')($rootScope)
+      const element = $compile('<span os-open-external="https://balena.io">Balena.io</span>')($rootScope)
       element.triggerHandler('click')
       $rootScope.$digest()
-      m.chai.expect(shellExternalStub).to.have.been.calledWith('https://resin.io')
+      m.chai.expect(shellExternalStub).to.have.been.calledWith('https://balena.io')
       shellExternalStub.restore()
     })
 
     it('should not call Electron shell.openExternal if the attribute value is not defined', function () {
       const shellExternalStub = m.sinon.stub(electron.shell, 'openExternal')
-      const element = $compile('<span os-open-external>Resin.io</span>')($rootScope)
+      const element = $compile('<span os-open-external>Balena.io</span>')($rootScope)
       element.triggerHandler('click')
       $rootScope.$digest()
       m.chai.expect(shellExternalStub).to.not.have.been.called
