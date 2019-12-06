@@ -14,183 +14,148 @@
  * limitations under the License.
  */
 
-'use strict'
+import * as _ from 'lodash';
+import * as propTypes from 'prop-types';
+import * as React from 'react';
+import styled from 'styled-components';
+import * as TargetSelector from '../../components/drive-selector/target-selector.jsx';
+import * as SvgIcon from '../../components/svg-icon/svg-icon.jsx';
+import * as selectionState from '../../models/selection-state';
+import * as settings from '../../models/settings';
+import * as store from '../../models/store';
+import * as analytics from '../../modules/analytics';
+import * as exceptionReporter from '../../modules/exception-reporter';
+import * as driveConstraints from '../../../../shared/drive-constraints';
+import * as utils from '../../../../shared/utils';
 
-const _ = require('lodash')
-const propTypes = require('prop-types')
-const React = require('react')
-const driveConstraints = require('../../../../shared/drive-constraints')
-const utils = require('../../../../shared/utils')
-const TargetSelector = require('../../components/drive-selector/target-selector.jsx')
-const SvgIcon = require('../../components/svg-icon/svg-icon.jsx')
-const selectionState = require('../../models/selection-state')
-const settings = require('../../models/settings')
-const store = require('../../models/store')
-const analytics = require('../../modules/analytics')
-const exceptionReporter = require('../../modules/exception-reporter')
+const StepBorder = styled.div<{
+	disabled: boolean;
+	left?: boolean;
+	right?: boolean;
+}>`
+	height: 2px;
+	background-color: ${props =>
+		props.disabled
+			? props.theme.customColors.dark.disabled.foreground
+			: props.theme.customColors.dark.foreground};
+	position: absolute;
+	width: 124px;
+	top: 19px;
 
-/**
- * @summary Get drive list label
- * @function
- * @public
- *
- * @returns {String} - 'list' of drives separated by newlines
- *
- * @example
- * console.log(getDriveListLabel())
- * > 'My Drive (/dev/disk1)\nMy Other Drive (/dev/disk2)'
- */
+	left: ${props => (props.left ? '-67px' : undefined)};
+	right: ${props => (props.right ? '-67px' : undefined)};
+`;
+
 const getDriveListLabel = () => {
-  return _.join(_.map(selectionState.getSelectedDrives(), (drive) => {
-    return `${drive.description} (${drive.displayName})`
-  }), '\n')
-}
+	return _.join(
+		_.map(selectionState.getSelectedDrives(), (drive: any) => {
+			return `${drive.description} (${drive.displayName})`;
+		}),
+		'\n',
+	);
+};
 
-/**
- * @summary Open drive selector
- * @function
- * @public
- * @param {Object} DriveSelectorService - drive selector service
- *
- * @example
- * openDriveSelector(DriveSelectorService);
- */
-const openDriveSelector = async (DriveSelectorService) => {
-  try {
-    const drive = await DriveSelectorService.open()
-    if (!drive) {
-      return
-    }
+const openDriveSelector = async (DriveSelectorService: any) => {
+	try {
+		const drive = await DriveSelectorService.open();
+		if (!drive) {
+			return;
+		}
 
-    selectionState.selectDrive(drive.device)
+		selectionState.selectDrive(drive.device);
 
-    analytics.logEvent('Select drive', {
-      device: drive.device,
-      unsafeMode: settings.get('unsafeMode') && !settings.get('disableUnsafeMode'),
-      applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-      flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
-    })
-  } catch (error) {
-    exceptionReporter.report(error)
-  }
-}
+		analytics.logEvent('Select drive', {
+			device: drive.device,
+			unsafeMode:
+				settings.get('unsafeMode') && !settings.get('disableUnsafeMode'),
+			applicationSessionUuid: (store as any).getState().toJS().applicationSessionUuid,
+			flashingWorkflowUuid: (store as any).getState().toJS().flashingWorkflowUuid,
+		});
+	} catch (error) {
+		exceptionReporter.report(error);
+	}
+};
 
-/**
- * @summary Reselect a drive
- * @function
- * @public
- * @param {Object} DriveSelectorService - drive selector service
- *
- * @example
- * reselectDrive(DriveSelectorService);
- */
-const reselectDrive = (DriveSelectorService) => {
-  openDriveSelector(DriveSelectorService)
-  analytics.logEvent('Reselect drive', {
-    applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-    flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
-  })
-}
+const reselectDrive = (DriveSelectorService: any) => {
+	openDriveSelector(DriveSelectorService);
+	analytics.logEvent('Reselect drive', {
+		applicationSessionUuid: (store as any).getState().toJS().applicationSessionUuid,
+		flashingWorkflowUuid: (store as any).getState().toJS().flashingWorkflowUuid,
+	});
+};
 
-/**
- * @summary Get memoized selected drives
- * @function
- * @public
- *
- * @example
- * getMemoizedSelectedDrives()
- */
-const getMemoizedSelectedDrives = utils.memoize(selectionState.getSelectedDrives, _.isEqual)
+const getMemoizedSelectedDrives = utils.memoize(
+	selectionState.getSelectedDrives,
+	_.isEqual,
+);
 
-/**
- * @summary Should the drive selection button be shown
- * @function
- * @public
- *
- * @returns {Boolean}
- *
- * @example
- * shouldShowDrivesButton()
- */
 const shouldShowDrivesButton = () => {
-  return !settings.get('disableExplicitDriveSelection')
-}
+	return !settings.get('disableExplicitDriveSelection');
+};
 
 const getDriveSelectionStateSlice = () => ({
-  showDrivesButton: shouldShowDrivesButton(),
-  driveListLabel: getDriveListLabel(),
-  targets: getMemoizedSelectedDrives()
-})
+	showDrivesButton: shouldShowDrivesButton(),
+	driveListLabel: getDriveListLabel(),
+	targets: getMemoizedSelectedDrives(),
+});
 
-const DriveSelector = ({
-  webviewShowing,
-  disabled,
-  nextStepDisabled,
-  hasDrive,
-  flashing,
-  DriveSelectorService
-}) => {
-  // TODO: inject these from redux-connector
-  const [ {
-    showDrivesButton,
-    driveListLabel,
-    targets
-  }, setStateSlice ] = React.useState(getDriveSelectionStateSlice())
+export const DriveSelector = ({
+	webviewShowing,
+	disabled,
+	nextStepDisabled,
+	hasDrive,
+	flashing,
+	DriveSelectorService,
+}: any) => {
+	// TODO: inject these from redux-connector
+	const [
+		{ showDrivesButton, driveListLabel, targets },
+		setStateSlice,
+	] = React.useState(getDriveSelectionStateSlice());
 
-  React.useEffect(() => {
-    return store.observe(() => {
-      setStateSlice(getDriveSelectionStateSlice())
-    })
-  }, [])
+	React.useEffect(() => {
+		return (store as any).observe(() => {
+			setStateSlice(getDriveSelectionStateSlice());
+		});
+	}, []);
 
-  const showStepConnectingLines = !webviewShowing || !flashing
+	const showStepConnectingLines = !webviewShowing || !flashing;
 
-  return (
-    <div className="box text-center relative">
+	return (
+		<div className="box text-center relative">
+			{showStepConnectingLines && (
+				<React.Fragment>
+					<StepBorder disabled={disabled} left />
+					<StepBorder disabled={nextStepDisabled} right />
+				</React.Fragment>
+			)}
 
-      {showStepConnectingLines && (
-        <React.Fragment>
-          <div
-            className="step-border-left"
-            disabled={disabled}
-          ></div>
-          <div
-            className="step-border-right"
-            disabled={nextStepDisabled}
-          ></div>
-        </React.Fragment>
-      )}
+			<div className="center-block">
+				<SvgIcon paths={['../../assets/drive.svg']} disabled={disabled} />
+			</div>
 
-      <div className="center-block">
-        <SvgIcon
-          paths={[ '../../assets/drive.svg' ]}
-          disabled={disabled}
-        />
-      </div>
-
-      <div className="space-vertical-large">
-        <TargetSelector
-          disabled={disabled}
-          show={!hasDrive && showDrivesButton}
-          tooltip={driveListLabel}
-          selection={selectionState}
-          openDriveSelector={() => openDriveSelector(DriveSelectorService)}
-          reselectDrive={() => reselectDrive(DriveSelectorService)}
-          flashing={flashing}
-          constraints={driveConstraints}
-          targets={targets}
-        />
-      </div>
-    </div>
-  )
-}
+			<div className="space-vertical-large">
+				<TargetSelector
+					disabled={disabled}
+					show={!hasDrive && showDrivesButton}
+					tooltip={driveListLabel}
+					selection={selectionState}
+					openDriveSelector={() => openDriveSelector(DriveSelectorService)}
+					reselectDrive={() => reselectDrive(DriveSelectorService)}
+					flashing={flashing}
+					constraints={driveConstraints}
+					targets={targets}
+				/>
+			</div>
+		</div>
+	);
+};
 
 DriveSelector.propTypes = {
-  webviewShowing: propTypes.bool,
-  disabled: propTypes.bool,
-  nextStepDisabled: propTypes.bool,
-  hasDrive: propTypes.bool,
-  flashing: propTypes.bool
-}
-
-module.exports = DriveSelector
+	webviewShowing: propTypes.bool,
+	disabled: propTypes.bool,
+	nextStepDisabled: propTypes.bool,
+	hasDrive: propTypes.bool,
+	flashing: propTypes.bool,
+	DriveSelectorService: propTypes.object,
+};

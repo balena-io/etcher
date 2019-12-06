@@ -150,6 +150,7 @@ const TargetSelector = (props) => {
 }
 
 TargetSelector.propTypes = {
+  targets: propTypes.array,
   disabled: propTypes.bool,
   openDriveSelector: propTypes.func,
   selection: propTypes.object,
