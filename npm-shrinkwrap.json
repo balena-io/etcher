@@ -1018,6 +1018,14 @@
         "@fortawesome/fontawesome-common-types": "^0.2.25"
       }
     },
+    "@fortawesome/free-brands-svg-icons": {
+      "version": "5.11.2",
+      "resolved": "https://registry.npmjs.org/@fortawesome/free-brands-svg-icons/-/free-brands-svg-icons-5.11.2.tgz",
+      "integrity": "sha512-wKK5znpHiZ2S0VgOvbeAnYuzkk3H86rxWajD9PVpfBj3s/kySEWTFKh/uLPyxiTOx8Tsd0OGN4En/s9XudVHLQ==",
+      "requires": {
+        "@fortawesome/fontawesome-common-types": "^0.2.25"
+      }
+    },
     "@fortawesome/free-solid-svg-icons": {
       "version": "5.11.2",
       "resolved": "https://registry.npmjs.org/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.11.2.tgz",

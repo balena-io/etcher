@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as _ from 'lodash';
@@ -22,9 +23,11 @@ import * as propTypes from 'prop-types';
 import * as React from 'react';
 import { Badge, Button, Checkbox, Modal, Provider } from 'rendition';
 import styled from 'styled-components';
+import packageJSON = require('../../../../../package.json');
 import * as settings from '../../models/settings';
 import * as store from '../../models/store';
 import * as analytics from '../../modules/analytics';
+import { open as openExternal } from '../../os/open-external/services/open-external';
 import { colors } from '../../theme';
 
 const { useState } = React;
@@ -208,6 +211,17 @@ export const SettingsModal: any = styled(
 							</div>
 						);
 					})}
+					<div>
+						<span
+							onClick={() =>
+								openExternal(
+									'https://github.com/balena-io/etcher/blob/master/CHANGELOG.md',
+								)
+							}
+						>
+							<FontAwesomeIcon icon={faGithub} /> {packageJSON.version}
+						</span>
+					</div>
 				</div>
 
 				{_.isEmpty(warning) ? null : (
