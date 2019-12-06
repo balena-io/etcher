@@ -38,9 +38,9 @@
     }
   },
   "lint-staged": {
-    "./**/*.{js,mjs,jsx,ts,tsx}": [
+    "./**/*.{ts,tsx}": [
       "npm run prettier",
-      "make lint",
+      "make lint-ts",
       "git add"
     ]
   },
