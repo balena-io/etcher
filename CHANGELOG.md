@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.67
+## (2019-12-06)
+
+* Fix elevation on macos in development [Alexis Svinartchouk]
+
 # v1.5.66
 ## (2019-12-03)
 
