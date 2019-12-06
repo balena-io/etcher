@@ -64,28 +64,6 @@ img[disabled] {
   font-weight: 300;
 }
 
-%step-border {
-  height: 2px;
-  background-color: $palette-theme-dark-foreground;
-  position: absolute;
-  width: 124px;
-  top: 19px;
-
-  &[disabled] {
-    background-color: $palette-theme-dark-disabled-foreground;
-  }
-}
-
-.page-main .step-border-left {
-  @extend %step-border;
-  left: -67px;
-}
-
-.page-main .step-border-right {
-  @extend %step-border;
-  right: -67px;
-}
-
 .page-main .step-tooltip {
   display: block;
   margin: -5px auto -20px;

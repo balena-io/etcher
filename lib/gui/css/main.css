@@ -6342,21 +6342,6 @@ img[disabled] {
   font-size: 16px;
   font-weight: 300; }
 
-.page-main .step-border-left, .page-main .step-border-right {
-  height: 2px;
-  background-color: #fff;
-  position: absolute;
-  width: 124px;
-  top: 19px; }
-  .page-main .step-border-left[disabled], .page-main .step-border-right[disabled] {
-    background-color: #787c7f; }
-
-.page-main .step-border-left {
-  left: -67px; }
-
-.page-main .step-border-right {
-  right: -67px; }
-
 .page-main .step-tooltip {
   display: block;
   margin: -5px auto -20px;
