@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 resin.io
+ * Copyright 2019 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,11 @@
  * limitations under the License.
  */
 
-'use strict'
+import * as angular from 'angular';
+import { react2angular } from 'react2angular';
+import { FlashAnother } from './flash-another';
 
-/**
- * @module Etcher.Components.FlashResults
- */
+export const MODULE_NAME = 'Etcher.Components.FlashAnother';
+const FlashAnotherModule = angular.module(MODULE_NAME, []);
 
-const angular = require('angular')
-const { react2angular } = require('react2angular')
-
-const MODULE_NAME = 'Etcher.Components.FlashResults'
-const FlashResults = angular.module(MODULE_NAME, [])
-
-FlashResults.component(
-  'flashResults',
-  react2angular(require('./flash-results.jsx'))
-)
-
-module.exports = MODULE_NAME
+FlashAnotherModule.component('flashAnother', react2angular(FlashAnother));
