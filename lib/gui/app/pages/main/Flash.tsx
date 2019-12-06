@@ -18,6 +18,8 @@ import * as _ from 'lodash';
 import * as path from 'path';
 import * as React from 'react';
 import { Modal, Txt } from 'rendition';
+import * as constraints from '../../../../shared/drive-constraints';
+import * as messages from '../../../../shared/messages';
 import * as ProgressButton from '../../components/progress-button/progress-button.jsx';
 import * as SvgIcon from '../../components/svg-icon/svg-icon.jsx';
 import * as availableDrives from '../../models/available-drives';
@@ -29,8 +31,6 @@ import * as driveScanner from '../../modules/drive-scanner';
 import * as imageWriter from '../../modules/image-writer';
 import * as progressStatus from '../../modules/progress-status';
 import * as notification from '../../os/notification';
-import * as constraints from '../../../../shared/drive-constraints';
-import * as messages from '../../../../shared/messages';
 
 const COMPLETED_PERCENTAGE = 100;
 const SPEED_PRECISION = 2;
@@ -189,8 +189,10 @@ export const Flash = ({
 		flashState.resetState();
 		if (shouldRetry) {
 			analytics.logEvent('Restart after failure', {
-				applicationSessionUuid: (store as any).getState().toJS().applicationSessionUuid,
-				flashingWorkflowUuid: (store as any).getState().toJS().flashingWorkflowUuid,
+				applicationSessionUuid: (store as any).getState().toJS()
+					.applicationSessionUuid,
+				flashingWorkflowUuid: (store as any).getState().toJS()
+					.flashingWorkflowUuid,
 			});
 		} else {
 			selection.clear();
