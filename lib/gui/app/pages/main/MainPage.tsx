@@ -104,13 +104,12 @@ const MainPage = ({ DriveSelectorService, $state }: any) => {
 				</div>
 
 				{isFlashing && (
-					<div>
-						<FeaturedProject
-							className={
-								isFlashing && isWebviewShowing ? 'fp-visible' : undefined
-							}
-							onWebviewShow={setWebviewShowing}
-						/>
+					<div
+						className={`featured-project ${
+							isFlashing && isWebviewShowing ? 'fp-visible' : ''
+						}`}
+					>
+						<FeaturedProject onWebviewShow={setWebviewShowing} />
 					</div>
 				)}
 

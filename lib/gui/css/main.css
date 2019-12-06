@@ -9882,12 +9882,12 @@ body {
   .section-header * {
     z-index: 1; }
 
-featured-project webview {
+.featured-project webview {
   flex: 0 1;
   height: 0;
   width: 0; }
 
-featured-project.fp-visible webview {
+.featured-project.fp-visible webview {
   width: 480px;
   height: 360px;
   position: absolute;
