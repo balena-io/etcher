@@ -32,7 +32,6 @@ import * as driveSelector from '../../components/drive-selector';
 import * as driveSelectorService from '../../components/drive-selector/drive-selector';
 import { MODULE_NAME as flashAnother } from '../../components/flash-another';
 import { MODULE_NAME as flashResults } from '../../components/flash-results';
-import * as openExternal from '../../os/open-external/open-external';
 import * as byteSize from '../../utils/byte-size/byte-size';
 
 export const MODULE_NAME = 'Etcher.Pages.Main';
@@ -43,7 +42,6 @@ const Main = angular.module(MODULE_NAME, [
 	flashAnother,
 	flashResults,
 	driveSelector,
-	openExternal,
 	byteSize,
 ]);
 

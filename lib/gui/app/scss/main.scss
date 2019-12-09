@@ -164,23 +164,10 @@ body {
     margin: 0 13px;
   }
 
-  .caption[os-open-external] {
-    border-bottom: 1px dashed;
-    padding-bottom: 2px;
-
-    &:hover {
-      color: lighten($palette-theme-dark-disabled-foreground, 5%);
-    }
-  }
-
   .footer-right {
     font-size: 10px;
     position: absolute;
     right: 0;
-  }
-
-  > span[os-open-external] {
-    display: flex;
   }
 }
 
