@@ -30,10 +30,6 @@ angularValidate.validate(
     ],
     customattrs: [
 
-      // Internal
-      'os-open-external',
-      'os-dropzone',
-
       // External
       'hide-if-state',
       'show-if-state',

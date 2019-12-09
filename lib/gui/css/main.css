@@ -9833,17 +9833,10 @@ body {
     padding: 0; }
   .section-footer-main .svg-icon {
     margin: 0 13px; }
-  .section-footer-main .caption[os-open-external] {
-    border-bottom: 1px dashed;
-    padding-bottom: 2px; }
-    .section-footer-main .caption[os-open-external]:hover {
-      color: #85898c; }
   .section-footer-main .footer-right {
     font-size: 10px;
     position: absolute;
     right: 0; }
-  .section-footer-main > span[os-open-external] {
-    display: flex; }
 
 .section-loader webview {
   flex: 0 1;

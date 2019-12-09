@@ -17,12 +17,14 @@
 import * as _ from 'lodash';
 import * as React from 'react';
 import * as uuidV4 from 'uuid/v4';
+
 import * as messages from '../../../../shared/messages';
 import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
 import * as store from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import * as updateLock from '../../modules/update-lock';
+import { open as openExternal } from '../../os/open-external/services/open-external';
 import { FlashAnother } from '../flash-another/flash-another';
 import { FlashResults } from '../flash-results/flash-results';
 import * as SVGIcon from '../svg-icon/svg-icon';
@@ -88,7 +90,14 @@ function FinishPage({ $state }: any) {
 					<div className="fallback-banner">
 						<div className="caption caption-big">
 							Thanks for using
-							<span os-open-external="https://balena.io/etcher?ref=etcher_offline_banner">
+							<span
+								style={{ cursor: 'pointer' }}
+								onClick={() =>
+									openExternal(
+										'https://balena.io/etcher?ref=etcher_offline_banner',
+									)
+								}
+							>
 								<SVGIcon
 									paths={['../../assets/etcher.svg']}
 									width="165px"
@@ -104,7 +113,12 @@ function FinishPage({ $state }: any) {
 								height="20px"
 							></SVGIcon>
 							by
-							<span os-open-external="https://balena.io?ref=etcher_success">
+							<span
+								style={{ cursor: 'pointer' }}
+								onClick={() =>
+									openExternal('https://balena.io?ref=etcher_success')
+								}
+							>
 								<SVGIcon
 									paths={['../../assets/balena.svg']}
 									width="auto"
