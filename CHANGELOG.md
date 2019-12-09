@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.68
+## (2019-12-08)
+
+* Add version in settings modal [Lorenzo Alberto Maria Ambrosi]
+
 # v1.5.67
 ## (2019-12-06)
 
