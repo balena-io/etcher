@@ -14,15 +14,24 @@
  * limitations under the License.
  */
 
+import { faCog, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as path from 'path';
 import * as React from 'react';
+import { Button } from 'rendition';
+
 import * as FeaturedProject from '../../components/featured-project/featured-project';
 import * as ImageSelector from '../../components/image-selector/image-selector';
 import * as ReducedFlashingInfos from '../../components/reduced-flashing-infos/reduced-flashing-infos';
+import { SettingsModal } from '../../components/settings/settings';
+import * as SvgIcon from '../../components/svg-icon/svg-icon.jsx';
 import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
+import * as settings from '../../models/settings';
 import * as store from '../../models/store';
+import { open as openExternal } from '../../os/open-external/services/open-external';
 import { ThemedProvider } from '../../styled-components';
+import { colors } from '../../theme';
 import * as middleEllipsis from '../../utils/middle-ellipsis';
 
 import * as messages from '../../../../shared/messages';
@@ -30,6 +39,9 @@ import { bytesToClosestUnit } from '../../../../shared/units';
 
 import { DriveSelector } from './DriveSelector';
 import { Flash } from './Flash';
+
+const DEFAULT_SUPPORT_URL =
+	'https://github.com/balena-io/etcher/blob/master/SUPPORT.md';
 
 const getDrivesTitle = (selection: any) => {
 	const drives = selection.getSelectedDrives();
@@ -58,6 +70,7 @@ const getImageBasename = (selection: any) => {
 const MainPage = ({ DriveSelectorService, $state }: any) => {
 	const setRefresh = React.useState(false)[1];
 	const [isWebviewShowing, setIsWebviewShowing] = React.useState(false);
+	const [hideSettings, setHideSettings] = React.useState(true);
 	React.useEffect(() => {
 		return (store as any).observe(() => {
 			setRefresh(ref => !ref);
@@ -86,8 +99,72 @@ const MainPage = ({ DriveSelectorService, $state }: any) => {
 	const progressMessage = messages.progress;
 
 	return (
-		<ThemedProvider style={{ display: 'flex', height: '100%' }}>
-			<div className="page-main row around-xs">
+		<ThemedProvider style={{ height: '100%' }}>
+			<header
+				style={{
+					width: '100%',
+					padding: '13px 14px',
+					textAlign: 'center',
+				}}
+			>
+				<span
+					style={{
+						cursor: 'pointer',
+					}}
+					onClick={() =>
+						openExternal('https://www.balena.io/etcher?ref=etcher_footer')
+					}
+					tabIndex={100}
+				>
+					<SvgIcon
+						paths={['../../assets/etcher.svg']}
+						width="123px"
+						height="22px"
+					></SvgIcon>
+				</span>
+
+				<span
+					style={{
+						float: 'right',
+						position: 'absolute',
+						right: 0,
+					}}
+				>
+					<Button
+						icon={<FontAwesomeIcon icon={faCog} />}
+						color={colors.secondary.background}
+						fontSize={24}
+						style={{ width: '30px' }}
+						plain
+						onClick={() => setHideSettings(false)}
+						tabIndex={5}
+					/>
+					{!settings.get('disableExternalLinks') && (
+						<Button
+							icon={<FontAwesomeIcon icon={faQuestionCircle} />}
+							color={colors.secondary.background}
+							fontSize={24}
+							style={{ width: '30px' }}
+							plain
+							onClick={() =>
+								openExternal(
+									selectionState.getImageSupportUrl() || DEFAULT_SUPPORT_URL,
+								)
+							}
+							tabIndex={5}
+						/>
+					)}
+				</span>
+			</header>
+			{hideSettings ? null : (
+				<SettingsModal
+					toggleModal={(value: boolean) => {
+						setHideSettings(!value);
+					}}
+				/>
+			)}
+
+			<div className="page-main row around-xs" style={{ margin: '110px 50px' }}>
 				<div className="col-xs">
 					<ImageSelector flashing={isFlashing} />
 				</div>

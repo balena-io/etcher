@@ -206,30 +206,6 @@ body {
   margin: 20px 50px;
 }
 
-.section-header {
-  text-align: right;
-  padding: 13px 14px;
-
-  > .button {
-    padding: 0;
-
-    > .glyphicon {
-      font-size: 24px;
-    }
-  }
-
-  > * {
-    display: inline-block;
-    vertical-align: middle;
-    height: 24px;
-    margin: 0 10px;
-  }
-
-  * {
-    z-index: 1;
-  }
-}
-
 .featured-project {
   webview {
     flex: 0 1;
