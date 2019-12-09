@@ -33,7 +33,6 @@ angularValidate.validate(
       // Internal
       'os-open-external',
       'os-dropzone',
-      'manifest-bind',
 
       // External
       'hide-if-state',
