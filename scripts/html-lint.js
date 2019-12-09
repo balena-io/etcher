@@ -26,7 +26,7 @@ angularValidate.validate(
   ],
   {
     customtags: [
-      'settings', 'flash'
+      'flash'
     ],
     customattrs: [
 

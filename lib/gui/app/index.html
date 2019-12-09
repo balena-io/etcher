@@ -11,27 +11,6 @@
   </head>
   <body>
 
-    <header class="section-header" ng-controller="HeaderController as header">
-      <span
-        id="app-logo"
-        os-open-external="https://www.balena.io/etcher?ref=etcher_footer"
-        tabindex="100">
-        <svg-icon paths="[ '../../assets/etcher.svg' ]"
-          width="'123px'"
-          height="'22px'"></svg-icon>
-      </span>
-
-      <settings tabindex="4">
-      </settings>
-
-      <button class="button button-link"
-        ng-if="header.shouldShowHelp()"
-        ng-click="header.openHelpPage()"
-        tabindex="5">
-        <span class="glyphicon glyphicon-question-sign"></span>
-      </button>
-    </header>
-
     <main ui-view></main>
 
     <div class="section-loader"

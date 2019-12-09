@@ -6450,14 +6450,6 @@ img[disabled] {
 .space-vertical-large {
   position: relative; }
 
-#app-logo {
-  position: fixed;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  width: 123px; }
-
 /*
  * Copyright 2016 balena.io
  *
@@ -6473,6 +6465,9 @@ img[disabled] {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+.page-finish {
+  margin-top: 60px; }
+
 .col-xs-5.inline-flex.items-baseline > span, .col-xs-5.inline-flex.items-baseline > div {
   margin-bottom: -10px; }
 
@@ -9866,21 +9861,6 @@ body {
 .wrapper {
   height: 100%;
   margin: 20px 50px; }
-
-.section-header {
-  text-align: right;
-  padding: 13px 14px; }
-  .section-header > .button {
-    padding: 0; }
-    .section-header > .button > .glyphicon, .section-header > .button > .tick {
-      font-size: 24px; }
-  .section-header > * {
-    display: inline-block;
-    vertical-align: middle;
-    height: 24px;
-    margin: 0 10px; }
-  .section-header * {
-    z-index: 1; }
 
 .featured-project webview {
   flex: 0 1;
