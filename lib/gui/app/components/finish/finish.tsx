@@ -111,13 +111,6 @@ function FinishPage({ $state }: any) {
 									height="20px"
 								></SVGIcon>
 							</span>
-							<div className="section-footer">
-								<span
-									className="caption caption-small footer-right"
-									manifest-bind="version"
-									os-open-external="https://github.com/balena-io/etcher/blob/master/CHANGELOG.md"
-								></span>
-							</div>
 						</div>
 					</div>
 				</div>
