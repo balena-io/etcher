@@ -16,7 +16,7 @@ exports.default = function(context) {
     scriptPath,
     outdent`
       #!/bin/bash
-      if [[ $EUID -ne 0 ]]; then
+      if [[ $EUID -ne 0 ]] || [[ $ELECTRON_RUN_AS_NODE ]]; then
         "\${BASH_SOURCE%/*}"/${context.packager.executableName}.bin "$@"
       else
         "\${BASH_SOURCE%/*}"/${context.packager.executableName}.bin "$@" --no-sandbox
