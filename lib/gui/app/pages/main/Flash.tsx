@@ -20,6 +20,7 @@ import * as React from 'react';
 import { Modal, Txt } from 'rendition';
 import * as constraints from '../../../../shared/drive-constraints';
 import * as messages from '../../../../shared/messages';
+import * as DriveSelectorModal from '../../components/drive-selector/DriveSelectorModal.jsx';
 import * as ProgressButton from '../../components/progress-button/progress-button.jsx';
 import * as SvgIcon from '../../components/svg-icon/svg-icon.jsx';
 import * as availableDrives from '../../models/available-drives';
@@ -164,7 +165,6 @@ export const Flash = ({
 	lastFlashErrorCode,
 	progressMessage,
 	goToSuccess,
-	DriveSelectorService,
 }: any) => {
 	const state: any = flashState.getFlashState();
 	const isFlashing = flashState.isFlashing();
@@ -172,12 +172,15 @@ export const Flash = ({
 
 	const [warningMessages, setWarningMessages] = React.useState<string[]>([]);
 	const [errorMessage, setErrorMessage] = React.useState('');
+	const [showDriveSelectorModal, setShowDriveSelectorModal] = React.useState(
+		false,
+	);
 
 	const handleWarningResponse = async (shouldContinue: boolean) => {
 		setWarningMessages([]);
 
 		if (!shouldContinue) {
-			DriveSelectorService.open();
+			setShowDriveSelectorModal(true);
 			return;
 		}
 
@@ -308,6 +311,12 @@ export const Flash = ({
 				>
 					<Txt>{errorMessage}</Txt>
 				</Modal>
+			)}
+
+			{showDriveSelectorModal && (
+				<DriveSelectorModal
+					close={() => setShowDriveSelectorModal(false)}
+				></DriveSelectorModal>
 			)}
 		</React.Fragment>
 	);

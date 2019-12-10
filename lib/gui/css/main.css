@@ -6246,9 +6246,12 @@ body {
   border-color: #ededed;
   padding: 12px 0; }
   .modal-drive-selector-modal .list-group-item .list-group-item-section-expanded {
-    flex-grow: 1; }
+    flex-grow: 1;
+    margin-left: 15px; }
   .modal-drive-selector-modal .list-group-item .list-group-item-section + .list-group-item-section {
-    margin-left: 10px; }
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: middle; }
   .modal-drive-selector-modal .list-group-item > .tick {
     font-size: 11px; }
   .modal-drive-selector-modal .list-group-item:first-child {

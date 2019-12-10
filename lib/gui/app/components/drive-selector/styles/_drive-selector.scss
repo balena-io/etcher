@@ -54,10 +54,13 @@
 
     .list-group-item-section-expanded {
       flex-grow: 1;
+      margin-left: 15px;
     }
 
     .list-group-item-section + .list-group-item-section {
       margin-left: 10px;
+      display: inline-block;
+      vertical-align: middle;
     }
 
     > .tick {
