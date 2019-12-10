@@ -54,10 +54,13 @@
 
     .list-group-item-section-expanded {
       flex-grow: 1;
+      margin-left: 15px;
     }
 
     .list-group-item-section + .list-group-item-section {
       margin-left: 10px;
+      display: inline-block;
+      vertical-align: middle;
     }
 
     > .tick {
@@ -72,7 +75,7 @@
       color: $palette-theme-light-soft-foreground;
     }
 
-    progress {
+    .drive-init-progress {
       appearance: none;
       width: 100%;
       height: 2.5px;
@@ -80,13 +83,13 @@
       border-radius: 50% 50%;
     }
 
-    progress::-webkit-progress-bar {
+    .drive-init-progress::-webkit-progress-bar {
       background-color: $palette-theme-default-background;
       border: none;
       outline: none;
     }
 
-    progress::-webkit-progress-value {
+    .drive-init-progress::-webkit-progress-value {
       border-bottom: 1px solid darken($palette-theme-primary-background, 15);
       background-color: $palette-theme-primary-background;
     }

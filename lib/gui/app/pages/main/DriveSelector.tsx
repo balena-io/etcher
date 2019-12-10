@@ -20,13 +20,13 @@ import * as React from 'react';
 import styled from 'styled-components';
 import * as driveConstraints from '../../../../shared/drive-constraints';
 import * as utils from '../../../../shared/utils';
+import * as DriveSelectorModal from '../../components/drive-selector/DriveSelectorModal.jsx';
 import * as TargetSelector from '../../components/drive-selector/target-selector.jsx';
 import * as SvgIcon from '../../components/svg-icon/svg-icon.jsx';
 import * as selectionState from '../../models/selection-state';
 import * as settings from '../../models/settings';
 import * as store from '../../models/store';
 import * as analytics from '../../modules/analytics';
-import * as exceptionReporter from '../../modules/exception-reporter';
 
 const StepBorder = styled.div<{
 	disabled: boolean;
@@ -55,38 +55,6 @@ const getDriveListLabel = () => {
 	);
 };
 
-const openDriveSelector = async (DriveSelectorService: any) => {
-	try {
-		const drive = await DriveSelectorService.open();
-		if (!drive) {
-			return;
-		}
-
-		selectionState.selectDrive(drive.device);
-
-		analytics.logEvent('Select drive', {
-			device: drive.device,
-			unsafeMode:
-				settings.get('unsafeMode') && !settings.get('disableUnsafeMode'),
-			applicationSessionUuid: (store as any).getState().toJS()
-				.applicationSessionUuid,
-			flashingWorkflowUuid: (store as any).getState().toJS()
-				.flashingWorkflowUuid,
-		});
-	} catch (error) {
-		exceptionReporter.report(error);
-	}
-};
-
-const reselectDrive = (DriveSelectorService: any) => {
-	openDriveSelector(DriveSelectorService);
-	analytics.logEvent('Reselect drive', {
-		applicationSessionUuid: (store as any).getState().toJS()
-			.applicationSessionUuid,
-		flashingWorkflowUuid: (store as any).getState().toJS().flashingWorkflowUuid,
-	});
-};
-
 const getMemoizedSelectedDrives = utils.memoize(
 	selectionState.getSelectedDrives,
 	_.isEqual,
@@ -108,13 +76,15 @@ export const DriveSelector = ({
 	nextStepDisabled,
 	hasDrive,
 	flashing,
-	DriveSelectorService,
 }: any) => {
 	// TODO: inject these from redux-connector
 	const [
 		{ showDrivesButton, driveListLabel, targets },
 		setStateSlice,
 	] = React.useState(getDriveSelectionStateSlice());
+	const [showDriveSelectorModal, setShowDriveSelectorModal] = React.useState(
+		false,
+	);
 
 	React.useEffect(() => {
 		return (store as any).observe(() => {
@@ -143,13 +113,29 @@ export const DriveSelector = ({
 					show={!hasDrive && showDrivesButton}
 					tooltip={driveListLabel}
 					selection={selectionState}
-					openDriveSelector={() => openDriveSelector(DriveSelectorService)}
-					reselectDrive={() => reselectDrive(DriveSelectorService)}
+					openDriveSelector={() => {
+						setShowDriveSelectorModal(true);
+					}}
+					reselectDrive={() => {
+						analytics.logEvent('Reselect drive', {
+							applicationSessionUuid: (store as any).getState().toJS()
+								.applicationSessionUuid,
+							flashingWorkflowUuid: (store as any).getState().toJS()
+								.flashingWorkflowUuid,
+						});
+						setShowDriveSelectorModal(true);
+					}}
 					flashing={flashing}
 					constraints={driveConstraints}
 					targets={targets}
 				/>
 			</div>
+
+			{showDriveSelectorModal && (
+				<DriveSelectorModal
+					close={() => setShowDriveSelectorModal(false)}
+				></DriveSelectorModal>
+			)}
 		</div>
 	);
 };
@@ -160,5 +146,4 @@ DriveSelector.propTypes = {
 	nextStepDisabled: propTypes.bool,
 	hasDrive: propTypes.bool,
 	flashing: propTypes.bool,
-	DriveSelectorService: propTypes.object,
 };

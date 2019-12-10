@@ -67,7 +67,7 @@ const getImageBasename = (selection: any) => {
 	return selectionImageName || imageBasename;
 };
 
-const MainPage = ({ DriveSelectorService, $state }: any) => {
+const MainPage = ({ $state }: any) => {
 	const setRefresh = React.useState(false)[1];
 	const [isWebviewShowing, setIsWebviewShowing] = React.useState(false);
 	const [hideSettings, setHideSettings] = React.useState(true);
@@ -171,7 +171,6 @@ const MainPage = ({ DriveSelectorService, $state }: any) => {
 
 				<div className="col-xs">
 					<DriveSelector
-						DriveSelectorService={DriveSelectorService}
 						webviewShowing={isWebviewShowing}
 						disabled={shouldDriveStepBeDisabled}
 						nextStepDisabled={shouldFlashStepBeDisabled}
@@ -202,7 +201,6 @@ const MainPage = ({ DriveSelectorService, $state }: any) => {
 
 				<div className="col-xs">
 					<Flash
-						DriveSelectorService={DriveSelectorService}
 						goToSuccess={() => $state.go('success')}
 						shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
 						lastFlashErrorCode={lastFlashErrorCode}

@@ -28,8 +28,6 @@ import * as angularRouter from 'angular-ui-router';
 import { react2angular } from 'react2angular';
 import MainPage from './MainPage';
 
-import * as driveSelector from '../../components/drive-selector';
-import * as driveSelectorService from '../../components/drive-selector/drive-selector';
 import { MODULE_NAME as flashAnother } from '../../components/flash-another';
 import { MODULE_NAME as flashResults } from '../../components/flash-results';
 import * as byteSize from '../../utils/byte-size/byte-size';
@@ -38,17 +36,12 @@ export const MODULE_NAME = 'Etcher.Pages.Main';
 
 const Main = angular.module(MODULE_NAME, [
 	angularRouter,
-	driveSelectorService,
 	flashAnother,
 	flashResults,
-	driveSelector,
 	byteSize,
 ]);
 
-Main.component(
-	'mainPage',
-	react2angular(MainPage, [], ['DriveSelectorService', '$state']),
-);
+Main.component('mainPage', react2angular(MainPage, [], ['$state']));
 
 Main.config(($stateProvider: any) => {
 	$stateProvider.state('main', {

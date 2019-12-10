@@ -6246,26 +6246,29 @@ body {
   border-color: #ededed;
   padding: 12px 0; }
   .modal-drive-selector-modal .list-group-item .list-group-item-section-expanded {
-    flex-grow: 1; }
+    flex-grow: 1;
+    margin-left: 15px; }
   .modal-drive-selector-modal .list-group-item .list-group-item-section + .list-group-item-section {
-    margin-left: 10px; }
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: middle; }
   .modal-drive-selector-modal .list-group-item > .tick {
     font-size: 11px; }
   .modal-drive-selector-modal .list-group-item:first-child {
     border-top: 0; }
   .modal-drive-selector-modal .list-group-item[disabled] .list-group-item-heading {
     color: #b3b3b3; }
-  .modal-drive-selector-modal .list-group-item progress {
+  .modal-drive-selector-modal .list-group-item .drive-init-progress {
     appearance: none;
     width: 100%;
     height: 2.5px;
     border: none;
     border-radius: 50% 50%; }
-  .modal-drive-selector-modal .list-group-item progress::-webkit-progress-bar {
+  .modal-drive-selector-modal .list-group-item .drive-init-progress::-webkit-progress-bar {
     background-color: #ececec;
     border: none;
     outline: none; }
-  .modal-drive-selector-modal .list-group-item progress::-webkit-progress-value {
+  .modal-drive-selector-modal .list-group-item .drive-init-progress::-webkit-progress-value {
     border-bottom: 1px solid #176a9c;
     background-color: #2297de; }
 
