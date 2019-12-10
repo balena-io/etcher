@@ -2,7 +2,7 @@
   "name": "balena-etcher",
   "private": true,
   "displayName": "balenaEtcher",
-  "version": "1.5.68",
+  "version": "1.5.69",
   "packageType": "local",
   "updates": {
     "enabled": true,

@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.69
+## (2019-12-10)
+
+* Don't add --no-sandbox when ELECTRON_RUN_AS_NODE true [Alexis Svinartchouk]
+
 # v1.5.68
 ## (2019-12-08)
 
