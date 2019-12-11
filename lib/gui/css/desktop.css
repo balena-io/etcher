@@ -21,7 +21,7 @@ body {
 
 
 /* Allow window to be dragged from anywhere */
-body > header {
+#app-header {
   -webkit-app-region: drag;
 }
 
