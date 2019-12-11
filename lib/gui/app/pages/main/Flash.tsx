@@ -293,8 +293,8 @@ export const Flash = ({
 					action={'Continue'}
 					primaryButtonProps={{ primary: false, warning: true }}
 				>
-					{_.map(warningMessages, message => (
-						<Txt whitespace="pre-line" mt={2}>
+					{_.map(warningMessages, (message, key) => (
+						<Txt key={key} whitespace="pre-line" mt={2}>
 							{message}
 						</Txt>
 					))}

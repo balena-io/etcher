@@ -101,6 +101,7 @@ const MainPage = ({ $state }: any) => {
 	return (
 		<ThemedProvider style={{ height: '100%' }}>
 			<header
+				id="app-header"
 				style={{
 					width: '100%',
 					padding: '13px 14px',
