@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 resin.io
+ * Copyright 2016 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,9 +34,6 @@ $disabled-opacity: 0.2;
 @import "../components/modal/styles/modal";
 @import "../components/drive-selector/styles/drive-selector";
 @import "../components/svg-icon/styles/svg-icon";
-@import "../components/tooltip-modal/styles/tooltip-modal";
-@import "../components/warning-modal/styles/warning-modal";
-@import "../components/file-selector/styles/file-selector";
 @import "../pages/main/styles/main";
 @import "../pages/finish/styles/finish";
 
@@ -167,23 +164,10 @@ body {
     margin: 0 13px;
   }
 
-  .caption[os-open-external] {
-    border-bottom: 1px dashed;
-    padding-bottom: 2px;
-
-    &:hover {
-      color: lighten($palette-theme-dark-disabled-foreground, 5%);
-    }
-  }
-
   .footer-right {
     font-size: 10px;
     position: absolute;
     right: 0;
-  }
-
-  > span[os-open-external] {
-    display: flex;
   }
 }
 
@@ -209,27 +193,7 @@ body {
   margin: 20px 50px;
 }
 
-.section-header {
-  text-align: right;
-  padding: 13px 14px;
-
-  > .button {
-    padding: 0;
-
-    > .glyphicon {
-      font-size: 24px;
-    }
-  }
-
-  > * {
-    display: inline-block;
-    vertical-align: middle;
-    height: 24px;
-    margin: 0 10px;
-  }
-}
-
-featured-project {
+.featured-project {
   webview {
     flex: 0 1;
     height: 0;

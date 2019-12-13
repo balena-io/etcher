@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 resin.io
+ * Copyright 2016 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,11 @@
  */
 
 .page-finish {
-  margin-top: -15px;
-  flex: 1;
+  margin-top: 60px;
+}
 
-  .col-xs-5.inline-flex.items-baseline > span, .col-xs-5.inline-flex.items-baseline > div {
-    margin-bottom: -10px;
-  }
+.col-xs-5.inline-flex.items-baseline > span, .col-xs-5.inline-flex.items-baseline > div {
+  margin-bottom: -10px;
 }
 
 .page-finish .button-label {

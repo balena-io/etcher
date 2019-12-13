@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 resin.io
+ * Copyright 2016 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ const {
   keyframes
 } = require('styled-components')
 
-const { ProgressBar, Provider } = require('rendition')
+const { ProgressBar } = require('rendition')
 
 const { colors } = require('./../../theme')
 const { StepButton, StepSelection } = require('./../../styled-components')
@@ -78,7 +78,7 @@ const FlashProgressBarValidating = styled(FlashProgressBar) `
   // Notice that we add 0.01 to certain gradient stop positions.
   // That workarounds a Chrome rendering issue where diagonal
   // lines look spiky.
-  // See https://github.com/resin-io/etcher/issues/472
+  // See https://github.com/balena-io/etcher/issues/472
 
   background-image: -webkit-gradient(linear, 0 0, 100% 100%,
     color-stop(0.25, ${progressButtonStripesForegroundColor}),
@@ -105,46 +105,40 @@ class ProgressButton extends React.Component {
     if (this.props.active) {
       if (this.props.striped) {
         return (
-          <Provider>
-            <StepSelection>
-              <FlashProgressBarValidating
-                primary
-                emphasized
-                value= { this.props.percentage }
-              >
-                { this.props.label }
-              </FlashProgressBarValidating>
-            </StepSelection>
-          </Provider>
-        )
-      }
-
-      return (
-        <Provider>
           <StepSelection>
-            <FlashProgressBar
-              warning
+            <FlashProgressBarValidating
+              primary
               emphasized
               value= { this.props.percentage }
             >
               { this.props.label }
-            </FlashProgressBar>
+            </FlashProgressBarValidating>
           </StepSelection>
-        </Provider>
+        )
+      }
+
+      return (
+        <StepSelection>
+          <FlashProgressBar
+            warning
+            emphasized
+            value= { this.props.percentage }
+          >
+            { this.props.label }
+          </FlashProgressBar>
+        </StepSelection>
       )
     }
 
     return (
-      <Provider>
-        <StepSelection>
-          <StepButton
-            onClick= { this.props.callback }
-            disabled= { this.props.disabled }
-          >
-            {this.props.label}
-          </StepButton>
-        </StepSelection>
-      </Provider>
+      <StepSelection>
+        <StepButton
+          onClick= { this.props.callback }
+          disabled= { this.props.disabled }
+        >
+          {this.props.label}
+        </StepButton>
+      </StepSelection>
     )
   }
 }

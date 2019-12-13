@@ -26,14 +26,9 @@ angularValidate.validate(
   ],
   {
     customtags: [
-      'settings'
+      'flash'
     ],
     customattrs: [
-
-      // Internal
-      'os-open-external',
-      'os-dropzone',
-      'manifest-bind',
 
       // External
       'hide-if-state',

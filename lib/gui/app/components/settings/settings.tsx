@@ -15,45 +15,21 @@
  */
 
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as _ from 'lodash';
 import * as os from 'os';
-import * as propTypes from 'prop-types';
 import * as React from 'react';
-import { Badge, Button, Checkbox, Modal, Provider } from 'rendition';
+import { Badge, Checkbox, Modal } from 'rendition';
 import styled from 'styled-components';
-import packageJSON = require('../../../../../package.json');
+
+import { version } from '../../../../../package.json';
 import * as settings from '../../models/settings';
 import * as store from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import { open as openExternal } from '../../os/open-external/services/open-external';
-import { colors } from '../../theme';
 
 const { useState } = React;
 const platform = os.platform();
-
-export const SettingsButton = () => {
-	const [hideModal, setHideModal] = useState(true);
-
-	return (
-		<Provider>
-			<Button
-				icon={<FontAwesomeIcon icon={faCog} />}
-				color={colors.secondary.background}
-				fontSize={24}
-				plain
-				onClick={() => setHideModal(false)}
-				tabIndex={5}
-			></Button>
-			{hideModal ? null : (
-				<SettingsModal toggleModal={(value: boolean) => setHideModal(!value)} />
-			)}
-		</Provider>
-	);
-};
-
-SettingsButton.propTypes = {};
 
 interface WarningModalProps {
 	message: string;
@@ -219,7 +195,7 @@ export const SettingsModal: any = styled(
 								)
 							}
 						>
-							<FontAwesomeIcon icon={faGithub} /> {packageJSON.version}
+							<FontAwesomeIcon icon={faGithub} /> {version}
 						</span>
 					</div>
 				</div>
@@ -249,7 +225,3 @@ export const SettingsModal: any = styled(
 		justify-content: center;
 	}
 `;
-
-SettingsModal.propTypes = {
-	toggleModal: propTypes.func,
-};

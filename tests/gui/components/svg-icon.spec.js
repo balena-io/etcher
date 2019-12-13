@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 resin.io
+ * Copyright 2017 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ describe('Browser: SVGIcon', function () {
       iconContents[0] = `<!--${iconContents[0].slice(1, iconContents[0].length - 1)}-->`
       iconContents = iconContents.join('\n')
 
-      const element = $compile(`<svg-icon paths="['${this.iconPath}']">Resin.io</svg-icon>`)($rootScope)
+      const element = $compile(`<svg-icon paths="['${this.iconPath}']">Balena.io</svg-icon>`)($rootScope)
       $rootScope.$digest()
 
       // We parse the SVGs to get rid of discrepancies caused by string differences
@@ -72,7 +72,7 @@ describe('Browser: SVGIcon', function () {
       iconContents[0] = `<!--${iconContents[0].slice(1, iconContents[0].length - 1)}-->`
       iconContents = iconContents.join('\n')
 
-      const element = $compile(`<svg-icon paths="['i-dont-exist', '${this.iconPath}']">Resin.io</svg-icon>`)($rootScope)
+      const element = $compile(`<svg-icon paths="['i-dont-exist', '${this.iconPath}']">Balena.io</svg-icon>`)($rootScope)
       $rootScope.$digest()
 
       // We parse the SVGs to get rid of discrepancies caused by string differences
@@ -91,7 +91,7 @@ describe('Browser: SVGIcon', function () {
       const imgData = `data:image/svg+xml,${encodeURIComponent(iconContents)}`
       $rootScope.iconContents = iconContents
 
-      const element = $compile('<svg-icon contents="[iconContents]">Resin.io</svg-icon>')($rootScope)
+      const element = $compile('<svg-icon contents="[iconContents]">Balena.io</svg-icon>')($rootScope)
       $rootScope.$digest()
       m.chai.expect(element.children().attr('src')).to.equal(imgData)
     })
@@ -101,7 +101,7 @@ describe('Browser: SVGIcon', function () {
       const imgData = `data:image/svg+xml,${encodeURIComponent(iconContents)}`
       $rootScope.iconContents = iconContents
 
-      const svg = `<svg-icon contents="[iconContents]" paths="[ '${this.iconPath}' ]">Resin.io</svg-icon>`
+      const svg = `<svg-icon contents="[iconContents]" paths="[ '${this.iconPath}' ]">Balena.io</svg-icon>`
       const element = $compile(svg)($rootScope)
       $rootScope.$digest()
       m.chai.expect(element.children().attr('src')).to.equal(imgData)
@@ -112,27 +112,27 @@ describe('Browser: SVGIcon', function () {
       const iconContents = '<svg><foreignObject></svg>'
       $rootScope.iconContents = iconContents
 
-      const element = $compile('<svg-icon contents="[iconContents]">Resin.io</svg-icon>')($rootScope)
+      const element = $compile('<svg-icon contents="[iconContents]">Balena.io</svg-icon>')($rootScope)
       $rootScope.$digest()
       m.chai.expect(element.children().attr('src')).to.be.empty
     })
 
     it('should default the size to 40x40 pixels', function () {
-      const element = $compile(`<svg-icon paths="[ '${this.iconPath}' ]">Resin.io</svg-icon>`)($rootScope)
+      const element = $compile(`<svg-icon paths="[ '${this.iconPath}' ]">Balena.io</svg-icon>`)($rootScope)
       $rootScope.$digest()
       m.chai.expect(element.children().css('width')).to.equal('40px')
       m.chai.expect(element.children().css('height')).to.equal('40px')
     })
 
     it('should be able to set a custom width', function () {
-      const element = $compile(`<svg-icon paths="[ '${this.iconPath}' ]" width="'20px'">Resin.io</svg-icon>`)($rootScope)
+      const element = $compile(`<svg-icon paths="[ '${this.iconPath}' ]" width="'20px'">Balena.io</svg-icon>`)($rootScope)
       $rootScope.$digest()
       m.chai.expect(element.children().css('width')).to.equal('20px')
       m.chai.expect(element.children().css('height')).to.equal('40px')
     })
 
     it('should be able to set a custom height', function () {
-      const element = $compile(`<svg-icon paths="[ '${this.iconPath}' ]" height="'20px'">Resin.io</svg-icon>`)($rootScope)
+      const element = $compile(`<svg-icon paths="[ '${this.iconPath}' ]" height="'20px'">Balena.io</svg-icon>`)($rootScope)
       $rootScope.$digest()
       m.chai.expect(element.children().css('width')).to.equal('40px')
       m.chai.expect(element.children().css('height')).to.equal('20px')
