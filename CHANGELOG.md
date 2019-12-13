@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.70
+## (2019-12-13)
+
+* Make header draggable again [Lorenzo Alberto Maria Ambrosi]
+* Refactor drive selector and confirm modal to React [Lorenzo Alberto Maria Ambrosi]
+* Rework lib/gui/app/styled-components to typescript [Alexis Svinartchouk]
+* Convert FlashAnother & FlashResults to typescript [Lorenzo Alberto Maria Ambrosi]
+* Use React instead of Angular for image selection [Lucian]
+* Convert the drive selection step to React [Thodoris Greasidis]
+* chore: move flash step to React [Stevche Radevski]
+* Use React instead of Angular for image selection [Lucian]
+
 # v1.5.69
 ## (2019-12-10)
 
