@@ -13,12 +13,12 @@
       "avatar": "https://avatars2.githubusercontent.com/u/180331?v=4"
     },
     {
-      "username": "jviotti",
-      "avatar": "https://avatars0.githubusercontent.com/u/2192773?v=4"
-    },
-    {
       "username": "thundron",
       "avatar": "https://avatars1.githubusercontent.com/u/5888446?v=4"
+    },
+    {
+      "username": "jviotti",
+      "avatar": "https://avatars0.githubusercontent.com/u/2192773?v=4"
     },
     {
       "username": "Shou",
@@ -37,8 +37,12 @@
       "avatar": "https://avatars3.githubusercontent.com/u/2217136?v=4"
     },
     {
-      "username": "zrzka",
-      "avatar": "https://avatars1.githubusercontent.com/u/1084172?v=4"
+      "username": "LucianBuzzo",
+      "avatar": "https://avatars0.githubusercontent.com/u/15064535?v=4"
+    },
+    {
+      "username": "sradevski",
+      "avatar": "https://avatars1.githubusercontent.com/u/4820812?v=4"
     },
     {
       "username": "dlech",
@@ -73,12 +77,12 @@
       "avatar": "https://avatars0.githubusercontent.com/u/3433256?v=4"
     },
     {
-      "username": "WasabiFan",
-      "avatar": "https://avatars0.githubusercontent.com/u/3310349?v=4"
+      "username": "thgreasi",
+      "avatar": "https://avatars0.githubusercontent.com/u/1295829?v=4"
     },
     {
-      "username": "LucianBuzzo",
-      "avatar": "https://avatars0.githubusercontent.com/u/15064535?v=4"
+      "username": "WasabiFan",
+      "avatar": "https://avatars0.githubusercontent.com/u/3310349?v=4"
     },
     {
       "username": "Lin-Buo-Ren",
@@ -115,10 +119,6 @@
     {
       "username": "imrehg",
       "avatar": "https://avatars0.githubusercontent.com/u/38863?v=4"
-    },
-    {
-      "username": "igorklopov",
-      "avatar": "https://avatars1.githubusercontent.com/u/1372431?v=4"
     }
   ],
   "docs": [
@@ -339,7 +339,7 @@
   "public": true,
   "fork": false,
   "description": "Flash OS images to SD cards & USB drives, safely and easily.",
-  "stars": 16361,
+  "stars": 16394,
   "homepage": "https://etcher.io",
   "repositoryUrl": "https://github.com/balena-io/etcher.git",
   "active": true,
@@ -357,8 +357,6 @@
     "@fortawesome/react-fontawesome",
     "angular",
     "angular-if-state",
-    "angular-moment",
-    "angular-seconds-to-date",
     "angular-ui-bootstrap",
     "angular-ui-router",
     "bindings",
@@ -381,6 +379,7 @@
     "prop-types",
     "react",
     "react-dom",
+    "react-dropzone",
     "react2angular",
     "redux",
     "rendition",
@@ -394,85 +393,85 @@
     "tmp",
     "uuid"
   ],
-  "lastCommitDate": "2019-12-10T11:35:21Z",
+  "lastCommitDate": "2019-12-13T18:27:43Z",
   "latestRelease": {
-    "tagName": "v1.5.69",
+    "tagName": "v1.5.70",
     "asssets": [
       {
-        "name": "balena-etcher-electron-1.5.69-linux-ia32.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.69/balena-etcher-electron-1.5.69-linux-ia32.zip"
+        "name": "balena-etcher-electron-1.5.70-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.70/balena-etcher-electron-1.5.70-linux-ia32.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.69-linux-x64.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.69/balena-etcher-electron-1.5.69-linux-x64.zip"
+        "name": "balena-etcher-electron-1.5.70-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.70/balena-etcher-electron-1.5.70-linux-x64.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.69.i686.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.69/balena-etcher-electron-1.5.69.i686.rpm"
+        "name": "balena-etcher-electron-1.5.70.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.70/balena-etcher-electron-1.5.70.i686.rpm"
       },
       {
-        "name": "balena-etcher-electron-1.5.69.x86_64.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.69/balena-etcher-electron-1.5.69.x86_64.rpm"
+        "name": "balena-etcher-electron-1.5.70.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.70/balena-etcher-electron-1.5.70.x86_64.rpm"
       },
       {
-        "name": "balena-etcher-electron_1.5.69_amd64.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.69/balena-etcher-electron_1.5.69_amd64.deb"
+        "name": "balena-etcher-electron_1.5.70_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.70/balena-etcher-electron_1.5.70_amd64.deb"
       },
       {
-        "name": "balena-etcher-electron_1.5.69_i386.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.69/balena-etcher-electron_1.5.69_i386.deb"
+        "name": "balena-etcher-electron_1.5.70_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.70/balena-etcher-electron_1.5.70_i386.deb"
       },
       {
-        "name": "balenaEtcher-1.5.69-ia32.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.69/balenaEtcher-1.5.69-ia32.AppImage"
+        "name": "balenaEtcher-1.5.70-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.70/balenaEtcher-1.5.70-ia32.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.69-mac.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.69/balenaEtcher-1.5.69-mac.zip"
+        "name": "balenaEtcher-1.5.70-mac.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.70/balenaEtcher-1.5.70-mac.zip"
       },
       {
-        "name": "balenaEtcher-1.5.69-x64.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.69/balenaEtcher-1.5.69-x64.AppImage"
+        "name": "balenaEtcher-1.5.70-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.70/balenaEtcher-1.5.70-x64.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.69.dmg",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.69/balenaEtcher-1.5.69.dmg"
+        "name": "balenaEtcher-1.5.70.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.70/balenaEtcher-1.5.70.dmg"
       },
       {
-        "name": "balenaEtcher-1.5.69.dmg.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.69/balenaEtcher-1.5.69.dmg.blockmap"
+        "name": "balenaEtcher-1.5.70.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.70/balenaEtcher-1.5.70.dmg.blockmap"
       },
       {
-        "name": "balenaEtcher-Portable-1.5.69.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.69/balenaEtcher-Portable-1.5.69.exe"
+        "name": "balenaEtcher-Portable-1.5.70.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.70/balenaEtcher-Portable-1.5.70.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.69.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.69/balenaEtcher-Setup-1.5.69.exe"
+        "name": "balenaEtcher-Setup-1.5.70.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.70/balenaEtcher-Setup-1.5.70.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.69.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.69/balenaEtcher-Setup-1.5.69.exe.blockmap"
+        "name": "balenaEtcher-Setup-1.5.70.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.70/balenaEtcher-Setup-1.5.70.exe.blockmap"
       },
       {
         "name": "builder-effective-config.yaml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.69/builder-effective-config.yaml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.70/builder-effective-config.yaml"
       },
       {
         "name": "latest-linux-ia32.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.69/latest-linux-ia32.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.70/latest-linux-ia32.yml"
       },
       {
         "name": "latest-linux.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.69/latest-linux.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.70/latest-linux.yml"
       },
       {
         "name": "latest-mac.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.69/latest-mac.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.70/latest-mac.yml"
       },
       {
         "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.69/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.70/latest.yml"
       }
     ]
   },
@@ -570,11 +569,15 @@
     ]
   },
   "openIssues": {
-    "numberOfIssues": 195,
+    "numberOfIssues": 193,
     "latestIssues": [
       {
-        "title": "Ubuntu Bionic 18.04 Auto update fuction never worked",
-        "url": "https://github.com/balena-io/etcher/issues/3008"
+        "title": "Works absolutely flawlessly",
+        "url": "https://github.com/balena-io/etcher/issues/3011"
+      },
+      {
+        "title": "Failed device when writing multiple SD cards at the same time",
+        "url": "https://github.com/balena-io/etcher/issues/3010"
       },
       {
         "title": "Unable to enter administrator password on the new popup prompt after selecting flash “balenaEtcher wants to make changes.”",
@@ -583,10 +586,6 @@
       {
         "title": "Enable unsafe mode window off screen",
         "url": "https://github.com/balena-io/etcher/issues/2994"
-      },
-      {
-        "title": "Remove angular",
-        "url": "https://github.com/balena-io/etcher/pull/2987"
       },
       {
         "title": "Update to README.md",
@@ -645,16 +644,16 @@
         "url": "https://github.com/balena-io/etcher/issues/2948"
       },
       {
-        "title": "Once you use etcher, you never more use your stick.",
-        "url": "https://github.com/balena-io/etcher/issues/2940"
+        "title": "Windows 10 blank window - error in console",
+        "url": "https://github.com/balena-io/etcher/issues/2936"
       },
       {
-        "title": "  Download speed VERY VERY SLOW at China!!!!!",
-        "url": "https://github.com/balena-io/etcher/issues/2938"
+        "title": "correct two nomenclature errors, redux",
+        "url": "https://github.com/balena-io/etcher/pull/2935"
       }
     ]
   },
-  "version": "1.5.69",
+  "version": "1.5.70",
   "screenshot": null,
   "logo": null
 }
