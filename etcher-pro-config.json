@@ -1,0 +1,102 @@
+{
+  "unsafeMode": false,
+  "errorReporting": true,
+  "unmountOnSuccess": true,
+  "validateWriteOnSuccess": true,
+  "trim": true,
+  "updatesEnabled": true,
+  "lastSleptUpdateNotifier": null,
+  "lastSleptUpdateNotifierVersion": null,
+  "desktopNotifications": false,
+  "fullscreen": true,
+  "driveBlacklist": [
+    "/dev/mmcblk0rpmb",
+    "/dev/mmcblk0",
+    "/dev/mmcblk0boot0",
+    "/dev/mmcblk0boot1"
+  ],
+  "disableExternalLinks": true,
+  "disableUnsafeMode": true,
+  "ledsMapping": {
+    "platform-xhci-hcd.0.auto-usb-0:1.1.1:1.0-scsi-0:0:0:0": [
+      "led1_r",
+      "led1_g",
+      "led1_b"
+    ],
+    "platform-xhci-hcd.0.auto-usb-0:1.1.2:1.0-scsi-0:0:0:0": [
+      "led2_r",
+      "led2_g",
+      "led2_b"
+    ],
+    "platform-xhci-hcd.0.auto-usb-0:1.1.3:1.0-scsi-0:0:0:0": [
+      "led3_r",
+      "led3_g",
+      "led3_b"
+    ],
+    "platform-xhci-hcd.0.auto-usb-0:1.1.4:1.0-scsi-0:0:0:0": [
+      "led4_r",
+      "led4_g",
+      "led4_b"
+    ],
+    "platform-xhci-hcd.0.auto-usb-0:1.2.1:1.0-scsi-0:0:0:0": [
+      "led5_r",
+      "led5_g",
+      "led5_b"
+    ],
+    "platform-xhci-hcd.0.auto-usb-0:1.2.2:1.0-scsi-0:0:0:0": [
+      "led6_r",
+      "led6_g",
+      "led6_b"
+    ],
+    "platform-xhci-hcd.0.auto-usb-0:1.2.3:1.0-scsi-0:0:0:0": [
+      "led7_r",
+      "led7_g",
+      "led7_b"
+    ],
+    "platform-xhci-hcd.0.auto-usb-0:1.2.4:1.0-scsi-0:0:0:0": [
+      "led8_r",
+      "led8_g",
+      "led8_b"
+    ],
+    "platform-xhci-hcd.1.auto-usb-0:1.1.1:1.0-scsi-0:0:0:0": [
+      "led9_r",
+      "led9_g",
+      "led9_b"
+    ],
+    "platform-xhci-hcd.1.auto-usb-0:1.1.2:1.0-scsi-0:0:0:0": [
+      "led10_r",
+      "led10_g",
+      "led10_b"
+    ],
+    "platform-xhci-hcd.1.auto-usb-0:1.1.3:1.0-scsi-0:0:0:0": [
+      "led11_r",
+      "led11_g",
+      "led11_b"
+    ],
+    "platform-xhci-hcd.1.auto-usb-0:1.1.4:1.0-scsi-0:0:0:0": [
+      "led12_r",
+      "led12_g",
+      "led12_b"
+    ],
+    "platform-xhci-hcd.1.auto-usb-0:1.2.1:1.0-scsi-0:0:0:0": [
+      "led13_r",
+      "led13_g",
+      "led13_b"
+    ],
+    "platform-xhci-hcd.1.auto-usb-0:1.2.2:1.0-scsi-0:0:0:0": [
+      "led14_r",
+      "led14_g",
+      "led14_b"
+    ],
+    "platform-xhci-hcd.1.auto-usb-0:1.2.3:1.0-scsi-0:0:0:0": [
+      "led15_r",
+      "led15_g",
+      "led15_b"
+    ],
+    "platform-xhci-hcd.1.auto-usb-0:1.2.4:1.0-scsi-0:0:0:0": [
+      "led16_r",
+      "led16_g",
+      "led16_b"
+    ]
+  }
+}
