@@ -30,9 +30,6 @@ COPY --from=builder /usr/src/app/build /usr/src/app/build
 COPY --from=builder /usr/src/app/lib /usr/src/app/lib
 COPY --from=builder /usr/src/app/package.json /usr/src/app/package.json
 
-# TODO: remove once we have a screen
-ENV VNC_PASSWORD=password
-
 ENV ELECTRON_ENABLE_LOGGING=1
 
 ENV UDEV=1
