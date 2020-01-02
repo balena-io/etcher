@@ -140,35 +140,6 @@ body {
   }
 }
 
-.section-footer-main {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-
-  color: $palette-theme-dark-disabled-foreground;
-  margin: 0 30px 16px 30px;
-  padding-top: 15px;
-  border-top: 2px solid $palette-theme-dark-soft-background;
-  text-align: center;
-
-  // Override default column padding
-  // set by flexboxgrid.
-  .col-xs {
-    padding: 0;
-  }
-
-  .svg-icon {
-    margin: 0 13px;
-  }
-
-  .footer-right {
-    font-size: 10px;
-    position: absolute;
-    right: 0;
-  }
-}
-
 .section-loader {
   webview {
     flex: 0 1;
