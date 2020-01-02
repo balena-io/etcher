@@ -1602,25 +1602,6 @@
       "resolved": "https://registry.npmjs.org/angular/-/angular-1.7.6.tgz",
       "integrity": "sha512-QELpvuMIe1FTGniAkRz93O6A+di0yu88niDwcdzrSqtUHNtZMgtgFS4f7W/6Gugbuwej8Kyswlmymwdp8iPCWg=="
     },
-    "angular-if-state": {
-      "version": "1.0.1",
-      "resolved": "https://registry.npmjs.org/angular-if-state/-/angular-if-state-1.0.1.tgz",
-      "integrity": "sha1-1hfphBf9rIP8GWMSvQRypxEdQSw=",
-      "requires": {
-        "angular": "^1.5.6",
-        "angular-ui-router": "^0.3.1"
-      },
-      "dependencies": {
-        "angular-ui-router": {
-          "version": "0.3.2",
-          "resolved": "https://registry.npmjs.org/angular-ui-router/-/angular-ui-router-0.3.2.tgz",
-          "integrity": "sha1-wn4EljCcmSGNVlWYWxZKCWq1IKk=",
-          "requires": {
-            "angular": "^1.0.8"
-          }
-        }
-      }
-    },
     "angular-mocks": {
       "version": "1.7.6",
       "resolved": "https://registry.npmjs.org/angular-mocks/-/angular-mocks-1.7.6.tgz",
