@@ -1608,11 +1608,6 @@
       "integrity": "sha512-t3eQmuAZczdOVdOQj7muCBwH+MBNwd+/FaAsV1SNp+597EQVWABQwxI6KXE0k0ZlyJ5JbtkNIKU8kGAj1znxhw==",
       "dev": true
     },
-    "angular-ui-bootstrap": {
-      "version": "2.5.6",
-      "resolved": "https://registry.npmjs.org/angular-ui-bootstrap/-/angular-ui-bootstrap-2.5.6.tgz",
-      "integrity": "sha512-yzcHpPMLQl0232nDzm5P4iAFTFQ9dMw0QgFLuKYbDj9M0xJ62z0oudYD/Lvh1pWfRsukiytP4Xj6BHOSrSXP8A=="
-    },
     "angular-ui-router": {
       "version": "0.4.3",
       "resolved": "https://registry.npmjs.org/angular-ui-router/-/angular-ui-router-0.4.3.tgz",
