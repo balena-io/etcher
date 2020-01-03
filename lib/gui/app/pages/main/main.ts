@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-'use strict';
-
 /**
  * This page represents the application main page.
  *
