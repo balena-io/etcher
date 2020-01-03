@@ -16,7 +16,6 @@
 
 'use strict'
 
-const _ = require('lodash')
 const m = require('mochainon')
 const utils = require('../../lib/shared/utils')
 
@@ -124,33 +123,6 @@ describe('Shared: Utils', function () {
       m.chai.expect(function () {
         utils.percentageToFloat(100.01)
       }).to.throw('Invalid percentage: 100.01')
-    })
-  })
-
-  describe('.memoize()', function () {
-    it('constant true should return memoized true', function () {
-      const memoizedConstTrue = utils.memoize(_.constant(true), _.isEqual)
-      m.chai.expect(memoizedConstTrue()).to.be.true
-    })
-
-    it('should reflect state changes', function () {
-      let stateA = false
-      const memoizedStateA = utils.memoize(() => {
-        return stateA
-      }, _.isEqual)
-
-      m.chai.expect(memoizedStateA()).to.be.false
-
-      stateA = true
-
-      m.chai.expect(memoizedStateA()).to.be.true
-    })
-
-    it('should reflect different arguments', function () {
-      const memoizedParameter = utils.memoize(_.identity, _.isEqual)
-
-      m.chai.expect(memoizedParameter(false)).to.be.false
-      m.chai.expect(memoizedParameter(true)).to.be.true
     })
   })
 })

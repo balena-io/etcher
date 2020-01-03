@@ -30,7 +30,6 @@ const analytics = require('../../modules/analytics')
 const availableDrives = require('../../models/available-drives')
 const selectionState = require('../../models/selection-state')
 const { bytesToClosestUnit } = require('../../../../shared/units')
-const utils = require('../../../../shared/utils')
 const { open: openExternal } = require('../../os/open-external/services/open-external')
 
 /**
@@ -82,19 +81,6 @@ const toggleDrive = (drive) => {
 }
 
 /**
- * @summary Memoized getDrives function
- * @function
- * @public
- *
- * @returns {Array<Object>} - memoized list of drives
- *
- * @example
- * const drives = getDrives()
- * // Do something with drives
- */
-const getDrives = utils.memoize(availableDrives.getDrives, _.isEqual)
-
-/**
  * @summary Get a drive's compatibility status object(s)
  * @function
  * @public
@@ -113,9 +99,9 @@ const getDrives = utils.memoize(availableDrives.getDrives, _.isEqual)
  *   // do something
  * }
  */
-const getDriveStatuses = utils.memoize((drive) => {
+const getDriveStatuses = (drive) => {
   return getDriveImageCompatibilityStatuses(drive, selectionState.getImage())
-}, _.isEqual)
+}
 
 /**
  * @summary Keyboard event drive toggling
@@ -143,7 +129,7 @@ const keyboardToggleDrive = (drive, evt) => {
 
 const DriveSelectorModal = ({ close }) => {
   const [ confirmModal, setConfirmModal ] = React.useState({ open: false })
-  const [ drives, setDrives ] = React.useState(getDrives())
+  const [ drives, setDrives ] = React.useState(availableDrives.getDrives())
 
   React.useEffect(() => {
     const unsubscribe = store.subscribe(() => {

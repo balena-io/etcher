@@ -19,7 +19,6 @@ import * as propTypes from 'prop-types';
 import * as React from 'react';
 import styled from 'styled-components';
 import * as driveConstraints from '../../../../shared/drive-constraints';
-import * as utils from '../../../../shared/utils';
 import * as DriveSelectorModal from '../../components/drive-selector/DriveSelectorModal.jsx';
 import * as TargetSelector from '../../components/drive-selector/target-selector.jsx';
 import * as SvgIcon from '../../components/svg-icon/svg-icon.jsx';
@@ -55,11 +54,6 @@ const getDriveListLabel = () => {
 	);
 };
 
-const getMemoizedSelectedDrives = utils.memoize(
-	selectionState.getSelectedDrives,
-	_.isEqual,
-);
-
 const shouldShowDrivesButton = () => {
 	return !settings.get('disableExplicitDriveSelection');
 };
@@ -67,7 +61,7 @@ const shouldShowDrivesButton = () => {
 const getDriveSelectionStateSlice = () => ({
 	showDrivesButton: shouldShowDrivesButton(),
 	driveListLabel: getDriveListLabel(),
-	targets: getMemoizedSelectedDrives(),
+	targets: selectionState.getSelectedDrives(),
 });
 
 export const DriveSelector = ({
