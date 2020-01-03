@@ -14,21 +14,15 @@
  * limitations under the License.
  */
 
-'use strict'
-
 /**
  * @module Etcher.Components.SafeWebview
  */
 
-const angular = require('angular')
-const { react2angular } = require('react2angular')
+import * as angular from 'angular';
+import { react2angular } from 'react2angular';
+import * as SafeWebview from './safe-webview';
 
-const MODULE_NAME = 'Etcher.Components.SafeWebview'
-const SafeWebview = angular.module(MODULE_NAME, [])
+export const MODULE_NAME = 'Etcher.Components.SafeWebview';
+const AngularSafeWebview = angular.module(MODULE_NAME, []);
 
-SafeWebview.component(
-  'safeWebview',
-  react2angular(require('./safe-webview.jsx'))
-)
-
-module.exports = MODULE_NAME
+AngularSafeWebview.component('safeWebview', react2angular(SafeWebview));
