@@ -29,15 +29,10 @@ import { react2angular } from 'react2angular';
 import MainPage from './MainPage';
 
 import { MODULE_NAME as flashAnother } from '../../components/flash-another';
-import { MODULE_NAME as flashResults } from '../../components/flash-results';
 
 export const MODULE_NAME = 'Etcher.Pages.Main';
 
-const Main = angular.module(MODULE_NAME, [
-	angularRouter,
-	flashAnother,
-	flashResults,
-]);
+const Main = angular.module(MODULE_NAME, [angularRouter, flashAnother]);
 
 Main.component('mainPage', react2angular(MainPage, [], ['$state']));
 
