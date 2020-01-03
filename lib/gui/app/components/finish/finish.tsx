@@ -29,7 +29,7 @@ import { FlashAnother } from '../flash-another/flash-another';
 import { FlashResults } from '../flash-results/flash-results';
 import * as SVGIcon from '../svg-icon/svg-icon';
 
-const restart = (options: any, $state: any) => {
+const restart = (options: any, goToMain: () => void) => {
 	const {
 		applicationSessionUuid,
 		flashingWorkflowUuid,
@@ -54,7 +54,7 @@ const restart = (options: any, $state: any) => {
 		data: uuidV4(),
 	});
 
-	$state.go('main');
+	goToMain();
 };
 
 const formattedErrors = () => {
@@ -67,7 +67,7 @@ const formattedErrors = () => {
 	return errors.join('\n');
 };
 
-function FinishPage({ $state }: any) {
+function FinishPage({ goToMain }: { goToMain: () => void }) {
 	// @ts-ignore
 	const results = flashState.getFlashResults().results || {};
 	const progressMessage = messages.progress;
@@ -82,7 +82,7 @@ function FinishPage({ $state }: any) {
 					></FlashResults>
 
 					<FlashAnother
-						onClick={(options: any) => restart(options, $state)}
+						onClick={(options: any) => restart(options, goToMain)}
 					></FlashAnother>
 				</div>
 

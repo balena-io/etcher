@@ -1,12 +1,11 @@
 'use strict'
 
+const _ = require('lodash')
 const m = require('mochainon')
 const ipc = require('node-ipc')
-const angular = require('angular')
 const Bluebird = require('bluebird')
 const flashState = require('../../../lib/gui/app/models/flash-state')
 const imageWriter = require('../../../lib/gui/app/modules/image-writer')
-require('angular-mocks')
 
 describe('Browser: imageWriter', () => {
   describe('.flash()', () => {
@@ -41,7 +40,7 @@ describe('Browser: imageWriter', () => {
         })
 
         const writing = imageWriter.flash('foo.img', [ '/dev/disk2' ])
-        imageWriter.flash('foo.img', [ '/dev/disk2' ]).catch(angular.noop)
+        imageWriter.flash('foo.img', [ '/dev/disk2' ]).catch(_.noop)
         writing.finally(() => {
           m.chai.expect(this.performWriteStub).to.have.been.calledOnce
         })
@@ -73,13 +72,13 @@ describe('Browser: imageWriter', () => {
       })
 
       it('should set flashing to false when done', () => {
-        imageWriter.flash('foo.img', [ '/dev/disk2' ]).catch(angular.noop).finally(() => {
+        imageWriter.flash('foo.img', [ '/dev/disk2' ]).catch(_.noop).finally(() => {
           m.chai.expect(flashState.isFlashing()).to.be.false
         })
       })
 
       it('should set the error code in the flash results', () => {
-        imageWriter.flash('foo.img', [ '/dev/disk2' ]).catch(angular.noop).finally(() => {
+        imageWriter.flash('foo.img', [ '/dev/disk2' ]).catch(_.noop).finally(() => {
           const flashResults = flashState.getFlashResults()
           m.chai.expect(flashResults.errorCode).to.equal('FOO')
         })

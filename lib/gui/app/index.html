@@ -6,21 +6,9 @@
     <link rel="stylesheet" type="text/css" href="../../../node_modules/flexboxgrid/dist/flexboxgrid.css">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
     <link rel="stylesheet" type="text/css" href="../css/desktop.css">
-    <link rel="stylesheet" type="text/css" href="../css/angular.css">
-    <script src="../../../generated/gui.js"></script>
   </head>
   <body>
-
-    <main ui-view></main>
-
-    <div class="section-loader"
-      ng-controller="StateController as state"
-      ng-class="{
-        isFinish: state.currentName === 'success'
-      }">
-      <safe-webview src="'https://www.balena.io/etcher/success-banner/'">
-      </safe-webview>
-    </div>
-
+    <main id="main"></main>
+    <script src="../../../generated/gui.js"></script>
   </body>
 </html>

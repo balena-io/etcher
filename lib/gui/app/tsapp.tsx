@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 balena.io
+ * Copyright 2020 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,9 @@
  * limitations under the License.
  */
 
-/**
- * @module Etcher.Pages.Finish
- */
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
-import * as angular from 'angular';
-import { react2angular } from 'react2angular';
-import FinishPage from './finish';
+import MainPage from './pages/main/MainPage';
 
-export const MODULE_NAME = 'Etcher.Pages.Finish';
-const Finish = angular.module(MODULE_NAME, []);
-
-Finish.component('finish', react2angular(FinishPage, [], ['$state']));
-
-Finish.config(($stateProvider: any) => {
-	$stateProvider.state('success', {
-		url: '/success',
-		template: '<finish style="width:100%"></finish>',
-	});
-});
+ReactDOM.render(<MainPage />, document.getElementById('main'));

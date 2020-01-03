@@ -160,15 +160,10 @@ const formatSeconds = (totalSeconds: number) => {
 	return `${minutes}m${seconds}s`;
 };
 
-export const Flash = ({
-	shouldFlashStepBeDisabled,
-	lastFlashErrorCode,
-	progressMessage,
-	goToSuccess,
-}: any) => {
+export const Flash = ({ shouldFlashStepBeDisabled, goToSuccess }: any) => {
 	const state: any = flashState.getFlashState();
 	const isFlashing = flashState.isFlashing();
-	const flashErrorCode = lastFlashErrorCode();
+	const flashErrorCode = flashState.getLastFlashErrorCode();
 
 	const [warningMessages, setWarningMessages] = React.useState<string[]>([]);
 	const [errorMessage, setErrorMessage] = React.useState('');
@@ -272,7 +267,7 @@ export const Flash = ({
 								<span className="target-status-dot"></span>
 								<span className="target-status-quantity">{state.failed}</span>
 								<span className="target-status-message">
-									{progressMessage.failed(state.failed)}{' '}
+									{messages.progress.failed(state.failed)}{' '}
 								</span>
 							</div>
 						</div>
