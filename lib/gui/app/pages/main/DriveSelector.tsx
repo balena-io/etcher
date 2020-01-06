@@ -15,7 +15,6 @@
  */
 
 import * as _ from 'lodash';
-import * as propTypes from 'prop-types';
 import * as React from 'react';
 import styled from 'styled-components';
 import * as driveConstraints from '../../../../shared/drive-constraints';
@@ -64,13 +63,21 @@ const getDriveSelectionStateSlice = () => ({
 	targets: selectionState.getSelectedDrives(),
 });
 
+interface DriveSelectorProps {
+	webviewShowing: boolean;
+	disabled: boolean;
+	nextStepDisabled: boolean;
+	hasDrive: boolean;
+	flashing: boolean;
+}
+
 export const DriveSelector = ({
 	webviewShowing,
 	disabled,
 	nextStepDisabled,
 	hasDrive,
 	flashing,
-}: any) => {
+}: DriveSelectorProps) => {
 	// TODO: inject these from redux-connector
 	const [
 		{ showDrivesButton, driveListLabel, targets },
@@ -132,12 +139,4 @@ export const DriveSelector = ({
 			)}
 		</div>
 	);
-};
-
-DriveSelector.propTypes = {
-	webviewShowing: propTypes.bool,
-	disabled: propTypes.bool,
-	nextStepDisabled: propTypes.bool,
-	hasDrive: propTypes.bool,
-	flashing: propTypes.bool,
 };
