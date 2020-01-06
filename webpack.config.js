@@ -45,7 +45,6 @@ const externalPackageJson = (packageJsonPath) => {
 const commonConfig = {
   mode: 'production',
   optimization: {
-    // Minification breaks angular.
     minimize: false
   },
   module: {

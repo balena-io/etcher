@@ -128,7 +128,6 @@ TARGETS = \
 	lint-js \
 	lint-sass \
 	lint-cpp \
-	lint-html \
 	lint-spell \
 	test-spectron \
 	test-gui \
@@ -162,9 +161,6 @@ lint-sass:
 lint-cpp:
 	cpplint --recursive src
 
-lint-html:
-	node scripts/html-lint.js
-
 lint-spell:
 	codespell \
 		--dictionary - \
@@ -172,7 +168,7 @@ lint-spell:
 		--skip *.svg *.gz,*.bz2,*.xz,*.zip,*.img,*.dmg,*.iso,*.rpi-sdcard,*.wic,.DS_Store,*.dtb,*.dtbo,*.dat,*.elf,*.bin,*.foo,xz-without-extension \
 		lib tests docs Makefile *.md LICENSE
 
-lint: lint-ts lint-js lint-sass lint-cpp lint-html lint-spell
+lint: lint-ts lint-js lint-sass lint-cpp lint-spell
 
 MOCHA_OPTIONS=--recursive --reporter spec --require ts-node/register
 
@@ -199,7 +195,6 @@ info:
 
 sanity-checks:
 	./scripts/ci/ensure-staged-sass.sh
-	./scripts/ci/ensure-npm-dependencies-compatibility.sh
 	./scripts/ci/ensure-all-file-extensions-in-gitattributes.sh
 
 clean:
