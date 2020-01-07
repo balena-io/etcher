@@ -145,7 +145,8 @@ const getProgressButtonLabel = () => {
 		return 'Flash!';
 	}
 
-	return progressStatus.fromFlashState(flashState.getFlashState());
+	// TODO: no any
+	return progressStatus.fromFlashState(flashState.getFlashState() as any);
 };
 
 const formatSeconds = (totalSeconds: number) => {

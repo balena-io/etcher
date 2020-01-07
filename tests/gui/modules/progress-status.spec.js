@@ -2,6 +2,7 @@
 
 const m = require('mochainon')
 const settings = require('../../../lib/gui/app/models/settings')
+// eslint-disable-next-line node/no-missing-require
 const progressStatus = require('../../../lib/gui/app/modules/progress-status')
 
 describe('Browser: progressStatus', function () {

@@ -17,6 +17,7 @@
 'use strict'
 
 const m = require('mochainon')
+// eslint-disable-next-line node/no-missing-require
 const windowProgress = require('../../../lib/gui/app/os/window-progress')
 
 describe('Browser: WindowProgress', function () {
