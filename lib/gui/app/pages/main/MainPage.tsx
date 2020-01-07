@@ -34,7 +34,7 @@ import * as store from '../../models/store';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 import { ThemedProvider } from '../../styled-components';
 import { colors } from '../../theme';
-import * as middleEllipsis from '../../utils/middle-ellipsis';
+import { middleEllipsis } from '../../utils/middle-ellipsis';
 
 import { bytesToClosestUnit } from '../../../../shared/units';
 

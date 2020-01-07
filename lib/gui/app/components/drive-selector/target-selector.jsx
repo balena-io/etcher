@@ -29,7 +29,7 @@ const {
   StepNameButton
 } = require('./../../styled-components')
 const { Txt } = require('rendition')
-const middleEllipsis = require('./../../utils/middle-ellipsis')
+const { middleEllipsis } = require('./../../utils/middle-ellipsis')
 const { bytesToClosestUnit } = require('./../../../../shared/units')
 
 const TargetDetail = styled((props) => (

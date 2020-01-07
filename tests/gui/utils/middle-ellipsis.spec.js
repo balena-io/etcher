@@ -18,8 +18,8 @@
 'use strict'
 
 const m = require('mochainon')
-const middleEllipsis = require('../../../lib/gui/app/utils/middle-ellipsis')
-console.log(middleEllipsis)
+// eslint-disable-next-line node/no-missing-require
+const { middleEllipsis } = require('../../../lib/gui/app/utils/middle-ellipsis')
 
 describe('Browser: MiddleEllipsis', function () {
   describe('.middleEllipsis()', function () {

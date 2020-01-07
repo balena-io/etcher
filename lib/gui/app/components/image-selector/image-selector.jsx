@@ -45,7 +45,7 @@ const {
 const {
   Modal
 } = require('rendition')
-const middleEllipsis = require('../../utils/middle-ellipsis')
+const { middleEllipsis } = require('../../utils/middle-ellipsis')
 const SVGIcon = require('../svg-icon/svg-icon.jsx')
 const { default: styled } = require('styled-components')
 
