@@ -22,6 +22,7 @@ const m = require('mochainon')
 const { env } = require('process')
 const { promisify } = require('util')
 
+// eslint-disable-next-line node/no-missing-require
 const wnd = require('../../../lib/gui/app/os/windows-network-drives')
 
 const readFileAsync = promisify(readFile)

@@ -1193,9 +1193,9 @@
       "dev": true
     },
     "@types/node": {
-      "version": "6.14.9",
-      "resolved": "https://registry.npmjs.org/@types/node/-/node-6.14.9.tgz",
-      "integrity": "sha512-leP/gxHunuazPdZaCvsCefPQxinqUDsCxCR5xaDUrY2MkYxQRFZZwU5e7GojyYsGB7QVtCi7iVEl/hoFXQYc+w=="
+      "version": "12.12.24",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-12.12.24.tgz",
+      "integrity": "sha512-1Ciqv9pqwVtW6FsIUKSZNB82E5Cu1I2bBTj1xuIHXLe/1zYLl3956Nbhg2MzSYHVfl9/rmanjbQIb7LibfCnug=="
     },
     "@types/normalize-package-data": {
       "version": "2.4.0",
@@ -6054,6 +6054,13 @@
         "unzip-stream": "^0.3.0",
         "xxhash": "^0.3.0",
         "yauzl": "^2.9.2"
+      },
+      "dependencies": {
+        "@types/node": {
+          "version": "6.14.9",
+          "resolved": "https://registry.npmjs.org/@types/node/-/node-6.14.9.tgz",
+          "integrity": "sha512-leP/gxHunuazPdZaCvsCefPQxinqUDsCxCR5xaDUrY2MkYxQRFZZwU5e7GojyYsGB7QVtCi7iVEl/hoFXQYc+w=="
+        }
       }
     },
     "event-emitter": {
@@ -10037,6 +10044,13 @@
         "@types/node": "^6.0.112",
         "@types/usb": "^1.5.1",
         "debug": "^3.1.0"
+      },
+      "dependencies": {
+        "@types/node": {
+          "version": "6.14.9",
+          "resolved": "https://registry.npmjs.org/@types/node/-/node-6.14.9.tgz",
+          "integrity": "sha512-leP/gxHunuazPdZaCvsCefPQxinqUDsCxCR5xaDUrY2MkYxQRFZZwU5e7GojyYsGB7QVtCi7iVEl/hoFXQYc+w=="
+        }
       }
     },
     "node-releases": {
