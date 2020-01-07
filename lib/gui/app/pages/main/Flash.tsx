@@ -93,14 +93,15 @@ const flashImageToDrive = async (goToSuccess: () => void) => {
 		await imageWriter.flash(image.path, drives);
 		if (!flashState.wasLastFlashCancelled()) {
 			const flashResults: any = flashState.getFlashResults();
-			notification.send('Flash complete!', {
-				body: messages.info.flashComplete(
+			notification.send(
+				'Flash complete!',
+				messages.info.flashComplete(
 					basename,
 					drives as any,
 					flashResults.results.devices,
 				),
-				icon: iconPath,
-			});
+				iconPath,
+			);
 			goToSuccess();
 		}
 	} catch (error) {
@@ -109,10 +110,11 @@ const flashImageToDrive = async (goToSuccess: () => void) => {
 			return '';
 		}
 
-		notification.send('Oops! Looks like the flash failed.', {
-			body: messages.error.flashFailure(path.basename(image.path), drives),
-			icon: iconPath,
-		});
+		notification.send(
+			'Oops! Looks like the flash failed.',
+			messages.error.flashFailure(path.basename(image.path), drives),
+			iconPath,
+		);
 
 		let errorMessage = getErrorMessageFromCode(error.code);
 		if (!errorMessage) {
