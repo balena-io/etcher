@@ -23,7 +23,7 @@ import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
 import * as store from '../../models/store';
 import * as analytics from '../../modules/analytics';
-import * as updateLock from '../../modules/update-lock';
+import { updateLock } from '../../modules/update-lock';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 import { FlashAnother } from '../flash-another/flash-another';
 import { FlashResults } from '../flash-results/flash-results';
