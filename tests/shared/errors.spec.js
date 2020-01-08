@@ -18,6 +18,7 @@
 
 const m = require('mochainon')
 const _ = require('lodash')
+// eslint-disable-next-line node/no-missing-require
 const errors = require('../../lib/shared/errors')
 
 describe('Shared: Errors', function () {
