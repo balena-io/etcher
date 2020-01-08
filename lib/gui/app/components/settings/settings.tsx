@@ -23,6 +23,7 @@ import { Badge, Checkbox, Modal } from 'rendition';
 import styled from 'styled-components';
 
 import { version } from '../../../../../package.json';
+import { Dictionary } from '../../../../shared/utils';
 import * as settings from '../../models/settings';
 import * as store from '../../models/store';
 import * as analytics from '../../modules/analytics';
@@ -116,10 +117,6 @@ const settingsList: Setting[] = [
 
 interface SettingsModalProps {
 	toggleModal: (value: boolean) => void;
-}
-
-interface Dictionary<T> {
-	[key: string]: T;
 }
 
 export const SettingsModal: any = styled(

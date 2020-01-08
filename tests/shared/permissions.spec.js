@@ -20,6 +20,7 @@
 
 const m = require('mochainon')
 const os = require('os')
+// eslint-disable-next-line node/no-missing-require
 const permissions = require('../../lib/shared/permissions')
 
 describe('Shared: permissions', function () {

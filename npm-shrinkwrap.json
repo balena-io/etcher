@@ -1092,6 +1092,12 @@
         "defer-to-connect": "^1.0.1"
       }
     },
+    "@types/bindings": {
+      "version": "1.3.0",
+      "resolved": "https://registry.npmjs.org/@types/bindings/-/bindings-1.3.0.tgz",
+      "integrity": "sha512-mTWOE6wC64MoEpv33otJNpQob81l5Pi+NsUkdiiP8EkESraQM94zuus/2s/Vz2Idy1qQkctNINYDZ61nfG1ngQ==",
+      "dev": true
+    },
     "@types/bluebird": {
       "version": "3.5.28",
       "resolved": "https://registry.npmjs.org/@types/bluebird/-/bluebird-3.5.28.tgz",
@@ -1316,6 +1322,12 @@
       "requires": {
         "@types/htmlparser2": "*"
       }
+    },
+    "@types/semver": {
+      "version": "6.2.0",
+      "resolved": "https://registry.npmjs.org/@types/semver/-/semver-6.2.0.tgz",
+      "integrity": "sha512-1OzrNb4RuAzIT7wHSsgZRlMBlNsJl+do6UblR7JMW4oB7bbR+uBEYtUh7gEc/jM84GGilh68lSOokyM/zNUlBA==",
+      "dev": true
     },
     "@types/styled-components": {
       "version": "4.1.8",

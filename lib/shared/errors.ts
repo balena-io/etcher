@@ -198,7 +198,7 @@ export function createError(options: {
 export function createUserError(options: {
 	title: string;
 	description: string;
-	code: string;
+	code?: string;
 }): Error {
 	return createError({
 		title: options.title,

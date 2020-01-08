@@ -24,6 +24,10 @@ import * as errors from './errors';
 
 const getAsync = promisify(request.get);
 
+export interface Dictionary<T> {
+	[key: string]: T;
+}
+
 export function isValidPercentage(percentage: any): boolean {
 	return _.every([_.isNumber(percentage), percentage >= 0, percentage <= 100]);
 }
