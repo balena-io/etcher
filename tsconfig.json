@@ -10,11 +10,11 @@
     "module": "commonjs",
     "target": "es2017",
     "jsx": "react",
+    "typeRoots": ["./node_modules/@types", "./typings"],
     "allowSyntheticDefaultImports": true
   },
   "include": [
     "lib/**/*.ts",
-    "node_modules/electron/**/*.d.ts",
-    "typings/**/*.d.ts"
+    "node_modules/electron/**/*.d.ts"
   ]
 }
