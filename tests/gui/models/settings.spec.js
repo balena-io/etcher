@@ -20,6 +20,7 @@ const m = require('mochainon')
 const _ = require('lodash')
 const Bluebird = require('bluebird')
 const settings = require('../../../lib/gui/app/models/settings')
+// eslint-disable-next-line node/no-missing-require
 const localSettings = require('../../../lib/gui/app/models/local-settings')
 
 describe('Browser: settings', function () {
