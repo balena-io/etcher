@@ -14,27 +14,16 @@
  * limitations under the License.
  */
 
-'use strict'
-
-const _ = require('lodash')
-const analytics = require('../modules/analytics')
-const osDialog = require('../os/dialog')
+import { logException } from '../modules/analytics';
+import { showError } from '../os/dialog';
 
 /**
  * @summary Report an exception
- * @function
- * @public
- *
- * @param {Error} exception - exception
- *
- * @example
- * exceptionReporter.report(new Error('Something happened'));
  */
-exports.report = (exception) => {
-  if (_.isUndefined(exception)) {
-    return
-  }
-
-  osDialog.showError(exception)
-  analytics.logException(exception)
+export function report(exception?: Error) {
+	if (exception === undefined) {
+		return;
+	}
+	showError(exception);
+	logException(exception);
 }
