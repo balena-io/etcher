@@ -160,9 +160,9 @@ export function getDescription(
  */
 export function createError(options: {
 	title: string;
-	description: string;
-	report: boolean;
-	code: string;
+	description?: string;
+	report?: boolean;
+	code?: string;
 }): Error & { description?: string; report?: boolean; code?: string } {
 	if (isBlank(options.title)) {
 		throw new Error(`Invalid error title: ${options.title}`);

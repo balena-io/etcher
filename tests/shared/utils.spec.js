@@ -17,6 +17,7 @@
 'use strict'
 
 const m = require('mochainon')
+// eslint-disable-next-line node/no-missing-require
 const utils = require('../../lib/shared/utils')
 
 describe('Shared: Utils', function () {
