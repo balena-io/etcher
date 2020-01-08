@@ -19,6 +19,7 @@
 const m = require('mochainon')
 const _ = require('lodash')
 const path = require('path')
+// eslint-disable-next-line node/no-missing-require
 const constraints = require('../../lib/shared/drive-constraints')
 // eslint-disable-next-line node/no-missing-require
 const messages = require('../../lib/shared/messages')

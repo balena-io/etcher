@@ -54,7 +54,7 @@ export const compatibility = {
 		return 'Not Recommended';
 	},
 
-	tooSmall(additionalSpace: number) {
+	tooSmall(additionalSpace: string) {
 		return `Insufficient space, additional ${additionalSpace} required`;
 	},
 

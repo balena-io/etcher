@@ -20,6 +20,7 @@ const m = require('mochainon')
 const path = require('path')
 const availableDrives = require('../../../lib/gui/app/models/available-drives')
 const selectionState = require('../../../lib/gui/app/models/selection-state')
+// eslint-disable-next-line node/no-missing-require
 const constraints = require('../../../lib/shared/drive-constraints')
 
 describe('Model: availableDrives', function () {
