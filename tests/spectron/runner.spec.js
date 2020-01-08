@@ -19,6 +19,7 @@
 const Bluebird = require('bluebird')
 const spectron = require('spectron')
 const m = require('mochainon')
+// eslint-disable-next-line node/no-missing-require
 const EXIT_CODES = require('../../lib/shared/exit-codes')
 const entrypoint = process.env.ETCHER_SPECTRON_ENTRYPOINT
 
