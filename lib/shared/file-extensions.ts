@@ -14,63 +14,50 @@
  * limitations under the License.
  */
 
-'use strict'
-
-const mime = require('mime-types')
-const _ = require('lodash')
+import * as _ from 'lodash';
+import { lookup } from 'mime-types';
 
 /**
  * @summary Get the extensions of a file
- * @function
- * @public
- *
- * @param {String} filePath - file path
- * @returns {String[]} extensions
  *
  * @example
  * const extensions = fileExtensions.getFileExtensions('path/to/foo.img.gz');
  * console.log(extensions);
  * > [ 'img', 'gz' ]
  */
-exports.getFileExtensions = _.memoize((filePath) => {
-  return _.chain(filePath)
-    .split('.')
-    .tail()
-    .map(_.toLower)
-    .value()
-})
+export function getFileExtensions(filePath: string): string[] {
+	return _.chain(filePath)
+		.split('.')
+		.tail()
+		.map(_.toLower)
+		.value();
+}
 
 /**
  * @summary Get the last file extension
- * @function
- * @public
- *
- * @param {String} filePath - file path
- * @returns {(String|Null)} last extension
  *
  * @example
  * const extension = fileExtensions.getLastFileExtension('path/to/foo.img.gz');
  * console.log(extension);
  * > 'gz'
  */
-exports.getLastFileExtension = (filePath) => {
-  return _.last(exports.getFileExtensions(filePath)) || null
+export function getLastFileExtension(filePath: string): string | null {
+	return _.last(getFileExtensions(filePath)) || null;
 }
 
 /**
  * @summary Get the penultimate file extension
- * @function
- * @public
- *
- * @param {String} filePath - file path
- * @returns {(String|Null)} penultimate extension
  *
  * @example
  * const extension = fileExtensions.getPenultimateFileExtension('path/to/foo.img.gz');
  * console.log(extension);
  * > 'img'
  */
-exports.getPenultimateFileExtension = (filePath) => {
-  const ext = _.last(_.initial(exports.getFileExtensions(filePath)))
-  return !_.isNil(ext) && mime.lookup(ext) ? ext : null
+export function getPenultimateFileExtension(filePath: string): string | null {
+	const extensions = getFileExtensions(filePath);
+	if (extensions.length >= 2) {
+		const ext = extensions[extensions.length - 2];
+		return lookup(ext) ? ext : null;
+	}
+	return null;
 }

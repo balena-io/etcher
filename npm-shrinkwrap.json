@@ -1186,6 +1186,12 @@
       "resolved": "https://registry.npmjs.org/@types/marked/-/marked-0.3.0.tgz",
       "integrity": "sha512-CSf9YWJdX1DkTNu9zcNtdCcn6hkRtB5ILjbhRId4ZOQqx30fXmdecuaXhugQL6eyrhuXtaHJ7PHI+Vm7k9ZJjg=="
     },
+    "@types/mime-types": {
+      "version": "2.1.0",
+      "resolved": "https://registry.npmjs.org/@types/mime-types/-/mime-types-2.1.0.tgz",
+      "integrity": "sha1-nKUs2jY/aZxpRmwqbM2q2RPqenM=",
+      "dev": true
+    },
     "@types/minimatch": {
       "version": "3.0.3",
       "resolved": "https://registry.npmjs.org/@types/minimatch/-/minimatch-3.0.3.tgz",

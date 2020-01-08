@@ -18,6 +18,7 @@
 
 const m = require('mochainon')
 const _ = require('lodash')
+// eslint-disable-next-line node/no-missing-require
 const fileExtensions = require('../../lib/shared/file-extensions')
 
 describe('Shared: fileExtensions', function () {
