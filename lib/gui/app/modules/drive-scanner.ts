@@ -14,41 +14,33 @@
  * limitations under the License.
  */
 
-'use strict'
+import * as sdk from 'etcher-sdk';
+import { geteuid, platform } from 'process';
 
-const sdk = require('etcher-sdk')
-const process = require('process')
-
-const settings = require('../models/settings')
+import * as settings from '../models/settings';
 
 /**
  * @summary returns true if system drives should be shown
- * @function
- *
- * @returns {Boolean}
- *
- * @example
- * const shouldInclude = includeSystemDrives()
  */
-const includeSystemDrives = () => {
-  return settings.get('unsafeMode') && !settings.get('disableUnsafeMode')
+function includeSystemDrives() {
+	return settings.get('unsafeMode') && !settings.get('disableUnsafeMode');
 }
 
-const adapters = [
-  new sdk.scanner.adapters.BlockDeviceAdapter(includeSystemDrives)
-]
+const adapters: sdk.scanner.adapters.Adapter[] = [
+	new sdk.scanner.adapters.BlockDeviceAdapter(includeSystemDrives),
+];
 
 // Can't use permissions.isElevated() here as it returns a promise and we need to set
 // module.exports = scanner right now.
-// eslint-disable-next-line no-magic-numbers
-if ((process.platform !== 'linux') || (process.geteuid() === 0)) {
-  adapters.push(new sdk.scanner.adapters.UsbbootDeviceAdapter())
+if (platform !== 'linux' || geteuid() === 0) {
+	adapters.push(new sdk.scanner.adapters.UsbbootDeviceAdapter());
 }
 
-if (process.platform === 'win32') {
-  adapters.push(new sdk.scanner.adapters.DriverlessDeviceAdapter())
+if (
+	platform === 'win32' &&
+	sdk.scanner.adapters.DriverlessDeviceAdapter !== undefined
+) {
+	adapters.push(new sdk.scanner.adapters.DriverlessDeviceAdapter());
 }
 
-const scanner = new sdk.scanner.Scanner(adapters)
-
-module.exports = scanner
+export const scanner = new sdk.scanner.Scanner(adapters);

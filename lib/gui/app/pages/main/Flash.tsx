@@ -28,7 +28,7 @@ import * as flashState from '../../models/flash-state';
 import * as selection from '../../models/selection-state';
 import * as store from '../../models/store';
 import * as analytics from '../../modules/analytics';
-import * as driveScanner from '../../modules/drive-scanner';
+import { scanner as driveScanner } from '../../modules/drive-scanner';
 import * as imageWriter from '../../modules/image-writer';
 import * as progressStatus from '../../modules/progress-status';
 import * as notification from '../../os/notification';
