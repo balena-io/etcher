@@ -1,6 +1,7 @@
 'use strict'
 
 const m = require('mochainon')
+// eslint-disable-next-line node/no-missing-require
 const settings = require('../../../lib/gui/app/models/settings')
 // eslint-disable-next-line node/no-missing-require
 const progressStatus = require('../../../lib/gui/app/modules/progress-status')
