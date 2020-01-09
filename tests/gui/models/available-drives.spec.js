@@ -20,6 +20,7 @@ const m = require('mochainon')
 const path = require('path')
 // eslint-disable-next-line node/no-missing-require
 const availableDrives = require('../../../lib/gui/app/models/available-drives')
+// eslint-disable-next-line node/no-missing-require
 const selectionState = require('../../../lib/gui/app/models/selection-state')
 // eslint-disable-next-line node/no-missing-require
 const constraints = require('../../../lib/shared/drive-constraints')
@@ -140,7 +141,7 @@ describe('Model: availableDrives', function () {
             ])
 
             m.chai.expect(selectionState.hasDrive()).to.be.true
-            m.chai.expect(selectionState.getCurrentDrive().device).to.equal('/dev/sdb')
+            m.chai.expect(selectionState.getSelectedDevices()[0]).to.equal('/dev/sdb')
           })
         })
 
@@ -211,16 +212,7 @@ describe('Model: availableDrives', function () {
               }
             ])
 
-            m.chai.expect(selectionState.getCurrentDrive()).to.deep.equal({
-              device: '/dev/sdb',
-              name: 'Foo',
-              size: 2000000000,
-              mountpoints: [ {
-                path: '/mnt/foo'
-              } ],
-              isSystem: false,
-              isReadOnly: false
-            })
+            m.chai.expect(selectionState.getSelectedDevices()[0]).to.equal('/dev/sdb')
           })
 
           it('should not auto-select a single too small drive', function () {

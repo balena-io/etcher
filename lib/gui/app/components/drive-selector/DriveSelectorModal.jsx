@@ -71,7 +71,7 @@ const toggleDrive = (drive) => {
   if (canChangeDriveSelectionState) {
     analytics.logEvent('Toggle drive', {
       drive,
-      previouslySelected: selectionState.isCurrentDrive(availableDrives.device),
+      previouslySelected: selectionState.isDriveSelected(availableDrives.device),
       applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
       flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid
     })
