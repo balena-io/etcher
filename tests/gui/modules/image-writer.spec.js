@@ -4,6 +4,7 @@ const _ = require('lodash')
 const m = require('mochainon')
 const ipc = require('node-ipc')
 const Bluebird = require('bluebird')
+// eslint-disable-next-line node/no-missing-require
 const flashState = require('../../../lib/gui/app/models/flash-state')
 const imageWriter = require('../../../lib/gui/app/modules/image-writer')
 

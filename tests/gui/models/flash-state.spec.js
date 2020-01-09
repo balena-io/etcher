@@ -17,6 +17,7 @@
 'use strict'
 
 const m = require('mochainon')
+// eslint-disable-next-line node/no-missing-require
 const flashState = require('../../../lib/gui/app/models/flash-state')
 
 describe('Model: flashState', function () {
