@@ -19,6 +19,7 @@
 const m = require('mochainon')
 const _ = require('lodash')
 const path = require('path')
+// eslint-disable-next-line node/no-missing-require
 const availableDrives = require('../../../lib/gui/app/models/available-drives')
 const selectionState = require('../../../lib/gui/app/models/selection-state')
 
