@@ -28,7 +28,7 @@ const messages = require('../../../../shared/messages')
 const supportedFormats = require('../../../../shared/supported-formats')
 const shared = require('../../../../shared/units')
 const selectionState = require('../../models/selection-state')
-const store = require('../../models/store')
+const { observe, store } = require('../../models/store')
 const analytics = require('../../modules/analytics')
 const exceptionReporter = require('../../modules/exception-reporter')
 const osDialog = require('../../os/dialog')
@@ -108,7 +108,7 @@ class ImageSelector extends React.Component {
   }
 
   componentDidMount () {
-    this.unsubscribe = store.observe(() => {
+    this.unsubscribe = observe(() => {
       this.setState(getState())
     })
   }

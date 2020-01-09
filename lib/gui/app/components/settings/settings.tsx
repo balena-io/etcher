@@ -25,7 +25,7 @@ import styled from 'styled-components';
 import { version } from '../../../../../package.json';
 import { Dictionary } from '../../../../shared/utils';
 import * as settings from '../../models/settings';
-import * as store from '../../models/store';
+import { store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 

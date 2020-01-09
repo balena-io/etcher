@@ -21,7 +21,7 @@ import * as uuidV4 from 'uuid/v4';
 import * as messages from '../../../../shared/messages';
 import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
-import * as store from '../../models/store';
+import { store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import { updateLock } from '../../modules/update-lock';
 import { open as openExternal } from '../../os/open-external/services/open-external';
@@ -33,7 +33,6 @@ const restart = (options: any, goToMain: () => void) => {
 	const {
 		applicationSessionUuid,
 		flashingWorkflowUuid,
-		// @ts-ignore
 	} = store.getState().toJS();
 	if (!options.preserveImage) {
 		selectionState.deselectImage();

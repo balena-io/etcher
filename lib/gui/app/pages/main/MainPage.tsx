@@ -30,7 +30,7 @@ import * as SvgIcon from '../../components/svg-icon/svg-icon.jsx';
 import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
 import * as settings from '../../models/settings';
-import * as store from '../../models/store';
+import { observe } from '../../models/store';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 import { ThemedProvider } from '../../styled-components';
 import { colors } from '../../theme';
@@ -109,7 +109,7 @@ export class MainPage extends React.Component<
 	}
 
 	public componentDidMount() {
-		(store as any).observe(() => {
+		observe(() => {
 			this.setState(this.stateHelper());
 		});
 	}

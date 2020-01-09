@@ -26,7 +26,7 @@ import * as SvgIcon from '../../components/svg-icon/svg-icon.jsx';
 import * as availableDrives from '../../models/available-drives';
 import * as flashState from '../../models/flash-state';
 import * as selection from '../../models/selection-state';
-import * as store from '../../models/store';
+import { store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import { scanner as driveScanner } from '../../modules/drive-scanner';
 import * as imageWriter from '../../modules/image-writer';
@@ -190,10 +190,8 @@ export const Flash = ({ shouldFlashStepBeDisabled, goToSuccess }: any) => {
 		flashState.resetState();
 		if (shouldRetry) {
 			analytics.logEvent('Restart after failure', {
-				applicationSessionUuid: (store as any).getState().toJS()
-					.applicationSessionUuid,
-				flashingWorkflowUuid: (store as any).getState().toJS()
-					.flashingWorkflowUuid,
+				applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
+				flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
 			});
 		} else {
 			selection.clear();

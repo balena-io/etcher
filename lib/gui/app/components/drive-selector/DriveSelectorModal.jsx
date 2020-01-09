@@ -25,7 +25,7 @@ const {
   hasListDriveImageCompatibilityStatus,
   COMPATIBILITY_STATUS_TYPES
 } = require('../../../../shared/drive-constraints')
-const store = require('../../models/store')
+const { store } = require('../../models/store')
 const analytics = require('../../modules/analytics')
 const availableDrives = require('../../models/available-drives')
 const selectionState = require('../../models/selection-state')

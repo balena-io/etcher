@@ -23,7 +23,7 @@ import * as TargetSelector from '../../components/drive-selector/target-selector
 import * as SvgIcon from '../../components/svg-icon/svg-icon.jsx';
 import * as selectionState from '../../models/selection-state';
 import * as settings from '../../models/settings';
-import * as store from '../../models/store';
+import { observe, store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 
 const StepBorder = styled.div<{
@@ -88,7 +88,7 @@ export const DriveSelector = ({
 	);
 
 	React.useEffect(() => {
-		return (store as any).observe(() => {
+		return observe(() => {
 			setStateSlice(getDriveSelectionStateSlice());
 		});
 	}, []);
@@ -119,9 +119,9 @@ export const DriveSelector = ({
 					}}
 					reselectDrive={() => {
 						analytics.logEvent('Reselect drive', {
-							applicationSessionUuid: (store as any).getState().toJS()
+							applicationSessionUuid: store.getState().toJS()
 								.applicationSessionUuid,
-							flashingWorkflowUuid: (store as any).getState().toJS()
+							flashingWorkflowUuid: store.getState().toJS()
 								.flashingWorkflowUuid,
 						});
 						setShowDriveSelectorModal(true);

@@ -23,7 +23,7 @@ const electron = require('electron')
 const react = require('react')
 const propTypes = require('prop-types')
 const analytics = require('../../modules/analytics')
-const store = require('../../models/store')
+const { store } = require('../../models/store')
 const settings = require('../../models/settings')
 const packageJSON = require('../../../../../package.json')
 
