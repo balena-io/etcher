@@ -1215,6 +1215,15 @@
       "resolved": "https://registry.npmjs.org/@types/node/-/node-12.12.24.tgz",
       "integrity": "sha512-1Ciqv9pqwVtW6FsIUKSZNB82E5Cu1I2bBTj1xuIHXLe/1zYLl3956Nbhg2MzSYHVfl9/rmanjbQIb7LibfCnug=="
     },
+    "@types/node-ipc": {
+      "version": "9.1.2",
+      "resolved": "https://registry.npmjs.org/@types/node-ipc/-/node-ipc-9.1.2.tgz",
+      "integrity": "sha512-140YlGizUg2Dbbmypc97RZ2iaWOEdcwec6QPJ9C5AWy8H/Hus6co4MeEF2lRPmOTBY3GJu+Xaxyr4FfyE6Hjew==",
+      "dev": true,
+      "requires": {
+        "@types/node": "*"
+      }
+    },
     "@types/normalize-package-data": {
       "version": "2.4.0",
       "resolved": "https://registry.npmjs.org/@types/normalize-package-data/-/normalize-package-data-2.4.0.tgz",
