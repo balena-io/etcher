@@ -27,7 +27,7 @@ import { updateLock } from '../../modules/update-lock';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 import { FlashAnother } from '../flash-another/flash-another';
 import { FlashResults } from '../flash-results/flash-results';
-import * as SVGIcon from '../svg-icon/svg-icon';
+import { SVGIcon } from '../svg-icon/svg-icon';
 
 const restart = (options: any, goToMain: () => void) => {
 	const {

@@ -22,7 +22,7 @@ import * as constraints from '../../../../shared/drive-constraints';
 import * as messages from '../../../../shared/messages';
 import * as DriveSelectorModal from '../../components/drive-selector/DriveSelectorModal.jsx';
 import * as ProgressButton from '../../components/progress-button/progress-button.jsx';
-import * as SvgIcon from '../../components/svg-icon/svg-icon.jsx';
+import { SVGIcon } from '../../components/svg-icon/svg-icon';
 import * as availableDrives from '../../models/available-drives';
 import * as flashState from '../../models/flash-state';
 import * as selection from '../../models/selection-state';
@@ -222,7 +222,7 @@ export const Flash = ({ shouldFlashStepBeDisabled, goToSuccess }: any) => {
 		<React.Fragment>
 			<div className="box text-center">
 				<div className="center-block">
-					<SvgIcon
+					<SVGIcon
 						paths={['../../assets/flash.svg']}
 						disabled={shouldFlashStepBeDisabled}
 					/>

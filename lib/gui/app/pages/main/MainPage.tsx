@@ -26,7 +26,7 @@ import * as ImageSelector from '../../components/image-selector/image-selector';
 import * as ReducedFlashingInfos from '../../components/reduced-flashing-infos/reduced-flashing-infos';
 import * as SafeWebview from '../../components/safe-webview/safe-webview';
 import { SettingsModal } from '../../components/settings/settings';
-import * as SvgIcon from '../../components/svg-icon/svg-icon.jsx';
+import { SVGIcon } from '../../components/svg-icon/svg-icon';
 import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
 import * as settings from '../../models/settings';
@@ -139,11 +139,11 @@ export class MainPage extends React.Component<
 							}
 							tabIndex={100}
 						>
-							<SvgIcon
+							<SVGIcon
 								paths={['../../assets/etcher.svg']}
 								width="123px"
 								height="22px"
-							></SvgIcon>
+							/>
 						</span>
 
 						<span

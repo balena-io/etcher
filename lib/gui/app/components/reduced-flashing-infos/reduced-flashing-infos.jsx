@@ -20,7 +20,8 @@ const React = require('react')
 const propTypes = require('prop-types')
 const styled = require('styled-components').default
 const { color } = require('styled-system')
-const SvgIcon = require('../svg-icon/svg-icon.jsx')
+
+const { SVGIcon } = require('../svg-icon/svg-icon')
 
 const Div = styled.div `
   position: absolute;
@@ -57,13 +58,13 @@ const ReducedFlashingInfos = (props) => {
   return (props.shouldShow) ? (
     <Div>
       <Span className="step-name">
-        <SvgIcon disabled contents={[ props.imageLogo ]} paths={[ '../../assets/image.svg' ]} width='20px'></SvgIcon>
+        <SVGIcon disabled contents={[ props.imageLogo ]} paths={[ '../../assets/image.svg' ]} width='20px'></SVGIcon>
         <Span>{ props.imageName }</Span>
         <Span color='#7e8085'>{ props.imageSize }</Span>
       </Span>
 
       <Span className="step-name">
-        <SvgIcon disabled paths={[ '../../assets/drive.svg' ]} width='20px'></SvgIcon>
+        <SVGIcon disabled paths={[ '../../assets/drive.svg' ]} width='20px'></SVGIcon>
         <Span>{ props.driveTitle }</Span>
       </Span>
     </Div>

@@ -20,7 +20,7 @@ import styled from 'styled-components';
 import * as driveConstraints from '../../../../shared/drive-constraints';
 import * as DriveSelectorModal from '../../components/drive-selector/DriveSelectorModal.jsx';
 import * as TargetSelector from '../../components/drive-selector/target-selector.jsx';
-import * as SvgIcon from '../../components/svg-icon/svg-icon.jsx';
+import { SVGIcon } from '../../components/svg-icon/svg-icon';
 import * as selectionState from '../../models/selection-state';
 import * as settings from '../../models/settings';
 import { observe, store } from '../../models/store';
@@ -105,7 +105,7 @@ export const DriveSelector = ({
 			)}
 
 			<div className="center-block">
-				<SvgIcon paths={['../../assets/drive.svg']} disabled={disabled} />
+				<SVGIcon paths={['../../assets/drive.svg']} disabled={disabled} />
 			</div>
 
 			<div className="space-vertical-large">

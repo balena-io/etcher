@@ -46,7 +46,7 @@ const {
   Modal
 } = require('rendition')
 const { middleEllipsis } = require('../../utils/middle-ellipsis')
-const SVGIcon = require('../svg-icon/svg-icon.jsx')
+const { SVGIcon } = require('../svg-icon/svg-icon')
 const { default: styled } = require('styled-components')
 
 // TODO move these styles to rendition
