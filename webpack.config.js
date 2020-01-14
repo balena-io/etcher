@@ -102,7 +102,7 @@ const guiConfig = {
     externalPackageJson('../../../package.json')
   ],
   entry: {
-    gui: path.join(__dirname, 'lib', 'gui', 'app', 'app.js')
+    gui: path.join(__dirname, 'lib', 'gui', 'app', 'app.ts')
   },
   devtool: 'source-map'
 }
