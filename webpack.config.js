@@ -121,7 +121,7 @@ const etcherConfig = {
     externalPackageJson('../package.json')
   ],
   entry: {
-    etcher: path.join(__dirname, 'lib', 'start.js')
+    etcher: path.join(__dirname, 'lib', 'start.ts')
   }
 }
 

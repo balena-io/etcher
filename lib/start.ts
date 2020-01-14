@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-'use strict'
-
 // See http://electron.atom.io/docs/v0.37.7/api/environment-variables/#electronrunasnode
 //
 // Notice that if running electron with `ELECTRON_RUN_AS_NODE`, the binary
@@ -24,9 +22,7 @@
 // or the entry point file (this file) manually as an argument.
 
 if (process.env.ELECTRON_RUN_AS_NODE) {
-  // eslint-disable-next-line node/no-missing-require
-  require('./gui/modules/child-writer')
+	import('./gui/modules/child-writer');
 } else {
-  // eslint-disable-next-line node/no-missing-require
-  require('./gui/etcher')
+	import('./gui/etcher');
 }
