@@ -16,9 +16,31 @@
 
 'use strict'
 
+const _ = require('lodash')
 const path = require('path')
 const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
+
+/**
+ * Don't webpack package.json as mixpanel & sentry tokens
+ * will be inserted in it after webpacking
+ *
+ * @param {*} packageJsonPath - Path for the package.json file
+ * @returns {void}
+ *
+ * @example webpack externals:
+ * [
+ *   externalPackageJson('./package.json')
+ * ]
+ */
+const externalPackageJson = (packageJsonPath) => {
+  return (_context, request, callback) => {
+    if (_.endsWith(request, 'package.json')) {
+      return callback(null, `commonjs ${packageJsonPath}`)
+    }
+    return callback()
+  }
+}
 
 const commonConfig = {
   mode: 'production',
@@ -61,9 +83,6 @@ const commonConfig = {
       format: process.env.WEBPACK_PROGRESS || 'verbose'
     })
   ],
-  externals: [
-    nodeExternals()
-  ],
   output: {
     path: path.join(__dirname, 'generated'),
     filename: '[name].js'
@@ -77,6 +96,12 @@ const guiConfig = {
     __dirname: true,
     __filename: true
   },
+  externals: [
+    nodeExternals(),
+
+    // '../../../package.json' because we are in 'lib/gui/app/index.html'
+    externalPackageJson('../../../package.json')
+  ],
   entry: {
     gui: path.join(__dirname, 'lib', 'gui', 'app', 'app.js')
   },
@@ -90,6 +115,12 @@ const etcherConfig = {
     __dirname: false,
     __filename: true
   },
+  externals: [
+    nodeExternals(),
+
+    // '../package.json' because we are in 'generated/etcher.js'
+    externalPackageJson('../package.json')
+  ],
   entry: {
     etcher: path.join(__dirname, 'lib', 'start.js')
   }

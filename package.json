@@ -85,7 +85,7 @@
     "redux": "^3.5.2",
     "rendition": "^11.24.0",
     "request": "^2.81.0",
-    "resin-corvus": "^2.0.3",
+    "resin-corvus": "^2.0.5",
     "roboto-fontface": "^0.9.0",
     "semver": "^5.1.1",
     "styled-components": "^4.2.0",

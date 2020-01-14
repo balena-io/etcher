@@ -5254,11 +5254,6 @@
         }
       }
     },
-    "electron-is-running-in-asar": {
-      "version": "1.0.0",
-      "resolved": "https://registry.npmjs.org/electron-is-running-in-asar/-/electron-is-running-in-asar-1.0.0.tgz",
-      "integrity": "sha1-9ufRapejP+R99S4/lUazcBfx+so="
-    },
     "electron-mocha": {
       "version": "8.1.2",
       "resolved": "https://registry.npmjs.org/electron-mocha/-/electron-mocha-8.1.2.tgz",
@@ -12142,20 +12137,19 @@
       }
     },
     "resin-corvus": {
-      "version": "2.0.3",
-      "resolved": "https://registry.npmjs.org/resin-corvus/-/resin-corvus-2.0.3.tgz",
-      "integrity": "sha512-EEjZR7EV9KGVDm5conVTmkc6erl6Wzsy/74bAZb0uucRqlRl8NF5TSSFcDLZtEOytzKvJsNmJBNnYsesblMi+g==",
+      "version": "2.0.5",
+      "resolved": "https://registry.npmjs.org/resin-corvus/-/resin-corvus-2.0.5.tgz",
+      "integrity": "sha512-MBoe+22RcF/4wVLsWdDSoJQ9iZOHBzS0WAuX38Gz3Eli49bgRKHh6oLPrdyW6hj5Lnh3nMlKVAMkKolxKIeQtw==",
       "requires": {
         "arch": "^2.1.0",
         "deep-map-keys": "^1.2.0",
         "detect-process": "^1.0.4",
-        "electron-is-running-in-asar": "^1.0.0",
         "flat": "^4.0.0",
         "json-cycle": "^1.3.0",
         "lodash": "^4.17.4",
         "lodash-deep": "^2.0.0",
         "mixpanel": "^0.10.1",
-        "mixpanel-browser": "^2.11.0",
+        "mixpanel-browser": "2.30.1",
         "os-locale": "^2.0.0",
         "raven": "^2.2.1",
         "raven-js": "^3.19.1"
