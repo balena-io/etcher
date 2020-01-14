@@ -16,6 +16,7 @@
 
 import { faCog, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as _ from 'lodash';
 import * as path from 'path';
 import * as React from 'react';
 import { Button } from 'rendition';
@@ -23,7 +24,7 @@ import { Button } from 'rendition';
 import { FeaturedProject } from '../../components/featured-project/featured-project';
 import FinishPage from '../../components/finish/finish';
 import * as ImageSelector from '../../components/image-selector/image-selector';
-import * as ReducedFlashingInfos from '../../components/reduced-flashing-infos/reduced-flashing-infos';
+import { ReducedFlashingInfos } from '../../components/reduced-flashing-infos/reduced-flashing-infos';
 import * as SafeWebview from '../../components/safe-webview/safe-webview';
 import { SettingsModal } from '../../components/settings/settings';
 import { SVGIcon } from '../../components/svg-icon/svg-icon';
@@ -226,7 +227,11 @@ export class MainPage extends React.Component<
 							<ReducedFlashingInfos
 								imageLogo={this.state.imageLogo}
 								imageName={middleEllipsis(this.state.imageName, 16)}
-								imageSize={bytesToClosestUnit(this.state.imageSize)}
+								imageSize={
+									_.isNumber(this.state.imageSize)
+										? (bytesToClosestUnit(this.state.imageSize) as string)
+										: ''
+								}
 								driveTitle={middleEllipsis(this.state.driveTitle, 16)}
 								shouldShow={
 									this.state.isFlashing && this.state.isWebviewShowing
