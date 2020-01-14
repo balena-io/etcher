@@ -20,7 +20,7 @@ import * as path from 'path';
 import * as React from 'react';
 import { Button } from 'rendition';
 
-import * as FeaturedProject from '../../components/featured-project/featured-project';
+import { FeaturedProject } from '../../components/featured-project/featured-project';
 import FinishPage from '../../components/finish/finish';
 import * as ImageSelector from '../../components/image-selector/image-selector';
 import * as ReducedFlashingInfos from '../../components/reduced-flashing-infos/reduced-flashing-infos';
