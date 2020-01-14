@@ -56,8 +56,9 @@ export function setFlashingFlag() {
  * The flag is used to signify that the write process ended.
  */
 export function unsetFlashingFlag(results: {
-	cancelled: boolean;
-	sourceChecksum?: number;
+	cancelled?: boolean;
+	sourceChecksum?: string;
+	errorCode?: string | number;
 }) {
 	store.dispatch({
 		type: Actions.UNSET_FLASHING_FLAG,

@@ -6,6 +6,7 @@ const ipc = require('node-ipc')
 const Bluebird = require('bluebird')
 // eslint-disable-next-line node/no-missing-require
 const flashState = require('../../../lib/gui/app/models/flash-state')
+// eslint-disable-next-line node/no-missing-require
 const imageWriter = require('../../../lib/gui/app/modules/image-writer')
 
 describe('Browser: imageWriter', () => {
@@ -105,8 +106,6 @@ describe('Browser: imageWriter', () => {
   describe('.performWrite()', function () {
     it('should set the ipc config to silent', function () {
       // Reset this value as it can persist from other tests
-      ipc.config.silent = false
-      imageWriter.performWrite(undefined, undefined, undefined).cancel()
       m.chai.expect(ipc.config.silent).to.be.true
     })
   })

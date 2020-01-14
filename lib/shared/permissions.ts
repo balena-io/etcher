@@ -143,7 +143,10 @@ async function elevateScriptCatalina(
 
 export async function elevateCommand(
 	command: string[],
-	options: { environment: Dictionary<string>; applicationName: string },
+	options: {
+		environment: Dictionary<string | undefined>;
+		applicationName: string;
+	},
 ): Promise<{ cancelled: boolean }> {
 	if (await exports.isElevated()) {
 		await execFileAsync(command[0], command.slice(1), {
