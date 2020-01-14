@@ -30,7 +30,7 @@ import * as settings from './settings';
  * @summary Verify and throw if any state fields are nil
  */
 function verifyNoNilFields(
-	object: utils.Dictionary<any>,
+	object: _.Dictionary<any>,
 	fields: string[],
 	name: string,
 ) {

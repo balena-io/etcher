@@ -26,7 +26,7 @@ import { promisify } from 'util';
 
 import { sudo as catalinaSudo } from './catalina-sudo/sudo';
 import * as errors from './errors';
-import { Dictionary, tmpFileDisposer } from './utils';
+import { tmpFileDisposer } from './utils';
 
 const execAsync = promisify(childProcess.exec);
 const execFileAsync = promisify(childProcess.execFile);
@@ -88,7 +88,7 @@ function setEnvVarCmd(value: any, name: string): string {
 export function createLaunchScript(
 	command: string,
 	argv: string[],
-	environment: Dictionary<string>,
+	environment: _.Dictionary<string>,
 ): string {
 	const isWindows = os.platform() === 'win32';
 	const lines = [];
@@ -144,7 +144,7 @@ async function elevateScriptCatalina(
 export async function elevateCommand(
 	command: string[],
 	options: {
-		environment: Dictionary<string | undefined>;
+		environment: _.Dictionary<string | undefined>;
 		applicationName: string;
 	},
 ): Promise<{ cancelled: boolean }> {

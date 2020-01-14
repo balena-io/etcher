@@ -23,7 +23,6 @@ import { Badge, Checkbox, Modal } from 'rendition';
 import styled from 'styled-components';
 
 import { version } from '../../../../../package.json';
-import { Dictionary } from '../../../../shared/utils';
 import * as settings from '../../models/settings';
 import { store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
@@ -122,8 +121,8 @@ interface SettingsModalProps {
 export const SettingsModal: any = styled(
 	({ toggleModal }: SettingsModalProps) => {
 		const [currentSettings, setCurrentSettings]: [
-			Dictionary<any>,
-			React.Dispatch<React.SetStateAction<Dictionary<any>>>,
+			_.Dictionary<any>,
+			React.Dispatch<React.SetStateAction<_.Dictionary<any>>>,
 		] = useState(settings.getAll());
 		const [warning, setWarning]: [
 			any,

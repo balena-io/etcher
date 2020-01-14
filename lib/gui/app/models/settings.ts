@@ -19,12 +19,11 @@ import * as _ from 'lodash';
 
 import * as packageJSON from '../../../../package.json';
 import * as errors from '../../../shared/errors';
-import { Dictionary } from '../../../shared/utils';
 import * as localSettings from './local-settings';
 
 const debug = _debug('etcher:models:settings');
 
-const DEFAULT_SETTINGS: Dictionary<any> = {
+const DEFAULT_SETTINGS: _.Dictionary<any> = {
 	unsafeMode: false,
 	errorReporting: true,
 	unmountOnSuccess: true,
@@ -53,7 +52,7 @@ export async function reset(): Promise<void> {
 /**
  * @summary Extend the current settings
  */
-export async function assign(value: Dictionary<any>): Promise<void> {
+export async function assign(value: _.Dictionary<any>): Promise<void> {
 	debug('assign', value);
 	if (_.isNil(value)) {
 		throw errors.createError({
