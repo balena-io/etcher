@@ -78,7 +78,6 @@ const flashImageToDrive = async (goToSuccess: () => void) => {
 		return _.includes(devices, drive.device);
 	});
 
-	// eslint-disable-next-line no-magic-numbers
 	if (drives.length === 0 || flashState.isFlashing()) {
 		return '';
 	}
@@ -155,9 +154,7 @@ const formatSeconds = (totalSeconds: number) => {
 	if (!totalSeconds && !_.isNumber(totalSeconds)) {
 		return '';
 	}
-	// eslint-disable-next-line no-magic-numbers
 	const minutes = Math.floor(totalSeconds / 60);
-	// eslint-disable-next-line no-magic-numbers
 	const seconds = Math.floor(totalSeconds - minutes * 60);
 
 	return `${minutes}m${seconds}s`;
@@ -205,7 +202,6 @@ export const Flash = ({ shouldFlashStepBeDisabled, goToSuccess }: any) => {
 			return _.includes(devices, drive.device);
 		});
 
-		// eslint-disable-next-line no-magic-numbers
 		if (drives.length === 0 || flashState.isFlashing()) {
 			return;
 		}
@@ -276,7 +272,6 @@ export const Flash = ({ shouldFlashStepBeDisabled, goToSuccess }: any) => {
 				</div>
 			</div>
 
-			{/* eslint-disable-next-line no-magic-numbers */}
 			{warningMessages && warningMessages.length > 0 && (
 				<Modal
 					width={400}
