@@ -17,7 +17,7 @@
 import * as _ from 'lodash';
 import * as React from 'react';
 import styled from 'styled-components';
-import * as DriveSelectorModal from '../../components/drive-selector/DriveSelectorModal.jsx';
+import { DriveSelectorModal } from '../../components/drive-selector/DriveSelectorModal';
 import { TargetSelector } from '../../components/drive-selector/target-selector';
 import { SVGIcon } from '../../components/svg-icon/svg-icon';
 import { getImage, getSelectedDrives } from '../../models/selection-state';

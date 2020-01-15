@@ -29,6 +29,6 @@ export function setDrives(drives: any[]) {
 	});
 }
 
-export function getDrives() {
+export function getDrives(): any[] {
 	return store.getState().toJS().availableDrives;
 }
