@@ -98,10 +98,10 @@ export const DriveSelector = ({
 	return (
 		<div className="box text-center relative">
 			{showStepConnectingLines && (
-				<React.Fragment>
+				<>
 					<StepBorder disabled={disabled} left />
 					<StepBorder disabled={nextStepDisabled} right />
-				</React.Fragment>
+				</>
 			)}
 
 			<div className="center-block">

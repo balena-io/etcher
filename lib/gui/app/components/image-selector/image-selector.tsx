@@ -321,7 +321,7 @@ export class ImageSelector extends React.Component<
 		const imageSize = selectionState.getImageSize();
 
 		return (
-			<React.Fragment>
+			<>
 				<div className="box text-center relative">
 					<Dropzone multiple={false} onDrop={this.handleOnDrop}>
 						{({ getRootProps, getInputProps }) => (
@@ -337,7 +337,7 @@ export class ImageSelector extends React.Component<
 
 					<div className="space-vertical-large">
 						{hasImage ? (
-							<React.Fragment>
+							<>
 								<StepNameButton
 									plain
 									onClick={this.showSelectedImageDetails}
@@ -353,7 +353,7 @@ export class ImageSelector extends React.Component<
 								<DetailsText>
 									{shared.bytesToClosestUnit(imageSize)}
 								</DetailsText>
-							</React.Fragment>
+							</>
 						) : (
 							<StepSelection>
 								<StepButton onClick={this.openImageSelector}>
@@ -407,7 +407,7 @@ export class ImageSelector extends React.Component<
 						{selectionState.getImagePath()}
 					</Modal>
 				)}
-			</React.Fragment>
+			</>
 		);
 	}
 }

@@ -219,7 +219,7 @@ export const Flash = ({ shouldFlashStepBeDisabled, goToSuccess }: any) => {
 	};
 
 	return (
-		<React.Fragment>
+		<>
 			<div className="box text-center">
 				<div className="center-block">
 					<SVGIcon
@@ -308,6 +308,6 @@ export const Flash = ({ shouldFlashStepBeDisabled, goToSuccess }: any) => {
 					close={() => setShowDriveSelectorModal(false)}
 				></DriveSelectorModal>
 			)}
-		</React.Fragment>
+		</>
 	);
 };
