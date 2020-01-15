@@ -23,7 +23,7 @@ import { Button } from 'rendition';
 
 import { FeaturedProject } from '../../components/featured-project/featured-project';
 import FinishPage from '../../components/finish/finish';
-import * as ImageSelector from '../../components/image-selector/image-selector';
+import { ImageSelector } from '../../components/image-selector/image-selector';
 import { ReducedFlashingInfos } from '../../components/reduced-flashing-infos/reduced-flashing-infos';
 import { SafeWebview } from '../../components/safe-webview/safe-webview';
 import { SettingsModal } from '../../components/settings/settings';

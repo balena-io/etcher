@@ -26,7 +26,7 @@ import * as supportedFormats from '../../../shared/supported-formats';
  * @description
  * Notice that by image, we mean *.img/*.iso/*.zip/etc files.
  */
-export function selectImage() {
+export function selectImage(): Promise<string> {
 	return new Promise(resolve => {
 		electron.remote.dialog.showOpenDialog(
 			electron.remote.getCurrentWindow(),
