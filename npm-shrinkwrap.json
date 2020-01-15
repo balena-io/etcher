@@ -1356,6 +1356,12 @@
       "integrity": "sha512-1OzrNb4RuAzIT7wHSsgZRlMBlNsJl+do6UblR7JMW4oB7bbR+uBEYtUh7gEc/jM84GGilh68lSOokyM/zNUlBA==",
       "dev": true
     },
+    "@types/sinon": {
+      "version": "7.5.1",
+      "resolved": "https://registry.npmjs.org/@types/sinon/-/sinon-7.5.1.tgz",
+      "integrity": "sha512-EZQUP3hSZQyTQRfiLqelC9NMWd1kqLcmQE0dMiklxBkgi84T+cHOhnKpgk4NnOWpGX863yE6+IaGnOXUNFqDnQ==",
+      "dev": true
+    },
     "@types/source-list-map": {
       "version": "0.1.2",
       "resolved": "https://registry.npmjs.org/@types/source-list-map/-/source-list-map-0.1.2.tgz",
