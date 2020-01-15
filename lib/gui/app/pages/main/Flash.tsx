@@ -21,7 +21,7 @@ import { Modal, Txt } from 'rendition';
 import * as constraints from '../../../../shared/drive-constraints';
 import * as messages from '../../../../shared/messages';
 import * as DriveSelectorModal from '../../components/drive-selector/DriveSelectorModal.jsx';
-import * as ProgressButton from '../../components/progress-button/progress-button.jsx';
+import { ProgressButton } from '../../components/progress-button/progress-button';
 import { SVGIcon } from '../../components/svg-icon/svg-icon';
 import * as availableDrives from '../../models/available-drives';
 import * as flashState from '../../models/flash-state';
@@ -230,7 +230,6 @@ export const Flash = ({ shouldFlashStepBeDisabled, goToSuccess }: any) => {
 
 				<div className="space-vertical-large">
 					<ProgressButton
-						tabindex="3"
 						striped={state.type === 'verifying'}
 						active={isFlashing}
 						percentage={state.percentage}
