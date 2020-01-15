@@ -150,10 +150,10 @@ sass:
 	node-sass lib/gui/app/scss/main.scss > lib/gui/css/main.css
 
 lint-ts:
-	resin-lint --typescript lib
+	resin-lint --typescript lib webpack.config.ts
 
 lint-js:
-	eslint --ignore-pattern scripts/resin/**/*.js lib tests scripts bin webpack.config.js
+	eslint --ignore-pattern scripts/resin/**/*.js tests scripts
 
 lint-sass:
 	sass-lint lib/gui/scss
