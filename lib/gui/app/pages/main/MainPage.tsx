@@ -25,7 +25,7 @@ import { FeaturedProject } from '../../components/featured-project/featured-proj
 import FinishPage from '../../components/finish/finish';
 import * as ImageSelector from '../../components/image-selector/image-selector';
 import { ReducedFlashingInfos } from '../../components/reduced-flashing-infos/reduced-flashing-infos';
-import * as SafeWebview from '../../components/safe-webview/safe-webview';
+import { SafeWebview } from '../../components/safe-webview/safe-webview';
 import { SettingsModal } from '../../components/settings/settings';
 import { SVGIcon } from '../../components/svg-icon/svg-icon';
 import * as flashState from '../../models/flash-state';

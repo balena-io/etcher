@@ -18,7 +18,7 @@ import * as React from 'react';
 
 import * as settings from '../../models/settings';
 import * as analytics from '../../modules/analytics';
-import * as SafeWebview from '../safe-webview/safe-webview.jsx';
+import { SafeWebview } from '../safe-webview/safe-webview';
 
 interface FeaturedProjectProps {
 	onWebviewShow: (isWebviewShowing: boolean) => void;
