@@ -88,7 +88,7 @@ function setEnvVarCmd(value: any, name: string): string {
 export function createLaunchScript(
 	command: string,
 	argv: string[],
-	environment: _.Dictionary<string>,
+	environment: _.Dictionary<string | undefined>,
 ): string {
 	const isWindows = os.platform() === 'win32';
 	const lines = [];
@@ -148,14 +148,14 @@ export async function elevateCommand(
 		applicationName: string;
 	},
 ): Promise<{ cancelled: boolean }> {
-	if (await exports.isElevated()) {
+	if (await isElevated()) {
 		await execFileAsync(command[0], command.slice(1), {
 			env: options.environment,
 		});
 		return { cancelled: false };
 	}
 	const isWindows = os.platform() === 'win32';
-	const launchScript = exports.createLaunchScript(
+	const launchScript = createLaunchScript(
 		command[0],
 		command.slice(1),
 		options.environment,

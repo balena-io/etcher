@@ -115,15 +115,15 @@ export function getFlashState() {
 }
 
 export function wasLastFlashCancelled() {
-	return _.get(exports.getFlashResults(), ['cancelled'], false);
+	return _.get(getFlashResults(), ['cancelled'], false);
 }
 
 export function getLastFlashSourceChecksum(): string {
-	return exports.getFlashResults().sourceChecksum;
+	return getFlashResults().sourceChecksum;
 }
 
 export function getLastFlashErrorCode() {
-	return exports.getFlashResults().errorCode;
+	return getFlashResults().errorCode;
 }
 
 export function getFlashUuid() {

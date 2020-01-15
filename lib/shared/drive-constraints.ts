@@ -175,47 +175,47 @@ export function getDriveImageCompatibilityStatuses(
 	const statusList = [];
 
 	// Mind the order of the if-statements if you modify.
-	if (exports.isSourceDrive(drive, image)) {
+	if (isSourceDrive(drive, image)) {
 		statusList.push({
-			type: exports.COMPATIBILITY_STATUS_TYPES.ERROR,
+			type: COMPATIBILITY_STATUS_TYPES.ERROR,
 			message: messages.compatibility.containsImage(),
 		});
-	} else if (exports.isDriveLocked(drive)) {
+	} else if (isDriveLocked(drive)) {
 		statusList.push({
-			type: exports.COMPATIBILITY_STATUS_TYPES.ERROR,
+			type: COMPATIBILITY_STATUS_TYPES.ERROR,
 			message: messages.compatibility.locked(),
 		});
 	} else if (
 		!_.isNil(drive) &&
 		!_.isNil(drive.size) &&
-		!exports.isDriveLargeEnough(drive, image)
+		!isDriveLargeEnough(drive, image)
 	) {
 		const imageSize = (image.isSizeEstimated
 			? image.compressedSize
 			: image.size) as number;
 		const relativeBytes = imageSize - drive.size;
 		statusList.push({
-			type: exports.COMPATIBILITY_STATUS_TYPES.ERROR,
+			type: COMPATIBILITY_STATUS_TYPES.ERROR,
 			message: messages.compatibility.tooSmall(prettyBytes(relativeBytes)),
 		});
 	} else {
-		if (exports.isSystemDrive(drive)) {
+		if (isSystemDrive(drive)) {
 			statusList.push({
-				type: exports.COMPATIBILITY_STATUS_TYPES.WARNING,
+				type: COMPATIBILITY_STATUS_TYPES.WARNING,
 				message: messages.compatibility.system(),
 			});
 		}
 
-		if (exports.isDriveSizeLarge(drive)) {
+		if (isDriveSizeLarge(drive)) {
 			statusList.push({
-				type: exports.COMPATIBILITY_STATUS_TYPES.WARNING,
+				type: COMPATIBILITY_STATUS_TYPES.WARNING,
 				message: messages.compatibility.largeDrive(),
 			});
 		}
 
-		if (!_.isNil(drive) && !exports.isDriveSizeRecommended(drive, image)) {
+		if (!_.isNil(drive) && !isDriveSizeRecommended(drive, image)) {
 			statusList.push({
-				type: exports.COMPATIBILITY_STATUS_TYPES.WARNING,
+				type: COMPATIBILITY_STATUS_TYPES.WARNING,
 				message: messages.compatibility.sizeNotRecommended(),
 			});
 		}
@@ -274,7 +274,5 @@ export function hasListDriveImageCompatibilityStatus(
 	drives: DrivelistDrive[],
 	image: Image,
 ) {
-	return Boolean(
-		exports.getListDriveImageCompatibilityStatuses(drives, image).length,
-	);
+	return Boolean(getListDriveImageCompatibilityStatuses(drives, image).length);
 }
