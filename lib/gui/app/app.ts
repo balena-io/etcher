@@ -277,7 +277,7 @@ driveScanner.start();
 
 let popupExists = false;
 
-window.addEventListener('beforeunload', event => {
+window.addEventListener('beforeunload', async event => {
 	if (!flashState.isFlashing() || popupExists) {
 		analytics.logEvent('Close application', {
 			isFlashing: flashState.isFlashing(),
@@ -297,33 +297,33 @@ window.addEventListener('beforeunload', event => {
 		flashingWorkflowUuid,
 	});
 
-	osDialog
-		.showWarning({
+	try {
+		const confirmed = await osDialog.showWarning({
 			confirmationLabel: 'Yes, quit',
 			rejectionLabel: 'Cancel',
 			title: 'Are you sure you want to close Etcher?',
 			description: messages.warning.exitWhileFlashing(),
-		})
-		.then(confirmed => {
-			if (confirmed) {
-				analytics.logEvent('Close confirmed while flashing', {
-					flashInstanceUuid: flashState.getFlashUuid(),
-					applicationSessionUuid,
-					flashingWorkflowUuid,
-				});
-
-				// This circumvents the 'beforeunload' event unlike
-				// electron.remote.app.quit() which does not.
-				electron.remote.process.exit(EXIT_CODES.SUCCESS);
-			}
-
-			analytics.logEvent('Close rejected while flashing', {
+		});
+		if (confirmed) {
+			analytics.logEvent('Close confirmed while flashing', {
+				flashInstanceUuid: flashState.getFlashUuid(),
 				applicationSessionUuid,
 				flashingWorkflowUuid,
 			});
-			popupExists = false;
-		})
-		.catch(exceptionReporter.report);
+
+			// This circumvents the 'beforeunload' event unlike
+			// electron.remote.app.quit() which does not.
+			electron.remote.process.exit(EXIT_CODES.SUCCESS);
+		}
+
+		analytics.logEvent('Close rejected while flashing', {
+			applicationSessionUuid,
+			flashingWorkflowUuid,
+		});
+		popupExists = false;
+	} catch (error) {
+		exceptionReporter.report(error);
+	}
 });
 
 function extendLock() {

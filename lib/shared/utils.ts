@@ -58,11 +58,9 @@ export async function getConfig(configUrl: string): Promise<any> {
  * @summary returns { path: String, cleanup: Function }
  *
  * @example
- * tmpFileAsync()
- *   .then({ path, cleanup } => {
- *     console.log(path)
- *     cleanup()
- *   });
+ * const {path, cleanup } = await tmpFileAsync()
+ * console.log(path)
+ * cleanup()
  */
 function tmpFileAsync(
 	options: tmp.FileOptions,
