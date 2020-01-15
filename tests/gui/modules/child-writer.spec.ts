@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-'use strict'
+import { expect } from 'chai';
+import * as ipc from 'node-ipc';
 
-const m = require('mochainon')
-const ipc = require('node-ipc')
-// eslint-disable-next-line node/no-missing-require
-require('../../../lib/gui/modules/child-writer')
+import('../../../lib/gui/modules/child-writer');
 
-describe('Browser: childWriter', function () {
-  it('should have the ipc config set to silent', function () {
-    m.chai.expect(ipc.config.silent).to.be.true
-  })
-})
+describe('Browser: childWriter', function() {
+	it('should have the ipc config set to silent', function() {
+		expect(ipc.config.silent).to.be.true;
+	});
+});
