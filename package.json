@@ -20,7 +20,7 @@
   },
   "scripts": {
     "test": "make lint test sanity-checks",
-    "prettier": "prettier --config ./node_modules/resin-lint/config/.prettierrc --write \"lib/**/*.ts\" \"lib/**/*.tsx\" \"webpack.config.ts\"",
+    "prettier": "prettier --config ./node_modules/resin-lint/config/.prettierrc --write \"lib/**/*.ts\" \"lib/**/*.tsx\" \"tests/**/*.ts\" \"webpack.config.ts\"",
     "start": "./node_modules/.bin/electron .",
     "postshrinkwrap": "node ./scripts/clean-shrinkwrap.js",
     "configure": "node-gyp configure",
@@ -94,7 +94,9 @@
     "@babel/preset-env": "^7.6.0",
     "@babel/preset-react": "^7.0.0",
     "@types/bindings": "^1.3.0",
+    "@types/chai": "^4.2.7",
     "@types/mime-types": "^2.1.0",
+    "@types/mocha": "^5.2.7",
     "@types/node": "^12.12.24",
     "@types/node-ipc": "^9.1.2",
     "@types/react-dom": "^16.8.4",

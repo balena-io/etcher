@@ -1116,6 +1116,12 @@
       "integrity": "sha512-6ckxMjBBD8URvjB6J3NcnuAn5Pkl7t3TizAg+xdlzzQGSPSmBcXf8KoIH0ua/i+tio+ZRUHEXp0HEmvaR4kt0w==",
       "dev": true
     },
+    "@types/chai": {
+      "version": "4.2.7",
+      "resolved": "https://registry.npmjs.org/@types/chai/-/chai-4.2.7.tgz",
+      "integrity": "sha512-luq8meHGYwvky0O7u0eQZdA7B4Wd9owUCqvbw2m3XCrCU8mplYOujMBbvyS547AxJkC+pGnd0Cm15eNxEUNU8g==",
+      "dev": true
+    },
     "@types/color": {
       "version": "3.0.0",
       "resolved": "https://registry.npmjs.org/@types/color/-/color-3.0.0.tgz",
@@ -1214,6 +1220,12 @@
       "version": "3.0.3",
       "resolved": "https://registry.npmjs.org/@types/minimatch/-/minimatch-3.0.3.tgz",
       "integrity": "sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==",
+      "dev": true
+    },
+    "@types/mocha": {
+      "version": "5.2.7",
+      "resolved": "https://registry.npmjs.org/@types/mocha/-/mocha-5.2.7.tgz",
+      "integrity": "sha512-NYrtPht0wGzhwe9+/idPaBB+TqkY9AhTvOLMkThm0IoEfLaiVQZwBwyJ5puCkO3AUCWrmcoePjp2mbFocKy4SQ==",
       "dev": true
     },
     "@types/node": {
