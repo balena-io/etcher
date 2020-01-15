@@ -43,6 +43,14 @@ export function isSystemDrive(drive: DrivelistDrive): boolean {
 	return Boolean(_.get(drive, ['isSystem'], false));
 }
 
+export interface Image {
+	path: string;
+	isSizeEstimated?: boolean;
+	compressedSize?: number;
+	recommendedDriveSize?: number;
+	size?: number;
+}
+
 /**
  * @summary Check if a drive is source drive
  *
@@ -50,10 +58,7 @@ export function isSystemDrive(drive: DrivelistDrive): boolean {
  * In the context of Etcher, a source drive is a drive
  * containing the image.
  */
-export function isSourceDrive(
-	drive: DrivelistDrive,
-	image: { path: string },
-): boolean {
+export function isSourceDrive(drive: DrivelistDrive, image: Image): boolean {
 	const mountpoints = _.get(drive, ['mountpoints'], []);
 	const imagePath = _.get(image, ['path']);
 
@@ -73,7 +78,7 @@ export function isSourceDrive(
  */
 export function isDriveLargeEnough(
 	drive: DrivelistDrive | undefined,
-	image: { compressedSize?: number; size?: number },
+	image: Image,
 ): boolean {
 	const driveSize = _.get(drive, 'size') || UNKNOWN_SIZE;
 
@@ -106,10 +111,7 @@ export function isDriveDisabled(drive: DrivelistDrive): boolean {
 /**
  * @summary Check if a drive is valid, i.e. not locked and large enough for an image
  */
-export function isDriveValid(
-	drive: DrivelistDrive,
-	image: { compressedSize?: number; size?: number; path: string },
-): boolean {
+export function isDriveValid(drive: DrivelistDrive, image: Image): boolean {
 	return (
 		!isDriveLocked(drive) &&
 		isDriveLargeEnough(drive, image) &&
@@ -126,7 +128,7 @@ export function isDriveValid(
  */
 export function isDriveSizeRecommended(
 	drive: DrivelistDrive | undefined,
-	image: { recommendedDriveSize?: number },
+	image: Image,
 ): boolean {
 	const driveSize = _.get(drive, 'size') || UNKNOWN_SIZE;
 	return driveSize >= _.get(image, ['recommendedDriveSize'], UNKNOWN_SIZE);
@@ -168,7 +170,7 @@ export const COMPATIBILITY_STATUS_TYPES = {
  */
 export function getDriveImageCompatibilityStatuses(
 	drive: DrivelistDrive,
-	image: { isSizeEstimated?: boolean; compressedSize?: number; size?: number },
+	image: Image,
 ) {
 	const statusList = [];
 
@@ -231,7 +233,7 @@ export function getDriveImageCompatibilityStatuses(
  */
 export function getListDriveImageCompatibilityStatuses(
 	drives: DrivelistDrive[],
-	image: { isSizeEstimated?: boolean; compressedSize?: number; size?: number },
+	image: Image,
 ) {
 	return _.flatMap(drives, drive => {
 		return getDriveImageCompatibilityStatuses(drive, image);
@@ -246,7 +248,7 @@ export function getListDriveImageCompatibilityStatuses(
  */
 export function hasDriveImageCompatibilityStatus(
 	drive: DrivelistDrive,
-	image: { isSizeEstimated?: boolean; compressedSize?: number; size?: number },
+	image: Image,
 ) {
 	return Boolean(getDriveImageCompatibilityStatuses(drive, image).length);
 }
@@ -270,7 +272,7 @@ export function hasDriveImageCompatibilityStatus(
  */
 export function hasListDriveImageCompatibilityStatus(
 	drives: DrivelistDrive[],
-	image: { isSizeEstimated?: boolean; compressedSize?: number; size?: number },
+	image: Image,
 ) {
 	return Boolean(
 		exports.getListDriveImageCompatibilityStatuses(drives, image).length,

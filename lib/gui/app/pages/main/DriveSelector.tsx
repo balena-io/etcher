@@ -17,11 +17,10 @@
 import * as _ from 'lodash';
 import * as React from 'react';
 import styled from 'styled-components';
-import * as driveConstraints from '../../../../shared/drive-constraints';
 import * as DriveSelectorModal from '../../components/drive-selector/DriveSelectorModal.jsx';
-import * as TargetSelector from '../../components/drive-selector/target-selector.jsx';
+import { TargetSelector } from '../../components/drive-selector/target-selector';
 import { SVGIcon } from '../../components/svg-icon/svg-icon';
-import * as selectionState from '../../models/selection-state';
+import { getImage, getSelectedDrives } from '../../models/selection-state';
 import * as settings from '../../models/settings';
 import { observe, store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
@@ -46,7 +45,7 @@ const StepBorder = styled.div<{
 
 const getDriveListLabel = () => {
 	return _.join(
-		_.map(selectionState.getSelectedDrives(), (drive: any) => {
+		_.map(getSelectedDrives(), (drive: any) => {
 			return `${drive.description} (${drive.displayName})`;
 		}),
 		'\n',
@@ -60,7 +59,8 @@ const shouldShowDrivesButton = () => {
 const getDriveSelectionStateSlice = () => ({
 	showDrivesButton: shouldShowDrivesButton(),
 	driveListLabel: getDriveListLabel(),
-	targets: selectionState.getSelectedDrives(),
+	targets: getSelectedDrives(),
+	image: getImage(),
 });
 
 interface DriveSelectorProps {
@@ -80,7 +80,7 @@ export const DriveSelector = ({
 }: DriveSelectorProps) => {
 	// TODO: inject these from redux-connector
 	const [
-		{ showDrivesButton, driveListLabel, targets },
+		{ showDrivesButton, driveListLabel, targets, image },
 		setStateSlice,
 	] = React.useState(getDriveSelectionStateSlice());
 	const [showDriveSelectorModal, setShowDriveSelectorModal] = React.useState(
@@ -113,7 +113,6 @@ export const DriveSelector = ({
 					disabled={disabled}
 					show={!hasDrive && showDrivesButton}
 					tooltip={driveListLabel}
-					selection={selectionState}
 					openDriveSelector={() => {
 						setShowDriveSelectorModal(true);
 					}}
@@ -127,8 +126,8 @@ export const DriveSelector = ({
 						setShowDriveSelectorModal(true);
 					}}
 					flashing={flashing}
-					constraints={driveConstraints}
 					targets={targets}
+					image={image}
 				/>
 			</div>
 
