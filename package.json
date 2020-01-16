@@ -20,9 +20,9 @@
   },
   "scripts": {
     "test": "make lint test sanity-checks",
-    "prettier": "prettier --config ./node_modules/resin-lint/config/.prettierrc --write \"lib/**/*.ts\" \"lib/**/*.tsx\" \"tests/**/*.ts\" \"webpack.config.ts\"",
+    "prettier": "prettier --config ./node_modules/resin-lint/config/.prettierrc --write \"lib/**/*.ts\" \"lib/**/*.tsx\" \"tests/**/*.ts\" \"webpack.config.ts\" \"scripts/clean-shrinkwrap.ts\"",
     "start": "./node_modules/.bin/electron .",
-    "postshrinkwrap": "node ./scripts/clean-shrinkwrap.js",
+    "postshrinkwrap": "ts-node ./scripts/clean-shrinkwrap.ts",
     "configure": "node-gyp configure",
     "build": "node-gyp build",
     "install": "node-gyp rebuild",

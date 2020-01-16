@@ -150,10 +150,7 @@ sass:
 	node-sass lib/gui/app/scss/main.scss > lib/gui/css/main.css
 
 lint-ts:
-	resin-lint --typescript lib tests webpack.config.ts
-
-lint-js:
-	eslint --ignore-pattern scripts/resin/**/*.js scripts
+	resin-lint --typescript lib tests scripts/clean-shrinkwrap.ts webpack.config.ts
 
 lint-sass:
 	sass-lint lib/gui/scss
@@ -168,7 +165,7 @@ lint-spell:
 		--skip *.svg *.gz,*.bz2,*.xz,*.zip,*.img,*.dmg,*.iso,*.rpi-sdcard,*.wic,.DS_Store,*.dtb,*.dtbo,*.dat,*.elf,*.bin,*.foo,xz-without-extension \
 		lib tests docs Makefile *.md LICENSE
 
-lint: lint-ts lint-js lint-sass lint-cpp lint-spell
+lint: lint-ts lint-sass lint-cpp lint-spell
 
 MOCHA_OPTIONS=--recursive --reporter spec --require ts-node/register
 
