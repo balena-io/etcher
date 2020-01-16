@@ -50,31 +50,31 @@ export const info = {
 };
 
 export const compatibility = {
-	sizeNotRecommended() {
+	sizeNotRecommended: () => {
 		return 'Not Recommended';
 	},
 
-	tooSmall(additionalSpace: string) {
+	tooSmall: (additionalSpace: string) => {
 		return `Insufficient space, additional ${additionalSpace} required`;
 	},
 
-	locked() {
+	locked: () => {
 		return 'Locked';
 	},
 
-	system() {
+	system: () => {
 		return 'System Drive';
 	},
 
-	containsImage() {
+	containsImage: () => {
 		return 'Drive Mountpoint Contains Image';
 	},
 
 	// The drive is large and therefore likely not a medium you want to write to.
-	largeDrive() {
+	largeDrive: () => {
 		return 'Large Drive';
 	},
-};
+} as const;
 
 export const warning = {
 	unrecommendedDriveSize: (
