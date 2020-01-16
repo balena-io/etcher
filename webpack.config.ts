@@ -44,21 +44,6 @@ const commonConfig = {
 	module: {
 		rules: [
 			{
-				test: /\.jsx?$/,
-				include: [path.resolve(__dirname, 'lib', 'gui')],
-				use: {
-					loader: 'babel-loader',
-					options: {
-						presets: [
-							'@babel/preset-react',
-							['@babel/preset-env', { targets: { electron: '6' } }],
-						],
-						plugins: ['@babel/plugin-proposal-function-bind'],
-						cacheDirectory: true,
-					},
-				},
-			},
-			{
 				test: /\.html$/,
 				use: 'html-loader',
 			},
@@ -69,7 +54,7 @@ const commonConfig = {
 		],
 	},
 	resolve: {
-		extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+		extensions: ['.json', '.ts', '.tsx'],
 	},
 	plugins: [
 		new SimpleProgressWebpackPlugin({

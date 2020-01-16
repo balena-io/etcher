@@ -6446,7 +6446,8 @@ img[disabled] {
   bottom: 0;
   color: white;
   height: 320px;
-  width: 100vw; }
+  width: 100vw;
+  left: 0; }
   .page-finish .fallback-banner > * {
     display: flex;
     justify-content: center;
