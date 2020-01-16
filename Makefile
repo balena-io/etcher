@@ -175,10 +175,10 @@ MOCHA_OPTIONS=--recursive --reporter spec --require ts-node/register
 # See https://github.com/electron/spectron/issues/127
 ETCHER_SPECTRON_ENTRYPOINT ?= $(shell node -e 'console.log(require("electron"))')
 test-spectron:
-	ETCHER_SPECTRON_ENTRYPOINT="$(ETCHER_SPECTRON_ENTRYPOINT)" mocha $(MOCHA_OPTIONS) tests/spectron
+	ETCHER_SPECTRON_ENTRYPOINT="$(ETCHER_SPECTRON_ENTRYPOINT)" mocha $(MOCHA_OPTIONS) tests/spectron/runner.spec.ts
 
 test-gui:
-	electron-mocha $(MOCHA_OPTIONS) --full-trace --no-sandbox --renderer tests/gui/**/*.js tests/gui/**/*.ts
+	electron-mocha $(MOCHA_OPTIONS) --full-trace --no-sandbox --renderer tests/gui/**/*.ts
 
 test-sdk:
 	electron-mocha $(MOCHA_OPTIONS) --full-trace --no-sandbox tests/shared/**/*.ts
