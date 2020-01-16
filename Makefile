@@ -153,7 +153,7 @@ lint-ts:
 	resin-lint --typescript lib tests webpack.config.ts
 
 lint-js:
-	eslint --ignore-pattern scripts/resin/**/*.js tests scripts
+	eslint --ignore-pattern scripts/resin/**/*.js scripts
 
 lint-sass:
 	sass-lint lib/gui/scss
@@ -181,7 +181,7 @@ test-gui:
 	electron-mocha $(MOCHA_OPTIONS) --full-trace --no-sandbox --renderer tests/gui/**/*.js tests/gui/**/*.ts
 
 test-sdk:
-	electron-mocha $(MOCHA_OPTIONS) --full-trace --no-sandbox tests/shared/**/*.js tests/shared/**/*.ts
+	electron-mocha $(MOCHA_OPTIONS) --full-trace --no-sandbox tests/shared/**/*.ts
 
 test: test-gui test-sdk test-spectron
 
