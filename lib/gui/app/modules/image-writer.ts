@@ -58,14 +58,12 @@ function handleErrorLogging(
 	error: Error & { code: string },
 	analyticsData: any,
 ) {
-	const eventData = _.assign(
-		{
-			applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-			flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
-			flashInstanceUuid: flashState.getFlashUuid(),
-		},
-		analyticsData,
-	);
+	const eventData = {
+		...analyticsData,
+		applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
+		flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
+		flashInstanceUuid: flashState.getFlashUuid(),
+	};
 
 	if (error.code === 'EVALIDATION') {
 		analytics.logEvent('Validation error', eventData);
@@ -78,15 +76,10 @@ function handleErrorLogging(
 	} else if (error.code === 'ECHILDDIED') {
 		analytics.logEvent('Child died unexpectedly', eventData);
 	} else {
-		analytics.logEvent(
-			'Flash error',
-			_.merge(
-				{
-					error: errors.toJSON(error),
-				},
-				eventData,
-			),
-		);
+		analytics.logEvent('Flash error', {
+			...eventData,
+			error: errors.toJSON(error),
+		});
 	}
 }
 
@@ -305,18 +298,19 @@ export async function flash(
 	}
 	windowProgress.clear();
 	if (flashState.wasLastFlashCancelled()) {
-		const eventData = _.assign({ status: 'cancel' }, analyticsData);
+		const eventData = {
+			...analyticsData,
+			status: 'cancel',
+		};
 		analytics.logEvent('Elevation cancelled', eventData);
 	} else {
 		const { results } = flashState.getFlashResults();
-		const eventData = _.assign(
-			{
-				errors: results.errors,
-				devices: results.devices,
-				status: 'finished',
-			},
-			analyticsData,
-		);
+		const eventData = {
+			...analyticsData,
+			errors: results.errors,
+			devices: results.devices,
+			status: 'finished',
+		};
 		analytics.logEvent('Done', eventData);
 	}
 }
