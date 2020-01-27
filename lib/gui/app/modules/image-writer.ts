@@ -291,15 +291,15 @@ export async function flash(
 	} catch (error) {
 		flashState.unsetFlashingFlag({ cancelled: false, errorCode: error.code });
 		windowProgress.clear();
-		const { results } = flashState.getFlashResults();
-		const eventData = _.assign(
-			{
-				errors: results.errors,
-				devices: results.devices,
-				status: 'failed',
-			},
-			analyticsData,
-		);
+		let { results } = flashState.getFlashResults();
+		results = results || {};
+		const eventData = {
+			...analyticsData,
+			errors: results.errors,
+			devices: results.devices,
+			status: 'failed',
+			error,
+		};
 		analytics.logEvent('Write failed', eventData);
 		throw error;
 	}
