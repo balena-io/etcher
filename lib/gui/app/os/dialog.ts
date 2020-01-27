@@ -18,7 +18,7 @@ import * as electron from 'electron';
 import * as _ from 'lodash';
 
 import * as errors from '../../../shared/errors';
-import * as supportedFormats from '../../../shared/supported-formats';
+import { getAllExtensions } from '../../../shared/supported-formats';
 
 /**
  * @summary Open an image selection dialog
@@ -26,35 +26,30 @@ import * as supportedFormats from '../../../shared/supported-formats';
  * @description
  * Notice that by image, we mean *.img/*.iso/*.zip/etc files.
  */
-export function selectImage(): Promise<string> {
-	return new Promise(resolve => {
-		electron.remote.dialog.showOpenDialog(
-			electron.remote.getCurrentWindow(),
+export async function selectImage(): Promise<string | undefined> {
+	const options: electron.OpenDialogOptions = {
+		// This variable is set when running in GNU/Linux from
+		// inside an AppImage, and represents the working directory
+		// from where the AppImage was run (which might not be the
+		// place where the AppImage is located). `OWD` stands for
+		// "Original Working Directory".
+		//
+		// See: https://github.com/probonopd/AppImageKit/commit/1569d6f8540aa6c2c618dbdb5d6fcbf0003952b7
+		defaultPath: process.env.OWD,
+		properties: ['openFile', 'treatPackageAsDirectory'],
+		filters: [
 			{
-				// This variable is set when running in GNU/Linux from
-				// inside an AppImage, and represents the working directory
-				// from where the AppImage was run (which might not be the
-				// place where the AppImage is located). `OWD` stands for
-				// "Original Working Directory".
-				//
-				// See: https://github.com/probonopd/AppImageKit/commit/1569d6f8540aa6c2c618dbdb5d6fcbf0003952b7
-				defaultPath: process.env.OWD,
-				properties: ['openFile', 'treatPackageAsDirectory'],
-				filters: [
-					{
-						name: 'OS Images',
-						extensions: _.sortBy(supportedFormats.getAllExtensions()),
-					},
-				],
+				name: 'OS Images',
+				extensions: [...getAllExtensions()].sort(),
 			},
-			(files: string[]) => {
-				// `_.first` is smart enough to not throw and return `undefined`
-				// if we pass it an `undefined` value (e.g: when the selection
-				// dialog was cancelled).
-				resolve(_.first(files));
-			},
-		);
-	});
+		],
+	};
+	const currentWindow = electron.remote.getCurrentWindow();
+	const [file] = (await electron.remote.dialog.showOpenDialog(
+		currentWindow,
+		options,
+	)).filePaths;
+	return file;
 }
 
 /**

@@ -177,7 +177,7 @@ export class SafeWebview extends React.PureComponent<
 	}
 
 	// Set the element state depending on the HTTP response code
-	public didGetResponseDetails(event: electron.OnCompletedDetails) {
+	public didGetResponseDetails(event: electron.OnCompletedListenerDetails) {
 		// This seems to pick up all requests related to the webview,
 		// only care about this event if it's a request for the main frame
 		if (event.resourceType === 'mainFrame') {
