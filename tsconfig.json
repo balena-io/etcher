@@ -8,7 +8,7 @@
     "allowJs": true,
     "moduleResolution": "node",
     "module": "commonjs",
-    "target": "es2017",
+    "target": "es2018",
     "jsx": "react",
     "typeRoots": ["./node_modules/@types", "./typings"],
     "allowSyntheticDefaultImports": true
