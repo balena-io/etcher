@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.72
+## (2020-01-27)
+
+* Remove no longer used angular svg-icon component [Alexis Svinartchouk]
+* Remove no longer used closestUnit angular filter [Alexis Svinartchouk]
+
 # v1.5.71
 ## (2020-01-14)
 
