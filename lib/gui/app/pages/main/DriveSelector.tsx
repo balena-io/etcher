@@ -15,17 +15,14 @@
  */
 
 import * as _ from 'lodash';
-import * as propTypes from 'prop-types';
 import * as React from 'react';
 import styled from 'styled-components';
-import * as driveConstraints from '../../../../shared/drive-constraints';
-import * as utils from '../../../../shared/utils';
-import * as DriveSelectorModal from '../../components/drive-selector/DriveSelectorModal.jsx';
-import * as TargetSelector from '../../components/drive-selector/target-selector.jsx';
-import * as SvgIcon from '../../components/svg-icon/svg-icon.jsx';
-import * as selectionState from '../../models/selection-state';
+import { DriveSelectorModal } from '../../components/drive-selector/DriveSelectorModal';
+import { TargetSelector } from '../../components/drive-selector/target-selector';
+import { SVGIcon } from '../../components/svg-icon/svg-icon';
+import { getImage, getSelectedDrives } from '../../models/selection-state';
 import * as settings from '../../models/settings';
-import * as store from '../../models/store';
+import { observe, store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 
 const StepBorder = styled.div<{
@@ -48,17 +45,12 @@ const StepBorder = styled.div<{
 
 const getDriveListLabel = () => {
 	return _.join(
-		_.map(selectionState.getSelectedDrives(), (drive: any) => {
+		_.map(getSelectedDrives(), (drive: any) => {
 			return `${drive.description} (${drive.displayName})`;
 		}),
 		'\n',
 	);
 };
-
-const getMemoizedSelectedDrives = utils.memoize(
-	selectionState.getSelectedDrives,
-	_.isEqual,
-);
 
 const shouldShowDrivesButton = () => {
 	return !settings.get('disableExplicitDriveSelection');
@@ -67,8 +59,17 @@ const shouldShowDrivesButton = () => {
 const getDriveSelectionStateSlice = () => ({
 	showDrivesButton: shouldShowDrivesButton(),
 	driveListLabel: getDriveListLabel(),
-	targets: getMemoizedSelectedDrives(),
+	targets: getSelectedDrives(),
+	image: getImage(),
 });
+
+interface DriveSelectorProps {
+	webviewShowing: boolean;
+	disabled: boolean;
+	nextStepDisabled: boolean;
+	hasDrive: boolean;
+	flashing: boolean;
+}
 
 export const DriveSelector = ({
 	webviewShowing,
@@ -76,10 +77,10 @@ export const DriveSelector = ({
 	nextStepDisabled,
 	hasDrive,
 	flashing,
-}: any) => {
+}: DriveSelectorProps) => {
 	// TODO: inject these from redux-connector
 	const [
-		{ showDrivesButton, driveListLabel, targets },
+		{ showDrivesButton, driveListLabel, targets, image },
 		setStateSlice,
 	] = React.useState(getDriveSelectionStateSlice());
 	const [showDriveSelectorModal, setShowDriveSelectorModal] = React.useState(
@@ -87,7 +88,7 @@ export const DriveSelector = ({
 	);
 
 	React.useEffect(() => {
-		return (store as any).observe(() => {
+		return observe(() => {
 			setStateSlice(getDriveSelectionStateSlice());
 		});
 	}, []);
@@ -97,14 +98,14 @@ export const DriveSelector = ({
 	return (
 		<div className="box text-center relative">
 			{showStepConnectingLines && (
-				<React.Fragment>
+				<>
 					<StepBorder disabled={disabled} left />
 					<StepBorder disabled={nextStepDisabled} right />
-				</React.Fragment>
+				</>
 			)}
 
 			<div className="center-block">
-				<SvgIcon paths={['../../assets/drive.svg']} disabled={disabled} />
+				<SVGIcon paths={['../../assets/drive.svg']} disabled={disabled} />
 			</div>
 
 			<div className="space-vertical-large">
@@ -112,22 +113,21 @@ export const DriveSelector = ({
 					disabled={disabled}
 					show={!hasDrive && showDrivesButton}
 					tooltip={driveListLabel}
-					selection={selectionState}
 					openDriveSelector={() => {
 						setShowDriveSelectorModal(true);
 					}}
 					reselectDrive={() => {
 						analytics.logEvent('Reselect drive', {
-							applicationSessionUuid: (store as any).getState().toJS()
+							applicationSessionUuid: store.getState().toJS()
 								.applicationSessionUuid,
-							flashingWorkflowUuid: (store as any).getState().toJS()
+							flashingWorkflowUuid: store.getState().toJS()
 								.flashingWorkflowUuid,
 						});
 						setShowDriveSelectorModal(true);
 					}}
 					flashing={flashing}
-					constraints={driveConstraints}
 					targets={targets}
+					image={image}
 				/>
 			</div>
 
@@ -138,12 +138,4 @@ export const DriveSelector = ({
 			)}
 		</div>
 	);
-};
-
-DriveSelector.propTypes = {
-	webviewShowing: propTypes.bool,
-	disabled: propTypes.bool,
-	nextStepDisabled: propTypes.bool,
-	hasDrive: propTypes.bool,
-	flashing: propTypes.bool,
 };

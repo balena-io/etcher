@@ -21,19 +21,18 @@ import * as uuidV4 from 'uuid/v4';
 import * as messages from '../../../../shared/messages';
 import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
-import * as store from '../../models/store';
+import { store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
-import * as updateLock from '../../modules/update-lock';
+import { updateLock } from '../../modules/update-lock';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 import { FlashAnother } from '../flash-another/flash-another';
 import { FlashResults } from '../flash-results/flash-results';
-import * as SVGIcon from '../svg-icon/svg-icon';
+import { SVGIcon } from '../svg-icon/svg-icon';
 
-const restart = (options: any, $state: any) => {
+const restart = (options: any, goToMain: () => void) => {
 	const {
 		applicationSessionUuid,
 		flashingWorkflowUuid,
-		// @ts-ignore
 	} = store.getState().toJS();
 	if (!options.preserveImage) {
 		selectionState.deselectImage();
@@ -54,7 +53,7 @@ const restart = (options: any, $state: any) => {
 		data: uuidV4(),
 	});
 
-	$state.go('main');
+	goToMain();
 };
 
 const formattedErrors = () => {
@@ -67,7 +66,7 @@ const formattedErrors = () => {
 	return errors.join('\n');
 };
 
-function FinishPage({ $state }: any) {
+function FinishPage({ goToMain }: { goToMain: () => void }) {
 	// @ts-ignore
 	const results = flashState.getFlashResults().results || {};
 	const progressMessage = messages.progress;
@@ -82,7 +81,7 @@ function FinishPage({ $state }: any) {
 					></FlashResults>
 
 					<FlashAnother
-						onClick={(options: any) => restart(options, $state)}
+						onClick={(options: any) => restart(options, goToMain)}
 					></FlashAnother>
 				</div>
 

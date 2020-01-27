@@ -24,7 +24,7 @@ import styled from 'styled-components';
 
 import { version } from '../../../../../package.json';
 import * as settings from '../../models/settings';
-import * as store from '../../models/store';
+import { store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 
@@ -118,15 +118,11 @@ interface SettingsModalProps {
 	toggleModal: (value: boolean) => void;
 }
 
-interface Dictionary<T> {
-	[key: string]: T;
-}
-
 export const SettingsModal: any = styled(
 	({ toggleModal }: SettingsModalProps) => {
 		const [currentSettings, setCurrentSettings]: [
-			Dictionary<any>,
-			React.Dispatch<React.SetStateAction<Dictionary<any>>>,
+			_.Dictionary<any>,
+			React.Dispatch<React.SetStateAction<_.Dictionary<any>>>,
 		] = useState(settings.getAll());
 		const [warning, setWarning]: [
 			any,

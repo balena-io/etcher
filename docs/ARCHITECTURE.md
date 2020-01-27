@@ -12,7 +12,6 @@ technologies used in Etcher that you should become familiar with:
 
 - [Electron][electron]
 - [NodeJS][nodejs]
-- [AngularJS][angularjs]
 - [Redux][redux]
 - [ImmutableJS][immutablejs]
 - [Bootstrap][bootstrap]
@@ -66,7 +65,6 @@ be documented instead!
 [gui-dir]: https://github.com/balena-io/etcher/tree/master/lib/gui
 [electron]: http://electron.atom.io
 [nodejs]: https://nodejs.org
-[angularjs]: https://angularjs.org
 [redux]: http://redux.js.org
 [immutablejs]: http://facebook.github.io/immutable-js/
 [bootstrap]: http://getbootstrap.com

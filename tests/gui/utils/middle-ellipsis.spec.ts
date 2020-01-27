@@ -1,0 +1,43 @@
+/*
+ * Copyright 2018 balena.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { expect } from 'chai';
+
+import { middleEllipsis } from '../../../lib/gui/app/utils/middle-ellipsis';
+
+describe('Browser: MiddleEllipsis', function() {
+	describe('.middleEllipsis()', function() {
+		it('should throw error if limit < 3', function() {
+			expect(() => {
+				middleEllipsis('No', 2);
+			}).to.throw('middleEllipsis: Limit should be at least 3');
+		});
+
+		describe('given the input length is greater than the limit', function() {
+			it('should always truncate input to an odd length', function() {
+				const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+				expect(middleEllipsis(alphabet, 3)).to.have.lengthOf(3);
+				expect(middleEllipsis(alphabet, 4)).to.have.lengthOf(3);
+				expect(middleEllipsis(alphabet, 5)).to.have.lengthOf(5);
+				expect(middleEllipsis(alphabet, 6)).to.have.lengthOf(5);
+			});
+		});
+
+		it('should return the input if it is within the bounds of limit', function() {
+			expect(middleEllipsis('Hello', 10)).to.equal('Hello');
+		});
+	});
+});
