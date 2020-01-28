@@ -114,8 +114,7 @@ electron-build: assets/dmg/background.tiff | $(BUILD_TEMPORARY_DIRECTORY)
 		-r $(TARGET_ARCH) \
 		-s $(PLATFORM) \
 		-v production \
-		-n $(BUILD_TEMPORARY_DIRECTORY)/npm \
-		-w $(BUILD_TEMPORARY_DIRECTORY)
+		-n $(BUILD_TEMPORARY_DIRECTORY)/npm
 
 # ---------------------------------------------------------------------
 # Phony targets
