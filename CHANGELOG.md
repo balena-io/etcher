@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.73
+## (2020-01-28)
+
+* Update electron to v7.1.10 [Alexis Svinartchouk]
+
 # v1.5.72
 ## (2020-01-27)
 
