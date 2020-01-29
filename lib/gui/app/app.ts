@@ -27,6 +27,7 @@ import * as EXIT_CODES from '../../shared/exit-codes';
 import * as messages from '../../shared/messages';
 import * as availableDrives from './models/available-drives';
 import * as flashState from './models/flash-state';
+import { init as ledsInit } from './models/leds';
 import * as settings from './models/settings';
 import { Actions, observe, store } from './models/store';
 import * as analytics from './modules/analytics';
@@ -341,6 +342,7 @@ async function main(): Promise<void> {
 		exceptionReporter.report(error);
 	}
 	BLACKLISTED_DRIVES = settings.get('driveBlacklist') || [];
+	ledsInit();
 	ReactDOM.render(
 		React.createElement(MainPage),
 		document.getElementById('main'),
