@@ -336,6 +336,16 @@ window.addEventListener('touchstart', extendLock);
 // Initial update lock acquisition
 extendLock();
 
-settings.load().catch(exceptionReporter.report);
+async function main(): Promise<void> {
+	try {
+		await settings.load();
+	} catch (error) {
+		exceptionReporter.report(error);
+	}
+	ReactDOM.render(
+		React.createElement(MainPage),
+		document.getElementById('main'),
+	);
+}
 
-ReactDOM.render(React.createElement(MainPage), document.getElementById('main'));
+main();
