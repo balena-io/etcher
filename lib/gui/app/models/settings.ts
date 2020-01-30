@@ -50,30 +50,6 @@ export async function reset(): Promise<void> {
 }
 
 /**
- * @summary Extend the current settings
- */
-export async function assign(value: _.Dictionary<any>): Promise<void> {
-	debug('assign', value);
-	if (_.isNil(value)) {
-		throw errors.createError({
-			title: 'Missing settings',
-		});
-	}
-
-	if (!_.isPlainObject(value)) {
-		throw errors.createError({
-			title: 'Settings must be an object',
-		});
-	}
-
-	const newSettings = _.assign({}, settings, value);
-
-	const updatedSettings = await localSettings.writeAll(newSettings);
-	// NOTE: Only update in memory settings when successfully written
-	settings = updatedSettings;
-}
-
-/**
  * @summary Extend the application state with the local settings
  */
 export async function load(): Promise<void> {

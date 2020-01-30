@@ -95,34 +95,17 @@ describe('Browser: settings', function() {
 		});
 	});
 
-	describe('.assign()', function() {
-		it('should not override all settings', function() {
-			return settings
-				.assign({
-					foo: 'bar',
-					bar: 'baz',
-				})
-				.then(() => {
-					expect(settings.getAll()).to.deep.equal(
-						_.assign({}, DEFAULT_SETTINGS, {
-							foo: 'bar',
-							bar: 'baz',
-						}),
-					);
-				});
-		});
-
+	describe('.set()', function() {
 		it('should store the settings to the local machine', function() {
 			return localSettings
 				.readAll()
 				.then(data => {
 					expect(data.foo).to.be.undefined;
 					expect(data.bar).to.be.undefined;
-
-					return settings.assign({
-						foo: 'bar',
-						bar: 'baz',
-					});
+					return settings.set('foo', 'bar');
+				})
+				.then(() => {
+					return settings.set('bar', 'baz');
 				})
 				.then(localSettings.readAll)
 				.then(data => {
@@ -140,7 +123,7 @@ describe('Browser: settings', function() {
 				Promise.reject(new Error('localSettings error')),
 			);
 
-			await checkError(settings.assign({ foo: 'baz' }), error => {
+			await checkError(settings.set('foo', 'baz'), error => {
 				expect(error).to.be.an.instanceof(Error);
 				expect(error.message).to.equal('localSettings error');
 				localSettingsWriteAllStub.restore();
@@ -186,13 +169,6 @@ describe('Browser: settings', function() {
 			expect(settings.get('foobar')).to.be.undefined;
 			return settings.set('foobar', true).then(() => {
 				expect(settings.get('foobar')).to.be.true;
-			});
-		});
-
-		it('should throw if setting an array', async function() {
-			await checkError(settings.assign([1, 2, 3]), error => {
-				expect(error).to.be.an.instanceof(Error);
-				expect(error.message).to.equal('Settings must be an object');
 			});
 		});
 
