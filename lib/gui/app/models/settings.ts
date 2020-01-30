@@ -23,7 +23,8 @@ import * as localSettings from './local-settings';
 
 const debug = _debug('etcher:models:settings');
 
-const DEFAULT_SETTINGS: _.Dictionary<any> = {
+// exported for tests
+export const DEFAULT_SETTINGS: _.Dictionary<any> = {
 	unsafeMode: false,
 	errorReporting: true,
 	unmountOnSuccess: true,
@@ -106,12 +107,4 @@ export function has(key: string): boolean {
 export function getAll() {
 	debug('getAll');
 	return _.cloneDeep(settings);
-}
-
-/**
- * @summary Get the default setting values
- */
-export function getDefaults() {
-	debug('getDefaults');
-	return _.cloneDeep(DEFAULT_SETTINGS);
 }

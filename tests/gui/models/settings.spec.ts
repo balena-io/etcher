@@ -36,7 +36,7 @@ describe('Browser: settings', function() {
 		return settings.reset();
 	});
 
-	const DEFAULT_SETTINGS = settings.getDefaults();
+	const DEFAULT_SETTINGS = _.cloneDeep(settings.DEFAULT_SETTINGS);
 
 	it('should be able to set and read values', function() {
 		expect(settings.get('foo')).to.be.undefined;
