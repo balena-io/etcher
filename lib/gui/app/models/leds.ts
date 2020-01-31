@@ -21,9 +21,16 @@ import * as settings from './settings';
 import { observe } from './store';
 
 class Led {
+	private handle: fs.FileHandle;
 	private lastValue?: number;
 
 	constructor(private path: string) {}
+
+	private async open() {
+		if (this.handle === undefined) {
+			this.handle = await fs.open(this.path, 'w');
+		}
+	}
 
 	public async setIntensity(intensity: number) {
 		if (intensity < 0 || intensity > 1) {
@@ -31,7 +38,9 @@ class Led {
 		}
 		const value = Math.round(intensity * 255);
 		if (value !== this.lastValue) {
-			await fs.writeFile(this.path, value.toString());
+			await this.open();
+			await this.handle.write(value.toString(), 0);
+			// On a regular file we would also need to truncate to the written value length but it looks like it's not the case on sysfs files
 			this.lastValue = value;
 		}
 	}
