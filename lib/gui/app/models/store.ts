@@ -124,13 +124,20 @@ function storeReducer(
 				});
 			}
 
-			const drives = action.data;
+			let drives = action.data;
 
 			if (!_.isArray(drives) || !_.every(drives, _.isObject)) {
 				throw errors.createError({
 					title: `Invalid drives: ${drives}`,
 				});
 			}
+
+			drives = _.sortBy(drives, [
+				// Devices with no devicePath first (usbboot)
+				d => !!d.devicePath,
+				// Then sort by devicePath (only available on Linux with udev) or device
+				d => d.devicePath || d.device,
+			]);
 
 			const newState = state.set('availableDrives', Immutable.fromJS(drives));
 			const selectedDevices = newState.getIn(['selection', 'devices']).toJS();
