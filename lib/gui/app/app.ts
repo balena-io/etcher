@@ -153,9 +153,7 @@ const COMPUTE_MODULE_DESCRIPTIONS: _.Dictionary<string> = {
 	[USB_PRODUCT_ID_BCM2710_BOOT]: 'Compute Module 3',
 };
 
-const BLACKLISTED_DRIVES = settings.has('driveBlacklist')
-	? settings.get('driveBlacklist').split(',')
-	: [];
+let BLACKLISTED_DRIVES: string[] = [];
 
 function driveIsAllowed(drive: {
 	devicePath: string;
@@ -342,6 +340,7 @@ async function main(): Promise<void> {
 	} catch (error) {
 		exceptionReporter.report(error);
 	}
+	BLACKLISTED_DRIVES = settings.get('driveBlacklist') || [];
 	ReactDOM.render(
 		React.createElement(MainPage),
 		document.getElementById('main'),
