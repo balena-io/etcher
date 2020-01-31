@@ -161,7 +161,10 @@ export async function elevateCommand(
 		options.environment,
 	);
 	return Bluebird.using(
-		tmpFileDisposer({ postfix: '.cmd' }),
+		tmpFileDisposer({
+			prefix: 'balena-etcher-electron-',
+			postfix: '.cmd',
+		}),
 		async ({ path }) => {
 			await fs.writeFile(path, launchScript);
 			if (isWindows) {
