@@ -185,7 +185,6 @@ export class ImageSelector extends React.Component<
 						title,
 					},
 				});
-				return;
 			}
 
 			selectionState.selectImage(image);
