@@ -45,10 +45,9 @@ export async function selectImage(): Promise<string | undefined> {
 		],
 	};
 	const currentWindow = electron.remote.getCurrentWindow();
-	const [file] = (await electron.remote.dialog.showOpenDialog(
-		currentWindow,
-		options,
-	)).filePaths;
+	const [file] = (
+		await electron.remote.dialog.showOpenDialog(currentWindow, options)
+	).filePaths;
 	return file;
 }
 
