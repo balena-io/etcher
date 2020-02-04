@@ -339,7 +339,7 @@
   "public": true,
   "fork": false,
   "description": "Flash OS images to SD cards & USB drives, safely and easily.",
-  "stars": 16791,
+  "stars": 16831,
   "homepage": "https://etcher.io",
   "repositoryUrl": "https://github.com/balena-io/etcher.git",
   "active": true,
@@ -387,85 +387,85 @@
     "tmp",
     "uuid"
   ],
-  "lastCommitDate": "2020-01-29T13:56:45Z",
+  "lastCommitDate": "2020-02-04T22:17:12Z",
   "latestRelease": {
-    "tagName": "v1.5.73",
+    "tagName": "v1.5.74",
     "asssets": [
       {
-        "name": "balena-etcher-electron-1.5.73-linux-ia32.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.73/balena-etcher-electron-1.5.73-linux-ia32.zip"
+        "name": "balena-etcher-electron-1.5.74-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.74/balena-etcher-electron-1.5.74-linux-ia32.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.73-linux-x64.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.73/balena-etcher-electron-1.5.73-linux-x64.zip"
+        "name": "balena-etcher-electron-1.5.74-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.74/balena-etcher-electron-1.5.74-linux-x64.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.73.i686.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.73/balena-etcher-electron-1.5.73.i686.rpm"
+        "name": "balena-etcher-electron-1.5.74.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.74/balena-etcher-electron-1.5.74.i686.rpm"
       },
       {
-        "name": "balena-etcher-electron-1.5.73.x86_64.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.73/balena-etcher-electron-1.5.73.x86_64.rpm"
+        "name": "balena-etcher-electron-1.5.74.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.74/balena-etcher-electron-1.5.74.x86_64.rpm"
       },
       {
-        "name": "balena-etcher-electron_1.5.73_amd64.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.73/balena-etcher-electron_1.5.73_amd64.deb"
+        "name": "balena-etcher-electron_1.5.74_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.74/balena-etcher-electron_1.5.74_amd64.deb"
       },
       {
-        "name": "balena-etcher-electron_1.5.73_i386.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.73/balena-etcher-electron_1.5.73_i386.deb"
+        "name": "balena-etcher-electron_1.5.74_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.74/balena-etcher-electron_1.5.74_i386.deb"
       },
       {
-        "name": "balenaEtcher-1.5.73-ia32.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.73/balenaEtcher-1.5.73-ia32.AppImage"
+        "name": "balenaEtcher-1.5.74-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.74/balenaEtcher-1.5.74-ia32.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.73-mac.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.73/balenaEtcher-1.5.73-mac.zip"
+        "name": "balenaEtcher-1.5.74-mac.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.74/balenaEtcher-1.5.74-mac.zip"
       },
       {
-        "name": "balenaEtcher-1.5.73-x64.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.73/balenaEtcher-1.5.73-x64.AppImage"
+        "name": "balenaEtcher-1.5.74-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.74/balenaEtcher-1.5.74-x64.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.73.dmg",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.73/balenaEtcher-1.5.73.dmg"
+        "name": "balenaEtcher-1.5.74.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.74/balenaEtcher-1.5.74.dmg"
       },
       {
-        "name": "balenaEtcher-1.5.73.dmg.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.73/balenaEtcher-1.5.73.dmg.blockmap"
+        "name": "balenaEtcher-1.5.74.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.74/balenaEtcher-1.5.74.dmg.blockmap"
       },
       {
-        "name": "balenaEtcher-Portable-1.5.73.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.73/balenaEtcher-Portable-1.5.73.exe"
+        "name": "balenaEtcher-Portable-1.5.74.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.74/balenaEtcher-Portable-1.5.74.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.73.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.73/balenaEtcher-Setup-1.5.73.exe"
+        "name": "balenaEtcher-Setup-1.5.74.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.74/balenaEtcher-Setup-1.5.74.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.73.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.73/balenaEtcher-Setup-1.5.73.exe.blockmap"
+        "name": "balenaEtcher-Setup-1.5.74.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.74/balenaEtcher-Setup-1.5.74.exe.blockmap"
       },
       {
         "name": "builder-effective-config.yaml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.73/builder-effective-config.yaml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.74/builder-effective-config.yaml"
       },
       {
         "name": "latest-linux-ia32.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.73/latest-linux-ia32.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.74/latest-linux-ia32.yml"
       },
       {
         "name": "latest-linux.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.73/latest-linux.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.74/latest-linux.yml"
       },
       {
         "name": "latest-mac.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.73/latest-mac.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.74/latest-mac.yml"
       },
       {
         "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.73/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.74/latest.yml"
       }
     ]
   },
@@ -563,8 +563,44 @@
     ]
   },
   "openIssues": {
-    "numberOfIssues": 209,
+    "numberOfIssues": 216,
     "latestIssues": [
+      {
+        "title": "Not Validating",
+        "url": "https://github.com/balena-io/etcher/issues/3054"
+      },
+      {
+        "title": "\"Continue\" does not continue after \"Missing partition table\" prompt",
+        "url": "https://github.com/balena-io/etcher/issues/3053"
+      },
+      {
+        "title": "Is disabling \"nodeIntegration\" flag planned?",
+        "url": "https://github.com/balena-io/etcher/issues/3052"
+      },
+      {
+        "title": "Install conflict (rpm) with other Electron app (draw.io)",
+        "url": "https://github.com/balena-io/etcher/issues/3051"
+      },
+      {
+        "title": "The program stopped working, before that everything worked fine",
+        "url": "https://github.com/balena-io/etcher/issues/3050"
+      },
+      {
+        "title": "Display warning message to user",
+        "url": "https://github.com/balena-io/etcher/issues/3049"
+      },
+      {
+        "title": "Debian install instructions out of date",
+        "url": "https://github.com/balena-io/etcher/issues/3048"
+      },
+      {
+        "title": "Prefix temp permissions script name",
+        "url": "https://github.com/balena-io/etcher/pull/3047"
+      },
+      {
+        "title": "Unescalated etcher process fails to detect CM on Linux",
+        "url": "https://github.com/balena-io/etcher/issues/3045"
+      },
       {
         "title": "How to add more languages for it?",
         "url": "https://github.com/balena-io/etcher/issues/3044"
@@ -572,10 +608,6 @@
       {
         "title": "Add support for lzip compressed images",
         "url": "https://github.com/balena-io/etcher/issues/3043"
-      },
-      {
-        "title": "Update repo.yml",
-        "url": "https://github.com/balena-io/etcher/pull/3042"
       },
       {
         "title": "Ubuntu 18.10 Can't see the Flash-disk",
@@ -612,42 +644,10 @@
       {
         "title": "I cant flash SD Card",
         "url": "https://github.com/balena-io/etcher/issues/3030"
-      },
-      {
-        "title": "Installation from repository on Ubuntu 18.04 fails with \"failed to create symbolic link\"",
-        "url": "https://github.com/balena-io/etcher/issues/3029"
-      },
-      {
-        "title": "with 2nd external Screen - Etcher started but no Window rendered!",
-        "url": "https://github.com/balena-io/etcher/issues/3028"
-      },
-      {
-        "title": "ONN micro SDHC card failing to flash",
-        "url": "https://github.com/balena-io/etcher/issues/3027"
-      },
-      {
-        "title": "No program logo in task bar",
-        "url": "https://github.com/balena-io/etcher/issues/3023"
-      },
-      {
-        "title": "Drag n drop doesn't work when running as administrator",
-        "url": "https://github.com/balena-io/etcher/issues/3016"
-      },
-      {
-        "title": "What's the diff between etcher and dd-like tools?",
-        "url": "https://github.com/balena-io/etcher/issues/3015"
-      },
-      {
-        "title": "Duplicate version in version window",
-        "url": "https://github.com/balena-io/etcher/issues/3014"
-      },
-      {
-        "title": "balenaEtcher don't show full names of file and card reader. Instead the dots are show",
-        "url": "https://github.com/balena-io/etcher/issues/3013"
       }
     ]
   },
-  "version": "1.5.73",
+  "version": "1.5.74",
   "screenshot": null,
   "logo": null
 }
