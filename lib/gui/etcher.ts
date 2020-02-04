@@ -28,7 +28,6 @@ import * as settings from './app/models/settings';
 import * as analytics from './app/modules/analytics';
 import { buildWindowMenu } from './menu';
 
-const config = settings.getDefaults();
 const configUrl =
 	settings.get('configUrl') || 'https://balena.io/etcher/static/config.json';
 const updatablePackageTypes = ['appimage', 'nsis', 'dmg'];
@@ -58,17 +57,18 @@ async function checkForUpdates(interval: number) {
 }
 
 function createMainWindow() {
+	const fullscreen = Boolean(settings.get('fullscreen'));
 	const mainWindow = new electron.BrowserWindow({
-		width: parseInt(config.width, 10) || 800,
-		height: parseInt(config.height, 10) || 480,
-		frame: !config.fullscreen,
+		width: parseInt(settings.get('width'), 10) || 800,
+		height: parseInt(settings.get('height'), 10) || 480,
+		frame: !fullscreen,
 		useContentSize: false,
 		show: false,
 		resizable: false,
 		maximizable: false,
-		fullscreen: Boolean(config.fullscreen),
-		fullscreenable: Boolean(config.fullscreen),
-		kiosk: Boolean(config.fullscreen),
+		fullscreen,
+		fullscreenable: fullscreen,
+		kiosk: fullscreen,
 		autoHideMenuBar: true,
 		titleBarStyle: 'hiddenInset',
 		icon: path.join(__dirname, '..', '..', 'assets', 'icon.png'),
@@ -149,8 +149,7 @@ electron.app.on('before-quit', () => {
 
 async function main(): Promise<void> {
 	try {
-		const localSettings = await settings.load();
-		Object.assign(config, localSettings);
+		await settings.load();
 	} catch (error) {
 		// TODO: What do if loading the config fails?
 		console.error('Error loading settings:');

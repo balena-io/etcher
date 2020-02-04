@@ -125,7 +125,7 @@ async function writeAndValidate(
 		errors: [],
 	};
 	for (const [destination, error] of failures) {
-		(error as (Error & { device: string })).device = destination.drive.device;
+		(error as Error & { device: string }).device = destination.drive.device;
 		result.errors.push(error);
 	}
 	return result;

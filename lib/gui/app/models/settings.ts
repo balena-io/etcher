@@ -23,7 +23,8 @@ import * as localSettings from './local-settings';
 
 const debug = _debug('etcher:models:settings');
 
-const DEFAULT_SETTINGS: _.Dictionary<any> = {
+// exported for tests
+export const DEFAULT_SETTINGS: _.Dictionary<any> = {
 	unsafeMode: false,
 	errorReporting: true,
 	unmountOnSuccess: true,
@@ -47,30 +48,6 @@ export async function reset(): Promise<void> {
 	// TODO: Remove default settings from config file (?)
 	settings = _.cloneDeep(DEFAULT_SETTINGS);
 	return await localSettings.writeAll(settings);
-}
-
-/**
- * @summary Extend the current settings
- */
-export async function assign(value: _.Dictionary<any>): Promise<void> {
-	debug('assign', value);
-	if (_.isNil(value)) {
-		throw errors.createError({
-			title: 'Missing settings',
-		});
-	}
-
-	if (!_.isPlainObject(value)) {
-		throw errors.createError({
-			title: 'Settings must be an object',
-		});
-	}
-
-	const newSettings = _.assign({}, settings, value);
-
-	const updatedSettings = await localSettings.writeAll(newSettings);
-	// NOTE: Only update in memory settings when successfully written
-	settings = updatedSettings;
 }
 
 /**
@@ -130,12 +107,4 @@ export function has(key: string): boolean {
 export function getAll() {
 	debug('getAll');
 	return _.cloneDeep(settings);
-}
-
-/**
- * @summary Get the default setting values
- */
-export function getDefaults() {
-	debug('getDefaults');
-	return _.cloneDeep(DEFAULT_SETTINGS);
 }

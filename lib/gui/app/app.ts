@@ -27,6 +27,7 @@ import * as EXIT_CODES from '../../shared/exit-codes';
 import * as messages from '../../shared/messages';
 import * as availableDrives from './models/available-drives';
 import * as flashState from './models/flash-state';
+import { init as ledsInit } from './models/leds';
 import * as settings from './models/settings';
 import { Actions, observe, store } from './models/store';
 import * as analytics from './modules/analytics';
@@ -153,9 +154,7 @@ const COMPUTE_MODULE_DESCRIPTIONS: _.Dictionary<string> = {
 	[USB_PRODUCT_ID_BCM2710_BOOT]: 'Compute Module 3',
 };
 
-const BLACKLISTED_DRIVES = settings.has('driveBlacklist')
-	? settings.get('driveBlacklist').split(',')
-	: [];
+let BLACKLISTED_DRIVES: string[] = [];
 
 function driveIsAllowed(drive: {
 	devicePath: string;
@@ -336,6 +335,18 @@ window.addEventListener('touchstart', extendLock);
 // Initial update lock acquisition
 extendLock();
 
-settings.load().catch(exceptionReporter.report);
+async function main(): Promise<void> {
+	try {
+		await settings.load();
+	} catch (error) {
+		exceptionReporter.report(error);
+	}
+	BLACKLISTED_DRIVES = settings.get('driveBlacklist') || [];
+	ledsInit();
+	ReactDOM.render(
+		React.createElement(MainPage),
+		document.getElementById('main'),
+	);
+}
 
-ReactDOM.render(React.createElement(MainPage), document.getElementById('main'));
+main();
