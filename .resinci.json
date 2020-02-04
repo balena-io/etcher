@@ -74,6 +74,7 @@
         "synopsis": "balenaEtcher is a powerful OS image flasher built with web technologies to ensure flashing an SDCard or USB drive is a pleasant and safe experience. It protects you from accidentally writing to your hard-drives, ensures every byte of data was written correctly and much more."
       },
       "deb": {
+        "compression": "bzip2",
         "priority": "optional",
         "depends": [
           "polkit-1-auth-agent | policykit-1-gnome | polkit-kde-1"
