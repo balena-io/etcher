@@ -190,9 +190,8 @@ export function init() {
 	// 	],
 	// 	...
 	// }
-	const ledsMapping: _.Dictionary<[string, string, string]> = settings.get(
-		'ledsMapping',
-	);
+	const ledsMapping: _.Dictionary<[string, string, string]> =
+		settings.get('ledsMapping') || {};
 	for (const [drivePath, ledsPaths] of Object.entries(ledsMapping)) {
 		leds.set('/dev/disk/by-path/' + drivePath, new RGBLed(ledsPaths));
 	}
