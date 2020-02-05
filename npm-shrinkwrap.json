@@ -1578,11 +1578,6 @@
       "resolved": "https://registry.npmjs.org/atob/-/atob-2.1.2.tgz",
       "integrity": "sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg=="
     },
-    "attr-accept": {
-      "version": "2.0.0",
-      "resolved": "https://registry.npmjs.org/attr-accept/-/attr-accept-2.0.0.tgz",
-      "integrity": "sha512-I9SDP4Wvh2ItYYoafEg8hFpsBe96pfQ+eabceShXt3sw2fbIP96+Aoj9zZE0vkZNAkXXzHJATVRuWz+h9FxJxQ=="
-    },
     "aws-sign2": {
       "version": "0.7.0",
       "resolved": "https://registry.npmjs.org/aws-sign2/-/aws-sign2-0.7.0.tgz",
@@ -5862,14 +5857,6 @@
       "integrity": "sha512-bR+G6P2wc1Oq7nASGgDVE8xjnTZVrAKdXlIJCW6IHlqT9tgdwTl9V1mBZiWDyyPzXRe+GJeXlZhfRsL8oBSD3Q==",
       "requires": {
         "bluebird": "^3.5.3"
-      }
-    },
-    "file-selector": {
-      "version": "0.1.12",
-      "resolved": "https://registry.npmjs.org/file-selector/-/file-selector-0.1.12.tgz",
-      "integrity": "sha512-Kx7RTzxyQipHuiqyZGf+Nz4vY9R1XGxuQl/hLoJwq+J4avk/9wxxgZyHKtbyIPJmbD4A66DWGYfyykWNpcYutQ==",
-      "requires": {
-        "tslib": "^1.9.0"
       }
     },
     "file-type": {
@@ -10583,28 +10570,6 @@
         "object-assign": "^4.1.1",
         "prop-types": "^15.6.2",
         "scheduler": "^0.17.0"
-      }
-    },
-    "react-dropzone": {
-      "version": "10.2.1",
-      "resolved": "https://registry.npmjs.org/react-dropzone/-/react-dropzone-10.2.1.tgz",
-      "integrity": "sha512-Me5nOu8hK9/Xyg5easpdfJ6SajwUquqYR/2YTdMotsCUgJ1pHIIwNsv0n+qcIno0tWR2V2rVQtj2r/hXYs2TnQ==",
-      "requires": {
-        "attr-accept": "^2.0.0",
-        "file-selector": "^0.1.12",
-        "prop-types": "^15.7.2"
-      },
-      "dependencies": {
-        "prop-types": {
-          "version": "15.7.2",
-          "resolved": "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz",
-          "integrity": "sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==",
-          "requires": {
-            "loose-envify": "^1.4.0",
-            "object-assign": "^4.1.1",
-            "react-is": "^16.8.1"
-          }
-        }
       }
     },
     "react-google-recaptcha": {

@@ -19,7 +19,6 @@ import * as _ from 'lodash';
 import { GPTPartition, MBRPartition } from 'partitioninfo';
 import * as path from 'path';
 import * as React from 'react';
-import { default as Dropzone } from 'react-dropzone';
 import { Modal } from 'rendition';
 import { default as styled } from 'styled-components';
 
@@ -102,7 +101,7 @@ export class ImageSelector extends React.Component<
 
 		this.openImageSelector = this.openImageSelector.bind(this);
 		this.reselectImage = this.reselectImage.bind(this);
-		this.handleOnDrop = this.handleOnDrop.bind(this);
+		this.onDrop = this.onDrop.bind(this);
 		this.showSelectedImageDetails = this.showSelectedImageDetails.bind(this);
 	}
 
@@ -286,12 +285,21 @@ export class ImageSelector extends React.Component<
 		}
 	}
 
-	private handleOnDrop(acceptedFiles: Array<{ path: string }>) {
-		const [file] = acceptedFiles;
-
+	private onDrop(event: React.DragEvent<HTMLDivElement>) {
+		const [file] = event.dataTransfer.files;
 		if (file) {
 			this.selectImageByPath(file.path);
 		}
+	}
+
+	private onDragOver(event: React.DragEvent<HTMLDivElement>) {
+		// Needed to get onDrop events on div elements
+		event.preventDefault();
+	}
+
+	private onDragEnter(event: React.DragEvent<HTMLDivElement>) {
+		// Needed to get onDrop events on div elements
+		event.preventDefault();
 	}
 
 	private showSelectedImageDetails() {
@@ -321,18 +329,18 @@ export class ImageSelector extends React.Component<
 
 		return (
 			<>
-				<div className="box text-center relative">
-					<Dropzone multiple={false} onDrop={this.handleOnDrop}>
-						{({ getRootProps, getInputProps }) => (
-							<div className="center-block" {...getRootProps()}>
-								<input {...getInputProps()} />
-								<SVGIcon
-									contents={[selectionState.getImageLogo()]}
-									paths={['../../assets/image.svg']}
-								/>
-							</div>
-						)}
-					</Dropzone>
+				<div
+					className="box text-center relative"
+					onDrop={this.onDrop}
+					onDragEnter={this.onDragEnter}
+					onDragOver={this.onDragOver}
+				>
+					<div className="center-block">
+						<SVGIcon
+							contents={[selectionState.getImageLogo()]}
+							paths={['../../assets/image.svg']}
+						/>
+					</div>
 
 					<div className="space-vertical-large">
 						{hasImage ? (
