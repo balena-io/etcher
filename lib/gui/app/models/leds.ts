@@ -14,130 +14,16 @@
  * limitations under the License.
  */
 
-import { delay } from 'bluebird';
-import { promises as fs } from 'fs';
+import {
+	AnimationFunction,
+	blinkWhite,
+	breatheGreen,
+	Color,
+	RGBLed,
+} from 'sys-class-rgb-led';
 
 import * as settings from './settings';
 import { observe } from './store';
-
-class Led {
-	private handle: fs.FileHandle;
-	private lastValue?: number;
-
-	constructor(private path: string) {}
-
-	private async open() {
-		if (this.handle === undefined) {
-			this.handle = await fs.open(this.path, 'w');
-		}
-	}
-
-	public async setIntensity(intensity: number) {
-		if (intensity < 0 || intensity > 1) {
-			throw new Error('Led intensity must be between 0 and 1');
-		}
-		const value = Math.round(intensity * 255);
-		if (value !== this.lastValue) {
-			await this.open();
-			await this.handle.write(value.toString(), 0);
-			// On a regular file we would also need to truncate to the written value length but it looks like it's not the case on sysfs files
-			this.lastValue = value;
-		}
-	}
-}
-
-export type Color = [number, number, number];
-export type AnimationFunction = (t: number) => Color;
-
-function delay1(duration: number): Promise<void> {
-	// delay that accepts Infinity
-	if (duration === Infinity) {
-		return new Promise(() => {
-			// Never resolve
-		});
-	} else {
-		return delay(duration);
-	}
-}
-
-function cancellableDelay(
-	duration: number,
-): { promise: Promise<void>; cancel: () => void } {
-	let maybeCancel: () => void;
-	const cancel = () => {
-		if (maybeCancel !== undefined) {
-			maybeCancel();
-		}
-	};
-	const cancelPromise: Promise<void> = new Promise(resolve => {
-		maybeCancel = resolve;
-	});
-	const promise = Promise.race([delay1(duration), cancelPromise]);
-	return { promise, cancel };
-}
-
-export class RGBLed {
-	private leds: [Led, Led, Led];
-	private animation: AnimationFunction;
-	private period: number; // in ms
-	private wakeUp = () => {
-		// noop until this.loop() is called
-	};
-
-	constructor(paths: [string, string, string]) {
-		this.leds = paths.map(path => new Led(path)) as [Led, Led, Led];
-		this.setStaticColor([0, 0, 0]);
-		this.loop();
-	}
-
-	private setFrequency(frequency: number) {
-		if (frequency < 0) {
-			throw new Error('frequency must be greater or equal to 0');
-		}
-		this.period = 1000 / frequency;
-		this.wakeUp();
-	}
-
-	private async loop() {
-		while (true) {
-			const start = new Date().getTime();
-			await this.setColor(this.animation(start));
-			const end = new Date().getTime();
-			const duration = end - start;
-			const { promise, cancel } = cancellableDelay(this.period - duration);
-			this.wakeUp = cancel;
-			await promise;
-		}
-	}
-
-	public setAnimation(animation: AnimationFunction, frequency = 10) {
-		this.animation = animation;
-		this.setFrequency(frequency);
-	}
-
-	public setStaticColor(color: Color) {
-		this.setAnimation(() => color, 0);
-	}
-
-	private async setColor(color: Color) {
-		await Promise.all([
-			this.leds[0].setIntensity(color[0]),
-			this.leds[1].setIntensity(color[1]),
-			this.leds[2].setIntensity(color[2]),
-		]);
-	}
-}
-
-// Animations:
-function breatheGreen(t: number): Color {
-	const intensity = (1 + Math.sin(t / 1000)) / 2;
-	return [0, intensity, 0];
-}
-
-function blinkWhite(t: number): Color {
-	const intensity = Math.floor(t / 1000) % 2;
-	return [intensity, intensity, intensity];
-}
 
 const leds: Map<string, RGBLed> = new Map();
 
@@ -184,16 +70,16 @@ export function init() {
 	// ledsMapping is something like:
 	// {
 	// 	'platform-xhci-hcd.0.auto-usb-0:1.1.1:1.0-scsi-0:0:0:0': [
-	// 		'/sys/class/leds/led1_r',
-	// 		'/sys/class/leds/led1_g',
-	// 		'/sys/class/leds/led1_b',
+	// 		'led1_r',
+	// 		'led1_g',
+	// 		'led1_b',
 	// 	],
 	// 	...
 	// }
 	const ledsMapping: _.Dictionary<[string, string, string]> =
 		settings.get('ledsMapping') || {};
-	for (const [drivePath, ledsPaths] of Object.entries(ledsMapping)) {
-		leds.set('/dev/disk/by-path/' + drivePath, new RGBLed(ledsPaths));
+	for (const [drivePath, ledsNames] of Object.entries(ledsMapping)) {
+		leds.set('/dev/disk/by-path/' + drivePath, new RGBLed(ledsNames));
 	}
 	observe(state => {
 		const availableDrives = state
