@@ -114,8 +114,7 @@ electron-build: assets/dmg/background.tiff | $(BUILD_TEMPORARY_DIRECTORY)
 		-r $(TARGET_ARCH) \
 		-s $(PLATFORM) \
 		-v production \
-		-n $(BUILD_TEMPORARY_DIRECTORY)/npm \
-		-w $(BUILD_TEMPORARY_DIRECTORY)
+		-n $(BUILD_TEMPORARY_DIRECTORY)/npm
 
 # ---------------------------------------------------------------------
 # Phony targets
@@ -128,7 +127,6 @@ TARGETS = \
 	lint-js \
 	lint-sass \
 	lint-cpp \
-	lint-html \
 	lint-spell \
 	test-spectron \
 	test-gui \
@@ -151,19 +149,13 @@ sass:
 	node-sass lib/gui/app/scss/main.scss > lib/gui/css/main.css
 
 lint-ts:
-	resin-lint --typescript lib
-
-lint-js:
-	eslint --ignore-pattern scripts/resin/**/*.js lib tests scripts bin webpack.config.js
+	resin-lint --typescript typings lib tests scripts/clean-shrinkwrap.ts webpack.config.ts
 
 lint-sass:
 	sass-lint lib/gui/scss
 
 lint-cpp:
 	cpplint --recursive src
-
-lint-html:
-	node scripts/html-lint.js
 
 lint-spell:
 	codespell \
@@ -172,21 +164,20 @@ lint-spell:
 		--skip *.svg *.gz,*.bz2,*.xz,*.zip,*.img,*.dmg,*.iso,*.rpi-sdcard,*.wic,.DS_Store,*.dtb,*.dtbo,*.dat,*.elf,*.bin,*.foo,xz-without-extension \
 		lib tests docs Makefile *.md LICENSE
 
-lint: lint-ts lint-js lint-sass lint-cpp lint-html lint-spell
+lint: lint-ts lint-sass lint-cpp lint-spell
 
 MOCHA_OPTIONS=--recursive --reporter spec --require ts-node/register
 
 # See https://github.com/electron/spectron/issues/127
 ETCHER_SPECTRON_ENTRYPOINT ?= $(shell node -e 'console.log(require("electron"))')
 test-spectron:
-	ETCHER_SPECTRON_ENTRYPOINT="$(ETCHER_SPECTRON_ENTRYPOINT)" mocha $(MOCHA_OPTIONS) tests/spectron
+	ETCHER_SPECTRON_ENTRYPOINT="$(ETCHER_SPECTRON_ENTRYPOINT)" mocha $(MOCHA_OPTIONS) tests/spectron/runner.spec.ts
 
 test-gui:
-	electron-mocha $(MOCHA_OPTIONS) --renderer tests/gui
+	electron-mocha $(MOCHA_OPTIONS) --full-trace --no-sandbox --renderer tests/gui/**/*.ts
 
 test-sdk:
-	electron-mocha $(MOCHA_OPTIONS) \
-		tests/shared
+	electron-mocha $(MOCHA_OPTIONS) --full-trace --no-sandbox tests/shared/**/*.ts
 
 test: test-gui test-sdk test-spectron
 
@@ -200,7 +191,6 @@ info:
 
 sanity-checks:
 	./scripts/ci/ensure-staged-sass.sh
-	./scripts/ci/ensure-npm-dependencies-compatibility.sh
 	./scripts/ci/ensure-all-file-extensions-in-gitattributes.sh
 
 clean:

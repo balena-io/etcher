@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 resin.io
+ * Copyright 2016 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-svg-icon > img[disabled] {
+img[disabled] {
   opacity: $disabled-opacity;
 }
 
 .page-main {
   flex: 1;
   align-self: center;
+  margin: 20px;
 }
 
 .page-main > .col-xs {
@@ -64,28 +65,6 @@ svg-icon > img[disabled] {
   font-weight: 300;
 }
 
-%step-border {
-  height: 2px;
-  background-color: $palette-theme-dark-foreground;
-  position: absolute;
-  width: 124px;
-  top: 19px;
-
-  &[disabled] {
-    background-color: $palette-theme-dark-disabled-foreground;
-  }
-}
-
-.page-main .step-border-left {
-  @extend %step-border;
-  left: -67px;
-}
-
-.page-main .step-border-right {
-  @extend %step-border;
-  right: -67px;
-}
-
 .page-main .step-tooltip {
   display: block;
   margin: -5px auto -20px;
@@ -114,13 +93,8 @@ svg-icon > img[disabled] {
   width: $btn-min-width;
 }
 
-.page-main .step-footer-underline {
-  border-bottom: 1px dotted;
-  padding-bottom: 2px;
-}
-
 .page-main .button.step-footer {
-  font-size: 14px;
+  font-size: 16px;
   color: $palette-theme-primary-background;
   border-radius: 0;
   padding: 0;
@@ -166,7 +140,7 @@ svg-icon > img[disabled] {
 .page-main .step-size {
   color: $palette-theme-dark-disabled-foreground;
   margin: 0 0 8px 0;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.5;
   height: 21px;
   width: 100%;
@@ -191,8 +165,7 @@ svg-icon > img[disabled] {
 .target-status-line {
   display: flex;
   align-items: baseline;
-  font-size: 14px;
-  font-family: inherit;
+  margin-bottom: 9px;
 
   > .target-status-dot {
     width: 12px;

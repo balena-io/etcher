@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 resin.io
+ * Copyright 2017 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,10 @@ etcher::v8utils::GetArguments(v8::Local<v8::Array> arguments) {
   for (uint32_t index = 0; index < arguments->Length(); index++) {
     // See https://stackoverflow.com/q/15615136/1641422
     std::string stringArgument(
-        *v8::String::Utf8Value(arguments->Get(index)->ToString()));
+        *Nan::Utf8String(
+        arguments->Get(
+          Nan::GetCurrentContext(),
+          index).ToLocalChecked()));
     std::wstring_convert<std::codecvt_utf8<wchar_t>> conversion;
 
     result.push_back(conversion.from_bytes(stringArgument));

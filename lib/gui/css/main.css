@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*
- * Copyright 2016 resin.io
+ * Copyright 2016 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 /*!
- * Bootstrap v3.4.0 (https://getbootstrap.com/)
- * Copyright 2011-2018 Twitter, Inc.
+ * Bootstrap v3.4.1 (https://getbootstrap.com/)
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -5850,7 +5850,7 @@ button.close {
     display: none !important; } }
 
 /*
- * Copyright 2016 resin.io
+ * Copyright 2016 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -5865,7 +5865,7 @@ button.close {
  * limitations under the License.
  */
 /*
- * Copyright 2016 resin.io
+ * Copyright 2016 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -5896,7 +5896,7 @@ body {
   word-wrap: break-word; }
 
 /*
- * Copyright 2016 resin.io
+ * Copyright 2016 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -5938,7 +5938,7 @@ body {
   margin-right: 5px; }
 
 /*
- * Copyright 2016 resin.io
+ * Copyright 2016 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -5969,7 +5969,7 @@ body {
   color: #fff; }
 
 /*
- * Copyright 2016 resin.io
+ * Copyright 2016 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -5992,7 +5992,7 @@ body {
   letter-spacing: 0; }
 
 /*
- * Copyright 2016 resin.io
+ * Copyright 2016 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -6012,7 +6012,7 @@ body {
   margin-bottom: 0; }
 
 /*
- * Copyright 2016 resin.io
+ * Copyright 2016 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -6035,8 +6035,9 @@ body {
   outline: none;
   position: relative; }
   .button > .glyphicon, .button > .tick {
-    top: 2px;
-    margin-right: 2px; }
+    top: 0;
+    width: 24px;
+    height: 24px; }
   .button.button-primary {
     width: 200px;
     height: 48px; }
@@ -6089,7 +6090,7 @@ body {
   color: #fff; }
 
 /*
- * Copyright 2016 resin.io
+ * Copyright 2016 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -6125,83 +6126,7 @@ body {
   border-color: #d9534f; }
 
 /*
- * Copyright 2016 resin.io
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-.modal-content {
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  height: auto;
-  overflow: hidden; }
-
-.modal-header {
-  display: flex;
-  align-items: baseline;
-  font-size: 12px;
-  color: #b3b3b3;
-  padding: 11px 20px;
-  flex-grow: 0; }
-
-.modal-title {
-  font-size: inherit;
-  flex-grow: 1; }
-
-.modal-body {
-  flex-grow: 1;
-  color: #666;
-  padding: 20px;
-  max-height: 250px;
-  overflow: auto; }
-  .modal-body a {
-    color: #2297de; }
-  .modal-body > p {
-    white-space: pre-line; }
-  .modal-body > p:last-child {
-    margin-bottom: 0; }
-
-.modal-menu {
-  display: flex; }
-  .modal-menu > * {
-    flex-basis: auto; }
-
-.modal-open {
-  padding-right: 0 !important; }
-
-.modal-backdrop.in {
-  opacity: 0; }
-
-.modal-footer {
-  flex-grow: 0;
-  border: 0;
-  text-align: center; }
-
-.modal {
-  display: flex !important;
-  justify-content: center;
-  align-items: center; }
-  .modal .button[disabled] {
-    background-color: #d5d5d5;
-    color: #787c7f; }
-
-.modal-dialog {
-  margin: 0;
-  position: initial; }
-
-/*
- * Copyright 2016 resin.io
+ * Copyright 2016 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -6245,26 +6170,29 @@ body {
   border-color: #ededed;
   padding: 12px 0; }
   .modal-drive-selector-modal .list-group-item .list-group-item-section-expanded {
-    flex-grow: 1; }
+    flex-grow: 1;
+    margin-left: 15px; }
   .modal-drive-selector-modal .list-group-item .list-group-item-section + .list-group-item-section {
-    margin-left: 10px; }
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: middle; }
   .modal-drive-selector-modal .list-group-item > .tick {
     font-size: 11px; }
   .modal-drive-selector-modal .list-group-item:first-child {
     border-top: 0; }
   .modal-drive-selector-modal .list-group-item[disabled] .list-group-item-heading {
     color: #b3b3b3; }
-  .modal-drive-selector-modal .list-group-item progress {
+  .modal-drive-selector-modal .list-group-item .drive-init-progress {
     appearance: none;
     width: 100%;
     height: 2.5px;
     border: none;
     border-radius: 50% 50%; }
-  .modal-drive-selector-modal .list-group-item progress::-webkit-progress-bar {
+  .modal-drive-selector-modal .list-group-item .drive-init-progress::-webkit-progress-bar {
     background-color: #ececec;
     border: none;
     outline: none; }
-  .modal-drive-selector-modal .list-group-item progress::-webkit-progress-value {
+  .modal-drive-selector-modal .list-group-item .drive-init-progress::-webkit-progress-value {
     border-bottom: 1px solid #176a9c;
     background-color: #2297de; }
 
@@ -6279,14 +6207,8 @@ body {
 .modal-drive-selector-modal .word-keep {
   word-break: keep-all; }
 
-svg-icon {
-  display: inline-block; }
-  svg-icon img {
-    width: 100%;
-    height: 100%; }
-
 /*
- * Copyright 2016 resin.io
+ * Copyright 2016 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -6300,79 +6222,13 @@ svg-icon {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.modal-tooltip-modal .modal-body {
-  text-align: center;
-  margin: 15px;
-  color: #666;
-  background-color: #f2f2f2;
-  word-wrap: break-word; }
-
-/*
- * Copyright 2016 resin.io
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-.modal-warning-modal .modal-content {
-  width: 350px; }
-
-.modal-warning-modal .modal-title .glyphicon, .modal-warning-modal .modal-title .tick {
-  color: #d9534f; }
-
-.modal-warning-modal .modal-body {
-  max-height: 200px;
-  overflow-y: auto; }
-
-/*
- * Copyright 2018 resin.io
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-.modal-file-selector-modal {
-  width: calc(100vw - 10px); }
-  .modal-file-selector-modal > .modal-content {
-    height: calc(100vh - 20px); }
-
-/*
- * Copyright 2016 resin.io
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-svg-icon > img[disabled] {
+img[disabled] {
   opacity: 0.2; }
 
 .page-main {
   flex: 1;
-  align-self: center; }
+  align-self: center;
+  margin: 20px; }
 
 .page-main > .col-xs {
   height: 165px; }
@@ -6408,21 +6264,6 @@ svg-icon > img[disabled] {
   font-size: 16px;
   font-weight: 300; }
 
-.page-main .step-border-left, .page-main .step-border-right {
-  height: 2px;
-  background-color: #fff;
-  position: absolute;
-  width: 124px;
-  top: 19px; }
-  .page-main .step-border-left[disabled], .page-main .step-border-right[disabled] {
-    background-color: #787c7f; }
-
-.page-main .step-border-left {
-  left: -67px; }
-
-.page-main .step-border-right {
-  right: -67px; }
-
 .page-main .step-tooltip {
   display: block;
   margin: -5px auto -20px;
@@ -6447,12 +6288,8 @@ svg-icon > img[disabled] {
   justify-content: space-between;
   width: 170px; }
 
-.page-main .step-footer-underline {
-  border-bottom: 1px dotted;
-  padding-bottom: 2px; }
-
 .page-main .button.step-footer {
-  font-size: 14px;
+  font-size: 16px;
   color: #2297de;
   border-radius: 0;
   padding: 0;
@@ -6489,7 +6326,7 @@ svg-icon > img[disabled] {
 .page-main .step-size {
   color: #787c7f;
   margin: 0 0 8px 0;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.5;
   height: 21px;
   width: 100%; }
@@ -6511,8 +6348,7 @@ svg-icon > img[disabled] {
 .target-status-line {
   display: flex;
   align-items: baseline;
-  font-size: 14px;
-  font-family: inherit; }
+  margin-bottom: 9px; }
   .target-status-line > .target-status-dot {
     width: 12px;
     height: 12px;
@@ -6536,31 +6372,7 @@ svg-icon > img[disabled] {
   position: relative; }
 
 /*
- * Copyright 2016 resin.io
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-.page-settings .checkbox input[type="checkbox"] + * {
-  color: #fff; }
-
-.page-settings .checkbox input[type="checkbox"]:not(:checked) + * {
-  color: #ddd; }
-
-.page-settings .title {
-  color: #fff; }
-
-/*
- * Copyright 2016 resin.io
+ * Copyright 2016 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -6575,10 +6387,10 @@ svg-icon > img[disabled] {
  * limitations under the License.
  */
 .page-finish {
-  margin-top: -15px;
-  flex: 1; }
-  .page-finish .col-xs-5.inline-flex.items-baseline > span, .page-finish .col-xs-5.inline-flex.items-baseline > div {
-    margin-bottom: -10px; }
+  margin-top: 60px; }
+
+.col-xs-5.inline-flex.items-baseline > span, .col-xs-5.inline-flex.items-baseline > div {
+  margin-bottom: -10px; }
 
 .page-finish .button-label {
   margin: 0 auto 15px;
@@ -6634,7 +6446,8 @@ svg-icon > img[disabled] {
   bottom: 0;
   color: white;
   height: 320px;
-  width: 100vw; }
+  width: 100vw;
+  left: 0; }
   .page-finish .fallback-banner > * {
     display: flex;
     justify-content: center;
@@ -9928,32 +9741,6 @@ body {
   body > footer {
     flex: 0 0 auto; }
 
-.section-footer-main {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  color: #787c7f;
-  margin: 0 30px 16px 30px;
-  padding-top: 15px;
-  border-top: 2px solid #64686a;
-  text-align: center; }
-  .section-footer-main .col-xs {
-    padding: 0; }
-  .section-footer-main .svg-icon {
-    margin: 0 13px; }
-  .section-footer-main .caption[os-open-external] {
-    border-bottom: 1px dashed;
-    padding-bottom: 2px; }
-    .section-footer-main .caption[os-open-external]:hover {
-      color: #85898c; }
-  .section-footer-main .footer-right {
-    font-size: 10px;
-    position: absolute;
-    right: 0; }
-  .section-footer-main > span[os-open-external] {
-    display: flex; }
-
 .section-loader webview {
   flex: 0 1;
   height: 0;
@@ -9971,19 +9758,12 @@ body {
   height: 100%;
   margin: 20px 50px; }
 
-.section-header {
-  text-align: right;
-  padding: 5px 8px; }
-  .section-header > .button {
-    padding-left: 3px;
-    padding-right: 3px; }
-
-featured-project webview {
+.featured-project webview {
   flex: 0 1;
   height: 0;
   width: 0; }
 
-featured-project.fp-visible webview {
+.featured-project.fp-visible webview {
   width: 480px;
   height: 360px;
   position: absolute;

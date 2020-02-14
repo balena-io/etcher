@@ -3,6 +3,90 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.76
+## (2020-02-05)
+
+* Prefix temp permissions script name [Lorenzo Alberto Maria Ambrosi]
+* Fix image drop zone, remove react-dropzone dependency [Alexis Svinartchouk]
+* Update etcher-sdk to ^2.0.17 [Alexis Svinartchouk]
+
+# v1.5.75
+## (2020-02-05)
+
+* Initialize leds object map [Omar López]
+
+# v1.5.74
+## (2020-02-04)
+
+* Etcher pro leds feature [Alexis Svinartchouk]
+* Compress deb package with bzip instead of xz [Alexis Svinartchouk]
+* Update electron to 7.1.11 [Alexis Svinartchouk]
+* Sort devices by device path on Linux [Alexis Svinartchouk]
+
+# v1.5.73
+## (2020-01-28)
+
+* Update electron to v7.1.10 [Alexis Svinartchouk]
+
+# v1.5.72
+## (2020-01-27)
+
+* Remove no longer used angular svg-icon component [Alexis Svinartchouk]
+* Remove no longer used closestUnit angular filter [Alexis Svinartchouk]
+
+# v1.5.71
+## (2020-01-14)
+
+* Update resin-corvus to 2.0.5 [Lorenzo Alberto Maria Ambrosi]
+
+# v1.5.70
+## (2019-12-13)
+
+* Make header draggable again [Lorenzo Alberto Maria Ambrosi]
+* Refactor drive selector and confirm modal to React [Lorenzo Alberto Maria Ambrosi]
+* Rework lib/gui/app/styled-components to typescript [Alexis Svinartchouk]
+* Convert FlashAnother & FlashResults to typescript [Lorenzo Alberto Maria Ambrosi]
+* Use React instead of Angular for image selection [Lucian]
+* Convert the drive selection step to React [Thodoris Greasidis]
+* chore: move flash step to React [Stevche Radevski]
+* Use React instead of Angular for image selection [Lucian]
+
+# v1.5.69
+## (2019-12-10)
+
+* Don't add --no-sandbox when ELECTRON_RUN_AS_NODE true [Alexis Svinartchouk]
+
+# v1.5.68
+## (2019-12-08)
+
+* Add version in settings modal [Lorenzo Alberto Maria Ambrosi]
+
+# v1.5.67
+## (2019-12-06)
+
+* Fix elevation on macos in development [Alexis Svinartchouk]
+
+# v1.5.66
+## (2019-12-03)
+
+* Update spectron to ^8 [Alexis Svinartchouk]
+* Update dependencies, get node-usb from npm [Alexis Svinartchouk]
+* Update nan to ^2.14 [Alexis Svinartchouk]
+* Use the same entrypoint for etcher and the child writer [Alexis Svinartchouk]
+* Require angular-mocks only when needed [Alexis Svinartchouk]
+* Remove no longer needed pkg dev dependency [Alexis Svinartchouk]
+* Update mocha, remove nock [Alexis Svinartchouk]
+* Remove no longer needed xml2js [Alexis Svinartchouk]
+* Remove node-pre-gyp patch that is no longer needed with electron 6 [Alexis Svinartchouk]
+* Update electron-mocha to ^8.1.2, remove acorn [Alexis Svinartchouk]
+* Update electron to 6.0.10 [Alexis Svinartchouk]
+
+# v1.5.65
+## (2019-12-02)
+
+* Convert settings modal to typescript [Lorenzo Alberto Maria Ambrosi]
+* Refactor settings page into modal [Lorenzo Alberto Maria Ambrosi]
+
 # v1.5.64
 ## (2019-11-22)
 
