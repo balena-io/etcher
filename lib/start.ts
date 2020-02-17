@@ -21,7 +21,9 @@
 // if passing `ELECTRON_RUN_AS_NODE`, you have to pass the path to the asar
 // or the entry point file (this file) manually as an argument.
 
-if (process.env.ELECTRON_RUN_AS_NODE) {
+import { env } from 'process';
+
+if (env.ELECTRON_RUN_AS_NODE) {
 	import('./gui/modules/child-writer');
 } else {
 	import('./gui/etcher');

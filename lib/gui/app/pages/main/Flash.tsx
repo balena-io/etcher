@@ -71,7 +71,7 @@ const getErrorMessageFromCode = (errorCode: string) => {
 	return '';
 };
 
-const flashImageToDrive = async (goToSuccess: () => void) => {
+async function flashImageToDrive(goToSuccess: () => void): Promise<string> {
 	const devices = selection.getSelectedDevices();
 	const image: any = selection.getImage();
 	const drives = _.filter(availableDrives.getDrives(), (drive: any) => {
@@ -129,7 +129,7 @@ const flashImageToDrive = async (goToSuccess: () => void) => {
 	}
 
 	return '';
-};
+}
 
 /**
  * @summary Get progress button label

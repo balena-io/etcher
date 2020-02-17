@@ -20,7 +20,6 @@
   },
   "scripts": {
     "test": "make lint test sanity-checks",
-    "prettier": "prettier --config ./node_modules/resin-lint/config/.prettierrc --write \"lib/**/*.ts\" \"lib/**/*.tsx\" \"tests/**/*.ts\" \"webpack.config.ts\" \"scripts/clean-shrinkwrap.ts\"",
     "start": "./node_modules/.bin/electron .",
     "postshrinkwrap": "ts-node ./scripts/clean-shrinkwrap.ts",
     "configure": "node-gyp configure",
@@ -39,7 +38,6 @@
   },
   "lint-staged": {
     "./**/*.{ts,tsx}": [
-      "npm run prettier",
       "make lint-ts",
       "git add"
     ]
@@ -84,6 +82,7 @@
     "styled-components": "^4.2.0",
     "styled-system": "^4.1.0",
     "sudo-prompt": "^9.0.0",
+    "sys-class-rgb-led": "^2.1.0",
     "tmp": "^0.1.0",
     "uuid": "^3.0.1"
   },
