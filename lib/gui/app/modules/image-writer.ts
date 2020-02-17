@@ -227,12 +227,15 @@ export function performWrite(
 				!flashResults.cancelled &&
 				!_.get(flashResults, ['results', 'bytesWritten'])
 			) {
-				throw errors.createUserError({
-					title: 'The writer process ended unexpectedly',
-					description:
-						'Please try again, and contact the Etcher team if the problem persists',
-					code: 'ECHILDDIED',
-				});
+				reject(
+					errors.createUserError({
+						title: 'The writer process ended unexpectedly',
+						description:
+							'Please try again, and contact the Etcher team if the problem persists',
+						code: 'ECHILDDIED',
+					}),
+				);
+				return;
 			}
 			resolve(flashResults);
 		});
