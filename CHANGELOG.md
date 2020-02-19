@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.78
+## (2020-02-19)
+
+* Update drivelist to 8.0.10 to fix parsing lsblk --pairs [Alexis Svinartchouk]
+
 # v1.5.77
 ## (2020-02-17)
 
