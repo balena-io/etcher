@@ -14,12 +14,16 @@ exports.default = function(context) {
   cp.execFileSync('mv', [scriptPath, binPath])
   fs.writeFileSync(
     scriptPath,
-    outdent`
+    outdent({trimTrailingNewline: false})`
       #!/bin/bash
+
+      # Resolve symlinks. Warning, readlink -f doesn't work on MacOS/BSD
+      script_dir="$(dirname "$(readlink -f "\${BASH_SOURCE[0]}")")"
+
       if [[ $EUID -ne 0 ]] || [[ $ELECTRON_RUN_AS_NODE ]]; then
-        "\${BASH_SOURCE%/*}"/${context.packager.executableName}.bin "$@"
+        "\${script_dir}"/${context.packager.executableName}.bin "$@"
       else
-        "\${BASH_SOURCE%/*}"/${context.packager.executableName}.bin "$@" --no-sandbox
+        "\${script_dir}"/${context.packager.executableName}.bin "$@" --no-sandbox
       fi
     `
   )
