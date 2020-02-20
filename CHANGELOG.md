@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.79
+## (2020-02-20)
+
+* Remove "Download the React DevTools for a better development experience" message [Alexis Svinartchouk]
+* Fix error when launching from terminal when installed via apt. [Alois Klink]
+
 # v1.5.78
 ## (2020-02-19)
 
