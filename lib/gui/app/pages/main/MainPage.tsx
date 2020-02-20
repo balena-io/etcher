@@ -16,31 +16,42 @@
 
 import { faCog, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { sourceDestination } from 'etcher-sdk';
 import * as _ from 'lodash';
 import * as path from 'path';
 import * as React from 'react';
-import { Button } from 'rendition';
+import { Flex } from 'rendition';
+import styled from 'styled-components';
 
 import { FeaturedProject } from '../../components/featured-project/featured-project';
 import FinishPage from '../../components/finish/finish';
-import { ImageSelector } from '../../components/image-selector/image-selector';
 import { ReducedFlashingInfos } from '../../components/reduced-flashing-infos/reduced-flashing-infos';
 import { SafeWebview } from '../../components/safe-webview/safe-webview';
 import { SettingsModal } from '../../components/settings/settings';
+import {
+	SourceOptions,
+	SourceSelector,
+} from '../../components/source-selector/source-selector';
 import { SVGIcon } from '../../components/svg-icon/svg-icon';
 import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
 import * as settings from '../../models/settings';
 import { observe } from '../../models/store';
 import { open as openExternal } from '../../os/open-external/services/open-external';
-import { ThemedProvider } from '../../styled-components';
-import { colors } from '../../theme';
+import {
+	IconButton as BaseIcon,
+	ThemedProvider,
+} from '../../styled-components';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
 
 import { bytesToClosestUnit } from '../../../../shared/units';
 
 import { DriveSelector } from './DriveSelector';
 import { Flash } from './Flash';
+
+const Icon = styled(BaseIcon)`
+	margin-right: 20px;
+`;
 
 function getDrivesTitle() {
 	const drives = selectionState.getSelectedDrives();
@@ -80,6 +91,7 @@ interface MainPageState {
 	current: 'main' | 'success';
 	isWebviewShowing: boolean;
 	hideSettings: boolean;
+	source: SourceOptions;
 }
 
 export class MainPage extends React.Component<
@@ -92,6 +104,10 @@ export class MainPage extends React.Component<
 			current: 'main',
 			isWebviewShowing: false,
 			hideSettings: true,
+			source: {
+				imagePath: '',
+				SourceType: sourceDestination.File,
+			},
 			...this.stateHelper(),
 		};
 	}
@@ -153,29 +169,22 @@ export class MainPage extends React.Component<
 								right: 0,
 							}}
 						>
-							<Button
+							<Icon
 								icon={<FontAwesomeIcon icon={faCog} />}
-								color={colors.secondary.background}
-								fontSize={24}
-								style={{ width: '30px' }}
 								plain
-								onClick={() => this.setState({ hideSettings: false })}
 								tabIndex={5}
+								onClick={() => this.setState({ hideSettings: false })}
 							/>
 							{!settings.get('disableExternalLinks') && (
-								<Button
+								<Icon
 									icon={<FontAwesomeIcon icon={faQuestionCircle} />}
-									color={colors.secondary.background}
-									fontSize={24}
-									style={{ width: '30px' }}
-									plain
 									onClick={() =>
 										openExternal(
 											selectionState.getImageSupportUrl() ||
 												'https://github.com/balena-io/etcher/blob/master/SUPPORT.md',
 										)
 									}
-									tabIndex={5}
+									tabIndex={6}
 								/>
 							)}
 						</span>
@@ -188,12 +197,17 @@ export class MainPage extends React.Component<
 						/>
 					)}
 
-					<div
+					<Flex
 						className="page-main row around-xs"
 						style={{ margin: '110px 50px' }}
 					>
 						<div className="col-xs">
-							<ImageSelector flashing={this.state.isFlashing} />
+							<SourceSelector
+								flashing={this.state.isFlashing}
+								afterSelected={(source: SourceOptions) =>
+									this.setState({ source })
+								}
+							/>
 						</div>
 
 						<div className="col-xs">
@@ -242,9 +256,10 @@ export class MainPage extends React.Component<
 							<Flash
 								goToSuccess={() => this.setState({ current: 'success' })}
 								shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
+								source={this.state.source}
 							/>
 						</div>
-					</div>
+					</Flex>
 				</ThemedProvider>
 			);
 		} else if (this.state.current === 'success') {

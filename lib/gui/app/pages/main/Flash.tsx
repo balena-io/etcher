@@ -71,7 +71,10 @@ const getErrorMessageFromCode = (errorCode: string) => {
 	return '';
 };
 
-async function flashImageToDrive(goToSuccess: () => void): Promise<string> {
+async function flashImageToDrive(
+	goToSuccess: () => void,
+	source: any,
+): Promise<string> {
 	const devices = selection.getSelectedDevices();
 	const image: any = selection.getImage();
 	const drives = _.filter(availableDrives.getDrives(), (drive: any) => {
@@ -89,7 +92,7 @@ async function flashImageToDrive(goToSuccess: () => void): Promise<string> {
 	const iconPath = '../../assets/icon.png';
 	const basename = path.basename(image.path);
 	try {
-		await imageWriter.flash(image.path, drives);
+		await imageWriter.flash(image.path, drives, source);
 		if (!flashState.wasLastFlashCancelled()) {
 			const flashResults: any = flashState.getFlashResults();
 			notification.send(
@@ -119,7 +122,7 @@ async function flashImageToDrive(goToSuccess: () => void): Promise<string> {
 		if (!errorMessage) {
 			error.image = basename;
 			analytics.logException(error);
-			errorMessage = messages.error.genericFlashError();
+			errorMessage = messages.error.genericFlashError(error);
 		}
 
 		return errorMessage;
@@ -160,7 +163,11 @@ const formatSeconds = (totalSeconds: number) => {
 	return `${minutes}m${seconds}s`;
 };
 
-export const Flash = ({ shouldFlashStepBeDisabled, goToSuccess }: any) => {
+export const Flash = ({
+	shouldFlashStepBeDisabled,
+	goToSuccess,
+	source,
+}: any) => {
 	const state: any = flashState.getFlashState();
 	const isFlashing = flashState.isFlashing();
 	const flashErrorCode = flashState.getLastFlashErrorCode();
@@ -179,7 +186,7 @@ export const Flash = ({ shouldFlashStepBeDisabled, goToSuccess }: any) => {
 			return;
 		}
 
-		setErrorMessage(await flashImageToDrive(goToSuccess));
+		setErrorMessage(await flashImageToDrive(goToSuccess, source));
 	};
 
 	const handleFlashErrorResponse = (shouldRetry: boolean) => {
@@ -215,7 +222,7 @@ export const Flash = ({ shouldFlashStepBeDisabled, goToSuccess }: any) => {
 			return;
 		}
 
-		setErrorMessage(await flashImageToDrive(goToSuccess));
+		setErrorMessage(await flashImageToDrive(goToSuccess, source));
 	};
 
 	return (
@@ -299,7 +306,11 @@ export const Flash = ({ shouldFlashStepBeDisabled, goToSuccess }: any) => {
 					done={() => handleFlashErrorResponse(true)}
 					action={'Retry'}
 				>
-					<Txt>{errorMessage}</Txt>
+					<Txt>
+						{_.map(errorMessage.split('\n'), (message, key) => (
+							<p key={`${message}-${key}`}>{message}</p>
+						))}
+					</Txt>
 				</Modal>
 			)}
 

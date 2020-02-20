@@ -15,7 +15,7 @@
  */
 
 import * as React from 'react';
-import { Button, Flex, Provider, Txt } from 'rendition';
+import { Button, ButtonProps, Flex, Provider, Txt } from 'rendition';
 import styled from 'styled-components';
 import { space } from 'styled-system';
 
@@ -59,9 +59,25 @@ export const BaseButton = styled(Button)`
 	height: 48px;
 `;
 
-export const StepButton = (props: any) => (
-	<BaseButton primary {...props}></BaseButton>
-);
+export const IconButton = styled(props => <Button plain {...props} />)`
+	&&& {
+		width: 24px;
+		height: 24px;
+		font-size: 24px;
+		color: #fff;
+
+		> svg {
+			font-size: 1em;
+		}
+	}
+`;
+
+export const StepButton = styled((props: ButtonProps) => (
+	<Button {...props}></Button>
+))`
+	color: rgba(255, 255, 255, 0.7);
+	margin: auto;
+`;
 
 export const ChangeButton = styled(BaseButton)`
 	color: ${colors.primary.background};

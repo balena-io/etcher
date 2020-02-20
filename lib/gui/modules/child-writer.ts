@@ -20,8 +20,10 @@ import * as sdk from 'etcher-sdk';
 import * as _ from 'lodash';
 import * as ipc from 'node-ipc';
 
+import { File, Http } from 'etcher-sdk/build/source-destination';
 import { toJSON } from '../../shared/errors';
 import { GENERAL_ERROR, SUCCESS } from '../../shared/exit-codes';
+import { SourceOptions } from '../app/components/source-selector/source-selector';
 
 ipc.config.id = process.env.IPC_CLIENT_ID as string;
 ipc.config.socketRoot = process.env.IPC_SOCKET_ROOT as string;
@@ -95,6 +97,7 @@ async function writeAndValidate(
 	onProgress: sdk.multiWrite.OnProgressFunction,
 	onFail: sdk.multiWrite.OnFailFunction,
 ): Promise<WriteResult> {
+	console.log('source', source);
 	let innerSource: sdk.sourceDestination.SourceDestination = await source.getInnerSource();
 	if (trim && (await innerSource.canRead())) {
 		innerSource = new sdk.sourceDestination.ConfiguredSource({
@@ -136,6 +139,8 @@ interface WriteOptions {
 	unmountOnSuccess: boolean;
 	validateWriteOnSuccess: boolean;
 	trim: boolean;
+	source: SourceOptions;
+	SourceType: string;
 }
 
 ipc.connectTo(IPC_SERVER_ID, () => {
@@ -224,9 +229,15 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 				direct: true,
 			});
 		});
-		const source = new sdk.sourceDestination.File({
-			path: options.imagePath,
-		});
+		const { SourceType } = options;
+		let source;
+		if (SourceType === File.name) {
+			source = new File({
+				path: options.imagePath,
+			});
+		} else {
+			source = new Http(options.imagePath);
+		}
 		try {
 			const results = await writeAndValidate(
 				source,
