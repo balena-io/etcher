@@ -173,7 +173,7 @@ const URLSelector = ({ done }: { done: (imageURL: string) => void }) => {
 };
 
 interface Flow {
-	icon: any;
+	icon?: JSX.Element;
 	onClick: (evt: MouseEvent) => void;
 	label: string;
 }
@@ -206,7 +206,6 @@ export type Source =
 export interface SourceOptions {
 	imagePath: string;
 	SourceType: Source;
-	sourceParams?: any[];
 }
 
 interface SourceSelectorProps {
@@ -229,7 +228,7 @@ export class SourceSelector extends React.Component<
 > {
 	private unsubscribe: () => void;
 	private afterSelected: SourceSelectorProps['afterSelected'];
-	public flows: Flow[];
+	private flows: Flow[];
 
 	constructor(props: SourceSelectorProps) {
 		super(props);
@@ -359,11 +358,7 @@ export class SourceSelector extends React.Component<
 		}
 	}
 
-	private async selectImageByPath({
-		imagePath,
-		SourceType,
-		sourceParams,
-	}: SourceOptions) {
+	private async selectImageByPath({ imagePath, SourceType }: SourceOptions) {
 		try {
 			imagePath = await replaceWindowsNetworkDriveLetter(imagePath);
 		} catch (error) {
@@ -410,7 +405,6 @@ export class SourceSelector extends React.Component<
 			this.afterSelected({
 				imagePath,
 				SourceType,
-				sourceParams,
 			});
 		} catch (error) {
 			const imageError = errors.createUserError({
@@ -452,7 +446,6 @@ export class SourceSelector extends React.Component<
 			this.selectImageByPath({
 				imagePath,
 				SourceType: sourceDestination.File,
-				sourceParams: [],
 			});
 		} catch (error) {
 			exceptionReporter.report(error);
@@ -465,7 +458,6 @@ export class SourceSelector extends React.Component<
 			this.selectImageByPath({
 				imagePath: file.path,
 				SourceType: sourceDestination.File,
-				sourceParams: [],
 			});
 		}
 	}

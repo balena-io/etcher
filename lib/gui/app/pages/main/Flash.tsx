@@ -22,6 +22,7 @@ import * as constraints from '../../../../shared/drive-constraints';
 import * as messages from '../../../../shared/messages';
 import { DriveSelectorModal } from '../../components/drive-selector/DriveSelectorModal';
 import { ProgressButton } from '../../components/progress-button/progress-button';
+import { SourceOptions } from '../../components/source-selector/source-selector';
 import { SVGIcon } from '../../components/svg-icon/svg-icon';
 import * as availableDrives from '../../models/available-drives';
 import * as flashState from '../../models/flash-state';
@@ -73,7 +74,7 @@ const getErrorMessageFromCode = (errorCode: string) => {
 
 async function flashImageToDrive(
 	goToSuccess: () => void,
-	source: any,
+	sourceOptions: SourceOptions,
 ): Promise<string> {
 	const devices = selection.getSelectedDevices();
 	const image: any = selection.getImage();
@@ -92,7 +93,7 @@ async function flashImageToDrive(
 	const iconPath = '../../assets/icon.png';
 	const basename = path.basename(image.path);
 	try {
-		await imageWriter.flash(image.path, drives, source);
+		await imageWriter.flash(image.path, drives, sourceOptions);
 		if (!flashState.wasLastFlashCancelled()) {
 			const flashResults: any = flashState.getFlashResults();
 			notification.send(
@@ -308,7 +309,7 @@ export const Flash = ({
 				>
 					<Txt>
 						{_.map(errorMessage.split('\n'), (message, key) => (
-							<p key={`${message}-${key}`}>{message}</p>
+							<p key={key}>{message}</p>
 						))}
 					</Txt>
 				</Modal>
