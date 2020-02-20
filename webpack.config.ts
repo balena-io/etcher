@@ -17,6 +17,7 @@
 import * as _ from 'lodash';
 import * as path from 'path';
 import * as SimpleProgressWebpackPlugin from 'simple-progress-webpack-plugin';
+import { BannerPlugin } from 'webpack';
 import * as nodeExternals from 'webpack-node-externals';
 
 /**
@@ -84,6 +85,14 @@ const guiConfig = {
 		gui: path.join(__dirname, 'lib', 'gui', 'app', 'app.ts'),
 	},
 	devtool: 'source-map',
+	plugins: [
+		...commonConfig.plugins,
+		// Remove "Download the React DevTools for a better development experience" message
+		new BannerPlugin({
+			banner: '__REACT_DEVTOOLS_GLOBAL_HOOK__ = { isDisabled: true };',
+			raw: true,
+		}),
+	],
 };
 
 const etcherConfig = {
