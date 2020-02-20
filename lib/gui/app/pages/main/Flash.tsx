@@ -164,11 +164,17 @@ const formatSeconds = (totalSeconds: number) => {
 	return `${minutes}m${seconds}s`;
 };
 
+interface FlashProps {
+	shouldFlashStepBeDisabled: boolean;
+	goToSuccess: () => void;
+	source: SourceOptions;
+}
+
 export const Flash = ({
 	shouldFlashStepBeDisabled,
 	goToSuccess,
 	source,
-}: any) => {
+}: FlashProps) => {
 	const state: any = flashState.getFlashState();
 	const isFlashing = flashState.isFlashing();
 	const flashErrorCode = flashState.getLastFlashErrorCode();

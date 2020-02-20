@@ -97,7 +97,6 @@ async function writeAndValidate(
 	onProgress: sdk.multiWrite.OnProgressFunction,
 	onFail: sdk.multiWrite.OnFailFunction,
 ): Promise<WriteResult> {
-	console.log('source', source);
 	let innerSource: sdk.sourceDestination.SourceDestination = await source.getInnerSource();
 	if (trim && (await innerSource.canRead())) {
 		innerSource = new sdk.sourceDestination.ConfiguredSource({

@@ -25,7 +25,7 @@ import * as path from 'path';
 import * as packageJSON from '../../../../package.json';
 import * as errors from '../../../shared/errors';
 import * as permissions from '../../../shared/permissions';
-import { SourceOptions } from '../components/source-selector/source-selector.js';
+import { SourceOptions } from '../components/source-selector/source-selector';
 import * as flashState from '../models/flash-state';
 import * as selectionState from '../models/selection-state';
 import * as settings from '../models/settings';
