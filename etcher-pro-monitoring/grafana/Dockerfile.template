@@ -1,0 +1,13 @@
+FROM balenalib/%%BALENA_MACHINE_NAME%%-debian
+RUN \
+	apt-get update && \
+	apt-get install --yes apt-transport-https software-properties-common wget jq && \
+	wget -q -O - https://packages.grafana.com/gpg.key | apt-key add - && \
+	add-apt-repository "deb https://packages.grafana.com/oss/deb stable main" && \
+	apt-get update && \
+	apt-get install --yes grafana && \
+	rm -rf /var/lib/apt/lists/*
+COPY ./grafana.ini /usr/share/grafana/conf/custom.ini
+COPY ./provisioning /usr/src/app/provisioning
+COPY ./*.sh /usr/src/app/
+CMD /usr/src/app/entry.sh
