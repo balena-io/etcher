@@ -1,0 +1,40 @@
+version: '2'
+volumes:
+    data:
+services:
+  influxdb:
+    restart: always
+    build: ./etcher-pro-monitoring/influxdb
+    network_mode: host
+    volumes:
+      - 'data:/data'
+  grafana:
+    restart: always
+    build: ./etcher-pro-monitoring/grafana
+    network_mode: host
+    volumes:
+      - 'data:/data'
+    environment:
+        - 'GF_SERVER_HTTP_PORT=80'
+        - 'GF_PATHS_PROVISIONING=/usr/src/app/provisioning'
+        - 'GF_SESSION_PROVIDER=memory'
+  collectd:
+    build: ./etcher-pro-monitoring/collectd
+    privileged: true  # needed ?
+    restart: always
+    network_mode: host
+  beep:
+    build: ./etcher-pro-monitoring/beep
+    privileged: true
+    restart: no
+  benchmark:
+    build: ./etcher-pro-monitoring/benchmark
+    privileged: true
+    restart: always
+  etcher:
+    build: .
+    privileged: true
+    restart: always
+    network_mode: host
+    labels:
+      io.balena.features.dbus: 1
