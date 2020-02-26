@@ -1,0 +1,7 @@
+FROM balenalib/%%BALENA_MACHINE_NAME%%-debian
+RUN \
+	apt-get update && \
+	apt-get install --yes collectd && \
+	rm -rf /var/lib/apt/lists/*
+COPY ./influxdb.conf /etc/collectd/collectd.conf.d/influxdb.conf
+CMD collectd -C /etc/collectd/collectd.conf -f
