@@ -1,0 +1,8 @@
+FROM balenalib/%%BALENA_MACHINE_NAME%%-debian
+RUN \
+	apt-get update && \
+	apt-get install --yes influxdb collectd-core && \
+	rm -rf /var/lib/apt/lists/*
+RUN sed -i 's|/var/lib/influxdb|/data/influxdb|g' /etc/influxdb/influxdb.conf
+COPY ./config.toml ./config.toml
+CMD influxd -config="config.toml"

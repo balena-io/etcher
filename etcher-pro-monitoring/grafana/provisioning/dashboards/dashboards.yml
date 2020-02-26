@@ -1,0 +1,12 @@
+apiVersion: 1
+
+providers:
+- name: 'default'
+  orgId: 1
+  folder: ''
+  type: file
+  editable: true
+  disableDeletion: true
+  updateIntervalSeconds: 10
+  options:
+    path: /usr/src/app/provisioning/dashboards
