@@ -1,4 +1,4 @@
-FROM balenalib/aarch64-debian-node:10-buster-build as builder
+FROM balenalib/aarch64-debian-node:12-buster-build as builder
 
 RUN apt-get update
 RUN apt-get install python
@@ -18,17 +18,17 @@ RUN npm i
 
 COPY assets assets
 COPY lib lib
-COPY tsconfig.json webpack.config.ts ./
+COPY tsconfig.json webpack.config.ts electron-builder.yml afterPack.js ./
 
 RUN npm run webpack
+RUN PATH=$(pwd)/node_modules/.bin/:$PATH electron-builder --dir --config.asar=false --config.npmRebuild=false --config.nodeGypRebuild=false
 
 FROM alexisresinio/aarch64-debian-bejs:latest
-COPY --from=builder /usr/src/app/node_modules /usr/src/app/node_modules
-COPY --from=builder /usr/src/app/generated /usr/src/app/generated
-COPY --from=builder /usr/src/app/assets /usr/src/app/assets
-COPY --from=builder /usr/src/app/build /usr/src/app/build
-COPY --from=builder /usr/src/app/lib /usr/src/app/lib
-COPY --from=builder /usr/src/app/package.json /usr/src/app/package.json
+COPY --from=builder /usr/src/app/dist/linux-arm64-unpacked/resources/app /usr/src/app
+COPY --from=builder /usr/src/app/node_modules/electron/ /usr/src/app/node_modules/electron
+WORKDIR /usr/src/app/node_modules/.bin
+RUN ln -s ../electron/cli.js electron
+WORKDIR /usr/src/app
 
 ENV ELECTRON_ENABLE_LOGGING=1
 
