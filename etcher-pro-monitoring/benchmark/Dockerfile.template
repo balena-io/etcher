@@ -1,3 +1,16 @@
+FROM balenalib/%%BALENA_MACHINE_NAME%%-debian-node:12.6-buster-build as rust-builder
+RUN apt-get update
+RUN apt-get install -yq --no-install-recommends git curl
+# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=923479
+# https://github.com/balena-io-library/base-images/issues/562
+RUN c_rehash
+ENV PATH=/root/.cargo/bin:$PATH
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+WORKDIR /usr/src/app
+RUN git clone https://github.com/balena-io-playground/parallel-disk-duplicator.git .
+RUN git checkout sda-to-sd-b-to-p
+RUN cargo build --release
+
 FROM balenalib/%%BALENA_MACHINE_NAME%%-debian-node:12.6-buster
 RUN \
   apt-get update && \
@@ -5,6 +18,7 @@ RUN \
   rm -rf /var/lib/apt/lists/*
 WORKDIR /usr/src/app
 COPY dd.sh flash.ts package.json package-lock.json ./
+COPY --from=rust-builder /usr/src/app/target/release/pdd .
 RUN npm i
 ENV UDEV=1
 ENV UV_THREADPOOL_SIZE=128
