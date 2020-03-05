@@ -1050,6 +1050,114 @@
     },
     {
       "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 40
+      },
+      "hiddenSeries": false,
+      "id": 28,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "type_instance"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "CPU Frequency",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "hertz",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
       "bars": true,
       "dashLength": 10,
       "dashes": false,
@@ -1060,7 +1168,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 40
+        "y": 49
       },
       "hiddenSeries": false,
       "id": 2,
@@ -1186,7 +1294,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 40
+        "y": 49
       },
       "hiddenSeries": false,
       "id": 4,
@@ -1312,7 +1420,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 48
+        "y": 57
       },
       "hiddenSeries": false,
       "id": 6,
@@ -1439,7 +1547,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 48
+        "y": 57
       },
       "hiddenSeries": false,
       "id": 8,
@@ -1566,7 +1674,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 56
+        "y": 65
       },
       "hiddenSeries": false,
       "id": 25,
@@ -1722,7 +1830,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 56
+        "y": 65
       },
       "hiddenSeries": false,
       "id": 26,
@@ -1895,5 +2003,5 @@
   "timezone": "",
   "title": "Status",
   "uid": "SuDbKk_Zk",
-  "version": 1
+  "version": 2
 }
