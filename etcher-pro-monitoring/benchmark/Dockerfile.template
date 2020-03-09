@@ -1,6 +1,6 @@
-FROM balenalib/%%BALENA_MACHINE_NAME%%-debian-node:12.6-buster-build as rust-builder
+FROM balenalib/%%BALENA_MACHINE_NAME%%-debian-node:12.6-buster-build as builder
 RUN apt-get update
-RUN apt-get install -yq --no-install-recommends git curl
+RUN apt-get install -yq --no-install-recommends git curl python
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=923479
 # https://github.com/balena-io-library/base-images/issues/562
 RUN c_rehash
@@ -10,6 +10,9 @@ WORKDIR /usr/src/app
 RUN git clone https://github.com/balena-io-playground/parallel-disk-duplicator.git .
 RUN git checkout sda-to-sd-b-to-p
 RUN cargo build --release
+# Also build @ronomon/direct-io
+COPY package.json package-lock.json ./
+RUN npm i
 
 FROM balenalib/%%BALENA_MACHINE_NAME%%-debian-node:12.6-buster
 RUN \
@@ -17,9 +20,9 @@ RUN \
   apt-get install -y stress htop dcfldd && \
   rm -rf /var/lib/apt/lists/*
 WORKDIR /usr/src/app
-COPY dd.sh flash.ts package.json package-lock.json ./
-COPY --from=rust-builder /usr/src/app/target/release/pdd .
-RUN npm i
+COPY dd.sh flash.ts tsconfig.json package.json package-lock.json ./
+COPY --from=builder /usr/src/app/target/release/pdd .
+COPY --from=builder /usr/src/app/node_modules ./node_modules
 ENV UDEV=1
 ENV UV_THREADPOOL_SIZE=128
 RUN echo "echo \"stress, htop, dd and dcfldd are installed, try running ./flash.ts --help\"" >> /etc/bash.bashrc
