@@ -9674,7 +9674,7 @@ readers do not read off random characters that represent icons */
   font-weight: 900; }
 
 @font-face {
-  font-family: 'Nunito';
+  font-family: "Nunito";
   src: url("Nunito-Regular.eot");
   src: url("./fonts/Nunito-Regular.eot?#iefix") format("embedded-opentype"), url("./fonts/Nunito-Regular.woff2") format("woff2"), url("./fonts/Nunito-Regular.woff") format("woff"), url("./fonts/Nunito-Regular.ttf") format("truetype");
   font-weight: normal;
@@ -9682,7 +9682,7 @@ readers do not read off random characters that represent icons */
   font-display: block; }
 
 @font-face {
-  font-family: 'Nunito';
+  font-family: "Nunito";
   src: url("Nunito-Bold.eot");
   src: url("./fonts/Nunito-Bold.eot?#iefix") format("embedded-opentype"), url("./fonts/Nunito-Bold.woff2") format("woff2"), url("./fonts/Nunito-Bold.woff") format("woff"), url("./fonts/Nunito-Bold.ttf") format("truetype");
   font-weight: bold;
@@ -9690,7 +9690,7 @@ readers do not read off random characters that represent icons */
   font-display: block; }
 
 @font-face {
-  font-family: 'Nunito';
+  font-family: "Nunito";
   src: url("Nunito-Light.eot");
   src: url("./fonts/Nunito-Light.eot?#iefix") format("embedded-opentype"), url("./fonts/Nunito-Light.woff2") format("woff2"), url("./fonts/Nunito-Light.woff") format("woff"), url("./fonts/Nunito-Light.ttf") format("truetype");
   font-weight: 300;
@@ -9698,7 +9698,7 @@ readers do not read off random characters that represent icons */
   font-display: block; }
 
 @font-face {
-  font-family: 'CircularStd';
+  font-family: "CircularStd";
   src: url("./fonts/CircularStd-Bold.eot");
   src: url("./fonts/CircularStd-Bold.eot?#iefix") format("embedded-opentype"), url("./fonts/CircularStd-Bold.woff2") format("woff2"), url("./fonts/CircularStd-Bold.woff") format("woff"), url("./fonts/CircularStd-Bold.ttf") format("truetype");
   font-weight: bold;
@@ -9706,7 +9706,7 @@ readers do not read off random characters that represent icons */
   font-display: block; }
 
 @font-face {
-  font-family: 'CircularStd';
+  font-family: "CircularStd";
   src: url("./fonts/CircularStd-Book.eot");
   src: url("./fonts/CircularStd-Book.eot?#iefix") format("embedded-opentype"), url("./fonts/CircularStd-Book.woff2") format("woff2"), url("./fonts/CircularStd-Book.woff") format("woff"), url("./fonts/CircularStd-Book.ttf") format("truetype");
   font-weight: 500;
@@ -9714,7 +9714,7 @@ readers do not read off random characters that represent icons */
   font-display: block; }
 
 @font-face {
-  font-family: 'CircularStd';
+  font-family: "CircularStd";
   src: url("./fonts/CircularStd-Medium.eot");
   src: url("./fonts/CircularStd-Medium.eot?#iefix") format("embedded-opentype"), url("./fonts/CircularStd-Medium.woff2") format("woff2"), url("./fonts/CircularStd-Medium.woff") format("woff"), url("./fonts/CircularStd-Medium.ttf") format("truetype");
   font-weight: 400;
@@ -9722,17 +9722,17 @@ readers do not read off random characters that represent icons */
   font-display: block; }
 
 .circular {
-  font-family: 'CircularStd';
+  font-family: "CircularStd";
   font-weight: 500; }
 
 .nunito {
-  font-family: 'Nunito'; }
+  font-family: "Nunito"; }
 
 body {
   letter-spacing: 0.5px;
   display: flex;
   flex-direction: column;
-  font-family: 'CircularStd'; }
+  font-family: "CircularStd"; }
   body > header {
     flex: 0 0 auto; }
   body > main {
