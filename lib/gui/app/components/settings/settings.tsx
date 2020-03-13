@@ -19,7 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as _ from 'lodash';
 import * as os from 'os';
 import * as React from 'react';
-import { Badge, Checkbox, Modal } from 'rendition';
+import { Checkbox, Modal } from 'rendition';
 
 import { version } from '../../../../../package.json';
 import * as settings from '../../models/settings';
@@ -91,23 +91,6 @@ async function getSettingsList(): Promise<Setting[]> {
 		{
 			name: 'updatesEnabled',
 			label: 'Auto-updates enabled',
-		},
-		{
-			name: 'unsafeMode',
-			label: (
-				<span>
-					Unsafe mode{' '}
-					<Badge danger fontSize={12}>
-						Dangerous
-					</Badge>
-				</span>
-			),
-			options: {
-				description: `Are you sure you want to turn this on?
-				You will be able to overwrite your system drives if you're not careful.`,
-				confirmLabel: 'Enable unsafe mode',
-			},
-			hide: await settings.get('disableUnsafeMode'),
 		},
 	];
 }

@@ -15,56 +15,27 @@
  */
 
 import * as React from 'react';
-import { Button, ButtonProps, Provider, Txt } from 'rendition';
+import {
+	Button,
+	ButtonProps,
+	Flex,
+	Modal as ModalBase,
+	Provider,
+	Txt,
+} from 'rendition';
 import styled from 'styled-components';
 import { space } from 'styled-system';
 
-import { colors } from './theme';
-
-const font = 'SourceSansPro';
-const theme = {
-	font,
-	titleFont: font,
-	global: {
-		font: {
-			family: font,
-		},
-	},
-	colors,
-	button: {
-		border: {
-			width: '0',
-			radius: '24px',
-		},
-		disabled: {
-			opacity: 1,
-		},
-		extend: () => `
-			&& {
-				width: 200px;
-				height: 48px;
-
-				&:disabled {
-					background-color: ${colors.dark.disabled.background};
-					color: ${colors.dark.disabled.foreground};
-					opacity: 1;
-
-					&:hover {
-						background-color: ${colors.dark.disabled.background};
-						color: ${colors.dark.disabled.foreground};
-					}
-				}
-			}
-		`,
-	},
-};
+import { colors, theme } from './theme';
 
 export const ThemedProvider = (props: any) => (
 	<Provider theme={theme} {...props}></Provider>
 );
 
 export const BaseButton = styled(Button)`
+	width: 200px;
 	height: 48px;
+	font-size: 16px;
 `;
 
 export const IconButton = styled((props) => <Button plain {...props} />)`
@@ -81,7 +52,7 @@ export const IconButton = styled((props) => <Button plain {...props} />)`
 `;
 
 export const StepButton = styled((props: ButtonProps) => (
-	<Button {...props}></Button>
+	<BaseButton {...props}></BaseButton>
 ))`
 	color: #ffffff;
 	margin: auto;
@@ -105,10 +76,9 @@ export const ChangeButton = styled(Button)`
 		${space}
 	}
 `;
-export const StepNameButton = styled(Button)`
-	border-radius: 24px;
-	margin: auto;
-	display: flex;
+
+export const StepNameButton = styled(BaseButton)`
+	display: inline-flex;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
@@ -123,16 +93,52 @@ export const StepNameButton = styled(Button)`
 		}
 	}
 `;
+
+export const StepSelection = styled(Flex)`
+	flex-wrap: wrap;
+	justify-content: center;
+`;
+
 export const Footer = styled(Txt)`
 	margin-top: 10px;
 	color: ${colors.dark.disabled.foreground};
 	font-size: 10px;
 `;
+
 export const Underline = styled(Txt.span)`
 	border-bottom: 1px dotted;
 	padding-bottom: 2px;
 `;
+
 export const DetailsText = styled(Txt.p)`
 	color: ${colors.dark.disabled.foreground};
 	margin-bottom: 0;
+`;
+
+export const Modal = styled((props) => {
+	return (
+		<ModalBase
+			cancelButtonProps={{
+				style: {
+					marginRight: '20px',
+					border: 'solid 1px #2a506f',
+				},
+			}}
+			{...props}
+		/>
+	);
+})`
+	> div {
+		padding: 30px;
+
+		> div:last-child {
+			height: 80px;
+			justify-content: center;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			box-shadow: 0 -2px 10px 0 rgba(221, 225, 240, 0.5), 0 -1px 0 0 #dde1f0;
+		}
+	}
 `;

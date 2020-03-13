@@ -21,9 +21,12 @@ import { Flex, Modal, Txt } from 'rendition';
 
 import * as constraints from '../../../../shared/drive-constraints';
 import * as messages from '../../../../shared/messages';
-import { DriveSelectorModal } from '../../components/drive-selector/DriveSelectorModal';
 import { ProgressButton } from '../../components/progress-button/progress-button';
 import { SourceOptions } from '../../components/source-selector/source-selector';
+import {
+	TargetSelectorModal,
+	DrivelistTarget,
+} from '../../components/target-selector/target-selector-modal';
 import * as availableDrives from '../../models/available-drives';
 import * as flashState from '../../models/flash-state';
 import * as selection from '../../models/selection-state';
@@ -325,11 +328,28 @@ export class FlashStep extends React.PureComponent<
 						</Txt>
 					</Modal>
 				)}
-
 				{this.state.showDriveSelectorModal && (
-					<DriveSelectorModal
-						close={() => this.setState({ showDriveSelectorModal: false })}
-					/>
+					<TargetSelectorModal
+						cancel={() => this.setState({ showDriveSelectorModal: false })}
+						close={(targets: DrivelistTarget[]) => {
+							const selectedDrives = selection.getSelectedDrives();
+							if (_.isEmpty(targets)) {
+								_.each(
+									_.map(selectedDrives, 'device'),
+									selection.deselectDrive,
+								);
+							} else {
+								const deselected = _.reject(selectedDrives, (drive) =>
+									_.find(targets, (row) => row.device === drive.device),
+								);
+								// select drives
+								_.each(_.map(targets, 'device'), selection.selectDrive);
+								// deselect drives
+								_.each(_.map(deselected, 'device'), selection.deselectDrive);
+							}
+							this.setState({ showDriveSelectorModal: false });
+						}}
+					></TargetSelectorModal>
 				)}
 			</>
 		);

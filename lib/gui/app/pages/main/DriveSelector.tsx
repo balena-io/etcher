@@ -17,9 +17,17 @@
 import * as _ from 'lodash';
 import * as React from 'react';
 import styled from 'styled-components';
-import { DriveSelectorModal } from '../../components/drive-selector/DriveSelectorModal';
-import { TargetSelector } from '../../components/drive-selector/target-selector';
-import { getImage, getSelectedDrives } from '../../models/selection-state';
+import { TargetSelector } from '../../components/target-selector/target-selector-button';
+import {
+	DrivelistTarget,
+	TargetSelectorModal,
+} from '../../components/target-selector/target-selector-modal';
+import {
+	getImage,
+	getSelectedDrives,
+	deselectDrive,
+	selectDrive,
+} from '../../models/selection-state';
 import * as settings from '../../models/settings';
 import { observe } from '../../models/store';
 import * as analytics from '../../modules/analytics';
@@ -84,7 +92,7 @@ export const DriveSelector = ({
 		{ showDrivesButton, driveListLabel, targets, image },
 		setStateSlice,
 	] = React.useState(getDriveSelectionStateSlice());
-	const [showDriveSelectorModal, setShowDriveSelectorModal] = React.useState(
+	const [showTargetSelectorModal, setShowTargetSelectorModal] = React.useState(
 		false,
 	);
 
@@ -115,11 +123,11 @@ export const DriveSelector = ({
 					show={!hasDrive && showDrivesButton}
 					tooltip={driveListLabel}
 					openDriveSelector={() => {
-						setShowDriveSelectorModal(true);
+						setShowTargetSelectorModal(true);
 					}}
 					reselectDrive={() => {
 						analytics.logEvent('Reselect drive');
-						setShowDriveSelectorModal(true);
+						setShowTargetSelectorModal(true);
 					}}
 					flashing={flashing}
 					targets={targets}
@@ -127,10 +135,25 @@ export const DriveSelector = ({
 				/>
 			</div>
 
-			{showDriveSelectorModal && (
-				<DriveSelectorModal
-					close={() => setShowDriveSelectorModal(false)}
-				></DriveSelectorModal>
+			{showTargetSelectorModal && (
+				<TargetSelectorModal
+					cancel={() => setShowTargetSelectorModal(false)}
+					close={(selectedTargets: DrivelistTarget[]) => {
+						const selectedDrives = getSelectedDrives();
+						if (_.isEmpty(selectedTargets)) {
+							_.each(_.map(selectedDrives, 'device'), deselectDrive);
+						} else {
+							const deselected = _.reject(selectedDrives, (drive) =>
+								_.find(selectedTargets, (row) => row.device === drive.device),
+							);
+							// select drives
+							_.each(_.map(selectedTargets, 'device'), selectDrive);
+							// deselect drives
+							_.each(_.map(deselected, 'device'), deselectDrive);
+						}
+						setShowTargetSelectorModal(false);
+					}}
+				></TargetSelectorModal>
 			)}
 		</div>
 	);

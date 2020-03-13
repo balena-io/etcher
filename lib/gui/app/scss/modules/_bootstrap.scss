@@ -25,3 +25,20 @@ html {
 body {
   background-color: $palette-theme-dark-background;
 }
+
+// Fix slight checkbox vertical alignment issue
+input[type="checkbox"] {
+  margin: 0;
+}
+
+label {
+  margin: 0;
+}
+
+[uib-tooltip] {
+  cursor: default;
+}
+
+.tooltip {
+  word-wrap: break-word;
+}
