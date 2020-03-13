@@ -77,6 +77,7 @@ function createMainWindow() {
 			backgroundThrottling: false,
 			nodeIntegration: true,
 			webviewTag: true,
+			zoomFactor: electron.screen.getPrimaryDisplay().bounds.width / 800,
 		},
 	});
 
