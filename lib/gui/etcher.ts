@@ -104,15 +104,9 @@ function createMainWindow() {
 		event.preventDefault();
 	});
 
-	const dir = __dirname.split(path.sep).pop();
-
-	if (dir === 'generated') {
-		mainWindow.loadURL(
-			`file://${path.join(__dirname, '..', 'lib', 'gui', 'app', 'index.html')}`,
-		);
-	} else {
-		mainWindow.loadURL(`file://${path.join(__dirname, 'app', 'index.html')}`);
-	}
+	mainWindow.loadURL(
+		`file://${path.join(__dirname, '..', 'lib', 'gui', 'app', 'index.html')}`,
+	);
 
 	const page = mainWindow.webContents;
 
