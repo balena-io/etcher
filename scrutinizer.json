@@ -97,6 +97,14 @@
       "avatar": "https://avatars1.githubusercontent.com/u/1233928?v=4"
     },
     {
+      "username": "aloisklink",
+      "avatar": "https://avatars1.githubusercontent.com/u/19716675?v=4"
+    },
+    {
+      "username": "Angeall",
+      "avatar": "https://avatars3.githubusercontent.com/u/6820648?v=4"
+    },
+    {
       "username": "CherryDT",
       "avatar": "https://avatars1.githubusercontent.com/u/6010463?v=4"
     },
@@ -111,14 +119,6 @@
     {
       "username": "Eate",
       "avatar": "https://avatars0.githubusercontent.com/u/17911331?v=4"
-    },
-    {
-      "username": "fedealconada",
-      "avatar": "https://avatars0.githubusercontent.com/u/4473536?v=4"
-    },
-    {
-      "username": "imrehg",
-      "avatar": "https://avatars0.githubusercontent.com/u/38863?v=4"
     }
   ],
   "docs": [
@@ -327,7 +327,7 @@
     "@jviotti",
     "@nazrhom"
   ],
-  "readme": "# Etcher\n\n> Flash OS images to SD cards & USB drives, safely and easily.\n\nEtcher is a powerful OS image flasher built with web technologies to ensure\nflashing an SDCard or USB drive is a pleasant and safe experience. It protects\nyou from accidentally writing to your hard-drives, ensures every byte of data\nwas written correctly and much more. It can also flash directly Raspberry Pi devices that support the usbboot protocol\n\n[![Current Release](https://img.shields.io/github/release/balena-io/etcher.svg?style=flat-square)](https://balena.io/etcher)\n[![License](https://img.shields.io/github/license/balena-io/etcher.svg?style=flat-square)](https://github.com/balena-io/etcher/blob/master/LICENSE)\n[![Dependency status](https://img.shields.io/david/balena-io/etcher.svg?style=flat-square)](https://david-dm.org/balena-io/etcher)\n[![Balena.io Forums](https://img.shields.io/discourse/https/forums.balena.io/topics.svg?style=flat-square&label=balena.io%20forums)](https://forums.balena.io/c/etcher)\n\n***\n\n[**Download**][etcher] | [**Support**][SUPPORT] | [**Documentation**][USER-DOCUMENTATION] | [**Contributing**][CONTRIBUTING] | [**Roadmap**][milestones]\n\n## Supported Operating Systems\n\n- Linux (most distros)\n- macOS 10.10 (Yosemite) and later\n- Microsoft Windows 7 and later\n\nNote that Etcher will run on any platform officially supported by\n[Electron][electron]. Read more in their\n[documentation][electron-supported-platforms].\n\n## Installers\n\nRefer to the [downloads page][etcher] for the latest pre-made\ninstallers for all supported operating systems.\n\n#### Debian and Ubuntu based Package Repository (GNU/Linux x86/x64)\n\n1. Add Etcher debian repository:\n\n    ```sh\n    echo \"deb https://deb.etcher.io stable etcher\" | sudo tee /etc/apt/sources.list.d/balena-etcher.list\n    ```\n\n2. Trust Bintray.com's GPG key:\n\n    ```sh\n    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61\n    ```\n\n3. Update and install:\n\n    ```sh\n    sudo apt-get update\n    sudo apt-get install balena-etcher-electron\n    ```\n\n##### Uninstall\n\n```sh\nsudo apt-get remove balena-etcher-electron\nsudo rm /etc/apt/sources.list.d/balena-etcher.list\nsudo apt-get update\n```\n#### Redhat (RHEL) and Fedora based Package Repository (GNU/Linux x86/x64)\n\n1. Add Etcher rpm repository:\n\n    ```sh\n    sudo wget https://balena.io/etcher/static/etcher-rpm.repo -O /etc/yum.repos.d/etcher-rpm.repo\n    ```\n\n2. Update and install:\n\n    ```sh\n    sudo yum install -y balena-etcher-electron\n    ```\n    or\n    ```sh\n    sudo dnf install -y balena-etcher-electron\n    ```\n\n##### Uninstall\n\n```sh\nsudo yum remove -y balena-etcher-electron\nsudo rm /etc/yum.repos.d/etcher-rpm.repo\nsudo yum clean all\nsudo yum makecache fast\n```\nor\n```sh\nsudo dnf remove -y balena-etcher-electron\nsudo rm /etc/yum.repos.d/etcher-rpm.repo\nsudo dnf clean all\nsudo dnf makecache\n```\n\n#### Solus (GNU/Linux x64)\n\n```sh\nsudo eopkg it etcher\n```\n\n##### Uninstall\n\n```sh\nsudo eopkg rm etcher\n```\n\n#### Brew Cask (macOS)\n\nNote that the Etcher Cask has to be updated manually to point to new versions,\nso it might not refer to the latest version immediately after an Etcher\nrelease.\n\n```sh\nbrew cask install balenaetcher\n```\n\n##### Uninstall\n\n```sh\nbrew cask uninstall balenaetcher\n```\n\n#### Chocolatey (Windows)\n\nThis package is maintained by [@majkinetor](https://github.com/majkinetor), and\nis kept up to date automatically.\n\n```sh\nchoco install etcher\n```\n\n##### Uninstall\n\n```sh\nchoco uninstall etcher\n```\n\n## Support\n\nIf you're having any problem, please [raise an issue][newissue] on GitHub and\nthe balena.io team will be happy to help.\n\n## License\n\nEtcher is free software, and may be redistributed under the terms specified in\nthe [license].\n\n[etcher]: https://balena.io/etcher\n[electron]: https://electronjs.org/\n[electron-supported-platforms]: https://electronjs.org/docs/tutorial/support#supported-platforms\n[SUPPORT]: https://github.com/balena-io/etcher/blob/master/SUPPORT.md\n[CONTRIBUTING]: https://github.com/balena-io/etcher/blob/master/docs/CONTRIBUTING.md\n[USER-DOCUMENTATION]: https://github.com/balena-io/etcher/blob/master/docs/USER-DOCUMENTATION.md\n[milestones]: https://github.com/balena-io/etcher/milestones\n[newissue]: https://github.com/balena-io/etcher/issues/new\n[license]: https://github.com/balena-io/etcher/blob/master/LICENSE\n",
+  "readme": "# Etcher\n\n> Flash OS images to SD cards & USB drives, safely and easily.\n\nEtcher is a powerful OS image flasher built with web technologies to ensure\nflashing an SDCard or USB drive is a pleasant and safe experience. It protects\nyou from accidentally writing to your hard-drives, ensures every byte of data\nwas written correctly and much more. It can also flash directly Raspberry Pi devices that support the usbboot protocol\n\n[![Current Release](https://img.shields.io/github/release/balena-io/etcher.svg?style=flat-square)](https://balena.io/etcher)\n[![License](https://img.shields.io/github/license/balena-io/etcher.svg?style=flat-square)](https://github.com/balena-io/etcher/blob/master/LICENSE)\n[![Dependency status](https://img.shields.io/david/balena-io/etcher.svg?style=flat-square)](https://david-dm.org/balena-io/etcher)\n[![Balena.io Forums](https://img.shields.io/discourse/https/forums.balena.io/topics.svg?style=flat-square&label=balena.io%20forums)](https://forums.balena.io/c/etcher)\n\n***\n\n[**Download**][etcher] | [**Support**][SUPPORT] | [**Documentation**][USER-DOCUMENTATION] | [**Contributing**][CONTRIBUTING] | [**Roadmap**][milestones]\n\n## Supported Operating Systems\n\n- Linux (most distros)\n- macOS 10.10 (Yosemite) and later\n- Microsoft Windows 7 and later\n\nNote that Etcher will run on any platform officially supported by\n[Electron][electron]. Read more in their\n[documentation][electron-supported-platforms].\n\n## Installers\n\nRefer to the [downloads page][etcher] for the latest pre-made\ninstallers for all supported operating systems.\n\n#### Debian and Ubuntu based Package Repository (GNU/Linux x86/x64)\n\n1. Add Etcher debian repository:\n\n    ```sh\n    echo \"deb https://deb.etcher.io stable etcher\" | sudo tee /etc/apt/sources.list.d/balena-etcher.list\n    ```\n\n2. Trust Bintray.com's GPG key:\n\n    ```sh\n    sudo apt-key adv --keyserver hkps://keyserver.ubuntu.com:443 --recv-keys 379CE192D401AB61\n    ```\n\n3. Update and install:\n\n    ```sh\n    sudo apt-get update\n    sudo apt-get install balena-etcher-electron\n    ```\n\n##### Uninstall\n\n```sh\nsudo apt-get remove balena-etcher-electron\nsudo rm /etc/apt/sources.list.d/balena-etcher.list\nsudo apt-get update\n```\n#### Redhat (RHEL) and Fedora based Package Repository (GNU/Linux x86/x64)\n\n1. Add Etcher rpm repository:\n\n    ```sh\n    sudo wget https://balena.io/etcher/static/etcher-rpm.repo -O /etc/yum.repos.d/etcher-rpm.repo\n    ```\n\n2. Update and install:\n\n    ```sh\n    sudo yum install -y balena-etcher-electron\n    ```\n    or\n    ```sh\n    sudo dnf install -y balena-etcher-electron\n    ```\n\n##### Uninstall\n\n```sh\nsudo yum remove -y balena-etcher-electron\nsudo rm /etc/yum.repos.d/etcher-rpm.repo\nsudo yum clean all\nsudo yum makecache fast\n```\nor\n```sh\nsudo dnf remove -y balena-etcher-electron\nsudo rm /etc/yum.repos.d/etcher-rpm.repo\nsudo dnf clean all\nsudo dnf makecache\n```\n\n#### Solus (GNU/Linux x64)\n\n```sh\nsudo eopkg it etcher\n```\n\n##### Uninstall\n\n```sh\nsudo eopkg rm etcher\n```\n\n#### Brew Cask (macOS)\n\nNote that the Etcher Cask has to be updated manually to point to new versions,\nso it might not refer to the latest version immediately after an Etcher\nrelease.\n\n```sh\nbrew cask install balenaetcher\n```\n\n##### Uninstall\n\n```sh\nbrew cask uninstall balenaetcher\n```\n\n#### Chocolatey (Windows)\n\nThis package is maintained by [@majkinetor](https://github.com/majkinetor), and\nis kept up to date automatically.\n\n```sh\nchoco install etcher\n```\n\n##### Uninstall\n\n```sh\nchoco uninstall etcher\n```\n\n## Support\n\nIf you're having any problem, please [raise an issue][newissue] on GitHub and\nthe balena.io team will be happy to help.\n\n## License\n\nEtcher is free software, and may be redistributed under the terms specified in\nthe [license].\n\n[etcher]: https://balena.io/etcher\n[electron]: https://electronjs.org/\n[electron-supported-platforms]: https://electronjs.org/docs/tutorial/support#supported-platforms\n[SUPPORT]: https://github.com/balena-io/etcher/blob/master/SUPPORT.md\n[CONTRIBUTING]: https://github.com/balena-io/etcher/blob/master/docs/CONTRIBUTING.md\n[USER-DOCUMENTATION]: https://github.com/balena-io/etcher/blob/master/docs/USER-DOCUMENTATION.md\n[milestones]: https://github.com/balena-io/etcher/milestones\n[newissue]: https://github.com/balena-io/etcher/issues/new\n[license]: https://github.com/balena-io/etcher/blob/master/LICENSE\n",
   "highlights": null,
   "installationSteps": null,
   "examples": null,
@@ -339,7 +339,7 @@
   "public": true,
   "fork": false,
   "description": "Flash OS images to SD cards & USB drives, safely and easily.",
-  "stars": 16967,
+  "stars": 17305,
   "homepage": "https://etcher.io",
   "repositoryUrl": "https://github.com/balena-io/etcher.git",
   "active": true,
@@ -387,85 +387,85 @@
     "tmp",
     "uuid"
   ],
-  "lastCommitDate": "2020-02-20T17:33:28Z",
+  "lastCommitDate": "2020-03-24T13:53:43Z",
   "latestRelease": {
-    "tagName": "v1.5.79",
+    "tagName": "v1.5.80",
     "asssets": [
       {
-        "name": "balena-etcher-electron-1.5.79-linux-ia32.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.79/balena-etcher-electron-1.5.79-linux-ia32.zip"
+        "name": "balena-etcher-electron-1.5.80-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balena-etcher-electron-1.5.80-linux-ia32.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.79-linux-x64.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.79/balena-etcher-electron-1.5.79-linux-x64.zip"
+        "name": "balena-etcher-electron-1.5.80-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balena-etcher-electron-1.5.80-linux-x64.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.79.i686.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.79/balena-etcher-electron-1.5.79.i686.rpm"
+        "name": "balena-etcher-electron-1.5.80.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balena-etcher-electron-1.5.80.i686.rpm"
       },
       {
-        "name": "balena-etcher-electron-1.5.79.x86_64.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.79/balena-etcher-electron-1.5.79.x86_64.rpm"
+        "name": "balena-etcher-electron-1.5.80.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balena-etcher-electron-1.5.80.x86_64.rpm"
       },
       {
-        "name": "balena-etcher-electron_1.5.79_amd64.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.79/balena-etcher-electron_1.5.79_amd64.deb"
+        "name": "balena-etcher-electron_1.5.80_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balena-etcher-electron_1.5.80_amd64.deb"
       },
       {
-        "name": "balena-etcher-electron_1.5.79_i386.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.79/balena-etcher-electron_1.5.79_i386.deb"
+        "name": "balena-etcher-electron_1.5.80_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balena-etcher-electron_1.5.80_i386.deb"
       },
       {
-        "name": "balenaEtcher-1.5.79-ia32.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.79/balenaEtcher-1.5.79-ia32.AppImage"
+        "name": "balenaEtcher-1.5.80-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balenaEtcher-1.5.80-ia32.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.79-mac.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.79/balenaEtcher-1.5.79-mac.zip"
+        "name": "balenaEtcher-1.5.80-mac.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balenaEtcher-1.5.80-mac.zip"
       },
       {
-        "name": "balenaEtcher-1.5.79-x64.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.79/balenaEtcher-1.5.79-x64.AppImage"
+        "name": "balenaEtcher-1.5.80-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balenaEtcher-1.5.80-x64.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.79.dmg",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.79/balenaEtcher-1.5.79.dmg"
+        "name": "balenaEtcher-1.5.80.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balenaEtcher-1.5.80.dmg"
       },
       {
-        "name": "balenaEtcher-1.5.79.dmg.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.79/balenaEtcher-1.5.79.dmg.blockmap"
+        "name": "balenaEtcher-1.5.80.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balenaEtcher-1.5.80.dmg.blockmap"
       },
       {
-        "name": "balenaEtcher-Portable-1.5.79.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.79/balenaEtcher-Portable-1.5.79.exe"
+        "name": "balenaEtcher-Portable-1.5.80.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balenaEtcher-Portable-1.5.80.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.79.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.79/balenaEtcher-Setup-1.5.79.exe"
+        "name": "balenaEtcher-Setup-1.5.80.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balenaEtcher-Setup-1.5.80.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.79.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.79/balenaEtcher-Setup-1.5.79.exe.blockmap"
+        "name": "balenaEtcher-Setup-1.5.80.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balenaEtcher-Setup-1.5.80.exe.blockmap"
       },
       {
         "name": "builder-effective-config.yaml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.79/builder-effective-config.yaml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/builder-effective-config.yaml"
       },
       {
         "name": "latest-linux-ia32.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.79/latest-linux-ia32.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/latest-linux-ia32.yml"
       },
       {
         "name": "latest-linux.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.79/latest-linux.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/latest-linux.yml"
       },
       {
         "name": "latest-mac.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.79/latest-mac.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/latest-mac.yml"
       },
       {
         "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.79/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/latest.yml"
       }
     ]
   },
@@ -563,8 +563,64 @@
     ]
   },
   "openIssues": {
-    "numberOfIssues": 213,
+    "numberOfIssues": 226,
     "latestIssues": [
+      {
+        "title": "macOS Catalina authentication",
+        "url": "https://github.com/balena-io/etcher/issues/3107"
+      },
+      {
+        "title": "Everytime i try to flash its saying to insert disk into F but for some reason its not reconizing it",
+        "url": "https://github.com/balena-io/etcher/issues/3106"
+      },
+      {
+        "title": "Rate and ETA font too small on Mac",
+        "url": "https://github.com/balena-io/etcher/issues/3103"
+      },
+      {
+        "title": "Mac OS slow writing speeds",
+        "url": "https://github.com/balena-io/etcher/issues/3102"
+      },
+      {
+        "title": "Auto-update does not work as expected",
+        "url": "https://github.com/balena-io/etcher/issues/3100"
+      },
+      {
+        "title": "Gentoo Linux Packaging",
+        "url": "https://github.com/balena-io/etcher/issues/3097"
+      },
+      {
+        "title": "Can't run balenaEtcher.Appimage",
+        "url": "https://github.com/balena-io/etcher/issues/3093"
+      },
+      {
+        "title": "Diskarbitrationd logs filling console",
+        "url": "https://github.com/balena-io/etcher/issues/3092"
+      },
+      {
+        "title": "failed to burn",
+        "url": "https://github.com/balena-io/etcher/issues/3091"
+      },
+      {
+        "title": "1.5.79 on Windows 10, 1909, 64-bit fails to start",
+        "url": "https://github.com/balena-io/etcher/issues/3088"
+      },
+      {
+        "title": "hdiutil: attach failed - no mountable file systems",
+        "url": "https://github.com/balena-io/etcher/issues/3086"
+      },
+      {
+        "title": "Can not find icon.png",
+        "url": "https://github.com/balena-io/etcher/issues/3080"
+      },
+      {
+        "title": "Choco can't install it ",
+        "url": "https://github.com/balena-io/etcher/issues/3079"
+      },
+      {
+        "title": "403 Forbidden error on package repository",
+        "url": "https://github.com/balena-io/etcher/issues/3078"
+      },
       {
         "title": "Running ia32 version on an x64 laptop results in FUSE error",
         "url": "https://github.com/balena-io/etcher/issues/3076"
@@ -572,10 +628,6 @@
       {
         "title": "Flash from url",
         "url": "https://github.com/balena-io/etcher/pull/3071"
-      },
-      {
-        "title": "Update GPG key acquisition to work on Ubuntu 18.04",
-        "url": "https://github.com/balena-io/etcher/pull/3069"
       },
       {
         "title": "Etcher not flashing on mac",
@@ -592,62 +644,10 @@
       {
         "title": "Is disabling \"nodeIntegration\" flag planned?",
         "url": "https://github.com/balena-io/etcher/issues/3052"
-      },
-      {
-        "title": "Install conflict (rpm) with other Electron app (draw.io)",
-        "url": "https://github.com/balena-io/etcher/issues/3051"
-      },
-      {
-        "title": "The program stopped working, before that everything worked fine",
-        "url": "https://github.com/balena-io/etcher/issues/3050"
-      },
-      {
-        "title": "Display warning message to user",
-        "url": "https://github.com/balena-io/etcher/issues/3049"
-      },
-      {
-        "title": "Debian install instructions out of date",
-        "url": "https://github.com/balena-io/etcher/issues/3048"
-      },
-      {
-        "title": "Unescalated etcher process fails to detect CM on Linux",
-        "url": "https://github.com/balena-io/etcher/issues/3045"
-      },
-      {
-        "title": "How to add more languages for it?",
-        "url": "https://github.com/balena-io/etcher/issues/3044"
-      },
-      {
-        "title": "Add support for lzip compressed images",
-        "url": "https://github.com/balena-io/etcher/issues/3043"
-      },
-      {
-        "title": "UI almost completely unresponsive after selecting source image",
-        "url": "https://github.com/balena-io/etcher/issues/3040"
-      },
-      {
-        "title": "Adopt Rufus feature to fix USB media boot compatibility",
-        "url": "https://github.com/balena-io/etcher/issues/3038"
-      },
-      {
-        "title": "is:issue is:open Cannot move the window after a flash",
-        "url": "https://github.com/balena-io/etcher/issues/3036"
-      },
-      {
-        "title": "The key \"379CE192D401AB61\" is not found on the keyservers",
-        "url": "https://github.com/balena-io/etcher/issues/3034"
-      },
-      {
-        "title": "Could not install packages due to an EnvironmentError MacOS Catalina",
-        "url": "https://github.com/balena-io/etcher/issues/3033"
-      },
-      {
-        "title": "How can I recover my pendrive to normal mode?",
-        "url": "https://github.com/balena-io/etcher/issues/3032"
       }
     ]
   },
-  "version": "1.5.79",
+  "version": "1.5.80",
   "screenshot": null,
   "logo": null
 }
