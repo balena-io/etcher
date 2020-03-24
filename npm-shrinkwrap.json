@@ -219,9 +219,9 @@
       }
     },
     "@electron/get": {
-      "version": "1.7.2",
-      "resolved": "https://registry.npmjs.org/@electron/get/-/get-1.7.2.tgz",
-      "integrity": "sha512-LSE4LZGMjGS9TloDx0yO44D2UTbaeKRk+QjlhWLiQlikV6J4spgDCjb6z4YIcqmPAwNzlNCnWF4dubytwI+ATA==",
+      "version": "1.9.0",
+      "resolved": "https://registry.npmjs.org/@electron/get/-/get-1.9.0.tgz",
+      "integrity": "sha512-OBIKtF6ttIJotDXe4KJMUyTBO4xMii+mFjlA8R4CORuD4HvCUaCK3lPjhdTRCvuEv6gzWNbAvd9DNBv0v780lw==",
       "dev": true,
       "requires": {
         "debug": "^4.1.1",
@@ -230,6 +230,7 @@
         "global-agent": "^2.0.2",
         "global-tunnel-ng": "^2.7.1",
         "got": "^9.6.0",
+        "progress": "^2.0.3",
         "sanitize-filename": "^1.6.2",
         "sumchecker": "^3.0.1"
       },
@@ -1901,9 +1902,9 @@
       "dev": true
     },
     "boolean": {
-      "version": "3.0.0",
-      "resolved": "https://registry.npmjs.org/boolean/-/boolean-3.0.0.tgz",
-      "integrity": "sha512-OElxJ1lUSinuoUnkpOgLmxp0DC4ytEhODEL6QJU0NpxE/mI4rUSh8h1P1Wkvfi3xQEBcxXR2gBIPNYNuaFcAbQ==",
+      "version": "3.0.1",
+      "resolved": "https://registry.npmjs.org/boolean/-/boolean-3.0.1.tgz",
+      "integrity": "sha512-HRZPIjPcbwAVQvOTxR4YE3o8Xs98NqbbL1iEZDCz7CL8ql0Lt5iOyJFxfnAB0oFs8Oh02F/lLlg30Mexv46LjA==",
       "dev": true,
       "optional": true
     },
@@ -4349,9 +4350,9 @@
       "dev": true
     },
     "electron": {
-      "version": "7.1.11",
-      "resolved": "https://registry.npmjs.org/electron/-/electron-7.1.11.tgz",
-      "integrity": "sha512-YDXfnovKY+8iZ5ISQh1kRqYIRKbpOSxGXCx2WVxPFPutEQ7Q/Xzr3h4GePEY25/NXMytMfhKaAZAYjtWUm3r9Q==",
+      "version": "7.1.14",
+      "resolved": "https://registry.npmjs.org/electron/-/electron-7.1.14.tgz",
+      "integrity": "sha512-y9Nbja4rl+5fPVw9e/lFudwRax3a+jenzS7WXzUkjF7GI8YFxNH2eH9K9PZFNuSwc/OOCja2ul70+D44tKTQEw==",
       "dev": true,
       "requires": {
         "@electron/get": "^1.0.1",
@@ -6355,9 +6356,9 @@
           "optional": true
         },
         "semver": {
-          "version": "7.1.2",
-          "resolved": "https://registry.npmjs.org/semver/-/semver-7.1.2.tgz",
-          "integrity": "sha512-BJs9T/H8sEVHbeigqzIEo57Iu/3DG6c4QoqTfbQB3BPA4zgzAomh/Fk9E7QtjWQ8mx2dgA9YCfSF4y9k9bHNpQ==",
+          "version": "7.1.3",
+          "resolved": "https://registry.npmjs.org/semver/-/semver-7.1.3.tgz",
+          "integrity": "sha512-ekM0zfiA9SCBlsKa2X1hxyxiI4L3B6EbVJkkdgQXnSEEaHlGdvyodMruTiulSRWMMB4NeIuYNMC9rTKTz97GxA==",
           "dev": true,
           "optional": true
         }
@@ -10343,6 +10344,12 @@
       "version": "2.0.1",
       "resolved": "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz",
       "integrity": "sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag=="
+    },
+    "progress": {
+      "version": "2.0.3",
+      "resolved": "https://registry.npmjs.org/progress/-/progress-2.0.3.tgz",
+      "integrity": "sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==",
+      "dev": true
     },
     "progress-stream": {
       "version": "1.2.0",
