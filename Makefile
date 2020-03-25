@@ -152,7 +152,7 @@ lint-ts:
 	resin-lint --fix --typescript typings lib tests scripts/clean-shrinkwrap.ts webpack.config.ts
 
 lint-sass:
-	sass-lint lib/gui/scss
+	sass-lint -v lib/gui/app/scss/**/*.scss lib/gui/app/scss/*.scss
 
 lint-cpp:
 	cpplint --recursive src

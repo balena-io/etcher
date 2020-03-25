@@ -58,9 +58,16 @@ async function checkForUpdates(interval: number) {
 
 function createMainWindow() {
 	const fullscreen = Boolean(settings.get('fullscreen'));
+	const defaultWidth = 800;
+	const defaultHeight = 480;
+	let width = defaultWidth;
+	let height = defaultHeight;
+	if (fullscreen) {
+		({ width, height } = electron.screen.getPrimaryDisplay().bounds);
+	}
 	const mainWindow = new electron.BrowserWindow({
-		width: parseInt(settings.get('width'), 10) || 800,
-		height: parseInt(settings.get('height'), 10) || 480,
+		width,
+		height,
 		frame: !fullscreen,
 		useContentSize: false,
 		show: false,
@@ -77,10 +84,12 @@ function createMainWindow() {
 			backgroundThrottling: false,
 			nodeIntegration: true,
 			webviewTag: true,
+			zoomFactor: width / defaultWidth,
 		},
 	});
 
 	buildWindowMenu(mainWindow);
+	mainWindow.setFullScreen(true);
 
 	// Prevent flash of white when starting the application
 	mainWindow.on('ready-to-show', () => {
@@ -95,15 +104,9 @@ function createMainWindow() {
 		event.preventDefault();
 	});
 
-	const dir = __dirname.split(path.sep).pop();
-
-	if (dir === 'generated') {
-		mainWindow.loadURL(
-			`file://${path.join(__dirname, '..', 'lib', 'gui', 'app', 'index.html')}`,
-		);
-	} else {
-		mainWindow.loadURL(`file://${path.join(__dirname, 'app', 'index.html')}`);
-	}
+	mainWindow.loadURL(
+		`file://${path.join(__dirname, '..', 'lib', 'gui', 'app', 'index.html')}`,
+	);
 
 	const page = mainWindow.webContents;
 
