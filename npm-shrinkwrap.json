@@ -429,9 +429,9 @@
       "dev": true
     },
     "@types/bluebird": {
-      "version": "3.5.29",
-      "resolved": "https://registry.npmjs.org/@types/bluebird/-/bluebird-3.5.29.tgz",
-      "integrity": "sha512-kmVtnxTuUuhCET669irqQmPAez4KFnFVKvpleVRyfC3g+SHD1hIkFZcWLim9BVcwUBLO59o8VZE4yGCmTif8Yw==",
+      "version": "3.5.30",
+      "resolved": "https://registry.npmjs.org/@types/bluebird/-/bluebird-3.5.30.tgz",
+      "integrity": "sha512-8LhzvcjIoqoi1TghEkRMkbbmM+jhHnBokPGkJWjclMK+Ks0MxEBow3/p2/iFTZ+OIbJHQDSfpgdZEb+af3gfVw==",
       "dev": true
     },
     "@types/caseless": {
@@ -1907,9 +1907,9 @@
       "integrity": "sha1-E/kwNaTtPG0pUwgkkkWg7XZ7NeI="
     },
     "bluebird": {
-      "version": "3.7.1",
-      "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.7.1.tgz",
-      "integrity": "sha512-DdmyoGCleJnkbp3nkbxTLJ18rjDsE4yCggEwKNXkeV123sPNfOCYeDoeuOY+F2FrSjO1YXcTU+dsy96KMy+gcg=="
+      "version": "3.7.2",
+      "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.7.2.tgz",
+      "integrity": "sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg=="
     },
     "bluebird-lst": {
       "version": "1.0.9",
