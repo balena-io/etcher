@@ -173,7 +173,7 @@ export function DriveSelectorModal({ close }: { close: () => void }) {
 							<li
 								key={`item-${drive.displayName}`}
 								className="list-group-item"
-								// @ts-ignore (FIXME: not	a valid <li> attribute but used by css rule)
+								// @ts-ignore (FIXME: not a valid <li> attribute but used by css rule)
 								disabled={!isDriveValid(drive, selectionState.getImage())}
 								onDoubleClick={() => selectDriveAndClose(drive)}
 								onClick={() => toggleDrive(drive)}
@@ -243,7 +243,7 @@ export function DriveSelectorModal({ close }: { close: () => void }) {
 								{isDriveValid(drive, selectionState.getImage()) && (
 									<span
 										className="list-group-item-section tick tick--success"
-										// @ts-ignore (FIXME: not	a valid <span> attribute but used by css rule)
+										// @ts-ignore (FIXME: not a valid <span> attribute but used by css rule)
 										disabled={!selectionState.isDriveSelected(drive.device)}
 									></span>
 								)}

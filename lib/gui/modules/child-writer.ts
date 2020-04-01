@@ -97,7 +97,6 @@ async function writeAndValidate(
 ): Promise<WriteResult> {
 	let innerSource: sdk.sourceDestination.SourceDestination = await source.getInnerSource();
 	if (trim && (await innerSource.canRead())) {
-		// @ts-ignore FIXME: ts thinks that SparseReadStream can't be assigned to SparseReadable (which it implements)
 		innerSource = new sdk.sourceDestination.ConfiguredSource({
 			source: innerSource,
 			shouldTrimPartitions: trim,
@@ -109,7 +108,6 @@ async function writeAndValidate(
 		bytesWritten,
 	} = await sdk.multiWrite.pipeSourceToDestinations(
 		innerSource,
-		// @ts-ignore FIXME: ts thinks that BlockWriteStream can't be assigned to WritableStream (which it implements)
 		destinations,
 		onFail,
 		onProgress,
@@ -231,7 +229,6 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 		});
 		try {
 			const results = await writeAndValidate(
-				// @ts-ignore FIXME: ts thinks that SparseWriteStream can't be assigned to SparseWritable (which it implements)
 				source,
 				dests,
 				options.validateWriteOnSuccess,
