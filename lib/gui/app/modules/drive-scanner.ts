@@ -27,7 +27,7 @@ function includeSystemDrives() {
 }
 
 const adapters: sdk.scanner.adapters.Adapter[] = [
-	new sdk.scanner.adapters.BlockDeviceAdapter(includeSystemDrives),
+	new sdk.scanner.adapters.BlockDeviceAdapter({ includeSystemDrives }),
 ];
 
 // Can't use permissions.isElevated() here as it returns a promise and we need to set
