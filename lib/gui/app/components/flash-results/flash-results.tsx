@@ -18,24 +18,24 @@ import * as _ from 'lodash';
 import * as React from 'react';
 import styled from 'styled-components';
 import { left, position, space, top } from 'styled-system';
+
+import { progress } from '../../../../shared/messages';
 import { Underline } from '../../styled-components';
 
-const Div: any = styled.div<any>`
+const Div = styled.div<any>`
   ${position}
   ${top}
   ${left}
   ${space}
 `;
 
-export const FlashResults: any = ({
+export function FlashResults({
 	errors,
 	results,
-	message,
 }: {
-	errors: () => string;
-	results: any;
-	message: any;
-}) => {
+	errors: string;
+	results: { devices: { failed: number; successful: number } };
+}) {
 	return (
 		<Div position="absolute" left="153px" top="66px">
 			<div className="inline-flex title">
@@ -43,9 +43,12 @@ export const FlashResults: any = ({
 				<h3>Flash Complete!</h3>
 			</div>
 			<Div className="results" mt="11px" mr="0" mb="0" ml="40px">
-				<Underline tooltip={errors()}>
-					{_.map(results.devices, (quantity, type) => {
-						return quantity ? (
+				{_.map(results.devices, (quantity, type) => {
+					return quantity ? (
+						<Underline
+							tooltip={type === 'failed' ? errors : undefined}
+							key={type}
+						>
 							<div
 								key={type}
 								className={`target-status-line target-status-${type}`}
@@ -53,13 +56,13 @@ export const FlashResults: any = ({
 								<span className="target-status-dot"></span>
 								<span className="target-status-quantity">{quantity}</span>
 								<span className="target-status-message">
-									{message[type](quantity)}
+									{progress[type](quantity)}
 								</span>
 							</div>
-						) : null;
-					})}
-				</Underline>
+						</Underline>
+					) : null;
+				})}
 			</Div>
 		</Div>
 	);
-};
+}
