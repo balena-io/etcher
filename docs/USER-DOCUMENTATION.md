@@ -166,7 +166,7 @@ Run the following command in `Terminal.app`, replacing `N` by the corresponding
 disk number, which you can find by running `diskutil list`:
 
 ```sh
-diskutil eraseDisk free UNTITLED /dev/diskN
+diskutil eraseDisk FAT32 UNTITLED MBRFormat /dev/diskN
 ```
 
 ### GNU/Linux
