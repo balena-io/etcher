@@ -16,10 +16,12 @@
 
 import * as _ from 'lodash';
 import * as React from 'react';
+import { Txt } from 'rendition';
 import styled from 'styled-components';
 import { left, position, space, top } from 'styled-system';
 
 import { progress } from '../../../../shared/messages';
+import { bytesToMegabytes } from '../../../../shared/units';
 import { Underline } from '../../styled-components';
 
 const Div = styled.div<any>`
@@ -34,15 +36,22 @@ export function FlashResults({
 	results,
 }: {
 	errors: string;
-	results: { devices: { failed: number; successful: number } };
+	results: {
+		averageFlashingSpeed: number;
+		devices: { failed: number; successful: number };
+	};
 }) {
+	const averageSpeed = _.round(
+		bytesToMegabytes(results.averageFlashingSpeed),
+		1,
+	);
 	return (
 		<Div position="absolute" left="153px" top="66px">
 			<div className="inline-flex title">
 				<span className="tick tick--success space-right-medium"></span>
 				<h3>Flash Complete!</h3>
 			</div>
-			<Div className="results" mt="11px" mr="0" mb="0" ml="40px">
+			<Div className="results" mr="0" mb="0" ml="40px">
 				{_.map(results.devices, (quantity, type) => {
 					return quantity ? (
 						<Underline
@@ -62,6 +71,16 @@ export function FlashResults({
 						</Underline>
 					) : null;
 				})}
+				<Txt
+					color="#787c7f"
+					fontSize="10px"
+					style={{
+						fontWeight: 500,
+						textAlign: 'center',
+					}}
+				>
+					Writing speed: {averageSpeed} MB/s
+				</Txt>
 			</Div>
 		</Div>
 	);

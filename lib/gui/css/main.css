@@ -6347,8 +6347,7 @@ img[disabled] {
 
 .target-status-line {
   display: flex;
-  align-items: baseline;
-  margin-bottom: 9px; }
+  align-items: baseline; }
   .target-status-line > .target-status-dot {
     width: 12px;
     height: 12px;

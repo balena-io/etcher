@@ -5426,9 +5426,9 @@
       "integrity": "sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g=="
     },
     "etcher-sdk": {
-      "version": "3.0.0",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-3.0.0.tgz",
-      "integrity": "sha512-VYr7YUaGwhP53ylzXOWIIbg8TS3v0LMAJB9yRfvLdGvrtBce8cQ7JkNcLZf3e+X4YgsrgoGOqWU5nahQSpOcqQ==",
+      "version": "3.0.1",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-3.0.1.tgz",
+      "integrity": "sha512-Jd30W0OfKNwbQZ4NdsNLCItyPYNP3hIugJrG/V5uzBtpL4R+gldMrUopkJ1L0x59d9NwWavQ/CqM6gxrv3tVlw==",
       "requires": {
         "@ronomon/direct-io": "^3.0.1",
         "axios": "^0.18.0",
