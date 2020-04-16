@@ -97,24 +97,22 @@ async function writeAndValidate(
 ): Promise<WriteResult> {
 	let innerSource: sdk.sourceDestination.SourceDestination = await source.getInnerSource();
 	if (trim && (await innerSource.canRead())) {
-		// @ts-ignore FIXME: ts thinks that SparseReadStream can't be assigned to SparseReadable (which it implements)
-		innerSource = new sdk.sourceDestination.ConfiguredSource(
-			innerSource,
-			trim,
-			// Create stream from file-disk (not source stream)
-			true,
-		);
+		innerSource = new sdk.sourceDestination.ConfiguredSource({
+			source: innerSource,
+			shouldTrimPartitions: trim,
+			createStreamFromDisk: true,
+		});
 	}
 	const {
 		failures,
 		bytesWritten,
 	} = await sdk.multiWrite.pipeSourceToDestinations(
 		innerSource,
-		// @ts-ignore FIXME: ts thinks that BlockWriteStream can't be assigned to WritableStream (which it implements)
 		destinations,
 		onFail,
 		onProgress,
 		verify,
+		32,
 	);
 	const result: WriteResult = {
 		bytesWritten,
@@ -125,8 +123,9 @@ async function writeAndValidate(
 		errors: [],
 	};
 	for (const [destination, error] of failures) {
-		(error as Error & { device: string }).device = destination.drive.device;
-		result.errors.push(error);
+		const err = error as Error & { device: string };
+		err.device = (destination as sdk.sourceDestination.BlockDevice).device;
+		result.errors.push(err);
 	}
 	return result;
 }
@@ -218,18 +217,18 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 		log(`Validate on success: ${options.validateWriteOnSuccess}`);
 		log(`Trim: ${options.trim}`);
 		const dests = _.map(options.destinations, destination => {
-			return new sdk.sourceDestination.BlockDevice(
-				destination,
-				options.unmountOnSuccess,
-			);
+			return new sdk.sourceDestination.BlockDevice({
+				drive: destination,
+				unmountOnSuccess: options.unmountOnSuccess,
+				write: true,
+				direct: true,
+			});
 		});
-		const source = new sdk.sourceDestination.File(
-			options.imagePath,
-			sdk.sourceDestination.File.OpenFlags.Read,
-		);
+		const source = new sdk.sourceDestination.File({
+			path: options.imagePath,
+		});
 		try {
 			const results = await writeAndValidate(
-				// @ts-ignore FIXME: ts thinks that SparseWriteStream can't be assigned to SparseWritable (which it implements)
 				source,
 				dests,
 				options.validateWriteOnSuccess,

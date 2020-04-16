@@ -137,7 +137,6 @@ export const SettingsModal: any = styled(
 				setting,
 				value,
 				dangerous,
-				// @ts-ignore
 				applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
 			});
 

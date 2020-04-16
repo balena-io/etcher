@@ -18,7 +18,6 @@ import * as _ from 'lodash';
 import * as React from 'react';
 import * as uuidV4 from 'uuid/v4';
 
-import * as messages from '../../../../shared/messages';
 import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
 import { store } from '../../models/store';
@@ -67,18 +66,12 @@ const formattedErrors = () => {
 };
 
 function FinishPage({ goToMain }: { goToMain: () => void }) {
-	// @ts-ignore
 	const results = flashState.getFlashResults().results || {};
-	const progressMessage = messages.progress;
 	return (
 		<div className="page-finish row around-xs">
 			<div className="col-xs">
 				<div className="box center">
-					<FlashResults
-						results={results}
-						message={progressMessage}
-						errors={formattedErrors}
-					></FlashResults>
+					<FlashResults results={results} errors={formattedErrors()} />
 
 					<FlashAnother
 						onClick={(options: any) => restart(options, goToMain)}

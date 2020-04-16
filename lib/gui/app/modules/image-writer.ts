@@ -185,7 +185,6 @@ export function performWrite(
 			cancelled = true;
 		});
 
-		// @ts-ignore
 		ipc.server.on('state', onProgress);
 
 		ipc.server.on('ready', (_data, socket) => {

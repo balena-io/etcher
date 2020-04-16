@@ -220,10 +220,9 @@ export class ImageSelector extends React.Component<
 			return;
 		}
 
-		const source = new sdk.sourceDestination.File(
-			imagePath,
-			sdk.sourceDestination.File.OpenFlags.Read,
-		);
+		const source = new sdk.sourceDestination.File({
+			path: imagePath,
+		});
 		try {
 			const innerSource = await source.getInnerSource();
 			const metadata = (await innerSource.getMetadata()) as sdk.sourceDestination.Metadata & {

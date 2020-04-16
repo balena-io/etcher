@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-export const progress = {
+import { Dictionary } from 'lodash';
+
+export const progress: Dictionary<(quantity: number) => string> = {
 	successful: (quantity: number) => {
 		const plural = quantity === 1 ? '' : 's';
 		return `Successful device${plural}`;

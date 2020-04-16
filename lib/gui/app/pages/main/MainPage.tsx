@@ -46,7 +46,6 @@ function getDrivesTitle() {
 	const drives = selectionState.getSelectedDrives();
 
 	if (drives.length === 1) {
-		// @ts-ignore
 		return drives[0].description || 'Untitled Device';
 	}
 
