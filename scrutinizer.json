@@ -73,10 +73,6 @@
       "avatar": "https://avatars2.githubusercontent.com/u/1001049?v=4"
     },
     {
-      "username": "mikesimos",
-      "avatar": "https://avatars0.githubusercontent.com/u/3433256?v=4"
-    },
-    {
       "username": "thgreasi",
       "avatar": "https://avatars0.githubusercontent.com/u/1295829?v=4"
     },
@@ -119,6 +115,10 @@
     {
       "username": "Eate",
       "avatar": "https://avatars0.githubusercontent.com/u/17911331?v=4"
+    },
+    {
+      "username": "fedealconada",
+      "avatar": "https://avatars0.githubusercontent.com/u/4473536?v=4"
     }
   ],
   "docs": [
@@ -148,7 +148,7 @@
     },
     {
       "filename": "docs/USER-DOCUMENTATION.md",
-      "contents": "Etcher User Documentation\n=========================\n\nThis document contains how-tos and FAQs oriented to Etcher users.\n\nWhy is my drive not bootable?\n-----------------------------\n\nEtcher copies images to drives byte by byte, without doing any transformation\nto the final device, which means images that require special treatment to be\nmade bootable, like Windows images, will not work out of the box. In these\ncases, the general advice is to use software specific to those kind of\nimages, usually available from the image publishers themselves.\n\nImages known to require special treatment:\n\n- Microsoft Windows (use [Windows USB/DVD Download Tool][windows-usb-tool], \n  [Rufus][rufus], or [WoeUSB][woeusb]).\n\n- Windows 10 IoT (use the [Windows 10 IoT Core Dashboard][windows-iot-dashboard])\n\nHow can I configure persistent storage?\n---------------------------------------\n\nSome programs, usually oriented at making GNU/Linux live USB drives, include an\noption to set persistent storage. This is currently not supported by Etcher, so\nif you require this functionality, we advise to fallback to\n[UNetbootin][unetbootin].\n\nDeactivate desktop shortcut prompt on GNU/Linux\n-----------------------------------------------\n\nThis is a feature provided by [AppImages][appimage], where the applications\nprompts the user to automatically register a desktop shortcut to easily access\nthe application.\n\nTo deactivate this feature, `touch` any of the files listed below:\n\n- `$HOME/.local/share/appimagekit/no_desktopintegration`\n- `/usr/share/appimagekit/no_desktopintegration`\n- `/etc/appimagekit/no_desktopintegration`\n\nAlternatively, set the `SKIP` environment variable before executing the\nAppImage:\n\n```sh\nSKIP=1 ./Etcher-linux-<arch>.AppImage\n```\n\nFlashing Ubuntu ISOs\n--------------------\n\nUbuntu images (and potentially some other related GNU/Linux distributions) have\na peculiar format that allows the image to boot without any further\nmodification from both CDs and USB drives.\n\nA consequence of this enhancement is that some programs, like `parted` get\nconfused about the drive's format and partition table, printing warnings such\nas:\n\n> /dev/xxx contains GPT signatures, indicating that it has a GPT table.\n> However, it does not have a valid fake msdos partition table, as it should.\n> Perhaps it was corrupted -- possibly by a program that doesn't understand GPT\n> partition tables.  Or perhaps you deleted the GPT table, and are now using an\n> msdos partition table.  Is this a GPT partition table?  Both the primary and\n> backup GPT tables are corrupt.  Try making a fresh table, and using Parted's\n> rescue feature to recover partitions.\n\n***\n\n> Warning: The driver descriptor says the physical block size is 2048 bytes,\n> but Linux says it is 512 bytes.\n\nAll these warnings are **safe to ignore**, and your drive should be able to\nboot without any problems.\n\nRefer to [the following message from Ubuntu's mailing\nlist](https://lists.ubuntu.com/archives/ubuntu-devel/2011-June/033495.html) if\nyou want to learn more.\n\nRunning on Wayland\n------------------\n\nElectron is based on Gtk2, which can't run natively on Wayland. Fortunately,\nthe [XWayland Server][xwayland] provides backwards compatibility to run *any* X\nclient on Wayland, including Etcher.\n\nThis usually works out of the box on mainstream GNU/Linux distributions that\nproperly support Wayland. If it doesn't, make sure the `xwayland.so` module is\nbeing loaded by declaring it in your [weston.ini]:\n\n```\n[core]\nmodules=xwayland.so\n```\n\nRuntime GNU/Linux dependencies\n------------------------------\n\nThis entry aims to provide an up to date list of runtime dependencies needed to\nrun Etcher on a GNU/Linux system.\n\n### Electron specific\n\n> See [brightray's gyp file](https://github.com/electron/brightray/blob/master/brightray.gyp#L4)\n\n- gtk+-2.0\n- dbus-1\n- x11\n- xi\n- xcursor\n- xdamage\n- xrandr\n- xcomposite\n- xext\n- xfixes\n- xrender\n- xtst\n- xscrnsaver\n- gconf-2.0\n- gmodule-2.0\n- nss\n\n### Optional dependencies:\n\n- libnotify (for notifications)\n- libspeechd (for text-to-speech)\n\n### Etcher specific:\n\n- liblzma (for xz decompression)\n\nRecovering broken drives\n------------------------\n\nSometimes, things might go wrong, and you end up with a half-flashed drive that\nis unusable by your operating systems, and common graphical tools might even\nrefuse to get it back to a normal state.\n\nTo solve these kinds of problems, we've collected a list of fail-proof methods\nto completely erase your drive in major operating systems.\n\n### Windows\n\nIn Windows, we'll use [diskpart], a command line utility tool that comes\npre-installed in all modern Windows versions.\n\n- Open `cmd.exe` from either the list of all installed applications, or from\n  the \"Run...\" dialog usually accessible by pressing Ctrl+X.\n\n- Type `diskpart.exe` and press \"Enter\". You'll be asked to provide\n  administrator permissions, and a new prompt window will appear. The following\n  commands should be run **in the new window**.\n\n- Run `list disk` to list the available drives. Take note of the number id that\n  identifies the drive you want to clean.\n\n- Run `select disk N`, where `N` corresponds to the id from the previous step.\n\n- Run `clean`. This command will completely clean your drive by erasing any\n  existent filesystem.\n\n### OS X\n\nRun the following command in `Terminal.app`, replacing `N` by the corresponding\ndisk number, which you can find by running `diskutil list`:\n\n```sh\ndiskutil eraseDisk free UNTITLED /dev/diskN\n```\n\n### GNU/Linux\n\nMake sure the drive is unmounted (`umount /dev/xxx`), and run the following\ncommand as `root`, replacing `xxx` by your actual device path:\n\n```sh\ndd if=/dev/zero of=/dev/xxx bs=512 count=1 conv=notrunc\n```\n\n\"No polkit authentication agent found\" error in GNU/Linux\n----------------------------------------------------------\n\nEtcher requires an available [polkit authentication\nagent](https://wiki.archlinux.org/index.php/Polkit#Authentication_agents) in\nyour system in order to show a secure password prompt dialog to perform\nelevation. Make sure you have one installed for the desktop environment of your\nchoice.\n\nRunning in older macOS versions\n-------------------------------\n\nEtcher GUI is based on the [Electron][electron] framework, [which only supports\nmacOS 10.10 (Yosemite) and newer versions][electron-supported-platforms].\n\n[balena.io]: https://balena.io\n[appimage]: http://appimage.org\n[xwayland]: https://wayland.freedesktop.org/xserver.html\n[weston.ini]: http://manpages.ubuntu.com/manpages/wily/man5/weston.ini.5.html\n[diskpart]: https://technet.microsoft.com/en-us/library/cc770877(v=ws.11).aspx\n[electron]: https://electronjs.org/\n[electron-supported-platforms]: https://electronjs.org/docs/tutorial/support#supported-platforms\n[publishing]: https://github.com/balena-io/etcher/blob/master/docs/PUBLISHING.md\n[windows-usb-tool]: https://www.microsoft.com/en-us/download/windows-usb-dvd-download-tool\n[rufus]: https://rufus.akeo.ie\n[unetbootin]: https://unetbootin.github.io\n[windows-iot-dashboard]: https://developer.microsoft.com/en-us/windows/iot/downloads\n[woeusb]: https://github.com/slacka/WoeUSB\n"
+      "contents": "Etcher User Documentation\n=========================\n\nThis document contains how-tos and FAQs oriented to Etcher users.\n\nWhy is my drive not bootable?\n-----------------------------\n\nEtcher copies images to drives byte by byte, without doing any transformation\nto the final device, which means images that require special treatment to be\nmade bootable, like Windows images, will not work out of the box. In these\ncases, the general advice is to use software specific to those kind of\nimages, usually available from the image publishers themselves.\n\nImages known to require special treatment:\n\n- Microsoft Windows (use [Windows USB/DVD Download Tool][windows-usb-tool], \n  [Rufus][rufus], or [WoeUSB][woeusb]).\n\n- Windows 10 IoT (use the [Windows 10 IoT Core Dashboard][windows-iot-dashboard])\n\nHow can I configure persistent storage?\n---------------------------------------\n\nSome programs, usually oriented at making GNU/Linux live USB drives, include an\noption to set persistent storage. This is currently not supported by Etcher, so\nif you require this functionality, we advise to fallback to\n[UNetbootin][unetbootin].\n\nDeactivate desktop shortcut prompt on GNU/Linux\n-----------------------------------------------\n\nThis is a feature provided by [AppImages][appimage], where the applications\nprompts the user to automatically register a desktop shortcut to easily access\nthe application.\n\nTo deactivate this feature, `touch` any of the files listed below:\n\n- `$HOME/.local/share/appimagekit/no_desktopintegration`\n- `/usr/share/appimagekit/no_desktopintegration`\n- `/etc/appimagekit/no_desktopintegration`\n\nAlternatively, set the `SKIP` environment variable before executing the\nAppImage:\n\n```sh\nSKIP=1 ./Etcher-linux-<arch>.AppImage\n```\n\nFlashing Ubuntu ISOs\n--------------------\n\nUbuntu images (and potentially some other related GNU/Linux distributions) have\na peculiar format that allows the image to boot without any further\nmodification from both CDs and USB drives.\n\nA consequence of this enhancement is that some programs, like `parted` get\nconfused about the drive's format and partition table, printing warnings such\nas:\n\n> /dev/xxx contains GPT signatures, indicating that it has a GPT table.\n> However, it does not have a valid fake msdos partition table, as it should.\n> Perhaps it was corrupted -- possibly by a program that doesn't understand GPT\n> partition tables.  Or perhaps you deleted the GPT table, and are now using an\n> msdos partition table.  Is this a GPT partition table?  Both the primary and\n> backup GPT tables are corrupt.  Try making a fresh table, and using Parted's\n> rescue feature to recover partitions.\n\n***\n\n> Warning: The driver descriptor says the physical block size is 2048 bytes,\n> but Linux says it is 512 bytes.\n\nAll these warnings are **safe to ignore**, and your drive should be able to\nboot without any problems.\n\nRefer to [the following message from Ubuntu's mailing\nlist](https://lists.ubuntu.com/archives/ubuntu-devel/2011-June/033495.html) if\nyou want to learn more.\n\nRunning on Wayland\n------------------\n\nElectron is based on Gtk2, which can't run natively on Wayland. Fortunately,\nthe [XWayland Server][xwayland] provides backwards compatibility to run *any* X\nclient on Wayland, including Etcher.\n\nThis usually works out of the box on mainstream GNU/Linux distributions that\nproperly support Wayland. If it doesn't, make sure the `xwayland.so` module is\nbeing loaded by declaring it in your [weston.ini]:\n\n```\n[core]\nmodules=xwayland.so\n```\n\nRuntime GNU/Linux dependencies\n------------------------------\n\nThis entry aims to provide an up to date list of runtime dependencies needed to\nrun Etcher on a GNU/Linux system.\n\n### Electron specific\n\n> See [brightray's gyp file](https://github.com/electron/brightray/blob/master/brightray.gyp#L4)\n\n- gtk+-2.0\n- dbus-1\n- x11\n- xi\n- xcursor\n- xdamage\n- xrandr\n- xcomposite\n- xext\n- xfixes\n- xrender\n- xtst\n- xscrnsaver\n- gconf-2.0\n- gmodule-2.0\n- nss\n\n### Optional dependencies:\n\n- libnotify (for notifications)\n- libspeechd (for text-to-speech)\n\n### Etcher specific:\n\n- liblzma (for xz decompression)\n\nRecovering broken drives\n------------------------\n\nSometimes, things might go wrong, and you end up with a half-flashed drive that\nis unusable by your operating systems, and common graphical tools might even\nrefuse to get it back to a normal state.\n\nTo solve these kinds of problems, we've collected a list of fail-proof methods\nto completely erase your drive in major operating systems.\n\n### Windows\n\nIn Windows, we'll use [diskpart], a command line utility tool that comes\npre-installed in all modern Windows versions.\n\n- Open `cmd.exe` from either the list of all installed applications, or from\n  the \"Run...\" dialog usually accessible by pressing Ctrl+X.\n\n- Type `diskpart.exe` and press \"Enter\". You'll be asked to provide\n  administrator permissions, and a new prompt window will appear. The following\n  commands should be run **in the new window**.\n\n- Run `list disk` to list the available drives. Take note of the number id that\n  identifies the drive you want to clean.\n\n- Run `select disk N`, where `N` corresponds to the id from the previous step.\n\n- Run `clean`. This command will completely clean your drive by erasing any\n  existent filesystem.\n\n### OS X\n\nRun the following command in `Terminal.app`, replacing `N` by the corresponding\ndisk number, which you can find by running `diskutil list`:\n\n```sh\ndiskutil eraseDisk FAT32 UNTITLED MBRFormat /dev/diskN\n```\n\n### GNU/Linux\n\nMake sure the drive is unmounted (`umount /dev/xxx`), and run the following\ncommand as `root`, replacing `xxx` by your actual device path:\n\n```sh\ndd if=/dev/zero of=/dev/xxx bs=512 count=1 conv=notrunc\n```\n\n\"No polkit authentication agent found\" error in GNU/Linux\n----------------------------------------------------------\n\nEtcher requires an available [polkit authentication\nagent](https://wiki.archlinux.org/index.php/Polkit#Authentication_agents) in\nyour system in order to show a secure password prompt dialog to perform\nelevation. Make sure you have one installed for the desktop environment of your\nchoice.\n\nRunning in older macOS versions\n-------------------------------\n\nEtcher GUI is based on the [Electron][electron] framework, [which only supports\nmacOS 10.10 (Yosemite) and newer versions][electron-supported-platforms].\n\n[balena.io]: https://balena.io\n[appimage]: http://appimage.org\n[xwayland]: https://wayland.freedesktop.org/xserver.html\n[weston.ini]: http://manpages.ubuntu.com/manpages/wily/man5/weston.ini.5.html\n[diskpart]: https://technet.microsoft.com/en-us/library/cc770877(v=ws.11).aspx\n[electron]: https://electronjs.org/\n[electron-supported-platforms]: https://electronjs.org/docs/tutorial/support#supported-platforms\n[publishing]: https://github.com/balena-io/etcher/blob/master/docs/PUBLISHING.md\n[windows-usb-tool]: https://www.microsoft.com/en-us/download/windows-usb-dvd-download-tool\n[rufus]: https://rufus.akeo.ie\n[unetbootin]: https://unetbootin.github.io\n[windows-iot-dashboard]: https://developer.microsoft.com/en-us/windows/iot/downloads\n[woeusb]: https://github.com/slacka/WoeUSB\n"
     }
   ],
   "security": null,
@@ -339,7 +339,7 @@
   "public": true,
   "fork": false,
   "description": "Flash OS images to SD cards & USB drives, safely and easily.",
-  "stars": 17305,
+  "stars": 17498,
   "homepage": "https://etcher.io",
   "repositoryUrl": "https://github.com/balena-io/etcher.git",
   "active": true,
@@ -387,85 +387,85 @@
     "tmp",
     "uuid"
   ],
-  "lastCommitDate": "2020-03-24T13:53:43Z",
+  "lastCommitDate": "2020-04-16T16:30:37Z",
   "latestRelease": {
-    "tagName": "v1.5.80",
+    "tagName": "v1.5.81",
     "asssets": [
       {
-        "name": "balena-etcher-electron-1.5.80-linux-ia32.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balena-etcher-electron-1.5.80-linux-ia32.zip"
+        "name": "balena-etcher-electron-1.5.81-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.81/balena-etcher-electron-1.5.81-linux-ia32.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.80-linux-x64.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balena-etcher-electron-1.5.80-linux-x64.zip"
+        "name": "balena-etcher-electron-1.5.81-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.81/balena-etcher-electron-1.5.81-linux-x64.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.80.i686.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balena-etcher-electron-1.5.80.i686.rpm"
+        "name": "balena-etcher-electron-1.5.81.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.81/balena-etcher-electron-1.5.81.i686.rpm"
       },
       {
-        "name": "balena-etcher-electron-1.5.80.x86_64.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balena-etcher-electron-1.5.80.x86_64.rpm"
+        "name": "balena-etcher-electron-1.5.81.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.81/balena-etcher-electron-1.5.81.x86_64.rpm"
       },
       {
-        "name": "balena-etcher-electron_1.5.80_amd64.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balena-etcher-electron_1.5.80_amd64.deb"
+        "name": "balena-etcher-electron_1.5.81_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.81/balena-etcher-electron_1.5.81_amd64.deb"
       },
       {
-        "name": "balena-etcher-electron_1.5.80_i386.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balena-etcher-electron_1.5.80_i386.deb"
+        "name": "balena-etcher-electron_1.5.81_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.81/balena-etcher-electron_1.5.81_i386.deb"
       },
       {
-        "name": "balenaEtcher-1.5.80-ia32.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balenaEtcher-1.5.80-ia32.AppImage"
+        "name": "balenaEtcher-1.5.81-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.81/balenaEtcher-1.5.81-ia32.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.80-mac.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balenaEtcher-1.5.80-mac.zip"
+        "name": "balenaEtcher-1.5.81-mac.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.81/balenaEtcher-1.5.81-mac.zip"
       },
       {
-        "name": "balenaEtcher-1.5.80-x64.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balenaEtcher-1.5.80-x64.AppImage"
+        "name": "balenaEtcher-1.5.81-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.81/balenaEtcher-1.5.81-x64.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.80.dmg",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balenaEtcher-1.5.80.dmg"
+        "name": "balenaEtcher-1.5.81.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.81/balenaEtcher-1.5.81.dmg"
       },
       {
-        "name": "balenaEtcher-1.5.80.dmg.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balenaEtcher-1.5.80.dmg.blockmap"
+        "name": "balenaEtcher-1.5.81.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.81/balenaEtcher-1.5.81.dmg.blockmap"
       },
       {
-        "name": "balenaEtcher-Portable-1.5.80.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balenaEtcher-Portable-1.5.80.exe"
+        "name": "balenaEtcher-Portable-1.5.81.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.81/balenaEtcher-Portable-1.5.81.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.80.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balenaEtcher-Setup-1.5.80.exe"
+        "name": "balenaEtcher-Setup-1.5.81.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.81/balenaEtcher-Setup-1.5.81.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.80.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/balenaEtcher-Setup-1.5.80.exe.blockmap"
+        "name": "balenaEtcher-Setup-1.5.81.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.81/balenaEtcher-Setup-1.5.81.exe.blockmap"
       },
       {
         "name": "builder-effective-config.yaml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/builder-effective-config.yaml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.81/builder-effective-config.yaml"
       },
       {
         "name": "latest-linux-ia32.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/latest-linux-ia32.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.81/latest-linux-ia32.yml"
       },
       {
         "name": "latest-linux.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/latest-linux.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.81/latest-linux.yml"
       },
       {
         "name": "latest-mac.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/latest-mac.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.81/latest-mac.yml"
       },
       {
         "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.80/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.81/latest.yml"
       }
     ]
   },
@@ -563,8 +563,32 @@
     ]
   },
   "openIssues": {
-    "numberOfIssues": 226,
+    "numberOfIssues": 230,
     "latestIssues": [
+      {
+        "title": "When flashing multiple targets device name is seen under EFP",
+        "url": "https://github.com/balena-io/etcher/issues/3120"
+      },
+      {
+        "title": "libpango1.0-0 dependency not available in Debian Bullseye",
+        "url": "https://github.com/balena-io/etcher/issues/3119"
+      },
+      {
+        "title": "Fixes the Command for macOS drive recovery",
+        "url": "https://github.com/balena-io/etcher/pull/3117"
+      },
+      {
+        "title": "Strange functionality after running etcher",
+        "url": "https://github.com/balena-io/etcher/issues/3116"
+      },
+      {
+        "title": "PhysicalDrive2: UNKNOWN: unknown error, write",
+        "url": "https://github.com/balena-io/etcher/issues/3110"
+      },
+      {
+        "title": "Etcher 1.5.79 Failed to write to USB Kingston nanolinux64-1.3",
+        "url": "https://github.com/balena-io/etcher/issues/3108"
+      },
       {
         "title": "macOS Catalina authentication",
         "url": "https://github.com/balena-io/etcher/issues/3107"
@@ -620,34 +644,10 @@
       {
         "title": "403 Forbidden error on package repository",
         "url": "https://github.com/balena-io/etcher/issues/3078"
-      },
-      {
-        "title": "Running ia32 version on an x64 laptop results in FUSE error",
-        "url": "https://github.com/balena-io/etcher/issues/3076"
-      },
-      {
-        "title": "Flash from url",
-        "url": "https://github.com/balena-io/etcher/pull/3071"
-      },
-      {
-        "title": "Etcher not flashing on mac",
-        "url": "https://github.com/balena-io/etcher/issues/3068"
-      },
-      {
-        "title": "Allow PolKit to identify etcher temporary file",
-        "url": "https://github.com/balena-io/etcher/issues/3065"
-      },
-      {
-        "title": "IP Address Not Found",
-        "url": "https://github.com/balena-io/etcher/issues/3061"
-      },
-      {
-        "title": "Is disabling \"nodeIntegration\" flag planned?",
-        "url": "https://github.com/balena-io/etcher/issues/3052"
       }
     ]
   },
-  "version": "1.5.80",
+  "version": "1.5.81",
   "screenshot": null,
   "logo": null
 }
