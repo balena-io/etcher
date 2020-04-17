@@ -55,9 +55,6 @@ const colors = {
 	verifying: '#1ac135',
 } as const;
 
-/**
- * Progress Button component
- */
 export class ProgressButton extends React.Component<ProgressButtonProps> {
 	public render() {
 		if (this.props.active) {

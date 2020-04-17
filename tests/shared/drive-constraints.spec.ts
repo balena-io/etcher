@@ -116,15 +116,6 @@ describe('Shared: DriveConstraints', function () {
 			expect(result).to.be.false;
 		});
 
-		it('should return false if no drive', function () {
-			// @ts-ignore
-			const result = constraints.isSourceDrive(undefined, {
-				path: '/Volumes/Untitled/image.img',
-			});
-
-			expect(result).to.be.false;
-		});
-
 		it('should return false if there are no mount points', function () {
 			const result = constraints.isSourceDrive(
 				{
@@ -1128,64 +1119,6 @@ describe('Shared: DriveConstraints', function () {
 				);
 				// @ts-ignore
 				const expectedTuples = [['WARNING', 'largeDrive']];
-
-				// @ts-ignore
-				expectStatusTypesAndMessagesToBe(result, expectedTuples);
-			});
-		});
-
-		describe('given the image is null', () => {
-			it('should return an empty list', function () {
-				const result = constraints.getDriveImageCompatibilityStatuses(
-					this.drive,
-					// @ts-ignore
-					null,
-				);
-
-				expect(result).to.deep.equal([]);
-			});
-		});
-
-		describe('given the drive is null', () => {
-			it('should return an empty list', function () {
-				const result = constraints.getDriveImageCompatibilityStatuses(
-					// @ts-ignore
-					null,
-					this.image,
-				);
-
-				expect(result).to.deep.equal([]);
-			});
-		});
-
-		describe('given a locked drive and image is null', () => {
-			it('should return locked drive error', function () {
-				this.drive.isReadOnly = true;
-
-				const result = constraints.getDriveImageCompatibilityStatuses(
-					this.drive,
-					// @ts-ignore
-					null,
-				);
-				// @ts-ignore
-				const expectedTuples = [['ERROR', 'locked']];
-
-				// @ts-ignore
-				expectStatusTypesAndMessagesToBe(result, expectedTuples);
-			});
-		});
-
-		describe('given a system drive and image is null', () => {
-			it('should return system drive warning', function () {
-				this.drive.isSystem = true;
-
-				const result = constraints.getDriveImageCompatibilityStatuses(
-					this.drive,
-					// @ts-ignore
-					null,
-				);
-				// @ts-ignore
-				const expectedTuples = [['WARNING', 'system']];
 
 				// @ts-ignore
 				expectStatusTypesAndMessagesToBe(result, expectedTuples);

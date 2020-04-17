@@ -44,7 +44,7 @@ export function isSystemDrive(drive: DrivelistDrive): boolean {
 }
 
 export interface Image {
-	path: string;
+	path?: string;
 	isSizeEstimated?: boolean;
 	compressedSize?: number;
 	recommendedDriveSize?: number;
@@ -59,18 +59,12 @@ export interface Image {
  * containing the image.
  */
 export function isSourceDrive(drive: DrivelistDrive, image: Image): boolean {
-	const mountpoints = _.get(drive, ['mountpoints'], []);
-	const imagePath = _.get(image, ['path']);
-
-	if (!imagePath || _.isEmpty(mountpoints)) {
-		return false;
+	for (const mountpoint of drive.mountpoints || []) {
+		if (image.path !== undefined && pathIsInside(image.path, mountpoint.path)) {
+			return true;
+		}
 	}
-
-	return _.some(
-		_.map(mountpoints, (mountpoint) => {
-			return pathIsInside(imagePath, mountpoint.path);
-		}),
-	);
+	return false;
 }
 
 /**
