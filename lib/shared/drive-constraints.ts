@@ -59,18 +59,12 @@ export interface Image {
  * containing the image.
  */
 export function isSourceDrive(drive: DrivelistDrive, image: Image): boolean {
-	const mountpoints = _.get(drive, ['mountpoints'], []);
-	const imagePath = _.get(image, ['path']);
-
-	if (!imagePath || _.isEmpty(mountpoints)) {
-		return false;
+	for (const mountpoint of drive.mountpoints || []) {
+		if (pathIsInside(image.path, mountpoint.path)) {
+			return true;
+		}
 	}
-
-	return _.some(
-		_.map(mountpoints, (mountpoint) => {
-			return pathIsInside(imagePath, mountpoint.path);
-		}),
-	);
+	return false;
 }
 
 /**

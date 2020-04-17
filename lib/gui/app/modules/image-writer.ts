@@ -172,7 +172,10 @@ export async function performWrite(
 			validateWriteOnSuccess,
 		};
 
-		ipc.server.on('fail', ({ error }: { error: Error & { code: string } }) => {
+		ipc.server.on('fail', ({ device, error }) => {
+			if (device.devicePath) {
+				flashState.addFailedDevicePath(device.devicePath);
+			}
 			handleErrorLogging(error, analyticsData);
 		});
 
@@ -264,6 +267,9 @@ export async function flash(
 	}
 
 	flashState.setFlashingFlag();
+	flashState.setDevicePaths(
+		drives.map((d) => d.devicePath).filter((p) => p != null) as string[],
+	);
 
 	const analyticsData = {
 		image,
