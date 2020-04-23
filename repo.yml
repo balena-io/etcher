@@ -7,4 +7,5 @@ sentry:
     type: electron
 triggerNotification:
     version: 1.5.81
+    stagingPercentage: 100
 
