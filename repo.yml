@@ -6,5 +6,5 @@ sentry:
     team: resinio
     type: electron
 triggerNotification:
-    version: 1.5.71
+    version: 1.5.81
 
