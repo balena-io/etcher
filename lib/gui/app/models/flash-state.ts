@@ -87,13 +87,6 @@ export function setProgressState(
 
 			return null;
 		}),
-		totalSpeed: _.attempt(() => {
-			if (_.isFinite(state.totalSpeed)) {
-				return _.round(bytesToMegabytes(state.totalSpeed), PRECISION);
-			}
-
-			return null;
-		}),
 	});
 
 	store.dispatch({

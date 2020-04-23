@@ -29,13 +29,14 @@ export const DEFAULT_SETTINGS: _.Dictionary<any> = {
 	errorReporting: true,
 	unmountOnSuccess: true,
 	validateWriteOnSuccess: true,
-	trim: false,
 	updatesEnabled:
 		packageJSON.updates.enabled &&
 		!_.includes(['rpm', 'deb'], packageJSON.packageType),
 	lastSleptUpdateNotifier: null,
 	lastSleptUpdateNotifierVersion: null,
 	desktopNotifications: true,
+	autoBlockmapping: true,
+	decompressFirst: true,
 };
 
 let settings = _.cloneDeep(DEFAULT_SETTINGS);

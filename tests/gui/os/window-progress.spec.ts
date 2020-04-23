@@ -30,9 +30,8 @@ describe('Browser: WindowProgress', function() {
 				windowProgress.currentWindow.setTitle = this.setTitleSpy;
 
 				this.state = {
-					flashing: 1,
-					verifying: 0,
-					successful: 0,
+					active: 1,
+					type: 'flashing',
 					failed: 0,
 					percentage: 85,
 					speed: 100,
@@ -79,8 +78,7 @@ describe('Browser: WindowProgress', function() {
 				});
 
 				it('should set the verifying title', function() {
-					this.state.flashing = 0;
-					this.state.verifying = 1;
+					this.state.type = 'verifying';
 					windowProgress.set(this.state);
 					assert.calledWith(this.setTitleSpy, ' – 85% Validating');
 				});
@@ -89,7 +87,7 @@ describe('Browser: WindowProgress', function() {
 					this.state.percentage = 0;
 					this.state.speed = 0;
 					windowProgress.set(this.state);
-					assert.calledWith(this.setTitleSpy, ' – Starting...');
+					assert.calledWith(this.setTitleSpy, ' – 0% Flashing');
 				});
 
 				it('should set the finishing title', function() {

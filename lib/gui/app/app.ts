@@ -89,30 +89,43 @@ analytics.logEvent('Application start', {
 	applicationSessionUuid,
 });
 
+const debouncedLog = _.debounce(console.log, 1000, { maxWait: 1000 });
+
+function pluralize(word: string, quantity: number) {
+	return `${quantity} ${word}${quantity === 1 ? '' : 's'}`;
+}
+
 observe(() => {
 	if (!flashState.isFlashing()) {
 		return;
 	}
-
 	const currentFlashState = flashState.getFlashState();
-	const stateType =
-		!currentFlashState.flashing && currentFlashState.verifying
-			? `Verifying ${currentFlashState.verifying}`
-			: `Flashing ${currentFlashState.flashing}`;
+	windowProgress.set(currentFlashState);
 
+	let eta = '';
+	if (currentFlashState.eta !== undefined) {
+		eta = `eta in ${currentFlashState.eta.toFixed(0)}s`;
+	}
+	let active = '';
+	if (currentFlashState.type !== 'decompressing') {
+		active = pluralize('device', currentFlashState.active);
+	}
 	// NOTE: There is usually a short time period between the `isFlashing()`
 	// property being set, and the flashing actually starting, which
 	// might cause some non-sense flashing state logs including
 	// `undefined` values.
-	analytics.logDebug(
-		`${stateType} devices, ` +
-			`${currentFlashState.percentage}% at ${currentFlashState.speed} MB/s ` +
-			`(total ${currentFlashState.totalSpeed} MB/s) ` +
-			`eta in ${currentFlashState.eta}s ` +
-			`with ${currentFlashState.failed} failed devices`,
-	);
-
-	windowProgress.set(currentFlashState);
+	debouncedLog(outdent({ newline: ' ' })`
+		${_.capitalize(currentFlashState.type)}
+		${active},
+		${currentFlashState.percentage}%
+		at
+		${(currentFlashState.speed || 0).toFixed(2)}
+		MB/s
+		(total ${(currentFlashState.speed * currentFlashState.active).toFixed(2)} MB/s)
+		${eta}
+		with
+		${pluralize('failed device', currentFlashState.failed)}
+	`);
 });
 
 /**

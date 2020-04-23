@@ -14,39 +14,11 @@
  * limitations under the License.
  */
 
-import * as Color from 'color';
 import * as React from 'react';
 import { ProgressBar } from 'rendition';
-import { css, default as styled, keyframes } from 'styled-components';
+import { default as styled } from 'styled-components';
 
-import { StepButton, StepSelection } from '../../styled-components';
-import { colors } from '../../theme';
-
-const darkenForegroundStripes = 0.18;
-const desaturateForegroundStripes = 0.2;
-const progressButtonStripesForegroundColor = Color(colors.primary.background)
-	.darken(darkenForegroundStripes)
-	.desaturate(desaturateForegroundStripes)
-	.string();
-
-const desaturateBackgroundStripes = 0.05;
-const progressButtonStripesBackgroundColor = Color(colors.primary.background)
-	.desaturate(desaturateBackgroundStripes)
-	.string();
-
-const ProgressButtonStripes = keyframes`
-  0% {
-    background-position: 0 0;
-  }
-
-  100% {
-    background-position: 20px 20px;
-  }
-`;
-
-const ProgressButtonStripesRule = css`
-	${ProgressButtonStripes} 1s linear infinite;
-`;
+import { StepButton } from '../../styled-components';
 
 const FlashProgressBar = styled(ProgressBar)`
 	> div {
@@ -54,6 +26,10 @@ const FlashProgressBar = styled(ProgressBar)`
 		height: 48px;
 		color: white !important;
 		text-shadow: none !important;
+		transition-duration: 0s;
+		> div {
+			transition-duration: 0s;
+		}
 	}
 
 	width: 200px;
@@ -61,40 +37,11 @@ const FlashProgressBar = styled(ProgressBar)`
 	font-size: 16px;
 	line-height: 48px;
 
-	background: ${Color(colors.warning.background)
-		.darken(darkenForegroundStripes)
-		.string()};
-`;
-
-const FlashProgressBarValidating = styled(FlashProgressBar)`
-	// Notice that we add 0.01 to certain gradient stop positions.
-	// That workarounds a Chrome rendering issue where diagonal
-	// lines look spiky.
-	// See https://github.com/balena-io/etcher/issues/472
-
-	background-image: -webkit-gradient(
-		linear,
-		0 0,
-		100% 100%,
-		color-stop(0.25, ${progressButtonStripesForegroundColor}),
-		color-stop(0.26, ${progressButtonStripesBackgroundColor}),
-		color-stop(0.5, ${progressButtonStripesBackgroundColor}),
-		color-stop(0.51, ${progressButtonStripesForegroundColor}),
-		color-stop(0.75, ${progressButtonStripesForegroundColor}),
-		color-stop(0.76, ${progressButtonStripesBackgroundColor}),
-		to(${progressButtonStripesBackgroundColor})
-	);
-
-	background-color: white;
-
-	animation: ${ProgressButtonStripesRule};
-	overflow: hidden;
-
-	background-size: 20px 20px;
+	background: #2f3033;
 `;
 
 interface ProgressButtonProps {
-	striped: boolean;
+	type: 'decompressing' | 'flashing' | 'verifying';
 	active: boolean;
 	percentage: number;
 	label: string;
@@ -102,45 +49,35 @@ interface ProgressButtonProps {
 	callback: () => any;
 }
 
+const colors = {
+	decompressing: '#00aeef',
+	flashing: '#da60ff',
+	verifying: '#1ac135',
+} as const;
+
 /**
  * Progress Button component
  */
 export class ProgressButton extends React.Component<ProgressButtonProps> {
 	public render() {
 		if (this.props.active) {
-			if (this.props.striped) {
-				return (
-					<StepSelection>
-						<FlashProgressBarValidating
-							primary
-							emphasized
-							value={this.props.percentage}
-						>
-							{this.props.label}
-						</FlashProgressBarValidating>
-					</StepSelection>
-				);
-			}
-
 			return (
-				<StepSelection>
-					<FlashProgressBar warning emphasized value={this.props.percentage}>
-						{this.props.label}
-					</FlashProgressBar>
-				</StepSelection>
-			);
-		}
-
-		return (
-			<StepSelection>
-				<StepButton
-					primary
-					onClick={this.props.callback}
-					disabled={this.props.disabled}
+				<FlashProgressBar
+					background={colors[this.props.type]}
+					value={this.props.percentage}
 				>
 					{this.props.label}
-				</StepButton>
-			</StepSelection>
+				</FlashProgressBar>
+			);
+		}
+		return (
+			<StepButton
+				primary
+				onClick={this.props.callback}
+				disabled={this.props.disabled}
+			>
+				{this.props.label}
+			</StepButton>
 		);
 	}
 }

@@ -375,7 +375,7 @@ export class SourceSelector extends React.Component<
 				analytics.logEvent('Unsupported protocol', { path: imagePath });
 				return;
 			}
-			source = new sourceDestination.Http(imagePath);
+			source = new sourceDestination.Http({ url: imagePath });
 		}
 
 		try {

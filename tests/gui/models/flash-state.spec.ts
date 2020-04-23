@@ -28,16 +28,12 @@ describe('Model: flashState', function() {
 			it('should be able to reset the progress state', function() {
 				flashState.setFlashingFlag();
 				flashState.setProgressState({
-					flashing: 2,
-					verifying: 0,
-					successful: 0,
 					failed: 0,
 					type: 'flashing',
 					percentage: 50,
 					eta: 15,
 					speed: 100000000000,
 					averageSpeed: 100000000000,
-					totalSpeed: 200000000000,
 					bytes: 0,
 					position: 0,
 					active: 0,
@@ -46,14 +42,11 @@ describe('Model: flashState', function() {
 				flashState.resetState();
 
 				expect(flashState.getFlashState()).to.deep.equal({
-					flashing: 0,
-					verifying: 0,
-					successful: 0,
+					active: 0,
 					failed: 0,
 					percentage: 0,
 					speed: null,
 					averageSpeed: null,
-					totalSpeed: null,
 				});
 			});
 
@@ -100,16 +93,12 @@ describe('Model: flashState', function() {
 
 				expect(function() {
 					flashState.setProgressState({
-						flashing: 2,
-						verifying: 0,
-						successful: 0,
 						failed: 0,
 						type: 'flashing',
 						percentage: 50,
 						eta: 15,
 						speed: 100000000000,
 						averageSpeed: 100000000000,
-						totalSpeed: 200000000000,
 						bytes: 0,
 						position: 0,
 						active: 0,
@@ -121,16 +110,12 @@ describe('Model: flashState', function() {
 				flashState.setFlashingFlag();
 				expect(function() {
 					flashState.setProgressState({
-						flashing: 2,
-						verifying: 0,
-						successful: 0,
 						failed: 0,
 						type: 'flashing',
 						percentage: 0,
 						eta: 15,
 						speed: 100000000000,
 						averageSpeed: 100000000000,
-						totalSpeed: 200000000000,
 						bytes: 0,
 						position: 0,
 						active: 0,
@@ -142,16 +127,12 @@ describe('Model: flashState', function() {
 				flashState.setFlashingFlag();
 				expect(function() {
 					flashState.setProgressState({
-						flashing: 2,
-						verifying: 0,
-						successful: 0,
 						failed: 0,
 						type: 'flashing',
 						percentage: 101,
 						eta: 15,
 						speed: 0,
 						averageSpeed: 0,
-						totalSpeed: 1,
 						bytes: 0,
 						position: 0,
 						active: 0,
@@ -163,16 +144,12 @@ describe('Model: flashState', function() {
 				flashState.setFlashingFlag();
 				expect(function() {
 					flashState.setProgressState({
-						flashing: 2,
-						verifying: 0,
-						successful: 0,
 						failed: 0,
 						type: 'flashing',
 						percentage: -1,
 						eta: 15,
 						speed: 0,
 						averageSpeed: 0,
-						totalSpeed: 1,
 						bytes: 0,
 						position: 0,
 						active: 0,
@@ -184,16 +161,12 @@ describe('Model: flashState', function() {
 				flashState.setFlashingFlag();
 				expect(function() {
 					flashState.setProgressState({
-						flashing: 2,
-						verifying: 0,
-						successful: 0,
 						failed: 0,
 						type: 'flashing',
 						percentage: 50,
 						eta: 0,
 						speed: 100000000000,
 						averageSpeed: 100000000000,
-						totalSpeed: 200000000000,
 						bytes: 0,
 						position: 0,
 						active: 0,
@@ -205,9 +178,6 @@ describe('Model: flashState', function() {
 				flashState.setFlashingFlag();
 				expect(function() {
 					flashState.setProgressState({
-						flashing: 2,
-						verifying: 0,
-						successful: 0,
 						failed: 0,
 						type: 'flashing',
 						percentage: 50,
@@ -215,7 +185,6 @@ describe('Model: flashState', function() {
 						eta: '15',
 						speed: 100000000000,
 						averageSpeed: 100000000000,
-						totalSpeed: 200000000000,
 						bytes: 0,
 						position: 0,
 						active: 0,
@@ -228,15 +197,11 @@ describe('Model: flashState', function() {
 				expect(function() {
 					// @ts-ignore
 					flashState.setProgressState({
-						flashing: 2,
-						verifying: 0,
-						successful: 0,
 						failed: 0,
 						type: 'flashing',
 						percentage: 50,
 						eta: 15,
 						averageSpeed: 0,
-						totalSpeed: 1,
 						bytes: 0,
 						position: 0,
 						active: 0,
@@ -248,16 +213,12 @@ describe('Model: flashState', function() {
 				flashState.setFlashingFlag();
 				expect(function() {
 					flashState.setProgressState({
-						flashing: 2,
-						verifying: 0,
-						successful: 0,
 						failed: 0,
 						type: 'flashing',
 						percentage: 50,
 						eta: 15,
 						speed: 0,
 						averageSpeed: 0,
-						totalSpeed: 1,
 						bytes: 0,
 						position: 0,
 						active: 0,
@@ -265,61 +226,15 @@ describe('Model: flashState', function() {
 				}).to.not.throw('Missing flash fields: speed');
 			});
 
-			it('should throw if totalSpeed is missing', function() {
-				flashState.setFlashingFlag();
-				expect(function() {
-					// @ts-ignore
-					flashState.setProgressState({
-						flashing: 2,
-						verifying: 0,
-						successful: 0,
-						failed: 0,
-						type: 'flashing',
-						percentage: 50,
-						eta: 15,
-						speed: 1,
-						averageSpeed: 1,
-						bytes: 0,
-						position: 0,
-						active: 0,
-					});
-				}).to.throw('Missing flash fields: totalSpeed');
-			});
-
-			it('should not throw if totalSpeed is 0', function() {
-				flashState.setFlashingFlag();
-				expect(function() {
-					flashState.setProgressState({
-						flashing: 2,
-						verifying: 0,
-						successful: 0,
-						failed: 0,
-						type: 'flashing',
-						percentage: 50,
-						eta: 15,
-						speed: 0,
-						averageSpeed: 0,
-						totalSpeed: 0,
-						bytes: 0,
-						position: 0,
-						active: 0,
-					});
-				}).to.not.throw('Missing flash fields: totalSpeed');
-			});
-
 			it('should floor the percentage number', function() {
 				flashState.setFlashingFlag();
 				flashState.setProgressState({
-					flashing: 2,
-					verifying: 0,
-					successful: 0,
 					failed: 0,
 					type: 'flashing',
 					percentage: 50.253559459485,
 					eta: 15,
 					speed: 0,
 					averageSpeed: 0,
-					totalSpeed: 1,
 					bytes: 0,
 					position: 0,
 					active: 0,
@@ -344,7 +259,6 @@ describe('Model: flashState', function() {
 						eta: 0,
 						speed: 0,
 						averageSpeed: 0,
-						totalSpeed: 0,
 						bytes: 0,
 						position: 0,
 						active: 0,
@@ -357,15 +271,11 @@ describe('Model: flashState', function() {
 				expect(() => {
 					flashState.setFlashingFlag();
 					flashState.setProgressState({
-						flashing: 0,
-						verifying: 0,
-						successful: 0,
 						failed: 0,
 						percentage: 0,
 						eta: 0,
 						speed: 0,
 						averageSpeed: 0,
-						totalSpeed: 0,
 						bytes: 0,
 						position: 0,
 						active: 0,
@@ -395,28 +305,21 @@ describe('Model: flashState', function() {
 				flashState.resetState();
 				const currentFlashState = flashState.getFlashState();
 				expect(currentFlashState).to.deep.equal({
-					flashing: 0,
-					verifying: 0,
-					successful: 0,
+					active: 0,
 					failed: 0,
 					percentage: 0,
 					speed: null,
 					averageSpeed: null,
-					totalSpeed: null,
 				});
 			});
 
 			it('should return the current flash state', function() {
 				const state = {
-					flashing: 1,
-					verifying: 0,
-					successful: 0,
 					failed: 0,
 					percentage: 50,
 					eta: 15,
 					speed: 0,
 					averageSpeed: 0,
-					totalSpeed: 0,
 					bytes: 0,
 					position: 0,
 					active: 0,
@@ -427,15 +330,11 @@ describe('Model: flashState', function() {
 				flashState.setProgressState(state);
 				const currentFlashState = flashState.getFlashState();
 				expect(currentFlashState).to.deep.equal({
-					flashing: 1,
-					verifying: 0,
-					successful: 0,
 					failed: 0,
 					percentage: 50,
 					eta: 15,
 					speed: 0,
 					averageSpeed: 0,
-					totalSpeed: 0,
 					bytes: 0,
 					position: 0,
 					active: 0,
@@ -532,30 +431,22 @@ describe('Model: flashState', function() {
 				flashState.setFlashingFlag();
 
 				flashState.setProgressState({
-					flashing: 2,
-					verifying: 0,
-					successful: 0,
 					failed: 0,
 					type: 'flashing',
 					percentage: 50,
 					eta: 15,
 					speed: 100000000000,
 					averageSpeed: 100000000000,
-					totalSpeed: 200000000000,
 					bytes: 0,
 					position: 0,
-					active: 0,
+					active: 2,
 				});
 
 				expect(flashState.getFlashState()).to.not.deep.equal({
-					flashing: 2,
-					verifying: 0,
-					successful: 0,
 					failed: 0,
 					percentage: 0,
 					speed: 0,
 					averageSpeed: 0,
-					totalSpeed: 0,
 				});
 
 				flashState.unsetFlashingFlag({
@@ -564,14 +455,11 @@ describe('Model: flashState', function() {
 				});
 
 				expect(flashState.getFlashState()).to.deep.equal({
-					flashing: 0,
-					verifying: 0,
-					successful: 0,
+					active: 0,
 					failed: 0,
 					percentage: 0,
 					speed: null,
 					averageSpeed: null,
-					totalSpeed: null,
 				});
 			});
 

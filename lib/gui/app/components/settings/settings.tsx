@@ -88,10 +88,6 @@ const settingsList: Setting[] = [
 		label: 'Validate write on success',
 	},
 	{
-		name: 'trim',
-		label: 'Trim ext{2,3,4} partitions before writing (raw images only)',
-	},
-	{
 		name: 'updatesEnabled',
 		label: 'Auto-updates enabled',
 	},

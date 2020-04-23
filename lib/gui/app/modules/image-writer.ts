@@ -168,7 +168,6 @@ export function performWrite(
 			flashInstanceUuid: flashState.getFlashUuid(),
 			unmountOnSuccess: settings.get('unmountOnSuccess'),
 			validateWriteOnSuccess: settings.get('validateWriteOnSuccess'),
-			trim: settings.get('trim'),
 		};
 
 		ipc.server.on('fail', ({ error }: { error: Error & { code: string } }) => {
@@ -196,8 +195,9 @@ export function performWrite(
 				source,
 				SourceType: source.SourceType.name,
 				validateWriteOnSuccess: settings.get('validateWriteOnSuccess'),
-				trim: settings.get('trim'),
+				autoBlockmapping: settings.get('autoBlockmapping'),
 				unmountOnSuccess: settings.get('unmountOnSuccess'),
+				decompressFirst: settings.get('decompressFirst'),
 			});
 		});
 
@@ -273,7 +273,6 @@ export async function flash(
 		flashInstanceUuid: flashState.getFlashUuid(),
 		unmountOnSuccess: settings.get('unmountOnSuccess'),
 		validateWriteOnSuccess: settings.get('validateWriteOnSuccess'),
-		trim: settings.get('trim'),
 		applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
 		flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
 	};
@@ -318,6 +317,8 @@ export async function flash(
 			errors: results.errors,
 			devices: results.devices,
 			status: 'finished',
+			bytesWritten: results.bytesWritten,
+			sourceMetadata: results.sourceMetadata,
 		};
 		analytics.logEvent('Done', eventData);
 	}
@@ -336,7 +337,6 @@ export function cancel() {
 		flashInstanceUuid: flashState.getFlashUuid(),
 		unmountOnSuccess: settings.get('unmountOnSuccess'),
 		validateWriteOnSuccess: settings.get('validateWriteOnSuccess'),
-		trim: settings.get('trim'),
 		applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
 		flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
 		status: 'cancel',
