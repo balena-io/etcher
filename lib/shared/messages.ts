@@ -191,4 +191,8 @@ export const error = {
 			'Please try again, and contact the Etcher team if the problem persists.',
 		].join(' ');
 	},
+
+	unsupportedProtocol: () => {
+		return 'Only http:// and https:// URLs are supported.';
+	},
 };

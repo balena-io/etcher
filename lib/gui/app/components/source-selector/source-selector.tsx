@@ -47,7 +47,7 @@ import { SVGIcon } from '../svg-icon/svg-icon';
 
 const recentUrlImagesKey = 'recentUrlImages';
 
-function normalizeRecentUrlImages(urls: any[]): string[] {
+function normalizeRecentUrlImages(urls: any): string[] {
 	if (!Array.isArray(urls)) {
 		urls = [];
 	}
@@ -362,6 +362,19 @@ export class SourceSelector extends React.Component<
 				path: imagePath,
 			});
 		} else {
+			if (
+				!_.startsWith(imagePath, 'https://') &&
+				!_.startsWith(imagePath, 'http://')
+			) {
+				const invalidImageError = errors.createUserError({
+					title: 'Unsupported protocol',
+					description: messages.error.unsupportedProtocol(),
+				});
+
+				osDialog.showError(invalidImageError);
+				analytics.logEvent('Unsupported protocol', { path: imagePath });
+				return;
+			}
 			source = new sourceDestination.Http(imagePath);
 		}
 
