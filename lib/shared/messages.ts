@@ -131,8 +131,8 @@ export const error = {
 		].join(' ');
 	},
 
-	genericFlashError: () => {
-		return 'Something went wrong. If it is a compressed image, please check that the archive is not corrupted.';
+	genericFlashError: (err: Error) => {
+		return `Something went wrong. If it is a compressed image, please check that the archive is not corrupted.\n${err.message}`;
 	},
 
 	validation: () => {
@@ -190,5 +190,9 @@ export const error = {
 			'The writer process ended unexpectedly.',
 			'Please try again, and contact the Etcher team if the problem persists.',
 		].join(' ');
+	},
+
+	unsupportedProtocol: () => {
+		return 'Only http:// and https:// URLs are supported.';
 	},
 };

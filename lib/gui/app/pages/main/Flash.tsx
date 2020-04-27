@@ -22,6 +22,7 @@ import * as constraints from '../../../../shared/drive-constraints';
 import * as messages from '../../../../shared/messages';
 import { DriveSelectorModal } from '../../components/drive-selector/DriveSelectorModal';
 import { ProgressButton } from '../../components/progress-button/progress-button';
+import { SourceOptions } from '../../components/source-selector/source-selector';
 import { SVGIcon } from '../../components/svg-icon/svg-icon';
 import * as availableDrives from '../../models/available-drives';
 import * as flashState from '../../models/flash-state';
@@ -71,7 +72,10 @@ const getErrorMessageFromCode = (errorCode: string) => {
 	return '';
 };
 
-async function flashImageToDrive(goToSuccess: () => void): Promise<string> {
+async function flashImageToDrive(
+	goToSuccess: () => void,
+	sourceOptions: SourceOptions,
+): Promise<string> {
 	const devices = selection.getSelectedDevices();
 	const image: any = selection.getImage();
 	const drives = _.filter(availableDrives.getDrives(), (drive: any) => {
@@ -89,7 +93,7 @@ async function flashImageToDrive(goToSuccess: () => void): Promise<string> {
 	const iconPath = '../../assets/icon.png';
 	const basename = path.basename(image.path);
 	try {
-		await imageWriter.flash(image.path, drives);
+		await imageWriter.flash(image.path, drives, sourceOptions);
 		if (!flashState.wasLastFlashCancelled()) {
 			const flashResults: any = flashState.getFlashResults();
 			notification.send(
@@ -119,7 +123,7 @@ async function flashImageToDrive(goToSuccess: () => void): Promise<string> {
 		if (!errorMessage) {
 			error.image = basename;
 			analytics.logException(error);
-			errorMessage = messages.error.genericFlashError();
+			errorMessage = messages.error.genericFlashError(error);
 		}
 
 		return errorMessage;
@@ -160,7 +164,17 @@ const formatSeconds = (totalSeconds: number) => {
 	return `${minutes}m${seconds}s`;
 };
 
-export const Flash = ({ shouldFlashStepBeDisabled, goToSuccess }: any) => {
+interface FlashProps {
+	shouldFlashStepBeDisabled: boolean;
+	goToSuccess: () => void;
+	source: SourceOptions;
+}
+
+export const Flash = ({
+	shouldFlashStepBeDisabled,
+	goToSuccess,
+	source,
+}: FlashProps) => {
 	const state: any = flashState.getFlashState();
 	const isFlashing = flashState.isFlashing();
 	const flashErrorCode = flashState.getLastFlashErrorCode();
@@ -179,7 +193,7 @@ export const Flash = ({ shouldFlashStepBeDisabled, goToSuccess }: any) => {
 			return;
 		}
 
-		setErrorMessage(await flashImageToDrive(goToSuccess));
+		setErrorMessage(await flashImageToDrive(goToSuccess, source));
 	};
 
 	const handleFlashErrorResponse = (shouldRetry: boolean) => {
@@ -215,7 +229,7 @@ export const Flash = ({ shouldFlashStepBeDisabled, goToSuccess }: any) => {
 			return;
 		}
 
-		setErrorMessage(await flashImageToDrive(goToSuccess));
+		setErrorMessage(await flashImageToDrive(goToSuccess, source));
 	};
 
 	return (
@@ -299,7 +313,11 @@ export const Flash = ({ shouldFlashStepBeDisabled, goToSuccess }: any) => {
 					done={() => handleFlashErrorResponse(true)}
 					action={'Retry'}
 				>
-					<Txt>{errorMessage}</Txt>
+					<Txt>
+						{_.map(errorMessage.split('\n'), (message, key) => (
+							<p key={key}>{message}</p>
+						))}
+					</Txt>
 				</Modal>
 			)}
 

@@ -15,7 +15,7 @@
  */
 
 import * as React from 'react';
-import { Button, Flex, Provider, Txt } from 'rendition';
+import { Button, ButtonProps, Flex, Provider, Txt } from 'rendition';
 import styled from 'styled-components';
 import { space } from 'styled-system';
 
@@ -33,19 +33,21 @@ const theme = {
 			opacity: 1,
 		},
 		extend: () => `
-      width: 200px;
-      height: 48px;
-      font-size: 16px;
+      && {
+				width: 200px;
+				height: 48px;
+				font-size: 16px;
 
-      &:disabled {
-        background-color: ${colors.dark.disabled.background};
-        color: ${colors.dark.disabled.foreground};
-        opacity: 1;
+				&:disabled {
+					background-color: ${colors.dark.disabled.background};
+					color: ${colors.dark.disabled.foreground};
+					opacity: 1;
 
-        &:hover {
-          background-color: ${colors.dark.disabled.background};
-          color: ${colors.dark.disabled.foreground};
-        }
+					&:hover {
+						background-color: ${colors.dark.disabled.background};
+						color: ${colors.dark.disabled.foreground};
+					}
+				}
       }
     `,
 	},
@@ -59,26 +61,47 @@ export const BaseButton = styled(Button)`
 	height: 48px;
 `;
 
-export const StepButton = (props: any) => (
-	<BaseButton primary {...props}></BaseButton>
-);
+export const IconButton = styled(props => <Button plain {...props} />)`
+	&&& {
+		width: 24px;
+		height: 24px;
+		font-size: 24px;
+		color: #fff;
 
-export const ChangeButton = styled(BaseButton)`
-	color: ${colors.primary.background};
-	padding: 0;
-	width: 100%;
-	height: auto;
-
-	&:enabled {
-		&:hover,
-		&:focus,
-		&:active {
-			color: #8f9297;
+		> svg {
+			font-size: 1em;
 		}
 	}
-	${space}
 `;
-export const StepNameButton = styled(BaseButton)`
+
+export const StepButton = styled((props: ButtonProps) => (
+	<Button {...props}></Button>
+))`
+	color: rgba(255, 255, 255, 0.7);
+	margin: auto;
+`;
+
+export const ChangeButton = styled(Button)`
+	&& {
+		border-radius: 24px;
+		color: ${colors.primary.background};
+		padding: 0;
+		height: 18px;
+		font-size: 14px;
+
+		&:enabled {
+			&:hover,
+			&:focus,
+			&:active {
+				color: #8f9297;
+			}
+		}
+		${space}
+	}
+`;
+export const StepNameButton = styled(Button)`
+	border-radius: 24px;
+	margin: auto;
 	display: flex;
 	justify-content: center;
 	align-items: center;
