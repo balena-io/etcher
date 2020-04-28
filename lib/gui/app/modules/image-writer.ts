@@ -31,7 +31,6 @@ import * as selectionState from '../models/selection-state';
 import * as settings from '../models/settings';
 import * as analytics from '../modules/analytics';
 import * as windowProgress from '../os/window-progress';
-import { updateLock } from './update-lock';
 
 const THREADS_PER_CPU = 16;
 
@@ -242,7 +241,6 @@ export function performWrite(
 
 		// Clear the update lock timer to prevent longer
 		// flashing timing it out, and releasing the lock
-		updateLock.pause();
 		ipc.server.start();
 	});
 }
@@ -337,7 +335,6 @@ export function cancel() {
 	analytics.logEvent('Cancel', analyticsData);
 
 	// Re-enable lock release on inactivity
-	updateLock.resume();
 
 	try {
 		// @ts-ignore (no Server.sockets in @types/node-ipc)

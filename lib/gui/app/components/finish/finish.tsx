@@ -22,7 +22,6 @@ import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
 import { store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
-import { updateLock } from '../../modules/update-lock';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 import { FlashAnother } from '../flash-another/flash-another';
 import { FlashResults } from '../flash-results/flash-results';
@@ -34,9 +33,6 @@ const restart = (options: any, goToMain: () => void) => {
 	}
 	selectionState.deselectAllDrives();
 	analytics.logEvent('Restart', options);
-
-	// Re-enable lock release on inactivity
-	updateLock.resume();
 
 	// Reset the flashing workflow uuid
 	store.dispatch({

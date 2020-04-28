@@ -33,7 +33,6 @@ import { Actions, observe, store } from './models/store';
 import * as analytics from './modules/analytics';
 import { scanner as driveScanner } from './modules/drive-scanner';
 import * as exceptionReporter from './modules/exception-reporter';
-import { updateLock } from './modules/update-lock';
 import * as osDialog from './os/dialog';
 import * as windowProgress from './os/window-progress';
 import MainPage from './pages/main/MainPage';
@@ -330,16 +329,6 @@ window.addEventListener('beforeunload', async (event) => {
 		exceptionReporter.report(error);
 	}
 });
-
-function extendLock() {
-	updateLock.extend();
-}
-
-window.addEventListener('click', extendLock);
-window.addEventListener('touchstart', extendLock);
-
-// Initial update lock acquisition
-extendLock();
 
 async function main(): Promise<void> {
 	try {
