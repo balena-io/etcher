@@ -18,7 +18,6 @@ import * as _debug from 'debug';
 import * as _ from 'lodash';
 
 import * as packageJSON from '../../../../package.json';
-import * as errors from '../../../shared/errors';
 import * as localSettings from './local-settings';
 
 const debug = _debug('etcher:models:settings');
@@ -32,8 +31,6 @@ export const DEFAULT_SETTINGS: _.Dictionary<any> = {
 	updatesEnabled:
 		packageJSON.updates.enabled &&
 		!_.includes(['rpm', 'deb'], packageJSON.packageType),
-	lastSleptUpdateNotifier: null,
-	lastSleptUpdateNotifierVersion: null,
 	desktopNotifications: true,
 	autoBlockmapping: true,
 	decompressFirst: true,
@@ -46,7 +43,6 @@ let settings = _.cloneDeep(DEFAULT_SETTINGS);
  */
 export async function reset(): Promise<void> {
 	debug('reset');
-	// TODO: Remove default settings from config file (?)
 	settings = _.cloneDeep(DEFAULT_SETTINGS);
 	return await localSettings.writeAll(settings);
 }
@@ -65,18 +61,6 @@ export async function load(): Promise<void> {
  */
 export async function set(key: string, value: any): Promise<void> {
 	debug('set', key, value);
-	if (_.isNil(key)) {
-		throw errors.createError({
-			title: 'Missing setting key',
-		});
-	}
-
-	if (!_.isString(key)) {
-		throw errors.createError({
-			title: `Invalid setting key: ${key}`,
-		});
-	}
-
 	const previousValue = settings[key];
 	settings[key] = value;
 	try {
@@ -92,7 +76,7 @@ export async function set(key: string, value: any): Promise<void> {
  * @summary Get a setting value
  */
 export function get(key: string): any {
-	return _.cloneDeep(_.get(settings, [key]));
+	return _.cloneDeep(settings[key]);
 }
 
 /**
