@@ -19,9 +19,9 @@ import { expect } from 'chai';
 import * as settings from '../../../lib/gui/app/models/settings';
 import * as progressStatus from '../../../lib/gui/app/modules/progress-status';
 
-describe('Browser: progressStatus', function() {
-	describe('.fromFlashState()', function() {
-		beforeEach(function() {
+describe('Browser: progressStatus', function () {
+	describe('.fromFlashState()', function () {
+		beforeEach(function () {
 			this.state = {
 				active: 1,
 				type: 'flashing',
@@ -35,22 +35,22 @@ describe('Browser: progressStatus', function() {
 			settings.set('validateWriteOnSuccess', true);
 		});
 
-		it('should report 0% if percentage == 0 but speed != 0', function() {
+		it('should report 0% if percentage == 0 but speed != 0', function () {
 			expect(progressStatus.fromFlashState(this.state)).to.equal('0% Flashing');
 		});
 
-		it('should handle percentage == 0, flashing, unmountOnSuccess', function() {
+		it('should handle percentage == 0, flashing, unmountOnSuccess', function () {
 			this.state.speed = 0;
 			expect(progressStatus.fromFlashState(this.state)).to.equal('0% Flashing');
 		});
 
-		it('should handle percentage == 0, flashing, !unmountOnSuccess', function() {
+		it('should handle percentage == 0, flashing, !unmountOnSuccess', function () {
 			this.state.speed = 0;
 			settings.set('unmountOnSuccess', false);
 			expect(progressStatus.fromFlashState(this.state)).to.equal('0% Flashing');
 		});
 
-		it('should handle percentage == 0, verifying, unmountOnSuccess', function() {
+		it('should handle percentage == 0, verifying, unmountOnSuccess', function () {
 			this.state.speed = 0;
 			this.state.type = 'verifying';
 			expect(progressStatus.fromFlashState(this.state)).to.equal(
@@ -58,7 +58,7 @@ describe('Browser: progressStatus', function() {
 			);
 		});
 
-		it('should handle percentage == 0, verifying, !unmountOnSuccess', function() {
+		it('should handle percentage == 0, verifying, !unmountOnSuccess', function () {
 			this.state.speed = 0;
 			this.state.type = 'verifying';
 			settings.set('unmountOnSuccess', false);
@@ -67,14 +67,14 @@ describe('Browser: progressStatus', function() {
 			);
 		});
 
-		it('should handle percentage == 50, flashing, unmountOnSuccess', function() {
+		it('should handle percentage == 50, flashing, unmountOnSuccess', function () {
 			this.state.percentage = 50;
 			expect(progressStatus.fromFlashState(this.state)).to.equal(
 				'50% Flashing',
 			);
 		});
 
-		it('should handle percentage == 50, flashing, !unmountOnSuccess', function() {
+		it('should handle percentage == 50, flashing, !unmountOnSuccess', function () {
 			this.state.percentage = 50;
 			settings.set('unmountOnSuccess', false);
 			expect(progressStatus.fromFlashState(this.state)).to.equal(
@@ -82,7 +82,7 @@ describe('Browser: progressStatus', function() {
 			);
 		});
 
-		it('should handle percentage == 50, verifying, unmountOnSuccess', function() {
+		it('should handle percentage == 50, verifying, unmountOnSuccess', function () {
 			this.state.percentage = 50;
 			this.state.type = 'verifying';
 			expect(progressStatus.fromFlashState(this.state)).to.equal(
@@ -90,7 +90,7 @@ describe('Browser: progressStatus', function() {
 			);
 		});
 
-		it('should handle percentage == 50, verifying, !unmountOnSuccess', function() {
+		it('should handle percentage == 50, verifying, !unmountOnSuccess', function () {
 			this.state.percentage = 50;
 			this.state.type = 'verifying';
 			settings.set('unmountOnSuccess', false);
@@ -99,14 +99,14 @@ describe('Browser: progressStatus', function() {
 			);
 		});
 
-		it('should handle percentage == 100, flashing, unmountOnSuccess, validateWriteOnSuccess', function() {
+		it('should handle percentage == 100, flashing, unmountOnSuccess, validateWriteOnSuccess', function () {
 			this.state.percentage = 100;
 			expect(progressStatus.fromFlashState(this.state)).to.equal(
 				'Finishing...',
 			);
 		});
 
-		it('should handle percentage == 100, flashing, unmountOnSuccess, !validateWriteOnSuccess', function() {
+		it('should handle percentage == 100, flashing, unmountOnSuccess, !validateWriteOnSuccess', function () {
 			this.state.percentage = 100;
 			settings.set('validateWriteOnSuccess', false);
 			expect(progressStatus.fromFlashState(this.state)).to.equal(
@@ -114,7 +114,7 @@ describe('Browser: progressStatus', function() {
 			);
 		});
 
-		it('should handle percentage == 100, flashing, !unmountOnSuccess, !validateWriteOnSuccess', function() {
+		it('should handle percentage == 100, flashing, !unmountOnSuccess, !validateWriteOnSuccess', function () {
 			this.state.percentage = 100;
 			settings.set('unmountOnSuccess', false);
 			settings.set('validateWriteOnSuccess', false);
@@ -123,7 +123,7 @@ describe('Browser: progressStatus', function() {
 			);
 		});
 
-		it('should handle percentage == 100, verifying, unmountOnSuccess', function() {
+		it('should handle percentage == 100, verifying, unmountOnSuccess', function () {
 			this.state.percentage = 100;
 			this.state.type = 'verifying';
 			expect(progressStatus.fromFlashState(this.state)).to.equal(
@@ -131,7 +131,7 @@ describe('Browser: progressStatus', function() {
 			);
 		});
 
-		it('should handle percentage == 100, validatinf, !unmountOnSuccess', function() {
+		it('should handle percentage == 100, validatinf, !unmountOnSuccess', function () {
 			this.state.percentage = 100;
 			settings.set('unmountOnSuccess', false);
 			expect(progressStatus.fromFlashState(this.state)).to.equal(

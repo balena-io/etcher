@@ -58,7 +58,7 @@ const restart = (options: any, goToMain: () => void) => {
 const formattedErrors = () => {
 	const errors = _.map(
 		_.get(flashState.getFlashResults(), ['results', 'errors']),
-		error => {
+		(error) => {
 			return `${error.device}: ${error.message || error.code}`;
 		},
 	);

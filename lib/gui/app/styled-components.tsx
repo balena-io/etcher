@@ -61,7 +61,7 @@ export const BaseButton = styled(Button)`
 	height: 48px;
 `;
 
-export const IconButton = styled(props => <Button plain {...props} />)`
+export const IconButton = styled((props) => <Button plain {...props} />)`
 	&&& {
 		width: 24px;
 		height: 24px;

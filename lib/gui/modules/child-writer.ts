@@ -231,7 +231,7 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 		log(`Validate on success: ${options.validateWriteOnSuccess}`);
 		log(`Auto blockmapping: ${options.autoBlockmapping}`);
 		log(`Decompress first: ${options.decompressFirst}`);
-		const dests = _.map(options.destinations, destination => {
+		const dests = _.map(options.destinations, (destination) => {
 			return new sdk.sourceDestination.BlockDevice({
 				drive: destination,
 				unmountOnSuccess: options.unmountOnSuccess,
@@ -259,7 +259,7 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 				onFail,
 			});
 			log(`Finish: ${results.bytesWritten}`);
-			results.errors = _.map(results.errors, error => {
+			results.errors = _.map(results.errors, (error) => {
 				return toJSON(error);
 			});
 			ipc.of[IPC_SERVER_ID].emit('done', { results });

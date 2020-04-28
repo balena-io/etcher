@@ -34,7 +34,7 @@ function verifyNoNilFields(
 	fields: string[],
 	name: string,
 ) {
-	const nilFields = _.filter(fields, field => {
+	const nilFields = _.filter(fields, (field) => {
 		return _.isNil(_.get(object, field));
 	});
 	if (nilFields.length) {
@@ -133,9 +133,9 @@ function storeReducer(
 
 			drives = _.sortBy(drives, [
 				// Devices with no devicePath first (usbboot)
-				d => !!d.devicePath,
+				(d) => !!d.devicePath,
 				// Then sort by devicePath (only available on Linux with udev) or device
-				d => d.devicePath || d.device,
+				(d) => d.devicePath || d.device,
 			]);
 
 			const newState = state.set('availableDrives', Immutable.fromJS(drives));

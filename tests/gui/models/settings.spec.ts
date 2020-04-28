@@ -31,14 +31,14 @@ async function checkError(promise: Promise<any>, fn: (err: Error) => void) {
 	throw new Error('Expected error was not thrown');
 }
 
-describe('Browser: settings', function() {
-	beforeEach(function() {
+describe('Browser: settings', function () {
+	beforeEach(function () {
 		return settings.reset();
 	});
 
 	const DEFAULT_SETTINGS = _.cloneDeep(settings.DEFAULT_SETTINGS);
 
-	it('should be able to set and read values', function() {
+	it('should be able to set and read values', function () {
 		expect(settings.get('foo')).to.be.undefined;
 		return settings
 			.set('foo', true)
@@ -51,8 +51,8 @@ describe('Browser: settings', function() {
 			});
 	});
 
-	describe('.reset()', function() {
-		it('should reset the settings to their default values', function() {
+	describe('.reset()', function () {
+		it('should reset the settings to their default values', function () {
 			expect(settings.getAll()).to.deep.equal(DEFAULT_SETTINGS);
 			return settings
 				.set('foo', 1234)
@@ -65,41 +65,41 @@ describe('Browser: settings', function() {
 				});
 		});
 
-		it('should reset the local settings to their default values', function() {
+		it('should reset the local settings to their default values', function () {
 			return settings
 				.set('foo', 1234)
 				.then(localSettings.readAll)
-				.then(data => {
+				.then((data) => {
 					expect(data).to.not.deep.equal(DEFAULT_SETTINGS);
 					return settings.reset();
 				})
 				.then(localSettings.readAll)
-				.then(data => {
+				.then((data) => {
 					expect(data).to.deep.equal(DEFAULT_SETTINGS);
 				});
 		});
 
-		describe('given the local settings are cleared', function() {
-			beforeEach(function() {
+		describe('given the local settings are cleared', function () {
+			beforeEach(function () {
 				return localSettings.clear();
 			});
 
-			it('should set the local settings to their default values', function() {
+			it('should set the local settings to their default values', function () {
 				return settings
 					.reset()
 					.then(localSettings.readAll)
-					.then(data => {
+					.then((data) => {
 						expect(data).to.deep.equal(DEFAULT_SETTINGS);
 					});
 			});
 		});
 	});
 
-	describe('.set()', function() {
-		it('should store the settings to the local machine', function() {
+	describe('.set()', function () {
+		it('should store the settings to the local machine', function () {
 			return localSettings
 				.readAll()
-				.then(data => {
+				.then((data) => {
 					expect(data.foo).to.be.undefined;
 					expect(data.bar).to.be.undefined;
 					return settings.set('foo', 'bar');
@@ -108,13 +108,13 @@ describe('Browser: settings', function() {
 					return settings.set('bar', 'baz');
 				})
 				.then(localSettings.readAll)
-				.then(data => {
+				.then((data) => {
 					expect(data.foo).to.equal('bar');
 					expect(data.bar).to.equal('baz');
 				});
 		});
 
-		it('should not change the application state if storing to the local machine results in an error', async function() {
+		it('should not change the application state if storing to the local machine results in an error', async function () {
 			await settings.set('foo', 'bar');
 			expect(settings.get('foo')).to.equal('bar');
 
@@ -123,7 +123,7 @@ describe('Browser: settings', function() {
 				Promise.reject(new Error('localSettings error')),
 			);
 
-			await checkError(settings.set('foo', 'baz'), error => {
+			await checkError(settings.set('foo', 'baz'), (error) => {
 				expect(error).to.be.an.instanceof(Error);
 				expect(error.message).to.equal('localSettings error');
 				localSettingsWriteAllStub.restore();
@@ -132,8 +132,8 @@ describe('Browser: settings', function() {
 		});
 	});
 
-	describe('.load()', function() {
-		it('should extend the application state with the local settings content', function() {
+	describe('.load()', function () {
+		it('should extend the application state with the local settings content', function () {
 			const object = {
 				foo: 'bar',
 			};
@@ -153,7 +153,7 @@ describe('Browser: settings', function() {
 				});
 		});
 
-		it('should keep the application state intact if there are no local settings', function() {
+		it('should keep the application state intact if there are no local settings', function () {
 			expect(settings.getAll()).to.deep.equal(DEFAULT_SETTINGS);
 			return localSettings
 				.clear()
@@ -164,15 +164,15 @@ describe('Browser: settings', function() {
 		});
 	});
 
-	describe('.set()', function() {
-		it('should set an unknown key', function() {
+	describe('.set()', function () {
+		it('should set an unknown key', function () {
 			expect(settings.get('foobar')).to.be.undefined;
 			return settings.set('foobar', true).then(() => {
 				expect(settings.get('foobar')).to.be.true;
 			});
 		});
 
-		it('should set the key to undefined if no value', function() {
+		it('should set the key to undefined if no value', function () {
 			return settings
 				.set('foo', 'bar')
 				.then(() => {
@@ -184,20 +184,20 @@ describe('Browser: settings', function() {
 				});
 		});
 
-		it('should store the setting to the local machine', function() {
+		it('should store the setting to the local machine', function () {
 			return localSettings
 				.readAll()
-				.then(data => {
+				.then((data) => {
 					expect(data.foo).to.be.undefined;
 					return settings.set('foo', 'bar');
 				})
 				.then(localSettings.readAll)
-				.then(data => {
+				.then((data) => {
 					expect(data.foo).to.equal('bar');
 				});
 		});
 
-		it('should not change the application state if storing to the local machine results in an error', async function() {
+		it('should not change the application state if storing to the local machine results in an error', async function () {
 			await settings.set('foo', 'bar');
 			expect(settings.get('foo')).to.equal('bar');
 
@@ -206,7 +206,7 @@ describe('Browser: settings', function() {
 				Promise.reject(new Error('localSettings error')),
 			);
 
-			await checkError(settings.set('foo', 'baz'), error => {
+			await checkError(settings.set('foo', 'baz'), (error) => {
 				expect(error).to.be.an.instanceof(Error);
 				expect(error.message).to.equal('localSettings error');
 				localSettingsWriteAllStub.restore();
@@ -215,8 +215,8 @@ describe('Browser: settings', function() {
 		});
 	});
 
-	describe('.getAll()', function() {
-		it('should initial return all default values', function() {
+	describe('.getAll()', function () {
+		it('should initial return all default values', function () {
 			expect(settings.getAll()).to.deep.equal(DEFAULT_SETTINGS);
 		});
 	});

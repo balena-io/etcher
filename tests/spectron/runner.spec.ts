@@ -26,13 +26,13 @@ if (!entrypoint) {
 	process.exit(EXIT_CODES.GENERAL_ERROR);
 }
 
-describe('Spectron', function() {
+describe('Spectron', function () {
 	// Mainly for CI jobs
 	this.timeout(40000);
 
 	let app: Application;
 
-	before('app:start', function() {
+	before('app:start', function () {
 		app = new Application({
 			path: entrypoint,
 			args: ['--no-sandbox', '.'],
@@ -41,7 +41,7 @@ describe('Spectron', function() {
 		return app.start();
 	});
 
-	after('app:stop', function() {
+	after('app:stop', function () {
 		if (app && app.isRunning()) {
 			return app.stop();
 		}
@@ -49,12 +49,12 @@ describe('Spectron', function() {
 		return Promise.resolve();
 	});
 
-	describe('Browser Window', function() {
-		it('should open a browser window', async function() {
+	describe('Browser Window', function () {
+		it('should open a browser window', async function () {
 			return expect(await app.browserWindow.isVisible()).to.be.true;
 		});
 
-		it('should set a proper title', async function() {
+		it('should set a proper title', async function () {
 			// @ts-ignore (SpectronClient.getTitle exists)
 			return expect(await app.client.getTitle()).to.equal('Etcher');
 		});

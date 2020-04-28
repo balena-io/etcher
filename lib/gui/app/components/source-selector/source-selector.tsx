@@ -148,7 +148,7 @@ const URLSelector = ({ done }: { done: (imageURL: string) => void }) => {
 					Recent
 					<Card
 						style={{ padding: '10px 15px' }}
-						rows={_.map(recentImages, recent => (
+						rows={_.map(recentImages, (recent) => (
 							<Txt
 								key={recent}
 								onClick={() => {

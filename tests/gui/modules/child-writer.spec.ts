@@ -19,8 +19,8 @@ import * as ipc from 'node-ipc';
 
 import('../../../lib/gui/modules/child-writer');
 
-describe('Browser: childWriter', function() {
-	it('should have the ipc config set to silent', function() {
+describe('Browser: childWriter', function () {
+	it('should have the ipc config set to silent', function () {
 		expect(ipc.config.silent).to.be.true;
 	});
 });

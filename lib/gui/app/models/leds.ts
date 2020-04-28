@@ -81,7 +81,7 @@ export function init() {
 	for (const [drivePath, ledsNames] of Object.entries(ledsMapping)) {
 		leds.set('/dev/disk/by-path/' + drivePath, new RGBLed(ledsNames));
 	}
-	observe(state => {
+	observe((state) => {
 		const availableDrives = state
 			.get('availableDrives')
 			.toJS()

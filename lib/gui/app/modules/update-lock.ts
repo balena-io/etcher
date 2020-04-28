@@ -147,7 +147,7 @@ class UpdateLock extends EventEmitter {
 					logException(checkError);
 				}
 				if (!isLocked) {
-					UpdateLock.acquire(error => {
+					UpdateLock.acquire((error) => {
 						if (error) {
 							logException(error);
 						}

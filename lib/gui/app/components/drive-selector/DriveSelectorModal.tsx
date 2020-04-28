@@ -190,7 +190,7 @@ export function DriveSelectorModal({ close }: { close: () => void }) {
 								<div
 									className="list-group-item-section list-group-item-section-expanded"
 									tabIndex={15 + index}
-									onKeyPress={evt => keyboardToggleDrive(drive, evt)}
+									onKeyPress={(evt) => keyboardToggleDrive(drive, evt)}
 								>
 									<h6 className="list-group-item-heading">
 										{drive.description}

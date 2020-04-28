@@ -198,7 +198,7 @@ function prepareDrive(drive: Drive) {
 		// @ts-ignore
 		drive.progress = 0;
 		drive.disabled = true;
-		drive.on('progress', progress => {
+		drive.on('progress', (progress) => {
 			updateDriveProgress(drive, progress);
 		});
 		return drive;
@@ -275,7 +275,7 @@ function updateDriveProgress(
 driveScanner.on('attach', addDrive);
 driveScanner.on('detach', removeDrive);
 
-driveScanner.on('error', error => {
+driveScanner.on('error', (error) => {
 	// Stop the drive scanning loop in case of errors,
 	// otherwise we risk presenting the same error over
 	// and over again to the user, while also heavily
@@ -289,7 +289,7 @@ driveScanner.start();
 
 let popupExists = false;
 
-window.addEventListener('beforeunload', async event => {
+window.addEventListener('beforeunload', async (event) => {
 	if (!flashState.isFlashing() || popupExists) {
 		analytics.logEvent('Close application', {
 			isFlashing: flashState.isFlashing(),

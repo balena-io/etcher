@@ -149,7 +149,7 @@ sass:
 	node-sass lib/gui/app/scss/main.scss > lib/gui/css/main.css
 
 lint-ts:
-	resin-lint --fix --typescript typings lib tests scripts/clean-shrinkwrap.ts webpack.config.ts
+	balena-lint --fix --typescript typings lib tests scripts/clean-shrinkwrap.ts webpack.config.ts
 
 lint-sass:
 	sass-lint -v lib/gui/app/scss/**/*.scss lib/gui/app/scss/*.scss

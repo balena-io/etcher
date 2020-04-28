@@ -86,7 +86,7 @@ describe('Browser: imageWriter', () => {
 				let rejectError: Error;
 				imageWriter
 					.flash(imagePath, [fakeDrive], sourceOptions)
-					.catch(error => {
+					.catch((error) => {
 						rejectError = error;
 					})
 					.finally(() => {
@@ -140,7 +140,7 @@ describe('Browser: imageWriter', () => {
 				let rejection: Error;
 				imageWriter
 					.flash(imagePath, [fakeDrive], sourceOptions)
-					.catch(error => {
+					.catch((error) => {
 						rejection = error;
 					})
 					.finally(() => {
@@ -151,8 +151,8 @@ describe('Browser: imageWriter', () => {
 		});
 	});
 
-	describe('.performWrite()', function() {
-		it('should set the ipc config to silent', function() {
+	describe('.performWrite()', function () {
+		it('should set the ipc config to silent', function () {
 			// Reset this value as it can persist from other tests
 			expect(ipc.config.silent).to.be.true;
 		});

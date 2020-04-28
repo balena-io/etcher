@@ -18,16 +18,16 @@ import { expect } from 'chai';
 
 import { middleEllipsis } from '../../../lib/gui/app/utils/middle-ellipsis';
 
-describe('Browser: MiddleEllipsis', function() {
-	describe('.middleEllipsis()', function() {
-		it('should throw error if limit < 3', function() {
+describe('Browser: MiddleEllipsis', function () {
+	describe('.middleEllipsis()', function () {
+		it('should throw error if limit < 3', function () {
 			expect(() => {
 				middleEllipsis('No', 2);
 			}).to.throw('middleEllipsis: Limit should be at least 3');
 		});
 
-		describe('given the input length is greater than the limit', function() {
-			it('should always truncate input to an odd length', function() {
+		describe('given the input length is greater than the limit', function () {
+			it('should always truncate input to an odd length', function () {
 				const alphabet = 'abcdefghijklmnopqrstuvwxyz';
 				expect(middleEllipsis(alphabet, 3)).to.have.lengthOf(3);
 				expect(middleEllipsis(alphabet, 4)).to.have.lengthOf(3);
@@ -36,7 +36,7 @@ describe('Browser: MiddleEllipsis', function() {
 			});
 		});
 
-		it('should return the input if it is within the bounds of limit', function() {
+		it('should return the input if it is within the bounds of limit', function () {
 			expect(middleEllipsis('Hello', 10)).to.equal('Hello');
 		});
 	});

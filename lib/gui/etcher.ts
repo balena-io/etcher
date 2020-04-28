@@ -100,7 +100,7 @@ function createMainWindow() {
 	// Prevent external resources from being loaded (like images)
 	// when dropping them on the WebView.
 	// See https://github.com/electron/electron/issues/5919
-	mainWindow.webContents.on('will-navigate', event => {
+	mainWindow.webContents.on('will-navigate', (event) => {
 		event.preventDefault();
 	});
 
@@ -111,7 +111,7 @@ function createMainWindow() {
 	const page = mainWindow.webContents;
 
 	page.once('did-frame-finish-load', async () => {
-		autoUpdater.on('error', err => {
+		autoUpdater.on('error', (err) => {
 			analytics.logException(err);
 		});
 		if (packageUpdatable) {

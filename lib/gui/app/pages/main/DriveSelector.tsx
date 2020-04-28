@@ -31,7 +31,7 @@ const StepBorder = styled.div<{
 	right?: boolean;
 }>`
 	height: 2px;
-	background-color: ${props =>
+	background-color: ${(props) =>
 		props.disabled
 			? props.theme.customColors.dark.disabled.foreground
 			: props.theme.customColors.dark.foreground};
@@ -39,8 +39,8 @@ const StepBorder = styled.div<{
 	width: 124px;
 	top: 19px;
 
-	left: ${props => (props.left ? '-67px' : undefined)};
-	right: ${props => (props.right ? '-67px' : undefined)};
+	left: ${(props) => (props.left ? '-67px' : undefined)};
+	right: ${(props) => (props.right ? '-67px' : undefined)};
 `;
 
 const getDriveListLabel = () => {

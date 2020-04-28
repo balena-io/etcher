@@ -34,7 +34,7 @@ import {
 } from '../../styled-components';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
 
-const TargetDetail = styled(props => <Txt.span {...props}></Txt.span>)`
+const TargetDetail = styled((props) => <Txt.span {...props}></Txt.span>)`
 	float: ${({ float }) => float};
 `;
 

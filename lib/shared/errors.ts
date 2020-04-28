@@ -24,7 +24,7 @@ function createErrorDetails(options: {
 	description: (error: Error) => string;
 } {
 	return _.pick(
-		_.mapValues(options, value => {
+		_.mapValues(options, (value) => {
 			return _.isFunction(value) ? value : _.constant(value);
 		}),
 		['title', 'description'],

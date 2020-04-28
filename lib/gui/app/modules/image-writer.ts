@@ -149,13 +149,13 @@ export function performWrite(
 	let cancelled = false;
 	ipc.serve();
 	return new Promise((resolve, reject) => {
-		ipc.server.on('error', error => {
+		ipc.server.on('error', (error) => {
 			terminateServer();
 			const errorObject = errors.fromJSON(error);
 			reject(errorObject);
 		});
 
-		ipc.server.on('log', message => {
+		ipc.server.on('log', (message) => {
 			console.log(message);
 		});
 
@@ -174,8 +174,8 @@ export function performWrite(
 			handleErrorLogging(error, analyticsData);
 		});
 
-		ipc.server.on('done', event => {
-			event.results.errors = _.map(event.results.errors, data => {
+		ipc.server.on('done', (event) => {
+			event.results.errors = _.map(event.results.errors, (data) => {
 				return errors.fromJSON(data);
 			});
 			_.merge(flashResults, event);

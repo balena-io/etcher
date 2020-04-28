@@ -100,10 +100,7 @@ export function getFlashResults() {
 }
 
 export function getFlashState() {
-	return store
-		.getState()
-		.get('flashState')
-		.toJS();
+	return store.getState().get('flashState').toJS();
 }
 
 export function wasLastFlashCancelled() {
