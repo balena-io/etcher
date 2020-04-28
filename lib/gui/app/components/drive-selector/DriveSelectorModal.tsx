@@ -49,8 +49,6 @@ function toggleDrive(drive: DrivelistDrive) {
 		analytics.logEvent('Toggle drive', {
 			drive,
 			previouslySelected: selectionState.isDriveSelected(drive.device),
-			applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-			flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
 		});
 
 		selectionState.toggleDrive(drive.device);
@@ -113,8 +111,6 @@ export function DriveSelectorModal({ close }: { close: () => void }) {
 		if (drive.link) {
 			analytics.logEvent('Open driver link modal', {
 				url: drive.link,
-				applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-				flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
 			});
 			setMissingDriversModal({ drive });
 		}
@@ -131,10 +127,7 @@ export function DriveSelectorModal({ close }: { close: () => void }) {
 		if (canChangeDriveSelectionState) {
 			selectionState.selectDrive(drive.device);
 
-			analytics.logEvent('Drive selected (double click)', {
-				applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-				flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
-			});
+			analytics.logEvent('Drive selected (double click)');
 
 			close();
 		}

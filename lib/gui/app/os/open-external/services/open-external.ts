@@ -16,7 +16,6 @@
 
 import * as electron from 'electron';
 import * as settings from '../../../models/settings';
-import { store } from '../../../models/store';
 import { logEvent } from '../../../modules/analytics';
 
 /**
@@ -28,10 +27,7 @@ export function open(url: string) {
 		return;
 	}
 
-	logEvent('Open external link', {
-		url,
-		applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-	});
+	logEvent('Open external link', { url });
 
 	if (url) {
 		electron.shell.openExternal(url);

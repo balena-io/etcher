@@ -29,19 +29,11 @@ import { FlashResults } from '../flash-results/flash-results';
 import { SVGIcon } from '../svg-icon/svg-icon';
 
 const restart = (options: any, goToMain: () => void) => {
-	const {
-		applicationSessionUuid,
-		flashingWorkflowUuid,
-	} = store.getState().toJS();
 	if (!options.preserveImage) {
 		selectionState.deselectImage();
 	}
 	selectionState.deselectAllDrives();
-	analytics.logEvent('Restart', {
-		...options,
-		applicationSessionUuid,
-		flashingWorkflowUuid,
-	});
+	analytics.logEvent('Restart', options);
 
 	// Re-enable lock release on inactivity
 	updateLock.resume();

@@ -29,7 +29,7 @@ import * as messages from '../../../../shared/messages';
 import * as supportedFormats from '../../../../shared/supported-formats';
 import * as shared from '../../../../shared/units';
 import * as selectionState from '../../models/selection-state';
-import { observe, store } from '../../models/store';
+import { observe } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import * as exceptionReporter from '../../modules/exception-reporter';
 import * as osDialog from '../../os/dialog';
@@ -254,8 +254,6 @@ export class SourceSelector extends React.Component<
 	private reselectImage() {
 		analytics.logEvent('Reselect image', {
 			previousImage: selectionState.getImage(),
-			applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-			flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
 		});
 
 		selectionState.deselectImage();
@@ -275,17 +273,7 @@ export class SourceSelector extends React.Component<
 			});
 
 			osDialog.showError(invalidImageError);
-			analytics.logEvent(
-				'Invalid image',
-				_.merge(
-					{
-						applicationSessionUuid: store.getState().toJS()
-							.applicationSessionUuid,
-						flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
-					},
-					image,
-				),
-			);
+			analytics.logEvent('Invalid image', image);
 			return;
 		}
 
@@ -294,21 +282,11 @@ export class SourceSelector extends React.Component<
 			let title = null;
 
 			if (supportedFormats.looksLikeWindowsImage(image.path)) {
-				analytics.logEvent('Possibly Windows image', {
-					image,
-					applicationSessionUuid: store.getState().toJS()
-						.applicationSessionUuid,
-					flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
-				});
+				analytics.logEvent('Possibly Windows image', { image });
 				message = messages.warning.looksLikeWindowsImage();
 				title = 'Possible Windows image detected';
 			} else if (!image.hasMBR) {
-				analytics.logEvent('Missing partition table', {
-					image,
-					applicationSessionUuid: store.getState().toJS()
-						.applicationSessionUuid,
-					flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
-				});
+				analytics.logEvent('Missing partition table', { image });
 				title = 'Missing partition table';
 				message = messages.warning.missingPartitionTable();
 			}
@@ -331,8 +309,6 @@ export class SourceSelector extends React.Component<
 					logo: Boolean(image.logo),
 					blockMap: Boolean(image.blockMap),
 				},
-				applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-				flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
 			});
 		} catch (error) {
 			exceptionReporter.report(error);
@@ -420,21 +396,14 @@ export class SourceSelector extends React.Component<
 	}
 
 	private async openImageSelector() {
-		analytics.logEvent('Open image selector', {
-			applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-			flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
-		});
+		analytics.logEvent('Open image selector');
 
 		try {
 			const imagePath = await osDialog.selectImage();
 			// Avoid analytics and selection state changes
 			// if no file was resolved from the dialog.
 			if (!imagePath) {
-				analytics.logEvent('Image selector closed', {
-					applicationSessionUuid: store.getState().toJS()
-						.applicationSessionUuid,
-					flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
-				});
+				analytics.logEvent('Image selector closed');
 				return;
 			}
 			this.selectImageByPath({
@@ -457,11 +426,7 @@ export class SourceSelector extends React.Component<
 	}
 
 	private openURLSelector() {
-		analytics.logEvent('Open image URL selector', {
-			applicationSessionUuid:
-				store.getState().toJS().applicationSessionUuid || '',
-			flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
-		});
+		analytics.logEvent('Open image URL selector');
 
 		this.setState({
 			showURLSelector: true,
@@ -481,8 +446,6 @@ export class SourceSelector extends React.Component<
 	private showSelectedImageDetails() {
 		analytics.logEvent('Show selected image tooltip', {
 			imagePath: selectionState.getImagePath(),
-			flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
-			applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
 		});
 
 		this.setState({
@@ -606,12 +569,7 @@ export class SourceSelector extends React.Component<
 							// Avoid analytics and selection state changes
 							// if no file was resolved from the dialog.
 							if (!imagePath) {
-								analytics.logEvent('URL selector closed', {
-									applicationSessionUuid: store.getState().toJS()
-										.applicationSessionUuid,
-									flashingWorkflowUuid: store.getState().toJS()
-										.flashingWorkflowUuid,
-								});
+								analytics.logEvent('URL selector closed');
 								this.setState({
 									showURLSelector: false,
 								});

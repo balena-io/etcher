@@ -24,7 +24,6 @@ import styled from 'styled-components';
 
 import { version } from '../../../../../package.json';
 import * as settings from '../../models/settings';
-import { store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 
@@ -133,7 +132,6 @@ export const SettingsModal: any = styled(
 				setting,
 				value,
 				dangerous,
-				applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
 			});
 
 			if (value || !dangerous) {

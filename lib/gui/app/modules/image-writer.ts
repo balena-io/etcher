@@ -29,7 +29,6 @@ import { SourceOptions } from '../components/source-selector/source-selector';
 import * as flashState from '../models/flash-state';
 import * as selectionState from '../models/selection-state';
 import * as settings from '../models/settings';
-import { store } from '../models/store';
 import * as analytics from '../modules/analytics';
 import * as windowProgress from '../os/window-progress';
 import { updateLock } from './update-lock';
@@ -61,8 +60,6 @@ function handleErrorLogging(
 ) {
 	const eventData = {
 		...analyticsData,
-		applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-		flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
 		flashInstanceUuid: flashState.getFlashUuid(),
 	};
 
@@ -273,8 +270,6 @@ export async function flash(
 		flashInstanceUuid: flashState.getFlashUuid(),
 		unmountOnSuccess: settings.get('unmountOnSuccess'),
 		validateWriteOnSuccess: settings.get('validateWriteOnSuccess'),
-		applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-		flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
 	};
 
 	analytics.logEvent('Flash', analyticsData);
@@ -337,8 +332,6 @@ export function cancel() {
 		flashInstanceUuid: flashState.getFlashUuid(),
 		unmountOnSuccess: settings.get('unmountOnSuccess'),
 		validateWriteOnSuccess: settings.get('validateWriteOnSuccess'),
-		applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-		flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
 		status: 'cancel',
 	};
 	analytics.logEvent('Cancel', analyticsData);

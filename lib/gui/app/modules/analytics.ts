@@ -20,6 +20,7 @@ import * as resinCorvus from 'resin-corvus/browser';
 import * as packageJSON from '../../../../package.json';
 import { getConfig, hasProps } from '../../../shared/utils';
 import * as settings from '../models/settings';
+import { store } from '../models/store';
 
 const sentryToken =
 	settings.get('analyticsSentryToken') ||
@@ -97,21 +98,22 @@ function validateMixpanelConfig(config: {
 }
 
 /**
- * @summary Log a debug message
- *
- * @description
- * This function sends the debug message to error reporting services.
- */
-export const logDebug = resinCorvus.logDebug;
-
-/**
  * @summary Log an event
  *
  * @description
  * This function sends the debug message to product analytics services.
  */
-export function logEvent(message: string, data: any) {
-	resinCorvus.logEvent(message, { ...data, sample: mixpanelSample });
+export function logEvent(message: string, data: _.Dictionary<any> = {}) {
+	const {
+		applicationSessionUuid,
+		flashingWorkflowUuid,
+	} = store.getState().toJS();
+	resinCorvus.logEvent(message, {
+		...data,
+		sample: mixpanelSample,
+		applicationSessionUuid,
+		flashingWorkflowUuid,
+	});
 }
 
 /**

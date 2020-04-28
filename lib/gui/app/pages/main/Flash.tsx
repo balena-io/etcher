@@ -27,7 +27,6 @@ import { SVGIcon } from '../../components/svg-icon/svg-icon';
 import * as availableDrives from '../../models/available-drives';
 import * as flashState from '../../models/flash-state';
 import * as selection from '../../models/selection-state';
-import { store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import { scanner as driveScanner } from '../../modules/drive-scanner';
 import * as imageWriter from '../../modules/image-writer';
@@ -201,10 +200,7 @@ export const Flash = ({
 		setErrorMessage('');
 		flashState.resetState();
 		if (shouldRetry) {
-			analytics.logEvent('Restart after failure', {
-				applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-				flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
-			});
+			analytics.logEvent('Restart after failure');
 		} else {
 			selection.clear();
 		}

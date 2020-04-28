@@ -20,7 +20,6 @@ import * as React from 'react';
 
 import * as packageJSON from '../../../../../package.json';
 import * as settings from '../../models/settings';
-import { store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 
 /**
@@ -182,11 +181,7 @@ export class SafeWebview extends React.PureComponent<
 		// only care about this event if it's a request for the main frame
 		if (event.resourceType === 'mainFrame') {
 			const HTTP_OK = 200;
-			analytics.logEvent('SafeWebview loaded', {
-				event,
-				applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-				flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
-			});
+			analytics.logEvent('SafeWebview loaded', { event });
 			this.setState({
 				shouldShow: event.statusCode === HTTP_OK,
 			});

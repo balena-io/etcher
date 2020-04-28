@@ -86,7 +86,6 @@ const currentVersion = packageJSON.version;
 analytics.logEvent('Application start', {
 	packageType: packageJSON.packageType,
 	version: currentVersion,
-	applicationSessionUuid,
 });
 
 const debouncedLog = _.debounce(console.log, 1000, { maxWait: 1000 });
@@ -293,7 +292,6 @@ window.addEventListener('beforeunload', async (event) => {
 	if (!flashState.isFlashing() || popupExists) {
 		analytics.logEvent('Close application', {
 			isFlashing: flashState.isFlashing(),
-			applicationSessionUuid,
 		});
 		return;
 	}
@@ -304,10 +302,7 @@ window.addEventListener('beforeunload', async (event) => {
 	// Don't open any more popups
 	popupExists = true;
 
-	analytics.logEvent('Close attempt while flashing', {
-		applicationSessionUuid,
-		flashingWorkflowUuid,
-	});
+	analytics.logEvent('Close attempt while flashing');
 
 	try {
 		const confirmed = await osDialog.showWarning({
@@ -319,8 +314,6 @@ window.addEventListener('beforeunload', async (event) => {
 		if (confirmed) {
 			analytics.logEvent('Close confirmed while flashing', {
 				flashInstanceUuid: flashState.getFlashUuid(),
-				applicationSessionUuid,
-				flashingWorkflowUuid,
 			});
 
 			// This circumvents the 'beforeunload' event unlike
