@@ -21,6 +21,7 @@ import * as tmp from 'tmp';
 import { promisify } from 'util';
 
 import * as errors from './errors';
+import * as settings from '../gui/app/models/settings';
 
 const getAsync = promisify(request.get);
 
@@ -50,7 +51,10 @@ export function hasProps(obj: any, props: string[]): boolean {
  * @summary Get etcher configs stored online
  * @param {String} - url where config.json is stored
  */
-export async function getConfig(configUrl: string): Promise<any> {
+export async function getConfig(): Promise<_.Dictionary<any>> {
+	const configUrl =
+		(await settings.get('configUrl')) ||
+		'https://balena.io/etcher/static/config.json';
 	return (await getAsync({ url: configUrl, json: true })).body;
 }
 

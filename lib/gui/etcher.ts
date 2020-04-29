@@ -114,10 +114,7 @@ async function createMainWindow() {
 		});
 		if (packageUpdatable) {
 			try {
-				const configUrl =
-					(await settings.get('configUrl')) ||
-					'https://balena.io/etcher/static/config.json';
-				const onlineConfig = await getConfig(configUrl);
+				const onlineConfig = await getConfig();
 				const autoUpdaterConfig = _.get(
 					onlineConfig,
 					['autoUpdates', 'autoUpdaterConfig'],

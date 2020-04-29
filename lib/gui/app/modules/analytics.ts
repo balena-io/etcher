@@ -55,10 +55,7 @@ async function initConfig() {
 	await installCorvus();
 	let validatedConfig = null;
 	try {
-		const configUrl =
-			(await settings.get('configUrl')) ||
-			'https://balena.io/etcher/static/config.json';
-		const config = await getConfig(configUrl);
+		const config = await getConfig();
 		const mixpanel = _.get(config, ['analytics', 'mixpanel'], {});
 		mixpanelSample = mixpanel.probability || DEFAULT_PROBABILITY;
 		if (isClientEligible(mixpanelSample)) {
