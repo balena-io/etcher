@@ -46,7 +46,7 @@ interface ProgressButtonProps {
 	percentage: number;
 	label: string;
 	disabled: boolean;
-	callback: () => any;
+	callback: () => void;
 }
 
 const colors = {

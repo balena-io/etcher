@@ -27,12 +27,9 @@ import { FlashAnother } from '../flash-another/flash-another';
 import { FlashResults } from '../flash-results/flash-results';
 import { SVGIcon } from '../svg-icon/svg-icon';
 
-const restart = (options: any, goToMain: () => void) => {
-	if (!options.preserveImage) {
-		selectionState.deselectImage();
-	}
+function restart(goToMain: () => void) {
 	selectionState.deselectAllDrives();
-	analytics.logEvent('Restart', options);
+	analytics.logEvent('Restart');
 
 	// Reset the flashing workflow uuid
 	store.dispatch({
@@ -41,9 +38,9 @@ const restart = (options: any, goToMain: () => void) => {
 	});
 
 	goToMain();
-};
+}
 
-const formattedErrors = () => {
+function formattedErrors() {
 	const errors = _.map(
 		_.get(flashState.getFlashResults(), ['results', 'errors']),
 		(error) => {
@@ -51,7 +48,7 @@ const formattedErrors = () => {
 		},
 	);
 	return errors.join('\n');
-};
+}
 
 function FinishPage({ goToMain }: { goToMain: () => void }) {
 	const results = flashState.getFlashResults().results || {};
@@ -62,8 +59,10 @@ function FinishPage({ goToMain }: { goToMain: () => void }) {
 					<FlashResults results={results} errors={formattedErrors()} />
 
 					<FlashAnother
-						onClick={(options: any) => restart(options, goToMain)}
-					></FlashAnother>
+						onClick={() => {
+							restart(goToMain);
+						}}
+					/>
 				</div>
 
 				<div className="box center">

@@ -61,7 +61,10 @@ const WarningModal = ({
 interface Setting {
 	name: string;
 	label: string | JSX.Element;
-	options?: any;
+	options?: {
+		description: string;
+		confirmLabel: string;
+	};
 	hide?: boolean;
 }
 
@@ -109,15 +112,19 @@ async function getSettingsList(): Promise<Setting[]> {
 	];
 }
 
+interface Warning {
+	setting: string;
+	settingValue: boolean;
+	description: string;
+	confirmLabel: string;
+}
+
 interface SettingsModalProps {
 	toggleModal: (value: boolean) => void;
 }
 
 export function SettingsModal({ toggleModal }: SettingsModalProps) {
-	const [settingsList, setCurrentSettingsList]: [
-		Setting[],
-		React.Dispatch<React.SetStateAction<Setting[]>>,
-	] = React.useState([]);
+	const [settingsList, setCurrentSettingsList] = React.useState<Setting[]>([]);
 	React.useEffect(() => {
 		(async () => {
 			if (settingsList.length === 0) {
@@ -125,10 +132,9 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 			}
 		})();
 	});
-	const [currentSettings, setCurrentSettings]: [
-		_.Dictionary<boolean>,
-		React.Dispatch<React.SetStateAction<_.Dictionary<boolean>>>,
-	] = React.useState({});
+	const [currentSettings, setCurrentSettings] = React.useState<
+		_.Dictionary<boolean>
+	>({});
 	React.useEffect(() => {
 		(async () => {
 			if (_.isEmpty(currentSettings)) {
@@ -136,14 +142,14 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 			}
 		})();
 	});
-	const [warning, setWarning]: [
-		any,
-		React.Dispatch<React.SetStateAction<any>>,
-	] = React.useState({});
+	const [warning, setWarning] = React.useState<Warning | undefined>(undefined);
 
-	const toggleSetting = async (setting: string, options?: any) => {
+	const toggleSetting = async (
+		setting: string,
+		options?: Setting['options'],
+	) => {
 		const value = currentSettings[setting];
-		const dangerous = !_.isUndefined(options);
+		const dangerous = options !== undefined;
 
 		analytics.logEvent('Toggle setting', {
 			setting,
@@ -151,22 +157,22 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 			dangerous,
 		});
 
-		if (value || !dangerous) {
+		if (value || options === undefined) {
 			await settings.set(setting, !value);
 			setCurrentSettings({
 				...currentSettings,
 				[setting]: !value,
 			});
-			setWarning({});
+			setWarning(undefined);
 			return;
+		} else {
+			// Show warning since it's a dangerous setting
+			setWarning({
+				setting,
+				settingValue: value,
+				...options,
+			});
 		}
-
-		// Show warning since it's a dangerous setting
-		setWarning({
-			setting,
-			settingValue: value,
-			...options,
-		});
 	};
 
 	return (
@@ -206,7 +212,7 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 				</div>
 			</div>
 
-			{_.isEmpty(warning) ? null : (
+			{warning === undefined ? null : (
 				<WarningModal
 					message={warning.description}
 					confirmLabel={warning.confirmLabel}
@@ -216,10 +222,10 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 							...currentSettings,
 							[warning.setting]: true,
 						});
-						setWarning({});
+						setWarning(undefined);
 					}}
 					cancel={() => {
-						setWarning({});
+						setWarning(undefined);
 					}}
 				/>
 			)}

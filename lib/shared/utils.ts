@@ -41,7 +41,7 @@ export function percentageToFloat(percentage: any) {
 /**
  * @summary Check if obj has one or many specific props
  */
-export function hasProps(obj: any, props: string[]): boolean {
+export function hasProps(obj: _.Dictionary<any>, props: string[]): boolean {
 	return _.every(props, (prop) => {
 		return _.has(obj, prop);
 	});

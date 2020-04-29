@@ -41,8 +41,8 @@ const TargetDetail = styled((props) => <Txt.span {...props}></Txt.span>)`
 interface TargetSelectorProps {
 	targets: any[];
 	disabled: boolean;
-	openDriveSelector: () => any;
-	reselectDrive: () => any;
+	openDriveSelector: () => void;
+	reselectDrive: () => void;
 	flashing: boolean;
 	show: boolean;
 	tooltip: string;
