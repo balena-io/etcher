@@ -91,7 +91,7 @@ export class SafeWebview extends React.PureComponent<
 		url.searchParams.set(API_VERSION_PARAM, API_VERSION);
 		url.searchParams.set(
 			OPT_OUT_ANALYTICS_PARAM,
-			(!settings.get('errorReporting')).toString(),
+			(!settings.getSync('errorReporting')).toString(),
 		);
 		this.entryHref = url.href;
 		// Events steal 'this'
@@ -192,15 +192,13 @@ export class SafeWebview extends React.PureComponent<
 	}
 
 	// Open link in browser if it's opened as a 'foreground-tab'
-	public static newWindow(event: electron.NewWindowEvent) {
+	public static async newWindow(event: electron.NewWindowEvent) {
 		const url = new window.URL(event.url);
 		if (
-			_.every([
-				url.protocol === 'http:' || url.protocol === 'https:',
-				event.disposition === 'foreground-tab',
-				// Don't open links if they're disabled by the env var
-				!settings.get('disableExternalLinks'),
-			])
+			(url.protocol === 'http:' || url.protocol === 'https:') &&
+			event.disposition === 'foreground-tab' &&
+			// Don't open links if they're disabled by the env var
+			!(await settings.get('disableExternalLinks'))
 		) {
 			electron.shell.openExternal(url.href);
 		}

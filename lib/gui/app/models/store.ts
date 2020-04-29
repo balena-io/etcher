@@ -165,7 +165,7 @@ function storeReducer(
 			);
 
 			const shouldAutoselectAll = Boolean(
-				settings.get('disableExplicitDriveSelection'),
+				settings.getSync('disableExplicitDriveSelection'),
 			);
 			const AUTOSELECT_DRIVE_COUNT = 1;
 			const nonStaleSelectedDevices = nonStaleNewState

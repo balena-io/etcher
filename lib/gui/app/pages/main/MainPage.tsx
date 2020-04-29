@@ -175,7 +175,7 @@ export class MainPage extends React.Component<
 								tabIndex={5}
 								onClick={() => this.setState({ hideSettings: false })}
 							/>
-							{!settings.get('disableExternalLinks') && (
+							{!settings.getSync('disableExternalLinks') && (
 								<Icon
 									icon={<FontAwesomeIcon icon={faQuestionCircle} />}
 									onClick={() =>

@@ -66,7 +66,7 @@ interface DeviceFromState {
 	device: string;
 }
 
-export function init() {
+export async function init(): Promise<void> {
 	// ledsMapping is something like:
 	// {
 	// 	'platform-xhci-hcd.0.auto-usb-0:1.1.1:1.0-scsi-0:0:0:0': [
@@ -77,7 +77,7 @@ export function init() {
 	// 	...
 	// }
 	const ledsMapping: _.Dictionary<[string, string, string]> =
-		settings.get('ledsMapping') || {};
+		(await settings.get('ledsMapping')) || {};
 	for (const [drivePath, ledsNames] of Object.entries(ledsMapping)) {
 		leds.set('/dev/disk/by-path/' + drivePath, new RGBLed(ledsNames));
 	}

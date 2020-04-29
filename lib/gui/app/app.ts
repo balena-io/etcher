@@ -165,17 +165,16 @@ const COMPUTE_MODULE_DESCRIPTIONS: _.Dictionary<string> = {
 	[USB_PRODUCT_ID_BCM2710_BOOT]: 'Compute Module 3',
 };
 
-let BLACKLISTED_DRIVES: string[] = [];
-
-function driveIsAllowed(drive: {
+async function driveIsAllowed(drive: {
 	devicePath: string;
 	device: string;
 	raw: string;
 }) {
+	const driveBlacklist = (await settings.get('driveBlacklist')) || [];
 	return !(
-		BLACKLISTED_DRIVES.includes(drive.devicePath) ||
-		BLACKLISTED_DRIVES.includes(drive.device) ||
-		BLACKLISTED_DRIVES.includes(drive.raw)
+		driveBlacklist.includes(drive.devicePath) ||
+		driveBlacklist.includes(drive.device) ||
+		driveBlacklist.includes(drive.raw)
 	);
 }
 
@@ -240,9 +239,9 @@ function getDrives() {
 	return _.keyBy(availableDrives.getDrives() || [], 'device');
 }
 
-function addDrive(drive: Drive) {
+async function addDrive(drive: Drive) {
 	const preparedDrive = prepareDrive(drive);
-	if (!driveIsAllowed(preparedDrive)) {
+	if (!(await driveIsAllowed(preparedDrive))) {
 		return;
 	}
 	const drives = getDrives();
@@ -330,14 +329,8 @@ window.addEventListener('beforeunload', async (event) => {
 	}
 });
 
-async function main(): Promise<void> {
-	try {
-		await settings.load();
-	} catch (error) {
-		exceptionReporter.report(error);
-	}
-	BLACKLISTED_DRIVES = settings.get('driveBlacklist') || [];
-	ledsInit();
+async function main() {
+	await ledsInit();
 	ReactDOM.render(
 		React.createElement(MainPage),
 		document.getElementById('main'),

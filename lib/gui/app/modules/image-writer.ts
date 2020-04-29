@@ -136,7 +136,7 @@ interface FlashResults {
  * @description
  * This function is extracted for testing purposes.
  */
-export function performWrite(
+export async function performWrite(
 	image: string,
 	drives: DrivelistDrive[],
 	onProgress: sdk.multiWrite.OnProgressFunction,
@@ -144,7 +144,13 @@ export function performWrite(
 ): Promise<{ cancelled?: boolean }> {
 	let cancelled = false;
 	ipc.serve();
-	return new Promise((resolve, reject) => {
+	const {
+		unmountOnSuccess,
+		validateWriteOnSuccess,
+		autoBlockmapping,
+		decompressFirst,
+	} = await settings.getAll();
+	return await new Promise((resolve, reject) => {
 		ipc.server.on('error', (error) => {
 			terminateServer();
 			const errorObject = errors.fromJSON(error);
@@ -162,8 +168,8 @@ export function performWrite(
 			driveCount: drives.length,
 			uuid: flashState.getFlashUuid(),
 			flashInstanceUuid: flashState.getFlashUuid(),
-			unmountOnSuccess: settings.get('unmountOnSuccess'),
-			validateWriteOnSuccess: settings.get('validateWriteOnSuccess'),
+			unmountOnSuccess,
+			validateWriteOnSuccess,
 		};
 
 		ipc.server.on('fail', ({ error }: { error: Error & { code: string } }) => {
@@ -190,10 +196,10 @@ export function performWrite(
 				destinations: drives,
 				source,
 				SourceType: source.SourceType.name,
-				validateWriteOnSuccess: settings.get('validateWriteOnSuccess'),
-				autoBlockmapping: settings.get('autoBlockmapping'),
-				unmountOnSuccess: settings.get('unmountOnSuccess'),
-				decompressFirst: settings.get('decompressFirst'),
+				validateWriteOnSuccess,
+				autoBlockmapping,
+				unmountOnSuccess,
+				decompressFirst,
 			});
 		});
 
@@ -266,8 +272,8 @@ export async function flash(
 		uuid: flashState.getFlashUuid(),
 		status: 'started',
 		flashInstanceUuid: flashState.getFlashUuid(),
-		unmountOnSuccess: settings.get('unmountOnSuccess'),
-		validateWriteOnSuccess: settings.get('validateWriteOnSuccess'),
+		unmountOnSuccess: await settings.get('unmountOnSuccess'),
+		validateWriteOnSuccess: await settings.get('validateWriteOnSuccess'),
 	};
 
 	analytics.logEvent('Flash', analyticsData);
@@ -320,7 +326,7 @@ export async function flash(
 /**
  * @summary Cancel write operation
  */
-export function cancel() {
+export async function cancel() {
 	const drives = selectionState.getSelectedDevices();
 	const analyticsData = {
 		image: selectionState.getImagePath(),
@@ -328,8 +334,8 @@ export function cancel() {
 		driveCount: drives.length,
 		uuid: flashState.getFlashUuid(),
 		flashInstanceUuid: flashState.getFlashUuid(),
-		unmountOnSuccess: settings.get('unmountOnSuccess'),
-		validateWriteOnSuccess: settings.get('validateWriteOnSuccess'),
+		unmountOnSuccess: await settings.get('unmountOnSuccess'),
+		validateWriteOnSuccess: await settings.get('validateWriteOnSuccess'),
 		status: 'cancel',
 	};
 	analytics.logEvent('Cancel', analyticsData);

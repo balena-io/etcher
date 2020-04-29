@@ -18,206 +18,80 @@ import { expect } from 'chai';
 import * as _ from 'lodash';
 import { stub } from 'sinon';
 
-import * as localSettings from '../../../lib/gui/app/models/local-settings';
 import * as settings from '../../../lib/gui/app/models/settings';
 
-async function checkError(promise: Promise<any>, fn: (err: Error) => void) {
+async function checkError(promise: Promise<any>, fn: (err: Error) => any) {
 	try {
 		await promise;
 	} catch (error) {
-		fn(error);
+		await fn(error);
 		return;
 	}
 	throw new Error('Expected error was not thrown');
 }
 
-describe('Browser: settings', function () {
-	beforeEach(function () {
-		return settings.reset();
+describe('Browser: settings', () => {
+	it('should be able to set and read values', async () => {
+		expect(await settings.get('foo')).to.be.undefined;
+		await settings.set('foo', true);
+		expect(await settings.get('foo')).to.be.true;
+		await settings.set('foo', false);
+		expect(await settings.get('foo')).to.be.false;
 	});
 
-	const DEFAULT_SETTINGS = _.cloneDeep(settings.DEFAULT_SETTINGS);
-
-	it('should be able to set and read values', function () {
-		expect(settings.get('foo')).to.be.undefined;
-		return settings
-			.set('foo', true)
-			.then(() => {
-				expect(settings.get('foo')).to.be.true;
-				return settings.set('foo', false);
-			})
-			.then(() => {
-				expect(settings.get('foo')).to.be.false;
-			});
-	});
-
-	describe('.reset()', function () {
-		it('should reset the settings to their default values', function () {
-			expect(settings.getAll()).to.deep.equal(DEFAULT_SETTINGS);
-			return settings
-				.set('foo', 1234)
-				.then(() => {
-					expect(settings.getAll()).to.not.deep.equal(DEFAULT_SETTINGS);
-					return settings.reset();
-				})
-				.then(() => {
-					expect(settings.getAll()).to.deep.equal(DEFAULT_SETTINGS);
-				});
-		});
-
-		it('should reset the local settings to their default values', function () {
-			return settings
-				.set('foo', 1234)
-				.then(localSettings.readAll)
-				.then((data) => {
-					expect(data).to.not.deep.equal(DEFAULT_SETTINGS);
-					return settings.reset();
-				})
-				.then(localSettings.readAll)
-				.then((data) => {
-					expect(data).to.deep.equal(DEFAULT_SETTINGS);
-				});
-		});
-
-		describe('given the local settings are cleared', function () {
-			beforeEach(function () {
-				return localSettings.clear();
-			});
-
-			it('should set the local settings to their default values', function () {
-				return settings
-					.reset()
-					.then(localSettings.readAll)
-					.then((data) => {
-						expect(data).to.deep.equal(DEFAULT_SETTINGS);
-					});
-			});
-		});
-	});
-
-	describe('.set()', function () {
-		it('should store the settings to the local machine', function () {
-			return localSettings
-				.readAll()
-				.then((data) => {
-					expect(data.foo).to.be.undefined;
-					expect(data.bar).to.be.undefined;
-					return settings.set('foo', 'bar');
-				})
-				.then(() => {
-					return settings.set('bar', 'baz');
-				})
-				.then(localSettings.readAll)
-				.then((data) => {
-					expect(data.foo).to.equal('bar');
-					expect(data.bar).to.equal('baz');
-				});
-		});
-
-		it('should not change the application state if storing to the local machine results in an error', async function () {
+	describe('.set()', () => {
+		it('should not change the application state if storing to the local machine results in an error', async () => {
 			await settings.set('foo', 'bar');
-			expect(settings.get('foo')).to.equal('bar');
+			expect(await settings.get('foo')).to.equal('bar');
 
-			const localSettingsWriteAllStub = stub(localSettings, 'writeAll');
-			localSettingsWriteAllStub.returns(
-				Promise.reject(new Error('localSettings error')),
-			);
+			const writeConfigFileStub = stub(settings, 'writeConfigFile');
+			writeConfigFileStub.returns(Promise.reject(new Error('settings error')));
 
-			await checkError(settings.set('foo', 'baz'), (error) => {
+			const p = settings.set('foo', 'baz');
+			await checkError(p, async (error) => {
 				expect(error).to.be.an.instanceof(Error);
-				expect(error.message).to.equal('localSettings error');
-				localSettingsWriteAllStub.restore();
-				expect(settings.get('foo')).to.equal('bar');
+				expect(error.message).to.equal('settings error');
+				expect(await settings.get('foo')).to.equal('bar');
 			});
+			writeConfigFileStub.restore();
 		});
 	});
 
-	describe('.load()', function () {
-		it('should extend the application state with the local settings content', function () {
-			const object = {
-				foo: 'bar',
-			};
-
-			expect(settings.getAll()).to.deep.equal(DEFAULT_SETTINGS);
-
-			return localSettings
-				.writeAll(object)
-				.then(() => {
-					expect(settings.getAll()).to.deep.equal(DEFAULT_SETTINGS);
-					return settings.load();
-				})
-				.then(() => {
-					expect(settings.getAll()).to.deep.equal(
-						_.assign({}, DEFAULT_SETTINGS, object),
-					);
-				});
+	describe('.set()', () => {
+		it('should set an unknown key', async () => {
+			expect(await settings.get('foobar')).to.be.undefined;
+			await settings.set('foobar', true);
+			expect(await settings.get('foobar')).to.be.true;
 		});
 
-		it('should keep the application state intact if there are no local settings', function () {
-			expect(settings.getAll()).to.deep.equal(DEFAULT_SETTINGS);
-			return localSettings
-				.clear()
-				.then(settings.load)
-				.then(() => {
-					expect(settings.getAll()).to.deep.equal(DEFAULT_SETTINGS);
-				});
-		});
-	});
-
-	describe('.set()', function () {
-		it('should set an unknown key', function () {
-			expect(settings.get('foobar')).to.be.undefined;
-			return settings.set('foobar', true).then(() => {
-				expect(settings.get('foobar')).to.be.true;
-			});
-		});
-
-		it('should set the key to undefined if no value', function () {
-			return settings
-				.set('foo', 'bar')
-				.then(() => {
-					expect(settings.get('foo')).to.equal('bar');
-					return settings.set('foo', undefined);
-				})
-				.then(() => {
-					expect(settings.get('foo')).to.be.undefined;
-				});
-		});
-
-		it('should store the setting to the local machine', function () {
-			return localSettings
-				.readAll()
-				.then((data) => {
-					expect(data.foo).to.be.undefined;
-					return settings.set('foo', 'bar');
-				})
-				.then(localSettings.readAll)
-				.then((data) => {
-					expect(data.foo).to.equal('bar');
-				});
-		});
-
-		it('should not change the application state if storing to the local machine results in an error', async function () {
+		it('should set the key to undefined if no value', async () => {
 			await settings.set('foo', 'bar');
-			expect(settings.get('foo')).to.equal('bar');
-
-			const localSettingsWriteAllStub = stub(localSettings, 'writeAll');
-			localSettingsWriteAllStub.returns(
-				Promise.reject(new Error('localSettings error')),
-			);
-
-			await checkError(settings.set('foo', 'baz'), (error) => {
-				expect(error).to.be.an.instanceof(Error);
-				expect(error.message).to.equal('localSettings error');
-				localSettingsWriteAllStub.restore();
-				expect(settings.get('foo')).to.equal('bar');
-			});
+			expect(await settings.get('foo')).to.equal('bar');
+			await settings.set('foo', undefined);
+			expect(await settings.get('foo')).to.be.undefined;
 		});
-	});
 
-	describe('.getAll()', function () {
-		it('should initial return all default values', function () {
-			expect(settings.getAll()).to.deep.equal(DEFAULT_SETTINGS);
+		it('should store the setting to the local machine', async () => {
+			const data = await settings.readAll();
+			expect(data.foo).to.be.undefined;
+			await settings.set('foo', 'bar');
+			const data1 = await settings.readAll();
+			expect(data1.foo).to.equal('bar');
+		});
+
+		it('should not change the application state if storing to the local machine results in an error', async () => {
+			await settings.set('foo', 'bar');
+			expect(await settings.get('foo')).to.equal('bar');
+
+			const writeConfigFileStub = stub(settings, 'writeConfigFile');
+			writeConfigFileStub.returns(Promise.reject(new Error('settings error')));
+
+			await checkError(settings.set('foo', 'baz'), async (error) => {
+				expect(error).to.be.an.instanceof(Error);
+				expect(error.message).to.equal('settings error');
+				expect(await settings.get('foo')).to.equal('bar');
+			});
+			writeConfigFileStub.restore();
 		});
 	});
 });

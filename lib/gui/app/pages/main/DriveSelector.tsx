@@ -53,7 +53,7 @@ const getDriveListLabel = () => {
 };
 
 const shouldShowDrivesButton = () => {
-	return !settings.get('disableExplicitDriveSelection');
+	return !settings.getSync('disableExplicitDriveSelection');
 };
 
 const getDriveSelectionStateSlice = () => ({

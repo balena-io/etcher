@@ -23,7 +23,9 @@ import * as settings from '../models/settings';
  * @summary returns true if system drives should be shown
  */
 function includeSystemDrives() {
-	return settings.get('unsafeMode') && !settings.get('disableUnsafeMode');
+	return (
+		settings.getSync('unsafeMode') && !settings.getSync('disableUnsafeMode')
+	);
 }
 
 const adapters: sdk.scanner.adapters.Adapter[] = [

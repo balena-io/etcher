@@ -21,9 +21,9 @@ import { logEvent } from '../../../modules/analytics';
 /**
  * @summary Open an external resource
  */
-export function open(url: string) {
+export async function open(url: string) {
 	// Don't open links if they're disabled by the env var
-	if (settings.get('disableExternalLinks')) {
+	if (await settings.get('disableExternalLinks')) {
 		return;
 	}
 
