@@ -16,7 +16,7 @@
  */
 /*!
  * Bootstrap v3.4.1 (https://getbootstrap.com/)
- * Copyright 2011-2019 Twitter, Inc.
+ * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -3564,12 +3564,12 @@ tbody.collapse.in {
       margin-left: -1px; }
     .input-group-btn > .btn:hover, .input-group-btn > .button:hover, .input-group-btn > .btn:focus, .input-group-btn > .button:focus, .input-group-btn > .btn:active, .input-group-btn > .button:active {
       z-index: 2; }
-  
+
   .input-group-btn:first-child > .btn,
   .input-group-btn:first-child > .button,
   .input-group-btn:first-child > .btn-group {
     margin-right: -1px; }
-  
+
   .input-group-btn:last-child > .btn,
   .input-group-btn:last-child > .button,
   .input-group-btn:last-child > .btn-group {
