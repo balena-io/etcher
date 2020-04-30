@@ -27,12 +27,12 @@ import { SVGIcon } from '../../components/svg-icon/svg-icon';
 import * as availableDrives from '../../models/available-drives';
 import * as flashState from '../../models/flash-state';
 import * as selection from '../../models/selection-state';
-import { store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import { scanner as driveScanner } from '../../modules/drive-scanner';
 import * as imageWriter from '../../modules/image-writer';
 import * as progressStatus from '../../modules/progress-status';
 import * as notification from '../../os/notification';
+import { StepSelection } from '../../styled-components';
 
 const COMPLETED_PERCENTAGE = 100;
 const SPEED_PRECISION = 2;
@@ -200,10 +200,7 @@ export const Flash = ({
 		setErrorMessage('');
 		flashState.resetState();
 		if (shouldRetry) {
-			analytics.logEvent('Restart after failure', {
-				applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-				flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
-			});
+			analytics.logEvent('Restart after failure');
 		} else {
 			selection.clear();
 		}
@@ -243,14 +240,16 @@ export const Flash = ({
 				</div>
 
 				<div className="space-vertical-large">
-					<ProgressButton
-						striped={state.type === 'verifying'}
-						active={isFlashing}
-						percentage={state.percentage}
-						label={getProgressButtonLabel()}
-						disabled={Boolean(flashErrorCode) || shouldFlashStepBeDisabled}
-						callback={tryFlash}
-					></ProgressButton>
+					<StepSelection>
+						<ProgressButton
+							type={state.type}
+							active={isFlashing}
+							percentage={state.percentage}
+							label={getProgressButtonLabel()}
+							disabled={Boolean(flashErrorCode) || shouldFlashStepBeDisabled}
+							callback={tryFlash}
+						/>
+					</StepSelection>
 
 					{isFlashing && (
 						<button

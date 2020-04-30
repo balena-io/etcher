@@ -18,26 +18,22 @@ import { expect } from 'chai';
 
 import * as flashState from '../../../lib/gui/app/models/flash-state';
 
-describe('Model: flashState', function() {
-	beforeEach(function() {
+describe('Model: flashState', function () {
+	beforeEach(function () {
 		flashState.resetState();
 	});
 
-	describe('flashState', function() {
-		describe('.resetState()', function() {
-			it('should be able to reset the progress state', function() {
+	describe('flashState', function () {
+		describe('.resetState()', function () {
+			it('should be able to reset the progress state', function () {
 				flashState.setFlashingFlag();
 				flashState.setProgressState({
-					flashing: 2,
-					verifying: 0,
-					successful: 0,
 					failed: 0,
 					type: 'flashing',
 					percentage: 50,
 					eta: 15,
 					speed: 100000000000,
 					averageSpeed: 100000000000,
-					totalSpeed: 200000000000,
 					bytes: 0,
 					position: 0,
 					active: 0,
@@ -46,18 +42,15 @@ describe('Model: flashState', function() {
 				flashState.resetState();
 
 				expect(flashState.getFlashState()).to.deep.equal({
-					flashing: 0,
-					verifying: 0,
-					successful: 0,
+					active: 0,
 					failed: 0,
 					percentage: 0,
 					speed: null,
 					averageSpeed: null,
-					totalSpeed: null,
 				});
 			});
 
-			it('should be able to reset the progress state', function() {
+			it('should be able to reset the progress state', function () {
 				flashState.unsetFlashingFlag({
 					cancelled: false,
 					sourceChecksum: '1234',
@@ -67,49 +60,45 @@ describe('Model: flashState', function() {
 				expect(flashState.getFlashResults()).to.deep.equal({});
 			});
 
-			it('should unset the flashing flag', function() {
+			it('should unset the flashing flag', function () {
 				flashState.setFlashingFlag();
 				flashState.resetState();
 				expect(flashState.isFlashing()).to.be.false;
 			});
 
-			it('should unset the flash uuid', function() {
+			it('should unset the flash uuid', function () {
 				flashState.setFlashingFlag();
 				flashState.resetState();
 				expect(flashState.getFlashUuid()).to.be.undefined;
 			});
 		});
 
-		describe('.isFlashing()', function() {
-			it('should return false by default', function() {
+		describe('.isFlashing()', function () {
+			it('should return false by default', function () {
 				expect(flashState.isFlashing()).to.be.false;
 			});
 
-			it('should return true if flashing', function() {
+			it('should return true if flashing', function () {
 				flashState.setFlashingFlag();
 				expect(flashState.isFlashing()).to.be.true;
 			});
 		});
 
-		describe('.setProgressState()', function() {
-			it('should not allow setting the state if flashing is false', function() {
+		describe('.setProgressState()', function () {
+			it('should not allow setting the state if flashing is false', function () {
 				flashState.unsetFlashingFlag({
 					cancelled: false,
 					sourceChecksum: '1234',
 				});
 
-				expect(function() {
+				expect(function () {
 					flashState.setProgressState({
-						flashing: 2,
-						verifying: 0,
-						successful: 0,
 						failed: 0,
 						type: 'flashing',
 						percentage: 50,
 						eta: 15,
 						speed: 100000000000,
 						averageSpeed: 100000000000,
-						totalSpeed: 200000000000,
 						bytes: 0,
 						position: 0,
 						active: 0,
@@ -117,20 +106,16 @@ describe('Model: flashState', function() {
 				}).to.throw("Can't set the flashing state when not flashing");
 			});
 
-			it('should not throw if percentage is 0', function() {
+			it('should not throw if percentage is 0', function () {
 				flashState.setFlashingFlag();
-				expect(function() {
+				expect(function () {
 					flashState.setProgressState({
-						flashing: 2,
-						verifying: 0,
-						successful: 0,
 						failed: 0,
 						type: 'flashing',
 						percentage: 0,
 						eta: 15,
 						speed: 100000000000,
 						averageSpeed: 100000000000,
-						totalSpeed: 200000000000,
 						bytes: 0,
 						position: 0,
 						active: 0,
@@ -138,20 +123,16 @@ describe('Model: flashState', function() {
 				}).to.not.throw('Missing flash fields: percentage');
 			});
 
-			it('should throw if percentage is outside maximum bound', function() {
+			it('should throw if percentage is outside maximum bound', function () {
 				flashState.setFlashingFlag();
-				expect(function() {
+				expect(function () {
 					flashState.setProgressState({
-						flashing: 2,
-						verifying: 0,
-						successful: 0,
 						failed: 0,
 						type: 'flashing',
 						percentage: 101,
 						eta: 15,
 						speed: 0,
 						averageSpeed: 0,
-						totalSpeed: 1,
 						bytes: 0,
 						position: 0,
 						active: 0,
@@ -159,20 +140,16 @@ describe('Model: flashState', function() {
 				}).to.throw('Invalid state percentage: 101');
 			});
 
-			it('should throw if percentage is outside minimum bound', function() {
+			it('should throw if percentage is outside minimum bound', function () {
 				flashState.setFlashingFlag();
-				expect(function() {
+				expect(function () {
 					flashState.setProgressState({
-						flashing: 2,
-						verifying: 0,
-						successful: 0,
 						failed: 0,
 						type: 'flashing',
 						percentage: -1,
 						eta: 15,
 						speed: 0,
 						averageSpeed: 0,
-						totalSpeed: 1,
 						bytes: 0,
 						position: 0,
 						active: 0,
@@ -180,20 +157,16 @@ describe('Model: flashState', function() {
 				}).to.throw('Invalid state percentage: -1');
 			});
 
-			it('should not throw if eta is equal to zero', function() {
+			it('should not throw if eta is equal to zero', function () {
 				flashState.setFlashingFlag();
-				expect(function() {
+				expect(function () {
 					flashState.setProgressState({
-						flashing: 2,
-						verifying: 0,
-						successful: 0,
 						failed: 0,
 						type: 'flashing',
 						percentage: 50,
 						eta: 0,
 						speed: 100000000000,
 						averageSpeed: 100000000000,
-						totalSpeed: 200000000000,
 						bytes: 0,
 						position: 0,
 						active: 0,
@@ -201,13 +174,10 @@ describe('Model: flashState', function() {
 				}).to.not.throw('Missing flash field eta');
 			});
 
-			it('should throw if eta is not a number', function() {
+			it('should throw if eta is not a number', function () {
 				flashState.setFlashingFlag();
-				expect(function() {
+				expect(function () {
 					flashState.setProgressState({
-						flashing: 2,
-						verifying: 0,
-						successful: 0,
 						failed: 0,
 						type: 'flashing',
 						percentage: 50,
@@ -215,7 +185,6 @@ describe('Model: flashState', function() {
 						eta: '15',
 						speed: 100000000000,
 						averageSpeed: 100000000000,
-						totalSpeed: 200000000000,
 						bytes: 0,
 						position: 0,
 						active: 0,
@@ -223,20 +192,16 @@ describe('Model: flashState', function() {
 				}).to.throw('Invalid state eta: 15');
 			});
 
-			it('should throw if speed is missing', function() {
+			it('should throw if speed is missing', function () {
 				flashState.setFlashingFlag();
-				expect(function() {
+				expect(function () {
 					// @ts-ignore
 					flashState.setProgressState({
-						flashing: 2,
-						verifying: 0,
-						successful: 0,
 						failed: 0,
 						type: 'flashing',
 						percentage: 50,
 						eta: 15,
 						averageSpeed: 0,
-						totalSpeed: 1,
 						bytes: 0,
 						position: 0,
 						active: 0,
@@ -244,20 +209,16 @@ describe('Model: flashState', function() {
 				}).to.throw('Missing flash fields: speed');
 			});
 
-			it('should not throw if speed is 0', function() {
+			it('should not throw if speed is 0', function () {
 				flashState.setFlashingFlag();
-				expect(function() {
+				expect(function () {
 					flashState.setProgressState({
-						flashing: 2,
-						verifying: 0,
-						successful: 0,
 						failed: 0,
 						type: 'flashing',
 						percentage: 50,
 						eta: 15,
 						speed: 0,
 						averageSpeed: 0,
-						totalSpeed: 1,
 						bytes: 0,
 						position: 0,
 						active: 0,
@@ -265,61 +226,15 @@ describe('Model: flashState', function() {
 				}).to.not.throw('Missing flash fields: speed');
 			});
 
-			it('should throw if totalSpeed is missing', function() {
-				flashState.setFlashingFlag();
-				expect(function() {
-					// @ts-ignore
-					flashState.setProgressState({
-						flashing: 2,
-						verifying: 0,
-						successful: 0,
-						failed: 0,
-						type: 'flashing',
-						percentage: 50,
-						eta: 15,
-						speed: 1,
-						averageSpeed: 1,
-						bytes: 0,
-						position: 0,
-						active: 0,
-					});
-				}).to.throw('Missing flash fields: totalSpeed');
-			});
-
-			it('should not throw if totalSpeed is 0', function() {
-				flashState.setFlashingFlag();
-				expect(function() {
-					flashState.setProgressState({
-						flashing: 2,
-						verifying: 0,
-						successful: 0,
-						failed: 0,
-						type: 'flashing',
-						percentage: 50,
-						eta: 15,
-						speed: 0,
-						averageSpeed: 0,
-						totalSpeed: 0,
-						bytes: 0,
-						position: 0,
-						active: 0,
-					});
-				}).to.not.throw('Missing flash fields: totalSpeed');
-			});
-
-			it('should floor the percentage number', function() {
+			it('should floor the percentage number', function () {
 				flashState.setFlashingFlag();
 				flashState.setProgressState({
-					flashing: 2,
-					verifying: 0,
-					successful: 0,
 					failed: 0,
 					type: 'flashing',
 					percentage: 50.253559459485,
 					eta: 15,
 					speed: 0,
 					averageSpeed: 0,
-					totalSpeed: 1,
 					bytes: 0,
 					position: 0,
 					active: 0,
@@ -328,7 +243,7 @@ describe('Model: flashState', function() {
 				expect(flashState.getFlashState().percentage).to.equal(50);
 			});
 
-			it('should error when any field is non-nil but not a finite number', function() {
+			it('should error when any field is non-nil but not a finite number', function () {
 				expect(() => {
 					flashState.setFlashingFlag();
 					flashState.setProgressState({
@@ -344,7 +259,6 @@ describe('Model: flashState', function() {
 						eta: 0,
 						speed: 0,
 						averageSpeed: 0,
-						totalSpeed: 0,
 						bytes: 0,
 						position: 0,
 						active: 0,
@@ -353,19 +267,15 @@ describe('Model: flashState', function() {
 				}).to.throw('State quantity field(s) not finite number');
 			});
 
-			it('should not error when all quantity fields are zero', function() {
+			it('should not error when all quantity fields are zero', function () {
 				expect(() => {
 					flashState.setFlashingFlag();
 					flashState.setProgressState({
-						flashing: 0,
-						verifying: 0,
-						successful: 0,
 						failed: 0,
 						percentage: 0,
 						eta: 0,
 						speed: 0,
 						averageSpeed: 0,
-						totalSpeed: 0,
 						bytes: 0,
 						position: 0,
 						active: 0,
@@ -375,8 +285,8 @@ describe('Model: flashState', function() {
 			});
 		});
 
-		describe('.getFlashResults()', function() {
-			it('should get the flash results', function() {
+		describe('.getFlashResults()', function () {
+			it('should get the flash results', function () {
 				flashState.setFlashingFlag();
 
 				const expectedResults = {
@@ -390,33 +300,26 @@ describe('Model: flashState', function() {
 			});
 		});
 
-		describe('.getFlashState()', function() {
-			it('should initially return an empty state', function() {
+		describe('.getFlashState()', function () {
+			it('should initially return an empty state', function () {
 				flashState.resetState();
 				const currentFlashState = flashState.getFlashState();
 				expect(currentFlashState).to.deep.equal({
-					flashing: 0,
-					verifying: 0,
-					successful: 0,
+					active: 0,
 					failed: 0,
 					percentage: 0,
 					speed: null,
 					averageSpeed: null,
-					totalSpeed: null,
 				});
 			});
 
-			it('should return the current flash state', function() {
+			it('should return the current flash state', function () {
 				const state = {
-					flashing: 1,
-					verifying: 0,
-					successful: 0,
 					failed: 0,
 					percentage: 50,
 					eta: 15,
 					speed: 0,
 					averageSpeed: 0,
-					totalSpeed: 0,
 					bytes: 0,
 					position: 0,
 					active: 0,
@@ -427,15 +330,11 @@ describe('Model: flashState', function() {
 				flashState.setProgressState(state);
 				const currentFlashState = flashState.getFlashState();
 				expect(currentFlashState).to.deep.equal({
-					flashing: 1,
-					verifying: 0,
-					successful: 0,
 					failed: 0,
 					percentage: 50,
 					eta: 15,
 					speed: 0,
 					averageSpeed: 0,
-					totalSpeed: 0,
 					bytes: 0,
 					position: 0,
 					active: 0,
@@ -444,15 +343,15 @@ describe('Model: flashState', function() {
 			});
 		});
 
-		describe('.unsetFlashingFlag()', function() {
-			it('should throw if no flashing results', function() {
-				expect(function() {
+		describe('.unsetFlashingFlag()', function () {
+			it('should throw if no flashing results', function () {
+				expect(function () {
 					// @ts-ignore
 					flashState.unsetFlashingFlag();
 				}).to.throw('Missing results');
 			});
 
-			it('should be able to set a string error code', function() {
+			it('should be able to set a string error code', function () {
 				flashState.unsetFlashingFlag({
 					cancelled: false,
 					sourceChecksum: '1234',
@@ -462,7 +361,7 @@ describe('Model: flashState', function() {
 				expect(flashState.getLastFlashErrorCode()).to.equal('EBUSY');
 			});
 
-			it('should be able to set a number error code', function() {
+			it('should be able to set a number error code', function () {
 				flashState.unsetFlashingFlag({
 					cancelled: false,
 					sourceChecksum: '1234',
@@ -472,8 +371,8 @@ describe('Model: flashState', function() {
 				expect(flashState.getLastFlashErrorCode()).to.equal(123);
 			});
 
-			it('should throw if errorCode is not a number not a string', function() {
-				expect(function() {
+			it('should throw if errorCode is not a number not a string', function () {
+				expect(function () {
 					flashState.unsetFlashingFlag({
 						cancelled: false,
 						sourceChecksum: '1234',
@@ -485,7 +384,7 @@ describe('Model: flashState', function() {
 				}).to.throw('Invalid results errorCode: [object Object]');
 			});
 
-			it('should default cancelled to false', function() {
+			it('should default cancelled to false', function () {
 				flashState.unsetFlashingFlag({
 					sourceChecksum: '1234',
 				});
@@ -498,8 +397,8 @@ describe('Model: flashState', function() {
 				});
 			});
 
-			it('should throw if cancelled is not boolean', function() {
-				expect(function() {
+			it('should throw if cancelled is not boolean', function () {
+				expect(function () {
 					flashState.unsetFlashingFlag({
 						// @ts-ignore
 						cancelled: 'false',
@@ -508,8 +407,8 @@ describe('Model: flashState', function() {
 				}).to.throw('Invalid results cancelled: false');
 			});
 
-			it('should throw if cancelled is true and sourceChecksum exists', function() {
-				expect(function() {
+			it('should throw if cancelled is true and sourceChecksum exists', function () {
+				expect(function () {
 					flashState.unsetFlashingFlag({
 						cancelled: true,
 						sourceChecksum: '1234',
@@ -519,7 +418,7 @@ describe('Model: flashState', function() {
 				);
 			});
 
-			it('should be able to set flashing to false', function() {
+			it('should be able to set flashing to false', function () {
 				flashState.unsetFlashingFlag({
 					cancelled: false,
 					sourceChecksum: '1234',
@@ -528,34 +427,26 @@ describe('Model: flashState', function() {
 				expect(flashState.isFlashing()).to.be.false;
 			});
 
-			it('should reset the flashing state', function() {
+			it('should reset the flashing state', function () {
 				flashState.setFlashingFlag();
 
 				flashState.setProgressState({
-					flashing: 2,
-					verifying: 0,
-					successful: 0,
 					failed: 0,
 					type: 'flashing',
 					percentage: 50,
 					eta: 15,
 					speed: 100000000000,
 					averageSpeed: 100000000000,
-					totalSpeed: 200000000000,
 					bytes: 0,
 					position: 0,
-					active: 0,
+					active: 2,
 				});
 
 				expect(flashState.getFlashState()).to.not.deep.equal({
-					flashing: 2,
-					verifying: 0,
-					successful: 0,
 					failed: 0,
 					percentage: 0,
 					speed: 0,
 					averageSpeed: 0,
-					totalSpeed: 0,
 				});
 
 				flashState.unsetFlashingFlag({
@@ -564,18 +455,15 @@ describe('Model: flashState', function() {
 				});
 
 				expect(flashState.getFlashState()).to.deep.equal({
-					flashing: 0,
-					verifying: 0,
-					successful: 0,
+					active: 0,
 					failed: 0,
 					percentage: 0,
 					speed: null,
 					averageSpeed: null,
-					totalSpeed: null,
 				});
 			});
 
-			it('should not reset the flash uuid', function() {
+			it('should not reset the flash uuid', function () {
 				flashState.setFlashingFlag();
 				const uuidBeforeUnset = flashState.getFlashUuid();
 
@@ -589,13 +477,13 @@ describe('Model: flashState', function() {
 			});
 		});
 
-		describe('.setFlashingFlag()', function() {
-			it('should be able to set flashing to true', function() {
+		describe('.setFlashingFlag()', function () {
+			it('should be able to set flashing to true', function () {
 				flashState.setFlashingFlag();
 				expect(flashState.isFlashing()).to.be.true;
 			});
 
-			it('should reset the flash results', function() {
+			it('should reset the flash results', function () {
 				const expectedResults = {
 					cancelled: false,
 					sourceChecksum: '1234',
@@ -609,13 +497,13 @@ describe('Model: flashState', function() {
 			});
 		});
 
-		describe('.wasLastFlashCancelled()', function() {
-			it('should return false given a pristine state', function() {
+		describe('.wasLastFlashCancelled()', function () {
+			it('should return false given a pristine state', function () {
 				flashState.resetState();
 				expect(flashState.wasLastFlashCancelled()).to.be.false;
 			});
 
-			it('should return false if !cancelled', function() {
+			it('should return false if !cancelled', function () {
 				flashState.unsetFlashingFlag({
 					sourceChecksum: '1234',
 					cancelled: false,
@@ -624,7 +512,7 @@ describe('Model: flashState', function() {
 				expect(flashState.wasLastFlashCancelled()).to.be.false;
 			});
 
-			it('should return true if cancelled', function() {
+			it('should return true if cancelled', function () {
 				flashState.unsetFlashingFlag({
 					cancelled: true,
 				});
@@ -633,13 +521,13 @@ describe('Model: flashState', function() {
 			});
 		});
 
-		describe('.getLastFlashSourceChecksum()', function() {
-			it('should return undefined given a pristine state', function() {
+		describe('.getLastFlashSourceChecksum()', function () {
+			it('should return undefined given a pristine state', function () {
 				flashState.resetState();
 				expect(flashState.getLastFlashSourceChecksum()).to.be.undefined;
 			});
 
-			it('should return the last flash source checksum', function() {
+			it('should return the last flash source checksum', function () {
 				flashState.unsetFlashingFlag({
 					sourceChecksum: '1234',
 					cancelled: false,
@@ -648,7 +536,7 @@ describe('Model: flashState', function() {
 				expect(flashState.getLastFlashSourceChecksum()).to.equal('1234');
 			});
 
-			it('should return undefined if the last flash was cancelled', function() {
+			it('should return undefined if the last flash was cancelled', function () {
 				flashState.unsetFlashingFlag({
 					cancelled: true,
 				});
@@ -657,13 +545,13 @@ describe('Model: flashState', function() {
 			});
 		});
 
-		describe('.getLastFlashErrorCode()', function() {
-			it('should return undefined given a pristine state', function() {
+		describe('.getLastFlashErrorCode()', function () {
+			it('should return undefined given a pristine state', function () {
 				flashState.resetState();
 				expect(flashState.getLastFlashErrorCode()).to.be.undefined;
 			});
 
-			it('should return the last flash error code', function() {
+			it('should return the last flash error code', function () {
 				flashState.unsetFlashingFlag({
 					sourceChecksum: '1234',
 					cancelled: false,
@@ -673,7 +561,7 @@ describe('Model: flashState', function() {
 				expect(flashState.getLastFlashErrorCode()).to.equal('ENOSPC');
 			});
 
-			it('should return undefined if the last flash did not report an error code', function() {
+			it('should return undefined if the last flash did not report an error code', function () {
 				flashState.unsetFlashingFlag({
 					sourceChecksum: '1234',
 					cancelled: false,
@@ -683,20 +571,20 @@ describe('Model: flashState', function() {
 			});
 		});
 
-		describe('.getFlashUuid()', function() {
+		describe('.getFlashUuid()', function () {
 			const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 
-			it('should be initially undefined', function() {
+			it('should be initially undefined', function () {
 				expect(flashState.getFlashUuid()).to.be.undefined;
 			});
 
-			it('should be a valid uuid if the flashing flag is set', function() {
+			it('should be a valid uuid if the flashing flag is set', function () {
 				flashState.setFlashingFlag();
 				const uuid = flashState.getFlashUuid();
 				expect(UUID_REGEX.test(uuid)).to.be.true;
 			});
 
-			it('should return different uuids every time the flashing flag is set', function() {
+			it('should return different uuids every time the flashing flag is set', function () {
 				flashState.setFlashingFlag();
 				const uuid1 = flashState.getFlashUuid();
 				flashState.unsetFlashingFlag({

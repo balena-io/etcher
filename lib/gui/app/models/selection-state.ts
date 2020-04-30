@@ -51,10 +51,7 @@ export function selectImage(image: any) {
  * @summary Get all selected drives' devices
  */
 export function getSelectedDevices(): string[] {
-	return store
-		.getState()
-		.getIn(['selection', 'devices'])
-		.toJS();
+	return store.getState().getIn(['selection', 'devices']).toJS();
 }
 
 /**
@@ -62,7 +59,7 @@ export function getSelectedDevices(): string[] {
  */
 export function getSelectedDrives(): any[] {
 	const drives = availableDrives.getDrives();
-	return _.map(getSelectedDevices(), device => {
+	return _.map(getSelectedDevices(), (device) => {
 		return _.find(drives, { device });
 	});
 }

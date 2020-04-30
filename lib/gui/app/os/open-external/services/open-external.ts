@@ -16,22 +16,18 @@
 
 import * as electron from 'electron';
 import * as settings from '../../../models/settings';
-import { store } from '../../../models/store';
 import { logEvent } from '../../../modules/analytics';
 
 /**
  * @summary Open an external resource
  */
-export function open(url: string) {
+export async function open(url: string) {
 	// Don't open links if they're disabled by the env var
-	if (settings.get('disableExternalLinks')) {
+	if (await settings.get('disableExternalLinks')) {
 		return;
 	}
 
-	logEvent('Open external link', {
-		url,
-		applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-	});
+	logEvent('Open external link', { url });
 
 	if (url) {
 		electron.shell.openExternal(url);

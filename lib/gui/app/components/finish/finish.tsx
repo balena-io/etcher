@@ -22,29 +22,14 @@ import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
 import { store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
-import { updateLock } from '../../modules/update-lock';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 import { FlashAnother } from '../flash-another/flash-another';
 import { FlashResults } from '../flash-results/flash-results';
 import { SVGIcon } from '../svg-icon/svg-icon';
 
-const restart = (options: any, goToMain: () => void) => {
-	const {
-		applicationSessionUuid,
-		flashingWorkflowUuid,
-	} = store.getState().toJS();
-	if (!options.preserveImage) {
-		selectionState.deselectImage();
-	}
+function restart(goToMain: () => void) {
 	selectionState.deselectAllDrives();
-	analytics.logEvent('Restart', {
-		...options,
-		applicationSessionUuid,
-		flashingWorkflowUuid,
-	});
-
-	// Re-enable lock release on inactivity
-	updateLock.resume();
+	analytics.logEvent('Restart');
 
 	// Reset the flashing workflow uuid
 	store.dispatch({
@@ -53,17 +38,17 @@ const restart = (options: any, goToMain: () => void) => {
 	});
 
 	goToMain();
-};
+}
 
-const formattedErrors = () => {
+function formattedErrors() {
 	const errors = _.map(
 		_.get(flashState.getFlashResults(), ['results', 'errors']),
-		error => {
+		(error) => {
 			return `${error.device}: ${error.message || error.code}`;
 		},
 	);
 	return errors.join('\n');
-};
+}
 
 function FinishPage({ goToMain }: { goToMain: () => void }) {
 	const results = flashState.getFlashResults().results || {};
@@ -74,8 +59,10 @@ function FinishPage({ goToMain }: { goToMain: () => void }) {
 					<FlashResults results={results} errors={formattedErrors()} />
 
 					<FlashAnother
-						onClick={(options: any) => restart(options, goToMain)}
-					></FlashAnother>
+						onClick={() => {
+							restart(goToMain);
+						}}
+					/>
 				</div>
 
 				<div className="box center">

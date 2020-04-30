@@ -33,7 +33,6 @@ import { Actions, observe, store } from './models/store';
 import * as analytics from './modules/analytics';
 import { scanner as driveScanner } from './modules/drive-scanner';
 import * as exceptionReporter from './modules/exception-reporter';
-import { updateLock } from './modules/update-lock';
 import * as osDialog from './os/dialog';
 import * as windowProgress from './os/window-progress';
 import MainPage from './pages/main/MainPage';
@@ -86,33 +85,45 @@ const currentVersion = packageJSON.version;
 analytics.logEvent('Application start', {
 	packageType: packageJSON.packageType,
 	version: currentVersion,
-	applicationSessionUuid,
 });
+
+const debouncedLog = _.debounce(console.log, 1000, { maxWait: 1000 });
+
+function pluralize(word: string, quantity: number) {
+	return `${quantity} ${word}${quantity === 1 ? '' : 's'}`;
+}
 
 observe(() => {
 	if (!flashState.isFlashing()) {
 		return;
 	}
-
 	const currentFlashState = flashState.getFlashState();
-	const stateType =
-		!currentFlashState.flashing && currentFlashState.verifying
-			? `Verifying ${currentFlashState.verifying}`
-			: `Flashing ${currentFlashState.flashing}`;
+	windowProgress.set(currentFlashState);
 
+	let eta = '';
+	if (currentFlashState.eta !== undefined) {
+		eta = `eta in ${currentFlashState.eta.toFixed(0)}s`;
+	}
+	let active = '';
+	if (currentFlashState.type !== 'decompressing') {
+		active = pluralize('device', currentFlashState.active);
+	}
 	// NOTE: There is usually a short time period between the `isFlashing()`
 	// property being set, and the flashing actually starting, which
 	// might cause some non-sense flashing state logs including
 	// `undefined` values.
-	analytics.logDebug(
-		`${stateType} devices, ` +
-			`${currentFlashState.percentage}% at ${currentFlashState.speed} MB/s ` +
-			`(total ${currentFlashState.totalSpeed} MB/s) ` +
-			`eta in ${currentFlashState.eta}s ` +
-			`with ${currentFlashState.failed} failed devices`,
-	);
-
-	windowProgress.set(currentFlashState);
+	debouncedLog(outdent({ newline: ' ' })`
+		${_.capitalize(currentFlashState.type)}
+		${active},
+		${currentFlashState.percentage}%
+		at
+		${(currentFlashState.speed || 0).toFixed(2)}
+		MB/s
+		(total ${(currentFlashState.speed * currentFlashState.active).toFixed(2)} MB/s)
+		${eta}
+		with
+		${pluralize('failed device', currentFlashState.failed)}
+	`);
 });
 
 /**
@@ -154,17 +165,16 @@ const COMPUTE_MODULE_DESCRIPTIONS: _.Dictionary<string> = {
 	[USB_PRODUCT_ID_BCM2710_BOOT]: 'Compute Module 3',
 };
 
-let BLACKLISTED_DRIVES: string[] = [];
-
-function driveIsAllowed(drive: {
+async function driveIsAllowed(drive: {
 	devicePath: string;
 	device: string;
 	raw: string;
 }) {
+	const driveBlacklist = (await settings.get('driveBlacklist')) || [];
 	return !(
-		BLACKLISTED_DRIVES.includes(drive.devicePath) ||
-		BLACKLISTED_DRIVES.includes(drive.device) ||
-		BLACKLISTED_DRIVES.includes(drive.raw)
+		driveBlacklist.includes(drive.devicePath) ||
+		driveBlacklist.includes(drive.device) ||
+		driveBlacklist.includes(drive.raw)
 	);
 }
 
@@ -185,7 +195,7 @@ function prepareDrive(drive: Drive) {
 		// @ts-ignore
 		drive.progress = 0;
 		drive.disabled = true;
-		drive.on('progress', progress => {
+		drive.on('progress', (progress) => {
 			updateDriveProgress(drive, progress);
 		});
 		return drive;
@@ -229,9 +239,9 @@ function getDrives() {
 	return _.keyBy(availableDrives.getDrives() || [], 'device');
 }
 
-function addDrive(drive: Drive) {
+async function addDrive(drive: Drive) {
 	const preparedDrive = prepareDrive(drive);
-	if (!driveIsAllowed(preparedDrive)) {
+	if (!(await driveIsAllowed(preparedDrive))) {
 		return;
 	}
 	const drives = getDrives();
@@ -262,7 +272,7 @@ function updateDriveProgress(
 driveScanner.on('attach', addDrive);
 driveScanner.on('detach', removeDrive);
 
-driveScanner.on('error', error => {
+driveScanner.on('error', (error) => {
 	// Stop the drive scanning loop in case of errors,
 	// otherwise we risk presenting the same error over
 	// and over again to the user, while also heavily
@@ -276,11 +286,10 @@ driveScanner.start();
 
 let popupExists = false;
 
-window.addEventListener('beforeunload', async event => {
+window.addEventListener('beforeunload', async (event) => {
 	if (!flashState.isFlashing() || popupExists) {
 		analytics.logEvent('Close application', {
 			isFlashing: flashState.isFlashing(),
-			applicationSessionUuid,
 		});
 		return;
 	}
@@ -291,10 +300,7 @@ window.addEventListener('beforeunload', async event => {
 	// Don't open any more popups
 	popupExists = true;
 
-	analytics.logEvent('Close attempt while flashing', {
-		applicationSessionUuid,
-		flashingWorkflowUuid,
-	});
+	analytics.logEvent('Close attempt while flashing');
 
 	try {
 		const confirmed = await osDialog.showWarning({
@@ -306,8 +312,6 @@ window.addEventListener('beforeunload', async event => {
 		if (confirmed) {
 			analytics.logEvent('Close confirmed while flashing', {
 				flashInstanceUuid: flashState.getFlashUuid(),
-				applicationSessionUuid,
-				flashingWorkflowUuid,
 			});
 
 			// This circumvents the 'beforeunload' event unlike
@@ -325,24 +329,8 @@ window.addEventListener('beforeunload', async event => {
 	}
 });
 
-function extendLock() {
-	updateLock.extend();
-}
-
-window.addEventListener('click', extendLock);
-window.addEventListener('touchstart', extendLock);
-
-// Initial update lock acquisition
-extendLock();
-
-async function main(): Promise<void> {
-	try {
-		await settings.load();
-	} catch (error) {
-		exceptionReporter.report(error);
-	}
-	BLACKLISTED_DRIVES = settings.get('driveBlacklist') || [];
-	ledsInit();
+async function main() {
+	await ledsInit();
 	ReactDOM.render(
 		React.createElement(MainPage),
 		document.getElementById('main'),

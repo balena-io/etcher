@@ -20,34 +20,31 @@ import * as resinCorvus from 'resin-corvus/browser';
 import * as packageJSON from '../../../../package.json';
 import { getConfig, hasProps } from '../../../shared/utils';
 import * as settings from '../models/settings';
-
-const sentryToken =
-	settings.get('analyticsSentryToken') ||
-	_.get(packageJSON, ['analytics', 'sentry', 'token']);
-const mixpanelToken =
-	settings.get('analyticsMixpanelToken') ||
-	_.get(packageJSON, ['analytics', 'mixpanel', 'token']);
-
-const configUrl =
-	settings.get('configUrl') || 'https://balena.io/etcher/static/config.json';
+import { store } from '../models/store';
 
 const DEFAULT_PROBABILITY = 0.1;
 
-const services = {
-	sentry: sentryToken,
-	mixpanel: mixpanelToken,
-};
-
-resinCorvus.install({
-	services,
-	options: {
-		release: packageJSON.version,
-		shouldReport: () => {
-			return settings.get('errorReporting');
+async function installCorvus(): Promise<void> {
+	const sentryToken =
+		(await settings.get('analyticsSentryToken')) ||
+		_.get(packageJSON, ['analytics', 'sentry', 'token']);
+	const mixpanelToken =
+		(await settings.get('analyticsMixpanelToken')) ||
+		_.get(packageJSON, ['analytics', 'mixpanel', 'token']);
+	resinCorvus.install({
+		services: {
+			sentry: sentryToken,
+			mixpanel: mixpanelToken,
 		},
-		mixpanelDeferred: true,
-	},
-});
+		options: {
+			release: packageJSON.version,
+			shouldReport: () => {
+				return settings.getSync('errorReporting');
+			},
+			mixpanelDeferred: true,
+		},
+	});
+}
 
 let mixpanelSample = DEFAULT_PROBABILITY;
 
@@ -55,9 +52,10 @@ let mixpanelSample = DEFAULT_PROBABILITY;
  * @summary Init analytics configurations
  */
 async function initConfig() {
+	await installCorvus();
 	let validatedConfig = null;
 	try {
-		const config = await getConfig(configUrl);
+		const config = await getConfig();
 		const mixpanel = _.get(config, ['analytics', 'mixpanel'], {});
 		mixpanelSample = mixpanel.probability || DEFAULT_PROBABILITY;
 		if (isClientEligible(mixpanelSample)) {
@@ -97,21 +95,22 @@ function validateMixpanelConfig(config: {
 }
 
 /**
- * @summary Log a debug message
- *
- * @description
- * This function sends the debug message to error reporting services.
- */
-export const logDebug = resinCorvus.logDebug;
-
-/**
  * @summary Log an event
  *
  * @description
  * This function sends the debug message to product analytics services.
  */
-export function logEvent(message: string, data: any) {
-	resinCorvus.logEvent(message, { ...data, sample: mixpanelSample });
+export function logEvent(message: string, data: _.Dictionary<any> = {}) {
+	const {
+		applicationSessionUuid,
+		flashingWorkflowUuid,
+	} = store.getState().toJS();
+	resinCorvus.logEvent(message, {
+		...data,
+		sample: mixpanelSample,
+		applicationSessionUuid,
+		flashingWorkflowUuid,
+	});
 }
 
 /**

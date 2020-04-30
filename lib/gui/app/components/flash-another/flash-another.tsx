@@ -26,17 +26,14 @@ const Div = styled.div<any>`
 `;
 
 export interface FlashAnotherProps {
-	onClick: (options: { preserveImage: boolean }) => void;
+	onClick: () => void;
 }
 
 export const FlashAnother = (props: FlashAnotherProps) => {
 	return (
 		<ThemedProvider>
 			<Div position="absolute" right="152px">
-				<BaseButton
-					primary
-					onClick={props.onClick.bind(null, { preserveImage: true })}
-				>
+				<BaseButton primary onClick={props.onClick}>
 					Flash Another
 				</BaseButton>
 			</Div>

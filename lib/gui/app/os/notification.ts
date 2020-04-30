@@ -21,9 +21,9 @@ import * as settings from '../models/settings';
 /**
  * @summary Send a notification
  */
-export function send(title: string, body: string, icon: string) {
+export async function send(title: string, body: string, icon: string) {
 	// Bail out if desktop notifications are disabled
-	if (!settings.get('desktopNotifications')) {
+	if (!(await settings.get('desktopNotifications'))) {
 		return;
 	}
 

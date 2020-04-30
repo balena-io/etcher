@@ -67,7 +67,7 @@ export function isSourceDrive(drive: DrivelistDrive, image: Image): boolean {
 	}
 
 	return _.some(
-		_.map(mountpoints, mountpoint => {
+		_.map(mountpoints, (mountpoint) => {
 			return pathIsInside(imagePath, mountpoint.path);
 		}),
 	);
@@ -235,7 +235,7 @@ export function getListDriveImageCompatibilityStatuses(
 	drives: DrivelistDrive[],
 	image: Image,
 ) {
-	return _.flatMap(drives, drive => {
+	return _.flatMap(drives, (drive) => {
 		return getDriveImageCompatibilityStatuses(drive, image);
 	});
 }

@@ -88,7 +88,7 @@ async function getWindowsNetworkDrives(): Promise<Map<string, string>> {
 				trim(str.slice(colonPosition + 1)),
 			];
 		})
-		.filter(couple => couple[1].length > 0)
+		.filter((couple) => couple[1].length > 0)
 		.value();
 	return new Map(couples);
 }

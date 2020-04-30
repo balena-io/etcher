@@ -21,44 +21,44 @@ import * as availableDrives from '../../../lib/gui/app/models/available-drives';
 import * as selectionState from '../../../lib/gui/app/models/selection-state';
 import * as constraints from '../../../lib/shared/drive-constraints';
 
-describe('Model: availableDrives', function() {
-	describe('availableDrives', function() {
-		it('should have no drives by default', function() {
+describe('Model: availableDrives', function () {
+	describe('availableDrives', function () {
+		it('should have no drives by default', function () {
 			expect(availableDrives.getDrives()).to.deep.equal([]);
 		});
 
-		describe('.setDrives()', function() {
-			it('should throw if no drives', function() {
-				expect(function() {
+		describe('.setDrives()', function () {
+			it('should throw if no drives', function () {
+				expect(function () {
 					// @ts-ignore
 					availableDrives.setDrives();
 				}).to.throw('Missing drives');
 			});
 
-			it('should throw if drives is not an array', function() {
-				expect(function() {
+			it('should throw if drives is not an array', function () {
+				expect(function () {
 					// @ts-ignore
 					availableDrives.setDrives(123);
 				}).to.throw('Invalid drives: 123');
 			});
 
-			it('should throw if drives is not an array of objects', function() {
-				expect(function() {
+			it('should throw if drives is not an array of objects', function () {
+				expect(function () {
 					// @ts-ignore
 					availableDrives.setDrives([123, 123, 123]);
 				}).to.throw('Invalid drives: 123,123,123');
 			});
 		});
 
-		describe('given no drives', function() {
-			describe('.hasAvailableDrives()', function() {
-				it('should return false', function() {
+		describe('given no drives', function () {
+			describe('.hasAvailableDrives()', function () {
+				it('should return false', function () {
 					expect(availableDrives.hasAvailableDrives()).to.be.false;
 				});
 			});
 
-			describe('.setDrives()', function() {
-				it('should be able to set drives', function() {
+			describe('.setDrives()', function () {
+				it('should be able to set drives', function () {
 					const drives = [
 						{
 							device: '/dev/sdb',
@@ -77,7 +77,7 @@ describe('Model: availableDrives', function() {
 					expect(availableDrives.getDrives()).to.deep.equal(drives);
 				});
 
-				it('should be able to set drives with extra properties', function() {
+				it('should be able to set drives with extra properties', function () {
 					const drives = [
 						{
 							device: '/dev/sdb',
@@ -101,7 +101,7 @@ describe('Model: availableDrives', function() {
 					expect(availableDrives.getDrives()).to.deep.equal(drives);
 				});
 
-				it('should be able to set drives with null sizes', function() {
+				it('should be able to set drives with null sizes', function () {
 					const drives = [
 						{
 							device: '/dev/sdb',
@@ -120,12 +120,12 @@ describe('Model: availableDrives', function() {
 					expect(availableDrives.getDrives()).to.deep.equal(drives);
 				});
 
-				describe('given no selected image and no selected drive', function() {
-					beforeEach(function() {
+				describe('given no selected image and no selected drive', function () {
+					beforeEach(function () {
 						selectionState.clear();
 					});
 
-					it('should auto-select a single valid available drive', function() {
+					it('should auto-select a single valid available drive', function () {
 						expect(selectionState.hasDrive()).to.be.false;
 
 						availableDrives.setDrives([
@@ -148,8 +148,8 @@ describe('Model: availableDrives', function() {
 					});
 				});
 
-				describe('given a selected image and no selected drive', function() {
-					beforeEach(function() {
+				describe('given a selected image and no selected drive', function () {
+					beforeEach(function () {
 						if (process.platform === 'win32') {
 							this.imagePath = 'E:\\bar\\foo.img';
 						} else {
@@ -166,11 +166,11 @@ describe('Model: availableDrives', function() {
 						});
 					});
 
-					afterEach(function() {
+					afterEach(function () {
 						selectionState.deselectImage();
 					});
 
-					it('should not auto-select when there are multiple valid available drives', function() {
+					it('should not auto-select when there are multiple valid available drives', function () {
 						expect(selectionState.hasDrive()).to.be.false;
 
 						availableDrives.setDrives([
@@ -203,7 +203,7 @@ describe('Model: availableDrives', function() {
 						expect(selectionState.hasDrive()).to.be.false;
 					});
 
-					it('should auto-select a single valid available drive', function() {
+					it('should auto-select a single valid available drive', function () {
 						expect(selectionState.hasDrive()).to.be.false;
 
 						availableDrives.setDrives([
@@ -224,7 +224,7 @@ describe('Model: availableDrives', function() {
 						expect(selectionState.getSelectedDevices()[0]).to.equal('/dev/sdb');
 					});
 
-					it('should not auto-select a single too small drive', function() {
+					it('should not auto-select a single too small drive', function () {
 						expect(selectionState.hasDrive()).to.be.false;
 
 						availableDrives.setDrives([
@@ -245,7 +245,7 @@ describe('Model: availableDrives', function() {
 						expect(selectionState.hasDrive()).to.be.false;
 					});
 
-					it("should not auto-select a single drive that doesn't meet the recommended size", function() {
+					it("should not auto-select a single drive that doesn't meet the recommended size", function () {
 						expect(selectionState.hasDrive()).to.be.false;
 
 						availableDrives.setDrives([
@@ -266,7 +266,7 @@ describe('Model: availableDrives', function() {
 						expect(selectionState.hasDrive()).to.be.false;
 					});
 
-					it('should not auto-select a single protected drive', function() {
+					it('should not auto-select a single protected drive', function () {
 						expect(selectionState.hasDrive()).to.be.false;
 
 						availableDrives.setDrives([
@@ -287,7 +287,7 @@ describe('Model: availableDrives', function() {
 						expect(selectionState.hasDrive()).to.be.false;
 					});
 
-					it('should not auto-select a source drive', function() {
+					it('should not auto-select a source drive', function () {
 						expect(selectionState.hasDrive()).to.be.false;
 
 						availableDrives.setDrives([
@@ -308,7 +308,7 @@ describe('Model: availableDrives', function() {
 						expect(selectionState.hasDrive()).to.be.false;
 					});
 
-					it('should not auto-select a single system drive', function() {
+					it('should not auto-select a single system drive', function () {
 						expect(selectionState.hasDrive()).to.be.false;
 
 						availableDrives.setDrives([
@@ -329,7 +329,7 @@ describe('Model: availableDrives', function() {
 						expect(selectionState.hasDrive()).to.be.false;
 					});
 
-					it('should not auto-select a single large size drive', function() {
+					it('should not auto-select a single large size drive', function () {
 						expect(selectionState.hasDrive()).to.be.false;
 
 						availableDrives.setDrives([
@@ -353,8 +353,8 @@ describe('Model: availableDrives', function() {
 			});
 		});
 
-		describe('given drives', function() {
-			beforeEach(function() {
+		describe('given drives', function () {
+			beforeEach(function () {
 				this.drives = [
 					{
 						device: '/dev/sdb',
@@ -385,8 +385,8 @@ describe('Model: availableDrives', function() {
 				availableDrives.setDrives(this.drives);
 			});
 
-			describe('given one of the drives was selected', function() {
-				beforeEach(function() {
+			describe('given one of the drives was selected', function () {
+				beforeEach(function () {
 					availableDrives.setDrives([
 						{
 							device: '/dev/sdc',
@@ -405,11 +405,11 @@ describe('Model: availableDrives', function() {
 					selectionState.selectDrive('/dev/sdc');
 				});
 
-				afterEach(function() {
+				afterEach(function () {
 					selectionState.clear();
 				});
 
-				it('should be deleted if its not contained in the available drives anymore', function() {
+				it('should be deleted if its not contained in the available drives anymore', function () {
 					expect(selectionState.hasDrive()).to.be.true;
 
 					// We have to provide at least two drives, otherwise,
@@ -446,25 +446,25 @@ describe('Model: availableDrives', function() {
 				});
 			});
 
-			describe('.hasAvailableDrives()', function() {
-				it('should return true', function() {
+			describe('.hasAvailableDrives()', function () {
+				it('should return true', function () {
 					const hasDrives = availableDrives.hasAvailableDrives();
 					expect(hasDrives).to.be.true;
 				});
 			});
 
-			describe('.setDrives()', function() {
-				it('should keep the same drives if equal', function() {
+			describe('.setDrives()', function () {
+				it('should keep the same drives if equal', function () {
 					availableDrives.setDrives(this.drives);
 					expect(availableDrives.getDrives()).to.deep.equal(this.drives);
 				});
 
-				it('should return empty array given an empty array', function() {
+				it('should return empty array given an empty array', function () {
 					availableDrives.setDrives([]);
 					expect(availableDrives.getDrives()).to.deep.equal([]);
 				});
 
-				it('should consider drives with different $$hashKey the same', function() {
+				it('should consider drives with different $$hashKey the same', function () {
 					this.drives[0].$$haskey = 1234;
 					availableDrives.setDrives(this.drives);
 					expect(availableDrives.getDrives()).to.deep.equal(this.drives);

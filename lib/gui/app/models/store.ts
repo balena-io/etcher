@@ -34,7 +34,7 @@ function verifyNoNilFields(
 	fields: string[],
 	name: string,
 ) {
-	const nilFields = _.filter(fields, field => {
+	const nilFields = _.filter(fields, (field) => {
 		return _.isNil(_.get(object, field));
 	});
 	if (nilFields.length) {
@@ -45,7 +45,7 @@ function verifyNoNilFields(
 /**
  * @summary FLASH_STATE fields that can't be nil
  */
-const flashStateNoNilFields = ['speed', 'totalSpeed'];
+const flashStateNoNilFields = ['speed'];
 
 /**
  * @summary SELECT_IMAGE fields that can't be nil
@@ -65,14 +65,11 @@ const DEFAULT_STATE = Immutable.fromJS({
 	isFlashing: false,
 	flashResults: {},
 	flashState: {
-		flashing: 0,
-		verifying: 0,
-		successful: 0,
+		active: 0,
 		failed: 0,
 		percentage: 0,
 		speed: null,
 		averageSpeed: null,
-		totalSpeed: null,
 	},
 	lastAverageFlashingSpeed: null,
 });
@@ -136,9 +133,9 @@ function storeReducer(
 
 			drives = _.sortBy(drives, [
 				// Devices with no devicePath first (usbboot)
-				d => !!d.devicePath,
+				(d) => !!d.devicePath,
 				// Then sort by devicePath (only available on Linux with udev) or device
-				d => d.devicePath || d.device,
+				(d) => d.devicePath || d.device,
 			]);
 
 			const newState = state.set('availableDrives', Immutable.fromJS(drives));
@@ -168,7 +165,7 @@ function storeReducer(
 			);
 
 			const shouldAutoselectAll = Boolean(
-				settings.get('disableExplicitDriveSelection'),
+				settings.getSync('disableExplicitDriveSelection'),
 			);
 			const AUTOSELECT_DRIVE_COUNT = 1;
 			const nonStaleSelectedDevices = nonStaleNewState
@@ -234,17 +231,7 @@ function storeReducer(
 
 			verifyNoNilFields(action.data, flashStateNoNilFields, 'flash');
 
-			if (
-				!_.every(
-					_.pick(action.data, [
-						'flashing',
-						'verifying',
-						'successful',
-						'failed',
-					]),
-					_.isFinite,
-				)
-			) {
+			if (!_.every(_.pick(action.data, ['active', 'failed']), _.isFinite)) {
 				throw errors.createError({
 					title: 'State quantity field(s) not finite number',
 				});
@@ -266,7 +253,7 @@ function storeReducer(
 			}
 
 			let ret = state.set('flashState', Immutable.fromJS(action.data));
-			if (action.data.flashing) {
+			if (action.data.type === 'flashing') {
 				ret = ret.set('lastAverageFlashingSpeed', action.data.averageSpeed);
 			}
 			return ret;

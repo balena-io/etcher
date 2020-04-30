@@ -37,10 +37,10 @@ export class FeaturedProject extends React.Component<
 		this.state = { endpoint: null };
 	}
 
-	public componentDidMount() {
+	public async componentDidMount() {
 		try {
 			const endpoint =
-				settings.get('featuredProjectEndpoint') ||
+				(await settings.get('featuredProjectEndpoint')) ||
 				'https://assets.balena.io/etcher-featured/index.html';
 			this.setState({ endpoint });
 		} catch (error) {

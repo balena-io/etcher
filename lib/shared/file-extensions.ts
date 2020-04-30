@@ -26,11 +26,7 @@ import { lookup } from 'mime-types';
  * > [ 'img', 'gz' ]
  */
 export function getFileExtensions(filePath: string): string[] {
-	return _.chain(filePath)
-		.split('.')
-		.tail()
-		.map(_.toLower)
-		.value();
+	return _.chain(filePath).split('.').tail().map(_.toLower).value();
 }
 
 /**

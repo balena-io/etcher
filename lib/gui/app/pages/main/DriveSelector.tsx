@@ -22,7 +22,7 @@ import { TargetSelector } from '../../components/drive-selector/target-selector'
 import { SVGIcon } from '../../components/svg-icon/svg-icon';
 import { getImage, getSelectedDrives } from '../../models/selection-state';
 import * as settings from '../../models/settings';
-import { observe, store } from '../../models/store';
+import { observe } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 
 const StepBorder = styled.div<{
@@ -31,7 +31,7 @@ const StepBorder = styled.div<{
 	right?: boolean;
 }>`
 	height: 2px;
-	background-color: ${props =>
+	background-color: ${(props) =>
 		props.disabled
 			? props.theme.customColors.dark.disabled.foreground
 			: props.theme.customColors.dark.foreground};
@@ -39,8 +39,8 @@ const StepBorder = styled.div<{
 	width: 124px;
 	top: 19px;
 
-	left: ${props => (props.left ? '-67px' : undefined)};
-	right: ${props => (props.right ? '-67px' : undefined)};
+	left: ${(props) => (props.left ? '-67px' : undefined)};
+	right: ${(props) => (props.right ? '-67px' : undefined)};
 `;
 
 const getDriveListLabel = () => {
@@ -53,7 +53,7 @@ const getDriveListLabel = () => {
 };
 
 const shouldShowDrivesButton = () => {
-	return !settings.get('disableExplicitDriveSelection');
+	return !settings.getSync('disableExplicitDriveSelection');
 };
 
 const getDriveSelectionStateSlice = () => ({
@@ -117,12 +117,7 @@ export const DriveSelector = ({
 						setShowDriveSelectorModal(true);
 					}}
 					reselectDrive={() => {
-						analytics.logEvent('Reselect drive', {
-							applicationSessionUuid: store.getState().toJS()
-								.applicationSessionUuid,
-							flashingWorkflowUuid: store.getState().toJS()
-								.flashingWorkflowUuid,
-						});
+						analytics.logEvent('Reselect drive');
 						setShowDriveSelectorModal(true);
 					}}
 					flashing={flashing}

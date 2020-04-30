@@ -29,10 +29,8 @@ import { SourceOptions } from '../components/source-selector/source-selector';
 import * as flashState from '../models/flash-state';
 import * as selectionState from '../models/selection-state';
 import * as settings from '../models/settings';
-import { store } from '../models/store';
 import * as analytics from '../modules/analytics';
 import * as windowProgress from '../os/window-progress';
-import { updateLock } from './update-lock';
 
 const THREADS_PER_CPU = 16;
 
@@ -61,8 +59,6 @@ function handleErrorLogging(
 ) {
 	const eventData = {
 		...analyticsData,
-		applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-		flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
 		flashInstanceUuid: flashState.getFlashUuid(),
 	};
 
@@ -140,7 +136,7 @@ interface FlashResults {
  * @description
  * This function is extracted for testing purposes.
  */
-export function performWrite(
+export async function performWrite(
 	image: string,
 	drives: DrivelistDrive[],
 	onProgress: sdk.multiWrite.OnProgressFunction,
@@ -148,14 +144,20 @@ export function performWrite(
 ): Promise<{ cancelled?: boolean }> {
 	let cancelled = false;
 	ipc.serve();
-	return new Promise((resolve, reject) => {
-		ipc.server.on('error', error => {
+	const {
+		unmountOnSuccess,
+		validateWriteOnSuccess,
+		autoBlockmapping,
+		decompressFirst,
+	} = await settings.getAll();
+	return await new Promise((resolve, reject) => {
+		ipc.server.on('error', (error) => {
 			terminateServer();
 			const errorObject = errors.fromJSON(error);
 			reject(errorObject);
 		});
 
-		ipc.server.on('log', message => {
+		ipc.server.on('log', (message) => {
 			console.log(message);
 		});
 
@@ -166,17 +168,16 @@ export function performWrite(
 			driveCount: drives.length,
 			uuid: flashState.getFlashUuid(),
 			flashInstanceUuid: flashState.getFlashUuid(),
-			unmountOnSuccess: settings.get('unmountOnSuccess'),
-			validateWriteOnSuccess: settings.get('validateWriteOnSuccess'),
-			trim: settings.get('trim'),
+			unmountOnSuccess,
+			validateWriteOnSuccess,
 		};
 
 		ipc.server.on('fail', ({ error }: { error: Error & { code: string } }) => {
 			handleErrorLogging(error, analyticsData);
 		});
 
-		ipc.server.on('done', event => {
-			event.results.errors = _.map(event.results.errors, data => {
+		ipc.server.on('done', (event) => {
+			event.results.errors = _.map(event.results.errors, (data) => {
 				return errors.fromJSON(data);
 			});
 			_.merge(flashResults, event);
@@ -195,9 +196,10 @@ export function performWrite(
 				destinations: drives,
 				source,
 				SourceType: source.SourceType.name,
-				validateWriteOnSuccess: settings.get('validateWriteOnSuccess'),
-				trim: settings.get('trim'),
-				unmountOnSuccess: settings.get('unmountOnSuccess'),
+				validateWriteOnSuccess,
+				autoBlockmapping,
+				unmountOnSuccess,
+				decompressFirst,
 			});
 		});
 
@@ -245,7 +247,6 @@ export function performWrite(
 
 		// Clear the update lock timer to prevent longer
 		// flashing timing it out, and releasing the lock
-		updateLock.pause();
 		ipc.server.start();
 	});
 }
@@ -271,11 +272,8 @@ export async function flash(
 		uuid: flashState.getFlashUuid(),
 		status: 'started',
 		flashInstanceUuid: flashState.getFlashUuid(),
-		unmountOnSuccess: settings.get('unmountOnSuccess'),
-		validateWriteOnSuccess: settings.get('validateWriteOnSuccess'),
-		trim: settings.get('trim'),
-		applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-		flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
+		unmountOnSuccess: await settings.get('unmountOnSuccess'),
+		validateWriteOnSuccess: await settings.get('validateWriteOnSuccess'),
 	};
 
 	analytics.logEvent('Flash', analyticsData);
@@ -318,6 +316,8 @@ export async function flash(
 			errors: results.errors,
 			devices: results.devices,
 			status: 'finished',
+			bytesWritten: results.bytesWritten,
+			sourceMetadata: results.sourceMetadata,
 		};
 		analytics.logEvent('Done', eventData);
 	}
@@ -326,7 +326,7 @@ export async function flash(
 /**
  * @summary Cancel write operation
  */
-export function cancel() {
+export async function cancel() {
 	const drives = selectionState.getSelectedDevices();
 	const analyticsData = {
 		image: selectionState.getImagePath(),
@@ -334,17 +334,13 @@ export function cancel() {
 		driveCount: drives.length,
 		uuid: flashState.getFlashUuid(),
 		flashInstanceUuid: flashState.getFlashUuid(),
-		unmountOnSuccess: settings.get('unmountOnSuccess'),
-		validateWriteOnSuccess: settings.get('validateWriteOnSuccess'),
-		trim: settings.get('trim'),
-		applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-		flashingWorkflowUuid: store.getState().toJS().flashingWorkflowUuid,
+		unmountOnSuccess: await settings.get('unmountOnSuccess'),
+		validateWriteOnSuccess: await settings.get('validateWriteOnSuccess'),
 		status: 'cancel',
 	};
 	analytics.logEvent('Cancel', analyticsData);
 
 	// Re-enable lock release on inactivity
-	updateLock.resume();
 
 	try {
 		// @ts-ignore (no Server.sockets in @types/node-ipc)

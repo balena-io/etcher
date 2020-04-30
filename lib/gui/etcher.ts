@@ -28,8 +28,6 @@ import * as settings from './app/models/settings';
 import * as analytics from './app/modules/analytics';
 import { buildWindowMenu } from './menu';
 
-const configUrl =
-	settings.get('configUrl') || 'https://balena.io/etcher/static/config.json';
 const updatablePackageTypes = ['appimage', 'nsis', 'dmg'];
 const packageUpdatable = _.includes(updatablePackageTypes, packageType);
 let packageUpdated = false;
@@ -38,7 +36,7 @@ async function checkForUpdates(interval: number) {
 	// We use a while loop instead of a setInterval to preserve
 	// async execution time between each function call
 	while (!packageUpdated) {
-		if (settings.get('updatesEnabled')) {
+		if (await settings.get('updatesEnabled')) {
 			try {
 				const release = await autoUpdater.checkForUpdates();
 				const isOutdated =
@@ -56,8 +54,8 @@ async function checkForUpdates(interval: number) {
 	}
 }
 
-function createMainWindow() {
-	const fullscreen = Boolean(settings.get('fullscreen'));
+async function createMainWindow() {
+	const fullscreen = Boolean(await settings.get('fullscreen'));
 	const defaultWidth = 800;
 	const defaultHeight = 480;
 	let width = defaultWidth;
@@ -100,7 +98,7 @@ function createMainWindow() {
 	// Prevent external resources from being loaded (like images)
 	// when dropping them on the WebView.
 	// See https://github.com/electron/electron/issues/5919
-	mainWindow.webContents.on('will-navigate', event => {
+	mainWindow.webContents.on('will-navigate', (event) => {
 		event.preventDefault();
 	});
 
@@ -111,12 +109,12 @@ function createMainWindow() {
 	const page = mainWindow.webContents;
 
 	page.once('did-frame-finish-load', async () => {
-		autoUpdater.on('error', err => {
+		autoUpdater.on('error', (err) => {
 			analytics.logException(err);
 		});
 		if (packageUpdatable) {
 			try {
-				const onlineConfig = await getConfig(configUrl);
+				const onlineConfig = await getConfig();
 				const autoUpdaterConfig = _.get(
 					onlineConfig,
 					['autoUpdates', 'autoUpdaterConfig'],
@@ -151,18 +149,10 @@ electron.app.on('before-quit', () => {
 });
 
 async function main(): Promise<void> {
-	try {
-		await settings.load();
-	} catch (error) {
-		// TODO: What do if loading the config fails?
-		console.error('Error loading settings:');
-		console.error(error);
-	} finally {
-		if (electron.app.isReady()) {
-			createMainWindow();
-		} else {
-			electron.app.on('ready', createMainWindow);
-		}
+	if (electron.app.isReady()) {
+		await createMainWindow();
+	} else {
+		electron.app.on('ready', createMainWindow);
 	}
 }
 

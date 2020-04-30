@@ -18,108 +18,108 @@ import { expect } from 'chai';
 
 import * as utils from '../../lib/shared/utils';
 
-describe('Shared: Utils', function() {
-	describe('.isValidPercentage()', function() {
-		it('should return false if percentage is not a number', function() {
+describe('Shared: Utils', function () {
+	describe('.isValidPercentage()', function () {
+		it('should return false if percentage is not a number', function () {
 			expect(utils.isValidPercentage('50')).to.be.false;
 		});
 
-		it('should return false if percentage is null', function() {
+		it('should return false if percentage is null', function () {
 			expect(utils.isValidPercentage(null)).to.be.false;
 		});
 
-		it('should return false if percentage is undefined', function() {
+		it('should return false if percentage is undefined', function () {
 			expect(utils.isValidPercentage(undefined)).to.be.false;
 		});
 
-		it('should return false if percentage is an integer less than 0', function() {
+		it('should return false if percentage is an integer less than 0', function () {
 			expect(utils.isValidPercentage(-1)).to.be.false;
 		});
 
-		it('should return false if percentage is a float less than 0', function() {
+		it('should return false if percentage is a float less than 0', function () {
 			expect(utils.isValidPercentage(-0.1)).to.be.false;
 		});
 
-		it('should return true if percentage is 0', function() {
+		it('should return true if percentage is 0', function () {
 			expect(utils.isValidPercentage(0)).to.be.true;
 		});
 
-		it('should return true if percentage is an integer greater than 0, but less than 100', function() {
+		it('should return true if percentage is an integer greater than 0, but less than 100', function () {
 			expect(utils.isValidPercentage(50)).to.be.true;
 		});
 
-		it('should return true if percentage is a float greater than 0, but less than 100', function() {
+		it('should return true if percentage is a float greater than 0, but less than 100', function () {
 			expect(utils.isValidPercentage(49.55)).to.be.true;
 		});
 
-		it('should return true if percentage is 100', function() {
+		it('should return true if percentage is 100', function () {
 			expect(utils.isValidPercentage(100)).to.be.true;
 		});
 
-		it('should return false if percentage is an integer greater than 100', function() {
+		it('should return false if percentage is an integer greater than 100', function () {
 			expect(utils.isValidPercentage(101)).to.be.false;
 		});
 
-		it('should return false if percentage is a float greater than 100', function() {
+		it('should return false if percentage is a float greater than 100', function () {
 			expect(utils.isValidPercentage(100.001)).to.be.false;
 		});
 	});
 
-	describe('.percentageToFloat()', function() {
-		it('should throw an error if given a string percentage', function() {
-			expect(function() {
+	describe('.percentageToFloat()', function () {
+		it('should throw an error if given a string percentage', function () {
+			expect(function () {
 				utils.percentageToFloat('50');
 			}).to.throw('Invalid percentage: 50');
 		});
 
-		it('should throw an error if given a null percentage', function() {
-			expect(function() {
+		it('should throw an error if given a null percentage', function () {
+			expect(function () {
 				utils.percentageToFloat(null);
 			}).to.throw('Invalid percentage: null');
 		});
 
-		it('should throw an error if given an undefined percentage', function() {
-			expect(function() {
+		it('should throw an error if given an undefined percentage', function () {
+			expect(function () {
 				utils.percentageToFloat(undefined);
 			}).to.throw('Invalid percentage: undefined');
 		});
 
-		it('should throw an error if given an integer percentage < 0', function() {
-			expect(function() {
+		it('should throw an error if given an integer percentage < 0', function () {
+			expect(function () {
 				utils.percentageToFloat(-1);
 			}).to.throw('Invalid percentage: -1');
 		});
 
-		it('should throw an error if given a float percentage < 0', function() {
-			expect(function() {
+		it('should throw an error if given a float percentage < 0', function () {
+			expect(function () {
 				utils.percentageToFloat(-0.1);
 			}).to.throw('Invalid percentage: -0.1');
 		});
 
-		it('should covert a 0 percentage to 0', function() {
+		it('should covert a 0 percentage to 0', function () {
 			expect(utils.percentageToFloat(0)).to.equal(0);
 		});
 
-		it('should covert an integer percentage to a float', function() {
+		it('should covert an integer percentage to a float', function () {
 			expect(utils.percentageToFloat(50)).to.equal(0.5);
 		});
 
-		it('should covert an float percentage to a float', function() {
+		it('should covert an float percentage to a float', function () {
 			expect(utils.percentageToFloat(46.54)).to.equal(0.4654);
 		});
 
-		it('should covert a 100 percentage to 1', function() {
+		it('should covert a 100 percentage to 1', function () {
 			expect(utils.percentageToFloat(100)).to.equal(1);
 		});
 
-		it('should throw an error if given an integer percentage > 100', function() {
-			expect(function() {
+		it('should throw an error if given an integer percentage > 100', function () {
+			expect(function () {
 				utils.percentageToFloat(101);
 			}).to.throw('Invalid percentage: 101');
 		});
 
-		it('should throw an error if given a float percentage > 100', function() {
-			expect(function() {
+		it('should throw an error if given a float percentage > 100', function () {
+			expect(function () {
 				utils.percentageToFloat(100.01);
 			}).to.throw('Invalid percentage: 100.01');
 		});

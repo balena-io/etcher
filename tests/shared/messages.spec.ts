@@ -19,8 +19,8 @@ import * as _ from 'lodash';
 
 import * as messages from '../../lib/shared/messages';
 
-describe('Shared: Messages', function() {
-	beforeEach(function() {
+describe('Shared: Messages', function () {
+	beforeEach(function () {
 		this.drives = [
 			{
 				description: 'My Drive',
@@ -33,19 +33,19 @@ describe('Shared: Messages', function() {
 		];
 	});
 
-	it('should contain object properties', function() {
+	it('should contain object properties', function () {
 		expect(_.every(_.map(messages, _.isPlainObject))).to.be.true;
 	});
 
-	it('should contain function properties in each category', function() {
-		_.each(messages, category => {
+	it('should contain function properties in each category', function () {
+		_.each(messages, (category) => {
 			expect(_.every(_.map(category, _.isFunction))).to.be.true;
 		});
 	});
 
-	describe('.info', function() {
-		describe('.flashComplete()', function() {
-			it('should use singular when there are single results', function() {
+	describe('.info', function () {
+		describe('.flashComplete()', function () {
+			it('should use singular when there are single results', function () {
 				const msg = messages.info.flashComplete('image.img', this.drives, {
 					failed: 1,
 					successful: 1,
@@ -56,7 +56,7 @@ describe('Shared: Messages', function() {
 				);
 			});
 
-			it('should use plural when there are multiple results', function() {
+			it('should use plural when there are multiple results', function () {
 				const msg = messages.info.flashComplete('image.img', this.drives, {
 					failed: 2,
 					successful: 2,
@@ -67,7 +67,7 @@ describe('Shared: Messages', function() {
 				);
 			});
 
-			it('should not contain failed target part when there are none', function() {
+			it('should not contain failed target part when there are none', function () {
 				const msg = messages.info.flashComplete('image.img', this.drives, {
 					failed: 0,
 					successful: 2,
@@ -76,7 +76,7 @@ describe('Shared: Messages', function() {
 				expect(msg).to.equal('image.img was successfully flashed to 2 targets');
 			});
 
-			it('should show drive name and description when only target', function() {
+			it('should show drive name and description when only target', function () {
 				const msg = messages.info.flashComplete('image.img', this.drives, {
 					failed: 0,
 					successful: 1,
@@ -89,9 +89,9 @@ describe('Shared: Messages', function() {
 		});
 	});
 
-	describe('.error', function() {
-		describe('.flashFailure()', function() {
-			it('should use plural when there are multiple drives', function() {
+	describe('.error', function () {
+		describe('.flashFailure()', function () {
+			it('should use plural when there are multiple drives', function () {
 				const msg = messages.error.flashFailure('image.img', this.drives);
 
 				expect(msg).to.equal(
@@ -99,7 +99,7 @@ describe('Shared: Messages', function() {
 				);
 			});
 
-			it('should use singular when there is one drive', function() {
+			it('should use singular when there is one drive', function () {
 				const msg = messages.error.flashFailure('image.img', [this.drives[0]]);
 
 				expect(msg).to.equal(

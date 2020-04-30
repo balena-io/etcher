@@ -20,19 +20,19 @@ import { stub } from 'sinon';
 
 import * as permissions from '../../lib/shared/permissions';
 
-describe('Shared: permissions', function() {
-	describe('.createLaunchScript()', function() {
-		describe('given windows', function() {
-			beforeEach(function() {
+describe('Shared: permissions', function () {
+	describe('.createLaunchScript()', function () {
+		describe('given windows', function () {
+			beforeEach(function () {
 				this.osPlatformStub = stub(os, 'platform');
 				this.osPlatformStub.returns('win32');
 			});
 
-			afterEach(function() {
+			afterEach(function () {
 				this.osPlatformStub.restore();
 			});
 
-			it('should escape environment variables and arguments', function() {
+			it('should escape environment variables and arguments', function () {
 				expect(
 					permissions.createLaunchScript(
 						'C:\\Users\\Alice & Bob\'s Laptop\\"what"\\balenaEtcher',
@@ -54,17 +54,17 @@ describe('Shared: permissions', function() {
 		});
 
 		for (const platform of ['linux', 'darwin']) {
-			describe(`given ${platform}`, function() {
-				beforeEach(function() {
+			describe(`given ${platform}`, function () {
+				beforeEach(function () {
 					this.osPlatformStub = stub(os, 'platform');
 					this.osPlatformStub.returns(platform);
 				});
 
-				afterEach(function() {
+				afterEach(function () {
 					this.osPlatformStub.restore();
 				});
 
-				it('should escape environment variables and arguments', function() {
+				it('should escape environment variables and arguments', function () {
 					expect(
 						permissions.createLaunchScript(
 							'/home/Alice & Bob\'s Laptop/"what"/balenaEtcher',

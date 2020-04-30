@@ -20,15 +20,12 @@ import * as _ from 'lodash';
 import * as os from 'os';
 import * as React from 'react';
 import { Badge, Checkbox, Modal } from 'rendition';
-import styled from 'styled-components';
 
 import { version } from '../../../../../package.json';
 import * as settings from '../../models/settings';
-import { store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 
-const { useState } = React;
 const platform = os.platform();
 
 interface WarningModalProps {
@@ -64,159 +61,174 @@ const WarningModal = ({
 interface Setting {
 	name: string;
 	label: string | JSX.Element;
-	options?: any;
+	options?: {
+		description: string;
+		confirmLabel: string;
+	};
 	hide?: boolean;
 }
 
-const settingsList: Setting[] = [
-	{
-		name: 'errorReporting',
-		label: 'Anonymously report errors and usage statistics to balena.io',
-	},
-	{
-		name: 'unmountOnSuccess',
-		/**
-		 * On Windows, "Unmounting" basically means "ejecting".
-		 * On top of that, Windows users are usually not even
-		 * familiar with the meaning of "unmount", which comes
-		 * from the UNIX world.
-		 */
-		label: `${platform === 'win32' ? 'Eject' : 'Auto-unmount'} on success`,
-	},
-	{
-		name: 'validateWriteOnSuccess',
-		label: 'Validate write on success',
-	},
-	{
-		name: 'trim',
-		label: 'Trim ext{2,3,4} partitions before writing (raw images only)',
-	},
-	{
-		name: 'updatesEnabled',
-		label: 'Auto-updates enabled',
-	},
-	{
-		name: 'unsafeMode',
-		label: (
-			<span>
-				Unsafe mode{' '}
-				<Badge danger fontSize={12}>
-					Dangerous
-				</Badge>
-			</span>
-		),
-		options: {
-			description: `Are you sure you want to turn this on?
-			You will be able to overwrite your system drives if you're not careful.`,
-			confirmLabel: 'Enable unsafe mode',
+async function getSettingsList(): Promise<Setting[]> {
+	return [
+		{
+			name: 'errorReporting',
+			label: 'Anonymously report errors and usage statistics to balena.io',
 		},
-		hide: settings.get('disableUnsafeMode'),
-	},
-];
+		{
+			name: 'unmountOnSuccess',
+			/**
+			 * On Windows, "Unmounting" basically means "ejecting".
+			 * On top of that, Windows users are usually not even
+			 * familiar with the meaning of "unmount", which comes
+			 * from the UNIX world.
+			 */
+			label: `${platform === 'win32' ? 'Eject' : 'Auto-unmount'} on success`,
+		},
+		{
+			name: 'validateWriteOnSuccess',
+			label: 'Validate write on success',
+		},
+		{
+			name: 'updatesEnabled',
+			label: 'Auto-updates enabled',
+		},
+		{
+			name: 'unsafeMode',
+			label: (
+				<span>
+					Unsafe mode{' '}
+					<Badge danger fontSize={12}>
+						Dangerous
+					</Badge>
+				</span>
+			),
+			options: {
+				description: `Are you sure you want to turn this on?
+				You will be able to overwrite your system drives if you're not careful.`,
+				confirmLabel: 'Enable unsafe mode',
+			},
+			hide: await settings.get('disableUnsafeMode'),
+		},
+	];
+}
+
+interface Warning {
+	setting: string;
+	settingValue: boolean;
+	description: string;
+	confirmLabel: string;
+}
 
 interface SettingsModalProps {
 	toggleModal: (value: boolean) => void;
 }
 
-export const SettingsModal: any = styled(
-	({ toggleModal }: SettingsModalProps) => {
-		const [currentSettings, setCurrentSettings]: [
-			_.Dictionary<any>,
-			React.Dispatch<React.SetStateAction<_.Dictionary<any>>>,
-		] = useState(settings.getAll());
-		const [warning, setWarning]: [
-			any,
-			React.Dispatch<React.SetStateAction<any>>,
-		] = useState({});
-
-		const toggleSetting = async (setting: string, options?: any) => {
-			const value = currentSettings[setting];
-			const dangerous = !_.isUndefined(options);
-
-			analytics.logEvent('Toggle setting', {
-				setting,
-				value,
-				dangerous,
-				applicationSessionUuid: store.getState().toJS().applicationSessionUuid,
-			});
-
-			if (value || !dangerous) {
-				await settings.set(setting, !value);
-				setCurrentSettings({
-					...currentSettings,
-					[setting]: !value,
-				});
-				setWarning({});
-				return;
+export function SettingsModal({ toggleModal }: SettingsModalProps) {
+	const [settingsList, setCurrentSettingsList] = React.useState<Setting[]>([]);
+	React.useEffect(() => {
+		(async () => {
+			if (settingsList.length === 0) {
+				setCurrentSettingsList(await getSettingsList());
 			}
+		})();
+	});
+	const [currentSettings, setCurrentSettings] = React.useState<
+		_.Dictionary<boolean>
+	>({});
+	React.useEffect(() => {
+		(async () => {
+			if (_.isEmpty(currentSettings)) {
+				setCurrentSettings(await settings.getAll());
+			}
+		})();
+	});
+	const [warning, setWarning] = React.useState<Warning | undefined>(undefined);
 
+	const toggleSetting = async (
+		setting: string,
+		options?: Setting['options'],
+	) => {
+		const value = currentSettings[setting];
+		const dangerous = options !== undefined;
+
+		analytics.logEvent('Toggle setting', {
+			setting,
+			value,
+			dangerous,
+		});
+
+		if (value || options === undefined) {
+			await settings.set(setting, !value);
+			setCurrentSettings({
+				...currentSettings,
+				[setting]: !value,
+			});
+			setWarning(undefined);
+			return;
+		} else {
 			// Show warning since it's a dangerous setting
 			setWarning({
 				setting,
 				settingValue: value,
 				...options,
 			});
-		};
+		}
+	};
 
-		return (
-			<Modal
-				id="settings-modal"
-				title="Settings"
-				done={() => toggleModal(false)}
-				style={{
-					width: 780,
-					height: 420,
-				}}
-			>
+	return (
+		<Modal
+			id="settings-modal"
+			title="Settings"
+			done={() => toggleModal(false)}
+			style={{
+				width: 780,
+				height: 420,
+			}}
+		>
+			<div>
+				{_.map(settingsList, (setting: Setting, i: number) => {
+					return setting.hide ? null : (
+						<div key={setting.name}>
+							<Checkbox
+								toggle
+								tabIndex={6 + i}
+								label={setting.label}
+								checked={currentSettings[setting.name]}
+								onChange={() => toggleSetting(setting.name, setting.options)}
+							/>
+						</div>
+					);
+				})}
 				<div>
-					{_.map(settingsList, (setting: Setting, i: number) => {
-						return setting.hide ? null : (
-							<div key={setting.name}>
-								<Checkbox
-									toggle
-									tabIndex={6 + i}
-									label={setting.label}
-									checked={currentSettings[setting.name]}
-									onChange={() => toggleSetting(setting.name, setting.options)}
-								/>
-							</div>
-						);
-					})}
-					<div>
-						<span
-							onClick={() =>
-								openExternal(
-									'https://github.com/balena-io/etcher/blob/master/CHANGELOG.md',
-								)
-							}
-						>
-							<FontAwesomeIcon icon={faGithub} /> {version}
-						</span>
-					</div>
+					<span
+						onClick={() =>
+							openExternal(
+								'https://github.com/balena-io/etcher/blob/master/CHANGELOG.md',
+							)
+						}
+					>
+						<FontAwesomeIcon icon={faGithub} /> {version}
+					</span>
 				</div>
+			</div>
 
-				{_.isEmpty(warning) ? null : (
-					<WarningModal
-						message={warning.description}
-						confirmLabel={warning.confirmLabel}
-						done={() => {
-							settings.set(warning.setting, !warning.settingValue);
-							setCurrentSettings({
-								...currentSettings,
-								[warning.setting]: true,
-							});
-							setWarning({});
-						}}
-						cancel={() => {
-							setWarning({});
-						}}
-					/>
-				)}
-			</Modal>
-		);
-	},
-)`
-	> div:nth-child(3) {
-		justify-content: center;
-	}
-`;
+			{warning === undefined ? null : (
+				<WarningModal
+					message={warning.description}
+					confirmLabel={warning.confirmLabel}
+					done={async () => {
+						await settings.set(warning.setting, !warning.settingValue);
+						setCurrentSettings({
+							...currentSettings,
+							[warning.setting]: true,
+						});
+						setWarning(undefined);
+					}}
+					cancel={() => {
+						setWarning(undefined);
+					}}
+				/>
+			)}
+		</Modal>
+	);
+}

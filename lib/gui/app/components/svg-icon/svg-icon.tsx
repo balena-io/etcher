@@ -82,7 +82,7 @@ export class SVGIcon extends React.Component<SVGIconProps> {
 
 		let svgData = '';
 
-		_.find(this.props.contents, content => {
+		_.find(this.props.contents, (content) => {
 			const attempt = tryParseSVGContents(content);
 
 			if (attempt) {
@@ -94,7 +94,7 @@ export class SVGIcon extends React.Component<SVGIconProps> {
 		});
 
 		if (!svgData) {
-			_.find(this.props.paths, relativePath => {
+			_.find(this.props.paths, (relativePath) => {
 				// This means the path to the icon should be
 				// relative to *this directory*.
 				// TODO: There might be a way to compute the path
