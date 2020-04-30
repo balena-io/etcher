@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.83
+## (2020-04-30)
+
+* Decompress images before flashing, remove trim setting, trim ext partitions [Alexis Svinartchouk]
+
 # v1.5.82
 ## (2020-04-24)
 
