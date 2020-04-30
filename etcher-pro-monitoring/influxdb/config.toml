@@ -51,7 +51,7 @@ reporting-enabled = false
   # greater than 0 can be used to batch up multiple fsync calls.  This is useful for slower
   # disks or when WAL write contention is seen.  A value of 0s fsyncs every write to the WAL.
   # Values in the range of 0-100ms are recommended for non-SSD disks.
-  # wal-fsync-delay = "0s"
+  wal-fsync-delay = "2s"
 
 
   # The type of shard index to use for new shards.  The default is an in-memory index that is
@@ -229,7 +229,7 @@ reporting-enabled = false
   # realm = "InfluxDB"
 
   # Determines whether HTTP request logging is enabled.
-  # log-enabled = true
+  log-enabled = false
 
   # Determines whether the HTTP write request logs should be suppressed when the log is enabled.
   # suppress-write-log = false
@@ -328,11 +328,11 @@ reporting-enabled = false
   # Determines which level of logs will be emitted. The available levels
   # are error, warn, info, and debug. Logs that are equal to or above the
   # specified level will be emitted.
-  # level = "info"
+  level = "error"
 
   # Suppresses the logo output that is printed when the program is started.
   # The logo is always suppressed if STDOUT is not a TTY.
-  # suppress-logo = false
+  suppress-logo = true
 
 ###
 ### [subscriber]
