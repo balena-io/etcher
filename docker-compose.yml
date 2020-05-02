@@ -20,7 +20,7 @@ services:
         - 'GF_SESSION_PROVIDER=memory'
   collectd:
     build: ./etcher-pro-monitoring/collectd
-    privileged: true  # needed ?
+    privileged: true
     restart: always
     network_mode: host
   beep:
