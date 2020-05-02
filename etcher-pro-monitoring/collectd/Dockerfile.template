@@ -3,5 +3,6 @@ RUN \
 	apt-get update && \
 	apt-get install --yes collectd && \
 	rm -rf /var/lib/apt/lists/*
+RUN sed -i '/LoadPlugin rrdtool/d' /etc/collectd/collectd.conf
 COPY ./influxdb.conf /etc/collectd/collectd.conf.d/influxdb.conf
 CMD collectd -C /etc/collectd/collectd.conf -f
