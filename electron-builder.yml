@@ -91,7 +91,7 @@ deb:
     - libnotify4
     - libnspr4
     - libnss3
-    - libpango1.0-0
+    - libpango1.0-0 | libpango-1.0-0
     - libstdc++6
     - libx11-6
     - libxcomposite1
