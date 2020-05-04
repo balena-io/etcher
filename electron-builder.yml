@@ -1,5 +1,5 @@
 appId: io.balena.etcher
-copyright: Copyright 2016-2019 Balena Ltd
+copyright: Copyright 2016-2020 Balena Ltd
 productName: balenaEtcher
 npmRebuild: true
 nodeGypRebuild: true
