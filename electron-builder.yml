@@ -107,5 +107,4 @@ deb:
     - polkit-1-auth-agent | policykit-1-gnome | polkit-kde-1
 rpm:
   depends:
-    - lsb
-    - libXScrnSaver
+    - util-linux
