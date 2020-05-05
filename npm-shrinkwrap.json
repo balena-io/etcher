@@ -1,6 +1,6 @@
 {
   "name": "balena-etcher",
-  "version": "1.5.83",
+  "version": "1.5.84",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {

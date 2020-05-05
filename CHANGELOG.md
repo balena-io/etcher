@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.84
+## (2020-05-04)
+
+* Including Arch / Manjaro install instructions [Tom]
+* Fix notification icon path [Alexis Svinartchouk]
+
 # v1.5.83
 ## (2020-04-30)
 
