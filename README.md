@@ -59,6 +59,21 @@ sudo apt-get remove balena-etcher-electron
 sudo rm /etc/apt/sources.list.d/balena-etcher.list
 sudo apt-get update
 ```
+
+##### OpenSUSE LEAP & Tumbleweed install
+
+```sh
+sudo zypper ar https://balena.io/etcher/static/etcher-rpm.repo
+sudo zypper ref
+sudo zypper in balena-etcher-electron
+```
+
+##### Uninstall
+
+```sh
+sudo zypper rm balena-etcher-electron
+```
+
 #### Redhat (RHEL) and Fedora based Package Repository (GNU/Linux x86/x64)
 
 1. Add Etcher rpm repository:
@@ -103,6 +118,21 @@ sudo eopkg it etcher
 
 ```sh
 sudo eopkg rm etcher
+```
+
+#### Arch Linux / Manjaro (GNU/Linux x64)
+
+Etcher is offered through the Arch User Repository and can be installed on both Manjaro and Arch systems. You can compile it from the source code in this repository using [`balena-etcher`](https://aur.archlinux.org/packages/balena-etcher/) or use the latest release with [`etcher-bin`](https://aur.archlinux.org/packages/etcher-bin/). The following example uses a common AUR helper to install the latest release:
+
+
+```sh
+yay -S etcher-bin
+```
+
+##### Uninstall
+
+```sh
+yay -R etcher-bin
 ```
 
 #### Brew Cask (macOS)
