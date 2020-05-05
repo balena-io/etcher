@@ -122,17 +122,17 @@ sudo eopkg rm etcher
 
 #### Arch Linux / Manjaro (GNU/Linux x64)
 
-Etcher is offered through the Arch User Repository and can be installed on both Manjaro and Arch systems. You can compile it from the source code in this repository using [`balena-etcher`](https://aur.archlinux.org/packages/balena-etcher/) or use the latest release with [`etcher-bin`](https://aur.archlinux.org/packages/etcher-bin/). The following example uses a common AUR helper to install the latest release:
+Etcher is offered through the Arch User Repository and can be installed on both Manjaro and Arch systems. You can compile it from the source code in this repository using [`balena-etcher`](https://aur.archlinux.org/packages/balena-etcher/). The following example uses a common AUR helper to install the latest release:
 
 
 ```sh
-yay -S etcher-bin
+yay -S balena-etcher
 ```
 
 ##### Uninstall
 
 ```sh
-yay -R etcher-bin
+yay -R balena-etcher
 ```
 
 #### Brew Cask (macOS)
