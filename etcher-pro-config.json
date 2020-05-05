@@ -3,11 +3,9 @@
   "errorReporting": true,
   "unmountOnSuccess": true,
   "validateWriteOnSuccess": true,
-  "trim": true,
   "updatesEnabled": true,
-  "lastSleptUpdateNotifier": null,
-  "lastSleptUpdateNotifierVersion": null,
   "desktopNotifications": false,
+  "featuredProjectEndpoint": "nothing://",
   "fullscreen": true,
   "driveBlacklist": [
     "/dev/mmcblk0rpmb",
