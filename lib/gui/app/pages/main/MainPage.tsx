@@ -130,146 +130,153 @@ export class MainPage extends React.Component<
 		});
 	}
 
-	public render() {
+	private renderMain() {
 		const shouldDriveStepBeDisabled = !this.state.hasImage;
 		const shouldFlashStepBeDisabled =
 			!this.state.hasImage || !this.state.hasDrive;
-
-		if (this.state.current === 'main') {
-			return (
-				<ThemedProvider style={{ height: '100%', width: '100%' }}>
-					<header
-						id="app-header"
+		return (
+			<>
+				<header
+					id="app-header"
+					style={{
+						width: '100%',
+						padding: '13px 14px',
+						textAlign: 'center',
+					}}
+				>
+					<span
 						style={{
-							width: '100%',
-							padding: '13px 14px',
-							textAlign: 'center',
+							cursor: 'pointer',
+						}}
+						onClick={() =>
+							openExternal('https://www.balena.io/etcher?ref=etcher_footer')
+						}
+						tabIndex={100}
+					>
+						<SVGIcon
+							paths={['../../assets/etcher.svg']}
+							width="123px"
+							height="22px"
+						/>
+					</span>
+
+					<span
+						style={{
+							float: 'right',
+							position: 'absolute',
+							right: 0,
 						}}
 					>
-						<span
-							style={{
-								cursor: 'pointer',
-							}}
-							onClick={() =>
-								openExternal('https://www.balena.io/etcher?ref=etcher_footer')
-							}
-							tabIndex={100}
-						>
-							<SVGIcon
-								paths={['../../assets/etcher.svg']}
-								width="123px"
-								height="22px"
-							/>
-						</span>
-
-						<span
-							style={{
-								float: 'right',
-								position: 'absolute',
-								right: 0,
-							}}
-						>
-							<Icon
-								icon={<FontAwesomeIcon icon={faCog} />}
-								plain
-								tabIndex={5}
-								onClick={() => this.setState({ hideSettings: false })}
-							/>
-							{!settings.getSync('disableExternalLinks') && (
-								<Icon
-									icon={<FontAwesomeIcon icon={faQuestionCircle} />}
-									onClick={() =>
-										openExternal(
-											selectionState.getImageSupportUrl() ||
-												'https://github.com/balena-io/etcher/blob/master/SUPPORT.md',
-										)
-									}
-									tabIndex={6}
-								/>
-							)}
-						</span>
-					</header>
-					{this.state.hideSettings ? null : (
-						<SettingsModal
-							toggleModal={(value: boolean) => {
-								this.setState({ hideSettings: !value });
-							}}
+						<Icon
+							icon={<FontAwesomeIcon icon={faCog} />}
+							plain
+							tabIndex={5}
+							onClick={() => this.setState({ hideSettings: false })}
 						/>
+						{!settings.getSync('disableExternalLinks') && (
+							<Icon
+								icon={<FontAwesomeIcon icon={faQuestionCircle} />}
+								onClick={() =>
+									openExternal(
+										selectionState.getImageSupportUrl() ||
+											'https://github.com/balena-io/etcher/blob/master/SUPPORT.md',
+									)
+								}
+								tabIndex={6}
+							/>
+						)}
+					</span>
+				</header>
+				{this.state.hideSettings ? null : (
+					<SettingsModal
+						toggleModal={(value: boolean) => {
+							this.setState({ hideSettings: !value });
+						}}
+					/>
+				)}
+
+				<Flex
+					className="page-main row around-xs"
+					style={{ margin: '110px 50px' }}
+				>
+					<div className="col-xs">
+						<SourceSelector
+							flashing={this.state.isFlashing}
+							afterSelected={(source: SourceOptions) =>
+								this.setState({ source })
+							}
+						/>
+					</div>
+
+					<div className="col-xs">
+						<DriveSelector
+							webviewShowing={this.state.isWebviewShowing}
+							disabled={shouldDriveStepBeDisabled}
+							nextStepDisabled={shouldFlashStepBeDisabled}
+							hasDrive={this.state.hasDrive}
+							flashing={this.state.isFlashing}
+						/>
+					</div>
+
+					{this.state.isFlashing && (
+						<div
+							className={`featured-project ${
+								this.state.isFlashing && this.state.isWebviewShowing
+									? 'fp-visible'
+									: ''
+							}`}
+						>
+							<FeaturedProject
+								onWebviewShow={(isWebviewShowing: boolean) => {
+									this.setState({ isWebviewShowing });
+								}}
+							/>
+						</div>
 					)}
 
-					<Flex
-						className="page-main row around-xs"
-						style={{ margin: '110px 50px' }}
-					>
-						<div className="col-xs">
-							<SourceSelector
-								flashing={this.state.isFlashing}
-								afterSelected={(source: SourceOptions) =>
-									this.setState({ source })
-								}
-							/>
-						</div>
+					<div>
+						<ReducedFlashingInfos
+							imageLogo={this.state.imageLogo}
+							imageName={middleEllipsis(this.state.imageName, 16)}
+							imageSize={
+								_.isNumber(this.state.imageSize)
+									? (bytesToClosestUnit(this.state.imageSize) as string)
+									: ''
+							}
+							driveTitle={middleEllipsis(this.state.driveTitle, 16)}
+							shouldShow={this.state.isFlashing && this.state.isWebviewShowing}
+						/>
+					</div>
 
-						<div className="col-xs">
-							<DriveSelector
-								webviewShowing={this.state.isWebviewShowing}
-								disabled={shouldDriveStepBeDisabled}
-								nextStepDisabled={shouldFlashStepBeDisabled}
-								hasDrive={this.state.hasDrive}
-								flashing={this.state.isFlashing}
-							/>
-						</div>
+					<div className="col-xs">
+						<Flash
+							goToSuccess={() => this.setState({ current: 'success' })}
+							shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
+							source={this.state.source}
+						/>
+					</div>
+				</Flex>
+			</>
+		);
+	}
 
-						{this.state.isFlashing && (
-							<div
-								className={`featured-project ${
-									this.state.isFlashing && this.state.isWebviewShowing
-										? 'fp-visible'
-										: ''
-								}`}
-							>
-								<FeaturedProject
-									onWebviewShow={(isWebviewShowing: boolean) => {
-										this.setState({ isWebviewShowing });
-									}}
-								/>
-							</div>
-						)}
+	private renderSuccess() {
+		return (
+			<div className="section-loader isFinish">
+				<FinishPage goToMain={() => this.setState({ current: 'main' })} />
+				<SafeWebview src="https://www.balena.io/etcher/success-banner/" />
+			</div>
+		);
+	}
 
-						<div>
-							<ReducedFlashingInfos
-								imageLogo={this.state.imageLogo}
-								imageName={middleEllipsis(this.state.imageName, 16)}
-								imageSize={
-									_.isNumber(this.state.imageSize)
-										? (bytesToClosestUnit(this.state.imageSize) as string)
-										: ''
-								}
-								driveTitle={middleEllipsis(this.state.driveTitle, 16)}
-								shouldShow={
-									this.state.isFlashing && this.state.isWebviewShowing
-								}
-							/>
-						</div>
-
-						<div className="col-xs">
-							<Flash
-								goToSuccess={() => this.setState({ current: 'success' })}
-								shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
-								source={this.state.source}
-							/>
-						</div>
-					</Flex>
-				</ThemedProvider>
-			);
-		} else if (this.state.current === 'success') {
-			return (
-				<div className="section-loader isFinish">
-					<FinishPage goToMain={() => this.setState({ current: 'main' })} />
-					<SafeWebview src="https://www.balena.io/etcher/success-banner/" />
-				</div>
-			);
-		}
+	public render() {
+		return (
+			<ThemedProvider style={{ height: '100%', width: '100%' }}>
+				{this.state.current === 'main'
+					? this.renderMain()
+					: this.renderSuccess()}
+			</ThemedProvider>
+		);
 	}
 }
 
