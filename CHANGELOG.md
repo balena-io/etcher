@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.85
+## (2020-05-05)
+
+* Prefer balena-etcher to etcher-bin on Arch Linux [Alexis Svinartchouk]
+
 # v1.5.84
 ## (2020-05-04)
 
