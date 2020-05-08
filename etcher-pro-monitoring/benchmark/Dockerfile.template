@@ -13,6 +13,12 @@ RUN cargo build --release
 # Also build @ronomon/direct-io
 COPY package.json package-lock.json ./
 RUN npm i
+# Install etcher-sdk
+RUN \
+	git clone https://github.com/balena-io-modules/etcher-sdk.git etcher-sdk && \
+	cd etcher-sdk && \
+	npm i && \
+	rm -rf node_modules/ext2fs/deps node_modules/ext2fs/test
 
 FROM balenalib/%%BALENA_MACHINE_NAME%%-debian-node:12.6-buster
 RUN \
@@ -23,6 +29,7 @@ WORKDIR /usr/src/app
 COPY dd.sh flash.ts tsconfig.json package.json package-lock.json ./
 COPY --from=builder /usr/src/app/target/release/pdd .
 COPY --from=builder /usr/src/app/node_modules ./node_modules
+COPY --from=builder /usr/src/app/etcher-sdk ./etcher-sdk
 ENV UDEV=1
 ENV UV_THREADPOOL_SIZE=128
 RUN echo "echo \"stress, htop, dd and dcfldd are installed, try running ./flash.ts --help\"" >> /etc/bash.bashrc
