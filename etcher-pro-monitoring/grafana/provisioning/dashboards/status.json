@@ -1669,7 +1669,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
-      "fill": 1,
+      "fill": 0,
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
@@ -1678,7 +1678,7 @@
         "y": 48
       },
       "hiddenSeries": false,
-      "id": 26,
+      "id": 29,
       "legend": {
         "avg": false,
         "current": false,
@@ -1701,50 +1701,28 @@
       "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
-      "steppedLine": false,
+      "steppedLine": true,
       "targets": [
         {
-          "groupBy": [],
-          "measurement": "interface_rx",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "1s"
-                ],
-                "type": "derivative"
-              }
-            ]
-          ],
-          "tags": [
+          "groupBy": [
             {
-              "key": "instance",
-              "operator": "=",
-              "value": "eth0"
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
             },
             {
-              "condition": "AND",
-              "key": "type",
-              "operator": "=",
-              "value": "if_octets"
+              "params": [
+                "null"
+              ],
+              "type": "fill"
             }
-          ]
-        },
-        {
-          "groupBy": [],
-          "measurement": "interface_tx",
+          ],
+          "measurement": "disk_write",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT derivative(sum(\"value\"), 1s) FROM \"disk_write\" WHERE (((\"instance\" = 'sda') OR (\"instance\" = 'sdb') OR (\"instance\" = 'sdc') OR (\"instance\" = 'sdd') OR (\"instance\" = 'sde') OR (\"instance\" = 'sdf') OR (\"instance\" = 'sdg') OR (\"instance\" = 'sdh') OR (\"instance\" = 'sdi') OR (\"instance\" = 'sdj') OR (\"instance\" = 'sdk') OR (\"instance\" = 'sdl') OR (\"instance\" = 'sdm') OR (\"instance\" = 'sdn') OR (\"instance\" = 'sdo') OR (\"instance\" = 'sdp')) AND \"type\" = 'disk_octets') AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
           "select": [
@@ -1756,6 +1734,10 @@
                 "type": "field"
               },
               {
+                "params": [],
+                "type": "sum"
+              },
+              {
                 "params": [
                   "1s"
                 ],
@@ -1767,13 +1749,13 @@
             {
               "key": "instance",
               "operator": "=",
-              "value": "eth0"
+              "value": "sdb"
             },
             {
               "condition": "AND",
               "key": "type",
               "operator": "=",
-              "value": "if_octets"
+              "value": "disk_octets"
             }
           ]
         }
@@ -1782,7 +1764,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "eth0",
+      "title": "Total disk write (/dev/sd[a-p])",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1974,6 +1956,162 @@
         "align": false,
         "alignLevel": null
       }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 56
+      },
+      "hiddenSeries": false,
+      "id": 26,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "interface_rx",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  "1s"
+                ],
+                "type": "derivative"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "instance",
+              "operator": "=",
+              "value": "eth0"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "if_octets"
+            }
+          ]
+        },
+        {
+          "groupBy": [],
+          "measurement": "interface_tx",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  "1s"
+                ],
+                "type": "derivative"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "instance",
+              "operator": "=",
+              "value": "eth0"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "if_octets"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "eth0",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "Bps",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     }
   ],
   "refresh": "5s",
@@ -2007,5 +2145,5 @@
   "variables": {
     "list": []
   },
-  "version": 5
+  "version": 2
 }
