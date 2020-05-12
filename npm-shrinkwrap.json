@@ -5438,9 +5438,9 @@
       "integrity": "sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g=="
     },
     "etcher-sdk": {
-      "version": "4.0.1",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.0.1.tgz",
-      "integrity": "sha512-qC1hjGwYP2FqA1EfbQ7pgGvg+2wrw+YbQUc+R73cQyKaKM/aMxc0tHEek+ufJjLMJtc8gyCeHUFB7nFVaP/0SQ==",
+      "version": "4.1.3",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.1.3.tgz",
+      "integrity": "sha512-lwTAHTxchkXGX7T3+zPIuZBNs2+j2Gtoryb4A2nBfrfd0l5mjmTY/UO8T6cI0YuZDN6XDMwwiF+riDzynXnBTA==",
       "requires": {
         "@ronomon/direct-io": "^3.0.1",
         "axios": "^0.19.2",
@@ -5461,7 +5461,7 @@
         "resin-image-fs": "^5.0.8",
         "rwmutex": "^1.0.0",
         "udif": "^0.17.0",
-        "unbzip2-stream": "github:balena-io-modules/unbzip2-stream#942fc218013c14adab01cf693b0500cf6ac83193",
+        "unbzip2-stream": "github:balena-io-modules/unbzip2-stream#4a54f56a25b58950f9e4277c56db2912d62242e7",
         "unzip-stream": "^0.3.0",
         "xxhash": "^0.3.0",
         "yauzl": "^2.9.2"
@@ -13278,8 +13278,8 @@
       }
     },
     "unbzip2-stream": {
-      "version": "github:balena-io-modules/unbzip2-stream#942fc218013c14adab01cf693b0500cf6ac83193",
-      "from": "github:balena-io-modules/unbzip2-stream#942fc218013c14adab01cf693b0500cf6ac83193"
+      "version": "github:balena-io-modules/unbzip2-stream#4a54f56a25b58950f9e4277c56db2912d62242e7",
+      "from": "github:balena-io-modules/unbzip2-stream#4a54f56a25b58950f9e4277c56db2912d62242e7"
     },
     "union-value": {
       "version": "1.0.1",
