@@ -130,6 +130,7 @@ export function deselectDrive(driveDevice: string) {
 export function deselectImage() {
 	store.dispatch({
 		type: Actions.DESELECT_IMAGE,
+		data: {},
 	});
 }
 

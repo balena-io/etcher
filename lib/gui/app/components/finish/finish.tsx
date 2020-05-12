@@ -16,11 +16,11 @@
 
 import * as _ from 'lodash';
 import * as React from 'react';
-import * as uuidV4 from 'uuid/v4';
+import { v4 as uuidV4 } from 'uuid';
 
 import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
-import { store } from '../../models/store';
+import { Actions, store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 import { FlashAnother } from '../flash-another/flash-another';
@@ -33,7 +33,7 @@ function restart(goToMain: () => void) {
 
 	// Reset the flashing workflow uuid
 	store.dispatch({
-		type: 'SET_FLASHING_WORKFLOW_UUID',
+		type: Actions.SET_FLASHING_WORKFLOW_UUID,
 		data: uuidV4(),
 	});
 

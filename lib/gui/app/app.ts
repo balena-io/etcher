@@ -20,7 +20,7 @@ import * as _ from 'lodash';
 import outdent from 'outdent';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as uuidV4 from 'uuid/v4';
+import { v4 as uuidV4 } from 'uuid';
 
 import * as packageJSON from '../../../package.json';
 import * as EXIT_CODES from '../../shared/exit-codes';

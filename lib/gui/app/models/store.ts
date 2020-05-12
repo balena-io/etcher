@@ -17,7 +17,7 @@
 import * as Immutable from 'immutable';
 import * as _ from 'lodash';
 import * as redux from 'redux';
-import * as uuidV4 from 'uuid/v4';
+import { v4 as uuidV4 } from 'uuid';
 
 import * as constraints from '../../../shared/drive-constraints';
 import * as errors from '../../../shared/errors';
