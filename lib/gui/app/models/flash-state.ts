@@ -26,6 +26,7 @@ import { Actions, store } from './store';
 export function resetState() {
 	store.dispatch({
 		type: Actions.RESET_FLASH_STATE,
+		data: {},
 	});
 }
 
@@ -46,6 +47,7 @@ export function isFlashing(): boolean {
 export function setFlashingFlag() {
 	store.dispatch({
 		type: Actions.SET_FLASHING_FLAG,
+		data: {},
 	});
 }
 

@@ -67,7 +67,7 @@
     "pretty-bytes": "^5.3.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
-    "redux": "^3.5.2",
+    "redux": "^4.0.5",
     "rendition": "^11.24.2",
     "request": "^2.81.0",
     "resin-corvus": "^2.0.5",
