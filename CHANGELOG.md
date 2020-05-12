@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.87
+## (2020-05-12)
+
+* Update etcher-sdk to ^4.1.3 to fix issues with some bz2 files [Alexis Svinartchouk]
+
 # v1.5.86
 ## (2020-05-06)
 
