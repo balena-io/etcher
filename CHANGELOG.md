@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.88
+## (2020-05-12)
+
+* Update roboto-fontface 0.9.0 -> 0.10.0 [Alexis Svinartchouk]
+* Update rendition 12 -> 14, styled-system and styled-components 4 -> 5 [Alexis Svinartchouk]
+* Update electron-updater 4.0.6 -> 4.3.1 [Alexis Svinartchouk]
+* Update redux 3 -> 4 [Alexis Svinartchouk]
+* Update debug 3 -> 4 [Alexis Svinartchouk]
+* Update semver 5 -> 7 [Alexis Svinartchouk]
+* Update tmp 0.1.0 -> 0.2.1 [Alexis Svinartchouk]
+* Update uuid v3 -> v8 [Alexis Svinartchouk]
+
 # v1.5.87
 ## (2020-05-12)
 
