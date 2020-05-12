@@ -16,7 +16,7 @@
 
 import * as _ from 'lodash';
 import * as React from 'react';
-import * as uuidV4 from 'uuid/v4';
+import { v4 as uuidV4 } from 'uuid';
 
 import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
