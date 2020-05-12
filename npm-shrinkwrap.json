@@ -11613,9 +11613,9 @@
       }
     },
     "roboto-fontface": {
-      "version": "0.9.0",
-      "resolved": "https://registry.npmjs.org/roboto-fontface/-/roboto-fontface-0.9.0.tgz",
-      "integrity": "sha512-+G6+JXJWrXU98gUidXWgF1U+T7r21aiyqSWi5ZiZ/TBAWssw/t6DWM8piqNqaLqcO78DVJwfwHzlz8PuCMg0/Q=="
+      "version": "0.10.0",
+      "resolved": "https://registry.npmjs.org/roboto-fontface/-/roboto-fontface-0.10.0.tgz",
+      "integrity": "sha512-OlwfYEgA2RdboZohpldlvJ1xngOins5d7ejqnIBWr9KaMxsnBqotpptRXTyfNRLnFpqzX6sTDt+X+a+6udnU8g=="
     },
     "run-async": {
       "version": "2.3.0",

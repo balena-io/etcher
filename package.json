@@ -71,7 +71,7 @@
     "rendition": "^14.11.5",
     "request": "^2.81.0",
     "resin-corvus": "^2.0.5",
-    "roboto-fontface": "^0.9.0",
+    "roboto-fontface": "^0.10.0",
     "semver": "^7.3.2",
     "styled-components": "^5.1.0",
     "styled-system": "^5.1.5",
