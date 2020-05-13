@@ -899,10 +899,13 @@
       }
     },
     "@types/semver": {
-      "version": "6.2.0",
-      "resolved": "https://registry.npmjs.org/@types/semver/-/semver-6.2.0.tgz",
-      "integrity": "sha512-1OzrNb4RuAzIT7wHSsgZRlMBlNsJl+do6UblR7JMW4oB7bbR+uBEYtUh7gEc/jM84GGilh68lSOokyM/zNUlBA==",
-      "dev": true
+      "version": "7.1.0",
+      "resolved": "https://registry.npmjs.org/@types/semver/-/semver-7.1.0.tgz",
+      "integrity": "sha512-pOKLaubrAEMUItGNpgwl0HMFPrSAFic8oSVIvfu1UwcgGNmNyK9gyhBHKmBnUTwwVvpZfkzUC0GaMgnL6P86uA==",
+      "dev": true,
+      "requires": {
+        "@types/node": "*"
+      }
     },
     "@types/sinon": {
       "version": "7.5.1",

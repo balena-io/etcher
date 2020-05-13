@@ -91,7 +91,7 @@
     "@types/node-ipc": "^9.1.2",
     "@types/react-dom": "^16.8.4",
     "@types/request": "^2.48.4",
-    "@types/semver": "^6.2.0",
+    "@types/semver": "^7.1.0",
     "@types/sinon": "^7.5.1",
     "@types/tmp": "^0.1.0",
     "@types/webpack-node-externals": "^1.7.0",
