@@ -962,9 +962,9 @@
       }
     },
     "@types/tmp": {
-      "version": "0.1.0",
-      "resolved": "https://registry.npmjs.org/@types/tmp/-/tmp-0.1.0.tgz",
-      "integrity": "sha512-6IwZ9HzWbCq6XoQWhxLpDjuADodH/MKXRUIDFudvgjcVdjFknvmR+DNsoUeer4XPrEnrZs04Jj+kfV9pFsrhmA==",
+      "version": "0.2.0",
+      "resolved": "https://registry.npmjs.org/@types/tmp/-/tmp-0.2.0.tgz",
+      "integrity": "sha512-flgpHJjntpBAdJD43ShRosQvNC0ME97DCfGvZEDlAThQmnerRXrLbX6YgzRBQCZTthET9eAWFAMaYP0m0Y4HzQ==",
       "dev": true
     },
     "@types/tough-cookie": {
