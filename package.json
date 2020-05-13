@@ -86,7 +86,7 @@
     "@types/bluebird": "^3.5.30",
     "@types/chai": "^4.2.7",
     "@types/mime-types": "^2.1.0",
-    "@types/mocha": "^5.2.7",
+    "@types/mocha": "^7.0.2",
     "@types/node": "^12.12.24",
     "@types/node-ipc": "^9.1.2",
     "@types/react-dom": "^16.8.4",
