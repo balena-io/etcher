@@ -100,7 +100,6 @@
     "electron-builder": "^22.1.0",
     "electron-mocha": "^8.2.0",
     "electron-notarize": "^0.3.0",
-    "html-loader": "^0.5.1",
     "husky": "^3.1.0",
     "lint-staged": "^9.5.0",
     "mocha": "^7.0.1",
