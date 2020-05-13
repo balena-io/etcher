@@ -107,7 +107,7 @@
     "omit-deep-lodash": "1.1.4",
     "sass-lint": "^1.12.1",
     "simple-progress-webpack-plugin": "^1.1.2",
-    "sinon": "^8.0.4",
+    "sinon": "^9.0.2",
     "spectron": "^9.0.0",
     "ts-loader": "^6.0.4",
     "ts-node": "^8.3.0",
