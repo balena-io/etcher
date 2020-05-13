@@ -102,7 +102,7 @@
     "husky": "^4.2.5",
     "lint-staged": "^10.2.2",
     "mocha": "^7.0.1",
-    "node-gyp": "^3.8.0",
+    "node-gyp": "^6.1.0",
     "node-sass": "^4.12.0",
     "omit-deep-lodash": "1.1.4",
     "sass-lint": "^1.12.1",
