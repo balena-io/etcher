@@ -13445,9 +13445,9 @@
       "integrity": "sha512-ikUlS+/BcImLhNYyIgZcEmq4byc31QpC+46/6Jm5ECWkVFhf8SM2Fp/0pMVXPX6vk45SMCwrP4Taxucne8I0VA=="
     },
     "ts-loader": {
-      "version": "6.2.1",
-      "resolved": "https://registry.npmjs.org/ts-loader/-/ts-loader-6.2.1.tgz",
-      "integrity": "sha512-Dd9FekWuABGgjE1g0TlQJ+4dFUfYGbYcs52/HQObE0ZmUNjQlmLAS7xXsSzy23AMaMwipsx5sNHvoEpT2CZq1g==",
+      "version": "7.0.4",
+      "resolved": "https://registry.npmjs.org/ts-loader/-/ts-loader-7.0.4.tgz",
+      "integrity": "sha512-5du6OQHl+4ZjO4crEyoYUyWSrmmo7bAO+inkaILZ68mvahqrfoa4nn0DRmpQ4ruT4l+cuJCgF0xD7SBIyLeeow==",
       "dev": true,
       "requires": {
         "chalk": "^2.3.0",
