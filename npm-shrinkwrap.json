@@ -769,9 +769,9 @@
       "dev": true
     },
     "@types/node": {
-      "version": "12.12.24",
-      "resolved": "https://registry.npmjs.org/@types/node/-/node-12.12.24.tgz",
-      "integrity": "sha512-1Ciqv9pqwVtW6FsIUKSZNB82E5Cu1I2bBTj1xuIHXLe/1zYLl3956Nbhg2MzSYHVfl9/rmanjbQIb7LibfCnug=="
+      "version": "12.12.39",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-12.12.39.tgz",
+      "integrity": "sha512-pADGfwnDkr6zagDwEiCVE4yQrv7XDkoeVa4OfA9Ju/zRTk6YNDLGtQbkdL4/56mCQQCs4AhNrBIag6jrp7ZuOg=="
     },
     "@types/node-ipc": {
       "version": "9.1.2",
