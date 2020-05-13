@@ -33,8 +33,7 @@
   },
   "lint-staged": {
     "./**/*.{ts,tsx}": [
-      "make lint-ts",
-      "git add"
+      "make lint-ts"
     ]
   },
   "author": "Balena Inc. <hello@etcher.io>",
@@ -101,7 +100,7 @@
     "electron-mocha": "^8.2.0",
     "electron-notarize": "^0.3.0",
     "husky": "^4.2.5",
-    "lint-staged": "^9.5.0",
+    "lint-staged": "^10.2.2",
     "mocha": "^7.0.1",
     "node-gyp": "^3.8.0",
     "node-sass": "^4.12.0",
