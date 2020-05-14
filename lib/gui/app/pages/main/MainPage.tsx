@@ -47,7 +47,7 @@ import { middleEllipsis } from '../../utils/middle-ellipsis';
 import { bytesToClosestUnit } from '../../../../shared/units';
 
 import { DriveSelector } from './DriveSelector';
-import { Flash } from './Flash';
+import { FlashStep } from './Flash';
 
 const Icon = styled(BaseIcon)`
 	margin-right: 20px;
@@ -249,7 +249,7 @@ export class MainPage extends React.Component<
 					</div>
 
 					<div className="col-xs">
-						<Flash
+						<FlashStep
 							goToSuccess={() => this.setState({ current: 'success' })}
 							shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
 							source={this.state.source}
