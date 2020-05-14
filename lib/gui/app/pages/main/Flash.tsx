@@ -108,24 +108,17 @@ async function flashImageToDrive(
 			goToSuccess();
 		}
 	} catch (error) {
-		// When flashing is cancelled before starting above there is no error
-		if (!error) {
-			return '';
-		}
-
 		notification.send(
 			'Oops! Looks like the flash failed.',
 			messages.error.flashFailure(path.basename(image.path), drives),
 			iconPath,
 		);
-
 		let errorMessage = getErrorMessageFromCode(error.code);
 		if (!errorMessage) {
 			error.image = basename;
 			analytics.logException(error);
 			errorMessage = messages.error.genericFlashError(error);
 		}
-
 		return errorMessage;
 	} finally {
 		availableDrives.setDrives([]);
