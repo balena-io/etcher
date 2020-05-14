@@ -141,118 +141,113 @@ export function DriveSelectorModal({ close }: { close: () => void }) {
 	return (
 		<Modal
 			className="modal-drive-selector-modal"
-			title="Select a Drive"
+			titleElement="Select a Drive"
 			done={close}
 			action="Continue"
-			style={{
-				padding: '20px 30px 11px 30px',
-			}}
 			primaryButtonProps={{
 				primary: !hasStatus,
 				warning: hasStatus,
 			}}
 		>
-			<div>
-				<ul
-					style={{
-						height: '250px',
-						overflowX: 'hidden',
-						overflowY: 'auto',
-						padding: '0',
-					}}
-				>
-					{_.map(drives, (drive, index) => {
-						return (
-							<li
-								key={`item-${drive.displayName}`}
-								className="list-group-item"
-								// @ts-ignore (FIXME: not a valid <li> attribute but used by css rule)
-								disabled={!isDriveValid(drive, selectionState.getImage())}
-								onDoubleClick={() => selectDriveAndClose(drive)}
-								onClick={() => toggleDrive(drive)}
+			<ul
+				style={{
+					height: '210px',
+					overflowX: 'hidden',
+					overflowY: 'auto',
+					padding: '0px',
+				}}
+			>
+				{_.map(drives, (drive, index) => {
+					return (
+						<li
+							key={`item-${drive.displayName}`}
+							className="list-group-item"
+							// @ts-ignore (FIXME: not a valid <li> attribute but used by css rule)
+							disabled={!isDriveValid(drive, selectionState.getImage())}
+							onDoubleClick={() => selectDriveAndClose(drive)}
+							onClick={() => toggleDrive(drive)}
+						>
+							{drive.icon && (
+								<img
+									className="list-group-item-section"
+									alt="Drive device type logo"
+									src={`../assets/${drive.icon}.svg`}
+									width="25"
+									height="30"
+								/>
+							)}
+							<div
+								className="list-group-item-section list-group-item-section-expanded"
+								tabIndex={15 + index}
+								onKeyPress={(evt) => keyboardToggleDrive(drive, evt)}
 							>
-								{drive.icon && (
-									<img
-										className="list-group-item-section"
-										alt="Drive device type logo"
-										src={`../assets/${drive.icon}.svg`}
-										width="25"
-										height="30"
-									/>
+								<h6 className="list-group-item-heading">
+									{drive.description}
+									{drive.size && (
+										<span className="word-keep">
+											{' '}
+											- {bytesToClosestUnit(drive.size)}
+										</span>
+									)}
+								</h6>
+								{!drive.link && (
+									<p className="list-group-item-text">{drive.displayName}</p>
 								)}
-								<div
-									className="list-group-item-section list-group-item-section-expanded"
-									tabIndex={15 + index}
-									onKeyPress={(evt) => keyboardToggleDrive(drive, evt)}
-								>
-									<h6 className="list-group-item-heading">
-										{drive.description}
-										{drive.size && (
-											<span className="word-keep">
-												{' '}
-												- {bytesToClosestUnit(drive.size)}
+								{drive.link && (
+									<p className="list-group-item-text">
+										{drive.displayName} -{' '}
+										<b>
+											<a onClick={() => installMissingDrivers(drive)}>
+												{drive.linkCTA}
+											</a>
+										</b>
+									</p>
+								)}
+
+								<footer className="list-group-item-footer">
+									{_.map(getDriveStatuses(drive), (status, idx) => {
+										const className = {
+											[COMPATIBILITY_STATUS_TYPES.WARNING]: 'label-warning',
+											[COMPATIBILITY_STATUS_TYPES.ERROR]: 'label-danger',
+										};
+										return (
+											<span
+												key={`${drive.displayName}-status-${idx}`}
+												className={`label ${className[status.type]}`}
+											>
+												{status.message}
 											</span>
-										)}
-									</h6>
-									{!drive.link && (
-										<p className="list-group-item-text">{drive.displayName}</p>
-									)}
-									{drive.link && (
-										<p className="list-group-item-text">
-											{drive.displayName} -{' '}
-											<b>
-												<a onClick={() => installMissingDrivers(drive)}>
-													{drive.linkCTA}
-												</a>
-											</b>
-										</p>
-									)}
-
-									<footer className="list-group-item-footer">
-										{_.map(getDriveStatuses(drive), (status, idx) => {
-											const className = {
-												[COMPATIBILITY_STATUS_TYPES.WARNING]: 'label-warning',
-												[COMPATIBILITY_STATUS_TYPES.ERROR]: 'label-danger',
-											};
-											return (
-												<span
-													key={`${drive.displayName}-status-${idx}`}
-													className={`label ${className[status.type]}`}
-												>
-													{status.message}
-												</span>
-											);
-										})}
-									</footer>
-									{Boolean(drive.progress) && (
-										<progress
-											className="drive-init-progress"
-											value={drive.progress}
-											max="100"
-										></progress>
-									)}
-								</div>
-
-								{isDriveValid(drive, selectionState.getImage()) && (
-									<span
-										className="list-group-item-section tick tick--success"
-										// @ts-ignore (FIXME: not a valid <span> attribute but used by css rule)
-										disabled={!selectionState.isDriveSelected(drive.device)}
-									></span>
+										);
+									})}
+								</footer>
+								{Boolean(drive.progress) && (
+									<progress
+										className="drive-init-progress"
+										value={drive.progress}
+										max="100"
+									></progress>
 								)}
-							</li>
-						);
-					})}
-					{!hasAvailableDrives() && (
-						<li className="list-group-item">
-							<div>
-								<b>Connect a drive!</b>
-								<div>No removable drive detected.</div>
 							</div>
+
+							{isDriveValid(drive, selectionState.getImage()) && (
+								<span
+									className="list-group-item-section tick tick--success"
+									// @ts-ignore (FIXME: not a valid <span> attribute but used by css rule)
+									disabled={!selectionState.isDriveSelected(drive.device)}
+								></span>
+							)}
 						</li>
-					)}
-				</ul>
-			</div>
+					);
+				})}
+				{!hasAvailableDrives() && (
+					<li className="list-group-item">
+						<div>
+							<b>Connect a drive!</b>
+							<div>No removable drive detected.</div>
+						</div>
+					</li>
+				)}
+			</ul>
 
 			{missingDriversModal.drive !== undefined && (
 				<Modal
