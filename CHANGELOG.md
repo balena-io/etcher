@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.89
+## (2020-05-13)
+
+* Fix drive selector modal padding [Alexis Svinartchouk]
+* Update all dependencies minor versions [Alexis Svinartchouk]
+* Update @types/node 12.12.24 -> 12.12.39 [Alexis Svinartchouk]
+* Update ts-loader 6 -> 7 [Alexis Svinartchouk]
+* Update sinon 8 -> 9 [Alexis Svinartchouk]
+* Update node-gyp 3 -> 6 [Alexis Svinartchouk]
+* Update lint-staged 9 -> 10 [Alexis Svinartchouk]
+* Update husky 3 -> 4 [Alexis Svinartchouk]
+* Remove no longer used html-loader dev dependency [Alexis Svinartchouk]
+* Update electron-notarize 0.1.1 -> 0.3.0 [Alexis Svinartchouk]
+* Remove no longer used chalk dev dependency [Alexis Svinartchouk]
+* Update @types/tmp 0.1.0 -> 0.2.0 [Alexis Svinartchouk]
+* Update @types/sinon 7 -> 9 [Alexis Svinartchouk]
+* Update @types/semver 6 -> 7 [Alexis Svinartchouk]
+* Update @types/mocha 5 -> 7 [Alexis Svinartchouk]
+
 # v1.5.88
 ## (2020-05-12)
 
