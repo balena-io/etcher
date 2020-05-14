@@ -164,167 +164,189 @@ const formatSeconds = (totalSeconds: number) => {
 	return `${minutes}m${seconds}s`;
 };
 
-interface FlashProps {
+interface FlashStepProps {
 	shouldFlashStepBeDisabled: boolean;
 	goToSuccess: () => void;
 	source: SourceOptions;
 }
 
-export const Flash = ({
-	shouldFlashStepBeDisabled,
-	goToSuccess,
-	source,
-}: FlashProps) => {
-	const state: any = flashState.getFlashState();
-	const isFlashing = flashState.isFlashing();
-	const flashErrorCode = flashState.getLastFlashErrorCode();
+interface FlashStepState {
+	warningMessages: string[];
+	errorMessage: string;
+	showDriveSelectorModal: boolean;
+}
 
-	const [warningMessages, setWarningMessages] = React.useState<string[]>([]);
-	const [errorMessage, setErrorMessage] = React.useState('');
-	const [showDriveSelectorModal, setShowDriveSelectorModal] = React.useState(
-		false,
-	);
+export class FlashStep extends React.Component<FlashStepProps, FlashStepState> {
+	constructor(props: FlashStepProps) {
+		super(props);
+		this.state = {
+			warningMessages: [],
+			errorMessage: '',
+			showDriveSelectorModal: false,
+		};
+	}
 
-	const handleWarningResponse = async (shouldContinue: boolean) => {
-		setWarningMessages([]);
-
+	private async handleWarningResponse(shouldContinue: boolean) {
+		this.setState({ warningMessages: [] });
 		if (!shouldContinue) {
-			setShowDriveSelectorModal(true);
+			this.setState({ showDriveSelectorModal: true });
 			return;
 		}
+		this.setState({
+			errorMessage: await flashImageToDrive(
+				this.props.goToSuccess,
+				this.props.source,
+			),
+		});
+	}
 
-		setErrorMessage(await flashImageToDrive(goToSuccess, source));
-	};
-
-	const handleFlashErrorResponse = (shouldRetry: boolean) => {
-		setErrorMessage('');
+	private handleFlashErrorResponse(shouldRetry: boolean) {
+		this.setState({ errorMessage: '' });
 		flashState.resetState();
 		if (shouldRetry) {
 			analytics.logEvent('Restart after failure');
 		} else {
 			selection.clear();
 		}
-	};
+	}
 
-	const tryFlash = async () => {
+	private async tryFlash() {
 		const devices = selection.getSelectedDevices();
 		const image = selection.getImage();
-		const drives = _.filter(availableDrives.getDrives(), (drive: any) => {
-			return _.includes(devices, drive.device);
-		});
-
+		const drives = _.filter(
+			availableDrives.getDrives(),
+			(drive: { device: string }) => {
+				return _.includes(devices, drive.device);
+			},
+		);
 		if (drives.length === 0 || flashState.isFlashing()) {
 			return;
 		}
-
 		const hasDangerStatus = constraints.hasListDriveImageCompatibilityStatus(
 			drives,
 			image,
 		);
 		if (hasDangerStatus) {
-			setWarningMessages(getWarningMessages(drives, image));
+			this.setState({ warningMessages: getWarningMessages(drives, image) });
 			return;
 		}
+		this.setState({
+			errorMessage: await flashImageToDrive(
+				this.props.goToSuccess,
+				this.props.source,
+			),
+		});
+	}
 
-		setErrorMessage(await flashImageToDrive(goToSuccess, source));
-	};
-
-	return (
-		<>
-			<div className="box text-center">
-				<div className="center-block">
-					<SVGIcon
-						paths={['../../assets/flash.svg']}
-						disabled={shouldFlashStepBeDisabled}
-					/>
-				</div>
-
-				<div className="space-vertical-large">
-					<StepSelection>
-						<ProgressButton
-							type={state.type}
-							active={isFlashing}
-							percentage={state.percentage}
-							label={getProgressButtonLabel()}
-							disabled={Boolean(flashErrorCode) || shouldFlashStepBeDisabled}
-							callback={tryFlash}
+	public render() {
+		const state = flashState.getFlashState();
+		const isFlashing = flashState.isFlashing();
+		const flashErrorCode = flashState.getLastFlashErrorCode();
+		return (
+			<>
+				<div className="box text-center">
+					<div className="center-block">
+						<SVGIcon
+							paths={['../../assets/flash.svg']}
+							disabled={this.props.shouldFlashStepBeDisabled}
 						/>
-					</StepSelection>
+					</div>
 
-					{isFlashing && (
-						<button
-							className="button button-link button-abort-write"
-							onClick={imageWriter.cancel}
-						>
-							<span className="glyphicon glyphicon-remove-sign"></span>
-						</button>
-					)}
-					{!_.isNil(state.speed) && state.percentage !== COMPLETED_PERCENTAGE && (
-						<p className="step-footer step-footer-split">
-							{Boolean(state.speed) && (
-								<span>{`${state.speed.toFixed(SPEED_PRECISION)} MB/s`}</span>
-							)}
-							{!_.isNil(state.eta) && (
-								<span>{`ETA: ${formatSeconds(state.eta)}`}</span>
-							)}
-						</p>
-					)}
+					<div className="space-vertical-large">
+						<StepSelection>
+							<ProgressButton
+								type={state.type}
+								active={isFlashing}
+								percentage={state.percentage}
+								label={getProgressButtonLabel()}
+								disabled={
+									Boolean(flashErrorCode) ||
+									this.props.shouldFlashStepBeDisabled
+								}
+								callback={() => {
+									this.tryFlash();
+								}}
+							/>
+						</StepSelection>
 
-					{Boolean(state.failed) && (
-						<div className="target-status-wrap">
-							<div className="target-status-line target-status-failed">
-								<span className="target-status-dot"></span>
-								<span className="target-status-quantity">{state.failed}</span>
-								<span className="target-status-message">
-									{messages.progress.failed(state.failed)}{' '}
-								</span>
+						{isFlashing && (
+							<button
+								className="button button-link button-abort-write"
+								onClick={imageWriter.cancel}
+							>
+								<span className="glyphicon glyphicon-remove-sign"></span>
+							</button>
+						)}
+						{!_.isNil(state.speed) &&
+							state.percentage !== COMPLETED_PERCENTAGE && (
+								<p className="step-footer step-footer-split">
+									{Boolean(state.speed) && (
+										<span>{`${state.speed.toFixed(
+											SPEED_PRECISION,
+										)} MB/s`}</span>
+									)}
+									{!_.isNil(state.eta) && (
+										<span>{`ETA: ${formatSeconds(state.eta)}`}</span>
+									)}
+								</p>
+							)}
+
+						{Boolean(state.failed) && (
+							<div className="target-status-wrap">
+								<div className="target-status-line target-status-failed">
+									<span className="target-status-dot"></span>
+									<span className="target-status-quantity">{state.failed}</span>
+									<span className="target-status-message">
+										{messages.progress.failed(state.failed)}{' '}
+									</span>
+								</div>
 							</div>
-						</div>
-					)}
+						)}
+					</div>
 				</div>
-			</div>
 
-			{warningMessages && warningMessages.length > 0 && (
-				<Modal
-					width={400}
-					titleElement={'Attention'}
-					cancel={() => handleWarningResponse(false)}
-					done={() => handleWarningResponse(true)}
-					cancelButtonProps={{
-						children: 'Change',
-					}}
-					action={'Continue'}
-					primaryButtonProps={{ primary: false, warning: true }}
-				>
-					{_.map(warningMessages, (message, key) => (
-						<Txt key={key} whitespace="pre-line" mt={2}>
-							{message}
-						</Txt>
-					))}
-				</Modal>
-			)}
-
-			{errorMessage && (
-				<Modal
-					width={400}
-					titleElement={'Attention'}
-					cancel={() => handleFlashErrorResponse(false)}
-					done={() => handleFlashErrorResponse(true)}
-					action={'Retry'}
-				>
-					<Txt>
-						{_.map(errorMessage.split('\n'), (message, key) => (
-							<p key={key}>{message}</p>
+				{this.state.warningMessages.length > 0 && (
+					<Modal
+						width={400}
+						titleElement={'Attention'}
+						cancel={() => this.handleWarningResponse(false)}
+						done={() => this.handleWarningResponse(true)}
+						cancelButtonProps={{
+							children: 'Change',
+						}}
+						action={'Continue'}
+						primaryButtonProps={{ primary: false, warning: true }}
+					>
+						{_.map(this.state.warningMessages, (message, key) => (
+							<Txt key={key} whitespace="pre-line" mt={2}>
+								{message}
+							</Txt>
 						))}
-					</Txt>
-				</Modal>
-			)}
+					</Modal>
+				)}
 
-			{showDriveSelectorModal && (
-				<DriveSelectorModal
-					close={() => setShowDriveSelectorModal(false)}
-				></DriveSelectorModal>
-			)}
-		</>
-	);
-};
+				{this.state.errorMessage && (
+					<Modal
+						width={400}
+						titleElement={'Attention'}
+						cancel={() => this.handleFlashErrorResponse(false)}
+						done={() => this.handleFlashErrorResponse(true)}
+						action={'Retry'}
+					>
+						<Txt>
+							{_.map(this.state.errorMessage.split('\n'), (message, key) => (
+								<p key={key}>{message}</p>
+							))}
+						</Txt>
+					</Modal>
+				)}
+
+				{this.state.showDriveSelectorModal && (
+					<DriveSelectorModal
+						close={() => this.setState({ showDriveSelectorModal: false })}
+					/>
+				)}
+			</>
+		);
+	}
+}
