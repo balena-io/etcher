@@ -128,23 +128,11 @@ async function flashImageToDrive(
 	return '';
 }
 
-/**
- * @summary Get progress button label
- * @function
- * @public
- *
- * @returns {String} progress button label
- *
- * @example
- * const label = FlashController.getProgressButtonLabel()
- */
 const getProgressButtonLabel = () => {
 	if (!flashState.isFlashing()) {
 		return 'Flash!';
 	}
-
-	// TODO: no any
-	return progressStatus.fromFlashState(flashState.getFlashState() as any);
+	return progressStatus.fromFlashState(flashState.getFlashState());
 };
 
 const formatSeconds = (totalSeconds: number) => {
