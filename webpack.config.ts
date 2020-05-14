@@ -80,7 +80,6 @@ const guiConfig = {
 	entry: {
 		gui: path.join(__dirname, 'lib', 'gui', 'app', 'app.ts'),
 	},
-	devtool: 'source-map',
 	plugins: [
 		...commonConfig.plugins,
 		// Remove "Download the React DevTools for a better development experience" message

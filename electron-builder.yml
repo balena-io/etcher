@@ -7,7 +7,7 @@ publish: null
 afterPack: "./afterPack.js"
 files:
   - build/Release/elevator.node
-  - generated
+  - generated/*.js
   - lib/shared/catalina-sudo/sudo-askpass.osascript.js
   - lib/gui/app/index.html
   - lib/gui/css/*.css
