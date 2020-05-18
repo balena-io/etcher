@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import * as _ from 'lodash';
 import * as electron from 'electron';
 
 import { percentageToFloat } from '../../../shared/utils';
@@ -29,7 +30,10 @@ const INITIAL_TITLE = document.title;
  */
 function getWindowTitle(state?: FlashState) {
 	if (state) {
-		return `${INITIAL_TITLE} – ${fromFlashState(state)}`;
+		const { status, percentage } = fromFlashState(state);
+		return `${INITIAL_TITLE} – ${
+			_.isNumber(percentage) ? percentage + '% ' : ''
+		}${_.capitalize(status)}`;
 	}
 	return INITIAL_TITLE;
 }

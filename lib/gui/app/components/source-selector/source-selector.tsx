@@ -39,7 +39,7 @@ import {
 	DetailsText,
 	StepButton,
 	StepNameButton,
-	StepSelection
+	StepSelection,
 } from '../../styled-components';
 import { colors } from '../../theme';
 import { middleEllipsis } from '../../utils/middle-ellipsis';

@@ -17,7 +17,7 @@
 import { expect } from 'chai';
 
 import * as settings from '../../../lib/gui/app/models/settings';
-import * as progressStatus from '../../../lib/gui/app/modules/progress-status';
+import { fromFlashState } from '../../../lib/gui/app/modules/progress-status';
 
 describe('Browser: progressStatus', function () {
 	describe('.fromFlashState()', function () {
@@ -36,107 +36,122 @@ describe('Browser: progressStatus', function () {
 		});
 
 		it('should report 0% if percentage == 0 but speed != 0', function () {
-			expect(progressStatus.fromFlashState(this.state)).to.equal('0% Flashing');
+			expect(fromFlashState(this.state)).to.deep.equal({
+				status: 'flashing',
+				percentage: 0,
+			});
 		});
 
 		it('should handle percentage == 0, flashing, unmountOnSuccess', function () {
 			this.state.speed = 0;
-			expect(progressStatus.fromFlashState(this.state)).to.equal('0% Flashing');
+			expect(fromFlashState(this.state)).to.deep.equal({
+				status: 'flashing',
+				percentage: 0,
+			});
 		});
 
 		it('should handle percentage == 0, flashing, !unmountOnSuccess', function () {
 			this.state.speed = 0;
 			settings.set('unmountOnSuccess', false);
-			expect(progressStatus.fromFlashState(this.state)).to.equal('0% Flashing');
+			expect(fromFlashState(this.state)).to.deep.equal({
+				status: 'flashing',
+				percentage: 0,
+			});
 		});
 
 		it('should handle percentage == 0, verifying, unmountOnSuccess', function () {
 			this.state.speed = 0;
 			this.state.type = 'verifying';
-			expect(progressStatus.fromFlashState(this.state)).to.equal(
-				'0% Validating',
-			);
+			expect(fromFlashState(this.state)).to.deep.equal({
+				status: 'validating',
+				percentage: 0,
+			});
 		});
 
 		it('should handle percentage == 0, verifying, !unmountOnSuccess', function () {
 			this.state.speed = 0;
 			this.state.type = 'verifying';
 			settings.set('unmountOnSuccess', false);
-			expect(progressStatus.fromFlashState(this.state)).to.equal(
-				'0% Validating',
-			);
+			expect(fromFlashState(this.state)).to.deep.equal({
+				status: 'validating',
+				percentage: 0,
+			});
 		});
 
 		it('should handle percentage == 50, flashing, unmountOnSuccess', function () {
 			this.state.percentage = 50;
-			expect(progressStatus.fromFlashState(this.state)).to.equal(
-				'50% Flashing',
-			);
+			expect(fromFlashState(this.state)).to.deep.equal({
+				status: 'flashing',
+				percentage: 50,
+			});
 		});
 
 		it('should handle percentage == 50, flashing, !unmountOnSuccess', function () {
 			this.state.percentage = 50;
 			settings.set('unmountOnSuccess', false);
-			expect(progressStatus.fromFlashState(this.state)).to.equal(
-				'50% Flashing',
-			);
+			expect(fromFlashState(this.state)).to.deep.equal({
+				status: 'flashing',
+				percentage: 50,
+			});
 		});
 
 		it('should handle percentage == 50, verifying, unmountOnSuccess', function () {
 			this.state.percentage = 50;
 			this.state.type = 'verifying';
-			expect(progressStatus.fromFlashState(this.state)).to.equal(
-				'50% Validating',
-			);
+			expect(fromFlashState(this.state)).to.deep.equal({
+				percentage: 50,
+				status: 'validating',
+			});
 		});
 
 		it('should handle percentage == 50, verifying, !unmountOnSuccess', function () {
 			this.state.percentage = 50;
 			this.state.type = 'verifying';
 			settings.set('unmountOnSuccess', false);
-			expect(progressStatus.fromFlashState(this.state)).to.equal(
-				'50% Validating',
-			);
+			expect(fromFlashState(this.state)).to.deep.equal({
+				percentage: 50,
+				status: 'validating',
+			});
 		});
 
 		it('should handle percentage == 100, flashing, unmountOnSuccess, validateWriteOnSuccess', function () {
 			this.state.percentage = 100;
-			expect(progressStatus.fromFlashState(this.state)).to.equal(
-				'Finishing...',
-			);
+			expect(fromFlashState(this.state)).to.deep.equal({
+				status: 'finishing',
+			});
 		});
 
 		it('should handle percentage == 100, flashing, unmountOnSuccess, !validateWriteOnSuccess', function () {
 			this.state.percentage = 100;
 			settings.set('validateWriteOnSuccess', false);
-			expect(progressStatus.fromFlashState(this.state)).to.equal(
-				'Finishing...',
-			);
+			expect(fromFlashState(this.state)).to.deep.equal({
+				status: 'finishing',
+			});
 		});
 
 		it('should handle percentage == 100, flashing, !unmountOnSuccess, !validateWriteOnSuccess', function () {
 			this.state.percentage = 100;
 			settings.set('unmountOnSuccess', false);
 			settings.set('validateWriteOnSuccess', false);
-			expect(progressStatus.fromFlashState(this.state)).to.equal(
-				'Finishing...',
-			);
+			expect(fromFlashState(this.state)).to.deep.equal({
+				status: 'finishing',
+			});
 		});
 
 		it('should handle percentage == 100, verifying, unmountOnSuccess', function () {
 			this.state.percentage = 100;
 			this.state.type = 'verifying';
-			expect(progressStatus.fromFlashState(this.state)).to.equal(
-				'Finishing...',
-			);
+			expect(fromFlashState(this.state)).to.deep.equal({
+				status: 'finishing',
+			});
 		});
 
-		it('should handle percentage == 100, validatinf, !unmountOnSuccess', function () {
+		it('should handle percentage == 100, validating, !unmountOnSuccess', function () {
 			this.state.percentage = 100;
 			settings.set('unmountOnSuccess', false);
-			expect(progressStatus.fromFlashState(this.state)).to.equal(
-				'Finishing...',
-			);
+			expect(fromFlashState(this.state)).to.deep.equal({
+				status: 'finishing',
+			});
 		});
 	});
 });

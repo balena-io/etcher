@@ -14,40 +14,12 @@
  * limitations under the License.
  */
 
+import { capitalize } from 'lodash';
 import * as React from 'react';
-import { ProgressBar } from 'rendition';
+import { Button, Flex, ProgressBar, Txt } from 'rendition';
 import { default as styled } from 'styled-components';
 
 import { StepButton } from '../../styled-components';
-
-const FlashProgressBar = styled(ProgressBar)`
-	> div {
-		width: 200px;
-		height: 48px;
-		color: white !important;
-		text-shadow: none !important;
-		transition-duration: 0s;
-		> div {
-			transition-duration: 0s;
-		}
-	}
-
-	width: 200px;
-	height: 48px;
-	font-size: 16px;
-	line-height: 48px;
-
-	background: #2f3033;
-`;
-
-interface ProgressButtonProps {
-	type: 'decompressing' | 'flashing' | 'verifying';
-	active: boolean;
-	percentage: number;
-	label: string;
-	disabled: boolean;
-	callback: () => void;
-}
 
 const colors = {
 	decompressing: '#00aeef',
@@ -55,25 +27,116 @@ const colors = {
 	verifying: '#1ac135',
 } as const;
 
-export class ProgressButton extends React.PureComponent<ProgressButtonProps> {
-	public render() {
-		if (this.props.active) {
+const FlashProgressBar = styled(ProgressBar)`
+	width: 220px;
+	height: 12px;
+	border-radius: 14px;
+	margin: 10px 0;
+	background: #2f3033;
+
+	> div {
+		width: 220px;
+		height: 12px;
+		transition-duration: 0s;
+		> div {
+			transition-duration: 0s;
+		}
+	}
+`;
+
+export interface ProgressButtonProps {
+	type: 'decompressing' | 'flashing' | 'verifying';
+	active: boolean;
+	percentage: number;
+	label: {
+		status:
+			| 'starting'
+			| 'decompressing'
+			| 'flashing'
+			| 'finishing'
+			| 'flashed'
+			| 'validating'
+			| 'finishing'
+			| 'failed';
+		percentage?: number | string;
+	};
+	disabled: boolean;
+	onCancel: () => void;
+	callback: () => void;
+	warning?: boolean;
+}
+
+const CancelButton = styled((props) => (
+	<Button plain style={{ fontWeight: 600 }} {...props}>
+		Cancel
+	</Button>
+))`
+	&&& {
+		width: auto;
+		height: auto;
+		font-size: 14px;
+	}
+`;
+
+const ProgressStatusLabel = styled(
+	({
+		label,
+		color,
+	}: {
+		label: ProgressButtonProps['label'];
+		color: string | undefined;
+	}) => {
+		if (label.status === 'flashed') {
 			return (
-				<FlashProgressBar
-					background={colors[this.props.type]}
-					value={this.props.percentage}
-				>
-					{this.props.label}
-				</FlashProgressBar>
+				<Txt>
+					{label.percentage} {label.status}
+				</Txt>
 			);
 		}
 		return (
+			<Flex>
+				{capitalize(label.status)}...&nbsp;
+				{!!label.percentage ? (
+					<Txt color={color} style={{ fontWeight: 600 }}>
+						{label.percentage}%
+					</Txt>
+				) : null}
+			</Flex>
+		);
+	},
+)`
+	font-size: '16px';
+	font-family: 'SourceSansPro';
+`;
+
+export class ProgressButton extends React.PureComponent<ProgressButtonProps> {
+	public render() {
+		const { active, label, onCancel, type, percentage, warning } = this.props;
+		if (active) {
+			if (label.status !== 'starting') {
+				return (
+					<Txt align="left" color="white">
+						<Flex justifyContent="space-between">
+							<ProgressStatusLabel label={label} color={colors[type]} />
+							<CancelButton onClick={onCancel} color="#00aeef" />
+						</Flex>
+						<FlashProgressBar
+							background={colors[type]}
+							value={percentage}
+						></FlashProgressBar>
+					</Txt>
+				);
+			}
+			return <StepButton primary>Starting...</StepButton>;
+		}
+		return (
 			<StepButton
-				primary
+				primary={!warning}
+				warning={warning}
 				onClick={this.props.callback}
 				disabled={this.props.disabled}
 			>
-				{this.props.label}
+				Flash!
 			</StepButton>
 		);
 	}

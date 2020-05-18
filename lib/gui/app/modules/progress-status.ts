@@ -15,6 +15,7 @@
  */
 
 import { bytesToClosestUnit } from '../../../shared/units';
+import { ProgressButtonProps } from '../components/progress-button/progress-button';
 
 export interface FlashState {
 	active: number;
@@ -23,6 +24,11 @@ export interface FlashState {
 	speed: number;
 	position: number;
 	type?: 'decompressing' | 'flashing' | 'verifying';
+}
+
+export interface ProgressStatusType {
+	status: ProgressButtonProps['label']['status'];
+	percentage?: number | string;
 }
 
 /**
@@ -48,33 +54,33 @@ export function fromFlashState({
 	type,
 	percentage,
 	position,
-}: FlashState): string {
+}: FlashState): ProgressStatusType {
 	if (type === undefined) {
-		return 'Starting...';
+		return { status: 'starting' };
 	} else if (type === 'decompressing') {
 		if (percentage == null) {
-			return 'Decompressing...';
+			return { status: 'decompressing' };
 		} else {
-			return `${percentage}% Decompressing`;
+			return { status: 'decompressing', percentage };
 		}
 	} else if (type === 'flashing') {
 		if (percentage != null) {
 			if (percentage < 100) {
-				return `${percentage}% Flashing`;
+				return { status: 'flashing', percentage };
 			} else {
-				return 'Finishing...';
+				return { status: 'finishing' };
 			}
 		} else {
-			return `${bytesToClosestUnit(position)} flashed`;
+			return { status: 'flashed', percentage: bytesToClosestUnit(position) };
 		}
 	} else if (type === 'verifying') {
 		if (percentage == null) {
-			return 'Validating...';
+			return { status: 'validating' };
 		} else if (percentage < 100) {
-			return `${percentage}% Validating`;
+			return { status: 'validating', percentage };
 		} else {
-			return 'Finishing...';
+			return { status: 'finishing' };
 		}
 	}
-	return 'Failed';
+	return { status: 'failed' };
 }

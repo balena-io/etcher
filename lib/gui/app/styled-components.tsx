@@ -23,10 +23,10 @@ import { colors } from './theme';
 
 const theme = {
 	global: {
-    font: {
-      family: 'SourceSansPro',
+		font: {
+			family: 'SourceSansPro',
 		},
-  },
+	},
 	// TODO: Standardize how the colors are specified to match with rendition's format.
 	customColors: colors,
 	colors: Theme.colors,
