@@ -39,7 +39,7 @@ import {
 	DetailsText,
 	StepButton,
 	StepNameButton,
-	StepSelection,
+	StepSelection
 } from '../../styled-components';
 import { colors } from '../../theme';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
@@ -486,6 +486,7 @@ export class SourceSelector extends React.Component<
 							<>
 								<StepNameButton
 									plain
+									fontSize={16}
 									onClick={this.showSelectedImageDetails}
 									tooltip={imageBasename}
 								>

@@ -31,6 +31,7 @@ import {
 	DetailsText,
 	StepButton,
 	StepNameButton,
+	StepSelection,
 } from '../../styled-components';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
 
@@ -118,7 +119,7 @@ export function TargetSelector(props: TargetSelectorProps) {
 		}
 		return (
 			<>
-				<StepNameButton plain tooltip={props.tooltip}>
+				<StepNameButton plain tooltip={props.tooltip} fontSize={16}>
 					{targets.length} Targets
 				</StepNameButton>
 				{!props.flashing && (
@@ -132,13 +133,15 @@ export function TargetSelector(props: TargetSelectorProps) {
 	}
 
 	return (
-		<StepButton
-			primary
-			tabIndex={targets.length > 0 ? -1 : 2}
-			disabled={props.disabled}
-			onClick={props.openDriveSelector}
-		>
-			Select target
-		</StepButton>
+		<StepSelection>
+			<StepButton
+				primary
+				tabIndex={targets.length > 0 ? -1 : 2}
+				disabled={props.disabled}
+				onClick={props.openDriveSelector}
+			>
+				Select target
+			</StepButton>
+		</StepSelection>
 	);
 }
