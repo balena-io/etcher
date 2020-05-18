@@ -15,15 +15,22 @@
  */
 
 import * as React from 'react';
-import { Button, ButtonProps, Flex, Provider, Txt } from 'rendition';
+import { Button, ButtonProps, Provider, Txt } from 'rendition';
 import styled from 'styled-components';
 import { space } from 'styled-system';
 
 import { colors } from './theme';
 
+const font = 'SourceSansPro';
 const theme = {
-	// TODO: Standardize how the colors are specified to match with rendition's format.
-	customColors: colors,
+	font,
+	titleFont: font,
+	global: {
+		font: {
+			family: font,
+		},
+	},
+	colors,
 	button: {
 		border: {
 			width: '0',
@@ -33,10 +40,9 @@ const theme = {
 			opacity: 1,
 		},
 		extend: () => `
-      && {
+			&& {
 				width: 200px;
 				height: 48px;
-				font-size: 16px;
 
 				&:disabled {
 					background-color: ${colors.dark.disabled.background};
@@ -48,8 +54,8 @@ const theme = {
 						color: ${colors.dark.disabled.foreground};
 					}
 				}
-      }
-    `,
+			}
+		`,
 	},
 };
 
@@ -77,7 +83,7 @@ export const IconButton = styled((props) => <Button plain {...props} />)`
 export const StepButton = styled((props: ButtonProps) => (
 	<Button {...props}></Button>
 ))`
-	color: rgba(255, 255, 255, 0.7);
+	color: #ffffff;
 	margin: auto;
 `;
 
