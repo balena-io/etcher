@@ -55,7 +55,7 @@ const selectImageNoNilFields = ['path', 'extension'];
 /**
  * @summary Application default state
  */
-const DEFAULT_STATE = Immutable.fromJS({
+export const DEFAULT_STATE = Immutable.fromJS({
 	applicationSessionUuid: '',
 	flashingWorkflowUuid: '',
 	availableDrives: [],
@@ -63,6 +63,8 @@ const DEFAULT_STATE = Immutable.fromJS({
 		devices: Immutable.OrderedSet(),
 	},
 	isFlashing: false,
+	devicePaths: [],
+	failedDevicePaths: [],
 	flashResults: {},
 	flashState: {
 		active: 0,
@@ -78,6 +80,8 @@ const DEFAULT_STATE = Immutable.fromJS({
  * @summary Application supported action messages
  */
 export enum Actions {
+	SET_DEVICE_PATHS,
+	SET_FAILED_DEVICE_PATHS,
 	SET_AVAILABLE_DRIVES,
 	SET_FLASH_STATE,
 	RESET_FLASH_STATE,
@@ -264,6 +268,12 @@ function storeReducer(
 				.set('isFlashing', false)
 				.set('flashState', DEFAULT_STATE.get('flashState'))
 				.set('flashResults', DEFAULT_STATE.get('flashResults'))
+				.set('devicePaths', DEFAULT_STATE.get('devicePaths'))
+				.set('failedDevicePaths', DEFAULT_STATE.get('failedDevicePaths'))
+				.set(
+					'lastAverageFlashingSpeed',
+					DEFAULT_STATE.get('lastAverageFlashingSpeed'),
+				)
 				.delete('flashUuid');
 		}
 
@@ -328,10 +338,6 @@ function storeReducer(
 			return state
 				.set('isFlashing', false)
 				.set('flashResults', Immutable.fromJS(action.data))
-				.set(
-					'lastAverageFlashingSpeed',
-					DEFAULT_STATE.get('lastAverageFlashingSpeed'),
-				)
 				.set('flashState', DEFAULT_STATE.get('flashState'));
 		}
 
@@ -540,6 +546,14 @@ function storeReducer(
 
 		case Actions.SET_FLASHING_WORKFLOW_UUID: {
 			return state.set('flashingWorkflowUuid', action.data);
+		}
+
+		case Actions.SET_DEVICE_PATHS: {
+			return state.set('devicePaths', action.data);
+		}
+
+		case Actions.SET_FAILED_DEVICE_PATHS: {
+			return state.set('failedDevicePaths', action.data);
 		}
 
 		default: {

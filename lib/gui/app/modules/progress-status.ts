@@ -15,7 +15,6 @@
  */
 
 import { bytesToClosestUnit } from '../../../shared/units';
-// import * as settings from '../models/settings';
 
 export interface FlashState {
 	active: number;
