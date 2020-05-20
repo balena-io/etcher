@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.90
+## (2020-05-20)
+
+* Update leds behaviour [Alexis Svinartchouk]
+
 # v1.5.89
 ## (2020-05-13)
 
