@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-$icon-font-path: "../../../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
+$icon-font-path: "../../../../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 $font-size-base: 16px;
 $cursor-disabled: initial;
 $link-hover-decoration: none;
@@ -22,6 +22,7 @@ $btn-min-width: 170px;
 $link-color: #ddd;
 $disabled-opacity: 0.2;
 
+@import "../../../../node_modules/flexboxgrid/dist/flexboxgrid.css";
 @import "../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "./modules/theme";
 @import "./modules/bootstrap";
@@ -34,15 +35,15 @@ $disabled-opacity: 0.2;
 @import "../components/drive-selector/styles/drive-selector";
 @import "../pages/main/styles/main";
 @import "../pages/finish/styles/finish";
+@import "./desktop";
 
-$fa-font-path: "../../../node_modules/@fortawesome/fontawesome-free-webfonts/webfonts";
+$fa-font-path: "../../../../node_modules/@fortawesome/fontawesome-free-webfonts/webfonts";
 
 @import "../../../../node_modules/@fortawesome/fontawesome-free-webfonts/scss/fontawesome";
 @import "../../../../node_modules/@fortawesome/fontawesome-free-webfonts/scss/fa-solid";
 
 @font-face {
   font-family: "Nunito";
-  src: url("Nunito-Regular.eot");
   src: url("./fonts/Nunito-Regular.eot?#iefix") format("embedded-opentype"),
       url("./fonts/Nunito-Regular.woff2") format("woff2"),
       url("./fonts/Nunito-Regular.woff") format("woff"),
@@ -54,7 +55,6 @@ $fa-font-path: "../../../node_modules/@fortawesome/fontawesome-free-webfonts/web
 
 @font-face {
   font-family: "Nunito";
-  src: url("Nunito-Bold.eot");
   src: url("./fonts/Nunito-Bold.eot?#iefix") format("embedded-opentype"),
       url("./fonts/Nunito-Bold.woff2") format("woff2"),
       url("./fonts/Nunito-Bold.woff") format("woff"),
@@ -66,7 +66,6 @@ $fa-font-path: "../../../node_modules/@fortawesome/fontawesome-free-webfonts/web
 
 @font-face {
   font-family: "Nunito";
-  src: url("Nunito-Light.eot");
   src: url("./fonts/Nunito-Light.eot?#iefix") format("embedded-opentype"),
       url("./fonts/Nunito-Light.woff2") format("woff2"),
       url("./fonts/Nunito-Light.woff") format("woff"),

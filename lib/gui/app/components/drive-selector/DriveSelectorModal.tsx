@@ -171,7 +171,7 @@ export function DriveSelectorModal({ close }: { close: () => void }) {
 								<img
 									className="list-group-item-section"
 									alt="Drive device type logo"
-									src={`../assets/${drive.icon}.svg`}
+									src={`media/${drive.icon}.svg`}
 									width="25"
 									height="30"
 								/>

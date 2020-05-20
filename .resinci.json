@@ -1,6 +1,6 @@
 {
   "electron": {
-    "npm_version": "6.7.0",
+    "npm_version": "6.14.5",
     "dependencies": {
       "linux": [
         "libudev-dev",
@@ -19,27 +19,8 @@
       "nodeGypRebuild": true,
       "afterPack": "./afterPack.js",
       "files": [
-        "build/Release/elevator.node",
         "generated",
-        "lib/shared/catalina-sudo/sudo-askpass.osascript.js",
-        "lib/gui/app/index.html",
-        "lib/gui/css/*.css",
-        "lib/gui/css/fonts/*.woff2",
-        "lib/gui/assets/*.svg",
-        "assets/icon.png",
-        "!node_modules/**/**",
-        "node_modules/**/*.js",
-        "node_modules/**/*.json",
-        "node_modules/**/*.node",
-        "node_modules/**/*.dll",
-        "node_modules/node-raspberrypi-usbboot/blobs/**",
-        "node_modules/flexboxgrid/dist/flexboxgrid.css",
-        "node_modules/roboto-fontface/fonts/roboto/Roboto-Thin.woff",
-        "node_modules/roboto-fontface/fonts/roboto/Roboto-Light.woff",
-        "node_modules/roboto-fontface/fonts/roboto/Roboto-Regular.woff",
-        "node_modules/roboto-fontface/fonts/roboto/Roboto-Medium.woff",
-        "node_modules/roboto-fontface/fonts/roboto/Roboto-Bold.woff",
-        "node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.woff2"
+        "lib/shared/catalina-sudo/sudo-askpass.osascript.js"
       ],
       "afterSign": "./afterSignHook.js",
       "mac": {

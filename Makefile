@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------------
 
 RESIN_SCRIPTS ?= ./scripts/resin
-export NPM_VERSION ?= 6.7.0
+export NPM_VERSION ?= 6.14.5
 S3_BUCKET = artifacts.ci.balena-cloud.com
 
 # This directory will be completely deleted by the `clean` rule
@@ -144,10 +144,6 @@ webpack:
 
 .PHONY: $(TARGETS)
 
-sass:
-	npm rebuild node-sass
-	node-sass lib/gui/app/scss/main.scss > lib/gui/css/main.css
-
 lint-ts:
 	balena-lint --fix --typescript typings lib tests scripts/clean-shrinkwrap.ts webpack.config.ts
 
@@ -190,7 +186,6 @@ info:
 	@echo "Target arch         : $(TARGET_ARCH)"
 
 sanity-checks:
-	./scripts/ci/ensure-staged-sass.sh
 	./scripts/ci/ensure-all-file-extensions-in-gitattributes.sh
 
 clean:

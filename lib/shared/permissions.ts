@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import bindings = require('bindings');
 import * as Bluebird from 'bluebird';
 import * as childProcess from 'child_process';
 import { promises as fs } from 'fs';
@@ -109,7 +108,9 @@ async function elevateScriptWindows(
 ): Promise<{ cancelled: boolean }> {
 	// 'elevator' imported here as it only exists on windows
 	// TODO: replace this with sudo-prompt once https://github.com/jorangreef/sudo-prompt/issues/96 is fixed
-	const elevateAsync = promisify(bindings('elevator').elevate);
+	// @ts-ignore this is a native module
+	const { elevate } = await import('../../build/Release/elevator.node');
+	const elevateAsync = promisify(elevate);
 
 	// '&' needs to be escaped here (but not when written to a .cmd file)
 	const cmd = ['cmd', '/c', escapeParamCmd(path).replace(/&/g, '^&')];
