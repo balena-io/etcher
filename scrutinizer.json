@@ -339,7 +339,7 @@
   "public": true,
   "fork": false,
   "description": "Flash OS images to SD cards & USB drives, safely and easily.",
-  "stars": 17706,
+  "stars": 17762,
   "homepage": "https://etcher.io",
   "repositoryUrl": "https://github.com/balena-io/etcher.git",
   "active": true,
@@ -386,85 +386,85 @@
     "tmp",
     "uuid"
   ],
-  "lastCommitDate": "2020-05-14T10:20:16Z",
+  "lastCommitDate": "2020-05-20T15:25:35Z",
   "latestRelease": {
-    "tagName": "v1.5.89",
+    "tagName": "v1.5.90",
     "asssets": [
       {
-        "name": "balena-etcher-electron-1.5.89-linux-ia32.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.89/balena-etcher-electron-1.5.89-linux-ia32.zip"
+        "name": "balena-etcher-electron-1.5.90-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.90/balena-etcher-electron-1.5.90-linux-ia32.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.89-linux-x64.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.89/balena-etcher-electron-1.5.89-linux-x64.zip"
+        "name": "balena-etcher-electron-1.5.90-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.90/balena-etcher-electron-1.5.90-linux-x64.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.89.i686.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.89/balena-etcher-electron-1.5.89.i686.rpm"
+        "name": "balena-etcher-electron-1.5.90.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.90/balena-etcher-electron-1.5.90.i686.rpm"
       },
       {
-        "name": "balena-etcher-electron-1.5.89.x86_64.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.89/balena-etcher-electron-1.5.89.x86_64.rpm"
+        "name": "balena-etcher-electron-1.5.90.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.90/balena-etcher-electron-1.5.90.x86_64.rpm"
       },
       {
-        "name": "balena-etcher-electron_1.5.89_amd64.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.89/balena-etcher-electron_1.5.89_amd64.deb"
+        "name": "balena-etcher-electron_1.5.90_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.90/balena-etcher-electron_1.5.90_amd64.deb"
       },
       {
-        "name": "balena-etcher-electron_1.5.89_i386.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.89/balena-etcher-electron_1.5.89_i386.deb"
+        "name": "balena-etcher-electron_1.5.90_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.90/balena-etcher-electron_1.5.90_i386.deb"
       },
       {
-        "name": "balenaEtcher-1.5.89-ia32.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.89/balenaEtcher-1.5.89-ia32.AppImage"
+        "name": "balenaEtcher-1.5.90-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.90/balenaEtcher-1.5.90-ia32.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.89-mac.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.89/balenaEtcher-1.5.89-mac.zip"
+        "name": "balenaEtcher-1.5.90-mac.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.90/balenaEtcher-1.5.90-mac.zip"
       },
       {
-        "name": "balenaEtcher-1.5.89-x64.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.89/balenaEtcher-1.5.89-x64.AppImage"
+        "name": "balenaEtcher-1.5.90-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.90/balenaEtcher-1.5.90-x64.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.89.dmg",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.89/balenaEtcher-1.5.89.dmg"
+        "name": "balenaEtcher-1.5.90.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.90/balenaEtcher-1.5.90.dmg"
       },
       {
-        "name": "balenaEtcher-1.5.89.dmg.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.89/balenaEtcher-1.5.89.dmg.blockmap"
+        "name": "balenaEtcher-1.5.90.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.90/balenaEtcher-1.5.90.dmg.blockmap"
       },
       {
-        "name": "balenaEtcher-Portable-1.5.89.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.89/balenaEtcher-Portable-1.5.89.exe"
+        "name": "balenaEtcher-Portable-1.5.90.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.90/balenaEtcher-Portable-1.5.90.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.89.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.89/balenaEtcher-Setup-1.5.89.exe"
+        "name": "balenaEtcher-Setup-1.5.90.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.90/balenaEtcher-Setup-1.5.90.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.89.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.89/balenaEtcher-Setup-1.5.89.exe.blockmap"
+        "name": "balenaEtcher-Setup-1.5.90.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.90/balenaEtcher-Setup-1.5.90.exe.blockmap"
       },
       {
         "name": "builder-effective-config.yaml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.89/builder-effective-config.yaml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.90/builder-effective-config.yaml"
       },
       {
         "name": "latest-linux-ia32.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.89/latest-linux-ia32.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.90/latest-linux-ia32.yml"
       },
       {
         "name": "latest-linux.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.89/latest-linux.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.90/latest-linux.yml"
       },
       {
         "name": "latest-mac.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.89/latest-mac.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.90/latest-mac.yml"
       },
       {
         "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.89/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.90/latest.yml"
       }
     ]
   },
@@ -562,8 +562,24 @@
     ]
   },
   "openIssues": {
-    "numberOfIssues": 222,
+    "numberOfIssues": 226,
     "latestIssues": [
+      {
+        "title": "Packaging Etcher as a snap app",
+        "url": "https://github.com/balena-io/etcher/issues/3157"
+      },
+      {
+        "title": "Update flash progress style",
+        "url": "https://github.com/balena-io/etcher/pull/3156"
+      },
+      {
+        "title": "Checksum failed.",
+        "url": "https://github.com/balena-io/etcher/issues/3154"
+      },
+      {
+        "title": "Electron8",
+        "url": "https://github.com/balena-io/etcher/pull/3151"
+      },
       {
         "title": "how do i restore my USB stick to its original state ",
         "url": "https://github.com/balena-io/etcher/issues/3150"
@@ -627,26 +643,10 @@
       {
         "title": "Auto-update does not work as expected",
         "url": "https://github.com/balena-io/etcher/issues/3100"
-      },
-      {
-        "title": "Gentoo Linux Packaging",
-        "url": "https://github.com/balena-io/etcher/issues/3097"
-      },
-      {
-        "title": "Can't run balenaEtcher.Appimage",
-        "url": "https://github.com/balena-io/etcher/issues/3093"
-      },
-      {
-        "title": "Diskarbitrationd logs filling console",
-        "url": "https://github.com/balena-io/etcher/issues/3092"
-      },
-      {
-        "title": "failed to burn",
-        "url": "https://github.com/balena-io/etcher/issues/3091"
       }
     ]
   },
-  "version": "1.5.89",
+  "version": "1.5.90",
   "screenshot": null,
   "logo": null
 }
