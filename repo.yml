@@ -9,3 +9,6 @@ triggerNotification:
     version: 1.5.81
     stagingPercentage: 100
 
+upstream:
+    - repo: 'balena-netdata'
+        url: 'https://github.com/balena-io-playground/balena-netdata'
