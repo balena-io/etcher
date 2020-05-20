@@ -7,6 +7,8 @@ volumes:
     etcher_bash_history:
     etcher_config_electron:
     etcher_config_balena_etcher:
+    netdatalib:
+    netdatacache:
 services:
   influxdb:
     restart: always
@@ -54,3 +56,25 @@ services:
     tmpfs:
       - /run
       - /tmp
+  netdata:
+    build: ./etcher-pro-monitoring/netdata
+    # this could be removed if we could simply use env vars in our configuration (only to pass in supervisor API URL)
+    network_mode: 'host'
+    ports:
+      - '19999:19999'
+    environment:
+      - PGID=988
+        # we get this injected as unix:///...sock, but netdata doesn't like that
+      - DOCKER_HOST=/var/run/balena-engine.sock
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    labels:
+      io.balena.features.balena-socket: 1
+      io.balena.features.procfs: 1
+      io.balena.features.supervisor-api: 1
+      io.balena.features.sysfs: 1
+    volumes:
+      - netdatalib:/var/lib/netdata
+      - netdatacache:/var/cache/netdata
