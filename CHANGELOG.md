@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.91
+## (2020-05-21)
+
+* Minor fix - Init isSourceDrive param in correct place [Lorenzo Alberto Maria Ambrosi]
+* Fix undefined image from DriveCompatibilityWarning [Rob Evans]
+
 # v1.5.90
 ## (2020-05-20)
 
