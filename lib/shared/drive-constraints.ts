@@ -59,6 +59,7 @@ export interface Image {
  * containing the image.
  */
 export function isSourceDrive(drive: DrivelistDrive, image: Image): boolean {
+	image = image || {};
 	for (const mountpoint of drive.mountpoints || []) {
 		if (image.path !== undefined && pathIsInside(image.path, mountpoint.path)) {
 			return true;
@@ -164,7 +165,7 @@ export const COMPATIBILITY_STATUS_TYPES = {
  */
 export function getDriveImageCompatibilityStatuses(
 	drive: DrivelistDrive,
-	image: Image,
+	image: Image = {},
 ) {
 	const statusList = [];
 
