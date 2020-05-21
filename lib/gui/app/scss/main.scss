@@ -37,11 +37,6 @@ $disabled-opacity: 0.2;
 @import "../pages/finish/styles/finish";
 @import "./desktop";
 
-$fa-font-path: "../../../../node_modules/@fortawesome/fontawesome-free-webfonts/webfonts";
-
-@import "../../../../node_modules/@fortawesome/fontawesome-free-webfonts/scss/fontawesome";
-@import "../../../../node_modules/@fortawesome/fontawesome-free-webfonts/scss/fa-solid";
-
 @font-face {
   font-family: "Nunito";
   src: url("./fonts/Nunito-Regular.woff2") format("woff2");
