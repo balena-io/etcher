@@ -58,8 +58,10 @@ export interface Image {
  * In the context of Etcher, a source drive is a drive
  * containing the image.
  */
-export function isSourceDrive(drive: DrivelistDrive, image: Image): boolean {
-	image = image || {};
+export function isSourceDrive(
+	drive: DrivelistDrive,
+	image: Image = {},
+): boolean {
 	for (const mountpoint of drive.mountpoints || []) {
 		if (image.path !== undefined && pathIsInside(image.path, mountpoint.path)) {
 			return true;
