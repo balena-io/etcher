@@ -18,13 +18,13 @@
       "productName": "balenaEtcher",
       "nodeGypRebuild": true,
       "afterPack": "./afterPack.js",
+      "asar": false,
       "files": [
         "generated",
         "lib/shared/catalina-sudo/sudo-askpass.osascript.js"
       ],
       "afterSign": "./afterSignHook.js",
       "mac": {
-        "asar": false,
         "category": "public.app-category.developer-tools",
         "hardenedRuntime": true,
         "entitlements": "entitlements.mac.plist",

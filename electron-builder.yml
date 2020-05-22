@@ -5,11 +5,11 @@ npmRebuild: true
 nodeGypRebuild: true
 publish: null
 afterPack: "./afterPack.js"
+asar: false
 files:
   - generated
   - lib/shared/catalina-sudo/sudo-askpass.osascript.js
 mac:
-  asar: false
   icon: assets/icon.icns
   category: public.app-category.developer-tools
   hardenedRuntime: true
