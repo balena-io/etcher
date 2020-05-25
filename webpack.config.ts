@@ -23,6 +23,7 @@ import * as os from 'os';
 import outdent from 'outdent';
 import * as path from 'path';
 import * as SimpleProgressWebpackPlugin from 'simple-progress-webpack-plugin';
+import * as TerserPlugin from 'terser-webpack-plugin';
 import { BannerPlugin } from 'webpack';
 
 /**
@@ -102,7 +103,21 @@ function replace(test: RegExp, ...replacements: ReplacementRule[]) {
 const commonConfig = {
 	mode: 'production',
 	optimization: {
-		minimize: false,
+		minimize: true,
+		minimizer: [
+			new TerserPlugin({
+				terserOptions: {
+					compress: false,
+					mangle: false,
+					output: {
+						beautify: true,
+						comments: false,
+						ecma: 2018,
+					},
+				},
+				extractComments: false,
+			}),
+		],
 	},
 	module: {
 		rules: [

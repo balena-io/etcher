@@ -964,6 +964,16 @@
         "@types/estree": "*"
       }
     },
+    "@types/terser-webpack-plugin": {
+      "version": "2.2.0",
+      "resolved": "https://registry.npmjs.org/@types/terser-webpack-plugin/-/terser-webpack-plugin-2.2.0.tgz",
+      "integrity": "sha512-ywqEfTm7KdKoX9aYx0zYtiFU1z6IHrIYW9FJqeay2Ea58rTPML1J0hvoztGal2Jow3bkgGKcAmEZNL+8LqUVrA==",
+      "dev": true,
+      "requires": {
+        "@types/webpack": "*",
+        "terser": "^4.3.9"
+      }
+    },
     "@types/tmp": {
       "version": "0.2.0",
       "resolved": "https://registry.npmjs.org/@types/tmp/-/tmp-0.2.0.tgz",
