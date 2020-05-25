@@ -17,6 +17,7 @@
 import { faFile, faLink } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { sourceDestination } from 'etcher-sdk';
+import { ipcRenderer, IpcRendererEvent } from 'electron';
 import * as _ from 'lodash';
 import { GPTPartition, MBRPartition } from 'partitioninfo';
 import * as path from 'path';
@@ -237,6 +238,7 @@ export class SourceSelector extends React.Component<
 		this.openImageSelector = this.openImageSelector.bind(this);
 		this.openURLSelector = this.openURLSelector.bind(this);
 		this.reselectImage = this.reselectImage.bind(this);
+		this.onSelectImage = this.onSelectImage.bind(this);
 		this.onDrop = this.onDrop.bind(this);
 		this.showSelectedImageDetails = this.showSelectedImageDetails.bind(this);
 		this.afterSelected = props.afterSelected.bind(this);
@@ -246,10 +248,22 @@ export class SourceSelector extends React.Component<
 		this.unsubscribe = observe(() => {
 			this.setState(getState());
 		});
+		ipcRenderer.on('select-image', this.onSelectImage);
+		ipcRenderer.send('source-selector-ready');
 	}
 
 	public componentWillUnmount() {
 		this.unsubscribe();
+		ipcRenderer.removeListener('select-image', this.onSelectImage);
+	}
+
+	private async onSelectImage(_event: IpcRendererEvent, imagePath: string) {
+		const isURL =
+			_.startsWith(imagePath, 'https://') || _.startsWith(imagePath, 'http://');
+		await this.selectImageByPath({
+			imagePath,
+			SourceType: isURL ? sourceDestination.Http : sourceDestination.File,
+		});
 	}
 
 	private reselectImage() {
