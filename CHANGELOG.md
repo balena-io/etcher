@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.93
+## (2020-05-25)
+
+* Update electron-builder to v22.6.1 [Alexis Svinartchouk]
+* Strip out comments from generated code [Alexis Svinartchouk]
+* Update electron to v9.0.0 [Alexis Svinartchouk]
+
 # v1.5.92
 ## (2020-05-22)
 
