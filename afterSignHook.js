@@ -1,10 +1,11 @@
 'use strict'
 
 const { notarize } = require('electron-notarize')
+const { ELECTRON_SKIP_NOTARIZATION } = process.env
 
 async function main(context) {
   const { electronPlatformName, appOutDir } = context
-  if (electronPlatformName !== 'darwin') {
+  if (electronPlatformName !== 'darwin' || ELECTRON_SKIP_NOTARIZATION === 'true') {
     return
   }
 
