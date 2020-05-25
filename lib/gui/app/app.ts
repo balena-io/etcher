@@ -15,7 +15,7 @@
  */
 
 import * as electron from 'electron';
-import * as sdk from 'etcher-sdk';
+import { sourceDestination } from 'etcher-sdk';
 import * as _ from 'lodash';
 import outdent from 'outdent';
 import * as React from 'react';
@@ -36,6 +36,29 @@ import * as exceptionReporter from './modules/exception-reporter';
 import * as osDialog from './os/dialog';
 import * as windowProgress from './os/window-progress';
 import MainPage from './pages/main/MainPage';
+import { ipcRenderer } from 'electron';
+import { selectImageByPath } from './models/selection-state';
+import { getTitle } from '../../shared/errors';
+
+ipcRenderer.on('select-image-url', async (_event, url) => {
+	try {
+		const { metadata } = await selectImageByPath({
+			imagePath: url,
+			SourceType: sourceDestination.Http,
+		});
+		store.dispatch({
+			type: Actions.SELECT_IMAGE,
+			data: metadata,
+		});
+	} catch (error) {
+		osDialog.showError(error);
+		if (!error.report) {
+			analytics.logEvent(getTitle(error), { path: url });
+			return;
+		}
+		analytics.logException(error);
+	}
+});
 
 window.addEventListener(
 	'unhandledrejection',
@@ -179,15 +202,15 @@ async function driveIsAllowed(drive: {
 }
 
 type Drive =
-	| sdk.sourceDestination.BlockDevice
-	| sdk.sourceDestination.UsbbootDrive
-	| sdk.sourceDestination.DriverlessDevice;
+	| sourceDestination.BlockDevice
+	| sourceDestination.UsbbootDrive
+	| sourceDestination.DriverlessDevice;
 
 function prepareDrive(drive: Drive) {
-	if (drive instanceof sdk.sourceDestination.BlockDevice) {
+	if (drive instanceof sourceDestination.BlockDevice) {
 		// @ts-ignore (BlockDevice.drive is private)
 		return drive.drive;
-	} else if (drive instanceof sdk.sourceDestination.UsbbootDrive) {
+	} else if (drive instanceof sourceDestination.UsbbootDrive) {
 		// This is a workaround etcher expecting a device string and a size
 		// @ts-ignore
 		drive.device = drive.usbDevice.portId;
@@ -199,7 +222,7 @@ function prepareDrive(drive: Drive) {
 			updateDriveProgress(drive, progress);
 		});
 		return drive;
-	} else if (drive instanceof sdk.sourceDestination.DriverlessDevice) {
+	} else if (drive instanceof sourceDestination.DriverlessDevice) {
 		const description =
 			COMPUTE_MODULE_DESCRIPTIONS[
 				drive.deviceDescriptor.idProduct.toString()
@@ -257,7 +280,7 @@ function removeDrive(drive: Drive) {
 }
 
 function updateDriveProgress(
-	drive: sdk.sourceDestination.UsbbootDrive,
+	drive: sourceDestination.UsbbootDrive,
 	progress: number,
 ) {
 	const drives = getDrives();

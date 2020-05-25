@@ -54,6 +54,21 @@ async function checkForUpdates(interval: number) {
 	}
 }
 
+let openImageURL: string = process.argv.slice(1)[0] || '';
+
+// This will catch clicks on links such as <a href="etcher://...">Open in Etcher</a>
+// We need to listen to the event before everything else otherwise the event won't be fired
+electron.app.on('open-url', async (event, data) => {
+	event.preventDefault();
+	openImageURL = data;
+	electron.BrowserWindow.getAllWindows().forEach((window) =>
+		window.webContents.send(
+			'select-image-url',
+			openImageURL.replace('etcher://', ''),
+		),
+	);
+});
+
 async function createMainWindow() {
 	const fullscreen = Boolean(await settings.get('fullscreen'));
 	const defaultWidth = 800;
@@ -87,6 +102,8 @@ async function createMainWindow() {
 		},
 	});
 
+	electron.app.setAsDefaultProtocolClient('etcher');
+
 	buildWindowMenu(mainWindow);
 	mainWindow.setFullScreen(true);
 
@@ -108,6 +125,9 @@ async function createMainWindow() {
 	const page = mainWindow.webContents;
 
 	page.once('did-frame-finish-load', async () => {
+		if (_.startsWith(openImageURL, 'etcher://')) {
+			page.send('select-image-url', openImageURL.replace('etcher://', ''));
+		}
 		autoUpdater.on('error', (err) => {
 			analytics.logException(err);
 		});
@@ -133,6 +153,7 @@ async function createMainWindow() {
 			}
 		}
 	});
+	return mainWindow;
 }
 
 electron.app.allowRendererProcessReuse = false;
@@ -145,14 +166,33 @@ electron.app.on('window-all-closed', electron.app.quit);
 // make use of it to ensure the browser window is completely destroyed.
 // See https://github.com/electron/electron/issues/5273
 electron.app.on('before-quit', () => {
+	electron.app.releaseSingleInstanceLock();
 	process.exit(EXIT_CODES.SUCCESS);
 });
 
 async function main(): Promise<void> {
-	if (electron.app.isReady()) {
-		await createMainWindow();
+	const lockedInstance = electron.app.requestSingleInstanceLock();
+	let window: electron.BrowserWindow;
+	if (!lockedInstance) {
+		electron.app.quit();
 	} else {
-		electron.app.on('ready', createMainWindow);
+		electron.app.on('second-instance', (_event, argv, _cwd) => {
+			openImageURL = argv.slice(1)[0] || '';
+			if (window) {
+				if (window.isMinimized()) {
+					window.restore();
+				}
+				window.focus();
+			}
+			if (_.startsWith(openImageURL, 'etcher://')) {
+				window.webContents.send(
+					'select-image-url',
+					openImageURL.replace('etcher://', ''),
+				);
+			}
+		});
+		await electron.app.whenReady();
+		window = await createMainWindow();
 	}
 }
 

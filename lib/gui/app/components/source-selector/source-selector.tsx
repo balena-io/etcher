@@ -18,7 +18,6 @@ import { faFile, faLink } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { sourceDestination } from 'etcher-sdk';
 import * as _ from 'lodash';
-import { GPTPartition, MBRPartition } from 'partitioninfo';
 import * as path from 'path';
 import * as React from 'react';
 import { ButtonProps, Card as BaseCard, Input, Modal, Txt } from 'rendition';
@@ -33,7 +32,6 @@ import { observe } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import * as exceptionReporter from '../../modules/exception-reporter';
 import * as osDialog from '../../os/dialog';
-import { replaceWindowsNetworkDriveLetter } from '../../os/windows-network-drives';
 import {
 	ChangeButton,
 	DetailsText,
@@ -304,73 +302,27 @@ export class SourceSelector extends React.Component<
 		}
 	}
 
-	private async selectImageByPath({ imagePath, SourceType }: SourceOptions) {
+	private async selectImageByPath(options: SourceOptions) {
 		try {
-			imagePath = await replaceWindowsNetworkDriveLetter(imagePath);
-		} catch (error) {
-			analytics.logException(error);
-		}
-
-		let source;
-		if (SourceType === sourceDestination.File) {
-			source = new sourceDestination.File({
-				path: imagePath,
-			});
-		} else {
-			if (
-				!_.startsWith(imagePath, 'https://') &&
-				!_.startsWith(imagePath, 'http://')
-			) {
-				const invalidImageError = errors.createUserError({
-					title: 'Unsupported protocol',
-					description: messages.error.unsupportedProtocol(),
-				});
-
-				osDialog.showError(invalidImageError);
-				analytics.logEvent('Unsupported protocol', { path: imagePath });
-				return;
-			}
-			source = new sourceDestination.Http({ url: imagePath });
-		}
-
-		try {
-			const innerSource = await source.getInnerSource();
-			const metadata = (await innerSource.getMetadata()) as sourceDestination.Metadata & {
-				hasMBR: boolean;
-				partitions: MBRPartition[] | GPTPartition[];
-				path: string;
-				extension: string;
-			};
-			const partitionTable = await innerSource.getPartitionTable();
-			if (partitionTable) {
-				metadata.hasMBR = true;
-				metadata.partitions = partitionTable.partitions;
-			} else {
-				metadata.hasMBR = false;
-			}
-			metadata.path = imagePath;
-			metadata.extension = path.extname(imagePath).slice(1);
+			const {
+				metadata,
+				imagePath,
+				SourceType,
+			} = await selectionState.selectImageByPath(options);
 			this.selectImage(metadata);
 			this.afterSelected({
 				imagePath,
 				SourceType,
 			});
 		} catch (error) {
-			const imageError = errors.createUserError({
-				title: 'Error opening image',
-				description: messages.error.openImage(
-					path.basename(imagePath),
-					error.message,
-				),
-			});
-			osDialog.showError(imageError);
-			analytics.logException(error);
-		} finally {
-			try {
-				await source.close();
-			} catch (error) {
-				// Noop
+			osDialog.showError(error.title);
+			if (!error.report) {
+				analytics.logEvent(errors.getTitle(error), {
+					path: options.imagePath,
+				});
+				return;
 			}
+			analytics.logException(error);
 		}
 	}
 

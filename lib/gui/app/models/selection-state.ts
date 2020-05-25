@@ -14,8 +14,15 @@
  * limitations under the License.
  */
 
+import { sourceDestination } from 'etcher-sdk';
 import * as _ from 'lodash';
+import { GPTPartition, MBRPartition } from 'partitioninfo';
+import * as path from 'path';
 
+import * as errors from '../../../shared/errors';
+import * as messages from '../../../shared/messages';
+import { SourceOptions } from '../components/source-selector/source-selector';
+import { replaceWindowsNetworkDriveLetter } from '../os/windows-network-drives';
 import * as availableDrives from './available-drives';
 import { Actions, store } from './store';
 
@@ -45,6 +52,75 @@ export function selectImage(image: any) {
 		type: Actions.SELECT_IMAGE,
 		data: image,
 	});
+}
+
+interface SourceMetadata extends sourceDestination.Metadata {
+	hasMBR: boolean;
+	partitions: MBRPartition[] | GPTPartition[];
+	path: string;
+	extension: string;
+}
+
+export async function selectImageByPath({
+	imagePath,
+	SourceType,
+}: SourceOptions) {
+	try {
+		imagePath = await replaceWindowsNetworkDriveLetter(imagePath);
+	} catch (error) {
+		throw error;
+	}
+
+	let source;
+	if (SourceType === sourceDestination.File) {
+		source = new sourceDestination.File({
+			path: imagePath,
+		});
+	} else {
+		if (
+			!_.startsWith(imagePath, 'https://') &&
+			!_.startsWith(imagePath, 'http://')
+		) {
+			throw errors.createUserError({
+				title: 'Unsupported protocol',
+				description: messages.error.unsupportedProtocol(),
+			});
+		}
+		source = new sourceDestination.Http({ url: imagePath });
+	}
+
+	try {
+		const innerSource = await source.getInnerSource();
+		const metadata = (await innerSource.getMetadata()) as SourceMetadata;
+		const partitionTable = await innerSource.getPartitionTable();
+		if (partitionTable) {
+			metadata.hasMBR = true;
+			metadata.partitions = partitionTable.partitions;
+		} else {
+			metadata.hasMBR = false;
+		}
+		metadata.path = imagePath;
+		metadata.extension = path.extname(imagePath).slice(1);
+		return {
+			metadata,
+			imagePath,
+			SourceType,
+		};
+	} catch (error) {
+		throw errors.createUserError({
+			title: 'Error opening image',
+			description: messages.error.openImage(
+				path.basename(imagePath),
+				error.message,
+			),
+		});
+	} finally {
+		try {
+			await source.close();
+		} catch (error) {
+			// Noop
+		}
+	}
 }
 
 /**
