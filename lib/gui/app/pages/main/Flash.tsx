@@ -90,7 +90,7 @@ async function flashImageToDrive(
 	// otherwise Windows throws EPERM
 	driveScanner.stop();
 
-	const iconPath = path.join('..', '..', '..', 'assets', 'icon.png');
+	const iconPath = path.join('media', 'icon.png');
 	const basename = path.basename(image.path);
 	try {
 		await imageWriter.flash(image.path, drives, sourceOptions);
@@ -228,7 +228,7 @@ export class FlashStep extends React.Component<FlashStepProps, FlashStepState> {
 				<div className="box text-center">
 					<div className="center-block">
 						<SVGIcon
-							paths={['../../assets/flash.svg']}
+							paths={['flash.svg']}
 							disabled={this.props.shouldFlashStepBeDisabled}
 						/>
 					</div>

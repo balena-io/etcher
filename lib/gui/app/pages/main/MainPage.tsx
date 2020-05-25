@@ -153,11 +153,7 @@ export class MainPage extends React.Component<
 						}
 						tabIndex={100}
 					>
-						<SVGIcon
-							paths={['../../assets/etcher.svg']}
-							width="123px"
-							height="22px"
-						/>
+						<SVGIcon paths={['etcher.svg']} width="123px" height="22px" />
 					</span>
 
 					<span

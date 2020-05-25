@@ -477,7 +477,7 @@ export class SourceSelector extends React.Component<
 					<div className="center-block">
 						<SVGIcon
 							contents={[selectionState.getImageLogo()]}
-							paths={['../../assets/image.svg']}
+							paths={['image.svg']}
 						/>
 					</div>
 

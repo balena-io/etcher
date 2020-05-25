@@ -78,7 +78,7 @@ function FinishPage({ goToMain }: { goToMain: () => void }) {
 								}
 							>
 								<SVGIcon
-									paths={['../../assets/etcher.svg']}
+									paths={['etcher.svg']}
 									width="165px"
 									height="auto"
 								></SVGIcon>
@@ -87,7 +87,7 @@ function FinishPage({ goToMain }: { goToMain: () => void }) {
 						<div className="caption caption-small fallback-footer">
 							made with
 							<SVGIcon
-								paths={['../../assets/love.svg']}
+								paths={['love.svg']}
 								width="auto"
 								height="20px"
 							></SVGIcon>
@@ -99,7 +99,7 @@ function FinishPage({ goToMain }: { goToMain: () => void }) {
 								}
 							>
 								<SVGIcon
-									paths={['../../assets/balena.svg']}
+									paths={['balena.svg']}
 									width="auto"
 									height="20px"
 								></SVGIcon>

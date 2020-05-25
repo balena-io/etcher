@@ -15,24 +15,15 @@
  */
 
 import { execFile } from 'child_process';
+import { app, remote } from 'electron';
 import { join } from 'path';
-import { argv, env } from 'process';
+import { env } from 'process';
 import { promisify } from 'util';
 
 const execFileAsync = promisify(execFile);
 
 const SUCCESSFUL_AUTH_MARKER = 'AUTHENTICATION SUCCEEDED';
 const EXPECTED_SUCCESSFUL_AUTH_MARKER = `${SUCCESSFUL_AUTH_MARKER}\n`;
-
-function getAppPath() {
-	for (const arg of argv) {
-		const [option, value] = arg.split('=');
-		if (option === '--app-path') {
-			return value;
-		}
-	}
-	throw new Error("Couldn't find --app-path= in argv");
-}
 
 export async function sudo(
 	command: string,
@@ -46,7 +37,7 @@ export async function sudo(
 				env: {
 					PATH: env.PATH,
 					SUDO_ASKPASS: join(
-						getAppPath(),
+						(app || remote.app).getAppPath(),
 						__dirname,
 						'sudo-askpass.osascript.js',
 					),

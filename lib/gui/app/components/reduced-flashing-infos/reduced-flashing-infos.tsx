@@ -74,7 +74,7 @@ export class ReducedFlashingInfos extends React.Component<
 					<SVGIcon
 						disabled
 						contents={[this.props.imageLogo]}
-						paths={['../../assets/image.svg']}
+						paths={['image.svg']}
 						width="20px"
 					></SVGIcon>
 					<Span>{this.props.imageName}</Span>
@@ -82,11 +82,7 @@ export class ReducedFlashingInfos extends React.Component<
 				</Span>
 
 				<Span className="step-name">
-					<SVGIcon
-						disabled
-						paths={['../../assets/drive.svg']}
-						width="20px"
-					></SVGIcon>
+					<SVGIcon disabled paths={['drive.svg']} width="20px"></SVGIcon>
 					<Span>{this.props.driveTitle}</Span>
 				</Span>
 			</Div>

@@ -76,7 +76,7 @@ async function createMainWindow() {
 		kiosk: fullscreen,
 		autoHideMenuBar: true,
 		titleBarStyle: 'hiddenInset',
-		icon: path.join(__dirname, '..', '..', 'assets', 'icon.png'),
+		icon: path.join(__dirname, 'media', 'icon.png'),
 		darkTheme: true,
 		webPreferences: {
 			backgroundThrottling: false,
@@ -102,9 +102,7 @@ async function createMainWindow() {
 		event.preventDefault();
 	});
 
-	mainWindow.loadURL(
-		`file://${path.join(__dirname, '..', 'lib', 'gui', 'app', 'index.html')}`,
-	);
+	mainWindow.loadURL(`file://${path.join(__dirname, 'index.html')}`);
 
 	const page = mainWindow.webContents;
 

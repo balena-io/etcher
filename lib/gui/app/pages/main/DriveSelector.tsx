@@ -105,7 +105,7 @@ export const DriveSelector = ({
 			)}
 
 			<div className="center-block">
-				<SVGIcon paths={['../../assets/drive.svg']} disabled={disabled} />
+				<SVGIcon paths={['drive.svg']} disabled={disabled} />
 			</div>
 
 			<div className="space-vertical-large">
