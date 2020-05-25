@@ -162,7 +162,7 @@ lint-spell:
 
 lint: lint-ts lint-sass lint-cpp lint-spell
 
-MOCHA_OPTIONS=--recursive --reporter spec --require ts-node/register
+MOCHA_OPTIONS=--recursive --reporter spec --require ts-node/register --require-main "tests/gui/allow-renderer-process-reuse.ts"
 
 # See https://github.com/electron/spectron/issues/127
 ETCHER_SPECTRON_ENTRYPOINT ?= $(shell node -e 'console.log(require("electron"))')

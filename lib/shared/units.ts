@@ -18,7 +18,6 @@ import * as _ from 'lodash';
 import * as prettyBytes from 'pretty-bytes';
 
 const MEGABYTE_TO_BYTE_RATIO = 1000000;
-const MILLISECONDS_IN_A_DAY = 86400000;
 
 export function bytesToMegabytes(bytes: number): number {
 	return bytes / MEGABYTE_TO_BYTE_RATIO;
@@ -29,8 +28,4 @@ export function bytesToClosestUnit(bytes: number): string | null {
 		return prettyBytes(bytes);
 	}
 	return null;
-}
-
-export function daysToMilliseconds(days: number): number {
-	return days * MILLISECONDS_IN_A_DAY;
 }
