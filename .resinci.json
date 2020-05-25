@@ -9,6 +9,7 @@
         "libgtk-3-0",
         "libatk-bridge2.0-0",
         "libdbus-1-3",
+        "libgbm1",
         "libc6"
       ]
     },
