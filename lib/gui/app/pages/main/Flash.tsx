@@ -14,10 +14,14 @@
  * limitations under the License.
  */
 
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as _ from 'lodash';
 import * as path from 'path';
 import * as React from 'react';
-import { Modal, Txt } from 'rendition';
+import { Button, Modal, Txt } from 'rendition';
+import styled from 'styled-components';
+
 import * as constraints from '../../../../shared/drive-constraints';
 import * as messages from '../../../../shared/messages';
 import { DriveSelectorModal } from '../../components/drive-selector/DriveSelectorModal';
@@ -145,6 +149,12 @@ const formatSeconds = (totalSeconds: number) => {
 	return `${minutes}m${seconds}s`;
 };
 
+const IconButton = styled(Button)`
+	&& {
+		width: 20px;
+	}
+`;
+
 interface FlashStepProps {
 	shouldFlashStepBeDisabled: boolean;
 	goToSuccess: () => void;
@@ -248,16 +258,16 @@ export class FlashStep extends React.Component<FlashStepProps, FlashStepState> {
 									this.tryFlash();
 								}}
 							/>
+							{isFlashing && (
+								<IconButton
+									icon={<FontAwesomeIcon icon={faTimes} />}
+									plain
+									onClick={imageWriter.cancel}
+									color="#fff"
+								/>
+							)}
 						</StepSelection>
 
-						{isFlashing && (
-							<button
-								className="button button-link button-abort-write"
-								onClick={imageWriter.cancel}
-							>
-								<span className="glyphicon glyphicon-remove-sign"></span>
-							</button>
-						)}
 						{!_.isNil(state.speed) &&
 							state.percentage !== COMPLETED_PERCENTAGE && (
 								<p className="step-footer step-footer-split">

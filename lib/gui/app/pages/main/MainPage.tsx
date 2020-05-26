@@ -23,10 +23,10 @@ import * as React from 'react';
 import { Flex } from 'rendition';
 import styled from 'styled-components';
 
+import { SafeWebview } from '../../components/safe-webview/safe-webview';
 import { FeaturedProject } from '../../components/featured-project/featured-project';
 import FinishPage from '../../components/finish/finish';
 import { ReducedFlashingInfos } from '../../components/reduced-flashing-infos/reduced-flashing-infos';
-import { SafeWebview } from '../../components/safe-webview/safe-webview';
 import { SettingsModal } from '../../components/settings/settings';
 import {
 	SourceOptions,
