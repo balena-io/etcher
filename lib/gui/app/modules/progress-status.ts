@@ -48,7 +48,7 @@ export function fromFlashState({
 	type,
 	percentage,
 	position,
-}: FlashState): string {
+}: Pick<FlashState, 'type' | 'percentage' | 'position'>): string {
 	if (type === undefined) {
 		return 'Starting...';
 	} else if (type === 'decompressing') {

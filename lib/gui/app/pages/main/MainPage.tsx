@@ -131,6 +131,7 @@ export class MainPage extends React.Component<
 	}
 
 	private renderMain() {
+		const state = flashState.getFlashState();
 		const shouldDriveStepBeDisabled = !this.state.hasImage;
 		const shouldFlashStepBeDisabled =
 			!this.state.hasImage || !this.state.hasDrive;
@@ -249,6 +250,13 @@ export class MainPage extends React.Component<
 							goToSuccess={() => this.setState({ current: 'success' })}
 							shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
 							source={this.state.source}
+							isFlashing={flashState.isFlashing()}
+							step={state.type}
+							percentage={state.percentage}
+							position={state.position}
+							failed={state.failed}
+							speed={state.speed}
+							eta={state.eta}
 						/>
 					</div>
 				</Flex>
