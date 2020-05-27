@@ -266,17 +266,6 @@ export class SourceSelector extends React.Component<
 			hasMBR: boolean;
 		},
 	) {
-		if (!supportedFormats.isSupportedImage(image.path)) {
-			const invalidImageError = errors.createUserError({
-				title: 'Invalid image',
-				description: messages.error.invalidImage(image.path),
-			});
-
-			osDialog.showError(invalidImageError);
-			analytics.logEvent('Invalid image', image);
-			return;
-		}
-
 		try {
 			let message = null;
 			let title = null;
@@ -320,16 +309,6 @@ export class SourceSelector extends React.Component<
 			imagePath = await replaceWindowsNetworkDriveLetter(imagePath);
 		} catch (error) {
 			analytics.logException(error);
-		}
-		if (!supportedFormats.isSupportedImage(imagePath)) {
-			const invalidImageError = errors.createUserError({
-				title: 'Invalid image',
-				description: messages.error.invalidImage(imagePath),
-			});
-
-			osDialog.showError(invalidImageError);
-			analytics.logEvent('Invalid image', { path: imagePath });
-			return;
 		}
 
 		let source;
@@ -460,9 +439,8 @@ export class SourceSelector extends React.Component<
 
 		const hasImage = selectionState.hasImage();
 
-		const imageBasename = hasImage
-			? path.basename(selectionState.getImagePath())
-			: '';
+		const imagePath = selectionState.getImagePath();
+		const imageBasename = hasImage ? path.basename(imagePath) : '';
 		const imageName = selectionState.getImageName();
 		const imageSize = selectionState.getImageSize();
 
@@ -487,7 +465,7 @@ export class SourceSelector extends React.Component<
 								<StepNameButton
 									plain
 									onClick={this.showSelectedImageDetails}
-									tooltip={imageBasename}
+									tooltip={imageName || imageBasename}
 								>
 									{middleEllipsis(imageName || imageBasename, 20)}
 								</StepNameButton>
@@ -554,21 +532,28 @@ export class SourceSelector extends React.Component<
 
 				{showImageDetails && (
 					<Modal
-						title="Image File Name"
+						title="Image"
 						done={() => {
 							this.setState({ showImageDetails: false });
 						}}
 					>
-						{selectionState.getImagePath()}
+						<Txt.p>
+							<Txt.span bold>Name: </Txt.span>
+							<Txt.span>{imageName || imageBasename}</Txt.span>
+						</Txt.p>
+						<Txt.p>
+							<Txt.span bold>Path: </Txt.span>
+							<Txt.span>{imagePath}</Txt.span>
+						</Txt.p>
 					</Modal>
 				)}
 
 				{showURLSelector && (
 					<URLSelector
-						done={async (imagePath: string) => {
+						done={async (imageURL: string) => {
 							// Avoid analytics and selection state changes
 							// if no file was resolved from the dialog.
-							if (!imagePath) {
+							if (!imageURL) {
 								analytics.logEvent('URL selector closed');
 								this.setState({
 									showURLSelector: false,
@@ -577,7 +562,7 @@ export class SourceSelector extends React.Component<
 							}
 
 							await this.selectImageByPath({
-								imagePath,
+								imagePath: imageURL,
 								SourceType: sourceDestination.Http,
 							});
 							this.setState({

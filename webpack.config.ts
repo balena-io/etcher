@@ -24,7 +24,7 @@ import outdent from 'outdent';
 import * as path from 'path';
 import * as SimpleProgressWebpackPlugin from 'simple-progress-webpack-plugin';
 import * as TerserPlugin from 'terser-webpack-plugin';
-import { BannerPlugin } from 'webpack';
+import { BannerPlugin, NormalModuleReplacementPlugin } from 'webpack';
 
 /**
  * Don't webpack package.json as mixpanel & sentry tokens
@@ -125,6 +125,11 @@ const commonConfig = {
 				test: /\.tsx?$/,
 				use: 'ts-loader',
 			},
+			// force axios to use http backend (not xhr) to support streams
+			replace(/node_modules\/axios\/lib\/defaults\.js$/, {
+				search: './adapters/xhr',
+				replace: './adapters/http',
+			}),
 			// remove bindings magic from drivelist
 			replace(
 				/node_modules\/drivelist\/js\/index\.js$/,
@@ -210,6 +215,12 @@ const commonConfig = {
 		new SimpleProgressWebpackPlugin({
 			format: process.env.WEBPACK_PROGRESS || 'verbose',
 		}),
+		// Force axios to use http.js, not xhr.js as we need stream support
+		// (it's package.json file replaces http with xhr for browser targets).
+		new NormalModuleReplacementPlugin(
+			/node_modules\/axios\/lib\/adapters\/xhr\.js/,
+			'./http.js',
+		),
 	],
 	output: {
 		path: path.join(__dirname, 'generated'),
