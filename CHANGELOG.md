@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.94
+## (2020-05-27)
+
+* Stop checking file extensions [Alexis Svinartchouk]
+* Fix flash from url (broken in 1.5.92) [Alexis Svinartchouk]
+* Update etcher-sdk to ^4.1.4 [Alexis Svinartchouk]
+
 # v1.5.93
 ## (2020-05-25)
 
