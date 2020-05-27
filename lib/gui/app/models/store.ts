@@ -21,8 +21,6 @@ import { v4 as uuidV4 } from 'uuid';
 
 import * as constraints from '../../../shared/drive-constraints';
 import * as errors from '../../../shared/errors';
-import * as fileExtensions from '../../../shared/file-extensions';
-import * as supportedFormats from '../../../shared/supported-formats';
 import * as utils from '../../../shared/utils';
 import * as settings from './settings';
 
@@ -400,51 +398,6 @@ function storeReducer(
 				throw errors.createError({
 					title: `Invalid image path: ${action.data.path}`,
 				});
-			}
-
-			if (!_.isString(action.data.extension)) {
-				throw errors.createError({
-					title: `Invalid image extension: ${action.data.extension}`,
-				});
-			}
-
-			const extension = _.toLower(action.data.extension);
-
-			if (!_.includes(supportedFormats.getAllExtensions(), extension)) {
-				throw errors.createError({
-					title: `Invalid image extension: ${action.data.extension}`,
-				});
-			}
-
-			let lastImageExtension = fileExtensions.getLastFileExtension(
-				action.data.path,
-			);
-			lastImageExtension = _.isString(lastImageExtension)
-				? _.toLower(lastImageExtension)
-				: lastImageExtension;
-
-			if (lastImageExtension !== extension) {
-				if (!_.isString(action.data.archiveExtension)) {
-					throw errors.createError({
-						title: 'Missing image archive extension',
-					});
-				}
-
-				const archiveExtension = _.toLower(action.data.archiveExtension);
-
-				if (
-					!_.includes(supportedFormats.getAllExtensions(), archiveExtension)
-				) {
-					throw errors.createError({
-						title: `Invalid image archive extension: ${action.data.archiveExtension}`,
-					});
-				}
-
-				if (lastImageExtension !== archiveExtension) {
-					throw errors.createError({
-						title: `Image archive extension mismatch: ${action.data.archiveExtension} and ${lastImageExtension}`,
-					});
-				}
 			}
 
 			const MINIMUM_IMAGE_SIZE = 0;

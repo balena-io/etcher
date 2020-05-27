@@ -143,10 +143,6 @@ export const error = {
 		].join(' ');
 	},
 
-	invalidImage: (imagePath: string) => {
-		return `${imagePath} is not a supported image type.`;
-	},
-
 	openImage: (imageBasename: string, errorMessage: string) => {
 		return [
 			`Something went wrong while opening ${imageBasename}\n\n`,

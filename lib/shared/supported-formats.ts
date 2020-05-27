@@ -15,14 +15,8 @@
  */
 
 import * as sdk from 'etcher-sdk';
-import * as _ from 'lodash';
 import * as mime from 'mime-types';
 import * as path from 'path';
-
-import {
-	getLastFileExtension,
-	getPenultimateFileExtension,
-} from './file-extensions';
 
 export function getCompressedExtensions(): string[] {
 	const result = [];
@@ -55,34 +49,6 @@ export function getAllExtensions(): string[] {
 		...getNonCompressedExtensions(),
 		...getCompressedExtensions(),
 	];
-}
-
-export function isSupportedImage(imagePath: string): boolean {
-	const lastExtension = getLastFileExtension(imagePath);
-	const penultimateExtension = getPenultimateFileExtension(imagePath);
-
-	if (
-		_.some([
-			_.includes(getNonCompressedExtensions(), lastExtension),
-			_.includes(getArchiveExtensions(), lastExtension),
-		])
-	) {
-		return true;
-	}
-
-	if (
-		_.every([
-			_.includes(getCompressedExtensions(), lastExtension),
-			_.includes(getNonCompressedExtensions(), penultimateExtension),
-		])
-	) {
-		return true;
-	}
-
-	return (
-		_.isNil(penultimateExtension) &&
-		_.includes(getCompressedExtensions(), lastExtension)
-	);
 }
 
 export function looksLikeWindowsImage(imagePath: string): boolean {
