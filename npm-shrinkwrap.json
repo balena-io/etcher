@@ -1002,14 +1002,6 @@
       "dev": true,
       "requires": {
         "@types/node": "*"
-      },
-      "dependencies": {
-        "@types/node": {
-          "version": "14.0.1",
-          "resolved": "https://registry.npmjs.org/@types/node/-/node-14.0.1.tgz",
-          "integrity": "sha512-FAYBGwC+W6F9+huFIDtn43cpy7+SzG+atzRiTfdp3inUKL2hXnd4rG8hylJLIh4+hqrQy1P17kvJByE/z825hA==",
-          "dev": true
-        }
       }
     },
     "@types/uuid": {
@@ -1436,12 +1428,6 @@
       "version": "0.3.0",
       "resolved": "https://registry.npmjs.org/any-observable/-/any-observable-0.3.0.tgz",
       "integrity": "sha512-/FQM1EDkTsf63Ub2C6O7GuYFDsSXUwsaZDurV0np41ocwq0jthUAYCmhBX9f+KwlaCgIuWyr/4WlUQUBfKfZog==",
-      "dev": true
-    },
-    "any-promise": {
-      "version": "1.3.0",
-      "resolved": "https://registry.npmjs.org/any-promise/-/any-promise-1.3.0.tgz",
-      "integrity": "sha1-q8av7tzqUugJzcA3au0845Y10X8=",
       "dev": true
     },
     "anymatch": {
@@ -4275,14 +4261,13 @@
       "dev": true
     },
     "drivelist": {
-      "version": "8.0.10",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-8.0.10.tgz",
-      "integrity": "sha512-2A/NCMn9jQ/9J1B8zohS8rnXQKDM6ZixLAlYS/rBeZV2NuSXJCMr/M8kKdr4vy95oOxKXi8NXk+IVrHCS3bung==",
+      "version": "9.0.0",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-9.0.0.tgz",
+      "integrity": "sha512-DNQ1oFAv5p1+UKVkQHCYQFHolFbItxSnjcJchxrhlEkW4RSuLfC0xOnq87uM8dcMzOuPfA37SKX7HsUIpw14uA==",
       "dev": true,
       "requires": {
         "bindings": "^1.3.0",
         "debug": "^3.1.0",
-        "mz": "^2.7.0",
         "nan": "^2.14.0",
         "prebuild-install": "^5.2.4"
       },
@@ -5083,9 +5068,9 @@
       "dev": true
     },
     "etcher-sdk": {
-      "version": "4.1.3",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.1.3.tgz",
-      "integrity": "sha512-lwTAHTxchkXGX7T3+zPIuZBNs2+j2Gtoryb4A2nBfrfd0l5mjmTY/UO8T6cI0YuZDN6XDMwwiF+riDzynXnBTA==",
+      "version": "4.1.4",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.1.4.tgz",
+      "integrity": "sha512-s9KXeLOtwrOxZs6F2VpGdS2VARwgJzmQp7/Xh4DG0yTAIR58djzZ2+cmUQQN16ztFMiQdCgTWWnOUJV1eVtO4g==",
       "dev": true,
       "requires": {
         "@ronomon/direct-io": "^3.0.1",
@@ -5095,7 +5080,7 @@
         "check-disk-space": "^2.1.0",
         "crc": "^3.8.0",
         "debug": "^3.1.0",
-        "drivelist": "^8.0.4",
+        "drivelist": "^9.0.0",
         "file-disk": "^6.0.1",
         "file-type": "^8.0.0",
         "lodash": "^4.17.10",
@@ -9079,17 +9064,6 @@
       "integrity": "sha1-j7+rsKmKJT0xhDMfno3rc3L6xsA=",
       "dev": true
     },
-    "mz": {
-      "version": "2.7.0",
-      "resolved": "https://registry.npmjs.org/mz/-/mz-2.7.0.tgz",
-      "integrity": "sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==",
-      "dev": true,
-      "requires": {
-        "any-promise": "^1.0.0",
-        "object-assign": "^4.0.1",
-        "thenify-all": "^1.0.0"
-      }
-    },
     "nan": {
       "version": "2.14.1",
       "resolved": "https://registry.npmjs.org/nan/-/nan-2.14.1.tgz",
@@ -9137,9 +9111,9 @@
       }
     },
     "needle": {
-      "version": "2.4.1",
-      "resolved": "https://registry.npmjs.org/needle/-/needle-2.4.1.tgz",
-      "integrity": "sha512-x/gi6ijr4B7fwl6WYL9FwlCvRQKGlUNvnceho8wxkwXqN8jvVmmmATTmZPRRG7b/yC1eode26C2HO9jl78Du9g==",
+      "version": "2.5.0",
+      "resolved": "https://registry.npmjs.org/needle/-/needle-2.5.0.tgz",
+      "integrity": "sha512-o/qITSDR0JCyCKEQ1/1bnUXMmznxabbwi/Y4WwJElf+evwJNFNwIDMCCt5IigFVxgeGBJESLohGtIS9gEzo1fA==",
       "dev": true,
       "requires": {
         "debug": "^3.2.6",
@@ -9199,9 +9173,9 @@
       }
     },
     "node-abi": {
-      "version": "2.16.0",
-      "resolved": "https://registry.npmjs.org/node-abi/-/node-abi-2.16.0.tgz",
-      "integrity": "sha512-+sa0XNlWDA6T+bDLmkCUYn6W5k5W6BPRL6mqzSCs6H/xUgtl4D5x2fORKDzopKiU6wsyn/+wXlRXwXeSp+mtoA==",
+      "version": "2.17.0",
+      "resolved": "https://registry.npmjs.org/node-abi/-/node-abi-2.17.0.tgz",
+      "integrity": "sha512-dFRAA0ACk/aBo0TIXQMEWMLUTyWYYT8OBYIzLmEUrQTElGRjxDCvyBZIsDL0QA7QCaj9PrawhOmTEdsuLY4uOQ==",
       "dev": true,
       "requires": {
         "semver": "^5.4.1"
@@ -10186,15 +10160,15 @@
       "dev": true
     },
     "prebuild-install": {
-      "version": "5.3.3",
-      "resolved": "https://registry.npmjs.org/prebuild-install/-/prebuild-install-5.3.3.tgz",
-      "integrity": "sha512-GV+nsUXuPW2p8Zy7SarF/2W/oiK8bFQgJcncoJ0d7kRpekEA0ftChjfEaF9/Y+QJEc/wFR7RAEa8lYByuUIe2g==",
+      "version": "5.3.4",
+      "resolved": "https://registry.npmjs.org/prebuild-install/-/prebuild-install-5.3.4.tgz",
+      "integrity": "sha512-AkKN+pf4fSEihjapLEEj8n85YIw/tN6BQqkhzbDc0RvEZGdkpJBGMUYx66AAMcPG2KzmPQS7Cm16an4HVBRRMA==",
       "dev": true,
       "requires": {
         "detect-libc": "^1.0.3",
         "expand-template": "^2.0.3",
         "github-from-package": "0.0.0",
-        "minimist": "^1.2.0",
+        "minimist": "^1.2.3",
         "mkdirp": "^0.5.1",
         "napi-build-utils": "^1.0.1",
         "node-abi": "^2.7.0",
@@ -12523,24 +12497,6 @@
       "resolved": "https://registry.npmjs.org/text-table/-/text-table-0.2.0.tgz",
       "integrity": "sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=",
       "dev": true
-    },
-    "thenify": {
-      "version": "3.3.0",
-      "resolved": "https://registry.npmjs.org/thenify/-/thenify-3.3.0.tgz",
-      "integrity": "sha1-5p44obq+lpsBCCB5eLn2K4hgSDk=",
-      "dev": true,
-      "requires": {
-        "any-promise": "^1.0.0"
-      }
-    },
-    "thenify-all": {
-      "version": "1.6.0",
-      "resolved": "https://registry.npmjs.org/thenify-all/-/thenify-all-1.6.0.tgz",
-      "integrity": "sha1-GhkY1ALY/D+Y+/I02wvMjMEOlyY=",
-      "dev": true,
-      "requires": {
-        "thenify": ">= 3.1.0 < 4"
-      }
     },
     "through": {
       "version": "2.3.8",
