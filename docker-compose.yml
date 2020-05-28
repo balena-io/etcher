@@ -1,19 +1,25 @@
 version: '2'
 volumes:
-    data:
+    influxdb:
+    grafana:
+    etcher_pki:
+    etcher_cache:
+    etcher_bash_history:
+    etcher_config_electron:
+    etcher_config_balena_etcher:
 services:
   influxdb:
     restart: always
     build: ./etcher-pro-monitoring/influxdb
     network_mode: host
     volumes:
-      - 'data:/data'
+      - 'influxdb:/data'
   grafana:
     restart: always
     build: ./etcher-pro-monitoring/grafana
     network_mode: host
     volumes:
-      - 'data:/data'
+      - 'grafana:/data'
     environment:
         - 'GF_SERVER_HTTP_PORT=80'
         - 'GF_PATHS_PROVISIONING=/usr/src/app/provisioning'
@@ -38,3 +44,12 @@ services:
     network_mode: host
     labels:
       io.balena.features.dbus: 1
+    volumes:
+      - 'etcher_pki:/root/.pki'
+      - 'etcher_cache:/root/.cache'
+      - 'etcher_bash_history:/root/.bash_history'
+      - 'etcher_config_electron:/root/.config/Electron'
+      - 'etcher_config_balena_etcher:/root/.config/balena-etcher'
+    tmpfs:
+      - /run
+      - /tmp
