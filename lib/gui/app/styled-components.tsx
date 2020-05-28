@@ -123,10 +123,6 @@ export const StepNameButton = styled(Button)`
 		}
 	}
 `;
-export const StepSelection = styled(Flex)`
-	flex-wrap: wrap;
-	justify-content: center;
-`;
 export const Footer = styled(Txt)`
 	margin-top: 10px;
 	color: ${colors.dark.disabled.foreground};

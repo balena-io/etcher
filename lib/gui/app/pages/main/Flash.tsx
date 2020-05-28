@@ -36,7 +36,6 @@ import { scanner as driveScanner } from '../../modules/drive-scanner';
 import * as imageWriter from '../../modules/image-writer';
 import * as progressStatus from '../../modules/progress-status';
 import * as notification from '../../os/notification';
-import { StepSelection } from '../../styled-components';
 
 const COMPLETED_PERCENTAGE = 100;
 const SPEED_PRECISION = 2;
@@ -261,33 +260,31 @@ export class FlashStep extends React.PureComponent<
 						/>
 					</div>
 
-					<div className="space-vertical-large">
-						<StepSelection>
-							<ProgressButton
-								type={this.props.step}
-								active={this.props.isFlashing}
-								percentage={this.props.percentage}
-								label={getProgressButtonLabel(
-									this.props.isFlashing,
-									this.props.step,
-									this.props.position,
-									this.props.percentage,
-								)}
-								disabled={this.props.shouldFlashStepBeDisabled}
-								callback={() => {
-									this.tryFlash();
-								}}
-							/>
-							{this.props.isFlashing && (
-								<IconButton
-									icon={<FontAwesomeIcon icon={faTimes} />}
-									plain
-									onClick={imageWriter.cancel}
-									color="#fff"
-									hoverIndicator={{ dark: true }}
-								/>
+					<div className="space-vertical-large" style={{ display: 'flex' }}>
+						<ProgressButton
+							type={this.props.step}
+							active={this.props.isFlashing}
+							percentage={this.props.percentage}
+							label={getProgressButtonLabel(
+								this.props.isFlashing,
+								this.props.step,
+								this.props.position,
+								this.props.percentage,
 							)}
-						</StepSelection>
+							disabled={this.props.shouldFlashStepBeDisabled}
+							callback={() => {
+								this.tryFlash();
+							}}
+						/>
+						{this.props.isFlashing && (
+							<IconButton
+								icon={<FontAwesomeIcon icon={faTimes} />}
+								plain
+								onClick={imageWriter.cancel}
+								color="#fff"
+								hoverIndicator={{ dark: true }}
+							/>
+						)}
 
 						{!_.isNil(this.props.speed) &&
 							this.props.percentage !== COMPLETED_PERCENTAGE && (
