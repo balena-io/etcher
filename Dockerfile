@@ -24,6 +24,9 @@ RUN npm run webpack
 RUN PATH=$(pwd)/node_modules/.bin/:$PATH electron-builder --dir --config.asar=false --config.npmRebuild=false --config.nodeGypRebuild=false
 
 FROM alexisresinio/aarch64-debian-bejs:latest
+# Etcher configuration
+COPY etcher-pro-config.json /usr/src/app/
+
 COPY --from=builder /usr/src/app/dist/linux-arm64-unpacked/resources/app /usr/src/app
 COPY --from=builder /usr/src/app/node_modules/electron/ /usr/src/app/node_modules/electron
 WORKDIR /usr/src/app/node_modules/.bin
@@ -38,5 +41,4 @@ RUN mkdir /tmp/media
 ENV BALENA_ELECTRONJS_MOUNTS_ROOT=/tmp/media
 ENV BALENA_ELECTRONJS_CONSTRAINT_PATH=/tmp/media
 
-# Etcher configuration
-COPY etcher-pro-config.json /root/.config/balena-etcher/config.json
+CMD cp -n /usr/src/app/etcher-pro-config.json /root/.config/balena-etcher/config.json && xinit
