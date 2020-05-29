@@ -15,7 +15,13 @@
  */
 
 import * as electron from 'electron';
-import { sourceDestination } from 'etcher-sdk';
+import {
+	Http,
+	File,
+	BlockDevice,
+	UsbbootDrive,
+	DriverlessDevice,
+} from 'etcher-sdk/build/source-destination';
 import * as _ from 'lodash';
 import outdent from 'outdent';
 import * as React from 'react';
@@ -40,11 +46,12 @@ import { ipcRenderer } from 'electron';
 import { selectImageByPath } from './models/selection-state';
 import { getTitle } from '../../shared/errors';
 
-ipcRenderer.on('select-image-url', async (_event, url) => {
+ipcRenderer.on('select-image', async (_event, path) => {
+	const isURL = _.startsWith(path, 'https://') || _.startsWith(path, 'http://');
 	try {
 		const { metadata } = await selectImageByPath({
-			imagePath: url,
-			SourceType: sourceDestination.Http,
+			imagePath: path,
+			SourceType: isURL ? Http : File,
 		});
 		store.dispatch({
 			type: Actions.SELECT_IMAGE,
@@ -53,7 +60,7 @@ ipcRenderer.on('select-image-url', async (_event, url) => {
 	} catch (error) {
 		osDialog.showError(error);
 		if (!error.report) {
-			analytics.logEvent(getTitle(error), { path: url });
+			analytics.logEvent(getTitle(error), { path });
 			return;
 		}
 		analytics.logException(error);
@@ -201,16 +208,13 @@ async function driveIsAllowed(drive: {
 	);
 }
 
-type Drive =
-	| sourceDestination.BlockDevice
-	| sourceDestination.UsbbootDrive
-	| sourceDestination.DriverlessDevice;
+type Drive = BlockDevice | UsbbootDrive | DriverlessDevice;
 
 function prepareDrive(drive: Drive) {
-	if (drive instanceof sourceDestination.BlockDevice) {
+	if (drive instanceof BlockDevice) {
 		// @ts-ignore (BlockDevice.drive is private)
 		return drive.drive;
-	} else if (drive instanceof sourceDestination.UsbbootDrive) {
+	} else if (drive instanceof UsbbootDrive) {
 		// This is a workaround etcher expecting a device string and a size
 		// @ts-ignore
 		drive.device = drive.usbDevice.portId;
@@ -222,7 +226,7 @@ function prepareDrive(drive: Drive) {
 			updateDriveProgress(drive, progress);
 		});
 		return drive;
-	} else if (drive instanceof sourceDestination.DriverlessDevice) {
+	} else if (drive instanceof DriverlessDevice) {
 		const description =
 			COMPUTE_MODULE_DESCRIPTIONS[
 				drive.deviceDescriptor.idProduct.toString()
@@ -279,10 +283,7 @@ function removeDrive(drive: Drive) {
 	setDrives(drives);
 }
 
-function updateDriveProgress(
-	drive: sourceDestination.UsbbootDrive,
-	progress: number,
-) {
+function updateDriveProgress(drive: UsbbootDrive, progress: number) {
 	const drives = getDrives();
 	// @ts-ignore
 	const driveInMap = drives[drive.device];

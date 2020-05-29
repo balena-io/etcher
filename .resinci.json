@@ -63,7 +63,7 @@
         ]
       },
       "protocols": {
-        "name": "etcher-protocol",
+        "name": "etcher",
         "schemes": [
           "etcher"
         ]

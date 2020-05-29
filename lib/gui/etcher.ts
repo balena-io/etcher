@@ -54,18 +54,34 @@ async function checkForUpdates(interval: number) {
 	}
 }
 
-let openImageURL: string = process.argv.slice(1)[0] || '';
+function trimWord(str: string, word: string) {
+	return str.startsWith(word) ? str.slice(word.length) : str;
+}
+
+function getCommandLineURL(argv: string[]): string | undefined {
+	argv = argv.slice(electron.app.isPackaged ? 1 : 2);
+	if (argv.length) {
+		const value = argv[argv.length - 1];
+		// Take into account electron arguments
+		if (!value.startsWith('--')) {
+			return value;
+		}
+	}
+}
+
+const customProtocol = 'etcher';
+const scheme = `${customProtocol}://`;
+// We create openImageURL here because when OSX fires
+// the 'open-url' event, the window might not be ready
+let openImageURL = getCommandLineURL(process.argv);
 
 // This will catch clicks on links such as <a href="etcher://...">Open in Etcher</a>
 // We need to listen to the event before everything else otherwise the event won't be fired
 electron.app.on('open-url', async (event, data) => {
 	event.preventDefault();
-	openImageURL = data;
+	openImageURL = trimWord(data, scheme);
 	electron.BrowserWindow.getAllWindows().forEach((window) =>
-		window.webContents.send(
-			'select-image-url',
-			openImageURL.replace('etcher://', ''),
-		),
+		window.webContents.send('select-image', openImageURL),
 	);
 });
 
@@ -102,7 +118,7 @@ async function createMainWindow() {
 		},
 	});
 
-	electron.app.setAsDefaultProtocolClient('etcher');
+	electron.app.setAsDefaultProtocolClient(customProtocol);
 
 	buildWindowMenu(mainWindow);
 	mainWindow.setFullScreen(true);
@@ -125,8 +141,8 @@ async function createMainWindow() {
 	const page = mainWindow.webContents;
 
 	page.once('did-frame-finish-load', async () => {
-		if (_.startsWith(openImageURL, 'etcher://')) {
-			page.send('select-image-url', openImageURL.replace('etcher://', ''));
+		if (openImageURL) {
+			page.send('select-image', trimWord(openImageURL, scheme));
 		}
 		autoUpdater.on('error', (err) => {
 			analytics.logException(err);
@@ -177,18 +193,15 @@ async function main(): Promise<void> {
 		electron.app.quit();
 	} else {
 		electron.app.on('second-instance', (_event, argv, _cwd) => {
-			openImageURL = argv.slice(1)[0] || '';
+			openImageURL = getCommandLineURL(argv) || '';
 			if (window) {
 				if (window.isMinimized()) {
 					window.restore();
 				}
 				window.focus();
 			}
-			if (_.startsWith(openImageURL, 'etcher://')) {
-				window.webContents.send(
-					'select-image-url',
-					openImageURL.replace('etcher://', ''),
-				);
+			if (openImageURL) {
+				window.webContents.send('select-image', trimWord(openImageURL, scheme));
 			}
 		});
 		await electron.app.whenReady();
