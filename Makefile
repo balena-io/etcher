@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------------
 
 RESIN_SCRIPTS ?= ./scripts/resin
-export NPM_VERSION ?= 6.14.5
+export NPM_VERSION ?= 6.14.8
 S3_BUCKET = artifacts.ci.balena-cloud.com
 
 # This directory will be completely deleted by the `clean` rule
