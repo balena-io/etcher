@@ -27,8 +27,8 @@
     "webpack": "webpack",
     "watch": "webpack --watch",
     "concourse-build-electron": "npm run webpack",
-    "concourse-test": "npx npm@6.14.5 test",
-    "concourse-test-electron": "npx npm@6.14.5 test"
+    "concourse-test": "npx npm@6.14.8 test",
+    "concourse-test-electron": "npx npm@6.14.8 test"
   },
   "husky": {
     "hooks": {
