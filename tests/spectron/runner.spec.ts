@@ -51,7 +51,14 @@ describe('Spectron', function () {
 
 	describe('Browser Window', function () {
 		it('should open a browser window', async function () {
-			return expect(await app.browserWindow.isVisible()).to.be.true;
+			// We can't use `isVisible()` here as it won't work inside
+			// a Windows Docker container, but we can approximate it
+			// with these set of checks:
+			const bounds = await app.browserWindow.getBounds();
+			expect(bounds.height).to.be.above(0);
+			expect(bounds.width).to.be.above(0);
+			expect(await app.browserWindow.isMinimized()).to.be.false;
+			expect(await app.browserWindow.isFocused()).to.be.true;
 		});
 
 		it('should set a proper title', async function () {
