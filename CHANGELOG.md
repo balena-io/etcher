@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.95
+## (2020-06-01)
+
+* spectron: Make tests pass on Windows Docker containers [Juan Cruz Viotti]
+
 # v1.5.94
 ## (2020-05-27)
 
