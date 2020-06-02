@@ -48,10 +48,6 @@ export function FlashResults({
 	};
 }) {
 	const allDevicesFailed = results.devices.successful === 0;
-	const averageSpeed = _.round(
-		bytesToMegabytes(results.averageFlashingSpeed),
-		1,
-	);
 	const effectiveSpeed = _.round(
 		bytesToMegabytes(
 			results.sourceMetadata.size /
@@ -89,34 +85,22 @@ export function FlashResults({
 						</Underline>
 					) : null;
 				})}
-				<Txt
-					color="#787c7f"
-					fontSize="10px"
-					style={{
-						fontWeight: 500,
-						textAlign: 'center',
-					}}
-				>
-					Writing speed: {averageSpeed} MB/s
-				</Txt>
-				{!allDevicesFailed &&
-					results.sourceMetadata.blockmappedSize <
-						results.sourceMetadata.size && (
-						<Txt
-							color="#787c7f"
-							fontSize="10px"
-							style={{
-								fontWeight: 500,
-								textAlign: 'center',
-							}}
-							tooltip={outdent({ newline: ' ' })`
+				{!allDevicesFailed && (
+					<Txt
+						color="#787c7f"
+						fontSize="10px"
+						style={{
+							fontWeight: 500,
+							textAlign: 'center',
+						}}
+						tooltip={outdent({ newline: ' ' })`
 							The speed is calculated by dividing the image size by the flashing time.
 							Disk images with ext partitions flash faster as we are able to skip unused parts.
 						`}
-						>
-							Effective speed: {effectiveSpeed} MB/s
-						</Txt>
-					)}
+					>
+						Effective speed: {effectiveSpeed} MB/s
+					</Txt>
+				)}
 			</Div>
 		</Div>
 	);
