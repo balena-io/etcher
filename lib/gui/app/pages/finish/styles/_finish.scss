@@ -18,48 +18,10 @@
   margin-top: 60px;
 }
 
-.col-xs-5.inline-flex.items-baseline > span, .col-xs-5.inline-flex.items-baseline > div {
-  margin-bottom: -10px;
-}
-
-.page-finish .button-label {
-  margin: 0 auto $spacing-medium;
-
-  // Keep some spacing at the sides
-  max-width: $btn-min-width - 5px;
-}
-
-.page-finish .button-primary {
-  min-width: $btn-min-width;
-}
-
 .page-finish .title,
 .page-finish .title h3 {
   color: $palette-theme-dark-foreground;
   font-weight: bold;
-}
-
-.page-finish .huge-title {
-  font-size: 3.5em;
-}
-
-.page-finish .label {
-  display: inline-block;
-
-  > b {
-    color: $palette-theme-dark-soft-foreground;
-  }
-}
-
-.page-finish .soft {
-  color: $palette-theme-dark-soft-foreground;
-}
-
-.page-finish .separator-xs {
-  flex-grow: 0;
-  background-color: $palette-theme-dark-soft-background;
-  padding: 0px;
-  min-width: 2px;
 }
 
 .page-finish .center {
@@ -148,10 +110,6 @@
   display: inline-flex;
 }
 
-.items-baseline {
-  align-items: baseline;
-}
-
 .page-finish .tick {
   /* hack(Shou): for some reason the height is stretched */
   height: 24px;
@@ -163,12 +121,4 @@
   align-items: center;
   display: flex;
   font-size: 16px;
-}
-
-.title-wrap {
-  margin-left: 5px;
-
-  > .title {
-    margin-bottom: 3px;
-  }
 }
