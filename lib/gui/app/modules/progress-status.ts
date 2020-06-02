@@ -25,56 +25,53 @@ export interface FlashState {
 	type?: 'decompressing' | 'flashing' | 'verifying';
 }
 
-/**
- * @summary Make the progress status subtitle string
- *
- * @param {Object} state - flashing metadata
- *
- * @returns {String}
- *
- * @example
- * const status = progressStatus.fromFlashState({
- *   type: 'flashing'
- *   active: 1,
- *   failed: 0,
- *   percentage: 55,
- *   speed: 2049,
- * })
- *
- * console.log(status)
- * // '55% Flashing'
- */
 export function fromFlashState({
 	type,
 	percentage,
 	position,
-}: Pick<FlashState, 'type' | 'percentage' | 'position'>): string {
+}: Pick<FlashState, 'type' | 'percentage' | 'position'>): {
+	status: string;
+	position?: string;
+} {
 	if (type === undefined) {
-		return 'Starting...';
+		return { status: 'Starting...' };
 	} else if (type === 'decompressing') {
 		if (percentage == null) {
-			return 'Decompressing...';
+			return { status: 'Decompressing...' };
 		} else {
-			return `${percentage}% Decompressing`;
+			return { position: `${percentage}%`, status: 'Decompressing...' };
 		}
 	} else if (type === 'flashing') {
 		if (percentage != null) {
 			if (percentage < 100) {
-				return `${percentage}% Flashing`;
+				return { position: `${percentage}%`, status: 'Flashing...' };
 			} else {
-				return 'Finishing...';
+				return { status: 'Finishing...' };
 			}
 		} else {
-			return `${bytesToClosestUnit(position)} flashed`;
+			return {
+				status: 'Flashing...',
+				position: `${bytesToClosestUnit(position)}`,
+			};
 		}
 	} else if (type === 'verifying') {
 		if (percentage == null) {
-			return 'Validating...';
+			return { status: 'Validating...' };
 		} else if (percentage < 100) {
-			return `${percentage}% Validating`;
+			return { position: `${percentage}%`, status: 'Validating...' };
 		} else {
-			return 'Finishing...';
+			return { status: 'Finishing...' };
 		}
 	}
-	return 'Failed';
+	return { status: 'Failed' };
+}
+
+export function titleFromFlashState(
+	state: Pick<FlashState, 'type' | 'percentage' | 'position'>,
+): string {
+	const { status, position } = fromFlashState(state);
+	if (position !== undefined) {
+		return `${position} ${status}`;
+	}
+	return status;
 }

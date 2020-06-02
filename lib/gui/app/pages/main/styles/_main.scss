@@ -28,99 +28,8 @@ img[disabled] {
   height: 165px;
 }
 
-.page-main .step-selection-text {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  color: $palette-theme-dark-foreground;
-}
-
-.page-main .text-disabled > span {
-  color: $palette-theme-dark-disabled-foreground;
-}
-
-.page-main .step-drive.text-warning {
-  color: $palette-theme-warning-background;
-}
-
 .page-main .relative {
   position: relative;
-}
-
-.page-main .button-abort-write {
-  width: 20px;
-  height: 20px;
-  margin: 0;
-  padding: 0;
-  font-size: 16px;
-  position: absolute;
-  right: -17px;
-  top: 30%;
-}
-
-.button-brick {
-  width: 200px;
-  height: 48px;
-  font-size: 16px;
-  font-weight: 300;
-}
-
-.page-main .step-tooltip {
-  display: block;
-  margin: -5px auto -20px;
-  color: $palette-theme-dark-disabled-foreground;
-  font-size: 10px;
-}
-
-.page-main .step-footer {
-  width: 100%;
-  color: $palette-theme-dark-disabled-foreground;
-  font-size: 10px;
-}
-
-.page-main p.step-footer {
-  margin-top: 9px;
-}
-
-.page-main .step-footer-split {
-  position: absolute;
-  top: 39px;
-  left: 28px;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  justify-content: space-between;
-  width: $btn-min-width;
-}
-
-.page-main .button.step-footer {
-  font-size: 16px;
-  color: $palette-theme-primary-background;
-  border-radius: 0;
-  padding: 0;
-  width: 100%;
-  font-weight: 300;
-  height: 21px;
-}
-
-.page-main .step-drive.glyphicon {
-  margin-top: 1px;
-}
-
-.page-main div.step-fill,
-.page-main span.step-fill {
-  margin-top: 25px;
-}
-
-.page-main .step-drive.step-list {
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: $palette-theme-dark-disabled-foreground;
-    border-radius: 4px;
-  }
 }
 
 .page-main .glyphicon {
@@ -135,22 +44,6 @@ img[disabled] {
   width: 100%;
   font-weight: bold;
   color: $palette-theme-primary-foreground;
-}
-
-.page-main .step-size {
-  color: $palette-theme-dark-disabled-foreground;
-  margin: 0 0 8px 0;
-  font-size: 16px;
-  line-height: normal;
-  height: 21px;
-  width: 100%;
-}
-
-.page-main .step-list {
-  height: 80px;
-  margin: 15px;
-  overflow-y: auto;
-  color: $palette-theme-dark-disabled-foreground;
 }
 
 .target-status-wrap {
@@ -189,10 +82,6 @@ img[disabled] {
     color: gray;
     margin-left: 10px;
   }
-}
-
-.tooltip-inner {
-  white-space: pre-line;
 }
 
 .space-vertical-large {

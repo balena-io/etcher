@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as _ from 'lodash';
 import * as path from 'path';
 import * as React from 'react';
-import { Button, Modal, Txt } from 'rendition';
-import styled from 'styled-components';
+import { Flex, Modal, Txt } from 'rendition';
 
 import * as constraints from '../../../../shared/drive-constraints';
 import * as messages from '../../../../shared/messages';
@@ -34,7 +31,6 @@ import * as selection from '../../models/selection-state';
 import * as analytics from '../../modules/analytics';
 import { scanner as driveScanner } from '../../modules/drive-scanner';
 import * as imageWriter from '../../modules/image-writer';
-import * as progressStatus from '../../modules/progress-status';
 import * as notification from '../../os/notification';
 
 const COMPLETED_PERCENTAGE = 100;
@@ -132,20 +128,6 @@ async function flashImageToDrive(
 	return '';
 }
 
-const getProgressButtonLabel = (
-	isFlashing: boolean,
-	// TODO: factorize
-	type: 'decompressing' | 'flashing' | 'verifying',
-	position: number,
-	percentage?: number,
-) => {
-	// TODO
-	if (!isFlashing) {
-		return 'Flash!';
-	}
-	return progressStatus.fromFlashState({ type, position, percentage });
-};
-
 const formatSeconds = (totalSeconds: number) => {
 	if (!totalSeconds && !_.isNumber(totalSeconds)) {
 		return '';
@@ -155,12 +137,6 @@ const formatSeconds = (totalSeconds: number) => {
 
 	return `${minutes}m${seconds}s`;
 };
-
-const IconButton = styled(Button)`
-	&& {
-		width: 20px;
-	}
-`;
 
 interface FlashStepProps {
 	shouldFlashStepBeDisabled: boolean;
@@ -260,44 +236,33 @@ export class FlashStep extends React.PureComponent<
 						/>
 					</div>
 
-					<div className="space-vertical-large" style={{ display: 'flex' }}>
+					<div className="space-vertical-large">
 						<ProgressButton
 							type={this.props.step}
 							active={this.props.isFlashing}
 							percentage={this.props.percentage}
-							label={getProgressButtonLabel(
-								this.props.isFlashing,
-								this.props.step,
-								this.props.position,
-								this.props.percentage,
-							)}
+							position={this.props.position}
 							disabled={this.props.shouldFlashStepBeDisabled}
+							cancel={imageWriter.cancel}
 							callback={() => {
 								this.tryFlash();
 							}}
 						/>
-						{this.props.isFlashing && (
-							<IconButton
-								icon={<FontAwesomeIcon icon={faTimes} />}
-								plain
-								onClick={imageWriter.cancel}
-								color="#fff"
-								hoverIndicator={{ dark: true }}
-							/>
-						)}
 
 						{!_.isNil(this.props.speed) &&
 							this.props.percentage !== COMPLETED_PERCENTAGE && (
-								<p className="step-footer step-footer-split">
-									{Boolean(this.props.speed) && (
-										<span>{`${this.props.speed.toFixed(
-											SPEED_PRECISION,
-										)} MB/s`}</span>
+								<Flex
+									justifyContent="space-between"
+									fontSize="14px"
+									color="#7e8085"
+								>
+									{!_.isNil(this.props.speed) && (
+										<Txt>{this.props.speed.toFixed(SPEED_PRECISION)} MB/s</Txt>
 									)}
 									{!_.isNil(this.props.eta) && (
-										<span>{`ETA: ${formatSeconds(this.props.eta)}`}</span>
+										<Txt>ETA: {formatSeconds(this.props.eta)}</Txt>
 									)}
-								</p>
+								</Flex>
 							)}
 
 						{Boolean(this.props.failed) && (

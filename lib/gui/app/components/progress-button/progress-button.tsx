@@ -15,15 +15,16 @@
  */
 
 import * as React from 'react';
-import { ProgressBar } from 'rendition';
+import { Button, Flex, ProgressBar, Txt } from 'rendition';
 import { default as styled } from 'styled-components';
 
+import { fromFlashState } from '../../modules/progress-status';
 import { StepButton } from '../../styled-components';
 
 const FlashProgressBar = styled(ProgressBar)`
 	> div {
-		width: 200px;
-		height: 48px;
+		width: 220px;
+		height: 12px;
 		color: white !important;
 		text-shadow: none !important;
 		transition-duration: 0s;
@@ -32,8 +33,9 @@ const FlashProgressBar = styled(ProgressBar)`
 		}
 	}
 
-	width: 200px;
-	height: 48px;
+	width: 220px;
+	height: 12px;
+	border-radius: 14px;
 	font-size: 16px;
 	line-height: 48px;
 
@@ -44,8 +46,9 @@ interface ProgressButtonProps {
 	type: 'decompressing' | 'flashing' | 'verifying';
 	active: boolean;
 	percentage: number;
-	label: string;
+	position: number;
 	disabled: boolean;
+	cancel: () => void;
 	callback: () => void;
 }
 
@@ -55,16 +58,41 @@ const colors = {
 	verifying: '#1ac135',
 } as const;
 
+const CancelButton = styled((props) => (
+	<Button plain {...props}>
+		Cancel
+	</Button>
+))`
+	font-weight: 600;
+	&&& {
+		width: auto;
+		height: auto;
+		font-size: 14px;
+	}
+`;
+
 export class ProgressButton extends React.PureComponent<ProgressButtonProps> {
 	public render() {
+		const { status, position } = fromFlashState({
+			type: this.props.type,
+			position: this.props.position,
+			percentage: this.props.percentage,
+		});
 		if (this.props.active) {
 			return (
-				<FlashProgressBar
-					background={colors[this.props.type]}
-					value={this.props.percentage}
-				>
-					{this.props.label}
-				</FlashProgressBar>
+				<div>
+					<Flex justifyContent="space-between" style={{ fontWeight: 600 }}>
+						<Flex>
+							<Txt color="#fff">{status}&nbsp;</Txt>
+							<Txt color={colors[this.props.type]}>{position}</Txt>
+						</Flex>
+						<CancelButton onClick={this.props.cancel} color="#00aeef" />
+					</Flex>
+					<FlashProgressBar
+						background={colors[this.props.type]}
+						value={this.props.percentage}
+					/>
+				</div>
 			);
 		}
 		return (
@@ -73,7 +101,7 @@ export class ProgressButton extends React.PureComponent<ProgressButtonProps> {
 				onClick={this.props.callback}
 				disabled={this.props.disabled}
 			>
-				{this.props.label}
+				Flash!
 			</StepButton>
 		);
 	}
