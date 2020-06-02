@@ -15,6 +15,7 @@
  */
 
 import * as _ from 'lodash';
+import outdent from 'outdent';
 import * as React from 'react';
 import { Txt } from 'rendition';
 import styled from 'styled-components';
@@ -37,18 +38,35 @@ export function FlashResults({
 }: {
 	errors: string;
 	results: {
+		bytesWritten: number;
+		sourceMetadata: {
+			size: number;
+			blockmappedSize: number;
+		};
 		averageFlashingSpeed: number;
 		devices: { failed: number; successful: number };
 	};
 }) {
+	const allDevicesFailed = results.devices.successful === 0;
 	const averageSpeed = _.round(
 		bytesToMegabytes(results.averageFlashingSpeed),
+		1,
+	);
+	const effectiveSpeed = _.round(
+		bytesToMegabytes(
+			results.sourceMetadata.size /
+				(results.bytesWritten / results.averageFlashingSpeed),
+		),
 		1,
 	);
 	return (
 		<Div position="absolute" left="153px" top="66px">
 			<div className="inline-flex title">
-				<span className="tick tick--success space-right-medium"></span>
+				<span
+					className={`tick tick--${
+						allDevicesFailed ? 'error' : 'success'
+					} space-right-medium`}
+				></span>
 				<h3>Flash Complete!</h3>
 			</div>
 			<Div className="results" mr="0" mb="0" ml="40px">
@@ -81,6 +99,24 @@ export function FlashResults({
 				>
 					Writing speed: {averageSpeed} MB/s
 				</Txt>
+				{!allDevicesFailed &&
+					results.sourceMetadata.blockmappedSize <
+						results.sourceMetadata.size && (
+						<Txt
+							color="#787c7f"
+							fontSize="10px"
+							style={{
+								fontWeight: 500,
+								textAlign: 'center',
+							}}
+							tooltip={outdent({ newline: ' ' })`
+							The speed is calculated by dividing the image size by the flashing time.
+							Disk images with ext partitions flash faster as we are able to skip unused parts.
+						`}
+						>
+							Effective speed: {effectiveSpeed} MB/s
+						</Txt>
+					)}
 			</Div>
 		</Div>
 	);
