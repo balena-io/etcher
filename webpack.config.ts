@@ -22,6 +22,7 @@ import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import * as os from 'os';
 import outdent from 'outdent';
 import * as path from 'path';
+import { env } from 'process';
 import * as SimpleProgressWebpackPlugin from 'simple-progress-webpack-plugin';
 import * as TerserPlugin from 'terser-webpack-plugin';
 import { BannerPlugin, NormalModuleReplacementPlugin } from 'webpack';
@@ -77,7 +78,11 @@ function renameNodeModules(resourcePath: string) {
 
 function findLzmaNativeBindingsFolder(): string {
 	const files = readdirSync(path.join('node_modules', 'lzma-native'));
-	const bindingsFolder = files.find((f) => f.startsWith('binding-'));
+	const bindingsFolder = files.find(
+		(f) =>
+			f.startsWith('binding-') &&
+			f.endsWith(env.npm_config_target_arch || os.arch()),
+	);
 	if (bindingsFolder === undefined) {
 		throw new Error('Could not find lzma_native binding');
 	}
