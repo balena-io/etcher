@@ -29,7 +29,10 @@ import { tmpFileDisposer } from './utils';
 
 const execAsync = promisify(childProcess.exec);
 const execFileAsync = promisify(childProcess.execFile);
-const sudoExecAsync = promisify(sudoPrompt.exec);
+// sudo-prompt's exec callback is function(error, stdout, stderr) so we need multiArgs
+const sudoExecAsync = Bluebird.promisify(sudoPrompt.exec, {
+	multiArgs: true,
+}) as (cmd: string, options: any) => Bluebird<[string, string]>;
 
 /**
  * @summary The user id of the UNIX "superuser"
