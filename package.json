@@ -76,7 +76,7 @@
     "electron-notarize": "^0.3.0",
     "electron-rebuild": "^1.11.0",
     "electron-updater": "^4.3.2",
-    "etcher-sdk": "^4.1.4",
+    "etcher-sdk": "^4.1.6",
     "file-loader": "^6.0.0",
     "flexboxgrid": "^6.3.0",
     "husky": "^4.2.5",

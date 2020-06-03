@@ -4325,9 +4325,9 @@
       "dev": true
     },
     "drivelist": {
-      "version": "9.0.0",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-9.0.0.tgz",
-      "integrity": "sha512-DNQ1oFAv5p1+UKVkQHCYQFHolFbItxSnjcJchxrhlEkW4RSuLfC0xOnq87uM8dcMzOuPfA37SKX7HsUIpw14uA==",
+      "version": "9.0.2",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-9.0.2.tgz",
+      "integrity": "sha512-B68AttNDXsew8M2viM99I4sNMJ2T5/lZ2fDlVsEAAzaJ1pyZN2Ibhhd37LAqsNRPhhPtpyrCi9+C6AfJ2kwo4g==",
       "dev": true,
       "requires": {
         "bindings": "^1.3.0",
@@ -5320,9 +5320,9 @@
       "dev": true
     },
     "etcher-sdk": {
-      "version": "4.1.4",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.1.4.tgz",
-      "integrity": "sha512-s9KXeLOtwrOxZs6F2VpGdS2VARwgJzmQp7/Xh4DG0yTAIR58djzZ2+cmUQQN16ztFMiQdCgTWWnOUJV1eVtO4g==",
+      "version": "4.1.6",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.1.6.tgz",
+      "integrity": "sha512-d9V1hKRn6usik5hzpXCh+IS9rOfNfDACe3uyFrdqbSFZeCIOx+h029l2JawPlrLqaLSthUkGgAERnvaKJRcwnw==",
       "dev": true,
       "requires": {
         "@ronomon/direct-io": "^3.0.1",
@@ -9454,9 +9454,9 @@
       }
     },
     "node-addon-api": {
-      "version": "1.7.1",
-      "resolved": "https://registry.npmjs.org/node-addon-api/-/node-addon-api-1.7.1.tgz",
-      "integrity": "sha512-2+DuKodWvwRTrCfKOeR24KIc5unKjOh8mz17NCzVnHWfjAdDqbfbjqh7gUT+BkXBRQM52+xCHciKWonJ3CbJMQ==",
+      "version": "1.7.2",
+      "resolved": "https://registry.npmjs.org/node-addon-api/-/node-addon-api-1.7.2.tgz",
+      "integrity": "sha512-ibPK3iA+vaY1eEjESkQkM0BbCqFOaZMiXRTtdB0u7b4djtY6JnsjvPdUHVMg6xQt3B8fpTTWHI9A+ADjM9frzg==",
       "dev": true
     },
     "node-environment-flags": {
