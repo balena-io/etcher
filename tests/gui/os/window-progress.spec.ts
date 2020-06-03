@@ -74,20 +74,20 @@ describe('Browser: WindowProgress', function () {
 
 				it('should set the flashing title', function () {
 					windowProgress.set(this.state);
-					assert.calledWith(this.setTitleSpy, ' – 85% Flashing');
+					assert.calledWith(this.setTitleSpy, ' – 85% Flashing...');
 				});
 
 				it('should set the verifying title', function () {
 					this.state.type = 'verifying';
 					windowProgress.set(this.state);
-					assert.calledWith(this.setTitleSpy, ' – 85% Validating');
+					assert.calledWith(this.setTitleSpy, ' – 85% Validating...');
 				});
 
 				it('should set the starting title', function () {
 					this.state.percentage = 0;
 					this.state.speed = 0;
 					windowProgress.set(this.state);
-					assert.calledWith(this.setTitleSpy, ' – 0% Flashing');
+					assert.calledWith(this.setTitleSpy, ' – 0% Flashing...');
 				});
 
 				it('should set the finishing title', function () {

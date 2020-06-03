@@ -17,7 +17,7 @@
 import * as electron from 'electron';
 
 import { percentageToFloat } from '../../../shared/utils';
-import { FlashState, fromFlashState } from '../modules/progress-status';
+import { FlashState, titleFromFlashState } from '../modules/progress-status';
 
 /**
  * @summary The title of the main window upon program launch
@@ -29,7 +29,7 @@ const INITIAL_TITLE = document.title;
  */
 function getWindowTitle(state?: FlashState) {
 	if (state) {
-		return `${INITIAL_TITLE} – ${fromFlashState(state)}`;
+		return `${INITIAL_TITLE} – ${titleFromFlashState(state)}`;
 	}
 	return INITIAL_TITLE;
 }

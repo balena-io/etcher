@@ -23,10 +23,10 @@ import * as React from 'react';
 import { Flex } from 'rendition';
 import styled from 'styled-components';
 
+import { SafeWebview } from '../../components/safe-webview/safe-webview';
 import { FeaturedProject } from '../../components/featured-project/featured-project';
 import FinishPage from '../../components/finish/finish';
 import { ReducedFlashingInfos } from '../../components/reduced-flashing-infos/reduced-flashing-infos';
-import { SafeWebview } from '../../components/safe-webview/safe-webview';
 import { SettingsModal } from '../../components/settings/settings';
 import {
 	SourceOptions,
@@ -131,6 +131,7 @@ export class MainPage extends React.Component<
 	}
 
 	private renderMain() {
+		const state = flashState.getFlashState();
 		const shouldDriveStepBeDisabled = !this.state.hasImage;
 		const shouldFlashStepBeDisabled =
 			!this.state.hasImage || !this.state.hasDrive;
@@ -249,6 +250,13 @@ export class MainPage extends React.Component<
 							goToSuccess={() => this.setState({ current: 'success' })}
 							shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
 							source={this.state.source}
+							isFlashing={flashState.isFlashing()}
+							step={state.type}
+							percentage={state.percentage}
+							position={state.position}
+							failed={state.failed}
+							speed={state.speed}
+							eta={state.eta}
 						/>
 					</div>
 				</Flex>

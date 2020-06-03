@@ -49,6 +49,7 @@ export const colors = {
 	secondary: {
 		foreground: '#000',
 		background: '#ddd',
+		main: '#fff',
 	},
 	warning: {
 		foreground: '#fff',

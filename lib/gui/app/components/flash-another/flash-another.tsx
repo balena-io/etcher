@@ -16,13 +16,13 @@
 
 import * as React from 'react';
 import styled from 'styled-components';
-import { position, right } from 'styled-system';
 
-import { BaseButton, ThemedProvider } from '../../styled-components';
+import { BaseButton } from '../../styled-components';
 
-const Div = styled.div<any>`
-	${position}
-	${right}
+const FlashAnotherButton = styled(BaseButton)`
+	position: absolute;
+	right: 152px;
+	top: 60px;
 `;
 
 export interface FlashAnotherProps {
@@ -31,12 +31,8 @@ export interface FlashAnotherProps {
 
 export const FlashAnother = (props: FlashAnotherProps) => {
 	return (
-		<ThemedProvider>
-			<Div position="absolute" right="152px">
-				<BaseButton primary onClick={props.onClick}>
-					Flash Another
-				</BaseButton>
-			</Div>
-		</ThemedProvider>
+		<FlashAnotherButton primary onClick={props.onClick}>
+			Flash Another
+		</FlashAnotherButton>
 	);
 };

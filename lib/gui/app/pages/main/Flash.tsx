@@ -17,7 +17,8 @@
 import * as _ from 'lodash';
 import * as path from 'path';
 import * as React from 'react';
-import { Modal, Txt } from 'rendition';
+import { Flex, Modal, Txt } from 'rendition';
+
 import * as constraints from '../../../../shared/drive-constraints';
 import * as messages from '../../../../shared/messages';
 import { DriveSelectorModal } from '../../components/drive-selector/DriveSelectorModal';
@@ -30,9 +31,7 @@ import * as selection from '../../models/selection-state';
 import * as analytics from '../../modules/analytics';
 import { scanner as driveScanner } from '../../modules/drive-scanner';
 import * as imageWriter from '../../modules/image-writer';
-import * as progressStatus from '../../modules/progress-status';
 import * as notification from '../../os/notification';
-import { StepSelection } from '../../styled-components';
 
 const COMPLETED_PERCENTAGE = 100;
 const SPEED_PRECISION = 2;
@@ -73,6 +72,7 @@ const getErrorMessageFromCode = (errorCode: string) => {
 };
 
 async function flashImageToDrive(
+	isFlashing: boolean,
 	goToSuccess: () => void,
 	sourceOptions: SourceOptions,
 ): Promise<string> {
@@ -82,7 +82,7 @@ async function flashImageToDrive(
 		return _.includes(devices, drive.device);
 	});
 
-	if (drives.length === 0 || flashState.isFlashing()) {
+	if (drives.length === 0 || isFlashing) {
 		return '';
 	}
 
@@ -128,13 +128,6 @@ async function flashImageToDrive(
 	return '';
 }
 
-const getProgressButtonLabel = () => {
-	if (!flashState.isFlashing()) {
-		return 'Flash!';
-	}
-	return progressStatus.fromFlashState(flashState.getFlashState());
-};
-
 const formatSeconds = (totalSeconds: number) => {
 	if (!totalSeconds && !_.isNumber(totalSeconds)) {
 		return '';
@@ -149,6 +142,14 @@ interface FlashStepProps {
 	shouldFlashStepBeDisabled: boolean;
 	goToSuccess: () => void;
 	source: SourceOptions;
+	isFlashing: boolean;
+	// TODO: factorize
+	step: 'decompressing' | 'flashing' | 'verifying';
+	percentage: number;
+	position: number;
+	failed: number;
+	speed?: number;
+	eta?: number;
 }
 
 interface FlashStepState {
@@ -157,7 +158,10 @@ interface FlashStepState {
 	showDriveSelectorModal: boolean;
 }
 
-export class FlashStep extends React.Component<FlashStepProps, FlashStepState> {
+export class FlashStep extends React.PureComponent<
+	FlashStepProps,
+	FlashStepState
+> {
 	constructor(props: FlashStepProps) {
 		super(props);
 		this.state = {
@@ -175,6 +179,7 @@ export class FlashStep extends React.Component<FlashStepProps, FlashStepState> {
 		}
 		this.setState({
 			errorMessage: await flashImageToDrive(
+				this.props.isFlashing,
 				this.props.goToSuccess,
 				this.props.source,
 			),
@@ -200,7 +205,7 @@ export class FlashStep extends React.Component<FlashStepProps, FlashStepState> {
 				return _.includes(devices, drive.device);
 			},
 		);
-		if (drives.length === 0 || flashState.isFlashing()) {
+		if (drives.length === 0 || this.props.isFlashing) {
 			return;
 		}
 		const hasDangerStatus = constraints.hasListDriveImageCompatibilityStatus(
@@ -213,6 +218,7 @@ export class FlashStep extends React.Component<FlashStepProps, FlashStepState> {
 		}
 		this.setState({
 			errorMessage: await flashImageToDrive(
+				this.props.isFlashing,
 				this.props.goToSuccess,
 				this.props.source,
 			),
@@ -220,9 +226,6 @@ export class FlashStep extends React.Component<FlashStepProps, FlashStepState> {
 	}
 
 	public render() {
-		const state = flashState.getFlashState();
-		const isFlashing = flashState.isFlashing();
-		const flashErrorCode = flashState.getLastFlashErrorCode();
 		return (
 			<>
 				<div className="box text-center">
@@ -234,51 +237,43 @@ export class FlashStep extends React.Component<FlashStepProps, FlashStepState> {
 					</div>
 
 					<div className="space-vertical-large">
-						<StepSelection>
-							<ProgressButton
-								type={state.type}
-								active={isFlashing}
-								percentage={state.percentage}
-								label={getProgressButtonLabel()}
-								disabled={
-									Boolean(flashErrorCode) ||
-									this.props.shouldFlashStepBeDisabled
-								}
-								callback={() => {
-									this.tryFlash();
-								}}
-							/>
-						</StepSelection>
+						<ProgressButton
+							type={this.props.step}
+							active={this.props.isFlashing}
+							percentage={this.props.percentage}
+							position={this.props.position}
+							disabled={this.props.shouldFlashStepBeDisabled}
+							cancel={imageWriter.cancel}
+							callback={() => {
+								this.tryFlash();
+							}}
+						/>
 
-						{isFlashing && (
-							<button
-								className="button button-link button-abort-write"
-								onClick={imageWriter.cancel}
-							>
-								<span className="glyphicon glyphicon-remove-sign"></span>
-							</button>
-						)}
-						{!_.isNil(state.speed) &&
-							state.percentage !== COMPLETED_PERCENTAGE && (
-								<p className="step-footer step-footer-split">
-									{Boolean(state.speed) && (
-										<span>{`${state.speed.toFixed(
-											SPEED_PRECISION,
-										)} MB/s`}</span>
+						{!_.isNil(this.props.speed) &&
+							this.props.percentage !== COMPLETED_PERCENTAGE && (
+								<Flex
+									justifyContent="space-between"
+									fontSize="14px"
+									color="#7e8085"
+								>
+									{!_.isNil(this.props.speed) && (
+										<Txt>{this.props.speed.toFixed(SPEED_PRECISION)} MB/s</Txt>
 									)}
-									{!_.isNil(state.eta) && (
-										<span>{`ETA: ${formatSeconds(state.eta)}`}</span>
+									{!_.isNil(this.props.eta) && (
+										<Txt>ETA: {formatSeconds(this.props.eta)}</Txt>
 									)}
-								</p>
+								</Flex>
 							)}
 
-						{Boolean(state.failed) && (
+						{Boolean(this.props.failed) && (
 							<div className="target-status-wrap">
 								<div className="target-status-line target-status-failed">
 									<span className="target-status-dot"></span>
-									<span className="target-status-quantity">{state.failed}</span>
+									<span className="target-status-quantity">
+										{this.props.failed}
+									</span>
 									<span className="target-status-message">
-										{messages.progress.failed(state.failed)}{' '}
+										{messages.progress.failed(this.props.failed)}{' '}
 									</span>
 								</div>
 							</div>

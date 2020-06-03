@@ -33,8 +33,8 @@ const StepBorder = styled.div<{
 	height: 2px;
 	background-color: ${(props) =>
 		props.disabled
-			? props.theme.customColors.dark.disabled.foreground
-			: props.theme.customColors.dark.foreground};
+			? props.theme.colors.dark.disabled.foreground
+			: props.theme.colors.dark.foreground};
 	position: absolute;
 	width: 124px;
 	top: 19px;

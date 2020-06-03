@@ -67,7 +67,7 @@ function FinishPage({ goToMain }: { goToMain: () => void }) {
 
 				<div className="box center">
 					<div className="fallback-banner">
-						<div className="caption caption-big">
+						<div className="caption-big">
 							Thanks for using
 							<span
 								style={{ cursor: 'pointer' }}
@@ -84,7 +84,7 @@ function FinishPage({ goToMain }: { goToMain: () => void }) {
 								></SVGIcon>
 							</span>
 						</div>
-						<div className="caption caption-small fallback-footer">
+						<div className="caption-small fallback-footer">
 							made with
 							<SVGIcon
 								paths={['love.svg']}
