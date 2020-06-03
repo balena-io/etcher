@@ -24,6 +24,7 @@
         "generated",
         "lib/shared/catalina-sudo/sudo-askpass.osascript.js"
       ],
+      "beforeBuild": "./beforeBuild.js",
       "afterSign": "./afterSignHook.js",
       "mac": {
         "category": "public.app-category.developer-tools",
