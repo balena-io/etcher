@@ -131,8 +131,13 @@ export const Modal = styled((props) => {
 	> div {
 		padding: 30px;
 
+		> h3 {
+			margin: 0;
+		}
+
 		> div:last-child {
 			height: 80px;
+			background-color: #fff;
 			justify-content: center;
 			position: absolute;
 			bottom: 0;

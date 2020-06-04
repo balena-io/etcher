@@ -65,16 +65,16 @@ export const compatibility = {
 	},
 
 	system: () => {
-		return 'System Drive';
+		return 'System drive';
 	},
 
 	containsImage: () => {
-		return 'Drive Mountpoint Contains Image';
+		return 'Source drive';
 	},
 
 	// The drive is large and therefore likely not a medium you want to write to.
 	largeDrive: () => {
-		return 'Large Drive';
+		return 'Large drive';
 	},
 } as const;
 

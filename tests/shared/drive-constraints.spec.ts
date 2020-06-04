@@ -1126,7 +1126,7 @@ describe('Shared: DriveConstraints', function () {
 		});
 
 		describe('given the drive contains the image and the drive is locked', () => {
-			it('should return the contains-image drive error by precedence', function () {
+			it('should return the locked error by precedence', function () {
 				this.drive.isReadOnly = true;
 				this.image.path = path.join(this.mountpoint, 'rpi.img');
 
@@ -1135,7 +1135,7 @@ describe('Shared: DriveConstraints', function () {
 					this.image,
 				);
 				// @ts-ignore
-				const expectedTuples = [['ERROR', 'containsImage']];
+				const expectedTuples = [['ERROR', 'locked']];
 
 				// @ts-ignore
 				expectStatusTypesAndMessagesToBe(result, expectedTuples);
@@ -1303,7 +1303,7 @@ describe('Shared: DriveConstraints', function () {
 					),
 				).to.deep.equal([
 					{
-						message: 'Drive Mountpoint Contains Image',
+						message: 'Source drive',
 						type: 2,
 					},
 				]);
@@ -1345,7 +1345,7 @@ describe('Shared: DriveConstraints', function () {
 					),
 				).to.deep.equal([
 					{
-						message: 'System Drive',
+						message: 'System drive',
 						type: 1,
 					},
 				]);
@@ -1359,7 +1359,7 @@ describe('Shared: DriveConstraints', function () {
 					),
 				).to.deep.equal([
 					{
-						message: 'Large Drive',
+						message: 'Large drive',
 						type: 1,
 					},
 				]);
@@ -1386,7 +1386,7 @@ describe('Shared: DriveConstraints', function () {
 					constraints.getListDriveImageCompatibilityStatuses(drives, image),
 				).to.deep.equal([
 					{
-						message: 'Drive Mountpoint Contains Image',
+						message: 'Source drive',
 						type: 2,
 					},
 					{
@@ -1398,11 +1398,11 @@ describe('Shared: DriveConstraints', function () {
 						type: 2,
 					},
 					{
-						message: 'System Drive',
+						message: 'System drive',
 						type: 1,
 					},
 					{
-						message: 'Large Drive',
+						message: 'Large drive',
 						type: 1,
 					},
 					{

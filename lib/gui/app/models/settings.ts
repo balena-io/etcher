@@ -73,7 +73,6 @@ export async function writeConfigFile(
 }
 
 const DEFAULT_SETTINGS: _.Dictionary<any> = {
-	unsafeMode: false,
 	errorReporting: true,
 	unmountOnSuccess: true,
 	validateWriteOnSuccess: true,
