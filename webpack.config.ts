@@ -96,11 +96,15 @@ interface ReplacementRule {
 	replace: string | (() => string);
 }
 
+function slashOrAntislash(pattern: RegExp): RegExp {
+	return new RegExp(pattern.source.replace(/\\\//g, '(\\/|\\\\)'));
+}
+
 function replace(test: RegExp, ...replacements: ReplacementRule[]) {
 	return {
 		loader: 'string-replace-loader',
 		// Handle windows path separators
-		test: new RegExp(test.source.replace(/\\\//g, '(\\/|\\\\)')),
+		test: slashOrAntislash(test),
 		options: { multiple: replacements.map((r) => ({ ...r, strict: true })) },
 	};
 }
@@ -223,7 +227,7 @@ const commonConfig = {
 		// Force axios to use http.js, not xhr.js as we need stream support
 		// (it's package.json file replaces http with xhr for browser targets).
 		new NormalModuleReplacementPlugin(
-			/node_modules\/axios\/lib\/adapters\/xhr\.js/,
+			slashOrAntislash(/node_modules\/axios\/lib\/adapters\/xhr\.js/),
 			'./http.js',
 		),
 	],
