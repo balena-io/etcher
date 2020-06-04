@@ -126,10 +126,7 @@ async function elevateScriptUnix(
 	name: string,
 ): Promise<{ cancelled: boolean }> {
 	const cmd = ['bash', escapeSh(path)].join(' ');
-	const [, stderr] = await sudoExecAsync(cmd, { name });
-	if (!_.isEmpty(stderr)) {
-		throw errors.createError({ title: stderr });
-	}
+	await sudoExecAsync(cmd, { name });
 	return { cancelled: false };
 }
 
