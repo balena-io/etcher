@@ -50,6 +50,7 @@ interface ProgressButtonProps {
 	disabled: boolean;
 	cancel: () => void;
 	callback: () => void;
+	warning?: boolean;
 }
 
 const colors = {
@@ -97,7 +98,8 @@ export class ProgressButton extends React.PureComponent<ProgressButtonProps> {
 		}
 		return (
 			<StepButton
-				primary
+				primary={!this.props.warning}
+				warning={this.props.warning}
 				onClick={this.props.callback}
 				disabled={this.props.disabled}
 			>
