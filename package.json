@@ -61,7 +61,7 @@
     "@types/request": "^2.48.4",
     "@types/semver": "^7.1.0",
     "@types/sinon": "^9.0.0",
-    "@types/terser-webpack-plugin": "^2.2.0",
+    "@types/terser-webpack-plugin": "^3.0.0",
     "@types/tmp": "^0.2.0",
     "@types/webpack-node-externals": "^1.7.0",
     "bluebird": "^3.7.2",

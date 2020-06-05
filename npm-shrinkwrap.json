@@ -975,13 +975,13 @@
       }
     },
     "@types/terser-webpack-plugin": {
-      "version": "2.2.0",
-      "resolved": "https://registry.npmjs.org/@types/terser-webpack-plugin/-/terser-webpack-plugin-2.2.0.tgz",
-      "integrity": "sha512-ywqEfTm7KdKoX9aYx0zYtiFU1z6IHrIYW9FJqeay2Ea58rTPML1J0hvoztGal2Jow3bkgGKcAmEZNL+8LqUVrA==",
+      "version": "3.0.0",
+      "resolved": "https://registry.npmjs.org/@types/terser-webpack-plugin/-/terser-webpack-plugin-3.0.0.tgz",
+      "integrity": "sha512-K5C7izOT8rR4qiE2vfXcQNEJN4lT9cq/2qJgpMUWR2HsjDW/KVrHx2CaHuaXvaqDNsRmdELPLaxeJHiI4GjVrA==",
       "dev": true,
       "requires": {
         "@types/webpack": "*",
-        "terser": "^4.3.9"
+        "terser": "^4.6.13"
       }
     },
     "@types/tmp": {
