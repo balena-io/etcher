@@ -51,6 +51,7 @@
     "@fortawesome/react-fontawesome": "^0.1.7",
     "@types/bluebird": "^3.5.30",
     "@types/chai": "^4.2.7",
+    "@types/copy-webpack-plugin": "^6.0.0",
     "@types/mime-types": "^2.1.0",
     "@types/mini-css-extract-plugin": "^0.9.1",
     "@types/mocha": "^7.0.2",

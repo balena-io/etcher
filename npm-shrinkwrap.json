@@ -677,6 +677,16 @@
       "integrity": "sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==",
       "dev": true
     },
+    "@types/copy-webpack-plugin": {
+      "version": "6.0.0",
+      "resolved": "https://registry.npmjs.org/@types/copy-webpack-plugin/-/copy-webpack-plugin-6.0.0.tgz",
+      "integrity": "sha512-Ousy+sNap1j44eG+C9FZvTUybpp9lFmKjBRF7L0NDs/+SDA9OXKo2OpsHJfD/LMWflz+uvfTCBXH1CgdL6AW/g==",
+      "dev": true,
+      "requires": {
+        "@types/node": "*",
+        "@types/webpack": "*"
+      }
+    },
     "@types/debug": {
       "version": "4.1.5",
       "resolved": "https://registry.npmjs.org/@types/debug/-/debug-4.1.5.tgz",

@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-// @ts-ignore @types for copy-webpack-plugin@6.0.1 not released yet
 import * as CopyPlugin from 'copy-webpack-plugin';
 import { readdirSync } from 'fs';
 import * as _ from 'lodash';
