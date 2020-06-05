@@ -37,6 +37,7 @@ services:
     build: ./etcher-pro-monitoring/benchmark
     privileged: true
     restart: always
+    network_mode: host
   etcher:
     build: .
     privileged: true
