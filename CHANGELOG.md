@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.97
+## (2020-06-08)
+
+* Update electron to v9.0.2 [Alexis Svinartchouk]
+* Fix flash from url on windows [Alexis Svinartchouk]
+* Avoid random access in http sources [Alexis Svinartchouk]
+* Update etcher-sdk to ^4.1.8 [Alexis Svinartchouk]
+* Read image path from arguments, register `etcher://...` protocol [Alexis Svinartchouk]
+* Update etcher-sdk to ^4.1.6 [Alexis Svinartchouk]
+* Fix sudo-prompt promisification [Alexis Svinartchouk]
+* Allow skipping notarization when building package (dev) [Lorenzo Alberto Maria Ambrosi]
+
 # v1.5.96
 ## (2020-06-03)
 
