@@ -246,7 +246,7 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 				path: options.imagePath,
 			});
 		} else {
-			source = new Http({ url: options.imagePath });
+			source = new Http({ url: options.imagePath, avoidRandomAccess: true });
 		}
 		try {
 			const results = await writeAndValidate({

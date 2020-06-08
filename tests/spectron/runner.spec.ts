@@ -16,41 +16,29 @@
 
 import { expect } from 'chai';
 import { Application } from 'spectron';
-
-import * as EXIT_CODES from '../../lib/shared/exit-codes';
-
-const entrypoint = process.env.ETCHER_SPECTRON_ENTRYPOINT;
-
-if (!entrypoint) {
-	console.error('You need to properly configure ETCHER_SPECTRON_ENTRYPOINT');
-	process.exit(EXIT_CODES.GENERAL_ERROR);
-}
+import * as electronPath from 'electron';
 
 describe('Spectron', function () {
 	// Mainly for CI jobs
 	this.timeout(40000);
 
-	let app: Application;
-
-	before('app:start', function () {
-		app = new Application({
-			path: entrypoint,
-			args: ['--no-sandbox', '.'],
-		});
-
-		return app.start();
+	const app = new Application({
+		path: (electronPath as unknown) as string,
+		args: ['--no-sandbox', '.'],
 	});
 
-	after('app:stop', function () {
+	before('app:start', async () => {
+		await app.start();
+	});
+
+	after('app:stop', async () => {
 		if (app && app.isRunning()) {
-			return app.stop();
+			await app.stop();
 		}
-
-		return Promise.resolve();
 	});
 
-	describe('Browser Window', function () {
-		it('should open a browser window', async function () {
+	describe('Browser Window', () => {
+		it('should open a browser window', async () => {
 			// We can't use `isVisible()` here as it won't work inside
 			// a Windows Docker container, but we can approximate it
 			// with these set of checks:
@@ -61,7 +49,7 @@ describe('Spectron', function () {
 			expect(await app.browserWindow.isFocused()).to.be.true;
 		});
 
-		it('should set a proper title', async function () {
+		it('should set a proper title', async () => {
 			// @ts-ignore (SpectronClient.getTitle exists)
 			return expect(await app.client.getTitle()).to.equal('Etcher');
 		});

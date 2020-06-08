@@ -62,6 +62,12 @@
         "depends": [
           "polkit-1-auth-agent | policykit-1-gnome | polkit-kde-1"
         ]
+      },
+      "protocols": {
+        "name": "etcher",
+        "schemes": [
+          "etcher"
+        ]
       }
     }
   }

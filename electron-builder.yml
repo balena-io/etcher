@@ -91,3 +91,7 @@ deb:
 rpm:
   depends:
     - util-linux
+protocols:
+  name: etcher
+  schemes:
+    - etcher

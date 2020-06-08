@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-// @ts-ignore @types for copy-webpack-plugin@6.0.1 not released yet
 import * as CopyPlugin from 'copy-webpack-plugin';
 import { readdirSync } from 'fs';
 import * as _ from 'lodash';
@@ -22,6 +21,7 @@ import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import * as os from 'os';
 import outdent from 'outdent';
 import * as path from 'path';
+import { env } from 'process';
 import * as SimpleProgressWebpackPlugin from 'simple-progress-webpack-plugin';
 import * as TerserPlugin from 'terser-webpack-plugin';
 import { BannerPlugin, NormalModuleReplacementPlugin } from 'webpack';
@@ -77,7 +77,11 @@ function renameNodeModules(resourcePath: string) {
 
 function findLzmaNativeBindingsFolder(): string {
 	const files = readdirSync(path.join('node_modules', 'lzma-native'));
-	const bindingsFolder = files.find((f) => f.startsWith('binding-'));
+	const bindingsFolder = files.find(
+		(f) =>
+			f.startsWith('binding-') &&
+			f.endsWith(env.npm_config_target_arch || os.arch()),
+	);
 	if (bindingsFolder === undefined) {
 		throw new Error('Could not find lzma_native binding');
 	}
@@ -91,11 +95,15 @@ interface ReplacementRule {
 	replace: string | (() => string);
 }
 
+function slashOrAntislash(pattern: RegExp): RegExp {
+	return new RegExp(pattern.source.replace(/\\\//g, '(\\/|\\\\)'));
+}
+
 function replace(test: RegExp, ...replacements: ReplacementRule[]) {
 	return {
 		loader: 'string-replace-loader',
 		// Handle windows path separators
-		test: new RegExp(test.source.replace(/\\\//g, '(\\/|\\\\)')),
+		test: slashOrAntislash(test),
 		options: { multiple: replacements.map((r) => ({ ...r, strict: true })) },
 	};
 }
@@ -218,7 +226,7 @@ const commonConfig = {
 		// Force axios to use http.js, not xhr.js as we need stream support
 		// (it's package.json file replaces http with xhr for browser targets).
 		new NormalModuleReplacementPlugin(
-			/node_modules\/axios\/lib\/adapters\/xhr\.js/,
+			slashOrAntislash(/node_modules\/axios\/lib\/adapters\/xhr\.js/),
 			'./http.js',
 		),
 	],

@@ -17,6 +17,7 @@
 import { delay } from 'bluebird';
 import * as electron from 'electron';
 import { autoUpdater } from 'electron-updater';
+import { platform } from 'os';
 import * as _ from 'lodash';
 import * as path from 'path';
 import * as semver from 'semver';
@@ -28,6 +29,8 @@ import * as settings from './app/models/settings';
 import * as analytics from './app/modules/analytics';
 import { buildWindowMenu } from './menu';
 
+const customProtocol = 'etcher';
+const scheme = `${customProtocol}://`;
 const updatablePackageTypes = ['appimage', 'nsis', 'dmg'];
 const packageUpdatable = _.includes(updatablePackageTypes, packageType);
 let packageUpdated = false;
@@ -53,6 +56,44 @@ async function checkForUpdates(interval: number) {
 		await delay(interval);
 	}
 }
+
+function getCommandLineURL(argv: string[]): string | undefined {
+	argv = argv.slice(electron.app.isPackaged ? 1 : 2);
+	if (argv.length) {
+		const value = argv[argv.length - 1];
+		// Take into account electron arguments
+		if (value.startsWith('--')) {
+			return;
+		}
+		// https://stackoverflow.com/questions/10242115/os-x-strange-psn-command-line-parameter-when-launched-from-finder
+		if (platform() === 'darwin' && value.startsWith('-psn_')) {
+			return;
+		}
+		return value;
+	}
+}
+
+const sourceSelectorReady = new Promise((resolve) => {
+	electron.ipcMain.on('source-selector-ready', resolve);
+});
+
+async function selectImageURL(url?: string) {
+	// 'data:,' is the default chromedriver url that is passed as last argument when running spectron tests
+	if (url !== undefined && url !== 'data:,') {
+		url = url.startsWith(scheme) ? url.slice(scheme.length) : url;
+		await sourceSelectorReady;
+		electron.BrowserWindow.getAllWindows().forEach((window) => {
+			window.webContents.send('select-image', url);
+		});
+	}
+}
+
+// This will catch clicks on links such as <a href="etcher://...">Open in Etcher</a>
+// We need to listen to the event before everything else otherwise the event won't be fired
+electron.app.on('open-url', async (event, data) => {
+	event.preventDefault();
+	await selectImageURL(data);
+});
 
 async function createMainWindow() {
 	const fullscreen = Boolean(await settings.get('fullscreen'));
@@ -86,6 +127,8 @@ async function createMainWindow() {
 			enableRemoteModule: true,
 		},
 	});
+
+	electron.app.setAsDefaultProtocolClient(customProtocol);
 
 	buildWindowMenu(mainWindow);
 	mainWindow.setFullScreen(true);
@@ -133,6 +176,7 @@ async function createMainWindow() {
 			}
 		}
 	});
+	return mainWindow;
 }
 
 electron.app.allowRendererProcessReuse = false;
@@ -145,14 +189,24 @@ electron.app.on('window-all-closed', electron.app.quit);
 // make use of it to ensure the browser window is completely destroyed.
 // See https://github.com/electron/electron/issues/5273
 electron.app.on('before-quit', () => {
+	electron.app.releaseSingleInstanceLock();
 	process.exit(EXIT_CODES.SUCCESS);
 });
 
 async function main(): Promise<void> {
-	if (electron.app.isReady()) {
-		await createMainWindow();
+	if (!electron.app.requestSingleInstanceLock()) {
+		electron.app.quit();
 	} else {
-		electron.app.on('ready', createMainWindow);
+		await electron.app.whenReady();
+		const window = await createMainWindow();
+		electron.app.on('second-instance', async (_event, argv) => {
+			if (window.isMinimized()) {
+				window.restore();
+			}
+			window.focus();
+			await selectImageURL(getCommandLineURL(argv));
+		});
+		await selectImageURL(getCommandLineURL(process.argv));
 	}
 }
 
