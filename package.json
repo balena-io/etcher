@@ -99,7 +99,7 @@
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "redux": "^4.0.5",
-    "rendition": "^14.13.0",
+    "rendition": "^15.0.0",
     "request": "^2.81.0",
     "resin-corvus": "^2.0.5",
     "roboto-fontface": "^0.10.0",
