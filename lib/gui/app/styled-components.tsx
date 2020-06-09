@@ -124,6 +124,7 @@ export const Modal = styled((props) => {
 })`
 	> div {
 		padding: 30px;
+		height: calc(100% - 80px);
 
 		> h3 {
 			margin: 0;

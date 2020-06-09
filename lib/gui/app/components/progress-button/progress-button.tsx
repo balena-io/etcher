@@ -35,6 +35,7 @@ const FlashProgressBar = styled(ProgressBar)`
 
 	width: 220px;
 	height: 12px;
+	margin-bottom: 6px;
 	border-radius: 14px;
 	font-size: 16px;
 	line-height: 48px;
@@ -81,8 +82,16 @@ export class ProgressButton extends React.PureComponent<ProgressButtonProps> {
 		});
 		if (this.props.active) {
 			return (
-				<div>
-					<Flex justifyContent="space-between" style={{ fontWeight: 600 }}>
+				<>
+					<Flex
+						justifyContent="space-between"
+						style={{
+							marginTop: 42,
+							marginBottom: '6px',
+							fontSize: 16,
+							fontWeight: 600,
+						}}
+					>
 						<Flex>
 							<Txt color="#fff">{status}&nbsp;</Txt>
 							<Txt color={colors[this.props.type]}>{position}</Txt>
@@ -93,7 +102,7 @@ export class ProgressButton extends React.PureComponent<ProgressButtonProps> {
 						background={colors[this.props.type]}
 						value={this.props.percentage}
 					/>
-				</div>
+				</>
 			);
 		}
 		return (

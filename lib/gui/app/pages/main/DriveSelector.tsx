@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import * as _ from 'lodash';
 import * as React from 'react';
 import styled from 'styled-components';
 import { TargetSelector } from '../../components/target-selector/target-selector-button';
@@ -23,6 +22,7 @@ import {
 	TargetSelectorModal,
 } from '../../components/target-selector/target-selector-modal';
 import {
+	isDriveSelected,
 	getImage,
 	getSelectedDrives,
 	deselectDrive,
@@ -53,12 +53,11 @@ const StepBorder = styled.div<{
 `;
 
 const getDriveListLabel = () => {
-	return _.join(
-		_.map(getSelectedDrives(), (drive: any) => {
+	return getSelectedDrives()
+		.map((drive: any) => {
 			return `${drive.description} (${drive.displayName})`;
-		}),
-		'\n',
-	);
+		})
+		.join('\n');
 };
 
 const shouldShowDrivesButton = () => {
@@ -71,6 +70,33 @@ const getDriveSelectionStateSlice = () => ({
 	targets: getSelectedDrives(),
 	image: getImage(),
 });
+
+export const selectAllTargets = (modalTargets: DrivelistTarget[]) => {
+	const selectedDrivesFromState = getSelectedDrives();
+	const deselected = selectedDrivesFromState.filter(
+		(drive) =>
+			!modalTargets.find((modalTarget) => modalTarget.device === drive.device),
+	);
+	// deselect drives
+	deselected.forEach((drive) => {
+		analytics.logEvent('Toggle drive', {
+			drive,
+			previouslySelected: true,
+		});
+		deselectDrive(drive.device);
+	});
+	// select drives
+	modalTargets.forEach((drive) => {
+		// Don't send events for drives that were already selected
+		if (!isDriveSelected(drive.device)) {
+			analytics.logEvent('Toggle drive', {
+				drive,
+				previouslySelected: false,
+			});
+		}
+		selectDrive(drive.device);
+	});
+};
 
 interface DriveSelectorProps {
 	webviewShowing: boolean;
@@ -138,19 +164,8 @@ export const DriveSelector = ({
 			{showTargetSelectorModal && (
 				<TargetSelectorModal
 					cancel={() => setShowTargetSelectorModal(false)}
-					close={(selectedTargets: DrivelistTarget[]) => {
-						const selectedDrives = getSelectedDrives();
-						if (_.isEmpty(selectedTargets)) {
-							_.each(_.map(selectedDrives, 'device'), deselectDrive);
-						} else {
-							const deselected = _.reject(selectedDrives, (drive) =>
-								_.find(selectedTargets, (row) => row.device === drive.device),
-							);
-							// select drives
-							_.each(_.map(selectedTargets, 'device'), selectDrive);
-							// deselect drives
-							_.each(_.map(deselected, 'device'), deselectDrive);
-						}
+					done={(modalTargets) => {
+						selectAllTargets(modalTargets);
 						setShowTargetSelectorModal(false);
 					}}
 				></TargetSelectorModal>

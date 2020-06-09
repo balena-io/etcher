@@ -23,10 +23,7 @@ import * as constraints from '../../../../shared/drive-constraints';
 import * as messages from '../../../../shared/messages';
 import { ProgressButton } from '../../components/progress-button/progress-button';
 import { SourceOptions } from '../../components/source-selector/source-selector';
-import {
-	TargetSelectorModal,
-	DrivelistTarget,
-} from '../../components/target-selector/target-selector-modal';
+import { TargetSelectorModal } from '../../components/target-selector/target-selector-modal';
 import * as availableDrives from '../../models/available-drives';
 import * as flashState from '../../models/flash-state';
 import * as selection from '../../models/selection-state';
@@ -34,6 +31,7 @@ import * as analytics from '../../modules/analytics';
 import { scanner as driveScanner } from '../../modules/drive-scanner';
 import * as imageWriter from '../../modules/image-writer';
 import * as notification from '../../os/notification';
+import { selectAllTargets } from './DriveSelector';
 
 import FlashSvg from '../../../assets/flash.svg';
 
@@ -331,22 +329,8 @@ export class FlashStep extends React.PureComponent<
 				{this.state.showDriveSelectorModal && (
 					<TargetSelectorModal
 						cancel={() => this.setState({ showDriveSelectorModal: false })}
-						close={(targets: DrivelistTarget[]) => {
-							const selectedDrives = selection.getSelectedDrives();
-							if (_.isEmpty(targets)) {
-								_.each(
-									_.map(selectedDrives, 'device'),
-									selection.deselectDrive,
-								);
-							} else {
-								const deselected = _.reject(selectedDrives, (drive) =>
-									_.find(targets, (row) => row.device === drive.device),
-								);
-								// select drives
-								_.each(_.map(targets, 'device'), selection.selectDrive);
-								// deselect drives
-								_.each(_.map(deselected, 'device'), selection.deselectDrive);
-							}
+						done={(modalTargets) => {
+							selectAllTargets(modalTargets);
 							this.setState({ showDriveSelectorModal: false });
 						}}
 					></TargetSelectorModal>
