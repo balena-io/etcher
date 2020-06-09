@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-const font = 'SourceSansPro';
-
 export const colors = {
 	dark: {
 		foreground: '#fff',
@@ -68,13 +66,6 @@ export const colors = {
 };
 
 export const theme = {
-	font,
-	titleFont: font,
-	global: {
-		font: {
-			family: font,
-		},
-	},
 	colors,
 	button: {
 		border: {

@@ -18,7 +18,6 @@ import * as React from 'react';
 import {
 	Button,
 	ButtonProps,
-	Flex,
 	Modal as ModalBase,
 	Provider,
 	Txt,
@@ -92,11 +91,6 @@ export const StepNameButton = styled(BaseButton)`
 			color: #8f9297;
 		}
 	}
-`;
-
-export const StepSelection = styled(Flex)`
-	flex-wrap: wrap;
-	justify-content: center;
 `;
 
 export const Footer = styled(Txt)`
