@@ -17,6 +17,7 @@ RUN npm i
 RUN \
 	git clone https://github.com/balena-io-modules/etcher-sdk.git etcher-sdk && \
 	cd etcher-sdk && \
+	git checkout 776f5a2a37e078873fb04830201e30cec4e40cfd && \
 	npm i && \
 	rm -rf node_modules/ext2fs/deps node_modules/ext2fs/test
 
