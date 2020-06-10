@@ -119,7 +119,7 @@ async function writeAndValidate({
 		onProgress,
 		verify,
 		trim: autoBlockmapping,
-		numBuffers: 32,
+		numBuffers: Math.min(2 + (destinations.length - 1) * 32, 256),
 		decompressFirst,
 	});
 	const result: WriteResult = {
