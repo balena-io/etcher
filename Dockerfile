@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 
 ENV npm_config_disturl=https://electronjs.org/headers
 ENV npm_config_runtime=electron
-ENV npm_config_target=9.0.0
+ENV npm_config_target=9.0.3
 
 COPY src src
 COPY scripts scripts
