@@ -5355,9 +5355,9 @@
       "dev": true
     },
     "etcher-sdk": {
-      "version": "4.1.8",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.1.8.tgz",
-      "integrity": "sha512-fSNwpqeCdc75xNIKwf+At8+r/EQ+/X/IV7gUYFa/wKXtnFHHxYJor6VfPdELUbtDDBWWa2cneJvtwGmcDPBAvA==",
+      "version": "4.1.13",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.1.13.tgz",
+      "integrity": "sha512-ITzBgoy8AGI6/DHyS43wix2TNa9kVeILsr/vQl75Hbbt5gM4C2ygwqABG7V+MGTaNphWc2OstSP9k6xQpGfttw==",
       "dev": true,
       "requires": {
         "@ronomon/direct-io": "^3.0.1",
