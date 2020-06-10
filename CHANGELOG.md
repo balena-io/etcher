@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.98
+## (2020-06-10)
+
+* Use between 2 and 256MiB for buffering depending on the number of drives [Alexis Svinartchouk]
+* Check that argument is an url or a regular file before opening [Alexis Svinartchouk]
+* Update etcher-sdk to ^4.1.13 [Alexis Svinartchouk]
+
 # v1.5.97
 ## (2020-06-08)
 
