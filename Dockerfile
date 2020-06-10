@@ -1,4 +1,4 @@
-FROM balenalib/aarch64-debian-node:12-buster-build as builder
+FROM balenalib/aarch64-debian-node:12.16-buster-build as builder
 
 RUN apt-get update
 RUN apt-get install python
