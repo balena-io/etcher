@@ -17,6 +17,7 @@
 import { delay } from 'bluebird';
 import * as electron from 'electron';
 import { autoUpdater } from 'electron-updater';
+import { promises as fs } from 'fs';
 import { platform } from 'os';
 import * as _ from 'lodash';
 import * as path from 'path';
@@ -57,7 +58,17 @@ async function checkForUpdates(interval: number) {
 	}
 }
 
-function getCommandLineURL(argv: string[]): string | undefined {
+async function isFile(filePath: string): Promise<boolean> {
+	try {
+		const stat = await fs.stat(filePath);
+		return stat.isFile();
+	} catch {
+		// noop
+	}
+	return false;
+}
+
+async function getCommandLineURL(argv: string[]): Promise<string | undefined> {
 	argv = argv.slice(electron.app.isPackaged ? 1 : 2);
 	if (argv.length) {
 		const value = argv[argv.length - 1];
@@ -67,6 +78,14 @@ function getCommandLineURL(argv: string[]): string | undefined {
 		}
 		// https://stackoverflow.com/questions/10242115/os-x-strange-psn-command-line-parameter-when-launched-from-finder
 		if (platform() === 'darwin' && value.startsWith('-psn_')) {
+			return;
+		}
+		if (
+			!value.startsWith('http://') &&
+			!value.startsWith('https://') &&
+			!value.startsWith(scheme) &&
+			!(await isFile(value))
+		) {
 			return;
 		}
 		return value;
@@ -204,9 +223,9 @@ async function main(): Promise<void> {
 				window.restore();
 			}
 			window.focus();
-			await selectImageURL(getCommandLineURL(argv));
+			await selectImageURL(await getCommandLineURL(argv));
 		});
-		await selectImageURL(getCommandLineURL(process.argv));
+		await selectImageURL(await getCommandLineURL(process.argv));
 	}
 }
 
