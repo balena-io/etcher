@@ -3712,15 +3712,6 @@
         "source-map": "^0.6.1"
       }
     },
-    "@types/usb": {
-      "version": "1.5.1",
-      "resolved": "https://registry.npmjs.org/@types/usb/-/usb-1.5.1.tgz",
-      "integrity": "sha512-1qhcYMLJ0I2HcRG3G/nBcRZ0KrrTdGdUNcCkEVgcga4KMlDXWh6LZJjVA6MiWEDa+BOaQTEfGJfuNaQ71IQOpg==",
-      "dev": true,
-      "requires": {
-        "@types/node": "*"
-      }
-    },
     "@types/uuid": {
       "version": "3.4.9",
       "resolved": "https://registry.npmjs.org/@types/uuid/-/uuid-3.4.9.tgz",
@@ -12716,32 +12707,14 @@
       }
     },
     "node-raspberrypi-usbboot": {
-      "version": "0.2.7",
-      "resolved": "https://registry.npmjs.org/node-raspberrypi-usbboot/-/node-raspberrypi-usbboot-0.2.7.tgz",
-      "integrity": "sha512-GYPqFlWQ5/4esxLCpotwrM0N4fmuVUsodbC90GxGUiNxbo1ozIyK5s9Y7Ia9YsvdrzvFz3jCScPmf7toZ7J83A==",
+      "version": "0.2.8",
+      "resolved": "https://registry.npmjs.org/node-raspberrypi-usbboot/-/node-raspberrypi-usbboot-0.2.8.tgz",
+      "integrity": "sha512-nomRESo0MDJG9w4M1NypM4QM8GFB06nWW4p8/7vZrTVfjTXvhN/MqtbfeJJmigaGuOzcl4Xhrb2blrcPTbXihA==",
       "dev": true,
       "requires": {
         "@balena.io/usb": "^1.3.12",
-        "@types/node": "^6.0.112",
-        "@types/usb": "^1.5.1",
-        "debug": "^3.1.0"
-      },
-      "dependencies": {
-        "@types/node": {
-          "version": "6.14.10",
-          "resolved": "https://registry.npmjs.org/@types/node/-/node-6.14.10.tgz",
-          "integrity": "sha512-pF4HjZGSog75kGq7B1InK/wt/N08BuPATo+7HRfv7gZUzccebwv/fmWVGs/j6LvSiLWpCuGGhql51M/wcQsNzA==",
-          "dev": true
-        },
-        "debug": {
-          "version": "3.2.6",
-          "resolved": "https://registry.npmjs.org/debug/-/debug-3.2.6.tgz",
-          "integrity": "sha512-mel+jf7nrtEl5Pn1Qx46zARXKDpBbvzezse7p7LqINmdoIk8PYP5SySaxEmYv6TZ0JyEKA1hsCId6DIhgITtWQ==",
-          "dev": true,
-          "requires": {
-            "ms": "^2.1.1"
-          }
-        }
+        "bluebird": "^3.7.2",
+        "debug": "^4.1.1"
       }
     },
     "node-releases": {

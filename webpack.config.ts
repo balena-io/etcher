@@ -202,10 +202,10 @@ const commonConfig = {
 			// See the renameNodeModules function above
 			replace(/node_modules\/node-raspberrypi-usbboot\/build\/index\.js$/, {
 				search:
-					"return yield readFile(Path.join(__dirname, '..', 'blobs', filename));",
+					"return await readFile(Path.join(__dirname, '..', 'blobs', filename));",
 				replace: outdent`
 					const { app, remote } = require('electron');
-					return yield readFile(Path.join((app || remote.app).getAppPath(), 'generated', __dirname.replace('node_modules', 'modules'), '..', 'blobs', filename));
+					return await readFile(Path.join((app || remote.app).getAppPath(), 'generated', __dirname.replace('node_modules', 'modules'), '..', 'blobs', filename));
 				`,
 			}),
 			// Copy native modules to generated folder
