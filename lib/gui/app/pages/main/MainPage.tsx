@@ -23,16 +23,15 @@ import * as React from 'react';
 import { Flex } from 'rendition';
 import styled from 'styled-components';
 
-import { SafeWebview } from '../../components/safe-webview/safe-webview';
 import { FeaturedProject } from '../../components/featured-project/featured-project';
 import FinishPage from '../../components/finish/finish';
 import { ReducedFlashingInfos } from '../../components/reduced-flashing-infos/reduced-flashing-infos';
+import { SafeWebview } from '../../components/safe-webview/safe-webview';
 import { SettingsModal } from '../../components/settings/settings';
 import {
 	SourceOptions,
 	SourceSelector,
 } from '../../components/source-selector/source-selector';
-import { SVGIcon } from '../../components/svg-icon/svg-icon';
 import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
 import * as settings from '../../models/settings';
@@ -48,6 +47,8 @@ import { bytesToClosestUnit } from '../../../../shared/units';
 
 import { DriveSelector } from './DriveSelector';
 import { FlashStep } from './Flash';
+
+import EtcherSvg from '../../../assets/etcher.svg';
 
 const Icon = styled(BaseIcon)`
 	margin-right: 20px;
@@ -154,7 +155,7 @@ export class MainPage extends React.Component<
 						}
 						tabIndex={100}
 					>
-						<SVGIcon paths={['etcher.svg']} width="123px" height="22px" />
+						<EtcherSvg width="123px" height="22px" />
 					</span>
 
 					<span

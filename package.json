@@ -49,6 +49,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.11.2",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-fontawesome": "^0.1.7",
+    "@svgr/webpack": "^5.4.0",
     "@types/bluebird": "^3.5.30",
     "@types/chai": "^4.2.7",
     "@types/copy-webpack-plugin": "^6.0.0",

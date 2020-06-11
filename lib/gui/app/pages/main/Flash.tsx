@@ -24,7 +24,6 @@ import * as messages from '../../../../shared/messages';
 import { DriveSelectorModal } from '../../components/drive-selector/DriveSelectorModal';
 import { ProgressButton } from '../../components/progress-button/progress-button';
 import { SourceOptions } from '../../components/source-selector/source-selector';
-import { SVGIcon } from '../../components/svg-icon/svg-icon';
 import * as availableDrives from '../../models/available-drives';
 import * as flashState from '../../models/flash-state';
 import * as selection from '../../models/selection-state';
@@ -32,6 +31,8 @@ import * as analytics from '../../modules/analytics';
 import { scanner as driveScanner } from '../../modules/drive-scanner';
 import * as imageWriter from '../../modules/image-writer';
 import * as notification from '../../os/notification';
+
+import FlashSvg from '../../../assets/flash.svg';
 
 const COMPLETED_PERCENTAGE = 100;
 const SPEED_PRECISION = 2;
@@ -230,9 +231,9 @@ export class FlashStep extends React.PureComponent<
 			<>
 				<div className="box text-center">
 					<div className="center-block">
-						<SVGIcon
-							paths={['flash.svg']}
-							disabled={this.props.shouldFlashStepBeDisabled}
+						<FlashSvg
+							width="40px"
+							className={this.props.shouldFlashStepBeDisabled ? 'disabled' : ''}
 						/>
 					</div>
 

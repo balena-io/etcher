@@ -130,6 +130,10 @@ const commonConfig = {
 	module: {
 		rules: [
 			{
+				test: /\.svg$/,
+				use: '@svgr/webpack',
+			},
+			{
 				test: /\.tsx?$/,
 				use: 'ts-loader',
 			},
@@ -336,7 +340,6 @@ const cssConfig = {
 				{ from: 'lib/gui/app/index.html', to: 'index.html' },
 				// electron-builder doesn't bundle folders named "assets"
 				// See https://github.com/electron-userland/electron-builder/issues/4545
-				{ from: 'lib/gui/assets', to: 'media' },
 				{ from: 'assets/icon.png', to: 'media/icon.png' },
 			],
 		}),

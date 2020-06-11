@@ -32,6 +32,8 @@ import { store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 
+import RaspberrypiSvg from '../../../assets/raspberrypi.svg';
+
 /**
  * @summary Determine if we can change a drive's selection state
  */
@@ -167,11 +169,9 @@ export function DriveSelectorModal({ close }: { close: () => void }) {
 							onDoubleClick={() => selectDriveAndClose(drive)}
 							onClick={() => toggleDrive(drive)}
 						>
-							{drive.icon && (
-								<img
+							{drive.icon === 'raspberrypi' && (
+								<RaspberrypiSvg
 									className="list-group-item-section"
-									alt="Drive device type logo"
-									src={`media/${drive.icon}.svg`}
 									width="25"
 									height="30"
 								/>

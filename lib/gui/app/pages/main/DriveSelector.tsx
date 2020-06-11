@@ -19,11 +19,12 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { DriveSelectorModal } from '../../components/drive-selector/DriveSelectorModal';
 import { TargetSelector } from '../../components/drive-selector/target-selector';
-import { SVGIcon } from '../../components/svg-icon/svg-icon';
 import { getImage, getSelectedDrives } from '../../models/selection-state';
 import * as settings from '../../models/settings';
 import { observe } from '../../models/store';
 import * as analytics from '../../modules/analytics';
+
+import DriveSvg from '../../../assets/drive.svg';
 
 const StepBorder = styled.div<{
 	disabled: boolean;
@@ -105,7 +106,7 @@ export const DriveSelector = ({
 			)}
 
 			<div className="center-block">
-				<SVGIcon paths={['drive.svg']} disabled={disabled} />
+				<DriveSvg className={disabled ? 'disabled' : ''} width="40px" />
 			</div>
 
 			<div className="space-vertical-large">
