@@ -130,6 +130,10 @@ const commonConfig = {
 	module: {
 		rules: [
 			{
+				test: /\.svg$/,
+				use: '@svgr/webpack',
+			},
+			{
 				test: /\.tsx?$/,
 				use: 'ts-loader',
 			},
@@ -198,10 +202,10 @@ const commonConfig = {
 			// See the renameNodeModules function above
 			replace(/node_modules\/node-raspberrypi-usbboot\/build\/index\.js$/, {
 				search:
-					"return yield readFile(Path.join(__dirname, '..', 'blobs', filename));",
+					"return await readFile(Path.join(__dirname, '..', 'blobs', filename));",
 				replace: outdent`
 					const { app, remote } = require('electron');
-					return yield readFile(Path.join((app || remote.app).getAppPath(), 'generated', __dirname.replace('node_modules', 'modules'), '..', 'blobs', filename));
+					return await readFile(Path.join((app || remote.app).getAppPath(), 'generated', __dirname.replace('node_modules', 'modules'), '..', 'blobs', filename));
 				`,
 			}),
 			// Copy native modules to generated folder
@@ -336,7 +340,6 @@ const cssConfig = {
 				{ from: 'lib/gui/app/index.html', to: 'index.html' },
 				// electron-builder doesn't bundle folders named "assets"
 				// See https://github.com/electron-userland/electron-builder/issues/4545
-				{ from: 'lib/gui/assets', to: 'media' },
 				{ from: 'assets/icon.png', to: 'media/icon.png' },
 			],
 		}),

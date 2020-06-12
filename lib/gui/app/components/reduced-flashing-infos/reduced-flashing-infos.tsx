@@ -20,6 +20,9 @@ import { color } from 'styled-system';
 
 import { SVGIcon } from '../svg-icon/svg-icon';
 
+import DriveSvg from '../../../assets/drive.svg';
+import ImageSvg from '../../../assets/image.svg';
+
 const Div = styled.div`
 	position: absolute;
 	top: 45px;
@@ -42,7 +45,7 @@ const Div = styled.div`
 		}
 	}
 
-	.svg-icon[disabled] {
+	.disabled {
 		opacity: 0.4;
 	}
 `;
@@ -73,16 +76,16 @@ export class ReducedFlashingInfos extends React.Component<
 				<Span className="step-name">
 					<SVGIcon
 						disabled
-						contents={[this.props.imageLogo]}
-						paths={['image.svg']}
 						width="20px"
-					></SVGIcon>
+						contents={this.props.imageLogo}
+						fallback={<ImageSvg className="disabled" width="20px" />}
+					/>
 					<Span>{this.props.imageName}</Span>
 					<Span color="#7e8085">{this.props.imageSize}</Span>
 				</Span>
 
 				<Span className="step-name">
-					<SVGIcon disabled paths={['drive.svg']} width="20px"></SVGIcon>
+					<DriveSvg className="disabled" width="20px" />
 					<Span>{this.props.driveTitle}</Span>
 				</Span>
 			</Div>

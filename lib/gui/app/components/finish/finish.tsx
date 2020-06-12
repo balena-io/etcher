@@ -25,7 +25,10 @@ import * as analytics from '../../modules/analytics';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 import { FlashAnother } from '../flash-another/flash-another';
 import { FlashResults } from '../flash-results/flash-results';
-import { SVGIcon } from '../svg-icon/svg-icon';
+
+import EtcherSvg from '../../../assets/etcher.svg';
+import LoveSvg from '../../../assets/love.svg';
+import BalenaSvg from '../../../assets/balena.svg';
 
 function restart(goToMain: () => void) {
 	selectionState.deselectAllDrives();
@@ -77,20 +80,12 @@ function FinishPage({ goToMain }: { goToMain: () => void }) {
 									)
 								}
 							>
-								<SVGIcon
-									paths={['etcher.svg']}
-									width="165px"
-									height="auto"
-								></SVGIcon>
+								<EtcherSvg width="165px" style={{ margin: '0 10px' }} />
 							</span>
 						</div>
 						<div className="caption-small fallback-footer">
 							made with
-							<SVGIcon
-								paths={['love.svg']}
-								width="auto"
-								height="20px"
-							></SVGIcon>
+							<LoveSvg height="20px" style={{ margin: '0 10px' }} />
 							by
 							<span
 								style={{ cursor: 'pointer' }}
@@ -98,11 +93,7 @@ function FinishPage({ goToMain }: { goToMain: () => void }) {
 									openExternal('https://balena.io?ref=etcher_success')
 								}
 							>
-								<SVGIcon
-									paths={['balena.svg']}
-									width="auto"
-									height="20px"
-								></SVGIcon>
+								<BalenaSvg height="20px" style={{ margin: '0 10px' }} />
 							</span>
 						</div>
 					</div>
