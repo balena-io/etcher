@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.99
+## (2020-06-12)
+
+* Update node-raspberrypi-usbboot to 0.2.8 [Alexis Svinartchouk]
+* Update electron to 9.0.3 [Alexis Svinartchouk]
+* Inline all svgs [Alexis Svinartchouk]
+
 # v1.5.98
 ## (2020-06-10)
 
