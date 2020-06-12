@@ -22,7 +22,14 @@ import * as _ from 'lodash';
 import { GPTPartition, MBRPartition } from 'partitioninfo';
 import * as path from 'path';
 import * as React from 'react';
-import { ButtonProps, Card as BaseCard, Input, Modal, Txt } from 'rendition';
+import {
+	ButtonProps,
+	Card as BaseCard,
+	Input,
+	Modal,
+	Txt,
+	Flex,
+} from 'rendition';
 import styled from 'styled-components';
 
 import * as errors from '../../../../shared/errors';
@@ -464,61 +471,55 @@ export class SourceSelector extends React.Component<
 
 		return (
 			<>
-				<div
-					className="box text-center relative"
+				<Flex
+					flexDirection="column"
+					alignItems="center"
 					onDrop={this.onDrop}
 					onDragEnter={this.onDragEnter}
 					onDragOver={this.onDragOver}
 				>
-					<div className="center-block">
-						<SVGIcon
-							contents={imageLogo}
-							fallback={<ImageSvg width="40px" height="40px" />}
-						/>
-					</div>
+					<SVGIcon
+						contents={imageLogo}
+						fallback={<ImageSvg width="40px" />}
+					/>
 
-					<div className="space-vertical-large">
-						{hasImage ? (
-							<>
-								<StepNameButton
-									plain
-									fontSize={16}
-									onClick={this.showSelectedImageDetails}
-									tooltip={imageName || imageBasename}
-								>
-									{middleEllipsis(imageName || imageBasename, 20)}
-								</StepNameButton>
-								{!flashing && (
-									<ChangeButton plain mb={14} onClick={this.reselectImage}>
-										Remove
-									</ChangeButton>
-								)}
-								<DetailsText>
-									{shared.bytesToClosestUnit(imageSize)}
-								</DetailsText>
-							</>
-						) : (
-							<>
-								<FlowSelector
-									key="Flash from file"
-									flow={{
-										onClick: this.openImageSelector,
-										label: 'Flash from file',
-										icon: <FontAwesomeIcon icon={faFile} />,
-									}}
-								/>
-								<FlowSelector
-									key="Flash from URL"
-									flow={{
-										onClick: this.openURLSelector,
-										label: 'Flash from URL',
-										icon: <FontAwesomeIcon icon={faLink} />,
-									}}
-								/>
-							</>
-						)}
-					</div>
-				</div>
+					{hasImage ? (
+						<>
+							<StepNameButton
+								plain
+								onClick={this.showSelectedImageDetails}
+								tooltip={imageName || imageBasename}
+							>
+								{middleEllipsis(imageName || imageBasename, 20)}
+							</StepNameButton>
+							{!flashing && (
+								<ChangeButton plain mb={14} onClick={this.reselectImage}>
+									Remove
+								</ChangeButton>
+							)}
+							<DetailsText>{shared.bytesToClosestUnit(imageSize)}</DetailsText>
+						</>
+					) : (
+						<>
+							<FlowSelector
+								key="Flash from file"
+								flow={{
+									onClick: this.openImageSelector,
+									label: 'Flash from file',
+									icon: <FontAwesomeIcon icon={faFile} />,
+								}}
+							/>
+							<FlowSelector
+								key="Flash from URL"
+								flow={{
+									onClick: this.openURLSelector,
+									label: 'Flash from URL',
+									icon: <FontAwesomeIcon icon={faLink} />,
+								}}
+							/>
+						</>
+					)}
+				</Flex>
 
 				{this.state.warning != null && (
 					<Modal

@@ -78,6 +78,26 @@ function getImageBasename() {
 	return selectionImageName || imageBasename;
 }
 
+const StepBorder = styled.div<{
+	disabled: boolean;
+	left?: boolean;
+	right?: boolean;
+}>`
+	position: relative;
+	height: 2px;
+	background-color: ${(props) =>
+		props.disabled
+			? props.theme.colors.dark.disabled.foreground
+			: props.theme.colors.dark.foreground};
+	width: 120px;
+	top: 19px;
+
+	left: ${(props) => (props.left ? '-67px' : undefined)};
+	margin-right: ${(props) => (props.left ? '-120px' : undefined)};
+	right: ${(props) => (props.right ? '-67px' : undefined)};
+	margin-left: ${(props) => (props.right ? '-120px' : undefined)};
+`;
+
 interface MainPageStateFromStore {
 	isFlashing: boolean;
 	hasImage: boolean;
@@ -193,73 +213,65 @@ export class MainPage extends React.Component<
 					/>
 				)}
 
-				<Flex
-					className="page-main row around-xs"
-					style={{ margin: '110px 50px' }}
-				>
-					<div className="col-xs">
-						<SourceSelector
-							flashing={this.state.isFlashing}
-							afterSelected={(source: SourceOptions) =>
-								this.setState({ source })
-							}
-						/>
-					</div>
+				<Flex m="110px 55px" justifyContent="space-between">
+					<SourceSelector
+						flashing={this.state.isFlashing}
+						afterSelected={(source: SourceOptions) => this.setState({ source })}
+					/>
 
-					<div className="col-xs">
-						<DriveSelector
-							webviewShowing={this.state.isWebviewShowing}
-							disabled={shouldDriveStepBeDisabled}
-							nextStepDisabled={shouldFlashStepBeDisabled}
-							hasDrive={this.state.hasDrive}
-							flashing={this.state.isFlashing}
-						/>
-					</div>
+					{(!this.state.isWebviewShowing || !this.state.isFlashing) && (
+						<Flex>
+							<StepBorder disabled={shouldDriveStepBeDisabled} left />
+						</Flex>
+					)}
 
-					{this.state.isFlashing && (
-						<div
-							className={`featured-project ${
-								this.state.isFlashing && this.state.isWebviewShowing
-									? 'fp-visible'
-									: ''
-							}`}
-						>
+					<DriveSelector
+						disabled={shouldDriveStepBeDisabled}
+						hasDrive={this.state.hasDrive}
+						flashing={this.state.isFlashing}
+					/>
+
+					{(!this.state.isWebviewShowing || !this.state.isFlashing) && (
+						<Flex>
+							<StepBorder disabled={shouldFlashStepBeDisabled} right />
+						</Flex>
+					)}
+
+					{this.state.isFlashing && this.state.isWebviewShowing && (
+						<>
 							<FeaturedProject
 								onWebviewShow={(isWebviewShowing: boolean) => {
 									this.setState({ isWebviewShowing });
 								}}
 							/>
-						</div>
+							<ReducedFlashingInfos
+								imageLogo={this.state.imageLogo}
+								imageName={middleEllipsis(this.state.imageName, 16)}
+								imageSize={
+									_.isNumber(this.state.imageSize)
+										? (bytesToClosestUnit(this.state.imageSize) as string)
+										: ''
+								}
+								driveTitle={middleEllipsis(this.state.driveTitle, 16)}
+								shouldShow={
+									this.state.isFlashing && this.state.isWebviewShowing
+								}
+							/>
+						</>
 					)}
 
-					<div>
-						<ReducedFlashingInfos
-							imageLogo={this.state.imageLogo}
-							imageName={middleEllipsis(this.state.imageName, 16)}
-							imageSize={
-								_.isNumber(this.state.imageSize)
-									? (bytesToClosestUnit(this.state.imageSize) as string)
-									: ''
-							}
-							driveTitle={middleEllipsis(this.state.driveTitle, 16)}
-							shouldShow={this.state.isFlashing && this.state.isWebviewShowing}
-						/>
-					</div>
-
-					<div className="col-xs">
-						<FlashStep
-							goToSuccess={() => this.setState({ current: 'success' })}
-							shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
-							source={this.state.source}
-							isFlashing={flashState.isFlashing()}
-							step={state.type}
-							percentage={state.percentage}
-							position={state.position}
-							failed={state.failed}
-							speed={state.speed}
-							eta={state.eta}
-						/>
-					</div>
+					<FlashStep
+						goToSuccess={() => this.setState({ current: 'success' })}
+						shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
+						source={this.state.source}
+						isFlashing={flashState.isFlashing()}
+						step={state.type}
+						percentage={state.percentage}
+						position={state.position}
+						failed={state.failed}
+						speed={state.speed}
+						eta={state.eta}
+					/>
 				</Flex>
 			</>
 		);

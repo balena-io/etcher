@@ -54,7 +54,6 @@ export const StepButton = styled((props: ButtonProps) => (
 	<BaseButton {...props}></BaseButton>
 ))`
 	color: #ffffff;
-	margin: auto;
 `;
 
 export const ChangeButton = styled(Button)`

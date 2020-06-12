@@ -16,8 +16,7 @@
 
 import { scanner } from 'etcher-sdk';
 import * as React from 'react';
-import styled from 'styled-components';
-
+import { Flex } from 'rendition';
 import { TargetSelector } from '../../components/target-selector/target-selector-button';
 import { TargetSelectorModal } from '../../components/target-selector/target-selector-modal';
 import {
@@ -30,26 +29,7 @@ import {
 import * as settings from '../../models/settings';
 import { observe } from '../../models/store';
 import * as analytics from '../../modules/analytics';
-
 import DriveSvg from '../../../assets/drive.svg';
-
-const StepBorder = styled.div<{
-	disabled: boolean;
-	left?: boolean;
-	right?: boolean;
-}>`
-	height: 2px;
-	background-color: ${(props) =>
-		props.disabled
-			? props.theme.colors.dark.disabled.foreground
-			: props.theme.colors.dark.foreground};
-	position: absolute;
-	width: 124px;
-	top: 19px;
-
-	left: ${(props) => (props.left ? '-67px' : undefined)};
-	right: ${(props) => (props.right ? '-67px' : undefined)};
-`;
 
 const getDriveListLabel = () => {
 	return getSelectedDrives()
@@ -100,17 +80,13 @@ export const selectAllTargets = (
 };
 
 interface DriveSelectorProps {
-	webviewShowing: boolean;
 	disabled: boolean;
-	nextStepDisabled: boolean;
 	hasDrive: boolean;
 	flashing: boolean;
 }
 
 export const DriveSelector = ({
-	webviewShowing,
 	disabled,
-	nextStepDisabled,
 	hasDrive,
 	flashing,
 }: DriveSelectorProps) => {
@@ -129,38 +105,25 @@ export const DriveSelector = ({
 		});
 	}, []);
 
-	const showStepConnectingLines = !webviewShowing || !flashing;
-
 	return (
-		<div className="box text-center relative">
-			{showStepConnectingLines && (
-				<>
-					<StepBorder disabled={disabled} left />
-					<StepBorder disabled={nextStepDisabled} right />
-				</>
-			)}
+		<Flex flexDirection="column" alignItems="center">
+			<DriveSvg className={disabled ? 'disabled' : ''} width="40px" />
 
-			<div className="center-block">
-				<DriveSvg className={disabled ? 'disabled' : ''} width="40px" />
-			</div>
-
-			<div className="space-vertical-large">
-				<TargetSelector
-					disabled={disabled}
-					show={!hasDrive && showDrivesButton}
-					tooltip={driveListLabel}
-					openDriveSelector={() => {
-						setShowTargetSelectorModal(true);
-					}}
-					reselectDrive={() => {
-						analytics.logEvent('Reselect drive');
-						setShowTargetSelectorModal(true);
-					}}
-					flashing={flashing}
-					targets={targets}
-					image={image}
-				/>
-			</div>
+			<TargetSelector
+				disabled={disabled}
+				show={!hasDrive && showDrivesButton}
+				tooltip={driveListLabel}
+				openDriveSelector={() => {
+					setShowTargetSelectorModal(true);
+				}}
+				reselectDrive={() => {
+					analytics.logEvent('Reselect drive');
+					setShowTargetSelectorModal(true);
+				}}
+				flashing={flashing}
+				targets={targets}
+				image={image}
+			/>
 
 			{showTargetSelectorModal && (
 				<TargetSelectorModal
@@ -171,6 +134,6 @@ export const DriveSelector = ({
 					}}
 				></TargetSelectorModal>
 			)}
-		</div>
+		</Flex>
 	);
 };

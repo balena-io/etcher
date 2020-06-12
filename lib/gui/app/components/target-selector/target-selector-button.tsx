@@ -118,7 +118,7 @@ export function TargetSelector(props: TargetSelectorProps) {
 		}
 		return (
 			<>
-				<StepNameButton plain tooltip={props.tooltip} fontSize={16}>
+				<StepNameButton plain tooltip={props.tooltip}>
 					{targets.length} Targets
 				</StepNameButton>
 				{!props.flashing && (
