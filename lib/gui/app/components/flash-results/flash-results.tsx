@@ -14,25 +14,14 @@
  * limitations under the License.
  */
 
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import * as _ from 'lodash';
 import outdent from 'outdent';
 import * as React from 'react';
 import { Txt, Flex } from 'rendition';
-import styled from 'styled-components';
-import { left, position, space, top } from 'styled-system';
 
 import { progress } from '../../../../shared/messages';
 import { bytesToMegabytes } from '../../../../shared/units';
-import { Underline } from '../../styled-components';
-
-const Div = styled.div<any>`
-  ${position}
-  ${top}
-  ${left}
-  ${space}
-`;
 
 export function FlashResults({
 	errors,
@@ -50,15 +39,19 @@ export function FlashResults({
 	};
 }) {
 	const allDevicesFailed = results.devices.successful === 0;
-	const effectiveSpeed = _.round(
-		bytesToMegabytes(
-			results.sourceMetadata.size /
-				(results.bytesWritten / results.averageFlashingSpeed),
-		),
-		1,
-	);
+	const effectiveSpeed = bytesToMegabytes(
+		results.sourceMetadata.size /
+			(results.bytesWritten / results.averageFlashingSpeed),
+	).toFixed(1);
 	return (
-		<Div position="absolute" left="153px" top="66px">
+		<Flex
+			flexDirection="column"
+			style={{
+				position: 'absolute',
+				left: '153px',
+				top: '66px',
+			}}
+		>
 			<Flex alignItems="center">
 				<FontAwesomeIcon
 					icon={faCheckCircle}
@@ -73,24 +66,22 @@ export function FlashResults({
 					Flash Complete!
 				</Txt>
 			</Flex>
-			<Div className="results" mr="0" mb="0" ml="40px">
-				{_.map(results.devices, (quantity, type) => {
+			<Flex flexDirection="column" mr="0" mb="0" ml="40px">
+				{Object.keys(results.devices).map((type: 'failed' | 'successful') => {
+					const quantity = results.devices[type];
 					return quantity ? (
-						<Underline
+						<Flex
+							color="#fff"
+							alignItems="center"
 							tooltip={type === 'failed' ? errors : undefined}
-							key={type}
 						>
-							<div
-								key={type}
-								className={`target-status-line target-status-${type}`}
-							>
-								<span className="target-status-dot"></span>
-								<span className="target-status-quantity">{quantity}</span>
-								<span className="target-status-message">
-									{progress[type](quantity)}
-								</span>
-							</div>
-						</Underline>
+							<FontAwesomeIcon
+								color={type === 'failed' ? '#ff4444' : '#1ac135'}
+								icon={faCircle}
+							/>
+							<Txt ml={10}>{quantity}</Txt>
+							<Txt ml={10}>{progress[type](quantity)}</Txt>
+						</Flex>
 					) : null;
 				})}
 				{!allDevicesFailed && (
@@ -109,7 +100,7 @@ export function FlashResults({
 						Effective speed: {effectiveSpeed} MB/s
 					</Txt>
 				)}
-			</Div>
-		</Div>
+			</Flex>
+		</Flex>
 	);
 }

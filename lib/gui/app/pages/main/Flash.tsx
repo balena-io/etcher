@@ -34,6 +34,8 @@ import * as notification from '../../os/notification';
 import { selectAllTargets } from './DriveSelector';
 
 import FlashSvg from '../../../assets/flash.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircle } from '@fortawesome/free-solid-svg-icons';
 
 const COMPLETED_PERCENTAGE = 100;
 const SPEED_PRECISION = 2;
@@ -145,6 +147,8 @@ interface FlashStepProps {
 	goToSuccess: () => void;
 	source: SourceOptions;
 	isFlashing: boolean;
+	isWebviewShowing: boolean;
+	style?: React.CSSProperties;
 	// TODO: factorize
 	step: 'decompressing' | 'flashing' | 'verifying';
 	percentage: number;
@@ -234,10 +238,17 @@ export class FlashStep extends React.PureComponent<
 	public render() {
 		return (
 			<>
-				<Flex flexDirection="column" alignItems="center">
+				<Flex
+					flexDirection="column"
+					alignItems="start"
+					style={this.props.style}
+				>
 					<FlashSvg
 						width="40px"
 						className={this.props.shouldFlashStepBeDisabled ? 'disabled' : ''}
+						style={{
+							margin: '0 auto',
+						}}
 					/>
 
 					<ProgressButton
@@ -274,17 +285,11 @@ export class FlashStep extends React.PureComponent<
 						)}
 
 					{Boolean(this.props.failed) && (
-						<div className="target-status-wrap">
-							<div className="target-status-line target-status-failed">
-								<span className="target-status-dot"></span>
-								<span className="target-status-quantity">
-									{this.props.failed}
-								</span>
-								<span className="target-status-message">
-									{messages.progress.failed(this.props.failed)}{' '}
-								</span>
-							</div>
-						</div>
+						<Flex color="#fff" alignItems="center" mt={35}>
+							<FontAwesomeIcon color="#ff4444" icon={faCircle} />
+							<Txt ml={10}>{this.props.failed}</Txt>
+							<Txt ml={10}>{messages.progress.failed(this.props.failed)}</Txt>
+						</Flex>
 					)}
 				</Flex>
 

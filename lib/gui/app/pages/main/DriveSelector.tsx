@@ -31,7 +31,7 @@ import { observe } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import DriveSvg from '../../../assets/drive.svg';
 
-const getDriveListLabel = () => {
+export const getDriveListLabel = () => {
 	return getSelectedDrives()
 		.map((drive: any) => {
 			return `${drive.description} (${drive.displayName})`;
@@ -107,7 +107,13 @@ export const DriveSelector = ({
 
 	return (
 		<Flex flexDirection="column" alignItems="center">
-			<DriveSvg className={disabled ? 'disabled' : ''} width="40px" />
+			<DriveSvg
+				className={disabled ? 'disabled' : ''}
+				width="40px"
+				style={{
+					marginBottom: 30,
+				}}
+			/>
 
 			<TargetSelector
 				disabled={disabled}

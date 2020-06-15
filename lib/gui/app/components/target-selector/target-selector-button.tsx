@@ -15,10 +15,8 @@
  */
 
 import { Drive as DrivelistDrive } from 'drivelist';
-import * as _ from 'lodash';
 import * as React from 'react';
-import { Txt } from 'rendition';
-import { default as styled } from 'styled-components';
+import { Txt, Flex, FlexProps } from 'rendition';
 
 import {
 	getDriveImageCompatibilityStatuses,
@@ -33,10 +31,8 @@ import {
 	StepNameButton,
 } from '../../styled-components';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
-
-const TargetDetail = styled((props) => <Txt.span {...props}></Txt.span>)`
-	float: ${({ float }) => float};
-`;
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
 interface TargetSelectorProps {
 	targets: any[];
@@ -49,24 +45,26 @@ interface TargetSelectorProps {
 	image: Image;
 }
 
-function DriveCompatibilityWarning(props: {
+function DriveCompatibilityWarning({
+	drive,
+	image,
+	...props
+}: {
 	drive: DrivelistDrive;
 	image: Image;
-}) {
+} & FlexProps) {
 	const compatibilityWarnings = getDriveImageCompatibilityStatuses(
-		props.drive,
-		props.image,
+		drive,
+		image,
 	);
 	if (compatibilityWarnings.length === 0) {
 		return null;
 	}
-	const messages = _.map(compatibilityWarnings, 'message');
+	const messages = compatibilityWarnings.map((warning) => warning.message);
 	return (
-		<Txt.span
-			className="glyphicon glyphicon-exclamation-sign"
-			ml={2}
-			tooltip={messages.join(', ')}
-		/>
+		<Flex tooltip={messages.join(', ')} {...props}>
+			<FontAwesomeIcon icon={faExclamationTriangle} />
+		</Flex>
 	);
 }
 
@@ -86,7 +84,11 @@ export function TargetSelector(props: TargetSelectorProps) {
 					</ChangeButton>
 				)}
 				<DetailsText>
-					<DriveCompatibilityWarning drive={target} image={props.image} />
+					<DriveCompatibilityWarning
+						drive={target}
+						image={props.image}
+						mr={2}
+					/>
 					{bytesToClosestUnit(target.size)}
 				</DetailsText>
 			</>
@@ -104,15 +106,13 @@ export function TargetSelector(props: TargetSelectorProps) {
 					} ${bytesToClosestUnit(target.size)}`}
 					px={21}
 				>
-					<Txt.span>
-						<DriveCompatibilityWarning drive={target} image={props.image} />
-						<TargetDetail float="left">
-							{middleEllipsis(target.description, 14)}
-						</TargetDetail>
-						<TargetDetail float="right">
-							{bytesToClosestUnit(target.size)}
-						</TargetDetail>
-					</Txt.span>
+					<DriveCompatibilityWarning
+						drive={target}
+						image={props.image}
+						mr={2}
+					/>
+					<Txt mr={2}>{middleEllipsis(target.description, 14)}</Txt>
+					<Txt>{bytesToClosestUnit(target.size)}</Txt>
 				</DetailsText>,
 			);
 		}

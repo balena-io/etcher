@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-import { faFile, faLink } from '@fortawesome/free-solid-svg-icons';
+import {
+	faFile,
+	faLink,
+	faExclamationTriangle,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { sourceDestination } from 'etcher-sdk';
 import { ipcRenderer, IpcRendererEvent } from 'electron';
@@ -480,7 +484,10 @@ export class SourceSelector extends React.Component<
 				>
 					<SVGIcon
 						contents={imageLogo}
-						fallback={<ImageSvg width="40px" />}
+						fallback={ImageSvg}
+						style={{
+							marginBottom: 30,
+						}}
 					/>
 
 					{hasImage ? (
@@ -525,10 +532,10 @@ export class SourceSelector extends React.Component<
 					<Modal
 						titleElement={
 							<span>
-								<span
-									style={{ color: '#d9534f' }}
-									className="glyphicon glyphicon-exclamation-sign"
-								></span>{' '}
+								<FontAwesomeIcon
+									style={{ color: '#fca321' }}
+									icon={faExclamationTriangle}
+								/>{' '}
 								<span>{this.state.warning.title}</span>
 							</span>
 						}

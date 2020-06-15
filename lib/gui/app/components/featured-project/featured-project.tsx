@@ -21,11 +21,14 @@ import * as analytics from '../../modules/analytics';
 import { SafeWebview } from '../safe-webview/safe-webview';
 
 interface FeaturedProjectProps {
+	shouldShow: boolean;
 	onWebviewShow: (isWebviewShowing: boolean) => void;
+	style?: React.CSSProperties;
 }
 
 interface FeaturedProjectState {
 	endpoint: string | null;
+	show: boolean;
 }
 
 export class FeaturedProject extends React.Component<
@@ -34,14 +37,26 @@ export class FeaturedProject extends React.Component<
 > {
 	constructor(props: FeaturedProjectProps) {
 		super(props);
-		this.state = { endpoint: null };
+		this.state = {
+			endpoint: null,
+			show: false,
+		};
 	}
 
 	public async componentDidMount() {
 		try {
-			const endpoint =
+			let endpoint =
 				(await settings.get('featuredProjectEndpoint')) ||
 				'https://assets.balena.io/etcher-featured/index.html';
+			const efpParams = {
+				borderRight: false,
+				darkBackground: true,
+			};
+			let params = '?';
+			for (const [param, value] of Object.entries(efpParams)) {
+				params += `${param}=${value}&`;
+			}
+			endpoint += params;
 			this.setState({ endpoint });
 		} catch (error) {
 			analytics.logException(error);
@@ -49,8 +64,16 @@ export class FeaturedProject extends React.Component<
 	}
 
 	public render() {
+		const { style = {} } = this.props;
 		return this.state.endpoint ? (
-			<SafeWebview src={this.state.endpoint} {...this.props}></SafeWebview>
+			<SafeWebview
+				src={this.state.endpoint}
+				style={{
+					display: this.state.show ? 'block' : 'none',
+					...style,
+				}}
+				{...this.props}
+			></SafeWebview>
 		) : null;
 	}
 }

@@ -67,6 +67,16 @@ export const colors = {
 
 export const theme = {
 	colors,
+	global: {
+		font: {
+			size: 16,
+		},
+		text: {
+			medium: {
+				size: 16,
+			},
+		},
+	},
 	button: {
 		border: {
 			width: '0',

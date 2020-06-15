@@ -101,20 +101,3 @@
     }
   }
 }
-
-.inline-flex {
-  display: inline-flex;
-}
-
-.page-finish .tick {
-  /* hack(Shou): for some reason the height is stretched */
-  height: 24px;
-  width: 24px;
-  border: none;
-  padding: 0;
-  margin: 0 15px 0 0;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  font-size: 16px;
-}

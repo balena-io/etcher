@@ -41,11 +41,10 @@ import {
 	IconButton as BaseIcon,
 	ThemedProvider,
 } from '../../styled-components';
-import { middleEllipsis } from '../../utils/middle-ellipsis';
 
 import { bytesToClosestUnit } from '../../../../shared/units';
 
-import { DriveSelector } from './DriveSelector';
+import { DriveSelector, getDriveListLabel } from './DriveSelector';
 import { FlashStep } from './Flash';
 
 import EtcherSvg from '../../../assets/etcher.svg';
@@ -106,6 +105,7 @@ interface MainPageStateFromStore {
 	imageSize: number;
 	imageName: string;
 	driveTitle: string;
+	driveLabel: string;
 }
 
 interface MainPageState {
@@ -142,6 +142,7 @@ export class MainPage extends React.Component<
 			imageSize: selectionState.getImageSize(),
 			imageName: getImageBasename(),
 			driveTitle: getDrivesTitle(),
+			driveLabel: getDriveListLabel(),
 		};
 	}
 
@@ -156,6 +157,8 @@ export class MainPage extends React.Component<
 		const shouldDriveStepBeDisabled = !this.state.hasImage;
 		const shouldFlashStepBeDisabled =
 			!this.state.hasImage || !this.state.hasDrive;
+		const notFlashingOrSplitView =
+			!this.state.isFlashing || !this.state.isWebviewShowing;
 		return (
 			<>
 				<header
@@ -164,6 +167,8 @@ export class MainPage extends React.Component<
 						width: '100%',
 						padding: '13px 14px',
 						textAlign: 'center',
+						position: 'relative',
+						zIndex: 1,
 					}}
 				>
 					<span
@@ -213,49 +218,83 @@ export class MainPage extends React.Component<
 					/>
 				)}
 
-				<Flex m="110px 55px" justifyContent="space-between">
-					<SourceSelector
-						flashing={this.state.isFlashing}
-						afterSelected={(source: SourceOptions) => this.setState({ source })}
-					/>
+				<Flex
+					m={`110px ${this.state.isWebviewShowing ? 35 : 55}px`}
+					justifyContent="space-between"
+				>
+					{notFlashingOrSplitView && (
+						<SourceSelector
+							flashing={this.state.isFlashing}
+							afterSelected={(source: SourceOptions) =>
+								this.setState({ source })
+							}
+						/>
+					)}
 
-					{(!this.state.isWebviewShowing || !this.state.isFlashing) && (
+					{notFlashingOrSplitView && (
 						<Flex>
 							<StepBorder disabled={shouldDriveStepBeDisabled} left />
 						</Flex>
 					)}
 
-					<DriveSelector
-						disabled={shouldDriveStepBeDisabled}
-						hasDrive={this.state.hasDrive}
-						flashing={this.state.isFlashing}
-					/>
+					{notFlashingOrSplitView && (
+						<DriveSelector
+							disabled={shouldDriveStepBeDisabled}
+							hasDrive={this.state.hasDrive}
+							flashing={this.state.isFlashing}
+						/>
+					)}
 
-					{(!this.state.isWebviewShowing || !this.state.isFlashing) && (
+					{notFlashingOrSplitView && (
 						<Flex>
 							<StepBorder disabled={shouldFlashStepBeDisabled} right />
 						</Flex>
 					)}
 
-					{this.state.isFlashing && this.state.isWebviewShowing && (
+					{this.state.isFlashing && (
 						<>
+							<Flex
+								style={{
+									position: 'absolute',
+									top: 0,
+									left: 0,
+									width: '36.2vw',
+									height: '100vh',
+									zIndex: 1,
+									boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.2)',
+									display: this.state.isWebviewShowing ? 'block' : 'none',
+								}}
+							>
+								<ReducedFlashingInfos
+									imageLogo={this.state.imageLogo}
+									imageName={this.state.imageName}
+									imageSize={
+										_.isNumber(this.state.imageSize)
+											? (bytesToClosestUnit(this.state.imageSize) as string)
+											: ''
+									}
+									driveTitle={this.state.driveTitle}
+									driveLabel={this.state.driveLabel}
+									style={{
+										position: 'absolute',
+										color: '#fff',
+										left: 35,
+										top: 72,
+									}}
+								/>
+							</Flex>
 							<FeaturedProject
+								shouldShow={this.state.isWebviewShowing}
 								onWebviewShow={(isWebviewShowing: boolean) => {
 									this.setState({ isWebviewShowing });
 								}}
-							/>
-							<ReducedFlashingInfos
-								imageLogo={this.state.imageLogo}
-								imageName={middleEllipsis(this.state.imageName, 16)}
-								imageSize={
-									_.isNumber(this.state.imageSize)
-										? (bytesToClosestUnit(this.state.imageSize) as string)
-										: ''
-								}
-								driveTitle={middleEllipsis(this.state.driveTitle, 16)}
-								shouldShow={
-									this.state.isFlashing && this.state.isWebviewShowing
-								}
+								style={{
+									position: 'absolute',
+									right: 0,
+									bottom: 0,
+									width: '63.8vw',
+									height: '100vh',
+								}}
 							/>
 						</>
 					)}
@@ -264,13 +303,15 @@ export class MainPage extends React.Component<
 						goToSuccess={() => this.setState({ current: 'success' })}
 						shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
 						source={this.state.source}
-						isFlashing={flashState.isFlashing()}
+						isFlashing={this.state.isFlashing}
+						isWebviewShowing={this.state.isWebviewShowing}
 						step={state.type}
 						percentage={state.percentage}
 						position={state.position}
 						failed={state.failed}
 						speed={state.speed}
 						eta={state.eta}
+						style={{ zIndex: 1 }}
 					/>
 				</Flex>
 			</>

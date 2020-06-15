@@ -21,6 +21,8 @@ import {
 	Modal as ModalBase,
 	Provider,
 	Txt,
+	Flex,
+	FlexProps,
 } from 'rendition';
 import styled from 'styled-components';
 import { space } from 'styled-system';
@@ -98,15 +100,13 @@ export const Footer = styled(Txt)`
 	font-size: 10px;
 `;
 
-export const Underline = styled(Txt.span)`
-	border-bottom: 1px dotted;
-	padding-bottom: 2px;
-`;
-
-export const DetailsText = styled(Txt.p)`
-	color: ${colors.dark.disabled.foreground};
-	margin-bottom: 0;
-`;
+export const DetailsText = (props: FlexProps) => (
+	<Flex
+		alignItems="center"
+		color={colors.dark.disabled.foreground}
+		{...props}
+	/>
+);
 
 export const Modal = styled((props) => {
 	return (

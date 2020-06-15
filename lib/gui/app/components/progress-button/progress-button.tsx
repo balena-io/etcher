@@ -113,6 +113,9 @@ export class ProgressButton extends React.PureComponent<ProgressButtonProps> {
 				warning={this.props.warning}
 				onClick={this.props.callback}
 				disabled={this.props.disabled}
+				style={{
+					marginTop: 30,
+				}}
 			>
 				Flash!
 			</StepButton>

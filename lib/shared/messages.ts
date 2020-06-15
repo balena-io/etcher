@@ -19,12 +19,12 @@ import { Dictionary } from 'lodash';
 export const progress: Dictionary<(quantity: number) => string> = {
 	successful: (quantity: number) => {
 		const plural = quantity === 1 ? '' : 's';
-		return `Successful device${plural}`;
+		return `Successful target${plural}`;
 	},
 
 	failed: (quantity: number) => {
 		const plural = quantity === 1 ? '' : 's';
-		return `Failed device${plural}`;
+		return `Failed target${plural}`;
 	},
 };
 
