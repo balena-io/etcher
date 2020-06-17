@@ -18,7 +18,8 @@ import {
 	faChevronDown,
 	faExclamationTriangle,
 } from '@fortawesome/free-solid-svg-icons';
-import { Drive as DrivelistDrive } from 'drivelist';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { scanner, sourceDestination } from 'etcher-sdk';
 import * as React from 'react';
 import {
 	Badge,
@@ -47,34 +48,37 @@ import {
 	isDriveSelected,
 } from '../../models/selection-state';
 import { store } from '../../models/store';
-import * as analytics from '../../modules/analytics';
+import { logEvent, logException } from '../../modules/analytics';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 import { Modal } from '../../styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export interface DrivelistTarget extends DrivelistDrive {
-	displayName: string;
+interface UsbbootDrive extends sourceDestination.UsbbootDrive {
 	progress: number;
-	device: string;
+}
+
+interface DriverlessDrive {
+	displayName: string; // added in app.ts
+	description: string;
 	link: string;
 	linkTitle: string;
 	linkMessage: string;
 	linkCTA: string;
 }
 
-/**
- * @summary Get a drive's compatibility status object(s)
- *
- * @description
- * Given a drive, return its compatibility status with the selected image,
- * containing the status type (ERROR, WARNING), and accompanying
- * status message.
- */
-function getDriveStatuses(
-	drive: DrivelistTarget,
-	image: Image,
-): TargetStatus[] {
-	return getDriveImageCompatibilityStatuses(drive, image);
+type Target = scanner.adapters.DrivelistDrive | DriverlessDrive | UsbbootDrive;
+
+function isUsbbootDrive(drive: Target): drive is UsbbootDrive {
+	return (drive as UsbbootDrive).progress !== undefined;
+}
+
+function isDriverlessDrive(drive: Target): drive is DriverlessDrive {
+	return (drive as DriverlessDrive).link !== undefined;
+}
+
+function isDrivelistDrive(
+	drive: Target,
+): drive is scanner.adapters.DrivelistDrive {
+	return typeof (drive as scanner.adapters.DrivelistDrive).size === 'number';
 }
 
 const ScrollableFlex = styled(Flex)`
@@ -88,14 +92,10 @@ const ScrollableFlex = styled(Flex)`
 const TargetsTable = styled(({ refFn, ...props }) => {
 	return (
 		<div>
-			<Table<DrivelistTarget> ref={refFn} {...props} />
+			<Table<Target> ref={refFn} {...props} />
 		</div>
 	);
 })`
-	> div {
-		overflow: visible;
-	}
-
 	[data-display='table-head']
 		[data-display='table-row']
 		> [data-display='table-cell']:first-child {
@@ -122,12 +122,6 @@ const TargetsTable = styled(({ refFn, ...props }) => {
 		color: #2a506f;
 	}
 `;
-
-interface DriverlessDrive {
-	link: string;
-	linkTitle: string;
-	linkMessage: string;
-}
 
 function badgeShadeFromStatus(status: string) {
 	switch (status) {
@@ -148,7 +142,7 @@ const InitProgress = styled(
 		value: number;
 		props?: React.ProgressHTMLAttributes<Element>;
 	}) => {
-		return <progress max="100" value={value} {...props}></progress>;
+		return <progress max="100" value={value} {...props} />;
 	},
 )`
 	/* Reset the default appearance */
@@ -167,20 +161,15 @@ const InitProgress = styled(
 	}
 `;
 
-interface TableData extends DrivelistTarget {
-	disabled: boolean;
-	extra: TargetStatus[] | number;
-}
-
 interface TargetSelectorModalProps extends Omit<ModalProps, 'done'> {
-	done: (targets: DrivelistTarget[]) => void;
+	done: (targets: scanner.adapters.DrivelistDrive[]) => void;
 }
 
 interface TargetSelectorModalState {
-	drives: any[];
+	drives: Target[];
 	image: Image;
 	missingDriversModal: { drive?: DriverlessDrive };
-	selectedList: any[];
+	selectedList: scanner.adapters.DrivelistDrive[];
 	showSystemDrives: boolean;
 }
 
@@ -189,7 +178,7 @@ export class TargetSelectorModal extends React.Component<
 	TargetSelectorModalState
 > {
 	unsubscribe: () => void;
-	tableColumns: Array<TableColumn<TableData>>;
+	tableColumns: Array<TableColumn<Target>>;
 
 	constructor(props: TargetSelectorModalProps) {
 		super(props);
@@ -209,8 +198,8 @@ export class TargetSelectorModal extends React.Component<
 			{
 				field: 'description',
 				label: 'Name',
-				render: (description: string, drive: DrivelistTarget) => {
-					return drive.isSystem ? (
+				render: (description: string, drive: Target) => {
+					return isDrivelistDrive(drive) && drive.isSystem ? (
 						<Flex alignItems="center">
 							<FontAwesomeIcon
 								style={{ color: '#fca321' }}
@@ -224,66 +213,78 @@ export class TargetSelectorModal extends React.Component<
 				},
 			},
 			{
-				field: 'size',
+				field: 'description',
+				key: 'size',
 				label: 'Size',
-				render: bytesToClosestUnit,
+				render: (_description: string, drive: Target) => {
+					if (isDrivelistDrive(drive) && drive.size !== null) {
+						return bytesToClosestUnit(drive.size);
+					}
+				},
 			},
 			{
-				field: 'link',
+				field: 'description',
+				key: 'link',
 				label: 'Location',
-				render: (link: string, drive: DrivelistTarget) => {
-					return link ? (
+				render: (_description: string, drive: Target) => {
+					return (
 						<Txt>
-							{drive.displayName} -{' '}
-							<b>
-								<a onClick={() => this.installMissingDrivers(drive)}>
-									{drive.linkCTA}
-								</a>
-							</b>
+							{drive.displayName}
+							{isDriverlessDrive(drive) && (
+								<>
+									{' '}
+									-{' '}
+									<b>
+										<a onClick={() => this.installMissingDrivers(drive)}>
+											{drive.linkCTA}
+										</a>
+									</b>
+								</>
+							)}
 						</Txt>
-					) : (
-						<Txt>{drive.displayName}</Txt>
 					);
 				},
 			},
 			{
-				field: 'extra',
-				label: ' ',
-				render: (extra: TargetStatus[] | number) => {
-					if (typeof extra === 'number') {
-						return this.renderProgress(extra);
+				field: 'description',
+				key: 'extra',
+				label: '',
+				render: (_description: string, drive: Target) => {
+					if (isUsbbootDrive(drive)) {
+						return this.renderProgress(drive.progress);
+					} else if (isDrivelistDrive(drive)) {
+						return this.renderStatuses(
+							getDriveImageCompatibilityStatuses(drive, this.state.image),
+						);
 					}
-					return this.renderStatuses(extra);
 				},
 			},
 		];
 	}
 
-	private buildTableData(drives: any[], image: any) {
-		return drives.map((drive) => {
-			return {
-				...drive,
-				extra:
-					drive.progress !== undefined
-						? drive.progress
-						: getDriveStatuses(drive, image),
-				disabled: !isDriveValid(drive, image) || drive.progress !== undefined,
-			};
+	private driveShouldBeDisabled(drive: Target, image: any) {
+		return (
+			isUsbbootDrive(drive) ||
+			isDriverlessDrive(drive) ||
+			!isDriveValid(drive, image)
+		);
+	}
+
+	private getDisplayedTargets(targets: Target[]): Target[] {
+		return targets.filter((drive) => {
+			return (
+				isUsbbootDrive(drive) ||
+				isDriverlessDrive(drive) ||
+				isDriveSelected(drive.device) ||
+				this.state.showSystemDrives ||
+				!drive.isSystem
+			);
 		});
 	}
 
-	private getDisplayedTargets(enrichedDrivesData: any[]) {
-		return enrichedDrivesData.filter((drive) => {
-			const showIfSystemDrive = this.state.showSystemDrives || !drive.isSystem;
-			return isDriveSelected(drive.device) || showIfSystemDrive;
-		});
-	}
-
-	private getDisabledTargets(drives: any[], image: any): TableData[] {
+	private getDisabledTargets(drives: Target[], image: any): string[] {
 		return drives
-			.filter(
-				(drive) => !isDriveValid(drive, image) || drive.progress !== undefined,
-			)
+			.filter((drive) => this.driveShouldBeDisabled(drive, image))
 			.map((drive) => drive.displayName);
 	}
 
@@ -312,13 +313,9 @@ export class TargetSelectorModal extends React.Component<
 		);
 	}
 
-	private installMissingDrivers(drive: {
-		link: string;
-		linkTitle: string;
-		linkMessage: string;
-	}) {
+	private installMissingDrivers(drive: DriverlessDrive) {
 		if (drive.link) {
-			analytics.logEvent('Open driver link modal', {
+			logEvent('Open driver link modal', {
 				url: drive.link,
 			});
 			this.setState({ missingDriversModal: { drive } });
@@ -343,21 +340,15 @@ export class TargetSelectorModal extends React.Component<
 
 	render() {
 		const { cancel, done, ...props } = this.props;
-		const {
-			selectedList,
-			showSystemDrives,
-			drives,
-			image,
-			missingDriversModal,
-		} = this.state;
+		const { selectedList, drives, image, missingDriversModal } = this.state;
 
-		const targetsWithTableData = this.buildTableData(drives, image);
-		const displayedTargets = this.getDisplayedTargets(targetsWithTableData);
+		const displayedTargets = this.getDisplayedTargets(drives);
 		const disabledTargets = this.getDisabledTargets(drives, image);
-		const numberOfSystemDrives = drives.filter((drive) => drive.isSystem)
-			.length;
+		const numberOfSystemDrives = drives.filter(
+			(drive) => isDrivelistDrive(drive) && drive.isSystem,
+		).length;
 		const numberOfDisplayedSystemDrives = displayedTargets.filter(
-			(drive) => drive.isSystem,
+			(drive) => isDrivelistDrive(drive) && drive.isSystem,
 		).length;
 		const numberOfHiddenSystemDrives =
 			numberOfSystemDrives - numberOfDisplayedSystemDrives;
@@ -407,7 +398,7 @@ export class TargetSelectorModal extends React.Component<
 							height="calc(100% - 15px)"
 						>
 							<TargetsTable
-								refFn={(t: Table<TableData>) => {
+								refFn={(t: Table<Target>) => {
 									if (t !== null) {
 										t.setRowSelection(selectedList);
 									}
@@ -416,13 +407,16 @@ export class TargetSelectorModal extends React.Component<
 								data={displayedTargets}
 								disabledRows={disabledTargets}
 								rowKey="displayName"
-								onCheck={(rows: TableData[]) => {
+								onCheck={(rows: Target[]) => {
 									this.setState({
-										selectedList: rows,
+										selectedList: rows.filter(isDrivelistDrive),
 									});
 								}}
-								onRowClick={(row: TableData) => {
-									if (row.disabled) {
+								onRowClick={(row: Target) => {
+									if (
+										!isDrivelistDrive(row) ||
+										this.driveShouldBeDisabled(row, image)
+									) {
 										return;
 									}
 									const newList = [...selectedList];
@@ -440,7 +434,7 @@ export class TargetSelectorModal extends React.Component<
 									});
 								}}
 							/>
-							{!showSystemDrives && numberOfHiddenSystemDrives > 0 && (
+							{numberOfHiddenSystemDrives > 0 && (
 								<Link
 									mt={15}
 									mb={15}
@@ -467,7 +461,7 @@ export class TargetSelectorModal extends React.Component<
 									openExternal(missingDriversModal.drive.link);
 								}
 							} catch (error) {
-								analytics.logException(error);
+								logException(error);
 							} finally {
 								this.setState({ missingDriversModal: {} });
 							}

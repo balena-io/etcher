@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
+import { scanner } from 'etcher-sdk';
 import * as React from 'react';
 import styled from 'styled-components';
+
 import { TargetSelector } from '../../components/target-selector/target-selector-button';
-import {
-	DrivelistTarget,
-	TargetSelectorModal,
-} from '../../components/target-selector/target-selector-modal';
+import { TargetSelectorModal } from '../../components/target-selector/target-selector-modal';
 import {
 	isDriveSelected,
 	getImage,
@@ -71,7 +70,9 @@ const getDriveSelectionStateSlice = () => ({
 	image: getImage(),
 });
 
-export const selectAllTargets = (modalTargets: DrivelistTarget[]) => {
+export const selectAllTargets = (
+	modalTargets: scanner.adapters.DrivelistDrive[],
+) => {
 	const selectedDrivesFromState = getSelectedDrives();
 	const deselected = selectedDrivesFromState.filter(
 		(drive) =>
