@@ -87,6 +87,11 @@ const ScrollableFlex = styled(Flex)`
 	::-webkit-scrollbar {
 		display: none;
 	}
+
+	> div > div {
+		/* This is required for the sticky table header in TargetsTable */
+		overflow-x: visible;
+	}
 `;
 
 const TargetsTable = styled(({ refFn, ...props }) => {
@@ -96,28 +101,21 @@ const TargetsTable = styled(({ refFn, ...props }) => {
 		</div>
 	);
 })`
-	[data-display='table-head']
-		[data-display='table-row']
-		> [data-display='table-cell']:first-child {
+	[data-display='table-head'] [data-display='table-cell'] {
+		position: sticky;
+		top: 0;
+		background-color: ${(props) => props.theme.colors.quartenary.light};
+	}
+
+	[data-display='table-cell']:first-child {
 		padding-left: 15px;
 	}
 
-	[data-display='table-head']
-		[data-display='table-row']
-		> [data-display='table-cell'] {
-		padding: 6px 8px;
-		color: #2a506f;
+	[data-display='table-cell']:last-child {
+		width: 150px;
 	}
 
-	[data-display='table-body']
-		> [data-display='table-row']
-		> [data-display='table-cell']:first-child {
-		padding-left: 15px;
-	}
-
-	[data-display='table-body']
-		> [data-display='table-row']
-		> [data-display='table-cell'] {
+	&& [data-display='table-row'] > [data-display='table-cell'] {
 		padding: 6px 8px;
 		color: #2a506f;
 	}
@@ -248,7 +246,8 @@ export class TargetSelectorModal extends React.Component<
 			{
 				field: 'description',
 				key: 'extra',
-				label: '',
+				// Space as empty string would use the field name as label
+				label: ' ',
 				render: (_description: string, drive: Target) => {
 					if (isUsbbootDrive(drive)) {
 						return this.renderProgress(drive.progress);
