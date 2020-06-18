@@ -373,7 +373,7 @@ export class TargetSelectorModal extends React.Component<
 				titleDetails={<Txt fontSize={11}>{getDrives().length} found</Txt>}
 				cancel={cancel}
 				done={() => done(selectedList)}
-				action="Continue"
+				action={`Select (${selectedList.length})`}
 				style={{
 					width: '780px',
 					height: '420px',
