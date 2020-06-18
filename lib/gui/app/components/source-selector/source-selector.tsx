@@ -30,7 +30,7 @@ import {
 	ButtonProps,
 	Card as BaseCard,
 	Input,
-	Modal,
+	Modal as SmallModal,
 	Txt,
 	Flex,
 } from 'rendition';
@@ -49,6 +49,7 @@ import { replaceWindowsNetworkDriveLetter } from '../../os/windows-network-drive
 import {
 	ChangeButton,
 	DetailsText,
+	Modal,
 	StepButton,
 	StepNameButton,
 } from '../../styled-components';
@@ -114,7 +115,13 @@ function getState() {
 	};
 }
 
-const URLSelector = ({ done }: { done: (imageURL: string) => void }) => {
+const URLSelector = ({
+	done,
+	cancel,
+}: {
+	done: (imageURL: string) => void;
+	cancel: () => void;
+}) => {
 	const [imageURL, setImageURL] = React.useState('');
 	const [recentImages, setRecentImages]: [
 		string[],
@@ -130,8 +137,9 @@ const URLSelector = ({ done }: { done: (imageURL: string) => void }) => {
 	}, []);
 	return (
 		<Modal
+			cancel={cancel}
 			primaryButtonProps={{
-				disabled: loading,
+				disabled: loading || !imageURL,
 			}}
 			done={async () => {
 				setLoading(true);
@@ -143,8 +151,8 @@ const URLSelector = ({ done }: { done: (imageURL: string) => void }) => {
 				await done(imageURL);
 			}}
 		>
-			<label style={{ width: '100%' }}>
-				<Txt mb="10px" fontSize="20px">
+			<Flex style={{ width: '100%' }} flexDirection="column">
+				<Txt mb="10px" fontSize="24px">
 					Use Image URL
 				</Txt>
 				<Input
@@ -155,10 +163,10 @@ const URLSelector = ({ done }: { done: (imageURL: string) => void }) => {
 						setImageURL(evt.target.value)
 					}
 				/>
-			</label>
+			</Flex>
 			{!_.isEmpty(recentImages) && (
-				<div>
-					Recent
+				<Flex flexDirection="column">
+					<Txt fontSize={18}>Recent</Txt>
 					<Card
 						style={{ padding: '10px 15px' }}
 						rows={_.map(recentImages, (recent) => (
@@ -174,7 +182,7 @@ const URLSelector = ({ done }: { done: (imageURL: string) => void }) => {
 							</Txt>
 						))}
 					/>
-				</div>
+				</Flex>
 			)}
 		</Modal>
 	);
@@ -529,7 +537,7 @@ export class SourceSelector extends React.Component<
 				</Flex>
 
 				{this.state.warning != null && (
-					<Modal
+					<SmallModal
 						titleElement={
 							<span>
 								<FontAwesomeIcon
@@ -552,11 +560,11 @@ export class SourceSelector extends React.Component<
 						<ModalText
 							dangerouslySetInnerHTML={{ __html: this.state.warning.message }}
 						/>
-					</Modal>
+					</SmallModal>
 				)}
 
 				{showImageDetails && (
-					<Modal
+					<SmallModal
 						title="Image"
 						done={() => {
 							this.setState({ showImageDetails: false });
@@ -570,11 +578,16 @@ export class SourceSelector extends React.Component<
 							<Txt.span bold>Path: </Txt.span>
 							<Txt.span>{imagePath}</Txt.span>
 						</Txt.p>
-					</Modal>
+					</SmallModal>
 				)}
 
 				{showURLSelector && (
 					<URLSelector
+						cancel={() => {
+							this.setState({
+								showURLSelector: false,
+							});
+						}}
 						done={async (imageURL: string) => {
 							// Avoid analytics and selection state changes
 							// if no file was resolved from the dialog.

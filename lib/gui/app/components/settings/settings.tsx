@@ -19,12 +19,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as _ from 'lodash';
 import * as os from 'os';
 import * as React from 'react';
-import { Checkbox, Modal } from 'rendition';
+import { Checkbox, Flex, Modal as SmallModal, Txt } from 'rendition';
 
-import { version } from '../../../../../package.json';
+import { version, packageType } from '../../../../../package.json';
 import * as settings from '../../models/settings';
 import * as analytics from '../../modules/analytics';
 import { open as openExternal } from '../../os/open-external/services/open-external';
+import { Modal } from '../../styled-components';
 
 const platform = os.platform();
 
@@ -42,7 +43,7 @@ const WarningModal = ({
 	done,
 }: WarningModalProps) => {
 	return (
-		<Modal
+		<SmallModal
 			title={confirmLabel}
 			action={confirmLabel}
 			cancel={cancel}
@@ -54,7 +55,7 @@ const WarningModal = ({
 			primaryButtonProps={{ warning: true }}
 		>
 			{message}
-		</Modal>
+		</SmallModal>
 	);
 };
 
@@ -91,6 +92,7 @@ async function getSettingsList(): Promise<Setting[]> {
 		{
 			name: 'updatesEnabled',
 			label: 'Auto-updates enabled',
+			hide: _.includes(['rpm', 'deb'], packageType),
 		},
 	];
 }
@@ -160,18 +162,21 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 
 	return (
 		<Modal
-			id="settings-modal"
-			title="Settings"
+			titleElement={
+				<Txt fontSize={24} mb={24}>
+					Settings
+				</Txt>
+			}
 			done={() => toggleModal(false)}
 			style={{
 				width: 780,
 				height: 420,
 			}}
 		>
-			<div>
+			<Flex flexDirection="column">
 				{_.map(settingsList, (setting: Setting, i: number) => {
 					return setting.hide ? null : (
-						<div key={setting.name}>
+						<Flex key={setting.name}>
 							<Checkbox
 								toggle
 								tabIndex={6 + i}
@@ -179,21 +184,27 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 								checked={currentSettings[setting.name]}
 								onChange={() => toggleSetting(setting.name, setting.options)}
 							/>
-						</div>
+						</Flex>
 					);
 				})}
-				<div>
-					<span
-						onClick={() =>
-							openExternal(
-								'https://github.com/balena-io/etcher/blob/master/CHANGELOG.md',
-							)
-						}
-					>
-						<FontAwesomeIcon icon={faGithub} /> {version}
-					</span>
-				</div>
-			</div>
+				<Flex
+					mt={28}
+					alignItems="center"
+					color="#00aeef"
+					style={{
+						width: 'fit-content',
+						cursor: 'pointer',
+					}}
+					onClick={() =>
+						openExternal(
+							'https://github.com/balena-io/etcher/blob/master/CHANGELOG.md',
+						)
+					}
+				>
+					<FontAwesomeIcon icon={faGithub} style={{ marginRight: 8 }} />
+					<Txt style={{ borderBottom: '1px solid #00aeef' }}>{version}</Txt>
+				</Flex>
+			</Flex>
 
 			{warning === undefined ? null : (
 				<WarningModal

@@ -89,6 +89,7 @@ export const theme = {
 			&& {
 				width: 200px;
 				height: 48px;
+				font-size: 16px;
 
 				:disabled {
 					background-color: ${colors.dark.disabled.background};

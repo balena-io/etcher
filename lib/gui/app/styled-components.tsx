@@ -23,14 +23,27 @@ import {
 	Txt,
 	Flex,
 	FlexProps,
+	Theme as renditionTheme,
 } from 'rendition';
 import styled from 'styled-components';
 import { space } from 'styled-system';
 
 import { colors, theme } from './theme';
 
+const defaultTheme = {
+	...renditionTheme,
+	...theme,
+	layer: {
+		extend: () => `
+			> div:first-child {
+				background-color: transparent;
+			}
+		`,
+	},
+};
+
 export const ThemedProvider = (props: any) => (
-	<Provider theme={theme} {...props}></Provider>
+	<Provider theme={defaultTheme} {...props}></Provider>
 );
 
 export const BaseButton = styled(Button)`
@@ -109,16 +122,38 @@ export const DetailsText = (props: FlexProps) => (
 );
 
 export const Modal = styled((props) => {
+	const { style = { height: 420 } } = props;
 	return (
-		<ModalBase
-			cancelButtonProps={{
-				style: {
-					marginRight: '20px',
-					border: 'solid 1px #2a506f',
+		<Provider
+			theme={{
+				...defaultTheme,
+				header: {
+					height: '50px',
+				},
+				layer: {
+					extend: () => `
+					${defaultTheme.layer.extend()}
+
+					> div:last-child {
+						top: 0;
+					}
+				`,
 				},
 			}}
-			{...props}
-		/>
+		>
+			<ModalBase
+				position="top"
+				width={780}
+				cancelButtonProps={{
+					style: {
+						marginRight: '20px',
+						border: 'solid 1px #2a506f',
+					},
+				}}
+				style={style}
+				{...props}
+			/>
+		</Provider>
 	);
 })`
 	> div {
@@ -130,6 +165,7 @@ export const Modal = styled((props) => {
 		}
 
 		> div:last-child {
+			border-radius: 0 0 7px 7px;
 			height: 80px;
 			background-color: #fff;
 			justify-content: center;
