@@ -75,7 +75,7 @@
     "electron": "9.0.4",
     "electron-builder": "^22.7.0",
     "electron-mocha": "^8.2.0",
-    "electron-notarize": "^0.3.0",
+    "electron-notarize": "^1.0.0",
     "electron-rebuild": "^1.11.0",
     "electron-updater": "^4.3.2",
     "etcher-sdk": "^4.1.15",
