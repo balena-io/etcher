@@ -52,6 +52,8 @@ import { logEvent, logException } from '../../modules/analytics';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 import { Modal } from '../../styled-components';
 
+import TargetSVGIcon from '../../../assets/tgt.svg';
+
 interface UsbbootDrive extends sourceDestination.UsbbootDrive {
 	progress: number;
 }
@@ -387,7 +389,13 @@ export class TargetSelectorModal extends React.Component<
 			>
 				<Flex width="100%" height="100%">
 					{!hasAvailableDrives() ? (
-						<Flex justifyContent="center" alignItems="center" width="100%">
+						<Flex
+							flexDirection="column"
+							justifyContent="center"
+							alignItems="center"
+							width="100%"
+						>
+							<TargetSVGIcon width="40px" height="90px" />
 							<b>Plug a target drive</b>
 						</Flex>
 					) : (
