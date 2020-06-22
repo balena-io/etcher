@@ -24,7 +24,7 @@ export function hasAvailableDrives() {
 
 export function setDrives(drives: any[]) {
 	store.dispatch({
-		type: Actions.SET_AVAILABLE_DRIVES,
+		type: Actions.SET_AVAILABLE_TARGETS,
 		data: drives,
 	});
 }

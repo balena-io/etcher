@@ -359,7 +359,7 @@ describe('Model: selectionState', function () {
 				logo: '<svg><text fill="red">Raspbian</text></svg>',
 			};
 
-			selectionState.selectImage(this.image);
+			selectionState.selectSource(this.image);
 		});
 
 		describe('.selectDrive()', function () {
@@ -445,7 +445,7 @@ describe('Model: selectionState', function () {
 
 		describe('.selectImage()', function () {
 			it('should override the image', function () {
-				selectionState.selectImage({
+				selectionState.selectSource({
 					path: 'bar.img',
 					extension: 'img',
 					size: 999999999,
@@ -476,7 +476,7 @@ describe('Model: selectionState', function () {
 			afterEach(selectionState.clear);
 
 			it('should be able to set an image', function () {
-				selectionState.selectImage({
+				selectionState.selectSource({
 					path: 'foo.img',
 					extension: 'img',
 					size: 999999999,
@@ -490,7 +490,7 @@ describe('Model: selectionState', function () {
 			});
 
 			it('should be able to set an image with an archive extension', function () {
-				selectionState.selectImage({
+				selectionState.selectSource({
 					path: 'foo.zip',
 					extension: 'img',
 					archiveExtension: 'zip',
@@ -503,7 +503,7 @@ describe('Model: selectionState', function () {
 			});
 
 			it('should infer a compressed raw image if the penultimate extension is missing', function () {
-				selectionState.selectImage({
+				selectionState.selectSource({
 					path: 'foo.xz',
 					extension: 'img',
 					archiveExtension: 'xz',
@@ -516,7 +516,7 @@ describe('Model: selectionState', function () {
 			});
 
 			it('should infer a compressed raw image if the penultimate extension is not a file extension', function () {
-				selectionState.selectImage({
+				selectionState.selectSource({
 					path: 'something.linux-x86-64.gz',
 					extension: 'img',
 					archiveExtension: 'gz',
@@ -530,7 +530,7 @@ describe('Model: selectionState', function () {
 
 			it('should throw if no path', function () {
 				expect(function () {
-					selectionState.selectImage({
+					selectionState.selectSource({
 						extension: 'img',
 						size: 999999999,
 						isSizeEstimated: false,
@@ -540,7 +540,7 @@ describe('Model: selectionState', function () {
 
 			it('should throw if path is not a string', function () {
 				expect(function () {
-					selectionState.selectImage({
+					selectionState.selectSource({
 						path: 123,
 						extension: 'img',
 						size: 999999999,
@@ -551,7 +551,7 @@ describe('Model: selectionState', function () {
 
 			it('should throw if the original size is not a number', function () {
 				expect(function () {
-					selectionState.selectImage({
+					selectionState.selectSource({
 						path: 'foo.img',
 						extension: 'img',
 						size: 999999999,
@@ -563,7 +563,7 @@ describe('Model: selectionState', function () {
 
 			it('should throw if the original size is a float number', function () {
 				expect(function () {
-					selectionState.selectImage({
+					selectionState.selectSource({
 						path: 'foo.img',
 						extension: 'img',
 						size: 999999999,
@@ -575,7 +575,7 @@ describe('Model: selectionState', function () {
 
 			it('should throw if the original size is negative', function () {
 				expect(function () {
-					selectionState.selectImage({
+					selectionState.selectSource({
 						path: 'foo.img',
 						extension: 'img',
 						size: 999999999,
@@ -587,7 +587,7 @@ describe('Model: selectionState', function () {
 
 			it('should throw if the final size is not a number', function () {
 				expect(function () {
-					selectionState.selectImage({
+					selectionState.selectSource({
 						path: 'foo.img',
 						extension: 'img',
 						size: '999999999',
@@ -598,7 +598,7 @@ describe('Model: selectionState', function () {
 
 			it('should throw if the final size is a float number', function () {
 				expect(function () {
-					selectionState.selectImage({
+					selectionState.selectSource({
 						path: 'foo.img',
 						extension: 'img',
 						size: 999999999.999,
@@ -609,7 +609,7 @@ describe('Model: selectionState', function () {
 
 			it('should throw if the final size is negative', function () {
 				expect(function () {
-					selectionState.selectImage({
+					selectionState.selectSource({
 						path: 'foo.img',
 						extension: 'img',
 						size: -1,
@@ -620,7 +620,7 @@ describe('Model: selectionState', function () {
 
 			it("should throw if url is defined but it's not a string", function () {
 				expect(function () {
-					selectionState.selectImage({
+					selectionState.selectSource({
 						path: 'foo.img',
 						extension: 'img',
 						size: 999999999,
@@ -632,7 +632,7 @@ describe('Model: selectionState', function () {
 
 			it("should throw if name is defined but it's not a string", function () {
 				expect(function () {
-					selectionState.selectImage({
+					selectionState.selectSource({
 						path: 'foo.img',
 						extension: 'img',
 						size: 999999999,
@@ -644,7 +644,7 @@ describe('Model: selectionState', function () {
 
 			it("should throw if logo is defined but it's not a string", function () {
 				expect(function () {
-					selectionState.selectImage({
+					selectionState.selectSource({
 						path: 'foo.img',
 						extension: 'img',
 						size: 999999999,
@@ -667,7 +667,7 @@ describe('Model: selectionState', function () {
 				selectionState.selectDrive('/dev/disk1');
 				expect(selectionState.hasDrive()).to.be.true;
 
-				selectionState.selectImage({
+				selectionState.selectSource({
 					path: 'foo.img',
 					extension: 'img',
 					size: 1234567890,
@@ -691,7 +691,7 @@ describe('Model: selectionState', function () {
 				selectionState.selectDrive('/dev/disk1');
 				expect(selectionState.hasDrive()).to.be.true;
 
-				selectionState.selectImage({
+				selectionState.selectSource({
 					path: 'foo.img',
 					extension: 'img',
 					size: 999999999,
@@ -726,7 +726,7 @@ describe('Model: selectionState', function () {
 				selectionState.selectDrive('/dev/disk1');
 				expect(selectionState.hasDrive()).to.be.true;
 
-				selectionState.selectImage({
+				selectionState.selectSource({
 					path: imagePath,
 					extension: 'img',
 					size: 999999999,
@@ -752,7 +752,7 @@ describe('Model: selectionState', function () {
 
 			selectionState.selectDrive('/dev/disk1');
 
-			selectionState.selectImage({
+			selectionState.selectSource({
 				path: 'foo.img',
 				extension: 'img',
 				size: 999999999,
@@ -850,7 +850,7 @@ describe('Model: selectionState', function () {
 			selectionState.selectDrive('/dev/disk2');
 			selectionState.selectDrive('/dev/disk3');
 
-			selectionState.selectImage({
+			selectionState.selectSource({
 				path: 'foo.img',
 				extension: 'img',
 				size: 999999999,

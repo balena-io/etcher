@@ -157,7 +157,7 @@ describe('Model: availableDrives', function () {
 						}
 
 						selectionState.clear();
-						selectionState.selectImage({
+						selectionState.selectSource({
 							path: this.imagePath,
 							extension: 'img',
 							size: 999999999,

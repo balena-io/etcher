@@ -23,7 +23,6 @@ import { Flex, Modal, Txt } from 'rendition';
 import * as constraints from '../../../../shared/drive-constraints';
 import * as messages from '../../../../shared/messages';
 import { ProgressButton } from '../../components/progress-button/progress-button';
-import { SourceOptions } from '../../components/source-selector/source-selector';
 import * as availableDrives from '../../models/available-drives';
 import * as flashState from '../../models/flash-state';
 import * as selection from '../../models/selection-state';
@@ -79,7 +78,6 @@ const getErrorMessageFromCode = (errorCode: string) => {
 async function flashImageToDrive(
 	isFlashing: boolean,
 	goToSuccess: () => void,
-	sourceOptions: SourceOptions,
 ): Promise<string> {
 	const devices = selection.getSelectedDevices();
 	const image: any = selection.getImage();
@@ -98,7 +96,7 @@ async function flashImageToDrive(
 	const iconPath = path.join('media', 'icon.png');
 	const basename = path.basename(image.path);
 	try {
-		await imageWriter.flash(image.path, drives, sourceOptions);
+		await imageWriter.flash(image, drives);
 		if (!flashState.wasLastFlashCancelled()) {
 			const flashResults: any = flashState.getFlashResults();
 			notification.send(
@@ -146,7 +144,6 @@ const formatSeconds = (totalSeconds: number) => {
 interface FlashStepProps {
 	shouldFlashStepBeDisabled: boolean;
 	goToSuccess: () => void;
-	source: SourceOptions;
 	isFlashing: boolean;
 	style?: React.CSSProperties;
 	// TODO: factorize
@@ -187,7 +184,6 @@ export class FlashStep extends React.PureComponent<
 			errorMessage: await flashImageToDrive(
 				this.props.isFlashing,
 				this.props.goToSuccess,
-				this.props.source,
 			),
 		});
 	}
@@ -230,7 +226,6 @@ export class FlashStep extends React.PureComponent<
 			errorMessage: await flashImageToDrive(
 				this.props.isFlashing,
 				this.props.goToSuccess,
-				this.props.source,
 			),
 		});
 	}

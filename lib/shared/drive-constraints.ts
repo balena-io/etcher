@@ -20,6 +20,7 @@ import * as pathIsInside from 'path-is-inside';
 import * as prettyBytes from 'pretty-bytes';
 
 import * as messages from './messages';
+import { SourceMetadata } from '../gui/app/components/source-selector/source-selector';
 
 /**
  * @summary The default unknown size for things such as images and drives
@@ -44,11 +45,20 @@ export function isSystemDrive(drive: DrivelistDrive): boolean {
 }
 
 export interface Image {
-	path?: string;
+	path: string;
 	isSizeEstimated?: boolean;
 	compressedSize?: number;
 	recommendedDriveSize?: number;
 	size?: number;
+}
+
+function sourceIsInsideDrive(source: string, drive: DrivelistDrive) {
+	for (const mountpoint of drive.mountpoints || []) {
+		if (pathIsInside(source, mountpoint.path)) {
+			return true;
+		}
+	}
+	return false;
 }
 
 /**
@@ -60,11 +70,16 @@ export interface Image {
  */
 export function isSourceDrive(
 	drive: DrivelistDrive,
-	image: Image = {},
+	selection?: SourceMetadata,
 ): boolean {
-	for (const mountpoint of drive.mountpoints || []) {
-		if (image.path !== undefined && pathIsInside(image.path, mountpoint.path)) {
-			return true;
+	if (selection) {
+		if (selection.drive) {
+			const sourcePath = selection.drive.devicePath || selection.drive.device;
+			const drivePath = drive.devicePath || drive.device;
+			return pathIsInside(sourcePath, drivePath);
+		}
+		if (selection.path) {
+			return sourceIsInsideDrive(selection.path, drive);
 		}
 	}
 	return false;
@@ -112,7 +127,7 @@ export function isDriveValid(drive: DrivelistDrive, image: Image): boolean {
 	return (
 		!isDriveLocked(drive) &&
 		isDriveLargeEnough(drive, image) &&
-		!isSourceDrive(drive, image) &&
+		!isSourceDrive(drive, image as SourceMetadata) &&
 		!isDriveDisabled(drive)
 	);
 }
@@ -167,7 +182,7 @@ export const COMPATIBILITY_STATUS_TYPES = {
  */
 export function getDriveImageCompatibilityStatuses(
 	drive: DrivelistDrive,
-	image: Image = {},
+	image: Image,
 ) {
 	const statusList = [];
 
@@ -191,7 +206,7 @@ export function getDriveImageCompatibilityStatuses(
 			message: messages.compatibility.tooSmall(prettyBytes(relativeBytes)),
 		});
 	} else {
-		if (isSourceDrive(drive, image)) {
+		if (isSourceDrive(drive, image as SourceMetadata)) {
 			statusList.push({
 				type: COMPATIBILITY_STATUS_TYPES.ERROR,
 				message: messages.compatibility.containsImage(),

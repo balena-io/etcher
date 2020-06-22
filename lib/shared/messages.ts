@@ -143,9 +143,9 @@ export const error = {
 		].join(' ');
 	},
 
-	openImage: (imageBasename: string, errorMessage: string) => {
+	openSource: (sourceName: string, errorMessage: string) => {
 		return [
-			`Something went wrong while opening ${imageBasename}\n\n`,
+			`Something went wrong while opening ${sourceName}\n\n`,
 			`Error: ${errorMessage}`,
 		].join('');
 	},

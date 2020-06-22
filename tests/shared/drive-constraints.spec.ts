@@ -16,6 +16,7 @@
 
 import { expect } from 'chai';
 import { Drive as DrivelistDrive } from 'drivelist';
+import { sourceDestination } from 'etcher-sdk';
 import * as _ from 'lodash';
 import * as path from 'path';
 
@@ -126,6 +127,9 @@ describe('Shared: DriveConstraints', function () {
 				} as DrivelistDrive,
 				{
 					path: '/Volumes/Untitled/image.img',
+					hasMBR: false,
+					partitions: [],
+					SourceType: sourceDestination.File,
 				},
 			);
 
@@ -160,6 +164,9 @@ describe('Shared: DriveConstraints', function () {
 					} as DrivelistDrive,
 					{
 						path: 'E:\\image.img',
+						hasMBR: false,
+						partitions: [],
+						SourceType: sourceDestination.File,
 					},
 				);
 
@@ -182,6 +189,9 @@ describe('Shared: DriveConstraints', function () {
 					} as DrivelistDrive,
 					{
 						path: 'E:\\foo\\bar\\image.img',
+						hasMBR: false,
+						partitions: [],
+						SourceType: sourceDestination.File,
 					},
 				);
 
@@ -204,6 +214,9 @@ describe('Shared: DriveConstraints', function () {
 					} as DrivelistDrive,
 					{
 						path: 'G:\\image.img',
+						hasMBR: false,
+						partitions: [],
+						SourceType: sourceDestination.File,
 					},
 				);
 
@@ -222,6 +235,9 @@ describe('Shared: DriveConstraints', function () {
 					} as DrivelistDrive,
 					{
 						path: 'E:\\foo/image.img',
+						hasMBR: false,
+						partitions: [],
+						SourceType: sourceDestination.File,
 					},
 				);
 
@@ -252,6 +268,9 @@ describe('Shared: DriveConstraints', function () {
 					} as DrivelistDrive,
 					{
 						path: '/image.img',
+						hasMBR: false,
+						partitions: [],
+						SourceType: sourceDestination.File,
 					},
 				);
 
@@ -272,6 +291,9 @@ describe('Shared: DriveConstraints', function () {
 					} as DrivelistDrive,
 					{
 						path: '/Volumes/A/image.img',
+						hasMBR: false,
+						partitions: [],
+						SourceType: sourceDestination.File,
 					},
 				);
 
@@ -292,6 +314,9 @@ describe('Shared: DriveConstraints', function () {
 					} as DrivelistDrive,
 					{
 						path: '/Volumes/A/foo/bar/image.img',
+						hasMBR: false,
+						partitions: [],
+						SourceType: sourceDestination.File,
 					},
 				);
 
@@ -312,6 +337,9 @@ describe('Shared: DriveConstraints', function () {
 					} as DrivelistDrive,
 					{
 						path: '/Volumes/C/image.img',
+						hasMBR: false,
+						partitions: [],
+						SourceType: sourceDestination.File,
 					},
 				);
 
@@ -329,6 +357,9 @@ describe('Shared: DriveConstraints', function () {
 					} as DrivelistDrive,
 					{
 						path: '/Volumes/foo/image.img',
+						hasMBR: false,
+						partitions: [],
+						SourceType: sourceDestination.File,
 					},
 				);
 
