@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.100
+## (2020-06-22)
+
+* Update partitioninfo to 5.3.5 [Alexis Svinartchouk]
+* Add .vhd to the list of supported extensions, allow opening any file [Alexis Svinartchouk]
+* Update mocha to v8.0.1 [Alexis Svinartchouk]
+* Update electron-notarize to v1.0.0 [Alexis Svinartchouk]
+* Update electron to v9.0.4 [Alexis Svinartchouk]
+* Update etcher-sdk to v4.1.15 [Alexis Svinartchouk]
+* Sticky header in target selection table [Alexis Svinartchouk]
+* Update rendition to 15.2.1 [Alexis Svinartchouk]
+* Fix source-selector image height [Lorenzo Alberto Maria Ambrosi]
+* Update rendition to v15.0.0 [Lorenzo Alberto Maria Ambrosi]
+* Merge unsafe mode with new target selector [Lorenzo Alberto Maria Ambrosi]
+* Rework target selector modal [Lorenzo Alberto Maria Ambrosi]
+
 # v1.5.99
 ## (2020-06-12)
 
