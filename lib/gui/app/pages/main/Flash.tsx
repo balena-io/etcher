@@ -24,7 +24,6 @@ import * as constraints from '../../../../shared/drive-constraints';
 import * as messages from '../../../../shared/messages';
 import { ProgressButton } from '../../components/progress-button/progress-button';
 import { SourceOptions } from '../../components/source-selector/source-selector';
-import { TargetSelectorModal } from '../../components/target-selector/target-selector-modal';
 import * as availableDrives from '../../models/available-drives';
 import * as flashState from '../../models/flash-state';
 import * as selection from '../../models/selection-state';
@@ -32,7 +31,10 @@ import * as analytics from '../../modules/analytics';
 import { scanner as driveScanner } from '../../modules/drive-scanner';
 import * as imageWriter from '../../modules/image-writer';
 import * as notification from '../../os/notification';
-import { selectAllTargets } from './DriveSelector';
+import {
+	selectAllTargets,
+	TargetSelectorModal,
+} from '../../components/target-selector/target-selector';
 
 import FlashSvg from '../../../assets/flash.svg';
 
@@ -333,7 +335,7 @@ export class FlashStep extends React.PureComponent<
 							selectAllTargets(modalTargets);
 							this.setState({ showDriveSelectorModal: false });
 						}}
-					></TargetSelectorModal>
+					/>
 				)}
 			</>
 		);
