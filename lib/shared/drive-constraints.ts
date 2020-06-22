@@ -276,7 +276,7 @@ export function hasListDriveImageCompatibilityStatus(
 	return Boolean(getListDriveImageCompatibilityStatuses(drives, image).length);
 }
 
-export interface TargetStatus {
+export interface DriveStatus {
 	message: string;
 	type: number;
 }

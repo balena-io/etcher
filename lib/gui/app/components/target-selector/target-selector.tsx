@@ -17,8 +17,11 @@
 import { scanner } from 'etcher-sdk';
 import * as React from 'react';
 import { Flex } from 'rendition/dist_esm5/components/Flex';
-import { TargetSelector } from '../../components/target-selector/target-selector-button';
-import { TargetSelectorModal } from '../../components/target-selector/target-selector-modal';
+import { TargetSelectorButton } from './target-selector-button';
+import {
+	DriveSelector,
+	DriveSelectorProps,
+} from '../drive-selector/drive-selector';
 import {
 	isDriveSelected,
 	getImage,
@@ -50,6 +53,16 @@ const getDriveSelectionStateSlice = () => ({
 	image: getImage(),
 });
 
+export const TargetSelectorModal = (
+	props: Omit<DriveSelectorProps, 'titleLabel' | 'emptyListLabel'>,
+) => (
+	<DriveSelector
+		titleLabel="Select target"
+		emptyListLabel="Plug a target drive"
+		{...props}
+	/>
+);
+
 export const selectAllTargets = (
 	modalTargets: scanner.adapters.DrivelistDrive[],
 ) => {
@@ -79,17 +92,17 @@ export const selectAllTargets = (
 	});
 };
 
-interface DriveSelectorProps {
+interface TargetSelectorProps {
 	disabled: boolean;
 	hasDrive: boolean;
 	flashing: boolean;
 }
 
-export const DriveSelector = ({
+export const TargetSelector = ({
 	disabled,
 	hasDrive,
 	flashing,
-}: DriveSelectorProps) => {
+}: TargetSelectorProps) => {
 	// TODO: inject these from redux-connector
 	const [
 		{ showDrivesButton, driveListLabel, targets, image },
@@ -115,7 +128,7 @@ export const DriveSelector = ({
 				}}
 			/>
 
-			<TargetSelector
+			<TargetSelectorButton
 				disabled={disabled}
 				show={!hasDrive && showDrivesButton}
 				tooltip={driveListLabel}
@@ -138,7 +151,7 @@ export const DriveSelector = ({
 						selectAllTargets(modalTargets);
 						setShowTargetSelectorModal(false);
 					}}
-				></TargetSelectorModal>
+				/>
 			)}
 		</Flex>
 	);

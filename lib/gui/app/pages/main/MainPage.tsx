@@ -45,7 +45,10 @@ import {
 
 import { bytesToClosestUnit } from '../../../../shared/units';
 
-import { DriveSelector, getDriveListLabel } from './DriveSelector';
+import {
+	TargetSelector,
+	getDriveListLabel,
+} from '../../components/target-selector/target-selector';
 import { FlashStep } from './Flash';
 
 import EtcherSvg from '../../../assets/etcher.svg';
@@ -241,7 +244,7 @@ export class MainPage extends React.Component<
 					)}
 
 					{notFlashingOrSplitView && (
-						<DriveSelector
+						<TargetSelector
 							disabled={shouldDriveStepBeDisabled}
 							hasDrive={this.state.hasDrive}
 							flashing={this.state.isFlashing}

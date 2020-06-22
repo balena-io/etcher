@@ -68,7 +68,7 @@ function DriveCompatibilityWarning({
 	);
 }
 
-export function TargetSelector(props: TargetSelectorProps) {
+export function TargetSelectorButton(props: TargetSelectorProps) {
 	const targets = getSelectedDrives();
 
 	if (targets.length === 1) {
