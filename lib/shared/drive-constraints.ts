@@ -172,12 +172,7 @@ export function getDriveImageCompatibilityStatuses(
 	const statusList = [];
 
 	// Mind the order of the if-statements if you modify.
-	if (isSourceDrive(drive, image)) {
-		statusList.push({
-			type: COMPATIBILITY_STATUS_TYPES.ERROR,
-			message: messages.compatibility.containsImage(),
-		});
-	} else if (isDriveLocked(drive)) {
+	if (isDriveLocked(drive)) {
 		statusList.push({
 			type: COMPATIBILITY_STATUS_TYPES.ERROR,
 			message: messages.compatibility.locked(),
@@ -196,6 +191,13 @@ export function getDriveImageCompatibilityStatuses(
 			message: messages.compatibility.tooSmall(prettyBytes(relativeBytes)),
 		});
 	} else {
+		if (isSourceDrive(drive, image)) {
+			statusList.push({
+				type: COMPATIBILITY_STATUS_TYPES.ERROR,
+				message: messages.compatibility.containsImage(),
+			});
+		}
+
 		if (isSystemDrive(drive)) {
 			statusList.push({
 				type: COMPATIBILITY_STATUS_TYPES.WARNING,
@@ -272,4 +274,9 @@ export function hasListDriveImageCompatibilityStatus(
 	image: Image,
 ) {
 	return Boolean(getListDriveImageCompatibilityStatuses(drives, image).length);
+}
+
+export interface TargetStatus {
+	message: string;
+	type: number;
 }

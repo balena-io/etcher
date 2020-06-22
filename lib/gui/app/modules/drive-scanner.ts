@@ -17,19 +17,10 @@
 import * as sdk from 'etcher-sdk';
 import { geteuid, platform } from 'process';
 
-import * as settings from '../models/settings';
-
-/**
- * @summary returns true if system drives should be shown
- */
-function includeSystemDrives() {
-	return (
-		settings.getSync('unsafeMode') && !settings.getSync('disableUnsafeMode')
-	);
-}
-
 const adapters: sdk.scanner.adapters.Adapter[] = [
-	new sdk.scanner.adapters.BlockDeviceAdapter({ includeSystemDrives }),
+	new sdk.scanner.adapters.BlockDeviceAdapter({
+		includeSystemDrives: () => true,
+	}),
 ];
 
 // Can't use permissions.isElevated() here as it returns a promise and we need to set

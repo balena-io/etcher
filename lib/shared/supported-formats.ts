@@ -14,44 +14,28 @@
  * limitations under the License.
  */
 
-import * as sdk from 'etcher-sdk';
-import * as mime from 'mime-types';
-import * as path from 'path';
+import { basename } from 'path';
 
-export function getCompressedExtensions(): string[] {
-	const result = [];
-	for (const [
-		mimetype,
-		cls,
-		// @ts-ignore (mimetypes is private)
-	] of sdk.sourceDestination.SourceDestination.mimetypes.entries()) {
-		if (cls.prototype instanceof sdk.sourceDestination.CompressedSource) {
-			const extension = mime.extension(mimetype);
-			if (extension) {
-				result.push(extension);
-			}
-		}
-	}
-	return result;
-}
-
-export function getNonCompressedExtensions(): string[] {
-	return sdk.sourceDestination.SourceDestination.imageExtensions;
-}
-
-export function getArchiveExtensions(): string[] {
-	return ['zip', 'etch'];
-}
-
-export function getAllExtensions(): string[] {
-	return [
-		...getArchiveExtensions(),
-		...getNonCompressedExtensions(),
-		...getCompressedExtensions(),
-	];
-}
+export const SUPPORTED_EXTENSIONS = [
+	'bin',
+	'bz2',
+	'dmg',
+	'dsk',
+	'etch',
+	'gz',
+	'hddimg',
+	'img',
+	'iso',
+	'raw',
+	'rpi-sdimg',
+	'sdcard',
+	'vhd',
+	'wic',
+	'xz',
+	'zip',
+];
 
 export function looksLikeWindowsImage(imagePath: string): boolean {
 	const regex = /windows|win7|win8|win10|winxp/i;
-	return regex.test(path.basename(imagePath));
+	return regex.test(basename(imagePath));
 }

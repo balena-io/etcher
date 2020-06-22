@@ -18,7 +18,7 @@ import * as electron from 'electron';
 import * as _ from 'lodash';
 
 import * as errors from '../../../shared/errors';
-import { getAllExtensions } from '../../../shared/supported-formats';
+import { SUPPORTED_EXTENSIONS } from '../../../shared/supported-formats';
 
 /**
  * @summary Open an image selection dialog
@@ -40,7 +40,11 @@ export async function selectImage(): Promise<string | undefined> {
 		filters: [
 			{
 				name: 'OS Images',
-				extensions: [...getAllExtensions()].sort(),
+				extensions: SUPPORTED_EXTENSIONS,
+			},
+			{
+				name: 'All',
+				extensions: ['*'],
 			},
 		],
 	};

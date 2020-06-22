@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as _ from 'lodash';
 import outdent from 'outdent';
 import * as React from 'react';
-import { Txt } from 'rendition';
+import { Txt, Flex } from 'rendition';
 import styled from 'styled-components';
 import { left, position, space, top } from 'styled-system';
 
@@ -57,14 +59,20 @@ export function FlashResults({
 	);
 	return (
 		<Div position="absolute" left="153px" top="66px">
-			<div className="inline-flex title">
-				<span
-					className={`tick tick--${
-						allDevicesFailed ? 'error' : 'success'
-					} space-right-medium`}
-				></span>
-				<h3>Flash Complete!</h3>
-			</div>
+			<Flex alignItems="center">
+				<FontAwesomeIcon
+					icon={faCheckCircle}
+					color={allDevicesFailed ? '#c6c8c9' : '#1ac135'}
+					style={{
+						width: '24px',
+						height: '24px',
+						margin: '0 15px 0 0',
+					}}
+				/>
+				<Txt fontSize={24} color="#fff">
+					Flash Complete!
+				</Txt>
+			</Flex>
 			<Div className="results" mr="0" mb="0" ml="40px">
 				{_.map(results.devices, (quantity, type) => {
 					return quantity ? (

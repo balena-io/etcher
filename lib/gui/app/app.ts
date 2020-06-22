@@ -264,7 +264,8 @@ function updateDriveProgress(
 	// @ts-ignore
 	const driveInMap = drives[drive.device];
 	if (driveInMap) {
-		driveInMap.progress = progress;
+		// @ts-ignore
+		drives[drive.device] = { ...driveInMap, progress };
 		setDrives(drives);
 	}
 }

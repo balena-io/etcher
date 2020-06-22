@@ -21,9 +21,9 @@ import { Flex, Modal, Txt } from 'rendition';
 
 import * as constraints from '../../../../shared/drive-constraints';
 import * as messages from '../../../../shared/messages';
-import { DriveSelectorModal } from '../../components/drive-selector/DriveSelectorModal';
 import { ProgressButton } from '../../components/progress-button/progress-button';
 import { SourceOptions } from '../../components/source-selector/source-selector';
+import { TargetSelectorModal } from '../../components/target-selector/target-selector-modal';
 import * as availableDrives from '../../models/available-drives';
 import * as flashState from '../../models/flash-state';
 import * as selection from '../../models/selection-state';
@@ -31,6 +31,7 @@ import * as analytics from '../../modules/analytics';
 import { scanner as driveScanner } from '../../modules/drive-scanner';
 import * as imageWriter from '../../modules/image-writer';
 import * as notification from '../../os/notification';
+import { selectAllTargets } from './DriveSelector';
 
 import FlashSvg from '../../../assets/flash.svg';
 
@@ -197,6 +198,13 @@ export class FlashStep extends React.PureComponent<
 		}
 	}
 
+	private hasListWarnings(drives: any[], image: any) {
+		if (drives.length === 0 || flashState.isFlashing()) {
+			return;
+		}
+		return constraints.hasListDriveImageCompatibilityStatus(drives, image);
+	}
+
 	private async tryFlash() {
 		const devices = selection.getSelectedDevices();
 		const image = selection.getImage();
@@ -209,10 +217,7 @@ export class FlashStep extends React.PureComponent<
 		if (drives.length === 0 || this.props.isFlashing) {
 			return;
 		}
-		const hasDangerStatus = constraints.hasListDriveImageCompatibilityStatus(
-			drives,
-			image,
-		);
+		const hasDangerStatus = this.hasListWarnings(drives, image);
 		if (hasDangerStatus) {
 			this.setState({ warningMessages: getWarningMessages(drives, image) });
 			return;
@@ -245,6 +250,10 @@ export class FlashStep extends React.PureComponent<
 							position={this.props.position}
 							disabled={this.props.shouldFlashStepBeDisabled}
 							cancel={imageWriter.cancel}
+							warning={this.hasListWarnings(
+								selection.getSelectedDrives(),
+								selection.getImage(),
+							)}
 							callback={() => {
 								this.tryFlash();
 							}}
@@ -317,11 +326,14 @@ export class FlashStep extends React.PureComponent<
 						</Txt>
 					</Modal>
 				)}
-
 				{this.state.showDriveSelectorModal && (
-					<DriveSelectorModal
-						close={() => this.setState({ showDriveSelectorModal: false })}
-					/>
+					<TargetSelectorModal
+						cancel={() => this.setState({ showDriveSelectorModal: false })}
+						done={(modalTargets) => {
+							selectAllTargets(modalTargets);
+							this.setState({ showDriveSelectorModal: false });
+						}}
+					></TargetSelectorModal>
 				)}
 			</>
 		);

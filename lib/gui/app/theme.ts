@@ -64,3 +64,33 @@ export const colors = {
 		background: '#5fb835',
 	},
 };
+
+export const theme = {
+	colors,
+	button: {
+		border: {
+			width: '0',
+			radius: '24px',
+		},
+		disabled: {
+			opacity: 1,
+		},
+		extend: () => `
+			&& {
+				width: 200px;
+				height: 48px;
+
+				:disabled {
+					background-color: ${colors.dark.disabled.background};
+					color: ${colors.dark.disabled.foreground};
+					opacity: 1;
+
+					:hover {
+						background-color: ${colors.dark.disabled.background};
+						color: ${colors.dark.disabled.foreground};
+					}
+				}
+			}
+		`,
+	},
+};

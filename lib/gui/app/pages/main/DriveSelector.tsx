@@ -14,12 +14,19 @@
  * limitations under the License.
  */
 
-import * as _ from 'lodash';
+import { scanner } from 'etcher-sdk';
 import * as React from 'react';
 import styled from 'styled-components';
-import { DriveSelectorModal } from '../../components/drive-selector/DriveSelectorModal';
-import { TargetSelector } from '../../components/drive-selector/target-selector';
-import { getImage, getSelectedDrives } from '../../models/selection-state';
+
+import { TargetSelector } from '../../components/target-selector/target-selector-button';
+import { TargetSelectorModal } from '../../components/target-selector/target-selector-modal';
+import {
+	isDriveSelected,
+	getImage,
+	getSelectedDrives,
+	deselectDrive,
+	selectDrive,
+} from '../../models/selection-state';
 import * as settings from '../../models/settings';
 import { observe } from '../../models/store';
 import * as analytics from '../../modules/analytics';
@@ -45,12 +52,11 @@ const StepBorder = styled.div<{
 `;
 
 const getDriveListLabel = () => {
-	return _.join(
-		_.map(getSelectedDrives(), (drive: any) => {
+	return getSelectedDrives()
+		.map((drive: any) => {
 			return `${drive.description} (${drive.displayName})`;
-		}),
-		'\n',
-	);
+		})
+		.join('\n');
 };
 
 const shouldShowDrivesButton = () => {
@@ -63,6 +69,35 @@ const getDriveSelectionStateSlice = () => ({
 	targets: getSelectedDrives(),
 	image: getImage(),
 });
+
+export const selectAllTargets = (
+	modalTargets: scanner.adapters.DrivelistDrive[],
+) => {
+	const selectedDrivesFromState = getSelectedDrives();
+	const deselected = selectedDrivesFromState.filter(
+		(drive) =>
+			!modalTargets.find((modalTarget) => modalTarget.device === drive.device),
+	);
+	// deselect drives
+	deselected.forEach((drive) => {
+		analytics.logEvent('Toggle drive', {
+			drive,
+			previouslySelected: true,
+		});
+		deselectDrive(drive.device);
+	});
+	// select drives
+	modalTargets.forEach((drive) => {
+		// Don't send events for drives that were already selected
+		if (!isDriveSelected(drive.device)) {
+			analytics.logEvent('Toggle drive', {
+				drive,
+				previouslySelected: false,
+			});
+		}
+		selectDrive(drive.device);
+	});
+};
 
 interface DriveSelectorProps {
 	webviewShowing: boolean;
@@ -84,7 +119,7 @@ export const DriveSelector = ({
 		{ showDrivesButton, driveListLabel, targets, image },
 		setStateSlice,
 	] = React.useState(getDriveSelectionStateSlice());
-	const [showDriveSelectorModal, setShowDriveSelectorModal] = React.useState(
+	const [showTargetSelectorModal, setShowTargetSelectorModal] = React.useState(
 		false,
 	);
 
@@ -115,11 +150,11 @@ export const DriveSelector = ({
 					show={!hasDrive && showDrivesButton}
 					tooltip={driveListLabel}
 					openDriveSelector={() => {
-						setShowDriveSelectorModal(true);
+						setShowTargetSelectorModal(true);
 					}}
 					reselectDrive={() => {
 						analytics.logEvent('Reselect drive');
-						setShowDriveSelectorModal(true);
+						setShowTargetSelectorModal(true);
 					}}
 					flashing={flashing}
 					targets={targets}
@@ -127,10 +162,14 @@ export const DriveSelector = ({
 				/>
 			</div>
 
-			{showDriveSelectorModal && (
-				<DriveSelectorModal
-					close={() => setShowDriveSelectorModal(false)}
-				></DriveSelectorModal>
+			{showTargetSelectorModal && (
+				<TargetSelectorModal
+					cancel={() => setShowTargetSelectorModal(false)}
+					done={(modalTargets) => {
+						selectAllTargets(modalTargets);
+						setShowTargetSelectorModal(false);
+					}}
+				></TargetSelectorModal>
 			)}
 		</div>
 	);

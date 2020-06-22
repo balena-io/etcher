@@ -20,53 +20,6 @@ import * as _ from 'lodash';
 import * as supportedFormats from '../../lib/shared/supported-formats';
 
 describe('Shared: SupportedFormats', function () {
-	describe('.getCompressedExtensions()', function () {
-		it('should return the supported compressed extensions', function () {
-			const extensions = supportedFormats.getCompressedExtensions().sort();
-			expect(extensions).to.deep.equal(['bz2', 'gz', 'xz'].sort());
-		});
-	});
-
-	describe('.getNonCompressedExtensions()', function () {
-		it('should return the supported non compressed extensions', function () {
-			const extensions = supportedFormats.getNonCompressedExtensions();
-			expect(extensions).to.deep.equal([
-				'img',
-				'iso',
-				'bin',
-				'dsk',
-				'hddimg',
-				'raw',
-				'dmg',
-				'sdcard',
-				'rpi-sdimg',
-				'wic',
-			]);
-		});
-	});
-
-	describe('.getArchiveExtensions()', function () {
-		it('should return the supported archive extensions', function () {
-			const extensions = supportedFormats.getArchiveExtensions();
-			expect(extensions).to.deep.equal(['zip', 'etch']);
-		});
-	});
-
-	describe('.getAllExtensions()', function () {
-		it('should return the union of all compressed, uncompressed, and archive extensions', function () {
-			const archiveExtensions = supportedFormats.getArchiveExtensions();
-			const compressedExtensions = supportedFormats.getCompressedExtensions();
-			const nonCompressedExtensions = supportedFormats.getNonCompressedExtensions();
-			const expected = _.union(
-				archiveExtensions,
-				compressedExtensions,
-				nonCompressedExtensions,
-			).sort();
-			const extensions = supportedFormats.getAllExtensions();
-			expect(extensions.sort()).to.deep.equal(expected);
-		});
-	});
-
 	describe('.looksLikeWindowsImage()', function () {
 		_.each(
 			[
