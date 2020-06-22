@@ -29,10 +29,12 @@ const fakeDrive: DrivelistDrive = {};
 
 describe('Browser: imageWriter', () => {
 	describe('.flash()', () => {
-		const imagePath = 'foo.img';
-		const sourceOptions = {
-			imagePath,
+		const image = {
+			hasMBR: false,
+			partitions: [],
+			path: 'foo.img',
 			SourceType: sourceDestination.File,
+			extension: 'img',
 		};
 
 		describe('given a successful write', () => {
@@ -58,7 +60,7 @@ describe('Browser: imageWriter', () => {
 					sourceChecksum: '1234',
 				});
 
-				imageWriter.flash(imagePath, [fakeDrive], sourceOptions).finally(() => {
+				imageWriter.flash(image, [fakeDrive]).finally(() => {
 					expect(flashState.isFlashing()).to.be.false;
 				});
 			});
@@ -69,23 +71,19 @@ describe('Browser: imageWriter', () => {
 					sourceChecksum: '1234',
 				});
 
-				const writing = imageWriter.flash(
-					imagePath,
-					[fakeDrive],
-					sourceOptions,
-				);
-				imageWriter.flash(imagePath, [fakeDrive], sourceOptions).catch(_.noop);
+				const writing = imageWriter.flash(image, [fakeDrive]);
+				imageWriter.flash(image, [fakeDrive]).catch(_.noop);
 				writing.finally(() => {
 					assert.calledOnce(performWriteStub);
 				});
 			});
 
 			it('should reject the second flash attempt', () => {
-				imageWriter.flash(imagePath, [fakeDrive], sourceOptions);
+				imageWriter.flash(image, [fakeDrive]);
 
 				let rejectError: Error;
 				imageWriter
-					.flash(imagePath, [fakeDrive], sourceOptions)
+					.flash(image, [fakeDrive])
 					.catch((error) => {
 						rejectError = error;
 					})
@@ -114,7 +112,7 @@ describe('Browser: imageWriter', () => {
 
 			it('should set flashing to false when done', () => {
 				imageWriter
-					.flash(imagePath, [fakeDrive], sourceOptions)
+					.flash(image, [fakeDrive])
 					.catch(_.noop)
 					.finally(() => {
 						expect(flashState.isFlashing()).to.be.false;
@@ -123,7 +121,7 @@ describe('Browser: imageWriter', () => {
 
 			it('should set the error code in the flash results', () => {
 				imageWriter
-					.flash(imagePath, [fakeDrive], sourceOptions)
+					.flash(image, [fakeDrive])
 					.catch(_.noop)
 					.finally(() => {
 						const flashResults = flashState.getFlashResults();
@@ -139,7 +137,7 @@ describe('Browser: imageWriter', () => {
 
 				let rejection: Error;
 				imageWriter
-					.flash(imagePath, [fakeDrive], sourceOptions)
+					.flash(image, [fakeDrive])
 					.catch((error) => {
 						rejection = error;
 					})

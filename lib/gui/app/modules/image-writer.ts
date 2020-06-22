@@ -25,7 +25,7 @@ import * as path from 'path';
 import * as packageJSON from '../../../../package.json';
 import * as errors from '../../../shared/errors';
 import * as permissions from '../../../shared/permissions';
-import { SourceOptions } from '../components/source-selector/source-selector';
+import { SourceMetadata } from '../components/source-selector/source-selector';
 import * as flashState from '../models/flash-state';
 import * as selectionState from '../models/selection-state';
 import * as settings from '../models/settings';
@@ -141,10 +141,9 @@ interface FlashResults {
  * This function is extracted for testing purposes.
  */
 export async function performWrite(
-	image: string,
+	image: SourceMetadata,
 	drives: DrivelistDrive[],
 	onProgress: sdk.multiWrite.OnProgressFunction,
-	source: SourceOptions,
 ): Promise<{ cancelled?: boolean }> {
 	let cancelled = false;
 	ipc.serve();
@@ -199,10 +198,9 @@ export async function performWrite(
 
 		ipc.server.on('ready', (_data, socket) => {
 			ipc.server.emit(socket, 'write', {
-				imagePath: image,
+				image,
 				destinations: drives,
-				source,
-				SourceType: source.SourceType.name,
+				SourceType: image.SourceType.name,
 				validateWriteOnSuccess,
 				autoBlockmapping,
 				unmountOnSuccess,
@@ -262,9 +260,8 @@ export async function performWrite(
  * @summary Flash an image to drives
  */
 export async function flash(
-	image: string,
+	image: SourceMetadata,
 	drives: DrivelistDrive[],
-	source: SourceOptions,
 ): Promise<void> {
 	if (flashState.isFlashing()) {
 		throw new Error('There is already a flash in progress');
@@ -294,7 +291,6 @@ export async function flash(
 			image,
 			drives,
 			flashState.setProgressState,
-			source,
 		);
 		flashState.unsetFlashingFlag(result);
 	} catch (error) {

@@ -20,10 +20,11 @@ import { cleanupTmpFiles } from 'etcher-sdk/build/tmp';
 import * as _ from 'lodash';
 import * as ipc from 'node-ipc';
 
+import { BlockDevice, File, Http } from 'etcher-sdk/build/source-destination';
 import { toJSON } from '../../shared/errors';
 import { GENERAL_ERROR, SUCCESS } from '../../shared/exit-codes';
 import { delay } from '../../shared/utils';
-import { SourceOptions } from '../app/components/source-selector/source-selector';
+import { SourceMetadata } from '../app/components/source-selector/source-selector';
 
 ipc.config.id = process.env.IPC_CLIENT_ID as string;
 ipc.config.socketRoot = process.env.IPC_SOCKET_ROOT as string;
@@ -139,13 +140,12 @@ async function writeAndValidate({
 }
 
 interface WriteOptions {
-	imagePath: string;
+	image: SourceMetadata;
 	destinations: DrivelistDrive[];
 	unmountOnSuccess: boolean;
 	validateWriteOnSuccess: boolean;
 	autoBlockmapping: boolean;
 	decompressFirst: boolean;
-	source: SourceOptions;
 	SourceType: string;
 }
 
@@ -223,8 +223,9 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 			});
 		};
 
+		const imagePath = options.image.path;
 		const destinations = _.map(options.destinations, 'device');
-		log(`Image: ${options.imagePath}`);
+		log(`Image: ${imagePath}`);
 		log(`Devices: ${destinations.join(', ')}`);
 		log(`Umount on success: ${options.unmountOnSuccess}`);
 		log(`Validate on success: ${options.validateWriteOnSuccess}`);
@@ -239,18 +240,23 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 			});
 		});
 		const { SourceType } = options;
-		let source;
-		if (SourceType === sdk.sourceDestination.File.name) {
-			source = new sdk.sourceDestination.File({
-				path: options.imagePath,
-			});
-		} else {
-			source = new sdk.sourceDestination.Http({
-				url: options.imagePath,
-				avoidRandomAccess: true,
-			});
-		}
 		try {
+			let source;
+			if (options.image.drive) {
+				source = new BlockDevice({
+					drive: options.image.drive,
+					write: false,
+					direct: !options.autoBlockmapping,
+				});
+			} else {
+				if (SourceType === File.name) {
+					source = new File({
+						path: imagePath,
+					});
+				} else {
+					source = new Http({ url: imagePath, avoidRandomAccess: true });
+				}
+			}
 			const results = await writeAndValidate({
 				source,
 				destinations: dests,

@@ -24,7 +24,7 @@ import { Actions, store } from './store';
  */
 export function selectDrive(driveDevice: string) {
 	store.dispatch({
-		type: Actions.SELECT_DRIVE,
+		type: Actions.SELECT_TARGET,
 		data: driveDevice,
 	});
 }
@@ -40,10 +40,10 @@ export function toggleDrive(driveDevice: string) {
 	}
 }
 
-export function selectImage(image: any) {
+export function selectSource(source: any) {
 	store.dispatch({
-		type: Actions.SELECT_IMAGE,
-		data: image,
+		type: Actions.SELECT_SOURCE,
+		data: source,
 	});
 }
 
@@ -122,14 +122,14 @@ export function hasImage(): boolean {
  */
 export function deselectDrive(driveDevice: string) {
 	store.dispatch({
-		type: Actions.DESELECT_DRIVE,
+		type: Actions.DESELECT_TARGET,
 		data: driveDevice,
 	});
 }
 
 export function deselectImage() {
 	store.dispatch({
-		type: Actions.DESELECT_IMAGE,
+		type: Actions.DESELECT_SOURCE,
 		data: {},
 	});
 }

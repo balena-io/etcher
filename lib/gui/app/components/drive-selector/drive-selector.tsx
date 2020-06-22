@@ -164,7 +164,7 @@ export class DriveSelector extends React.Component<
 	DriveSelectorState
 > {
 	private unsubscribe: (() => void) | undefined;
-	multipleSelection: boolean;
+	multipleSelection: boolean = true;
 	tableColumns: Array<TableColumn<Drive>>;
 
 	constructor(props: DriveSelectorProps) {
@@ -172,7 +172,11 @@ export class DriveSelector extends React.Component<
 
 		const defaultMissingDriversModalState: { drive?: DriverlessDrive } = {};
 		const selectedList = getSelectedDrives();
-		this.multipleSelection = !!this.props.multipleSelection;
+		const multipleSelection = this.props.multipleSelection;
+		this.multipleSelection =
+			multipleSelection !== undefined
+				? !!multipleSelection
+				: this.multipleSelection;
 
 		this.state = {
 			drives: getDrives(),
@@ -380,10 +384,7 @@ export class DriveSelector extends React.Component<
 							<b>{this.props.emptyListLabel}</b>
 						</Flex>
 					) : (
-						<ScrollableFlex
-							flexDirection="column"
-							width="100%"
-						>
+						<ScrollableFlex flexDirection="column" width="100%">
 							<DrivesTable
 								refFn={(t: Table<Drive>) => {
 									if (t !== null) {
