@@ -134,6 +134,8 @@ function storeReducer(
 			}
 
 			drives = _.sortBy(drives, [
+				// System drives last
+				(d) => !!d.isSystem,
 				// Devices with no devicePath first (usbboot)
 				(d) => !!d.devicePath,
 				// Then sort by devicePath (only available on Linux with udev) or device
