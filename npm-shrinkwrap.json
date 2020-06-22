@@ -13675,9 +13675,9 @@
       "dev": true
     },
     "partitioninfo": {
-      "version": "5.3.4",
-      "resolved": "https://registry.npmjs.org/partitioninfo/-/partitioninfo-5.3.4.tgz",
-      "integrity": "sha512-cmf+S4LvtrgPlC8LbY2qI96Zf1z6j1v9rFBik23AxoE3R1EH9QYWdrCHJf5uwEp8iJUdRhZjQIaRvfLH5hPJPA==",
+      "version": "5.3.5",
+      "resolved": "https://registry.npmjs.org/partitioninfo/-/partitioninfo-5.3.5.tgz",
+      "integrity": "sha512-lZIt5D9wsOVnixePPmVyHQs1m1eDICgDecBmV00W5tpDoOwHdkoseW0p+YjBlWd4LIbUqJXJIrfjPq/12uAVSg==",
       "dev": true,
       "requires": {
         "bluebird": "^3.5.3",
