@@ -16,6 +16,7 @@
 
 import { faCheckCircle, faCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as _ from 'lodash';
 import outdent from 'outdent';
 import * as React from 'react';
 import { Txt, Flex } from 'rendition';
@@ -39,17 +40,21 @@ export function FlashResults({
 	};
 }) {
 	const allDevicesFailed = results.devices.successful === 0;
-	const effectiveSpeed = bytesToMegabytes(
-		results.sourceMetadata.size /
-			(results.bytesWritten / results.averageFlashingSpeed),
-	).toFixed(1);
+	const effectiveSpeed = _.round(
+		bytesToMegabytes(
+			results.sourceMetadata.size /
+				(results.bytesWritten / results.averageFlashingSpeed),
+		),
+		1,
+	);
 	return (
 		<Flex
 			flexDirection="column"
+			mr="80px"
+			height="90px"
 			style={{
-				position: 'absolute',
-				left: '153px',
-				top: '66px',
+				position: 'relative',
+				top: '25px',
 			}}
 		>
 			<Flex alignItems="center">
@@ -66,12 +71,10 @@ export function FlashResults({
 					Flash Complete!
 				</Txt>
 			</Flex>
-			<Flex flexDirection="column" mr="0" mb="0" ml="40px">
-				{Object.keys(results.devices).map((type: 'failed' | 'successful') => {
-					const quantity = results.devices[type];
+			<Flex flexDirection="column" mr="0" mb="0" ml="40px" color="#7e8085">
+				{Object.entries(results.devices).map(([type, quantity]) => {
 					return quantity ? (
 						<Flex
-							color="#fff"
 							alignItems="center"
 							tooltip={type === 'failed' ? errors : undefined}
 						>
@@ -86,7 +89,6 @@ export function FlashResults({
 				})}
 				{!allDevicesFailed && (
 					<Txt
-						color="#787c7f"
 						fontSize="10px"
 						style={{
 							fontWeight: 500,

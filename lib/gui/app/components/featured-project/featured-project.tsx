@@ -45,19 +45,13 @@ export class FeaturedProject extends React.Component<
 
 	public async componentDidMount() {
 		try {
-			let endpoint =
+			const url = new URL(
 				(await settings.get('featuredProjectEndpoint')) ||
-				'https://assets.balena.io/etcher-featured/index.html';
-			const efpParams = {
-				borderRight: false,
-				darkBackground: true,
-			};
-			let params = '?';
-			for (const [param, value] of Object.entries(efpParams)) {
-				params += `${param}=${value}&`;
-			}
-			endpoint += params;
-			this.setState({ endpoint });
+					'https://assets.balena.io/etcher-featured/index.html',
+			);
+			url.searchParams.append('borderRight', 'false');
+			url.searchParams.append('darkBackground', 'true');
+			this.setState({ endpoint: url.toString() });
 		} catch (error) {
 			analytics.logException(error);
 		}

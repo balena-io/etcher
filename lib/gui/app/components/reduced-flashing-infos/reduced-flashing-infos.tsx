@@ -52,10 +52,10 @@ export class ReducedFlashingInfos extends React.Component<
 						height="21px"
 						contents={this.props.imageLogo}
 						fallback={ImageSvg}
-						style={{ marginRight: 9 }}
+						style={{ marginRight: '9px' }}
 					/>
 					<Txt
-						style={{ marginRight: 9 }}
+						style={{ marginRight: '9px' }}
 						tooltip={{ text: this.props.imageName, placement: 'right' }}
 					>
 						{middleEllipsis(this.props.imageName, 16)}
@@ -64,7 +64,7 @@ export class ReducedFlashingInfos extends React.Component<
 				</Flex>
 
 				<Flex>
-					<DriveSvg width="21px" height="21px" style={{ marginRight: 9 }} />
+					<DriveSvg width="21px" height="21px" style={{ marginRight: '9px' }} />
 					<Txt tooltip={{ text: this.props.driveLabel, placement: 'right' }}>
 						{middleEllipsis(this.props.driveTitle, 16)}
 					</Txt>

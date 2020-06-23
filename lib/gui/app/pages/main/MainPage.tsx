@@ -161,17 +161,21 @@ export class MainPage extends React.Component<
 			!this.state.isFlashing || !this.state.isWebviewShowing;
 		return (
 			<>
-				<header
+				<Flex
 					id="app-header"
+					justifyContent="center"
 					style={{
 						width: '100%',
+						height: '50px',
 						padding: '13px 14px',
 						textAlign: 'center',
 						position: 'relative',
 						zIndex: 1,
 					}}
 				>
-					<span
+					<EtcherSvg
+						width="123px"
+						height="22px"
 						style={{
 							cursor: 'pointer',
 						}}
@@ -179,11 +183,9 @@ export class MainPage extends React.Component<
 							openExternal('https://www.balena.io/etcher?ref=etcher_footer')
 						}
 						tabIndex={100}
-					>
-						<EtcherSvg width="123px" height="22px" />
-					</span>
+					/>
 
-					<span
+					<Flex
 						style={{
 							float: 'right',
 							position: 'absolute',
@@ -208,8 +210,8 @@ export class MainPage extends React.Component<
 								tabIndex={6}
 							/>
 						)}
-					</span>
-				</header>
+					</Flex>
+				</Flex>
 				{this.state.hideSettings ? null : (
 					<SettingsModal
 						toggleModal={(value: boolean) => {
@@ -320,15 +322,23 @@ export class MainPage extends React.Component<
 
 	private renderSuccess() {
 		return (
-			<div className="section-loader isFinish">
+			<Flex flexDirection="column" alignItems="center" height="100%">
 				<FinishPage
 					goToMain={() => {
 						flashState.resetState();
 						this.setState({ current: 'main' });
 					}}
 				/>
-				<SafeWebview src="https://www.balena.io/etcher/success-banner/" />
-			</div>
+				<SafeWebview
+					src="https://www.balena.io/etcher/success-banner/"
+					style={{
+						width: '100%',
+						height: '320px',
+						position: 'absolute',
+						bottom: 0,
+					}}
+				/>
+			</Flex>
 		);
 	}
 
