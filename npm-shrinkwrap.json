@@ -4842,12 +4842,6 @@
       "dev": true,
       "optional": true
     },
-    "bootstrap-sass": {
-      "version": "3.4.1",
-      "resolved": "https://registry.npmjs.org/bootstrap-sass/-/bootstrap-sass-3.4.1.tgz",
-      "integrity": "sha512-p5rxsK/IyEDQm2CwiHxxUi0MZZtvVFbhWmyMOt4lLkA4bujDA1TGoKT0i1FKIWiugAdP+kK8T5KMDFIKQCLYIA==",
-      "dev": true
-    },
     "boxen": {
       "version": "4.2.0",
       "resolved": "https://registry.npmjs.org/boxen/-/boxen-4.2.0.tgz",
@@ -9319,12 +9313,6 @@
           }
         }
       }
-    },
-    "flexboxgrid": {
-      "version": "6.3.1",
-      "resolved": "https://registry.npmjs.org/flexboxgrid/-/flexboxgrid-6.3.1.tgz",
-      "integrity": "sha1-6ZiYr8B7cEdyK7galYpfuk1OIP0=",
-      "dev": true
     },
     "flush-write-stream": {
       "version": "1.1.1",
