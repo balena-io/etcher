@@ -19,7 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as _ from 'lodash';
 import * as os from 'os';
 import * as React from 'react';
-import { Checkbox, Flex, Modal as SmallModal, Txt } from 'rendition';
+import { Checkbox, Flex, Txt } from 'rendition';
 
 import { version, packageType } from '../../../../../package.json';
 import * as settings from '../../models/settings';
@@ -28,36 +28,6 @@ import { open as openExternal } from '../../os/open-external/services/open-exter
 import { Modal } from '../../styled-components';
 
 const platform = os.platform();
-
-interface WarningModalProps {
-	message: string;
-	confirmLabel: string;
-	cancel: () => void;
-	done: () => void;
-}
-
-const WarningModal = ({
-	message,
-	confirmLabel,
-	cancel,
-	done,
-}: WarningModalProps) => {
-	return (
-		<SmallModal
-			title={confirmLabel}
-			action={confirmLabel}
-			cancel={cancel}
-			done={done}
-			style={{
-				width: 420,
-				height: 300,
-			}}
-			primaryButtonProps={{ warning: true }}
-		>
-			{message}
-		</SmallModal>
-	);
-};
 
 interface Setting {
 	name: string;
@@ -97,13 +67,6 @@ async function getSettingsList(): Promise<Setting[]> {
 	];
 }
 
-interface Warning {
-	setting: string;
-	settingValue: boolean;
-	description: string;
-	confirmLabel: string;
-}
-
 interface SettingsModalProps {
 	toggleModal: (value: boolean) => void;
 }
@@ -127,7 +90,6 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 			}
 		})();
 	});
-	const [warning, setWarning] = React.useState<Warning | undefined>(undefined);
 
 	const toggleSetting = async (
 		setting: string,
@@ -142,22 +104,12 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 			dangerous,
 		});
 
-		if (value || options === undefined) {
-			await settings.set(setting, !value);
-			setCurrentSettings({
-				...currentSettings,
-				[setting]: !value,
-			});
-			setWarning(undefined);
-			return;
-		} else {
-			// Show warning since it's a dangerous setting
-			setWarning({
-				setting,
-				settingValue: value,
-				...options,
-			});
-		}
+		await settings.set(setting, !value);
+		setCurrentSettings({
+			...currentSettings,
+			[setting]: !value,
+		});
+		return;
 	};
 
 	return (
@@ -205,24 +157,6 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 					<Txt style={{ borderBottom: '1px solid #00aeef' }}>{version}</Txt>
 				</Flex>
 			</Flex>
-
-			{warning === undefined ? null : (
-				<WarningModal
-					message={warning.description}
-					confirmLabel={warning.confirmLabel}
-					done={async () => {
-						await settings.set(warning.setting, !warning.settingValue);
-						setCurrentSettings({
-							...currentSettings,
-							[warning.setting]: true,
-						});
-						setWarning(undefined);
-					}}
-					cancel={() => {
-						setWarning(undefined);
-					}}
-				/>
-			)}
 		</Modal>
 	);
 }
