@@ -14941,12 +14941,6 @@
         }
       }
     },
-    "roboto-fontface": {
-      "version": "0.10.0",
-      "resolved": "https://registry.npmjs.org/roboto-fontface/-/roboto-fontface-0.10.0.tgz",
-      "integrity": "sha512-OlwfYEgA2RdboZohpldlvJ1xngOins5d7ejqnIBWr9KaMxsnBqotpptRXTyfNRLnFpqzX6sTDt+X+a+6udnU8g==",
-      "dev": true
-    },
     "run-async": {
       "version": "0.1.0",
       "resolved": "https://registry.npmjs.org/run-async/-/run-async-0.1.0.tgz",

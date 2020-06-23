@@ -65,10 +65,14 @@ export const colors = {
 	},
 };
 
+const font = 'SourceSansPro';
+
 export const theme = {
 	colors,
+	font,
 	global: {
 		font: {
+			family: font,
 			size: 16,
 		},
 		text: {

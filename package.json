@@ -99,7 +99,6 @@
     "rendition": "^15.2.1",
     "request": "^2.81.0",
     "resin-corvus": "^2.0.5",
-    "roboto-fontface": "^0.10.0",
     "sass": "^1.26.5",
     "sass-lint": "^1.12.1",
     "sass-loader": "^8.0.2",

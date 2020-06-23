@@ -16,11 +16,8 @@
 
 $disabled-opacity: 0.2;
 
-@import "./modules/theme";
-@import "./desktop";
-
 @font-face {
-  font-family: "Source Sans Pro";
+  font-family: "SourceSansPro";
   src: url("./fonts/SourceSansPro-Regular.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
@@ -28,75 +25,43 @@ $disabled-opacity: 0.2;
 }
 
 @font-face {
-  font-family: "Source Sans Pro";
+  font-family: "SourceSansPro";
   src: url("./fonts/SourceSansPro-SemiBold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
   font-display: block;
 }
 
-// Prevent white flash when running application
-html {
-  background-color: $palette-theme-dark-background;
-  margin: 0;
-}
-
+html,
 body {
   margin: 0;
-  background-color: $palette-theme-dark-background;
-  letter-spacing: 0.1px;
-  display: flex;
-  flex-direction: column;
-  font-family: "SourceSansPro";
+  overflow: hidden;
 
-  > header {
-    flex: 0 0 auto;
-  }
+  // Prevent white flash when running application
+  background-color: #4d5057;
 
-  > main {
-    flex: 1;
-    display: flex;
-  }
-
-  > footer {
-    flex: 0 0 auto;
-  }
+  // Prevent WebView bounce effect in OS X
+  height: 100%;
+  width: 100%;
 }
 
-.section-loader {
-  webview {
-    flex: 0 1;
-    height: 0;
-    width: 0;
-  }
-
-  &.isFinish webview {
-    flex: initial;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 320px;
-  }
+// Prevent text selection
+body {
+  -webkit-user-select: none;
+  -webkit-overflow-scrolling: touch;
 }
 
-.featured-project {
-  webview {
-    flex: 0 1;
-    height: 0;
-    width: 0;
-  }
+// Allow window to be dragged from header
+#app-header {
+  -webkit-app-region: drag;
+}
 
-  &.fp-visible webview {
-    width: 480px;
-    height: 360px;
-    position: absolute;
-    z-index: 1;
-    left: 30px;
-    top: 45px;
-    border-radius: 7px;
-    overflow: hidden;
-  }
+// Prevent blue outline
+a:focus,
+input:focus,
+button:focus,
+[tabindex]:focus {
+  outline: none !important;
 }
 
 .disabled {
