@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import * as _ from 'lodash';
 import * as React from 'react';
 import { Flex } from 'rendition';
 import { v4 as uuidV4 } from 'uuid';
@@ -23,13 +22,9 @@ import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
 import { Actions, store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
-import { open as openExternal } from '../../os/open-external/services/open-external';
 import { FlashAnother } from '../flash-another/flash-another';
 import { FlashResults } from '../flash-results/flash-results';
-
-import EtcherSvg from '../../../assets/etcher.svg';
-import LoveSvg from '../../../assets/love.svg';
-import BalenaSvg from '../../../assets/balena.svg';
+import { SafeWebview } from '../safe-webview/safe-webview';
 
 function restart(goToMain: () => void) {
 	selectionState.deselectAllDrives();
@@ -44,22 +39,31 @@ function restart(goToMain: () => void) {
 	goToMain();
 }
 
-function formattedErrors() {
-	const errors = _.map(
-		_.get(flashState.getFlashResults(), ['results', 'errors']),
-		(error) => {
-			return `${error.device}: ${error.message || error.code}`;
-		},
-	);
-	return errors.join('\n');
-}
-
 function FinishPage({ goToMain }: { goToMain: () => void }) {
+	const [webviewShowing, setWebviewShowing] = React.useState(false);
+	const errors = flashState.getFlashResults().results?.errors;
 	const results = flashState.getFlashResults().results || {};
 	return (
-		<Flex flexDirection="column" width="100%" color="#fff">
-			<Flex height="160px" alignItems="center" justifyContent="center">
-				<FlashResults results={results} errors={formattedErrors()} />
+		<Flex height="100%" justifyContent="space-between">
+			<Flex
+				width={webviewShowing ? '36.2vw' : '100vw'}
+				height="100vh"
+				alignItems="center"
+				justifyContent="center"
+				flexDirection="column"
+				style={{
+					position: 'absolute',
+					top: 0,
+					zIndex: 1,
+					boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.2)',
+				}}
+			>
+				<FlashResults
+					image={selectionState.getImageName()}
+					results={results}
+					errors={errors}
+					mb="32px"
+				/>
 
 				<FlashAnother
 					onClick={() => {
@@ -67,34 +71,18 @@ function FinishPage({ goToMain }: { goToMain: () => void }) {
 					}}
 				/>
 			</Flex>
-
-			<Flex
-				flexDirection="column"
-				height="320px"
-				justifyContent="space-between"
-				alignItems="center"
-			>
-				<Flex fontSize="28px" mt="40px">
-					Thanks for using
-					<EtcherSvg
-						width="165px"
-						style={{ margin: '0 10px', cursor: 'pointer' }}
-						onClick={() =>
-							openExternal('https://balena.io/etcher?ref=etcher_offline_banner')
-						}
-					/>
-				</Flex>
-				<Flex mb="10px">
-					made with
-					<LoveSvg height="20px" style={{ margin: '0 10px' }} />
-					by
-					<BalenaSvg
-						height="20px"
-						style={{ margin: '0 10px', cursor: 'pointer' }}
-						onClick={() => openExternal('https://balena.io?ref=etcher_success')}
-					/>
-				</Flex>
-			</Flex>
+			<SafeWebview
+				src="https://www.balena.io/etcher/success-banner?borderTop=false&darkBackground=true"
+				onWebviewShow={setWebviewShowing}
+				style={{
+					display: webviewShowing ? 'flex' : 'none',
+					position: 'absolute',
+					right: 0,
+					bottom: 0,
+					width: '63.8vw',
+					height: '100vh',
+				}}
+			/>
 		</Flex>
 	);
 }

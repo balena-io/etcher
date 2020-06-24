@@ -19,16 +19,103 @@ import CheckCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/check-circl
 import * as _ from 'lodash';
 import outdent from 'outdent';
 import * as React from 'react';
-import { Flex, Txt } from 'rendition';
+import { Flex, FlexProps, Link, Table, TableColumn, Txt } from 'rendition';
+import styled from 'styled-components';
 
 import { progress } from '../../../../shared/messages';
 import { bytesToMegabytes } from '../../../../shared/units';
 
+import FlashSvg from '../../../assets/flash.svg';
+import { middleEllipsis } from '../../utils/middle-ellipsis';
+import { Modal } from '../../styled-components';
+
+const ErrorsTable = styled(({ refFn, ...props }) => {
+	return (
+		<div>
+			<Table<FlashError> ref={refFn} {...props} />
+		</div>
+	);
+})`
+	[data-display='table-head'] [data-display='table-cell'] {
+		width: 50%;
+		position: sticky;
+		top: 0;
+		background-color: ${(props) => props.theme.colors.quartenary.light};
+	}
+
+	[data-display='table-cell']:first-child {
+		padding-left: 15px;
+	}
+
+	[data-display='table-cell']:last-child {
+		width: 150px;
+	}
+
+	&& [data-display='table-row'] > [data-display='table-cell'] {
+		padding: 6px 8px;
+		color: #2a506f;
+	}
+`;
+const DoneIcon = (props: {
+	skipped: boolean;
+	color: string;
+	allFailed: boolean;
+}) => {
+	const svgProps = {
+		width: '28px',
+		fill: props.color,
+		style: {
+			marginTop: '-25px',
+			marginLeft: '13px',
+			zIndex: 1,
+			color: props.color,
+		},
+	};
+	return props.allFailed && !props.skipped ? (
+		<TimesCircleSvg {...svgProps} />
+	) : (
+		<CheckCircleSvg {...svgProps} />
+	);
+};
+
+interface FlashError extends Error {
+	description: string;
+	device: string;
+	code: string;
+}
+
+function formattedErrors(errors: FlashError[]) {
+	return errors
+		.map((error) => `${error.device}: ${error.message || error.code}`)
+		.join('\n');
+}
+
+const columns: Array<TableColumn<FlashError>> = [
+	{
+		field: 'description',
+		label: 'Target',
+	},
+	{
+		field: 'device',
+		label: 'Location',
+	},
+	{
+		field: 'message',
+		label: 'Error',
+		render: (message: string, { code }: FlashError) => {
+			return message ? message : code;
+		},
+	},
+];
+
 export function FlashResults({
+	image = '',
 	errors,
 	results,
+	...props
 }: {
-	errors: string;
+	image?: string;
+	errors: FlashError[];
 	results: {
 		bytesWritten: number;
 		sourceMetadata: {
@@ -38,8 +125,10 @@ export function FlashResults({
 		averageFlashingSpeed: number;
 		devices: { failed: number; successful: number };
 	};
-}) {
-	const allDevicesFailed = results.devices.successful === 0;
+} & FlexProps) {
+	const [showErrorsInfo, setShowErrorsInfo] = React.useState(false);
+	const allFailed = results.devices.successful === 0;
+	const someFailed = results.devices.failed !== 0;
 	const effectiveSpeed = _.round(
 		bytesToMegabytes(
 			results.sourceMetadata.size /
@@ -48,44 +137,56 @@ export function FlashResults({
 		1,
 	);
 	return (
-		<Flex
-			flexDirection="column"
-			mr="80px"
-			height="90px"
-			style={{
-				position: 'relative',
-				top: '25px',
-			}}
-		>
-			<Flex alignItems="center">
-				<CheckCircleSvg
-					width="24px"
-					fill={allDevicesFailed ? '#c6c8c9' : '#1ac135'}
-					style={{
-						margin: '0 15px 0 0',
-					}}
-				/>
-				<Txt fontSize={24} color="#fff">
+		<Flex flexDirection="column" {...props}>
+			<Flex alignItems="center" flexDirection="column">
+				<Flex
+					alignItems="center"
+					mt="50px"
+					mb="32px"
+					color="#7e8085"
+					flexDirection="column"
+				>
+					<FlashSvg width="40px" height="40px" className="disabled" />
+					<DoneIcon
+						skipped={skip}
+						allFailed={allFailed}
+						color={allFailed || someFailed ? '#c6c8c9' : '#1ac135'}
+					/>
+					<Txt>{middleEllipsis(image, 16)}</Txt>
+				</Flex>
+				<Txt fontSize={24} color="#fff" mb="17px">
 					Flash Complete!
 				</Txt>
+				{skip ? <Txt color="#7e8085">Validation has been skipped</Txt> : null}
 			</Flex>
-			<Flex flexDirection="column" mr="0" mb="0" ml="40px" color="#7e8085">
+			<Flex flexDirection="column" color="#7e8085">
 				{Object.entries(results.devices).map(([type, quantity]) => {
+					const failedTargets = type === 'failed';
 					return quantity ? (
-						<Flex
-							alignItems="center"
-							tooltip={type === 'failed' ? errors : undefined}
-						>
+						<Flex alignItems="center">
 							<CircleSvg
 								width="14px"
 								fill={type === 'failed' ? '#ff4444' : '#1ac135'}
+								color={failedTargets ? '#ff4444' : '#1ac135'}
 							/>
-							<Txt ml={10}>{quantity}</Txt>
-							<Txt ml={10}>{progress[type](quantity)}</Txt>
+							<Txt ml="10px" color="#fff">
+								{quantity}
+							</Txt>
+							<Txt
+								ml="10px"
+								tooltip={failedTargets ? formattedErrors(errors) : undefined}
+							>
+								{progress[type](quantity)}
+							</Txt>
+							{failedTargets && (
+								<Link ml="10px" onClick={() => setShowErrorsInfo(true)}>
+									more info
+								</Link>
+							)}
 						</Flex>
 					) : null;
 				})}
-				{!allDevicesFailed && (
+				{!allFailed && (
 					<Txt
 						fontSize="10px"
 						style={{
@@ -101,6 +202,21 @@ export function FlashResults({
 					</Txt>
 				)}
 			</Flex>
+
+			{showErrorsInfo && (
+				<Modal
+					titleElement={
+						<Flex alignItems="baseline" mb={18}>
+							<Txt fontSize={24} align="left">
+								Failed targets
+							</Txt>
+						</Flex>
+					}
+					done={() => setShowErrorsInfo(false)}
+				>
+					<ErrorsTable columns={columns} data={errors} />
+				</Modal>
+			)}
 		</Flex>
 	);
 }
