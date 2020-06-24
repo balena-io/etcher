@@ -15,7 +15,6 @@
  */
 
 import * as electron from 'electron';
-import * as _ from 'lodash';
 import * as React from 'react';
 
 import * as packageJSON from '../../../../../package.json';
@@ -94,8 +93,8 @@ export class SafeWebview extends React.PureComponent<
 		);
 		this.entryHref = url.href;
 		// Events steal 'this'
-		this.didFailLoad = _.bind(this.didFailLoad, this);
-		this.didGetResponseDetails = _.bind(this.didGetResponseDetails, this);
+		this.didFailLoad = this.didFailLoad.bind(this);
+		this.didGetResponseDetails = this.didGetResponseDetails.bind(this);
 		// Make a persistent electron session for the webview
 		this.session = electron.remote.session.fromPartition(ELECTRON_SESSION, {
 			// Disable the cache for the session such that new content shows up when refreshing

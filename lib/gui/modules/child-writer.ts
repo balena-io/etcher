@@ -136,8 +136,10 @@ async function writeAndValidate({
 		sourceMetadata,
 	};
 	for (const [destination, error] of failures) {
-		const err = error as Error & { device: string };
-		err.device = (destination as sdk.sourceDestination.BlockDevice).device;
+		const err = error as Error & { device: string; description: string };
+		const drive = destination as sdk.sourceDestination.BlockDevice;
+		err.device = drive.device;
+		err.description = drive.description;
 		result.errors.push(err);
 	}
 	return result;

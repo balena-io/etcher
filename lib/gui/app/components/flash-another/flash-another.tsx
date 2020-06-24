@@ -25,7 +25,7 @@ export interface FlashAnotherProps {
 export const FlashAnother = (props: FlashAnotherProps) => {
 	return (
 		<BaseButton primary onClick={props.onClick}>
-			Flash Another
+			Flash another
 		</BaseButton>
 	);
 };

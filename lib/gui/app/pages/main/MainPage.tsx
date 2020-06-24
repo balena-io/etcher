@@ -25,7 +25,6 @@ import styled from 'styled-components';
 
 import FinishPage from '../../components/finish/finish';
 import { ReducedFlashingInfos } from '../../components/reduced-flashing-infos/reduced-flashing-infos';
-import { SafeWebview } from '../../components/safe-webview/safe-webview';
 import { SettingsModal } from '../../components/settings/settings';
 import {
 	SourceMetadata,
@@ -48,6 +47,7 @@ import {
 import { FlashStep } from './Flash';
 
 import EtcherSvg from '../../../assets/etcher.svg';
+import { SafeWebview } from '../../components/safe-webview/safe-webview';
 
 const Icon = styled(BaseIcon)`
 	margin-right: 20px;
@@ -169,7 +169,104 @@ export class MainPage extends React.Component<
 		const notFlashingOrSplitView =
 			!this.state.isFlashing || !this.state.isWebviewShowing;
 		return (
-			<>
+			<Flex
+				m={`110px ${this.state.isWebviewShowing ? 35 : 55}px`}
+				justifyContent="space-between"
+			>
+				{notFlashingOrSplitView && (
+					<>
+						<SourceSelector flashing={this.state.isFlashing} />
+						<Flex>
+							<StepBorder disabled={shouldDriveStepBeDisabled} left />
+						</Flex>
+						<TargetSelector
+							disabled={shouldDriveStepBeDisabled}
+							hasDrive={this.state.hasDrive}
+							flashing={this.state.isFlashing}
+						/>
+						<Flex>
+							<StepBorder disabled={shouldFlashStepBeDisabled} right />
+						</Flex>
+					</>
+				)}
+
+				{this.state.isFlashing && this.state.isWebviewShowing && (
+					<Flex
+						style={{
+							position: 'absolute',
+							top: 0,
+							left: 0,
+							width: '36.2vw',
+							height: '100vh',
+							zIndex: 1,
+							boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.2)',
+						}}
+					>
+						<ReducedFlashingInfos
+							imageLogo={this.state.imageLogo}
+							imageName={this.state.imageName}
+							imageSize={
+								typeof this.state.imageSize === 'number'
+									? prettyBytes(this.state.imageSize)
+									: ''
+							}
+							driveTitle={this.state.driveTitle}
+							driveLabel={this.state.driveLabel}
+							style={{
+								position: 'absolute',
+								color: '#fff',
+								left: 35,
+								top: 72,
+							}}
+						/>
+					</Flex>
+				)}
+				{this.state.isFlashing && this.state.featuredProjectURL && (
+					<SafeWebview
+						src={this.state.featuredProjectURL}
+						onWebviewShow={(isWebviewShowing: boolean) => {
+							this.setState({ isWebviewShowing });
+						}}
+						style={{
+							position: 'absolute',
+							right: 0,
+							bottom: 0,
+							width: '63.8vw',
+							height: '100vh',
+						}}
+					/>
+				)}
+
+				<FlashStep
+					goToSuccess={() => this.setState({ current: 'success' })}
+					shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
+					isFlashing={this.state.isFlashing}
+					step={state.type}
+					percentage={state.percentage}
+					position={state.position}
+					failed={state.failed}
+					speed={state.speed}
+					eta={state.eta}
+					style={{ zIndex: 1 }}
+				/>
+			</Flex>
+		);
+	}
+
+	private renderSuccess() {
+		return (
+			<FinishPage
+				goToMain={() => {
+					flashState.resetState();
+					this.setState({ current: 'main' });
+				}}
+			/>
+		);
+	}
+
+	public render() {
+		return (
+			<ThemedProvider style={{ height: '100%', width: '100%' }}>
 				<Flex
 					justifyContent="space-between"
 					alignItems="center"
@@ -233,117 +330,6 @@ export class MainPage extends React.Component<
 						}}
 					/>
 				)}
-
-				<Flex
-					m={`110px ${this.state.isWebviewShowing ? 35 : 55}px`}
-					justifyContent="space-between"
-				>
-					{notFlashingOrSplitView && (
-						<>
-							<SourceSelector flashing={this.state.isFlashing} />
-							<Flex>
-								<StepBorder disabled={shouldDriveStepBeDisabled} left />
-							</Flex>
-							<TargetSelector
-								disabled={shouldDriveStepBeDisabled}
-								hasDrive={this.state.hasDrive}
-								flashing={this.state.isFlashing}
-							/>
-							<Flex>
-								<StepBorder disabled={shouldFlashStepBeDisabled} right />
-							</Flex>
-						</>
-					)}
-
-					{this.state.isFlashing && this.state.isWebviewShowing && (
-						<Flex
-							style={{
-								position: 'absolute',
-								top: 0,
-								left: 0,
-								width: '36.2vw',
-								height: '100vh',
-								zIndex: 1,
-								boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.2)',
-							}}
-						>
-							<ReducedFlashingInfos
-								imageLogo={this.state.imageLogo}
-								imageName={this.state.imageName}
-								imageSize={
-									typeof this.state.imageSize === 'number'
-										? prettyBytes(this.state.imageSize)
-										: ''
-								}
-								driveTitle={this.state.driveTitle}
-								driveLabel={this.state.driveLabel}
-								style={{
-									position: 'absolute',
-									color: '#fff',
-									left: 35,
-									top: 72,
-								}}
-							/>
-						</Flex>
-					)}
-					{this.state.isFlashing && this.state.featuredProjectURL && (
-						<SafeWebview
-							src={this.state.featuredProjectURL}
-							onWebviewShow={(isWebviewShowing: boolean) => {
-								this.setState({ isWebviewShowing });
-							}}
-							style={{
-								position: 'absolute',
-								right: 0,
-								bottom: 0,
-								width: '63.8vw',
-								height: '100vh',
-							}}
-						/>
-					)}
-
-					<FlashStep
-						goToSuccess={() => this.setState({ current: 'success' })}
-						shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
-						isFlashing={this.state.isFlashing}
-						step={state.type}
-						percentage={state.percentage}
-						position={state.position}
-						failed={state.failed}
-						speed={state.speed}
-						eta={state.eta}
-						style={{ zIndex: 1 }}
-					/>
-				</Flex>
-			</>
-		);
-	}
-
-	private renderSuccess() {
-		return (
-			<Flex flexDirection="column" alignItems="center" height="100%">
-				<FinishPage
-					goToMain={() => {
-						flashState.resetState();
-						this.setState({ current: 'main' });
-					}}
-				/>
-				<SafeWebview
-					src="https://www.balena.io/etcher/success-banner/"
-					style={{
-						width: '100%',
-						height: '320px',
-						position: 'absolute',
-						bottom: 0,
-					}}
-				/>
-			</Flex>
-		);
-	}
-
-	public render() {
-		return (
-			<ThemedProvider style={{ height: '100%', width: '100%' }}>
 				{this.state.current === 'main'
 					? this.renderMain()
 					: this.renderSuccess()}
