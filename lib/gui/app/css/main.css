@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-$disabled-opacity: 0.2;
-
 @font-face {
   font-family: "SourceSansPro";
   src: url("./fonts/SourceSansPro-Regular.ttf") format("truetype");
@@ -37,26 +35,26 @@ body {
   margin: 0;
   overflow: hidden;
 
-  // Prevent white flash when running application
+  /* Prevent white flash when running application */
   background-color: #4d5057;
 
-  // Prevent WebView bounce effect in OS X
+  /* Prevent WebView bounce effect in OS X */
   height: 100%;
   width: 100%;
 }
 
-// Prevent text selection
+/* Prevent text selection */
 body {
   -webkit-user-select: none;
   -webkit-overflow-scrolling: touch;
 }
 
-// Allow window to be dragged from header
+/* Allow window to be dragged from header */
 #app-header {
   -webkit-app-region: drag;
 }
 
-// Prevent blue outline
+/* Prevent blue outline */
 a:focus,
 input:focus,
 button:focus,
@@ -65,5 +63,5 @@ button:focus,
 }
 
 .disabled {
-  opacity: $disabled-opacity;
+  opacity: 0.2;
 }

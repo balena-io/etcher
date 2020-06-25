@@ -25,7 +25,6 @@ $(BUILD_TEMPORARY_DIRECTORY): | $(BUILD_DIRECTORY)
 
 # See https://stackoverflow.com/a/13468229/1641422
 SHELL := /bin/bash
-PATH := $(shell pwd)/node_modules/.bin:$(PATH)
 
 # ---------------------------------------------------------------------
 # Operating system and architecture detection
@@ -125,7 +124,7 @@ TARGETS = \
 	info \
 	lint \
 	lint-ts \
-	lint-sass \
+	lint-css \
 	lint-cpp \
 	lint-spell \
 	test-spectron \
@@ -140,15 +139,15 @@ TARGETS = \
 	electron-build
 
 webpack:
-	./node_modules/.bin/webpack
+	npx webpack
 
 .PHONY: $(TARGETS)
 
 lint-ts:
-	balena-lint --fix --typescript typings lib tests scripts/clean-shrinkwrap.ts webpack.config.ts
+	npx balena-lint --fix --typescript typings lib tests scripts/clean-shrinkwrap.ts webpack.config.ts
 
-lint-sass:
-	sass-lint -v lib/gui/app/scss/**/*.scss lib/gui/app/scss/*.scss
+lint-css:
+	npx prettier --write lib/**/*.css
 
 lint-cpp:
 	cpplint --recursive src
@@ -160,18 +159,18 @@ lint-spell:
 		--skip *.svg *.gz,*.bz2,*.xz,*.zip,*.img,*.dmg,*.iso,*.rpi-sdcard,*.wic,.DS_Store,*.dtb,*.dtbo,*.dat,*.elf,*.bin,*.foo,xz-without-extension \
 		lib tests docs Makefile *.md LICENSE
 
-lint: lint-ts lint-sass lint-cpp lint-spell
+lint: lint-ts lint-css lint-cpp lint-spell
 
 MOCHA_OPTIONS=--recursive --reporter spec --require ts-node/register --require-main "tests/gui/allow-renderer-process-reuse.ts"
 
 test-spectron:
-	mocha $(MOCHA_OPTIONS) tests/spectron/runner.spec.ts
+	npx mocha $(MOCHA_OPTIONS) tests/spectron/runner.spec.ts
 
 test-gui:
-	electron-mocha $(MOCHA_OPTIONS) --full-trace --no-sandbox --renderer tests/gui/**/*.ts
+	npx electron-mocha $(MOCHA_OPTIONS) --full-trace --no-sandbox --renderer tests/gui/**/*.ts
 
 test-sdk:
-	electron-mocha $(MOCHA_OPTIONS) --full-trace --no-sandbox tests/shared/**/*.ts
+	npx electron-mocha $(MOCHA_OPTIONS) --full-trace --no-sandbox tests/shared/**/*.ts
 
 test: test-gui test-sdk test-spectron
 

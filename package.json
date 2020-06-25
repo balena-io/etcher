@@ -34,6 +34,9 @@
   "lint-staged": {
     "./**/*.{ts,tsx}": [
       "make lint-ts"
+    ],
+    "./**/*.css": [
+      "make lint-css"
     ]
   },
   "author": "Balena Inc. <hello@etcher.io>",
@@ -99,9 +102,6 @@
     "rendition": "^15.2.1",
     "request": "^2.81.0",
     "resin-corvus": "^2.0.5",
-    "sass": "^1.26.5",
-    "sass-lint": "^1.12.1",
-    "sass-loader": "^8.0.2",
     "semver": "^7.3.2",
     "simple-progress-webpack-plugin": "^1.1.2",
     "sinon": "^9.0.2",
