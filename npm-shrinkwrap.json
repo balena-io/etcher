@@ -8307,9 +8307,9 @@
       "dev": true
     },
     "etcher-sdk": {
-      "version": "4.1.15",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.1.15.tgz",
-      "integrity": "sha512-PZ/OLbAmtQXQlla33FVwvyLL5rzpYG5gQLpPiz1zCzNDWykaVIM9lXQ8m0DxTp7/m11tM3lw1gT/IPCUKtKfdA==",
+      "version": "4.1.16",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.1.16.tgz",
+      "integrity": "sha512-Kelctny5wbc7/A8rDA36r38HNDFrSwE2q1Wo4nS8vPjur0ONaigNRQesiXEbDJ6nfBBllChU5ObwQVNxA/OBvQ==",
       "dev": true,
       "requires": {
         "@ronomon/direct-io": "^3.0.1",
@@ -8327,7 +8327,7 @@
         "mountutils": "^1.3.18",
         "node-raspberrypi-usbboot": "^0.2.4",
         "outdent": "^0.7.0",
-        "partitioninfo": "^5.3.4",
+        "partitioninfo": "^5.3.5",
         "resin-image-fs": "^5.0.8",
         "rwmutex": "^1.0.0",
         "udif": "^0.17.0",
@@ -9449,9 +9449,9 @@
       }
     },
     "gpt": {
-      "version": "2.0.2",
-      "resolved": "https://registry.npmjs.org/gpt/-/gpt-2.0.2.tgz",
-      "integrity": "sha512-ZeXRFQLFaLhwRk9Xf1fQUqUG8112Nz7CvF8WOdtgW6iq3rB0EnCd0zkiEylYzUbqGhWe0joViRd4BR12JKtWwQ==",
+      "version": "2.0.4",
+      "resolved": "https://registry.npmjs.org/gpt/-/gpt-2.0.4.tgz",
+      "integrity": "sha512-gCibB52dZAjDeyuAJE158FfVYpMa8poCBMYvNXCwDvZJ0+5D0YpP1hZ/KYtWpQyXu18ddoQoqj+FGnbyq2qhKw==",
       "dev": true,
       "requires": {
         "cyclic-32": "^1.1.0"
