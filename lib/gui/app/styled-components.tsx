@@ -159,6 +159,7 @@ export const Modal = styled((props) => {
 	> div {
 		padding: 30px;
 		height: calc(100% - 80px);
+		overflow-y: auto;
 
 		> h3 {
 			margin: 0;
