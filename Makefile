@@ -23,7 +23,6 @@ $(BUILD_DIRECTORY):
 $(BUILD_TEMPORARY_DIRECTORY): | $(BUILD_DIRECTORY)
 	mkdir $@
 
-# See https://stackoverflow.com/a/13468229/1641422
 SHELL := /bin/bash
 
 # ---------------------------------------------------------------------
