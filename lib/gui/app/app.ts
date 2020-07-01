@@ -23,11 +23,13 @@ import * as ReactDOM from 'react-dom';
 import { v4 as uuidV4 } from 'uuid';
 
 import * as packageJSON from '../../../package.json';
+import { isSourceDrive } from '../../shared/drive-constraints';
 import * as EXIT_CODES from '../../shared/exit-codes';
 import * as messages from '../../shared/messages';
 import * as availableDrives from './models/available-drives';
 import * as flashState from './models/flash-state';
 import { init as ledsInit } from './models/leds';
+import { deselectImage, getImage } from './models/selection-state';
 import * as settings from './models/settings';
 import { Actions, observe, store } from './models/store';
 import * as analytics from './modules/analytics';
@@ -250,6 +252,15 @@ async function addDrive(drive: Drive) {
 }
 
 function removeDrive(drive: Drive) {
+	if (
+		drive instanceof sdk.sourceDestination.BlockDevice &&
+		// @ts-ignore BlockDevice.drive is private
+		isSourceDrive(drive.drive, getImage())
+	) {
+		// Deselect the image if it was on the drive that was removed.
+		// This will also deselect the image if the drive mountpoints change.
+		deselectImage();
+	}
 	const preparedDrive = prepareDrive(drive);
 	const drives = getDrives();
 	delete drives[preparedDrive.device];
