@@ -8299,9 +8299,9 @@
       "dev": true
     },
     "etcher-sdk": {
-      "version": "4.1.16",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.1.16.tgz",
-      "integrity": "sha512-Kelctny5wbc7/A8rDA36r38HNDFrSwE2q1Wo4nS8vPjur0ONaigNRQesiXEbDJ6nfBBllChU5ObwQVNxA/OBvQ==",
+      "version": "4.1.17",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.1.17.tgz",
+      "integrity": "sha512-cmsPI08f/uArgpWWvJLDKOYOLk99kUooQCKnbdWORwXvKCAnp7i2CAz2KMUDZ3csgsMx7a+JWFw+27/8NGr+Uw==",
       "dev": true,
       "requires": {
         "@ronomon/direct-io": "^3.0.1",
@@ -13431,9 +13431,9 @@
       "dev": true
     },
     "prebuild-install": {
-      "version": "5.3.4",
-      "resolved": "https://registry.npmjs.org/prebuild-install/-/prebuild-install-5.3.4.tgz",
-      "integrity": "sha512-AkKN+pf4fSEihjapLEEj8n85YIw/tN6BQqkhzbDc0RvEZGdkpJBGMUYx66AAMcPG2KzmPQS7Cm16an4HVBRRMA==",
+      "version": "5.3.5",
+      "resolved": "https://registry.npmjs.org/prebuild-install/-/prebuild-install-5.3.5.tgz",
+      "integrity": "sha512-YmMO7dph9CYKi5IR/BzjOJlRzpxGGVo1EsLSUZ0mt/Mq0HWZIHOKHHcHdT69yG54C9m6i45GpItwRHpk0Py7Uw==",
       "dev": true,
       "requires": {
         "detect-libc": "^1.0.3",
