@@ -23,13 +23,13 @@ import * as ReactDOM from 'react-dom';
 import { v4 as uuidV4 } from 'uuid';
 
 import * as packageJSON from '../../../package.json';
-import { isSourceDrive } from '../../shared/drive-constraints';
+import { isDriveValid, isSourceDrive } from '../../shared/drive-constraints';
 import * as EXIT_CODES from '../../shared/exit-codes';
 import * as messages from '../../shared/messages';
 import * as availableDrives from './models/available-drives';
 import * as flashState from './models/flash-state';
 import { init as ledsInit } from './models/leds';
-import { deselectImage, getImage } from './models/selection-state';
+import { deselectImage, getImage, selectDrive } from './models/selection-state';
 import * as settings from './models/settings';
 import { Actions, observe, store } from './models/store';
 import * as analytics from './modules/analytics';
@@ -249,6 +249,14 @@ async function addDrive(drive: Drive) {
 	const drives = getDrives();
 	drives[preparedDrive.device] = preparedDrive;
 	setDrives(drives);
+	if (
+		(await settings.get('autoSelectAllDrives')) &&
+		drive instanceof sdk.sourceDestination.BlockDevice &&
+		// @ts-ignore BlockDevice.drive is private
+		isDriveValid(drive.drive, getImage())
+	) {
+		selectDrive(drive.device);
+	}
 }
 
 function removeDrive(drive: Drive) {
