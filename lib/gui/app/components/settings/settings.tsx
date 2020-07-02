@@ -120,10 +120,6 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 				</Txt>
 			}
 			done={() => toggleModal(false)}
-			style={{
-				width: 780,
-				height: 420,
-			}}
 		>
 			<Flex flexDirection="column">
 				{_.map(settingsList, (setting: Setting, i: number) => {

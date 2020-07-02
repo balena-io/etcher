@@ -121,8 +121,7 @@ export const DetailsText = (props: FlexProps) => (
 	/>
 );
 
-export const Modal = styled((props) => {
-	const { style = { height: 420 } } = props;
+export const Modal = styled(({ style, ...props }) => {
 	return (
 		<Provider
 			theme={{
@@ -143,23 +142,29 @@ export const Modal = styled((props) => {
 		>
 			<ModalBase
 				position="top"
-				width={780}
+				width="96vw"
 				cancelButtonProps={{
 					style: {
 						marginRight: '20px',
 						border: 'solid 1px #2a506f',
 					},
 				}}
-				style={style}
+				style={{
+					height: '86.5vh',
+					...style,
+				}}
 				{...props}
 			/>
 		</Provider>
 	);
 })`
 	> div {
-		padding: 30px;
+		padding: 24px 30px;
 		height: calc(100% - 80px);
-		overflow-y: auto;
+
+		::-webkit-scrollbar {
+			display: none;
+		}
 
 		> h3 {
 			margin: 0;
@@ -176,5 +181,18 @@ export const Modal = styled((props) => {
 			width: 100%;
 			box-shadow: 0 -2px 10px 0 rgba(221, 225, 240, 0.5), 0 -1px 0 0 #dde1f0;
 		}
+	}
+`;
+
+export const ScrollableFlex = styled(Flex)`
+	overflow: auto;
+
+	::-webkit-scrollbar {
+		display: none;
+	}
+
+	> div > div {
+		/* This is required for the sticky table header in TargetsTable */
+		overflow-x: visible;
 	}
 `;

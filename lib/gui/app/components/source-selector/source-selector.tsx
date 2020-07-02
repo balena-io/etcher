@@ -52,6 +52,7 @@ import {
 	Modal,
 	StepButton,
 	StepNameButton,
+	ScrollableFlex,
 } from '../../styled-components';
 import { colors } from '../../theme';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
@@ -61,19 +62,24 @@ import ImageSvg from '../../../assets/image.svg';
 
 const recentUrlImagesKey = 'recentUrlImages';
 
-function normalizeRecentUrlImages(urls: any): string[] {
+function normalizeRecentUrlImages(urls: any[]): URL[] {
 	if (!Array.isArray(urls)) {
 		urls = [];
 	}
-	return _.chain(urls)
-		.filter(_.isString)
-		.reject(_.isEmpty)
-		.uniq()
-		.takeRight(5)
-		.value();
+	urls = urls
+		.map((url) => {
+			try {
+				return new URL(url);
+			} catch (error) {
+				// Invalid URL, skip
+			}
+		})
+		.filter((url) => url !== undefined);
+	urls = _.uniqBy(urls, (url) => url.href);
+	return urls.slice(urls.length - 5);
 }
 
-function getRecentUrlImages(): string[] {
+function getRecentUrlImages(): URL[] {
 	let urls = [];
 	try {
 		urls = JSON.parse(localStorage.getItem(recentUrlImagesKey) || '[]');
@@ -83,11 +89,9 @@ function getRecentUrlImages(): string[] {
 	return normalizeRecentUrlImages(urls);
 }
 
-function setRecentUrlImages(urls: string[]) {
-	localStorage.setItem(
-		recentUrlImagesKey,
-		JSON.stringify(normalizeRecentUrlImages(urls)),
-	);
+function setRecentUrlImages(urls: URL[]) {
+	const normalized = normalizeRecentUrlImages(urls.map((url: URL) => url.href));
+	localStorage.setItem(recentUrlImagesKey, JSON.stringify(normalized));
 }
 
 const Card = styled(BaseCard)`
@@ -124,13 +128,13 @@ const URLSelector = ({
 }) => {
 	const [imageURL, setImageURL] = React.useState('');
 	const [recentImages, setRecentImages]: [
-		string[],
-		(value: React.SetStateAction<string[]>) => void,
+		URL[],
+		(value: React.SetStateAction<URL[]>) => void,
 	] = React.useState([]);
 	const [loading, setLoading] = React.useState(false);
 	React.useEffect(() => {
 		const fetchRecentUrlImages = async () => {
-			const recentUrlImages: string[] = await getRecentUrlImages();
+			const recentUrlImages: URL[] = await getRecentUrlImages();
 			setRecentImages(recentUrlImages);
 		};
 		fetchRecentUrlImages();
@@ -139,15 +143,16 @@ const URLSelector = ({
 		<Modal
 			cancel={cancel}
 			primaryButtonProps={{
-				disabled: loading || !imageURL,
+				className: loading || !imageURL ? 'disabled' : '',
 			}}
 			done={async () => {
 				setLoading(true);
-				const sanitizedRecentUrls = normalizeRecentUrlImages([
-					...recentImages,
+				const urlStrings = recentImages.map((url: URL) => url.href);
+				const normalizedRecentUrls = normalizeRecentUrlImages([
+					...urlStrings,
 					imageURL,
 				]);
-				setRecentUrlImages(sanitizedRecentUrls);
+				setRecentUrlImages(normalizedRecentUrls);
 				await done(imageURL);
 			}}
 		>
@@ -164,24 +169,29 @@ const URLSelector = ({
 					}
 				/>
 			</Flex>
-			{!_.isEmpty(recentImages) && (
-				<Flex flexDirection="column">
+			{recentImages.length > 0 && (
+				<Flex flexDirection="column" height="78.6%">
 					<Txt fontSize={18}>Recent</Txt>
-					<Card
-						style={{ padding: '10px 15px' }}
-						rows={_.map(recentImages, (recent) => (
-							<Txt
-								key={recent}
-								onClick={() => {
-									setImageURL(recent);
-								}}
-							>
-								<span>
-									{_.last(_.split(recent, '/'))} - {recent}
-								</span>
-							</Txt>
-						))}
-					/>
+					<ScrollableFlex flexDirection="column">
+						<Card
+							p="10px 15px"
+							rows={recentImages
+								.map((recent) => (
+									<Txt
+										key={recent.href}
+										onClick={() => {
+											setImageURL(recent.href);
+										}}
+										style={{
+											overflowWrap: 'break-word',
+										}}
+									>
+										{recent.pathname.split('/').pop()} - {recent.href}
+									</Txt>
+								))
+								.reverse()}
+						/>
+					</ScrollableFlex>
 				</Flex>
 			)}
 		</Modal>
@@ -280,7 +290,7 @@ export class SourceSelector extends React.Component<
 
 	private async onSelectImage(_event: IpcRendererEvent, imagePath: string) {
 		const isURL =
-			_.startsWith(imagePath, 'https://') || _.startsWith(imagePath, 'http://');
+			imagePath.startsWith('https://') || imagePath.startsWith('http://');
 		await this.selectImageByPath({
 			imagePath,
 			SourceType: isURL ? sourceDestination.Http : sourceDestination.File,
@@ -354,8 +364,8 @@ export class SourceSelector extends React.Component<
 			});
 		} else {
 			if (
-				!_.startsWith(imagePath, 'https://') &&
-				!_.startsWith(imagePath, 'http://')
+				!imagePath.startsWith('https://') &&
+				!imagePath.startsWith('http://')
 			) {
 				const invalidImageError = errors.createUserError({
 					title: 'Unsupported protocol',
