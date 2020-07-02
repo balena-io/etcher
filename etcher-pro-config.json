@@ -8,7 +8,7 @@
   "featuredProjectEndpoint": "nothing://",
   "fullscreen": true,
   "autoSelectAllDrives": true,
-  "automountOnFileSelect": "platform-xhci-hcd.0.auto-usb-0:1.2.4:1.0-scsi-0:0:0:0",
+  "automountOnFileSelect": "platform-xhci-hcd.1.auto-usb-0:1.1.1:1.0-scsi-0:0:0:0",
   "driveBlacklist": [
     "/dev/mmcblk0rpmb",
     "/dev/mmcblk0",
