@@ -26,6 +26,9 @@ import { progress } from '../../../../shared/messages';
 import { bytesToMegabytes } from '../../../../shared/units';
 
 import FlashSvg from '../../../assets/flash.svg';
+import { getDrives } from '../../models/available-drives';
+import { resetState } from '../../models/flash-state';
+import * as selection from '../../models/selection-state';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
 import { Modal } from '../../styled-components';
 
@@ -78,7 +81,7 @@ const DoneIcon = (props: {
 	);
 };
 
-interface FlashError extends Error {
+export interface FlashError extends Error {
 	description: string;
 	device: string;
 	code: string;
@@ -112,10 +115,12 @@ export function FlashResults({
 	image = '',
 	errors,
 	results,
+	skip,
 	...props
 }: {
 	image?: string;
 	errors: FlashError[];
+	skip: boolean;
 	results: {
 		bytesWritten: number;
 		sourceMetadata: {
@@ -128,7 +133,7 @@ export function FlashResults({
 } & FlexProps) {
 	const [showErrorsInfo, setShowErrorsInfo] = React.useState(false);
 	const allFailed = results.devices.successful === 0;
-	const someFailed = results.devices.failed !== 0;
+	const someFailed = results.devices.failed !== 0 || errors.length !== 0;
 	const effectiveSpeed = _.round(
 		bytesToMegabytes(
 			results.sourceMetadata.size /
@@ -160,32 +165,31 @@ export function FlashResults({
 				{skip ? <Txt color="#7e8085">Validation has been skipped</Txt> : null}
 			</Flex>
 			<Flex flexDirection="column" color="#7e8085">
-				{Object.entries(results.devices).map(([type, quantity]) => {
-					const failedTargets = type === 'failed';
-					return quantity ? (
-						<Flex alignItems="center">
-							<CircleSvg
-								width="14px"
-								fill={type === 'failed' ? '#ff4444' : '#1ac135'}
-								color={failedTargets ? '#ff4444' : '#1ac135'}
-							/>
-							<Txt ml="10px" color="#fff">
-								{quantity}
-							</Txt>
-							<Txt
-								ml="10px"
-								tooltip={failedTargets ? formattedErrors(errors) : undefined}
-							>
-								{progress[type](quantity)}
-							</Txt>
-							{failedTargets && (
-								<Link ml="10px" onClick={() => setShowErrorsInfo(true)}>
-									more info
-								</Link>
-							)}
-						</Flex>
-					) : null;
-				})}
+				{results.devices.successful !== 0 ? (
+					<Flex alignItems="center">
+						<CircleSvg width="14px" fill="#1ac135" color="#1ac135" />
+						<Txt ml="10px" color="#fff">
+							{results.devices.successful}
+						</Txt>
+						<Txt ml="10px">
+							{progress.successful(results.devices.successful)}
+						</Txt>
+					</Flex>
+				) : null}
+				{errors.length !== 0 ? (
+					<Flex alignItems="center">
+						<CircleSvg width="14px" fill="#ff4444" color="#ff4444" />
+						<Txt ml="10px" color="#fff">
+							{errors.length}
+						</Txt>
+						<Txt ml="10px" tooltip={formattedErrors(errors)}>
+							{progress.failed(errors.length)}
+						</Txt>
+						<Link ml="10px" onClick={() => setShowErrorsInfo(true)}>
+							more info
+						</Link>
+					</Flex>
+				) : null}
 				{!allFailed && (
 					<Txt
 						fontSize="10px"
@@ -212,7 +216,18 @@ export function FlashResults({
 							</Txt>
 						</Flex>
 					}
-					done={() => setShowErrorsInfo(false)}
+					action="Retry failed targets"
+					cancel={() => setShowErrorsInfo(false)}
+					done={() => {
+						setShowErrorsInfo(false);
+						resetState();
+						getDrives()
+							.filter((drive) =>
+								errors.some((error) => error.device === drive.device),
+							)
+							.forEach((drive) => selection.selectDrive(drive.device));
+						goToMain();
+					}}
 				>
 					<ErrorsTable columns={columns} data={errors} />
 				</Modal>

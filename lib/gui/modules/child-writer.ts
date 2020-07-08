@@ -71,14 +71,25 @@ async function handleError(error: Error) {
 	terminate(GENERAL_ERROR);
 }
 
-interface WriteResult {
-	bytesWritten: number;
-	devices: {
+export interface FlashError extends Error {
+	description: string;
+	device: string;
+	code: string;
+}
+
+export interface WriteResult {
+	bytesWritten?: number;
+	devices?: {
 		failed: number;
 		successful: number;
 	};
-	errors: Array<Error & { device: string }>;
-	sourceMetadata: sdk.sourceDestination.Metadata;
+	errors: FlashError[];
+	sourceMetadata?: sdk.sourceDestination.Metadata;
+}
+
+export interface FlashResults extends WriteResult {
+	skip?: boolean;
+	cancelled?: boolean;
 }
 
 /**
@@ -136,7 +147,7 @@ async function writeAndValidate({
 		sourceMetadata,
 	};
 	for (const [destination, error] of failures) {
-		const err = error as Error & { device: string; description: string };
+		const err = error as FlashError;
 		const drive = destination as sdk.sourceDestination.BlockDevice;
 		err.device = drive.device;
 		err.description = drive.description;
@@ -208,7 +219,16 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 			terminate(exitCode);
 		};
 
+		const onSkip = async () => {
+			log('Skip validation');
+			ipc.of[IPC_SERVER_ID].emit('skip');
+			await delay(DISCONNECT_DELAY);
+			terminate(exitCode);
+		};
+
 		ipc.of[IPC_SERVER_ID].on('cancel', onAbort);
+
+		ipc.of[IPC_SERVER_ID].on('skip', onSkip);
 
 		/**
 		 * @summary Failure handler (non-fatal errors)

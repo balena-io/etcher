@@ -75,14 +75,25 @@ export function setDevicePaths(devicePaths: string[]) {
 	});
 }
 
-export function addFailedDevicePath(devicePath: string) {
-	const failedDevicePathsSet = new Set(
-		store.getState().toJS().failedDevicePaths,
+export function addFailedDeviceError({
+	device,
+	error,
+}: {
+	device: sdk.scanner.adapters.DrivelistDrive;
+	error: Error;
+}) {
+	const failedDeviceErrorsMap = new Map(
+		store.getState().toJS().failedDeviceErrors,
 	);
-	failedDevicePathsSet.add(devicePath);
+	failedDeviceErrorsMap.set(device.device, {
+		description: device.description,
+		device: device.device,
+		devicePath: device.devicePath,
+		...error,
+	});
 	store.dispatch({
-		type: Actions.SET_FAILED_DEVICE_PATHS,
-		data: Array.from(failedDevicePathsSet),
+		type: Actions.SET_FAILED_DEVICE_ERRORS,
+		data: Array.from(failedDeviceErrorsMap),
 	});
 }
 

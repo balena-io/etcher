@@ -62,7 +62,7 @@ export const DEFAULT_STATE = Immutable.fromJS({
 	},
 	isFlashing: false,
 	devicePaths: [],
-	failedDevicePaths: [],
+	failedDeviceErrors: [],
 	flashResults: {},
 	flashState: {
 		active: 0,
@@ -79,7 +79,7 @@ export const DEFAULT_STATE = Immutable.fromJS({
  */
 export enum Actions {
 	SET_DEVICE_PATHS,
-	SET_FAILED_DEVICE_PATHS,
+	SET_FAILED_DEVICE_ERRORS,
 	SET_AVAILABLE_TARGETS,
 	SET_FLASH_STATE,
 	RESET_FLASH_STATE,
@@ -269,7 +269,7 @@ function storeReducer(
 				.set('flashState', DEFAULT_STATE.get('flashState'))
 				.set('flashResults', DEFAULT_STATE.get('flashResults'))
 				.set('devicePaths', DEFAULT_STATE.get('devicePaths'))
-				.set('failedDevicePaths', DEFAULT_STATE.get('failedDevicePaths'))
+				.set('failedDeviceErrors', DEFAULT_STATE.get('failedDeviceErrors'))
 				.set(
 					'lastAverageFlashingSpeed',
 					DEFAULT_STATE.get('lastAverageFlashingSpeed'),
@@ -295,6 +295,7 @@ function storeReducer(
 
 			_.defaults(action.data, {
 				cancelled: false,
+				skip: false,
 			});
 
 			if (!_.isBoolean(action.data.cancelled)) {
@@ -337,8 +338,7 @@ function storeReducer(
 
 			return state
 				.set('isFlashing', false)
-				.set('flashResults', Immutable.fromJS(action.data))
-				.set('flashState', DEFAULT_STATE.get('flashState'));
+				.set('flashResults', Immutable.fromJS(action.data));
 		}
 
 		case Actions.SELECT_TARGET: {
@@ -509,8 +509,8 @@ function storeReducer(
 			return state.set('devicePaths', action.data);
 		}
 
-		case Actions.SET_FAILED_DEVICE_PATHS: {
-			return state.set('failedDevicePaths', action.data);
+		case Actions.SET_FAILED_DEVICE_ERRORS: {
+			return state.set('failedDeviceErrors', action.data);
 		}
 
 		default: {
