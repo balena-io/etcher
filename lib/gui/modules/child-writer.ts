@@ -208,7 +208,16 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 			terminate(exitCode);
 		};
 
+		const onSkip = async () => {
+			log('Skip validation');
+			ipc.of[IPC_SERVER_ID].emit('skip');
+			await delay(DISCONNECT_DELAY);
+			terminate(exitCode);
+		};
+
 		ipc.of[IPC_SERVER_ID].on('cancel', onAbort);
+
+		ipc.of[IPC_SERVER_ID].on('skip', onSkip);
 
 		/**
 		 * @summary Failure handler (non-fatal errors)

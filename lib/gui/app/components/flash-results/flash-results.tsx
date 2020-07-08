@@ -57,7 +57,7 @@ const ErrorsTable = styled(({ refFn, ...props }) => {
 	}
 `;
 
-interface FlashError extends Error {
+export interface FlashError extends Error {
 	description: string;
 	device: string;
 	code: string;
@@ -91,10 +91,12 @@ export function FlashResults({
 	image = '',
 	errors,
 	results,
+	skip,
 	...props
 }: {
 	image?: string;
 	errors: FlashError[];
+	skip: boolean;
 	results: {
 		bytesWritten: number;
 		sourceMetadata: {
@@ -142,6 +144,7 @@ export function FlashResults({
 				<Txt fontSize={24} color="#fff" mb="17px">
 					Flash Complete!
 				</Txt>
+				{skip ? <Flex color="#7e8085">Validation has been skipped</Flex> : null}
 			</Flex>
 			<Flex flexDirection="column" color="#7e8085">
 				{Object.entries(results.devices).map(([type, quantity]) => {

@@ -23,7 +23,7 @@ import * as selectionState from '../../models/selection-state';
 import { Actions, store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import { FlashAnother } from '../flash-another/flash-another';
-import { FlashResults } from '../flash-results/flash-results';
+import { FlashResults, FlashError } from '../flash-results/flash-results';
 import { SafeWebview } from '../safe-webview/safe-webview';
 
 function restart(goToMain: () => void) {
@@ -41,8 +41,33 @@ function restart(goToMain: () => void) {
 
 function FinishPage({ goToMain }: { goToMain: () => void }) {
 	const [webviewShowing, setWebviewShowing] = React.useState(false);
-	const errors = flashState.getFlashResults().results?.errors;
-	const results = flashState.getFlashResults().results || {};
+	let errors = flashState.getFlashResults().results?.errors;
+	if (errors === undefined) {
+		errors = (store.getState().toJS().failedDevicePaths || []).map(
+			([, error]: [string, FlashError]) => ({
+				...error,
+			}),
+		);
+	}
+	const {
+		averageSpeed,
+		blockmappedSize,
+		bytesWritten,
+		failed,
+		size,
+	} = flashState.getFlashState();
+	const {
+		skip,
+		results = {
+			bytesWritten,
+			sourceMetadata: {
+				size,
+				blockmappedSize,
+			},
+			averageFlashingSpeed: averageSpeed,
+			devices: { failed, successful: 0 },
+		},
+	} = flashState.getFlashResults();
 	return (
 		<Flex height="100%" justifyContent="space-between">
 			<Flex
@@ -61,6 +86,7 @@ function FinishPage({ goToMain }: { goToMain: () => void }) {
 				<FlashResults
 					image={selectionState.getImageName()}
 					results={results}
+					skip={skip}
 					errors={errors}
 					mb="32px"
 				/>

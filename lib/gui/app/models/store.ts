@@ -295,6 +295,7 @@ function storeReducer(
 
 			_.defaults(action.data, {
 				cancelled: false,
+				skip: false,
 			});
 
 			if (!_.isBoolean(action.data.cancelled)) {
@@ -337,8 +338,7 @@ function storeReducer(
 
 			return state
 				.set('isFlashing', false)
-				.set('flashResults', Immutable.fromJS(action.data))
-				.set('flashState', DEFAULT_STATE.get('flashState'));
+				.set('flashResults', Immutable.fromJS(action.data));
 		}
 
 		case Actions.SELECT_TARGET: {
