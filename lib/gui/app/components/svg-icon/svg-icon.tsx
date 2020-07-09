@@ -39,13 +39,14 @@ function tryParseSVGContents(contents?: string): string | undefined {
 interface SVGIconProps {
 	// List of embedded SVG contents to be tried in succession if any fails
 	contents: string;
-	fallback: JSX.Element;
+	fallback: React.FunctionComponent<React.SVGProps<HTMLOrSVGElement>>;
 	// SVG image width unit
 	width?: string;
 	// SVG image height unit
 	height?: string;
 	// Should the element visually appear grayed out and disabled?
 	disabled?: boolean;
+	style?: React.CSSProperties;
 }
 
 /**
@@ -54,17 +55,19 @@ interface SVGIconProps {
 export class SVGIcon extends React.PureComponent<SVGIconProps> {
 	public render() {
 		const svgData = tryParseSVGContents(this.props.contents);
+		const { width, height, style = {} } = this.props;
+		style.width = width || DEFAULT_SIZE;
+		style.height = height || DEFAULT_SIZE;
 		if (svgData !== undefined) {
-			const width = this.props.width || DEFAULT_SIZE;
-			const height = this.props.height || DEFAULT_SIZE;
 			return (
 				<img
 					className={this.props.disabled ? 'disabled' : ''}
-					style={{ width, height }}
+					style={style}
 					src={svgData}
 				/>
 			);
 		}
-		return this.props.fallback;
+		const { fallback: FallbackSVG } = this.props;
+		return <FallbackSVG style={style} />;
 	}
 }

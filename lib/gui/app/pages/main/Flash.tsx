@@ -34,6 +34,8 @@ import * as notification from '../../os/notification';
 import { selectAllTargets } from './DriveSelector';
 
 import FlashSvg from '../../../assets/flash.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircle } from '@fortawesome/free-solid-svg-icons';
 
 const COMPLETED_PERCENTAGE = 100;
 const SPEED_PRECISION = 2;
@@ -145,6 +147,8 @@ interface FlashStepProps {
 	goToSuccess: () => void;
 	source: SourceOptions;
 	isFlashing: boolean;
+	isWebviewShowing: boolean;
+	style?: React.CSSProperties;
 	// TODO: factorize
 	step: 'decompressing' | 'flashing' | 'verifying';
 	percentage: number;
@@ -234,62 +238,60 @@ export class FlashStep extends React.PureComponent<
 	public render() {
 		return (
 			<>
-				<div className="box text-center">
-					<div className="center-block">
-						<FlashSvg
-							width="40px"
-							className={this.props.shouldFlashStepBeDisabled ? 'disabled' : ''}
-						/>
-					</div>
+				<Flex
+					flexDirection="column"
+					alignItems="start"
+					style={this.props.style}
+				>
+					<FlashSvg
+						width="40px"
+						className={this.props.shouldFlashStepBeDisabled ? 'disabled' : ''}
+						style={{
+							margin: '0 auto',
+						}}
+					/>
 
-					<div className="space-vertical-large">
-						<ProgressButton
-							type={this.props.step}
-							active={this.props.isFlashing}
-							percentage={this.props.percentage}
-							position={this.props.position}
-							disabled={this.props.shouldFlashStepBeDisabled}
-							cancel={imageWriter.cancel}
-							warning={this.hasListWarnings(
-								selection.getSelectedDrives(),
-								selection.getImage(),
-							)}
-							callback={() => {
-								this.tryFlash();
-							}}
-						/>
-
-						{!_.isNil(this.props.speed) &&
-							this.props.percentage !== COMPLETED_PERCENTAGE && (
-								<Flex
-									justifyContent="space-between"
-									fontSize="14px"
-									color="#7e8085"
-								>
-									{!_.isNil(this.props.speed) && (
-										<Txt>{this.props.speed.toFixed(SPEED_PRECISION)} MB/s</Txt>
-									)}
-									{!_.isNil(this.props.eta) && (
-										<Txt>ETA: {formatSeconds(this.props.eta)}</Txt>
-									)}
-								</Flex>
-							)}
-
-						{Boolean(this.props.failed) && (
-							<div className="target-status-wrap">
-								<div className="target-status-line target-status-failed">
-									<span className="target-status-dot"></span>
-									<span className="target-status-quantity">
-										{this.props.failed}
-									</span>
-									<span className="target-status-message">
-										{messages.progress.failed(this.props.failed)}{' '}
-									</span>
-								</div>
-							</div>
+					<ProgressButton
+						type={this.props.step}
+						active={this.props.isFlashing}
+						percentage={this.props.percentage}
+						position={this.props.position}
+						disabled={this.props.shouldFlashStepBeDisabled}
+						cancel={imageWriter.cancel}
+						warning={this.hasListWarnings(
+							selection.getSelectedDrives(),
+							selection.getImage(),
 						)}
-					</div>
-				</div>
+						callback={() => {
+							this.tryFlash();
+						}}
+					/>
+
+					{!_.isNil(this.props.speed) &&
+						this.props.percentage !== COMPLETED_PERCENTAGE && (
+							<Flex
+								justifyContent="space-between"
+								fontSize="14px"
+								color="#7e8085"
+								width="100%"
+							>
+								{!_.isNil(this.props.speed) && (
+									<Txt>{this.props.speed.toFixed(SPEED_PRECISION)} MB/s</Txt>
+								)}
+								{!_.isNil(this.props.eta) && (
+									<Txt>ETA: {formatSeconds(this.props.eta)}</Txt>
+								)}
+							</Flex>
+						)}
+
+					{Boolean(this.props.failed) && (
+						<Flex color="#fff" alignItems="center" mt={35}>
+							<FontAwesomeIcon color="#ff4444" icon={faCircle} />
+							<Txt ml={10}>{this.props.failed}</Txt>
+							<Txt ml={10}>{messages.progress.failed(this.props.failed)}</Txt>
+						</Flex>
+					)}
+				</Flex>
 
 				{this.state.warningMessages.length > 0 && (
 					<Modal

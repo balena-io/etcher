@@ -15,15 +15,8 @@
  */
 
 import * as React from 'react';
-import styled from 'styled-components';
 
 import { BaseButton } from '../../styled-components';
-
-const FlashAnotherButton = styled(BaseButton)`
-	position: absolute;
-	right: 152px;
-	top: 60px;
-`;
 
 export interface FlashAnotherProps {
 	onClick: () => void;
@@ -31,8 +24,8 @@ export interface FlashAnotherProps {
 
 export const FlashAnother = (props: FlashAnotherProps) => {
 	return (
-		<FlashAnotherButton primary onClick={props.onClick}>
+		<BaseButton primary onClick={props.onClick}>
 			Flash Another
-		</FlashAnotherButton>
+		</BaseButton>
 	);
 };

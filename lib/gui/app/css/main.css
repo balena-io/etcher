@@ -14,41 +14,44 @@
  * limitations under the License.
  */
 
-/* Prevent text selection */
-body {
-  -webkit-user-select: none;
+@font-face {
+  font-family: "SourceSansPro";
+  src: url("./fonts/SourceSansPro-Regular.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: block;
 }
 
-
-/* Allow window to be dragged from anywhere */
-#app-header {
-  -webkit-app-region: drag;
+@font-face {
+  font-family: "SourceSansPro";
+  src: url("./fonts/SourceSansPro-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: block;
 }
 
-.modal-body {
-  -webkit-app-region: no-drag;
-}
-
-button,
-a,
-input {
-  -webkit-app-region: no-drag;
-}
-
-/* Prevent WebView bounce effect in OS X */
 html,
 body {
+  margin: 0;
+  overflow: hidden;
+
+  /* Prevent white flash when running application */
+  background-color: #4d5057;
+
+  /* Prevent WebView bounce effect in OS X */
   height: 100%;
   width: 100%;
 }
 
-html {
-  overflow: hidden;
+/* Prevent text selection */
+body {
+  -webkit-user-select: none;
+  -webkit-overflow-scrolling: touch;
 }
 
-body {
-  overflow: hidden;
-  -webkit-overflow-scrolling: touch;
+/* Allow window to be dragged from header */
+#app-header {
+  -webkit-app-region: drag;
 }
 
 /* Prevent blue outline */
@@ -59,7 +62,6 @@ button:focus,
   outline: none !important;
 }
 
-/* Titles don't have margins on desktop apps */
-h1, h2, h3, h4, h5, h6 {
-  margin: 0;
+.disabled {
+  opacity: 0.4;
 }

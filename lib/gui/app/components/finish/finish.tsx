@@ -16,6 +16,7 @@
 
 import * as _ from 'lodash';
 import * as React from 'react';
+import { Flex } from 'rendition';
 import { v4 as uuidV4 } from 'uuid';
 
 import * as flashState from '../../models/flash-state';
@@ -56,50 +57,45 @@ function formattedErrors() {
 function FinishPage({ goToMain }: { goToMain: () => void }) {
 	const results = flashState.getFlashResults().results || {};
 	return (
-		<div className="page-finish row around-xs">
-			<div className="col-xs">
-				<div className="box center">
-					<FlashResults results={results} errors={formattedErrors()} />
+		<Flex flexDirection="column" width="100%" color="#fff">
+			<Flex height="160px" alignItems="center" justifyContent="center">
+				<FlashResults results={results} errors={formattedErrors()} />
 
-					<FlashAnother
-						onClick={() => {
-							restart(goToMain);
-						}}
+				<FlashAnother
+					onClick={() => {
+						restart(goToMain);
+					}}
+				/>
+			</Flex>
+
+			<Flex
+				flexDirection="column"
+				height="320px"
+				justifyContent="space-between"
+				alignItems="center"
+			>
+				<Flex fontSize="28px" mt="40px">
+					Thanks for using
+					<EtcherSvg
+						width="165px"
+						style={{ margin: '0 10px', cursor: 'pointer' }}
+						onClick={() =>
+							openExternal('https://balena.io/etcher?ref=etcher_offline_banner')
+						}
 					/>
-				</div>
-
-				<div className="box center">
-					<div className="fallback-banner">
-						<div className="caption-big">
-							Thanks for using
-							<span
-								style={{ cursor: 'pointer' }}
-								onClick={() =>
-									openExternal(
-										'https://balena.io/etcher?ref=etcher_offline_banner',
-									)
-								}
-							>
-								<EtcherSvg width="165px" style={{ margin: '0 10px' }} />
-							</span>
-						</div>
-						<div className="caption-small fallback-footer">
-							made with
-							<LoveSvg height="20px" style={{ margin: '0 10px' }} />
-							by
-							<span
-								style={{ cursor: 'pointer' }}
-								onClick={() =>
-									openExternal('https://balena.io?ref=etcher_success')
-								}
-							>
-								<BalenaSvg height="20px" style={{ margin: '0 10px' }} />
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+				</Flex>
+				<Flex mb="10px">
+					made with
+					<LoveSvg height="20px" style={{ margin: '0 10px' }} />
+					by
+					<BalenaSvg
+						height="20px"
+						style={{ margin: '0 10px', cursor: 'pointer' }}
+						onClick={() => openExternal('https://balena.io?ref=etcher_success')}
+					/>
+				</Flex>
+			</Flex>
+		</Flex>
 	);
 }
 

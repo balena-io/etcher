@@ -41,11 +41,10 @@ import {
 	IconButton as BaseIcon,
 	ThemedProvider,
 } from '../../styled-components';
-import { middleEllipsis } from '../../utils/middle-ellipsis';
 
 import { bytesToClosestUnit } from '../../../../shared/units';
 
-import { DriveSelector } from './DriveSelector';
+import { DriveSelector, getDriveListLabel } from './DriveSelector';
 import { FlashStep } from './Flash';
 
 import EtcherSvg from '../../../assets/etcher.svg';
@@ -78,6 +77,26 @@ function getImageBasename() {
 	return selectionImageName || imageBasename;
 }
 
+const StepBorder = styled.div<{
+	disabled: boolean;
+	left?: boolean;
+	right?: boolean;
+}>`
+	position: relative;
+	height: 2px;
+	background-color: ${(props) =>
+		props.disabled
+			? props.theme.colors.dark.disabled.foreground
+			: props.theme.colors.dark.foreground};
+	width: 120px;
+	top: 19px;
+
+	left: ${(props) => (props.left ? '-67px' : undefined)};
+	margin-right: ${(props) => (props.left ? '-120px' : undefined)};
+	right: ${(props) => (props.right ? '-67px' : undefined)};
+	margin-left: ${(props) => (props.right ? '-120px' : undefined)};
+`;
+
 interface MainPageStateFromStore {
 	isFlashing: boolean;
 	hasImage: boolean;
@@ -86,6 +105,7 @@ interface MainPageStateFromStore {
 	imageSize: number;
 	imageName: string;
 	driveTitle: string;
+	driveLabel: string;
 }
 
 interface MainPageState {
@@ -122,6 +142,7 @@ export class MainPage extends React.Component<
 			imageSize: selectionState.getImageSize(),
 			imageName: getImageBasename(),
 			driveTitle: getDrivesTitle(),
+			driveLabel: getDriveListLabel(),
 		};
 	}
 
@@ -136,17 +157,25 @@ export class MainPage extends React.Component<
 		const shouldDriveStepBeDisabled = !this.state.hasImage;
 		const shouldFlashStepBeDisabled =
 			!this.state.hasImage || !this.state.hasDrive;
+		const notFlashingOrSplitView =
+			!this.state.isFlashing || !this.state.isWebviewShowing;
 		return (
 			<>
-				<header
+				<Flex
 					id="app-header"
+					justifyContent="center"
 					style={{
 						width: '100%',
+						height: '50px',
 						padding: '13px 14px',
 						textAlign: 'center',
+						position: 'relative',
+						zIndex: 1,
 					}}
 				>
-					<span
+					<EtcherSvg
+						width="123px"
+						height="22px"
 						style={{
 							cursor: 'pointer',
 						}}
@@ -154,11 +183,9 @@ export class MainPage extends React.Component<
 							openExternal('https://www.balena.io/etcher?ref=etcher_footer')
 						}
 						tabIndex={100}
-					>
-						<EtcherSvg width="123px" height="22px" />
-					</span>
+					/>
 
-					<span
+					<Flex
 						style={{
 							float: 'right',
 							position: 'absolute',
@@ -183,8 +210,8 @@ export class MainPage extends React.Component<
 								tabIndex={6}
 							/>
 						)}
-					</span>
-				</header>
+					</Flex>
+				</Flex>
 				{this.state.hideSettings ? null : (
 					<SettingsModal
 						toggleModal={(value: boolean) => {
@@ -194,72 +221,100 @@ export class MainPage extends React.Component<
 				)}
 
 				<Flex
-					className="page-main row around-xs"
-					style={{ margin: '110px 50px' }}
+					m={`110px ${this.state.isWebviewShowing ? 35 : 55}px`}
+					justifyContent="space-between"
 				>
-					<div className="col-xs">
+					{notFlashingOrSplitView && (
 						<SourceSelector
 							flashing={this.state.isFlashing}
 							afterSelected={(source: SourceOptions) =>
 								this.setState({ source })
 							}
 						/>
-					</div>
+					)}
 
-					<div className="col-xs">
+					{notFlashingOrSplitView && (
+						<Flex>
+							<StepBorder disabled={shouldDriveStepBeDisabled} left />
+						</Flex>
+					)}
+
+					{notFlashingOrSplitView && (
 						<DriveSelector
-							webviewShowing={this.state.isWebviewShowing}
 							disabled={shouldDriveStepBeDisabled}
-							nextStepDisabled={shouldFlashStepBeDisabled}
 							hasDrive={this.state.hasDrive}
 							flashing={this.state.isFlashing}
 						/>
-					</div>
+					)}
+
+					{notFlashingOrSplitView && (
+						<Flex>
+							<StepBorder disabled={shouldFlashStepBeDisabled} right />
+						</Flex>
+					)}
 
 					{this.state.isFlashing && (
-						<div
-							className={`featured-project ${
-								this.state.isFlashing && this.state.isWebviewShowing
-									? 'fp-visible'
-									: ''
-							}`}
-						>
+						<>
+							<Flex
+								style={{
+									position: 'absolute',
+									top: 0,
+									left: 0,
+									width: '36.2vw',
+									height: '100vh',
+									zIndex: 1,
+									boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.2)',
+									display: this.state.isWebviewShowing ? 'block' : 'none',
+								}}
+							>
+								<ReducedFlashingInfos
+									imageLogo={this.state.imageLogo}
+									imageName={this.state.imageName}
+									imageSize={
+										_.isNumber(this.state.imageSize)
+											? (bytesToClosestUnit(this.state.imageSize) as string)
+											: ''
+									}
+									driveTitle={this.state.driveTitle}
+									driveLabel={this.state.driveLabel}
+									style={{
+										position: 'absolute',
+										color: '#fff',
+										left: 35,
+										top: 72,
+									}}
+								/>
+							</Flex>
 							<FeaturedProject
+								shouldShow={this.state.isWebviewShowing}
 								onWebviewShow={(isWebviewShowing: boolean) => {
 									this.setState({ isWebviewShowing });
 								}}
+								style={{
+									position: 'absolute',
+									right: 0,
+									bottom: 0,
+									width: '63.8vw',
+									height: '100vh',
+								}}
 							/>
-						</div>
+						</>
 					)}
 
-					<div>
-						<ReducedFlashingInfos
-							imageLogo={this.state.imageLogo}
-							imageName={middleEllipsis(this.state.imageName, 16)}
-							imageSize={
-								_.isNumber(this.state.imageSize)
-									? (bytesToClosestUnit(this.state.imageSize) as string)
-									: ''
-							}
-							driveTitle={middleEllipsis(this.state.driveTitle, 16)}
-							shouldShow={this.state.isFlashing && this.state.isWebviewShowing}
-						/>
-					</div>
-
-					<div className="col-xs">
-						<FlashStep
-							goToSuccess={() => this.setState({ current: 'success' })}
-							shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
-							source={this.state.source}
-							isFlashing={flashState.isFlashing()}
-							step={state.type}
-							percentage={state.percentage}
-							position={state.position}
-							failed={state.failed}
-							speed={state.speed}
-							eta={state.eta}
-						/>
-					</div>
+					<FlashStep
+						goToSuccess={() => this.setState({ current: 'success' })}
+						shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
+						source={this.state.source}
+						isFlashing={this.state.isFlashing}
+						isWebviewShowing={this.state.isWebviewShowing}
+						step={state.type}
+						percentage={state.percentage}
+						position={state.position}
+						failed={state.failed}
+						speed={state.speed}
+						eta={state.eta}
+						style={{ zIndex: 1 }}
+					/>
 				</Flex>
 			</>
 		);
@@ -267,15 +322,23 @@ export class MainPage extends React.Component<
 
 	private renderSuccess() {
 		return (
-			<div className="section-loader isFinish">
+			<Flex flexDirection="column" alignItems="center" height="100%">
 				<FinishPage
 					goToMain={() => {
 						flashState.resetState();
 						this.setState({ current: 'main' });
 					}}
 				/>
-				<SafeWebview src="https://www.balena.io/etcher/success-banner/" />
-			</div>
+				<SafeWebview
+					src="https://www.balena.io/etcher/success-banner/"
+					style={{
+						width: '100%',
+						height: '320px',
+						position: 'absolute',
+						bottom: 0,
+					}}
+				/>
+			</Flex>
 		);
 	}
 

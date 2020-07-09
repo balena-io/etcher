@@ -14,25 +14,15 @@
  * limitations under the License.
  */
 
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as _ from 'lodash';
 import outdent from 'outdent';
 import * as React from 'react';
 import { Txt, Flex } from 'rendition';
-import styled from 'styled-components';
-import { left, position, space, top } from 'styled-system';
 
 import { progress } from '../../../../shared/messages';
 import { bytesToMegabytes } from '../../../../shared/units';
-import { Underline } from '../../styled-components';
-
-const Div = styled.div<any>`
-  ${position}
-  ${top}
-  ${left}
-  ${space}
-`;
 
 export function FlashResults({
 	errors,
@@ -58,7 +48,15 @@ export function FlashResults({
 		1,
 	);
 	return (
-		<Div position="absolute" left="153px" top="66px">
+		<Flex
+			flexDirection="column"
+			mr="80px"
+			height="90px"
+			style={{
+				position: 'relative',
+				top: '25px',
+			}}
+		>
 			<Flex alignItems="center">
 				<FontAwesomeIcon
 					icon={faCheckCircle}
@@ -73,29 +71,24 @@ export function FlashResults({
 					Flash Complete!
 				</Txt>
 			</Flex>
-			<Div className="results" mr="0" mb="0" ml="40px">
-				{_.map(results.devices, (quantity, type) => {
+			<Flex flexDirection="column" mr="0" mb="0" ml="40px" color="#7e8085">
+				{Object.entries(results.devices).map(([type, quantity]) => {
 					return quantity ? (
-						<Underline
+						<Flex
+							alignItems="center"
 							tooltip={type === 'failed' ? errors : undefined}
-							key={type}
 						>
-							<div
-								key={type}
-								className={`target-status-line target-status-${type}`}
-							>
-								<span className="target-status-dot"></span>
-								<span className="target-status-quantity">{quantity}</span>
-								<span className="target-status-message">
-									{progress[type](quantity)}
-								</span>
-							</div>
-						</Underline>
+							<FontAwesomeIcon
+								color={type === 'failed' ? '#ff4444' : '#1ac135'}
+								icon={faCircle}
+							/>
+							<Txt ml={10}>{quantity}</Txt>
+							<Txt ml={10}>{progress[type](quantity)}</Txt>
+						</Flex>
 					) : null;
 				})}
 				{!allDevicesFailed && (
 					<Txt
-						color="#787c7f"
 						fontSize="10px"
 						style={{
 							fontWeight: 500,
@@ -109,7 +102,7 @@ export function FlashResults({
 						Effective speed: {effectiveSpeed} MB/s
 					</Txt>
 				)}
-			</Div>
-		</Div>
+			</Flex>
+		</Flex>
 	);
 }

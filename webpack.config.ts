@@ -309,22 +309,7 @@ const cssConfig = {
 		rules: [
 			{
 				test: /\.css$/i,
-				use: 'css-loader',
-			},
-			{
-				test: /\.s[ac]ss$/i,
-				use: [
-					MiniCssExtractPlugin.loader,
-					'css-loader',
-					{
-						loader: 'sass-loader',
-						options: {
-							sassOptions: {
-								fiber: false,
-							},
-						},
-					},
-				],
+				use: [MiniCssExtractPlugin.loader, 'css-loader'],
 			},
 			{
 				test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
@@ -345,7 +330,7 @@ const cssConfig = {
 		}),
 	],
 	entry: {
-		index: path.join(__dirname, 'lib', 'gui', 'app', 'scss', 'main.scss'),
+		index: path.join(__dirname, 'lib', 'gui', 'app', 'css', 'main.css'),
 	},
 	output: {
 		path: path.join(__dirname, 'generated'),

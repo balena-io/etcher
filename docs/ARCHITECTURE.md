@@ -14,9 +14,7 @@ technologies used in Etcher that you should become familiar with:
 - [NodeJS][nodejs]
 - [Redux][redux]
 - [ImmutableJS][immutablejs]
-- [Bootstrap][bootstrap]
 - [Sass][sass]
-- [Flexbox Grid][flexbox-grid]
 - [Mocha][mocha]
 - [JSDoc][jsdoc]
 
@@ -67,8 +65,6 @@ be documented instead!
 [nodejs]: https://nodejs.org
 [redux]: http://redux.js.org
 [immutablejs]: http://facebook.github.io/immutable-js/
-[bootstrap]: http://getbootstrap.com
 [sass]: http://sass-lang.com
-[flexbox-grid]: http://flexboxgrid.com
 [mocha]: http://mochajs.org
 [jsdoc]: http://usejsdoc.org

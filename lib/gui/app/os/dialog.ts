@@ -18,7 +18,20 @@ import * as electron from 'electron';
 import * as _ from 'lodash';
 
 import * as errors from '../../../shared/errors';
+import * as settings from '../../../gui/app/models/settings';
 import { SUPPORTED_EXTENSIONS } from '../../../shared/supported-formats';
+
+async function mountSourceDrive() {
+	// sourceDrivePath is the name of the link in /dev/disk/by-path
+	const sourceDrivePath = await settings.get('automountOnFileSelect');
+	if (sourceDrivePath) {
+		try {
+			await electron.ipcRenderer.invoke('mount-drive', sourceDrivePath);
+		} catch (error) {
+			// noop
+		}
+	}
+}
 
 /**
  * @summary Open an image selection dialog
@@ -27,6 +40,7 @@ import { SUPPORTED_EXTENSIONS } from '../../../shared/supported-formats';
  * Notice that by image, we mean *.img/*.iso/*.zip/etc files.
  */
 export async function selectImage(): Promise<string | undefined> {
+	await mountSourceDrive();
 	const options: electron.OpenDialogOptions = {
 		// This variable is set when running in GNU/Linux from
 		// inside an AppImage, and represents the working directory

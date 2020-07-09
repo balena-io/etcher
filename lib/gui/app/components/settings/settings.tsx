@@ -19,44 +19,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as _ from 'lodash';
 import * as os from 'os';
 import * as React from 'react';
-import { Checkbox, Modal } from 'rendition';
+import { Checkbox, Flex, Txt } from 'rendition';
 
-import { version } from '../../../../../package.json';
+import { version, packageType } from '../../../../../package.json';
 import * as settings from '../../models/settings';
 import * as analytics from '../../modules/analytics';
 import { open as openExternal } from '../../os/open-external/services/open-external';
+import { Modal } from '../../styled-components';
 
 const platform = os.platform();
-
-interface WarningModalProps {
-	message: string;
-	confirmLabel: string;
-	cancel: () => void;
-	done: () => void;
-}
-
-const WarningModal = ({
-	message,
-	confirmLabel,
-	cancel,
-	done,
-}: WarningModalProps) => {
-	return (
-		<Modal
-			title={confirmLabel}
-			action={confirmLabel}
-			cancel={cancel}
-			done={done}
-			style={{
-				width: 420,
-				height: 300,
-			}}
-			primaryButtonProps={{ warning: true }}
-		>
-			{message}
-		</Modal>
-	);
-};
 
 interface Setting {
 	name: string;
@@ -91,15 +62,9 @@ async function getSettingsList(): Promise<Setting[]> {
 		{
 			name: 'updatesEnabled',
 			label: 'Auto-updates enabled',
+			hide: _.includes(['rpm', 'deb'], packageType),
 		},
 	];
-}
-
-interface Warning {
-	setting: string;
-	settingValue: boolean;
-	description: string;
-	confirmLabel: string;
 }
 
 interface SettingsModalProps {
@@ -125,7 +90,6 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 			}
 		})();
 	});
-	const [warning, setWarning] = React.useState<Warning | undefined>(undefined);
 
 	const toggleSetting = async (
 		setting: string,
@@ -140,38 +104,27 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 			dangerous,
 		});
 
-		if (value || options === undefined) {
-			await settings.set(setting, !value);
-			setCurrentSettings({
-				...currentSettings,
-				[setting]: !value,
-			});
-			setWarning(undefined);
-			return;
-		} else {
-			// Show warning since it's a dangerous setting
-			setWarning({
-				setting,
-				settingValue: value,
-				...options,
-			});
-		}
+		await settings.set(setting, !value);
+		setCurrentSettings({
+			...currentSettings,
+			[setting]: !value,
+		});
+		return;
 	};
 
 	return (
 		<Modal
-			id="settings-modal"
-			title="Settings"
+			titleElement={
+				<Txt fontSize={24} mb={24}>
+					Settings
+				</Txt>
+			}
 			done={() => toggleModal(false)}
-			style={{
-				width: 780,
-				height: 420,
-			}}
 		>
-			<div>
+			<Flex flexDirection="column">
 				{_.map(settingsList, (setting: Setting, i: number) => {
 					return setting.hide ? null : (
-						<div key={setting.name}>
+						<Flex key={setting.name}>
 							<Checkbox
 								toggle
 								tabIndex={6 + i}
@@ -179,39 +132,27 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 								checked={currentSettings[setting.name]}
 								onChange={() => toggleSetting(setting.name, setting.options)}
 							/>
-						</div>
+						</Flex>
 					);
 				})}
-				<div>
-					<span
-						onClick={() =>
-							openExternal(
-								'https://github.com/balena-io/etcher/blob/master/CHANGELOG.md',
-							)
-						}
-					>
-						<FontAwesomeIcon icon={faGithub} /> {version}
-					</span>
-				</div>
-			</div>
-
-			{warning === undefined ? null : (
-				<WarningModal
-					message={warning.description}
-					confirmLabel={warning.confirmLabel}
-					done={async () => {
-						await settings.set(warning.setting, !warning.settingValue);
-						setCurrentSettings({
-							...currentSettings,
-							[warning.setting]: true,
-						});
-						setWarning(undefined);
+				<Flex
+					mt={28}
+					alignItems="center"
+					color="#00aeef"
+					style={{
+						width: 'fit-content',
+						cursor: 'pointer',
 					}}
-					cancel={() => {
-						setWarning(undefined);
-					}}
-				/>
-			)}
+					onClick={() =>
+						openExternal(
+							'https://github.com/balena-io/etcher/blob/master/CHANGELOG.md',
+						)
+					}
+				>
+					<FontAwesomeIcon icon={faGithub} style={{ marginRight: 8 }} />
+					<Txt style={{ borderBottom: '1px solid #00aeef' }}>{version}</Txt>
+				</Flex>
+			</Flex>
 		</Modal>
 	);
 }

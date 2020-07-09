@@ -84,7 +84,9 @@ export class ProgressButton extends React.PureComponent<ProgressButtonProps> {
 			return (
 				<>
 					<Flex
+						alignItems="baseline"
 						justifyContent="space-between"
+						width="100%"
 						style={{
 							marginTop: 42,
 							marginBottom: '6px',
@@ -111,6 +113,9 @@ export class ProgressButton extends React.PureComponent<ProgressButtonProps> {
 				warning={this.props.warning}
 				onClick={this.props.callback}
 				disabled={this.props.disabled}
+				style={{
+					marginTop: 30,
+				}}
 			>
 				Flash!
 			</StepButton>
