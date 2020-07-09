@@ -41,12 +41,12 @@
       "avatar": "https://avatars0.githubusercontent.com/u/15064535?v=4"
     },
     {
-      "username": "sradevski",
-      "avatar": "https://avatars1.githubusercontent.com/u/4820812?v=4"
-    },
-    {
       "username": "bulldozer-balena[bot]",
       "avatar": "https://avatars0.githubusercontent.com/in/58047?v=4"
+    },
+    {
+      "username": "sradevski",
+      "avatar": "https://avatars1.githubusercontent.com/u/4820812?v=4"
     },
     {
       "username": "dlech",
@@ -124,7 +124,7 @@
   "docs": [
     {
       "filename": "docs/ARCHITECTURE.md",
-      "contents": "Etcher Architecture\n===================\n\nThis document aims to serve as a high-level overview of how Etcher works,\nspecially oriented for contributors who want to understand the big picture.\n\nTechnologies\n------------\n\nThis is a non exhaustive list of the major frameworks, libraries, and other\ntechnologies used in Etcher that you should become familiar with:\n\n- [Electron][electron]\n- [NodeJS][nodejs]\n- [Redux][redux]\n- [ImmutableJS][immutablejs]\n- [Bootstrap][bootstrap]\n- [Sass][sass]\n- [Flexbox Grid][flexbox-grid]\n- [Mocha][mocha]\n- [JSDoc][jsdoc]\n\nModule architecture\n-------------------\n\nInstead of embedding all the functionality required to create a full-featured\nimage writer as a monolithic project, we try to hard to follow the [\"lego block\napproach\"][lego-blocks].\n\nThis has the advantage of allowing other applications to re-use logic we\nimplemented for Etcher in their own project, even for things we didn't expect,\nwhich leads to users benefitting from what we've built, and we benefitting from\nuser's bug reports, suggestions, etc, as an indirect way to make Etcher better.\n\nThe fact that low-level details are scattered around many different modules can\nmake it challenging for a new contributor to wrap their heads around the\nproject as a whole, and get a clear high level view of how things work or where\nto submit their work or bug reports.\n\nThese are the main Etcher components, in a nutshell:\n\n- [Drivelist](https://github.com/balena-io-modules/drivelist)\n\nAs the name implies, this module's duty is to detect the connected drives\nuniformly in all major operating systems, along with valuable metadata, like if\na drive is removable or not, to prevent users from trying to write an image to\na system drive.\n\n- [Etcher](https://github.com/balena-io/etcher)\n\nThis is the *\"main repository\"*, from which you're reading this from, which is\nbasically the front-end and glue for all previously listed projects.\n\nSummary\n-------\n\nWe always welcome contributions to Etcher as well as our documentation. If you\nwant to give back, but feel that your knowledge on how Etcher works is not\nenough to tackle a bug report or feature request, use that as your advantage,\nsince fresh eyes could help unveil things that we take for granted, but should\nbe documented instead!\n\n[lego-blocks]: https://github.com/sindresorhus/ama/issues/10#issuecomment-117766328\n[exit-codes]: https://github.com/balena-io/etcher/blob/master/lib/shared/exit-codes.js\n[gui-dir]: https://github.com/balena-io/etcher/tree/master/lib/gui\n[electron]: http://electron.atom.io\n[nodejs]: https://nodejs.org\n[redux]: http://redux.js.org\n[immutablejs]: http://facebook.github.io/immutable-js/\n[bootstrap]: http://getbootstrap.com\n[sass]: http://sass-lang.com\n[flexbox-grid]: http://flexboxgrid.com\n[mocha]: http://mochajs.org\n[jsdoc]: http://usejsdoc.org\n"
+      "contents": "Etcher Architecture\n===================\n\nThis document aims to serve as a high-level overview of how Etcher works,\nspecially oriented for contributors who want to understand the big picture.\n\nTechnologies\n------------\n\nThis is a non exhaustive list of the major frameworks, libraries, and other\ntechnologies used in Etcher that you should become familiar with:\n\n- [Electron][electron]\n- [NodeJS][nodejs]\n- [Redux][redux]\n- [ImmutableJS][immutablejs]\n- [Sass][sass]\n- [Mocha][mocha]\n- [JSDoc][jsdoc]\n\nModule architecture\n-------------------\n\nInstead of embedding all the functionality required to create a full-featured\nimage writer as a monolithic project, we try to hard to follow the [\"lego block\napproach\"][lego-blocks].\n\nThis has the advantage of allowing other applications to re-use logic we\nimplemented for Etcher in their own project, even for things we didn't expect,\nwhich leads to users benefitting from what we've built, and we benefitting from\nuser's bug reports, suggestions, etc, as an indirect way to make Etcher better.\n\nThe fact that low-level details are scattered around many different modules can\nmake it challenging for a new contributor to wrap their heads around the\nproject as a whole, and get a clear high level view of how things work or where\nto submit their work or bug reports.\n\nThese are the main Etcher components, in a nutshell:\n\n- [Drivelist](https://github.com/balena-io-modules/drivelist)\n\nAs the name implies, this module's duty is to detect the connected drives\nuniformly in all major operating systems, along with valuable metadata, like if\na drive is removable or not, to prevent users from trying to write an image to\na system drive.\n\n- [Etcher](https://github.com/balena-io/etcher)\n\nThis is the *\"main repository\"*, from which you're reading this from, which is\nbasically the front-end and glue for all previously listed projects.\n\nSummary\n-------\n\nWe always welcome contributions to Etcher as well as our documentation. If you\nwant to give back, but feel that your knowledge on how Etcher works is not\nenough to tackle a bug report or feature request, use that as your advantage,\nsince fresh eyes could help unveil things that we take for granted, but should\nbe documented instead!\n\n[lego-blocks]: https://github.com/sindresorhus/ama/issues/10#issuecomment-117766328\n[exit-codes]: https://github.com/balena-io/etcher/blob/master/lib/shared/exit-codes.js\n[gui-dir]: https://github.com/balena-io/etcher/tree/master/lib/gui\n[electron]: http://electron.atom.io\n[nodejs]: https://nodejs.org\n[redux]: http://redux.js.org\n[immutablejs]: http://facebook.github.io/immutable-js/\n[sass]: http://sass-lang.com\n[mocha]: http://mochajs.org\n[jsdoc]: http://usejsdoc.org\n"
     },
     {
       "filename": "docs/COMMIT-GUIDELINES.md",
@@ -320,7 +320,7 @@
     }
   ],
   "codeOfConduct": null,
-  "architecture": "Etcher Architecture\n===================\n\nThis document aims to serve as a high-level overview of how Etcher works,\nspecially oriented for contributors who want to understand the big picture.\n\nTechnologies\n------------\n\nThis is a non exhaustive list of the major frameworks, libraries, and other\ntechnologies used in Etcher that you should become familiar with:\n\n- [Electron][electron]\n- [NodeJS][nodejs]\n- [Redux][redux]\n- [ImmutableJS][immutablejs]\n- [Bootstrap][bootstrap]\n- [Sass][sass]\n- [Flexbox Grid][flexbox-grid]\n- [Mocha][mocha]\n- [JSDoc][jsdoc]\n\nModule architecture\n-------------------\n\nInstead of embedding all the functionality required to create a full-featured\nimage writer as a monolithic project, we try to hard to follow the [\"lego block\napproach\"][lego-blocks].\n\nThis has the advantage of allowing other applications to re-use logic we\nimplemented for Etcher in their own project, even for things we didn't expect,\nwhich leads to users benefitting from what we've built, and we benefitting from\nuser's bug reports, suggestions, etc, as an indirect way to make Etcher better.\n\nThe fact that low-level details are scattered around many different modules can\nmake it challenging for a new contributor to wrap their heads around the\nproject as a whole, and get a clear high level view of how things work or where\nto submit their work or bug reports.\n\nThese are the main Etcher components, in a nutshell:\n\n- [Drivelist](https://github.com/balena-io-modules/drivelist)\n\nAs the name implies, this module's duty is to detect the connected drives\nuniformly in all major operating systems, along with valuable metadata, like if\na drive is removable or not, to prevent users from trying to write an image to\na system drive.\n\n- [Etcher](https://github.com/balena-io/etcher)\n\nThis is the *\"main repository\"*, from which you're reading this from, which is\nbasically the front-end and glue for all previously listed projects.\n\nSummary\n-------\n\nWe always welcome contributions to Etcher as well as our documentation. If you\nwant to give back, but feel that your knowledge on how Etcher works is not\nenough to tackle a bug report or feature request, use that as your advantage,\nsince fresh eyes could help unveil things that we take for granted, but should\nbe documented instead!\n\n[lego-blocks]: https://github.com/sindresorhus/ama/issues/10#issuecomment-117766328\n[exit-codes]: https://github.com/balena-io/etcher/blob/master/lib/shared/exit-codes.js\n[gui-dir]: https://github.com/balena-io/etcher/tree/master/lib/gui\n[electron]: http://electron.atom.io\n[nodejs]: https://nodejs.org\n[redux]: http://redux.js.org\n[immutablejs]: http://facebook.github.io/immutable-js/\n[bootstrap]: http://getbootstrap.com\n[sass]: http://sass-lang.com\n[flexbox-grid]: http://flexboxgrid.com\n[mocha]: http://mochajs.org\n[jsdoc]: http://usejsdoc.org\n",
+  "architecture": "Etcher Architecture\n===================\n\nThis document aims to serve as a high-level overview of how Etcher works,\nspecially oriented for contributors who want to understand the big picture.\n\nTechnologies\n------------\n\nThis is a non exhaustive list of the major frameworks, libraries, and other\ntechnologies used in Etcher that you should become familiar with:\n\n- [Electron][electron]\n- [NodeJS][nodejs]\n- [Redux][redux]\n- [ImmutableJS][immutablejs]\n- [Sass][sass]\n- [Mocha][mocha]\n- [JSDoc][jsdoc]\n\nModule architecture\n-------------------\n\nInstead of embedding all the functionality required to create a full-featured\nimage writer as a monolithic project, we try to hard to follow the [\"lego block\napproach\"][lego-blocks].\n\nThis has the advantage of allowing other applications to re-use logic we\nimplemented for Etcher in their own project, even for things we didn't expect,\nwhich leads to users benefitting from what we've built, and we benefitting from\nuser's bug reports, suggestions, etc, as an indirect way to make Etcher better.\n\nThe fact that low-level details are scattered around many different modules can\nmake it challenging for a new contributor to wrap their heads around the\nproject as a whole, and get a clear high level view of how things work or where\nto submit their work or bug reports.\n\nThese are the main Etcher components, in a nutshell:\n\n- [Drivelist](https://github.com/balena-io-modules/drivelist)\n\nAs the name implies, this module's duty is to detect the connected drives\nuniformly in all major operating systems, along with valuable metadata, like if\na drive is removable or not, to prevent users from trying to write an image to\na system drive.\n\n- [Etcher](https://github.com/balena-io/etcher)\n\nThis is the *\"main repository\"*, from which you're reading this from, which is\nbasically the front-end and glue for all previously listed projects.\n\nSummary\n-------\n\nWe always welcome contributions to Etcher as well as our documentation. If you\nwant to give back, but feel that your knowledge on how Etcher works is not\nenough to tackle a bug report or feature request, use that as your advantage,\nsince fresh eyes could help unveil things that we take for granted, but should\nbe documented instead!\n\n[lego-blocks]: https://github.com/sindresorhus/ama/issues/10#issuecomment-117766328\n[exit-codes]: https://github.com/balena-io/etcher/blob/master/lib/shared/exit-codes.js\n[gui-dir]: https://github.com/balena-io/etcher/tree/master/lib/gui\n[electron]: http://electron.atom.io\n[nodejs]: https://nodejs.org\n[redux]: http://redux.js.org\n[immutablejs]: http://facebook.github.io/immutable-js/\n[sass]: http://sass-lang.com\n[mocha]: http://mochajs.org\n[jsdoc]: http://usejsdoc.org\n",
   "maintainers": [
     "@thundron",
     "@zvin",
@@ -339,7 +339,7 @@
   "public": true,
   "fork": false,
   "description": "Flash OS images to SD cards & USB drives, safely and easily.",
-  "stars": 18075,
+  "stars": 18183,
   "homepage": "https://etcher.io",
   "repositoryUrl": "https://github.com/balena-io/etcher.git",
   "active": true,
@@ -350,85 +350,85 @@
     "type": "Organization"
   },
   "dependencies": [],
-  "lastCommitDate": "2020-06-22T16:57:51Z",
+  "lastCommitDate": "2020-07-09T16:39:12Z",
   "latestRelease": {
-    "tagName": "v1.5.100",
+    "tagName": "v1.5.101",
     "asssets": [
       {
-        "name": "balena-etcher-electron-1.5.100-linux-ia32.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.100/balena-etcher-electron-1.5.100-linux-ia32.zip"
+        "name": "balena-etcher-electron-1.5.101-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.101/balena-etcher-electron-1.5.101-linux-ia32.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.100-linux-x64.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.100/balena-etcher-electron-1.5.100-linux-x64.zip"
+        "name": "balena-etcher-electron-1.5.101-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.101/balena-etcher-electron-1.5.101-linux-x64.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.100.i686.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.100/balena-etcher-electron-1.5.100.i686.rpm"
+        "name": "balena-etcher-electron-1.5.101.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.101/balena-etcher-electron-1.5.101.i686.rpm"
       },
       {
-        "name": "balena-etcher-electron-1.5.100.x86_64.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.100/balena-etcher-electron-1.5.100.x86_64.rpm"
+        "name": "balena-etcher-electron-1.5.101.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.101/balena-etcher-electron-1.5.101.x86_64.rpm"
       },
       {
-        "name": "balena-etcher-electron_1.5.100_amd64.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.100/balena-etcher-electron_1.5.100_amd64.deb"
+        "name": "balena-etcher-electron_1.5.101_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.101/balena-etcher-electron_1.5.101_amd64.deb"
       },
       {
-        "name": "balena-etcher-electron_1.5.100_i386.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.100/balena-etcher-electron_1.5.100_i386.deb"
+        "name": "balena-etcher-electron_1.5.101_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.101/balena-etcher-electron_1.5.101_i386.deb"
       },
       {
-        "name": "balenaEtcher-1.5.100-ia32.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.100/balenaEtcher-1.5.100-ia32.AppImage"
+        "name": "balenaEtcher-1.5.101-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.101/balenaEtcher-1.5.101-ia32.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.100-mac.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.100/balenaEtcher-1.5.100-mac.zip"
+        "name": "balenaEtcher-1.5.101-mac.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.101/balenaEtcher-1.5.101-mac.zip"
       },
       {
-        "name": "balenaEtcher-1.5.100-x64.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.100/balenaEtcher-1.5.100-x64.AppImage"
+        "name": "balenaEtcher-1.5.101-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.101/balenaEtcher-1.5.101-x64.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.100.dmg",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.100/balenaEtcher-1.5.100.dmg"
+        "name": "balenaEtcher-1.5.101.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.101/balenaEtcher-1.5.101.dmg"
       },
       {
-        "name": "balenaEtcher-1.5.100.dmg.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.100/balenaEtcher-1.5.100.dmg.blockmap"
+        "name": "balenaEtcher-1.5.101.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.101/balenaEtcher-1.5.101.dmg.blockmap"
       },
       {
-        "name": "balenaEtcher-Portable-1.5.100.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.100/balenaEtcher-Portable-1.5.100.exe"
+        "name": "balenaEtcher-Portable-1.5.101.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.101/balenaEtcher-Portable-1.5.101.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.100.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.100/balenaEtcher-Setup-1.5.100.exe"
+        "name": "balenaEtcher-Setup-1.5.101.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.101/balenaEtcher-Setup-1.5.101.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.100.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.100/balenaEtcher-Setup-1.5.100.exe.blockmap"
+        "name": "balenaEtcher-Setup-1.5.101.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.101/balenaEtcher-Setup-1.5.101.exe.blockmap"
       },
       {
         "name": "builder-effective-config.yaml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.100/builder-effective-config.yaml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.101/builder-effective-config.yaml"
       },
       {
         "name": "latest-linux-ia32.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.100/latest-linux-ia32.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.101/latest-linux-ia32.yml"
       },
       {
         "name": "latest-linux.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.100/latest-linux.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.101/latest-linux.yml"
       },
       {
         "name": "latest-mac.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.100/latest-mac.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.101/latest-mac.yml"
       },
       {
         "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.100/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.101/latest.yml"
       }
     ]
   },
@@ -526,8 +526,80 @@
     ]
   },
   "openIssues": {
-    "numberOfIssues": 235,
+    "numberOfIssues": 250,
     "latestIssues": [
+      {
+        "title": "Add abilty to reformat disks. ",
+        "url": "https://github.com/balena-io/etcher/issues/3236"
+      },
+      {
+        "title": "Windows 10: Write fails but Windows popup notification says it was successful",
+        "url": "https://github.com/balena-io/etcher/issues/3235"
+      },
+      {
+        "title": "Etcher Issues with Windows Disk Management after imagining",
+        "url": "https://github.com/balena-io/etcher/issues/3234"
+      },
+      {
+        "title": "Oops! Looks Like the flash failed random issue on Linux",
+        "url": "https://github.com/balena-io/etcher/issues/3233"
+      },
+      {
+        "title": "After the computer had gone to sleep, the software went blank.",
+        "url": "https://github.com/balena-io/etcher/issues/3231"
+      },
+      {
+        "title": "`gz` file (from OMV backup) can't be used as input image",
+        "url": "https://github.com/balena-io/etcher/issues/3230"
+      },
+      {
+        "title": "Fix device being smaller that the image block mapped size",
+        "url": "https://github.com/balena-io/etcher/issues/3229"
+      },
+      {
+        "title": "Writer process ended unexpectedly",
+        "url": "https://github.com/balena-io/etcher/issues/3228"
+      },
+      {
+        "title": "Report error functionality",
+        "url": "https://github.com/balena-io/etcher/issues/3227"
+      },
+      {
+        "title": "Filesize incorrectly reported for some bz2 images",
+        "url": "https://github.com/balena-io/etcher/issues/3226"
+      },
+      {
+        "title": "User needs Etcher on macOS to be able to ignore a failed HEAD request and proceed to GET",
+        "url": "https://github.com/balena-io/etcher/issues/3223"
+      },
+      {
+        "title": "It's not Ecthing ",
+        "url": "https://github.com/balena-io/etcher/issues/3221"
+      },
+      {
+        "title": "Checksums in YML don't Match",
+        "url": "https://github.com/balena-io/etcher/issues/3219"
+      },
+      {
+        "title": "Verbiage Suggestion for Failed Flash",
+        "url": "https://github.com/balena-io/etcher/issues/3218"
+      },
+      {
+        "title": "Improve wording in macOS root prompt",
+        "url": "https://github.com/balena-io/etcher/issues/3216"
+      },
+      {
+        "title": "[Windows 10 x64 1903]Writer process ended unexpectedly",
+        "url": "https://github.com/balena-io/etcher/issues/3215"
+      },
+      {
+        "title": "Allow the user to open any file type in the image selection modal",
+        "url": "https://github.com/balena-io/etcher/issues/3214"
+      },
+      {
+        "title": "Can't lunch etcher unless using compatibility modes",
+        "url": "https://github.com/balena-io/etcher/issues/3212"
+      },
       {
         "title": "Update SUPPORT.md",
         "url": "https://github.com/balena-io/etcher/pull/3209"
@@ -535,82 +607,10 @@
       {
         "title": "Clickable text doesn't revert to highlighted colour",
         "url": "https://github.com/balena-io/etcher/issues/3207"
-      },
-      {
-        "title": "User can select 'Continue' before device initialisation has completed",
-        "url": "https://github.com/balena-io/etcher/issues/3206"
-      },
-      {
-        "title": "Problems detecting and intialising CM3 on balenaFin",
-        "url": "https://github.com/balena-io/etcher/issues/3205"
-      },
-      {
-        "title": "aim not install Debian Bullseye ",
-        "url": "https://github.com/balena-io/etcher/issues/3204"
-      },
-      {
-        "title": "New target selector",
-        "url": "https://github.com/balena-io/etcher/pull/3203"
-      },
-      {
-        "title": "User needs more instructions regarding appImage for Linux x64",
-        "url": "https://github.com/balena-io/etcher/issues/3201"
-      },
-      {
-        "title": "Improve instructions on recovering usb drives",
-        "url": "https://github.com/balena-io/etcher/issues/3200"
-      },
-      {
-        "title": "Lock the drive to prevent failure on verification",
-        "url": "https://github.com/balena-io/etcher/issues/3197"
-      },
-      {
-        "title": "Suggestion: make it more obvious that version-number is clickable",
-        "url": "https://github.com/balena-io/etcher/issues/3192"
-      },
-      {
-        "title": "Suggestion: additional link to USER-DOCUMENTATION.md",
-        "url": "https://github.com/balena-io/etcher/issues/3191"
-      },
-      {
-        "title": "Replace 'writing speed' with 'effective speed'",
-        "url": "https://github.com/balena-io/etcher/issues/3186"
-      },
-      {
-        "title": "why only run as root on Linux",
-        "url": "https://github.com/balena-io/etcher/issues/3181"
-      },
-      {
-        "title": "Unable to run etcher",
-        "url": "https://github.com/balena-io/etcher/issues/3178"
-      },
-      {
-        "title": "[Suggestion][Discussion] Aren't releases too frequent?",
-        "url": "https://github.com/balena-io/etcher/issues/3175"
-      },
-      {
-        "title": "Flashing Android OS, Disk Full Error (Even though clearly not)",
-        "url": "https://github.com/balena-io/etcher/issues/3164"
-      },
-      {
-        "title": "Checksum failed.",
-        "url": "https://github.com/balena-io/etcher/issues/3154"
-      },
-      {
-        "title": "how do i restore my USB stick to its original state ",
-        "url": "https://github.com/balena-io/etcher/issues/3150"
-      },
-      {
-        "title": "AppImage fails on Debian Buster AMD64",
-        "url": "https://github.com/balena-io/etcher/issues/3141"
-      },
-      {
-        "title": "RPM packaging for Etcher, repo in general",
-        "url": "https://github.com/balena-io/etcher/issues/3134"
       }
     ]
   },
-  "version": "1.5.100",
+  "version": "1.5.101",
   "screenshot": null,
   "logo": null
 }
