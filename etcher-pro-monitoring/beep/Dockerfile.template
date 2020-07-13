@@ -1,3 +1,0 @@
-FROM balenalib/%%BALENA_MACHINE_NAME%%-debian
-COPY ./beep.sh ./beep.sh
-CMD ./beep.sh
