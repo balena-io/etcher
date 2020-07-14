@@ -8,6 +8,7 @@
     "target": "es2019",
     "jsx": "react",
     "typeRoots": ["./node_modules/@types", "./typings"],
+    "importHelpers": true,
     "allowSyntheticDefaultImports": true
   },
   "include": [
