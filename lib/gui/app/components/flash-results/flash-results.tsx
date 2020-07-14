@@ -19,7 +19,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as _ from 'lodash';
 import outdent from 'outdent';
 import * as React from 'react';
-import { Txt, Flex } from 'rendition';
+import { Flex } from 'rendition/dist_esm5/components/Flex';
+import Txt from 'rendition/dist_esm5/components/Txt';
 
 import { progress } from '../../../../shared/messages';
 import { bytesToMegabytes } from '../../../../shared/units';

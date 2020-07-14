@@ -16,7 +16,8 @@
 
 import { Drive as DrivelistDrive } from 'drivelist';
 import * as React from 'react';
-import { Txt, Flex, FlexProps } from 'rendition';
+import { Flex, FlexProps } from 'rendition/dist_esm5/components/Flex';
+import Txt from 'rendition/dist_esm5/components/Txt';
 
 import {
 	getDriveImageCompatibilityStatuses,

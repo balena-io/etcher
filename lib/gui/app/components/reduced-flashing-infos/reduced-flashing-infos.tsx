@@ -15,7 +15,8 @@
  */
 
 import * as React from 'react';
-import { Flex, Txt } from 'rendition';
+import { Flex } from 'rendition/dist_esm5/components/Flex';
+import Txt from 'rendition/dist_esm5/components/Txt';
 
 import DriveSvg from '../../../assets/drive.svg';
 import ImageSvg from '../../../assets/image.svg';

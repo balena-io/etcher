@@ -26,14 +26,12 @@ import * as _ from 'lodash';
 import { GPTPartition, MBRPartition } from 'partitioninfo';
 import * as path from 'path';
 import * as React from 'react';
-import {
-	ButtonProps,
-	Card as BaseCard,
-	Input,
-	Modal as SmallModal,
-	Txt,
-	Flex,
-} from 'rendition';
+import { Flex } from 'rendition/dist_esm5/components/Flex';
+import { ButtonProps } from 'rendition/dist_esm5/components/Button';
+import SmallModal from 'rendition/dist_esm5/components/Modal';
+import Txt from 'rendition/dist_esm5/components/Txt';
+import BaseCard from 'rendition/dist_esm5/components/Card';
+import Input from 'rendition/dist_esm5/components/Input';
 import styled from 'styled-components';
 
 import * as errors from '../../../../shared/errors';
