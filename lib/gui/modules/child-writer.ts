@@ -213,7 +213,7 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 		 * writer.on('fail', onFail)
 		 */
 		const onFail = (
-			destination: sdk.sourceDestination.BlockDevice,
+			destination: sdk.sourceDestination.SourceDestination,
 			error: Error,
 		) => {
 			ipc.of[IPC_SERVER_ID].emit('fail', {

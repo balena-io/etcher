@@ -161,7 +161,7 @@ export class TargetSelectorModal extends React.Component<
 	TargetSelectorModalProps,
 	TargetSelectorModalState
 > {
-	unsubscribe: () => void;
+	private unsubscribe: (() => void) | undefined;
 	tableColumns: Array<TableColumn<Target>>;
 
 	constructor(props: TargetSelectorModalProps) {
@@ -320,7 +320,7 @@ export class TargetSelectorModal extends React.Component<
 	}
 
 	componentWillUnmount() {
-		this.unsubscribe();
+		this.unsubscribe?.();
 	}
 
 	render() {

@@ -125,10 +125,7 @@ const URLSelector = ({
 	cancel: () => void;
 }) => {
 	const [imageURL, setImageURL] = React.useState('');
-	const [recentImages, setRecentImages]: [
-		URL[],
-		(value: React.SetStateAction<URL[]>) => void,
-	] = React.useState([]);
+	const [recentImages, setRecentImages] = React.useState<URL[]>([]);
 	const [loading, setLoading] = React.useState(false);
 	React.useEffect(() => {
 		const fetchRecentUrlImages = async () => {
@@ -252,7 +249,7 @@ export class SourceSelector extends React.Component<
 	SourceSelectorProps,
 	SourceSelectorState
 > {
-	private unsubscribe: () => void;
+	private unsubscribe: (() => void) | undefined;
 	private afterSelected: SourceSelectorProps['afterSelected'];
 
 	constructor(props: SourceSelectorProps) {
@@ -282,7 +279,7 @@ export class SourceSelector extends React.Component<
 	}
 
 	public componentWillUnmount() {
-		this.unsubscribe();
+		this.unsubscribe?.();
 		ipcRenderer.removeListener('select-image', this.onSelectImage);
 	}
 

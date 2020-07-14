@@ -1,14 +1,11 @@
 {
   "compilerOptions": {
-    "noImplicitAny": true,
+    "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "strictNullChecks": true,
     "resolveJsonModule": true,
-    "allowJs": true,
-    "moduleResolution": "node",
     "module": "commonjs",
-    "target": "es2018",
+    "target": "es2019",
     "jsx": "react",
     "typeRoots": ["./node_modules/@types", "./typings"],
     "allowSyntheticDefaultImports": true
