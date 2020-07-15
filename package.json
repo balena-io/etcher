@@ -96,7 +96,6 @@
     "react-dom": "^16.8.5",
     "redux": "^4.0.5",
     "rendition": "^16.1.1",
-    "request": "^2.81.0",
     "resin-corvus": "^2.0.5",
     "semver": "^7.3.2",
     "simple-progress-webpack-plugin": "^1.1.2",

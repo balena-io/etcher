@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
+import axios from 'axios';
 import * as Bluebird from 'bluebird';
 import * as _ from 'lodash';
-import * as request from 'request';
 import * as tmp from 'tmp';
-import { promisify } from 'util';
 
 import * as errors from './errors';
 import * as settings from '../gui/app/models/settings';
-
-const getAsync = promisify(request.get);
 
 export function isValidPercentage(percentage: any): boolean {
 	return _.every([_.isNumber(percentage), percentage >= 0, percentage <= 100]);
@@ -55,7 +52,8 @@ export async function getConfig(): Promise<_.Dictionary<any>> {
 	const configUrl =
 		(await settings.get('configUrl')) ||
 		'https://balena.io/etcher/static/config.json';
-	return (await getAsync({ url: configUrl, json: true })).body;
+	const response = await axios.get(configUrl, { responseType: 'json' });
+	return response.data;
 }
 
 /**
