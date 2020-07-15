@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/exclamation-triangle.svg';
 import { Drive as DrivelistDrive } from 'drivelist';
 import * as React from 'react';
 import { Flex, FlexProps } from 'rendition/dist_esm5/components/Flex';
@@ -32,8 +33,6 @@ import {
 	StepNameButton,
 } from '../../styled-components';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
 interface TargetSelectorProps {
 	targets: any[];
@@ -64,7 +63,7 @@ function DriveCompatibilityWarning({
 	const messages = compatibilityWarnings.map((warning) => warning.message);
 	return (
 		<Flex tooltip={messages.join(', ')} {...props}>
-			<FontAwesomeIcon icon={faExclamationTriangle} />
+			<ExclamationTriangleSvg fill="currentColor" height="1em" />
 		</Flex>
 	);
 }

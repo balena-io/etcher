@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { faCheckCircle, faCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import CircleSvg from '@fortawesome/fontawesome-free/svgs/solid/circle.svg';
+import CheckCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/check-circle.svg';
 import * as _ from 'lodash';
 import outdent from 'outdent';
 import * as React from 'react';
@@ -59,12 +59,10 @@ export function FlashResults({
 			}}
 		>
 			<Flex alignItems="center">
-				<FontAwesomeIcon
-					icon={faCheckCircle}
-					color={allDevicesFailed ? '#c6c8c9' : '#1ac135'}
+				<CheckCircleSvg
+					width="24px"
+					fill={allDevicesFailed ? '#c6c8c9' : '#1ac135'}
 					style={{
-						width: '24px',
-						height: '24px',
 						margin: '0 15px 0 0',
 					}}
 				/>
@@ -79,9 +77,9 @@ export function FlashResults({
 							alignItems="center"
 							tooltip={type === 'failed' ? errors : undefined}
 						>
-							<FontAwesomeIcon
-								color={type === 'failed' ? '#ff4444' : '#1ac135'}
-								icon={faCircle}
+							<CircleSvg
+								width="14px"
+								fill={type === 'failed' ? '#ff4444' : '#1ac135'}
 							/>
 							<Txt ml={10}>{quantity}</Txt>
 							<Txt ml={10}>{progress[type](quantity)}</Txt>

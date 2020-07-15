@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import GithubSvg from '@fortawesome/fontawesome-free/svgs/brands/github.svg';
 import * as _ from 'lodash';
 import * as os from 'os';
 import * as React from 'react';
@@ -151,7 +150,11 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 						)
 					}
 				>
-					<FontAwesomeIcon icon={faGithub} style={{ marginRight: 8 }} />
+					<GithubSvg
+						height="1em"
+						fill="currentColor"
+						style={{ marginRight: 8 }}
+					/>
 					<Txt style={{ borderBottom: '1px solid #00aeef' }}>{version}</Txt>
 				</Flex>
 			</Flex>

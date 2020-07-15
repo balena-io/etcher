@@ -47,9 +47,7 @@
   ],
   "devDependencies": {
     "@balena/lint": "^5.0.4",
-    "@fortawesome/free-brands-svg-icons": "^5.11.2",
-    "@fortawesome/free-solid-svg-icons": "^5.11.2",
-    "@fortawesome/react-fontawesome": "^0.1.7",
+    "@fortawesome/fontawesome-free": "^5.13.1",
     "@svgr/webpack": "^5.4.0",
     "@types/bluebird": "^3.5.30",
     "@types/chai": "^4.2.7",

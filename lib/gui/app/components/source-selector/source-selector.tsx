@@ -14,12 +14,9 @@
  * limitations under the License.
  */
 
-import {
-	faFile,
-	faLink,
-	faExclamationTriangle,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import FileSvg from '@fortawesome/fontawesome-free/svgs/solid/file.svg';
+import LinkSvg from '@fortawesome/fontawesome-free/svgs/solid/link.svg';
+import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/exclamation-triangle.svg';
 import { sourceDestination } from 'etcher-sdk';
 import { ipcRenderer, IpcRendererEvent } from 'electron';
 import * as _ from 'lodash';
@@ -526,7 +523,7 @@ export class SourceSelector extends React.Component<
 								flow={{
 									onClick: this.openImageSelector,
 									label: 'Flash from file',
-									icon: <FontAwesomeIcon icon={faFile} />,
+									icon: <FileSvg height="1em" fill="currentColor" />,
 								}}
 							/>
 							<FlowSelector
@@ -534,7 +531,7 @@ export class SourceSelector extends React.Component<
 								flow={{
 									onClick: this.openURLSelector,
 									label: 'Flash from URL',
-									icon: <FontAwesomeIcon icon={faLink} />,
+									icon: <LinkSvg height="1em" fill="currentColor" />,
 								}}
 							/>
 						</>
@@ -545,10 +542,7 @@ export class SourceSelector extends React.Component<
 					<SmallModal
 						titleElement={
 							<span>
-								<FontAwesomeIcon
-									style={{ color: '#fca321' }}
-									icon={faExclamationTriangle}
-								/>{' '}
+								<ExclamationTriangleSvg fill="#fca321" height="1em" />{' '}
 								<span>{this.state.warning.title}</span>
 							</span>
 						}

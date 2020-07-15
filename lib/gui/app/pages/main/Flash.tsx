@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import CircleSvg from '@fortawesome/fontawesome-free/svgs/solid/circle.svg';
 import * as _ from 'lodash';
 import * as path from 'path';
 import * as React from 'react';
@@ -36,8 +37,6 @@ import * as notification from '../../os/notification';
 import { selectAllTargets } from './DriveSelector';
 
 import FlashSvg from '../../../assets/flash.svg';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircle } from '@fortawesome/free-solid-svg-icons';
 
 const COMPLETED_PERCENTAGE = 100;
 const SPEED_PRECISION = 2;
@@ -288,7 +287,7 @@ export class FlashStep extends React.PureComponent<
 
 					{Boolean(this.props.failed) && (
 						<Flex color="#fff" alignItems="center" mt={35}>
-							<FontAwesomeIcon color="#ff4444" icon={faCircle} />
+							<CircleSvg height="1em" fill="#ff4444" />
 							<Txt ml={10}>{this.props.failed}</Txt>
 							<Txt ml={10}>{messages.progress.failed(this.props.failed)}</Txt>
 						</Flex>

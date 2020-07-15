@@ -14,11 +14,8 @@
  * limitations under the License.
  */
 
-import {
-	faChevronDown,
-	faExclamationTriangle,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/exclamation-triangle.svg';
+import ChevronDownSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-down.svg';
 import { scanner, sourceDestination } from 'etcher-sdk';
 import * as React from 'react';
 import { Flex } from 'rendition/dist_esm5/components/Flex';
@@ -185,10 +182,7 @@ export class TargetSelectorModal extends React.Component<
 				render: (description: string, drive: Target) => {
 					return isDrivelistDrive(drive) && drive.isSystem ? (
 						<Flex alignItems="center">
-							<FontAwesomeIcon
-								style={{ color: '#fca321' }}
-								icon={faExclamationTriangle}
-							/>
+							<ExclamationTriangleSvg height="1em" fill="#fca321" />
 							<Txt ml={8}>{description}</Txt>
 						</Flex>
 					) : (
@@ -424,7 +418,7 @@ export class TargetSelectorModal extends React.Component<
 									onClick={() => this.setState({ showSystemDrives: true })}
 								>
 									<Flex alignItems="center">
-										<FontAwesomeIcon icon={faChevronDown} />
+										<ChevronDownSvg height="1em" fill="currentColor" />
 										<Txt ml={8}>Show {numberOfHiddenSystemDrives} hidden</Txt>
 									</Flex>
 								</Link>
