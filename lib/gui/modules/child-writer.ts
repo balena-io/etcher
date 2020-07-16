@@ -21,7 +21,6 @@ import { cleanupTmpFiles } from 'etcher-sdk/build/tmp';
 import * as _ from 'lodash';
 import * as ipc from 'node-ipc';
 
-import { File, Http } from 'etcher-sdk/build/source-destination';
 import { toJSON } from '../../shared/errors';
 import { GENERAL_ERROR, SUCCESS } from '../../shared/exit-codes';
 import { SourceOptions } from '../app/components/source-selector/source-selector';
@@ -241,12 +240,15 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 		});
 		const { SourceType } = options;
 		let source;
-		if (SourceType === File.name) {
-			source = new File({
+		if (SourceType === sdk.sourceDestination.File.name) {
+			source = new sdk.sourceDestination.File({
 				path: options.imagePath,
 			});
 		} else {
-			source = new Http({ url: options.imagePath, avoidRandomAccess: true });
+			source = new sdk.sourceDestination.Http({
+				url: options.imagePath,
+				avoidRandomAccess: true,
+			});
 		}
 		try {
 			const results = await writeAndValidate({
