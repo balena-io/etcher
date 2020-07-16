@@ -93,7 +93,11 @@ function terminateServer() {
 }
 
 function writerArgv(): string[] {
-	let entryPoint = electron.remote.app.getAppPath();
+	let entryPoint = path.join(
+		electron.remote.app.getAppPath(),
+		'generated',
+		'child-writer.js',
+	);
 	// AppImages run over FUSE, so the files inside the mount point
 	// can only be accessed by the user that mounted the AppImage.
 	// This means we can't re-spawn Etcher as root from the same
