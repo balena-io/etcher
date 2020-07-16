@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { delay } from 'bluebird';
 import { Drive as DrivelistDrive } from 'drivelist';
 import * as sdk from 'etcher-sdk';
 import { cleanupTmpFiles } from 'etcher-sdk/build/tmp';
@@ -23,6 +22,7 @@ import * as ipc from 'node-ipc';
 
 import { toJSON } from '../../shared/errors';
 import { GENERAL_ERROR, SUCCESS } from '../../shared/exit-codes';
+import { delay } from '../../shared/utils';
 import { SourceOptions } from '../app/components/source-selector/source-selector';
 
 ipc.config.id = process.env.IPC_CLIENT_ID as string;

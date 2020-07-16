@@ -14,26 +14,24 @@
  * limitations under the License.
  */
 
-import { delay } from 'bluebird';
 import * as electron from 'electron';
 import { autoUpdater } from 'electron-updater';
 import { promises as fs } from 'fs';
 import { platform } from 'os';
-import * as _ from 'lodash';
 import * as path from 'path';
 import * as semver from 'semver';
 
 import { packageType, version } from '../../package.json';
 import * as EXIT_CODES from '../shared/exit-codes';
-import { getConfig } from '../shared/utils';
+import { delay, getConfig } from '../shared/utils';
 import * as settings from './app/models/settings';
-import * as analytics from './app/modules/analytics';
+import { logException } from './app/modules/analytics';
 import { buildWindowMenu } from './menu';
 
 const customProtocol = 'etcher';
 const scheme = `${customProtocol}://`;
 const updatablePackageTypes = ['appimage', 'nsis', 'dmg'];
-const packageUpdatable = _.includes(updatablePackageTypes, packageType);
+const packageUpdatable = updatablePackageTypes.includes(packageType);
 let packageUpdated = false;
 
 async function checkForUpdates(interval: number) {
@@ -51,7 +49,7 @@ async function checkForUpdates(interval: number) {
 					packageUpdated = true;
 				}
 			} catch (err) {
-				analytics.logException(err);
+				logException(err);
 			}
 		}
 		await delay(interval);
@@ -114,6 +112,14 @@ electron.app.on('open-url', async (event, data) => {
 	await selectImageURL(data);
 });
 
+interface AutoUpdaterConfig {
+	autoDownload?: boolean;
+	autoInstallOnAppQuit?: boolean;
+	allowPrerelease?: boolean;
+	fullChangelog?: boolean;
+	allowDowngrade?: boolean;
+}
+
 async function createMainWindow() {
 	const fullscreen = Boolean(await settings.get('fullscreen'));
 	const defaultWidth = 800;
@@ -171,27 +177,24 @@ async function createMainWindow() {
 
 	page.once('did-frame-finish-load', async () => {
 		autoUpdater.on('error', (err) => {
-			analytics.logException(err);
+			logException(err);
 		});
 		if (packageUpdatable) {
 			try {
-				const onlineConfig = await getConfig();
-				const autoUpdaterConfig = _.get(
-					onlineConfig,
-					['autoUpdates', 'autoUpdaterConfig'],
-					{
-						autoDownload: false,
-					},
-				);
-				_.merge(autoUpdater, autoUpdaterConfig);
-				const checkForUpdatesTimer = _.get(
-					onlineConfig,
-					['autoUpdates', 'checkForUpdatesTimer'],
-					300000,
-				);
+				const configUrl = await settings.get('configUrl');
+				const onlineConfig = await getConfig(configUrl);
+				const autoUpdaterConfig: AutoUpdaterConfig = onlineConfig?.autoUpdates
+					?.autoUpdaterConfig ?? {
+					autoDownload: false,
+				};
+				for (const [key, value] of Object.entries(autoUpdaterConfig)) {
+					autoUpdater[key as keyof AutoUpdaterConfig] = value;
+				}
+				const checkForUpdatesTimer =
+					onlineConfig?.autoUpdates?.checkForUpdatesTimer ?? 300000;
 				checkForUpdates(checkForUpdatesTimer);
 			} catch (err) {
-				analytics.logException(err);
+				logException(err);
 			}
 		}
 	});

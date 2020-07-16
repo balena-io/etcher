@@ -23,7 +23,7 @@ import { join } from 'path';
 import { env } from 'process';
 import { promisify } from 'util';
 
-import { tmpFileDisposer } from '../../../shared/utils';
+import { tmpFileDisposer } from '../../../shared/tmp';
 
 const readFileAsync = promisify(readFile);
 

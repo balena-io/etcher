@@ -15,15 +15,12 @@
  */
 
 import axios from 'axios';
-import * as Bluebird from 'bluebird';
-import * as _ from 'lodash';
-import * as tmp from 'tmp';
+import { Dictionary } from 'lodash';
 
 import * as errors from './errors';
-import * as settings from '../gui/app/models/settings';
 
 export function isValidPercentage(percentage: any): boolean {
-	return _.every([_.isNumber(percentage), percentage >= 0, percentage <= 100]);
+	return typeof percentage === 'number' && percentage >= 0 && percentage <= 100;
 }
 
 export function percentageToFloat(percentage: any) {
@@ -36,62 +33,17 @@ export function percentageToFloat(percentage: any) {
 }
 
 /**
- * @summary Check if obj has one or many specific props
- */
-export function hasProps(obj: _.Dictionary<any>, props: string[]): boolean {
-	return _.every(props, (prop) => {
-		return _.has(obj, prop);
-	});
-}
-
-/**
  * @summary Get etcher configs stored online
  * @param {String} - url where config.json is stored
  */
-export async function getConfig(): Promise<_.Dictionary<any>> {
-	const configUrl =
-		(await settings.get('configUrl')) ||
-		'https://balena.io/etcher/static/config.json';
+export async function getConfig(configUrl?: string): Promise<Dictionary<any>> {
+	configUrl = configUrl ?? 'https://balena.io/etcher/static/config.json';
 	const response = await axios.get(configUrl, { responseType: 'json' });
 	return response.data;
 }
 
-/**
- * @summary returns { path: String, cleanup: Function }
- *
- * @example
- * const {path, cleanup } = await tmpFileAsync()
- * console.log(path)
- * cleanup()
- */
-function tmpFileAsync(
-	options: tmp.FileOptions,
-): Promise<{ path: string; cleanup: () => void }> {
-	return new Promise((resolve, reject) => {
-		tmp.file(options, (error, path, _fd, cleanup) => {
-			if (error) {
-				reject(error);
-			} else {
-				resolve({ path, cleanup });
-			}
-		});
-	});
-}
-
-/**
- * @summary Disposer for tmpFileAsync, calls cleanup()
- *
- * @returns {Disposer<{ path: String, cleanup: Function }>}
- *
- * @example
- * await Bluebird.using(tmpFileDisposer(), ({ path }) => {
- *   console.log(path);
- * })
- */
-export function tmpFileDisposer(
-	options: tmp.FileOptions,
-): Bluebird.Disposer<{ path: string; cleanup: () => void }> {
-	return Bluebird.resolve(tmpFileAsync(options)).disposer(({ cleanup }) => {
-		cleanup();
+export async function delay(duration: number): Promise<void> {
+	await new Promise((resolve) => {
+		setTimeout(resolve, duration);
 	});
 }
