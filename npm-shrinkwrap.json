@@ -7311,9 +7311,9 @@
       }
     },
     "electron": {
-      "version": "9.0.5",
-      "resolved": "https://registry.npmjs.org/electron/-/electron-9.0.5.tgz",
-      "integrity": "sha512-bnL9H48LuQ250DML8xUscsKiuSu+xv5umXbpBXYJ0BfvYVmFfNbG3jCfhrsH7aP6UcQKVxOG1R/oQExd0EFneQ==",
+      "version": "9.1.1",
+      "resolved": "https://registry.npmjs.org/electron/-/electron-9.1.1.tgz",
+      "integrity": "sha512-BYvroBLV9x7G4iN33P/IxeZqwjl62/9VuBAF1CoM0m6OeheaiLog1ZMKLlCqVXycJvvrAvLHc454DDEmwnqqhA==",
       "dev": true,
       "requires": {
         "@electron/get": "^1.0.1",
@@ -12336,9 +12336,9 @@
       }
     },
     "node-abi": {
-      "version": "2.17.0",
-      "resolved": "https://registry.npmjs.org/node-abi/-/node-abi-2.17.0.tgz",
-      "integrity": "sha512-dFRAA0ACk/aBo0TIXQMEWMLUTyWYYT8OBYIzLmEUrQTElGRjxDCvyBZIsDL0QA7QCaj9PrawhOmTEdsuLY4uOQ==",
+      "version": "2.18.0",
+      "resolved": "https://registry.npmjs.org/node-abi/-/node-abi-2.18.0.tgz",
+      "integrity": "sha512-yi05ZoiuNNEbyT/xXfSySZE+yVnQW6fxPZuFbLyS1s6b5Kw3HzV2PHOM4XR+nsjzkHxByK+2Wg+yCQbe35l8dw==",
       "dev": true,
       "requires": {
         "semver": "^5.4.1"
