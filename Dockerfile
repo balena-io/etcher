@@ -36,6 +36,7 @@ COPY --from=builder /usr/src/clicklock/clicklock /usr/bin/clicklock
 
 # Etcher configuration script
 COPY update-config-and-start.js /usr/src/app/
+COPY zram.sh /usr/src/app/
 
 COPY --from=builder /usr/src/app/dist/linux-arm64-unpacked/resources/app /usr/src/app
 COPY --from=builder /usr/src/app/node_modules/electron/ /usr/src/app/node_modules/electron
@@ -43,4 +44,11 @@ WORKDIR /usr/src/app/node_modules/.bin
 RUN ln -s ../electron/cli.js electron
 WORKDIR /usr/src/app
 
-CMD node /usr/src/app/update-config-and-start.js
+RUN \
+	apt-get update \
+	&& apt-get install -y kmod \
+	&& rm -rf /var/lib/apt/lists/*
+
+CMD \
+	./zram.sh \
+	&& node /usr/src/app/update-config-and-start.js
