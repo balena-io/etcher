@@ -23,9 +23,6 @@ export function bytesToMegabytes(bytes: number): number {
 	return bytes / MEGABYTE_TO_BYTE_RATIO;
 }
 
-export function bytesToClosestUnit(bytes: number): string | null {
-	if (_.isNumber(bytes)) {
-		return prettyBytes(bytes);
-	}
-	return null;
+export function bytesToClosestUnit(bytes: number): string {
+	return prettyBytes(bytes);
 }

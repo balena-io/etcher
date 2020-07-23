@@ -51,7 +51,7 @@ export function fromFlashState({
 		} else {
 			return {
 				status: 'Flashing...',
-				position: `${bytesToClosestUnit(position)}`,
+				position: `${position ? bytesToClosestUnit(position) : ''}`,
 			};
 		}
 	} else if (type === 'verifying') {

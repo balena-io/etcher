@@ -20,6 +20,7 @@ import { sourceDestination } from 'etcher-sdk';
 import * as ipc from 'node-ipc';
 import { assert, SinonStub, stub } from 'sinon';
 
+import { SourceMetadata } from '../../../lib/gui/app/components/source-selector/source-selector';
 import * as flashState from '../../../lib/gui/app/models/flash-state';
 import * as imageWriter from '../../../lib/gui/app/modules/image-writer';
 
@@ -28,9 +29,11 @@ const fakeDrive: DrivelistDrive = {};
 
 describe('Browser: imageWriter', () => {
 	describe('.flash()', () => {
-		const image = {
+		const image: SourceMetadata = {
 			hasMBR: false,
 			partitions: [],
+			description: 'foo.img',
+			displayName: 'foo.img',
 			path: 'foo.img',
 			SourceType: sourceDestination.File,
 			extension: 'img',
@@ -60,7 +63,7 @@ describe('Browser: imageWriter', () => {
 				});
 
 				try {
-					imageWriter.flash(image, [fakeDrive], performWriteStub);
+					await imageWriter.flash(image, [fakeDrive], performWriteStub);
 				} catch {
 					// noop
 				} finally {

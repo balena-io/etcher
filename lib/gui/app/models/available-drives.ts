@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-import * as _ from 'lodash';
-
 import { Actions, store } from './store';
 
 export function hasAvailableDrives() {
-	return !_.isEmpty(getDrives());
+	return getDrives().length > 0;
 }
 
 export function setDrives(drives: any[]) {
