@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-import { Drive as DrivelistDrive } from 'drivelist';
 import * as _ from 'lodash';
 import { AnimationFunction, Color, RGBLed } from 'sys-class-rgb-led';
 
-import { isSourceDrive } from '../../../shared/drive-constraints';
+import {
+	isSourceDrive,
+	DrivelistDrive,
+} from '../../../shared/drive-constraints';
 import * as settings from './settings';
 import { DEFAULT_STATE, observe } from './store';
 

@@ -15,7 +15,6 @@
  */
 
 import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/exclamation-triangle.svg';
-import { Drive as DrivelistDrive } from 'drivelist';
 import * as React from 'react';
 import { Flex, FlexProps } from 'rendition/dist_esm5/components/Flex';
 import Txt from 'rendition/dist_esm5/components/Txt';
@@ -33,6 +32,7 @@ import {
 	StepNameButton,
 } from '../../styled-components';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
+import styled from 'styled-components';
 
 interface TargetSelectorProps {
 	targets: any[];
@@ -45,37 +45,41 @@ interface TargetSelectorProps {
 	image: Image;
 }
 
-function DriveCompatibilityWarning({
-	drive,
-	image,
-	...props
-}: {
-	drive: DrivelistDrive;
-	image: Image;
-} & FlexProps) {
-	const compatibilityWarnings = getDriveImageCompatibilityStatuses(
-		drive,
-		image,
-	);
-	if (compatibilityWarnings.length === 0) {
-		return null;
+const DriveCompatibilityWarning = styled(
+	({
+		warnings,
+		...props
+	}: {
+		warnings: Array<{
+			type: number;
+			message: string;
+		}>;
+	} & FlexProps) => {
+		const messages = warnings.map((warning) => warning.message);
+		return (
+			<Flex tooltip={messages.join(', ')} {...props}>
+				<ExclamationTriangleSvg fill="currentColor" height="1em" />
+			</Flex>
+		);
+	},
+)`
+	&&& svg {
+		color: #fca321 !important;
 	}
-	const messages = compatibilityWarnings.map((warning) => warning.message);
-	return (
-		<Flex tooltip={messages.join(', ')} {...props}>
-			<ExclamationTriangleSvg fill="currentColor" height="1em" />
-		</Flex>
-	);
-}
+`;
 
 export function TargetSelectorButton(props: TargetSelectorProps) {
 	const targets = getSelectedDrives();
 
 	if (targets.length === 1) {
 		const target = targets[0];
+		const warnings = getDriveImageCompatibilityStatuses(target, props.image);
 		return (
 			<>
 				<StepNameButton plain tooltip={props.tooltip}>
+					{warnings.length > 0 && (
+						<DriveCompatibilityWarning warnings={warnings} mr={2} />
+					)}
 					{middleEllipsis(target.description, 20)}
 				</StepNameButton>
 				{!props.flashing && (
@@ -83,14 +87,7 @@ export function TargetSelectorButton(props: TargetSelectorProps) {
 						Change
 					</ChangeButton>
 				)}
-				<DetailsText>
-					<DriveCompatibilityWarning
-						drive={target}
-						image={props.image}
-						mr={2}
-					/>
-					{bytesToClosestUnit(target.size)}
-				</DetailsText>
+				<DetailsText>{bytesToClosestUnit(target.size)}</DetailsText>
 			</>
 		);
 	}
@@ -98,6 +95,7 @@ export function TargetSelectorButton(props: TargetSelectorProps) {
 	if (targets.length > 1) {
 		const targetsTemplate = [];
 		for (const target of targets) {
+			const warnings = getDriveImageCompatibilityStatuses(target, props.image);
 			targetsTemplate.push(
 				<DetailsText
 					key={target.device}
@@ -106,11 +104,9 @@ export function TargetSelectorButton(props: TargetSelectorProps) {
 					} ${bytesToClosestUnit(target.size)}`}
 					px={21}
 				>
-					<DriveCompatibilityWarning
-						drive={target}
-						image={props.image}
-						mr={2}
-					/>
+					{warnings.length && (
+						<DriveCompatibilityWarning warnings={warnings} mr={2} />
+					)}
 					<Txt mr={2}>{middleEllipsis(target.description, 14)}</Txt>
 					<Txt>{bytesToClosestUnit(target.size)}</Txt>
 				</DetailsText>,

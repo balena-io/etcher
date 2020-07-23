@@ -90,20 +90,21 @@ export const theme = {
 			opacity: 1,
 		},
 		extend: () => `
-			&& {
-				width: 200px;
-				height: 48px;
-				font-size: 16px;
+			width: 200px;
+			font-size: 16px;
 
-				:disabled {
+			&& {
+				height: 48px;
+			}
+
+			:disabled {
+				background-color: ${colors.dark.disabled.background};
+				color: ${colors.dark.disabled.foreground};
+				opacity: 1;
+
+				:hover {
 					background-color: ${colors.dark.disabled.background};
 					color: ${colors.dark.disabled.foreground};
-					opacity: 1;
-
-					:hover {
-						background-color: ${colors.dark.disabled.background};
-						color: ${colors.dark.disabled.foreground};
-					}
 				}
 			}
 		`,

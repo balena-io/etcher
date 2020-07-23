@@ -17,11 +17,9 @@
 import { scanner } from 'etcher-sdk';
 import * as React from 'react';
 import { Flex } from 'rendition/dist_esm5/components/Flex';
-import { TargetSelectorButton } from './target-selector-button';
-import {
-	DriveSelector,
-	DriveSelectorProps,
-} from '../drive-selector/drive-selector';
+import Txt from 'rendition/dist_esm5/components/Txt';
+
+import * as analytics from '../../modules/analytics';
 import {
 	isDriveSelected,
 	getImage,
@@ -31,8 +29,17 @@ import {
 } from '../../models/selection-state';
 import * as settings from '../../models/settings';
 import { observe } from '../../models/store';
-import * as analytics from '../../modules/analytics';
+import {
+	DriveSelector,
+	DriveSelectorProps,
+} from '../drive-selector/drive-selector';
+import { TargetSelectorButton } from './target-selector-button';
+
 import DriveSvg from '../../../assets/drive.svg';
+import {
+	getDriveListStatuses,
+	statuses,
+} from '../../../../shared/drive-constraints';
 
 export const getDriveListLabel = () => {
 	return getSelectedDrives()
@@ -59,6 +66,9 @@ export const TargetSelectorModal = (
 	<DriveSelector
 		titleLabel="Select target"
 		emptyListLabel="Plug a target drive"
+		showSystemWarning={true}
+		selectedList={getSelectedDrives()}
+		updateSelectedList={getSelectedDrives}
 		{...props}
 	/>
 );
@@ -118,6 +128,18 @@ export const TargetSelector = ({
 		});
 	}, []);
 
+	const statusList = getDriveListStatuses(targets);
+	const hasSystemDrives =
+		targets.filter((target) => target.isSystem).length > 0;
+	const hasLargeDrives = targets.reduce(
+		(acc, target) =>
+			acc ||
+			statusList.filter(
+				(status) => status.message === statuses.large(target.size).message,
+			),
+		false,
+	);
+
 	return (
 		<Flex flexDirection="column" alignItems="center">
 			<DriveSvg
@@ -143,6 +165,30 @@ export const TargetSelector = ({
 				targets={targets}
 				image={image}
 			/>
+
+			{hasSystemDrives ? (
+				<Txt
+					color="#fca321"
+					style={{
+						position: 'absolute',
+						bottom: '25px',
+					}}
+				>
+					Warning: Selecting your system drive is dangerous and will erase your
+					drive!
+				</Txt>
+			) : hasLargeDrives ? (
+				<Txt
+					color="#fca321"
+					style={{
+						position: 'absolute',
+						bottom: '25px',
+					}}
+				>
+					Warning: Large drive selected! Make sure it doesn't contain files that
+					you want to keep.
+				</Txt>
+			) : null}
 
 			{showTargetSelectorModal && (
 				<TargetSelectorModal

@@ -15,11 +15,12 @@
  */
 
 import CircleSvg from '@fortawesome/fontawesome-free/svgs/solid/circle.svg';
-import * as _ from 'lodash';
+import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/exclamation-triangle.svg';
+// @ts-ignore
+import * as isNil from 'lodash/isNil';
 import * as path from 'path';
 import * as React from 'react';
 import { Flex } from 'rendition/dist_esm5/components/Flex';
-import Modal from 'rendition/dist_esm5/components/Modal';
 import Txt from 'rendition/dist_esm5/components/Txt';
 
 import * as constraints from '../../../../shared/drive-constraints';
@@ -36,6 +37,7 @@ import {
 	selectAllTargets,
 	TargetSelectorModal,
 } from '../../components/target-selector/target-selector';
+import { Modal } from '../../styled-components';
 
 import FlashSvg from '../../../assets/flash.svg';
 
@@ -83,8 +85,8 @@ async function flashImageToDrive(
 ): Promise<string> {
 	const devices = selection.getSelectedDevices();
 	const image: any = selection.getImage();
-	const drives = _.filter(availableDrives.getDrives(), (drive: any) => {
-		return _.includes(devices, drive.device);
+	const drives = availableDrives.getDrives().filter((drive: any) => {
+		return devices.includes(drive.device);
 	});
 
 	if (drives.length === 0 || isFlashing) {
@@ -134,7 +136,7 @@ async function flashImageToDrive(
 }
 
 const formatSeconds = (totalSeconds: number) => {
-	if (!totalSeconds && !_.isNumber(totalSeconds)) {
+	if (typeof totalSeconds !== 'number') {
 		return '';
 	}
 	const minutes = Math.floor(totalSeconds / 60);
@@ -201,26 +203,25 @@ export class FlashStep extends React.PureComponent<
 		}
 	}
 
-	private hasListWarnings(drives: any[], image: any) {
+	private hasListWarnings(drives: any[]) {
 		if (drives.length === 0 || flashState.isFlashing()) {
 			return;
 		}
-		return constraints.hasListDriveImageCompatibilityStatus(drives, image);
+		return drives.filter((drive) => drive.isSystem).length > 0;
 	}
 
 	private async tryFlash() {
 		const devices = selection.getSelectedDevices();
 		const image = selection.getImage();
-		const drives = _.filter(
-			availableDrives.getDrives(),
-			(drive: { device: string }) => {
-				return _.includes(devices, drive.device);
-			},
-		);
+		const drives = availableDrives
+			.getDrives()
+			.filter((drive: { device: string }) => {
+				return devices.includes(drive.device);
+			});
 		if (drives.length === 0 || this.props.isFlashing) {
 			return;
 		}
-		const hasDangerStatus = this.hasListWarnings(drives, image);
+		const hasDangerStatus = this.hasListWarnings(drives);
 		if (hasDangerStatus) {
 			this.setState({ warningMessages: getWarningMessages(drives, image) });
 			return;
@@ -256,16 +257,13 @@ export class FlashStep extends React.PureComponent<
 						position={this.props.position}
 						disabled={this.props.shouldFlashStepBeDisabled}
 						cancel={imageWriter.cancel}
-						warning={this.hasListWarnings(
-							selection.getSelectedDrives(),
-							selection.getImage(),
-						)}
+						warning={this.hasListWarnings(selection.getSelectedDrives())}
 						callback={() => {
 							this.tryFlash();
 						}}
 					/>
 
-					{!_.isNil(this.props.speed) &&
+					{!isNil(this.props.speed) &&
 						this.props.percentage !== COMPLETED_PERCENTAGE && (
 							<Flex
 								justifyContent="space-between"
@@ -273,10 +271,8 @@ export class FlashStep extends React.PureComponent<
 								color="#7e8085"
 								width="100%"
 							>
-								{!_.isNil(this.props.speed) && (
-									<Txt>{this.props.speed.toFixed(SPEED_PRECISION)} MB/s</Txt>
-								)}
-								{!_.isNil(this.props.eta) && (
+								<Txt>{this.props.speed.toFixed(SPEED_PRECISION)} MB/s</Txt>
+								{!isNil(this.props.eta) && (
 									<Txt>ETA: {formatSeconds(this.props.eta)}</Txt>
 								)}
 							</Flex>
@@ -293,20 +289,29 @@ export class FlashStep extends React.PureComponent<
 
 				{this.state.warningMessages.length > 0 && (
 					<Modal
-						width={400}
-						titleElement={'Attention'}
-						cancel={() => this.handleWarningResponse(false)}
-						done={() => this.handleWarningResponse(true)}
+						done={() => this.handleWarningResponse(false)}
+						cancel={() => this.handleWarningResponse(true)}
 						cancelButtonProps={{
-							children: 'Change',
+							children: 'Continue',
+							primary: false,
+							outline: true,
 						}}
-						action={'Continue'}
-						primaryButtonProps={{ primary: false, warning: true }}
+						action={'Change'}
+						primaryButtonProps={{
+							primary: false,
+							warning: true,
+						}}
 					>
-						{_.map(this.state.warningMessages, (message, key) => (
-							<Txt key={key} whitespace="pre-line" mt={2}>
-								{message}
-							</Txt>
+						<ExclamationTriangleSvg height="1em" fill="#fca321" />
+						{this.state.warningMessages.map((message, key) => (
+							<>
+								<Txt key={key} whitespace="pre-line" mt={2}>
+									{message}
+								</Txt>
+								{(key as number) !== this.state.warningMessages.length - 1 && (
+									<hr />
+								)}
+							</>
 						))}
 					</Modal>
 				)}
@@ -320,7 +325,7 @@ export class FlashStep extends React.PureComponent<
 						action={'Retry'}
 					>
 						<Txt>
-							{_.map(this.state.errorMessage.split('\n'), (message, key) => (
+							{this.state.errorMessage.split('\n').map((message, key) => (
 								<p key={key}>{message}</p>
 							))}
 						</Txt>

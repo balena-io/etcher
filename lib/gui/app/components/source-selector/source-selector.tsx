@@ -18,7 +18,8 @@ import CopySvg from '@fortawesome/fontawesome-free/svgs/solid/copy.svg';
 import FileSvg from '@fortawesome/fontawesome-free/svgs/solid/file.svg';
 import LinkSvg from '@fortawesome/fontawesome-free/svgs/solid/link.svg';
 import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/exclamation-triangle.svg';
-import { sourceDestination, scanner } from 'etcher-sdk';
+import { Drive as DrivelistDrive } from 'drivelist';
+import { sourceDestination } from 'etcher-sdk';
 import { ipcRenderer, IpcRendererEvent } from 'electron';
 import * as _ from 'lodash';
 import { GPTPartition, MBRPartition } from 'partitioninfo';
@@ -243,7 +244,7 @@ export interface SourceMetadata extends sourceDestination.Metadata {
 	partitions: MBRPartition[] | GPTPartition[];
 	path: string;
 	SourceType: Source;
-	drive?: scanner.adapters.DrivelistDrive;
+	drive?: DrivelistDrive;
 	extension?: string;
 }
 
@@ -322,7 +323,7 @@ export class SourceSelector extends React.Component<
 	}
 
 	private async selectSource(
-		selected: string | scanner.adapters.DrivelistDrive,
+		selected: string | DrivelistDrive,
 		SourceType: Source,
 	) {
 		const sourcePath = isString(selected) ? selected : selected.device;
@@ -503,7 +504,7 @@ export class SourceSelector extends React.Component<
 		image = image.drive ? image.drive : image;
 
 		image.name = image.description || image.name;
-		const imagePath = image.path || '';
+		const imagePath = image.path || image.displayName || '';
 		const imageBasename = path.basename(image.path || '');
 		const imageName = image.name || '';
 		const imageSize = image.size || '';
@@ -658,7 +659,7 @@ export class SourceSelector extends React.Component<
 								showDriveSelector: false,
 							});
 						}}
-						done={async (drives: scanner.adapters.DrivelistDrive[]) => {
+						done={async (drives: DrivelistDrive[]) => {
 							if (!drives.length) {
 								analytics.logEvent('Drive selector closed');
 								this.setState({

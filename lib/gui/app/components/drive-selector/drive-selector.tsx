@@ -16,7 +16,7 @@
 
 import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/exclamation-triangle.svg';
 import ChevronDownSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-down.svg';
-import { scanner, sourceDestination } from 'etcher-sdk';
+import sourceDestination from 'etcher-sdk/build/source-destination/';
 import * as React from 'react';
 import { Flex } from 'rendition/dist_esm5/components/Flex';
 import { ModalProps } from 'rendition/dist_esm5/components/Modal';
@@ -28,23 +28,19 @@ import styled from 'styled-components';
 
 import {
 	getDriveImageCompatibilityStatuses,
-	hasListDriveImageCompatibilityStatus,
 	isDriveValid,
 	DriveStatus,
 	Image,
+	DrivelistDrive,
 } from '../../../../shared/drive-constraints';
 import { compatibility } from '../../../../shared/messages';
 import { bytesToClosestUnit } from '../../../../shared/units';
 import { getDrives, hasAvailableDrives } from '../../models/available-drives';
-import {
-	getImage,
-	getSelectedDrives,
-	isDriveSelected,
-} from '../../models/selection-state';
+import { getImage, isDriveSelected } from '../../models/selection-state';
 import { store } from '../../models/store';
 import { logEvent, logException } from '../../modules/analytics';
 import { open as openExternal } from '../../os/open-external/services/open-external';
-import { Modal, ScrollableFlex } from '../../styled-components';
+import { Alert, Modal, ScrollableFlex } from '../../styled-components';
 
 import DriveSVGIcon from '../../../assets/tgt.svg';
 
@@ -61,7 +57,7 @@ interface DriverlessDrive {
 	linkCTA: string;
 }
 
-type Drive = scanner.adapters.DrivelistDrive | DriverlessDrive | UsbbootDrive;
+type Drive = DrivelistDrive | DriverlessDrive | UsbbootDrive;
 
 function isUsbbootDrive(drive: Drive): drive is UsbbootDrive {
 	return (drive as UsbbootDrive).progress !== undefined;
@@ -71,36 +67,76 @@ function isDriverlessDrive(drive: Drive): drive is DriverlessDrive {
 	return (drive as DriverlessDrive).link !== undefined;
 }
 
-function isDrivelistDrive(
-	drive: Drive,
-): drive is scanner.adapters.DrivelistDrive {
-	return typeof (drive as scanner.adapters.DrivelistDrive).size === 'number';
+function isDrivelistDrive(drive: Drive): drive is DrivelistDrive {
+	return typeof (drive as DrivelistDrive).size === 'number';
 }
 
-const DrivesTable = styled(({ refFn, ...props }) => {
-	return (
-		<div>
-			<Table<Drive> ref={refFn} {...props} />
-		</div>
-	);
-})`
-	[data-display='table-head'] [data-display='table-cell'] {
+const DrivesTable = styled(({ refFn, ...props }) => (
+	<div>
+		<Table<Drive> ref={refFn} {...props} />
+	</div>
+))`
+	[data-display='table-head']
+		> [data-display='table-row']
+		> [data-display='table-cell'] {
 		position: sticky;
 		top: 0;
 		background-color: ${(props) => props.theme.colors.quartenary.light};
+
+		input[type='checkbox'] + div {
+			display: ${({ multipleSelection }) =>
+				multipleSelection ? 'flex' : 'none'};
+		}
+
+		&:first-child {
+			padding-left: 15px;
+		}
+
+		&:nth-child(2) {
+			width: 38%;
+		}
+
+		&:nth-child(3) {
+			width: 15%;
+		}
+
+		&:nth-child(4) {
+			width: 15%;
+		}
+
+		&:nth-child(5) {
+			width: 32%;
+		}
 	}
 
-	[data-display='table-cell']:first-child {
-		padding-left: 15px;
-	}
+	[data-display='table-body'] > [data-display='table-row'] {
+		> [data-display='table-cell']:first-child {
+			padding-left: 15px;
+		}
 
-	[data-display='table-cell']:last-child {
-		width: 150px;
+		> [data-display='table-cell']:last-child {
+			padding-right: 0;
+		}
+
+		&[data-highlight='true'] {
+			&.system {
+				background-color: #fff5e6;
+			}
+
+			> [data-display='table-cell']:first-child {
+				box-shadow: none;
+			}
+		}
 	}
 
 	&& [data-display='table-row'] > [data-display='table-cell'] {
 		padding: 6px 8px;
 		color: #2a506f;
+	}
+
+	input[type='checkbox'] + div {
+		border-radius: ${({ multipleSelection }) =>
+			multipleSelection ? '4px' : '50%'};
 	}
 `;
 
@@ -109,6 +145,7 @@ function badgeShadeFromStatus(status: string) {
 		case compatibility.containsImage():
 			return 16;
 		case compatibility.system():
+		case compatibility.tooSmall():
 			return 5;
 		default:
 			return 14;
@@ -145,18 +182,25 @@ const InitProgress = styled(
 export interface DriveSelectorProps
 	extends Omit<ModalProps, 'done' | 'cancel'> {
 	multipleSelection?: boolean;
+	showSystemWarning?: boolean;
 	cancel: () => void;
-	done: (drives: scanner.adapters.DrivelistDrive[]) => void;
+	done: (drives: DrivelistDrive[]) => void;
 	titleLabel: string;
 	emptyListLabel: string;
+	selectedList?: DrivelistDrive[];
+	updateSelectedList?: () => DrivelistDrive[];
 }
 
 interface DriveSelectorState {
 	drives: Drive[];
 	image: Image;
 	missingDriversModal: { drive?: DriverlessDrive };
-	selectedList: scanner.adapters.DrivelistDrive[];
+	selectedList: DrivelistDrive[];
 	showSystemDrives: boolean;
+}
+
+function isSystemDrive(drive: Drive) {
+	return isDrivelistDrive(drive) && drive.isSystem;
 }
 
 export class DriveSelector extends React.Component<
@@ -171,7 +215,7 @@ export class DriveSelector extends React.Component<
 		super(props);
 
 		const defaultMissingDriversModalState: { drive?: DriverlessDrive } = {};
-		const selectedList = getSelectedDrives();
+		const selectedList = this.props.selectedList || [];
 		const multipleSelection = this.props.multipleSelection;
 		this.multipleSelection =
 			multipleSelection !== undefined
@@ -238,13 +282,16 @@ export class DriveSelector extends React.Component<
 				field: 'description',
 				key: 'extra',
 				// Space as empty string would use the field name as label
-				label: ' ',
+				label: <Txt></Txt>,
 				render: (_description: string, drive: Drive) => {
 					if (isUsbbootDrive(drive)) {
 						return this.renderProgress(drive.progress);
 					} else if (isDrivelistDrive(drive)) {
 						return this.renderStatuses(
-							getDriveImageCompatibilityStatuses(drive, this.state.image),
+							getDriveImageCompatibilityStatuses(drive, this.state.image).slice(
+								0,
+								2,
+							),
 						);
 					}
 				},
@@ -294,7 +341,7 @@ export class DriveSelector extends React.Component<
 				{statuses.map((status) => {
 					const badgeShade = badgeShadeFromStatus(status.message);
 					return (
-						<Badge key={status.message} shade={badgeShade}>
+						<Badge key={status.message} shade={badgeShade} mr="8px">
 							{status.message}
 						</Badge>
 					);
@@ -319,7 +366,9 @@ export class DriveSelector extends React.Component<
 			this.setState({
 				drives,
 				image,
-				selectedList: getSelectedDrives(),
+				selectedList:
+					(this.props.updateSelectedList && this.props.updateSelectedList()) ||
+					[],
 			});
 		});
 	}
@@ -334,15 +383,12 @@ export class DriveSelector extends React.Component<
 
 		const displayedDrives = this.getDisplayedDrives(drives);
 		const disabledDrives = this.getDisabledDrives(drives, image);
-		const numberOfSystemDrives = drives.filter(
-			(drive) => isDrivelistDrive(drive) && drive.isSystem,
-		).length;
-		const numberOfDisplayedSystemDrives = displayedDrives.filter(
-			(drive) => isDrivelistDrive(drive) && drive.isSystem,
-		).length;
+		const numberOfSystemDrives = drives.filter(isSystemDrive).length;
+		const numberOfDisplayedSystemDrives = displayedDrives.filter(isSystemDrive)
+			.length;
 		const numberOfHiddenSystemDrives =
 			numberOfSystemDrives - numberOfDisplayedSystemDrives;
-		const hasStatus = hasListDriveImageCompatibilityStatus(selectedList, image);
+		const hasSystemDrives = selectedList.filter(isSystemDrive).length;
 
 		return (
 			<Modal
@@ -366,12 +412,19 @@ export class DriveSelector extends React.Component<
 				done={() => done(selectedList)}
 				action={`Select (${selectedList.length})`}
 				primaryButtonProps={{
-					primary: !hasStatus,
-					warning: hasStatus,
+					primary: !hasSystemDrives,
+					warning: hasSystemDrives,
 					disabled: !hasAvailableDrives(),
 				}}
 				{...props}
 			>
+				{this.props.showSystemWarning &&
+					selectedList.filter(isSystemDrive).length > 0 && (
+						<Alert style={{ width: '67%' }}>
+							Selecting your system drive is dangerous and will erase your
+							drive!
+						</Alert>
+					)}
 				<Flex width="100%" height="90%">
 					{!hasAvailableDrives() ? (
 						<Flex
@@ -391,9 +444,13 @@ export class DriveSelector extends React.Component<
 										t.setRowSelection(selectedList);
 									}
 								}}
+								multipleSelection={this.multipleSelection}
 								columns={this.tableColumns}
 								data={displayedDrives}
 								disabledRows={disabledDrives}
+								getRowClass={(row: Drive) =>
+									isDrivelistDrive(row) && row.isSystem ? ['system'] : []
+								}
 								rowKey="displayName"
 								onCheck={(rows: Drive[]) => {
 									const newSelection = rows.filter(isDrivelistDrive);
@@ -439,6 +496,7 @@ export class DriveSelector extends React.Component<
 								<Link
 									mt={15}
 									mb={15}
+									fontSize="14px"
 									onClick={() => this.setState({ showSystemDrives: true })}
 								>
 									<Flex alignItems="center">

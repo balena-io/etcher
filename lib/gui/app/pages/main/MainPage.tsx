@@ -17,7 +17,6 @@
 import CogSvg from '@fortawesome/fontawesome-free/svgs/solid/cog.svg';
 import QuestionCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/question-circle.svg';
 
-import * as _ from 'lodash';
 import * as path from 'path';
 import * as React from 'react';
 import { Flex } from 'rendition/dist_esm5/components/Flex';
@@ -264,8 +263,8 @@ export class MainPage extends React.Component<
 									imageLogo={this.state.imageLogo}
 									imageName={this.state.imageName}
 									imageSize={
-										_.isNumber(this.state.imageSize)
-											? (bytesToClosestUnit(this.state.imageSize) as string)
+										typeof this.state.imageSize === 'number'
+											? bytesToClosestUnit(this.state.imageSize)
 											: ''
 									}
 									driveTitle={this.state.driveTitle}

@@ -15,6 +15,7 @@
  */
 
 import { Dictionary } from 'lodash';
+import { bytesToClosestUnit } from './units';
 
 export const progress: Dictionary<(quantity: number) => string> = {
 	successful: (quantity: number) => {
@@ -56,8 +57,8 @@ export const compatibility = {
 		return 'Not Recommended';
 	},
 
-	tooSmall: (additionalSpace: string) => {
-		return `Insufficient space, additional ${additionalSpace} required`;
+	tooSmall: () => {
+		return 'Too small';
 	},
 
 	locked: () => {
@@ -73,8 +74,11 @@ export const compatibility = {
 	},
 
 	// The drive is large and therefore likely not a medium you want to write to.
-	largeDrive: () => {
-		return 'Large drive';
+	largeDrive: (size: number | null) => {
+		if (size) {
+			return bytesToClosestUnit(size);
+		}
+		return '';
 	},
 } as const;
 
