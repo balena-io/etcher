@@ -229,6 +229,7 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 
 		const destinations = options.destinations.map((d) => d.device);
 		const imagePath = options.image.path;
+		log(`Image: ${imagePath}`);
 		log(`Devices: ${destinations.join(', ')}`);
 		log(`Umount on success: ${options.unmountOnSuccess}`);
 		log(`Validate on success: ${options.validateWriteOnSuccess}`);
@@ -248,7 +249,6 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 			if (options.image.drive) {
 				source = new BlockDevice({
 					drive: options.image.drive,
-					write: false,
 					direct: !options.autoBlockmapping,
 				});
 			} else {

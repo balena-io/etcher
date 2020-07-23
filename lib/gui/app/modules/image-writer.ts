@@ -134,7 +134,7 @@ interface FlashResults {
 	cancelled?: boolean;
 }
 
-export async function performWrite(
+async function performWrite(
 	image: SourceMetadata,
 	drives: DrivelistDrive[],
 	onProgress: sdk.multiWrite.OnProgressFunction,

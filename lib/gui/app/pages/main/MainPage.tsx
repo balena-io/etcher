@@ -17,7 +17,6 @@
 import CogSvg from '@fortawesome/fontawesome-free/svgs/solid/cog.svg';
 import QuestionCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/question-circle.svg';
 
-import * as _ from 'lodash';
 import * as path from 'path';
 import * as React from 'react';
 import { Flex } from 'rendition';
@@ -27,7 +26,10 @@ import FinishPage from '../../components/finish/finish';
 import { ReducedFlashingInfos } from '../../components/reduced-flashing-infos/reduced-flashing-infos';
 import { SafeWebview } from '../../components/safe-webview/safe-webview';
 import { SettingsModal } from '../../components/settings/settings';
-import { SourceSelector } from '../../components/source-selector/source-selector';
+import {
+	SourceMetadata,
+	SourceSelector,
+} from '../../components/source-selector/source-selector';
 import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
 import * as settings from '../../models/settings';
@@ -66,12 +68,11 @@ function getDrivesTitle() {
 	return `${drives.length} Targets`;
 }
 
-function getImageBasename() {
-	if (!selectionState.hasImage()) {
+function getImageBasename(image?: SourceMetadata) {
+	if (image === undefined) {
 		return '';
 	}
 
-	const image = selectionState.getImage();
 	if (image.drive) {
 		return image.drive.description;
 	}
@@ -138,7 +139,7 @@ export class MainPage extends React.Component<
 			hasDrive: selectionState.hasDrive(),
 			imageLogo: selectionState.getImageLogo(),
 			imageSize: selectionState.getImageSize(),
-			imageName: getImageBasename(),
+			imageName: getImageBasename(selectionState.getImage()),
 			driveTitle: getDrivesTitle(),
 			driveLabel: getDriveListLabel(),
 		};
@@ -271,8 +272,8 @@ export class MainPage extends React.Component<
 								imageLogo={this.state.imageLogo}
 								imageName={this.state.imageName}
 								imageSize={
-									_.isNumber(this.state.imageSize)
-										? (bytesToClosestUnit(this.state.imageSize) as string)
+									typeof this.state.imageSize === 'number'
+										? (prettyBytes(this.state.imageSize) as string)
 										: ''
 								}
 								driveTitle={this.state.driveTitle}

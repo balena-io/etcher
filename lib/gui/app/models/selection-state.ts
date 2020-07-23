@@ -15,6 +15,7 @@
  */
 
 import * as _ from 'lodash';
+import { SourceMetadata } from '../components/source-selector/source-selector';
 
 import * as availableDrives from './available-drives';
 import { Actions, store } from './store';
@@ -67,7 +68,7 @@ export function getSelectedDrives(): any[] {
 /**
  * @summary Get the selected image
  */
-export function getImage() {
+export function getImage(): SourceMetadata {
 	return _.get(store.getState().toJS(), ['selection', 'image']);
 }
 
@@ -114,7 +115,7 @@ export function hasDrive(): boolean {
  * @summary Check if there is a selected image
  */
 export function hasImage(): boolean {
-	return Boolean(getImage());
+	return !_.isEmpty(getImage());
 }
 
 /**
