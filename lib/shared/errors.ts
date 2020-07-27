@@ -17,11 +17,11 @@
 import * as _ from 'lodash';
 
 function createErrorDetails(options: {
-	title: string | ((error: Error) => string);
-	description: string | ((error: Error) => string);
+	title: string | ((error: Error & { path: string }) => string);
+	description: string;
 }): {
-	title: (error: Error) => string;
-	description: (error: Error) => string;
+	title: (error: Error & { path: string }) => string;
+	description: (error: Error & { path: string }) => string;
 } {
 	return _.pick(
 		_.mapValues(options, (value) => {

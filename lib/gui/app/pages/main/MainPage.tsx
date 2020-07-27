@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-import { faCog, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import CogSvg from '@fortawesome/fontawesome-free/svgs/solid/cog.svg';
+import QuestionCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/question-circle.svg';
+
 import { sourceDestination } from 'etcher-sdk';
 import * as _ from 'lodash';
 import * as path from 'path';
 import * as React from 'react';
-import { Flex } from 'rendition';
+import { Flex } from 'rendition/dist_esm5/components/Flex';
 import styled from 'styled-components';
 
 import { FeaturedProject } from '../../components/featured-project/featured-project';
@@ -193,14 +194,14 @@ export class MainPage extends React.Component<
 						}}
 					>
 						<Icon
-							icon={<FontAwesomeIcon icon={faCog} />}
+							icon={<CogSvg height="1em" fill="currentColor" />}
 							plain
 							tabIndex={5}
 							onClick={() => this.setState({ hideSettings: false })}
 						/>
 						{!settings.getSync('disableExternalLinks') && (
 							<Icon
-								icon={<FontAwesomeIcon icon={faQuestionCircle} />}
+								icon={<QuestionCircleSvg height="1em" fill="currentColor" />}
 								onClick={() =>
 									openExternal(
 										selectionState.getImageSupportUrl() ||

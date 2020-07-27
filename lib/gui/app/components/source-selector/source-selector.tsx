@@ -14,26 +14,21 @@
  * limitations under the License.
  */
 
-import {
-	faFile,
-	faLink,
-	faExclamationTriangle,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import FileSvg from '@fortawesome/fontawesome-free/svgs/solid/file.svg';
+import LinkSvg from '@fortawesome/fontawesome-free/svgs/solid/link.svg';
+import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/exclamation-triangle.svg';
 import { sourceDestination } from 'etcher-sdk';
 import { ipcRenderer, IpcRendererEvent } from 'electron';
 import * as _ from 'lodash';
 import { GPTPartition, MBRPartition } from 'partitioninfo';
 import * as path from 'path';
 import * as React from 'react';
-import {
-	ButtonProps,
-	Card as BaseCard,
-	Input,
-	Modal as SmallModal,
-	Txt,
-	Flex,
-} from 'rendition';
+import { Flex } from 'rendition/dist_esm5/components/Flex';
+import { ButtonProps } from 'rendition/dist_esm5/components/Button';
+import SmallModal from 'rendition/dist_esm5/components/Modal';
+import Txt from 'rendition/dist_esm5/components/Txt';
+import BaseCard from 'rendition/dist_esm5/components/Card';
+import Input from 'rendition/dist_esm5/components/Input';
 import styled from 'styled-components';
 
 import * as errors from '../../../../shared/errors';
@@ -127,10 +122,7 @@ const URLSelector = ({
 	cancel: () => void;
 }) => {
 	const [imageURL, setImageURL] = React.useState('');
-	const [recentImages, setRecentImages]: [
-		URL[],
-		(value: React.SetStateAction<URL[]>) => void,
-	] = React.useState([]);
+	const [recentImages, setRecentImages] = React.useState<URL[]>([]);
 	const [loading, setLoading] = React.useState(false);
 	React.useEffect(() => {
 		const fetchRecentUrlImages = async () => {
@@ -254,7 +246,7 @@ export class SourceSelector extends React.Component<
 	SourceSelectorProps,
 	SourceSelectorState
 > {
-	private unsubscribe: () => void;
+	private unsubscribe: (() => void) | undefined;
 	private afterSelected: SourceSelectorProps['afterSelected'];
 
 	constructor(props: SourceSelectorProps) {
@@ -284,7 +276,7 @@ export class SourceSelector extends React.Component<
 	}
 
 	public componentWillUnmount() {
-		this.unsubscribe();
+		this.unsubscribe?.();
 		ipcRenderer.removeListener('select-image', this.onSelectImage);
 	}
 
@@ -531,7 +523,7 @@ export class SourceSelector extends React.Component<
 								flow={{
 									onClick: this.openImageSelector,
 									label: 'Flash from file',
-									icon: <FontAwesomeIcon icon={faFile} />,
+									icon: <FileSvg height="1em" fill="currentColor" />,
 								}}
 							/>
 							<FlowSelector
@@ -539,7 +531,7 @@ export class SourceSelector extends React.Component<
 								flow={{
 									onClick: this.openURLSelector,
 									label: 'Flash from URL',
-									icon: <FontAwesomeIcon icon={faLink} />,
+									icon: <LinkSvg height="1em" fill="currentColor" />,
 								}}
 							/>
 						</>
@@ -550,10 +542,7 @@ export class SourceSelector extends React.Component<
 					<SmallModal
 						titleElement={
 							<span>
-								<FontAwesomeIcon
-									style={{ color: '#fca321' }}
-									icon={faExclamationTriangle}
-								/>{' '}
+								<ExclamationTriangleSvg fill="#fca321" height="1em" />{' '}
 								<span>{this.state.warning.title}</span>
 							</span>
 						}

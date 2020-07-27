@@ -14,22 +14,16 @@
  * limitations under the License.
  */
 
-import {
-	faChevronDown,
-	faExclamationTriangle,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/exclamation-triangle.svg';
+import ChevronDownSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-down.svg';
 import { scanner, sourceDestination } from 'etcher-sdk';
 import * as React from 'react';
-import {
-	Badge,
-	Table,
-	Txt,
-	Flex,
-	Link,
-	TableColumn,
-	ModalProps,
-} from 'rendition';
+import { Flex } from 'rendition/dist_esm5/components/Flex';
+import { ModalProps } from 'rendition/dist_esm5/components/Modal';
+import Txt from 'rendition/dist_esm5/components/Txt';
+import Badge from 'rendition/dist_esm5/components/Badge';
+import Link from 'rendition/dist_esm5/components/Link';
+import Table, { TableColumn } from 'rendition/dist_esm5/components/Table';
 import styled from 'styled-components';
 
 import {
@@ -164,7 +158,7 @@ export class TargetSelectorModal extends React.Component<
 	TargetSelectorModalProps,
 	TargetSelectorModalState
 > {
-	unsubscribe: () => void;
+	private unsubscribe: (() => void) | undefined;
 	tableColumns: Array<TableColumn<Target>>;
 
 	constructor(props: TargetSelectorModalProps) {
@@ -188,10 +182,7 @@ export class TargetSelectorModal extends React.Component<
 				render: (description: string, drive: Target) => {
 					return isDrivelistDrive(drive) && drive.isSystem ? (
 						<Flex alignItems="center">
-							<FontAwesomeIcon
-								style={{ color: '#fca321' }}
-								icon={faExclamationTriangle}
-							/>
+							<ExclamationTriangleSvg height="1em" fill="#fca321" />
 							<Txt ml={8}>{description}</Txt>
 						</Flex>
 					) : (
@@ -323,7 +314,7 @@ export class TargetSelectorModal extends React.Component<
 	}
 
 	componentWillUnmount() {
-		this.unsubscribe();
+		this.unsubscribe?.();
 	}
 
 	render() {
@@ -427,7 +418,7 @@ export class TargetSelectorModal extends React.Component<
 									onClick={() => this.setState({ showSystemDrives: true })}
 								>
 									<Flex alignItems="center">
-										<FontAwesomeIcon icon={faChevronDown} />
+										<ChevronDownSvg height="1em" fill="currentColor" />
 										<Txt ml={8}>Show {numberOfHiddenSystemDrives} hidden</Txt>
 									</Flex>
 								</Link>

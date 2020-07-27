@@ -25,7 +25,7 @@ import { promisify } from 'util';
 
 import { sudo as catalinaSudo } from './catalina-sudo/sudo';
 import * as errors from './errors';
-import { tmpFileDisposer } from './utils';
+import { tmpFileDisposer } from './tmp';
 
 const execAsync = promisify(childProcess.exec);
 const execFileAsync = promisify(childProcess.execFile);

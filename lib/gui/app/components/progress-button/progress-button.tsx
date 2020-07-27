@@ -15,7 +15,10 @@
  */
 
 import * as React from 'react';
-import { Button, Flex, ProgressBar, Txt } from 'rendition';
+import { Flex } from 'rendition/dist_esm5/components/Flex';
+import Button from 'rendition/dist_esm5/components/Button';
+import ProgressBar from 'rendition/dist_esm5/components/ProgressBar';
+import Txt from 'rendition/dist_esm5/components/Txt';
 import { default as styled } from 'styled-components';
 
 import { fromFlashState } from '../../modules/progress-status';

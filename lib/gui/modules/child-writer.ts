@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-import { delay } from 'bluebird';
 import { Drive as DrivelistDrive } from 'drivelist';
 import * as sdk from 'etcher-sdk';
 import { cleanupTmpFiles } from 'etcher-sdk/build/tmp';
 import * as _ from 'lodash';
 import * as ipc from 'node-ipc';
 
-import { File, Http } from 'etcher-sdk/build/source-destination';
 import { toJSON } from '../../shared/errors';
 import { GENERAL_ERROR, SUCCESS } from '../../shared/exit-codes';
+import { delay } from '../../shared/utils';
 import { SourceOptions } from '../app/components/source-selector/source-selector';
 
 ipc.config.id = process.env.IPC_CLIENT_ID as string;
@@ -213,7 +212,7 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 		 * writer.on('fail', onFail)
 		 */
 		const onFail = (
-			destination: sdk.sourceDestination.BlockDevice,
+			destination: sdk.sourceDestination.SourceDestination,
 			error: Error,
 		) => {
 			ipc.of[IPC_SERVER_ID].emit('fail', {
@@ -241,12 +240,15 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 		});
 		const { SourceType } = options;
 		let source;
-		if (SourceType === File.name) {
-			source = new File({
+		if (SourceType === sdk.sourceDestination.File.name) {
+			source = new sdk.sourceDestination.File({
 				path: options.imagePath,
 			});
 		} else {
-			source = new Http({ url: options.imagePath, avoidRandomAccess: true });
+			source = new sdk.sourceDestination.Http({
+				url: options.imagePath,
+				avoidRandomAccess: true,
+			});
 		}
 		try {
 			const results = await writeAndValidate({

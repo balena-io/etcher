@@ -288,15 +288,32 @@ const guiConfig = {
 	],
 };
 
-const etcherConfig = {
+const mainConfig = {
 	...commonConfig,
 	target: 'electron-main',
 	node: {
 		__dirname: false,
 		__filename: true,
 	},
+};
+
+const etcherConfig = {
+	...mainConfig,
 	entry: {
-		etcher: path.join(__dirname, 'lib', 'start.ts'),
+		etcher: path.join(__dirname, 'lib', 'gui', 'etcher.ts'),
+	},
+};
+
+const childWriterConfig = {
+	...mainConfig,
+	entry: {
+		'child-writer': path.join(
+			__dirname,
+			'lib',
+			'gui',
+			'modules',
+			'child-writer.ts',
+		),
 	},
 };
 
@@ -337,4 +354,4 @@ const cssConfig = {
 	},
 };
 
-module.exports = [cssConfig, guiConfig, etcherConfig];
+module.exports = [cssConfig, guiConfig, etcherConfig, childWriterConfig];
