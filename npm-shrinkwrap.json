@@ -4654,6 +4654,19 @@
       "integrity": "sha1-ibTRmasr7kneFk6gK4nORi1xt2c=",
       "dev": true
     },
+    "balena-image-fs": {
+      "version": "7.0.0",
+      "resolved": "https://registry.npmjs.org/balena-image-fs/-/balena-image-fs-7.0.0.tgz",
+      "integrity": "sha512-qsDbqEof8VFp5Xg2WeajgWuXFYup/IywO8RFqM4qcC0A4KTMrE8owGZpD3eyOCqpxVu1EFpbXQR5qqGWtKT8Kg==",
+      "dev": true,
+      "requires": {
+        "ext2fs": "^2.0.0",
+        "fatfs": "^0.10.7",
+        "file-disk": "^8.0.0",
+        "partitioninfo": "^6.0.1",
+        "typed-error": "^3.2.0"
+      }
+    },
     "base": {
       "version": "0.11.2",
       "resolved": "https://registry.npmjs.org/base/-/base-0.11.2.tgz",
@@ -8360,29 +8373,28 @@
       "dev": true
     },
     "etcher-sdk": {
-      "version": "4.1.19",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.1.19.tgz",
-      "integrity": "sha512-3O24ZDDZ7ykiF40Ygw/hJRZMTMiNDwCsylotrHOJFMu9khZPoj8MMhO9DIJDS1Muym4AAp0t8OtMWuqLN0N6XA==",
+      "version": "4.1.20",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.1.20.tgz",
+      "integrity": "sha512-cVjAifAKKYDc9SNMICnK4YWXHz3uGlwKgYOkRykPATxkwhVYfaW6wlhV2DFqbfkps+l4si7iC82Tz1RaV0VjHA==",
       "dev": true,
       "requires": {
         "@balena/udif": "^1.0.3",
         "@ronomon/direct-io": "^3.0.1",
         "axios": "^0.19.2",
+        "balena-image-fs": "^7.0.0-remove-bluebird-9150c6c0fee21e33beef0ddaeea56ad1ce175c96",
         "blockmap": "^4.0.1",
-        "bluebird": "^3.5.1",
         "check-disk-space": "^2.1.0",
         "crc": "^3.8.0",
         "debug": "^3.1.0",
         "drivelist": "^9.0.0",
-        "file-disk": "^7.0.1",
+        "file-disk": "^8.0.0",
         "file-type": "^8.0.0",
-        "lodash": "^4.17.10",
+        "lodash": "^4.17.19",
         "lzma-native": "^6.0.0",
         "mountutils": "^1.3.18",
-        "node-raspberrypi-usbboot": "^0.2.4",
+        "node-raspberrypi-usbboot": "^0.2.9",
         "outdent": "^0.7.0",
-        "partitioninfo": "^6.0.0",
-        "resin-image-fs": "^6.0.0",
+        "partitioninfo": "^6.0.1",
         "rwmutex": "^1.0.0",
         "tslib": "^2.0.0",
         "unbzip2-stream": "github:balena-io-modules/unbzip2-stream#4a54f56a25b58950f9e4277c56db2912d62242e7",
@@ -8399,6 +8411,12 @@
           "requires": {
             "ms": "^2.1.1"
           }
+        },
+        "lodash": {
+          "version": "4.17.19",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.19.tgz",
+          "integrity": "sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==",
+          "dev": true
         }
       }
     },
@@ -8522,14 +8540,13 @@
       }
     },
     "ext2fs": {
-      "version": "1.0.31",
-      "resolved": "https://registry.npmjs.org/ext2fs/-/ext2fs-1.0.31.tgz",
-      "integrity": "sha512-bfaggH7juFJNxXoY2nPShr8CSFbijKRsPYOwmSSms88I5n1X7+qsVqnMLLiq6VMI9MxHIFvqGfB+cwum0U1uPQ==",
+      "version": "2.0.0",
+      "resolved": "https://registry.npmjs.org/ext2fs/-/ext2fs-2.0.0.tgz",
+      "integrity": "sha512-TqV2PgPU1Rvcf8u/U14hcqBz8sz2E3qsrzenQr/HHmpqAznbAsN3Ht2252qNuk/984zAgECoNeWR5uWeq25pMQ==",
       "dev": true,
       "requires": {
         "async": "^2.6.1",
         "bindings": "^1.3.0",
-        "bluebird": "^3.5.3",
         "nan": "^2.14.0",
         "prebuild-install": "^5.2.1"
       }
@@ -8792,12 +8809,11 @@
       }
     },
     "file-disk": {
-      "version": "7.0.1",
-      "resolved": "https://registry.npmjs.org/file-disk/-/file-disk-7.0.1.tgz",
-      "integrity": "sha512-uTW9b0uLgu80+5K5FkefrrWHkk6klvF7oPRPC/yNnwkdqLeVY8af91bduU84o86RnZo5HJ2Cgg5HN10qGqld4A==",
+      "version": "8.0.0",
+      "resolved": "https://registry.npmjs.org/file-disk/-/file-disk-8.0.0.tgz",
+      "integrity": "sha512-8A6YSCfrlA1ytsHWK22urpcmCgqd3v0qmVg7bdVcGl7nfDvUWbURNM8hB469DWdu/rTYcrxbx6y776fIRcchig==",
       "dev": true,
       "requires": {
-        "bluebird": "^3.7.2",
         "tslib": "^2.0.0"
       }
     },
@@ -12593,13 +12609,12 @@
       }
     },
     "node-raspberrypi-usbboot": {
-      "version": "0.2.8",
-      "resolved": "https://registry.npmjs.org/node-raspberrypi-usbboot/-/node-raspberrypi-usbboot-0.2.8.tgz",
-      "integrity": "sha512-nomRESo0MDJG9w4M1NypM4QM8GFB06nWW4p8/7vZrTVfjTXvhN/MqtbfeJJmigaGuOzcl4Xhrb2blrcPTbXihA==",
+      "version": "0.2.9",
+      "resolved": "https://registry.npmjs.org/node-raspberrypi-usbboot/-/node-raspberrypi-usbboot-0.2.9.tgz",
+      "integrity": "sha512-2HJbtb+yfmKjzVTCAfoIg0/Ur3kAqVNdQGx0U/hnOcgpZ22SXzSmsvr69NgRa4QqdCboXPfKS8mJgefBtXYNbg==",
       "dev": true,
       "requires": {
         "@balena.io/usb": "^1.3.12",
-        "bluebird": "^3.7.2",
         "debug": "^4.1.1"
       }
     },
@@ -13205,13 +13220,12 @@
       "dev": true
     },
     "partitioninfo": {
-      "version": "6.0.0",
-      "resolved": "https://registry.npmjs.org/partitioninfo/-/partitioninfo-6.0.0.tgz",
-      "integrity": "sha512-HkblFEmbLIkTRZQwFxKKvpaluSgofogfj6cTztrbt6+j/h33kwX3YjemWZbN4syCATD+B8fX3YQtdY8fXy0Vaw==",
+      "version": "6.0.1",
+      "resolved": "https://registry.npmjs.org/partitioninfo/-/partitioninfo-6.0.1.tgz",
+      "integrity": "sha512-hmLiVz5G6GPzd1TsAuHTHDoSrKqb7cNr2zhJ+fwMhCg2pRoz7vftaP9kL47pMwusO0jWUwkw62oKfHfv0Wa5+A==",
       "dev": true,
       "requires": {
-        "bluebird": "^3.7.2",
-        "file-disk": "^7.0.1",
+        "file-disk": "^8.0.0",
         "gpt": "^2.0.4",
         "mbr": "^1.1.3",
         "tslib": "^2.0.0",
@@ -14200,17 +14214,6 @@
       "integrity": "sha1-jcrkcOHIirwtYA//Sndihtp15jc=",
       "dev": true
     },
-    "replacestream": {
-      "version": "4.0.3",
-      "resolved": "https://registry.npmjs.org/replacestream/-/replacestream-4.0.3.tgz",
-      "integrity": "sha512-AC0FiLS352pBBiZhd4VXB1Ab/lh0lEgpP+GGvZqbQh8a5cmXVoTe5EX/YeTFArnp4SRGTHh1qCHu9lGs1qG8sA==",
-      "dev": true,
-      "requires": {
-        "escape-string-regexp": "^1.0.3",
-        "object-assign": "^4.0.1",
-        "readable-stream": "^2.0.2"
-      }
-    },
     "request": {
       "version": "2.88.2",
       "resolved": "https://registry.npmjs.org/request/-/request-2.88.2.tgz",
@@ -14283,21 +14286,6 @@
         "os-locale": "^2.0.0",
         "raven": "^2.2.1",
         "raven-js": "^3.19.1"
-      }
-    },
-    "resin-image-fs": {
-      "version": "6.0.0",
-      "resolved": "https://registry.npmjs.org/resin-image-fs/-/resin-image-fs-6.0.0.tgz",
-      "integrity": "sha512-Vh1wQvvujnqkoRNWfYah1C6ZY6fMKqQwdA11GEaw4BKpf3Vio3I2nCqLPiCV6QfmEvoBH6AVY1+GlAUeq6bY/A==",
-      "dev": true,
-      "requires": {
-        "bluebird": "^3.5.1",
-        "ext2fs": "^1.0.28",
-        "fatfs": "^0.10.6",
-        "file-disk": "^7.0.1",
-        "lodash": "^4.17.5",
-        "partitioninfo": "^6.0.0",
-        "replacestream": "^4.0.0"
       }
     },
     "resolve": {
