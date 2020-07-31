@@ -154,16 +154,24 @@ const commonConfig = {
 					replace: 'bindings',
 				},
 			),
-			// remove node-pre-gyp magic from lzma-native
-			replace(/node_modules\/lzma-native\/index\.js$/, {
-				search: 'require(binding_path)',
-				replace: () => {
-					return `require('./${path.posix.join(
-						LZMA_BINDINGS_FOLDER,
-						'lzma_native.node',
-					)}')`;
+			replace(
+				/node_modules\/lzma-native\/index\.js$/,
+				// remove node-pre-gyp magic from lzma-native
+				{
+					search: 'require(binding_path)',
+					replace: () => {
+						return `require('./${path.posix.join(
+							LZMA_BINDINGS_FOLDER,
+							'lzma_native.node',
+						)}')`;
+					},
 				},
-			}),
+				// use regular stream module instead of readable-stream
+				{
+					search: "var stream = require('readable-stream');",
+					replace: "var stream = require('stream');",
+				},
+			),
 			// remove node-pre-gyp magic from usb
 			replace(/node_modules\/@balena.io\/usb\/usb\.js$/, {
 				search: 'require(binding_path)',
