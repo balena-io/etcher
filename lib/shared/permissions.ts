@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import * as Bluebird from 'bluebird';
 import * as childProcess from 'child_process';
 import { promises as fs } from 'fs';
 import * as _ from 'lodash';
@@ -25,14 +24,29 @@ import { promisify } from 'util';
 
 import { sudo as catalinaSudo } from './catalina-sudo/sudo';
 import * as errors from './errors';
-import { tmpFileDisposer } from './tmp';
+import { withTmpFile } from './tmp';
 
 const execAsync = promisify(childProcess.exec);
 const execFileAsync = promisify(childProcess.execFile);
-// sudo-prompt's exec callback is function(error, stdout, stderr) so we need multiArgs
-const sudoExecAsync = Bluebird.promisify(sudoPrompt.exec, {
-	multiArgs: true,
-}) as (cmd: string, options: any) => Bluebird<[string, string]>;
+
+function sudoExecAsync(
+	cmd: string,
+	options: { name: string },
+): Promise<{ stdout: string; stderr: string }> {
+	return new Promise((resolve, reject) => {
+		sudoPrompt.exec(
+			cmd,
+			options,
+			(error: Error | null, stdout: string, stderr: string) => {
+				if (error != null) {
+					reject(error);
+				} else {
+					resolve({ stdout, stderr });
+				}
+			},
+		);
+	});
+}
 
 /**
  * @summary The user id of the UNIX "superuser"
@@ -161,12 +175,12 @@ export async function elevateCommand(
 		command.slice(1),
 		options.environment,
 	);
-	return Bluebird.using(
-		tmpFileDisposer({
+	return await withTmpFile(
+		{
 			prefix: 'balena-etcher-electron-',
 			postfix: '.cmd',
-		}),
-		async ({ path }) => {
+		},
+		async (path) => {
 			await fs.writeFile(path, launchScript);
 			if (isWindows) {
 				return elevateScriptWindows(path);

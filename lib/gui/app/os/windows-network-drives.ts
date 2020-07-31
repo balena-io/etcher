@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { using } from 'bluebird';
 import { exec } from 'child_process';
 import { readFile } from 'fs';
 import { chain, trim } from 'lodash';
@@ -23,7 +22,7 @@ import { join } from 'path';
 import { env } from 'process';
 import { promisify } from 'util';
 
-import { tmpFileDisposer } from '../../../shared/tmp';
+import { withTmpFile } from '../../../shared/tmp';
 
 const readFileAsync = promisify(readFile);
 
@@ -47,7 +46,7 @@ export async function getWmicNetworkDrivesOutput(): Promise<string> {
 		// Wmic fails with "Invalid global switch" when the "/output:" switch filename contains a dash ("-")
 		prefix: 'tmp',
 	};
-	return using(tmpFileDisposer(options), async ({ path }) => {
+	return withTmpFile(options, async (path) => {
 		const command = [
 			join(env.SystemRoot as string, 'System32', 'Wbem', 'wmic'),
 			'path',

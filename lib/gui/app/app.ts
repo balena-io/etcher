@@ -43,10 +43,8 @@ window.addEventListener(
 	'unhandledrejection',
 	(event: PromiseRejectionEvent | any) => {
 		// Promise: event.reason
-		// Bluebird: event.detail.reason
 		// Anything else: event
-		const error =
-			event.reason || (event.detail && event.detail.reason) || event;
+		const error = event.reason || event;
 		analytics.logException(error);
 		event.preventDefault();
 	},

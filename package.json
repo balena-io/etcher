@@ -64,7 +64,6 @@
     "@types/terser-webpack-plugin": "^3.0.0",
     "@types/tmp": "^0.2.0",
     "@types/webpack-node-externals": "^1.7.0",
-    "bluebird": "^3.7.2",
     "chai": "^4.2.0",
     "copy-webpack-plugin": "^6.0.1",
     "css-loader": "^3.5.3",
