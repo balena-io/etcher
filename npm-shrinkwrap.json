@@ -7019,9 +7019,9 @@
       "dev": true
     },
     "etcher-sdk": {
-      "version": "4.1.21",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.1.21.tgz",
-      "integrity": "sha512-jQzKZxYkUA9+rsmelr6U1d2pBwiRw6AGM//a8EnqL1Aorq44xq2BZ59BomDwofzMJ5RCGEJjgOmi7/w+eUVVvg==",
+      "version": "4.1.22",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.1.22.tgz",
+      "integrity": "sha512-Uwq5HdMYqS6Yox0//CiR2Cx2VQ31RMdTa+hJVvFy9a3hP6RAqAMfyRPRtykdhVspgafFqChQkYayC95K3sPTTw==",
       "dev": true,
       "requires": {
         "@balena/udif": "^1.0.3",
@@ -7030,7 +7030,7 @@
         "balena-image-fs": "^7.0.0-remove-bluebird-9150c6c0fee21e33beef0ddaeea56ad1ce175c96",
         "blockmap": "^4.0.1",
         "check-disk-space": "^2.1.0",
-        "crc": "^3.8.0",
+        "cyclic-32": "^1.1.0",
         "debug": "^3.1.0",
         "drivelist": "^9.0.0",
         "file-disk": "^8.0.0",
