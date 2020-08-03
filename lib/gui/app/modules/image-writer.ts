@@ -244,7 +244,6 @@ export async function performWrite(
 						title: 'The writer process ended unexpectedly',
 						description:
 							'Please try again, and contact the Etcher team if the problem persists',
-						code: 'ECHILDDIED',
 					}),
 				);
 				return;

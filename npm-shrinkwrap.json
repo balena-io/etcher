@@ -7019,9 +7019,9 @@
       "dev": true
     },
     "etcher-sdk": {
-      "version": "4.1.20",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.1.20.tgz",
-      "integrity": "sha512-cVjAifAKKYDc9SNMICnK4YWXHz3uGlwKgYOkRykPATxkwhVYfaW6wlhV2DFqbfkps+l4si7iC82Tz1RaV0VjHA==",
+      "version": "4.1.21",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.1.21.tgz",
+      "integrity": "sha512-jQzKZxYkUA9+rsmelr6U1d2pBwiRw6AGM//a8EnqL1Aorq44xq2BZ59BomDwofzMJ5RCGEJjgOmi7/w+eUVVvg==",
       "dev": true,
       "requires": {
         "@balena/udif": "^1.0.3",
@@ -7035,7 +7035,6 @@
         "drivelist": "^9.0.0",
         "file-disk": "^8.0.0",
         "file-type": "^8.0.0",
-        "lodash": "^4.17.19",
         "lzma-native": "^6.0.0",
         "mountutils": "^1.3.18",
         "node-raspberrypi-usbboot": "^0.2.9",

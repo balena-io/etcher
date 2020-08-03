@@ -17,7 +17,6 @@
 import { Drive as DrivelistDrive } from 'drivelist';
 import * as sdk from 'etcher-sdk';
 import { cleanupTmpFiles } from 'etcher-sdk/build/tmp';
-import * as _ from 'lodash';
 import * as ipc from 'node-ipc';
 
 import { toJSON } from '../../shared/errors';
@@ -223,14 +222,14 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 			});
 		};
 
-		const destinations = _.map(options.destinations, 'device');
+		const destinations = options.destinations.map((d) => d.device);
 		log(`Image: ${options.imagePath}`);
 		log(`Devices: ${destinations.join(', ')}`);
 		log(`Umount on success: ${options.unmountOnSuccess}`);
 		log(`Validate on success: ${options.validateWriteOnSuccess}`);
 		log(`Auto blockmapping: ${options.autoBlockmapping}`);
 		log(`Decompress first: ${options.decompressFirst}`);
-		const dests = _.map(options.destinations, (destination) => {
+		const dests = options.destinations.map((destination) => {
 			return new sdk.sourceDestination.BlockDevice({
 				drive: destination,
 				unmountOnSuccess: options.unmountOnSuccess,
@@ -261,7 +260,7 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 				onFail,
 			});
 			log(`Finish: ${results.bytesWritten}`);
-			results.errors = _.map(results.errors, (error) => {
+			results.errors = results.errors.map((error) => {
 				return toJSON(error);
 			});
 			ipc.of[IPC_SERVER_ID].emit('done', { results });
