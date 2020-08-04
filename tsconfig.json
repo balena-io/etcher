@@ -4,15 +4,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "resolveJsonModule": true,
-    "module": "commonjs",
-    "target": "es2019",
     "jsx": "react",
-    "typeRoots": ["./node_modules/@types", "./typings"],
-    "importHelpers": true,
-    "allowSyntheticDefaultImports": true
-  },
-  "include": [
-    "lib/**/*.ts",
-    "node_modules/electron/**/*.d.ts"
-  ]
+    "typeRoots": ["./node_modules/@types", "./typings"]
+  }
 }

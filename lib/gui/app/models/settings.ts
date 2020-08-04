@@ -86,8 +86,7 @@ const settings = _.cloneDeep(DEFAULT_SETTINGS);
 
 async function load(): Promise<void> {
 	debug('load');
-	// Use exports.readAll() so it can be mocked in tests
-	const loadedSettings = await exports.readAll();
+	const loadedSettings = await readAll();
 	_.assign(settings, loadedSettings);
 }
 

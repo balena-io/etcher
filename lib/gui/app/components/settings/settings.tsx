@@ -18,9 +18,7 @@ import GithubSvg from '@fortawesome/fontawesome-free/svgs/brands/github.svg';
 import * as _ from 'lodash';
 import * as os from 'os';
 import * as React from 'react';
-import { Flex } from 'rendition/dist_esm5/components/Flex';
-import Checkbox from 'rendition/dist_esm5/components/Checkbox';
-import Txt from 'rendition/dist_esm5/components/Txt';
+import { Flex, Checkbox, Txt } from 'rendition';
 
 import { version, packageType } from '../../../../../package.json';
 import * as settings from '../../models/settings';

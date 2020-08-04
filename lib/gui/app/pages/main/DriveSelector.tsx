@@ -16,7 +16,7 @@
 
 import { scanner } from 'etcher-sdk';
 import * as React from 'react';
-import { Flex } from 'rendition/dist_esm5/components/Flex';
+import { Flex } from 'rendition';
 import { TargetSelector } from '../../components/target-selector/target-selector-button';
 import { TargetSelectorModal } from '../../components/target-selector/target-selector-modal';
 import {

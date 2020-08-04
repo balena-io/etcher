@@ -16,7 +16,7 @@
 
 import * as _ from 'lodash';
 import * as React from 'react';
-import { Flex } from 'rendition/dist_esm5/components/Flex';
+import { Flex } from 'rendition';
 import { v4 as uuidV4 } from 'uuid';
 
 import * as flashState from '../../models/flash-state';

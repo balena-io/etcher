@@ -18,12 +18,15 @@ import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/exc
 import ChevronDownSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-down.svg';
 import { scanner, sourceDestination } from 'etcher-sdk';
 import * as React from 'react';
-import { Flex } from 'rendition/dist_esm5/components/Flex';
-import { ModalProps } from 'rendition/dist_esm5/components/Modal';
-import Txt from 'rendition/dist_esm5/components/Txt';
-import Badge from 'rendition/dist_esm5/components/Badge';
-import Link from 'rendition/dist_esm5/components/Link';
-import Table, { TableColumn } from 'rendition/dist_esm5/components/Table';
+import {
+	Flex,
+	ModalProps,
+	Txt,
+	Badge,
+	Link,
+	Table,
+	TableColumn,
+} from 'rendition';
 import styled from 'styled-components';
 
 import {

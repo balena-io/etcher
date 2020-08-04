@@ -19,8 +19,7 @@ import CheckCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/check-circl
 import * as _ from 'lodash';
 import outdent from 'outdent';
 import * as React from 'react';
-import { Flex } from 'rendition/dist_esm5/components/Flex';
-import Txt from 'rendition/dist_esm5/components/Txt';
+import { Flex, Txt } from 'rendition';
 
 import { progress } from '../../../../shared/messages';
 import { bytesToMegabytes } from '../../../../shared/units';

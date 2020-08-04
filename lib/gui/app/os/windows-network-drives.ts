@@ -31,8 +31,7 @@ const execAsync = promisify(exec);
 /**
  * @summary Returns wmic's output for network drives
  */
-export async function getWmicNetworkDrivesOutput(): Promise<string> {
-	// Exported for tests.
+async function getWmicNetworkDrivesOutput(): Promise<string> {
 	// When trying to read wmic's stdout directly from node, it is encoded with the current
 	// console codepage (depending on the computer).
 	// Decoding this would require getting this codepage somehow and using iconv as node
@@ -66,9 +65,10 @@ export async function getWmicNetworkDrivesOutput(): Promise<string> {
 /**
  * @summary returns a Map of drive letter -> network locations on Windows: 'Z:' -> '\\\\192.168.0.1\\Public'
  */
-async function getWindowsNetworkDrives(): Promise<Map<string, string>> {
-	// Use getWindowsNetworkDrives from "exports." so it can be mocked in tests
-	const result = await exports.getWmicNetworkDrivesOutput();
+async function getWindowsNetworkDrives(
+	getWmicOutput: () => Promise<string>,
+): Promise<Map<string, string>> {
+	const result = await getWmicOutput();
 	const couples: Array<[string, string]> = chain(result)
 		.split('\n')
 		// Remove header line
@@ -97,13 +97,15 @@ async function getWindowsNetworkDrives(): Promise<Map<string, string>> {
  */
 export async function replaceWindowsNetworkDriveLetter(
 	filePath: string,
+	// getWmicOutput is a parameter so it can be replaced in tests
+	getWmicOutput = getWmicNetworkDrivesOutput,
 ): Promise<string> {
 	let result = filePath;
 	if (platform() === 'win32') {
 		const matches = /^([A-Z]+:)\\(.*)$/.exec(filePath);
 		if (matches !== null) {
 			const [, drive, relativePath] = matches;
-			const drives = await getWindowsNetworkDrives();
+			const drives = await getWindowsNetworkDrives(getWmicOutput);
 			const location = drives.get(drive);
 			if (location !== undefined) {
 				result = `${location}\\${relativePath}`;

@@ -24,7 +24,11 @@ import * as path from 'path';
 import { env } from 'process';
 import * as SimpleProgressWebpackPlugin from 'simple-progress-webpack-plugin';
 import * as TerserPlugin from 'terser-webpack-plugin';
-import { BannerPlugin, NormalModuleReplacementPlugin } from 'webpack';
+import {
+	BannerPlugin,
+	IgnorePlugin,
+	NormalModuleReplacementPlugin,
+} from 'webpack';
 
 /**
  * Don't webpack package.json as mixpanel & sentry tokens
@@ -135,7 +139,14 @@ const commonConfig = {
 			},
 			{
 				test: /\.tsx?$/,
-				use: 'ts-loader',
+				use: [
+					{
+						loader: 'ts-loader',
+						options: {
+							configFile: 'tsconfig.webpack.json',
+						},
+					},
+				],
 			},
 			// don't import WeakMap polyfill in deep-map-keys (required in corvus)
 			replace(/node_modules\/deep-map-keys\/lib\/deep-map-keys\.js$/, {
@@ -237,6 +248,8 @@ const commonConfig = {
 		extensions: ['.node', '.js', '.json', '.ts', '.tsx'],
 	},
 	plugins: [
+		// Rendition imports highlight.js default.css file, we don't need it
+		new IgnorePlugin({ resourceRegExp: /\.css$/ }),
 		new SimpleProgressWebpackPlugin({
 			format: process.env.WEBPACK_PROGRESS || 'verbose',
 		}),
