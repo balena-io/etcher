@@ -137,6 +137,11 @@ const commonConfig = {
 				test: /\.tsx?$/,
 				use: 'ts-loader',
 			},
+			// don't import WeakMap polyfill in deep-map-keys (required in corvus)
+			replace(/node_modules\/deep-map-keys\/lib\/deep-map-keys\.js$/, {
+				search: "var WeakMap = require('es6-weak-map');",
+				replace: '',
+			}),
 			// force axios to use http backend (not xhr) to support streams
 			replace(/node_modules\/axios\/lib\/defaults\.js$/, {
 				search: './adapters/xhr',
