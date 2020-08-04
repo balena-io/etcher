@@ -122,17 +122,12 @@ export function createLaunchScript(
 
 async function elevateScriptWindows(
 	path: string,
-): Promise<{ cancelled: boolean }> {
-	// 'elevator' imported here as it only exists on windows
-	// TODO: replace this with sudo-prompt once https://github.com/jorangreef/sudo-prompt/issues/96 is fixed
-	// @ts-ignore this is a native module
-	const { elevate } = await import('../../build/Release/elevator.node');
-	const elevateAsync = promisify(elevate);
-
+	name: string,
+): Promise<{ cancelled: false }> {
 	// '&' needs to be escaped here (but not when written to a .cmd file)
-	const cmd = ['cmd', '/c', escapeParamCmd(path).replace(/&/g, '^&')];
-	const { cancelled } = await elevateAsync(cmd);
-	return { cancelled };
+	const cmd = ['cmd', '/c', escapeParamCmd(path).replace(/&/g, '^&')].join(' ');
+	await sudoExecAsync(cmd, { name });
+	return { cancelled: false };
 }
 
 async function elevateScriptUnix(
@@ -183,7 +178,7 @@ export async function elevateCommand(
 		async (path) => {
 			await fs.writeFile(path, launchScript);
 			if (isWindows) {
-				return elevateScriptWindows(path);
+				return elevateScriptWindows(path, options.applicationName);
 			}
 			if (
 				os.platform() === 'darwin' &&

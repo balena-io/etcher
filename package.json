@@ -8,7 +8,6 @@
   "description": "Flash OS images to SD cards and USB drives, safely and easily.",
   "productDescription": "Etcher is a powerful OS image flasher built with web technologies to ensure flashing an SDCard or USB drive is a pleasant and safe experience. It protects you from accidentally writing to your hard-drives, ensures every byte of data was written correctly and much more.",
   "homepage": "https://github.com/balena-io/etcher",
-  "gypfile": true,
   "repository": {
     "type": "git",
     "url": "git@github.com:balena-io/etcher.git"
@@ -17,9 +16,6 @@
     "test": "make lint test sanity-checks",
     "start": "./node_modules/.bin/electron .",
     "postshrinkwrap": "ts-node ./scripts/clean-shrinkwrap.ts",
-    "configure": "node-gyp configure",
-    "build": "node-gyp build",
-    "install": "node-gyp rebuild",
     "webpack": "webpack",
     "watch": "webpack --watch",
     "concourse-build-electron": "make webpack",
@@ -85,7 +81,6 @@
     "mocha": "^8.0.1",
     "nan": "^2.14.0",
     "native-addon-loader": "^2.0.1",
-    "node-gyp": "^7.0.0",
     "node-ipc": "^9.1.1",
     "omit-deep-lodash": "1.1.4",
     "outdent": "^0.7.1",

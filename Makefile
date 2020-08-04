@@ -124,7 +124,6 @@ TARGETS = \
 	lint \
 	lint-ts \
 	lint-css \
-	lint-cpp \
 	lint-spell \
 	test-spectron \
 	test-gui \
@@ -148,9 +147,6 @@ lint-ts:
 lint-css:
 	npx prettier --write lib/**/*.css
 
-lint-cpp:
-	cpplint --recursive src
-
 lint-spell:
 	codespell \
 		--dictionary - \
@@ -158,7 +154,7 @@ lint-spell:
 		--skip *.svg *.gz,*.bz2,*.xz,*.zip,*.img,*.dmg,*.iso,*.rpi-sdcard,*.wic,.DS_Store,*.dtb,*.dtbo,*.dat,*.elf,*.bin,*.foo,xz-without-extension \
 		lib tests docs Makefile *.md LICENSE
 
-lint: lint-ts lint-css lint-cpp lint-spell
+lint: lint-ts lint-css lint-spell
 
 MOCHA_OPTIONS=--recursive --reporter spec --require ts-node/register --require-main "tests/gui/allow-renderer-process-reuse.ts"
 
@@ -189,7 +185,6 @@ clean:
 
 distclean: clean
 	rm -rf node_modules
-	rm -rf build
 	rm -rf dist
 	rm -rf generated
 	rm -rf $(BUILD_TEMPORARY_DIRECTORY)
