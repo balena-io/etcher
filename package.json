@@ -13,12 +13,20 @@
     "url": "git@github.com:balena-io/etcher.git"
   },
   "scripts": {
-    "test": "make lint test sanity-checks",
+    "lint-ts": "balena-lint --fix --typescript typings lib tests scripts/clean-shrinkwrap.ts webpack.config.ts",
+    "lint-css": "prettier --write lib/**/*.css",
+    "lint-spell": "codespell --dictionary - --dictionary dictionary.txt --skip *.ttf *.svg *.gz,*.bz2,*.xz,*.zip,*.img,*.dmg,*.iso,*.rpi-sdcard,*.wic,.DS_Store,*.dtb,*.dtbo,*.dat,*.elf,*.bin,*.foo,xz-without-extension lib tests docs Makefile *.md LICENSE",
+    "lint": "npm run lint-ts && npm run lint-css && npm run lint-spell",
+    "test-spectron": "mocha --recursive --reporter spec --require ts-node/register --require-main tests/gui/allow-renderer-process-reuse.ts tests/spectron/runner.spec.ts",
+    "test-gui": "electron-mocha --recursive --reporter spec --require ts-node/register --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox --renderer tests/gui/**/*.ts",
+    "test-shared": "electron-mocha --recursive --reporter spec --require ts-node/register --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox tests/shared/**/*.ts",
+    "test": "npm run lint && npm run test-gui && npm run test-shared && npm run test-spectron && npm run sanity-checks",
+    "sanity-checks": "./scripts/ci/ensure-all-file-extensions-in-gitattributes.sh",
     "start": "./node_modules/.bin/electron .",
     "postshrinkwrap": "ts-node ./scripts/clean-shrinkwrap.ts",
     "webpack": "webpack",
     "watch": "webpack --watch",
-    "concourse-build-electron": "make webpack",
+    "concourse-build-electron": "npm run webpack",
     "concourse-test": "npx npm@6.14.5 test",
     "concourse-test-electron": "npx npm@6.14.5 test"
   },
@@ -29,10 +37,10 @@
   },
   "lint-staged": {
     "./**/*.{ts,tsx}": [
-      "make lint-ts"
+      "npm run lint-ts"
     ],
     "./**/*.css": [
-      "make lint-css"
+      "npm run lint-css"
     ]
   },
   "author": "Balena Inc. <hello@etcher.io>",
