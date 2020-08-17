@@ -1312,6 +1312,15 @@
         }
       }
     },
+    "@balena/apple-plist": {
+      "version": "0.0.2",
+      "resolved": "https://registry.npmjs.org/@balena/apple-plist/-/apple-plist-0.0.2.tgz",
+      "integrity": "sha512-pipB4z1nW0YkIN1B5CgcPLzwagkAnmPF5KEuEntE5Pg5F8kNAxmED3LEF1VusAVqdZl6YwtjILzqAmykmRvvIw==",
+      "dev": true,
+      "requires": {
+        "sax": "^1.2.4"
+      }
+    },
     "@balena/lint": {
       "version": "5.1.0",
       "resolved": "https://registry.npmjs.org/@balena/lint/-/lint-5.1.0.tgz",
@@ -1346,13 +1355,13 @@
       }
     },
     "@balena/udif": {
-      "version": "1.0.4",
-      "resolved": "https://registry.npmjs.org/@balena/udif/-/udif-1.0.4.tgz",
-      "integrity": "sha512-FeZ/kBFPxFKj5MesnUIdkZWSLBbjY/dK8yGMm5qwfKKFmYOcAU1IQ40ocrp6QZb3B6syjB7/ORrUhwwBMqbl0Q==",
+      "version": "1.0.5",
+      "resolved": "https://registry.npmjs.org/@balena/udif/-/udif-1.0.5.tgz",
+      "integrity": "sha512-wNlbEZ9VwTYycurBXSiEFX2qBD/sb5WEspE/xdW8375EkotKCzj8x9QyAs9MJR/b0CkJ++vdHizHm4L6tULCGQ==",
       "dev": true,
       "requires": {
+        "@balena/apple-plist": "^0.0.2",
         "apple-data-compression": "^0.4.1",
-        "apple-plist": "^0.3.0",
         "cyclic-32": "^1.1.0",
         "unbzip2-stream": "github:balena-io-modules/unbzip2-stream#4a54f56a25b58950f9e4277c56db2912d62242e7"
       }
@@ -2986,15 +2995,6 @@
       "dev": true,
       "requires": {
         "bloodline": "^1.0.1"
-      }
-    },
-    "apple-plist": {
-      "version": "0.3.0",
-      "resolved": "https://registry.npmjs.org/apple-plist/-/apple-plist-0.3.0.tgz",
-      "integrity": "sha512-JG1KFeAlKsPz4Fk4Av8P3xg50C2oAOJ+qRVDE4aGTvzZublYjOeG5FlB1HNxNST7uf1R55zOQr0lKdffW6SsxQ==",
-      "dev": true,
-      "requires": {
-        "htmlparser2": "^4.0.0"
       }
     },
     "aproba": {
