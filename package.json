@@ -21,7 +21,7 @@
     "test-gui": "electron-mocha --recursive --reporter spec --require ts-node/register --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox --renderer tests/gui/**/*.ts",
     "test-shared": "electron-mocha --recursive --reporter spec --require ts-node/register --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox tests/shared/**/*.ts",
     "test": "npm run lint && npm run test-gui && npm run test-shared && npm run test-spectron && npm run sanity-checks",
-    "sanity-checks": "./scripts/ci/ensure-all-file-extensions-in-gitattributes.sh",
+    "sanity-checks": "bash scripts/ci/ensure-all-file-extensions-in-gitattributes.sh",
     "start": "./node_modules/.bin/electron .",
     "postshrinkwrap": "ts-node ./scripts/clean-shrinkwrap.ts",
     "webpack": "webpack",
