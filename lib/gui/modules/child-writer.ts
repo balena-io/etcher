@@ -18,6 +18,7 @@ import { Drive as DrivelistDrive } from 'drivelist';
 import * as sdk from 'etcher-sdk';
 import { cleanupTmpFiles } from 'etcher-sdk/build/tmp';
 import * as ipc from 'node-ipc';
+import { totalmem } from 'os';
 
 import { toJSON } from '../../shared/errors';
 import { GENERAL_ERROR, SUCCESS } from '../../shared/exit-codes';
@@ -117,7 +118,11 @@ async function writeAndValidate({
 		onProgress,
 		verify,
 		trim: autoBlockmapping,
-		numBuffers: Math.min(2 + (destinations.length - 1) * 32, 256),
+		numBuffers: Math.min(
+			2 + (destinations.length - 1) * 32,
+			256,
+			Math.floor(totalmem() / 1024 ** 2 / 8),
+		),
 		decompressFirst,
 	});
 	const result: WriteResult = {
