@@ -24,11 +24,7 @@ import * as path from 'path';
 import { env } from 'process';
 import * as SimpleProgressWebpackPlugin from 'simple-progress-webpack-plugin';
 import * as TerserPlugin from 'terser-webpack-plugin';
-import {
-	BannerPlugin,
-	IgnorePlugin,
-	NormalModuleReplacementPlugin,
-} from 'webpack';
+import { BannerPlugin, NormalModuleReplacementPlugin } from 'webpack';
 
 /**
  * Don't webpack package.json as mixpanel & sentry tokens
@@ -248,8 +244,6 @@ const commonConfig = {
 		extensions: ['.node', '.js', '.json', '.ts', '.tsx'],
 	},
 	plugins: [
-		// Rendition imports highlight.js default.css file, we don't need it
-		new IgnorePlugin({ resourceRegExp: /\.css$/ }),
 		new SimpleProgressWebpackPlugin({
 			format: process.env.WEBPACK_PROGRESS || 'verbose',
 		}),
