@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.103
+## (2020-08-18)
+
+* Update rendition  to ^17 [Alexis Svinartchouk]
+* Update electron to 9.2.0 [Alexis Svinartchouk]
+* Update etcher-sdk to ^4.1.23 [Alexis Svinartchouk]
+* Move linting and testing into package.json [Alexis Svinartchouk]
+* Set module: es2015 in tsconfig.json [Alexis Svinartchouk]
+* Replace native elevator with sudo-prompt on windows [Alexis Svinartchouk]
+* Don't import WeakMap polyfill in deep-map-keys [Alexis Svinartchouk]
+* Don't use lodash in child-writer.js [Alexis Svinartchouk]
+* Optimize svgs [Alexis Svinartchouk]
+* User regular stream in lzma-native instead of readable-stream [Alexis Svinartchouk]
+* Remove Bluebird [Alexis Svinartchouk]
+
 # v1.5.102
 ## (2020-07-27)
 
