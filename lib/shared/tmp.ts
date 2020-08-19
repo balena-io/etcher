@@ -1,4 +1,3 @@
-import * as Bluebird from 'bluebird';
 import * as tmp from 'tmp';
 
 function tmpFileAsync(
@@ -15,10 +14,14 @@ function tmpFileAsync(
 	});
 }
 
-export function tmpFileDisposer(
+export async function withTmpFile<T>(
 	options: tmp.FileOptions,
-): Bluebird.Disposer<{ path: string; cleanup: () => void }> {
-	return Bluebird.resolve(tmpFileAsync(options)).disposer(({ cleanup }) => {
+	fn: (path: string) => Promise<T>,
+): Promise<T> {
+	const { path, cleanup } = await tmpFileAsync(options);
+	try {
+		return await fn(path);
+	} finally {
 		cleanup();
-	});
+	}
 }

@@ -122,56 +122,20 @@ TARGETS = \
 	help \
 	info \
 	lint \
-	lint-ts \
-	lint-css \
-	lint-cpp \
-	lint-spell \
-	test-spectron \
-	test-gui \
 	test \
-	sanity-checks \
 	clean \
 	distclean \
-	webpack \
 	electron-develop \
 	electron-test \
 	electron-build
 
-webpack:
-	npx webpack
-
 .PHONY: $(TARGETS)
 
-lint-ts:
-	npx balena-lint --fix --typescript typings lib tests scripts/clean-shrinkwrap.ts webpack.config.ts
+lint: 
+	npm run lint
 
-lint-css:
-	npx prettier --write lib/**/*.css
-
-lint-cpp:
-	cpplint --recursive src
-
-lint-spell:
-	codespell \
-		--dictionary - \
-		--dictionary dictionary.txt \
-		--skip *.svg *.gz,*.bz2,*.xz,*.zip,*.img,*.dmg,*.iso,*.rpi-sdcard,*.wic,.DS_Store,*.dtb,*.dtbo,*.dat,*.elf,*.bin,*.foo,xz-without-extension \
-		lib tests docs Makefile *.md LICENSE
-
-lint: lint-ts lint-css lint-cpp lint-spell
-
-MOCHA_OPTIONS=--recursive --reporter spec --require ts-node/register --require-main "tests/gui/allow-renderer-process-reuse.ts"
-
-test-spectron:
-	npx mocha $(MOCHA_OPTIONS) tests/spectron/runner.spec.ts
-
-test-gui:
-	npx electron-mocha $(MOCHA_OPTIONS) --full-trace --no-sandbox --renderer tests/gui/**/*.ts
-
-test-sdk:
-	npx electron-mocha $(MOCHA_OPTIONS) --full-trace --no-sandbox tests/shared/**/*.ts
-
-test: test-gui test-sdk test-spectron
+test:
+	npm run test
 
 help:
 	@echo "Available targets: $(TARGETS)"
@@ -181,15 +145,11 @@ info:
 	@echo "Host arch           : $(HOST_ARCH)"
 	@echo "Target arch         : $(TARGET_ARCH)"
 
-sanity-checks:
-	./scripts/ci/ensure-all-file-extensions-in-gitattributes.sh
-
 clean:
 	rm -rf $(BUILD_DIRECTORY)
 
 distclean: clean
 	rm -rf node_modules
-	rm -rf build
 	rm -rf dist
 	rm -rf generated
 	rm -rf $(BUILD_TEMPORARY_DIRECTORY)

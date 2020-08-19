@@ -50,9 +50,9 @@ export const currentWindow = electron.remote.getCurrentWindow();
  */
 export function set(state: FlashState) {
 	if (state.percentage != null) {
-		exports.currentWindow.setProgressBar(percentageToFloat(state.percentage));
+		currentWindow.setProgressBar(percentageToFloat(state.percentage));
 	}
-	exports.currentWindow.setTitle(getWindowTitle(state));
+	currentWindow.setTitle(getWindowTitle(state));
 }
 
 /**
@@ -60,6 +60,6 @@ export function set(state: FlashState) {
  */
 export function clear() {
 	// Passing 0 or null/undefined doesn't work.
-	exports.currentWindow.setProgressBar(-1);
-	exports.currentWindow.setTitle(getWindowTitle(undefined));
+	currentWindow.setProgressBar(-1);
+	currentWindow.setTitle(getWindowTitle(undefined));
 }

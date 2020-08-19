@@ -15,12 +15,16 @@
  */
 
 import * as React from 'react';
-import { Flex, FlexProps } from 'rendition/dist_esm5/components/Flex';
-import Button, { ButtonProps } from 'rendition/dist_esm5/components/Button';
-import ModalBase from 'rendition/dist_esm5/components/Modal';
-import Provider from 'rendition/dist_esm5/components/Provider';
-import Txt from 'rendition/dist_esm5/components/Txt';
-import renditionTheme from 'rendition/dist_esm5/theme';
+import {
+	Flex,
+	FlexProps,
+	Button,
+	ButtonProps,
+	Modal as ModalBase,
+	Provider,
+	Txt,
+	Theme as renditionTheme,
+} from 'rendition';
 import styled from 'styled-components';
 import { space } from 'styled-system';
 

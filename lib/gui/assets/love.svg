@@ -1,12 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg viewBox="0 0 50 46" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
-    <title>like</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Steps" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="like" fill-rule="nonzero" fill="#F55F50">
-            <path d="M24.85,8.126 C26.868,3.343 31.478,0.001 36.84,0.001 C44.063,0.001 49.265,6.18 49.919,13.544 C49.919,13.544 50.272,15.372 49.495,18.663 C48.437,23.145 45.95,27.127 42.597,30.166 L24.85,46 L7.402,30.165 C4.049,27.127 1.562,23.144 0.504,18.662 C-0.273,15.371 0.08,13.543 0.08,13.543 C0.734,6.179 5.936,0 13.159,0 C18.522,0 22.832,3.343 24.85,8.126 Z" id="Shape"></path>
-        </g>
-    </g>
-</svg>
+<svg viewBox="0 0 50 46" xmlns="http://www.w3.org/2000/svg"><path d="M24.85 8.126C26.868 3.343 31.478.001 36.84.001c7.223 0 12.425 6.179 13.079 13.543 0 0 .353 1.828-.424 5.119-1.058 4.482-3.545 8.464-6.898 11.503L24.85 46 7.402 30.165c-3.353-3.038-5.84-7.021-6.898-11.503-.777-3.291-.424-5.119-.424-5.119C.734 6.179 5.936 0 13.159 0c5.363 0 9.673 3.343 11.691 8.126z" fill-rule="nonzero" fill="#F55F50"/></svg>

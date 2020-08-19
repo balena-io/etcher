@@ -17,8 +17,7 @@
 import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/exclamation-triangle.svg';
 import { Drive as DrivelistDrive } from 'drivelist';
 import * as React from 'react';
-import { Flex, FlexProps } from 'rendition/dist_esm5/components/Flex';
-import Txt from 'rendition/dist_esm5/components/Txt';
+import { Flex, FlexProps, Txt } from 'rendition';
 
 import {
 	getDriveImageCompatibilityStatuses,

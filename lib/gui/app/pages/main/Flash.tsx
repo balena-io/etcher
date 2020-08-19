@@ -18,9 +18,7 @@ import CircleSvg from '@fortawesome/fontawesome-free/svgs/solid/circle.svg';
 import * as _ from 'lodash';
 import * as path from 'path';
 import * as React from 'react';
-import { Flex } from 'rendition/dist_esm5/components/Flex';
-import Modal from 'rendition/dist_esm5/components/Modal';
-import Txt from 'rendition/dist_esm5/components/Txt';
+import { Flex, Modal, Txt } from 'rendition';
 
 import * as constraints from '../../../../shared/drive-constraints';
 import * as messages from '../../../../shared/messages';

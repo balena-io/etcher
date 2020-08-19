@@ -14,48 +14,37 @@
  * limitations under the License.
  */
 
-import * as _ from 'lodash';
-
-function createErrorDetails(options: {
-	title: string | ((error: Error & { path: string }) => string);
-	description: string;
-}): {
-	title: (error: Error & { path: string }) => string;
-	description: (error: Error & { path: string }) => string;
-} {
-	return _.pick(
-		_.mapValues(options, (value) => {
-			return _.isFunction(value) ? value : _.constant(value);
-		}),
-		['title', 'description'],
-	);
-}
+export type ErrorWithPath = Error & {
+	path?: string;
+	code?: keyof typeof HUMAN_FRIENDLY;
+};
 
 /**
  * @summary Human-friendly error messages
  */
 export const HUMAN_FRIENDLY = {
-	ENOENT: createErrorDetails({
-		title: (error: Error & { path: string }) => {
+	ENOENT: {
+		title: (error: ErrorWithPath) => {
 			return `No such file or directory: ${error.path}`;
 		},
-		description: "The file you're trying to access doesn't exist",
-	}),
-	EPERM: createErrorDetails({
-		title: "You're not authorized to perform this operation",
-		description: 'Please ensure you have necessary permissions for this task',
-	}),
-	EACCES: createErrorDetails({
-		title: "You don't have access to this resource",
-		description:
+		description: () => "The file you're trying to access doesn't exist",
+	},
+	EPERM: {
+		title: () => "You're not authorized to perform this operation",
+		description: () =>
+			'Please ensure you have necessary permissions for this task',
+	},
+	EACCES: {
+		title: () => "You don't have access to this resource",
+		description: () =>
 			'Please ensure you have necessary permissions to access this resource',
-	}),
-	ENOMEM: createErrorDetails({
-		title: 'Your system ran out of memory',
-		description:
+	},
+	ENOMEM: {
+		title: () => 'Your system ran out of memory',
+		description: () =>
 			'Please make sure your system has enough available memory for this task',
-	}),
-};
+	},
+} as const;
 
 /**
  * @summary Get user friendly property from an error
@@ -71,19 +60,21 @@ export const HUMAN_FRIENDLY = {
  * }
  */
 function getUserFriendlyMessageProperty(
-	error: Error,
+	error: ErrorWithPath,
 	property: 'title' | 'description',
-): string | null {
-	const code = _.get(error, ['code']);
-
-	if (_.isNil(code) || !_.isString(code)) {
-		return null;
+): string | undefined {
+	if (typeof error.code !== 'string') {
+		return undefined;
 	}
-
-	return _.invoke(HUMAN_FRIENDLY, [code, property], error);
+	return HUMAN_FRIENDLY[error.code]?.[property]?.(error);
 }
 
-const isBlank = _.flow([_.trim, _.isEmpty]);
+function isBlank(s: string | number | null | undefined) {
+	if (typeof s === 'number') {
+		s = s.toString();
+	}
+	return (s ?? '').trim() === '';
+}
 
 /**
  * @summary Get the title of an error
@@ -92,23 +83,19 @@ const isBlank = _.flow([_.trim, _.isEmpty]);
  * Try to get as much information as possible about the error
  * rather than falling back to generic messages right away.
  */
-export function getTitle(error: Error): string {
-	if (!_.isError(error) && !_.isPlainObject(error) && !_.isNil(error)) {
-		return _.toString(error);
-	}
-
+export function getTitle(error: ErrorWithPath): string {
 	const codeTitle = getUserFriendlyMessageProperty(error, 'title');
-	if (!_.isNil(codeTitle)) {
+	if (codeTitle !== undefined) {
 		return codeTitle;
 	}
 
-	const message = _.get(error, ['message']);
+	const message = error.message;
 	if (!isBlank(message)) {
 		return message;
 	}
 
-	const code = _.get(error, ['code']);
-	if (!_.isNil(code) && !isBlank(code)) {
+	const code = error.code;
+	if (!isBlank(code)) {
 		return `Error code: ${code}`;
 	}
 
@@ -119,40 +106,19 @@ export function getTitle(error: Error): string {
  * @summary Get the description of an error
  */
 export function getDescription(
-	error: Error & { description?: string },
-	options: { userFriendlyDescriptionsOnly?: boolean } = {},
+	error: ErrorWithPath & { description?: string },
 ): string {
-	_.defaults(options, {
-		userFriendlyDescriptionsOnly: false,
-	});
-
-	if (!_.isError(error) && !_.isPlainObject(error)) {
-		return '';
-	}
-
 	if (!isBlank(error.description)) {
 		return error.description as string;
 	}
-
 	const codeDescription = getUserFriendlyMessageProperty(error, 'description');
-	if (!_.isNil(codeDescription)) {
+	if (codeDescription !== undefined) {
 		return codeDescription;
 	}
-
-	if (options.userFriendlyDescriptionsOnly) {
-		return '';
-	}
-
 	if (error.stack) {
 		return error.stack;
 	}
-
-	if (_.isEmpty(error)) {
-		return '';
-	}
-
-	const INDENTATION_SPACES = 2;
-	return JSON.stringify(error, null, INDENTATION_SPACES);
+	return JSON.stringify(error, null, 2);
 }
 
 /**
@@ -162,24 +128,24 @@ export function createError(options: {
 	title: string;
 	description?: string;
 	report?: boolean;
-	code?: string;
-}): Error & { description?: string; report?: boolean; code?: string } {
+	code?: keyof typeof HUMAN_FRIENDLY;
+}): ErrorWithPath & { description?: string; report?: boolean } {
 	if (isBlank(options.title)) {
 		throw new Error(`Invalid error title: ${options.title}`);
 	}
 
-	const error: Error & {
+	const error: ErrorWithPath & {
 		description?: string;
 		report?: boolean;
 		code?: string;
 	} = new Error(options.title);
 	error.description = options.description;
 
-	if (!_.isNil(options.report) && !options.report) {
+	if (options.report === false) {
 		error.report = false;
 	}
 
-	if (!_.isNil(options.code)) {
+	if (options.code !== undefined) {
 		error.code = options.code;
 	}
 
@@ -198,7 +164,7 @@ export function createError(options: {
 export function createUserError(options: {
 	title: string;
 	description: string;
-	code?: string;
+	code?: keyof typeof HUMAN_FRIENDLY;
 }): Error {
 	return createError({
 		title: options.title,
@@ -206,13 +172,6 @@ export function createUserError(options: {
 		report: false,
 		code: options.code,
 	});
-}
-
-/**
- * @summary Check if an error is an user error
- */
-export function isUserError(error: Error & { report?: boolean }): boolean {
-	return _.isNil(error.report) ? false : !error.report;
 }
 
 /**
@@ -260,5 +219,5 @@ export function toJSON(
  * @summary Convert a JSON object to an Error object
  */
 export function fromJSON(json: any): Error {
-	return _.assign(new Error(json.message), json);
+	return Object.assign(new Error(json.message), json);
 }

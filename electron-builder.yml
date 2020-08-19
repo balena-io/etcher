@@ -2,7 +2,7 @@ appId: io.balena.etcher
 copyright: Copyright 2016-2020 Balena Ltd
 productName: balenaEtcher
 npmRebuild: true
-nodeGypRebuild: true
+nodeGypRebuild: false
 publish: null
 beforeBuild: "./beforeBuild.js"
 afterPack: "./afterPack.js"

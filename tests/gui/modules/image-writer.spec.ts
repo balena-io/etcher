@@ -17,7 +17,6 @@
 import { expect } from 'chai';
 import { Drive as DrivelistDrive } from 'drivelist';
 import { sourceDestination } from 'etcher-sdk';
-import * as _ from 'lodash';
 import * as ipc from 'node-ipc';
 import { assert, SinonStub, stub } from 'sinon';
 
@@ -39,7 +38,7 @@ describe('Browser: imageWriter', () => {
 			let performWriteStub: SinonStub;
 
 			beforeEach(() => {
-				performWriteStub = stub(imageWriter, 'performWrite');
+				performWriteStub = stub();
 				performWriteStub.returns(
 					Promise.resolve({
 						cancelled: false,
@@ -49,52 +48,56 @@ describe('Browser: imageWriter', () => {
 			});
 
 			afterEach(() => {
-				performWriteStub.restore();
+				performWriteStub.reset();
 			});
 
-			it('should set flashing to false when done', () => {
+			it('should set flashing to false when done', async () => {
 				flashState.unsetFlashingFlag({
 					cancelled: false,
 					sourceChecksum: '1234',
 				});
 
-				imageWriter.flash(imagePath, [fakeDrive], sourceOptions).finally(() => {
+				try {
+					await imageWriter.flash(
+						imagePath,
+						[fakeDrive],
+						sourceOptions,
+						performWriteStub,
+					);
+				} catch {
+					// noop
+				} finally {
 					expect(flashState.isFlashing()).to.be.false;
-				});
+				}
 			});
 
-			it('should prevent writing more than once', () => {
+			it('should prevent writing more than once', async () => {
 				flashState.unsetFlashingFlag({
 					cancelled: false,
 					sourceChecksum: '1234',
 				});
 
-				const writing = imageWriter.flash(
-					imagePath,
-					[fakeDrive],
-					sourceOptions,
-				);
-				imageWriter.flash(imagePath, [fakeDrive], sourceOptions).catch(_.noop);
-				writing.finally(() => {
-					assert.calledOnce(performWriteStub);
-				});
-			});
-
-			it('should reject the second flash attempt', () => {
-				imageWriter.flash(imagePath, [fakeDrive], sourceOptions);
-
-				let rejectError: Error;
-				imageWriter
-					.flash(imagePath, [fakeDrive], sourceOptions)
-					.catch((error) => {
-						rejectError = error;
-					})
-					.finally(() => {
-						expect(rejectError).to.be.an.instanceof(Error);
-						expect(rejectError!.message).to.equal(
-							'There is already a flash in progress',
-						);
-					});
+				try {
+					await Promise.all([
+						imageWriter.flash(
+							imagePath,
+							[fakeDrive],
+							sourceOptions,
+							performWriteStub,
+						),
+						imageWriter.flash(
+							imagePath,
+							[fakeDrive],
+							sourceOptions,
+							performWriteStub,
+						),
+					]);
+					assert.fail('Writing twice should fail');
+				} catch (error) {
+					expect(error.message).to.equal(
+						'There is already a flash in progress',
+					);
+				}
 			});
 		});
 
@@ -102,51 +105,63 @@ describe('Browser: imageWriter', () => {
 			let performWriteStub: SinonStub;
 
 			beforeEach(() => {
-				performWriteStub = stub(imageWriter, 'performWrite');
+				performWriteStub = stub();
 				const error: Error & { code?: string } = new Error('write error');
 				error.code = 'FOO';
 				performWriteStub.returns(Promise.reject(error));
 			});
 
 			afterEach(() => {
-				performWriteStub.restore();
+				performWriteStub.reset();
 			});
 
-			it('should set flashing to false when done', () => {
-				imageWriter
-					.flash(imagePath, [fakeDrive], sourceOptions)
-					.catch(_.noop)
-					.finally(() => {
-						expect(flashState.isFlashing()).to.be.false;
-					});
+			it('should set flashing to false when done', async () => {
+				try {
+					await imageWriter.flash(
+						imagePath,
+						[fakeDrive],
+						sourceOptions,
+						performWriteStub,
+					);
+				} catch {
+					// noop
+				} finally {
+					expect(flashState.isFlashing()).to.be.false;
+				}
 			});
 
-			it('should set the error code in the flash results', () => {
-				imageWriter
-					.flash(imagePath, [fakeDrive], sourceOptions)
-					.catch(_.noop)
-					.finally(() => {
-						const flashResults = flashState.getFlashResults();
-						expect(flashResults.errorCode).to.equal('FOO');
-					});
+			it('should set the error code in the flash results', async () => {
+				try {
+					await imageWriter.flash(
+						imagePath,
+						[fakeDrive],
+						sourceOptions,
+						performWriteStub,
+					);
+				} catch {
+					// noop
+				} finally {
+					const flashResults = flashState.getFlashResults();
+					expect(flashResults.errorCode).to.equal('FOO');
+				}
 			});
 
-			it('should be rejected with the error', () => {
+			it('should be rejected with the error', async () => {
 				flashState.unsetFlashingFlag({
 					cancelled: false,
 					sourceChecksum: '1234',
 				});
-
-				let rejection: Error;
-				imageWriter
-					.flash(imagePath, [fakeDrive], sourceOptions)
-					.catch((error) => {
-						rejection = error;
-					})
-					.finally(() => {
-						expect(rejection).to.be.an.instanceof(Error);
-						expect(rejection!.message).to.equal('write error');
-					});
+				try {
+					await imageWriter.flash(
+						imagePath,
+						[fakeDrive],
+						sourceOptions,
+						performWriteStub,
+					);
+				} catch (error) {
+					expect(error).to.be.an.instanceof(Error);
+					expect(error.message).to.equal('write error');
+				}
 			});
 		});
 	});

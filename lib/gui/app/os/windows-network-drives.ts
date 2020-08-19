@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { using } from 'bluebird';
 import { exec } from 'child_process';
 import { readFile } from 'fs';
 import { chain, trim } from 'lodash';
@@ -23,7 +22,7 @@ import { join } from 'path';
 import { env } from 'process';
 import { promisify } from 'util';
 
-import { tmpFileDisposer } from '../../../shared/tmp';
+import { withTmpFile } from '../../../shared/tmp';
 
 const readFileAsync = promisify(readFile);
 
@@ -32,8 +31,7 @@ const execAsync = promisify(exec);
 /**
  * @summary Returns wmic's output for network drives
  */
-export async function getWmicNetworkDrivesOutput(): Promise<string> {
-	// Exported for tests.
+async function getWmicNetworkDrivesOutput(): Promise<string> {
 	// When trying to read wmic's stdout directly from node, it is encoded with the current
 	// console codepage (depending on the computer).
 	// Decoding this would require getting this codepage somehow and using iconv as node
@@ -47,7 +45,7 @@ export async function getWmicNetworkDrivesOutput(): Promise<string> {
 		// Wmic fails with "Invalid global switch" when the "/output:" switch filename contains a dash ("-")
 		prefix: 'tmp',
 	};
-	return using(tmpFileDisposer(options), async ({ path }) => {
+	return withTmpFile(options, async (path) => {
 		const command = [
 			join(env.SystemRoot as string, 'System32', 'Wbem', 'wmic'),
 			'path',
@@ -67,9 +65,10 @@ export async function getWmicNetworkDrivesOutput(): Promise<string> {
 /**
  * @summary returns a Map of drive letter -> network locations on Windows: 'Z:' -> '\\\\192.168.0.1\\Public'
  */
-async function getWindowsNetworkDrives(): Promise<Map<string, string>> {
-	// Use getWindowsNetworkDrives from "exports." so it can be mocked in tests
-	const result = await exports.getWmicNetworkDrivesOutput();
+async function getWindowsNetworkDrives(
+	getWmicOutput: () => Promise<string>,
+): Promise<Map<string, string>> {
+	const result = await getWmicOutput();
 	const couples: Array<[string, string]> = chain(result)
 		.split('\n')
 		// Remove header line
@@ -98,13 +97,15 @@ async function getWindowsNetworkDrives(): Promise<Map<string, string>> {
  */
 export async function replaceWindowsNetworkDriveLetter(
 	filePath: string,
+	// getWmicOutput is a parameter so it can be replaced in tests
+	getWmicOutput = getWmicNetworkDrivesOutput,
 ): Promise<string> {
 	let result = filePath;
 	if (platform() === 'win32') {
 		const matches = /^([A-Z]+:)\\(.*)$/.exec(filePath);
 		if (matches !== null) {
 			const [, drive, relativePath] = matches;
-			const drives = await getWindowsNetworkDrives();
+			const drives = await getWindowsNetworkDrives(getWmicOutput);
 			const location = drives.get(drive);
 			if (location !== undefined) {
 				result = `${location}\\${relativePath}`;

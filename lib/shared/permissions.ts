@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import * as Bluebird from 'bluebird';
 import * as childProcess from 'child_process';
 import { promises as fs } from 'fs';
 import * as _ from 'lodash';
@@ -25,14 +24,29 @@ import { promisify } from 'util';
 
 import { sudo as catalinaSudo } from './catalina-sudo/sudo';
 import * as errors from './errors';
-import { tmpFileDisposer } from './tmp';
+import { withTmpFile } from './tmp';
 
 const execAsync = promisify(childProcess.exec);
 const execFileAsync = promisify(childProcess.execFile);
-// sudo-prompt's exec callback is function(error, stdout, stderr) so we need multiArgs
-const sudoExecAsync = Bluebird.promisify(sudoPrompt.exec, {
-	multiArgs: true,
-}) as (cmd: string, options: any) => Bluebird<[string, string]>;
+
+function sudoExecAsync(
+	cmd: string,
+	options: { name: string },
+): Promise<{ stdout: string; stderr: string }> {
+	return new Promise((resolve, reject) => {
+		sudoPrompt.exec(
+			cmd,
+			options,
+			(error: Error | null, stdout: string, stderr: string) => {
+				if (error != null) {
+					reject(error);
+				} else {
+					resolve({ stdout, stderr });
+				}
+			},
+		);
+	});
+}
 
 /**
  * @summary The user id of the UNIX "superuser"
@@ -108,17 +122,12 @@ export function createLaunchScript(
 
 async function elevateScriptWindows(
 	path: string,
-): Promise<{ cancelled: boolean }> {
-	// 'elevator' imported here as it only exists on windows
-	// TODO: replace this with sudo-prompt once https://github.com/jorangreef/sudo-prompt/issues/96 is fixed
-	// @ts-ignore this is a native module
-	const { elevate } = await import('../../build/Release/elevator.node');
-	const elevateAsync = promisify(elevate);
-
+	name: string,
+): Promise<{ cancelled: false }> {
 	// '&' needs to be escaped here (but not when written to a .cmd file)
-	const cmd = ['cmd', '/c', escapeParamCmd(path).replace(/&/g, '^&')];
-	const { cancelled } = await elevateAsync(cmd);
-	return { cancelled };
+	const cmd = ['cmd', '/c', escapeParamCmd(path).replace(/&/g, '^&')].join(' ');
+	await sudoExecAsync(cmd, { name });
+	return { cancelled: false };
 }
 
 async function elevateScriptUnix(
@@ -161,15 +170,15 @@ export async function elevateCommand(
 		command.slice(1),
 		options.environment,
 	);
-	return Bluebird.using(
-		tmpFileDisposer({
+	return await withTmpFile(
+		{
 			prefix: 'balena-etcher-electron-',
 			postfix: '.cmd',
-		}),
-		async ({ path }) => {
+		},
+		async (path) => {
 			await fs.writeFile(path, launchScript);
 			if (isWindows) {
-				return elevateScriptWindows(path);
+				return elevateScriptWindows(path, options.applicationName);
 			}
 			if (
 				os.platform() === 'darwin' &&
