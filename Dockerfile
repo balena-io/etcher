@@ -9,16 +9,15 @@ ENV npm_config_disturl=https://electronjs.org/headers
 ENV npm_config_runtime=electron
 ENV npm_config_target=9.2.0
 
-COPY src src
 COPY scripts scripts
 COPY typings typings
-COPY binding.gyp tsconfig.json npm-shrinkwrap.json package.json ./
+COPY tsconfig.json npm-shrinkwrap.json package.json ./
 
 RUN npm i
 
 COPY assets assets
 COPY lib lib
-COPY tsconfig.json webpack.config.ts electron-builder.yml afterPack.js ./
+COPY tsconfig.webpack.json webpack.config.ts electron-builder.yml afterPack.js ./
 
 RUN npm run webpack
 RUN PATH=$(pwd)/node_modules/.bin/:$PATH electron-builder --dir --config.asar=false --config.npmRebuild=false --config.nodeGypRebuild=false
