@@ -1989,12 +1989,6 @@
       "integrity": "sha512-/+CRPXpBDpo2RK9C68N3b2cOvO0Cf5B9aPijHsoDQTHivnGSObdOF2BRQOYjojWTDy6nQvMjmqRXIxH55VjxxA==",
       "dev": true
     },
-    "@types/bluebird": {
-      "version": "3.5.32",
-      "resolved": "https://registry.npmjs.org/@types/bluebird/-/bluebird-3.5.32.tgz",
-      "integrity": "sha512-dIOxFfI0C+jz89g6lQ+TqhGgPQ0MxSnh/E4xuC0blhFtyW269+mPG5QeLgbdwst/LvdP8o1y0o/Gz5EHXLec/g==",
-      "dev": true
-    },
     "@types/cacheable-request": {
       "version": "6.0.1",
       "resolved": "https://registry.npmjs.org/@types/cacheable-request/-/cacheable-request-6.0.1.tgz",

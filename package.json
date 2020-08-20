@@ -53,7 +53,6 @@
     "@balena/lint": "^5.0.4",
     "@fortawesome/fontawesome-free": "^5.13.1",
     "@svgr/webpack": "^5.4.0",
-    "@types/bluebird": "^3.5.30",
     "@types/chai": "^4.2.7",
     "@types/copy-webpack-plugin": "^6.0.0",
     "@types/mime-types": "^2.1.0",
