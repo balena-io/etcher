@@ -61,7 +61,6 @@
     "@types/node": "^12.12.39",
     "@types/node-ipc": "^9.1.2",
     "@types/react-dom": "^16.8.4",
-    "@types/request": "^2.48.4",
     "@types/semver": "^7.1.0",
     "@types/sinon": "^9.0.0",
     "@types/terser-webpack-plugin": "^4.1.0",
