@@ -85,7 +85,6 @@
     "lodash": "^4.17.10",
     "mini-css-extract-plugin": "^0.10.0",
     "mocha": "^8.0.1",
-    "nan": "^2.14.0",
     "native-addon-loader": "^2.0.1",
     "node-ipc": "^9.1.1",
     "omit-deep-lodash": "1.1.4",
