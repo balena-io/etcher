@@ -1355,9 +1355,9 @@
       }
     },
     "@balena/udif": {
-      "version": "1.0.5",
-      "resolved": "https://registry.npmjs.org/@balena/udif/-/udif-1.0.5.tgz",
-      "integrity": "sha512-wNlbEZ9VwTYycurBXSiEFX2qBD/sb5WEspE/xdW8375EkotKCzj8x9QyAs9MJR/b0CkJ++vdHizHm4L6tULCGQ==",
+      "version": "1.1.0",
+      "resolved": "https://registry.npmjs.org/@balena/udif/-/udif-1.1.0.tgz",
+      "integrity": "sha512-iZ1GyKVNUcqNQOUem7etcrhzOanRVnuIrNqgcKZiCHunL8aextTdHeEMkY3xEgXpZWTufzDAimVmdrgeUqzT5Q==",
       "dev": true,
       "requires": {
         "@balena/apple-plist": "^0.0.2",
@@ -6677,12 +6677,12 @@
       "dev": true
     },
     "etcher-sdk": {
-      "version": "4.1.23",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.1.23.tgz",
-      "integrity": "sha512-SCOEn8mlLB/1MJq35a5DDiMWaq6PM8EBi9Sv1GyWd+fe/JTKrqE/XniMwegXg2FOHdPNRoZmTneTTUSWglRLrA==",
+      "version": "4.1.24",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.1.24.tgz",
+      "integrity": "sha512-lRAKhXuXD7y68eA+bHJJn4MJpncbybeoH7FaIlXTcISuzdh9lr8NlguKnxvxkX35v1sWN7Ke6REloQY7oqqlvQ==",
       "dev": true,
       "requires": {
-        "@balena/udif": "^1.0.3",
+        "@balena/udif": "^1.1.0",
         "@ronomon/direct-io": "^3.0.1",
         "axios": "^0.19.2",
         "balena-image-fs": "^7.0.0-remove-bluebird-9150c6c0fee21e33beef0ddaeea56ad1ce175c96",
@@ -14991,9 +14991,9 @@
       "dev": true
     },
     "typed-error": {
-      "version": "3.2.0",
-      "resolved": "https://registry.npmjs.org/typed-error/-/typed-error-3.2.0.tgz",
-      "integrity": "sha512-n0NojMTp7jD2MMgJxtjzS1it/sKIlDfQwqOECSPAGwsIU2jns3G0R6alnakRelQzxz7t8PhjYrlqYoQKUVGOsQ==",
+      "version": "3.2.1",
+      "resolved": "https://registry.npmjs.org/typed-error/-/typed-error-3.2.1.tgz",
+      "integrity": "sha512-XlUv4JMrT2dpN0c4Vm3lOm88ga21Z6pNJUmjejRz/mkh6sdBtkMwyRf4fF+yhRGZgfgWam31Lkxu11GINKiBTQ==",
       "dev": true
     },
     "typedarray": {
