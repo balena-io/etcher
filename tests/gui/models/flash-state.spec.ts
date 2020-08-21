@@ -393,6 +393,7 @@ describe('Model: flashState', function () {
 
 				expect(flashResults).to.deep.equal({
 					cancelled: false,
+					skip: false,
 					sourceChecksum: '1234',
 				});
 			});

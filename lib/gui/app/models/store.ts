@@ -334,11 +334,18 @@ function storeReducer(
 				action.data.results.averageFlashingSpeed = state.get(
 					'lastAverageFlashingSpeed',
 				);
+
+				if (action.data.results.skip) {
+					return state
+						.set('isFlashing', false)
+						.set('flashResults', Immutable.fromJS(action.data));
+				}
 			}
 
 			return state
 				.set('isFlashing', false)
-				.set('flashResults', Immutable.fromJS(action.data));
+				.set('flashResults', Immutable.fromJS(action.data))
+				.set('flashState', DEFAULT_STATE.get('flashState'));
 		}
 
 		case Actions.SELECT_TARGET: {

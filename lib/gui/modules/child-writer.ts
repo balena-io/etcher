@@ -55,8 +55,9 @@ function log(message: string) {
 /**
  * @summary Terminate the child writer process
  */
-function terminate(exitCode: number) {
+async function terminate(exitCode: number) {
 	ipc.disconnect(IPC_SERVER_ID);
+	await cleanupTmpFiles(Date.now());
 	process.nextTick(() => {
 		process.exit(exitCode || SUCCESS);
 	});
@@ -68,7 +69,7 @@ function terminate(exitCode: number) {
 async function handleError(error: Error) {
 	ipc.of[IPC_SERVER_ID].emit('error', toJSON(error));
 	await delay(DISCONNECT_DELAY);
-	terminate(GENERAL_ERROR);
+	await terminate(GENERAL_ERROR);
 }
 
 interface WriteResult {
@@ -165,22 +166,22 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 	// no flashing information is available, then it will
 	// assume that the child died halfway through.
 
-	process.once('SIGINT', () => {
-		terminate(SUCCESS);
+	process.once('SIGINT', async () => {
+		await terminate(SUCCESS);
 	});
 
-	process.once('SIGTERM', () => {
-		terminate(SUCCESS);
+	process.once('SIGTERM', async () => {
+		await terminate(SUCCESS);
 	});
 
 	// The IPC server failed. Abort.
-	ipc.of[IPC_SERVER_ID].on('error', () => {
-		terminate(SUCCESS);
+	ipc.of[IPC_SERVER_ID].on('error', async () => {
+		await terminate(SUCCESS);
 	});
 
 	// The IPC server was disconnected. Abort.
-	ipc.of[IPC_SERVER_ID].on('disconnect', () => {
-		terminate(SUCCESS);
+	ipc.of[IPC_SERVER_ID].on('disconnect', async () => {
+		await terminate(SUCCESS);
 	});
 
 	ipc.of[IPC_SERVER_ID].on('write', async (options: WriteOptions) => {
@@ -205,14 +206,14 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 			log('Abort');
 			ipc.of[IPC_SERVER_ID].emit('abort');
 			await delay(DISCONNECT_DELAY);
-			terminate(exitCode);
+			await terminate(exitCode);
 		};
 
 		const onSkip = async () => {
 			log('Skip validation');
 			ipc.of[IPC_SERVER_ID].emit('skip');
 			await delay(DISCONNECT_DELAY);
-			terminate(exitCode);
+			await terminate(exitCode);
 		};
 
 		ipc.of[IPC_SERVER_ID].on('cancel', onAbort);
@@ -286,7 +287,7 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 			});
 			ipc.of[IPC_SERVER_ID].emit('done', { results });
 			await delay(DISCONNECT_DELAY);
-			terminate(exitCode);
+			await terminate(exitCode);
 		} catch (error) {
 			log(`Error: ${error.message}`);
 			exitCode = GENERAL_ERROR;
