@@ -26,7 +26,6 @@ import {
 	Theme as renditionTheme,
 } from 'rendition';
 import styled from 'styled-components';
-import { space } from 'styled-system';
 
 import { colors, theme } from './theme';
 
@@ -86,7 +85,6 @@ export const ChangeButton = styled(Button)`
 				color: #8f9297;
 			}
 		}
-		${space}
 	}
 `;
 

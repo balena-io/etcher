@@ -150,10 +150,6 @@ export const error = {
 		].join('');
 	},
 
-	elevationRequired: () => {
-		return 'This should should be run with root/administrator permissions.';
-	},
-
 	flashFailure: (
 		imageBasename: string,
 		drives: Array<{ description: string; displayName: string }>,

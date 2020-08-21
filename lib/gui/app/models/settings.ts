@@ -92,14 +92,17 @@ async function load(): Promise<void> {
 
 const loaded = load();
 
-export async function set(key: string, value: any): Promise<void> {
+export async function set(
+	key: string,
+	value: any,
+	writeConfigFileFn = writeConfigFile,
+): Promise<void> {
 	debug('set', key, value);
 	await loaded;
 	const previousValue = settings[key];
 	settings[key] = value;
 	try {
-		// Use exports.writeConfigFile() so it can be mocked in tests
-		await exports.writeConfigFile(CONFIG_PATH, settings);
+		await writeConfigFileFn(CONFIG_PATH, settings);
 	} catch (error) {
 		// Revert to previous value if persisting settings failed
 		settings[key] = previousValue;

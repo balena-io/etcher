@@ -130,6 +130,10 @@ const commonConfig = {
 	module: {
 		rules: [
 			{
+				test: /\.css$/,
+				use: 'css-loader',
+			},
+			{
 				test: /\.svg$/,
 				use: '@svgr/webpack',
 			},
