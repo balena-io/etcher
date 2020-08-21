@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.104
+## (2020-08-20)
+
+* Fix writing config file [Alexis Svinartchouk]
+* Update electron to v9.2.1 [Alexis Svinartchouk]
+
 # v1.5.103
 ## (2020-08-18)
 
