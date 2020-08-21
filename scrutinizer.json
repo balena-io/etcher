@@ -339,7 +339,7 @@
   "public": true,
   "fork": false,
   "description": "Flash OS images to SD cards & USB drives, safely and easily.",
-  "stars": 18458,
+  "stars": 18471,
   "homepage": "https://etcher.io",
   "repositoryUrl": "https://github.com/balena-io/etcher.git",
   "active": true,
@@ -350,85 +350,85 @@
     "type": "Organization"
   },
   "dependencies": [],
-  "lastCommitDate": "2020-08-19T11:57:18Z",
+  "lastCommitDate": "2020-08-21T13:01:18Z",
   "latestRelease": {
-    "tagName": "v1.5.103",
+    "tagName": "v1.5.104",
     "asssets": [
       {
-        "name": "balena-etcher-electron-1.5.103-linux-ia32.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.103/balena-etcher-electron-1.5.103-linux-ia32.zip"
+        "name": "balena-etcher-electron-1.5.104-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.104/balena-etcher-electron-1.5.104-linux-ia32.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.103-linux-x64.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.103/balena-etcher-electron-1.5.103-linux-x64.zip"
+        "name": "balena-etcher-electron-1.5.104-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.104/balena-etcher-electron-1.5.104-linux-x64.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.103.i686.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.103/balena-etcher-electron-1.5.103.i686.rpm"
+        "name": "balena-etcher-electron-1.5.104.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.104/balena-etcher-electron-1.5.104.i686.rpm"
       },
       {
-        "name": "balena-etcher-electron-1.5.103.x86_64.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.103/balena-etcher-electron-1.5.103.x86_64.rpm"
+        "name": "balena-etcher-electron-1.5.104.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.104/balena-etcher-electron-1.5.104.x86_64.rpm"
       },
       {
-        "name": "balena-etcher-electron_1.5.103_amd64.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.103/balena-etcher-electron_1.5.103_amd64.deb"
+        "name": "balena-etcher-electron_1.5.104_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.104/balena-etcher-electron_1.5.104_amd64.deb"
       },
       {
-        "name": "balena-etcher-electron_1.5.103_i386.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.103/balena-etcher-electron_1.5.103_i386.deb"
+        "name": "balena-etcher-electron_1.5.104_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.104/balena-etcher-electron_1.5.104_i386.deb"
       },
       {
-        "name": "balenaEtcher-1.5.103-ia32.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.103/balenaEtcher-1.5.103-ia32.AppImage"
+        "name": "balenaEtcher-1.5.104-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.104/balenaEtcher-1.5.104-ia32.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.103-mac.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.103/balenaEtcher-1.5.103-mac.zip"
+        "name": "balenaEtcher-1.5.104-mac.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.104/balenaEtcher-1.5.104-mac.zip"
       },
       {
-        "name": "balenaEtcher-1.5.103-x64.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.103/balenaEtcher-1.5.103-x64.AppImage"
+        "name": "balenaEtcher-1.5.104-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.104/balenaEtcher-1.5.104-x64.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.103.dmg",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.103/balenaEtcher-1.5.103.dmg"
+        "name": "balenaEtcher-1.5.104.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.104/balenaEtcher-1.5.104.dmg"
       },
       {
-        "name": "balenaEtcher-1.5.103.dmg.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.103/balenaEtcher-1.5.103.dmg.blockmap"
+        "name": "balenaEtcher-1.5.104.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.104/balenaEtcher-1.5.104.dmg.blockmap"
       },
       {
-        "name": "balenaEtcher-Portable-1.5.103.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.103/balenaEtcher-Portable-1.5.103.exe"
+        "name": "balenaEtcher-Portable-1.5.104.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.104/balenaEtcher-Portable-1.5.104.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.103.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.103/balenaEtcher-Setup-1.5.103.exe"
+        "name": "balenaEtcher-Setup-1.5.104.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.104/balenaEtcher-Setup-1.5.104.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.103.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.103/balenaEtcher-Setup-1.5.103.exe.blockmap"
+        "name": "balenaEtcher-Setup-1.5.104.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.104/balenaEtcher-Setup-1.5.104.exe.blockmap"
       },
       {
         "name": "builder-effective-config.yaml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.103/builder-effective-config.yaml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.104/builder-effective-config.yaml"
       },
       {
         "name": "latest-linux-ia32.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.103/latest-linux-ia32.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.104/latest-linux-ia32.yml"
       },
       {
         "name": "latest-linux.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.103/latest-linux.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.104/latest-linux.yml"
       },
       {
         "name": "latest-mac.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.103/latest-mac.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.104/latest-mac.yml"
       },
       {
         "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.103/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.104/latest.yml"
       }
     ]
   },
@@ -526,15 +526,15 @@
     ]
   },
   "openIssues": {
-    "numberOfIssues": 258,
+    "numberOfIssues": 257,
     "latestIssues": [
+      {
+        "title": "MacOS v1.5.103 - settings cannot be changed",
+        "url": "https://github.com/balena-io/etcher/issues/3279"
+      },
       {
         "title": "Etcher not showing up on macOS Catalina",
         "url": "https://github.com/balena-io/etcher/issues/3278"
-      },
-      {
-        "title": "Support Multithreading in Electron",
-        "url": "https://github.com/balena-io/etcher/issues/3277"
       },
       {
         "title": "Sandisk SDHC - Unknown error",
@@ -610,7 +610,7 @@
       }
     ]
   },
-  "version": "1.5.103",
+  "version": "1.5.104",
   "screenshot": null,
   "logo": null
 }
