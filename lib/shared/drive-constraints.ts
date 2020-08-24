@@ -73,9 +73,7 @@ export function isSourceDrive(
 ): boolean {
 	if (selection) {
 		if (selection.drive) {
-			const sourcePath = selection.drive.devicePath || selection.drive.device;
-			const drivePath = drive.devicePath || drive.device;
-			return pathIsInside(sourcePath, drivePath);
+			return selection.drive.device === drive.device;
 		}
 		if (selection.path) {
 			return sourceIsInsideDrive(selection.path, drive);

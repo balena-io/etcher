@@ -65,7 +65,7 @@ function FinishPage({ goToMain }: { goToMain: () => void }) {
 			averageFlashingSpeed: averageSpeed,
 			devices: { failed, successful: 0 },
 		},
-	} = flashState.getFlashResults();
+	} = flashResults;
 	return (
 		<Flex height="100%" justifyContent="space-between">
 			<Flex
@@ -87,6 +87,7 @@ function FinishPage({ goToMain }: { goToMain: () => void }) {
 					skip={skip}
 					errors={errors}
 					mb="32px"
+					goToMain={goToMain}
 				/>
 
 				<FlashAnother

@@ -16,6 +16,7 @@
 
 import CircleSvg from '@fortawesome/fontawesome-free/svgs/solid/circle.svg';
 import CheckCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/check-circle.svg';
+import TimesCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/times-circle.svg';
 import * as _ from 'lodash';
 import outdent from 'outdent';
 import * as React from 'react';
@@ -32,32 +33,25 @@ import * as selection from '../../models/selection-state';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
 import { Modal } from '../../styled-components';
 
-const ErrorsTable = styled(({ refFn, ...props }) => {
-	return (
-		<div>
-			<Table<FlashError> ref={refFn} {...props} />
-		</div>
-	);
-})`
-	[data-display='table-head'] [data-display='table-cell'] {
-		width: 50%;
-		position: sticky;
-		top: 0;
-		background-color: ${(props) => props.theme.colors.quartenary.light};
-	}
+const ErrorsTable = styled((props) => <Table<FlashError> {...props} />)`
+&&& [data-display='table-head'],
+&&& [data-display='table-body'] {
+	> [data-display='table-row'] {
+		> [data-display='table-cell'] {
+			&:first-child {
+				width: 30%;
+			}
 
-	[data-display='table-cell']:first-child {
-		padding-left: 15px;
-	}
+			&:nth-child(2) {
+				width: 20%;
+			}
 
-	[data-display='table-cell']:last-child {
-		width: 150px;
+			&:last-child {
+				width: 50%;
+			}
+		}
 	}
-
-	&& [data-display='table-row'] > [data-display='table-cell'] {
-		padding: 6px 8px;
-		color: #2a506f;
-	}
+}
 `;
 const DoneIcon = (props: {
 	skipped: boolean;
@@ -71,7 +65,6 @@ const DoneIcon = (props: {
 			marginTop: '-25px',
 			marginLeft: '13px',
 			zIndex: 1,
-			color: props.color,
 		},
 	};
 	return props.allFailed && !props.skipped ? (
@@ -112,12 +105,14 @@ const columns: Array<TableColumn<FlashError>> = [
 ];
 
 export function FlashResults({
+	goToMain,
 	image = '',
 	errors,
 	results,
 	skip,
 	...props
 }: {
+	goToMain: () => void;
 	image?: string;
 	errors: FlashError[];
 	skip: boolean;
@@ -167,7 +162,7 @@ export function FlashResults({
 			<Flex flexDirection="column" color="#7e8085">
 				{results.devices.successful !== 0 ? (
 					<Flex alignItems="center">
-						<CircleSvg width="14px" fill="#1ac135" color="#1ac135" />
+						<CircleSvg width="14px" fill="#1ac135" />
 						<Txt ml="10px" color="#fff">
 							{results.devices.successful}
 						</Txt>
@@ -178,7 +173,7 @@ export function FlashResults({
 				) : null}
 				{errors.length !== 0 ? (
 					<Flex alignItems="center">
-						<CircleSvg width="14px" fill="#ff4444" color="#ff4444" />
+						<CircleSvg width="14px" fill="#ff4444" />
 						<Txt ml="10px" color="#fff">
 							{errors.length}
 						</Txt>
@@ -222,10 +217,14 @@ export function FlashResults({
 						setShowErrorsInfo(false);
 						resetState();
 						getDrives()
-							.filter((drive) =>
-								errors.some((error) => error.device === drive.device),
+							.map((drive) => {
+								selection.deselectDrive(drive.device);
+								return drive.device;
+							})
+							.filter((driveDevice) =>
+								errors.some((error) => error.device === driveDevice),
 							)
-							.forEach((drive) => selection.selectDrive(drive.device));
+							.forEach((driveDevice) => selection.selectDrive(driveDevice));
 						goToMain();
 					}}
 				>
