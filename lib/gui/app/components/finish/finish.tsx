@@ -41,7 +41,8 @@ function restart(goToMain: () => void) {
 
 function FinishPage({ goToMain }: { goToMain: () => void }) {
 	const [webviewShowing, setWebviewShowing] = React.useState(false);
-	let errors = flashState.getFlashResults().results?.errors;
+	const flashResults = flashState.getFlashResults();
+	let errors = flashResults?.results?.errors;
 	if (errors === undefined) {
 		errors = (store.getState().toJS().failedDevicePaths || []).map(
 			([, error]: [string, FlashError]) => ({
@@ -67,7 +68,7 @@ function FinishPage({ goToMain }: { goToMain: () => void }) {
 			averageFlashingSpeed: averageSpeed,
 			devices: { failed, successful: 0 },
 		},
-	} = flashState.getFlashResults();
+	} = flashResults;
 	return (
 		<Flex height="100%" justifyContent="space-between">
 			<Flex
@@ -89,6 +90,7 @@ function FinishPage({ goToMain }: { goToMain: () => void }) {
 					skip={skip}
 					errors={errors}
 					mb="32px"
+					goToMain={goToMain}
 				/>
 
 				<FlashAnother

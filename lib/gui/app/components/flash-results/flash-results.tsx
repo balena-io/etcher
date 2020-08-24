@@ -16,6 +16,7 @@
 
 import CircleSvg from '@fortawesome/fontawesome-free/svgs/solid/circle.svg';
 import CheckCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/check-circle.svg';
+import TimesCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/times-circle.svg';
 import * as _ from 'lodash';
 import outdent from 'outdent';
 import * as React from 'react';
@@ -26,6 +27,8 @@ import { progress } from '../../../../shared/messages';
 import { bytesToMegabytes } from '../../../../shared/units';
 
 import FlashSvg from '../../../assets/flash.svg';
+import { resetState } from '../../models/flash-state';
+import * as selection from '../../models/selection-state';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
 import { Modal } from '../../styled-components';
 
@@ -56,6 +59,28 @@ const ErrorsTable = styled(({ refFn, ...props }) => {
 		color: #2a506f;
 	}
 `;
+
+const DoneIcon = (props: { allFailed: boolean; someFailed: boolean }) => {
+	const { allFailed, someFailed } = props;
+	const someOrAllFailed = allFailed || someFailed;
+	const svgProps = {
+		width: '24px',
+		fill: someOrAllFailed ? '#c6c8c9' : '#1ac135',
+		style: {
+			width: '28px',
+			height: '28px',
+			marginTop: '-25px',
+			marginLeft: '13px',
+			zIndex: 1,
+			color: someOrAllFailed ? '#c6c8c9' : '#1ac135',
+		},
+	};
+	return allFailed ? (
+		<TimesCircleSvg {...svgProps} />
+	) : (
+		<CheckCircleSvg {...svgProps} />
+	);
+};
 
 export interface FlashError extends Error {
 	description: string;
@@ -88,12 +113,14 @@ const columns: Array<TableColumn<FlashError>> = [
 ];
 
 export function FlashResults({
+	goToMain,
 	image = '',
 	errors,
 	results,
 	skip,
 	...props
 }: {
+	goToMain: () => void;
 	image?: string;
 	errors: FlashError[];
 	skip: boolean;
@@ -108,7 +135,7 @@ export function FlashResults({
 	};
 } & FlexProps) {
 	const [showErrorsInfo, setShowErrorsInfo] = React.useState(false);
-	const allDevicesFailed = results.devices.successful === 0;
+	const allFailed = results.devices.successful === 0;
 	const effectiveSpeed = _.round(
 		bytesToMegabytes(
 			results.sourceMetadata.size /
@@ -127,17 +154,9 @@ export function FlashResults({
 					flexDirection="column"
 				>
 					<FlashSvg width="40px" height="40px" className="disabled" />
-					<CheckCircleSvg
-						width="24px"
-						fill={allDevicesFailed ? '#c6c8c9' : '#1ac135'}
-						style={{
-							width: '28px',
-							height: '28px',
-							marginTop: '-25px',
-							marginLeft: '13px',
-							zIndex: 1,
-							color: allDevicesFailed ? '#c6c8c9' : '#1ac135',
-						}}
+					<DoneIcon
+						allFailed={allFailed}
+						someFailed={results.devices.failed !== 0}
 					/>
 					<Txt>{middleEllipsis(image, 16)}</Txt>
 				</Flex>
@@ -173,7 +192,7 @@ export function FlashResults({
 						</Flex>
 					) : null;
 				})}
-				{!allDevicesFailed && (
+				{!allFailed && (
 					<Txt
 						fontSize="10px"
 						style={{
@@ -199,7 +218,19 @@ export function FlashResults({
 							</Txt>
 						</Flex>
 					}
-					done={() => setShowErrorsInfo(false)}
+					action="Retry failed targets"
+					cancel={() => setShowErrorsInfo(false)}
+					done={() => {
+						setShowErrorsInfo(false);
+						resetState();
+						selection
+							.getSelectedDrives()
+							.filter((drive) =>
+								errors.every((error) => error.device !== drive.device),
+							)
+							.forEach((drive) => selection.deselectDrive(drive.device));
+						goToMain();
+					}}
 				>
 					<ErrorsTable columns={columns} data={errors} />
 				</Modal>
