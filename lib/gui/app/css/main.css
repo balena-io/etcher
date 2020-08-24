@@ -49,11 +49,6 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-/* Allow window to be dragged from header */
-#app-header {
-  -webkit-app-region: drag;
-}
-
 /* Prevent blue outline */
 a:focus,
 input:focus,
