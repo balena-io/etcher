@@ -30,6 +30,7 @@ import {
 	Txt,
 	Card as BaseCard,
 	Input,
+	Spinner,
 } from 'rendition';
 import styled from 'styled-components';
 
@@ -137,8 +138,9 @@ const URLSelector = ({
 		<Modal
 			cancel={cancel}
 			primaryButtonProps={{
-				className: loading || !imageURL ? 'disabled' : '',
+				disabled: loading || !imageURL,
 			}}
+			action={loading ? <Spinner /> : 'OK'}
 			done={async () => {
 				setLoading(true);
 				const urlStrings = recentImages.map((url: URL) => url.href);
