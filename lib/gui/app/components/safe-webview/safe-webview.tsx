@@ -58,8 +58,6 @@ const API_VERSION = '2';
 interface SafeWebviewProps {
 	// The website source URL
 	src: string;
-	// @summary Refresh the webview
-	refreshNow?: boolean;
 	// Webview lifecycle event
 	onWebviewShow?: (isWebviewShowing: boolean) => void;
 	style?: React.CSSProperties;
