@@ -24,7 +24,6 @@ import * as React from 'react';
 import { Flex } from 'rendition';
 import styled from 'styled-components';
 
-import { FeaturedProject } from '../../components/featured-project/featured-project';
 import FinishPage from '../../components/finish/finish';
 import { ReducedFlashingInfos } from '../../components/reduced-flashing-infos/reduced-flashing-infos';
 import { SafeWebview } from '../../components/safe-webview/safe-webview';
@@ -114,6 +113,7 @@ interface MainPageState {
 	isWebviewShowing: boolean;
 	hideSettings: boolean;
 	source: SourceOptions;
+	featuredProjectURL?: string;
 }
 
 export class MainPage extends React.Component<
@@ -147,10 +147,21 @@ export class MainPage extends React.Component<
 		};
 	}
 
-	public componentDidMount() {
+	private async getFeaturedProjectURL() {
+		const url = new URL(
+			(await settings.get('featuredProjectEndpoint')) ||
+				'https://assets.balena.io/etcher-featured/index.html',
+		);
+		url.searchParams.append('borderRight', 'false');
+		url.searchParams.append('darkBackground', 'true');
+		return url.toString();
+	}
+
+	public async componentDidMount() {
 		observe(() => {
 			this.setState(this.stateHelper());
 		});
+		this.setState({ featuredProjectURL: await this.getFeaturedProjectURL() });
 	}
 
 	private renderMain() {
@@ -291,19 +302,21 @@ export class MainPage extends React.Component<
 									}}
 								/>
 							</Flex>
-							<FeaturedProject
-								shouldShow={this.state.isWebviewShowing}
-								onWebviewShow={(isWebviewShowing: boolean) => {
-									this.setState({ isWebviewShowing });
-								}}
-								style={{
-									position: 'absolute',
-									right: 0,
-									bottom: 0,
-									width: '63.8vw',
-									height: '100vh',
-								}}
-							/>
+							{this.state.featuredProjectURL && (
+								<SafeWebview
+									src={this.state.featuredProjectURL}
+									onWebviewShow={(isWebviewShowing: boolean) => {
+										this.setState({ isWebviewShowing });
+									}}
+									style={{
+										position: 'absolute',
+										right: 0,
+										bottom: 0,
+										width: '63.8vw',
+										height: '100vh',
+									}}
+								/>
+							)}
 						</>
 					)}
 
