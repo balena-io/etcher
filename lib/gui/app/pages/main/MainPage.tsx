@@ -242,82 +242,72 @@ export class MainPage extends React.Component<
 					justifyContent="space-between"
 				>
 					{notFlashingOrSplitView && (
-						<SourceSelector
-							flashing={this.state.isFlashing}
-							afterSelected={(source: SourceOptions) =>
-								this.setState({ source })
-							}
-						/>
-					)}
-
-					{notFlashingOrSplitView && (
-						<Flex>
-							<StepBorder disabled={shouldDriveStepBeDisabled} left />
-						</Flex>
-					)}
-
-					{notFlashingOrSplitView && (
-						<DriveSelector
-							disabled={shouldDriveStepBeDisabled}
-							hasDrive={this.state.hasDrive}
-							flashing={this.state.isFlashing}
-						/>
-					)}
-
-					{notFlashingOrSplitView && (
-						<Flex>
-							<StepBorder disabled={shouldFlashStepBeDisabled} right />
-						</Flex>
-					)}
-
-					{this.state.isFlashing && (
 						<>
-							<Flex
+							<SourceSelector
+								flashing={this.state.isFlashing}
+								afterSelected={(source: SourceOptions) =>
+									this.setState({ source })
+								}
+							/>
+							<Flex>
+								<StepBorder disabled={shouldDriveStepBeDisabled} left />
+							</Flex>
+							<DriveSelector
+								disabled={shouldDriveStepBeDisabled}
+								hasDrive={this.state.hasDrive}
+								flashing={this.state.isFlashing}
+							/>
+							<Flex>
+								<StepBorder disabled={shouldFlashStepBeDisabled} right />
+							</Flex>
+						</>
+					)}
+
+					{this.state.isFlashing && this.state.isWebviewShowing && (
+						<Flex
+							style={{
+								position: 'absolute',
+								top: 0,
+								left: 0,
+								width: '36.2vw',
+								height: '100vh',
+								zIndex: 1,
+								boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.2)',
+							}}
+						>
+							<ReducedFlashingInfos
+								imageLogo={this.state.imageLogo}
+								imageName={this.state.imageName}
+								imageSize={
+									_.isNumber(this.state.imageSize)
+										? (bytesToClosestUnit(this.state.imageSize) as string)
+										: ''
+								}
+								driveTitle={this.state.driveTitle}
+								driveLabel={this.state.driveLabel}
 								style={{
 									position: 'absolute',
-									top: 0,
-									left: 0,
-									width: '36.2vw',
-									height: '100vh',
-									zIndex: 1,
-									boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.2)',
-									display: this.state.isWebviewShowing ? 'block' : 'none',
+									color: '#fff',
+									left: 35,
+									top: 72,
 								}}
-							>
-								<ReducedFlashingInfos
-									imageLogo={this.state.imageLogo}
-									imageName={this.state.imageName}
-									imageSize={
-										_.isNumber(this.state.imageSize)
-											? (bytesToClosestUnit(this.state.imageSize) as string)
-											: ''
-									}
-									driveTitle={this.state.driveTitle}
-									driveLabel={this.state.driveLabel}
-									style={{
-										position: 'absolute',
-										color: '#fff',
-										left: 35,
-										top: 72,
-									}}
-								/>
-							</Flex>
-							{this.state.featuredProjectURL && (
-								<SafeWebview
-									src={this.state.featuredProjectURL}
-									onWebviewShow={(isWebviewShowing: boolean) => {
-										this.setState({ isWebviewShowing });
-									}}
-									style={{
-										position: 'absolute',
-										right: 0,
-										bottom: 0,
-										width: '63.8vw',
-										height: '100vh',
-									}}
-								/>
-							)}
-						</>
+							/>
+						</Flex>
+					)}
+					{this.state.isFlashing && this.state.featuredProjectURL && (
+						<SafeWebview
+							src={this.state.featuredProjectURL}
+							onWebviewShow={(isWebviewShowing: boolean) => {
+								this.setState({ isWebviewShowing });
+							}}
+							style={{
+								position: 'absolute',
+								right: 0,
+								bottom: 0,
+								width: '63.8vw',
+								height: '100vh',
+							}}
+						/>
 					)}
 
 					<FlashStep
