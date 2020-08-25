@@ -146,7 +146,6 @@ interface FlashStepProps {
 	goToSuccess: () => void;
 	source: SourceOptions;
 	isFlashing: boolean;
-	isWebviewShowing: boolean;
 	style?: React.CSSProperties;
 	// TODO: factorize
 	step: 'decompressing' | 'flashing' | 'verifying';

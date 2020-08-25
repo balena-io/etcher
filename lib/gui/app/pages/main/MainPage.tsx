@@ -325,7 +325,6 @@ export class MainPage extends React.Component<
 						shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
 						source={this.state.source}
 						isFlashing={this.state.isFlashing}
-						isWebviewShowing={this.state.isWebviewShowing}
 						step={state.type}
 						percentage={state.percentage}
 						position={state.position}
