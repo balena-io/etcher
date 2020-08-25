@@ -28,10 +28,9 @@ interface FeaturedProjectProps {
 
 interface FeaturedProjectState {
 	endpoint: string | null;
-	show: boolean;
 }
 
-export class FeaturedProject extends React.Component<
+export class FeaturedProject extends React.PureComponent<
 	FeaturedProjectProps,
 	FeaturedProjectState
 > {
@@ -39,7 +38,6 @@ export class FeaturedProject extends React.Component<
 		super(props);
 		this.state = {
 			endpoint: null,
-			show: false,
 		};
 	}
 
@@ -58,16 +56,8 @@ export class FeaturedProject extends React.Component<
 	}
 
 	public render() {
-		const { style = {} } = this.props;
 		return this.state.endpoint ? (
-			<SafeWebview
-				src={this.state.endpoint}
-				style={{
-					display: this.state.show ? 'block' : 'none',
-					...style,
-				}}
-				{...this.props}
-			></SafeWebview>
+			<SafeWebview src={this.state.endpoint} {...this.props} />
 		) : null;
 	}
 }
