@@ -1351,6 +1351,12 @@
           "resolved": "https://registry.npmjs.org/@types/node/-/node-10.17.28.tgz",
           "integrity": "sha512-dzjES1Egb4c1a89C7lKwQh8pwjYmlOAG9dW1pBgxEk57tMrLnssOfEthz8kdkNaBd7lIqQx7APm5+mZ619IiCQ==",
           "dev": true
+        },
+        "typescript": {
+          "version": "3.9.7",
+          "resolved": "https://registry.npmjs.org/typescript/-/typescript-3.9.7.tgz",
+          "integrity": "sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==",
+          "dev": true
         }
       }
     },
@@ -14827,9 +14833,9 @@
       }
     },
     "ts-node": {
-      "version": "8.10.2",
-      "resolved": "https://registry.npmjs.org/ts-node/-/ts-node-8.10.2.tgz",
-      "integrity": "sha512-ISJJGgkIpDdBhWVu3jufsWpK3Rzo7bdiIXJjQc0ynKxVOVcg2oIrf2H2cejminGrptVc6q6/uynAHNCuWGbpVA==",
+      "version": "9.0.0",
+      "resolved": "https://registry.npmjs.org/ts-node/-/ts-node-9.0.0.tgz",
+      "integrity": "sha512-/TqB4SnererCDR/vb4S/QvSZvzQMJN8daAslg7MeaiHvD8rDZsSfXmNeNumyZZzMned72Xoq/isQljYSt8Ynfg==",
       "dev": true,
       "requires": {
         "arg": "^4.1.0",
@@ -15012,9 +15018,9 @@
       }
     },
     "typescript": {
-      "version": "3.9.7",
-      "resolved": "https://registry.npmjs.org/typescript/-/typescript-3.9.7.tgz",
-      "integrity": "sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==",
+      "version": "4.0.2",
+      "resolved": "https://registry.npmjs.org/typescript/-/typescript-4.0.2.tgz",
+      "integrity": "sha512-e4ERvRV2wb+rRZ/IQeb3jm2VxBsirQLpQhdxplZ2MEzGvDkkMmPglecnNDfSUBivMjP93vRbngYYDQqQ/78bcQ==",
       "dev": true
     },
     "typo-js": {
