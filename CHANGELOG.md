@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.106
+## (2020-08-27)
+
+* Disable ext partitions trimming on 32 bit windows until it is fixed [Alexis Svinartchouk]
+* Fix opening zip files from servers accepting Range headers [Alexis Svinartchouk]
+
 # v1.5.105
 ## (2020-08-25)
 
