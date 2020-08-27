@@ -339,7 +339,7 @@
   "public": true,
   "fork": false,
   "description": "Flash OS images to SD cards & USB drives, safely and easily.",
-  "stars": 18508,
+  "stars": 18519,
   "homepage": "https://etcher.io",
   "repositoryUrl": "https://github.com/balena-io/etcher.git",
   "active": true,
@@ -350,85 +350,85 @@
     "type": "Organization"
   },
   "dependencies": [],
-  "lastCommitDate": "2020-08-26T11:13:18Z",
+  "lastCommitDate": "2020-08-27T16:18:47Z",
   "latestRelease": {
-    "tagName": "v1.5.105",
+    "tagName": "v1.5.106",
     "asssets": [
       {
-        "name": "balena-etcher-electron-1.5.105-linux-ia32.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.105/balena-etcher-electron-1.5.105-linux-ia32.zip"
+        "name": "balena-etcher-electron-1.5.106-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.106/balena-etcher-electron-1.5.106-linux-ia32.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.105-linux-x64.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.105/balena-etcher-electron-1.5.105-linux-x64.zip"
+        "name": "balena-etcher-electron-1.5.106-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.106/balena-etcher-electron-1.5.106-linux-x64.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.105.i686.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.105/balena-etcher-electron-1.5.105.i686.rpm"
+        "name": "balena-etcher-electron-1.5.106.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.106/balena-etcher-electron-1.5.106.i686.rpm"
       },
       {
-        "name": "balena-etcher-electron-1.5.105.x86_64.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.105/balena-etcher-electron-1.5.105.x86_64.rpm"
+        "name": "balena-etcher-electron-1.5.106.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.106/balena-etcher-electron-1.5.106.x86_64.rpm"
       },
       {
-        "name": "balena-etcher-electron_1.5.105_amd64.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.105/balena-etcher-electron_1.5.105_amd64.deb"
+        "name": "balena-etcher-electron_1.5.106_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.106/balena-etcher-electron_1.5.106_amd64.deb"
       },
       {
-        "name": "balena-etcher-electron_1.5.105_i386.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.105/balena-etcher-electron_1.5.105_i386.deb"
+        "name": "balena-etcher-electron_1.5.106_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.106/balena-etcher-electron_1.5.106_i386.deb"
       },
       {
-        "name": "balenaEtcher-1.5.105-ia32.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.105/balenaEtcher-1.5.105-ia32.AppImage"
+        "name": "balenaEtcher-1.5.106-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.106/balenaEtcher-1.5.106-ia32.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.105-mac.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.105/balenaEtcher-1.5.105-mac.zip"
+        "name": "balenaEtcher-1.5.106-mac.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.106/balenaEtcher-1.5.106-mac.zip"
       },
       {
-        "name": "balenaEtcher-1.5.105-x64.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.105/balenaEtcher-1.5.105-x64.AppImage"
+        "name": "balenaEtcher-1.5.106-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.106/balenaEtcher-1.5.106-x64.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.105.dmg",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.105/balenaEtcher-1.5.105.dmg"
+        "name": "balenaEtcher-1.5.106.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.106/balenaEtcher-1.5.106.dmg"
       },
       {
-        "name": "balenaEtcher-1.5.105.dmg.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.105/balenaEtcher-1.5.105.dmg.blockmap"
+        "name": "balenaEtcher-1.5.106.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.106/balenaEtcher-1.5.106.dmg.blockmap"
       },
       {
-        "name": "balenaEtcher-Portable-1.5.105.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.105/balenaEtcher-Portable-1.5.105.exe"
+        "name": "balenaEtcher-Portable-1.5.106.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.106/balenaEtcher-Portable-1.5.106.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.105.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.105/balenaEtcher-Setup-1.5.105.exe"
+        "name": "balenaEtcher-Setup-1.5.106.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.106/balenaEtcher-Setup-1.5.106.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.105.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.105/balenaEtcher-Setup-1.5.105.exe.blockmap"
+        "name": "balenaEtcher-Setup-1.5.106.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.106/balenaEtcher-Setup-1.5.106.exe.blockmap"
       },
       {
         "name": "builder-effective-config.yaml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.105/builder-effective-config.yaml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.106/builder-effective-config.yaml"
       },
       {
         "name": "latest-linux-ia32.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.105/latest-linux-ia32.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.106/latest-linux-ia32.yml"
       },
       {
         "name": "latest-linux.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.105/latest-linux.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.106/latest-linux.yml"
       },
       {
         "name": "latest-mac.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.105/latest-mac.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.106/latest-mac.yml"
       },
       {
         "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.105/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.106/latest.yml"
       }
     ]
   },
@@ -526,8 +526,12 @@
     ]
   },
   "openIssues": {
-    "numberOfIssues": 257,
+    "numberOfIssues": 258,
     "latestIssues": [
+      {
+        "title": "Can we start decompressing image before elevating permission?",
+        "url": "https://github.com/balena-io/etcher/issues/3287"
+      },
       {
         "title": "New success screen",
         "url": "https://github.com/balena-io/etcher/pull/3283"
@@ -603,14 +607,10 @@
       {
         "title": "After the computer had gone to sleep, the software went blank.",
         "url": "https://github.com/balena-io/etcher/issues/3231"
-      },
-      {
-        "title": "`gz` file (from OMV backup) can't be used as input image",
-        "url": "https://github.com/balena-io/etcher/issues/3230"
       }
     ]
   },
-  "version": "1.5.105",
+  "version": "1.5.106",
   "screenshot": null,
   "logo": null
 }
