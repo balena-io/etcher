@@ -356,6 +356,16 @@ async function main() {
 	ReactDOM.render(
 		React.createElement(MainPage),
 		document.getElementById('main'),
+		// callback to set the correct zoomFactor for webviews as well
+		async () => {
+			const fullscreen = await settings.get('fullscreen');
+			const width = fullscreen ? window.screen.width : window.outerWidth;
+			try {
+				electron.webFrame.setZoomFactor(width / settings.DEFAULT_WIDTH);
+			} catch (err) {
+				// noop
+			}
+		},
 	);
 }
 
