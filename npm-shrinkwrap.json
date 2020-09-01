@@ -6683,15 +6683,15 @@
       "dev": true
     },
     "etcher-sdk": {
-      "version": "4.1.29",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.1.29.tgz",
-      "integrity": "sha512-dMzrCFgd6WHe/tqsFapHKjTXA32YL/J+p/RnJztQeMfV3b0cQiUINp6ZX4cU6lfbL8cpRVp4y61Qo5vhMbycZw==",
+      "version": "4.1.30",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-4.1.30.tgz",
+      "integrity": "sha512-HINIm5b/nOnY4v5XGRQFYQsHOSHGM/iukMm56WblsKEQPRBjZzZfHUzsyZcbsclFhw//x+iPbkDKUbf5uBpk1Q==",
       "dev": true,
       "requires": {
         "@balena/udif": "^1.1.0",
         "@ronomon/direct-io": "^3.0.1",
         "axios": "^0.19.2",
-        "balena-image-fs": "^7.0.0-remove-bluebird-9150c6c0fee21e33beef0ddaeea56ad1ce175c96",
+        "balena-image-fs": "^7.0.1",
         "blockmap": "^4.0.1",
         "check-disk-space": "^2.1.0",
         "cyclic-32": "^1.1.0",
@@ -6871,9 +6871,9 @@
       }
     },
     "ext2fs": {
-      "version": "2.0.1",
-      "resolved": "https://registry.npmjs.org/ext2fs/-/ext2fs-2.0.1.tgz",
-      "integrity": "sha512-ZhnpAINB0+Lsgt5jwyAMQKe/w9L1WaNiERyGvXlO7sd9doGaxrVotyX3+ZPbyNMgPb/7wJ0zbeRp+DLAzZQdug==",
+      "version": "2.0.4",
+      "resolved": "https://registry.npmjs.org/ext2fs/-/ext2fs-2.0.4.tgz",
+      "integrity": "sha512-7ILtkKb6j9L+nR1qO4zCiy6aZulzKu7dO82na+qXwc6KEoEr23u/u476/thebbPcvYJMv71I7FebJv8P4MNjHw==",
       "dev": true,
       "requires": {
         "bindings": "^1.3.0",
