@@ -18,6 +18,7 @@ import CogSvg from '@fortawesome/fontawesome-free/svgs/solid/cog.svg';
 import QuestionCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/question-circle.svg';
 
 import * as path from 'path';
+import * as prettyBytes from 'pretty-bytes';
 import * as React from 'react';
 import { Flex } from 'rendition';
 import styled from 'styled-components';
@@ -39,8 +40,6 @@ import {
 	IconButton as BaseIcon,
 	ThemedProvider,
 } from '../../styled-components';
-
-import { bytesToClosestUnit } from '../../../../shared/units';
 
 import {
 	TargetSelector,

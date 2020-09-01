@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { bytesToClosestUnit } from '../../../shared/units';
+import * as prettyBytes from 'pretty-bytes';
 
 export interface FlashState {
 	active: number;
@@ -51,7 +51,7 @@ export function fromFlashState({
 		} else {
 			return {
 				status: 'Flashing...',
-				position: `${position ? bytesToClosestUnit(position) : ''}`,
+				position: `${position ? prettyBytes(position) : ''}`,
 			};
 		}
 	} else if (type === 'verifying') {

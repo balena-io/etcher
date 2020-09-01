@@ -23,7 +23,7 @@ import {
 	DriveStatus,
 } from '../../../../shared/drive-constraints';
 import { compatibility, warning } from '../../../../shared/messages';
-import { bytesToClosestUnit } from '../../../../shared/units';
+import * as prettyBytes from 'pretty-bytes';
 import { getSelectedDrives } from '../../models/selection-state';
 import {
 	ChangeButton,
@@ -96,7 +96,7 @@ export function TargetSelectorButton(props: TargetSelectorProps) {
 						Change
 					</ChangeButton>
 				)}
-				<DetailsText>{bytesToClosestUnit(target.size)}</DetailsText>
+				<DetailsText>{prettyBytes(target.size)}</DetailsText>
 			</>
 		);
 	}
@@ -110,16 +110,16 @@ export function TargetSelectorButton(props: TargetSelectorProps) {
 			targetsTemplate.push(
 				<DetailsText
 					key={target.device}
-					tooltip={`${target.description} ${
-						target.displayName
-					} ${bytesToClosestUnit(target.size)}`}
+					tooltip={`${target.description} ${target.displayName} ${prettyBytes(
+						target.size,
+					)}`}
 					px={21}
 				>
 					{warnings.length && (
 						<DriveCompatibilityWarning warnings={warnings} mr={2} />
 					)}
 					<Txt mr={2}>{middleEllipsis(target.description, 14)}</Txt>
-					<Txt>{bytesToClosestUnit(target.size)}</Txt>
+					<Txt>{prettyBytes(target.size)}</Txt>
 				</DetailsText>,
 			);
 		}

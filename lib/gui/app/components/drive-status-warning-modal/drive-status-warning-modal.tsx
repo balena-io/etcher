@@ -5,7 +5,7 @@ import { Badge, Flex, Txt, ModalProps } from 'rendition';
 import { Modal, ScrollableFlex } from '../../styled-components';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
 
-import { bytesToClosestUnit } from '../../../../shared/units';
+import * as prettyBytes from 'pretty-bytes';
 import { DriveWithWarnings } from '../../pages/main/Flash';
 
 const DriveStatusWarningModal = ({
@@ -66,7 +66,7 @@ const DriveStatusWarningModal = ({
 						<>
 							<Flex justifyContent="space-between" alignItems="baseline">
 								<strong>{middleEllipsis(drive.description, 28)}</strong>{' '}
-								{bytesToClosestUnit(drive.size || 0)}{' '}
+								{prettyBytes(drive.size || 0)}{' '}
 								<Badge shade={5}>{drive.statuses[0].message}</Badge>
 							</Flex>
 							{i !== array.length - 1 ? <hr style={{ width: '100%' }} /> : null}
