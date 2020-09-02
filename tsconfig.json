@@ -4,6 +4,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "resolveJsonModule": true,
+    "target": "es2019",
+    "moduleResolution": "node",
     "jsx": "react",
     "typeRoots": ["./node_modules/@types", "./typings"]
   }
