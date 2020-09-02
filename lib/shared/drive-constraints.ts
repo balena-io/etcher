@@ -266,6 +266,7 @@ export function getListDriveImageCompatibilityStatuses(
 	drives: DrivelistDrive[],
 	image: SourceMetadata,
 ) {
+	// @ts-ignore
 	return drives.flatMap((drive) => {
 		return getDriveImageCompatibilityStatuses(drive, image);
 	});
