@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import * as _ from 'lodash';
 import { SourceMetadata } from '../components/source-selector/source-selector';
 
 import * as availableDrives from './available-drives';
@@ -60,48 +59,44 @@ export function getSelectedDevices(): string[] {
  */
 export function getSelectedDrives(): any[] {
 	const drives = availableDrives.getDrives();
-	return _.map(getSelectedDevices(), (device) => {
-		return _.find(drives, { device });
+	return getSelectedDevices().map((device) => {
+		return drives.find((drive) => drive.device === device);
 	});
 }
 
 /**
  * @summary Get the selected image
  */
-export function getImage(): SourceMetadata {
-	return _.get(store.getState().toJS(), ['selection', 'image']);
+export function getImage(): SourceMetadata | undefined {
+	return store.getState().toJS().selection.image;
 }
 
 export function getImagePath(): string {
-	return _.get(store.getState().toJS(), ['selection', 'image', 'path']);
+	return store.getState().toJS().selection.image?.path;
 }
 
 export function getImageSize(): number {
-	return _.get(store.getState().toJS(), ['selection', 'image', 'size']);
+	return store.getState().toJS().selection.image?.size;
 }
 
 export function getImageUrl(): string {
-	return _.get(store.getState().toJS(), ['selection', 'image', 'url']);
+	return store.getState().toJS().selection.image?.url;
 }
 
 export function getImageName(): string {
-	return _.get(store.getState().toJS(), ['selection', 'image', 'name']);
+	return store.getState().toJS().selection.image?.name;
 }
 
 export function getImageLogo(): string {
-	return _.get(store.getState().toJS(), ['selection', 'image', 'logo']);
+	return store.getState().toJS().selection.image?.logo;
 }
 
 export function getImageSupportUrl(): string {
-	return _.get(store.getState().toJS(), ['selection', 'image', 'supportUrl']);
+	return store.getState().toJS().selection.image?.supportUrl;
 }
 
 export function getImageRecommendedDriveSize(): number {
-	return _.get(store.getState().toJS(), [
-		'selection',
-		'image',
-		'recommendedDriveSize',
-	]);
+	return store.getState().toJS().selection.image?.recommendedDriveSize;
 }
 
 /**
@@ -115,7 +110,7 @@ export function hasDrive(): boolean {
  * @summary Check if there is a selected image
  */
 export function hasImage(): boolean {
-	return !_.isEmpty(getImage());
+	return getImage() !== undefined;
 }
 
 /**
@@ -136,7 +131,7 @@ export function deselectImage() {
 }
 
 export function deselectAllDrives() {
-	_.each(getSelectedDevices(), deselectDrive);
+	getSelectedDevices().forEach(deselectDrive);
 }
 
 /**
@@ -156,5 +151,5 @@ export function isDriveSelected(driveDevice: string) {
 	}
 
 	const selectedDriveDevices = getSelectedDevices();
-	return _.includes(selectedDriveDevices, driveDevice);
+	return selectedDriveDevices.includes(driveDevice);
 }
