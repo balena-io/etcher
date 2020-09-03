@@ -96,7 +96,9 @@ export function TargetSelectorButton(props: TargetSelectorProps) {
 						Change
 					</ChangeButton>
 				)}
-				<DetailsText>{prettyBytes(target.size)}</DetailsText>
+				{target.size != null && (
+					<DetailsText>{prettyBytes(target.size)}</DetailsText>
+				)}
 			</>
 		);
 	}
@@ -110,16 +112,16 @@ export function TargetSelectorButton(props: TargetSelectorProps) {
 			targetsTemplate.push(
 				<DetailsText
 					key={target.device}
-					tooltip={`${target.description} ${target.displayName} ${prettyBytes(
-						target.size,
-					)}`}
+					tooltip={`${target.description} ${target.displayName} ${
+						target.size != null ? prettyBytes(target.size) : ''
+					}`}
 					px={21}
 				>
-					{warnings.length && (
+					{warnings.length > 0 ? (
 						<DriveCompatibilityWarning warnings={warnings} mr={2} />
-					)}
+					) : null}
 					<Txt mr={2}>{middleEllipsis(target.description, 14)}</Txt>
-					<Txt>{prettyBytes(target.size)}</Txt>
+					{target.size != null && <Txt>{prettyBytes(target.size)}</Txt>}
 				</DetailsText>,
 			);
 		}

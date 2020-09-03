@@ -66,7 +66,7 @@ const DriveStatusWarningModal = ({
 						<>
 							<Flex justifyContent="space-between" alignItems="baseline">
 								<strong>{middleEllipsis(drive.description, 28)}</strong>{' '}
-								{prettyBytes(drive.size || 0)}{' '}
+								{drive.size && prettyBytes(drive.size) + ' '}
 								<Badge shade={5}>{drive.statuses[0].message}</Badge>
 							</Flex>
 							{i !== array.length - 1 ? <hr style={{ width: '100%' }} /> : null}

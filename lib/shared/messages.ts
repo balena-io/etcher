@@ -15,6 +15,7 @@
  */
 
 import { Dictionary } from 'lodash';
+import { outdent } from 'outdent';
 import * as prettyBytes from 'pretty-bytes';
 
 export const progress: Dictionary<(quantity: number) => string> = {
@@ -84,10 +85,10 @@ export const warning = {
 		image: { recommendedDriveSize: number },
 		drive: { device: string; size: number },
 	) => {
-		return [
-			`This image recommends a ${prettyBytes(image.recommendedDriveSize)}`,
-			`drive, however ${drive.device} is only ${prettyBytes(drive.size)}.`,
-		].join(' ');
+		return outdent({ newline: ' ' })`
+			This image recommends a ${prettyBytes(image.recommendedDriveSize)}
+			drive, however ${drive.device} is only ${prettyBytes(drive.size)}.
+		`;
 	},
 
 	exitWhileFlashing: () => {
@@ -150,10 +151,11 @@ export const error = {
 	},
 
 	openSource: (sourceName: string, errorMessage: string) => {
-		return [
-			`Something went wrong while opening ${sourceName}\n\n`,
-			`Error: ${errorMessage}`,
-		].join('');
+		return outdent`
+			Something went wrong while opening ${sourceName}
+
+			Error: ${errorMessage}
+		`;
 	},
 
 	flashFailure: (

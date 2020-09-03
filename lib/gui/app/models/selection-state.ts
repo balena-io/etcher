@@ -1,3 +1,4 @@
+import { DrivelistDrive } from '../../../shared/drive-constraints';
 /*
  * Copyright 2016 balena.io
  *
@@ -40,7 +41,7 @@ export function toggleDrive(driveDevice: string) {
 	}
 }
 
-export function selectSource(source: any) {
+export function selectSource(source: SourceMetadata) {
 	store.dispatch({
 		type: Actions.SELECT_SOURCE,
 		data: source,
@@ -57,11 +58,11 @@ export function getSelectedDevices(): string[] {
 /**
  * @summary Get all selected drive objects
  */
-export function getSelectedDrives(): any[] {
-	const drives = availableDrives.getDrives();
-	return getSelectedDevices().map((device) => {
-		return drives.find((drive) => drive.device === device);
-	});
+export function getSelectedDrives(): DrivelistDrive[] {
+	const selectedDevices = getSelectedDevices();
+	return availableDrives
+		.getDrives()
+		.filter((drive) => selectedDevices.includes(drive.device));
 }
 
 /**
@@ -71,32 +72,24 @@ export function getImage(): SourceMetadata | undefined {
 	return store.getState().toJS().selection.image;
 }
 
-export function getImagePath(): string {
-	return store.getState().toJS().selection.image?.path;
+export function getImagePath() {
+	return getImage()?.path;
 }
 
-export function getImageSize(): number {
-	return store.getState().toJS().selection.image?.size;
+export function getImageSize() {
+	return getImage()?.size;
 }
 
-export function getImageUrl(): string {
-	return store.getState().toJS().selection.image?.url;
+export function getImageName() {
+	return getImage()?.name;
 }
 
-export function getImageName(): string {
-	return store.getState().toJS().selection.image?.name;
+export function getImageLogo() {
+	return getImage()?.logo;
 }
 
-export function getImageLogo(): string {
-	return store.getState().toJS().selection.image?.logo;
-}
-
-export function getImageSupportUrl(): string {
-	return store.getState().toJS().selection.image?.supportUrl;
-}
-
-export function getImageRecommendedDriveSize(): number {
-	return store.getState().toJS().selection.image?.recommendedDriveSize;
+export function getImageSupportUrl() {
+	return getImage()?.supportUrl;
 }
 
 /**

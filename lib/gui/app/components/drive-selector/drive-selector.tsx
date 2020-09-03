@@ -289,8 +289,8 @@ export class DriveSelector extends React.Component<
 			{
 				field: 'description',
 				key: 'extra',
-				// Space as empty string would use the field name as label
-				label: <Txt></Txt>,
+				// We use an empty React fragment otherwise it uses the field name as label
+				label: <></>,
 				render: (_description: string, drive: Drive) => {
 					if (isUsbbootDrive(drive)) {
 						return this.renderProgress(drive.progress);

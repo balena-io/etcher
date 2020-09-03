@@ -254,6 +254,7 @@ export interface SourceMetadata extends sourceDestination.Metadata {
 	SourceType: Source;
 	drive?: DrivelistDrive;
 	extension?: string;
+	archiveExtension?: string;
 }
 
 interface SourceSelectorProps {
@@ -262,8 +263,8 @@ interface SourceSelectorProps {
 
 interface SourceSelectorState {
 	hasImage: boolean;
-	imageName: string;
-	imageSize: number;
+	imageName?: string;
+	imageSize?: number;
 	warning: { message: string; title: string | null } | null;
 	showImageDetails: boolean;
 	showURLSelector: boolean;
@@ -543,7 +544,7 @@ export class SourceSelector extends React.Component<
 		const imagePath = image.path || image.displayName || '';
 		const imageBasename = path.basename(imagePath);
 		const imageName = image.name || '';
-		const imageSize = image.size || 0;
+		const imageSize = image.size;
 		const imageLogo = image.logo || '';
 
 		return (
@@ -585,7 +586,9 @@ export class SourceSelector extends React.Component<
 									Remove
 								</ChangeButton>
 							)}
-							<DetailsText>{prettyBytes(imageSize)}</DetailsText>
+							{!_.isNil(imageSize) && (
+								<DetailsText>{prettyBytes(imageSize)}</DetailsText>
+							)}
 						</>
 					) : (
 						<>

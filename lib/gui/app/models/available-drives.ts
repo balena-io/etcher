@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { DrivelistDrive } from '../../../shared/drive-constraints';
 import { Actions, store } from './store';
 
 export function hasAvailableDrives() {
@@ -27,6 +28,6 @@ export function setDrives(drives: any[]) {
 	});
 }
 
-export function getDrives(): any[] {
+export function getDrives(): DrivelistDrive[] {
 	return store.getState().toJS().availableDrives;
 }

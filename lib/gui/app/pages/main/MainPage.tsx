@@ -103,9 +103,9 @@ interface MainPageStateFromStore {
 	isFlashing: boolean;
 	hasImage: boolean;
 	hasDrive: boolean;
-	imageLogo: string;
-	imageSize: number;
-	imageName: string;
+	imageLogo?: string;
+	imageSize?: number;
+	imageName?: string;
 	driveTitle: string;
 	driveLabel: string;
 }
@@ -272,7 +272,7 @@ export class MainPage extends React.Component<
 								imageName={this.state.imageName}
 								imageSize={
 									typeof this.state.imageSize === 'number'
-										? (prettyBytes(this.state.imageSize) as string)
+										? prettyBytes(this.state.imageSize)
 										: ''
 								}
 								driveTitle={this.state.driveTitle}
