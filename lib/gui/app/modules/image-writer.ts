@@ -334,7 +334,7 @@ export async function cancel(type: string) {
 	const status = type.toLowerCase();
 	const drives = selectionState.getSelectedDevices();
 	const analyticsData = {
-		image: selectionState.getImagePath(),
+		image: selectionState.getImage()?.path,
 		drives,
 		driveCount: drives.length,
 		uuid: flashState.getFlashUuid(),

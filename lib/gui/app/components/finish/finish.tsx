@@ -82,7 +82,7 @@ function FinishPage({ goToMain }: { goToMain: () => void }) {
 				}}
 			>
 				<FlashResults
-					image={selectionState.getImageName()}
+					image={selectionState.getImage()?.name}
 					results={results}
 					skip={skip}
 					errors={errors}

@@ -78,14 +78,14 @@ const CancelButton = styled(({ type, onClick, ...props }) => {
 
 export class ProgressButton extends React.PureComponent<ProgressButtonProps> {
 	public render() {
-		const type = this.props.type;
 		const percentage = this.props.percentage;
 		const warning = this.props.warning;
 		const { status, position } = fromFlashState({
-			type,
+			type: this.props.type,
 			percentage,
 			position: this.props.position,
 		});
+		const type = this.props.type || 'default';
 		if (this.props.active) {
 			return (
 				<>

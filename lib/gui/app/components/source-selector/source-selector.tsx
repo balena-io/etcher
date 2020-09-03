@@ -116,10 +116,11 @@ const ModalText = styled.p`
 `;
 
 function getState() {
+	const image = selectionState.getImage();
 	return {
 		hasImage: selectionState.hasImage(),
-		imageName: selectionState.getImageName(),
-		imageSize: selectionState.getImageSize(),
+		imageName: image?.name,
+		imageSize: image?.size,
 	};
 }
 
@@ -525,7 +526,7 @@ export class SourceSelector extends React.Component<
 
 	private showSelectedImageDetails() {
 		analytics.logEvent('Show selected image tooltip', {
-			imagePath: selectionState.getImagePath(),
+			imagePath: selectionState.getImage()?.path,
 		});
 
 		this.setState({

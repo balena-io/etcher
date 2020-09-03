@@ -33,26 +33,6 @@ describe('Model: selectionState', function () {
 			expect(selectionState.getImage()).to.be.undefined;
 		});
 
-		it('getImagePath() should return undefined', function () {
-			expect(selectionState.getImagePath()).to.be.undefined;
-		});
-
-		it('getImageSize() should return undefined', function () {
-			expect(selectionState.getImageSize()).to.be.undefined;
-		});
-
-		it('getImageName() should return undefined', function () {
-			expect(selectionState.getImageName()).to.be.undefined;
-		});
-
-		it('getImageLogo() should return undefined', function () {
-			expect(selectionState.getImageLogo()).to.be.undefined;
-		});
-
-		it('getImageSupportUrl() should return undefined', function () {
-			expect(selectionState.getImageSupportUrl()).to.be.undefined;
-		});
-
 		it('hasDrive() should return false', function () {
 			const hasDrive = selectionState.hasDrive();
 			expect(hasDrive).to.be.false;
@@ -379,43 +359,6 @@ describe('Model: selectionState', function () {
 			});
 		});
 
-		describe('.getImagePath()', function () {
-			it('should return the image path', function () {
-				const imagePath = selectionState.getImagePath();
-				expect(imagePath).to.equal('foo.img');
-			});
-		});
-
-		describe('.getImageSize()', function () {
-			it('should return the image size', function () {
-				const imageSize = selectionState.getImageSize();
-				expect(imageSize).to.equal(999999999);
-			});
-		});
-
-		describe('.getImageName()', function () {
-			it('should return the image name', function () {
-				const imageName = selectionState.getImageName();
-				expect(imageName).to.equal('Raspbian');
-			});
-		});
-
-		describe('.getImageLogo()', function () {
-			it('should return the image logo', function () {
-				const imageLogo = selectionState.getImageLogo();
-				expect(imageLogo).to.equal(
-					'<svg><text fill="red">Raspbian</text></svg>',
-				);
-			});
-		});
-
-		describe('.getImageSupportUrl()', function () {
-			it('should return the image support url', function () {
-				const imageSupportUrl = selectionState.getImageSupportUrl();
-				expect(imageSupportUrl).to.equal('https://www.raspbian.org/forums/');
-			});
-		});
-
 		describe('.hasImage()', function () {
 			it('should return true', function () {
 				const hasImage = selectionState.hasImage();
@@ -435,9 +378,9 @@ describe('Model: selectionState', function () {
 					SourceType: File,
 				});
 
-				const imagePath = selectionState.getImagePath();
+				const imagePath = selectionState.getImage()?.path;
 				expect(imagePath).to.equal('bar.img');
-				const imageSize = selectionState.getImageSize();
+				const imageSize = selectionState.getImage()?.size;
 				expect(imageSize).to.equal(999999999);
 			});
 		});
@@ -446,9 +389,9 @@ describe('Model: selectionState', function () {
 			it('should clear the image', function () {
 				selectionState.deselectImage();
 
-				const imagePath = selectionState.getImagePath();
+				const imagePath = selectionState.getImage()?.path;
 				expect(imagePath).to.be.undefined;
-				const imageSize = selectionState.getImageSize();
+				const imageSize = selectionState.getImage()?.size;
 				expect(imageSize).to.be.undefined;
 			});
 		});
@@ -472,9 +415,9 @@ describe('Model: selectionState', function () {
 			it('should be able to set an image', function () {
 				selectionState.selectSource(image);
 
-				const imagePath = selectionState.getImagePath();
+				const imagePath = selectionState.getImage()?.path;
 				expect(imagePath).to.equal('foo.img');
-				const imageSize = selectionState.getImageSize();
+				const imageSize = selectionState.getImage()?.size;
 				expect(imageSize).to.equal(999999999);
 			});
 
@@ -485,7 +428,7 @@ describe('Model: selectionState', function () {
 					archiveExtension: 'zip',
 				});
 
-				const imagePath = selectionState.getImagePath();
+				const imagePath = selectionState.getImage()?.path;
 				expect(imagePath).to.equal('foo.zip');
 			});
 
@@ -496,7 +439,7 @@ describe('Model: selectionState', function () {
 					archiveExtension: 'xz',
 				});
 
-				const imagePath = selectionState.getImagePath();
+				const imagePath = selectionState.getImage()?.path;
 				expect(imagePath).to.equal('foo.xz');
 			});
 
@@ -507,7 +450,7 @@ describe('Model: selectionState', function () {
 					archiveExtension: 'gz',
 				});
 
-				const imagePath = selectionState.getImagePath();
+				const imagePath = selectionState.getImage()?.path;
 				expect(imagePath).to.equal('something.linux-x86-64.gz');
 			});
 
@@ -675,12 +618,12 @@ describe('Model: selectionState', function () {
 			});
 
 			it('getImagePath() should return undefined', function () {
-				const imagePath = selectionState.getImagePath();
+				const imagePath = selectionState.getImage()?.path;
 				expect(imagePath).to.be.undefined;
 			});
 
 			it('getImageSize() should return undefined', function () {
-				const imageSize = selectionState.getImageSize();
+				const imageSize = selectionState.getImage()?.size;
 				expect(imageSize).to.be.undefined;
 			});
 
@@ -700,12 +643,12 @@ describe('Model: selectionState', function () {
 			});
 
 			it('getImagePath() should return the image path', function () {
-				const imagePath = selectionState.getImagePath();
+				const imagePath = selectionState.getImage()?.path;
 				expect(imagePath).to.equal('foo.img');
 			});
 
 			it('getImageSize() should return the image size', function () {
-				const imageSize = selectionState.getImageSize();
+				const imageSize = selectionState.getImage()?.size;
 				expect(imageSize).to.equal(999999999);
 			});
 

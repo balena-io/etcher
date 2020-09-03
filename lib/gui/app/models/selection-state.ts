@@ -72,26 +72,6 @@ export function getImage(): SourceMetadata | undefined {
 	return store.getState().toJS().selection.image;
 }
 
-export function getImagePath() {
-	return getImage()?.path;
-}
-
-export function getImageSize() {
-	return getImage()?.size;
-}
-
-export function getImageName() {
-	return getImage()?.name;
-}
-
-export function getImageLogo() {
-	return getImage()?.logo;
-}
-
-export function getImageSupportUrl() {
-	return getImage()?.supportUrl;
-}
-
 /**
  * @summary Check if there is a selected drive
  */

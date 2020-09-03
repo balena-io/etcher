@@ -38,12 +38,12 @@ export const DEFAULT_HEIGHT = 480;
  * - `~/Library/Application Support/etcher` on macOS
  * See https://electronjs.org/docs/api/app#appgetpathname
  *
- * NOTE: The ternary is due to this module being loaded both,
- * Electron's main process and renderer process
+ * NOTE: We use the remote property when this module
+ * is loaded in the Electron's renderer process
  */
-const USER_DATA_DIR = electron.app
-	? electron.app.getPath('userData')
-	: electron.remote.app.getPath('userData');
+const app = electron.app || electron.remote.app;
+
+const USER_DATA_DIR = app.getPath('userData');
 
 const CONFIG_PATH = join(USER_DATA_DIR, 'config.json');
 
