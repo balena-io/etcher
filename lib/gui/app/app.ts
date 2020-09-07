@@ -23,7 +23,11 @@ import * as ReactDOM from 'react-dom';
 import { v4 as uuidV4 } from 'uuid';
 
 import * as packageJSON from '../../../package.json';
-import { isDriveValid, isSourceDrive } from '../../shared/drive-constraints';
+import {
+	DrivelistDrive,
+	isDriveValid,
+	isSourceDrive,
+} from '../../shared/drive-constraints';
 import * as EXIT_CODES from '../../shared/exit-codes';
 import * as messages from '../../shared/messages';
 import * as availableDrives from './models/available-drives';
@@ -231,12 +235,12 @@ function prepareDrive(drive: Drive) {
 	}
 }
 
-function setDrives(drives: _.Dictionary<any>) {
+function setDrives(drives: _.Dictionary<DrivelistDrive>) {
 	availableDrives.setDrives(_.values(drives));
 }
 
 function getDrives() {
-	return _.keyBy(availableDrives.getDrives() || [], 'device');
+	return _.keyBy(availableDrives.getDrives(), 'device');
 }
 
 async function addDrive(drive: Drive) {

@@ -17,9 +17,8 @@
 import CogSvg from '@fortawesome/fontawesome-free/svgs/solid/cog.svg';
 import QuestionCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/question-circle.svg';
 
-import { sourceDestination } from 'etcher-sdk';
-import * as _ from 'lodash';
 import * as path from 'path';
+import * as prettyBytes from 'pretty-bytes';
 import * as React from 'react';
 import { Flex } from 'rendition';
 import styled from 'styled-components';
@@ -29,7 +28,7 @@ import { ReducedFlashingInfos } from '../../components/reduced-flashing-infos/re
 import { SafeWebview } from '../../components/safe-webview/safe-webview';
 import { SettingsModal } from '../../components/settings/settings';
 import {
-	SourceOptions,
+	SourceMetadata,
 	SourceSelector,
 } from '../../components/source-selector/source-selector';
 import * as flashState from '../../models/flash-state';
@@ -42,9 +41,10 @@ import {
 	ThemedProvider,
 } from '../../styled-components';
 
-import { bytesToClosestUnit } from '../../../../shared/units';
-
-import { DriveSelector, getDriveListLabel } from './DriveSelector';
+import {
+	TargetSelector,
+	getDriveListLabel,
+} from '../../components/target-selector/target-selector';
 import { FlashStep } from './Flash';
 
 import EtcherSvg from '../../../assets/etcher.svg';
@@ -67,14 +67,16 @@ function getDrivesTitle() {
 	return `${drives.length} Targets`;
 }
 
-function getImageBasename() {
-	if (!selectionState.hasImage()) {
+function getImageBasename(image?: SourceMetadata) {
+	if (image === undefined) {
 		return '';
 	}
 
-	const selectionImageName = selectionState.getImageName();
-	const imageBasename = path.basename(selectionState.getImagePath());
-	return selectionImageName || imageBasename;
+	if (image.drive) {
+		return image.drive.description;
+	}
+	const imageBasename = path.basename(image.path);
+	return image.name || imageBasename;
 }
 
 const StepBorder = styled.div<{
@@ -101,9 +103,9 @@ interface MainPageStateFromStore {
 	isFlashing: boolean;
 	hasImage: boolean;
 	hasDrive: boolean;
-	imageLogo: string;
-	imageSize: number;
-	imageName: string;
+	imageLogo?: string;
+	imageSize?: number;
+	imageName?: string;
 	driveTitle: string;
 	driveLabel: string;
 }
@@ -112,7 +114,6 @@ interface MainPageState {
 	current: 'main' | 'success';
 	isWebviewShowing: boolean;
 	hideSettings: boolean;
-	source: SourceOptions;
 	featuredProjectURL?: string;
 }
 
@@ -126,10 +127,6 @@ export class MainPage extends React.Component<
 			current: 'main',
 			isWebviewShowing: false,
 			hideSettings: true,
-			source: {
-				imagePath: '',
-				SourceType: sourceDestination.File,
-			},
 			...this.stateHelper(),
 		};
 	}
@@ -141,7 +138,7 @@ export class MainPage extends React.Component<
 			hasDrive: selectionState.hasDrive(),
 			imageLogo: selectionState.getImageLogo(),
 			imageSize: selectionState.getImageSize(),
-			imageName: getImageBasename(),
+			imageName: getImageBasename(selectionState.getImage()),
 			driveTitle: getDrivesTitle(),
 			driveLabel: getDriveListLabel(),
 		};
@@ -243,16 +240,11 @@ export class MainPage extends React.Component<
 				>
 					{notFlashingOrSplitView && (
 						<>
-							<SourceSelector
-								flashing={this.state.isFlashing}
-								afterSelected={(source: SourceOptions) =>
-									this.setState({ source })
-								}
-							/>
+							<SourceSelector flashing={this.state.isFlashing} />
 							<Flex>
 								<StepBorder disabled={shouldDriveStepBeDisabled} left />
 							</Flex>
-							<DriveSelector
+							<TargetSelector
 								disabled={shouldDriveStepBeDisabled}
 								hasDrive={this.state.hasDrive}
 								flashing={this.state.isFlashing}
@@ -279,8 +271,8 @@ export class MainPage extends React.Component<
 								imageLogo={this.state.imageLogo}
 								imageName={this.state.imageName}
 								imageSize={
-									_.isNumber(this.state.imageSize)
-										? (bytesToClosestUnit(this.state.imageSize) as string)
+									typeof this.state.imageSize === 'number'
+										? prettyBytes(this.state.imageSize)
 										: ''
 								}
 								driveTitle={this.state.driveTitle}
@@ -313,7 +305,6 @@ export class MainPage extends React.Component<
 					<FlashStep
 						goToSuccess={() => this.setState({ current: 'success' })}
 						shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
-						source={this.state.source}
 						isFlashing={this.state.isFlashing}
 						step={state.type}
 						percentage={state.percentage}

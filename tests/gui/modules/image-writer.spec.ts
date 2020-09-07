@@ -20,6 +20,7 @@ import { sourceDestination } from 'etcher-sdk';
 import * as ipc from 'node-ipc';
 import { assert, SinonStub, stub } from 'sinon';
 
+import { SourceMetadata } from '../../../lib/gui/app/components/source-selector/source-selector';
 import * as flashState from '../../../lib/gui/app/models/flash-state';
 import * as imageWriter from '../../../lib/gui/app/modules/image-writer';
 
@@ -28,10 +29,14 @@ const fakeDrive: DrivelistDrive = {};
 
 describe('Browser: imageWriter', () => {
 	describe('.flash()', () => {
-		const imagePath = 'foo.img';
-		const sourceOptions = {
-			imagePath,
+		const image: SourceMetadata = {
+			hasMBR: false,
+			partitions: [],
+			description: 'foo.img',
+			displayName: 'foo.img',
+			path: 'foo.img',
 			SourceType: sourceDestination.File,
+			extension: 'img',
 		};
 
 		describe('given a successful write', () => {
@@ -58,12 +63,7 @@ describe('Browser: imageWriter', () => {
 				});
 
 				try {
-					await imageWriter.flash(
-						imagePath,
-						[fakeDrive],
-						sourceOptions,
-						performWriteStub,
-					);
+					await imageWriter.flash(image, [fakeDrive], performWriteStub);
 				} catch {
 					// noop
 				} finally {
@@ -79,18 +79,8 @@ describe('Browser: imageWriter', () => {
 
 				try {
 					await Promise.all([
-						imageWriter.flash(
-							imagePath,
-							[fakeDrive],
-							sourceOptions,
-							performWriteStub,
-						),
-						imageWriter.flash(
-							imagePath,
-							[fakeDrive],
-							sourceOptions,
-							performWriteStub,
-						),
+						imageWriter.flash(image, [fakeDrive], performWriteStub),
+						imageWriter.flash(image, [fakeDrive], performWriteStub),
 					]);
 					assert.fail('Writing twice should fail');
 				} catch (error) {
@@ -117,12 +107,7 @@ describe('Browser: imageWriter', () => {
 
 			it('should set flashing to false when done', async () => {
 				try {
-					await imageWriter.flash(
-						imagePath,
-						[fakeDrive],
-						sourceOptions,
-						performWriteStub,
-					);
+					await imageWriter.flash(image, [fakeDrive], performWriteStub);
 				} catch {
 					// noop
 				} finally {
@@ -132,12 +117,7 @@ describe('Browser: imageWriter', () => {
 
 			it('should set the error code in the flash results', async () => {
 				try {
-					await imageWriter.flash(
-						imagePath,
-						[fakeDrive],
-						sourceOptions,
-						performWriteStub,
-					);
+					await imageWriter.flash(image, [fakeDrive], performWriteStub);
 				} catch {
 					// noop
 				} finally {
@@ -152,12 +132,7 @@ describe('Browser: imageWriter', () => {
 					sourceChecksum: '1234',
 				});
 				try {
-					await imageWriter.flash(
-						imagePath,
-						[fakeDrive],
-						sourceOptions,
-						performWriteStub,
-					);
+					await imageWriter.flash(image, [fakeDrive], performWriteStub);
 				} catch (error) {
 					expect(error).to.be.an.instanceof(Error);
 					expect(error.message).to.equal('write error');

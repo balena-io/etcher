@@ -19,7 +19,6 @@
   src: url("./fonts/SourceSansPro-Regular.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
-  font-display: block;
 }
 
 @font-face {
@@ -27,7 +26,6 @@
   src: url("./fonts/SourceSansPro-SemiBold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
-  font-display: block;
 }
 
 html,
@@ -53,10 +51,16 @@ body {
 a:focus,
 input:focus,
 button:focus,
-[tabindex]:focus {
+[tabindex]:focus,
+input[type="checkbox"] + div {
   outline: none !important;
+  box-shadow: none !important;
 }
 
 .disabled {
   opacity: 0.4;
+}
+
+#rendition-tooltip-root > div {
+  font-family: "SourceSansPro", sans-serif;
 }

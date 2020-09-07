@@ -16,9 +16,12 @@
 
 import { scanner } from 'etcher-sdk';
 import * as React from 'react';
-import { Flex } from 'rendition';
-import { TargetSelector } from '../../components/target-selector/target-selector-button';
-import { TargetSelectorModal } from '../../components/target-selector/target-selector-modal';
+import { Flex, Txt } from 'rendition';
+
+import {
+	DriveSelector,
+	DriveSelectorProps,
+} from '../drive-selector/drive-selector';
 import {
 	isDriveSelected,
 	getImage,
@@ -29,7 +32,10 @@ import {
 import * as settings from '../../models/settings';
 import { observe } from '../../models/store';
 import * as analytics from '../../modules/analytics';
+import { TargetSelectorButton } from './target-selector-button';
+
 import DriveSvg from '../../../assets/drive.svg';
+import { warning } from '../../../../shared/messages';
 
 export const getDriveListLabel = () => {
 	return getSelectedDrives()
@@ -49,6 +55,23 @@ const getDriveSelectionStateSlice = () => ({
 	targets: getSelectedDrives(),
 	image: getImage(),
 });
+
+export const TargetSelectorModal = (
+	props: Omit<
+		DriveSelectorProps,
+		'titleLabel' | 'emptyListLabel' | 'multipleSelection'
+	>,
+) => (
+	<DriveSelector
+		multipleSelection={true}
+		titleLabel="Select target"
+		emptyListLabel="Plug a target drive"
+		showWarnings={true}
+		selectedList={getSelectedDrives()}
+		updateSelectedList={getSelectedDrives}
+		{...props}
+	/>
+);
 
 export const selectAllTargets = (
 	modalTargets: scanner.adapters.DrivelistDrive[],
@@ -79,20 +102,20 @@ export const selectAllTargets = (
 	});
 };
 
-interface DriveSelectorProps {
+interface TargetSelectorProps {
 	disabled: boolean;
 	hasDrive: boolean;
 	flashing: boolean;
 }
 
-export const DriveSelector = ({
+export const TargetSelector = ({
 	disabled,
 	hasDrive,
 	flashing,
-}: DriveSelectorProps) => {
+}: TargetSelectorProps) => {
 	// TODO: inject these from redux-connector
 	const [
-		{ showDrivesButton, driveListLabel, targets, image },
+		{ showDrivesButton, driveListLabel, targets },
 		setStateSlice,
 	] = React.useState(getDriveSelectionStateSlice());
 	const [showTargetSelectorModal, setShowTargetSelectorModal] = React.useState(
@@ -105,6 +128,7 @@ export const DriveSelector = ({
 		});
 	}, []);
 
+	const hasSystemDrives = targets.some((target) => target.isSystem);
 	return (
 		<Flex flexDirection="column" alignItems="center">
 			<DriveSvg
@@ -115,7 +139,7 @@ export const DriveSelector = ({
 				}}
 			/>
 
-			<TargetSelector
+			<TargetSelectorButton
 				disabled={disabled}
 				show={!hasDrive && showDrivesButton}
 				tooltip={driveListLabel}
@@ -128,8 +152,19 @@ export const DriveSelector = ({
 				}}
 				flashing={flashing}
 				targets={targets}
-				image={image}
 			/>
+
+			{hasSystemDrives ? (
+				<Txt
+					color="#fca321"
+					style={{
+						position: 'absolute',
+						bottom: '25px',
+					}}
+				>
+					Warning: {warning.systemDrive()}
+				</Txt>
+			) : null}
 
 			{showTargetSelectorModal && (
 				<TargetSelectorModal
@@ -138,7 +173,7 @@ export const DriveSelector = ({
 						selectAllTargets(modalTargets);
 						setShowTargetSelectorModal(false);
 					}}
-				></TargetSelectorModal>
+				/>
 			)}
 		</Flex>
 	);

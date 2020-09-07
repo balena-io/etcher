@@ -15,6 +15,8 @@
  */
 
 import { Dictionary } from 'lodash';
+import { outdent } from 'outdent';
+import * as prettyBytes from 'pretty-bytes';
 
 export const progress: Dictionary<(quantity: number) => string> = {
 	successful: (quantity: number) => {
@@ -53,11 +55,11 @@ export const info = {
 
 export const compatibility = {
 	sizeNotRecommended: () => {
-		return 'Not Recommended';
+		return 'Not recommended';
 	},
 
-	tooSmall: (additionalSpace: string) => {
-		return `Insufficient space, additional ${additionalSpace} required`;
+	tooSmall: () => {
+		return 'Too small';
 	},
 
 	locked: () => {
@@ -83,10 +85,10 @@ export const warning = {
 		image: { recommendedDriveSize: number },
 		drive: { device: string; size: number },
 	) => {
-		return [
-			`This image recommends a ${image.recommendedDriveSize}`,
-			`bytes drive, however ${drive.device} is only ${drive.size} bytes.`,
-		].join(' ');
+		return outdent({ newline: ' ' })`
+			This image recommends a ${prettyBytes(image.recommendedDriveSize)}
+			drive, however ${drive.device} is only ${prettyBytes(drive.size)}.
+		`;
 	},
 
 	exitWhileFlashing: () => {
@@ -115,11 +117,16 @@ export const warning = {
 		].join(' ');
 	},
 
-	largeDriveSize: (drive: { description: string; device: string }) => {
-		return [
-			`Drive ${drive.description} (${drive.device}) is unusually large for an SD card or USB stick.`,
-			'\n\nAre you sure you want to flash this drive?',
-		].join(' ');
+	largeDriveSize: () => {
+		return 'This is a large drive! Make sure it doesn\'t contain files that you want to keep.';
+	},
+
+	systemDrive: () => {
+		return 'Selecting your system drive is dangerous and will erase your drive!';
+	},
+
+	sourceDrive: () => {
+		return 'Contains the image you chose to flash';
 	},
 };
 
@@ -143,11 +150,12 @@ export const error = {
 		].join(' ');
 	},
 
-	openImage: (imageBasename: string, errorMessage: string) => {
-		return [
-			`Something went wrong while opening ${imageBasename}\n\n`,
-			`Error: ${errorMessage}`,
-		].join('');
+	openSource: (sourceName: string, errorMessage: string) => {
+		return outdent`
+			Something went wrong while opening ${sourceName}
+
+			Error: ${errorMessage}
+		`;
 	},
 
 	flashFailure: (

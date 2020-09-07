@@ -161,6 +161,9 @@ async function createMainWindow() {
 	// Prevent flash of white when starting the application
 	mainWindow.on('ready-to-show', () => {
 		console.timeEnd('ready-to-show');
+		// Electron sometimes caches the zoomFactor
+		// making it obnoxious to switch back-and-forth
+		mainWindow.webContents.setZoomFactor(width / defaultWidth);
 		mainWindow.show();
 	});
 

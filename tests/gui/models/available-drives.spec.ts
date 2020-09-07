@@ -15,6 +15,7 @@
  */
 
 import { expect } from 'chai';
+import { File } from 'etcher-sdk/build/source-destination';
 import * as path from 'path';
 
 import * as availableDrives from '../../../lib/gui/app/models/available-drives';
@@ -157,11 +158,14 @@ describe('Model: availableDrives', function () {
 						}
 
 						selectionState.clear();
-						selectionState.selectImage({
+						selectionState.selectSource({
+							description: this.imagePath.split('/').pop(),
+							displayName: this.imagePath,
 							path: this.imagePath,
 							extension: 'img',
 							size: 999999999,
 							isSizeEstimated: false,
+							SourceType: File,
 							recommendedDriveSize: 2000000000,
 						});
 					});

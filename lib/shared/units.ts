@@ -14,18 +14,8 @@
  * limitations under the License.
  */
 
-import * as _ from 'lodash';
-import * as prettyBytes from 'pretty-bytes';
-
 const MEGABYTE_TO_BYTE_RATIO = 1000000;
 
 export function bytesToMegabytes(bytes: number): number {
 	return bytes / MEGABYTE_TO_BYTE_RATIO;
-}
-
-export function bytesToClosestUnit(bytes: number): string | null {
-	if (_.isNumber(bytes)) {
-		return prettyBytes(bytes);
-	}
-	return null;
 }

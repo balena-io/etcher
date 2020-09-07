@@ -37,8 +37,9 @@ function tryParseSVGContents(contents?: string): string | undefined {
 }
 
 interface SVGIconProps {
-	// List of embedded SVG contents to be tried in succession if any fails
-	contents: string;
+	// Optional string representing the SVG contents to be tried
+	contents?: string;
+	// Fallback SVG element to show if `contents` is invalid/undefined
 	fallback: React.FunctionComponent<React.SVGProps<HTMLOrSVGElement>>;
 	// SVG image width unit
 	width?: string;
