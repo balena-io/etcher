@@ -174,7 +174,13 @@ async function createMainWindow() {
 		event.preventDefault();
 	});
 
-	mainWindow.loadURL(`file://${path.join(__dirname, 'index.html')}`);
+	mainWindow.loadURL(
+		`file://${path.join(
+			'/',
+			...__dirname.split(path.sep).map(encodeURIComponent),
+			'index.html',
+		)}`,
+	);
 
 	const page = mainWindow.webContents;
 
