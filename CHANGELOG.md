@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.108
+## (2020-09-10)
+
+* Fix content not loading when the app path contains special characters [Alexis Svinartchouk]
+
 # v1.5.107
 ## (2020-09-04)
 
