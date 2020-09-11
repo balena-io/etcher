@@ -14257,9 +14257,8 @@
       }
     },
     "sudo-prompt": {
-      "version": "9.2.1",
-      "resolved": "https://registry.npmjs.org/sudo-prompt/-/sudo-prompt-9.2.1.tgz",
-      "integrity": "sha512-Mu7R0g4ig9TUuGSxJavny5Rv0egCEtpZRNMrZaYS1vxkiIxGiGUwoezU3LazIQ+KE04hTrTfNPgxU5gzi7F5Pw==",
+      "version": "github:zvin/sudo-prompt#81cab70c1f3f816b71539c4c5d7ecf1309094f8c",
+      "from": "github:zvin/sudo-prompt#workaround-windows-amperstand-in-username",
       "dev": true
     },
     "sumchecker": {
