@@ -6871,9 +6871,9 @@
       }
     },
     "ext2fs": {
-      "version": "2.0.4",
-      "resolved": "https://registry.npmjs.org/ext2fs/-/ext2fs-2.0.4.tgz",
-      "integrity": "sha512-7ILtkKb6j9L+nR1qO4zCiy6aZulzKu7dO82na+qXwc6KEoEr23u/u476/thebbPcvYJMv71I7FebJv8P4MNjHw==",
+      "version": "2.0.5",
+      "resolved": "https://registry.npmjs.org/ext2fs/-/ext2fs-2.0.5.tgz",
+      "integrity": "sha512-qNv+XrXrauspqoUYRgcKV7HNkoDAAY/KU6nZHGB8Y2tT553fiMtiZd4VYOdxd+0zrNZozi+0fJjLbiGBnEGJUw==",
       "dev": true,
       "requires": {
         "bindings": "^1.3.0",
@@ -14257,9 +14257,8 @@
       }
     },
     "sudo-prompt": {
-      "version": "9.2.1",
-      "resolved": "https://registry.npmjs.org/sudo-prompt/-/sudo-prompt-9.2.1.tgz",
-      "integrity": "sha512-Mu7R0g4ig9TUuGSxJavny5Rv0egCEtpZRNMrZaYS1vxkiIxGiGUwoezU3LazIQ+KE04hTrTfNPgxU5gzi7F5Pw==",
+      "version": "github:zvin/sudo-prompt#81cab70c1f3f816b71539c4c5d7ecf1309094f8c",
+      "from": "github:zvin/sudo-prompt#workaround-windows-amperstand-in-username",
       "dev": true
     },
     "sumchecker": {
