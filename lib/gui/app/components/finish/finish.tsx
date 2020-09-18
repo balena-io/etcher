@@ -42,7 +42,7 @@ function restart(goToMain: () => void) {
 function FinishPage({ goToMain }: { goToMain: () => void }) {
 	const [webviewShowing, setWebviewShowing] = React.useState(false);
 	const flashResults = flashState.getFlashResults();
-	let errors = flashResults?.results?.errors;
+	let errors: FlashError[] = flashResults.results?.errors;
 	if (errors === undefined) {
 		errors = (store.getState().toJS().failedDevicePaths || []).map(
 			([, error]: [string, FlashError]) => ({
