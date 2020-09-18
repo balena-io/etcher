@@ -48,6 +48,7 @@ import { FlashStep } from './Flash';
 
 import EtcherSvg from '../../../assets/etcher.svg';
 import { SafeWebview } from '../../components/safe-webview/safe-webview';
+import { colors } from '../../theme';
 
 const Icon = styled(BaseIcon)`
 	margin-right: 20px;
@@ -87,9 +88,7 @@ const StepBorder = styled.div<{
 	position: relative;
 	height: 2px;
 	background-color: ${(props) =>
-		props.disabled
-			? props.theme.colors.dark.disabled.foreground
-			: props.theme.colors.dark.foreground};
+		props.disabled ? colors.dark.disabled.foreground : colors.dark.foreground};
 	width: 120px;
 	top: 19px;
 

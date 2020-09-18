@@ -213,21 +213,24 @@ interface Flow {
 }
 
 const FlowSelector = styled(
-	({ flow, ...props }: { flow: Flow; props?: ButtonProps }) => {
-		return (
-			<StepButton
-				plain
-				onClick={(evt) => flow.onClick(evt)}
-				icon={flow.icon}
-				{...props}
-			>
-				{flow.label}
-			</StepButton>
-		);
-	},
+	({ flow, ...props }: { flow: Flow; props?: ButtonProps }) => (
+		<StepButton
+			plain
+			onClick={(evt) => flow.onClick(evt)}
+			icon={flow.icon}
+			{...props}
+		>
+			{flow.label}
+		</StepButton>
+	),
 )`
 	border-radius: 24px;
 	color: rgba(255, 255, 255, 0.7);
+
+	:enabled:focus,
+	:enabled:focus svg {
+		color: ${colors.primary.foreground} !important;
+	}
 
 	:enabled:hover {
 		background-color: ${colors.primary.background};
