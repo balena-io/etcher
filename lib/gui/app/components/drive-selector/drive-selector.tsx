@@ -18,15 +18,7 @@ import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/exc
 import ChevronDownSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-down.svg';
 import * as sourceDestination from 'etcher-sdk/build/source-destination/';
 import * as React from 'react';
-import {
-	Flex,
-	ModalProps,
-	Txt,
-	Badge,
-	Link,
-	Table,
-	TableColumn,
-} from 'rendition';
+import { Flex, ModalProps, Txt, Badge, Link, TableColumn } from 'rendition';
 import styled from 'styled-components';
 
 import {
@@ -43,7 +35,12 @@ import { getImage, isDriveSelected } from '../../models/selection-state';
 import { store } from '../../models/store';
 import { logEvent, logException } from '../../modules/analytics';
 import { open as openExternal } from '../../os/open-external/services/open-external';
-import { Alert, Modal, ScrollableFlex } from '../../styled-components';
+import {
+	Alert,
+	GenericTableProps,
+	Modal,
+	Table,
+} from '../../styled-components';
 
 import DriveSVGIcon from '../../../assets/tgt.svg';
 import { SourceMetadata } from '../source-selector/source-selector';
@@ -75,73 +72,28 @@ function isDrivelistDrive(drive: Drive): drive is DrivelistDrive {
 	return typeof (drive as DrivelistDrive).size === 'number';
 }
 
-const DrivesTable = styled(({ refFn, ...props }) => (
-	<div>
-		<Table<Drive> ref={refFn} {...props} />
-	</div>
+const DrivesTable = styled((props: GenericTableProps<Drive>) => (
+	<Table<Drive> {...props} />
 ))`
-	[data-display='table-head']
-		> [data-display='table-row']
-		> [data-display='table-cell'] {
-		position: sticky;
-		top: 0;
-		background-color: ${(props) => props.theme.colors.quartenary.light};
-
-		input[type='checkbox'] + div {
-			display: ${({ multipleSelection }) =>
-				multipleSelection ? 'flex' : 'none'};
-		}
-
-		&:first-child {
-			padding-left: 15px;
-		}
-
-		&:nth-child(2) {
-			width: 38%;
-		}
-
-		&:nth-child(3) {
-			width: 15%;
-		}
-
-		&:nth-child(4) {
-			width: 15%;
-		}
-
-		&:nth-child(5) {
-			width: 32%;
-		}
-	}
-
-	[data-display='table-body'] > [data-display='table-row'] {
-		> [data-display='table-cell']:first-child {
-			padding-left: 15px;
-		}
-
-		> [data-display='table-cell']:last-child {
-			padding-right: 0;
-		}
-
-		&[data-highlight='true'] {
-			&.system {
-				background-color: ${(props) =>
-					props.showWarnings ? '#fff5e6' : '#e8f5fc'};
+	[data-display='table-head'],
+	[data-display='table-body'] {
+		> [data-display='table-row'] > [data-display='table-cell'] {
+			&:nth-child(2) {
+				width: 38%;
 			}
 
-			> [data-display='table-cell']:first-child {
-				box-shadow: none;
+			&:nth-child(3) {
+				width: 15%;
+			}
+
+			&:nth-child(4) {
+				width: 15%;
+			}
+
+			&:nth-child(5) {
+				width: 32%;
 			}
 		}
-	}
-
-	&& [data-display='table-row'] > [data-display='table-cell'] {
-		padding: 6px 8px;
-		color: #2a506f;
-	}
-
-	input[type='checkbox'] + div {
-		border-radius: ${({ multipleSelection }) =>
-			multipleSelection ? '4px' : '50%'};
 	}
 `;
 
@@ -453,95 +405,92 @@ export class DriveSelector extends React.Component<
 				}}
 				{...props}
 			>
-				<Flex width="100%" height="90%">
-					{!hasAvailableDrives() ? (
-						<Flex
-							flexDirection="column"
-							justifyContent="center"
-							alignItems="center"
-							width="100%"
-						>
-							<DriveSVGIcon width="40px" height="90px" />
-							<b>{this.props.emptyListLabel}</b>
-						</Flex>
-					) : (
-						<ScrollableFlex flexDirection="column" width="100%">
-							<DrivesTable
-								refFn={(t: Table<Drive>) => {
-									if (t !== null) {
-										t.setRowSelection(selectedList);
-									}
-								}}
-								multipleSelection={this.props.multipleSelection}
-								columns={this.tableColumns}
-								data={displayedDrives}
-								disabledRows={disabledDrives}
-								getRowClass={(row: Drive) =>
-									isDrivelistDrive(row) && row.isSystem ? ['system'] : []
+				{!hasAvailableDrives() ? (
+					<Flex
+						flexDirection="column"
+						justifyContent="center"
+						alignItems="center"
+						width="100%"
+					>
+						<DriveSVGIcon width="40px" height="90px" />
+						<b>{this.props.emptyListLabel}</b>
+					</Flex>
+				) : (
+					<>
+						<DrivesTable
+							refFn={(t) => {
+								if (t !== null) {
+									t.setRowSelection(selectedList);
 								}
-								rowKey="displayName"
-								onCheck={(rows: Drive[]) => {
-									const newSelection = rows.filter(isDrivelistDrive);
-									if (this.props.multipleSelection) {
-										this.setState({
-											selectedList: newSelection,
-										});
-										return;
+							}}
+							multipleSelection={this.props.multipleSelection}
+							columns={this.tableColumns}
+							data={displayedDrives}
+							disabledRows={disabledDrives}
+							getRowClass={(row: Drive) =>
+								isDrivelistDrive(row) && row.isSystem ? ['system'] : []
+							}
+							rowKey="displayName"
+							onCheck={(rows: Drive[]) => {
+								const newSelection = rows.filter(isDrivelistDrive);
+								if (this.props.multipleSelection) {
+									this.setState({
+										selectedList: newSelection,
+									});
+									return;
+								}
+								this.setState({
+									selectedList: newSelection.slice(newSelection.length - 1),
+								});
+							}}
+							onRowClick={(row: Drive) => {
+								if (
+									!isDrivelistDrive(row) ||
+									this.driveShouldBeDisabled(row, image)
+								) {
+									return;
+								}
+								if (this.props.multipleSelection) {
+									const newList = [...selectedList];
+									const selectedIndex = selectedList.findIndex(
+										(drive) => drive.device === row.device,
+									);
+									if (selectedIndex === -1) {
+										newList.push(row);
+									} else {
+										// Deselect if selected
+										newList.splice(selectedIndex, 1);
 									}
 									this.setState({
-										selectedList: newSelection.slice(newSelection.length - 1),
+										selectedList: newList,
 									});
-								}}
-								onRowClick={(row: Drive) => {
-									if (
-										!isDrivelistDrive(row) ||
-										this.driveShouldBeDisabled(row, image)
-									) {
-										return;
-									}
-									if (this.props.multipleSelection) {
-										const newList = [...selectedList];
-										const selectedIndex = selectedList.findIndex(
-											(drive) => drive.device === row.device,
-										);
-										if (selectedIndex === -1) {
-											newList.push(row);
-										} else {
-											// Deselect if selected
-											newList.splice(selectedIndex, 1);
-										}
-										this.setState({
-											selectedList: newList,
-										});
-										return;
-									}
-									this.setState({
-										selectedList: [row],
-									});
-								}}
-							/>
-							{numberOfHiddenSystemDrives > 0 && (
-								<Link
-									mt={15}
-									mb={15}
-									fontSize="14px"
-									onClick={() => this.setState({ showSystemDrives: true })}
-								>
-									<Flex alignItems="center">
-										<ChevronDownSvg height="1em" fill="currentColor" />
-										<Txt ml={8}>Show {numberOfHiddenSystemDrives} hidden</Txt>
-									</Flex>
-								</Link>
-							)}
-						</ScrollableFlex>
-					)}
-					{this.props.showWarnings && hasSystemDrives ? (
-						<Alert className="system-drive-alert" style={{ width: '67%' }}>
-							Selecting your system drive is dangerous and will erase your
-							drive!
-						</Alert>
-					) : null}
-				</Flex>
+									return;
+								}
+								this.setState({
+									selectedList: [row],
+								});
+							}}
+						/>
+						{numberOfHiddenSystemDrives > 0 && (
+							<Link
+								mt={15}
+								mb={15}
+								fontSize="14px"
+								onClick={() => this.setState({ showSystemDrives: true })}
+							>
+								<Flex alignItems="center">
+									<ChevronDownSvg height="1em" fill="currentColor" />
+									<Txt ml={8}>Show {numberOfHiddenSystemDrives} hidden</Txt>
+								</Flex>
+							</Link>
+						)}
+					</>
+				)}
+				{this.props.showWarnings && hasSystemDrives ? (
+					<Alert className="system-drive-alert" style={{ width: '67%' }}>
+						Selecting your system drive is dangerous and will erase your drive!
+					</Alert>
+				) : null}
 
 				{missingDriversModal.drive !== undefined && (
 					<Modal

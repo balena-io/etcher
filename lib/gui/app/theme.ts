@@ -115,4 +115,11 @@ export const theme = _.merge({}, Theme, {
 			}
 		`,
 	},
+	layer: {
+		extend: () => `
+			> div:first-child {
+				background-color: transparent;
+			}
+		`,
+	},
 });

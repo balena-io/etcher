@@ -20,7 +20,7 @@ import TimesCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/times-circl
 import * as _ from 'lodash';
 import outdent from 'outdent';
 import * as React from 'react';
-import { Flex, FlexProps, Link, Table, TableColumn, Txt } from 'rendition';
+import { Flex, FlexProps, Link, TableColumn, Txt } from 'rendition';
 import styled from 'styled-components';
 
 import { progress } from '../../../../shared/messages';
@@ -31,7 +31,7 @@ import { getDrives } from '../../models/available-drives';
 import { resetState } from '../../models/flash-state';
 import * as selection from '../../models/selection-state';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
-import { Modal } from '../../styled-components';
+import { Modal, Table } from '../../styled-components';
 
 const ErrorsTable = styled((props) => <Table<FlashError> {...props} />)`
 &&& [data-display='table-head'],
@@ -99,7 +99,7 @@ const columns: Array<TableColumn<FlashError>> = [
 		field: 'message',
 		label: 'Error',
 		render: (message: string, { code }: FlashError) => {
-			return message ? message : code;
+			return message ?? code;
 		},
 	},
 ];
@@ -152,7 +152,7 @@ export function FlashResults({
 						allFailed={allFailed}
 						color={allFailed || someFailed ? '#c6c8c9' : '#1ac135'}
 					/>
-					<Txt>{middleEllipsis(image, 16)}</Txt>
+					<Txt>{middleEllipsis(image, 24)}</Txt>
 				</Flex>
 				<Txt fontSize={24} color="#fff" mb="17px">
 					Flash Complete!

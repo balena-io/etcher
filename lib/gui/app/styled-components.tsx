@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import * as _ from 'lodash';
 import * as React from 'react';
 import {
 	Alert as AlertBase,
@@ -23,27 +24,16 @@ import {
 	ButtonProps,
 	Modal as ModalBase,
 	Provider,
+	Table as BaseTable,
+	TableProps as BaseTableProps,
 	Txt,
-	Theme as renditionTheme,
 } from 'rendition';
 import styled, { css } from 'styled-components';
 
 import { colors, theme } from './theme';
 
-const defaultTheme = {
-	...renditionTheme,
-	...theme,
-	layer: {
-		extend: () => `
-			> div:first-child {
-				background-color: transparent;
-			}
-		`,
-	},
-};
-
 export const ThemedProvider = (props: any) => (
-	<Provider theme={defaultTheme} {...props}></Provider>
+	<Provider theme={theme} {...props}></Provider>
 );
 
 export const BaseButton = styled(Button)`
@@ -134,41 +124,27 @@ const modalFooterShadowCss = css`
 	background-attachment: local, local, scroll, scroll;
 `;
 
-export const Modal = styled(({ style, ...props }) => {
+export const Modal = styled(({ style, children, ...props }) => {
 	return (
-		<Provider
-			theme={{
-				...defaultTheme,
-				header: {
-					height: '50px',
-				},
-				layer: {
-					extend: () => `
-					${defaultTheme.layer.extend()}
-
-					> div:last-child {
-						top: 0;
-					}
-				`,
+		<ModalBase
+			position="top"
+			width="97vw"
+			cancelButtonProps={{
+				style: {
+					marginRight: '20px',
+					border: 'solid 1px #2a506f',
 				},
 			}}
+			style={{
+				height: '87.5vh',
+				...style,
+			}}
+			{...props}
 		>
-			<ModalBase
-				position="top"
-				width="97vw"
-				cancelButtonProps={{
-					style: {
-						marginRight: '20px',
-						border: 'solid 1px #2a506f',
-					},
-				}}
-				style={{
-					height: '87.5vh',
-					...style,
-				}}
-				{...props}
-			/>
-		</Provider>
+			<ScrollableFlex flexDirection="column" width="100%" height="90%">
+				{...children}
+			</ScrollableFlex>
+		</ModalBase>
 	);
 })`
 	> div {
@@ -188,11 +164,8 @@ export const Modal = styled(({ style, ...props }) => {
 
 		> div:nth-child(2) {
 			height: 61%;
-
-			> div:not(.system-drive-alert) {
-				padding: 0 30px;
-				${modalFooterShadowCss}
-			}
+			padding: 0 30px;
+			${modalFooterShadowCss}
 		}
 
 		> div:last-child {
@@ -249,3 +222,82 @@ export const Alert = styled((props) => (
 		display: none;
 	}
 `;
+
+export interface GenericTableProps<T> extends BaseTableProps<T> {
+	refFn: (t: BaseTable<T>) => void;
+	multipleSelection: boolean;
+	showWarnings?: boolean;
+}
+
+const GenericTable: <T>(
+	props: GenericTableProps<T>,
+) => React.ReactElement<GenericTableProps<T>> = <T extends {}>({
+	refFn,
+	...props
+}: GenericTableProps<T>) => (
+	<div>
+		<BaseTable<T> ref={refFn} {...props} />
+	</div>
+);
+
+function StyledTable<T>() {
+	return styled((props: GenericTableProps<T>) => (
+		<GenericTable<T> {...props} />
+	))`
+		[data-display='table-head']
+			> [data-display='table-row']
+			> [data-display='table-cell'] {
+			position: sticky;
+			background-color: #f8f9fd;
+			top: 0;
+			z-index: 1;
+
+			input[type='checkbox'] + div {
+				display: ${(props) => (props.multipleSelection ? 'flex' : 'none')};
+			}
+		}
+
+		[data-display='table-head'] > [data-display='table-row'],
+		[data-display='table-body'] > [data-display='table-row'] {
+			> [data-display='table-cell']:first-child {
+				padding-left: 15px;
+				width: 6%;
+			}
+
+			> [data-display='table-cell']:last-child {
+				padding-right: 0;
+			}
+		}
+
+		[data-display='table-body'] > [data-display='table-row'] {
+			&:nth-of-type(2n) {
+				background: transparent;
+			}
+
+			&[data-highlight='true'] {
+				&.system {
+					background-color: ${(props) =>
+						props.showWarnings ? '#fff5e6' : '#e8f5fc'};
+				}
+
+				> [data-display='table-cell']:first-child {
+					box-shadow: none;
+				}
+			}
+		}
+
+		&& [data-display='table-row'] > [data-display='table-cell'] {
+			padding: 6px 8px;
+			color: #2a506f;
+		}
+
+		input[type='checkbox'] + div {
+			border-radius: ${(props) => (props.multipleSelection ? '4px' : '50%')};
+		}
+	`;
+}
+
+export const Table = <T extends {}>(props: GenericTableProps<T>) => {
+	const TypedStyledFunctional = StyledTable<T>();
+	return <TypedStyledFunctional {...props} />;
+};
