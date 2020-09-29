@@ -79,7 +79,7 @@ const DrivesTable = styled((props: GenericTableProps<Drive>) => (
 	[data-display='table-body'] {
 		> [data-display='table-row'] > [data-display='table-cell'] {
 			&:nth-child(2) {
-				width: 38%;
+				width: 32%;
 			}
 
 			&:nth-child(3) {
@@ -345,6 +345,16 @@ export class DriveSelector extends React.Component<
 		}
 	}
 
+	private deselectingAll(rows: DrivelistDrive[]) {
+		return (
+			rows.length > 0 &&
+			rows.length === this.state.selectedList.length &&
+			this.state.selectedList.every(
+				(d) => rows.findIndex((r) => d.device === r.device) > -1,
+			)
+		);
+	}
+
 	componentDidMount() {
 		this.unsubscribe = store.subscribe(() => {
 			const drives = getDrives();
@@ -423,6 +433,7 @@ export class DriveSelector extends React.Component<
 									t.setRowSelection(selectedList);
 								}
 							}}
+							checkedRowsNumber={selectedList.length}
 							multipleSelection={this.props.multipleSelection}
 							columns={this.tableColumns}
 							data={displayedDrives}
@@ -432,8 +443,11 @@ export class DriveSelector extends React.Component<
 							}
 							rowKey="displayName"
 							onCheck={(rows: Drive[]) => {
-								const newSelection = rows.filter(isDrivelistDrive);
+								let newSelection = rows.filter(isDrivelistDrive);
 								if (this.props.multipleSelection) {
+									if (this.deselectingAll(newSelection)) {
+										newSelection = [];
+									}
 									this.setState({
 										selectedList: newSelection,
 									});
@@ -450,24 +464,20 @@ export class DriveSelector extends React.Component<
 								) {
 									return;
 								}
-								if (this.props.multipleSelection) {
-									const newList = [...selectedList];
-									const selectedIndex = selectedList.findIndex(
-										(drive) => drive.device === row.device,
-									);
-									if (selectedIndex === -1) {
-										newList.push(row);
-									} else {
-										// Deselect if selected
-										newList.splice(selectedIndex, 1);
-									}
-									this.setState({
-										selectedList: newList,
-									});
-									return;
+								const index = selectedList.findIndex(
+									(d) => d.device === row.device,
+								);
+								const newList = this.props.multipleSelection
+									? [...selectedList]
+									: [];
+								if (index === -1) {
+									newList.push(row);
+								} else {
+									// Deselect if selected
+									newList.splice(index, 1);
 								}
 								this.setState({
-									selectedList: [row],
+									selectedList: newList,
 								});
 							}}
 						/>
