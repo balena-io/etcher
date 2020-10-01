@@ -34,24 +34,24 @@ import { middleEllipsis } from '../../utils/middle-ellipsis';
 import { Modal, Table } from '../../styled-components';
 
 const ErrorsTable = styled((props) => <Table<FlashError> {...props} />)`
-&&& [data-display='table-head'],
-&&& [data-display='table-body'] {
-	> [data-display='table-row'] {
-		> [data-display='table-cell'] {
-			&:first-child {
-				width: 30%;
-			}
+	&&& [data-display='table-head'],
+	&&& [data-display='table-body'] {
+		> [data-display='table-row'] {
+			> [data-display='table-cell'] {
+				&:first-child {
+					width: 30%;
+				}
 
-			&:nth-child(2) {
-				width: 20%;
-			}
+				&:nth-child(2) {
+					width: 20%;
+				}
 
-			&:last-child {
-				width: 50%;
+				&:last-child {
+					width: 50%;
+				}
 			}
 		}
 	}
-}
 `;
 const DoneIcon = (props: {
 	skipped: boolean;
