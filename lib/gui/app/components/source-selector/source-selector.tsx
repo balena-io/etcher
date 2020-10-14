@@ -289,6 +289,9 @@ export class SourceSelector extends React.Component<
 			showURLSelector: false,
 			showDriveSelector: false,
 		};
+
+		// Bind `this` since it's used in an event's callback
+		this.onSelectImage = this.onSelectImage.bind(this);
 	}
 
 	public componentDidMount() {
