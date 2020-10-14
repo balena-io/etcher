@@ -40,6 +40,12 @@ async function mountSourceDrive() {
  * Notice that by image, we mean *.img/*.iso/*.zip/etc files.
  */
 export async function selectImage(): Promise<string | undefined> {
+	return await openDialog();
+}
+
+export async function openDialog(
+	type: 'openFile' | 'openDirectory' = 'openFile',
+) {
 	await mountSourceDrive();
 	const options: electron.OpenDialogOptions = {
 		// This variable is set when running in GNU/Linux from
@@ -50,23 +56,26 @@ export async function selectImage(): Promise<string | undefined> {
 		//
 		// See: https://github.com/probonopd/AppImageKit/commit/1569d6f8540aa6c2c618dbdb5d6fcbf0003952b7
 		defaultPath: process.env.OWD,
-		properties: ['openFile', 'treatPackageAsDirectory'],
-		filters: [
-			{
-				name: 'OS Images',
-				extensions: SUPPORTED_EXTENSIONS,
-			},
-			{
-				name: 'All',
-				extensions: ['*'],
-			},
-		],
+		properties: [type, 'treatPackageAsDirectory'],
+		filters:
+			type === 'openFile'
+				? [
+						{
+							name: 'OS Images',
+							extensions: SUPPORTED_EXTENSIONS,
+						},
+						{
+							name: 'All',
+							extensions: ['*'],
+						},
+				  ]
+				: undefined,
 	};
 	const currentWindow = electron.remote.getCurrentWindow();
-	const [file] = (
+	const [path] = (
 		await electron.remote.dialog.showOpenDialog(currentWindow, options)
 	).filePaths;
-	return file;
+	return path;
 }
 
 /**

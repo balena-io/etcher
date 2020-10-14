@@ -700,11 +700,6 @@ describe('Shared: DriveConstraints', function () {
 				});
 
 				it('should return false if the drive is not large enough and is a source drive', function () {
-					console.log('YAYYY', {
-						...image,
-						path: path.join(this.mountpoint, 'rpi.img'),
-						size: 5000000000,
-					});
 					expect(
 						constraints.isDriveValid(this.drive, {
 							...image,

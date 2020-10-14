@@ -72,24 +72,24 @@ export function getImage(): SourceMetadata | undefined {
 	return store.getState().toJS().selection.image;
 }
 
-export function getImagePath() {
-	return getImage()?.path;
+export function getImagePath(): string | undefined {
+	return store.getState().toJS().selection.image?.path;
 }
 
-export function getImageSize() {
-	return getImage()?.size;
+export function getImageSize(): number | undefined {
+	return store.getState().toJS().selection.image?.size;
 }
 
-export function getImageName() {
-	return getImage()?.name;
+export function getImageName(): string | undefined {
+	return store.getState().toJS().selection.image?.name;
 }
 
-export function getImageLogo() {
-	return getImage()?.logo;
+export function getImageLogo(): string | undefined {
+	return store.getState().toJS().selection.image?.logo;
 }
 
-export function getImageSupportUrl() {
-	return getImage()?.supportUrl;
+export function getImageSupportUrl(): string | undefined {
+	return store.getState().toJS().selection.image?.supportUrl;
 }
 
 /**

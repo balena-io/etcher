@@ -25,15 +25,7 @@ import { GPTPartition, MBRPartition } from 'partitioninfo';
 import * as path from 'path';
 import * as prettyBytes from 'pretty-bytes';
 import * as React from 'react';
-import {
-	Flex,
-	ButtonProps,
-	Modal as SmallModal,
-	Txt,
-	Card as BaseCard,
-	Input,
-	Spinner,
-} from 'rendition';
+import { Flex, ButtonProps, Modal as SmallModal, Txt } from 'rendition';
 import styled from 'styled-components';
 
 import * as errors from '../../../../shared/errors';
@@ -48,61 +40,20 @@ import { replaceWindowsNetworkDriveLetter } from '../../os/windows-network-drive
 import {
 	ChangeButton,
 	DetailsText,
-	Modal,
 	StepButton,
 	StepNameButton,
-	ScrollableFlex,
 } from '../../styled-components';
 import { colors } from '../../theme';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
+import URLSelector from '../url-selector/url-selector';
 import { SVGIcon } from '../svg-icon/svg-icon';
 
 import ImageSvg from '../../../assets/image.svg';
 import { DriveSelector } from '../drive-selector/drive-selector';
 import { DrivelistDrive } from '../../../../shared/drive-constraints';
 
-const recentUrlImagesKey = 'recentUrlImages';
-
-function normalizeRecentUrlImages(urls: any[]): URL[] {
-	if (!Array.isArray(urls)) {
-		urls = [];
-	}
-	urls = urls
-		.map((url) => {
-			try {
-				return new URL(url);
-			} catch (error) {
-				// Invalid URL, skip
-			}
-		})
-		.filter((url) => url !== undefined);
-	urls = _.uniqBy(urls, (url) => url.href);
-	return urls.slice(urls.length - 5);
-}
-
-function getRecentUrlImages(): URL[] {
-	let urls = [];
-	try {
-		urls = JSON.parse(localStorage.getItem(recentUrlImagesKey) || '[]');
-	} catch {
-		// noop
-	}
-	return normalizeRecentUrlImages(urls);
-}
-
-function setRecentUrlImages(urls: URL[]) {
-	const normalized = normalizeRecentUrlImages(urls.map((url: URL) => url.href));
-	localStorage.setItem(recentUrlImagesKey, JSON.stringify(normalized));
-}
-
 const isURL = (imagePath: string) =>
 	imagePath.startsWith('https://') || imagePath.startsWith('http://');
-
-const Card = styled(BaseCard)`
-	hr {
-		margin: 5px 0;
-	}
-`;
 
 // TODO move these styles to rendition
 const ModalText = styled.p`
@@ -127,85 +78,6 @@ function isString(value: any): value is string {
 	return typeof value === 'string';
 }
 
-const URLSelector = ({
-	done,
-	cancel,
-}: {
-	done: (imageURL: string) => void;
-	cancel: () => void;
-}) => {
-	const [imageURL, setImageURL] = React.useState('');
-	const [recentImages, setRecentImages] = React.useState<URL[]>([]);
-	const [loading, setLoading] = React.useState(false);
-	React.useEffect(() => {
-		const fetchRecentUrlImages = async () => {
-			const recentUrlImages: URL[] = await getRecentUrlImages();
-			setRecentImages(recentUrlImages);
-		};
-		fetchRecentUrlImages();
-	}, []);
-	return (
-		<Modal
-			cancel={cancel}
-			primaryButtonProps={{
-				disabled: loading || !imageURL,
-			}}
-			action={loading ? <Spinner /> : 'OK'}
-			done={async () => {
-				setLoading(true);
-				const urlStrings = recentImages.map((url: URL) => url.href);
-				const normalizedRecentUrls = normalizeRecentUrlImages([
-					...urlStrings,
-					imageURL,
-				]);
-				setRecentUrlImages(normalizedRecentUrls);
-				await done(imageURL);
-			}}
-		>
-			<Flex flexDirection="column">
-				<Flex style={{ width: '100%' }} flexDirection="column">
-					<Txt mb="10px" fontSize="24px">
-						Use Image URL
-					</Txt>
-					<Input
-						value={imageURL}
-						placeholder="Enter a valid URL"
-						type="text"
-						onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
-							setImageURL(evt.target.value)
-						}
-					/>
-				</Flex>
-				{recentImages.length > 0 && (
-					<Flex flexDirection="column" height="78.6%">
-						<Txt fontSize={18}>Recent</Txt>
-						<ScrollableFlex flexDirection="column">
-							<Card
-								p="10px 15px"
-								rows={recentImages
-									.map((recent) => (
-										<Txt
-											key={recent.href}
-											onClick={() => {
-												setImageURL(recent.href);
-											}}
-											style={{
-												overflowWrap: 'break-word',
-											}}
-										>
-											{recent.pathname.split('/').pop()} - {recent.href}
-										</Txt>
-									))
-									.reverse()}
-							/>
-						</ScrollableFlex>
-					</Flex>
-				)}
-			</Flex>
-		</Modal>
-	);
-};
-
 interface Flow {
 	icon?: JSX.Element;
 	onClick: (evt: React.MouseEvent) => void;
@@ -213,10 +85,13 @@ interface Flow {
 }
 
 const FlowSelector = styled(
-	({ flow, ...props }: { flow: Flow; props?: ButtonProps }) => (
+	({ flow, ...props }: { flow: Flow } & ButtonProps) => (
 		<StepButton
-			plain
-			onClick={(evt) => flow.onClick(evt)}
+			plain={!props.primary}
+			primary={props.primary}
+			onClick={(evt: React.MouseEvent<Element, MouseEvent>) =>
+				flow.onClick(evt)
+			}
 			icon={flow.icon}
 			{...props}
 		>
@@ -272,6 +147,7 @@ interface SourceSelectorState {
 	showImageDetails: boolean;
 	showURLSelector: boolean;
 	showDriveSelector: boolean;
+	defaultFlowActive: boolean;
 }
 
 export class SourceSelector extends React.Component<
@@ -288,6 +164,7 @@ export class SourceSelector extends React.Component<
 			showImageDetails: false,
 			showURLSelector: false,
 			showDriveSelector: false,
+			defaultFlowActive: true,
 		};
 
 		// Bind `this` since it's used in an event's callback
@@ -533,6 +410,10 @@ export class SourceSelector extends React.Component<
 		});
 	}
 
+	private setDefaultFlowActive(defaultFlowActive: boolean) {
+		this.setState({ defaultFlowActive });
+	}
+
 	// TODO add a visual change when dragging a file over the selector
 	public render() {
 		const { flashing } = this.props;
@@ -599,12 +480,15 @@ export class SourceSelector extends React.Component<
 					) : (
 						<>
 							<FlowSelector
+								primary={this.state.defaultFlowActive}
 								key="Flash from file"
 								flow={{
 									onClick: () => this.openImageSelector(),
 									label: 'Flash from file',
 									icon: <FileSvg height="1em" fill="currentColor" />,
 								}}
+								onMouseEnter={() => this.setDefaultFlowActive(false)}
+								onMouseLeave={() => this.setDefaultFlowActive(true)}
 							/>
 							<FlowSelector
 								key="Flash from URL"
@@ -613,6 +497,8 @@ export class SourceSelector extends React.Component<
 									label: 'Flash from URL',
 									icon: <LinkSvg height="1em" fill="currentColor" />,
 								}}
+								onMouseEnter={() => this.setDefaultFlowActive(false)}
+								onMouseLeave={() => this.setDefaultFlowActive(true)}
 							/>
 							<FlowSelector
 								key="Clone drive"
@@ -621,6 +507,8 @@ export class SourceSelector extends React.Component<
 									label: 'Clone drive',
 									icon: <CopySvg height="1em" fill="currentColor" />,
 								}}
+								onMouseEnter={() => this.setDefaultFlowActive(false)}
+								onMouseLeave={() => this.setDefaultFlowActive(true)}
 							/>
 						</>
 					)}

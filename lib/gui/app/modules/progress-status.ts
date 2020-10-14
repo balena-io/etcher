@@ -22,7 +22,7 @@ export interface FlashState {
 	percentage?: number;
 	speed: number;
 	position: number;
-	type?: 'decompressing' | 'flashing' | 'verifying';
+	type?: 'decompressing' | 'flashing' | 'verifying' | 'downloading';
 }
 
 export function fromFlashState({
@@ -61,6 +61,12 @@ export function fromFlashState({
 			return { position: `${percentage}%`, status: 'Validating...' };
 		} else {
 			return { status: 'Finishing...' };
+		}
+	} else if (type === 'downloading') {
+		if (percentage == null) {
+			return { status: 'Downloading...' };
+		} else if (percentage < 100) {
+			return { position: `${percentage}%`, status: 'Downloading...' };
 		}
 	}
 	return { status: 'Failed' };

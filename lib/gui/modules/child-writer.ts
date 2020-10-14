@@ -17,6 +17,8 @@
 import { Drive as DrivelistDrive } from 'drivelist';
 import * as sdk from 'etcher-sdk';
 import { cleanupTmpFiles } from 'etcher-sdk/build/tmp';
+import { promises as fs } from 'fs';
+import * as _ from 'lodash';
 import * as ipc from 'node-ipc';
 import { totalmem } from 'os';
 
@@ -154,6 +156,13 @@ interface WriteOptions {
 	autoBlockmapping: boolean;
 	decompressFirst: boolean;
 	SourceType: string;
+	saveUrlImage: boolean;
+	saveUrlImageTo: string;
+}
+
+interface ProgressState
+	extends Omit<sdk.multiWrite.MultiDestinationProgress, 'type'> {
+	type: sdk.multiWrite.MultiDestinationProgress['type'] | 'downloading';
 }
 
 ipc.connectTo(IPC_SERVER_ID, () => {
@@ -191,7 +200,7 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 		 * @example
 		 * writer.on('progress', onProgress)
 		 */
-		const onProgress = (state: sdk.multiWrite.MultiDestinationProgress) => {
+		const onProgress = (state: ProgressState) => {
 			ipc.of[IPC_SERVER_ID].emit('state', state);
 		};
 
@@ -269,7 +278,16 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 						path: imagePath,
 					});
 				} else {
-					source = new Http({ url: imagePath, avoidRandomAccess: true });
+					if (options.saveUrlImage) {
+						source = await saveFileBeforeFlash(
+							imagePath,
+							options.saveUrlImageTo,
+							onProgress,
+							onFail,
+						);
+					} else {
+						source = new Http({ url: imagePath, avoidRandomAccess: true });
+					}
 				}
 			}
 			const results = await writeAndValidate({
@@ -302,3 +320,43 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 		ipc.of[IPC_SERVER_ID].emit('ready', {});
 	});
 });
+
+async function saveFileBeforeFlash(
+	imagePath: string,
+	saveUrlImageTo: string,
+	onProgress: (state: ProgressState) => void,
+	onFail: (
+		destination: sdk.sourceDestination.SourceDestination,
+		error: Error,
+	) => void,
+) {
+	const urlImage = new Http({ url: imagePath, avoidRandomAccess: true });
+	const source = await urlImage.getInnerSource();
+	const metadata = await source.getMetadata();
+	const fileName = `${saveUrlImageTo}/${metadata.name}`;
+	let alreadyDownloaded = false;
+	try {
+		alreadyDownloaded = (await fs.stat(fileName)).isFile();
+	} catch (error) {
+		if (error.code !== 'ENOENT') {
+			throw error;
+		}
+	}
+	if (!alreadyDownloaded) {
+		await sdk.multiWrite.decompressThenFlash({
+			source,
+			destinations: [new File({ path: fileName, write: true })],
+			onProgress: (progress) => {
+				onProgress({
+					...progress,
+					type: 'downloading',
+				});
+			},
+			onFail: (...args) => {
+				onFail(...args);
+			},
+			verify: true,
+		});
+	}
+	return new File({ path: fileName });
+}
