@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+import * as _ from 'lodash';
+import { Theme } from 'rendition';
+
 export const colors = {
 	dark: {
 		foreground: '#fff',
@@ -67,8 +70,7 @@ export const colors = {
 
 const font = 'SourceSansPro';
 
-export const theme = {
-	colors,
+export const theme = _.merge({}, Theme, {
 	font,
 	global: {
 		font: {
@@ -109,4 +111,11 @@ export const theme = {
 			}
 		`,
 	},
-};
+	layer: {
+		extend: () => `
+			> div:first-child {
+				background-color: transparent;
+			}
+		`,
+	},
+});

@@ -122,8 +122,8 @@ interface AutoUpdaterConfig {
 
 async function createMainWindow() {
 	const fullscreen = Boolean(await settings.get('fullscreen'));
-	const defaultWidth = 800;
-	const defaultHeight = 480;
+	const defaultWidth = settings.DEFAULT_WIDTH;
+	const defaultHeight = settings.DEFAULT_HEIGHT;
 	let width = defaultWidth;
 	let height = defaultHeight;
 	if (fullscreen) {
@@ -174,7 +174,13 @@ async function createMainWindow() {
 		event.preventDefault();
 	});
 
-	mainWindow.loadURL(`file://${path.join(__dirname, 'index.html')}`);
+	mainWindow.loadURL(
+		`file://${path.join(
+			'/',
+			...__dirname.split(path.sep).map(encodeURIComponent),
+			'index.html',
+		)}`,
+	);
 
 	const page = mainWindow.webContents;
 

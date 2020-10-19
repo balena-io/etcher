@@ -61,7 +61,7 @@ async function getSettingsList(): Promise<Setting[]> {
 		{
 			name: 'updatesEnabled',
 			label: 'Auto-updates enabled',
-			hide: _.includes(['rpm', 'deb'], packageType),
+			hide: ['rpm', 'deb'].includes(packageType),
 		},
 	];
 }
@@ -121,9 +121,9 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 			done={() => toggleModal(false)}
 		>
 			<Flex flexDirection="column">
-				{_.map(settingsList, (setting: Setting, i: number) => {
+				{settingsList.map((setting: Setting, i: number) => {
 					return setting.hide ? null : (
-						<Flex key={setting.name}>
+						<Flex key={setting.name} mb={14}>
 							<Checkbox
 								toggle
 								tabIndex={6 + i}
@@ -135,12 +135,13 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 					);
 				})}
 				<Flex
-					mt={28}
+					mt={18}
 					alignItems="center"
 					color="#00aeef"
 					style={{
 						width: 'fit-content',
 						cursor: 'pointer',
+						fontSize: 14,
 					}}
 					onClick={() =>
 						openExternal(

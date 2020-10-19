@@ -295,6 +295,7 @@ function storeReducer(
 
 			_.defaults(action.data, {
 				cancelled: false,
+				skip: false,
 			});
 
 			if (!_.isBoolean(action.data.cancelled)) {
@@ -333,6 +334,12 @@ function storeReducer(
 				action.data.results.averageFlashingSpeed = state.get(
 					'lastAverageFlashingSpeed',
 				);
+			}
+
+			if (action.data.skip) {
+				return state
+					.set('isFlashing', false)
+					.set('flashResults', Immutable.fromJS(action.data));
 			}
 
 			return state

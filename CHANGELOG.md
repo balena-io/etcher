@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.109
+## (2020-09-14)
+
+* Workaround elevation bug on Windows when the username contains an ampersand [Alexis Svinartchouk]
+
+# v1.5.108
+## (2020-09-10)
+
+* Fix content not loading when the app path contains special characters [Alexis Svinartchouk]
+
+# v1.5.107
+## (2020-09-04)
+
+* Re-enable ext partitions trimming on 32 bit Windows [Alexis Svinartchouk]
+* Rework system & large drives handling logic [Lorenzo Alberto Maria Ambrosi]
+* Reword macOS Catalina askpass message [Lorenzo Alberto Maria Ambrosi]
+* Add clone-drive workflow [Lorenzo Alberto Maria Ambrosi]
+
 # v1.5.106
 ## (2020-08-27)
 

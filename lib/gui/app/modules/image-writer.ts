@@ -131,6 +131,7 @@ function writerEnv() {
 }
 
 interface FlashResults {
+	skip?: boolean;
 	cancelled?: boolean;
 }
 
@@ -140,12 +141,15 @@ async function performWrite(
 	onProgress: sdk.multiWrite.OnProgressFunction,
 ): Promise<{ cancelled?: boolean }> {
 	let cancelled = false;
+	let skip = false;
 	ipc.serve();
 	const {
 		unmountOnSuccess,
 		validateWriteOnSuccess,
 		autoBlockmapping,
 		decompressFirst,
+		saveUrlImage,
+		saveUrlImageTo,
 	} = await settings.getAll();
 	return await new Promise((resolve, reject) => {
 		ipc.server.on('error', (error) => {
@@ -171,7 +175,7 @@ async function performWrite(
 
 		ipc.server.on('fail', ({ device, error }) => {
 			if (device.devicePath) {
-				flashState.addFailedDevicePath(device.devicePath);
+				flashState.addFailedDevicePath({ device, error });
 			}
 			handleErrorLogging(error, analyticsData);
 		});
@@ -188,6 +192,11 @@ async function performWrite(
 			cancelled = true;
 		});
 
+		ipc.server.on('skip', () => {
+			terminateServer();
+			skip = true;
+		});
+
 		ipc.server.on('state', onProgress);
 
 		ipc.server.on('ready', (_data, socket) => {
@@ -199,6 +208,8 @@ async function performWrite(
 				autoBlockmapping,
 				unmountOnSuccess,
 				decompressFirst,
+				saveUrlImage,
+				saveUrlImageTo,
 			});
 		});
 
@@ -213,6 +224,7 @@ async function performWrite(
 					environment: env,
 				});
 				flashResults.cancelled = cancelled || results.cancelled;
+				flashResults.skip = skip;
 			} catch (error) {
 				// This happens when the child is killed using SIGKILL
 				const SIGKILL_EXIT_CODE = 137;
@@ -229,6 +241,7 @@ async function performWrite(
 			// This likely means the child died halfway through
 			if (
 				!flashResults.cancelled &&
+				!flashResults.skip &&
 				!_.get(flashResults, ['results', 'bytesWritten'])
 			) {
 				reject(
@@ -286,8 +299,7 @@ export async function flash(
 	} catch (error) {
 		flashState.unsetFlashingFlag({ cancelled: false, errorCode: error.code });
 		windowProgress.clear();
-		let { results } = flashState.getFlashResults();
-		results = results || {};
+		const { results = {} } = flashState.getFlashResults();
 		const eventData = {
 			...analyticsData,
 			errors: results.errors,
@@ -306,7 +318,7 @@ export async function flash(
 		};
 		analytics.logEvent('Elevation cancelled', eventData);
 	} else {
-		const { results } = flashState.getFlashResults();
+		const { results = {} } = flashState.getFlashResults();
 		const eventData = {
 			...analyticsData,
 			errors: results.errors,
@@ -322,7 +334,8 @@ export async function flash(
 /**
  * @summary Cancel write operation
  */
-export async function cancel() {
+export async function cancel(type: string) {
+	const status = type.toLowerCase();
 	const drives = selectionState.getSelectedDevices();
 	const analyticsData = {
 		image: selectionState.getImagePath(),
@@ -332,7 +345,7 @@ export async function cancel() {
 		flashInstanceUuid: flashState.getFlashUuid(),
 		unmountOnSuccess: await settings.get('unmountOnSuccess'),
 		validateWriteOnSuccess: await settings.get('validateWriteOnSuccess'),
-		status: 'cancel',
+		status,
 	};
 	analytics.logEvent('Cancel', analyticsData);
 
@@ -342,7 +355,7 @@ export async function cancel() {
 		// @ts-ignore (no Server.sockets in @types/node-ipc)
 		const [socket] = ipc.server.sockets;
 		if (socket !== undefined) {
-			ipc.server.emit(socket, 'cancel');
+			ipc.server.emit(socket, status);
 		}
 	} catch (error) {
 		analytics.logException(error);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 balena.io
+ * Copyright 2020 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-import { expect } from 'chai';
-import { bytesToMegabytes } from '../../lib/shared/units';
+/**
+ * @summary Truncate text from the start with an ellipsis
+ */
+export function startEllipsis(input: string, limit: number): string {
+	// Do nothing, the string doesn't need truncation.
+	if (input.length <= limit) {
+		return input;
+	}
 
-describe('Shared: Units', function () {
-	describe('.bytesToMegabytes()', function () {
-		it('should convert bytes to megabytes', function () {
-			expect(bytesToMegabytes(1.2e7)).to.equal(12);
-			expect(bytesToMegabytes(332000)).to.equal(0.332);
-		});
-	});
-});
+	const lastPart = input.slice(input.length - limit, input.length);
+	return `…${lastPart}`;
+}

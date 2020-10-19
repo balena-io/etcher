@@ -26,6 +26,9 @@ const debug = _debug('etcher:models:settings');
 
 const JSON_INDENT = 2;
 
+export const DEFAULT_WIDTH = 800;
+export const DEFAULT_HEIGHT = 480;
+
 /**
  * @summary Userdata directory path
  * @description
@@ -38,11 +41,14 @@ const JSON_INDENT = 2;
  * NOTE: The ternary is due to this module being loaded both,
  * Electron's main process and renderer process
  */
-const USER_DATA_DIR = electron.app
-	? electron.app.getPath('userData')
-	: electron.remote.app.getPath('userData');
+
+const app = electron.app || electron.remote.app;
+
+const USER_DATA_DIR = app.getPath('userData');
 
 const CONFIG_PATH = join(USER_DATA_DIR, 'config.json');
+
+const DOWNLOADS_DIR = app.getPath('downloads');
 
 async function readConfigFile(filename: string): Promise<_.Dictionary<any>> {
 	let contents = '{}';
@@ -80,6 +86,8 @@ const DEFAULT_SETTINGS: _.Dictionary<any> = {
 	desktopNotifications: true,
 	autoBlockmapping: true,
 	decompressFirst: true,
+	saveUrlImage: false,
+	saveUrlImageTo: DOWNLOADS_DIR,
 };
 
 const settings = _.cloneDeep(DEFAULT_SETTINGS);

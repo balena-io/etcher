@@ -82,14 +82,12 @@ async function flashImageToDrive(
 	try {
 		await imageWriter.flash(image, drives);
 		if (!flashState.wasLastFlashCancelled()) {
-			const flashResults: any = flashState.getFlashResults();
+			const {
+				results = { devices: { successful: 0, failed: 0 } },
+			} = flashState.getFlashResults();
 			notification.send(
 				'Flash complete!',
-				messages.info.flashComplete(
-					basename,
-					drives as any,
-					flashResults.results.devices,
-				),
+				messages.info.flashComplete(basename, drives as any, results.devices),
 				iconPath,
 			);
 			goToSuccess();
@@ -198,18 +196,12 @@ export class FlashStep extends React.PureComponent<
 	}
 
 	private async tryFlash() {
-		const devices = selection.getSelectedDevices();
-		const drives = availableDrives
-			.getDrives()
-			.filter((drive: { device: string }) => {
-				return devices.includes(drive.device);
-			})
-			.map((drive) => {
-				return {
-					...drive,
-					statuses: constraints.getDriveImageCompatibilityStatuses(drive),
-				};
-			});
+		const drives = selection.getSelectedDrives().map((drive) => {
+			return {
+				...drive,
+				statuses: constraints.getDriveImageCompatibilityStatuses(drive),
+			};
+		});
 		if (drives.length === 0 || this.props.isFlashing) {
 			return;
 		}

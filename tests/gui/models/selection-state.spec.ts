@@ -15,11 +15,13 @@
  */
 
 import { expect } from 'chai';
-import * as _ from 'lodash';
+import { File } from 'etcher-sdk/build/source-destination';
 import * as path from 'path';
+import { SourceMetadata } from '../../../lib/gui/app/components/source-selector/source-selector';
 
 import * as availableDrives from '../../../lib/gui/app/models/available-drives';
 import * as selectionState from '../../../lib/gui/app/models/selection-state';
+import { DrivelistDrive } from '../../../lib/shared/drive-constraints';
 
 describe('Model: selectionState', function () {
 	describe('given a clean state', function () {
@@ -39,10 +41,6 @@ describe('Model: selectionState', function () {
 			expect(selectionState.getImageSize()).to.be.undefined;
 		});
 
-		it('getImageUrl() should return undefined', function () {
-			expect(selectionState.getImageUrl()).to.be.undefined;
-		});
-
 		it('getImageName() should return undefined', function () {
 			expect(selectionState.getImageName()).to.be.undefined;
 		});
@@ -53,10 +51,6 @@ describe('Model: selectionState', function () {
 
 		it('getImageSupportUrl() should return undefined', function () {
 			expect(selectionState.getImageSupportUrl()).to.be.undefined;
-		});
-
-		it('getImageRecommendedDriveSize() should return undefined', function () {
-			expect(selectionState.getImageRecommendedDriveSize()).to.be.undefined;
 		});
 
 		it('hasDrive() should return false', function () {
@@ -138,10 +132,10 @@ describe('Model: selectionState', function () {
 			it('should queue the drive', function () {
 				selectionState.selectDrive('/dev/disk5');
 				const drives = selectionState.getSelectedDevices();
-				const lastDriveDevice = _.last(drives);
-				const lastDrive = _.find(availableDrives.getDrives(), {
-					device: lastDriveDevice,
-				});
+				const lastDriveDevice = drives.pop();
+				const lastDrive = availableDrives
+					.getDrives()
+					.find((drive) => drive.device === lastDriveDevice);
 				expect(lastDrive).to.deep.equal({
 					device: '/dev/disk5',
 					name: 'USB Drive',
@@ -214,7 +208,7 @@ describe('Model: selectionState', function () {
 		it('should be able to add more drives', function () {
 			selectionState.selectDrive(this.drives[2].device);
 			expect(selectionState.getSelectedDevices()).to.deep.equal(
-				_.map(this.drives, 'device'),
+				this.drives.map((drive: DrivelistDrive) => drive.device),
 			);
 		});
 
@@ -234,13 +228,13 @@ describe('Model: selectionState', function () {
 				system: true,
 			};
 
-			const newDrives = [..._.initial(this.drives), systemDrive];
+			const newDrives = [...this.drives.slice(0, -1), systemDrive];
 			availableDrives.setDrives(newDrives);
 
 			selectionState.selectDrive(systemDrive.device);
 			availableDrives.setDrives(newDrives);
 			expect(selectionState.getSelectedDevices()).to.deep.equal(
-				_.map(newDrives, 'device'),
+				newDrives.map((drive: DrivelistDrive) => drive.device),
 			);
 		});
 
@@ -272,18 +266,18 @@ describe('Model: selectionState', function () {
 			it('should return the selected drives', function () {
 				expect(selectionState.getSelectedDrives()).to.deep.equal([
 					{
+						device: '/dev/disk2',
+						name: 'USB Drive 2',
+						size: 999999999,
+						isReadOnly: false,
+					},
+					{
 						device: '/dev/sdb',
 						description: 'DataTraveler 2.0',
 						size: 999999999,
 						mountpoint: '/media/UNTITLED',
 						name: '/dev/sdb',
 						system: false,
-						isReadOnly: false,
-					},
-					{
-						device: '/dev/disk2',
-						name: 'USB Drive 2',
-						size: 999999999,
 						isReadOnly: false,
 					},
 				]);
@@ -399,13 +393,6 @@ describe('Model: selectionState', function () {
 			});
 		});
 
-		describe('.getImageUrl()', function () {
-			it('should return the image url', function () {
-				const imageUrl = selectionState.getImageUrl();
-				expect(imageUrl).to.equal('https://www.raspbian.org');
-			});
-		});
-
 		describe('.getImageName()', function () {
 			it('should return the image name', function () {
 				const imageName = selectionState.getImageName();
@@ -429,13 +416,6 @@ describe('Model: selectionState', function () {
 			});
 		});
 
-		describe('.getImageRecommendedDriveSize()', function () {
-			it('should return the image recommended drive size', function () {
-				const imageRecommendedDriveSize = selectionState.getImageRecommendedDriveSize();
-				expect(imageRecommendedDriveSize).to.equal(1000000000);
-			});
-		});
-
 		describe('.hasImage()', function () {
 			it('should return true', function () {
 				const hasImage = selectionState.hasImage();
@@ -446,10 +426,13 @@ describe('Model: selectionState', function () {
 		describe('.selectImage()', function () {
 			it('should override the image', function () {
 				selectionState.selectSource({
+					description: 'bar.img',
+					displayName: 'bar.img',
 					path: 'bar.img',
 					extension: 'img',
 					size: 999999999,
 					isSizeEstimated: false,
+					SourceType: File,
 				});
 
 				const imagePath = selectionState.getImagePath();
@@ -475,13 +458,19 @@ describe('Model: selectionState', function () {
 		describe('.selectImage()', function () {
 			afterEach(selectionState.clear);
 
+			const image: SourceMetadata = {
+				description: 'foo.img',
+				displayName: 'foo.img',
+				path: 'foo.img',
+				extension: 'img',
+				size: 999999999,
+				isSizeEstimated: false,
+				SourceType: File,
+				recommendedDriveSize: 2000000000,
+			};
+
 			it('should be able to set an image', function () {
-				selectionState.selectSource({
-					path: 'foo.img',
-					extension: 'img',
-					size: 999999999,
-					isSizeEstimated: false,
-				});
+				selectionState.selectSource(image);
 
 				const imagePath = selectionState.getImagePath();
 				expect(imagePath).to.equal('foo.img');
@@ -491,11 +480,9 @@ describe('Model: selectionState', function () {
 
 			it('should be able to set an image with an archive extension', function () {
 				selectionState.selectSource({
+					...image,
 					path: 'foo.zip',
-					extension: 'img',
 					archiveExtension: 'zip',
-					size: 999999999,
-					isSizeEstimated: false,
 				});
 
 				const imagePath = selectionState.getImagePath();
@@ -504,11 +491,9 @@ describe('Model: selectionState', function () {
 
 			it('should infer a compressed raw image if the penultimate extension is missing', function () {
 				selectionState.selectSource({
+					...image,
 					path: 'foo.xz',
-					extension: 'img',
 					archiveExtension: 'xz',
-					size: 999999999,
-					isSizeEstimated: false,
 				});
 
 				const imagePath = selectionState.getImagePath();
@@ -517,53 +502,19 @@ describe('Model: selectionState', function () {
 
 			it('should infer a compressed raw image if the penultimate extension is not a file extension', function () {
 				selectionState.selectSource({
+					...image,
 					path: 'something.linux-x86-64.gz',
-					extension: 'img',
 					archiveExtension: 'gz',
-					size: 999999999,
-					isSizeEstimated: false,
 				});
 
 				const imagePath = selectionState.getImagePath();
 				expect(imagePath).to.equal('something.linux-x86-64.gz');
 			});
 
-			it('should throw if no path', function () {
-				expect(function () {
-					selectionState.selectSource({
-						extension: 'img',
-						size: 999999999,
-						isSizeEstimated: false,
-					});
-				}).to.throw('Missing image fields: path');
-			});
-
-			it('should throw if path is not a string', function () {
-				expect(function () {
-					selectionState.selectSource({
-						path: 123,
-						extension: 'img',
-						size: 999999999,
-						isSizeEstimated: false,
-					});
-				}).to.throw('Invalid image path: 123');
-			});
-
-			it('should throw if the original size is not a number', function () {
-				expect(function () {
-					selectionState.selectSource({
-						path: 'foo.img',
-						extension: 'img',
-						size: 999999999,
-						compressedSize: '999999999',
-						isSizeEstimated: false,
-					});
-				}).to.throw('Invalid image compressed size: 999999999');
-			});
-
 			it('should throw if the original size is a float number', function () {
 				expect(function () {
 					selectionState.selectSource({
+						...image,
 						path: 'foo.img',
 						extension: 'img',
 						size: 999999999,
@@ -576,33 +527,17 @@ describe('Model: selectionState', function () {
 			it('should throw if the original size is negative', function () {
 				expect(function () {
 					selectionState.selectSource({
-						path: 'foo.img',
-						extension: 'img',
-						size: 999999999,
+						...image,
 						compressedSize: -1,
-						isSizeEstimated: false,
 					});
 				}).to.throw('Invalid image compressed size: -1');
-			});
-
-			it('should throw if the final size is not a number', function () {
-				expect(function () {
-					selectionState.selectSource({
-						path: 'foo.img',
-						extension: 'img',
-						size: '999999999',
-						isSizeEstimated: false,
-					});
-				}).to.throw('Invalid image size: 999999999');
 			});
 
 			it('should throw if the final size is a float number', function () {
 				expect(function () {
 					selectionState.selectSource({
-						path: 'foo.img',
-						extension: 'img',
+						...image,
 						size: 999999999.999,
-						isSizeEstimated: false,
 					});
 				}).to.throw('Invalid image size: 999999999.999');
 			});
@@ -610,48 +545,10 @@ describe('Model: selectionState', function () {
 			it('should throw if the final size is negative', function () {
 				expect(function () {
 					selectionState.selectSource({
-						path: 'foo.img',
-						extension: 'img',
+						...image,
 						size: -1,
-						isSizeEstimated: false,
 					});
 				}).to.throw('Invalid image size: -1');
-			});
-
-			it("should throw if url is defined but it's not a string", function () {
-				expect(function () {
-					selectionState.selectSource({
-						path: 'foo.img',
-						extension: 'img',
-						size: 999999999,
-						isSizeEstimated: false,
-						url: 1234,
-					});
-				}).to.throw('Invalid image url: 1234');
-			});
-
-			it("should throw if name is defined but it's not a string", function () {
-				expect(function () {
-					selectionState.selectSource({
-						path: 'foo.img',
-						extension: 'img',
-						size: 999999999,
-						isSizeEstimated: false,
-						name: 1234,
-					});
-				}).to.throw('Invalid image name: 1234');
-			});
-
-			it("should throw if logo is defined but it's not a string", function () {
-				expect(function () {
-					selectionState.selectSource({
-						path: 'foo.img',
-						extension: 'img',
-						size: 999999999,
-						isSizeEstimated: false,
-						logo: 1234,
-					});
-				}).to.throw('Invalid image logo: 1234');
 			});
 
 			it('should de-select a previously selected not-large-enough drive', function () {
@@ -668,10 +565,8 @@ describe('Model: selectionState', function () {
 				expect(selectionState.hasDrive()).to.be.true;
 
 				selectionState.selectSource({
-					path: 'foo.img',
-					extension: 'img',
+					...image,
 					size: 1234567890,
-					isSizeEstimated: false,
 				});
 
 				expect(selectionState.hasDrive()).to.be.false;
@@ -692,10 +587,7 @@ describe('Model: selectionState', function () {
 				expect(selectionState.hasDrive()).to.be.true;
 
 				selectionState.selectSource({
-					path: 'foo.img',
-					extension: 'img',
-					size: 999999999,
-					isSizeEstimated: false,
+					...image,
 					recommendedDriveSize: 1500000000,
 				});
 
@@ -727,10 +619,10 @@ describe('Model: selectionState', function () {
 				expect(selectionState.hasDrive()).to.be.true;
 
 				selectionState.selectSource({
+					...image,
 					path: imagePath,
 					extension: 'img',
 					size: 999999999,
-					isSizeEstimated: false,
 				});
 
 				expect(selectionState.hasDrive()).to.be.false;
@@ -740,6 +632,16 @@ describe('Model: selectionState', function () {
 	});
 
 	describe('given a drive and an image', function () {
+		const image: SourceMetadata = {
+			description: 'foo.img',
+			displayName: 'foo.img',
+			path: 'foo.img',
+			extension: 'img',
+			size: 999999999,
+			SourceType: File,
+			isSizeEstimated: false,
+		};
+
 		beforeEach(function () {
 			availableDrives.setDrives([
 				{
@@ -752,12 +654,7 @@ describe('Model: selectionState', function () {
 
 			selectionState.selectDrive('/dev/disk1');
 
-			selectionState.selectSource({
-				path: 'foo.img',
-				extension: 'img',
-				size: 999999999,
-				isSizeEstimated: false,
-			});
+			selectionState.selectSource(image);
 		});
 
 		describe('.clear()', function () {
@@ -824,6 +721,16 @@ describe('Model: selectionState', function () {
 	});
 
 	describe('given several drives', function () {
+		const image: SourceMetadata = {
+			description: 'foo.img',
+			displayName: 'foo.img',
+			path: 'foo.img',
+			extension: 'img',
+			size: 999999999,
+			SourceType: File,
+			isSizeEstimated: false,
+		};
+
 		beforeEach(function () {
 			availableDrives.setDrives([
 				{
@@ -850,12 +757,7 @@ describe('Model: selectionState', function () {
 			selectionState.selectDrive('/dev/disk2');
 			selectionState.selectDrive('/dev/disk3');
 
-			selectionState.selectSource({
-				path: 'foo.img',
-				extension: 'img',
-				size: 999999999,
-				isSizeEstimated: false,
-			});
+			selectionState.selectSource(image);
 		});
 
 		describe('.clear()', function () {

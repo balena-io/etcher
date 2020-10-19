@@ -18,7 +18,7 @@ import * as React from 'react';
 import { Flex, Button, ProgressBar, Txt } from 'rendition';
 import { default as styled } from 'styled-components';
 
-import { fromFlashState } from '../../modules/progress-status';
+import { fromFlashState, FlashState } from '../../modules/progress-status';
 import { StepButton } from '../../styled-components';
 
 const FlashProgressBar = styled(ProgressBar)`
@@ -44,12 +44,12 @@ const FlashProgressBar = styled(ProgressBar)`
 `;
 
 interface ProgressButtonProps {
-	type: 'decompressing' | 'flashing' | 'verifying';
+	type: FlashState['type'];
 	active: boolean;
 	percentage: number;
 	position: number;
 	disabled: boolean;
-	cancel: () => void;
+	cancel: (type: string) => void;
 	callback: () => void;
 	warning?: boolean;
 }
@@ -58,13 +58,18 @@ const colors = {
 	decompressing: '#00aeef',
 	flashing: '#da60ff',
 	verifying: '#1ac135',
+	downloading: '#00aeef',
+	default: '#00aeef',
 } as const;
 
-const CancelButton = styled((props) => (
-	<Button plain {...props}>
-		Cancel
-	</Button>
-))`
+const CancelButton = styled(({ type, onClick, ...props }) => {
+	const status = type === 'verifying' ? 'Skip' : 'Cancel';
+	return (
+		<Button plain onClick={() => onClick(status)} {...props}>
+			{status}
+		</Button>
+	);
+})`
 	font-weight: 600;
 	&&& {
 		width: auto;
@@ -75,10 +80,13 @@ const CancelButton = styled((props) => (
 
 export class ProgressButton extends React.PureComponent<ProgressButtonProps> {
 	public render() {
+		const type = this.props.type || 'default';
+		const percentage = this.props.percentage;
+		const warning = this.props.warning;
 		const { status, position } = fromFlashState({
 			type: this.props.type,
+			percentage,
 			position: this.props.position,
-			percentage: this.props.percentage,
 		});
 		if (this.props.active) {
 			return (
@@ -96,21 +104,24 @@ export class ProgressButton extends React.PureComponent<ProgressButtonProps> {
 					>
 						<Flex>
 							<Txt color="#fff">{status}&nbsp;</Txt>
-							<Txt color={colors[this.props.type]}>{position}</Txt>
+							<Txt color={colors[type]}>{position}</Txt>
 						</Flex>
-						<CancelButton onClick={this.props.cancel} color="#00aeef" />
+						{type && (
+							<CancelButton
+								type={type}
+								onClick={this.props.cancel}
+								color="#00aeef"
+							/>
+						)}
 					</Flex>
-					<FlashProgressBar
-						background={colors[this.props.type]}
-						value={this.props.percentage}
-					/>
+					<FlashProgressBar background={colors[type]} value={percentage} />
 				</>
 			);
 		}
 		return (
 			<StepButton
-				primary={!this.props.warning}
-				warning={this.props.warning}
+				primary={!warning}
+				warning={warning}
 				onClick={this.props.callback}
 				disabled={this.props.disabled}
 				style={{

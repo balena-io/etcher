@@ -17,6 +17,8 @@
 import { Drive as DrivelistDrive } from 'drivelist';
 import * as sdk from 'etcher-sdk';
 import { cleanupTmpFiles } from 'etcher-sdk/build/tmp';
+import { promises as fs } from 'fs';
+import * as _ from 'lodash';
 import * as ipc from 'node-ipc';
 import { totalmem } from 'os';
 
@@ -55,8 +57,9 @@ function log(message: string) {
 /**
  * @summary Terminate the child writer process
  */
-function terminate(exitCode: number) {
+async function terminate(exitCode: number) {
 	ipc.disconnect(IPC_SERVER_ID);
+	await cleanupTmpFiles(Date.now());
 	process.nextTick(() => {
 		process.exit(exitCode || SUCCESS);
 	});
@@ -68,7 +71,7 @@ function terminate(exitCode: number) {
 async function handleError(error: Error) {
 	ipc.of[IPC_SERVER_ID].emit('error', toJSON(error));
 	await delay(DISCONNECT_DELAY);
-	terminate(GENERAL_ERROR);
+	await terminate(GENERAL_ERROR);
 }
 
 interface WriteResult {
@@ -136,8 +139,10 @@ async function writeAndValidate({
 		sourceMetadata,
 	};
 	for (const [destination, error] of failures) {
-		const err = error as Error & { device: string };
-		err.device = (destination as sdk.sourceDestination.BlockDevice).device;
+		const err = error as Error & { device: string; description: string };
+		const drive = destination as sdk.sourceDestination.BlockDevice;
+		err.device = drive.device;
+		err.description = drive.description;
 		result.errors.push(err);
 	}
 	return result;
@@ -151,6 +156,13 @@ interface WriteOptions {
 	autoBlockmapping: boolean;
 	decompressFirst: boolean;
 	SourceType: string;
+	saveUrlImage: boolean;
+	saveUrlImageTo: string;
+}
+
+interface ProgressState
+	extends Omit<sdk.multiWrite.MultiDestinationProgress, 'type'> {
+	type: sdk.multiWrite.MultiDestinationProgress['type'] | 'downloading';
 }
 
 ipc.connectTo(IPC_SERVER_ID, () => {
@@ -163,22 +175,22 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 	// no flashing information is available, then it will
 	// assume that the child died halfway through.
 
-	process.once('SIGINT', () => {
-		terminate(SUCCESS);
+	process.once('SIGINT', async () => {
+		await terminate(SUCCESS);
 	});
 
-	process.once('SIGTERM', () => {
-		terminate(SUCCESS);
+	process.once('SIGTERM', async () => {
+		await terminate(SUCCESS);
 	});
 
 	// The IPC server failed. Abort.
-	ipc.of[IPC_SERVER_ID].on('error', () => {
-		terminate(SUCCESS);
+	ipc.of[IPC_SERVER_ID].on('error', async () => {
+		await terminate(SUCCESS);
 	});
 
 	// The IPC server was disconnected. Abort.
-	ipc.of[IPC_SERVER_ID].on('disconnect', () => {
-		terminate(SUCCESS);
+	ipc.of[IPC_SERVER_ID].on('disconnect', async () => {
+		await terminate(SUCCESS);
 	});
 
 	ipc.of[IPC_SERVER_ID].on('write', async (options: WriteOptions) => {
@@ -188,7 +200,7 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 		 * @example
 		 * writer.on('progress', onProgress)
 		 */
-		const onProgress = (state: sdk.multiWrite.MultiDestinationProgress) => {
+		const onProgress = (state: ProgressState) => {
 			ipc.of[IPC_SERVER_ID].emit('state', state);
 		};
 
@@ -203,10 +215,19 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 			log('Abort');
 			ipc.of[IPC_SERVER_ID].emit('abort');
 			await delay(DISCONNECT_DELAY);
-			terminate(exitCode);
+			await terminate(exitCode);
+		};
+
+		const onSkip = async () => {
+			log('Skip validation');
+			ipc.of[IPC_SERVER_ID].emit('skip');
+			await delay(DISCONNECT_DELAY);
+			await terminate(exitCode);
 		};
 
 		ipc.of[IPC_SERVER_ID].on('cancel', onAbort);
+
+		ipc.of[IPC_SERVER_ID].on('skip', onSkip);
 
 		/**
 		 * @summary Failure handler (non-fatal errors)
@@ -257,7 +278,16 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 						path: imagePath,
 					});
 				} else {
-					source = new Http({ url: imagePath, avoidRandomAccess: true });
+					if (options.saveUrlImage) {
+						source = await saveFileBeforeFlash(
+							imagePath,
+							options.saveUrlImageTo,
+							onProgress,
+							onFail,
+						);
+					} else {
+						source = new Http({ url: imagePath, avoidRandomAccess: true });
+					}
 				}
 			}
 			const results = await writeAndValidate({
@@ -275,7 +305,7 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 			});
 			ipc.of[IPC_SERVER_ID].emit('done', { results });
 			await delay(DISCONNECT_DELAY);
-			terminate(exitCode);
+			await terminate(exitCode);
 		} catch (error) {
 			log(`Error: ${error.message}`);
 			exitCode = GENERAL_ERROR;
@@ -290,3 +320,43 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 		ipc.of[IPC_SERVER_ID].emit('ready', {});
 	});
 });
+
+async function saveFileBeforeFlash(
+	imagePath: string,
+	saveUrlImageTo: string,
+	onProgress: (state: ProgressState) => void,
+	onFail: (
+		destination: sdk.sourceDestination.SourceDestination,
+		error: Error,
+	) => void,
+) {
+	const urlImage = new Http({ url: imagePath, avoidRandomAccess: true });
+	const source = await urlImage.getInnerSource();
+	const metadata = await source.getMetadata();
+	const fileName = `${saveUrlImageTo}/${metadata.name}`;
+	let alreadyDownloaded = false;
+	try {
+		alreadyDownloaded = (await fs.stat(fileName)).isFile();
+	} catch (error) {
+		if (error.code !== 'ENOENT') {
+			throw error;
+		}
+	}
+	if (!alreadyDownloaded) {
+		await sdk.multiWrite.decompressThenFlash({
+			source,
+			destinations: [new File({ path: fileName, write: true })],
+			onProgress: (progress) => {
+				onProgress({
+					...progress,
+					type: 'downloading',
+				});
+			},
+			onFail: (...args) => {
+				onFail(...args);
+			},
+			verify: true,
+		});
+	}
+	return new File({ path: fileName });
+}
