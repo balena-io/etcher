@@ -1,3 +1,0 @@
-jobs:
-  - name: balena-supervisor
-    url: http://localhost:48484/ping
