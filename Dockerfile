@@ -33,11 +33,6 @@ RUN ln -s ../electron/cli.js electron
 WORKDIR /usr/src/app
 
 ENV ELECTRON_ENABLE_LOGGING=1
-
 ENV UDEV=1
-
-RUN mkdir /tmp/media
-ENV BALENAELECTRONJS_MOUNTS_ROOT=/tmp/media
-ENV BALENAELECTRONJS_CONSTRAINT_PATH=/tmp/media
 
 CMD cp -n /usr/src/app/etcher-pro-config.json /root/.config/balena-etcher/config.json && xinit
