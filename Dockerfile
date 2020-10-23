@@ -44,11 +44,6 @@ WORKDIR /usr/src/app/node_modules/.bin
 RUN ln -s ../electron/cli.js electron
 WORKDIR /usr/src/app
 
-RUN \
-	apt-get update \
-	&& apt-get install -y kmod \
-	&& rm -rf /var/lib/apt/lists/*
-
 CMD \
 	./zram.sh \
 	&& node /usr/src/app/update-config-and-start.js
