@@ -1,7 +1,15 @@
 FROM balenalib/aarch64-debian-node:12.16-buster-build as builder
 
 RUN apt-get update
-RUN apt-get install python
+RUN apt-get install python libx11-dev libxss-dev libxss1
+
+# Build clicklock
+WORKDIR /usr/src/clicklock
+RUN git clone https://github.com/zpfvo/clicklock.git .
+RUN git checkout 5da48f70f90883f8a966f50f75e494e8f18adc95
+RUN autoreconf --force --install
+RUN ./configure
+RUN make
 
 WORKDIR /usr/src/app
 
@@ -23,6 +31,9 @@ RUN npm run webpack
 RUN PATH=$(pwd)/node_modules/.bin/:$PATH electron-builder --dir --config.asar=false --config.npmRebuild=false --config.nodeGypRebuild=false
 
 FROM alexisresinio/aarch64-debian-bejs:latest
+# clicklock
+COPY --from=builder /usr/src/clicklock/clicklock /usr/bin/clicklock
+
 # Etcher configuration
 COPY etcher-pro-config.json /usr/src/app/
 
