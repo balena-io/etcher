@@ -74,19 +74,9 @@ services:
           dbus-send --system --dest=org.freedesktop.systemd1 --type=method_call --print-reply /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager.StopUnit string:gov-switch.service string:replace &&
           echo userspace > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor &&
           echo powersave > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor &&
-          dbus-send --system --dest=org.freedesktop.systemd1 --type=method_call --print-reply /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager.StopUnit string:fan-control.service string:replace &&
           clicklock&
-          if [ ! -d /sys/class/pwm/pwmchip1/pwm0 ]; then echo 0 > /sys/class/pwm/pwmchip1/export; fi &&
-          if [ -d /sys/class/pwm/pwmchip1/pwm0 ]; then
-            echo 45000 > /sys/class/pwm/pwmchip1/pwm0/period &&
-            echo 45000 > /sys/class/pwm/pwmchip1/pwm0/duty_cycle;
-          fi &&
-          sleep 60;
-          if [ ! -d /sys/class/pwm/pwmchip1/pwm0 ]; then echo 0 > /sys/class/pwm/pwmchip1/export; fi &&
-          if [ -d /sys/class/pwm/pwmchip1/pwm0 ]; then echo 0 > /sys/class/pwm/pwmchip1/pwm0/duty_cycle && echo 1 > /sys/class/pwm/pwmchip1/pwm0/period; fi
         "
       - "BALENAELECTRONJS_SCREENSAVER_OFF_COMMAND=
-          ps -ef | grep sleep  | awk '{print $2}' | xargs kill -9 || true &&
           if [ ! -d /sys/class/gpio/gpio101 ]; then echo 101 > /sys/class/gpio/export; fi &&
           if [ -d /sys/class/gpio/gpio101 ]; then echo 1 > /sys/class/gpio/gpio101/value; fi &&
           if [ ! -d /sys/class/gpio/gpio131 ]; then echo 131 > /sys/class/gpio/export; fi &&
@@ -95,6 +85,5 @@ services:
           echo 1 > /sys/devices/system/cpu/cpu1/online &&
           echo 1 > /sys/devices/system/cpu/cpu2/online &&
           echo 1 > /sys/devices/system/cpu/cpu3/online &&
-          dbus-send --system --dest=org.freedesktop.systemd1 --type=method_call --print-reply /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager.StartUnit string:gov-switch.service string:replace &&
-          dbus-send --system --dest=org.freedesktop.systemd1 --type=method_call --print-reply /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager.StartUnit string:fan-control.service string:replace 
+          dbus-send --system --dest=org.freedesktop.systemd1 --type=method_call --print-reply /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager.StartUnit string:gov-switch.service string:replace
         "
