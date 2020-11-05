@@ -5,6 +5,10 @@
   "contributing": "Contributing Guide\n==================\n\nThanks for your interest in contributing to this project! This document aims to\nserve as a friendly guide for making your first contribution.\n\nHigh-level Etcher overview\n--------------------------\n\nMake sure you checkout our [ARCHITECTURE.md][ARCHITECTURE] guide, which aims to\nexplain how all the pieces fit together.\n\nDeveloping\n----------\n\n### Prerequisites\n\n#### Common\n\n- [NodeJS](https://nodejs.org) (at least v6.11)\n- [Python 2.7](https://www.python.org)\n- [jq](https://stedolan.github.io/jq/)\n- [curl](https://curl.haxx.se/)\n- [npm](https://www.npmjs.com/) (version 6.7)\n\n```sh\npip install -r requirements.txt\n```\n\nYou might need to run this with `sudo` or administrator permissions.\n\n#### Windows\n\n- [NSIS v2.51](http://nsis.sourceforge.net/Main_Page) (v3.x won't work)\n- Either one of the following:\n  - [Visual C++ 2015 Build Tools](http://landinghub.visualstudio.com/visual-cpp-build-tools) containing standalone compilers, libraries and scripts\n  - Install the [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools) via npm with `npm install --global windows-build-tools`\n  - [Visual Studio Community 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48146) (free) (other editions, like Professional and Enterprise, should work too)\n    **NOTE:** Visual Studio 2015 doesn't install C++ by default. You have to rerun the\n    setup, select \"Modify\" and then check `Visual C++ -> Common Tools for Visual\n    C++ 2015` (see http://stackoverflow.com/a/31955339)\n- [MinGW](http://www.mingw.org)\n\nYou might need to `npm config set msvs_version 2015` for node-gyp to correctly detect\nthe version of Visual Studio you're using (in this example VS2015).\n\nThe following MinGW packages are required:\n\n- `msys-make`\n- `msys-unzip`\n- `msys-zip`\n- `msys-bash`\n- `msys-coreutils`\n\n#### macOS\n\n- [Xcode](https://developer.apple.com/xcode/)\n\nIt's not enough to have [Xcode Command Line Tools] installed. Xcode must be installed\nas well.\n\n#### Linux\n\n- `libudev-dev` for libusb (install with `sudo apt install libudev-dev` for example)\n\n### Cloning the project\n\n```sh\ngit clone --recursive https://github.com/balena-io/etcher\ncd etcher\n```\n\n### Installing npm dependencies\n\n**NOTE:** Please make use of the following command to install npm dependencies rather\nthan simply running `npm install` given that we need to do extra configuration\nto make sure native dependencies are correctly compiled for Electron, otherwise\nthe application might not run successfully.\n\nIf you're on Windows, **run the command from the _Developer Command Prompt for\nVS2015_**, to ensure all Visual Studio command utilities are available in the\n`%PATH%`.\n\n```sh\nmake electron-develop\n```\n\n### Running the application\n\n#### GUI\n\n```sh\n# Build the GUI\nmake webpack\n# Start Electron\nnpm start\n```\n\nTesting\n-------\n\nTo run the test suite, run the following command:\n\n```sh\nnpm test\n```\n\nGiven the nature of this application, not everything can be unit tested. For\nexample:\n\n- The writing operating on real raw devices.\n- Platform inconsistencies.\n- Style changes.\n- Artwork.\n\nWe encourage our contributors to test the application on as many operating\nsystems as they can before sending a pull request.\n\n*The test suite is run automatically by CI servers when you send a pull\nrequest.*\n\nWe also rely on various `make` targets to perform some common tasks:\n\n- `make lint`: Run the linter.\n- `make sass`: Compile SCSS files.\n\nWe make use of [EditorConfig] to communicate indentation, line endings and\nother text editing default. We encourage you to install the relevant plugin in\nyour text editor of choice to avoid having to fix any issues during the review\nprocess.\n\nUpdating a dependency\n---------------------\n\nGiven we use [npm shrinkwrap][shrinkwrap], we have to take extra steps to make\nsure the `npm-shrinkwrap.json` file gets updated correctly when we update a\ndependency.\n\nUse the following steps to ensure everything goes flawlessly:\n\n- Run `make electron-develop` to ensure you don't have extraneous dependencies\n  you might have brought during development, or you are running older\n  dependencies because you come from another branch or reference.\n\n- Install the new version of the dependency. For example: `npm install --save\n  <package>@<version>`. This will update the `npm-shrinkwrap.json` file.\n\n- Commit *both* `package.json` and `npm-shrinkwrap.json`.\n\nDiffing Binaries\n----------------\n\nBinary files are tagged as \"binary\" in the `.gitattributes` file, but also have\na `diff=hex` tag, which allows you to see hexdump-style diffs for binaries,\nif you add the following to either your global or repository-local git config:\n\n```sh\n$ git config diff.hex.textconv hexdump\n$ git config diff.hex.binary true\n```\n\nAnd global, respectively:\n\n```sh\n$ git config --global diff.hex.textconv hexdump\n$ git config --global diff.hex.binary true\n```\n\nIf you don't have `hexdump` available on your platform,\nyou can try [hxd], which is also a bit faster.\n\nCommit Guidelines\n-----------------\n\nSee [COMMIT-GUIDELINES.md][COMMIT-GUIDELINES] for a thorough guide on how to\nwrite commit messages.\n\nSending a pull request\n----------------------\n\nWhen sending a pull request, consider the following guidelines:\n\n- Write a concise commit message explaining your changes.\n\n- If applies, write more descriptive information in the commit body.\n\n- Mention the operating systems with the corresponding versions in which you\ntested your changes.\n\n- If your change affects the visuals of the application, consider attaching a\nscreenshot.\n\n- Refer to the issue/s your pull request fixes, so they're closed automatically\nwhen your pull request is merged.\n\n- Write a descriptive pull request title.\n\n- Squash commits when possible, for example, when committing review changes.\n\nBefore your pull request can be merged, the following conditions must hold:\n\n- The linter doesn't throw any warning.\n\n- All the tests pass.\n\n- The coding style aligns with the project's convention.\n\n- Your changes are confirmed to be working in recent versions of the operating\nsystems we support.\n\nDon't hesitate to get in touch if you have any questions or need any help!\n\n[ARCHITECTURE]: https://github.com/balena-io/etcher/blob/master/docs/ARCHITECTURE.md\n[COMMIT-GUIDELINES]: https://github.com/balena-io/etcher/blob/master/docs/COMMIT-GUIDELINES.md\n[EditorConfig]: http://editorconfig.org\n[shrinkwrap]: https://docs.npmjs.com/cli/shrinkwrap\n[hxd]: https://github.com/jhermsmeier/hxd\n[Xcode Command Line Tools]: https://developer.apple.com/library/content/technotes/tn2339/_index.html\n",
   "contributors": [
     {
+      "username": "jviotti",
+      "avatar": "https://avatars0.githubusercontent.com/u/2192773?v=4"
+    },
+    {
       "username": "zvin",
       "avatar": "https://avatars2.githubusercontent.com/u/180331?v=4"
     },
@@ -15,10 +19,6 @@
     {
       "username": "thundron",
       "avatar": "https://avatars1.githubusercontent.com/u/5888446?v=4"
-    },
-    {
-      "username": "jviotti",
-      "avatar": "https://avatars0.githubusercontent.com/u/2192773?v=4"
     },
     {
       "username": "Shou",
@@ -339,7 +339,7 @@
   "public": true,
   "fork": false,
   "description": "Flash OS images to SD cards & USB drives, safely and easily.",
-  "stars": 18638,
+  "stars": 18981,
   "homepage": "https://etcher.io",
   "repositoryUrl": "https://github.com/balena-io/etcher.git",
   "active": true,
@@ -350,85 +350,85 @@
     "type": "Organization"
   },
   "dependencies": [],
-  "lastCommitDate": "2020-09-14T16:27:56Z",
+  "lastCommitDate": "2020-11-05T11:56:29Z",
   "latestRelease": {
-    "tagName": "v1.5.109",
+    "tagName": "v1.5.110",
     "asssets": [
       {
-        "name": "balena-etcher-electron-1.5.109-linux-ia32.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balena-etcher-electron-1.5.109-linux-ia32.zip"
+        "name": "balena-etcher-electron-1.5.110-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balena-etcher-electron-1.5.110-linux-ia32.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.109-linux-x64.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balena-etcher-electron-1.5.109-linux-x64.zip"
+        "name": "balena-etcher-electron-1.5.110-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balena-etcher-electron-1.5.110-linux-x64.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.109.i686.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balena-etcher-electron-1.5.109.i686.rpm"
+        "name": "balena-etcher-electron-1.5.110.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balena-etcher-electron-1.5.110.i686.rpm"
       },
       {
-        "name": "balena-etcher-electron-1.5.109.x86_64.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balena-etcher-electron-1.5.109.x86_64.rpm"
+        "name": "balena-etcher-electron-1.5.110.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balena-etcher-electron-1.5.110.x86_64.rpm"
       },
       {
-        "name": "balena-etcher-electron_1.5.109_amd64.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balena-etcher-electron_1.5.109_amd64.deb"
+        "name": "balena-etcher-electron_1.5.110_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balena-etcher-electron_1.5.110_amd64.deb"
       },
       {
-        "name": "balena-etcher-electron_1.5.109_i386.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balena-etcher-electron_1.5.109_i386.deb"
+        "name": "balena-etcher-electron_1.5.110_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balena-etcher-electron_1.5.110_i386.deb"
       },
       {
-        "name": "balenaEtcher-1.5.109-ia32.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balenaEtcher-1.5.109-ia32.AppImage"
+        "name": "balenaEtcher-1.5.110-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balenaEtcher-1.5.110-ia32.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.109-mac.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balenaEtcher-1.5.109-mac.zip"
+        "name": "balenaEtcher-1.5.110-mac.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balenaEtcher-1.5.110-mac.zip"
       },
       {
-        "name": "balenaEtcher-1.5.109-x64.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balenaEtcher-1.5.109-x64.AppImage"
+        "name": "balenaEtcher-1.5.110-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balenaEtcher-1.5.110-x64.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.109.dmg",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balenaEtcher-1.5.109.dmg"
+        "name": "balenaEtcher-1.5.110.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balenaEtcher-1.5.110.dmg"
       },
       {
-        "name": "balenaEtcher-1.5.109.dmg.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balenaEtcher-1.5.109.dmg.blockmap"
+        "name": "balenaEtcher-1.5.110.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balenaEtcher-1.5.110.dmg.blockmap"
       },
       {
-        "name": "balenaEtcher-Portable-1.5.109.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balenaEtcher-Portable-1.5.109.exe"
+        "name": "balenaEtcher-Portable-1.5.110.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balenaEtcher-Portable-1.5.110.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.109.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balenaEtcher-Setup-1.5.109.exe"
+        "name": "balenaEtcher-Setup-1.5.110.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balenaEtcher-Setup-1.5.110.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.109.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balenaEtcher-Setup-1.5.109.exe.blockmap"
+        "name": "balenaEtcher-Setup-1.5.110.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balenaEtcher-Setup-1.5.110.exe.blockmap"
       },
       {
         "name": "builder-effective-config.yaml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/builder-effective-config.yaml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/builder-effective-config.yaml"
       },
       {
         "name": "latest-linux-ia32.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/latest-linux-ia32.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/latest-linux-ia32.yml"
       },
       {
         "name": "latest-linux.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/latest-linux.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/latest-linux.yml"
       },
       {
         "name": "latest-mac.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/latest-mac.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/latest-mac.yml"
       },
       {
         "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/latest.yml"
       }
     ]
   },
@@ -526,91 +526,91 @@
     ]
   },
   "openIssues": {
-    "numberOfIssues": 259,
+    "numberOfIssues": 271,
     "latestIssues": [
       {
-        "title": "Native support for Apple silicon (without using Rosetta)",
-        "url": "https://github.com/balena-io/etcher/issues/3300"
+        "title": "RPM Error on Fedora 33",
+        "url": "https://github.com/balena-io/etcher/issues/3342"
       },
       {
-        "title": "deletes volume",
-        "url": "https://github.com/balena-io/etcher/issues/3294"
+        "title": "Publish SHA/MD5 sums for all versions of the downloads, including portable.",
+        "url": "https://github.com/balena-io/etcher/issues/3341"
       },
       {
-        "title": "AppImage 1.5.106-x64 - Sandbox not configured correctly",
-        "url": "https://github.com/balena-io/etcher/issues/3293"
+        "title": "Error flashing Ubuntu 18.04 - \"The writer process ended unexpectedly\"",
+        "url": "https://github.com/balena-io/etcher/issues/3339"
       },
       {
-        "title": "can not to build on MS-Windows",
-        "url": "https://github.com/balena-io/etcher/issues/3292"
+        "title": "Can't write on macOS 19H2",
+        "url": "https://github.com/balena-io/etcher/issues/3338"
       },
       {
-        "title": "Etcher stuck at \"Decompresing\"",
-        "url": "https://github.com/balena-io/etcher/issues/3290"
+        "title": "Installation takes excessively long or does not complete",
+        "url": "https://github.com/balena-io/etcher/issues/3336"
       },
       {
-        "title": "Etcher should warn that the disk will be formatted or erased",
-        "url": "https://github.com/balena-io/etcher/issues/3289"
+        "title": "Can't write Ubuntu 20.10 for RPi to SDcard",
+        "url": "https://github.com/balena-io/etcher/issues/3330"
       },
       {
-        "title": "Can we start decompressing image before elevating permission?",
-        "url": "https://github.com/balena-io/etcher/issues/3287"
+        "title": "User name has hyphen.",
+        "url": "https://github.com/balena-io/etcher/issues/3329"
       },
       {
-        "title": "New success screen",
-        "url": "https://github.com/balena-io/etcher/pull/3283"
+        "title": "stuck on W10 on Starting...",
+        "url": "https://github.com/balena-io/etcher/issues/3328"
       },
       {
-        "title": "Etcher not showing up on macOS Catalina",
-        "url": "https://github.com/balena-io/etcher/issues/3278"
+        "title": "Unable to confirm \"sha512sum\" for \"balenaEtcher-1.5.109-x64.AppImage\"",
+        "url": "https://github.com/balena-io/etcher/issues/3327"
       },
       {
-        "title": "Unable to package using electron-Build",
-        "url": "https://github.com/balena-io/etcher/issues/3269"
+        "title": "MacOS you \"don't have permission\" at startup 1.5.109",
+        "url": "https://github.com/balena-io/etcher/issues/3326"
       },
       {
-        "title": "Etcher renders drive unwritable, to a point",
-        "url": "https://github.com/balena-io/etcher/issues/3268"
+        "title": "flash disk USB drive is locked in Windows 10 - readonly error in linux",
+        "url": "https://github.com/balena-io/etcher/issues/3323"
       },
       {
-        "title": "Does not work on Linux Mint 20",
-        "url": "https://github.com/balena-io/etcher/issues/3267"
+        "title": "Etcher should not fake a system password prompt",
+        "url": "https://github.com/balena-io/etcher/issues/3321"
       },
       {
-        "title": "AppImage problem on debian (with a workaround)",
-        "url": "https://github.com/balena-io/etcher/issues/3263"
+        "title": "Etcher reports \"user did not grant access\"",
+        "url": "https://github.com/balena-io/etcher/issues/3320"
       },
       {
-        "title": "Tooltip for image and target names is using incorrect font",
-        "url": "https://github.com/balena-io/etcher/issues/3260"
+        "title": "Cannot burn Pop!_OS  20.04 LTS to a Patriot Rage XT 64GB",
+        "url": "https://github.com/balena-io/etcher/issues/3319"
       },
       {
-        "title": "Cannot drag application window by header on 'flash finished' screen",
-        "url": "https://github.com/balena-io/etcher/issues/3256"
+        "title": "I just downloaded etcher on my desktop . Devuan linux . 3 , from etcher.io today. Ran the setup and tried to open the software. Nothing happens",
+        "url": "https://github.com/balena-io/etcher/issues/3318"
       },
       {
-        "title": "Command failed error when flashing an image",
-        "url": "https://github.com/balena-io/etcher/issues/3248"
+        "title": " a bootable USB stick  ",
+        "url": "https://github.com/balena-io/etcher/issues/3316"
       },
       {
-        "title": "Etcher should have FAQ entries for Windows displayed if a burn fails",
-        "url": "https://github.com/balena-io/etcher/issues/3245"
+        "title": "Global Menu in KDE",
+        "url": "https://github.com/balena-io/etcher/issues/3315"
       },
       {
-        "title": "Etcher corrupting SD Cards that are R/O due to Bitlocker.  Etcher errormsg: \"The writer process ended unexpectedly\"",
-        "url": "https://github.com/balena-io/etcher/issues/3241"
+        "title": "Loosing data while copy from one SD card to another",
+        "url": "https://github.com/balena-io/etcher/issues/3314"
       },
       {
-        "title": "The elevated process died unexpectedly",
-        "url": "https://github.com/balena-io/etcher/issues/3239"
+        "title": "Flash Crashes when Plugging YubiKey In",
+        "url": "https://github.com/balena-io/etcher/issues/3313"
       },
       {
-        "title": "Document or automate recovery process for a USB drive in Windows",
-        "url": "https://github.com/balena-io/etcher/issues/3238"
+        "title": "UI unusable by weird Scrambling",
+        "url": "https://github.com/balena-io/etcher/issues/3312"
       }
     ]
   },
-  "version": "1.5.109",
+  "version": "1.5.110",
   "screenshot": null,
   "logo": null
 }
