@@ -82,14 +82,12 @@ async function flashImageToDrive(
 	try {
 		await imageWriter.flash(image, drives);
 		if (!flashState.wasLastFlashCancelled()) {
-			const flashResults: any = flashState.getFlashResults();
+			const {
+				results = { devices: { successful: 0, failed: 0 } },
+			} = flashState.getFlashResults();
 			notification.send(
 				'Flash complete!',
-				messages.info.flashComplete(
-					basename,
-					drives as any,
-					flashResults.results.devices,
-				),
+				messages.info.flashComplete(basename, drives as any, results.devices),
 				iconPath,
 			);
 			goToSuccess();

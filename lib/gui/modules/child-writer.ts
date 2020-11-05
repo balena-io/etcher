@@ -55,8 +55,9 @@ function log(message: string) {
 /**
  * @summary Terminate the child writer process
  */
-function terminate(exitCode: number) {
+async function terminate(exitCode: number) {
 	ipc.disconnect(IPC_SERVER_ID);
+	await cleanupTmpFiles(Date.now());
 	process.nextTick(() => {
 		process.exit(exitCode || SUCCESS);
 	});
@@ -68,17 +69,28 @@ function terminate(exitCode: number) {
 async function handleError(error: Error) {
 	ipc.of[IPC_SERVER_ID].emit('error', toJSON(error));
 	await delay(DISCONNECT_DELAY);
-	terminate(GENERAL_ERROR);
+	await terminate(GENERAL_ERROR);
 }
 
-interface WriteResult {
-	bytesWritten: number;
-	devices: {
+export interface FlashError extends Error {
+	description: string;
+	device: string;
+	code: string;
+}
+
+export interface WriteResult {
+	bytesWritten?: number;
+	devices?: {
 		failed: number;
 		successful: number;
 	};
-	errors: Array<Error & { device: string }>;
-	sourceMetadata: sdk.sourceDestination.Metadata;
+	errors: FlashError[];
+	sourceMetadata?: sdk.sourceDestination.Metadata;
+}
+
+export interface FlashResults extends WriteResult {
+	skip?: boolean;
+	cancelled?: boolean;
 }
 
 /**
@@ -136,8 +148,10 @@ async function writeAndValidate({
 		sourceMetadata,
 	};
 	for (const [destination, error] of failures) {
-		const err = error as Error & { device: string };
-		err.device = (destination as sdk.sourceDestination.BlockDevice).device;
+		const err = error as FlashError;
+		const drive = destination as sdk.sourceDestination.BlockDevice;
+		err.device = drive.device;
+		err.description = drive.description;
 		result.errors.push(err);
 	}
 	return result;
@@ -163,22 +177,22 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 	// no flashing information is available, then it will
 	// assume that the child died halfway through.
 
-	process.once('SIGINT', () => {
-		terminate(SUCCESS);
+	process.once('SIGINT', async () => {
+		await terminate(SUCCESS);
 	});
 
-	process.once('SIGTERM', () => {
-		terminate(SUCCESS);
+	process.once('SIGTERM', async () => {
+		await terminate(SUCCESS);
 	});
 
 	// The IPC server failed. Abort.
-	ipc.of[IPC_SERVER_ID].on('error', () => {
-		terminate(SUCCESS);
+	ipc.of[IPC_SERVER_ID].on('error', async () => {
+		await terminate(SUCCESS);
 	});
 
 	// The IPC server was disconnected. Abort.
-	ipc.of[IPC_SERVER_ID].on('disconnect', () => {
-		terminate(SUCCESS);
+	ipc.of[IPC_SERVER_ID].on('disconnect', async () => {
+		await terminate(SUCCESS);
 	});
 
 	ipc.of[IPC_SERVER_ID].on('write', async (options: WriteOptions) => {
@@ -203,10 +217,19 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 			log('Abort');
 			ipc.of[IPC_SERVER_ID].emit('abort');
 			await delay(DISCONNECT_DELAY);
-			terminate(exitCode);
+			await terminate(exitCode);
+		};
+
+		const onSkip = async () => {
+			log('Skip validation');
+			ipc.of[IPC_SERVER_ID].emit('skip');
+			await delay(DISCONNECT_DELAY);
+			await terminate(exitCode);
 		};
 
 		ipc.of[IPC_SERVER_ID].on('cancel', onAbort);
+
+		ipc.of[IPC_SERVER_ID].on('skip', onSkip);
 
 		/**
 		 * @summary Failure handler (non-fatal errors)
@@ -275,7 +298,7 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 			});
 			ipc.of[IPC_SERVER_ID].emit('done', { results });
 			await delay(DISCONNECT_DELAY);
-			terminate(exitCode);
+			await terminate(exitCode);
 		} catch (error) {
 			log(`Error: ${error.message}`);
 			exitCode = GENERAL_ERROR;

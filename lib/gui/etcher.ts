@@ -122,8 +122,8 @@ interface AutoUpdaterConfig {
 
 async function createMainWindow() {
 	const fullscreen = Boolean(await settings.get('fullscreen'));
-	const defaultWidth = 800;
-	const defaultHeight = 480;
+	const defaultWidth = settings.DEFAULT_WIDTH;
+	const defaultHeight = settings.DEFAULT_HEIGHT;
 	let width = defaultWidth;
 	let height = defaultHeight;
 	if (fullscreen) {

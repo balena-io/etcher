@@ -188,12 +188,15 @@ function stateObserver(state: typeof DEFAULT_STATE) {
 	} else {
 		selectedDrivesPaths = s.devicePaths;
 	}
+	const failedDevicePaths = s.failedDeviceErrors.map(
+		([devicePath]: [string]) => devicePath,
+	);
 	const newLedsState = {
 		step,
 		sourceDrive: sourceDrivePath,
 		availableDrives: availableDrivesPaths,
 		selectedDrives: selectedDrivesPaths,
-		failedDrives: s.failedDevicePaths,
+		failedDrives: failedDevicePaths,
 	};
 	if (!_.isEqual(newLedsState, ledsState)) {
 		updateLeds(newLedsState);

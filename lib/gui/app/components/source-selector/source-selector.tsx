@@ -116,10 +116,11 @@ const ModalText = styled.p`
 `;
 
 function getState() {
+	const image = selectionState.getImage();
 	return {
 		hasImage: selectionState.hasImage(),
-		imageName: selectionState.getImageName(),
-		imageSize: selectionState.getImageSize(),
+		imageName: image?.name,
+		imageSize: image?.size,
 	};
 }
 
@@ -213,21 +214,27 @@ interface Flow {
 }
 
 const FlowSelector = styled(
-	({ flow, ...props }: { flow: Flow; props?: ButtonProps }) => {
-		return (
-			<StepButton
-				plain
-				onClick={(evt) => flow.onClick(evt)}
-				icon={flow.icon}
-				{...props}
-			>
-				{flow.label}
-			</StepButton>
-		);
-	},
+	({ flow, ...props }: { flow: Flow } & ButtonProps) => (
+		<StepButton
+			plain={!props.primary}
+			primary={props.primary}
+			onClick={(evt: React.MouseEvent<Element, MouseEvent>) =>
+				flow.onClick(evt)
+			}
+			icon={flow.icon}
+			{...props}
+		>
+			{flow.label}
+		</StepButton>
+	),
 )`
 	border-radius: 24px;
 	color: rgba(255, 255, 255, 0.7);
+
+	:enabled:focus,
+	:enabled:focus svg {
+		color: ${colors.primary.foreground} !important;
+	}
 
 	:enabled:hover {
 		background-color: ${colors.primary.background};
@@ -269,6 +276,7 @@ interface SourceSelectorState {
 	showImageDetails: boolean;
 	showURLSelector: boolean;
 	showDriveSelector: boolean;
+	defaultFlowActive: boolean;
 }
 
 export class SourceSelector extends React.Component<
@@ -285,7 +293,11 @@ export class SourceSelector extends React.Component<
 			showImageDetails: false,
 			showURLSelector: false,
 			showDriveSelector: false,
+			defaultFlowActive: true,
 		};
+
+		// Bind `this` since it's used in an event's callback
+		this.onSelectImage = this.onSelectImage.bind(this);
 	}
 
 	public componentDidMount() {
@@ -519,12 +531,16 @@ export class SourceSelector extends React.Component<
 
 	private showSelectedImageDetails() {
 		analytics.logEvent('Show selected image tooltip', {
-			imagePath: selectionState.getImagePath(),
+			imagePath: selectionState.getImage()?.path,
 		});
 
 		this.setState({
 			showImageDetails: true,
 		});
+	}
+
+	private setDefaultFlowActive(defaultFlowActive: boolean) {
+		this.setState({ defaultFlowActive });
 	}
 
 	// TODO add a visual change when dragging a file over the selector
@@ -593,12 +609,15 @@ export class SourceSelector extends React.Component<
 					) : (
 						<>
 							<FlowSelector
+								primary={this.state.defaultFlowActive}
 								key="Flash from file"
 								flow={{
 									onClick: () => this.openImageSelector(),
 									label: 'Flash from file',
 									icon: <FileSvg height="1em" fill="currentColor" />,
 								}}
+								onMouseEnter={() => this.setDefaultFlowActive(false)}
+								onMouseLeave={() => this.setDefaultFlowActive(true)}
 							/>
 							<FlowSelector
 								key="Flash from URL"
@@ -607,6 +626,8 @@ export class SourceSelector extends React.Component<
 									label: 'Flash from URL',
 									icon: <LinkSvg height="1em" fill="currentColor" />,
 								}}
+								onMouseEnter={() => this.setDefaultFlowActive(false)}
+								onMouseLeave={() => this.setDefaultFlowActive(true)}
 							/>
 							<FlowSelector
 								key="Clone drive"
@@ -615,6 +636,8 @@ export class SourceSelector extends React.Component<
 									label: 'Clone drive',
 									icon: <CopySvg height="1em" fill="currentColor" />,
 								}}
+								onMouseEnter={() => this.setDefaultFlowActive(false)}
+								onMouseLeave={() => this.setDefaultFlowActive(true)}
 							/>
 						</>
 					)}
