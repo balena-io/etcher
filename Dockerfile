@@ -34,8 +34,8 @@ FROM alexisresinio/aarch64-debian-bejs:latest
 # clicklock
 COPY --from=builder /usr/src/clicklock/clicklock /usr/bin/clicklock
 
-# Etcher configuration
-COPY etcher-pro-config.json /usr/src/app/
+# Etcher configuration script
+COPY update-config-and-start.js /usr/src/app/
 
 COPY --from=builder /usr/src/app/dist/linux-arm64-unpacked/resources/app /usr/src/app
 COPY --from=builder /usr/src/app/node_modules/electron/ /usr/src/app/node_modules/electron
@@ -46,4 +46,4 @@ WORKDIR /usr/src/app
 ENV ELECTRON_ENABLE_LOGGING=1
 ENV UDEV=1
 
-CMD cp -n /usr/src/app/etcher-pro-config.json /root/.config/balena-etcher/config.json && xinit
+CMD node /usr/src/app/update-config-and-start.js
