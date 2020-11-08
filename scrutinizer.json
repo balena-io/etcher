@@ -352,83 +352,83 @@
   "dependencies": [],
   "lastCommitDate": "2020-11-05T11:56:29Z",
   "latestRelease": {
-    "tagName": "v1.5.110",
+    "tagName": "v1.5.109",
     "asssets": [
       {
-        "name": "balena-etcher-electron-1.5.110-linux-ia32.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balena-etcher-electron-1.5.110-linux-ia32.zip"
+        "name": "balena-etcher-electron-1.5.109-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balena-etcher-electron-1.5.109-linux-ia32.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.110-linux-x64.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balena-etcher-electron-1.5.110-linux-x64.zip"
+        "name": "balena-etcher-electron-1.5.109-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balena-etcher-electron-1.5.109-linux-x64.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.110.i686.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balena-etcher-electron-1.5.110.i686.rpm"
+        "name": "balena-etcher-electron-1.5.109.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balena-etcher-electron-1.5.109.i686.rpm"
       },
       {
-        "name": "balena-etcher-electron-1.5.110.x86_64.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balena-etcher-electron-1.5.110.x86_64.rpm"
+        "name": "balena-etcher-electron-1.5.109.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balena-etcher-electron-1.5.109.x86_64.rpm"
       },
       {
-        "name": "balena-etcher-electron_1.5.110_amd64.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balena-etcher-electron_1.5.110_amd64.deb"
+        "name": "balena-etcher-electron_1.5.109_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balena-etcher-electron_1.5.109_amd64.deb"
       },
       {
-        "name": "balena-etcher-electron_1.5.110_i386.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balena-etcher-electron_1.5.110_i386.deb"
+        "name": "balena-etcher-electron_1.5.109_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balena-etcher-electron_1.5.109_i386.deb"
       },
       {
-        "name": "balenaEtcher-1.5.110-ia32.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balenaEtcher-1.5.110-ia32.AppImage"
+        "name": "balenaEtcher-1.5.109-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balenaEtcher-1.5.109-ia32.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.110-mac.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balenaEtcher-1.5.110-mac.zip"
+        "name": "balenaEtcher-1.5.109-mac.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balenaEtcher-1.5.109-mac.zip"
       },
       {
-        "name": "balenaEtcher-1.5.110-x64.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balenaEtcher-1.5.110-x64.AppImage"
+        "name": "balenaEtcher-1.5.109-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balenaEtcher-1.5.109-x64.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.110.dmg",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balenaEtcher-1.5.110.dmg"
+        "name": "balenaEtcher-1.5.109.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balenaEtcher-1.5.109.dmg"
       },
       {
-        "name": "balenaEtcher-1.5.110.dmg.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balenaEtcher-1.5.110.dmg.blockmap"
+        "name": "balenaEtcher-1.5.109.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balenaEtcher-1.5.109.dmg.blockmap"
       },
       {
-        "name": "balenaEtcher-Portable-1.5.110.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balenaEtcher-Portable-1.5.110.exe"
+        "name": "balenaEtcher-Portable-1.5.109.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balenaEtcher-Portable-1.5.109.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.110.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balenaEtcher-Setup-1.5.110.exe"
+        "name": "balenaEtcher-Setup-1.5.109.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balenaEtcher-Setup-1.5.109.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.110.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/balenaEtcher-Setup-1.5.110.exe.blockmap"
+        "name": "balenaEtcher-Setup-1.5.109.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/balenaEtcher-Setup-1.5.109.exe.blockmap"
       },
       {
         "name": "builder-effective-config.yaml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/builder-effective-config.yaml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/builder-effective-config.yaml"
       },
       {
         "name": "latest-linux-ia32.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/latest-linux-ia32.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/latest-linux-ia32.yml"
       },
       {
         "name": "latest-linux.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/latest-linux.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/latest-linux.yml"
       },
       {
         "name": "latest-mac.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/latest-mac.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/latest-mac.yml"
       },
       {
         "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.110/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.109/latest.yml"
       }
     ]
   },
@@ -610,7 +610,7 @@
       }
     ]
   },
-  "version": "1.5.110",
+  "version": "1.5.109",
   "screenshot": null,
   "logo": null
 }
