@@ -63,6 +63,8 @@ services:
       - 'BALENAELECTRONJS_ZOOM_FACTOR=1.28'
       - 'BALENAELECTRONJS_MOUNTS_ROOT=/mnt'
       - 'BALENAELECTRONJS_CONSTRAINT_PATH=/mnt'
+      - 'ELECTRON_ENABLE_LOGGING=1'
+      - 'UDEV=1'
       - "BALENAELECTRONJS_SCREENSAVER_ON_COMMAND=
           if [ ! -d /sys/class/gpio/gpio101 ]; then echo 101 > /sys/class/gpio/export; fi &&
           if [ -d /sys/class/gpio/gpio101 ]; then echo 0 > /sys/class/gpio/gpio101/value; fi &&

@@ -43,7 +43,4 @@ WORKDIR /usr/src/app/node_modules/.bin
 RUN ln -s ../electron/cli.js electron
 WORKDIR /usr/src/app
 
-ENV ELECTRON_ENABLE_LOGGING=1
-ENV UDEV=1
-
 CMD node /usr/src/app/update-config-and-start.js
