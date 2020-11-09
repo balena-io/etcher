@@ -16,6 +16,7 @@
 
 import * as Immutable from 'immutable';
 import * as _ from 'lodash';
+import { basename } from 'path';
 import * as redux from 'redux';
 import { v4 as uuidV4 } from 'uuid';
 
@@ -133,11 +134,16 @@ function storeReducer(
 				});
 			}
 
+			// Drives order is a list of devicePaths
+			const drivesOrder = settings.getSync('drivesOrder') ?? [];
+
 			drives = _.sortBy(drives, [
 				// System drives last
 				(d) => !!d.isSystem,
 				// Devices with no devicePath first (usbboot)
 				(d) => !!d.devicePath,
+				// Sort as defined in the drivesOrder setting if there is one (only for Linux with udev)
+				(d) => drivesOrder.indexOf(basename(d.devicePath || '')),
 				// Then sort by devicePath (only available on Linux with udev) or device
 				(d) => d.devicePath || d.device,
 			]);
