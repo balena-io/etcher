@@ -161,7 +161,6 @@ interface WriteOptions {
 	image: SourceMetadata;
 	destinations: DrivelistDrive[];
 	unmountOnSuccess: boolean;
-	validateWriteOnSuccess: boolean;
 	autoBlockmapping: boolean;
 	decompressFirst: boolean;
 	SourceType: string;
@@ -255,7 +254,6 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 		log(`Image: ${imagePath}`);
 		log(`Devices: ${destinations.join(', ')}`);
 		log(`Umount on success: ${options.unmountOnSuccess}`);
-		log(`Validate on success: ${options.validateWriteOnSuccess}`);
 		log(`Auto blockmapping: ${options.autoBlockmapping}`);
 		log(`Decompress first: ${options.decompressFirst}`);
 		const dests = options.destinations.map((destination) => {
@@ -286,7 +284,7 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 			const results = await writeAndValidate({
 				source,
 				destinations: dests,
-				verify: options.validateWriteOnSuccess,
+				verify: true,
 				autoBlockmapping: options.autoBlockmapping,
 				decompressFirst: options.decompressFirst,
 				onProgress,
