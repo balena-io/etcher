@@ -29,7 +29,6 @@ import {
 	deselectDrive,
 	selectDrive,
 } from '../../models/selection-state';
-import * as settings from '../../models/settings';
 import { observe } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import { TargetSelectorButton } from './target-selector-button';
@@ -45,12 +44,7 @@ export const getDriveListLabel = () => {
 		.join('\n');
 };
 
-const shouldShowDrivesButton = () => {
-	return !settings.getSync('disableExplicitDriveSelection');
-};
-
 const getDriveSelectionStateSlice = () => ({
-	showDrivesButton: shouldShowDrivesButton(),
 	driveListLabel: getDriveListLabel(),
 	targets: getSelectedDrives(),
 	image: getImage(),
@@ -114,10 +108,9 @@ export const TargetSelector = ({
 	flashing,
 }: TargetSelectorProps) => {
 	// TODO: inject these from redux-connector
-	const [
-		{ showDrivesButton, driveListLabel, targets },
-		setStateSlice,
-	] = React.useState(getDriveSelectionStateSlice());
+	const [{ driveListLabel, targets }, setStateSlice] = React.useState(
+		getDriveSelectionStateSlice(),
+	);
 	const [showTargetSelectorModal, setShowTargetSelectorModal] = React.useState(
 		false,
 	);
@@ -141,7 +134,7 @@ export const TargetSelector = ({
 
 			<TargetSelectorButton
 				disabled={disabled}
-				show={!hasDrive && showDrivesButton}
+				show={!hasDrive}
 				tooltip={driveListLabel}
 				openDriveSelector={() => {
 					setShowTargetSelectorModal(true);

@@ -175,7 +175,7 @@ function storeReducer(
 			);
 
 			const shouldAutoselectAll = Boolean(
-				settings.getSync('disableExplicitDriveSelection'),
+				settings.getSync('autoSelectAllDrives'),
 			);
 			const AUTOSELECT_DRIVE_COUNT = 1;
 			const nonStaleSelectedDevices = nonStaleNewState
@@ -197,18 +197,12 @@ function storeReducer(
 					drives,
 					(accState, drive) => {
 						if (
-							_.every([
-								constraints.isDriveValid(drive, image),
-								constraints.isDriveSizeRecommended(drive, image),
-
-								// We don't want to auto-select large drives
-								!constraints.isDriveSizeLarge(drive),
-
-								// We don't want to auto-select system drives,
-								// even when "unsafe mode" is enabled
-								!constraints.isSystemDrive(drive),
-							]) ||
-							(shouldAutoselectAll && constraints.isDriveValid(drive, image))
+							constraints.isDriveValid(drive, image) &&
+							constraints.isDriveSizeRecommended(drive, image) &&
+							// We don't want to auto-select large drives execpt is autoSelectAllDrives is true
+							(!constraints.isDriveSizeLarge(drive) || shouldAutoselectAll) &&
+							// We don't want to auto-select system drives
+							!constraints.isSystemDrive(drive)
 						) {
 							// Auto-select this drive
 							return storeReducer(accState, {
