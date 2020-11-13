@@ -108,6 +108,23 @@ function replace(test: RegExp, ...replacements: ReplacementRule[]) {
 	};
 }
 
+function fetchWasm(...where: string[]) {
+	const whereStr = where.map((x) => `'${x}'`).join(', ');
+	return outdent`
+		const Path = require('path');
+		let electron;
+		try {
+			// This doesn't exist in the child-writer
+			electron = require('electron');
+		} catch {
+		}
+		function appPath() {
+			return Path.isAbsolute(__dirname) ? __dirname : Path.join(electron.remote.app.getAppPath(), 'generated');
+		}
+		scriptDirectory = Path.join(appPath(), 'modules', ${whereStr}, '/');
+	`;
+}
+
 const commonConfig = {
 	mode: 'production',
 	optimization: {
@@ -232,19 +249,12 @@ const commonConfig = {
 			// We use __dirname in the child-writer and electron.remote.app.getAppPath() in the renderer
 			replace(/node_modules\/ext2fs\/lib\/libext2fs\.js$/, {
 				search: 'scriptDirectory=__dirname+"/"',
-				replace: outdent`
-					const Path = require('path');
-					let electron;
-					try {
-						// This doesn't exist in the child-writer
-						electron = require('electron');
-					} catch {
-					}
-					function appPath() {
-						return Path.isAbsolute(__dirname) ? __dirname : Path.join(electron.remote.app.getAppPath(), 'generated');
-					}
-					scriptDirectory = Path.join(appPath(), 'modules', 'ext2fs', 'lib', '/');
-				`,
+				replace: fetchWasm('ext2fs', 'lib'),
+			}),
+			// Same for node-crc-utils
+			replace(/node_modules\/@balena\/node-crc-utils\/crc32\.js$/, {
+				search: 'scriptDirectory=__dirname+"/"',
+				replace: fetchWasm('@balena', 'node-crc-utils'),
 			}),
 			// Copy native modules to generated folder
 			{
@@ -298,6 +308,10 @@ const guiConfigCopyPatterns = [
 	{
 		from: 'node_modules/ext2fs/lib/libext2fs.wasm',
 		to: 'modules/ext2fs/lib/libext2fs.wasm',
+	},
+	{
+		from: 'node_modules/@balena/node-crc-utils/crc32.wasm',
+		to: 'modules/@balena/node-crc-utils/crc32.wasm',
 	},
 ];
 
