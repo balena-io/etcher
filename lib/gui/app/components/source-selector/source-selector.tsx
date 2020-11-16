@@ -715,6 +715,7 @@ export class SourceSelector extends React.Component<
 
 				{showDriveSelector && (
 					<DriveSelector
+						write={false}
 						multipleSelection={false}
 						titleLabel="Select source"
 						emptyListLabel="Plug a source"

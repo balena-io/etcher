@@ -138,6 +138,7 @@ const InitProgress = styled(
 
 export interface DriveSelectorProps
 	extends Omit<ModalProps, 'done' | 'cancel'> {
+	write: boolean;
 	multipleSelection: boolean;
 	showWarnings?: boolean;
 	cancel: () => void;
@@ -258,7 +259,8 @@ export class DriveSelector extends React.Component<
 		return (
 			isUsbbootDrive(drive) ||
 			isDriverlessDrive(drive) ||
-			!isDriveValid(drive, image)
+			!isDriveValid(drive, image) ||
+			(this.props.write && drive.isReadOnly)
 		);
 	}
 
@@ -311,6 +313,7 @@ export class DriveSelector extends React.Component<
 		const statuses: DriveStatus[] = getDriveImageCompatibilityStatuses(
 			drive,
 			this.state.image,
+			this.props.write,
 		).slice(0, 2);
 		return (
 			// the column render fn expects a single Element

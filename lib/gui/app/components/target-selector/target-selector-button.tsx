@@ -24,7 +24,7 @@ import {
 } from '../../../../shared/drive-constraints';
 import { compatibility, warning } from '../../../../shared/messages';
 import * as prettyBytes from 'pretty-bytes';
-import { getSelectedDrives } from '../../models/selection-state';
+import { getImage, getSelectedDrives } from '../../models/selection-state';
 import {
 	ChangeButton,
 	DetailsText,
@@ -80,9 +80,11 @@ export function TargetSelectorButton(props: TargetSelectorProps) {
 
 	if (targets.length === 1) {
 		const target = targets[0];
-		const warnings = getDriveImageCompatibilityStatuses(target).map(
-			getDriveWarning,
-		);
+		const warnings = getDriveImageCompatibilityStatuses(
+			target,
+			getImage(),
+			true,
+		).map(getDriveWarning);
 		return (
 			<>
 				<StepNameButton plain tooltip={props.tooltip}>
@@ -106,9 +108,11 @@ export function TargetSelectorButton(props: TargetSelectorProps) {
 	if (targets.length > 1) {
 		const targetsTemplate = [];
 		for (const target of targets) {
-			const warnings = getDriveImageCompatibilityStatuses(target).map(
-				getDriveWarning,
-			);
+			const warnings = getDriveImageCompatibilityStatuses(
+				target,
+				getImage(),
+				true,
+			).map(getDriveWarning);
 			targetsTemplate.push(
 				<DetailsText
 					key={target.device}

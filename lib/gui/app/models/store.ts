@@ -198,6 +198,7 @@ function storeReducer(
 					(accState, drive) => {
 						if (
 							constraints.isDriveValid(drive, image) &&
+							!drive.isReadOnly &&
 							constraints.isDriveSizeRecommended(drive, image) &&
 							// We don't want to auto-select large drives execpt is autoSelectAllDrives is true
 							(!constraints.isDriveSizeLarge(drive) || shouldAutoselectAll) &&

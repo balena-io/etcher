@@ -199,7 +199,11 @@ export class FlashStep extends React.PureComponent<
 		const drives = selection.getSelectedDrives().map((drive) => {
 			return {
 				...drive,
-				statuses: constraints.getDriveImageCompatibilityStatuses(drive),
+				statuses: constraints.getDriveImageCompatibilityStatuses(
+					drive,
+					undefined,
+					true,
+				),
 			};
 		});
 		if (drives.length === 0 || this.props.isFlashing) {
@@ -308,6 +312,7 @@ export class FlashStep extends React.PureComponent<
 				)}
 				{this.state.showDriveSelectorModal && (
 					<TargetSelectorModal
+						write={true}
 						cancel={() => this.setState({ showDriveSelectorModal: false })}
 						done={(modalTargets) => {
 							selectAllTargets(modalTargets);

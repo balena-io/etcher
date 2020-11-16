@@ -35,16 +35,6 @@ export type DrivelistDrive = Drive & {
 };
 
 /**
- * @summary Check if a drive is locked
- *
- * @description
- * This usually points out a locked SD Card.
- */
-export function isDriveLocked(drive: DrivelistDrive): boolean {
-	return Boolean(drive.isReadOnly);
-}
-
-/**
  * @summary Check if a drive is a system drive
  */
 export function isSystemDrive(drive: DrivelistDrive): boolean {
@@ -122,14 +112,13 @@ export function isDriveDisabled(drive: DrivelistDrive): boolean {
 }
 
 /**
- * @summary Check if a drive is valid, i.e. not locked and large enough for an image
+ * @summary Check if a drive is valid, i.e. large enough for an image
  */
 export function isDriveValid(
 	drive: DrivelistDrive,
 	image?: SourceMetadata,
 ): boolean {
 	return (
-		!isDriveLocked(drive) &&
 		isDriveLargeEnough(drive, image) &&
 		!isSourceDrive(drive, image as SourceMetadata) &&
 		!isDriveDisabled(drive)
@@ -213,17 +202,19 @@ export const statuses = {
  */
 export function getDriveImageCompatibilityStatuses(
 	drive: DrivelistDrive,
-	image?: SourceMetadata,
+	image: SourceMetadata | undefined,
+	write: boolean,
 ) {
 	const statusList = [];
 
 	// Mind the order of the if-statements if you modify.
-	if (isDriveLocked(drive)) {
+	if (drive.isReadOnly && write) {
 		statusList.push({
 			type: COMPATIBILITY_STATUS_TYPES.ERROR,
 			message: messages.compatibility.locked(),
 		});
-	} else if (
+	}
+	if (
 		!_.isNil(drive) &&
 		!_.isNil(drive.size) &&
 		!isDriveLargeEnough(drive, image)
@@ -262,10 +253,11 @@ export function getDriveImageCompatibilityStatuses(
  */
 export function getListDriveImageCompatibilityStatuses(
 	drives: DrivelistDrive[],
-	image: SourceMetadata,
+	image: SourceMetadata | undefined,
+	write: boolean,
 ) {
 	return drives.flatMap((drive) => {
-		return getDriveImageCompatibilityStatuses(drive, image);
+		return getDriveImageCompatibilityStatuses(drive, image, write);
 	});
 }
 
@@ -277,9 +269,12 @@ export function getListDriveImageCompatibilityStatuses(
  */
 export function hasDriveImageCompatibilityStatus(
 	drive: DrivelistDrive,
-	image: SourceMetadata,
+	image: SourceMetadata | undefined,
+	write: boolean,
 ) {
-	return Boolean(getDriveImageCompatibilityStatuses(drive, image).length);
+	return Boolean(
+		getDriveImageCompatibilityStatuses(drive, image, write).length,
+	);
 }
 
 export interface DriveStatus {

@@ -161,6 +161,7 @@ export const TargetSelector = ({
 
 			{showTargetSelectorModal && (
 				<TargetSelectorModal
+					write={true}
 					cancel={() => setShowTargetSelectorModal(false)}
 					done={(modalTargets) => {
 						selectAllTargets(modalTargets);
