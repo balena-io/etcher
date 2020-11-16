@@ -277,6 +277,7 @@ interface SourceSelectorState {
 	showURLSelector: boolean;
 	showDriveSelector: boolean;
 	defaultFlowActive: boolean;
+	imageSelectorOpen: boolean;
 }
 
 export class SourceSelector extends React.Component<
@@ -294,6 +295,7 @@ export class SourceSelector extends React.Component<
 			showURLSelector: false,
 			showDriveSelector: false,
 			defaultFlowActive: true,
+			imageSelectorOpen: false,
 		};
 
 		// Bind `this` since it's used in an event's callback
@@ -481,6 +483,7 @@ export class SourceSelector extends React.Component<
 
 	private async openImageSelector() {
 		analytics.logEvent('Open image selector');
+		this.setState({ imageSelectorOpen: true });
 
 		try {
 			const imagePath = await osDialog.selectImage();
@@ -493,6 +496,8 @@ export class SourceSelector extends React.Component<
 			await this.selectSource(imagePath, sourceDestination.File).promise;
 		} catch (error) {
 			exceptionReporter.report(error);
+		} finally {
+			this.setState({ imageSelectorOpen: false });
 		}
 	}
 
@@ -609,6 +614,7 @@ export class SourceSelector extends React.Component<
 					) : (
 						<>
 							<FlowSelector
+								disabled={this.state.imageSelectorOpen}
 								primary={this.state.defaultFlowActive}
 								key="Flash from file"
 								flow={{
