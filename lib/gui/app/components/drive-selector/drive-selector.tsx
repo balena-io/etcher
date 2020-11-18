@@ -42,7 +42,6 @@ import {
 	Table,
 } from '../../styled-components';
 
-import DriveSVGIcon from '../../../assets/tgt.svg';
 import { SourceMetadata } from '../source-selector/source-selector';
 
 interface UsbbootDrive extends sourceDestination.UsbbootDrive {
@@ -145,6 +144,7 @@ export interface DriveSelectorProps
 	done: (drives: DrivelistDrive[]) => void;
 	titleLabel: string;
 	emptyListLabel: string;
+	emptyListIcon: JSX.Element;
 	selectedList?: DrivelistDrive[];
 	updateSelectedList?: () => DrivelistDrive[];
 }
@@ -425,7 +425,7 @@ export class DriveSelector extends React.Component<
 						alignItems="center"
 						width="100%"
 					>
-						<DriveSVGIcon width="40px" height="90px" />
+						{this.props.emptyListIcon}
 						<b>{this.props.emptyListLabel}</b>
 					</Flex>
 				) : (

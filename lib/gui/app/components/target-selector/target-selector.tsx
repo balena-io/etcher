@@ -33,6 +33,7 @@ import { observe } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import { TargetSelectorButton } from './target-selector-button';
 
+import TgtSvg from '../../../assets/tgt.svg';
 import DriveSvg from '../../../assets/drive.svg';
 import { warning } from '../../../../shared/messages';
 
@@ -53,13 +54,14 @@ const getDriveSelectionStateSlice = () => ({
 export const TargetSelectorModal = (
 	props: Omit<
 		DriveSelectorProps,
-		'titleLabel' | 'emptyListLabel' | 'multipleSelection'
+		'titleLabel' | 'emptyListLabel' | 'multipleSelection' | 'emptyListIcon'
 	>,
 ) => (
 	<DriveSelector
 		multipleSelection={true}
 		titleLabel="Select target"
 		emptyListLabel="Plug a target drive"
+		emptyListIcon={<TgtSvg width="40px" />}
 		showWarnings={true}
 		selectedList={getSelectedDrives()}
 		updateSelectedList={getSelectedDrives}

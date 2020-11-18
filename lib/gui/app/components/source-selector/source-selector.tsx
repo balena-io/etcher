@@ -58,6 +58,7 @@ import { middleEllipsis } from '../../utils/middle-ellipsis';
 import { SVGIcon } from '../svg-icon/svg-icon';
 
 import ImageSvg from '../../../assets/image.svg';
+import SrcSvg from '../../../assets/src.svg';
 import { DriveSelector } from '../drive-selector/drive-selector';
 import { DrivelistDrive } from '../../../../shared/drive-constraints';
 
@@ -724,7 +725,8 @@ export class SourceSelector extends React.Component<
 						write={false}
 						multipleSelection={false}
 						titleLabel="Select source"
-						emptyListLabel="Plug a source"
+						emptyListLabel="Plug a source drive"
+						emptyListIcon={<SrcSvg width="40px" />}
 						cancel={() => {
 							this.setState({
 								showDriveSelector: false,
