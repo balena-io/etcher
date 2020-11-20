@@ -419,6 +419,15 @@ export class SourceSelector extends React.Component<
 						}
 					}
 				} else {
+					if (selected.partitionTableType === null) {
+						analytics.logEvent('Missing partition table', { selected });
+						this.setState({
+							warning: {
+								message: messages.warning.driveMissingPartitionTable(),
+								title: 'Missing partition table',
+							},
+						});
+					}
 					metadata = {
 						path: selected.device,
 						displayName: selected.displayName,

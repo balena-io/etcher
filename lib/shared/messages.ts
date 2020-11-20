@@ -117,6 +117,14 @@ export const warning = {
 		].join(' ');
 	},
 
+	driveMissingPartitionTable: () => {
+		return outdent({ newline: ' ' })`
+			It looks like this is not a bootable drive.
+			The drive does not appear to contain a partition table,
+			and might not be recognized or bootable by your device.
+		`;
+	},
+
 	largeDriveSize: () => {
 		return 'This is a large drive! Make sure it doesn\'t contain files that you want to keep.';
 	},
