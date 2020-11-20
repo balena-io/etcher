@@ -152,7 +152,7 @@ export const Modal = styled(({ style, children, ...props }) => {
 		height: 100%;
 
 		> div:first-child {
-			height: 81%;
+			height: 80%;
 			padding: 24px 30px 0;
 		}
 
@@ -162,13 +162,8 @@ export const Modal = styled(({ style, children, ...props }) => {
 			height: 14.3%;
 		}
 
-		> div:first-child {
-			height: 81%;
-			padding: 24px 30px 0;
-		}
-
 		> div:nth-child(2) {
-			height: 61%;
+			height: 60%;
 			padding: 0 30px;
 			${modalFooterShadowCss}
 		}
