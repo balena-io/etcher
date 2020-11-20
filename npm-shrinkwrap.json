@@ -15704,9 +15704,9 @@
       }
     },
     "typescript": {
-      "version": "4.0.2",
-      "resolved": "https://registry.npmjs.org/typescript/-/typescript-4.0.2.tgz",
-      "integrity": "sha512-e4ERvRV2wb+rRZ/IQeb3jm2VxBsirQLpQhdxplZ2MEzGvDkkMmPglecnNDfSUBivMjP93vRbngYYDQqQ/78bcQ==",
+      "version": "4.1.2",
+      "resolved": "https://registry.npmjs.org/typescript/-/typescript-4.1.2.tgz",
+      "integrity": "sha512-thGloWsGH3SOxv1SoY7QojKi0tc+8FnOmiarEGMbd/lar7QOEd3hvlx3Fp5y6FlDUGl9L+pd4n2e+oToGMmhRQ==",
       "dev": true
     },
     "typo-js": {
