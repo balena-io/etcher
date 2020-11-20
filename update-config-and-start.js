@@ -54,6 +54,9 @@ const db = {
 		'2.58.3+rev4': {
 			xrandrArgs: '-o inverted -x',
 		},
+		'2.62.0+rev1': {
+			xrandrArgs: '-o inverted -x',
+		},
 	},
 	'2.3.1': {
 		default: {
