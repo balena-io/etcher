@@ -55,10 +55,6 @@ async function getSettingsList(): Promise<Setting[]> {
 			label: `${platform === 'win32' ? 'Eject' : 'Auto-unmount'} on success`,
 		},
 		{
-			name: 'validateWriteOnSuccess',
-			label: 'Validate write on success',
-		},
-		{
 			name: 'updatesEnabled',
 			label: 'Auto-updates enabled',
 			hide: ['rpm', 'deb'].includes(packageType),

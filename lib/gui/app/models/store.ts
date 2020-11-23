@@ -16,6 +16,7 @@
 
 import * as Immutable from 'immutable';
 import * as _ from 'lodash';
+import { basename } from 'path';
 import * as redux from 'redux';
 import { v4 as uuidV4 } from 'uuid';
 
@@ -133,11 +134,16 @@ function storeReducer(
 				});
 			}
 
+			// Drives order is a list of devicePaths
+			const drivesOrder = settings.getSync('drivesOrder') ?? [];
+
 			drives = _.sortBy(drives, [
 				// System drives last
 				(d) => !!d.isSystem,
 				// Devices with no devicePath first (usbboot)
 				(d) => !!d.devicePath,
+				// Sort as defined in the drivesOrder setting if there is one (only for Linux with udev)
+				(d) => drivesOrder.indexOf(basename(d.devicePath || '')),
 				// Then sort by devicePath (only available on Linux with udev) or device
 				(d) => d.devicePath || d.device,
 			]);
@@ -169,7 +175,7 @@ function storeReducer(
 			);
 
 			const shouldAutoselectAll = Boolean(
-				settings.getSync('disableExplicitDriveSelection'),
+				settings.getSync('autoSelectAllDrives'),
 			);
 			const AUTOSELECT_DRIVE_COUNT = 1;
 			const nonStaleSelectedDevices = nonStaleNewState
@@ -191,18 +197,13 @@ function storeReducer(
 					drives,
 					(accState, drive) => {
 						if (
-							_.every([
-								constraints.isDriveValid(drive, image),
-								constraints.isDriveSizeRecommended(drive, image),
-
-								// We don't want to auto-select large drives
-								!constraints.isDriveSizeLarge(drive),
-
-								// We don't want to auto-select system drives,
-								// even when "unsafe mode" is enabled
-								!constraints.isSystemDrive(drive),
-							]) ||
-							(shouldAutoselectAll && constraints.isDriveValid(drive, image))
+							constraints.isDriveValid(drive, image) &&
+							!drive.isReadOnly &&
+							constraints.isDriveSizeRecommended(drive, image) &&
+							// We don't want to auto-select large drives execpt is autoSelectAllDrives is true
+							(!constraints.isDriveSizeLarge(drive) || shouldAutoselectAll) &&
+							// We don't want to auto-select system drives
+							!constraints.isSystemDrive(drive)
 						) {
 							// Auto-select this drive
 							return storeReducer(accState, {

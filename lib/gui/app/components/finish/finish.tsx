@@ -20,6 +20,7 @@ import { v4 as uuidV4 } from 'uuid';
 
 import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
+import * as settings from '../../models/settings';
 import { Actions, store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import { FlashAnother } from '../flash-another/flash-another';
@@ -39,8 +40,19 @@ function restart(goToMain: () => void) {
 	goToMain();
 }
 
+async function getSuccessBannerURL() {
+	return (
+		(await settings.get('successBannerURL')) ??
+		'https://www.balena.io/etcher/success-banner?borderTop=false&darkBackground=true'
+	);
+}
+
 function FinishPage({ goToMain }: { goToMain: () => void }) {
 	const [webviewShowing, setWebviewShowing] = React.useState(false);
+	const [successBannerURL, setSuccessBannerURL] = React.useState('');
+	(async () => {
+		setSuccessBannerURL(await getSuccessBannerURL());
+	})();
 	const flashResults = flashState.getFlashResults();
 	const errors: FlashError[] = (
 		store.getState().toJS().failedDeviceErrors || []
@@ -96,18 +108,20 @@ function FinishPage({ goToMain }: { goToMain: () => void }) {
 					}}
 				/>
 			</Flex>
-			<SafeWebview
-				src="https://www.balena.io/etcher/success-banner?borderTop=false&darkBackground=true"
-				onWebviewShow={setWebviewShowing}
-				style={{
-					display: webviewShowing ? 'flex' : 'none',
-					position: 'absolute',
-					right: 0,
-					bottom: 0,
-					width: '63.8vw',
-					height: '100vh',
-				}}
-			/>
+			{successBannerURL.length && (
+				<SafeWebview
+					src={successBannerURL}
+					onWebviewShow={setWebviewShowing}
+					style={{
+						display: webviewShowing ? 'flex' : 'none',
+						position: 'absolute',
+						right: 0,
+						bottom: 0,
+						width: '63.8vw',
+						height: '100vh',
+					}}
+				/>
+			)}
 		</Flex>
 	);
 }

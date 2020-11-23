@@ -42,7 +42,6 @@ import {
 	Table,
 } from '../../styled-components';
 
-import DriveSVGIcon from '../../../assets/tgt.svg';
 import { SourceMetadata } from '../source-selector/source-selector';
 
 interface UsbbootDrive extends sourceDestination.UsbbootDrive {
@@ -138,12 +137,14 @@ const InitProgress = styled(
 
 export interface DriveSelectorProps
 	extends Omit<ModalProps, 'done' | 'cancel'> {
+	write: boolean;
 	multipleSelection: boolean;
 	showWarnings?: boolean;
 	cancel: () => void;
 	done: (drives: DrivelistDrive[]) => void;
 	titleLabel: string;
 	emptyListLabel: string;
+	emptyListIcon: JSX.Element;
 	selectedList?: DrivelistDrive[];
 	updateSelectedList?: () => DrivelistDrive[];
 }
@@ -258,7 +259,8 @@ export class DriveSelector extends React.Component<
 		return (
 			isUsbbootDrive(drive) ||
 			isDriverlessDrive(drive) ||
-			!isDriveValid(drive, image)
+			!isDriveValid(drive, image) ||
+			(this.props.write && drive.isReadOnly)
 		);
 	}
 
@@ -311,6 +313,7 @@ export class DriveSelector extends React.Component<
 		const statuses: DriveStatus[] = getDriveImageCompatibilityStatuses(
 			drive,
 			this.state.image,
+			this.props.write,
 		).slice(0, 2);
 		return (
 			// the column render fn expects a single Element
@@ -422,7 +425,7 @@ export class DriveSelector extends React.Component<
 						alignItems="center"
 						width="100%"
 					>
-						<DriveSVGIcon width="40px" height="90px" />
+						{this.props.emptyListIcon}
 						<b>{this.props.emptyListLabel}</b>
 					</Flex>
 				) : (

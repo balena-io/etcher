@@ -23,37 +23,6 @@ import * as constraints from '../../lib/shared/drive-constraints';
 import * as messages from '../../lib/shared/messages';
 
 describe('Shared: DriveConstraints', function () {
-	describe('.isDriveLocked()', function () {
-		it('should return true if the drive is read-only', function () {
-			const result = constraints.isDriveLocked({
-				device: '/dev/disk2',
-				size: 999999999,
-				isReadOnly: true,
-			} as constraints.DrivelistDrive);
-
-			expect(result).to.be.true;
-		});
-
-		it('should return false if the drive is not read-only', function () {
-			const result = constraints.isDriveLocked({
-				device: '/dev/disk2',
-				size: 999999999,
-				isReadOnly: false,
-			} as constraints.DrivelistDrive);
-
-			expect(result).to.be.false;
-		});
-
-		it("should return false if we don't know if the drive is read-only", function () {
-			const result = constraints.isDriveLocked({
-				device: '/dev/disk2',
-				size: 999999999,
-			} as constraints.DrivelistDrive);
-
-			expect(result).to.be.false;
-		});
-	});
-
 	describe('.isSystemDrive()', function () {
 		it('should return true if the drive is a system drive', function () {
 			const result = constraints.isSystemDrive({
@@ -745,7 +714,7 @@ describe('Shared: DriveConstraints', function () {
 					this.drive.disabled = false;
 				});
 
-				it('should return false if the drive is not large enough and is a source drive', function () {
+				it('should return false if the drive is not large enough and is the source drive', function () {
 					expect(
 						constraints.isDriveValid(this.drive, {
 							...image,
@@ -755,7 +724,7 @@ describe('Shared: DriveConstraints', function () {
 					).to.be.false;
 				});
 
-				it('should return false if the drive is not large enough and is not a source drive', function () {
+				it('should return false if the drive is not large enough and is not the source drive', function () {
 					expect(
 						constraints.isDriveValid(this.drive, {
 							...image,
@@ -765,17 +734,17 @@ describe('Shared: DriveConstraints', function () {
 					).to.be.false;
 				});
 
-				it('should return false if the drive is large enough and is a source drive', function () {
-					expect(constraints.isDriveValid(this.drive, image)).to.be.false;
+				it('should return true if the drive is large enough and is the source drive', function () {
+					expect(constraints.isDriveValid(this.drive, image)).to.be.true;
 				});
 
-				it('should return false if the drive is large enough and is not a source drive', function () {
+				it('should return true if the drive is large enough and is not the source drive', function () {
 					expect(
 						constraints.isDriveValid(this.drive, {
 							...image,
 							path: path.resolve(this.mountpoint, '../bar/rpi.img'),
 						}),
-					).to.be.false;
+					).to.be.true;
 				});
 			});
 		});
@@ -983,6 +952,7 @@ describe('Shared: DriveConstraints', function () {
 				const result = constraints.getDriveImageCompatibilityStatuses(
 					this.drive,
 					this.image,
+					true,
 				);
 
 				expect(result).to.deep.equal([]);
@@ -995,6 +965,7 @@ describe('Shared: DriveConstraints', function () {
 				const result = constraints.getDriveImageCompatibilityStatuses(
 					this.drive,
 					this.image,
+					true,
 				);
 
 				const expectedTuples: Array<['WARNING' | 'ERROR', string]> = [];
@@ -1009,6 +980,7 @@ describe('Shared: DriveConstraints', function () {
 				const result = constraints.getDriveImageCompatibilityStatuses(
 					this.drive,
 					this.image,
+					true,
 				);
 				// @ts-ignore
 				const expectedTuples = [['ERROR', 'containsImage']];
@@ -1025,6 +997,7 @@ describe('Shared: DriveConstraints', function () {
 				const result = constraints.getDriveImageCompatibilityStatuses(
 					this.drive,
 					this.image,
+					true,
 				);
 				const expectedTuples = [['WARNING', 'system']];
 
@@ -1040,6 +1013,7 @@ describe('Shared: DriveConstraints', function () {
 				const result = constraints.getDriveImageCompatibilityStatuses(
 					this.drive,
 					this.image,
+					true,
 				);
 				const expected = [
 					{
@@ -1060,6 +1034,7 @@ describe('Shared: DriveConstraints', function () {
 				const result = constraints.getDriveImageCompatibilityStatuses(
 					this.drive,
 					this.image,
+					true,
 				);
 				// @ts-ignore
 				const expectedTuples = [];
@@ -1076,6 +1051,7 @@ describe('Shared: DriveConstraints', function () {
 				const result = constraints.getDriveImageCompatibilityStatuses(
 					this.drive,
 					this.image,
+					true,
 				);
 				// @ts-ignore
 				const expectedTuples = [['ERROR', 'locked']];
@@ -1092,6 +1068,7 @@ describe('Shared: DriveConstraints', function () {
 				const result = constraints.getDriveImageCompatibilityStatuses(
 					this.drive,
 					this.image,
+					true,
 				);
 				// @ts-ignore
 				const expectedTuples = [['WARNING', 'sizeNotRecommended']];
@@ -1108,6 +1085,7 @@ describe('Shared: DriveConstraints', function () {
 				const result = constraints.getDriveImageCompatibilityStatuses(
 					this.drive,
 					this.image,
+					true,
 				);
 				const expectedTuples = [['WARNING', 'largeDrive']];
 
@@ -1128,9 +1106,13 @@ describe('Shared: DriveConstraints', function () {
 				const result = constraints.getDriveImageCompatibilityStatuses(
 					this.drive,
 					this.image,
+					true,
 				);
 				// @ts-ignore
-				const expectedTuples = [['ERROR', 'locked']];
+				const expectedTuples = [
+					['ERROR', 'locked'],
+					['ERROR', 'containsImage'],
+				];
 
 				// @ts-ignore
 				expectStatusTypesAndMessagesToBe(result, expectedTuples);
@@ -1144,6 +1126,7 @@ describe('Shared: DriveConstraints', function () {
 				const result = constraints.getDriveImageCompatibilityStatuses(
 					this.drive,
 					this.image,
+					true,
 				);
 				// @ts-ignore
 				const expectedTuples = [['ERROR', 'locked']];
@@ -1161,6 +1144,7 @@ describe('Shared: DriveConstraints', function () {
 				const result = constraints.getDriveImageCompatibilityStatuses(
 					this.drive,
 					this.image,
+					true,
 				);
 				const expected = [
 					{
@@ -1181,6 +1165,7 @@ describe('Shared: DriveConstraints', function () {
 				const result = constraints.getDriveImageCompatibilityStatuses(
 					this.drive,
 					this.image,
+					true,
 				);
 				// @ts-ignore
 				const expectedTuples = [
@@ -1287,7 +1272,7 @@ describe('Shared: DriveConstraints', function () {
 		describe('given no drives', function () {
 			it('should return no statuses', function () {
 				expect(
-					constraints.getListDriveImageCompatibilityStatuses([], image),
+					constraints.getListDriveImageCompatibilityStatuses([], image, true),
 				).to.deep.equal([]);
 			});
 		});
@@ -1298,6 +1283,7 @@ describe('Shared: DriveConstraints', function () {
 					constraints.getListDriveImageCompatibilityStatuses(
 						[drives[0]],
 						image,
+						true,
 					),
 				).to.deep.equal([
 					{
@@ -1312,6 +1298,7 @@ describe('Shared: DriveConstraints', function () {
 					constraints.getListDriveImageCompatibilityStatuses(
 						[drives[1]],
 						image,
+						true,
 					),
 				).to.deep.equal([
 					{
@@ -1326,6 +1313,7 @@ describe('Shared: DriveConstraints', function () {
 					constraints.getListDriveImageCompatibilityStatuses(
 						[drives[2]],
 						image,
+						true,
 					),
 				).to.deep.equal([
 					{
@@ -1340,6 +1328,7 @@ describe('Shared: DriveConstraints', function () {
 					constraints.getListDriveImageCompatibilityStatuses(
 						[drives[3]],
 						image,
+						true,
 					),
 				).to.deep.equal([
 					{
@@ -1354,6 +1343,7 @@ describe('Shared: DriveConstraints', function () {
 					constraints.getListDriveImageCompatibilityStatuses(
 						[drives[4]],
 						image,
+						true,
 					),
 				).to.deep.equal([
 					{
@@ -1368,6 +1358,7 @@ describe('Shared: DriveConstraints', function () {
 					constraints.getListDriveImageCompatibilityStatuses(
 						[drives[5]],
 						image,
+						true,
 					),
 				).to.deep.equal([
 					{
@@ -1381,7 +1372,11 @@ describe('Shared: DriveConstraints', function () {
 		describe('given multiple drives with all warnings/errors', function () {
 			it('should return all statuses', function () {
 				expect(
-					constraints.getListDriveImageCompatibilityStatuses(drives, image),
+					constraints.getListDriveImageCompatibilityStatuses(
+						drives,
+						image,
+						true,
+					),
 				).to.deep.equal([
 					{
 						message: 'Source drive',

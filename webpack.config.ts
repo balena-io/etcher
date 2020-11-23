@@ -108,6 +108,23 @@ function replace(test: RegExp, ...replacements: ReplacementRule[]) {
 	};
 }
 
+function fetchWasm(...where: string[]) {
+	const whereStr = where.map((x) => `'${x}'`).join(', ');
+	return outdent`
+		const Path = require('path');
+		let electron;
+		try {
+			// This doesn't exist in the child-writer
+			electron = require('electron');
+		} catch {
+		}
+		function appPath() {
+			return Path.isAbsolute(__dirname) ? __dirname : Path.join(electron.remote.app.getAppPath(), 'generated');
+		}
+		scriptDirectory = Path.join(appPath(), 'modules', ${whereStr}, '/');
+	`;
+}
+
 const commonConfig = {
 	mode: 'production',
 	optimization: {
@@ -193,11 +210,6 @@ const commonConfig = {
 				search: 'require(binding_path)',
 				replace: "require('./build/Release/usb_bindings.node')",
 			}),
-			// remove bindings magic from ext2fs
-			replace(/node_modules\/ext2fs\/lib\/(ext2fs|binding)\.js$/, {
-				search: "require('bindings')('bindings')",
-				replace: "require('../build/Release/bindings.node')",
-			}),
 			// remove bindings magic from mountutils
 			replace(/node_modules\/mountutils\/index\.js$/, {
 				search: outdent`
@@ -231,6 +243,18 @@ const commonConfig = {
 					const { app, remote } = require('electron');
 					return await readFile(Path.join((app || remote.app).getAppPath(), 'generated', __dirname.replace('node_modules', 'modules'), '..', 'blobs', filename));
 				`,
+			}),
+			// Use the libext2fs.wasm file in the generated folder
+			// The way to find the app directory depends on whether we run in the renderer or in the child-writer
+			// We use __dirname in the child-writer and electron.remote.app.getAppPath() in the renderer
+			replace(/node_modules\/ext2fs\/lib\/libext2fs\.js$/, {
+				search: 'scriptDirectory=__dirname+"/"',
+				replace: fetchWasm('ext2fs', 'lib'),
+			}),
+			// Same for node-crc-utils
+			replace(/node_modules\/@balena\/node-crc-utils\/crc32\.js$/, {
+				search: 'scriptDirectory=__dirname+"/"',
+				replace: fetchWasm('@balena', 'node-crc-utils'),
 			}),
 			// Copy native modules to generated folder
 			{
@@ -280,6 +304,14 @@ const guiConfigCopyPatterns = [
 	{
 		from: 'node_modules/node-raspberrypi-usbboot/blobs',
 		to: 'modules/node-raspberrypi-usbboot/blobs',
+	},
+	{
+		from: 'node_modules/ext2fs/lib/libext2fs.wasm',
+		to: 'modules/ext2fs/lib/libext2fs.wasm',
+	},
+	{
+		from: 'node_modules/@balena/node-crc-utils/crc32.wasm',
+		to: 'modules/@balena/node-crc-utils/crc32.wasm',
 	},
 ];
 

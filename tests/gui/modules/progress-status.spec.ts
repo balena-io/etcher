@@ -32,7 +32,6 @@ describe('Browser: progressStatus', function () {
 			};
 
 			settings.set('unmountOnSuccess', true);
-			settings.set('validateWriteOnSuccess', true);
 		});
 
 		it('should report 0% if percentage == 0 but speed != 0', function () {
@@ -105,25 +104,16 @@ describe('Browser: progressStatus', function () {
 			);
 		});
 
-		it('should handle percentage == 100, flashing, unmountOnSuccess, validateWriteOnSuccess', function () {
+		it('should handle percentage == 100, flashing, unmountOnSuccess', function () {
 			this.state.percentage = 100;
 			expect(progressStatus.titleFromFlashState(this.state)).to.equal(
 				'Finishing...',
 			);
 		});
 
-		it('should handle percentage == 100, flashing, unmountOnSuccess, !validateWriteOnSuccess', function () {
-			this.state.percentage = 100;
-			settings.set('validateWriteOnSuccess', false);
-			expect(progressStatus.titleFromFlashState(this.state)).to.equal(
-				'Finishing...',
-			);
-		});
-
-		it('should handle percentage == 100, flashing, !unmountOnSuccess, !validateWriteOnSuccess', function () {
+		it('should handle percentage == 100, flashing, !unmountOnSuccess', function () {
 			this.state.percentage = 100;
 			settings.set('unmountOnSuccess', false);
-			settings.set('validateWriteOnSuccess', false);
 			expect(progressStatus.titleFromFlashState(this.state)).to.equal(
 				'Finishing...',
 			);

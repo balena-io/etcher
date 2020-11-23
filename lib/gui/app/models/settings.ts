@@ -78,7 +78,6 @@ export async function writeConfigFile(
 const DEFAULT_SETTINGS: _.Dictionary<any> = {
 	errorReporting: true,
 	unmountOnSuccess: true,
-	validateWriteOnSuccess: true,
 	updatesEnabled: !_.includes(['rpm', 'deb'], packageJSON.packageType),
 	desktopNotifications: true,
 	autoBlockmapping: true,

@@ -29,11 +29,11 @@ import {
 	deselectDrive,
 	selectDrive,
 } from '../../models/selection-state';
-import * as settings from '../../models/settings';
 import { observe } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import { TargetSelectorButton } from './target-selector-button';
 
+import TgtSvg from '../../../assets/tgt.svg';
 import DriveSvg from '../../../assets/drive.svg';
 import { warning } from '../../../../shared/messages';
 
@@ -45,12 +45,7 @@ export const getDriveListLabel = () => {
 		.join('\n');
 };
 
-const shouldShowDrivesButton = () => {
-	return !settings.getSync('disableExplicitDriveSelection');
-};
-
 const getDriveSelectionStateSlice = () => ({
-	showDrivesButton: shouldShowDrivesButton(),
 	driveListLabel: getDriveListLabel(),
 	targets: getSelectedDrives(),
 	image: getImage(),
@@ -59,13 +54,14 @@ const getDriveSelectionStateSlice = () => ({
 export const TargetSelectorModal = (
 	props: Omit<
 		DriveSelectorProps,
-		'titleLabel' | 'emptyListLabel' | 'multipleSelection'
+		'titleLabel' | 'emptyListLabel' | 'multipleSelection' | 'emptyListIcon'
 	>,
 ) => (
 	<DriveSelector
 		multipleSelection={true}
 		titleLabel="Select target"
 		emptyListLabel="Plug a target drive"
+		emptyListIcon={<TgtSvg width="40px" />}
 		showWarnings={true}
 		selectedList={getSelectedDrives()}
 		updateSelectedList={getSelectedDrives}
@@ -114,10 +110,9 @@ export const TargetSelector = ({
 	flashing,
 }: TargetSelectorProps) => {
 	// TODO: inject these from redux-connector
-	const [
-		{ showDrivesButton, driveListLabel, targets },
-		setStateSlice,
-	] = React.useState(getDriveSelectionStateSlice());
+	const [{ driveListLabel, targets }, setStateSlice] = React.useState(
+		getDriveSelectionStateSlice(),
+	);
 	const [showTargetSelectorModal, setShowTargetSelectorModal] = React.useState(
 		false,
 	);
@@ -141,7 +136,7 @@ export const TargetSelector = ({
 
 			<TargetSelectorButton
 				disabled={disabled}
-				show={!hasDrive && showDrivesButton}
+				show={!hasDrive}
 				tooltip={driveListLabel}
 				openDriveSelector={() => {
 					setShowTargetSelectorModal(true);
@@ -168,6 +163,7 @@ export const TargetSelector = ({
 
 			{showTargetSelectorModal && (
 				<TargetSelectorModal
+					write={true}
 					cancel={() => setShowTargetSelectorModal(false)}
 					done={(modalTargets) => {
 						selectAllTargets(modalTargets);
