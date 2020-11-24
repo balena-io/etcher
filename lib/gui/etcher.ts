@@ -133,7 +133,7 @@ async function createMainWindow() {
 		width,
 		height,
 		frame: !fullscreen,
-		useContentSize: false,
+		useContentSize: true,
 		show: false,
 		resizable: false,
 		maximizable: false,
