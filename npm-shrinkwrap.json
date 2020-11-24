@@ -14950,8 +14950,8 @@
       }
     },
     "sudo-prompt": {
-      "version": "github:zvin/sudo-prompt#81cab70c1f3f816b71539c4c5d7ecf1309094f8c",
-      "from": "github:zvin/sudo-prompt#workaround-windows-amperstand-in-username",
+      "version": "github:zvin/sudo-prompt#7cdede2f0da28fbcc2db48402d7d935f3a825c91",
+      "from": "github:zvin/sudo-prompt#7cdede2f0da28fbcc2db48402d7d935f3a825c91",
       "dev": true
     },
     "sumchecker": {

@@ -102,7 +102,7 @@
     "spectron": "^11.0.0",
     "string-replace-loader": "^2.3.0",
     "styled-components": "^5.1.0",
-    "sudo-prompt": "github:zvin/sudo-prompt#workaround-windows-amperstand-in-username",
+    "sudo-prompt": "github:zvin/sudo-prompt#7cdede2f0da28fbcc2db48402d7d935f3a825c91",
     "sys-class-rgb-led": "^2.1.0",
     "tmp": "^0.2.1",
     "ts-loader": "^8.0.0",
