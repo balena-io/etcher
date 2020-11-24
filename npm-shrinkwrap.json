@@ -1313,9 +1313,9 @@
       }
     },
     "@balena/apple-plist": {
-      "version": "0.0.2",
-      "resolved": "https://registry.npmjs.org/@balena/apple-plist/-/apple-plist-0.0.2.tgz",
-      "integrity": "sha512-pipB4z1nW0YkIN1B5CgcPLzwagkAnmPF5KEuEntE5Pg5F8kNAxmED3LEF1VusAVqdZl6YwtjILzqAmykmRvvIw==",
+      "version": "0.0.3",
+      "resolved": "https://registry.npmjs.org/@balena/apple-plist/-/apple-plist-0.0.3.tgz",
+      "integrity": "sha512-OCb2lH6twxm0EX4UjMyK9SB8BKqhDA+8NAanThsheALJ2Jys9jsgpnixUakrGaq3qKeNITVoC0NJ4s4Q4bKRfQ==",
       "dev": true,
       "requires": {
         "sax": "^1.2.4"
@@ -1367,12 +1367,12 @@
       "dev": true
     },
     "@balena/udif": {
-      "version": "1.1.0",
-      "resolved": "https://registry.npmjs.org/@balena/udif/-/udif-1.1.0.tgz",
-      "integrity": "sha512-iZ1GyKVNUcqNQOUem7etcrhzOanRVnuIrNqgcKZiCHunL8aextTdHeEMkY3xEgXpZWTufzDAimVmdrgeUqzT5Q==",
+      "version": "1.1.1",
+      "resolved": "https://registry.npmjs.org/@balena/udif/-/udif-1.1.1.tgz",
+      "integrity": "sha512-7o+R86ErTbg5RSsmnEDkMPvL8XqNpjg0NwFMmGxUr9f5Ukbmdke+jeJglRfztFE0LFY7RClcjRwbXvZoAbLMEg==",
       "dev": true,
       "requires": {
-        "@balena/apple-plist": "^0.0.2",
+        "@balena/apple-plist": "0.0.3",
         "apple-data-compression": "^0.4.1",
         "cyclic-32": "^1.1.0",
         "unbzip2-stream": "github:balena-io-modules/unbzip2-stream#4a54f56a25b58950f9e4277c56db2912d62242e7"
@@ -3274,15 +3274,15 @@
       "dev": true
     },
     "balena-image-fs": {
-      "version": "7.0.4",
-      "resolved": "https://registry.npmjs.org/balena-image-fs/-/balena-image-fs-7.0.4.tgz",
-      "integrity": "sha512-6jyHqP4nWd2T+XZqAzVVO9Jv+TReNAwODTSBk/k88fGUPmaAy6gHZ2+0+YxzKBQrNr0iFxtkf91UNRv68wehbg==",
+      "version": "7.0.6",
+      "resolved": "https://registry.npmjs.org/balena-image-fs/-/balena-image-fs-7.0.6.tgz",
+      "integrity": "sha512-LnLVQq9Um1/bmfgOuPRsndCpZIhHVdp7Na3Aq2sX2WUvsUhhXkpEeaer9K9kecWeVEzdqUWJARVXg82Xmke4og==",
       "dev": true,
       "requires": {
-        "ext2fs": "^3.0.3",
+        "ext2fs": "^3.0.5",
         "fatfs": "^0.10.7",
-        "file-disk": "^8.0.0",
-        "partitioninfo": "^6.0.1",
+        "file-disk": "^8.0.1",
+        "partitioninfo": "^6.0.2",
         "typed-error": "^3.2.0"
       }
     },
@@ -3418,9 +3418,9 @@
       }
     },
     "blockmap": {
-      "version": "4.0.2",
-      "resolved": "https://registry.npmjs.org/blockmap/-/blockmap-4.0.2.tgz",
-      "integrity": "sha512-jeQSY/yAc/URhOoK/odQtqaIV9wiSB5KKRfERD1pnlkyOciBQwYuZ9Lvt/v8dCdVmn53vNlMKLm4h5Esy+WcnQ==",
+      "version": "4.0.3",
+      "resolved": "https://registry.npmjs.org/blockmap/-/blockmap-4.0.3.tgz",
+      "integrity": "sha512-FNNohgfxiRKSSwxwbxYoT7qS2g6tTLevlQbLUm72Bzd31yAu+++ZJAV7lwN2MOwtiEC20lNqcsprxqdW5KTZug==",
       "dev": true,
       "requires": {
         "debug": "^4.1.1",
@@ -5787,9 +5787,9 @@
       "dev": true
     },
     "drivelist": {
-      "version": "9.2.1",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-9.2.1.tgz",
-      "integrity": "sha512-oiMDLWUOhoqvVWDvjSrWcz2I42dNuH0Pf1SZlEr86I413n7XoY/YANnqipSynpe86arBW4EbNur7VAl5h8QQ3Q==",
+      "version": "9.2.2",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-9.2.2.tgz",
+      "integrity": "sha512-kuigQbvkc9+Y6Rf36d9nv4g4PB19UUPOvxRdQE3JEtggCqdxYCPEsNm6WYOudkfdMIFnHtmbS35QowL/hI/sGQ==",
       "dev": true,
       "requires": {
         "bindings": "^1.3.0",
@@ -7357,36 +7357,36 @@
       "dev": true
     },
     "etcher-sdk": {
-      "version": "5.1.5",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-5.1.5.tgz",
-      "integrity": "sha512-TXyfxbfJ7Zkw3EWavA3nc7F13EAs8n0BogdZqh0bHhdbQ+vNl1h2+O1F6rrFYqwS01UsXw6YZMXXCOjwYOs04A==",
+      "version": "5.1.10",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-5.1.10.tgz",
+      "integrity": "sha512-tCHY6v4txJr6+3KCIYhaLem6U3ZTEiXRtchMZiuZO6X9t2w8U5ntn6RgHbs7YIixrr/17o1aRUnqPKsXrLbDHQ==",
       "dev": true,
       "requires": {
-        "@balena/udif": "^1.1.0",
+        "@balena/udif": "^1.1.1",
         "@ronomon/direct-io": "^3.0.1",
         "aws4-axios": "^1.12.0",
         "axios": "^0.19.2",
-        "balena-image-fs": "^7.0.4",
-        "blockmap": "^4.0.1",
+        "balena-image-fs": "^7.0.6",
+        "blockmap": "^4.0.3",
         "check-disk-space": "^2.1.0",
         "cyclic-32": "^1.1.0",
         "debug": "^3.1.0",
-        "drivelist": "^9.2.1",
-        "file-disk": "^8.0.0",
+        "drivelist": "^9.2.2",
+        "file-disk": "^8.0.1",
         "file-type": "^8.0.0",
-        "gzip-stream": "^1.1.1",
+        "gzip-stream": "^1.1.2",
         "lzma-native": "^6.0.0",
-        "mountutils": "^1.3.18",
-        "node-raspberrypi-usbboot": "^0.2.9",
+        "mountutils": "^1.3.20",
+        "node-raspberrypi-usbboot": "^0.2.10",
         "outdent": "^0.7.0",
-        "partitioninfo": "^6.0.1",
+        "partitioninfo": "^6.0.2",
         "rwmutex": "^1.0.0",
         "tslib": "^2.0.0",
         "unbzip2-stream": "github:balena-io-modules/unbzip2-stream#4a54f56a25b58950f9e4277c56db2912d62242e7",
         "unzip-stream": "^0.3.0",
         "xxhash": "^0.3.0",
         "yauzl": "^2.9.2",
-        "zip-part-stream": "^1.0.2"
+        "zip-part-stream": "^1.0.3"
       },
       "dependencies": {
         "debug": {
@@ -7548,9 +7548,9 @@
       }
     },
     "ext2fs": {
-      "version": "3.0.3",
-      "resolved": "https://registry.npmjs.org/ext2fs/-/ext2fs-3.0.3.tgz",
-      "integrity": "sha512-KW7pKOd0IhEDhLrZkU186zl4uh2QGOJZ474x0+dxwt9uCrUrSqV5V4jBTr4q0IMNkMvHiSrBmx4CHK1Wd5spjQ==",
+      "version": "3.0.5",
+      "resolved": "https://registry.npmjs.org/ext2fs/-/ext2fs-3.0.5.tgz",
+      "integrity": "sha512-QHnfxD7C9jjg1HR5vuZ+oe+IPTM3XwY8OAWU2y2TFUhXXOOf6J7P0M9eQFXDaEUYnT2trdYjJaJQUrldMmhfiQ==",
       "dev": true
     },
     "extend": {
@@ -7795,9 +7795,9 @@
       }
     },
     "file-disk": {
-      "version": "8.0.0",
-      "resolved": "https://registry.npmjs.org/file-disk/-/file-disk-8.0.0.tgz",
-      "integrity": "sha512-8A6YSCfrlA1ytsHWK22urpcmCgqd3v0qmVg7bdVcGl7nfDvUWbURNM8hB469DWdu/rTYcrxbx6y776fIRcchig==",
+      "version": "8.0.1",
+      "resolved": "https://registry.npmjs.org/file-disk/-/file-disk-8.0.1.tgz",
+      "integrity": "sha512-oO1bkG2RmZnMqteiAO3Uhffj/f6PJ5WY3fdVJJuI5tDbDgW3MgQvhQsDpijX81TXCbxRAKaNFdEQABTTyjL+og==",
       "dev": true,
       "requires": {
         "tslib": "^2.0.0"
@@ -8513,9 +8513,9 @@
       "dev": true
     },
     "gzip-stream": {
-      "version": "1.1.1",
-      "resolved": "https://registry.npmjs.org/gzip-stream/-/gzip-stream-1.1.1.tgz",
-      "integrity": "sha512-V4FlTwvLpd5ZPcIjUODt/NrP+yhX6pKNzKYahrcSo6WLeLz5Rvlta00DZ3D13YL7QeOC3D7IYPUGKeuN3x9cEg==",
+      "version": "1.1.2",
+      "resolved": "https://registry.npmjs.org/gzip-stream/-/gzip-stream-1.1.2.tgz",
+      "integrity": "sha512-r1nVZJGbHivD0RxzP+aGV4fs08dzh/IN5MCSR0bCa4FEPo7+azLiypR93f47NqzLZt7MSGf2f8vQ1PbfT3oNIg==",
       "dev": true,
       "requires": {
         "@balena/node-crc-utils": "^2.0.0",
@@ -11208,9 +11208,9 @@
       "dev": true
     },
     "mountutils": {
-      "version": "1.3.19",
-      "resolved": "https://registry.npmjs.org/mountutils/-/mountutils-1.3.19.tgz",
-      "integrity": "sha512-U2ZA26fg43cGxZHh6nxHPIUvkZWyFVbsO/5QDFpjgZHhZRk4oD4jJlKuo/X42fSyMvJ2+3jKRKPmBh/cxZ0WQw==",
+      "version": "1.3.20",
+      "resolved": "https://registry.npmjs.org/mountutils/-/mountutils-1.3.20.tgz",
+      "integrity": "sha512-T61cRGb6xDs8yBvzzI+DiYMEUuWVaVw9hZABiTHy4gxfaFJsg8OwgaLMzmH2/SCcxsEUNGO1ACx7Cq7TJ3AcEA==",
       "dev": true,
       "requires": {
         "bindings": "^1.3.0",
@@ -11734,9 +11734,9 @@
       }
     },
     "node-raspberrypi-usbboot": {
-      "version": "0.2.9",
-      "resolved": "https://registry.npmjs.org/node-raspberrypi-usbboot/-/node-raspberrypi-usbboot-0.2.9.tgz",
-      "integrity": "sha512-2HJbtb+yfmKjzVTCAfoIg0/Ur3kAqVNdQGx0U/hnOcgpZ22SXzSmsvr69NgRa4QqdCboXPfKS8mJgefBtXYNbg==",
+      "version": "0.2.10",
+      "resolved": "https://registry.npmjs.org/node-raspberrypi-usbboot/-/node-raspberrypi-usbboot-0.2.10.tgz",
+      "integrity": "sha512-wLl6DMv707iQdxNFVjj09y7+Opgpiazuoil3ljY6c91ci15GXFpuajBGoZIseJPqoWu3uYbvmODO9slma6bVJQ==",
       "dev": true,
       "requires": {
         "@balena.io/usb": "^1.3.12",
@@ -12445,12 +12445,12 @@
       "dev": true
     },
     "partitioninfo": {
-      "version": "6.0.1",
-      "resolved": "https://registry.npmjs.org/partitioninfo/-/partitioninfo-6.0.1.tgz",
-      "integrity": "sha512-hmLiVz5G6GPzd1TsAuHTHDoSrKqb7cNr2zhJ+fwMhCg2pRoz7vftaP9kL47pMwusO0jWUwkw62oKfHfv0Wa5+A==",
+      "version": "6.0.2",
+      "resolved": "https://registry.npmjs.org/partitioninfo/-/partitioninfo-6.0.2.tgz",
+      "integrity": "sha512-LxmwiC0tSqlTvjL7SYH0MQYRwQkUTfcm55mZPG8+jPNmhhYfhr7QiYr6FUAaF3ixHlhF5pV/YcSLgp8DXq+jYQ==",
       "dev": true,
       "requires": {
-        "file-disk": "^8.0.0",
+        "file-disk": "^8.0.1",
         "gpt": "^2.0.4",
         "mbr": "^1.1.3",
         "tslib": "^2.0.0",
@@ -17468,9 +17468,9 @@
       "dev": true
     },
     "zip-part-stream": {
-      "version": "1.0.2",
-      "resolved": "https://registry.npmjs.org/zip-part-stream/-/zip-part-stream-1.0.2.tgz",
-      "integrity": "sha512-2dxIug2ydhnpv1YGRuU7muTpxx4+hoLaQoVwfysaRzWF1GV2s5BDqlTuiQQda/vdfMtKYIamSJffps+0n4QJsw==",
+      "version": "1.0.3",
+      "resolved": "https://registry.npmjs.org/zip-part-stream/-/zip-part-stream-1.0.3.tgz",
+      "integrity": "sha512-JJm6HvhvUCk7CHusOgRMvqYtMDVGj6HOQdTGxEs+ckWPysGScdZW3Y95pNZFeLZEgqbSTiDmaurLIH8osqdZiQ==",
       "dev": true,
       "requires": {
         "@balena/node-crc-utils": "^2.0.0",
