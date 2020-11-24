@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import { delay } from 'bluebird';
 import { Drive as DrivelistDrive } from 'drivelist';
 import * as sdk from 'etcher-sdk';
 import { cleanupTmpFiles } from 'etcher-sdk/build/tmp';
-import * as _ from 'lodash';
 import * as ipc from 'node-ipc';
+import { totalmem } from 'os';
 
-import { File, Http } from 'etcher-sdk/build/source-destination';
+import { BlockDevice, File, Http } from 'etcher-sdk/build/source-destination';
 import { toJSON } from '../../shared/errors';
 import { GENERAL_ERROR, SUCCESS } from '../../shared/exit-codes';
-import { SourceOptions } from '../app/components/source-selector/source-selector';
+import { delay } from '../../shared/utils';
+import { SourceMetadata } from '../app/components/source-selector/source-selector';
 
 ipc.config.id = process.env.IPC_CLIENT_ID as string;
 ipc.config.socketRoot = process.env.IPC_SOCKET_ROOT as string;
@@ -55,8 +55,9 @@ function log(message: string) {
 /**
  * @summary Terminate the child writer process
  */
-function terminate(exitCode: number) {
+async function terminate(exitCode: number) {
 	ipc.disconnect(IPC_SERVER_ID);
+	await cleanupTmpFiles(Date.now());
 	process.nextTick(() => {
 		process.exit(exitCode || SUCCESS);
 	});
@@ -68,17 +69,28 @@ function terminate(exitCode: number) {
 async function handleError(error: Error) {
 	ipc.of[IPC_SERVER_ID].emit('error', toJSON(error));
 	await delay(DISCONNECT_DELAY);
-	terminate(GENERAL_ERROR);
+	await terminate(GENERAL_ERROR);
 }
 
-interface WriteResult {
-	bytesWritten: number;
-	devices: {
+export interface FlashError extends Error {
+	description: string;
+	device: string;
+	code: string;
+}
+
+export interface WriteResult {
+	bytesWritten?: number;
+	devices?: {
 		failed: number;
 		successful: number;
 	};
-	errors: Array<Error & { device: string }>;
-	sourceMetadata: sdk.sourceDestination.Metadata;
+	errors: FlashError[];
+	sourceMetadata?: sdk.sourceDestination.Metadata;
+}
+
+export interface FlashResults extends WriteResult {
+	skip?: boolean;
+	cancelled?: boolean;
 }
 
 /**
@@ -119,7 +131,11 @@ async function writeAndValidate({
 		onProgress,
 		verify,
 		trim: autoBlockmapping,
-		numBuffers: 32,
+		numBuffers: Math.min(
+			2 + (destinations.length - 1) * 32,
+			256,
+			Math.floor(totalmem() / 1024 ** 2 / 8),
+		),
 		decompressFirst,
 	});
 	const result: WriteResult = {
@@ -132,21 +148,21 @@ async function writeAndValidate({
 		sourceMetadata,
 	};
 	for (const [destination, error] of failures) {
-		const err = error as Error & { device: string };
-		err.device = (destination as sdk.sourceDestination.BlockDevice).device;
+		const err = error as FlashError;
+		const drive = destination as sdk.sourceDestination.BlockDevice;
+		err.device = drive.device;
+		err.description = drive.description;
 		result.errors.push(err);
 	}
 	return result;
 }
 
 interface WriteOptions {
-	imagePath: string;
+	image: SourceMetadata;
 	destinations: DrivelistDrive[];
 	unmountOnSuccess: boolean;
-	validateWriteOnSuccess: boolean;
 	autoBlockmapping: boolean;
 	decompressFirst: boolean;
-	source: SourceOptions;
 	SourceType: string;
 }
 
@@ -160,22 +176,22 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 	// no flashing information is available, then it will
 	// assume that the child died halfway through.
 
-	process.once('SIGINT', () => {
-		terminate(SUCCESS);
+	process.once('SIGINT', async () => {
+		await terminate(SUCCESS);
 	});
 
-	process.once('SIGTERM', () => {
-		terminate(SUCCESS);
+	process.once('SIGTERM', async () => {
+		await terminate(SUCCESS);
 	});
 
 	// The IPC server failed. Abort.
-	ipc.of[IPC_SERVER_ID].on('error', () => {
-		terminate(SUCCESS);
+	ipc.of[IPC_SERVER_ID].on('error', async () => {
+		await terminate(SUCCESS);
 	});
 
 	// The IPC server was disconnected. Abort.
-	ipc.of[IPC_SERVER_ID].on('disconnect', () => {
-		terminate(SUCCESS);
+	ipc.of[IPC_SERVER_ID].on('disconnect', async () => {
+		await terminate(SUCCESS);
 	});
 
 	ipc.of[IPC_SERVER_ID].on('write', async (options: WriteOptions) => {
@@ -200,10 +216,19 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 			log('Abort');
 			ipc.of[IPC_SERVER_ID].emit('abort');
 			await delay(DISCONNECT_DELAY);
-			terminate(exitCode);
+			await terminate(exitCode);
+		};
+
+		const onSkip = async () => {
+			log('Skip validation');
+			ipc.of[IPC_SERVER_ID].emit('skip');
+			await delay(DISCONNECT_DELAY);
+			await terminate(exitCode);
 		};
 
 		ipc.of[IPC_SERVER_ID].on('cancel', onAbort);
+
+		ipc.of[IPC_SERVER_ID].on('skip', onSkip);
 
 		/**
 		 * @summary Failure handler (non-fatal errors)
@@ -213,7 +238,7 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 		 * writer.on('fail', onFail)
 		 */
 		const onFail = (
-			destination: sdk.sourceDestination.BlockDevice,
+			destination: sdk.sourceDestination.SourceDestination,
 			error: Error,
 		) => {
 			ipc.of[IPC_SERVER_ID].emit('fail', {
@@ -224,14 +249,14 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 			});
 		};
 
-		const destinations = _.map(options.destinations, 'device');
-		log(`Image: ${options.imagePath}`);
+		const destinations = options.destinations.map((d) => d.device);
+		const imagePath = options.image.path;
+		log(`Image: ${imagePath}`);
 		log(`Devices: ${destinations.join(', ')}`);
 		log(`Umount on success: ${options.unmountOnSuccess}`);
-		log(`Validate on success: ${options.validateWriteOnSuccess}`);
 		log(`Auto blockmapping: ${options.autoBlockmapping}`);
 		log(`Decompress first: ${options.decompressFirst}`);
-		const dests = _.map(options.destinations, (destination) => {
+		const dests = options.destinations.map((destination) => {
 			return new sdk.sourceDestination.BlockDevice({
 				drive: destination,
 				unmountOnSuccess: options.unmountOnSuccess,
@@ -240,31 +265,38 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 			});
 		});
 		const { SourceType } = options;
-		let source;
-		if (SourceType === File.name) {
-			source = new File({
-				path: options.imagePath,
-			});
-		} else {
-			source = new Http({ url: options.imagePath });
-		}
 		try {
+			let source;
+			if (options.image.drive) {
+				source = new BlockDevice({
+					drive: options.image.drive,
+					direct: !options.autoBlockmapping,
+				});
+			} else {
+				if (SourceType === File.name) {
+					source = new File({
+						path: imagePath,
+					});
+				} else {
+					source = new Http({ url: imagePath, avoidRandomAccess: true });
+				}
+			}
 			const results = await writeAndValidate({
 				source,
 				destinations: dests,
-				verify: options.validateWriteOnSuccess,
+				verify: true,
 				autoBlockmapping: options.autoBlockmapping,
 				decompressFirst: options.decompressFirst,
 				onProgress,
 				onFail,
 			});
 			log(`Finish: ${results.bytesWritten}`);
-			results.errors = _.map(results.errors, (error) => {
+			results.errors = results.errors.map((error) => {
 				return toJSON(error);
 			});
 			ipc.of[IPC_SERVER_ID].emit('done', { results });
 			await delay(DISCONNECT_DELAY);
-			terminate(exitCode);
+			await terminate(exitCode);
 		} catch (error) {
 			log(`Error: ${error.message}`);
 			exitCode = GENERAL_ERROR;

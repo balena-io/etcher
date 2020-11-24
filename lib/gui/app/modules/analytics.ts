@@ -18,7 +18,7 @@ import * as _ from 'lodash';
 import * as resinCorvus from 'resin-corvus/browser';
 
 import * as packageJSON from '../../../../package.json';
-import { getConfig, hasProps } from '../../../shared/utils';
+import { getConfig } from '../../../shared/utils';
 import * as settings from '../models/settings';
 import { store } from '../models/store';
 
@@ -55,7 +55,8 @@ async function initConfig() {
 	await installCorvus();
 	let validatedConfig = null;
 	try {
-		const config = await getConfig();
+		const configUrl = await settings.get('configUrl');
+		const config = await getConfig(configUrl);
 		const mixpanel = _.get(config, ['analytics', 'mixpanel'], {});
 		mixpanelSample = mixpanel.probability || DEFAULT_PROBABILITY;
 		if (isClientEligible(mixpanelSample)) {
@@ -88,7 +89,7 @@ function validateMixpanelConfig(config: {
 	const mixpanelConfig = {
 		api_host: 'https://api.mixpanel.com',
 	};
-	if (hasProps(config, ['HTTP_PROTOCOL', 'api_host'])) {
+	if (config.HTTP_PROTOCOL !== undefined && config.api_host !== undefined) {
 		mixpanelConfig.api_host = `${config.HTTP_PROTOCOL}://${config.api_host}`;
 	}
 	return mixpanelConfig;

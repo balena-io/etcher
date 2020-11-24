@@ -16,6 +16,7 @@
 
 import * as Immutable from 'immutable';
 import * as _ from 'lodash';
+import { basename } from 'path';
 import * as redux from 'redux';
 import { v4 as uuidV4 } from 'uuid';
 
@@ -62,7 +63,7 @@ export const DEFAULT_STATE = Immutable.fromJS({
 	},
 	isFlashing: false,
 	devicePaths: [],
-	failedDevicePaths: [],
+	failedDeviceErrors: [],
 	flashResults: {},
 	flashState: {
 		active: 0,
@@ -79,16 +80,16 @@ export const DEFAULT_STATE = Immutable.fromJS({
  */
 export enum Actions {
 	SET_DEVICE_PATHS,
-	SET_FAILED_DEVICE_PATHS,
-	SET_AVAILABLE_DRIVES,
+	SET_FAILED_DEVICE_ERRORS,
+	SET_AVAILABLE_TARGETS,
 	SET_FLASH_STATE,
 	RESET_FLASH_STATE,
 	SET_FLASHING_FLAG,
 	UNSET_FLASHING_FLAG,
-	SELECT_DRIVE,
-	SELECT_IMAGE,
-	DESELECT_DRIVE,
-	DESELECT_IMAGE,
+	SELECT_TARGET,
+	SELECT_SOURCE,
+	DESELECT_TARGET,
+	DESELECT_SOURCE,
 	SET_APPLICATION_SESSION_UUID,
 	SET_FLASHING_WORKFLOW_UUID,
 }
@@ -116,7 +117,7 @@ function storeReducer(
 	action: Action,
 ): typeof DEFAULT_STATE {
 	switch (action.type) {
-		case Actions.SET_AVAILABLE_DRIVES: {
+		case Actions.SET_AVAILABLE_TARGETS: {
 			// Type: action.data : Array<DriveObject>
 
 			if (!action.data) {
@@ -133,9 +134,16 @@ function storeReducer(
 				});
 			}
 
+			// Drives order is a list of devicePaths
+			const drivesOrder = settings.getSync('drivesOrder') ?? [];
+
 			drives = _.sortBy(drives, [
+				// System drives last
+				(d) => !!d.isSystem,
 				// Devices with no devicePath first (usbboot)
 				(d) => !!d.devicePath,
+				// Sort as defined in the drivesOrder setting if there is one (only for Linux with udev)
+				(d) => drivesOrder.indexOf(basename(d.devicePath || '')),
 				// Then sort by devicePath (only available on Linux with udev) or device
 				(d) => d.devicePath || d.device,
 			]);
@@ -156,7 +164,7 @@ function storeReducer(
 					) {
 						// Deselect this drive gone from availableDrives
 						return storeReducer(accState, {
-							type: Actions.DESELECT_DRIVE,
+							type: Actions.DESELECT_TARGET,
 							data: device,
 						});
 					}
@@ -167,7 +175,7 @@ function storeReducer(
 			);
 
 			const shouldAutoselectAll = Boolean(
-				settings.getSync('disableExplicitDriveSelection'),
+				settings.getSync('autoSelectAllDrives'),
 			);
 			const AUTOSELECT_DRIVE_COUNT = 1;
 			const nonStaleSelectedDevices = nonStaleNewState
@@ -189,29 +197,24 @@ function storeReducer(
 					drives,
 					(accState, drive) => {
 						if (
-							_.every([
-								constraints.isDriveValid(drive, image),
-								constraints.isDriveSizeRecommended(drive, image),
-
-								// We don't want to auto-select large drives
-								!constraints.isDriveSizeLarge(drive),
-
-								// We don't want to auto-select system drives,
-								// even when "unsafe mode" is enabled
-								!constraints.isSystemDrive(drive),
-							]) ||
-							(shouldAutoselectAll && constraints.isDriveValid(drive, image))
+							constraints.isDriveValid(drive, image) &&
+							!drive.isReadOnly &&
+							constraints.isDriveSizeRecommended(drive, image) &&
+							// We don't want to auto-select large drives execpt is autoSelectAllDrives is true
+							(!constraints.isDriveSizeLarge(drive) || shouldAutoselectAll) &&
+							// We don't want to auto-select system drives
+							!constraints.isSystemDrive(drive)
 						) {
 							// Auto-select this drive
 							return storeReducer(accState, {
-								type: Actions.SELECT_DRIVE,
+								type: Actions.SELECT_TARGET,
 								data: drive.device,
 							});
 						}
 
 						// Deselect this drive in case it still is selected
 						return storeReducer(accState, {
-							type: Actions.DESELECT_DRIVE,
+							type: Actions.DESELECT_TARGET,
 							data: drive.device,
 						});
 					},
@@ -267,7 +270,7 @@ function storeReducer(
 				.set('flashState', DEFAULT_STATE.get('flashState'))
 				.set('flashResults', DEFAULT_STATE.get('flashResults'))
 				.set('devicePaths', DEFAULT_STATE.get('devicePaths'))
-				.set('failedDevicePaths', DEFAULT_STATE.get('failedDevicePaths'))
+				.set('failedDeviceErrors', DEFAULT_STATE.get('failedDeviceErrors'))
 				.set(
 					'lastAverageFlashingSpeed',
 					DEFAULT_STATE.get('lastAverageFlashingSpeed'),
@@ -293,6 +296,7 @@ function storeReducer(
 
 			_.defaults(action.data, {
 				cancelled: false,
+				skip: false,
 			});
 
 			if (!_.isBoolean(action.data.cancelled)) {
@@ -333,13 +337,19 @@ function storeReducer(
 				);
 			}
 
+			if (action.data.skip) {
+				return state
+					.set('isFlashing', false)
+					.set('flashResults', Immutable.fromJS(action.data));
+			}
+
 			return state
 				.set('isFlashing', false)
 				.set('flashResults', Immutable.fromJS(action.data))
 				.set('flashState', DEFAULT_STATE.get('flashState'));
 		}
 
-		case Actions.SELECT_DRIVE: {
+		case Actions.SELECT_TARGET: {
 			// Type: action.data : String
 
 			const device = action.data;
@@ -389,10 +399,12 @@ function storeReducer(
 		// with image-stream / supported-formats, and have *one*
 		// place where all the image extension / format handling
 		// takes place, to avoid having to check 2+ locations with different logic
-		case Actions.SELECT_IMAGE: {
+		case Actions.SELECT_SOURCE: {
 			// Type: action.data : ImageObject
 
-			verifyNoNilFields(action.data, selectImageNoNilFields, 'image');
+			if (!action.data.drive) {
+				verifyNoNilFields(action.data, selectImageNoNilFields, 'image');
+			}
 
 			if (!_.isString(action.data.path)) {
 				throw errors.createError({
@@ -454,7 +466,7 @@ function storeReducer(
 						!constraints.isDriveSizeRecommended(drive, action.data)
 					) {
 						return storeReducer(accState, {
-							type: Actions.DESELECT_DRIVE,
+							type: Actions.DESELECT_TARGET,
 							data: device,
 						});
 					}
@@ -465,7 +477,7 @@ function storeReducer(
 			).setIn(['selection', 'image'], Immutable.fromJS(action.data));
 		}
 
-		case Actions.DESELECT_DRIVE: {
+		case Actions.DESELECT_TARGET: {
 			// Type: action.data : String
 
 			if (!action.data) {
@@ -489,7 +501,7 @@ function storeReducer(
 			);
 		}
 
-		case Actions.DESELECT_IMAGE: {
+		case Actions.DESELECT_SOURCE: {
 			return state.deleteIn(['selection', 'image']);
 		}
 
@@ -505,8 +517,8 @@ function storeReducer(
 			return state.set('devicePaths', action.data);
 		}
 
-		case Actions.SET_FAILED_DEVICE_PATHS: {
-			return state.set('failedDevicePaths', action.data);
+		case Actions.SET_FAILED_DEVICE_ERRORS: {
+			return state.set('failedDeviceErrors', action.data);
 		}
 
 		default: {

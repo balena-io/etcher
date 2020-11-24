@@ -14,25 +14,22 @@
  * limitations under the License.
  */
 
-import { faCog, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { sourceDestination } from 'etcher-sdk';
-import * as _ from 'lodash';
+import CogSvg from '@fortawesome/fontawesome-free/svgs/solid/cog.svg';
+import QuestionCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/question-circle.svg';
+
 import * as path from 'path';
+import * as prettyBytes from 'pretty-bytes';
 import * as React from 'react';
 import { Flex } from 'rendition';
 import styled from 'styled-components';
 
-import { FeaturedProject } from '../../components/featured-project/featured-project';
 import FinishPage from '../../components/finish/finish';
 import { ReducedFlashingInfos } from '../../components/reduced-flashing-infos/reduced-flashing-infos';
-import { SafeWebview } from '../../components/safe-webview/safe-webview';
 import { SettingsModal } from '../../components/settings/settings';
 import {
-	SourceOptions,
+	SourceMetadata,
 	SourceSelector,
 } from '../../components/source-selector/source-selector';
-import { SVGIcon } from '../../components/svg-icon/svg-icon';
 import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
 import * as settings from '../../models/settings';
@@ -42,12 +39,15 @@ import {
 	IconButton as BaseIcon,
 	ThemedProvider,
 } from '../../styled-components';
-import { middleEllipsis } from '../../utils/middle-ellipsis';
 
-import { bytesToClosestUnit } from '../../../../shared/units';
-
-import { DriveSelector } from './DriveSelector';
+import {
+	TargetSelector,
+	getDriveListLabel,
+} from '../../components/target-selector/target-selector';
 import { FlashStep } from './Flash';
+
+import EtcherSvg from '../../../assets/etcher.svg';
+import { SafeWebview } from '../../components/safe-webview/safe-webview';
 
 const Icon = styled(BaseIcon)`
 	margin-right: 20px;
@@ -67,31 +67,54 @@ function getDrivesTitle() {
 	return `${drives.length} Targets`;
 }
 
-function getImageBasename() {
-	if (!selectionState.hasImage()) {
+function getImageBasename(image?: SourceMetadata) {
+	if (image === undefined) {
 		return '';
 	}
 
-	const selectionImageName = selectionState.getImageName();
-	const imageBasename = path.basename(selectionState.getImagePath());
-	return selectionImageName || imageBasename;
+	if (image.drive) {
+		return image.drive.description;
+	}
+	const imageBasename = path.basename(image.path);
+	return image.name || imageBasename;
 }
+
+const StepBorder = styled.div<{
+	disabled: boolean;
+	left?: boolean;
+	right?: boolean;
+}>`
+	position: relative;
+	height: 2px;
+	background-color: ${(props) =>
+		props.disabled
+			? props.theme.colors.dark.disabled.foreground
+			: props.theme.colors.dark.foreground};
+	width: 120px;
+	top: 19px;
+
+	left: ${(props) => (props.left ? '-67px' : undefined)};
+	margin-right: ${(props) => (props.left ? '-120px' : undefined)};
+	right: ${(props) => (props.right ? '-67px' : undefined)};
+	margin-left: ${(props) => (props.right ? '-120px' : undefined)};
+`;
 
 interface MainPageStateFromStore {
 	isFlashing: boolean;
 	hasImage: boolean;
 	hasDrive: boolean;
-	imageLogo: string;
-	imageSize: number;
-	imageName: string;
+	imageLogo?: string;
+	imageSize?: number;
+	imageName?: string;
 	driveTitle: string;
+	driveLabel: string;
 }
 
 interface MainPageState {
 	current: 'main' | 'success';
 	isWebviewShowing: boolean;
 	hideSettings: boolean;
-	source: SourceOptions;
+	featuredProjectURL?: string;
 }
 
 export class MainPage extends React.Component<
@@ -104,85 +127,203 @@ export class MainPage extends React.Component<
 			current: 'main',
 			isWebviewShowing: false,
 			hideSettings: true,
-			source: {
-				imagePath: '',
-				SourceType: sourceDestination.File,
-			},
 			...this.stateHelper(),
 		};
 	}
 
 	private stateHelper(): MainPageStateFromStore {
+		const image = selectionState.getImage();
 		return {
 			isFlashing: flashState.isFlashing(),
 			hasImage: selectionState.hasImage(),
 			hasDrive: selectionState.hasDrive(),
-			imageLogo: selectionState.getImageLogo(),
-			imageSize: selectionState.getImageSize(),
-			imageName: getImageBasename(),
+			imageLogo: image?.logo,
+			imageSize: image?.size,
+			imageName: getImageBasename(selectionState.getImage()),
 			driveTitle: getDrivesTitle(),
+			driveLabel: getDriveListLabel(),
 		};
 	}
 
-	public componentDidMount() {
+	private async getFeaturedProjectURL() {
+		const url = new URL(
+			(await settings.get('featuredProjectEndpoint')) ||
+				'https://assets.balena.io/etcher-featured/index.html',
+		);
+		url.searchParams.append('borderRight', 'false');
+		url.searchParams.append('darkBackground', 'true');
+		return url.toString();
+	}
+
+	public async componentDidMount() {
 		observe(() => {
 			this.setState(this.stateHelper());
 		});
+		this.setState({ featuredProjectURL: await this.getFeaturedProjectURL() });
 	}
 
 	private renderMain() {
+		const state = flashState.getFlashState();
 		const shouldDriveStepBeDisabled = !this.state.hasImage;
 		const shouldFlashStepBeDisabled =
 			!this.state.hasImage || !this.state.hasDrive;
+		const notFlashingOrSplitView =
+			!this.state.isFlashing || !this.state.isWebviewShowing;
 		return (
-			<>
-				<header
-					id="app-header"
-					style={{
-						width: '100%',
-						padding: '13px 14px',
-						textAlign: 'center',
-					}}
-				>
-					<span
-						style={{
-							cursor: 'pointer',
-						}}
-						onClick={() =>
-							openExternal('https://www.balena.io/etcher?ref=etcher_footer')
-						}
-						tabIndex={100}
-					>
-						<SVGIcon paths={['etcher.svg']} width="123px" height="22px" />
-					</span>
+			<Flex
+				m={`110px ${this.state.isWebviewShowing ? 35 : 55}px`}
+				justifyContent="space-between"
+			>
+				{notFlashingOrSplitView && (
+					<>
+						<SourceSelector flashing={this.state.isFlashing} />
+						<Flex>
+							<StepBorder disabled={shouldDriveStepBeDisabled} left />
+						</Flex>
+						<TargetSelector
+							disabled={shouldDriveStepBeDisabled}
+							hasDrive={this.state.hasDrive}
+							flashing={this.state.isFlashing}
+						/>
+						<Flex>
+							<StepBorder disabled={shouldFlashStepBeDisabled} right />
+						</Flex>
+					</>
+				)}
 
-					<span
+				{this.state.isFlashing && this.state.isWebviewShowing && (
+					<Flex
 						style={{
-							float: 'right',
+							position: 'absolute',
+							top: 0,
+							left: 0,
+							width: '36.2vw',
+							height: '100vh',
+							zIndex: 1,
+							boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.2)',
+						}}
+					>
+						<ReducedFlashingInfos
+							imageLogo={this.state.imageLogo}
+							imageName={this.state.imageName}
+							imageSize={
+								typeof this.state.imageSize === 'number'
+									? prettyBytes(this.state.imageSize)
+									: ''
+							}
+							driveTitle={this.state.driveTitle}
+							driveLabel={this.state.driveLabel}
+							style={{
+								position: 'absolute',
+								color: '#fff',
+								left: 35,
+								top: 72,
+							}}
+						/>
+					</Flex>
+				)}
+				{this.state.isFlashing && this.state.featuredProjectURL && (
+					<SafeWebview
+						src={this.state.featuredProjectURL}
+						onWebviewShow={(isWebviewShowing: boolean) => {
+							this.setState({ isWebviewShowing });
+						}}
+						style={{
 							position: 'absolute',
 							right: 0,
+							bottom: 0,
+							width: '63.8vw',
+							height: '100vh',
 						}}
-					>
+					/>
+				)}
+
+				<FlashStep
+					goToSuccess={() => this.setState({ current: 'success' })}
+					shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
+					isFlashing={this.state.isFlashing}
+					step={state.type}
+					percentage={state.percentage}
+					position={state.position}
+					failed={state.failed}
+					speed={state.speed}
+					eta={state.eta}
+					style={{ zIndex: 1 }}
+				/>
+			</Flex>
+		);
+	}
+
+	private renderSuccess() {
+		return (
+			<FinishPage
+				goToMain={() => {
+					flashState.resetState();
+					this.setState({ current: 'main' });
+				}}
+			/>
+		);
+	}
+
+	public render() {
+		return (
+			<ThemedProvider style={{ height: '100%', width: '100%' }}>
+				<Flex
+					justifyContent="space-between"
+					alignItems="center"
+					paddingTop="14px"
+					style={{
+						// Allow window to be dragged from header
+						// @ts-ignore
+						'-webkit-app-region': 'drag',
+						position: 'relative',
+						zIndex: 1,
+					}}
+				>
+					<Flex width="100%" />
+					<Flex width="100%" alignItems="center" justifyContent="center">
+						<EtcherSvg
+							width="123px"
+							height="22px"
+							style={{
+								cursor: 'pointer',
+							}}
+							onClick={() =>
+								openExternal('https://www.balena.io/etcher?ref=etcher_footer')
+							}
+							tabIndex={100}
+						/>
+					</Flex>
+
+					<Flex width="100%" alignItems="center" justifyContent="flex-end">
 						<Icon
-							icon={<FontAwesomeIcon icon={faCog} />}
+							icon={<CogSvg height="1em" fill="currentColor" />}
 							plain
 							tabIndex={5}
 							onClick={() => this.setState({ hideSettings: false })}
+							style={{
+								// Make touch events click instead of dragging
+								'-webkit-app-region': 'no-drag',
+							}}
 						/>
 						{!settings.getSync('disableExternalLinks') && (
 							<Icon
-								icon={<FontAwesomeIcon icon={faQuestionCircle} />}
+								icon={<QuestionCircleSvg height="1em" fill="currentColor" />}
 								onClick={() =>
 									openExternal(
-										selectionState.getImageSupportUrl() ||
+										selectionState.getImage()?.supportUrl ||
 											'https://github.com/balena-io/etcher/blob/master/SUPPORT.md',
 									)
 								}
 								tabIndex={6}
+								style={{
+									// Make touch events click instead of dragging
+									'-webkit-app-region': 'no-drag',
+								}}
 							/>
 						)}
-					</span>
-				</header>
+					</Flex>
+				</Flex>
 				{this.state.hideSettings ? null : (
 					<SettingsModal
 						toggleModal={(value: boolean) => {
@@ -190,89 +331,6 @@ export class MainPage extends React.Component<
 						}}
 					/>
 				)}
-
-				<Flex
-					className="page-main row around-xs"
-					style={{ margin: '110px 50px' }}
-				>
-					<div className="col-xs">
-						<SourceSelector
-							flashing={this.state.isFlashing}
-							afterSelected={(source: SourceOptions) =>
-								this.setState({ source })
-							}
-						/>
-					</div>
-
-					<div className="col-xs">
-						<DriveSelector
-							webviewShowing={this.state.isWebviewShowing}
-							disabled={shouldDriveStepBeDisabled}
-							nextStepDisabled={shouldFlashStepBeDisabled}
-							hasDrive={this.state.hasDrive}
-							flashing={this.state.isFlashing}
-						/>
-					</div>
-
-					{this.state.isFlashing && (
-						<div
-							className={`featured-project ${
-								this.state.isFlashing && this.state.isWebviewShowing
-									? 'fp-visible'
-									: ''
-							}`}
-						>
-							<FeaturedProject
-								onWebviewShow={(isWebviewShowing: boolean) => {
-									this.setState({ isWebviewShowing });
-								}}
-							/>
-						</div>
-					)}
-
-					<div>
-						<ReducedFlashingInfos
-							imageLogo={this.state.imageLogo}
-							imageName={middleEllipsis(this.state.imageName, 16)}
-							imageSize={
-								_.isNumber(this.state.imageSize)
-									? (bytesToClosestUnit(this.state.imageSize) as string)
-									: ''
-							}
-							driveTitle={middleEllipsis(this.state.driveTitle, 16)}
-							shouldShow={this.state.isFlashing && this.state.isWebviewShowing}
-						/>
-					</div>
-
-					<div className="col-xs">
-						<FlashStep
-							goToSuccess={() => this.setState({ current: 'success' })}
-							shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
-							source={this.state.source}
-						/>
-					</div>
-				</Flex>
-			</>
-		);
-	}
-
-	private renderSuccess() {
-		return (
-			<div className="section-loader isFinish">
-				<FinishPage
-					goToMain={() => {
-						flashState.resetState();
-						this.setState({ current: 'main' });
-					}}
-				/>
-				<SafeWebview src="https://www.balena.io/etcher/success-banner/" />
-			</div>
-		);
-	}
-
-	public render() {
-		return (
-			<ThemedProvider style={{ height: '100%', width: '100%' }}>
 				{this.state.current === 'main'
 					? this.renderMain()
 					: this.renderSuccess()}

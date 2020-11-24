@@ -1,18 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="27px" height="40px" viewBox="0 0 27 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
-    <title>Combined Shape</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Steps" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Step-3/flash-image/flash-default-Copy" transform="translate(-692.000000, -168.000000)" fill="#FFFFFF">
-            <g id="main-UI" transform="translate(62.000000, 55.000000)">
-                <g id="Group-2" transform="translate(91.000000, 111.000000)">
-                    <g id="Group-8" transform="translate(467.000000, 2.000000)">
-                        <path d="M88.0046509,10.6971076 L93.1286727,0 L80.7751206,0 L72,18.3192841 L83.6485427,18.3192841 L80.1109889,40 L98.9145135,10.6334372 L88.0046509,10.6971076 Z" id="Combined-Shape"></path>
-                    </g>
-                </g>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg width="27" height="40" xmlns="http://www.w3.org/2000/svg"><path d="M16.005 10.697L21.129 0H8.775L0 18.32h11.649L8.11 40l18.804-29.367-10.91.064z" fill="#FFF" fill-rule="evenodd"/></svg>

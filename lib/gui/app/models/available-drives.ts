@@ -14,21 +14,20 @@
  * limitations under the License.
  */
 
-import * as _ from 'lodash';
-
+import { DrivelistDrive } from '../../../shared/drive-constraints';
 import { Actions, store } from './store';
 
 export function hasAvailableDrives() {
-	return !_.isEmpty(getDrives());
+	return getDrives().length > 0;
 }
 
 export function setDrives(drives: any[]) {
 	store.dispatch({
-		type: Actions.SET_AVAILABLE_DRIVES,
+		type: Actions.SET_AVAILABLE_TARGETS,
 		data: drives,
 	});
 }
 
-export function getDrives(): any[] {
+export function getDrives(): DrivelistDrive[] {
 	return store.getState().toJS().availableDrives;
 }

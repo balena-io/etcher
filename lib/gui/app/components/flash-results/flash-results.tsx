@@ -14,74 +14,223 @@
  * limitations under the License.
  */
 
+import CircleSvg from '@fortawesome/fontawesome-free/svgs/solid/circle.svg';
+import CheckCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/check-circle.svg';
+import TimesCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/times-circle.svg';
 import * as _ from 'lodash';
+import outdent from 'outdent';
 import * as React from 'react';
-import { Txt } from 'rendition';
+import { Flex, FlexProps, Link, TableColumn, Txt } from 'rendition';
 import styled from 'styled-components';
-import { left, position, space, top } from 'styled-system';
 
 import { progress } from '../../../../shared/messages';
 import { bytesToMegabytes } from '../../../../shared/units';
-import { Underline } from '../../styled-components';
 
-const Div = styled.div<any>`
-  ${position}
-  ${top}
-  ${left}
-  ${space}
+import FlashSvg from '../../../assets/flash.svg';
+import { getDrives } from '../../models/available-drives';
+import { resetState } from '../../models/flash-state';
+import * as selection from '../../models/selection-state';
+import { middleEllipsis } from '../../utils/middle-ellipsis';
+import { Modal, Table } from '../../styled-components';
+
+const ErrorsTable = styled((props) => <Table<FlashError> {...props} />)`
+	&&& [data-display='table-head'],
+	&&& [data-display='table-body'] {
+		> [data-display='table-row'] {
+			> [data-display='table-cell'] {
+				&:first-child {
+					width: 30%;
+				}
+
+				&:nth-child(2) {
+					width: 20%;
+				}
+
+				&:last-child {
+					width: 50%;
+				}
+			}
+		}
+	}
 `;
+const DoneIcon = (props: {
+	skipped: boolean;
+	color: string;
+	allFailed: boolean;
+}) => {
+	const svgProps = {
+		width: '28px',
+		fill: props.color,
+		style: {
+			marginTop: '-25px',
+			marginLeft: '13px',
+			zIndex: 1,
+		},
+	};
+	return props.allFailed && !props.skipped ? (
+		<TimesCircleSvg {...svgProps} />
+	) : (
+		<CheckCircleSvg {...svgProps} />
+	);
+};
+
+export interface FlashError extends Error {
+	description: string;
+	device: string;
+	code: string;
+}
+
+function formattedErrors(errors: FlashError[]) {
+	return errors
+		.map((error) => `${error.device}: ${error.message || error.code}`)
+		.join('\n');
+}
+
+const columns: Array<TableColumn<FlashError>> = [
+	{
+		field: 'description',
+		label: 'Target',
+	},
+	{
+		field: 'device',
+		label: 'Location',
+	},
+	{
+		field: 'message',
+		label: 'Error',
+		render: (message: string, { code }: FlashError) => {
+			return message ?? code;
+		},
+	},
+];
 
 export function FlashResults({
+	goToMain,
+	image = '',
 	errors,
 	results,
+	skip,
+	...props
 }: {
-	errors: string;
+	goToMain: () => void;
+	image?: string;
+	errors: FlashError[];
+	skip: boolean;
 	results: {
+		bytesWritten: number;
+		sourceMetadata: {
+			size: number;
+			blockmappedSize: number;
+		};
 		averageFlashingSpeed: number;
 		devices: { failed: number; successful: number };
 	};
-}) {
-	const averageSpeed = _.round(
-		bytesToMegabytes(results.averageFlashingSpeed),
+} & FlexProps) {
+	const [showErrorsInfo, setShowErrorsInfo] = React.useState(false);
+	const allFailed = results.devices.successful === 0;
+	const someFailed = results.devices.failed !== 0 || errors.length !== 0;
+	const effectiveSpeed = _.round(
+		bytesToMegabytes(
+			results.sourceMetadata.size /
+				(results.bytesWritten / results.averageFlashingSpeed),
+		),
 		1,
 	);
 	return (
-		<Div position="absolute" left="153px" top="66px">
-			<div className="inline-flex title">
-				<span className="tick tick--success space-right-medium"></span>
-				<h3>Flash Complete!</h3>
-			</div>
-			<Div className="results" mr="0" mb="0" ml="40px">
-				{_.map(results.devices, (quantity, type) => {
-					return quantity ? (
-						<Underline
-							tooltip={type === 'failed' ? errors : undefined}
-							key={type}
-						>
-							<div
-								key={type}
-								className={`target-status-line target-status-${type}`}
-							>
-								<span className="target-status-dot"></span>
-								<span className="target-status-quantity">{quantity}</span>
-								<span className="target-status-message">
-									{progress[type](quantity)}
-								</span>
-							</div>
-						</Underline>
-					) : null;
-				})}
-				<Txt
-					color="#787c7f"
-					fontSize="10px"
-					style={{
-						fontWeight: 500,
-						textAlign: 'center',
+		<Flex flexDirection="column" {...props}>
+			<Flex alignItems="center" flexDirection="column">
+				<Flex
+					alignItems="center"
+					mt="50px"
+					mb="32px"
+					color="#7e8085"
+					flexDirection="column"
+				>
+					<FlashSvg width="40px" height="40px" className="disabled" />
+					<DoneIcon
+						skipped={skip}
+						allFailed={allFailed}
+						color={allFailed || someFailed ? '#c6c8c9' : '#1ac135'}
+					/>
+					<Txt>{middleEllipsis(image, 24)}</Txt>
+				</Flex>
+				<Txt fontSize={24} color="#fff" mb="17px">
+					Flash Complete!
+				</Txt>
+				{skip ? <Txt color="#7e8085">Validation has been skipped</Txt> : null}
+			</Flex>
+			<Flex flexDirection="column" color="#7e8085">
+				{results.devices.successful !== 0 ? (
+					<Flex alignItems="center">
+						<CircleSvg width="14px" fill="#1ac135" />
+						<Txt ml="10px" color="#fff">
+							{results.devices.successful}
+						</Txt>
+						<Txt ml="10px">
+							{progress.successful(results.devices.successful)}
+						</Txt>
+					</Flex>
+				) : null}
+				{errors.length !== 0 ? (
+					<Flex alignItems="center">
+						<CircleSvg width="14px" fill="#ff4444" />
+						<Txt ml="10px" color="#fff">
+							{errors.length}
+						</Txt>
+						<Txt ml="10px" tooltip={formattedErrors(errors)}>
+							{progress.failed(errors.length)}
+						</Txt>
+						<Link ml="10px" onClick={() => setShowErrorsInfo(true)}>
+							more info
+						</Link>
+					</Flex>
+				) : null}
+				{!allFailed && (
+					<Txt
+						fontSize="10px"
+						style={{
+							fontWeight: 500,
+							textAlign: 'center',
+						}}
+						tooltip={outdent({ newline: ' ' })`
+							The speed is calculated by dividing the image size by the flashing time.
+							Disk images with ext partitions flash faster as we are able to skip unused parts.
+						`}
+					>
+						Effective speed: {effectiveSpeed} MB/s
+					</Txt>
+				)}
+			</Flex>
+
+			{showErrorsInfo && (
+				<Modal
+					titleElement={
+						<Flex alignItems="baseline" mb={18}>
+							<Txt fontSize={24} align="left">
+								Failed targets
+							</Txt>
+						</Flex>
+					}
+					action="Retry failed targets"
+					cancel={() => setShowErrorsInfo(false)}
+					done={() => {
+						setShowErrorsInfo(false);
+						resetState();
+						getDrives()
+							.map((drive) => {
+								selection.deselectDrive(drive.device);
+								return drive.device;
+							})
+							.filter((driveDevice) =>
+								errors.some((error) => error.device === driveDevice),
+							)
+							.forEach((driveDevice) => selection.selectDrive(driveDevice));
+						goToMain();
 					}}
 				>
-					Writing speed: {averageSpeed} MB/s
-				</Txt>
-			</Div>
-		</Div>
+					<ErrorsTable columns={columns} data={errors} />
+				</Modal>
+			)}
+		</Flex>
 	);
 }

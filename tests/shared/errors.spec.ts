@@ -37,50 +37,8 @@ describe('Shared: Errors', function () {
 	});
 
 	describe('.getTitle()', function () {
-		it('should accept a string', function () {
-			const error = 'This is an error';
-			// @ts-ignore
-			expect(errors.getTitle(error)).to.equal('This is an error');
-		});
-
-		it('should accept a number 0', function () {
-			const error = 0;
-			// @ts-ignore
-			expect(errors.getTitle(error)).to.equal('0');
-		});
-
-		it('should accept a number 1', function () {
-			const error = 1;
-			// @ts-ignore
-			expect(errors.getTitle(error)).to.equal('1');
-		});
-
-		it('should accept a number -1', function () {
-			const error = -1;
-			// @ts-ignore
-			expect(errors.getTitle(error)).to.equal('-1');
-		});
-
-		it('should accept an array', function () {
-			const error = [0, 1, 2];
-			// @ts-ignore
-			expect(errors.getTitle(error)).to.equal('0,1,2');
-		});
-
 		it('should return a generic error message if the error is an empty object', function () {
 			const error = {};
-			// @ts-ignore
-			expect(errors.getTitle(error)).to.equal('An error ocurred');
-		});
-
-		it('should return a generic error message if the error is undefined', function () {
-			const error = undefined;
-			// @ts-ignore
-			expect(errors.getTitle(error)).to.equal('An error ocurred');
-		});
-
-		it('should return a generic error message if the error is null', function () {
-			const error = null;
 			// @ts-ignore
 			expect(errors.getTitle(error)).to.equal('An error ocurred');
 		});
@@ -234,42 +192,6 @@ describe('Shared: Errors', function () {
 	});
 
 	describe('.getDescription()', function () {
-		it('should return an empty string if the error is a string', function () {
-			const error = 'My error';
-			// @ts-ignore
-			expect(errors.getDescription(error)).to.equal('');
-		});
-
-		it('should return an empty string if the error is a number', function () {
-			const error = 0;
-			// @ts-ignore
-			expect(errors.getDescription(error)).to.equal('');
-		});
-
-		it('should return an empty string if the error is an array', function () {
-			const error = [1, 2, 3];
-			// @ts-ignore
-			expect(errors.getDescription(error)).to.equal('');
-		});
-
-		it('should return an empty string if the error is undefined', function () {
-			const error = undefined;
-			// @ts-ignore
-			expect(errors.getDescription(error)).to.equal('');
-		});
-
-		it('should return an empty string if the error is null', function () {
-			const error = null;
-			// @ts-ignore
-			expect(errors.getDescription(error)).to.equal('');
-		});
-
-		it('should return an empty string if the error is an empty object', function () {
-			const error = {};
-			// @ts-ignore
-			expect(errors.getDescription(error)).to.equal('');
-		});
-
 		it('should understand an error-like object with a description', function () {
 			const error = {
 				description: 'My description',
@@ -384,122 +306,26 @@ describe('Shared: Errors', function () {
 		describe('given userFriendlyDescriptionsOnly is false', function () {
 			it('should return the stack for a basic error', function () {
 				const error = new Error('Foo');
-				expect(
-					errors.getDescription(error, {
-						userFriendlyDescriptionsOnly: false,
-					}),
-				).to.equal(error.stack);
+				expect(errors.getDescription(error)).to.equal(error.stack);
 			});
 
 			it('should return the stack if the description is an empty string', function () {
 				const error = new Error('Foo');
 				// @ts-ignore
 				error.description = '';
-				expect(
-					errors.getDescription(error, {
-						userFriendlyDescriptionsOnly: false,
-					}),
-				).to.equal(error.stack);
+				expect(errors.getDescription(error)).to.equal(error.stack);
 			});
 
 			it('should return the stack if the description is a blank string', function () {
 				const error = new Error('Foo');
 				// @ts-ignore
 				error.description = '   ';
-				expect(
-					errors.getDescription(error, {
-						userFriendlyDescriptionsOnly: false,
-					}),
-				).to.equal(error.stack);
-			});
-		});
-
-		describe('given userFriendlyDescriptionsOnly is true', function () {
-			it('should return an empty string for a basic error', function () {
-				const error = new Error('Foo');
-				expect(
-					errors.getDescription(error, {
-						userFriendlyDescriptionsOnly: true,
-					}),
-				).to.equal('');
-			});
-
-			it('should return an empty string if the description is an empty string', function () {
-				const error = new Error('Foo');
-				// @ts-ignore
-				error.description = '';
-				expect(
-					errors.getDescription(error, {
-						userFriendlyDescriptionsOnly: true,
-					}),
-				).to.equal('');
-			});
-
-			it('should return an empty string if the description is a blank string', function () {
-				const error = new Error('Foo');
-				// @ts-ignore
-				error.description = '   ';
-				expect(
-					errors.getDescription(error, {
-						userFriendlyDescriptionsOnly: true,
-					}),
-				).to.equal('');
+				expect(errors.getDescription(error)).to.equal(error.stack);
 			});
 		});
 	});
 
 	describe('.createError()', function () {
-		it('should not be a user error', function () {
-			const error = errors.createError({
-				title: 'Foo',
-				description: 'Something happened',
-			});
-
-			expect(errors.isUserError(error)).to.be.false;
-		});
-
-		it('should be a user error if `options.report` is false', function () {
-			const error = errors.createError({
-				title: 'Foo',
-				description: 'Something happened',
-				report: false,
-			});
-
-			expect(errors.isUserError(error)).to.be.true;
-		});
-
-		it('should be a user error if `options.report` evaluates to false', function () {
-			const error = errors.createError({
-				title: 'Foo',
-				description: 'Something happened',
-				// @ts-ignore
-				report: 0,
-			});
-
-			expect(errors.isUserError(error)).to.be.true;
-		});
-
-		it('should not be a user error if `options.report` is true', function () {
-			const error = errors.createError({
-				title: 'Foo',
-				description: 'Something happened',
-				report: true,
-			});
-
-			expect(errors.isUserError(error)).to.be.false;
-		});
-
-		it('should not be a user error if `options.report` evaluates to true', function () {
-			const error = errors.createError({
-				title: 'Foo',
-				description: 'Something happened',
-				// @ts-ignore
-				report: 1,
-			});
-
-			expect(errors.isUserError(error)).to.be.false;
-		});
-
 		it('should be an instance of Error', function () {
 			const error = errors.createError({
 				title: 'Foo',
@@ -523,10 +349,10 @@ describe('Shared: Errors', function () {
 			const error = errors.createError({
 				title: 'Foo',
 				description: 'Something happened',
-				code: 'HELLO',
+				code: 'ENOENT',
 			});
 
-			expect(error.code).to.equal('HELLO');
+			expect(error.code).to.equal('ENOENT');
 		});
 
 		it('should correctly add only a title', function () {
@@ -590,15 +416,6 @@ describe('Shared: Errors', function () {
 	});
 
 	describe('.createUserError()', function () {
-		it('should be a user error', function () {
-			const error = errors.createUserError({
-				title: 'Foo',
-				description: 'Something happened',
-			});
-
-			expect(errors.isUserError(error)).to.be.true;
-		});
-
 		it('should be an instance of Error', function () {
 			const error = errors.createUserError({
 				title: 'Foo',
@@ -632,11 +449,11 @@ describe('Shared: Errors', function () {
 			// @ts-ignore
 			const error = errors.createUserError({
 				title: 'Foo',
-				code: 'HELLO',
+				code: 'ENOENT',
 			});
 
 			// @ts-ignore
-			expect(error.code).to.equal('HELLO');
+			expect(error.code).to.equal('ENOENT');
 		});
 
 		it('should ignore an empty description', function () {
@@ -689,26 +506,6 @@ describe('Shared: Errors', function () {
 					title: '   ',
 				});
 			}).to.throw('Invalid error title:    ');
-		});
-	});
-
-	describe('.isUserError()', function () {
-		_.each([0, '', false], (value) => {
-			it(`should return true if report equals ${value}`, function () {
-				const error = new Error('foo bar');
-				// @ts-ignore
-				error.report = value;
-				expect(errors.isUserError(error)).to.be.true;
-			});
-		});
-
-		_.each([undefined, null, true, 1, 3, 'foo'], (value) => {
-			it(`should return false if report equals ${value}`, function () {
-				const error = new Error('foo bar');
-				// @ts-ignore
-				error.report = value;
-				expect(errors.isUserError(error)).to.be.false;
-			});
 		});
 	});
 

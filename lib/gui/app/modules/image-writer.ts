@@ -25,7 +25,7 @@ import * as path from 'path';
 import * as packageJSON from '../../../../package.json';
 import * as errors from '../../../shared/errors';
 import * as permissions from '../../../shared/permissions';
-import { SourceOptions } from '../components/source-selector/source-selector';
+import { SourceMetadata } from '../components/source-selector/source-selector';
 import * as flashState from '../models/flash-state';
 import * as selectionState from '../models/selection-state';
 import * as settings from '../models/settings';
@@ -93,7 +93,11 @@ function terminateServer() {
 }
 
 function writerArgv(): string[] {
-	let entryPoint = electron.remote.app.getAppPath();
+	let entryPoint = path.join(
+		electron.remote.app.getAppPath(),
+		'generated',
+		'child-writer.js',
+	);
 	// AppImages run over FUSE, so the files inside the mount point
 	// can only be accessed by the user that mounted the AppImage.
 	// This means we can't re-spawn Etcher as root from the same
@@ -127,26 +131,20 @@ function writerEnv() {
 }
 
 interface FlashResults {
+	skip?: boolean;
 	cancelled?: boolean;
 }
 
-/**
- * @summary Perform write operation
- *
- * @description
- * This function is extracted for testing purposes.
- */
-export async function performWrite(
-	image: string,
+async function performWrite(
+	image: SourceMetadata,
 	drives: DrivelistDrive[],
 	onProgress: sdk.multiWrite.OnProgressFunction,
-	source: SourceOptions,
 ): Promise<{ cancelled?: boolean }> {
 	let cancelled = false;
+	let skip = false;
 	ipc.serve();
 	const {
 		unmountOnSuccess,
-		validateWriteOnSuccess,
 		autoBlockmapping,
 		decompressFirst,
 	} = await settings.getAll();
@@ -169,12 +167,11 @@ export async function performWrite(
 			uuid: flashState.getFlashUuid(),
 			flashInstanceUuid: flashState.getFlashUuid(),
 			unmountOnSuccess,
-			validateWriteOnSuccess,
 		};
 
 		ipc.server.on('fail', ({ device, error }) => {
 			if (device.devicePath) {
-				flashState.addFailedDevicePath(device.devicePath);
+				flashState.addFailedDeviceError({ device, error });
 			}
 			handleErrorLogging(error, analyticsData);
 		});
@@ -191,15 +188,18 @@ export async function performWrite(
 			cancelled = true;
 		});
 
+		ipc.server.on('skip', () => {
+			terminateServer();
+			skip = true;
+		});
+
 		ipc.server.on('state', onProgress);
 
 		ipc.server.on('ready', (_data, socket) => {
 			ipc.server.emit(socket, 'write', {
-				imagePath: image,
+				image,
 				destinations: drives,
-				source,
-				SourceType: source.SourceType.name,
-				validateWriteOnSuccess,
+				SourceType: image.SourceType.name,
 				autoBlockmapping,
 				unmountOnSuccess,
 				decompressFirst,
@@ -217,6 +217,7 @@ export async function performWrite(
 					environment: env,
 				});
 				flashResults.cancelled = cancelled || results.cancelled;
+				flashResults.skip = skip;
 			} catch (error) {
 				// This happens when the child is killed using SIGKILL
 				const SIGKILL_EXIT_CODE = 137;
@@ -233,6 +234,7 @@ export async function performWrite(
 			// This likely means the child died halfway through
 			if (
 				!flashResults.cancelled &&
+				!flashResults.skip &&
 				!_.get(flashResults, ['results', 'bytesWritten'])
 			) {
 				reject(
@@ -240,7 +242,6 @@ export async function performWrite(
 						title: 'The writer process ended unexpectedly',
 						description:
 							'Please try again, and contact the Etcher team if the problem persists',
-						code: 'ECHILDDIED',
 					}),
 				);
 				return;
@@ -258,9 +259,10 @@ export async function performWrite(
  * @summary Flash an image to drives
  */
 export async function flash(
-	image: string,
+	image: SourceMetadata,
 	drives: DrivelistDrive[],
-	source: SourceOptions,
+	// This function is a parameter so it can be mocked in tests
+	write = performWrite,
 ): Promise<void> {
 	if (flashState.isFlashing()) {
 		throw new Error('There is already a flash in progress');
@@ -279,25 +281,17 @@ export async function flash(
 		status: 'started',
 		flashInstanceUuid: flashState.getFlashUuid(),
 		unmountOnSuccess: await settings.get('unmountOnSuccess'),
-		validateWriteOnSuccess: await settings.get('validateWriteOnSuccess'),
 	};
 
 	analytics.logEvent('Flash', analyticsData);
 
 	try {
-		// Using it from exports so it can be mocked during tests
-		const result = await exports.performWrite(
-			image,
-			drives,
-			flashState.setProgressState,
-			source,
-		);
+		const result = await write(image, drives, flashState.setProgressState);
 		flashState.unsetFlashingFlag(result);
 	} catch (error) {
 		flashState.unsetFlashingFlag({ cancelled: false, errorCode: error.code });
 		windowProgress.clear();
-		let { results } = flashState.getFlashResults();
-		results = results || {};
+		const { results = {} } = flashState.getFlashResults();
 		const eventData = {
 			...analyticsData,
 			errors: results.errors,
@@ -316,7 +310,7 @@ export async function flash(
 		};
 		analytics.logEvent('Elevation cancelled', eventData);
 	} else {
-		const { results } = flashState.getFlashResults();
+		const { results = {} } = flashState.getFlashResults();
 		const eventData = {
 			...analyticsData,
 			errors: results.errors,
@@ -332,17 +326,17 @@ export async function flash(
 /**
  * @summary Cancel write operation
  */
-export async function cancel() {
+export async function cancel(type: string) {
+	const status = type.toLowerCase();
 	const drives = selectionState.getSelectedDevices();
 	const analyticsData = {
-		image: selectionState.getImagePath(),
+		image: selectionState.getImage()?.path,
 		drives,
 		driveCount: drives.length,
 		uuid: flashState.getFlashUuid(),
 		flashInstanceUuid: flashState.getFlashUuid(),
 		unmountOnSuccess: await settings.get('unmountOnSuccess'),
-		validateWriteOnSuccess: await settings.get('validateWriteOnSuccess'),
-		status: 'cancel',
+		status,
 	};
 	analytics.logEvent('Cancel', analyticsData);
 
@@ -352,7 +346,7 @@ export async function cancel() {
 		// @ts-ignore (no Server.sockets in @types/node-ipc)
 		const [socket] = ipc.server.sockets;
 		if (socket !== undefined) {
-			ipc.server.emit(socket, 'cancel');
+			ipc.server.emit(socket, status);
 		}
 	} catch (error) {
 		analytics.logException(error);

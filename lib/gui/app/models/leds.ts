@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-import { Drive as DrivelistDrive } from 'drivelist';
 import * as _ from 'lodash';
 import { AnimationFunction, Color, RGBLed } from 'sys-class-rgb-led';
 
-import { isSourceDrive } from '../../../shared/drive-constraints';
+import {
+	isSourceDrive,
+	DrivelistDrive,
+} from '../../../shared/drive-constraints';
 import * as settings from './settings';
 import { DEFAULT_STATE, observe } from './store';
 
@@ -186,12 +188,15 @@ function stateObserver(state: typeof DEFAULT_STATE) {
 	} else {
 		selectedDrivesPaths = s.devicePaths;
 	}
+	const failedDevicePaths = s.failedDeviceErrors.map(
+		([devicePath]: [string]) => devicePath,
+	);
 	const newLedsState = {
 		step,
 		sourceDrive: sourceDrivePath,
 		availableDrives: availableDrivesPaths,
 		selectedDrives: selectedDrivesPaths,
-		failedDrives: s.failedDevicePaths,
+		failedDrives: failedDevicePaths,
 	};
 	if (!_.isEqual(newLedsState, ledsState)) {
 		updateLeds(newLedsState);

@@ -17,7 +17,7 @@
 import * as electron from 'electron';
 
 import { percentageToFloat } from '../../../shared/utils';
-import { FlashState, fromFlashState } from '../modules/progress-status';
+import { FlashState, titleFromFlashState } from '../modules/progress-status';
 
 /**
  * @summary The title of the main window upon program launch
@@ -29,7 +29,7 @@ const INITIAL_TITLE = document.title;
  */
 function getWindowTitle(state?: FlashState) {
 	if (state) {
-		return `${INITIAL_TITLE} – ${fromFlashState(state)}`;
+		return `${INITIAL_TITLE} – ${titleFromFlashState(state)}`;
 	}
 	return INITIAL_TITLE;
 }
@@ -50,9 +50,9 @@ export const currentWindow = electron.remote.getCurrentWindow();
  */
 export function set(state: FlashState) {
 	if (state.percentage != null) {
-		exports.currentWindow.setProgressBar(percentageToFloat(state.percentage));
+		currentWindow.setProgressBar(percentageToFloat(state.percentage));
 	}
-	exports.currentWindow.setTitle(getWindowTitle(state));
+	currentWindow.setTitle(getWindowTitle(state));
 }
 
 /**
@@ -60,6 +60,6 @@ export function set(state: FlashState) {
  */
 export function clear() {
 	// Passing 0 or null/undefined doesn't work.
-	exports.currentWindow.setProgressBar(-1);
-	exports.currentWindow.setTitle(getWindowTitle(undefined));
+	currentWindow.setProgressBar(-1);
+	currentWindow.setTitle(getWindowTitle(undefined));
 }

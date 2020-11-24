@@ -44,16 +44,15 @@ describe('Browser: settings', () => {
 			await settings.set('foo', 'bar');
 			expect(await settings.get('foo')).to.equal('bar');
 
-			const writeConfigFileStub = stub(settings, 'writeConfigFile');
+			const writeConfigFileStub = stub();
 			writeConfigFileStub.returns(Promise.reject(new Error('settings error')));
 
-			const p = settings.set('foo', 'baz');
+			const p = settings.set('foo', 'baz', writeConfigFileStub);
 			await checkError(p, async (error) => {
 				expect(error).to.be.an.instanceof(Error);
 				expect(error.message).to.equal('settings error');
 				expect(await settings.get('foo')).to.equal('bar');
 			});
-			writeConfigFileStub.restore();
 		});
 	});
 
@@ -83,15 +82,17 @@ describe('Browser: settings', () => {
 			await settings.set('foo', 'bar');
 			expect(await settings.get('foo')).to.equal('bar');
 
-			const writeConfigFileStub = stub(settings, 'writeConfigFile');
+			const writeConfigFileStub = stub();
 			writeConfigFileStub.returns(Promise.reject(new Error('settings error')));
 
-			await checkError(settings.set('foo', 'baz'), async (error) => {
-				expect(error).to.be.an.instanceof(Error);
-				expect(error.message).to.equal('settings error');
-				expect(await settings.get('foo')).to.equal('bar');
-			});
-			writeConfigFileStub.restore();
+			await checkError(
+				settings.set('foo', 'baz', writeConfigFileStub),
+				async (error) => {
+					expect(error).to.be.an.instanceof(Error);
+					expect(error.message).to.equal('settings error');
+					expect(await settings.get('foo')).to.equal('bar');
+				},
+			);
 		});
 	});
 });

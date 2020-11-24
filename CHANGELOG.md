@@ -3,6 +3,163 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.111
+## (2020-11-23)
+
+* Warn when the source drive has no partition table [Alexis Svinartchouk]
+* Use a different icon when no source drive is available [Alexis Svinartchouk]
+* Allow selecting a locked SD card as the source drive [Alexis Svinartchouk]
+* Remove "Validate write on success" setting. Validation is always enabled, press the "skip" button to skip it. [Alexis Svinartchouk]
+* Update electron to v9.3.3 [Alexis Svinartchouk]
+* Update etcher-sdk to 5.1.1, use WASM ext2fs module [Alexis Svinartchouk]
+
+# v1.5.110
+## (2020-11-04)
+
+* Remove console.log in tests [Lorenzo Alberto Maria Ambrosi]
+* Fix URL not being selected with custom protocol [Lorenzo Alberto Maria Ambrosi]
+* Add skip function to validation [Lorenzo Alberto Maria Ambrosi]
+* Rework success screen [Lorenzo Alberto Maria Ambrosi]
+
+# v1.5.109
+## (2020-09-14)
+
+* Workaround elevation bug on Windows when the username contains an ampersand [Alexis Svinartchouk]
+
+# v1.5.108
+## (2020-09-10)
+
+* Fix content not loading when the app path contains special characters [Alexis Svinartchouk]
+
+# v1.5.107
+## (2020-09-04)
+
+* Re-enable ext partitions trimming on 32 bit Windows [Alexis Svinartchouk]
+* Rework system & large drives handling logic [Lorenzo Alberto Maria Ambrosi]
+* Reword macOS Catalina askpass message [Lorenzo Alberto Maria Ambrosi]
+* Add clone-drive workflow [Lorenzo Alberto Maria Ambrosi]
+
+# v1.5.106
+## (2020-08-27)
+
+* Disable ext partitions trimming on 32 bit windows until it is fixed [Alexis Svinartchouk]
+* Fix opening zip files from servers accepting Range headers [Alexis Svinartchouk]
+
+# v1.5.105
+## (2020-08-25)
+
+* Update etcher-sdk to 4.1.26 [Alexis Svinartchouk]
+* URL selector cancel button cancels ongoing url selection [Alexis Svinartchouk]
+* Spinner for URL selector modal [Alexis Svinartchouk]
+
+# v1.5.104
+## (2020-08-20)
+
+* Fix writing config file [Alexis Svinartchouk]
+* Update electron to v9.2.1 [Alexis Svinartchouk]
+
+# v1.5.103
+## (2020-08-18)
+
+* Update rendition  to ^17 [Alexis Svinartchouk]
+* Update electron to 9.2.0 [Alexis Svinartchouk]
+* Update etcher-sdk to ^4.1.23 [Alexis Svinartchouk]
+* Move linting and testing into package.json [Alexis Svinartchouk]
+* Set module: es2015 in tsconfig.json [Alexis Svinartchouk]
+* Replace native elevator with sudo-prompt on windows [Alexis Svinartchouk]
+* Don't import WeakMap polyfill in deep-map-keys [Alexis Svinartchouk]
+* Don't use lodash in child-writer.js [Alexis Svinartchouk]
+* Optimize svgs [Alexis Svinartchouk]
+* User regular stream in lzma-native instead of readable-stream [Alexis Svinartchouk]
+* Remove Bluebird [Alexis Svinartchouk]
+
+# v1.5.102
+## (2020-07-27)
+
+* Fix flashing truncated images, fix flashing large dmgs [Alexis Svinartchouk]
+* Electron 9.1.1 [Alexis Svinartchouk]
+* Remove bluebird from main process, reduce lodash usage [Alexis Svinartchouk]
+* Centralize imports in child-writer [Alexis Svinartchouk]
+* Split main process and child-writer js files [Alexis Svinartchouk]
+* Stop using request, replace it with already used axios [Alexis Svinartchouk]
+* Remove font awesome unused icons from the generated bundle [Alexis Svinartchouk]
+* Remove no longer used .sass-lint.yml [Alexis Svinartchouk]
+* Use tslib [Alexis Svinartchouk]
+* Use strict typescript compiler option [Alexis Svinartchouk]
+* Update rendition to ^16.1.1 [Alexis Svinartchouk]
+
+# v1.5.101
+## (2020-07-09)
+
+* Resize modal to show content appropriately [Lorenzo Alberto Maria Ambrosi]
+* Update etcher-sdk to v4.1.16 [Lorenzo Alberto Maria Ambrosi]
+* Convert sass to plain css [Lorenzo Alberto Maria Ambrosi]
+* Remove unused scss [Lorenzo Alberto Maria Ambrosi]
+* Remove unused warning in settings [Lorenzo Alberto Maria Ambrosi]
+* Refactor UI without bootstrap & flexboxgrid [Lorenzo Alberto Maria Ambrosi]
+* Restyle modals [Lorenzo Alberto Maria Ambrosi]
+* Remove bootstrap & flexboxgrid [Lorenzo Alberto Maria Ambrosi]
+* Rework and move flashing view elements [Lorenzo Alberto Maria Ambrosi]
+* Refactor UI grid to use rendition [Lorenzo Alberto Maria Ambrosi]
+
+# v1.5.100
+## (2020-06-22)
+
+* Update partitioninfo to 5.3.5 [Alexis Svinartchouk]
+* Add .vhd to the list of supported extensions, allow opening any file [Alexis Svinartchouk]
+* Update mocha to v8.0.1 [Alexis Svinartchouk]
+* Update electron-notarize to v1.0.0 [Alexis Svinartchouk]
+* Update electron to v9.0.4 [Alexis Svinartchouk]
+* Update etcher-sdk to v4.1.15 [Alexis Svinartchouk]
+* Sticky header in target selection table [Alexis Svinartchouk]
+* Update rendition to 15.2.1 [Alexis Svinartchouk]
+* Fix source-selector image height [Lorenzo Alberto Maria Ambrosi]
+* Update rendition to v15.0.0 [Lorenzo Alberto Maria Ambrosi]
+* Merge unsafe mode with new target selector [Lorenzo Alberto Maria Ambrosi]
+* Rework target selector modal [Lorenzo Alberto Maria Ambrosi]
+
+# v1.5.99
+## (2020-06-12)
+
+* Update node-raspberrypi-usbboot to 0.2.8 [Alexis Svinartchouk]
+* Update electron to 9.0.3 [Alexis Svinartchouk]
+* Inline all svgs [Alexis Svinartchouk]
+
+# v1.5.98
+## (2020-06-10)
+
+* Use between 2 and 256MiB for buffering depending on the number of drives [Alexis Svinartchouk]
+* Check that argument is an url or a regular file before opening [Alexis Svinartchouk]
+* Update etcher-sdk to ^4.1.13 [Alexis Svinartchouk]
+
+# v1.5.97
+## (2020-06-08)
+
+* Update electron to v9.0.2 [Alexis Svinartchouk]
+* Fix flash from url on windows [Alexis Svinartchouk]
+* Avoid random access in http sources [Alexis Svinartchouk]
+* Update etcher-sdk to ^4.1.8 [Alexis Svinartchouk]
+* Read image path from arguments, register `etcher://...` protocol [Alexis Svinartchouk]
+* Update etcher-sdk to ^4.1.6 [Alexis Svinartchouk]
+* Fix sudo-prompt promisification [Alexis Svinartchouk]
+* Allow skipping notarization when building package (dev) [Lorenzo Alberto Maria Ambrosi]
+
+# v1.5.96
+## (2020-06-03)
+
+* Fix ia32 builds for windows [Alexis Svinartchouk]
+* Remove writing speed from finish screen [Alexis Svinartchouk]
+* Add effective speed in flash results [Alexis Svinartchouk]
+* Update progress bar style [Alexis Svinartchouk]
+* Change font to SourceSansPro and fix hover color [Alexis Svinartchouk]
+* Update rendition to ^14.13.0 [Alexis Svinartchouk]
+* Remove unused styles [Alexis Svinartchouk]
+
+# v1.5.95
+## (2020-06-01)
+
+* spectron: Make tests pass on Windows Docker containers [Juan Cruz Viotti]
+
 # v1.5.94
 ## (2020-05-27)
 

@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import * as _ from 'lodash';
 import * as React from 'react';
+import { Flex } from 'rendition';
 import { v4 as uuidV4 } from 'uuid';
 
 import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
+import * as settings from '../../models/settings';
 import { Actions, store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
-import { open as openExternal } from '../../os/open-external/services/open-external';
 import { FlashAnother } from '../flash-another/flash-another';
-import { FlashResults } from '../flash-results/flash-results';
-import { SVGIcon } from '../svg-icon/svg-icon';
+import { FlashResults, FlashError } from '../flash-results/flash-results';
+import { SafeWebview } from '../safe-webview/safe-webview';
 
 function restart(goToMain: () => void) {
 	selectionState.deselectAllDrives();
@@ -40,75 +40,89 @@ function restart(goToMain: () => void) {
 	goToMain();
 }
 
-function formattedErrors() {
-	const errors = _.map(
-		_.get(flashState.getFlashResults(), ['results', 'errors']),
-		(error) => {
-			return `${error.device}: ${error.message || error.code}`;
-		},
+async function getSuccessBannerURL() {
+	return (
+		(await settings.get('successBannerURL')) ??
+		'https://www.balena.io/etcher/success-banner?borderTop=false&darkBackground=true'
 	);
-	return errors.join('\n');
 }
 
 function FinishPage({ goToMain }: { goToMain: () => void }) {
-	const results = flashState.getFlashResults().results || {};
+	const [webviewShowing, setWebviewShowing] = React.useState(false);
+	const [successBannerURL, setSuccessBannerURL] = React.useState('');
+	(async () => {
+		setSuccessBannerURL(await getSuccessBannerURL());
+	})();
+	const flashResults = flashState.getFlashResults();
+	const errors: FlashError[] = (
+		store.getState().toJS().failedDeviceErrors || []
+	).map(([, error]: [string, FlashError]) => ({
+		...error,
+	}));
+	const {
+		averageSpeed,
+		blockmappedSize,
+		bytesWritten,
+		failed,
+		size,
+	} = flashState.getFlashState();
+	const {
+		skip,
+		results = {
+			bytesWritten,
+			sourceMetadata: {
+				size,
+				blockmappedSize,
+			},
+			averageFlashingSpeed: averageSpeed,
+			devices: { failed, successful: 0 },
+		},
+	} = flashResults;
 	return (
-		<div className="page-finish row around-xs">
-			<div className="col-xs">
-				<div className="box center">
-					<FlashResults results={results} errors={formattedErrors()} />
+		<Flex height="100%" justifyContent="space-between">
+			<Flex
+				width={webviewShowing ? '36.2vw' : '100vw'}
+				height="100vh"
+				alignItems="center"
+				justifyContent="center"
+				flexDirection="column"
+				style={{
+					position: 'absolute',
+					top: 0,
+					zIndex: 1,
+					boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.2)',
+				}}
+			>
+				<FlashResults
+					image={selectionState.getImage()?.name}
+					results={results}
+					skip={skip}
+					errors={errors}
+					mb="32px"
+					goToMain={goToMain}
+				/>
 
-					<FlashAnother
-						onClick={() => {
-							restart(goToMain);
-						}}
-					/>
-				</div>
-
-				<div className="box center">
-					<div className="fallback-banner">
-						<div className="caption caption-big">
-							Thanks for using
-							<span
-								style={{ cursor: 'pointer' }}
-								onClick={() =>
-									openExternal(
-										'https://balena.io/etcher?ref=etcher_offline_banner',
-									)
-								}
-							>
-								<SVGIcon
-									paths={['etcher.svg']}
-									width="165px"
-									height="auto"
-								></SVGIcon>
-							</span>
-						</div>
-						<div className="caption caption-small fallback-footer">
-							made with
-							<SVGIcon
-								paths={['love.svg']}
-								width="auto"
-								height="20px"
-							></SVGIcon>
-							by
-							<span
-								style={{ cursor: 'pointer' }}
-								onClick={() =>
-									openExternal('https://balena.io?ref=etcher_success')
-								}
-							>
-								<SVGIcon
-									paths={['balena.svg']}
-									width="auto"
-									height="20px"
-								></SVGIcon>
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+				<FlashAnother
+					onClick={() => {
+						restart(goToMain);
+					}}
+				/>
+			</Flex>
+			{successBannerURL.length && (
+				<SafeWebview
+					src={successBannerURL}
+					onWebviewShow={setWebviewShowing}
+					style={{
+						display: webviewShowing ? 'flex' : 'none',
+						position: 'absolute',
+						right: 0,
+						bottom: 0,
+						width: '63.8vw',
+						height: '100vh',
+					}}
+				/>
+			)}
+		</Flex>
 	);
 }
 

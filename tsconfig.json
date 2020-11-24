@@ -1,20 +1,12 @@
 {
   "compilerOptions": {
-    "noImplicitAny": true,
+    "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "strictNullChecks": true,
     "resolveJsonModule": true,
-    "allowJs": true,
+    "target": "es2019",
     "moduleResolution": "node",
-    "module": "commonjs",
-    "target": "es2018",
     "jsx": "react",
-    "typeRoots": ["./node_modules/@types", "./typings"],
-    "allowSyntheticDefaultImports": true
-  },
-  "include": [
-    "lib/**/*.ts",
-    "node_modules/electron/**/*.d.ts"
-  ]
+    "typeRoots": ["./node_modules/@types", "./typings"]
+  }
 }

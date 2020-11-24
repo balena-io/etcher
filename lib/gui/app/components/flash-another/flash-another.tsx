@@ -15,15 +15,8 @@
  */
 
 import * as React from 'react';
-import styled from 'styled-components';
-import { position, right } from 'styled-system';
 
-import { BaseButton, ThemedProvider } from '../../styled-components';
-
-const Div = styled.div<any>`
-	${position}
-	${right}
-`;
+import { BaseButton } from '../../styled-components';
 
 export interface FlashAnotherProps {
 	onClick: () => void;
@@ -31,12 +24,8 @@ export interface FlashAnotherProps {
 
 export const FlashAnother = (props: FlashAnotherProps) => {
 	return (
-		<ThemedProvider>
-			<Div position="absolute" right="152px">
-				<BaseButton primary onClick={props.onClick}>
-					Flash Another
-				</BaseButton>
-			</Div>
-		</ThemedProvider>
+		<BaseButton primary onClick={props.onClick}>
+			Flash another
+		</BaseButton>
 	);
 };

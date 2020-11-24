@@ -17,13 +17,14 @@
       "appId": "io.balena.etcher",
       "copyright": "Copyright 2016-2020 Balena Ltd",
       "productName": "balenaEtcher",
-      "nodeGypRebuild": true,
+      "nodeGypRebuild": false,
       "afterPack": "./afterPack.js",
       "asar": false,
       "files": [
         "generated",
         "lib/shared/catalina-sudo/sudo-askpass.osascript.js"
       ],
+      "beforeBuild": "./beforeBuild.js",
       "afterSign": "./afterSignHook.js",
       "mac": {
         "category": "public.app-category.developer-tools",
@@ -60,6 +61,12 @@
         "priority": "optional",
         "depends": [
           "polkit-1-auth-agent | policykit-1-gnome | polkit-kde-1"
+        ]
+      },
+      "protocols": {
+        "name": "etcher",
+        "schemes": [
+          "etcher"
         ]
       }
     }

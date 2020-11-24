@@ -58,10 +58,9 @@ const API_VERSION = '2';
 interface SafeWebviewProps {
 	// The website source URL
 	src: string;
-	// @summary Refresh the webview
-	refreshNow?: boolean;
 	// Webview lifecycle event
 	onWebviewShow?: (isWebviewShowing: boolean) => void;
+	style?: React.CSSProperties;
 }
 
 interface SafeWebviewState {
@@ -109,15 +108,18 @@ export class SafeWebview extends React.PureComponent<
 	}
 
 	public render() {
+		const {
+			style = {
+				flex: this.state.shouldShow ? undefined : '0 1',
+				width: this.state.shouldShow ? undefined : '0',
+				height: this.state.shouldShow ? undefined : '0',
+			},
+		} = this.props;
 		return (
 			<webview
 				ref={this.webviewRef}
 				partition={ELECTRON_SESSION}
-				style={{
-					flex: this.state.shouldShow ? undefined : '0 1',
-					width: this.state.shouldShow ? undefined : '0',
-					height: this.state.shouldShow ? undefined : '0',
-				}}
+				style={style}
 			/>
 		);
 	}

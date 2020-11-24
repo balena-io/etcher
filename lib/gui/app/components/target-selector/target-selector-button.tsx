@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-import { Drive as DrivelistDrive } from 'drivelist';
-import * as _ from 'lodash';
+import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/exclamation-triangle.svg';
 import * as React from 'react';
-import { Txt } from 'rendition';
-import { default as styled } from 'styled-components';
+import { Flex, FlexProps, Txt } from 'rendition';
 
 import {
 	getDriveImageCompatibilityStatuses,
-	Image,
+	DriveStatus,
 } from '../../../../shared/drive-constraints';
-import { bytesToClosestUnit } from '../../../../shared/units';
-import { getSelectedDrives } from '../../models/selection-state';
+import { compatibility, warning } from '../../../../shared/messages';
+import * as prettyBytes from 'pretty-bytes';
+import { getImage, getSelectedDrives } from '../../models/selection-state';
 import {
 	ChangeButton,
 	DetailsText,
@@ -33,10 +32,6 @@ import {
 	StepNameButton,
 } from '../../styled-components';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
-
-const TargetDetail = styled((props) => <Txt.span {...props}></Txt.span>)`
-	float: ${({ float }) => float};
-`;
 
 interface TargetSelectorProps {
 	targets: any[];
@@ -46,38 +41,56 @@ interface TargetSelectorProps {
 	flashing: boolean;
 	show: boolean;
 	tooltip: string;
-	image: Image;
 }
 
-function DriveCompatibilityWarning(props: {
-	drive: DrivelistDrive;
-	image: Image;
-}) {
-	const compatibilityWarnings = getDriveImageCompatibilityStatuses(
-		props.drive,
-		props.image,
-	);
-	if (compatibilityWarnings.length === 0) {
-		return null;
+function getDriveWarning(status: DriveStatus) {
+	switch (status.message) {
+		case compatibility.containsImage():
+			return warning.sourceDrive();
+		case compatibility.largeDrive():
+			return warning.largeDriveSize();
+		case compatibility.system():
+			return warning.systemDrive();
+		default:
+			return '';
 	}
-	const messages = _.map(compatibilityWarnings, 'message');
-	return (
-		<Txt.span
-			className="glyphicon glyphicon-exclamation-sign"
-			ml={2}
-			tooltip={messages.join(', ')}
-		/>
-	);
 }
 
-export function TargetSelector(props: TargetSelectorProps) {
+const DriveCompatibilityWarning = ({
+	warnings,
+	...props
+}: {
+	warnings: string[];
+} & FlexProps) => {
+	const systemDrive = warnings.find(
+		(message) => message === warning.systemDrive(),
+	);
+	return (
+		<Flex tooltip={warnings.join(', ')} {...props}>
+			<ExclamationTriangleSvg
+				fill={systemDrive ? '#fca321' : '#8f9297'}
+				height="1em"
+			/>
+		</Flex>
+	);
+};
+
+export function TargetSelectorButton(props: TargetSelectorProps) {
 	const targets = getSelectedDrives();
 
 	if (targets.length === 1) {
 		const target = targets[0];
+		const warnings = getDriveImageCompatibilityStatuses(
+			target,
+			getImage(),
+			true,
+		).map(getDriveWarning);
 		return (
 			<>
 				<StepNameButton plain tooltip={props.tooltip}>
+					{warnings.length > 0 && (
+						<DriveCompatibilityWarning warnings={warnings} mr={2} />
+					)}
 					{middleEllipsis(target.description, 20)}
 				</StepNameButton>
 				{!props.flashing && (
@@ -85,10 +98,9 @@ export function TargetSelector(props: TargetSelectorProps) {
 						Change
 					</ChangeButton>
 				)}
-				<DetailsText>
-					<DriveCompatibilityWarning drive={target} image={props.image} />
-					{bytesToClosestUnit(target.size)}
-				</DetailsText>
+				{target.size != null && (
+					<DetailsText>{prettyBytes(target.size)}</DetailsText>
+				)}
 			</>
 		);
 	}
@@ -96,23 +108,24 @@ export function TargetSelector(props: TargetSelectorProps) {
 	if (targets.length > 1) {
 		const targetsTemplate = [];
 		for (const target of targets) {
+			const warnings = getDriveImageCompatibilityStatuses(
+				target,
+				getImage(),
+				true,
+			).map(getDriveWarning);
 			targetsTemplate.push(
 				<DetailsText
 					key={target.device}
-					tooltip={`${target.description} ${
-						target.displayName
-					} ${bytesToClosestUnit(target.size)}`}
+					tooltip={`${target.description} ${target.displayName} ${
+						target.size != null ? prettyBytes(target.size) : ''
+					}`}
 					px={21}
 				>
-					<Txt.span>
-						<DriveCompatibilityWarning drive={target} image={props.image} />
-						<TargetDetail float="left">
-							{middleEllipsis(target.description, 14)}
-						</TargetDetail>
-						<TargetDetail float="right">
-							{bytesToClosestUnit(target.size)}
-						</TargetDetail>
-					</Txt.span>
+					{warnings.length > 0 ? (
+						<DriveCompatibilityWarning warnings={warnings} mr={2} />
+					) : null}
+					<Txt mr={2}>{middleEllipsis(target.description, 14)}</Txt>
+					{target.size != null && <Txt>{prettyBytes(target.size)}</Txt>}
 				</DetailsText>,
 			);
 		}

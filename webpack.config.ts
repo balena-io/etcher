@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-// @ts-ignore @types for copy-webpack-plugin@6.0.1 not released yet
 import * as CopyPlugin from 'copy-webpack-plugin';
 import { readdirSync } from 'fs';
 import * as _ from 'lodash';
@@ -22,6 +21,7 @@ import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import * as os from 'os';
 import outdent from 'outdent';
 import * as path from 'path';
+import { env } from 'process';
 import * as SimpleProgressWebpackPlugin from 'simple-progress-webpack-plugin';
 import * as TerserPlugin from 'terser-webpack-plugin';
 import { BannerPlugin, NormalModuleReplacementPlugin } from 'webpack';
@@ -77,7 +77,11 @@ function renameNodeModules(resourcePath: string) {
 
 function findLzmaNativeBindingsFolder(): string {
 	const files = readdirSync(path.join('node_modules', 'lzma-native'));
-	const bindingsFolder = files.find((f) => f.startsWith('binding-'));
+	const bindingsFolder = files.find(
+		(f) =>
+			f.startsWith('binding-') &&
+			f.endsWith(env.npm_config_target_arch || os.arch()),
+	);
 	if (bindingsFolder === undefined) {
 		throw new Error('Could not find lzma_native binding');
 	}
@@ -91,13 +95,34 @@ interface ReplacementRule {
 	replace: string | (() => string);
 }
 
+function slashOrAntislash(pattern: RegExp): RegExp {
+	return new RegExp(pattern.source.replace(/\\\//g, '(\\/|\\\\)'));
+}
+
 function replace(test: RegExp, ...replacements: ReplacementRule[]) {
 	return {
 		loader: 'string-replace-loader',
 		// Handle windows path separators
-		test: new RegExp(test.source.replace(/\\\//g, '(\\/|\\\\)')),
+		test: slashOrAntislash(test),
 		options: { multiple: replacements.map((r) => ({ ...r, strict: true })) },
 	};
+}
+
+function fetchWasm(...where: string[]) {
+	const whereStr = where.map((x) => `'${x}'`).join(', ');
+	return outdent`
+		const Path = require('path');
+		let electron;
+		try {
+			// This doesn't exist in the child-writer
+			electron = require('electron');
+		} catch {
+		}
+		function appPath() {
+			return Path.isAbsolute(__dirname) ? __dirname : Path.join(electron.remote.app.getAppPath(), 'generated');
+		}
+		scriptDirectory = Path.join(appPath(), 'modules', ${whereStr}, '/');
+	`;
 }
 
 const commonConfig = {
@@ -122,9 +147,29 @@ const commonConfig = {
 	module: {
 		rules: [
 			{
-				test: /\.tsx?$/,
-				use: 'ts-loader',
+				test: /\.css$/,
+				use: 'css-loader',
 			},
+			{
+				test: /\.svg$/,
+				use: '@svgr/webpack',
+			},
+			{
+				test: /\.tsx?$/,
+				use: [
+					{
+						loader: 'ts-loader',
+						options: {
+							configFile: 'tsconfig.webpack.json',
+						},
+					},
+				],
+			},
+			// don't import WeakMap polyfill in deep-map-keys (required in corvus)
+			replace(/node_modules\/deep-map-keys\/lib\/deep-map-keys\.js$/, {
+				search: "var WeakMap = require('es6-weak-map');",
+				replace: '',
+			}),
 			// force axios to use http backend (not xhr) to support streams
 			replace(/node_modules\/axios\/lib\/defaults\.js$/, {
 				search: './adapters/xhr',
@@ -142,25 +187,28 @@ const commonConfig = {
 					replace: 'bindings',
 				},
 			),
-			// remove node-pre-gyp magic from lzma-native
-			replace(/node_modules\/lzma-native\/index\.js$/, {
-				search: 'require(binding_path)',
-				replace: () => {
-					return `require('./${path.posix.join(
-						LZMA_BINDINGS_FOLDER,
-						'lzma_native.node',
-					)}')`;
+			replace(
+				/node_modules\/lzma-native\/index\.js$/,
+				// remove node-pre-gyp magic from lzma-native
+				{
+					search: 'require(binding_path)',
+					replace: () => {
+						return `require('./${path.posix.join(
+							LZMA_BINDINGS_FOLDER,
+							'lzma_native.node',
+						)}')`;
+					},
 				},
-			}),
+				// use regular stream module instead of readable-stream
+				{
+					search: "var stream = require('readable-stream');",
+					replace: "var stream = require('stream');",
+				},
+			),
 			// remove node-pre-gyp magic from usb
 			replace(/node_modules\/@balena.io\/usb\/usb\.js$/, {
 				search: 'require(binding_path)',
 				replace: "require('./build/Release/usb_bindings.node')",
-			}),
-			// remove bindings magic from ext2fs
-			replace(/node_modules\/ext2fs\/lib\/(ext2fs|binding)\.js$/, {
-				search: "require('bindings')('bindings')",
-				replace: "require('../build/Release/bindings.node')",
 			}),
 			// remove bindings magic from mountutils
 			replace(/node_modules\/mountutils\/index\.js$/, {
@@ -190,11 +238,23 @@ const commonConfig = {
 			// See the renameNodeModules function above
 			replace(/node_modules\/node-raspberrypi-usbboot\/build\/index\.js$/, {
 				search:
-					"return yield readFile(Path.join(__dirname, '..', 'blobs', filename));",
+					"return await readFile(Path.join(__dirname, '..', 'blobs', filename));",
 				replace: outdent`
 					const { app, remote } = require('electron');
-					return yield readFile(Path.join((app || remote.app).getAppPath(), 'generated', __dirname.replace('node_modules', 'modules'), '..', 'blobs', filename));
+					return await readFile(Path.join((app || remote.app).getAppPath(), 'generated', __dirname.replace('node_modules', 'modules'), '..', 'blobs', filename));
 				`,
+			}),
+			// Use the libext2fs.wasm file in the generated folder
+			// The way to find the app directory depends on whether we run in the renderer or in the child-writer
+			// We use __dirname in the child-writer and electron.remote.app.getAppPath() in the renderer
+			replace(/node_modules\/ext2fs\/lib\/libext2fs\.js$/, {
+				search: 'scriptDirectory=__dirname+"/"',
+				replace: fetchWasm('ext2fs', 'lib'),
+			}),
+			// Same for node-crc-utils
+			replace(/node_modules\/@balena\/node-crc-utils\/crc32\.js$/, {
+				search: 'scriptDirectory=__dirname+"/"',
+				replace: fetchWasm('@balena', 'node-crc-utils'),
 			}),
 			// Copy native modules to generated folder
 			{
@@ -218,7 +278,7 @@ const commonConfig = {
 		// Force axios to use http.js, not xhr.js as we need stream support
 		// (it's package.json file replaces http with xhr for browser targets).
 		new NormalModuleReplacementPlugin(
-			/node_modules\/axios\/lib\/adapters\/xhr\.js/,
+			slashOrAntislash(/node_modules\/axios\/lib\/adapters\/xhr\.js/),
 			'./http.js',
 		),
 	],
@@ -244,6 +304,14 @@ const guiConfigCopyPatterns = [
 	{
 		from: 'node_modules/node-raspberrypi-usbboot/blobs',
 		to: 'modules/node-raspberrypi-usbboot/blobs',
+	},
+	{
+		from: 'node_modules/ext2fs/lib/libext2fs.wasm',
+		to: 'modules/ext2fs/lib/libext2fs.wasm',
+	},
+	{
+		from: 'node_modules/@balena/node-crc-utils/crc32.wasm',
+		to: 'modules/@balena/node-crc-utils/crc32.wasm',
 	},
 ];
 
@@ -276,15 +344,32 @@ const guiConfig = {
 	],
 };
 
-const etcherConfig = {
+const mainConfig = {
 	...commonConfig,
 	target: 'electron-main',
 	node: {
 		__dirname: false,
 		__filename: true,
 	},
+};
+
+const etcherConfig = {
+	...mainConfig,
 	entry: {
-		etcher: path.join(__dirname, 'lib', 'start.ts'),
+		etcher: path.join(__dirname, 'lib', 'gui', 'etcher.ts'),
+	},
+};
+
+const childWriterConfig = {
+	...mainConfig,
+	entry: {
+		'child-writer': path.join(
+			__dirname,
+			'lib',
+			'gui',
+			'modules',
+			'child-writer.ts',
+		),
 	},
 };
 
@@ -297,22 +382,7 @@ const cssConfig = {
 		rules: [
 			{
 				test: /\.css$/i,
-				use: 'css-loader',
-			},
-			{
-				test: /\.s[ac]ss$/i,
-				use: [
-					MiniCssExtractPlugin.loader,
-					'css-loader',
-					{
-						loader: 'sass-loader',
-						options: {
-							sassOptions: {
-								fiber: false,
-							},
-						},
-					},
-				],
+				use: [MiniCssExtractPlugin.loader, 'css-loader'],
 			},
 			{
 				test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
@@ -328,17 +398,16 @@ const cssConfig = {
 				{ from: 'lib/gui/app/index.html', to: 'index.html' },
 				// electron-builder doesn't bundle folders named "assets"
 				// See https://github.com/electron-userland/electron-builder/issues/4545
-				{ from: 'lib/gui/assets', to: 'media' },
 				{ from: 'assets/icon.png', to: 'media/icon.png' },
 			],
 		}),
 	],
 	entry: {
-		index: path.join(__dirname, 'lib', 'gui', 'app', 'scss', 'main.scss'),
+		index: path.join(__dirname, 'lib', 'gui', 'app', 'css', 'main.css'),
 	},
 	output: {
 		path: path.join(__dirname, 'generated'),
 	},
 };
 
-module.exports = [cssConfig, guiConfig, etcherConfig];
+module.exports = [cssConfig, guiConfig, etcherConfig, childWriterConfig];
