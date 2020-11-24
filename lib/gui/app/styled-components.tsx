@@ -149,7 +149,7 @@ export const Modal = styled(({ style, children, ...props }) => {
 })`
 	> div {
 		padding: 0;
-		height: 100%;
+		height: 99%;
 
 		> div:first-child {
 			height: 81%;
