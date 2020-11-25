@@ -8,4 +8,7 @@ sentry:
 triggerNotification:
     version: 1.5.81
     stagingPercentage: 100
-
+upstream:
+  - repo: etcher-sdk
+    url: https://github.com/balena-io-modules/etcher-sdk
+    module: 'etcher-sdk'
