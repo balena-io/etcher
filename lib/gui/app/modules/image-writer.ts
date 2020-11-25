@@ -17,7 +17,7 @@
 import { Drive as DrivelistDrive } from 'drivelist';
 import * as electron from 'electron';
 import * as sdk from 'etcher-sdk';
-import * as _ from 'lodash';
+import { Dictionary } from 'lodash';
 import * as ipc from 'node-ipc';
 import * as os from 'os';
 import * as path from 'path';
@@ -133,6 +133,14 @@ function writerEnv() {
 interface FlashResults {
 	skip?: boolean;
 	cancelled?: boolean;
+	results?: {
+		bytesWritten: number;
+		devices: {
+			failed: number;
+			successful: number;
+		};
+		errors: Error[];
+	};
 }
 
 async function performWrite(
@@ -177,10 +185,12 @@ async function performWrite(
 		});
 
 		ipc.server.on('done', (event) => {
-			event.results.errors = _.map(event.results.errors, (data) => {
-				return errors.fromJSON(data);
-			});
-			_.merge(flashResults, event);
+			event.results.errors = event.results.errors.map(
+				(data: Dictionary<any> & { message: string }) => {
+					return errors.fromJSON(data);
+				},
+			);
+			flashResults.results = event.results;
 		});
 
 		ipc.server.on('abort', () => {
@@ -209,7 +219,7 @@ async function performWrite(
 		const argv = writerArgv();
 
 		ipc.server.on('start', async () => {
-			console.log(`Elevating command: ${_.join(argv, ' ')}`);
+			console.log(`Elevating command: ${argv.join(' ')}`);
 			const env = writerEnv();
 			try {
 				const results = await permissions.elevateCommand(argv, {
@@ -231,11 +241,11 @@ async function performWrite(
 			}
 			console.log('Flash results', flashResults);
 
-			// This likely means the child died halfway through
+			// The flash wasn't cancelled and we didn't get a 'done' event
 			if (
 				!flashResults.cancelled &&
 				!flashResults.skip &&
-				!_.get(flashResults, ['results', 'bytesWritten'])
+				flashResults.results === undefined
 			) {
 				reject(
 					errors.createUserError({

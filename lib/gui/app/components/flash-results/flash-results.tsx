@@ -127,12 +127,12 @@ export function FlashResults({
 	};
 } & FlexProps) {
 	const [showErrorsInfo, setShowErrorsInfo] = React.useState(false);
-	const allFailed = results.devices.successful === 0;
+	const allFailed = !skip && results.devices.successful === 0;
 	const someFailed = results.devices.failed !== 0 || errors.length !== 0;
 	const effectiveSpeed = _.round(
 		bytesToMegabytes(
 			results.sourceMetadata.size /
-				(results.bytesWritten / results.averageFlashingSpeed),
+				(results.sourceMetadata.blockmappedSize / results.averageFlashingSpeed),
 		),
 		1,
 	);
@@ -155,7 +155,7 @@ export function FlashResults({
 					<Txt>{middleEllipsis(image, 24)}</Txt>
 				</Flex>
 				<Txt fontSize={24} color="#fff" mb="17px">
-					Flash Complete!
+					Flash {allFailed ? 'Failed' : 'Complete'}!
 				</Txt>
 				{skip ? <Txt color="#7e8085">Validation has been skipped</Txt> : null}
 			</Flex>
