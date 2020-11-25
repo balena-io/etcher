@@ -15,12 +15,23 @@
  */
 
 import { Drive as DrivelistDrive } from 'drivelist';
-import * as sdk from 'etcher-sdk';
+import {
+	BlockDevice,
+	File,
+	Http,
+	Metadata,
+	SourceDestination,
+} from 'etcher-sdk/build/source-destination';
+import {
+	MultiDestinationProgress,
+	OnProgressFunction,
+	OnFailFunction,
+	decompressThenFlash,
+} from 'etcher-sdk/build/multi-write';
 import { cleanupTmpFiles } from 'etcher-sdk/build/tmp';
 import * as ipc from 'node-ipc';
 import { totalmem } from 'os';
 
-import { BlockDevice, File, Http } from 'etcher-sdk/build/source-destination';
 import { toJSON } from '../../shared/errors';
 import { GENERAL_ERROR, SUCCESS } from '../../shared/exit-codes';
 import { delay } from '../../shared/utils';
@@ -85,7 +96,7 @@ export interface WriteResult {
 		successful: number;
 	};
 	errors: FlashError[];
-	sourceMetadata?: sdk.sourceDestination.Metadata;
+	sourceMetadata?: Metadata;
 }
 
 export interface FlashResults extends WriteResult {
@@ -112,19 +123,15 @@ async function writeAndValidate({
 	onProgress,
 	onFail,
 }: {
-	source: sdk.sourceDestination.SourceDestination;
-	destinations: sdk.sourceDestination.BlockDevice[];
+	source: SourceDestination;
+	destinations: BlockDevice[];
 	verify: boolean;
 	autoBlockmapping: boolean;
 	decompressFirst: boolean;
-	onProgress: sdk.multiWrite.OnProgressFunction;
-	onFail: sdk.multiWrite.OnFailFunction;
+	onProgress: OnProgressFunction;
+	onFail: OnFailFunction;
 }): Promise<WriteResult> {
-	const {
-		sourceMetadata,
-		failures,
-		bytesWritten,
-	} = await sdk.multiWrite.decompressThenFlash({
+	const { sourceMetadata, failures, bytesWritten } = await decompressThenFlash({
 		source,
 		destinations,
 		onFail,
@@ -149,7 +156,7 @@ async function writeAndValidate({
 	};
 	for (const [destination, error] of failures) {
 		const err = error as FlashError;
-		const drive = destination as sdk.sourceDestination.BlockDevice;
+		const drive = destination as BlockDevice;
 		err.device = drive.device;
 		err.description = drive.description;
 		result.errors.push(err);
@@ -201,7 +208,7 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 		 * @example
 		 * writer.on('progress', onProgress)
 		 */
-		const onProgress = (state: sdk.multiWrite.MultiDestinationProgress) => {
+		const onProgress = (state: MultiDestinationProgress) => {
 			ipc.of[IPC_SERVER_ID].emit('state', state);
 		};
 
@@ -237,10 +244,7 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 		 * @example
 		 * writer.on('fail', onFail)
 		 */
-		const onFail = (
-			destination: sdk.sourceDestination.SourceDestination,
-			error: Error,
-		) => {
+		const onFail = (destination: SourceDestination, error: Error) => {
 			ipc.of[IPC_SERVER_ID].emit('fail', {
 				// TODO: device should be destination
 				// @ts-ignore (destination.drive is private)
@@ -257,7 +261,7 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 		log(`Auto blockmapping: ${options.autoBlockmapping}`);
 		log(`Decompress first: ${options.decompressFirst}`);
 		const dests = options.destinations.map((destination) => {
-			return new sdk.sourceDestination.BlockDevice({
+			return new BlockDevice({
 				drive: destination,
 				unmountOnSuccess: options.unmountOnSuccess,
 				write: true,
@@ -298,7 +302,6 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 			await delay(DISCONNECT_DELAY);
 			await terminate(exitCode);
 		} catch (error) {
-			log(`Error: ${error.message}`);
 			exitCode = GENERAL_ERROR;
 			ipc.of[IPC_SERVER_ID].emit('error', toJSON(error));
 		}
