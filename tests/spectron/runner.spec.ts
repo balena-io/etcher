@@ -46,7 +46,10 @@ describe('Spectron', function () {
 			expect(bounds.height).to.be.above(0);
 			expect(bounds.width).to.be.above(0);
 			expect(await app.browserWindow.isMinimized()).to.be.false;
-			expect(await app.browserWindow.isVisible()).to.be.true;
+			expect(
+				(await app.browserWindow.isVisible()) ||
+					(await app.browserWindow.isFocused()),
+			).to.be.true;
 		});
 
 		it('should set a proper title', async () => {
