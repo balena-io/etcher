@@ -239,6 +239,7 @@ export class MainPage extends React.Component<
 				)}
 
 				<FlashStep
+					width={this.state.isWebviewShowing ? '220px' : '200px'}
 					goToSuccess={() => this.setState({ current: 'success' })}
 					shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
 					isFlashing={this.state.isFlashing}
