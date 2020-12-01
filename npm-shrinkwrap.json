@@ -15006,9 +15006,9 @@
       "dev": true
     },
     "sys-class-rgb-led": {
-      "version": "2.1.0",
-      "resolved": "https://registry.npmjs.org/sys-class-rgb-led/-/sys-class-rgb-led-2.1.0.tgz",
-      "integrity": "sha512-ckjrMCWWwg1J4d+B3xlTPLhgK6U/2qpW1TYzCLBSULKoLk2tFchis7nDEOmcbiLfpR/8GQK1Q2CrDNleF0USHA==",
+      "version": "2.1.1",
+      "resolved": "https://registry.npmjs.org/sys-class-rgb-led/-/sys-class-rgb-led-2.1.1.tgz",
+      "integrity": "sha512-CPx01dR22xsqqgpGQ0BcKWf1hCJNTK/Y/gK/hvNEZX5PyuvUzrCYsBWgletzlaruc47RYGi/0be+ZbkIIiQjnA==",
       "dev": true
     },
     "tapable": {
