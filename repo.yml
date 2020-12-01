@@ -12,3 +12,9 @@ upstream:
   - repo: etcher-sdk
     url: https://github.com/balena-io-modules/etcher-sdk
     module: 'etcher-sdk'
+  - repo: sys-class-rgb-led
+    url: https://github.com/balena-io-modules/sys-class-rgb-led
+    module: sys-class-rgb-led
+  - repo: rendition
+    url: https://github.com/balena-io-modules/rendition
+    module: rendition
