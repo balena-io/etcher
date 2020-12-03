@@ -100,6 +100,7 @@ export const theme = _.merge({}, Theme, {
 			font-size: 16px;
 
 			&& {
+				width: 200px;
 				height: 48px;
 			}
 

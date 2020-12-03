@@ -23,7 +23,7 @@ import { StepButton } from '../../styled-components';
 
 const FlashProgressBar = styled(ProgressBar)`
 	> div {
-		width: 220px;
+		width: 100%;
 		height: 12px;
 		color: white !important;
 		text-shadow: none !important;
@@ -33,7 +33,7 @@ const FlashProgressBar = styled(ProgressBar)`
 		}
 	}
 
-	width: 220px;
+	width: 100%;
 	height: 12px;
 	margin-bottom: 6px;
 	border-radius: 14px;
