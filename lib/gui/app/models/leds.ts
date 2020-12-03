@@ -15,7 +15,7 @@
  */
 
 import * as _ from 'lodash';
-import { AnimationFunction, Color, RGBLed } from 'sys-class-rgb-led';
+import { Animator, AnimationFunction, Color, RGBLed } from 'sys-class-rgb-led';
 
 import {
 	isSourceDrive,
@@ -25,23 +25,7 @@ import * as settings from './settings';
 import { DEFAULT_STATE, observe } from './store';
 
 const leds: Map<string, RGBLed> = new Map();
-
-function setLeds(
-	drivesPaths: Set<string>,
-	colorOrAnimation: Color | AnimationFunction,
-	frequency?: number,
-) {
-	for (const path of drivesPaths) {
-		const led = leds.get(path);
-		if (led) {
-			if (Array.isArray(colorOrAnimation)) {
-				led.setStaticColor(colorOrAnimation);
-			} else {
-				led.setAnimation(colorOrAnimation, frequency);
-			}
-		}
-	}
-}
+const animator = new Animator([], 10);
 
 const red: Color = [1, 0, 0];
 const green: Color = [0, 1, 0];
@@ -61,16 +45,20 @@ function createAnimationFunction(
 }
 
 function blink(t: number) {
-	return Math.floor(t / 1000) % 2;
+	return Math.floor(t) % 2;
 }
 
-function breathe(t: number) {
-	return (1 + Math.sin(t / 1000)) / 2;
+function one(_t: number) {
+	return 1;
 }
 
-const breatheBlue = createAnimationFunction(breathe, blue);
 const blinkGreen = createAnimationFunction(blink, green);
 const blinkPurple = createAnimationFunction(blink, purple);
+const staticRed = createAnimationFunction(one, red);
+const staticGreen = createAnimationFunction(one, green);
+const staticBlue = createAnimationFunction(one, blue);
+const staticWhite = createAnimationFunction(one, white);
+const staticBlack = createAnimationFunction(one, black);
 
 interface LedsState {
 	step: 'main' | 'flashing' | 'verifying' | 'finish';
@@ -78,6 +66,17 @@ interface LedsState {
 	availableDrives: string[];
 	selectedDrives: string[];
 	failedDrives: string[];
+}
+
+function setLeds(animation: AnimationFunction, drivesPaths: Set<string>) {
+	const rgbLeds: RGBLed[] = [];
+	for (const path of drivesPaths) {
+		const led = leds.get(path);
+		if (led) {
+			rgbLeds.push(led);
+		}
+	}
+	return { animation, rgbLeds };
 }
 
 // Source slot (1st slot): behaves as a target unless it is chosen as source
@@ -110,6 +109,7 @@ export function updateLeds({
 	// Remove selected devices from plugged set
 	for (const d of selectedOk) {
 		plugged.delete(d);
+		unplugged.delete(d);
 	}
 
 	// Remove plugged devices from unplugged set
@@ -122,38 +122,42 @@ export function updateLeds({
 		selectedOk.delete(d);
 	}
 
+	const mapping: Array<{
+		animation: AnimationFunction;
+		rgbLeds: RGBLed[];
+	}> = [];
 	// Handle source slot
 	if (sourceDrive !== undefined) {
-		if (unplugged.has(sourceDrive)) {
-			unplugged.delete(sourceDrive);
-			// TODO
-			setLeds(new Set([sourceDrive]), breatheBlue, 2);
-		} else if (plugged.has(sourceDrive)) {
+		if (plugged.has(sourceDrive)) {
 			plugged.delete(sourceDrive);
-			setLeds(new Set([sourceDrive]), blue);
+			mapping.push(setLeds(staticBlue, new Set([sourceDrive])));
 		}
 	}
 	if (step === 'main') {
-		setLeds(unplugged, black);
-		setLeds(plugged, black);
-		setLeds(selectedOk, white);
-		setLeds(selectedFailed, white);
+		mapping.push(
+			setLeds(staticBlack, new Set([...unplugged, ...plugged])),
+			setLeds(staticWhite, new Set([...selectedOk, ...selectedFailed])),
+		);
 	} else if (step === 'flashing') {
-		setLeds(unplugged, black);
-		setLeds(plugged, black);
-		setLeds(selectedOk, blinkPurple, 2);
-		setLeds(selectedFailed, red);
+		mapping.push(
+			setLeds(staticBlack, new Set([...unplugged, ...plugged])),
+			setLeds(blinkPurple, selectedOk),
+			setLeds(staticRed, selectedFailed),
+		);
 	} else if (step === 'verifying') {
-		setLeds(unplugged, black);
-		setLeds(plugged, black);
-		setLeds(selectedOk, blinkGreen, 2);
-		setLeds(selectedFailed, red);
+		mapping.push(
+			setLeds(staticBlack, new Set([...unplugged, ...plugged])),
+			setLeds(blinkGreen, selectedOk),
+			setLeds(staticRed, selectedFailed),
+		);
 	} else if (step === 'finish') {
-		setLeds(unplugged, black);
-		setLeds(plugged, black);
-		setLeds(selectedOk, green);
-		setLeds(selectedFailed, red);
+		mapping.push(
+			setLeds(staticBlack, new Set([...unplugged, ...plugged])),
+			setLeds(staticGreen, selectedOk),
+			setLeds(staticRed, selectedFailed),
+		);
 	}
+	animator.mapping = mapping;
 }
 
 interface DeviceFromState {
