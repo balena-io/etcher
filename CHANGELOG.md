@@ -3,6 +3,246 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.112
+## (2020-12-02)
+
+* Add rendition and sys-class-rgb-led to repo.yml [Alexis Svinartchouk]
+
+<details>
+<summary> Update sys-class-rgb-led from 2.1.0 to 2.1.1 [Alexis Svinartchouk] </summary>
+
+> ## sys-class-rgb-led-2.1.1
+> ### (2020-12-01)
+> 
+> * Replace resin-lint with @balena/lint [Alexis Svinartchouk]
+> * Update typescript to v4.1.2 [Alexis Svinartchouk]
+> * Add versionbot changelog [Alexis Svinartchouk]
+> 
+</details>
+
+* Fix layout when the featured project is not showing [Alexis Svinartchouk]
+* Improve flashing error handling [Alexis Svinartchouk]
+* Fix modal content height on Windows [Alexis Svinartchouk]
+
+<details>
+<summary> Update etcher-sdk from 5.1.5 to 5.1.10 [Alexis Svinartchouk] </summary>
+
+> ## etcher-sdk-5.1.10
+> ### (2020-12-02)
+> 
+> 
+> <details>
+> <summary> Update balena-image-fs from 7.0.5 to 7.0.6 [Alexis Svinartchouk] </summary>
+> 
+>> ### balena-image-fs-7.0.6
+>> #### (2020-12-02)
+>> 
+>> 
+>> <details>
+>> <summary> Update ext2fs from 3.0.4 to 3.0.5 [Alexis Svinartchouk] </summary>
+>> 
+>>> #### node-ext2fs-3.0.5
+>>> ##### (2020-12-02)
+>>> 
+>>> * Fix reading and discarding with offsets > 32 bits [Alexis Svinartchouk]
+>>> 
+>> </details>
+>> 
+>> 
+> </details>
+> 
+> 
+> ## etcher-sdk-5.1.9
+> ### (2020-12-01)
+> 
+> * Add repo.yml file [Alexis Svinartchouk]
+> * Update @balena/udif from 1.1.0 to 1.1.1 [Alexis Svinartchouk]
+> 
+> <details>
+> <summary> Update zip-part-stream from 1.0.2 to 1.0.3 [Alexis Svinartchouk] </summary>
+> 
+>> ### zip-part-stream-1.0.3
+>> #### (2020-11-30)
+>> 
+>> * Add versionbot changelog [Alexis Svinartchouk]
+>> 
+> </details>
+> 
+> 
+> <details>
+> <summary> Update node-raspberrypi-usbboot from 0.2.9 to 0.2.10 [Alexis Svinartchouk] </summary>
+> 
+>> ### node-raspberrypi-usbboot-0.2.10
+>> #### (2020-11-30)
+>> 
+>> * Update typescript to v4.1.2 [Alexis Svinartchouk]
+>> * Add versionbot changelog [Alexis Svinartchouk]
+>> 
+> </details>
+> 
+> 
+> <details>
+> <summary> Update mountutils from 1.3.19 to 1.3.20 [Alexis Svinartchouk] </summary>
+> 
+>> ### mountutils-1.3.20
+>> #### (2020-11-30)
+>> 
+>> * Add versionbot changelog [Alexis Svinartchouk]
+>> 
+> </details>
+> 
+> 
+> <details>
+> <summary> Update gzip-stream from 1.1.1 to 1.1.2 [Alexis Svinartchouk] </summary>
+> 
+>> ### gzip-stream-1.1.2
+>> #### (2020-11-30)
+>> 
+>> * Add versionbot changelog [Alexis Svinartchouk]
+>> 
+> </details>
+> 
+> 
+> <details>
+> <summary> Update drivelist from 9.2.1 to 9.2.2 [Alexis Svinartchouk] </summary>
+> 
+>> ### drivelist-9.2.2
+>> #### (2020-11-30)
+>> 
+>> * Update typescript to v4.1.2 [Alexis Svinartchouk]
+>> * Add versionbot changelog [Alexis Svinartchouk]
+>> 
+> </details>
+> 
+> 
+> <details>
+> <summary> Update blockmap from 4.0.2 to 4.0.3 [Alexis Svinartchouk] </summary>
+> 
+>> ### blockmap-4.0.3
+>> #### (2020-11-30)
+>> 
+>> * Update typescript to v4.1.2 [Alexis Svinartchouk]
+>> * Add versionbot changelog [Alexis Svinartchouk]
+>> 
+> </details>
+> 
+> 
+> <details>
+> <summary> Update partitioninfo from 6.0.1 to 6.0.2 [Alexis Svinartchouk] </summary>
+> 
+>> ### partitioninfo-6.0.2
+>> #### (2020-11-27)
+>> 
+>> 
+>> <details>
+>> <summary> Update file-disk from 8.0.0 to 8.0.1 [Alexis Svinartchouk] </summary>
+>> 
+>>> #### file-disk-8.0.1
+>>> ##### (2020-11-26)
+>>> 
+>>> * Add versionbot changelog [Alexis Svinartchouk]
+>>> 
+>> </details>
+>> 
+>> * Add versionbot changelog [Alexis Svinartchouk]
+>> 
+> </details>
+> 
+> 
+> <details>
+> <summary> Update file-disk from 8.0.0 to 8.0.1 [Alexis Svinartchouk] </summary>
+> 
+>> ### file-disk-8.0.1
+>> #### (2020-11-26)
+>> 
+>> * Add versionbot changelog [Alexis Svinartchouk]
+>> 
+>> ### file-disk-8.0.1
+>> #### (2020-11-26)
+>> 
+>> * Add versionbot changelog [Alexis Svinartchouk]
+>> 
+> </details>
+> 
+> 
+> <details>
+> <summary> Update balena-image-fs from 7.0.4 to 7.0.5 [Alexis Svinartchouk] </summary>
+> 
+>> ### balena-image-fs-7.0.5
+>> #### (2020-11-27)
+>> 
+>> 
+>> <details>
+>> <summary> Update file-disk from 8.0.0 to 8.0.1 [Alexis Svinartchouk] </summary>
+>> 
+>>> #### file-disk-8.0.1
+>>> ##### (2020-11-26)
+>>> 
+>>> * Add versionbot changelog [Alexis Svinartchouk]
+>>> 
+>> </details>
+>> 
+>> 
+>> <details>
+>> <summary> Update ext2fs from 3.0.3 to 3.0.4 [Alexis Svinartchouk] </summary>
+>> 
+>>> #### node-ext2fs-3.0.4
+>>> ##### (2020-11-26)
+>>> 
+>>> * Add versionbot changelog [Alexis Svinartchouk]
+>>> 
+>> </details>
+>> 
+>> 
+>> <details>
+>> <summary> Update partitioninfo from 6.0.1 to 6.0.2 [Alexis Svinartchouk] </summary>
+>> 
+>>> #### partitioninfo-6.0.2
+>>> ##### (2020-11-27)
+>>> 
+>>> 
+>>> <details>
+>>> <summary> Update file-disk from 8.0.0 to 8.0.1 [Alexis Svinartchouk] </summary>
+>>> 
+>>>> ##### file-disk-8.0.1
+>>>> ###### (2020-11-26)
+>>>> 
+>>>> * Add versionbot changelog [Alexis Svinartchouk]
+>>>> 
+>>> </details>
+>>> 
+>>> * Add versionbot changelog [Alexis Svinartchouk]
+>>> 
+>> </details>
+>> 
+>> * Add versionbot changelog [Alexis Svinartchouk]
+>> 
+> </details>
+> 
+> 
+> ## etcher-sdk-5.1.8
+> ### (2020-11-26)
+> 
+> * Add versionbot changelog [Alexis Svinartchouk]
+> 
+> ## etcher-sdk-5.1.7
+> ### (2020-11-25)
+> 
+> * Don't start opening drives in advance to avoid unhandled rejections [Alexis Svinartchouk]
+> * Update generated docs [Alexis Svinartchouk]
+> 
+> ## etcher-sdk-5.1.6
+> ### (2020-11-24)
+> 
+> * Do not unmount source drives [Alexis Svinartchouk]
+> * Factorize retrying transient errors [Alexis Svinartchouk]
+> * Retry opening files & block devices on transient errors [Alexis Svinartchouk]
+> * Update generated docs [Alexis Svinartchouk]
+> 
+</details>
+
+* Set useContentSize to true so the size is the same on all platforms [Alexis Svinartchouk]
+
 # v1.5.111
 ## (2020-11-23)
 
