@@ -339,7 +339,7 @@
   "public": true,
   "fork": false,
   "description": "Flash OS images to SD cards & USB drives, safely and easily.",
-  "stars": 19164,
+  "stars": 19265,
   "homepage": "https://etcher.io",
   "repositoryUrl": "https://github.com/balena-io/etcher.git",
   "active": true,
@@ -350,85 +350,85 @@
     "type": "Organization"
   },
   "dependencies": [],
-  "lastCommitDate": "2020-11-23T17:54:50Z",
+  "lastCommitDate": "2020-12-03T15:19:22Z",
   "latestRelease": {
-    "tagName": "v1.5.111",
+    "tagName": "v1.5.112",
     "asssets": [
       {
-        "name": "balena-etcher-electron-1.5.111-linux-ia32.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.111/balena-etcher-electron-1.5.111-linux-ia32.zip"
+        "name": "balena-etcher-electron-1.5.112-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.112/balena-etcher-electron-1.5.112-linux-ia32.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.111-linux-x64.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.111/balena-etcher-electron-1.5.111-linux-x64.zip"
+        "name": "balena-etcher-electron-1.5.112-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.112/balena-etcher-electron-1.5.112-linux-x64.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.111.i686.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.111/balena-etcher-electron-1.5.111.i686.rpm"
+        "name": "balena-etcher-electron-1.5.112.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.112/balena-etcher-electron-1.5.112.i686.rpm"
       },
       {
-        "name": "balena-etcher-electron-1.5.111.x86_64.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.111/balena-etcher-electron-1.5.111.x86_64.rpm"
+        "name": "balena-etcher-electron-1.5.112.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.112/balena-etcher-electron-1.5.112.x86_64.rpm"
       },
       {
-        "name": "balena-etcher-electron_1.5.111_amd64.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.111/balena-etcher-electron_1.5.111_amd64.deb"
+        "name": "balena-etcher-electron_1.5.112_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.112/balena-etcher-electron_1.5.112_amd64.deb"
       },
       {
-        "name": "balena-etcher-electron_1.5.111_i386.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.111/balena-etcher-electron_1.5.111_i386.deb"
+        "name": "balena-etcher-electron_1.5.112_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.112/balena-etcher-electron_1.5.112_i386.deb"
       },
       {
-        "name": "balenaEtcher-1.5.111-ia32.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.111/balenaEtcher-1.5.111-ia32.AppImage"
+        "name": "balenaEtcher-1.5.112-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.112/balenaEtcher-1.5.112-ia32.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.111-mac.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.111/balenaEtcher-1.5.111-mac.zip"
+        "name": "balenaEtcher-1.5.112-mac.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.112/balenaEtcher-1.5.112-mac.zip"
       },
       {
-        "name": "balenaEtcher-1.5.111-x64.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.111/balenaEtcher-1.5.111-x64.AppImage"
+        "name": "balenaEtcher-1.5.112-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.112/balenaEtcher-1.5.112-x64.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.111.dmg",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.111/balenaEtcher-1.5.111.dmg"
+        "name": "balenaEtcher-1.5.112.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.112/balenaEtcher-1.5.112.dmg"
       },
       {
-        "name": "balenaEtcher-1.5.111.dmg.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.111/balenaEtcher-1.5.111.dmg.blockmap"
+        "name": "balenaEtcher-1.5.112.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.112/balenaEtcher-1.5.112.dmg.blockmap"
       },
       {
-        "name": "balenaEtcher-Portable-1.5.111.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.111/balenaEtcher-Portable-1.5.111.exe"
+        "name": "balenaEtcher-Portable-1.5.112.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.112/balenaEtcher-Portable-1.5.112.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.111.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.111/balenaEtcher-Setup-1.5.111.exe"
+        "name": "balenaEtcher-Setup-1.5.112.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.112/balenaEtcher-Setup-1.5.112.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.111.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.111/balenaEtcher-Setup-1.5.111.exe.blockmap"
+        "name": "balenaEtcher-Setup-1.5.112.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.112/balenaEtcher-Setup-1.5.112.exe.blockmap"
       },
       {
         "name": "builder-effective-config.yaml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.111/builder-effective-config.yaml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.112/builder-effective-config.yaml"
       },
       {
         "name": "latest-linux-ia32.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.111/latest-linux-ia32.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.112/latest-linux-ia32.yml"
       },
       {
         "name": "latest-linux.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.111/latest-linux.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.112/latest-linux.yml"
       },
       {
         "name": "latest-mac.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.111/latest-mac.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.112/latest-mac.yml"
       },
       {
         "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.111/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.112/latest.yml"
       }
     ]
   },
@@ -526,8 +526,36 @@
     ]
   },
   "openIssues": {
-    "numberOfIssues": 278,
+    "numberOfIssues": 275,
     "latestIssues": [
+      {
+        "title": "I can only flash an image on a NEW SDCard",
+        "url": "https://github.com/balena-io/etcher/issues/3371"
+      },
+      {
+        "title": "legacy in config now!!!",
+        "url": "https://github.com/balena-io/etcher/issues/3370"
+      },
+      {
+        "title": "Unable to flash Ubuntu 20.04.1 LTS amd64 to SD card",
+        "url": "https://github.com/balena-io/etcher/issues/3367"
+      },
+      {
+        "title": "Unable to put an ISO image onto a USB key, resource busy or locked",
+        "url": "https://github.com/balena-io/etcher/issues/3366"
+      },
+      {
+        "title": "APT repository does not seem to update",
+        "url": "https://github.com/balena-io/etcher/issues/3365"
+      },
+      {
+        "title": "MacOS: Big Sur - The Writer Process Ended Unexptec",
+        "url": "https://github.com/balena-io/etcher/issues/3363"
+      },
+      {
+        "title": "macOS mounted flash storage error (Won't Process ISO File)",
+        "url": "https://github.com/balena-io/etcher/issues/3358"
+      },
       {
         "title": "Newest version of etcher broke my SD card",
         "url": "https://github.com/balena-io/etcher/issues/3356"
@@ -543,10 +571,6 @@
       {
         "title": "Unnecessary scrollbars on modals",
         "url": "https://github.com/balena-io/etcher/issues/3351"
-      },
-      {
-        "title": "Can't select a write-locked SD as the source for cloning.",
-        "url": "https://github.com/balena-io/etcher/issues/3350"
       },
       {
         "title": "Empty window",
@@ -583,34 +607,10 @@
       {
         "title": "Can't write Ubuntu 20.10 for RPi to SDcard",
         "url": "https://github.com/balena-io/etcher/issues/3330"
-      },
-      {
-        "title": "User name has hyphen.",
-        "url": "https://github.com/balena-io/etcher/issues/3329"
-      },
-      {
-        "title": "stuck on W10 on Starting...",
-        "url": "https://github.com/balena-io/etcher/issues/3328"
-      },
-      {
-        "title": "Unable to confirm \"sha512sum\" for \"balenaEtcher-1.5.109-x64.AppImage\"",
-        "url": "https://github.com/balena-io/etcher/issues/3327"
-      },
-      {
-        "title": "MacOS you \"don't have permission\" at startup 1.5.109",
-        "url": "https://github.com/balena-io/etcher/issues/3326"
-      },
-      {
-        "title": "flash disk USB drive is locked in Windows 10 - readonly error in linux",
-        "url": "https://github.com/balena-io/etcher/issues/3323"
-      },
-      {
-        "title": "Etcher should not fake a system password prompt",
-        "url": "https://github.com/balena-io/etcher/issues/3321"
       }
     ]
   },
-  "version": "1.5.111",
+  "version": "1.5.112",
   "screenshot": null,
   "logo": null
 }
