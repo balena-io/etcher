@@ -74,6 +74,8 @@ function isDrivelistDrive(drive: Drive): drive is DrivelistDrive {
 const DrivesTable = styled((props: GenericTableProps<Drive>) => (
 	<Table<Drive> {...props} />
 ))`
+	border-bottom: none;
+
 	[data-display='table-head'],
 	[data-display='table-body'] {
 		> [data-display='table-row'] > [data-display='table-cell'] {
