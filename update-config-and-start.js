@@ -122,7 +122,19 @@ function zip(...arrays) {
 	return arrays[0].map((_, i) => arrays.map(array => array[i]));
 }
 
+async function updateScreenPWMDutyCycle() {
+	const dutyCycle = parseInt(env.SCREEN_PWM_DUTY_CYCLE);
+	if (dutyCycle !== undefined) {
+		try {
+			await fs.writeFile('/sys/class/pwm/pwmchip2/pwm0/duty_cycle', dutyCycle.toString());
+		} catch (error) {
+			console.error('Could not update screen PWM duty cycle', error);
+		}
+	}
+}
+
 async function main() {
+	await updateScreenPWMDutyCycle();
 	const osVersion = await getOsVersion();
 	const defaultConfig = db.default;
 	const hw = db[ETCHER_PRO_VERSION] || {};
