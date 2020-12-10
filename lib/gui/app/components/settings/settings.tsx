@@ -31,15 +31,10 @@ const platform = os.platform();
 interface Setting {
 	name: string;
 	label: string | JSX.Element;
-	options?: {
-		description: string;
-		confirmLabel: string;
-	};
-	hide?: boolean;
 }
 
 async function getSettingsList(): Promise<Setting[]> {
-	return [
+	const list: Setting[] = [
 		{
 			name: 'errorReporting',
 			label: 'Anonymously report errors and usage statistics to balena.io',
@@ -54,12 +49,14 @@ async function getSettingsList(): Promise<Setting[]> {
 			 */
 			label: `${platform === 'win32' ? 'Eject' : 'Auto-unmount'} on success`,
 		},
-		{
+	];
+	if (!['rpm', 'deb'].includes(packageType)) {
+		list.push({
 			name: 'updatesEnabled',
 			label: 'Auto-updates enabled',
-			hide: ['rpm', 'deb'].includes(packageType),
-		},
-	];
+		});
+	}
+	return list;
 }
 
 interface SettingsModalProps {
@@ -86,25 +83,14 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 		})();
 	});
 
-	const toggleSetting = async (
-		setting: string,
-		options?: Setting['options'],
-	) => {
+	const toggleSetting = async (setting: string) => {
 		const value = currentSettings[setting];
-		const dangerous = options !== undefined;
-
-		analytics.logEvent('Toggle setting', {
-			setting,
-			value,
-			dangerous,
-		});
-
+		analytics.logEvent('Toggle setting', { setting, value });
 		await settings.set(setting, !value);
 		setCurrentSettings({
 			...currentSettings,
 			[setting]: !value,
 		});
-		return;
 	};
 
 	return (
@@ -118,14 +104,14 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 		>
 			<Flex flexDirection="column">
 				{settingsList.map((setting: Setting, i: number) => {
-					return setting.hide ? null : (
+					return (
 						<Flex key={setting.name} mb={14}>
 							<Checkbox
 								toggle
 								tabIndex={6 + i}
 								label={setting.label}
 								checked={currentSettings[setting.name]}
-								onChange={() => toggleSetting(setting.name, setting.options)}
+								onChange={() => toggleSetting(setting.name)}
 							/>
 						</Flex>
 					);
