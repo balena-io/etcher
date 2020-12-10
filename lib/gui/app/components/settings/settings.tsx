@@ -50,7 +50,7 @@ async function getSettingsList(): Promise<Setting[]> {
 			label: `${platform === 'win32' ? 'Eject' : 'Auto-unmount'} on success`,
 		},
 	];
-	if (!['rpm', 'deb'].includes(packageType)) {
+	if (['appimage', 'nsis', 'dmg'].includes(packageType)) {
 		list.push({
 			name: 'updatesEnabled',
 			label: 'Auto-updates enabled',
