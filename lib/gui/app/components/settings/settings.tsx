@@ -16,7 +16,6 @@
 
 import GithubSvg from '@fortawesome/fontawesome-free/svgs/brands/github.svg';
 import * as _ from 'lodash';
-import * as os from 'os';
 import * as React from 'react';
 import { Flex, Checkbox, Txt } from 'rendition';
 
@@ -25,8 +24,6 @@ import * as settings from '../../models/settings';
 import * as analytics from '../../modules/analytics';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 import { Modal } from '../../styled-components';
-
-const platform = os.platform();
 
 interface Setting {
 	name: string;
@@ -38,16 +35,6 @@ async function getSettingsList(): Promise<Setting[]> {
 		{
 			name: 'errorReporting',
 			label: 'Anonymously report errors and usage statistics to balena.io',
-		},
-		{
-			name: 'unmountOnSuccess',
-			/**
-			 * On Windows, "Unmounting" basically means "ejecting".
-			 * On top of that, Windows users are usually not even
-			 * familiar with the meaning of "unmount", which comes
-			 * from the UNIX world.
-			 */
-			label: `${platform === 'win32' ? 'Eject' : 'Auto-unmount'} on success`,
 		},
 	];
 	if (['appimage', 'nsis', 'dmg'].includes(packageType)) {
