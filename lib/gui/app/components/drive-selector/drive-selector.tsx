@@ -305,9 +305,9 @@ export class DriveSelector extends React.Component<
 			case compatibility.system():
 				return warning.systemDrive();
 			case compatibility.tooSmall():
-				const recommendedDriveSize =
+				const size =
 					this.state.image?.recommendedDriveSize || this.state.image?.size || 0;
-				return warning.unrecommendedDriveSize({ recommendedDriveSize }, drive);
+				return warning.tooSmall({ size }, drive);
 		}
 	}
 
