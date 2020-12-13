@@ -4,6 +4,13 @@ Getting help with Etcher
 There are various ways to get support for Etcher if you experience an issue or
 have an idea you'd like to share with us.
 
+Documentation
+------
+
+We have answers to a variety of frequently asked questions in the [user 
+documentation][documentation] and also in the [FAQs][faq] on the Etcher website.
+
+
 Forums
 ------
 
@@ -32,3 +39,5 @@ one][new-issue].
 [discourse]: https://forums.balena.io/c/etcher
 [issues]: https://github.com/balena-io/etcher/issues
 [new-issue]: https://github.com/balena-io/etcher/issues/new
+[documentation]: https://github.com/balena-io/etcher/blob/master/docs/USER-DOCUMENTATION.md
+[faq]: https://etcher.io
