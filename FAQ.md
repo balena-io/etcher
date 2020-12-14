@@ -43,4 +43,4 @@ Etcher requires an available [polkit authentication agent](https://wiki.archlinu
 
 ## May I run Etcher in older macOS versions?
 
-Etcher GUI is based on the [Electron](http://electron.atom.io/) framework, [which only supports macOS 10.9 and newer versions](https://github.com/electron/electron/blob/master/docs/tutorial/support.md#supported-platforms).
+Etcher GUI is based on the [Electron](http://electron.atom.io/) framework, [which only supports macOS 10.10 and newer versions](https://github.com/electron/electron/blob/master/docs/tutorial/support.md#supported-platforms).
