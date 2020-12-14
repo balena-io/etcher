@@ -193,7 +193,7 @@ function stateObserver(state: typeof DEFAULT_STATE) {
 		selectedDrivesPaths = s.devicePaths;
 	}
 	const failedDevicePaths = s.failedDeviceErrors.map(
-		([devicePath]: [string]) => devicePath,
+		([, { devicePath }]: [string, { devicePath: string }]) => devicePath,
 	);
 	const newLedsState = {
 		step,
