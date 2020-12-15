@@ -27,7 +27,7 @@ RUN \
   apt-get install -y stress htop dcfldd && \
   rm -rf /var/lib/apt/lists/*
 WORKDIR /usr/src/app
-COPY dd.sh flash.ts tsconfig.json package.json package-lock.json ./
+COPY sleep.sh dd.sh flash.ts tsconfig.json package.json package-lock.json ./
 COPY --from=builder /usr/src/app/target/release/pdd .
 COPY --from=builder /usr/src/app/node_modules ./node_modules
 COPY --from=builder /usr/src/app/etcher-sdk ./etcher-sdk
