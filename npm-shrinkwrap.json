@@ -5864,9 +5864,9 @@
       }
     },
     "electron": {
-      "version": "9.3.3",
-      "resolved": "https://registry.npmjs.org/electron/-/electron-9.3.3.tgz",
-      "integrity": "sha512-xghKeUY1qgnEcJ5w2rXo/toH+8NT2Dktx2aAxBNPV7CIJr3mejJJAPwLbycwtddzr37tgKxHeHlc8ivfKtMkJQ==",
+      "version": "9.4.0",
+      "resolved": "https://registry.npmjs.org/electron/-/electron-9.4.0.tgz",
+      "integrity": "sha512-hOC4q0jkb+UDYZRy8vrZ1IANnq+jznZnbkD62OEo06nU+hIbp2IrwDRBNuSLmQ3cwZMVir0WSIA1qEVK0PkzGA==",
       "dev": true,
       "requires": {
         "@electron/get": "^1.0.1",
@@ -7357,9 +7357,9 @@
       "dev": true
     },
     "etcher-sdk": {
-      "version": "5.1.10",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-5.1.10.tgz",
-      "integrity": "sha512-tCHY6v4txJr6+3KCIYhaLem6U3ZTEiXRtchMZiuZO6X9t2w8U5ntn6RgHbs7YIixrr/17o1aRUnqPKsXrLbDHQ==",
+      "version": "5.1.11",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-5.1.11.tgz",
+      "integrity": "sha512-aS5gbclUoBF+8NOV2R2MJN52BOYKJHc+gjlZF3xZh1hVoglVb0AtCZpFFfTk8/cDn2SvrfAv03/amXaJxJjaPQ==",
       "dev": true,
       "requires": {
         "@balena/udif": "^1.1.1",
@@ -15006,9 +15006,9 @@
       "dev": true
     },
     "sys-class-rgb-led": {
-      "version": "2.1.1",
-      "resolved": "https://registry.npmjs.org/sys-class-rgb-led/-/sys-class-rgb-led-2.1.1.tgz",
-      "integrity": "sha512-CPx01dR22xsqqgpGQ0BcKWf1hCJNTK/Y/gK/hvNEZX5PyuvUzrCYsBWgletzlaruc47RYGi/0be+ZbkIIiQjnA==",
+      "version": "3.0.0",
+      "resolved": "https://registry.npmjs.org/sys-class-rgb-led/-/sys-class-rgb-led-3.0.0.tgz",
+      "integrity": "sha512-e5vMYgWgDFfXMN67lbTW6niSxzm3eiD8A8hEciUtOUexfYGM6lpd6dH6bERq2LL99mmBYFSxYFZTMWHga4xe7Q==",
       "dev": true
     },
     "tapable": {

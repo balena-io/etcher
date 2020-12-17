@@ -74,6 +74,8 @@ function isDrivelistDrive(drive: Drive): drive is DrivelistDrive {
 const DrivesTable = styled((props: GenericTableProps<Drive>) => (
 	<Table<Drive> {...props} />
 ))`
+	border-bottom: none;
+
 	[data-display='table-head'],
 	[data-display='table-body'] {
 		> [data-display='table-row'] > [data-display='table-cell'] {
@@ -303,9 +305,9 @@ export class DriveSelector extends React.Component<
 			case compatibility.system():
 				return warning.systemDrive();
 			case compatibility.tooSmall():
-				const recommendedDriveSize =
+				const size =
 					this.state.image?.recommendedDriveSize || this.state.image?.size || 0;
-				return warning.unrecommendedDriveSize({ recommendedDriveSize }, drive);
+				return warning.tooSmall({ size }, drive);
 		}
 	}
 

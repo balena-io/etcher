@@ -167,7 +167,6 @@ async function writeAndValidate({
 interface WriteOptions {
 	image: SourceMetadata;
 	destinations: DrivelistDrive[];
-	unmountOnSuccess: boolean;
 	autoBlockmapping: boolean;
 	decompressFirst: boolean;
 	SourceType: string;
@@ -257,13 +256,12 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 		const imagePath = options.image.path;
 		log(`Image: ${imagePath}`);
 		log(`Devices: ${destinations.join(', ')}`);
-		log(`Umount on success: ${options.unmountOnSuccess}`);
 		log(`Auto blockmapping: ${options.autoBlockmapping}`);
 		log(`Decompress first: ${options.decompressFirst}`);
 		const dests = options.destinations.map((destination) => {
 			return new BlockDevice({
 				drive: destination,
-				unmountOnSuccess: options.unmountOnSuccess,
+				unmountOnSuccess: true,
 				write: true,
 				direct: true,
 			});

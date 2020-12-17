@@ -151,11 +151,7 @@ async function performWrite(
 	let cancelled = false;
 	let skip = false;
 	ipc.serve();
-	const {
-		unmountOnSuccess,
-		autoBlockmapping,
-		decompressFirst,
-	} = await settings.getAll();
+	const { autoBlockmapping, decompressFirst } = await settings.getAll();
 	return await new Promise((resolve, reject) => {
 		ipc.server.on('error', (error) => {
 			terminateServer();
@@ -174,7 +170,6 @@ async function performWrite(
 			driveCount: drives.length,
 			uuid: flashState.getFlashUuid(),
 			flashInstanceUuid: flashState.getFlashUuid(),
-			unmountOnSuccess,
 		};
 
 		ipc.server.on('fail', ({ device, error }) => {
@@ -211,7 +206,6 @@ async function performWrite(
 				destinations: drives,
 				SourceType: image.SourceType.name,
 				autoBlockmapping,
-				unmountOnSuccess,
 				decompressFirst,
 			});
 		});
@@ -290,7 +284,6 @@ export async function flash(
 		uuid: flashState.getFlashUuid(),
 		status: 'started',
 		flashInstanceUuid: flashState.getFlashUuid(),
-		unmountOnSuccess: await settings.get('unmountOnSuccess'),
 	};
 
 	analytics.logEvent('Flash', analyticsData);
@@ -345,7 +338,6 @@ export async function cancel(type: string) {
 		driveCount: drives.length,
 		uuid: flashState.getFlashUuid(),
 		flashInstanceUuid: flashState.getFlashUuid(),
-		unmountOnSuccess: await settings.get('unmountOnSuccess'),
 		status,
 	};
 	analytics.logEvent('Cancel', analyticsData);

@@ -85,6 +85,10 @@ export function addFailedDeviceError({
 	const failedDeviceErrorsMap = new Map(
 		store.getState().toJS().failedDeviceErrors,
 	);
+	if (failedDeviceErrorsMap.has(device.device)) {
+		// Only store the first error
+		return;
+	}
 	failedDeviceErrorsMap.set(device.device, {
 		description: device.description,
 		device: device.device,
