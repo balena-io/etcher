@@ -37,7 +37,7 @@ modules=xwayland.so
 Sometimes, things might go wrong, and you end up with a half-flashed drive that is unusable by your operating systems, and common graphical tools might even refuse to get it back to a normal state.
 To solve these kinds of problems, we've collected [a list of fail-proof methods](https://github.com/balena-io/etcher/blob/master/docs/USER-DOCUMENTATION.md#recovering-broken-drives) to completely erase your drive in major operating systems.
 
-## I receive ”No polkit authentication agent found” error in GNU/Linux
+## I receive "No polkit authentication agent found" error in GNU/Linux
 
 Etcher requires an available [polkit authentication agent](https://wiki.archlinux.org/index.php/Polkit#Authentication_agents) in your system in order to show a secure password prompt dialog to perform elevation. Make sure you have one installed for the desktop environment of your choice.
 
