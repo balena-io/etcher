@@ -272,7 +272,7 @@ export async function flash(
 		throw new Error('There is already a flash in progress');
 	}
 
-	flashState.setFlashingFlag();
+	await flashState.setFlashingFlag();
 	flashState.setDevicePaths(
 		drives.map((d) => d.devicePath).filter((p) => p != null) as string[],
 	);
@@ -290,9 +290,12 @@ export async function flash(
 
 	try {
 		const result = await write(image, drives, flashState.setProgressState);
-		flashState.unsetFlashingFlag(result);
+		await flashState.unsetFlashingFlag(result);
 	} catch (error) {
-		flashState.unsetFlashingFlag({ cancelled: false, errorCode: error.code });
+		await flashState.unsetFlashingFlag({
+			cancelled: false,
+			errorCode: error.code,
+		});
 		windowProgress.clear();
 		const { results = {} } = flashState.getFlashResults();
 		const eventData = {
