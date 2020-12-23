@@ -50,7 +50,7 @@
     "winusb-driver-generator"
   ],
   "devDependencies": {
-    "@balena/lint": "^5.0.4",
+    "@balena/lint": "^5.3.0",
     "@fortawesome/fontawesome-free": "^5.13.1",
     "@svgr/webpack": "^5.5.0",
     "@types/chai": "^4.2.7",

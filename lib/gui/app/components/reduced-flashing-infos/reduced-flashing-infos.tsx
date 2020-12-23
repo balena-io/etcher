@@ -31,9 +31,7 @@ interface ReducedFlashingInfosProps {
 	style?: React.CSSProperties;
 }
 
-export class ReducedFlashingInfos extends React.Component<
-	ReducedFlashingInfosProps
-> {
+export class ReducedFlashingInfos extends React.Component<ReducedFlashingInfosProps> {
 	constructor(props: ReducedFlashingInfosProps) {
 		super(props);
 		this.state = {};
