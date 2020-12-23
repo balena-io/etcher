@@ -276,7 +276,7 @@ const commonConfig = {
 			format: process.env.WEBPACK_PROGRESS || 'verbose',
 		}),
 		// Force axios to use http.js, not xhr.js as we need stream support
-		// (it's package.json file replaces http with xhr for browser targets).
+		// (its package.json file replaces http with xhr for browser targets).
 		new NormalModuleReplacementPlugin(
 			slashOrAntislash(/node_modules\/axios\/lib\/adapters\/xhr\.js/),
 			'./http.js',
