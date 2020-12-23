@@ -32,8 +32,7 @@ import { BannerPlugin, NormalModuleReplacementPlugin } from 'webpack';
  */
 function externalPackageJson(packageJsonPath: string) {
 	return (
-		_context: string,
-		request: string,
+		{ request }: { context: string; request: string },
 		callback: (error?: Error | null, result?: string) => void,
 	) => {
 		if (_.endsWith(request, 'package.json')) {
@@ -50,8 +49,7 @@ function platformSpecificModule(
 ) {
 	// Resolves module on platform, otherwise resolves the replacement
 	return (
-		_context: string,
-		request: string,
+		{ request }: { context: string; request: string },
 		callback: (error?: Error, result?: string, type?: string) => void,
 	) => {
 		if (request === module && os.platform() !== platform) {
@@ -406,6 +404,7 @@ const cssConfig = {
 		index: path.join(__dirname, 'lib', 'gui', 'app', 'css', 'main.css'),
 	},
 	output: {
+		publicPath: '',
 		path: path.join(__dirname, 'generated'),
 	},
 };
