@@ -1481,9 +1481,9 @@
       "dev": true
     },
     "@rjsf/core": {
-      "version": "2.4.0",
-      "resolved": "https://registry.npmjs.org/@rjsf/core/-/core-2.4.0.tgz",
-      "integrity": "sha512-8zlydBkGldOxGXFEwNGFa1gzTxpcxaYn7ofegcu8XHJ7IKMCfpnU3ABg+H3eml1KZCX3FODmj1tHFJKuTmfynw==",
+      "version": "2.4.1",
+      "resolved": "https://registry.npmjs.org/@rjsf/core/-/core-2.4.1.tgz",
+      "integrity": "sha512-T0PT3dR5uAkZL6DaZvJy28XZUcoIwvuBdzPzO1xIVDqHO4vNArv2XYaNzeddBbhY64nGRX3kl4X0NsVsDakokQ==",
       "dev": true,
       "requires": {
         "@babel/runtime-corejs2": "^7.8.7",
@@ -11060,9 +11060,9 @@
       }
     },
     "rendition": {
-      "version": "18.20.4",
-      "resolved": "https://registry.npmjs.org/rendition/-/rendition-18.20.4.tgz",
-      "integrity": "sha512-BRg8BUtLwPXYUjDjj9ZShMT2C/HvniV/oe2nj/m76f+x1JgOxJbviPeIRVxaOkHDZkppQfaSVyrRbncpDFaKEA==",
+      "version": "19.2.0",
+      "resolved": "https://registry.npmjs.org/rendition/-/rendition-19.2.0.tgz",
+      "integrity": "sha512-XJ6HA7PeQKI622taMq/OqCru7ch+8DGoEmSYO4CRqAeap5gHsMAUFEcbR3in4tAqazgdjID0TkOxP3DPTm4f4g==",
       "dev": true,
       "requires": {
         "@fortawesome/fontawesome-svg-core": "^1.2.25",
@@ -11075,7 +11075,7 @@
         "@types/ajv-keywords": "^3.4.0",
         "@types/color": "^3.0.0",
         "@types/json-schema": "^7.0.5",
-        "@types/lodash": "^4.14.77",
+        "@types/lodash": "4.14.165",
         "@types/node": "^13.13.4",
         "@types/prop-types": "^15.7.0",
         "@types/react-helmet": "^6.0.0",
@@ -11122,9 +11122,9 @@
       },
       "dependencies": {
         "@types/node": {
-          "version": "13.13.36",
-          "resolved": "https://registry.npmjs.org/@types/node/-/node-13.13.36.tgz",
-          "integrity": "sha512-ctzZJ+XsmHQwe3xp07gFUq4JxBaRSYzKHPgblR76//UanGST7vfFNF0+ty5eEbgTqsENopzoDK090xlha9dccQ==",
+          "version": "13.13.38",
+          "resolved": "https://registry.npmjs.org/@types/node/-/node-13.13.38.tgz",
+          "integrity": "sha512-oxo8j9doh7ab9NwDA9bCeFfjHRF/uzk+fTljCy8lMjZ3YzZGAXNDKhTE3Byso/oy32UTUQIXB3HCVHu3d2T3xg==",
           "dev": true
         },
         "uuid": {
