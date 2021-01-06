@@ -3020,23 +3020,22 @@
       "dev": true
     },
     "aws4-axios": {
-      "version": "1.12.0",
-      "resolved": "https://registry.npmjs.org/aws4-axios/-/aws4-axios-1.12.0.tgz",
-      "integrity": "sha512-7yTZYWqc6Sy4/B8i0t12vgHD6hnjzn5Bu1c+TO4ZoJYGQIIuJephSSHkWCBUiStznueF56gRc9Nm/KGwsfnwpA==",
+      "version": "2.0.1",
+      "resolved": "https://registry.npmjs.org/aws4-axios/-/aws4-axios-2.0.1.tgz",
+      "integrity": "sha512-e/U1mZJU9otZyha3dWMKHr2CzVbcRWiALIum9au8z51UWCNpq+S1xCfjLJg6dELz+52mc8kGd3e7/VODqbuOgg==",
       "dev": true,
       "requires": {
         "@types/aws4": "^1.5.1",
-        "aws4": "^1.9.1",
-        "axios": "^0.19.2"
+        "aws4": "^1.9.1"
       }
     },
     "axios": {
-      "version": "0.19.2",
-      "resolved": "https://registry.npmjs.org/axios/-/axios-0.19.2.tgz",
-      "integrity": "sha512-fjgm5MvRHLhx+osE2xoekY70AhARk3a6hkN+3Io1jc00jtquGvxYlKlsFUhmUET0V5te6CcZI7lcv2Ym61mjHA==",
+      "version": "0.21.1",
+      "resolved": "https://registry.npmjs.org/axios/-/axios-0.21.1.tgz",
+      "integrity": "sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==",
       "dev": true,
       "requires": {
-        "follow-redirects": "1.5.10"
+        "follow-redirects": "^1.10.0"
       }
     },
     "babel-plugin-dynamic-import-node": {
@@ -6115,15 +6114,15 @@
       "dev": true
     },
     "etcher-sdk": {
-      "version": "5.1.11",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-5.1.11.tgz",
-      "integrity": "sha512-aS5gbclUoBF+8NOV2R2MJN52BOYKJHc+gjlZF3xZh1hVoglVb0AtCZpFFfTk8/cDn2SvrfAv03/amXaJxJjaPQ==",
+      "version": "5.1.12",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-5.1.12.tgz",
+      "integrity": "sha512-iTTZqOEa3UlVRIbHh6U76cDdkbO9eg2UrIrgUfvhPIXwgUKdvB6gjcQVoR13QTblHTW+LmpOXS7nAySIwCADnQ==",
       "dev": true,
       "requires": {
         "@balena/udif": "^1.1.1",
         "@ronomon/direct-io": "^3.0.1",
-        "aws4-axios": "^1.12.0",
-        "axios": "^0.19.2",
+        "aws4-axios": "^2.0.1",
+        "axios": "^0.21.1",
         "balena-image-fs": "^7.0.6",
         "blockmap": "^4.0.3",
         "check-disk-space": "^2.1.0",
@@ -6451,30 +6450,10 @@
       "dev": true
     },
     "follow-redirects": {
-      "version": "1.5.10",
-      "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.5.10.tgz",
-      "integrity": "sha512-0V5l4Cizzvqt5D44aTXbFZz+FtyXV1vrDN6qrelxtfYQKW0KO0W2T/hkE8xvGa/540LkZlkaUjO4ailYTFtHVQ==",
-      "dev": true,
-      "requires": {
-        "debug": "=3.1.0"
-      },
-      "dependencies": {
-        "debug": {
-          "version": "3.1.0",
-          "resolved": "https://registry.npmjs.org/debug/-/debug-3.1.0.tgz",
-          "integrity": "sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==",
-          "dev": true,
-          "requires": {
-            "ms": "2.0.0"
-          }
-        },
-        "ms": {
-          "version": "2.0.0",
-          "resolved": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz",
-          "integrity": "sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=",
-          "dev": true
-        }
-      }
+      "version": "1.13.1",
+      "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.13.1.tgz",
+      "integrity": "sha512-SSG5xmZh1mkPGyKzjZP8zLjltIfpW32Y5QpdNJyjcfGxK3qo3NDDkZOZSFiGn1A6SclQxY9GzEwAHQ3dmYRWpg==",
+      "dev": true
     },
     "forever-agent": {
       "version": "0.6.1",
