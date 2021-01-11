@@ -54,7 +54,6 @@ deb:
   depends:
     - gconf2
     - gconf-service
-    - libappindicator1
     - libasound2
     - libatk1.0-0
     - libc6
