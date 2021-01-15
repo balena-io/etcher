@@ -3,6 +3,229 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.114
+## (2021-01-12)
+
+* Remove libappindicator1 debian dependency [Alexis Svinartchouk]
+
+<details>
+<summary> Update etcher-sdk from 5.1.11 to 5.1.12 [Alexis Svinartchouk] </summary>
+
+> ## etcher-sdk-5.1.12
+> ### (2021-01-06)
+> 
+> * Remove BlockDevice.mountpoints incorrect typing [Alexis Svinartchouk]
+> * Update axios to 0.21.1 and aws4-axios to 2.0.1 [Alexis Svinartchouk]
+> 
+</details>
+
+
+<details>
+<summary> Update rendition from 18.8.3 to 19.2.0 [Alexis Svinartchouk] </summary>
+
+> ## rendition-19.2.0
+> ### (2020-12-29)
+> 
+> * Add truncate property to Txt component [JSReds]
+> 
+> ## rendition-19.1.0
+> ### (2020-12-29)
+> 
+> * Add fallback image source to Img component [Stevche Radevski]
+> 
+> ## rendition-19.0.0
+> ### (2020-12-21)
+> 
+> * Remove Arcslider component [Stevche Radevski]
+> 
+> ## rendition-18.20.4
+> ### (2020-12-17)
+> 
+> * Upgrade rehype-raw to latest version [Kakhaber]
+> 
+> ## rendition-18.20.3
+> ### (2020-12-17)
+> 
+> * Fix disabled button tooltip [JSReds]
+> 
+> ## rendition-18.20.2
+> ### (2020-12-16)
+> 
+> * Turn keydown handler into an arrow function [Stevche Radevski]
+> 
+> ## rendition-18.20.1
+> ### (2020-12-14)
+> 
+> * Fix form not getting the Enter key event when nested in a modal [Stevche Radevski]
+> 
+> ## rendition-18.20.0
+> ### (2020-12-14)
+> 
+> * feat: Add new StatsBar component [Graham McCulloch]
+> 
+> ## rendition-18.19.2
+> ### (2020-12-14)
+> 
+> * Update snapshots [Graham McCulloch]
+> * Removed out-of-date documentation and template text [Graham McCulloch]
+> 
+> ## rendition-18.19.1
+> ### (2020-12-04)
+> 
+> * Markdown: Fix line breaks [Kakhaber]
+> 
+> ## rendition-18.19.0
+> ### (2020-12-02)
+> 
+> * Make card size responsive [Stevche Radevski]
+> 
+> ## rendition-18.18.0
+> ### (2020-12-02)
+> 
+> * Allow passing responsive values to datagrid width props [Stevche Radevski]
+> 
+> ## rendition-18.17.2
+> ### (2020-12-01)
+> 
+> * Update snapshots due to a Card change [JSReds]
+> 
+> ## rendition-18.17.1
+> ### (2020-12-01)
+> 
+> * Card: make body to be full height [JSReds]
+> 
+> ## rendition-18.17.0
+> ### (2020-12-01)
+> 
+> * Add star rating component [Kakhaber]
+> 
+> ## rendition-18.16.0
+> ### (2020-11-23)
+> 
+> * Completely revamp the development setup for rendition [Stevche Radevski]
+> 
+> ## rendition-18.15.1
+> ### (2020-11-16)
+> 
+> * Modal: Change the button margins to use the predefined spacing palette [Thodoris Greasidis]
+> 
+> ## rendition-18.15.0
+> ### (2020-11-16)
+> 
+> * Modal: Move the cancel button first for dangerous & warning actions [Thodoris Greasidis]
+> 
+> ## rendition-18.14.0
+> ### (2020-11-16)
+> 
+> * Allow passing checked items as a prop to Table [Stevche Radevski]
+> 
+> ## rendition-18.13.4
+> ### (2020-11-16)
+> 
+> * Fix accidental complete lodash import [Thodoris Greasidis]
+> 
+> ## rendition-18.13.3
+> ### (2020-11-16)
+> 
+> * Form: Remove the flaky Captcha sceenshot test [Thodoris Greasidis]
+> * Update react-simplemde-editor & snapshots for upstream versions [Thodoris Greasidis]
+> 
+> ## rendition-18.13.2
+> ### (2020-10-29)
+> 
+> * Updated snapshots [Graham McCulloch]
+> * Fix: Confirm only depends on the files it needs [Graham McCulloch]
+> 
+> ## rendition-18.13.1
+> ### (2020-10-23)
+> 
+> * Button: Preserve event during confirmation [Kakhaber]
+> 
+> ## rendition-18.13.0
+> ### (2020-10-22)
+> 
+> * Button: Add confirmation property [Kakhaber]
+> 
+> ## rendition-18.12.2
+> ### (2020-10-21)
+> 
+> * Tabs: changed interfaces and props [JSReds]
+> 
+> ## rendition-18.12.1
+> ### (2020-10-20)
+> 
+> * Fix Tabs typings [Stevche Radevski]
+> 
+> ## rendition-18.12.0
+> ### (2020-10-19)
+> 
+> * Add a Grid component [Stevche Radevski]
+> 
+> ## rendition-18.11.3
+> ### (2020-10-14)
+> 
+> * Added more documentation for JsonSchemaRenderer [Graham McCulloch]
+> 
+> ## rendition-18.11.2
+> ### (2020-10-14)
+> 
+> * fix: UI schema for JsonSchemaRenderer DropDownButton and ButtonGroup widgets [Graham McCulloch]
+> 
+> ## rendition-18.11.1
+> ### (2020-10-13)
+> 
+> * Add dark mode to storybook [Stevche Radevski]
+> 
+> ## rendition-18.11.0
+> ### (2020-10-08)
+> 
+> * Allow passing widget to extraFormats field [Stevche Radevski]
+> 
+> ## rendition-18.10.2
+> ### (2020-09-30)
+> 
+> * Resolve module path not relying on node_moules dir [Kakhaber]
+> 
+> ## rendition-18.10.1
+> ### (2020-09-29)
+> 
+> * Set tabpanel height so it stretches to full height [StefKors]
+> * Specify tabs width to fix layout problems [StefKors]
+> 
+> ## rendition-18.10.0
+> ### (2020-09-24)
+> 
+> * feat: Add ColorWidget for JsonSchemaRenderer [Graham McCulloch]
+> 
+> ## rendition-18.9.2
+> ### (2020-09-22)
+> 
+> * Markdown: Ignore decorators inside a code block [Kakhaber]
+> 
+> ## rendition-18.9.1
+> ### (2020-09-21)
+> 
+> * Add compact variation to tabs [StefKors]
+> 
+> ## rendition-18.9.0
+> ### (2020-09-18)
+> 
+> * Improve spacing for Modal and Select components [Stevche Radevski]
+> 
+> ## rendition-18.8.4
+> ### (2020-09-17)
+> 
+> * fix: Use widget's display name to reference the widget [Graham McCulloch]
+> 
+</details>
+
+* Update dependencies [Alexis Svinartchouk]
+* Update @balena/lint to 5.3.0 [Alexis Svinartchouk]
+* Update webpack to v5 [Alexis Svinartchouk]
+* Fix typo in webpack.config.ts comment [Alexis Svinartchouk]
+* docs: fix quote marks [Aaron Shaw]
+* Disable screensaver while flashing (on balena-electron-env) [Alexis Svinartchouk]
+
 # v1.5.113
 ## (2020-12-16)
 
