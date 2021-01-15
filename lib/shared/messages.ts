@@ -123,7 +123,7 @@ export const warning = {
 	},
 
 	largeDriveSize: () => {
-		return 'This is a large drive! Make sure it doesn\'t contain files that you want to keep.';
+		return "This is a large drive! Make sure it doesn't contain files that you want to keep.";
 	},
 
 	systemDrive: () => {
