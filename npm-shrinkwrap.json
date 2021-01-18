@@ -3020,9 +3020,9 @@
       "dev": true
     },
     "aws4-axios": {
-      "version": "2.0.1",
-      "resolved": "https://registry.npmjs.org/aws4-axios/-/aws4-axios-2.0.1.tgz",
-      "integrity": "sha512-e/U1mZJU9otZyha3dWMKHr2CzVbcRWiALIum9au8z51UWCNpq+S1xCfjLJg6dELz+52mc8kGd3e7/VODqbuOgg==",
+      "version": "2.2.0",
+      "resolved": "https://registry.npmjs.org/aws4-axios/-/aws4-axios-2.2.0.tgz",
+      "integrity": "sha512-04QIw+MjAeh07AZy86GEj+Vgttjj7hUjMd784bc41Pf2wJ1TMoy++8NewWxjfVHx7vVq3zYFa9m4gW7/a8hLuQ==",
       "dev": true,
       "requires": {
         "@types/aws4": "^1.5.1",
@@ -6114,9 +6114,9 @@
       "dev": true
     },
     "etcher-sdk": {
-      "version": "5.1.12",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-5.1.12.tgz",
-      "integrity": "sha512-iTTZqOEa3UlVRIbHh6U76cDdkbO9eg2UrIrgUfvhPIXwgUKdvB6gjcQVoR13QTblHTW+LmpOXS7nAySIwCADnQ==",
+      "version": "5.2.1",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-5.2.1.tgz",
+      "integrity": "sha512-SEJPZ/YsIZgTO+6c5tGeMZLPHRP/KBT1OlMxSSRJS3BXSHDHSvWXjA/UQIw9lfMSyVBrmRZ8pbpkSzCiQkA7nQ==",
       "dev": true,
       "requires": {
         "@balena/udif": "^1.1.1",
