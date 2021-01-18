@@ -339,7 +339,7 @@
   "public": true,
   "fork": false,
   "description": "Flash OS images to SD cards & USB drives, safely and easily.",
-  "stars": 19607,
+  "stars": 19636,
   "homepage": "https://etcher.io",
   "repositoryUrl": "https://github.com/balena-io/etcher.git",
   "active": true,
@@ -350,85 +350,85 @@
     "type": "Organization"
   },
   "dependencies": [],
-  "lastCommitDate": "2021-01-15T12:30:49Z",
+  "lastCommitDate": "2021-01-18T12:09:10Z",
   "latestRelease": {
-    "tagName": "v1.5.114",
+    "tagName": "v1.5.115",
     "asssets": [
       {
-        "name": "balena-etcher-electron-1.5.114-linux-ia32.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.114/balena-etcher-electron-1.5.114-linux-ia32.zip"
+        "name": "balena-etcher-electron-1.5.115-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.115/balena-etcher-electron-1.5.115-linux-ia32.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.114-linux-x64.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.114/balena-etcher-electron-1.5.114-linux-x64.zip"
+        "name": "balena-etcher-electron-1.5.115-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.115/balena-etcher-electron-1.5.115-linux-x64.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.114.i686.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.114/balena-etcher-electron-1.5.114.i686.rpm"
+        "name": "balena-etcher-electron-1.5.115.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.115/balena-etcher-electron-1.5.115.i686.rpm"
       },
       {
-        "name": "balena-etcher-electron-1.5.114.x86_64.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.114/balena-etcher-electron-1.5.114.x86_64.rpm"
+        "name": "balena-etcher-electron-1.5.115.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.115/balena-etcher-electron-1.5.115.x86_64.rpm"
       },
       {
-        "name": "balena-etcher-electron_1.5.114_amd64.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.114/balena-etcher-electron_1.5.114_amd64.deb"
+        "name": "balena-etcher-electron_1.5.115_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.115/balena-etcher-electron_1.5.115_amd64.deb"
       },
       {
-        "name": "balena-etcher-electron_1.5.114_i386.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.114/balena-etcher-electron_1.5.114_i386.deb"
+        "name": "balena-etcher-electron_1.5.115_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.115/balena-etcher-electron_1.5.115_i386.deb"
       },
       {
-        "name": "balenaEtcher-1.5.114-ia32.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.114/balenaEtcher-1.5.114-ia32.AppImage"
+        "name": "balenaEtcher-1.5.115-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.115/balenaEtcher-1.5.115-ia32.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.114-mac.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.114/balenaEtcher-1.5.114-mac.zip"
+        "name": "balenaEtcher-1.5.115-mac.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.115/balenaEtcher-1.5.115-mac.zip"
       },
       {
-        "name": "balenaEtcher-1.5.114-x64.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.114/balenaEtcher-1.5.114-x64.AppImage"
+        "name": "balenaEtcher-1.5.115-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.115/balenaEtcher-1.5.115-x64.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.114.dmg",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.114/balenaEtcher-1.5.114.dmg"
+        "name": "balenaEtcher-1.5.115.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.115/balenaEtcher-1.5.115.dmg"
       },
       {
-        "name": "balenaEtcher-1.5.114.dmg.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.114/balenaEtcher-1.5.114.dmg.blockmap"
+        "name": "balenaEtcher-1.5.115.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.115/balenaEtcher-1.5.115.dmg.blockmap"
       },
       {
-        "name": "balenaEtcher-Portable-1.5.114.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.114/balenaEtcher-Portable-1.5.114.exe"
+        "name": "balenaEtcher-Portable-1.5.115.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.115/balenaEtcher-Portable-1.5.115.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.114.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.114/balenaEtcher-Setup-1.5.114.exe"
+        "name": "balenaEtcher-Setup-1.5.115.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.115/balenaEtcher-Setup-1.5.115.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.114.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.114/balenaEtcher-Setup-1.5.114.exe.blockmap"
+        "name": "balenaEtcher-Setup-1.5.115.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.115/balenaEtcher-Setup-1.5.115.exe.blockmap"
       },
       {
         "name": "builder-effective-config.yaml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.114/builder-effective-config.yaml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.115/builder-effective-config.yaml"
       },
       {
         "name": "latest-linux-ia32.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.114/latest-linux-ia32.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.115/latest-linux-ia32.yml"
       },
       {
         "name": "latest-linux.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.114/latest-linux.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.115/latest-linux.yml"
       },
       {
         "name": "latest-mac.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.114/latest-mac.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.115/latest-mac.yml"
       },
       {
         "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.114/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.115/latest.yml"
       }
     ]
   },
@@ -526,11 +526,15 @@
     ]
   },
   "openIssues": {
-    "numberOfIssues": 268,
+    "numberOfIssues": 267,
     "latestIssues": [
       {
-        "title": "macOS: privilege escalation prompt is only for the password of the current user.",
-        "url": "https://github.com/balena-io/etcher/issues/3408"
+        "title": "Error flashing Pop!_OS",
+        "url": "https://github.com/balena-io/etcher/issues/3412"
+      },
+      {
+        "title": "[Feature Request] Ability to pass a torrent/magnet link to Etcher",
+        "url": "https://github.com/balena-io/etcher/issues/3411"
       },
       {
         "title": "Flashing SPI flash on RockPi",
@@ -539,10 +543,6 @@
       {
         "title": "Etcher replaced F1 Help function",
         "url": "https://github.com/balena-io/etcher/issues/3404"
-      },
-      {
-        "title": "Does not find 16G micro sd - latest DL",
-        "url": "https://github.com/balena-io/etcher/issues/3402"
       },
       {
         "title": "built from source wrong at last when building on arm64 arch system.",
@@ -555,10 +555,6 @@
       {
         "title": "Device to small to write image of same device",
         "url": "https://github.com/balena-io/etcher/issues/3398"
-      },
-      {
-        "title": "I can't launch etcher ",
-        "url": "https://github.com/balena-io/etcher/issues/3397"
       },
       {
         "title": "Trying to Select Target (Usb) For Tails Image",
@@ -607,10 +603,14 @@
       {
         "title": "Empty window",
         "url": "https://github.com/balena-io/etcher/issues/3349"
+      },
+      {
+        "title": "Nvidia Jetson Nano image writing issues",
+        "url": "https://github.com/balena-io/etcher/issues/3346"
       }
     ]
   },
-  "version": "1.5.114",
+  "version": "1.5.115",
   "screenshot": null,
   "logo": null
 }
