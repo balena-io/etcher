@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.115
+## (2021-01-18)
+
+
+<details>
+<summary> Update etcher-sdk from 5.1.12 to 5.2.1 [Alexis Svinartchouk] </summary>
+
+> ## etcher-sdk-5.2.1
+> ### (2021-01-15)
+> 
+> * Only run one diskpart at a time [Alexis Svinartchouk]
+> * Ignore diskpart VDS_E_DISK_IS_OFFLINE errors [Alexis Svinartchouk]
+> 
+> ## etcher-sdk-5.2.0
+> ### (2021-01-06)
+> 
+> * Store progress on usbboot devices [Alexis Svinartchouk]
+> 
+</details>
+
 # v1.5.114
 ## (2021-01-12)
 
