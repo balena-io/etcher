@@ -5173,9 +5173,9 @@
       "dev": true
     },
     "drivelist": {
-      "version": "9.2.2",
-      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-9.2.2.tgz",
-      "integrity": "sha512-kuigQbvkc9+Y6Rf36d9nv4g4PB19UUPOvxRdQE3JEtggCqdxYCPEsNm6WYOudkfdMIFnHtmbS35QowL/hI/sGQ==",
+      "version": "9.2.4",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-9.2.4.tgz",
+      "integrity": "sha512-F36yn+qXwiOGZM16FYPKcIRjC7qXDIA0SBZ0vvTEe01ai788Se8z78acYdgXC8NAsghiO+9c/GYXgU7E9hhUpg==",
       "dev": true,
       "requires": {
         "bindings": "^1.3.0",
@@ -6114,9 +6114,9 @@
       "dev": true
     },
     "etcher-sdk": {
-      "version": "5.2.1",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-5.2.1.tgz",
-      "integrity": "sha512-SEJPZ/YsIZgTO+6c5tGeMZLPHRP/KBT1OlMxSSRJS3BXSHDHSvWXjA/UQIw9lfMSyVBrmRZ8pbpkSzCiQkA7nQ==",
+      "version": "5.2.2",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-5.2.2.tgz",
+      "integrity": "sha512-VQvBMMANao7T6aUgosuBxDFC5G2AWjbNOFm7mvkC58lgeKYQ/QJulFWX3qfaUWpaWtbkBBtv+5eXgOxLnBpHCg==",
       "dev": true,
       "requires": {
         "@balena/udif": "^1.1.1",
@@ -6128,7 +6128,7 @@
         "check-disk-space": "^2.1.0",
         "cyclic-32": "^1.1.0",
         "debug": "^3.1.0",
-        "drivelist": "^9.2.2",
+        "drivelist": "^9.2.4",
         "file-disk": "^8.0.1",
         "file-type": "^8.0.0",
         "gzip-stream": "^1.1.2",
