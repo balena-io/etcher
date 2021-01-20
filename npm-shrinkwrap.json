@@ -5244,9 +5244,9 @@
       }
     },
     "electron": {
-      "version": "9.4.0",
-      "resolved": "https://registry.npmjs.org/electron/-/electron-9.4.0.tgz",
-      "integrity": "sha512-hOC4q0jkb+UDYZRy8vrZ1IANnq+jznZnbkD62OEo06nU+hIbp2IrwDRBNuSLmQ3cwZMVir0WSIA1qEVK0PkzGA==",
+      "version": "9.4.1",
+      "resolved": "https://registry.npmjs.org/electron/-/electron-9.4.1.tgz",
+      "integrity": "sha512-r4CxoVG9Ja7tBtkilWMnBsBGup8G8Z+v7icZmwysHa8/OSr0OrLjrcOF/30BAP7yPE5fz/XTxygnltzW4OTZdw==",
       "dev": true,
       "requires": {
         "@electron/get": "^1.0.1",
