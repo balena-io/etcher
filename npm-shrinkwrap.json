@@ -6114,9 +6114,9 @@
       "dev": true
     },
     "etcher-sdk": {
-      "version": "5.2.2",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-5.2.2.tgz",
-      "integrity": "sha512-VQvBMMANao7T6aUgosuBxDFC5G2AWjbNOFm7mvkC58lgeKYQ/QJulFWX3qfaUWpaWtbkBBtv+5eXgOxLnBpHCg==",
+      "version": "6.1.0",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-6.1.0.tgz",
+      "integrity": "sha512-lK4QoFlXJS5km4gH1FlupvR4k5o1ssyUJfG6SQ0jwvLGvEVR/rzbiPocyE1Cfj1LiAyTp2H6L34E7GHPGzc7XQ==",
       "dev": true,
       "requires": {
         "@balena/udif": "^1.1.1",
@@ -6450,9 +6450,9 @@
       "dev": true
     },
     "follow-redirects": {
-      "version": "1.13.1",
-      "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.13.1.tgz",
-      "integrity": "sha512-SSG5xmZh1mkPGyKzjZP8zLjltIfpW32Y5QpdNJyjcfGxK3qo3NDDkZOZSFiGn1A6SclQxY9GzEwAHQ3dmYRWpg==",
+      "version": "1.13.2",
+      "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.13.2.tgz",
+      "integrity": "sha512-6mPTgLxYm3r6Bkkg0vNM0HTjfGrOEtsfbhagQvbxDEsEkpNhw582upBaoRZylzen6krEmxXJgt9Ju6HiI4O7BA==",
       "dev": true
     },
     "forever-agent": {
