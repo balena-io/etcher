@@ -64,19 +64,3 @@ input[type="checkbox"] + div {
 #rendition-tooltip-root > div {
   font-family: "SourceSansPro", sans-serif;
 }
-
-/* HIGH-CONTRAST CHANGES */
-input[type="text"],
-input[type="checkbox"] ~ div,
-input[type="checkbox"] ~ span {
-  border-color: #b5b5b5 !important;
-}
-
-[data-display="table-head"]
-  > [data-display="table-row"]
-  > [data-display="table-cell"],
-[data-display="table-body"]
-  > [data-display="table-row"]
-  > [data-display="table-cell"] {
-  border-bottom: 1px solid #b5b5b5 !important;
-}

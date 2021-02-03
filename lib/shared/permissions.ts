@@ -15,6 +15,7 @@
  */
 
 import * as childProcess from 'child_process';
+import { withTmpFile } from 'etcher-sdk/build/tmp';
 import { promises as fs } from 'fs';
 import * as _ from 'lodash';
 import * as os from 'os';
@@ -24,7 +25,6 @@ import { promisify } from 'util';
 
 import { sudo as catalinaSudo } from './catalina-sudo/sudo';
 import * as errors from './errors';
-import { withTmpFile } from './tmp';
 
 const execAsync = promisify(childProcess.exec);
 const execFileAsync = promisify(childProcess.execFile);
@@ -172,10 +172,11 @@ export async function elevateCommand(
 	);
 	return await withTmpFile(
 		{
+			keepOpen: false,
 			prefix: 'balena-etcher-electron-',
 			postfix: '.cmd',
 		},
-		async (path) => {
+		async ({ path }) => {
 			await fs.writeFile(path, launchScript);
 			if (isWindows) {
 				return elevateScriptWindows(path, options.applicationName);
