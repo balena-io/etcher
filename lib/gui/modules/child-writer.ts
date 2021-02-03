@@ -27,6 +27,7 @@ import {
 	OnProgressFunction,
 	OnFailFunction,
 	decompressThenFlash,
+	DECOMPRESSED_IMAGE_PREFIX,
 } from 'etcher-sdk/build/multi-write';
 import { cleanupTmpFiles } from 'etcher-sdk/build/tmp';
 import * as ipc from 'node-ipc';
@@ -68,7 +69,7 @@ function log(message: string) {
  */
 async function terminate(exitCode: number) {
 	ipc.disconnect(IPC_SERVER_ID);
-	await cleanupTmpFiles(Date.now());
+	await cleanupTmpFiles(Date.now(), DECOMPRESSED_IMAGE_PREFIX);
 	process.nextTick(() => {
 		process.exit(exitCode || SUCCESS);
 	});
