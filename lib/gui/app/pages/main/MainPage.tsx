@@ -278,7 +278,7 @@ export class MainPage extends React.Component<
 						// @ts-ignore
 						'-webkit-app-region': 'drag',
 						position: 'relative',
-						zIndex: 1,
+						zIndex: 2,
 					}}
 				>
 					<Flex width="100%" />
