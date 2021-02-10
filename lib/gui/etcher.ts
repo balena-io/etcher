@@ -147,6 +147,7 @@ async function createMainWindow() {
 		webPreferences: {
 			backgroundThrottling: false,
 			nodeIntegration: true,
+			contextIsolation: false,
 			webviewTag: true,
 			zoomFactor: width / defaultWidth,
 			enableRemoteModule: true,
