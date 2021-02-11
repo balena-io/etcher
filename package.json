@@ -72,7 +72,7 @@
     "d3": "^4.13.0",
     "debug": "^4.2.0",
     "electron": "11.2.3",
-    "electron-builder": "^22.9.1",
+    "electron-builder": "^22.10.4",
     "electron-mocha": "^9.3.2",
     "electron-notarize": "^1.0.0",
     "electron-rebuild": "^2.3.2",
