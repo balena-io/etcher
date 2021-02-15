@@ -68,6 +68,8 @@ function renameNodeModules(resourcePath: string) {
 		path
 			.relative(__dirname, resourcePath)
 			.replace('node_modules', 'modules')
+			// use the same name on all architectures so electron-builder can build a universal dmg on mac
+			.replace(LZMA_BINDINGS_FOLDER, 'binding')
 			// file-loader expects posix paths, even on Windows
 			.replace(/\\/g, '/')
 	);
@@ -190,12 +192,7 @@ const commonConfig = {
 				// remove node-pre-gyp magic from lzma-native
 				{
 					search: 'require(binding_path)',
-					replace: () => {
-						return `require('./${path.posix.join(
-							LZMA_BINDINGS_FOLDER,
-							'lzma_native.node',
-						)}')`;
-					},
+					replace: `require('./${LZMA_BINDINGS_FOLDER}/lzma_native.node')`,
 				},
 				// use regular stream module instead of readable-stream
 				{
