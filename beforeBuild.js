@@ -8,13 +8,13 @@ const process = require('process');
 exports.default = function(context) {
         if (['windows', 'mac'].includes(context.platform.name)) {
                 cp.execFileSync(
-                        'bash',
-                        ['./node_modules/.bin/electron-rebuild', '--types', 'dev', '--arch', context.arch],
+                        'npx',
+                        ['electron-rebuild', '--types', 'dev', '--arch', context.arch],
                 );
 		rimraf.sync('generated');
                 cp.execFileSync(
-                        'bash',
-                        ['./node_modules/.bin/webpack'],
+                        'npx',
+                        ['webpack'],
 			{
 				env: {
 					...process.env,
