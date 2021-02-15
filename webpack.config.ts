@@ -68,6 +68,8 @@ function renameNodeModules(resourcePath: string) {
 		path
 			.relative(__dirname, resourcePath)
 			.replace('node_modules', 'modules')
+			// use the same name on all architectures so electron-builder can build a universal dmg on mac
+			.replace(LZMA_BINDINGS_FOLDER, LZMA_BINDINGS_FOLDER_RENAMED)
 			// file-loader expects posix paths, even on Windows
 			.replace(/\\/g, '/')
 	);
@@ -87,6 +89,7 @@ function findLzmaNativeBindingsFolder(): string {
 }
 
 const LZMA_BINDINGS_FOLDER = findLzmaNativeBindingsFolder();
+const LZMA_BINDINGS_FOLDER_RENAMED = 'binding';
 
 interface ReplacementRule {
 	search: string;
@@ -190,12 +193,7 @@ const commonConfig = {
 				// remove node-pre-gyp magic from lzma-native
 				{
 					search: 'require(binding_path)',
-					replace: () => {
-						return `require('./${path.posix.join(
-							LZMA_BINDINGS_FOLDER,
-							'lzma_native.node',
-						)}')`;
-					},
+					replace: `require('./${LZMA_BINDINGS_FOLDER}/lzma_native.node')`,
 				},
 				// use regular stream module instead of readable-stream
 				{
@@ -317,7 +315,7 @@ if (os.platform() === 'win32') {
 	// liblzma.dll is required on Windows for lzma-native
 	guiConfigCopyPatterns.push({
 		from: `node_modules/lzma-native/${LZMA_BINDINGS_FOLDER}/liblzma.dll`,
-		to: `modules/lzma-native/${LZMA_BINDINGS_FOLDER}/liblzma.dll`,
+		to: `modules/lzma-native/${LZMA_BINDINGS_FOLDER_RENAMED}/liblzma.dll`,
 	});
 }
 
