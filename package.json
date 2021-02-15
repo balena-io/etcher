@@ -46,6 +46,15 @@
   "author": "Balena Inc. <hello@etcher.io>",
   "license": "Apache-2.0",
   "platformSpecificDependencies": [
+    "xmlbuilder",
+    "xmldom",
+    "@types/plist",
+    "@types/verror",
+    "crc",
+    "iconv-corefoundation",
+    "plist",
+    "smart-buffer",
+    "dmg-license",
     "fsevents",
     "winusb-driver-generator"
   ],
@@ -66,6 +75,7 @@
     "@types/terser-webpack-plugin": "^5.0.2",
     "@types/tmp": "^0.2.0",
     "@types/webpack-node-externals": "^2.5.0",
+    "aws4-axios": "2.2.1",
     "chai": "^4.2.0",
     "copy-webpack-plugin": "^7.0.0",
     "css-loader": "^5.0.1",
