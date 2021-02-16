@@ -109,7 +109,7 @@
     "semver": "^7.3.2",
     "simple-progress-webpack-plugin": "^1.1.2",
     "sinon": "^9.0.2",
-    "spectron": "^11.0.0",
+    "spectron": "^13.0.0",
     "string-replace-loader": "^3.0.1",
     "styled-components": "^5.1.0",
     "sudo-prompt": "github:zvin/sudo-prompt#7cdede2f0da28fbcc2db48402d7d935f3a825c91",

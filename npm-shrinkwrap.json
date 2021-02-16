@@ -3279,11 +3279,11 @@
       "version": "5.7.1",
       "resolved": "https://registry.npmjs.org/buffer/-/buffer-5.7.1.tgz",
       "integrity": "sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==",
+      "dev": true,
       "requires": {
         "base64-js": "^1.3.1",
         "ieee754": "^1.1.13"
-      },
-      "dev": true
+      }
     },
     "buffer-alloc": {
       "version": "1.2.0",
@@ -5325,9 +5325,9 @@
       }
     },
     "electron-chromedriver": {
-      "version": "9.0.0",
-      "resolved": "https://registry.npmjs.org/electron-chromedriver/-/electron-chromedriver-9.0.0.tgz",
-      "integrity": "sha512-+MuukzicyfduXO/4yQv9ygLKaScttJNbWtg77A9fs2YhbkISjObWaCF3eJNZL+edZXRfaF/6D4XuXvklQCmwQg==",
+      "version": "11.0.0",
+      "resolved": "https://registry.npmjs.org/electron-chromedriver/-/electron-chromedriver-11.0.0.tgz",
+      "integrity": "sha512-ayMJPBbB4puU0SqYbcD9XvF3/7GWIhqKE1n5lG2/GQPRnrZkNoPIilsrS0rQcD50Xhl69KowatDqLhUznZWtbA==",
       "dev": true,
       "requires": {
         "@electron/get": "^1.12.2",
@@ -11679,16 +11679,16 @@
       "dev": true
     },
     "spectron": {
-      "version": "11.1.0",
-      "resolved": "https://registry.npmjs.org/spectron/-/spectron-11.1.0.tgz",
-      "integrity": "sha512-gL5mQZrh2Afv5vfUX7Llf61NI9zzS139BP0vivNU9kbl92O1AoGk7KwOEg+Cf6Pb2/G/s/81wYWqo/WOhYi6jQ==",
+      "version": "13.0.0",
+      "resolved": "https://registry.npmjs.org/spectron/-/spectron-13.0.0.tgz",
+      "integrity": "sha512-7RPa6Fp8gqL4V0DubobnqIRFHIijkpjg6MFHcJlxoerWyvLJd+cQvOh756XpB1Z/U3DyA9jPcS+HE2PvYRP5+A==",
       "dev": true,
       "requires": {
         "dev-null": "^0.1.1",
-        "electron-chromedriver": "^9.0.0",
-        "request": "^2.87.0",
-        "split": "^1.0.0",
-        "webdriverio": "^6.1.20"
+        "electron-chromedriver": "^11.0.0",
+        "request": "^2.88.2",
+        "split": "^1.0.1",
+        "webdriverio": "^6.9.1"
       }
     },
     "split": {
