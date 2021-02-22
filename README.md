@@ -5,7 +5,7 @@
 Etcher is a powerful OS image flasher built with web technologies to ensure
 flashing an SDCard or USB drive is a pleasant and safe experience. It protects
 you from accidentally writing to your hard-drives, ensures every byte of data
-was written correctly and much more. It can also flash directly Raspberry Pi devices that support the usbboot protocol
+was written correctly, and much more. It can also flash directly Raspberry Pi devices that support [USB device boot mode](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/device.md).
 
 [![Current Release](https://img.shields.io/github/release/balena-io/etcher.svg?style=flat-square)](https://balena.io/etcher)
 [![License](https://img.shields.io/github/license/balena-io/etcher.svg?style=flat-square)](https://github.com/balena-io/etcher/blob/master/LICENSE)
@@ -22,7 +22,7 @@ was written correctly and much more. It can also flash directly Raspberry Pi dev
 - macOS 10.10 (Yosemite) and later
 - Microsoft Windows 7 and later
 
-Note that Etcher will run on any platform officially supported by
+**Note**: Etcher will run on any platform officially supported by
 [Electron][electron]. Read more in their
 [documentation][electron-supported-platforms].
 
@@ -33,7 +33,7 @@ installers for all supported operating systems.
 
 #### Debian and Ubuntu based Package Repository (GNU/Linux x86/x64)
 
-1. Add Etcher debian repository:
+1. Add Etcher Debian repository:
 
    ```sh
    echo "deb https://deb.etcher.io stable etcher" | sudo tee /etc/apt/sources.list.d/balena-etcher.list
@@ -74,7 +74,7 @@ sudo zypper in balena-etcher-electron
 sudo zypper rm balena-etcher-electron
 ```
 
-#### Redhat (RHEL) and Fedora based Package Repository (GNU/Linux x86/x64)
+#### Redhat (RHEL) and Fedora-based Package Repository (GNU/Linux x86/x64)
 
 ##### DNF
 
@@ -134,7 +134,7 @@ sudo eopkg it etcher
 sudo eopkg rm etcher
 ```
 
-#### Arch Linux / Manjaro (GNU/Linux x64)
+#### Arch/Manjaro Linux (GNU/Linux x64)
 
 Etcher is offered through the Arch User Repository and can be installed on both Manjaro and Arch systems. You can compile it from the source code in this repository using [`balena-etcher`](https://aur.archlinux.org/packages/balena-etcher/). The following example uses a common AUR helper to install the latest release:
 
@@ -148,20 +148,20 @@ yay -S balena-etcher
 yay -R balena-etcher
 ```
 
-#### Brew Cask (macOS)
+#### Brew (macOS)
 
-Note that the Etcher Cask has to be updated manually to point to new versions,
+**Note**: Etcher has to be updated manually to point to new versions,
 so it might not refer to the latest version immediately after an Etcher
 release.
 
 ```sh
-brew cask install balenaetcher
+brew install balenaetcher
 ```
 
 ##### Uninstall
 
 ```sh
-brew cask uninstall balenaetcher
+brew uninstall balenaetcher
 ```
 
 #### Chocolatey (Windows)
@@ -181,12 +181,12 @@ choco uninstall etcher
 
 ## Support
 
-If you're having any problem, please [raise an issue][newissue] on GitHub and
+If you're having any problem, please [raise an issue][newissue] on GitHub, and
 the balena.io team will be happy to help.
 
 ## License
 
-Etcher is free software, and may be redistributed under the terms specified in
+Etcher is free software and may be redistributed under the terms specified in
 the [license].
 
 [etcher]: https://balena.io/etcher
