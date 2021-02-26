@@ -15,7 +15,7 @@
     },
     "builder": {
       "appId": "io.balena.etcher",
-      "copyright": "Copyright 2016-2020 Balena Ltd",
+      "copyright": "Copyright 2016-2021 Balena Ltd",
       "productName": "balenaEtcher",
       "nodeGypRebuild": false,
       "afterPack": "./afterPack.js",
