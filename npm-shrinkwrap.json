@@ -1219,6 +1219,19 @@
         }
       }
     },
+    "@balena/node-beaglebone-usbboot": {
+      "version": "1.0.3",
+      "resolved": "https://registry.npmjs.org/@balena/node-beaglebone-usbboot/-/node-beaglebone-usbboot-1.0.3.tgz",
+      "integrity": "sha512-XGycuPr98g9XEppCazWOH43MeeZi4Qn2hlZ5Ki1vBdIf4wGoc9Ubb/Su/xde/kxugotj4NH3DEiCMLYvHrBX9w==",
+      "dev": true,
+      "requires": {
+        "@balena.io/usb": "^1.3.13",
+        "binary-parser-encoder": "^1.4.5",
+        "debug": "^4.3.1",
+        "endian-toggle": "0.0.0",
+        "schemapack": "^1.4.2"
+      }
+    },
     "@balena/node-crc-utils": {
       "version": "2.0.0",
       "resolved": "https://registry.npmjs.org/@balena/node-crc-utils/-/node-crc-utils-2.0.0.tgz",
@@ -3086,6 +3099,15 @@
       "integrity": "sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==",
       "dev": true
     },
+    "binary-parser-encoder": {
+      "version": "1.5.3",
+      "resolved": "https://registry.npmjs.org/binary-parser-encoder/-/binary-parser-encoder-1.5.3.tgz",
+      "integrity": "sha512-yu3tdLBYqPIwGRaXyswLoLrhaffkuZkNuXveq/jYoyBHQbFMjamHCWPFOmI2Qz+Go0Rh6wE9f6tt0EAvsgDD0g==",
+      "dev": true,
+      "requires": {
+        "smart-buffer": "^4.1.0"
+      }
+    },
     "bindings": {
       "version": "1.5.0",
       "resolved": "https://registry.npmjs.org/bindings/-/bindings-1.5.0.tgz",
@@ -3279,11 +3301,11 @@
       "version": "5.7.1",
       "resolved": "https://registry.npmjs.org/buffer/-/buffer-5.7.1.tgz",
       "integrity": "sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==",
-      "dev": true,
       "requires": {
         "base64-js": "^1.3.1",
         "ieee754": "^1.1.13"
-      }
+      },
+      "dev": true
     },
     "buffer-alloc": {
       "version": "1.2.0",
@@ -5826,6 +5848,12 @@
         "once": "^1.4.0"
       }
     },
+    "endian-toggle": {
+      "version": "0.0.0",
+      "resolved": "https://registry.npmjs.org/endian-toggle/-/endian-toggle-0.0.0.tgz",
+      "integrity": "sha1-5cx1eLEDLW7gHq/Nc3ZdsNtNwKY=",
+      "dev": true
+    },
     "enhanced-resolve": {
       "version": "5.7.0",
       "resolved": "https://registry.npmjs.org/enhanced-resolve/-/enhanced-resolve-5.7.0.tgz",
@@ -6059,11 +6087,12 @@
       "dev": true
     },
     "etcher-sdk": {
-      "version": "6.1.1",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-6.1.1.tgz",
-      "integrity": "sha512-pLbeu+mONr6QeIilo9AukJ51oZoPQy2YlsqKF3CTFVfZAPdue+7lxpUHNrtze7wsjIVeH9+8BoqRoJfVp5q+VQ==",
+      "version": "6.2.0-beagle-bone-1e75cbc18fa680df8ca0647a145d2d9fd55570b0",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-6.2.0-beagle-bone-1e75cbc18fa680df8ca0647a145d2d9fd55570b0.tgz",
+      "integrity": "sha512-70Vk+1THMbHyNNnX/VWOtPnW/MhmzemAMnzmHqYlHqsWHWIJ8MOAANc115dtrSDq+7gyEGfW2rnQHqIMAoqEow==",
       "dev": true,
       "requires": {
+        "@balena/node-beaglebone-usbboot": "^1.0.3",
         "@balena/udif": "^1.1.1",
         "@ronomon/direct-io": "^3.0.1",
         "aws4-axios": "^2.0.1",
@@ -11210,6 +11239,12 @@
         "ajv-keywords": "^3.5.2"
       }
     },
+    "schemapack": {
+      "version": "1.4.2",
+      "resolved": "https://registry.npmjs.org/schemapack/-/schemapack-1.4.2.tgz",
+      "integrity": "sha1-i1gqVeEo40WFTOP7OANxxYJk80k=",
+      "dev": true
+    },
     "scss-parser": {
       "version": "1.0.4",
       "resolved": "https://registry.npmjs.org/scss-parser/-/scss-parser-1.0.4.tgz",
@@ -11609,6 +11644,12 @@
           "dev": true
         }
       }
+    },
+    "smart-buffer": {
+      "version": "4.1.0",
+      "resolved": "https://registry.npmjs.org/smart-buffer/-/smart-buffer-4.1.0.tgz",
+      "integrity": "sha512-iVICrxOzCynf/SNaBQCw34eM9jROU/s5rzIhpOvzhzuYHfJR/DhZfDkXiZSgKXfgv26HT3Yni3AV/DGw0cGnnw==",
+      "dev": true
     },
     "source-list-map": {
       "version": "2.0.1",

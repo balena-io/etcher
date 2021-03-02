@@ -26,7 +26,10 @@ const adapters: sdk.scanner.adapters.Adapter[] = [
 // Can't use permissions.isElevated() here as it returns a promise and we need to set
 // module.exports = scanner right now.
 if (platform !== 'linux' || geteuid() === 0) {
-	adapters.push(new sdk.scanner.adapters.UsbbootDeviceAdapter());
+	adapters.push(
+		new sdk.scanner.adapters.UsbbootDeviceAdapter(),
+		new sdk.scanner.adapters.UsbBBbootDeviceAdapter(),
+	);
 }
 
 if (

@@ -187,16 +187,16 @@ function prepareDrive(drive: Drive) {
 	if (drive instanceof sdk.sourceDestination.BlockDevice) {
 		// @ts-ignore (BlockDevice.drive is private)
 		return drive.drive;
-	} else if (drive instanceof sdk.sourceDestination.UsbbootDrive) {
-		// This is a workaround etcher expecting a device string and a size
+	} else if (
+		drive instanceof sdk.sourceDestination.UsbbootDrive ||
+		drive instanceof sdk.sourceDestination.UsbBBbootDrive
+	) {
+		// This is a workaround etcher expecting a device string
 		// @ts-ignore
 		drive.device = drive.usbDevice.portId;
-		drive.size = null;
-		// @ts-ignore
-		drive.progress = 0;
-		drive.disabled = true;
+		const debouncedUpdateDriveProgress = _.throttle(updateDriveProgress, 100);
 		drive.on('progress', (progress) => {
-			updateDriveProgress(drive, progress);
+			debouncedUpdateDriveProgress(drive, progress);
 		});
 		return drive;
 	} else if (drive instanceof sdk.sourceDestination.DriverlessDevice) {
@@ -266,7 +266,9 @@ function removeDrive(drive: Drive) {
 }
 
 function updateDriveProgress(
-	drive: sdk.sourceDestination.UsbbootDrive,
+	drive:
+		| sdk.sourceDestination.UsbbootDrive
+		| sdk.sourceDestination.UsbBBbootDrive,
 	progress: number,
 ) {
 	const drives = getDrives();
