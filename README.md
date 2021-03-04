@@ -12,9 +12,9 @@ was written correctly and much more. It can also flash directly Raspberry Pi dev
 [![Dependency status](https://img.shields.io/david/balena-io/etcher.svg?style=flat-square)](https://david-dm.org/balena-io/etcher)
 [![Balena.io Forums](https://img.shields.io/discourse/https/forums.balena.io/topics.svg?style=flat-square&label=balena.io%20forums)](https://forums.balena.io/c/etcher)
 
-***
+---
 
-[**Download**][etcher] | [**Support**][SUPPORT] | [**Documentation**][USER-DOCUMENTATION] | [**Contributing**][CONTRIBUTING] | [**Roadmap**][milestones]
+[**Download**][etcher] | [**Support**][support] | [**Documentation**][user-documentation] | [**Contributing**][contributing] | [**Roadmap**][milestones]
 
 ## Supported Operating Systems
 
@@ -35,22 +35,22 @@ installers for all supported operating systems.
 
 1. Add Etcher debian repository:
 
-    ```sh
-    echo "deb https://deb.etcher.io stable etcher" | sudo tee /etc/apt/sources.list.d/balena-etcher.list
-    ```
+   ```sh
+   echo "deb https://deb.etcher.io stable etcher" | sudo tee /etc/apt/sources.list.d/balena-etcher.list
+   ```
 
 2. Trust Bintray.com's GPG key:
 
-    ```sh
-    sudo apt-key adv --keyserver hkps://keyserver.ubuntu.com:443 --recv-keys 379CE192D401AB61
-    ```
+   ```sh
+   sudo apt-key adv --keyserver hkps://keyserver.ubuntu.com:443 --recv-keys 379CE192D401AB61
+   ```
 
 3. Update and install:
 
-    ```sh
-    sudo apt-get update
-    sudo apt-get install balena-etcher-electron
-    ```
+   ```sh
+   sudo apt-get update
+   sudo apt-get install balena-etcher-electron
+   ```
 
 ##### Uninstall
 
@@ -76,36 +76,50 @@ sudo zypper rm balena-etcher-electron
 
 #### Redhat (RHEL) and Fedora based Package Repository (GNU/Linux x86/x64)
 
+##### DNF
+
 1. Add Etcher rpm repository:
 
-    ```sh
-    sudo wget https://balena.io/etcher/static/etcher-rpm.repo -O /etc/yum.repos.d/etcher-rpm.repo
-    ```
+   ```sh
+   sudo sudo dnf config-manager --add-repo https://balena.io/etcher/static/etcher-rpm.repo
+   ```
 
 2. Update and install:
 
-    ```sh
-    sudo yum install -y balena-etcher-electron
-    ```
-    or
-    ```sh
-    sudo dnf install -y balena-etcher-electron
-    ```
+   ```sh
+   sudo dnf install -y balena-etcher-electron
+   ```
 
-##### Uninstall
+###### Uninstall
+
+```sh
+sudo dnf remove -y balena-etcher-electron
+sudo rm /etc/yum.repos.d/etcher-rpm.repo
+sudo dnf clean all
+sudo dnf makecache
+```
+
+##### Yum
+
+1. Add Etcher rpm repository:
+
+   ```sh
+   sudo wget https://balena.io/etcher/static/etcher-rpm.repo -O /etc/yum.repos.d/etcher-rpm.repo
+   ```
+
+2. Update and install:
+
+   ```sh
+   sudo yum install -y balena-etcher-electron
+   ```
+
+###### Uninstall
 
 ```sh
 sudo yum remove -y balena-etcher-electron
 sudo rm /etc/yum.repos.d/etcher-rpm.repo
 sudo yum clean all
 sudo yum makecache fast
-```
-or
-```sh
-sudo dnf remove -y balena-etcher-electron
-sudo rm /etc/yum.repos.d/etcher-rpm.repo
-sudo dnf clean all
-sudo dnf makecache
 ```
 
 #### Solus (GNU/Linux x64)
@@ -123,7 +137,6 @@ sudo eopkg rm etcher
 #### Arch Linux / Manjaro (GNU/Linux x64)
 
 Etcher is offered through the Arch User Repository and can be installed on both Manjaro and Arch systems. You can compile it from the source code in this repository using [`balena-etcher`](https://aur.archlinux.org/packages/balena-etcher/). The following example uses a common AUR helper to install the latest release:
-
 
 ```sh
 yay -S balena-etcher
@@ -179,9 +192,9 @@ the [license].
 [etcher]: https://balena.io/etcher
 [electron]: https://electronjs.org/
 [electron-supported-platforms]: https://electronjs.org/docs/tutorial/support#supported-platforms
-[SUPPORT]: https://github.com/balena-io/etcher/blob/master/SUPPORT.md
-[CONTRIBUTING]: https://github.com/balena-io/etcher/blob/master/docs/CONTRIBUTING.md
-[USER-DOCUMENTATION]: https://github.com/balena-io/etcher/blob/master/docs/USER-DOCUMENTATION.md
+[support]: https://github.com/balena-io/etcher/blob/master/SUPPORT.md
+[contributing]: https://github.com/balena-io/etcher/blob/master/docs/CONTRIBUTING.md
+[user-documentation]: https://github.com/balena-io/etcher/blob/master/docs/USER-DOCUMENTATION.md
 [milestones]: https://github.com/balena-io/etcher/milestones
 [newissue]: https://github.com/balena-io/etcher/issues/new
 [license]: https://github.com/balena-io/etcher/blob/master/LICENSE
