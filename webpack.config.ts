@@ -129,6 +129,7 @@ function fetchWasm(...where: string[]) {
 const commonConfig = {
 	mode: 'production',
 	optimization: {
+		moduleIds: 'natural',
 		minimize: true,
 		minimizer: [
 			new TerserPlugin({
