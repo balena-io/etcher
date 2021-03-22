@@ -11,6 +11,12 @@ exports.default = function(context) {
 		cp.execFileSync(
 			run,
 			['node_modules/.bin/electron-rebuild', '--types', 'dev', '--arch', context.arch],
+			{
+				env: {
+					...process.env,
+					npm_config_msvs_version: '2019',
+				},
+			},
 		);
 		rimraf.sync('generated');
 		cp.execFileSync(
