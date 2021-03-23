@@ -120,7 +120,15 @@ function fetchWasm(...where: string[]) {
 		} catch {
 		}
 		function appPath() {
-			return Path.isAbsolute(__dirname) ? __dirname : Path.join(electron.remote.app.getAppPath(), 'generated');
+			return Path.isAbsolute(__dirname) ? 
+				__dirname :
+				Path.join(
+					// With macOS universal builds, getAppPath() returns the path to an app.asar file containing an index.js file which will
+					// include the app-x64 or app-arm64 folder depending on the arch.
+					// We don't care about the app.asar file, we want the actual folder.
+					electron.remote.app.getAppPath().replace(/\\.asar$/, () => process.platform === 'darwin' ? '-' + process.arch : ''),
+					'generated'
+				);
 		}
 		scriptDirectory = Path.join(appPath(), 'modules', ${whereStr}, '/');
 	`;
@@ -238,7 +246,19 @@ const commonConfig = {
 					"return await readFile(Path.join(__dirname, '..', 'blobs', filename));",
 				replace: outdent`
 					const { app, remote } = require('electron');
-					return await readFile(Path.join((app || remote.app).getAppPath(), 'generated', __dirname.replace('node_modules', 'modules'), '..', 'blobs', filename));
+					return await readFile(
+						Path.join(
+							// With macOS universal builds, getAppPath() returns the path to an app.asar file containing an index.js file which will
+							// include the app-x64 or app-arm64 folder depending on the arch.
+							// We don't care about the app.asar file, we want the actual folder.
+							(app || remote.app).getAppPath().replace(/\\.asar$/, () => process.platform === 'darwin' ? '-' + process.arch : ''),
+							'generated',
+							__dirname.replace('node_modules', 'modules'),
+							'..',
+							'blobs',
+							filename
+						)
+					);
 				`,
 			}),
 			// Use the libext2fs.wasm file in the generated folder
