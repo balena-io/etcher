@@ -16,6 +16,9 @@ mac:
   hardenedRuntime: true
   entitlements: "entitlements.mac.plist"
   entitlementsInherit: "entitlements.mac.plist"
+  target:
+    target: default
+    arch: universal
 dmg:
   background: assets/dmg/background.tiff
   icon: assets/icon.icns
