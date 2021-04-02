@@ -16,6 +16,7 @@ mac:
   hardenedRuntime: true
   entitlements: "entitlements.mac.plist"
   entitlementsInherit: "entitlements.mac.plist"
+  artifactName: "${productName}-${version}.${ext}"
 dmg:
   background: assets/dmg/background.tiff
   icon: assets/icon.icns

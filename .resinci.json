@@ -30,7 +30,8 @@
         "category": "public.app-category.developer-tools",
         "hardenedRuntime": true,
         "entitlements": "entitlements.mac.plist",
-        "entitlementsInherit": "entitlements.mac.plist"
+        "entitlementsInherit": "entitlements.mac.plist",
+        "artifactName": "${productName}-${version}.${ext}"
       },
       "dmg": {
         "iconSize": 110,
