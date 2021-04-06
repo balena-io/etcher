@@ -15,7 +15,6 @@
  */
 
 import { Drive as DrivelistDrive } from 'drivelist';
-import * as electron from 'electron';
 import * as sdk from 'etcher-sdk';
 import { Dictionary } from 'lodash';
 import * as ipc from 'node-ipc';
@@ -25,6 +24,7 @@ import * as path from 'path';
 import * as packageJSON from '../../../../package.json';
 import * as errors from '../../../shared/errors';
 import * as permissions from '../../../shared/permissions';
+import { getAppPath } from '../../../shared/utils';
 import { SourceMetadata } from '../components/source-selector/source-selector';
 import * as flashState from '../models/flash-state';
 import * as selectionState from '../models/selection-state';
@@ -93,11 +93,7 @@ function terminateServer() {
 }
 
 function writerArgv(): string[] {
-	let entryPoint = path.join(
-		electron.remote.app.getAppPath(),
-		'generated',
-		'child-writer.js',
-	);
+	let entryPoint = path.join(getAppPath(), 'generated', 'child-writer.js');
 	// AppImages run over FUSE, so the files inside the mount point
 	// can only be accessed by the user that mounted the AppImage.
 	// This means we can't re-spawn Etcher as root from the same

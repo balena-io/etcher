@@ -15,6 +15,7 @@
  */
 
 import axios from 'axios';
+import { app, remote } from 'electron';
 import { Dictionary } from 'lodash';
 
 import * as errors from './errors';
@@ -46,4 +47,17 @@ export async function delay(duration: number): Promise<void> {
 	await new Promise((resolve) => {
 		setTimeout(resolve, duration);
 	});
+}
+
+export function getAppPath(): string {
+	return (
+		(app || remote.app)
+			.getAppPath()
+			// With macOS universal builds, getAppPath() returns the path to an app.asar file containing an index.js file which will
+			// include the app-x64 or app-arm64 folder depending on the arch.
+			// We don't care about the app.asar file, we want the actual folder.
+			.replace(/\.asar$/, () =>
+				process.platform === 'darwin' ? '-' + process.arch : '',
+			)
+	);
 }
