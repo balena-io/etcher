@@ -3,6 +3,79 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.117
+## (2021-04-02)
+
+* Rename mac releases (keep old naming) [Alexis Svinartchouk]
+* Disable spectron tests on macOS [Alexis Svinartchouk]
+* Update electron to v12.0.2 [Alexis Svinartchouk]
+
+<details>
+<summary> Update etcher-sdk from 6.1.1 to 6.2.1 [Alexis Svinartchouk] </summary>
+
+> ## etcher-sdk-6.2.1
+> ### (2021-03-26)
+> 
+> 
+> <details>
+> <summary> Update node-raspberrypi-usbboot from 0.2.11 to 0.3.0 [Alexis Svinartchouk] </summary>
+> 
+>> ### node-raspberrypi-usbboot-0.3.0
+>> #### (2021-03-26)
+>> 
+>> * Add support for compute module 4 [Alexis Svinartchouk]
+>> * Fix size endianness of boot_message_t message [Alexis Svinartchouk]
+>> 
+> </details>
+> 
+> 
+> ## etcher-sdk-6.2.0
+> ### (2021-02-18)
+> 
+> * Added BeagleBone USB Boot example [Parthiban Gandhi]
+> * Added BeagleBone USB Boot support [Parthiban Gandhi]
+> 
+</details>
+
+* Fix getAppPath() returning an asar file on macOS [Alexis Svinartchouk]
+* Grammar fix [Andrew Scheller]
+* (docs) update README.md [vlad doster]
+* Update copyright year in electron-builder.yml [Andrew Scheller]
+* Update copyright year in .resinci.json [Andrew Scheller]
+* Separate the Yum and DNF instructions. [Dugan Chen]
+* Set msvs_version to 2019 when rebuilding [Alexis Svinartchouk]
+* Use moduleIds: 'natural' in webpack config to keep js files in arm64 and x64 mac builds identical [Alexis Svinartchouk]
+* Update electron-builder to 22.10.5 [Alexis Svinartchouk]
+* Update spectron to v13 [Alexis Svinartchouk]
+* Update dependencies, use aws4-axios@2.2.1 to avoid adding more dependiencies [Alexis Svinartchouk]
+* Update scripts to build universal mac dmgs on the ci [Alexis Svinartchouk]
+* Fix beforeBuild.js script to also work on mac [Alexis Svinartchouk]
+* Support building universal dmgs (x64 and arm64) for mac [Alexis Svinartchouk]
+* Update electron-builder to 22.10.4 [Alexis Svinartchouk]
+* Fix titlebar z-index [Alexis Svinartchouk]
+* Explicitly set contextIsolation to false [Alexis Svinartchouk]
+* Update electron from 9.4.1 to 11.2.3 [Alexis Svinartchouk]
+
+<details>
+<summary> Update etcher-sdk from 6.1.0 to 6.1.1 [Alexis Svinartchouk] </summary>
+
+> ## etcher-sdk-6.1.1
+> ### (2021-02-10)
+> 
+> 
+> <details>
+> <summary> Update node-raspberrypi-usbboot from 0.2.10 to 0.2.11 [Alexis Svinartchouk] </summary>
+> 
+>> ### node-raspberrypi-usbboot-0.2.11
+>> #### (2021-02-10)
+>> 
+>> * Update @balena.io/usb from 1.3.12 to 1.3.14 [Alexis Svinartchouk]
+>> 
+> </details>
+> 
+> 
+</details>
+
 # v1.5.116
 ## (2021-02-03)
 
