@@ -1,5 +1,5 @@
 appId: io.balena.etcher
-copyright: Copyright 2016-2020 Balena Ltd
+copyright: Copyright 2016-2021 Balena Ltd
 productName: balenaEtcher
 npmRebuild: true
 nodeGypRebuild: false
@@ -16,6 +16,7 @@ mac:
   hardenedRuntime: true
   entitlements: "entitlements.mac.plist"
   entitlementsInherit: "entitlements.mac.plist"
+  artifactName: "${productName}-${version}.${ext}"
 dmg:
   background: assets/dmg/background.tiff
   icon: assets/icon.icns

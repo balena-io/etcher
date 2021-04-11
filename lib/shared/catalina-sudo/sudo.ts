@@ -15,10 +15,11 @@
  */
 
 import { execFile } from 'child_process';
-import { app, remote } from 'electron';
 import { join } from 'path';
 import { env } from 'process';
 import { promisify } from 'util';
+
+import { getAppPath } from '../utils';
 
 const execFileAsync = promisify(execFile);
 
@@ -37,7 +38,7 @@ export async function sudo(
 				env: {
 					PATH: env.PATH,
 					SUDO_ASKPASS: join(
-						(app || remote.app).getAppPath(),
+						getAppPath(),
 						__dirname,
 						'sudo-askpass.osascript.js',
 					),
