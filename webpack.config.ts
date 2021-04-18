@@ -24,6 +24,7 @@ import { env } from 'process';
 import * as SimpleProgressWebpackPlugin from 'simple-progress-webpack-plugin';
 import * as TerserPlugin from 'terser-webpack-plugin';
 import { BannerPlugin, NormalModuleReplacementPlugin } from 'webpack';
+import * as PnpWebpackPlugin from 'pnp-webpack-plugin';
 
 /**
  * Don't webpack package.json as mixpanel & sentry tokens
@@ -293,6 +294,7 @@ const commonConfig = {
 		extensions: ['.node', '.js', '.json', '.ts', '.tsx'],
 	},
 	plugins: [
+		PnpWebpackPlugin,
 		new SimpleProgressWebpackPlugin({
 			format: process.env.WEBPACK_PROGRESS || 'verbose',
 		}),
@@ -303,6 +305,9 @@ const commonConfig = {
 			'./http.js',
 		),
 	],
+	resolveLoader: {
+		plugins: [PnpWebpackPlugin.moduleLoader(module)],
+	},
 	output: {
 		path: path.join(__dirname, 'generated'),
 		filename: '[name].js',
