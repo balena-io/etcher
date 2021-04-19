@@ -17,12 +17,11 @@
 import * as _ from 'lodash';
 import { Animator, AnimationFunction, Color, RGBLed } from 'sys-class-rgb-led';
 
-import {
-	isSourceDrive,
-	DrivelistDrive,
-} from '../../../shared/drive-constraints';
+import { DrivelistDrive } from '../../../shared/drive-constraints';
+import { getDrives } from './available-drives';
+import { getImage, getSelectedDrives } from './selection-state';
 import * as settings from './settings';
-import { DEFAULT_STATE, observe } from './store';
+import { observe, store } from './store';
 
 const leds: Map<string, RGBLed> = new Map();
 const animator = new Animator([], 10);
@@ -40,7 +39,7 @@ function createAnimationFunction(
 ): AnimationFunction {
 	return (t: number): Color => {
 		const intensity = intensityFunction(t);
-		return color.map((v) => v * intensity) as Color;
+		return color.map((v: number) => v * intensity) as Color;
 	};
 }
 
@@ -160,35 +159,28 @@ export function updateLeds({
 	animator.mapping = mapping;
 }
 
-interface DeviceFromState {
-	devicePath?: string;
-	device: string;
-}
-
 let ledsState: LedsState | undefined;
 
-function stateObserver(state: typeof DEFAULT_STATE) {
-	const s = state.toJS();
+function stateObserver() {
+	const s = store.getState().toJS();
 	let step: 'main' | 'flashing' | 'verifying' | 'finish';
 	if (s.isFlashing) {
 		step = s.flashState.type;
 	} else {
 		step = s.lastAverageFlashingSpeed == null ? 'main' : 'finish';
 	}
-	const availableDrives = s.availableDrives.filter(
-		(d: DeviceFromState) => d.devicePath,
+	const availableDrives = getDrives().filter(
+		(d: DrivelistDrive) => d.devicePath,
 	);
-	const sourceDrivePath = availableDrives.filter((d: DrivelistDrive) =>
-		isSourceDrive(d, s.selection.image),
-	)[0]?.devicePath;
+	const sourceDrivePath = getImage()?.drive?.devicePath;
 	const availableDrivesPaths = availableDrives.map(
-		(d: DeviceFromState) => d.devicePath,
+		(d: DrivelistDrive) => d.devicePath,
 	);
 	let selectedDrivesPaths: string[];
 	if (step === 'main') {
-		selectedDrivesPaths = availableDrives
-			.filter((d: DrivelistDrive) => s.selection.devices.includes(d.device))
-			.map((d: DrivelistDrive) => d.devicePath);
+		selectedDrivesPaths = getSelectedDrives()
+			.filter((drive) => drive.devicePath !== null)
+			.map((drive) => drive.devicePath) as string[];
 	} else {
 		selectedDrivesPaths = s.devicePaths;
 	}
@@ -201,7 +193,7 @@ function stateObserver(state: typeof DEFAULT_STATE) {
 		availableDrives: availableDrivesPaths,
 		selectedDrives: selectedDrivesPaths,
 		failedDrives: failedDevicePaths,
-	};
+	} as LedsState;
 	if (!_.isEqual(newLedsState, ledsState)) {
 		updateLeds(newLedsState);
 		ledsState = newLedsState;

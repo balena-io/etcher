@@ -558,6 +558,12 @@ export class SourceSelector extends React.Component<
 		this.setState({ defaultFlowActive });
 	}
 
+	private closeModal() {
+		this.setState({
+			showDriveSelector: false,
+		});
+	}
+
 	// TODO add a visual change when dragging a file over the selector
 	public render() {
 		const { flashing } = this.props;
@@ -661,6 +667,9 @@ export class SourceSelector extends React.Component<
 
 				{this.state.warning != null && (
 					<SmallModal
+						style={{
+							boxShadow: '0 3px 7px rgba(0, 0, 0, 0.3)',
+						}}
 						titleElement={
 							<span>
 								<ExclamationTriangleSvg fill="#fca321" height="1em" />{' '}
@@ -736,21 +745,30 @@ export class SourceSelector extends React.Component<
 						titleLabel="Select source"
 						emptyListLabel="Plug a source drive"
 						emptyListIcon={<SrcSvg width="40px" />}
-						cancel={() => {
-							this.setState({
-								showDriveSelector: false,
-							});
-						}}
-						done={async (drives: DrivelistDrive[]) => {
-							if (drives.length) {
-								await this.selectSource(
-									drives[0],
-									sourceDestination.BlockDevice,
-								);
+						cancel={(originalList) => {
+							if (originalList.length) {
+								const originalSource = originalList[0];
+								if (selectionImage?.drive?.device !== originalSource.device) {
+									this.selectSource(
+										originalSource,
+										sourceDestination.BlockDevice,
+									);
+								}
+							} else {
+								selectionState.deselectImage();
 							}
-							this.setState({
-								showDriveSelector: false,
-							});
+							this.closeModal();
+						}}
+						done={() => this.closeModal()}
+						onSelect={(drive) => {
+							if (drive) {
+								if (
+									selectionState.getImage()?.drive?.device === drive?.device
+								) {
+									return selectionState.deselectImage();
+								}
+								this.selectSource(drive, sourceDestination.BlockDevice);
+							}
 						}}
 					/>
 				)}

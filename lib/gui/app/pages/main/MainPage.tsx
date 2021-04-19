@@ -276,7 +276,7 @@ export class MainPage extends React.Component<
 					style={{
 						// Allow window to be dragged from header
 						// @ts-ignore
-						'-webkit-app-region': 'drag',
+						WebkitAppRegion: 'drag',
 						position: 'relative',
 						zIndex: 2,
 					}}
@@ -304,7 +304,7 @@ export class MainPage extends React.Component<
 							onClick={() => this.setState({ hideSettings: false })}
 							style={{
 								// Make touch events click instead of dragging
-								'-webkit-app-region': 'no-drag',
+								WebkitAppRegion: 'no-drag',
 							}}
 						/>
 						{!settings.getSync('disableExternalLinks') && (
@@ -319,7 +319,7 @@ export class MainPage extends React.Component<
 								tabIndex={6}
 								style={{
 									// Make touch events click instead of dragging
-									'-webkit-app-region': 'no-drag',
+									WebkitAppRegion: 'no-drag',
 								}}
 							/>
 						)}
