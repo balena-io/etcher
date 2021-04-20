@@ -24,8 +24,8 @@
     "sanity-checks": "bash scripts/ci/ensure-all-file-extensions-in-gitattributes.sh",
     "start": "./node_modules/.bin/electron .",
     "postshrinkwrap": "ts-node ./scripts/clean-shrinkwrap.ts",
-    "webpack": "webpack",
-    "watch": "webpack --watch",
+    "webpack": "webpack --mode=production",
+    "watch": "webpack --watch --mode=development --no-optimization-minimize",
     "concourse-build-electron": "npm run webpack",
     "concourse-test": "npx npm@6.14.8 test",
     "concourse-test-electron": "npx npm@6.14.8 test"

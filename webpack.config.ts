@@ -120,7 +120,7 @@ function fetchWasm(...where: string[]) {
 		} catch {
 		}
 		function appPath() {
-			return Path.isAbsolute(__dirname) ? 
+			return Path.isAbsolute(__dirname) ?
 				__dirname :
 				Path.join(
 					// With macOS universal builds, getAppPath() returns the path to an app.asar file containing an index.js file which will
@@ -135,12 +135,12 @@ function fetchWasm(...where: string[]) {
 }
 
 const commonConfig = {
-	mode: 'production',
 	optimization: {
 		moduleIds: 'natural',
 		minimize: true,
 		minimizer: [
 			new TerserPlugin({
+				parallel: true,
 				terserOptions: {
 					compress: false,
 					mangle: false,
@@ -391,7 +391,6 @@ const childWriterConfig = {
 };
 
 const cssConfig = {
-	mode: 'production',
 	optimization: {
 		minimize: false,
 	},
