@@ -22,7 +22,7 @@
     "test-shared": "electron-mocha --recursive --reporter spec --require ts-node/register --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox tests/shared/**/*.ts",
     "test": "npm run lint && npm run test-gui && npm run test-shared && npm run test-spectron && npm run sanity-checks",
     "sanity-checks": "bash scripts/ci/ensure-all-file-extensions-in-gitattributes.sh",
-    "start": "./node_modules/.bin/electron .",
+    "start": "./node_modules/.bin/ts-node scripts/start.ts",
     "postshrinkwrap": "ts-node ./scripts/clean-shrinkwrap.ts",
     "webpack": "webpack",
     "watch": "webpack --watch",
@@ -66,7 +66,7 @@
     "@types/mime-types": "^2.1.0",
     "@types/mini-css-extract-plugin": "^1.2.2",
     "@types/mocha": "^8.0.3",
-    "@types/node": "^12.12.39",
+    "@types/node": "^14.14.41",
     "@types/node-ipc": "^9.1.2",
     "@types/react-dom": "^16.8.4",
     "@types/semver": "^7.1.0",
@@ -114,12 +114,11 @@
     "sudo-prompt": "github:zvin/sudo-prompt#7cdede2f0da28fbcc2db48402d7d935f3a825c91",
     "sys-class-rgb-led": "^3.0.0",
     "ts-loader": "^8.0.12",
-    "ts-node": "^9.0.0",
+    "ts-node": "^9.1.1",
     "tslib": "^2.0.0",
-    "typescript": "^4.1.2",
+    "typescript": "^4.2.2",
     "uuid": "^8.1.0",
     "webpack": "^5.11.0",
     "webpack-cli": "^4.2.0"
-  },
-  "dependencies": {}
+  }
 }
