@@ -86,6 +86,7 @@ TARGET_ARCH ?= $(HOST_ARCH)
 # Electron
 # ---------------------------------------------------------------------
 electron-develop:
+	git submodule update --init && \
 	$(RESIN_SCRIPTS)/electron/install.sh \
 		-b $(shell pwd) \
 		-r $(TARGET_ARCH) \
@@ -125,7 +126,7 @@ TARGETS = \
 
 .PHONY: $(TARGETS)
 
-lint: 
+lint:
 	npm run lint
 
 test:
