@@ -135,6 +135,7 @@ function fetchWasm(...where: string[]) {
 }
 
 const commonConfig = {
+	devtool: 'inline-source-map',
 	optimization: {
 		moduleIds: 'natural',
 		minimize: true,
