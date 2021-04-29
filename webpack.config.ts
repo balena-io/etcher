@@ -17,7 +17,6 @@
 import * as CopyPlugin from 'copy-webpack-plugin';
 import { readdirSync } from 'fs';
 import * as _ from 'lodash';
-import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import * as os from 'os';
 import outdent from 'outdent';
 import * as path from 'path';
@@ -120,7 +119,7 @@ function fetchWasm(...where: string[]) {
 		} catch {
 		}
 		function appPath() {
-			return Path.isAbsolute(__dirname) ? 
+			return Path.isAbsolute(__dirname) ?
 				__dirname :
 				Path.join(
 					// With macOS universal builds, getAppPath() returns the path to an app.asar file containing an index.js file which will
@@ -158,7 +157,12 @@ const commonConfig = {
 		rules: [
 			{
 				test: /\.css$/,
-				use: 'css-loader',
+				use: ['style-loader', 'css-loader'],
+			},
+			{
+				test: /\.(woff|woff2|eot|ttf|otf)$/,
+				loader: 'file-loader',
+				options: { name: renameNodeModules },
 			},
 			{
 				test: /\.svg$/,
@@ -348,10 +352,18 @@ const guiConfig = {
 		__filename: true,
 	},
 	entry: {
-		gui: path.join(__dirname, 'lib', 'gui', 'app', 'app.ts'),
+		gui: path.join(__dirname, 'lib', 'gui', 'app', 'renderer.ts'),
 	},
 	plugins: [
 		...commonConfig.plugins,
+		new CopyPlugin({
+			patterns: [
+				{ from: 'lib/gui/app/index.html', to: 'index.html' },
+				// electron-builder doesn't bundle folders named "assets"
+				// See https://github.com/electron-userland/electron-builder/issues/4545
+				{ from: 'assets/icon.png', to: 'media/icon.png' },
+			],
+		}),
 		// Remove "Download the React DevTools for a better development experience" message
 		new BannerPlugin({
 			banner: '__REACT_DEVTOOLS_GLOBAL_HOOK__ = { isDisabled: true };',
@@ -390,42 +402,4 @@ const childWriterConfig = {
 	},
 };
 
-const cssConfig = {
-	mode: 'production',
-	optimization: {
-		minimize: false,
-	},
-	module: {
-		rules: [
-			{
-				test: /\.css$/i,
-				use: [MiniCssExtractPlugin.loader, 'css-loader'],
-			},
-			{
-				test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
-				loader: 'file-loader',
-				options: { name: renameNodeModules },
-			},
-		],
-	},
-	plugins: [
-		new MiniCssExtractPlugin({ filename: '[name].css' }),
-		new CopyPlugin({
-			patterns: [
-				{ from: 'lib/gui/app/index.html', to: 'index.html' },
-				// electron-builder doesn't bundle folders named "assets"
-				// See https://github.com/electron-userland/electron-builder/issues/4545
-				{ from: 'assets/icon.png', to: 'media/icon.png' },
-			],
-		}),
-	],
-	entry: {
-		index: path.join(__dirname, 'lib', 'gui', 'app', 'css', 'main.css'),
-	},
-	output: {
-		publicPath: '',
-		path: path.join(__dirname, 'generated'),
-	},
-};
-
-module.exports = [cssConfig, guiConfig, etcherConfig, childWriterConfig];
+export default [guiConfig, etcherConfig, childWriterConfig];
