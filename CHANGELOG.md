@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.118
+## (2021-04-27)
+
+* patch: development environment [Zane Hitchcox]
+* patch: watch files for electron [Zane Hitchcox]
+
 # v1.5.117
 ## (2021-04-02)
 

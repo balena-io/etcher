@@ -1,4 +1,25 @@
 - commits:
+    - subject: 'patch: development environment'
+      hash: 1ee110bc9587ecdc672b5b9cf8373e78c04943a1
+      body: >-
+        Add webpack dev server and hot module reloading to get live changes and
+        reloads without reloading the whole electron app.
+
+
+        This patch also runs the development environment in development mode,
+        which is much, much faster on builds and rebuilds.
+      footer: {}
+      author: Zane Hitchcox
+      nested: []
+    - subject: 'patch: watch files for electron'
+      hash: 33dd07c6751e5ca84b5e7d78027e2e9fec1e7b0e
+      body: ''
+      footer: {}
+      author: Zane Hitchcox
+      nested: []
+  version: 1.5.118
+  date: 2021-04-27T01:21:31.707Z
+- commits:
     - subject: Rename mac releases (keep old naming)
       hash: 0bdea5c54ca1465d89c73cd269e60ebb24c79f0f
       body: ''
