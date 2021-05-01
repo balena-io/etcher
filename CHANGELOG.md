@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.119
+## (2021-04-30)
+
+* Update readme for new PPA provider [Lorenzo Alberto Maria Ambrosi]
+
 # v1.5.118
 ## (2021-04-27)
 
