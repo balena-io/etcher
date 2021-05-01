@@ -36,16 +36,12 @@ installers for all supported operating systems.
 1. Add Etcher Debian repository:
 
    ```sh
-   echo "deb https://deb.etcher.io stable etcher" | sudo tee /etc/apt/sources.list.d/balena-etcher.list
+   curl -1sLf \
+      'https://dl.cloudsmith.io/public/balena/etcher/setup.deb.sh' \
+      | sudo -E bash
    ```
 
-2. Trust Bintray.com's GPG key:
-
-   ```sh
-   sudo apt-key adv --keyserver hkps://keyserver.ubuntu.com:443 --recv-keys 379CE192D401AB61
-   ```
-
-3. Update and install:
+2. Update and install:
 
    ```sh
    sudo apt-get update
@@ -56,22 +52,25 @@ installers for all supported operating systems.
 
 ```sh
 sudo apt-get remove balena-etcher-electron
-sudo rm /etc/apt/sources.list.d/balena-etcher.list
-sudo apt-get update
+rm /etc/apt/sources.list.d/balena-etcher.list
+apt-get clean
+rm -rf /var/lib/apt/lists/*
+apt-get update
 ```
 
 ##### OpenSUSE LEAP & Tumbleweed install
 
 ```sh
-sudo zypper ar https://balena.io/etcher/static/etcher-rpm.repo
-sudo zypper ref
-sudo zypper in balena-etcher-electron
+curl -1sLf \
+  'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \
+  | sudo -E bash
 ```
 
 ##### Uninstall
 
 ```sh
-sudo zypper rm balena-etcher-electron
+zypper rr balena-etcher
+zypper rr balena-etcher-source
 ```
 
 #### Redhat (RHEL) and Fedora-based Package Repository (GNU/Linux x86/x64)
@@ -81,22 +80,24 @@ sudo zypper rm balena-etcher-electron
 1. Add Etcher rpm repository:
 
    ```sh
-   sudo sudo dnf config-manager --add-repo https://balena.io/etcher/static/etcher-rpm.repo
+   curl -1sLf \
+      'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \
+      | sudo -E bash
    ```
 
 2. Update and install:
 
    ```sh
    sudo dnf install -y balena-etcher-electron
+   rm /etc/yum.repos.d/balena-etcher.repo
+   rm /etc/yum.repos.d/balena-etcher-source.repo
    ```
 
 ###### Uninstall
 
 ```sh
-sudo dnf remove -y balena-etcher-electron
-sudo rm /etc/yum.repos.d/etcher-rpm.repo
-sudo dnf clean all
-sudo dnf makecache
+rm /etc/yum.repos.d/balena-etcher.repo
+rm /etc/yum.repos.d/balena-etcher-source.repo
 ```
 
 ##### Yum
@@ -104,7 +105,9 @@ sudo dnf makecache
 1. Add Etcher rpm repository:
 
    ```sh
-   sudo wget https://balena.io/etcher/static/etcher-rpm.repo -O /etc/yum.repos.d/etcher-rpm.repo
+   curl -1sLf \
+      'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \
+      | sudo -E bash
    ```
 
 2. Update and install:
@@ -117,9 +120,8 @@ sudo dnf makecache
 
 ```sh
 sudo yum remove -y balena-etcher-electron
-sudo rm /etc/yum.repos.d/etcher-rpm.repo
-sudo yum clean all
-sudo yum makecache fast
+rm /etc/yum.repos.d/balena-etcher.repo
+rm /etc/yum.repos.d/balena-etcher-source.repo
 ```
 
 #### Solus (GNU/Linux x64)
