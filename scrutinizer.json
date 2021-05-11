@@ -5,6 +5,433 @@
     {
       "commits": [
         {
+          "subject": "Update README to reference Cloudsmith",
+          "hash": "7e333caaf9d94ff90583fe897ccabb6fdf860f74",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch",
+            "Signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>",
+            "signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>"
+          },
+          "author": "Lorenzo Alberto Maria Ambrosi",
+          "nested": []
+        }
+      ],
+      "version": "1.5.120",
+      "date": "2021-05-11T16:04:28.710Z"
+    },
+    {
+      "commits": [
+        {
+          "subject": "Update readme for new PPA provider",
+          "hash": "250aed2eb1911a6302a80bd7e9f4488c96787ee0",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch",
+            "Signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>",
+            "signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>"
+          },
+          "author": "Lorenzo Alberto Maria Ambrosi",
+          "nested": []
+        }
+      ],
+      "version": "1.5.119",
+      "date": "2021-04-30T21:33:09.009Z"
+    },
+    {
+      "commits": [
+        {
+          "subject": "patch: development environment",
+          "hash": "1ee110bc9587ecdc672b5b9cf8373e78c04943a1",
+          "body": "Add webpack dev server and hot module reloading to get live changes and reloads without reloading the whole electron app.\n\nThis patch also runs the development environment in development mode, which is much, much faster on builds and rebuilds.",
+          "footer": {},
+          "author": "Zane Hitchcox",
+          "nested": []
+        },
+        {
+          "subject": "patch: watch files for electron",
+          "hash": "33dd07c6751e5ca84b5e7d78027e2e9fec1e7b0e",
+          "body": "",
+          "footer": {},
+          "author": "Zane Hitchcox",
+          "nested": []
+        }
+      ],
+      "version": "1.5.118",
+      "date": "2021-04-27T01:21:31.707Z"
+    },
+    {
+      "commits": [
+        {
+          "subject": "Rename mac releases (keep old naming)",
+          "hash": "0bdea5c54ca1465d89c73cd269e60ebb24c79f0f",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Alexis Svinartchouk",
+          "nested": []
+        },
+        {
+          "subject": "Disable spectron tests on macOS",
+          "hash": "3be372d49fd0a24bd67086d4a523ed831a828d4b",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Alexis Svinartchouk",
+          "nested": []
+        },
+        {
+          "subject": "Update electron to v12.0.2",
+          "hash": "d0c66b2c4844540c90440f2baea9819dc136a16b",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Alexis Svinartchouk",
+          "nested": []
+        },
+        {
+          "subject": "Update etcher-sdk from 6.1.1 to 6.2.1",
+          "hash": "65082c4790c1109077aecae1a5f48def4db03e0c",
+          "body": "Update etcher-sdk from 6.1.1 to 6.2.1\n",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Alexis Svinartchouk",
+          "nested": [
+            {
+              "commits": [
+                {
+                  "subject": "Update node-raspberrypi-usbboot from 0.2.11 to 0.3.0",
+                  "hash": "de39ec278ff397d1f69bcb4db968486ce59b33b2",
+                  "body": "Update node-raspberrypi-usbboot from 0.2.11 to 0.3.0\n",
+                  "footer": {
+                    "Change-type": "patch",
+                    "change-type": "patch"
+                  },
+                  "author": "Alexis Svinartchouk",
+                  "nested": [
+                    {
+                      "commits": [
+                        {
+                          "subject": "Add support for compute module 4",
+                          "hash": "701744f0bbc02bd7d322ed7e989af576a7156689",
+                          "body": "",
+                          "footer": {
+                            "Change-type": "minor",
+                            "change-type": "minor"
+                          },
+                          "author": "Alexis Svinartchouk"
+                        },
+                        {
+                          "subject": "Fix size endianness of boot_message_t message",
+                          "hash": "867d8b0d217af0ad554d839fbc42cc08b222bc32",
+                          "body": "",
+                          "footer": {
+                            "Change-type": "patch",
+                            "change-type": "patch"
+                          },
+                          "author": "Alexis Svinartchouk"
+                        }
+                      ],
+                      "version": "node-raspberrypi-usbboot-0.3.0",
+                      "date": "2021-03-26T16:10:38.120Z"
+                    }
+                  ]
+                }
+              ],
+              "version": "etcher-sdk-6.2.1",
+              "date": "2021-03-26T16:37:33.170Z"
+            },
+            {
+              "commits": [
+                {
+                  "subject": "Added BeagleBone USB Boot example",
+                  "hash": "f088dbb3543d55341d06cfb6b20f64e02b9f6a78",
+                  "body": "",
+                  "footer": {
+                    "Change-type": "patch",
+                    "change-type": "patch"
+                  },
+                  "author": "Parthiban Gandhi",
+                  "nested": []
+                },
+                {
+                  "subject": "Added BeagleBone USB Boot support",
+                  "hash": "2a1d745bf59ca93739f489d7ae85ba19bc2697da",
+                  "body": "",
+                  "footer": {
+                    "Change-type": "minor",
+                    "change-type": "minor"
+                  },
+                  "author": "Parthiban Gandhi",
+                  "nested": []
+                }
+              ],
+              "version": "etcher-sdk-6.2.0",
+              "date": "2021-02-18T12:08:54.323Z"
+            }
+          ]
+        },
+        {
+          "subject": "Fix getAppPath() returning an asar file on macOS",
+          "hash": "e87ed9beed924da86b73c10addde432958586895",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Alexis Svinartchouk",
+          "nested": []
+        },
+        {
+          "subject": "Grammar fix",
+          "hash": "bc5563d9c2ac9dcdd541d7e3cf062b9c29f8e1b4",
+          "body": "\"flash directly\" sounds odd\n",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Andrew Scheller",
+          "nested": []
+        },
+        {
+          "subject": "(docs) update README.md",
+          "hash": "ad83ab5dccba5c4d746d52fc7ea6e18451bfd162",
+          "body": "- fix spelling\n- emphasize notes\n- add link\n- fix macOS to account for new homebrew API\n",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "vlad doster",
+          "nested": []
+        },
+        {
+          "subject": "Update copyright year in electron-builder.yml",
+          "hash": "0dc1cf970186ef235eb12e5839712e7389ee37ef",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Andrew Scheller",
+          "nested": []
+        },
+        {
+          "subject": "Update copyright year in .resinci.json",
+          "hash": "11489c653861590da2129f00fa938b062d9fd16a",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Andrew Scheller",
+          "nested": []
+        },
+        {
+          "subject": "Separate the Yum and DNF instructions.",
+          "hash": "2619d4bc8602962d45317713474968c4aa833d67",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Dugan Chen",
+          "nested": []
+        },
+        {
+          "subject": "Set msvs_version to 2019 when rebuilding",
+          "hash": "3730efd350d0875b7bbfcd58b614ca2ab025de4f",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Alexis Svinartchouk",
+          "nested": []
+        },
+        {
+          "subject": "Use moduleIds: 'natural' in webpack config to keep js files in arm64 and x64 mac builds identical",
+          "hash": "6ece32c546ca83a5be387d2618ce2967ad65dc81",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Alexis Svinartchouk",
+          "nested": []
+        },
+        {
+          "subject": "Update electron-builder to 22.10.5",
+          "hash": "fd9996a3cc8f9c973518f57f439b3bc78b7b1671",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Alexis Svinartchouk",
+          "nested": []
+        },
+        {
+          "subject": "Update spectron to v13",
+          "hash": "f06cc89152772bcf8748a02514a948bc9aecc9a1",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Alexis Svinartchouk",
+          "nested": []
+        },
+        {
+          "subject": "Update dependencies, use aws4-axios@2.2.1 to avoid adding more dependiencies",
+          "hash": "c1d7ab3fa9e66b5c33a302c62c282d48e37dde54",
+          "body": "Also filter out dmg-license dependencies from the shrinkwrap file\naws4-axios@2.3.0 brings in react-native, see aws/aws-sdk-js-v3#1797\n",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Alexis Svinartchouk",
+          "nested": []
+        },
+        {
+          "subject": "Update scripts to build universal mac dmgs on the ci",
+          "hash": "b206483c7cf37ef9865bc242b4053f6a5cc7cdec",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Alexis Svinartchouk",
+          "nested": []
+        },
+        {
+          "subject": "Fix beforeBuild.js script to also work on mac",
+          "hash": "c3eb8c7b5603129ab12e38dda6f34bfb752034ef",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Alexis Svinartchouk",
+          "nested": []
+        },
+        {
+          "subject": "Support building universal dmgs (x64 and arm64) for mac",
+          "hash": "0849d4f435ba0e5612b6837996b18ab148346f07",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Alexis Svinartchouk",
+          "nested": []
+        },
+        {
+          "subject": "Update electron-builder to 22.10.4",
+          "hash": "1dba3ae19b324b5a45541002e91c0e5fd93c92e3",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Alexis Svinartchouk",
+          "nested": []
+        },
+        {
+          "subject": "Fix titlebar z-index",
+          "hash": "f33f2e3771f0ea08424bb8169d596198a1c09035",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Alexis Svinartchouk",
+          "nested": []
+        },
+        {
+          "subject": "Explicitly set contextIsolation to false",
+          "hash": "e56aaed9735cc22b28317455a4dc81d86d7746ab",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Alexis Svinartchouk",
+          "nested": []
+        },
+        {
+          "subject": "Update electron from 9.4.1 to 11.2.3",
+          "hash": "a4659f038eb8ed0aa6ffb7b2e2c22ff5d29250d3",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Alexis Svinartchouk",
+          "nested": []
+        },
+        {
+          "subject": "Update etcher-sdk from 6.1.0 to 6.1.1",
+          "hash": "cd462818da6f812fcec547e933964697bfd6847e",
+          "body": "Update etcher-sdk from 6.1.0 to 6.1.1\n",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Alexis Svinartchouk",
+          "nested": [
+            {
+              "commits": [
+                {
+                  "subject": "Update node-raspberrypi-usbboot from 0.2.10 to 0.2.11",
+                  "hash": "66a232f0a2cb06192a5d94ddde9831893966cc94",
+                  "body": "Update node-raspberrypi-usbboot from 0.2.10 to 0.2.11\n",
+                  "footer": {
+                    "Change-type": "patch",
+                    "change-type": "patch"
+                  },
+                  "author": "Alexis Svinartchouk",
+                  "nested": [
+                    {
+                      "commits": [
+                        {
+                          "subject": "Update @balena.io/usb from 1.3.12 to 1.3.14",
+                          "hash": "d7cb5c673bfc8bd7c4ca3d49490fc9407d12700d",
+                          "body": "Update @balena.io/usb from 1.3.12 to 1.3.14\n",
+                          "footer": {
+                            "Change-type": "patch",
+                            "change-type": "patch"
+                          },
+                          "author": "Alexis Svinartchouk"
+                        }
+                      ],
+                      "version": "node-raspberrypi-usbboot-0.2.11",
+                      "date": "2021-02-10T15:43:10.247Z"
+                    }
+                  ]
+                }
+              ],
+              "version": "etcher-sdk-6.1.1",
+              "date": "2021-02-10T16:33:01.204Z"
+            }
+          ]
+        }
+      ],
+      "version": "1.5.117",
+      "date": "2021-04-02T14:05:00.244Z"
+    },
+    {
+      "commits": [
+        {
           "subject": "Only cleanup temporary decompressed files in child-writer",
           "hash": "48b5e8b9d90fdd9df98e099db1947bb6b2490a5a",
           "body": "",
@@ -15591,7 +16018,7 @@
     "@jviotti",
     "@nazrhom"
   ],
-  "readme": "# Etcher\n\n> Flash OS images to SD cards & USB drives, safely and easily.\n\nEtcher is a powerful OS image flasher built with web technologies to ensure\nflashing an SDCard or USB drive is a pleasant and safe experience. It protects\nyou from accidentally writing to your hard-drives, ensures every byte of data\nwas written correctly and much more. It can also flash directly Raspberry Pi devices that support the usbboot protocol\n\n[![Current Release](https://img.shields.io/github/release/balena-io/etcher.svg?style=flat-square)](https://balena.io/etcher)\n[![License](https://img.shields.io/github/license/balena-io/etcher.svg?style=flat-square)](https://github.com/balena-io/etcher/blob/master/LICENSE)\n[![Dependency status](https://img.shields.io/david/balena-io/etcher.svg?style=flat-square)](https://david-dm.org/balena-io/etcher)\n[![Balena.io Forums](https://img.shields.io/discourse/https/forums.balena.io/topics.svg?style=flat-square&label=balena.io%20forums)](https://forums.balena.io/c/etcher)\n\n***\n\n[**Download**][etcher] | [**Support**][SUPPORT] | [**Documentation**][USER-DOCUMENTATION] | [**Contributing**][CONTRIBUTING] | [**Roadmap**][milestones]\n\n## Supported Operating Systems\n\n- Linux (most distros)\n- macOS 10.10 (Yosemite) and later\n- Microsoft Windows 7 and later\n\nNote that Etcher will run on any platform officially supported by\n[Electron][electron]. Read more in their\n[documentation][electron-supported-platforms].\n\n## Installers\n\nRefer to the [downloads page][etcher] for the latest pre-made\ninstallers for all supported operating systems.\n\n#### Debian and Ubuntu based Package Repository (GNU/Linux x86/x64)\n\n1. Add Etcher debian repository:\n\n    ```sh\n    echo \"deb https://deb.etcher.io stable etcher\" | sudo tee /etc/apt/sources.list.d/balena-etcher.list\n    ```\n\n2. Trust Bintray.com's GPG key:\n\n    ```sh\n    sudo apt-key adv --keyserver hkps://keyserver.ubuntu.com:443 --recv-keys 379CE192D401AB61\n    ```\n\n3. Update and install:\n\n    ```sh\n    sudo apt-get update\n    sudo apt-get install balena-etcher-electron\n    ```\n\n##### Uninstall\n\n```sh\nsudo apt-get remove balena-etcher-electron\nsudo rm /etc/apt/sources.list.d/balena-etcher.list\nsudo apt-get update\n```\n\n##### OpenSUSE LEAP & Tumbleweed install\n\n```sh\nsudo zypper ar https://balena.io/etcher/static/etcher-rpm.repo\nsudo zypper ref\nsudo zypper in balena-etcher-electron\n```\n\n##### Uninstall\n\n```sh\nsudo zypper rm balena-etcher-electron\n```\n\n#### Redhat (RHEL) and Fedora based Package Repository (GNU/Linux x86/x64)\n\n1. Add Etcher rpm repository:\n\n    ```sh\n    sudo wget https://balena.io/etcher/static/etcher-rpm.repo -O /etc/yum.repos.d/etcher-rpm.repo\n    ```\n\n2. Update and install:\n\n    ```sh\n    sudo yum install -y balena-etcher-electron\n    ```\n    or\n    ```sh\n    sudo dnf install -y balena-etcher-electron\n    ```\n\n##### Uninstall\n\n```sh\nsudo yum remove -y balena-etcher-electron\nsudo rm /etc/yum.repos.d/etcher-rpm.repo\nsudo yum clean all\nsudo yum makecache fast\n```\nor\n```sh\nsudo dnf remove -y balena-etcher-electron\nsudo rm /etc/yum.repos.d/etcher-rpm.repo\nsudo dnf clean all\nsudo dnf makecache\n```\n\n#### Solus (GNU/Linux x64)\n\n```sh\nsudo eopkg it etcher\n```\n\n##### Uninstall\n\n```sh\nsudo eopkg rm etcher\n```\n\n#### Arch Linux / Manjaro (GNU/Linux x64)\n\nEtcher is offered through the Arch User Repository and can be installed on both Manjaro and Arch systems. You can compile it from the source code in this repository using [`balena-etcher`](https://aur.archlinux.org/packages/balena-etcher/). The following example uses a common AUR helper to install the latest release:\n\n\n```sh\nyay -S balena-etcher\n```\n\n##### Uninstall\n\n```sh\nyay -R balena-etcher\n```\n\n#### Brew Cask (macOS)\n\nNote that the Etcher Cask has to be updated manually to point to new versions,\nso it might not refer to the latest version immediately after an Etcher\nrelease.\n\n```sh\nbrew cask install balenaetcher\n```\n\n##### Uninstall\n\n```sh\nbrew cask uninstall balenaetcher\n```\n\n#### Chocolatey (Windows)\n\nThis package is maintained by [@majkinetor](https://github.com/majkinetor), and\nis kept up to date automatically.\n\n```sh\nchoco install etcher\n```\n\n##### Uninstall\n\n```sh\nchoco uninstall etcher\n```\n\n## Support\n\nIf you're having any problem, please [raise an issue][newissue] on GitHub and\nthe balena.io team will be happy to help.\n\n## License\n\nEtcher is free software, and may be redistributed under the terms specified in\nthe [license].\n\n[etcher]: https://balena.io/etcher\n[electron]: https://electronjs.org/\n[electron-supported-platforms]: https://electronjs.org/docs/tutorial/support#supported-platforms\n[SUPPORT]: https://github.com/balena-io/etcher/blob/master/SUPPORT.md\n[CONTRIBUTING]: https://github.com/balena-io/etcher/blob/master/docs/CONTRIBUTING.md\n[USER-DOCUMENTATION]: https://github.com/balena-io/etcher/blob/master/docs/USER-DOCUMENTATION.md\n[milestones]: https://github.com/balena-io/etcher/milestones\n[newissue]: https://github.com/balena-io/etcher/issues/new\n[license]: https://github.com/balena-io/etcher/blob/master/LICENSE\n",
+  "readme": "# Etcher\n\n> Flash OS images to SD cards & USB drives, safely and easily.\n\nEtcher is a powerful OS image flasher built with web technologies to ensure\nflashing an SDCard or USB drive is a pleasant and safe experience. It protects\nyou from accidentally writing to your hard-drives, ensures every byte of data\nwas written correctly, and much more. It can also directly flash Raspberry Pi devices that support [USB device boot mode](https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/device.md).\n\n[![Current Release](https://img.shields.io/github/release/balena-io/etcher.svg?style=flat-square)](https://balena.io/etcher)\n[![License](https://img.shields.io/github/license/balena-io/etcher.svg?style=flat-square)](https://github.com/balena-io/etcher/blob/master/LICENSE)\n[![Dependency status](https://img.shields.io/david/balena-io/etcher.svg?style=flat-square)](https://david-dm.org/balena-io/etcher)\n[![Balena.io Forums](https://img.shields.io/discourse/https/forums.balena.io/topics.svg?style=flat-square&label=balena.io%20forums)](https://forums.balena.io/c/etcher)\n\n---\n\n[**Download**][etcher] | [**Support**][support] | [**Documentation**][user-documentation] | [**Contributing**][contributing] | [**Roadmap**][milestones]\n\n## Supported Operating Systems\n\n- Linux (most distros)\n- macOS 10.10 (Yosemite) and later\n- Microsoft Windows 7 and later\n\n**Note**: Etcher will run on any platform officially supported by\n[Electron][electron]. Read more in their\n[documentation][electron-supported-platforms].\n\n## Installers\n\nRefer to the [downloads page][etcher] for the latest pre-made\ninstallers for all supported operating systems.\n\n> Note: Our deb and rpm packages are now hosted on [Cloudsmith](https://cloudsmith.com)!\n\n#### Debian and Ubuntu based Package Repository (GNU/Linux x86/x64)\n\n1. Add Etcher Debian repository:\n\n   ```sh\n   curl -1sLf \\\n      'https://dl.cloudsmith.io/public/balena/etcher/setup.deb.sh' \\\n      | sudo -E bash\n   ```\n\n2. Update and install:\n\n   ```sh\n   sudo apt-get update\n   sudo apt-get install balena-etcher-electron\n   ```\n\n##### Uninstall\n\n```sh\nsudo apt-get remove balena-etcher-electron\nrm /etc/apt/sources.list.d/balena-etcher.list\napt-get clean\nrm -rf /var/lib/apt/lists/*\napt-get update\n```\n\n##### OpenSUSE LEAP & Tumbleweed install\n\n```sh\ncurl -1sLf \\\n  'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \\\n  | sudo -E bash\n```\n\n##### Uninstall\n\n```sh\nzypper rr balena-etcher\nzypper rr balena-etcher-source\n```\n\n#### Redhat (RHEL) and Fedora-based Package Repository (GNU/Linux x86/x64)\n\n##### DNF\n\n1. Add Etcher rpm repository:\n\n   ```sh\n   curl -1sLf \\\n      'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \\\n      | sudo -E bash\n   ```\n\n2. Update and install:\n\n   ```sh\n   sudo dnf install -y balena-etcher-electron\n   rm /etc/yum.repos.d/balena-etcher.repo\n   rm /etc/yum.repos.d/balena-etcher-source.repo\n   ```\n\n###### Uninstall\n\n```sh\nrm /etc/yum.repos.d/balena-etcher.repo\nrm /etc/yum.repos.d/balena-etcher-source.repo\n```\n\n##### Yum\n\n1. Add Etcher rpm repository:\n\n   ```sh\n   curl -1sLf \\\n      'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \\\n      | sudo -E bash\n   ```\n\n2. Update and install:\n\n   ```sh\n   sudo yum install -y balena-etcher-electron\n   ```\n\n###### Uninstall\n\n```sh\nsudo yum remove -y balena-etcher-electron\nrm /etc/yum.repos.d/balena-etcher.repo\nrm /etc/yum.repos.d/balena-etcher-source.repo\n```\n\n#### Solus (GNU/Linux x64)\n\n```sh\nsudo eopkg it etcher\n```\n\n##### Uninstall\n\n```sh\nsudo eopkg rm etcher\n```\n\n#### Arch/Manjaro Linux (GNU/Linux x64)\n\nEtcher is offered through the Arch User Repository and can be installed on both Manjaro and Arch systems. You can compile it from the source code in this repository using [`balena-etcher`](https://aur.archlinux.org/packages/balena-etcher/). The following example uses a common AUR helper to install the latest release:\n\n```sh\nyay -S balena-etcher\n```\n\n##### Uninstall\n\n```sh\nyay -R balena-etcher\n```\n\n#### Brew (macOS)\n\n**Note**: Etcher has to be updated manually to point to new versions,\nso it might not refer to the latest version immediately after an Etcher\nrelease.\n\n```sh\nbrew install balenaetcher\n```\n\n##### Uninstall\n\n```sh\nbrew uninstall balenaetcher\n```\n\n#### Chocolatey (Windows)\n\nThis package is maintained by [@majkinetor](https://github.com/majkinetor), and\nis kept up to date automatically.\n\n```sh\nchoco install etcher\n```\n\n##### Uninstall\n\n```sh\nchoco uninstall etcher\n```\n\n## Support\n\nIf you're having any problem, please [raise an issue][newissue] on GitHub, and\nthe balena.io team will be happy to help.\n\n## License\n\nEtcher is free software and may be redistributed under the terms specified in\nthe [license].\n\n[etcher]: https://balena.io/etcher\n[electron]: https://electronjs.org/\n[electron-supported-platforms]: https://electronjs.org/docs/tutorial/support#supported-platforms\n[support]: https://github.com/balena-io/etcher/blob/master/SUPPORT.md\n[contributing]: https://github.com/balena-io/etcher/blob/master/docs/CONTRIBUTING.md\n[user-documentation]: https://github.com/balena-io/etcher/blob/master/docs/USER-DOCUMENTATION.md\n[milestones]: https://github.com/balena-io/etcher/milestones\n[newissue]: https://github.com/balena-io/etcher/issues/new\n[license]: https://github.com/balena-io/etcher/blob/master/LICENSE\n",
   "highlights": null,
   "installationSteps": null,
   "examples": null,
@@ -15603,7 +16030,7 @@
   "public": true,
   "fork": false,
   "description": "Flash OS images to SD cards & USB drives, safely and easily.",
-  "stars": 19791,
+  "stars": 20492,
   "homepage": "https://etcher.io",
   "repositoryUrl": "https://github.com/balena-io/etcher.git",
   "active": true,
@@ -15614,85 +16041,85 @@
     "type": "Organization"
   },
   "dependencies": [],
-  "lastCommitDate": "2021-02-03T15:56:40Z",
+  "lastCommitDate": "2021-05-11T16:56:49Z",
   "latestRelease": {
-    "tagName": "v1.5.116",
+    "tagName": "v1.5.120",
     "asssets": [
       {
-        "name": "balena-etcher-electron-1.5.116-linux-ia32.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.116/balena-etcher-electron-1.5.116-linux-ia32.zip"
+        "name": "balena-etcher-electron-1.5.120-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.120/balena-etcher-electron-1.5.120-linux-ia32.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.116-linux-x64.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.116/balena-etcher-electron-1.5.116-linux-x64.zip"
+        "name": "balena-etcher-electron-1.5.120-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.120/balena-etcher-electron-1.5.120-linux-x64.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.116.i686.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.116/balena-etcher-electron-1.5.116.i686.rpm"
+        "name": "balena-etcher-electron-1.5.120.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.120/balena-etcher-electron-1.5.120.i686.rpm"
       },
       {
-        "name": "balena-etcher-electron-1.5.116.x86_64.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.116/balena-etcher-electron-1.5.116.x86_64.rpm"
+        "name": "balena-etcher-electron-1.5.120.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.120/balena-etcher-electron-1.5.120.x86_64.rpm"
       },
       {
-        "name": "balena-etcher-electron_1.5.116_amd64.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.116/balena-etcher-electron_1.5.116_amd64.deb"
+        "name": "balena-etcher-electron_1.5.120_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.120/balena-etcher-electron_1.5.120_amd64.deb"
       },
       {
-        "name": "balena-etcher-electron_1.5.116_i386.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.116/balena-etcher-electron_1.5.116_i386.deb"
+        "name": "balena-etcher-electron_1.5.120_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.120/balena-etcher-electron_1.5.120_i386.deb"
       },
       {
-        "name": "balenaEtcher-1.5.116-ia32.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.116/balenaEtcher-1.5.116-ia32.AppImage"
+        "name": "balenaEtcher-1.5.120-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.120/balenaEtcher-1.5.120-ia32.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.116-mac.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.116/balenaEtcher-1.5.116-mac.zip"
+        "name": "balenaEtcher-1.5.120-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.120/balenaEtcher-1.5.120-x64.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.116-x64.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.116/balenaEtcher-1.5.116-x64.AppImage"
+        "name": "balenaEtcher-1.5.120.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.120/balenaEtcher-1.5.120.dmg"
       },
       {
-        "name": "balenaEtcher-1.5.116.dmg",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.116/balenaEtcher-1.5.116.dmg"
+        "name": "balenaEtcher-1.5.120.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.120/balenaEtcher-1.5.120.dmg.blockmap"
       },
       {
-        "name": "balenaEtcher-1.5.116.dmg.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.116/balenaEtcher-1.5.116.dmg.blockmap"
+        "name": "balenaEtcher-1.5.120.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.120/balenaEtcher-1.5.120.zip"
       },
       {
-        "name": "balenaEtcher-Portable-1.5.116.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.116/balenaEtcher-Portable-1.5.116.exe"
+        "name": "balenaEtcher-Portable-1.5.120.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.120/balenaEtcher-Portable-1.5.120.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.116.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.116/balenaEtcher-Setup-1.5.116.exe"
+        "name": "balenaEtcher-Setup-1.5.120.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.120/balenaEtcher-Setup-1.5.120.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.116.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.116/balenaEtcher-Setup-1.5.116.exe.blockmap"
+        "name": "balenaEtcher-Setup-1.5.120.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.120/balenaEtcher-Setup-1.5.120.exe.blockmap"
       },
       {
         "name": "builder-effective-config.yaml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.116/builder-effective-config.yaml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.120/builder-effective-config.yaml"
       },
       {
         "name": "latest-linux-ia32.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.116/latest-linux-ia32.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.120/latest-linux-ia32.yml"
       },
       {
         "name": "latest-linux.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.116/latest-linux.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.120/latest-linux.yml"
       },
       {
         "name": "latest-mac.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.116/latest-mac.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.120/latest-mac.yml"
       },
       {
         "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.116/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.120/latest.yml"
       }
     ]
   },
@@ -15790,91 +16217,91 @@
     ]
   },
   "openIssues": {
-    "numberOfIssues": 274,
+    "numberOfIssues": 301,
     "latestIssues": [
       {
-        "title": "Add flash duration to \"Flash complete!\" screen",
-        "url": "https://github.com/balena-io/etcher/issues/3428"
+        "title": "flash fails with \"Couldn't clean the drive\" error",
+        "url": "https://github.com/balena-io/etcher/issues/3512"
       },
       {
-        "title": "Etcher Win 10 stuck on \"Starting...\" with no error",
-        "url": "https://github.com/balena-io/etcher/issues/3426"
+        "title": "DEB repo: package list refresh fails, error 402 (payment required)",
+        "url": "https://github.com/balena-io/etcher/issues/3511"
       },
       {
-        "title": "Can't flash an iso file to my drive?",
-        "url": "https://github.com/balena-io/etcher/issues/3425"
+        "title": "Etcher gives me a zip file",
+        "url": "https://github.com/balena-io/etcher/issues/3510"
       },
       {
-        "title": "Flashing fails if the username contains a quote",
-        "url": "https://github.com/balena-io/etcher/issues/3424"
+        "title": "Balena Etcher PPA not recognised",
+        "url": "https://github.com/balena-io/etcher/issues/3508"
       },
       {
-        "title": "Flash i.MX devices through Serial Download Protocol",
-        "url": "https://github.com/balena-io/etcher/issues/3423"
+        "title": "Broken link-shortcuts on website",
+        "url": "https://github.com/balena-io/etcher/issues/3506"
       },
       {
-        "title": "E: The repository 'https://deb.etcher.io stable Release' is not signed.",
-        "url": "https://github.com/balena-io/etcher/issues/3422"
+        "title": "only v1.5.116 (not latest 1.5.119) is available for download",
+        "url": "https://github.com/balena-io/etcher/issues/3505"
       },
       {
-        "title": "Does not work without sudo in arch",
-        "url": "https://github.com/balena-io/etcher/issues/3421"
+        "title": "chore: replace make webpack with npm run webpack",
+        "url": "https://github.com/balena-io/etcher/pull/3503"
       },
       {
-        "title": "  Impossibile risolvere \"dl.bintray.com\"",
-        "url": "https://github.com/balena-io/etcher/issues/3420"
+        "title": "New deb|rpm PPA",
+        "url": "https://github.com/balena-io/etcher/issues/3501"
       },
       {
-        "title": "\"Flash\" from  SMB Share ",
-        "url": "https://github.com/balena-io/etcher/issues/3419"
+        "title": "Flash Failed! error",
+        "url": "https://github.com/balena-io/etcher/issues/3499"
       },
       {
-        "title": "Feature Request - To change the drive name",
-        "url": "https://github.com/balena-io/etcher/issues/3417"
+        "title": "Trying to install etcher on my pi4 with raspbian/buster OS, error",
+        "url": "https://github.com/balena-io/etcher/issues/3497"
       },
       {
-        "title": "Error flashing Pop!_OS",
-        "url": "https://github.com/balena-io/etcher/issues/3412"
+        "title": "ATK and libatk-bridge",
+        "url": "https://github.com/balena-io/etcher/issues/3494"
       },
       {
-        "title": "[Feature Request] Ability to pass a torrent/magnet link to Etcher",
-        "url": "https://github.com/balena-io/etcher/issues/3411"
+        "title": "patch: Select drive on list interaction rather than modal closing",
+        "url": "https://github.com/balena-io/etcher/pull/3489"
       },
       {
-        "title": "Flashing SPI flash on RockPi",
-        "url": "https://github.com/balena-io/etcher/issues/3405"
+        "title": "Linked",
+        "url": "https://github.com/balena-io/etcher/pull/3488"
       },
       {
-        "title": "Etcher replaced F1 Help function",
-        "url": "https://github.com/balena-io/etcher/issues/3404"
+        "title": "Ubuntu install orphaned path",
+        "url": "https://github.com/balena-io/etcher/issues/3486"
       },
       {
-        "title": "built from source wrong at last when building on arm64 arch system.",
-        "url": "https://github.com/balena-io/etcher/issues/3400"
+        "title": "CLI version?",
+        "url": "https://github.com/balena-io/etcher/issues/3483"
       },
       {
-        "title": "Keep getting flash failed when trying to a flash file on to a sd card",
-        "url": "https://github.com/balena-io/etcher/issues/3399"
+        "title": "update the windows part",
+        "url": "https://github.com/balena-io/etcher/pull/3480"
       },
       {
-        "title": "Device to small to write image of same device",
-        "url": "https://github.com/balena-io/etcher/issues/3398"
+        "title": "Feature request: BeagleBone flashing",
+        "url": "https://github.com/balena-io/etcher/issues/3477"
       },
       {
-        "title": "Trying to Select Target (Usb) For Tails Image",
-        "url": "https://github.com/balena-io/etcher/issues/3396"
+        "title": "Hangs on startup when outbound connections are detected in firewall",
+        "url": "https://github.com/balena-io/etcher/issues/3476"
       },
       {
-        "title": "Eject or lost communication",
-        "url": "https://github.com/balena-io/etcher/issues/3393"
+        "title": "bmap verification fails if image doesn't evenly divide into its block size",
+        "url": "https://github.com/balena-io/etcher/issues/3475"
       },
       {
-        "title": "Function extension request: share on mastodon",
-        "url": "https://github.com/balena-io/etcher/issues/3386"
+        "title": "Bmap file detection similar to md5sum",
+        "url": "https://github.com/balena-io/etcher/issues/3473"
       }
     ]
   },
-  "version": "1.5.116",
+  "version": "1.5.120",
   "screenshot": null,
   "logo": null
 }
