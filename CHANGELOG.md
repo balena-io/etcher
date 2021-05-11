@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.120
+## (2021-05-11)
+
+* Update README to reference Cloudsmith [Lorenzo Alberto Maria Ambrosi]
+
 # v1.5.119
 ## (2021-04-30)
 

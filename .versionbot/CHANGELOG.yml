@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update README to reference Cloudsmith
+      hash: 7e333caaf9d94ff90583fe897ccabb6fdf860f74
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+  version: 1.5.120
+  date: 2021-05-11T16:04:28.710Z
+- commits:
     - subject: Update readme for new PPA provider
       hash: 250aed2eb1911a6302a80bd7e9f4488c96787ee0
       body: ''
