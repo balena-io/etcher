@@ -31,6 +31,8 @@ was written correctly, and much more. It can also directly flash Raspberry Pi de
 Refer to the [downloads page][etcher] for the latest pre-made
 installers for all supported operating systems.
 
+> Note: Our deb and rpm packages are now hosted on [Cloudsmith](https://cloudsmith.com)!
+
 #### Debian and Ubuntu based Package Repository (GNU/Linux x86/x64)
 
 1. Add Etcher Debian repository:
