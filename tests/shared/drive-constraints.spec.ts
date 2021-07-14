@@ -514,40 +514,6 @@ describe('Shared: DriveConstraints', function () {
 		});
 	});
 
-	describe('.isDriveDisabled()', function () {
-		it('should return true if the drive is disabled', function () {
-			const result = constraints.isDriveDisabled(({
-				device: '/dev/disk1',
-				size: 1000000000,
-				isReadOnly: false,
-				disabled: true,
-			} as unknown) as constraints.DrivelistDrive);
-
-			expect(result).to.be.true;
-		});
-
-		it('should return false if the drive is not disabled', function () {
-			const result = constraints.isDriveDisabled(({
-				device: '/dev/disk1',
-				size: 1000000000,
-				isReadOnly: false,
-				disabled: false,
-			} as unknown) as constraints.DrivelistDrive);
-
-			expect(result).to.be.false;
-		});
-
-		it('should return false if "disabled" is undefined', function () {
-			const result = constraints.isDriveDisabled({
-				device: '/dev/disk1',
-				size: 1000000000,
-				isReadOnly: false,
-			} as constraints.DrivelistDrive);
-
-			expect(result).to.be.false;
-		});
-	});
-
 	describe('.isDriveSizeRecommended()', function () {
 		const image: SourceMetadata = {
 			description: 'rpi.img',

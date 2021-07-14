@@ -10,6 +10,8 @@ const [
 
 configs.forEach((config) => {
 	config.mode = 'development';
+	// @ts-ignore
+	config.devtool = 'source-map';
 });
 
 guiConfig.devServer = {

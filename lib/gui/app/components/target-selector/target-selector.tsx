@@ -28,6 +28,7 @@ import {
 	getSelectedDrives,
 	deselectDrive,
 	selectDrive,
+	deselectAllDrives,
 } from '../../models/selection-state';
 import { observe } from '../../models/store';
 import * as analytics from '../../modules/analytics';
@@ -164,10 +165,29 @@ export const TargetSelector = ({
 			{showTargetSelectorModal && (
 				<TargetSelectorModal
 					write={true}
-					cancel={() => setShowTargetSelectorModal(false)}
-					done={(modalTargets) => {
-						selectAllTargets(modalTargets);
+					cancel={(originalList) => {
+						if (originalList.length) {
+							selectAllTargets(originalList);
+						} else {
+							deselectAllDrives();
+						}
 						setShowTargetSelectorModal(false);
+					}}
+					done={(modalTargets) => {
+						if (modalTargets.length === 0) {
+							deselectAllDrives();
+						}
+						setShowTargetSelectorModal(false);
+					}}
+					onSelect={(drive) => {
+						if (
+							getSelectedDrives().find(
+								(selectedDrive) => selectedDrive.device === drive.device,
+							)
+						) {
+							return deselectDrive(drive.device);
+						}
+						selectDrive(drive.device);
 					}}
 				/>
 			)}
