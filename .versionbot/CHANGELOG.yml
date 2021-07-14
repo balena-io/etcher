@@ -1,4 +1,41 @@
 - commits:
+    - subject: 'patch: Delete Codeowners'
+      hash: a81b552b95f93a8989a6fff4774a14e21abe9a0e
+      body: ''
+      footer: {}
+      author: Vipul Gupta
+      nested: []
+    - subject: Add source maps for devtools
+      hash: 53f53c0f75779e814834e2fd0375b705664190c5
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: Clone submodules when initializing modules
+      hash: fdaf5c69d6bd20b64b1c1749b62dec9c22f12fb4
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: 'patch: Select drive on list interaction rather than modal closing'
+      hash: 061afca5d3ce7dbf67d66706e6c2c65ecd61cf7b
+      body: ''
+      footer:
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+  version: 1.5.121
+  date: 2021-07-05T18:20:04.735Z
+- commits:
     - subject: Update README to reference Cloudsmith
       hash: 7e333caaf9d94ff90583fe897ccabb6fdf860f74
       body: ''
