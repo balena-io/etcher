@@ -26,12 +26,12 @@ import { observe, store } from './store';
 const leds: Map<string, RGBLed> = new Map();
 const animator = new Animator([], 10);
 
-const red: Color = [0.59, 0, 0];
-const green: Color = [0, 0.59, 0];
-const blue: Color = [0, 0, 0.59];
-const white: Color = [0.04, 0.04, 0.04];
+const red: Color = [0.78, 0, 0];
+const green: Color = [0, 0.58, 0];
+const blue: Color = [0, 0, 0.1];
+const purple: Color = [0.7, 0, 0.78];
+const white: Color = [0.7, 0.7, 0.7];
 const black: Color = [0, 0, 0];
-const purple: Color = [0.117, 0, 0.196];
 
 function createAnimationFunction(
 	intensityFunction: (t: number) => number,
