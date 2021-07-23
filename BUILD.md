@@ -24,6 +24,10 @@ Visual studio 2019 with:
   * MSVC v142 x86-64 build tools
   * Windows 10 SDK
 
+Also install Windows Driver Kit from https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk
+ - you might have to look under "previous versions" for the windows wdk to match your windows sdk
+ - all you need from this page is the WDK, you can ignore everything else, just download it
+
 pip install -r requirements.txt
 
 Mingw64, install it from https://www.msys2.org/
