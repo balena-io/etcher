@@ -21,8 +21,10 @@ To build packages for distribution, run `make electron-build` after the steps ab
 > What version of mingw and visual studio  are needed to build? Any other dependencies for windows? Instructions for how to install?
 
 Visual studio 2019 with:
-MSVC v142
-Windows 10 SDK
+  * MSVC v142
+  * Windows 10 SDK
+
+
 Mingw64, install it from https://www.msys2.org/
 
 
