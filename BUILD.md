@@ -21,11 +21,17 @@ To build packages for distribution, run `make electron-build` after the steps ab
 > What version of mingw and visual studio  are needed to build? Any other dependencies for windows? Instructions for how to install?
 
 Visual studio 2019 with:
-  * MSVC v142
+  * MSVC v142 x86-64 build tools
   * Windows 10 SDK
 
+pip install -r requirements.txt
 
 Mingw64, install it from https://www.msys2.org/
+
+install choco: https://chocolatey.org/install
+install jq: choco install jq -y
+
+Add /c/msys64/usr/bin/ to path
 
 
 > It appears you’re supposed to use `npm i` and then `npm watch` and then `npm start` in order to build/run the electron app, but I’m getting the error:
