@@ -91,8 +91,6 @@ zypper rr balena-etcher-source
 
    ```sh
    sudo dnf install -y balena-etcher-electron
-   rm /etc/yum.repos.d/balena-etcher.repo
-   rm /etc/yum.repos.d/balena-etcher-source.repo
    ```
 
 ###### Uninstall
