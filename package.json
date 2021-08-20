@@ -15,8 +15,7 @@
   "scripts": {
     "lint-ts": "balena-lint --fix --typescript typings lib tests scripts/clean-shrinkwrap.ts webpack.config.ts",
     "lint-css": "prettier --write lib/**/*.css",
-    "lint-spell": "codespell --dictionary - --dictionary dictionary.txt --skip *.ttf *.svg *.gz,*.bz2,*.xz,*.zip,*.img,*.dmg,*.iso,*.rpi-sdcard,*.wic,.DS_Store,*.dtb,*.dtbo,*.dat,*.elf,*.bin,*.foo,xz-without-extension lib tests docs Makefile *.md LICENSE",
-    "lint": "npm run lint-ts && npm run lint-css && npm run lint-spell",
+    "lint": "npm run lint-ts && npm run lint-css",
     "test-spectron": "mocha --recursive --reporter spec --require ts-node/register --require-main tests/gui/allow-renderer-process-reuse.ts tests/spectron/runner.spec.ts",
     "test-gui": "electron-mocha --recursive --reporter spec --require ts-node/register --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox --renderer tests/gui/**/*.ts",
     "test-shared": "electron-mocha --recursive --reporter spec --require ts-node/register --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox tests/shared/**/*.ts",
