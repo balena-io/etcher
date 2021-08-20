@@ -18,6 +18,8 @@ import CopySvg from '@fortawesome/fontawesome-free/svgs/solid/copy.svg';
 import FileSvg from '@fortawesome/fontawesome-free/svgs/solid/file.svg';
 import LinkSvg from '@fortawesome/fontawesome-free/svgs/solid/link.svg';
 import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/exclamation-triangle.svg';
+import ChevronDownSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-down.svg';
+import ChevronRightSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-right.svg';
 import { sourceDestination } from 'etcher-sdk';
 import { ipcRenderer, IpcRendererEvent } from 'electron';
 import * as _ from 'lodash';
@@ -33,6 +35,7 @@ import {
 	Card as BaseCard,
 	Input,
 	Spinner,
+	Link,
 } from 'rendition';
 import styled from 'styled-components';
 
@@ -134,12 +137,15 @@ const URLSelector = ({
 	done,
 	cancel,
 }: {
-	done: (imageURL: string) => void;
+	done: (imageURL: string, auth?: Authentication) => void;
 	cancel: () => void;
 }) => {
 	const [imageURL, setImageURL] = React.useState('');
 	const [recentImages, setRecentImages] = React.useState<URL[]>([]);
 	const [loading, setLoading] = React.useState(false);
+	const [showBasicAuth, setShowBasicAuth] = React.useState(false);
+	const [username, setUsername] = React.useState('');
+	const [password, setPassword] = React.useState('');
 	React.useEffect(() => {
 		const fetchRecentUrlImages = async () => {
 			const recentUrlImages: URL[] = await getRecentUrlImages();
@@ -162,11 +168,12 @@ const URLSelector = ({
 					imageURL,
 				]);
 				setRecentUrlImages(normalizedRecentUrls);
-				await done(imageURL);
+				const auth = username ? { username, password } : undefined;
+				await done(imageURL, auth);
 			}}
 		>
 			<Flex flexDirection="column">
-				<Flex style={{ width: '100%' }} flexDirection="column">
+				<Flex mb={15} style={{ width: '100%' }} flexDirection="column">
 					<Txt mb="10px" fontSize="24px">
 						Use Image URL
 					</Txt>
@@ -178,6 +185,49 @@ const URLSelector = ({
 							setImageURL(evt.target.value)
 						}
 					/>
+					<Link
+						mt={15}
+						mb={15}
+						fontSize="14px"
+						onClick={() => {
+							if (showBasicAuth) {
+								setUsername('');
+								setPassword('');
+							}
+							setShowBasicAuth(!showBasicAuth);
+						}}
+					>
+						<Flex alignItems="center">
+							{showBasicAuth && (
+								<ChevronDownSvg height="1em" fill="currentColor" />
+							)}
+							{!showBasicAuth && (
+								<ChevronRightSvg height="1em" fill="currentColor" />
+							)}
+							<Txt ml={8}>Authentication</Txt>
+						</Flex>
+					</Link>
+					{showBasicAuth && (
+						<React.Fragment>
+							<Input
+								mb={15}
+								value={username}
+								placeholder="Enter username"
+								type="text"
+								onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
+									setUsername(evt.target.value)
+								}
+							/>
+							<Input
+								value={password}
+								placeholder="Enter password"
+								type="password"
+								onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
+									setPassword(evt.target.value)
+								}
+							/>
+						</React.Fragment>
+					)}
 				</Flex>
 				{recentImages.length > 0 && (
 					<Flex flexDirection="column" height="78.6%">
@@ -283,6 +333,11 @@ interface SourceSelectorState {
 	imageLoading: boolean;
 }
 
+interface Authentication {
+	username: string;
+	password: string;
+}
+
 export class SourceSelector extends React.Component<
 	SourceSelectorProps,
 	SourceSelectorState
@@ -328,7 +383,11 @@ export class SourceSelector extends React.Component<
 		this.setState({ imageLoading: false });
 	}
 
-	private async createSource(selected: string, SourceType: Source) {
+	private async createSource(
+		selected: string,
+		SourceType: Source,
+		auth?: Authentication,
+	) {
 		try {
 			selected = await replaceWindowsNetworkDriveLetter(selected);
 		} catch (error) {
@@ -351,7 +410,7 @@ export class SourceSelector extends React.Component<
 			});
 		}
 
-		return new sourceDestination.Http({ url: selected });
+		return new sourceDestination.Http({ url: selected, auth });
 	}
 
 	public isJson(jsonString: string) {
@@ -374,6 +433,7 @@ export class SourceSelector extends React.Component<
 	private selectSource(
 		selected: string | DrivelistDrive,
 		SourceType: Source,
+		auth?: Authentication,
 	): { promise: Promise<void>; cancel: () => void } {
 		let cancelled = false;
 		return {
@@ -403,7 +463,7 @@ export class SourceSelector extends React.Component<
 							},
 						});
 					}
-					source = await this.createSource(selected, SourceType);
+					source = await this.createSource(selected, SourceType, auth);
 
 					if (cancelled) {
 						return;
@@ -750,7 +810,7 @@ export class SourceSelector extends React.Component<
 								showURLSelector: false,
 							});
 						}}
-						done={async (imageURL: string) => {
+						done={async (imageURL: string, auth?: Authentication) => {
 							// Avoid analytics and selection state changes
 							// if no file was resolved from the dialog.
 							if (!imageURL) {
@@ -760,6 +820,7 @@ export class SourceSelector extends React.Component<
 								({ promise, cancel: cancelURLSelection } = this.selectSource(
 									imageURL,
 									sourceDestination.Http,
+									auth,
 								));
 								await promise;
 							}
