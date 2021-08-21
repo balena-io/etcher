@@ -66,6 +66,9 @@ else
 		ifeq ($(shell uname -m),x86_64)
 			HOST_ARCH = x64
 		endif
+		ifeq ($(shell uname -m),arm64)
+			HOST_ARCH = aarch64
+		endif
 	endif
 endif
 
