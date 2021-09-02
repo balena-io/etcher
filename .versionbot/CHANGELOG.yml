@@ -1,4 +1,123 @@
 - commits:
+    - subject: Restore image file selection LED-drive pathing
+      hash: f46963b6b3176395acc07863c9936a7c7f31d31a
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: Update scripts submodule
+      hash: b97f4e0031d7c4d0f33be9fdb8c999631f9eef1d
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: Change LEDs colours
+      hash: e2d233d74b6335fd53a9271a9c00c3f93828c5b5
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: Windows images now show the proper warning again
+      hash: a7ca2e527bc0cc040711ee4d60f93eda35f17558
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Changelog-entry: Windows images now show the proper warning again
+        changelog-entry: Windows images now show the proper warning again
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: Fix Update and install with DNF instructions
+      hash: 396a053c0a0ec8def4b3672509cbb4ecc0b0c784
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Mohamed Salah
+      nested: []
+    - subject: Add possibile authorization as a query param
+      hash: d1a3f1cb88ff38f804caa9289d3205b09666c1e6
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Andrea Rosci <andrear@balena.io>
+        signed-off-by: Andrea Rosci <andrear@balena.io>
+      author: JSReds
+      nested: []
+    - subject: update the windows part
+      hash: 9f96558cdd11ce83dcc08289c31da425063eab24
+      body: |
+        I choose to add this part because, after the clean the usb stick
+        could stay in a raw state without creating the new partions,
+        activating and formatting.
+        Thanks
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Xtraim
+      nested: []
+    - subject: Update SUPPORT.md
+      hash: b3bc589d70cc4498a13f86f7d9aa36d9908275e3
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: thambu1710
+      nested: []
+    - subject: replace make webpack with npm run webpack
+      hash: 18d2c28110c8b4b4c327a58f6f6a712c33dfd4cc
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Seth Falco
+      nested: []
+    - subject: Add loader on image select
+      hash: b272ef296dec9b4242028202e1d759f1e2d1aa2b
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Andrea Rosci <andrear@balena.io>
+        signed-off-by: Andrea Rosci <andrear@balena.io>
+      author: JSReds
+      nested: []
+    - subject: add pnp-webpack-plugin
+      hash: 32ca28a3a95d2ffd3eb2b32cfc54113515ae3097
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Zane Hitchcox
+      nested: []
+    - subject: Remove redundant codespell dependency/tests
+      hash: 4d5e5a3b0b81cbdd3341abbcca0c816bc905a8ed
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+  version: 1.5.122
+  date: 2021-09-02T12:20:22.871Z
+- commits:
     - subject: 'patch: Delete Codeowners'
       hash: a81b552b95f93a8989a6fff4774a14e21abe9a0e
       body: ''

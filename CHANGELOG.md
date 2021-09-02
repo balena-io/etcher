@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.122
+## (2021-09-02)
+
+* Restore image file selection LED-drive pathing [Lorenzo Alberto Maria Ambrosi]
+* Update scripts submodule [Lorenzo Alberto Maria Ambrosi]
+* Change LEDs colours [Lorenzo Alberto Maria Ambrosi]
+* Windows images now show the proper warning again [Lorenzo Alberto Maria Ambrosi]
+* Fix Update and install with DNF instructions [Mohamed Salah]
+* Add possibile authorization as a query param [JSReds]
+* update the windows part [Xtraim]
+* Update SUPPORT.md [thambu1710]
+* replace make webpack with npm run webpack [Seth Falco]
+* Add loader on image select [JSReds]
+* add pnp-webpack-plugin [Zane Hitchcox]
+* Remove redundant codespell dependency/tests [Lorenzo Alberto Maria Ambrosi]
+
 # v1.5.121
 ## (2021-07-05)
 
