@@ -17,9 +17,12 @@
 import * as _ from 'lodash';
 import { Animator, AnimationFunction, Color, RGBLed } from 'sys-class-rgb-led';
 
-import { DrivelistDrive } from '../../../shared/drive-constraints';
+import {
+	DrivelistDrive,
+	isSourceDrive,
+} from '../../../shared/drive-constraints';
 import { getDrives } from './available-drives';
-import { getImage, getSelectedDrives } from './selection-state';
+import { getSelectedDrives } from './selection-state';
 import * as settings from './settings';
 import { observe, store } from './store';
 
@@ -172,7 +175,9 @@ function stateObserver() {
 	const availableDrives = getDrives().filter(
 		(d: DrivelistDrive) => d.devicePath,
 	);
-	const sourceDrivePath = getImage()?.drive?.devicePath;
+	const sourceDrivePath = availableDrives.filter((d: DrivelistDrive) =>
+		isSourceDrive(d, s.selection.image),
+	)[0]?.devicePath;
 	const availableDrivesPaths = availableDrives.map(
 		(d: DrivelistDrive) => d.devicePath,
 	);
