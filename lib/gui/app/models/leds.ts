@@ -29,13 +29,6 @@ import { observe, store } from './store';
 const leds: Map<string, RGBLed> = new Map();
 const animator = new Animator([], 10);
 
-const red: Color = [0.78, 0, 0];
-const green: Color = [0, 0.58, 0];
-const blue: Color = [0, 0, 0.1];
-const purple: Color = [0.7, 0, 0.78];
-const white: Color = [0.7, 0.7, 0.7];
-const black: Color = [0, 0, 0];
-
 function createAnimationFunction(
 	intensityFunction: (t: number) => number,
 	color: Color,
@@ -54,13 +47,27 @@ function one(_t: number) {
 	return 1;
 }
 
-const blinkGreen = createAnimationFunction(blink, green);
-const blinkPurple = createAnimationFunction(blink, purple);
-const staticRed = createAnimationFunction(one, red);
-const staticGreen = createAnimationFunction(one, green);
-const staticBlue = createAnimationFunction(one, blue);
-const staticWhite = createAnimationFunction(one, white);
-const staticBlack = createAnimationFunction(one, black);
+type LEDColors = {
+	green: Color;
+	purple: Color;
+	red: Color;
+	blue: Color;
+	white: Color;
+	black: Color;
+};
+
+type LEDAnimationFunctions = {
+	blinkGreen: AnimationFunction;
+	blinkPurple: AnimationFunction;
+	staticRed: AnimationFunction;
+	staticGreen: AnimationFunction;
+	staticBlue: AnimationFunction;
+	staticWhite: AnimationFunction;
+	staticBlack: AnimationFunction;
+};
+
+let ledColors: LEDColors;
+let ledAnimationFunctions: LEDAnimationFunctions;
 
 interface LedsState {
 	step: 'main' | 'flashing' | 'verifying' | 'finish';
@@ -132,31 +139,48 @@ export function updateLeds({
 	if (sourceDrive !== undefined) {
 		if (plugged.has(sourceDrive)) {
 			plugged.delete(sourceDrive);
-			mapping.push(setLeds(staticBlue, new Set([sourceDrive])));
+			mapping.push(
+				setLeds(ledAnimationFunctions.staticBlue, new Set([sourceDrive])),
+			);
 		}
 	}
 	if (step === 'main') {
 		mapping.push(
-			setLeds(staticBlack, new Set([...unplugged, ...plugged])),
-			setLeds(staticWhite, new Set([...selectedOk, ...selectedFailed])),
+			setLeds(
+				ledAnimationFunctions.staticBlack,
+				new Set([...unplugged, ...plugged]),
+			),
+			setLeds(
+				ledAnimationFunctions.staticWhite,
+				new Set([...selectedOk, ...selectedFailed]),
+			),
 		);
 	} else if (step === 'flashing') {
 		mapping.push(
-			setLeds(staticBlack, new Set([...unplugged, ...plugged])),
-			setLeds(blinkPurple, selectedOk),
-			setLeds(staticRed, selectedFailed),
+			setLeds(
+				ledAnimationFunctions.staticBlack,
+				new Set([...unplugged, ...plugged]),
+			),
+			setLeds(ledAnimationFunctions.blinkPurple, selectedOk),
+			setLeds(ledAnimationFunctions.staticRed, selectedFailed),
 		);
 	} else if (step === 'verifying') {
 		mapping.push(
-			setLeds(staticBlack, new Set([...unplugged, ...plugged])),
-			setLeds(blinkGreen, selectedOk),
-			setLeds(staticRed, selectedFailed),
+			setLeds(
+				ledAnimationFunctions.staticBlack,
+				new Set([...unplugged, ...plugged]),
+			),
+			setLeds(ledAnimationFunctions.blinkGreen, selectedOk),
+			setLeds(ledAnimationFunctions.staticRed, selectedFailed),
 		);
 	} else if (step === 'finish') {
 		mapping.push(
-			setLeds(staticBlack, new Set([...unplugged, ...plugged])),
-			setLeds(staticGreen, selectedOk),
-			setLeds(staticRed, selectedFailed),
+			setLeds(
+				ledAnimationFunctions.staticBlack,
+				new Set([...unplugged, ...plugged]),
+			),
+			setLeds(ledAnimationFunctions.staticGreen, selectedOk),
+			setLeds(ledAnimationFunctions.staticRed, selectedFailed),
 		);
 	}
 	animator.mapping = mapping;
@@ -221,6 +245,16 @@ export async function init(): Promise<void> {
 		for (const [drivePath, ledsNames] of Object.entries(ledsMapping)) {
 			leds.set('/dev/disk/by-path/' + drivePath, new RGBLed(ledsNames));
 		}
-		observe(_.debounce(stateObserver, 1000, { maxWait: 1000 }));
 	}
+	ledColors = (await settings.get('ledColors')) || {};
+	ledAnimationFunctions = {
+		blinkGreen: createAnimationFunction(blink, ledColors['green']),
+		blinkPurple: createAnimationFunction(blink, ledColors['purple']),
+		staticRed: createAnimationFunction(one, ledColors['red']),
+		staticGreen: createAnimationFunction(one, ledColors['green']),
+		staticBlue: createAnimationFunction(one, ledColors['blue']),
+		staticWhite: createAnimationFunction(one, ledColors['white']),
+		staticBlack: createAnimationFunction(one, ledColors['black']),
+	};
+	observe(_.debounce(stateObserver, 1000, { maxWait: 1000 }));
 }
