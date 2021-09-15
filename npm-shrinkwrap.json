@@ -1149,6 +1149,12 @@
             "tar": "^4.4.2"
           }
         },
+        "safe-buffer": {
+          "version": "5.2.1",
+          "resolved": "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.2.1.tgz",
+          "integrity": "sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==",
+          "dev": true
+        },
         "semver": {
           "version": "5.7.1",
           "resolved": "https://registry.npmjs.org/semver/-/semver-5.7.1.tgz",
@@ -1156,18 +1162,18 @@
           "dev": true
         },
         "tar": {
-          "version": "4.4.13",
-          "resolved": "https://registry.npmjs.org/tar/-/tar-4.4.13.tgz",
-          "integrity": "sha512-w2VwSrBoHa5BsSyH+KxEqeQBAllHhccyMFVHtGtdMpF4W7IRWfZjFiQceJPChOeTsSDVUpER2T8FA93pr0L+QA==",
+          "version": "4.4.19",
+          "resolved": "https://registry.npmjs.org/tar/-/tar-4.4.19.tgz",
+          "integrity": "sha512-a20gEsvHnWe0ygBY8JbxoM4w3SJdhc7ZAuxkLqh+nvNQN2IOt0B5lLgM490X5Hl8FF0dl0tOf2ewFYAlIFgzVA==",
           "dev": true,
           "requires": {
-            "chownr": "^1.1.1",
-            "fs-minipass": "^1.2.5",
-            "minipass": "^2.8.6",
-            "minizlib": "^1.2.1",
-            "mkdirp": "^0.5.0",
-            "safe-buffer": "^5.1.2",
-            "yallist": "^3.0.3"
+            "chownr": "^1.1.4",
+            "fs-minipass": "^1.2.7",
+            "minipass": "^2.9.0",
+            "minizlib": "^1.3.3",
+            "mkdirp": "^0.5.5",
+            "safe-buffer": "^5.2.1",
+            "yallist": "^3.1.1"
           }
         },
         "yallist": {
@@ -1233,9 +1239,9 @@
       }
     },
     "@balena/node-crc-utils": {
-      "version": "2.0.0",
-      "resolved": "https://registry.npmjs.org/@balena/node-crc-utils/-/node-crc-utils-2.0.0.tgz",
-      "integrity": "sha512-u86QDMtkpHLlvehs3Z+yHklXRhDPL5XGCO3BCSuaD61gKzrNDUIj03cz8T/PBPPUJqn7DfWkf9sKP9VwlvxKuw==",
+      "version": "2.0.1",
+      "resolved": "https://registry.npmjs.org/@balena/node-crc-utils/-/node-crc-utils-2.0.1.tgz",
+      "integrity": "sha512-l+PZFPnO0vdx1HNaYq2p89mXIW8XcLoL7XjhwXAAbJ2FOmTg+8fgUEpohX+SJMxTUAE52FBTS8GzIKErCmBNTw==",
       "dev": true
     },
     "@balena/udif": {
@@ -3108,12 +3114,20 @@
       }
     },
     "axios": {
-      "version": "0.21.1",
-      "resolved": "https://registry.npmjs.org/axios/-/axios-0.21.1.tgz",
-      "integrity": "sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==",
+      "version": "0.21.4",
+      "resolved": "https://registry.npmjs.org/axios/-/axios-0.21.4.tgz",
+      "integrity": "sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==",
       "dev": true,
       "requires": {
-        "follow-redirects": "^1.10.0"
+        "follow-redirects": "^1.14.0"
+      },
+      "dependencies": {
+        "follow-redirects": {
+          "version": "1.14.4",
+          "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.4.tgz",
+          "integrity": "sha512-zwGkiSXC1MUJG/qmeIFH2HBJx9u0V46QGUe3YR1fXG8bXQxq7fLj0RjLZQ5nubr9qNJUZrH+xUcwXEoXNpfS+g==",
+          "dev": true
+        }
       }
     },
     "babel-plugin-dynamic-import-node": {
@@ -3535,11 +3549,11 @@
       "version": "5.7.1",
       "resolved": "https://registry.npmjs.org/buffer/-/buffer-5.7.1.tgz",
       "integrity": "sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==",
+      "dev": true,
       "requires": {
         "base64-js": "^1.3.1",
         "ieee754": "^1.1.13"
-      },
-      "dev": true
+      }
     },
     "buffer-alloc": {
       "version": "1.2.0",
@@ -6791,9 +6805,9 @@
       "dev": true
     },
     "etcher-sdk": {
-      "version": "6.2.1",
-      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-6.2.1.tgz",
-      "integrity": "sha512-d7B/6/b1+NdrvpybQrb1f315LRdAIPAkMAX8Gq63dJh5f4448svBadllzwZ2D4aqVfc++8SpSX0iPi1laXh6SA==",
+      "version": "6.2.5",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-6.2.5.tgz",
+      "integrity": "sha512-kPDhrJw9AVLnhCA9GOUnLNOmLNH7WO/paWRH43xF99svWcQu9IBprm7fSeuQthZGHojchWv/u4eyUI9wDck0/A==",
       "dev": true,
       "requires": {
         "@balena/node-beaglebone-usbboot": "^1.0.3",
@@ -6819,7 +6833,7 @@
         "tslib": "^2.0.0",
         "unbzip2-stream": "github:balena-io-modules/unbzip2-stream#4a54f56a25b58950f9e4277c56db2912d62242e7",
         "unzip-stream": "^0.3.0",
-        "xxhash": "^0.3.0",
+        "xxhash-addon": "^1.4.0",
         "yauzl": "^2.9.2",
         "zip-part-stream": "^1.0.3"
       },
@@ -10523,9 +10537,9 @@
       }
     },
     "nan": {
-      "version": "2.14.2",
-      "resolved": "https://registry.npmjs.org/nan/-/nan-2.14.2.tgz",
-      "integrity": "sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ==",
+      "version": "2.15.0",
+      "resolved": "https://registry.npmjs.org/nan/-/nan-2.15.0.tgz",
+      "integrity": "sha512-8ZtvEnA2c5aYCZYd1cvgdnU6cqwixRoYg70xPLWUws5ORTa/lnw+u4amixRS/Ac5U5mQVgp9pnlSUnbNWFaWZQ==",
       "dev": true
     },
     "nanoid": {
@@ -13668,9 +13682,9 @@
       }
     },
     "smart-buffer": {
-      "version": "4.1.0",
-      "resolved": "https://registry.npmjs.org/smart-buffer/-/smart-buffer-4.1.0.tgz",
-      "integrity": "sha512-iVICrxOzCynf/SNaBQCw34eM9jROU/s5rzIhpOvzhzuYHfJR/DhZfDkXiZSgKXfgv26HT3Yni3AV/DGw0cGnnw==",
+      "version": "4.2.0",
+      "resolved": "https://registry.npmjs.org/smart-buffer/-/smart-buffer-4.2.0.tgz",
+      "integrity": "sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==",
       "dev": true
     },
     "snapdragon": {
@@ -16719,14 +16733,11 @@
       "integrity": "sha512-p4BESuV/g2L6pZzFHpeNLLnep9mp/DkF3qrPglMiucSFtD8iJxtMufEoEJbN8LZwB4i+8PFpFvVuFrGOSpW05w==",
       "dev": true
     },
-    "xxhash": {
-      "version": "0.3.0",
-      "resolved": "https://registry.npmjs.org/xxhash/-/xxhash-0.3.0.tgz",
-      "integrity": "sha512-1ud2yyPiR1DJhgyF1ZVMt+Ijrn0VNS/wzej1Z8eSFfkNfRPp8abVZNV2u9tYy9574II0ZayZYZgJm8KJoyGLCw==",
-      "dev": true,
-      "requires": {
-        "nan": "^2.13.2"
-      }
+    "xxhash-addon": {
+      "version": "1.4.0",
+      "resolved": "https://registry.npmjs.org/xxhash-addon/-/xxhash-addon-1.4.0.tgz",
+      "integrity": "sha512-n3Ml0Vgvy7jMYJBlQIoFLjYxXNZQ5CbzW8E2Ynq2QCUpWMqCouooW7j02+7Oud5FijBuSrjQNuN/fCiz1SHN+w==",
+      "dev": true
     },
     "y18n": {
       "version": "5.0.5",
