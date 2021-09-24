@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.6.0
+## (2021-09-20)
+
+* Add support for basic auth when downloading images from URL. [Marco Füllemann]
+* patch: Update etcher-sdk from v6.2.1 to v6.2.5 [Lorenzo Alberto Maria Ambrosi]
+* Update Makefile to Apple M1 info [David Gaspar]
+* Add LED settings for potentially different hardware [Lorenzo Alberto Maria Ambrosi]
+
 # v1.5.122
 ## (2021-09-02)
 

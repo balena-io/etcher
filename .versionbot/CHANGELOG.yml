@@ -1,4 +1,49 @@
 - commits:
+    - subject: Add support for basic auth when downloading images from URL.
+      hash: b2d0c1c9ddbbfe87d5a905d420d615821610e825
+      body: >
+        When selecting "Flash from URL" the user can optionally provide a
+        username and password for basic authentication. The authentication input
+        fields are collapsed by default. When the authentication input fields
+        are collapsed after entering values the values are cleared to ensure
+        that the user sees all parameter passed to the server.
+      footer:
+        Change-Type: minor
+        change-type: minor
+        Changelog-Entry: Add support for basic auth when downloading images from URL.
+        changelog-entry: Add support for basic auth when downloading images from URL.
+      author: Marco Füllemann
+      nested: []
+    - subject: 'patch: Update etcher-sdk from v6.2.1 to v6.2.5'
+      hash: 14d91400a425617ee87e0d64f55980bd378fbfc2
+      body: ''
+      footer:
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: Update Makefile to Apple M1 info
+      hash: d0114aece7df213e27a84cb0081ba6cedd541bcb
+      body: |
+        Expanding host architecture detection.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: David Gaspar
+      nested: []
+    - subject: Add LED settings for potentially different hardware
+      hash: dff2df4aab73a26fb90401869bfd58035dc652a9
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+  version: 1.6.0
+  date: 2021-09-20T10:42:04.677Z
+- commits:
     - subject: Restore image file selection LED-drive pathing
       hash: f46963b6b3176395acc07863c9936a7c7f31d31a
       body: ''
