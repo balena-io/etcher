@@ -35,8 +35,10 @@ import { totalmem } from 'os';
 
 import { toJSON } from '../../shared/errors';
 import { GENERAL_ERROR, SUCCESS } from '../../shared/exit-codes';
-import { delay } from '../../shared/utils';
+import { delay, isJson } from '../../shared/utils';
 import { SourceMetadata } from '../app/components/source-selector/source-selector';
+import axios from 'axios';
+import * as _ from 'lodash';
 
 ipc.config.id = process.env.IPC_CLIENT_ID as string;
 ipc.config.socketRoot = process.env.IPC_SOCKET_ROOT as string;
@@ -171,6 +173,7 @@ interface WriteOptions {
 	autoBlockmapping: boolean;
 	decompressFirst: boolean;
 	SourceType: string;
+	httpRequest?: any;
 }
 
 ipc.connectTo(IPC_SERVER_ID, () => {
@@ -281,7 +284,17 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 						path: imagePath,
 					});
 				} else {
-					source = new Http({ url: imagePath, avoidRandomAccess: true });
+					const decodedImagePath = decodeURIComponent(imagePath);
+					if (isJson(decodedImagePath)) {
+						const imagePathObject = JSON.parse(decodedImagePath);
+						source = new Http({
+							url: imagePathObject.url,
+							avoidRandomAccess: true,
+							axiosInstance: axios.create(_.omit(imagePathObject, ['url'])),
+						});
+					} else {
+						source = new Http({ url: imagePath, avoidRandomAccess: true });
+					}
 				}
 			}
 			const results = await writeAndValidate({
