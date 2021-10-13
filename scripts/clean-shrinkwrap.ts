@@ -37,7 +37,7 @@ async function main() {
 			SHRINKWRAP_FILENAME,
 			JSON.stringify(cleaned, null, JSON_INDENT),
 		);
-	} catch (error) {
+	} catch (error: any) {
 		console.log(`[ERROR] Couldn't write shrinkwrap file: ${error.stack}`);
 		process.exitCode = 1;
 	}

@@ -28,7 +28,7 @@ if (platform() !== 'darwin') {
 		this.timeout(40000);
 
 		const app = new Application({
-			path: (electronPath as unknown) as string,
+			path: electronPath as unknown as string,
 			args: ['--no-sandbox', '.'],
 		});
 

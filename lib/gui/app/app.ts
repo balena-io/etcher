@@ -217,8 +217,7 @@ function prepareDrive(drive: Drive) {
 			disabled: true,
 			icon: 'warning',
 			size: null,
-			link:
-				'https://www.raspberrypi.org/documentation/hardware/computemodule/cm-emmc-flashing.md',
+			link: 'https://www.raspberrypi.org/documentation/hardware/computemodule/cm-emmc-flashing.md',
 			linkCTA: 'Install',
 			linkTitle: 'Install missing drivers',
 			linkMessage: outdent`
@@ -335,7 +334,7 @@ window.addEventListener('beforeunload', async (event) => {
 			flashingWorkflowUuid,
 		});
 		popupExists = false;
-	} catch (error) {
+	} catch (error: any) {
 		exceptionReporter.report(error);
 	}
 });

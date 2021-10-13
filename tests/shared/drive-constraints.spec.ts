@@ -1158,7 +1158,7 @@ describe('Shared: DriveConstraints', function () {
 						'/dev/disk6',
 				  ];
 		const drives = [
-			({
+			{
 				device: drivePaths[0],
 				description: 'My Drive',
 				size: 123456789,
@@ -1166,8 +1166,8 @@ describe('Shared: DriveConstraints', function () {
 				mountpoints: [{ path: __dirname }],
 				isSystem: false,
 				isReadOnly: false,
-			} as unknown) as constraints.DrivelistDrive,
-			({
+			} as unknown as constraints.DrivelistDrive,
+			{
 				device: drivePaths[1],
 				description: 'My Other Drive',
 				size: 123456789,
@@ -1175,8 +1175,8 @@ describe('Shared: DriveConstraints', function () {
 				mountpoints: [],
 				isSystem: false,
 				isReadOnly: true,
-			} as unknown) as constraints.DrivelistDrive,
-			({
+			} as unknown as constraints.DrivelistDrive,
+			{
 				device: drivePaths[2],
 				description: 'My Drive',
 				size: 1234567,
@@ -1184,8 +1184,8 @@ describe('Shared: DriveConstraints', function () {
 				mountpoints: [],
 				isSystem: false,
 				isReadOnly: false,
-			} as unknown) as constraints.DrivelistDrive,
-			({
+			} as unknown as constraints.DrivelistDrive,
+			{
 				device: drivePaths[3],
 				description: 'My Drive',
 				size: 123456789,
@@ -1193,8 +1193,8 @@ describe('Shared: DriveConstraints', function () {
 				mountpoints: [],
 				isSystem: true,
 				isReadOnly: false,
-			} as unknown) as constraints.DrivelistDrive,
-			({
+			} as unknown as constraints.DrivelistDrive,
+			{
 				device: drivePaths[4],
 				description: 'My Drive',
 				size: 128000000001,
@@ -1202,8 +1202,8 @@ describe('Shared: DriveConstraints', function () {
 				mountpoints: [],
 				isSystem: false,
 				isReadOnly: false,
-			} as unknown) as constraints.DrivelistDrive,
-			({
+			} as unknown as constraints.DrivelistDrive,
+			{
 				device: drivePaths[5],
 				description: 'My Drive',
 				size: 12345678,
@@ -1211,8 +1211,8 @@ describe('Shared: DriveConstraints', function () {
 				mountpoints: [],
 				isSystem: false,
 				isReadOnly: false,
-			} as unknown) as constraints.DrivelistDrive,
-			({
+			} as unknown as constraints.DrivelistDrive,
+			{
 				device: drivePaths[6],
 				description: 'My Drive',
 				size: 123456789,
@@ -1220,7 +1220,7 @@ describe('Shared: DriveConstraints', function () {
 				mountpoints: [],
 				isSystem: false,
 				isReadOnly: false,
-			} as unknown) as constraints.DrivelistDrive,
+			} as unknown as constraints.DrivelistDrive,
 		];
 
 		const image: SourceMetadata = {

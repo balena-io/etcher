@@ -17,6 +17,7 @@
 import * as electron from 'electron';
 import * as sdk from 'etcher-sdk';
 import * as _ from 'lodash';
+import { DrivelistDrive } from '../../../shared/drive-constraints';
 
 import { bytesToMegabytes } from '../../../shared/units';
 import { Actions, store } from './store';
@@ -84,7 +85,7 @@ export function addFailedDeviceError({
 	device,
 	error,
 }: {
-	device: sdk.scanner.adapters.DrivelistDrive;
+	device: DrivelistDrive;
 	error: Error;
 }) {
 	const failedDeviceErrorsMap = new Map(

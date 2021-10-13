@@ -50,7 +50,7 @@ export async function sudo(
 			stdout: stdout.slice(EXPECTED_SUCCESSFUL_AUTH_MARKER.length),
 			stderr,
 		};
-	} catch (error) {
+	} catch (error: any) {
 		if (error.code === 1) {
 			if (!error.stdout.startsWith(EXPECTED_SUCCESSFUL_AUTH_MARKER)) {
 				return { cancelled: true };

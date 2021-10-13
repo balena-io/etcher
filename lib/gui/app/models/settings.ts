@@ -51,7 +51,7 @@ async function readConfigFile(filename: string): Promise<_.Dictionary<any>> {
 	let contents = '{}';
 	try {
 		contents = await fs.readFile(filename, { encoding: 'utf8' });
-	} catch (error) {
+	} catch (error: any) {
 		// noop
 	}
 	try {
@@ -104,7 +104,7 @@ export async function set(
 	settings[key] = value;
 	try {
 		await writeConfigFileFn(CONFIG_PATH, settings);
-	} catch (error) {
+	} catch (error: any) {
 		// Revert to previous value if persisting settings failed
 		settings[key] = previousValue;
 		throw error;

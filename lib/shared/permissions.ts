@@ -60,7 +60,7 @@ export async function isElevated(): Promise<boolean> {
 		// See http://stackoverflow.com/a/28268802
 		try {
 			await execAsync('fltmc');
-		} catch (error) {
+		} catch (error: any) {
 			if (error.code === os.constants.errno.EPERM) {
 				return false;
 			}
@@ -146,7 +146,7 @@ async function elevateScriptCatalina(
 	try {
 		const { cancelled } = await catalinaSudo(cmd);
 		return { cancelled };
-	} catch (error) {
+	} catch (error: any) {
 		throw errors.createError({ title: error.stderr });
 	}
 }
@@ -190,7 +190,7 @@ export async function elevateCommand(
 			}
 			try {
 				return await elevateScriptUnix(path, options.applicationName);
-			} catch (error) {
+			} catch (error: any) {
 				// We're hardcoding internal error messages declared by `sudo-prompt`.
 				// There doesn't seem to be a better way to handle these errors, so
 				// for now, we should make sure we double check if the error messages

@@ -76,7 +76,7 @@ function normalizeRecentUrlImages(urls: any[]): URL[] {
 		.map((url) => {
 			try {
 				return new URL(url);
-			} catch (error) {
+			} catch (error: any) {
 				// Invalid URL, skip
 			}
 		})
@@ -390,7 +390,7 @@ export class SourceSelector extends React.Component<
 	) {
 		try {
 			selected = await replaceWindowsNetworkDriveLetter(selected);
-		} catch (error) {
+		} catch (error: any) {
 			analytics.logException(error);
 		}
 
@@ -489,7 +489,7 @@ export class SourceSelector extends React.Component<
 								},
 							});
 						}
-					} catch (error) {
+					} catch (error: any) {
 						this.handleError(
 							'Error opening source',
 							sourcePath,
@@ -499,7 +499,7 @@ export class SourceSelector extends React.Component<
 					} finally {
 						try {
 							await source.close();
-						} catch (error) {
+						} catch (error: any) {
 							// Noop
 						}
 					}
@@ -589,7 +589,7 @@ export class SourceSelector extends React.Component<
 				return;
 			}
 			await this.selectSource(imagePath, sourceDestination.File).promise;
-		} catch (error) {
+		} catch (error: any) {
 			exceptionReporter.report(error);
 		} finally {
 			this.setState({ imageSelectorOpen: false });

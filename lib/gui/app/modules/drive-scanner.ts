@@ -15,10 +15,15 @@
  */
 
 import * as sdk from 'etcher-sdk';
+import {
+	Adapter,
+	BlockDeviceAdapter,
+	UsbbootDeviceAdapter,
+} from 'etcher-sdk/build/scanner/adapters';
 import { geteuid, platform } from 'process';
 
-const adapters: sdk.scanner.adapters.Adapter[] = [
-	new sdk.scanner.adapters.BlockDeviceAdapter({
+const adapters: Adapter[] = [
+	new BlockDeviceAdapter({
 		includeSystemDrives: () => true,
 	}),
 ];
@@ -26,14 +31,15 @@ const adapters: sdk.scanner.adapters.Adapter[] = [
 // Can't use permissions.isElevated() here as it returns a promise and we need to set
 // module.exports = scanner right now.
 if (platform !== 'linux' || geteuid() === 0) {
-	adapters.push(new sdk.scanner.adapters.UsbbootDeviceAdapter());
+	adapters.push(new UsbbootDeviceAdapter());
 }
 
-if (
-	platform === 'win32' &&
-	sdk.scanner.adapters.DriverlessDeviceAdapter !== undefined
-) {
-	adapters.push(new sdk.scanner.adapters.DriverlessDeviceAdapter());
+if (platform === 'win32') {
+	const {
+		DriverlessDeviceAdapter: driverless,
+		// tslint:disable-next-line:no-var-requires
+	} = require('etcher-sdk/build/scanner/adapters/driverless');
+	adapters.push(new driverless());
 }
 
 export const scanner = new sdk.scanner.Scanner(adapters);

@@ -300,7 +300,7 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 			ipc.of[IPC_SERVER_ID].emit('done', { results });
 			await delay(DISCONNECT_DELAY);
 			await terminate(exitCode);
-		} catch (error) {
+		} catch (error: any) {
 			exitCode = GENERAL_ERROR;
 			ipc.of[IPC_SERVER_ID].emit('error', toJSON(error));
 		}
