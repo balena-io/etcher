@@ -17,7 +17,7 @@
 import GithubSvg from '@fortawesome/fontawesome-free/svgs/brands/github.svg';
 import * as _ from 'lodash';
 import * as React from 'react';
-import { Flex, Checkbox, Txt } from 'rendition';
+import { Box, Checkbox, Flex, TextWithCopy, Txt } from 'rendition';
 
 import { version, packageType } from '../../../../../package.json';
 import * as settings from '../../models/settings';
@@ -50,6 +50,14 @@ interface SettingsModalProps {
 	toggleModal: (value: boolean) => void;
 }
 
+const UUID = process.env.BALENA_DEVICE_UUID;
+
+const InfoBox = (props: any) => (
+	<Box fontSize={14}>
+		<Txt>{props.label}</Txt>
+		<TextWithCopy code text={props.value} copy={props.value} />
+	</Box>
+);
 export function SettingsModal({ toggleModal }: SettingsModalProps) {
 	const [settingsList, setCurrentSettingsList] = React.useState<Setting[]>([]);
 	React.useEffect(() => {
@@ -103,6 +111,12 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 						</Flex>
 					);
 				})}
+				{UUID !== undefined && (
+					<Flex flexDirection="column">
+						<Txt fontSize={24}>System Information</Txt>
+						<InfoBox label="UUID" value={UUID.substr(0, 7)} />
+					</Flex>
+				)}
 				<Flex
 					mt={18}
 					alignItems="center"
