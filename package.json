@@ -92,7 +92,6 @@
     "electron-builder": "22.10.5",
     "electron-mocha": "9.3.2",
     "electron-notarize": "1.0.0",
-    "electron-rebuild": "2.3.2",
     "electron-updater": "4.3.5",
     "file-loader": "6.2.0",
     "husky": "4.2.5",
