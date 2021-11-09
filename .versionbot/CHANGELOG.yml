@@ -1,4 +1,105 @@
 - commits:
+    - subject: 'patch: Add missing @types/react@16.8.5'
+      hash: 0a28af5c35a5c73cd78a729bfd8f4bb7978d7c1a
+      body: ''
+      footer:
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: 'patch: Use npm ci in Makefile'
+      hash: 0c1e5b88ef01465ee84712560971af31c3f630ca
+      body: ''
+      footer:
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: 'patch: Add draft info boxes for system information'
+      hash: 790201be90e63a3e93c64060bacd977e52dfb4ff
+      body: ''
+      footer:
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: 'patch: Remove electron-rebuild package'
+      hash: d8d379f05e8adc4fb3df6b5f926d3ff548bed0bc
+      body: ''
+      footer:
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: 'patch: Make electron a dev. dependency'
+      hash: b5e9701048eebd4f8a56157cad8bdc966e354a32
+      body: ''
+      footer:
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: 'patch: Remove electron-rebuild package'
+      hash: 292f86d6f5b0e8dd34cb3dd6e008517f9a066cd0
+      body: ''
+      footer:
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: 'patch: Use exact modules versions'
+      hash: 76ca9934c808ec013dcad2b427b21f253c588d8d
+      body: ''
+      footer:
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: 'patch: Update etcher-sdk from v6.2.5 to v6.3.0'
+      hash: 37b826ee4ee47bda5285083c2184b7e6bf2a6a3b
+      body: ''
+      footer:
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: Fix write step for Http file process
+      hash: 1e1bd3c508197f0e129715d5e37d1bc06744089b
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Andrea Rosci <andrear@balena.io>
+        signed-off-by: Andrea Rosci <andrear@balena.io>
+      author: JSReds
+      nested: []
+    - subject: 'patch: Fix linting errors'
+      hash: 00e8f11913eb9eaadb09909cc530693aac825e9f
+      body: ''
+      footer:
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: 'minor: Refactor dependencies installation to avoid custom scripts'
+      hash: a3c24a26a05d1c3a767bf7f515cc7f193c9d8e2b
+      body: ''
+      footer:
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: 'patch: Fix LEDs init error'
+      hash: 4232928ad894fed548290054b09e25e60fa9eda3
+      body: ''
+      footer:
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+  version: 1.7.0
+  date: 2021-11-09T13:13:32.580Z
+- commits:
     - subject: Add support for basic auth when downloading images from URL.
       hash: b2d0c1c9ddbbfe87d5a905d420d615821610e825
       body: >
