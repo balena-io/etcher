@@ -5,6 +5,200 @@
     {
       "commits": [
         {
+          "subject": "patch: Add missing @types/react@16.8.5",
+          "hash": "0a28af5c35a5c73cd78a729bfd8f4bb7978d7c1a",
+          "body": "",
+          "footer": {
+            "Signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>",
+            "signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>"
+          },
+          "author": "Lorenzo Alberto Maria Ambrosi",
+          "nested": []
+        },
+        {
+          "subject": "patch: Use npm ci in Makefile",
+          "hash": "0c1e5b88ef01465ee84712560971af31c3f630ca",
+          "body": "",
+          "footer": {
+            "Signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>",
+            "signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>"
+          },
+          "author": "Lorenzo Alberto Maria Ambrosi",
+          "nested": []
+        },
+        {
+          "subject": "patch: Add draft info boxes for system information",
+          "hash": "790201be90e63a3e93c64060bacd977e52dfb4ff",
+          "body": "",
+          "footer": {
+            "Signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>",
+            "signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>"
+          },
+          "author": "Lorenzo Alberto Maria Ambrosi",
+          "nested": []
+        },
+        {
+          "subject": "patch: Remove electron-rebuild package",
+          "hash": "d8d379f05e8adc4fb3df6b5f926d3ff548bed0bc",
+          "body": "",
+          "footer": {
+            "Signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>",
+            "signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>"
+          },
+          "author": "Lorenzo Alberto Maria Ambrosi",
+          "nested": []
+        },
+        {
+          "subject": "patch: Make electron a dev. dependency",
+          "hash": "b5e9701048eebd4f8a56157cad8bdc966e354a32",
+          "body": "",
+          "footer": {
+            "Signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>",
+            "signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>"
+          },
+          "author": "Lorenzo Alberto Maria Ambrosi",
+          "nested": []
+        },
+        {
+          "subject": "patch: Remove electron-rebuild package",
+          "hash": "292f86d6f5b0e8dd34cb3dd6e008517f9a066cd0",
+          "body": "",
+          "footer": {
+            "Signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>",
+            "signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>"
+          },
+          "author": "Lorenzo Alberto Maria Ambrosi",
+          "nested": []
+        },
+        {
+          "subject": "patch: Use exact modules versions",
+          "hash": "76ca9934c808ec013dcad2b427b21f253c588d8d",
+          "body": "",
+          "footer": {
+            "Signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>",
+            "signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>"
+          },
+          "author": "Lorenzo Alberto Maria Ambrosi",
+          "nested": []
+        },
+        {
+          "subject": "patch: Update etcher-sdk from v6.2.5 to v6.3.0",
+          "hash": "37b826ee4ee47bda5285083c2184b7e6bf2a6a3b",
+          "body": "",
+          "footer": {
+            "Signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>",
+            "signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>"
+          },
+          "author": "Lorenzo Alberto Maria Ambrosi",
+          "nested": []
+        },
+        {
+          "subject": "Fix write step for Http file process",
+          "hash": "1e1bd3c508197f0e129715d5e37d1bc06744089b",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch",
+            "Signed-off-by": "Andrea Rosci <andrear@balena.io>",
+            "signed-off-by": "Andrea Rosci <andrear@balena.io>"
+          },
+          "author": "JSReds",
+          "nested": []
+        },
+        {
+          "subject": "patch: Fix linting errors",
+          "hash": "00e8f11913eb9eaadb09909cc530693aac825e9f",
+          "body": "",
+          "footer": {
+            "Signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>",
+            "signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>"
+          },
+          "author": "Lorenzo Alberto Maria Ambrosi",
+          "nested": []
+        },
+        {
+          "subject": "minor: Refactor dependencies installation to avoid custom scripts",
+          "hash": "a3c24a26a05d1c3a767bf7f515cc7f193c9d8e2b",
+          "body": "",
+          "footer": {
+            "Signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>",
+            "signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>"
+          },
+          "author": "Lorenzo Alberto Maria Ambrosi",
+          "nested": []
+        },
+        {
+          "subject": "patch: Fix LEDs init error",
+          "hash": "4232928ad894fed548290054b09e25e60fa9eda3",
+          "body": "",
+          "footer": {
+            "Signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>",
+            "signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>"
+          },
+          "author": "Lorenzo Alberto Maria Ambrosi",
+          "nested": []
+        }
+      ],
+      "version": "1.7.0",
+      "date": "2021-11-09T13:13:32.580Z"
+    },
+    {
+      "commits": [
+        {
+          "subject": "Add support for basic auth when downloading images from URL.",
+          "hash": "b2d0c1c9ddbbfe87d5a905d420d615821610e825",
+          "body": "When selecting \"Flash from URL\" the user can optionally provide a username and password for basic authentication. The authentication input fields are collapsed by default. When the authentication input fields are collapsed after entering values the values are cleared to ensure that the user sees all parameter passed to the server.\n",
+          "footer": {
+            "Change-Type": "minor",
+            "change-type": "minor",
+            "Changelog-Entry": "Add support for basic auth when downloading images from URL.",
+            "changelog-entry": "Add support for basic auth when downloading images from URL."
+          },
+          "author": "Marco Füllemann",
+          "nested": []
+        },
+        {
+          "subject": "patch: Update etcher-sdk from v6.2.1 to v6.2.5",
+          "hash": "14d91400a425617ee87e0d64f55980bd378fbfc2",
+          "body": "",
+          "footer": {
+            "Signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>",
+            "signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>"
+          },
+          "author": "Lorenzo Alberto Maria Ambrosi",
+          "nested": []
+        },
+        {
+          "subject": "Update Makefile to Apple M1 info",
+          "hash": "d0114aece7df213e27a84cb0081ba6cedd541bcb",
+          "body": "Expanding host architecture detection.\n",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch"
+          },
+          "author": "David Gaspar",
+          "nested": []
+        },
+        {
+          "subject": "Add LED settings for potentially different hardware",
+          "hash": "dff2df4aab73a26fb90401869bfd58035dc652a9",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch",
+            "Signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>",
+            "signed-off-by": "Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>"
+          },
+          "author": "Lorenzo Alberto Maria Ambrosi",
+          "nested": []
+        }
+      ],
+      "version": "1.6.0",
+      "date": "2021-09-20T10:42:04.677Z"
+    },
+    {
+      "commits": [
+        {
           "subject": "Restore image file selection LED-drive pathing",
           "hash": "f46963b6b3176395acc07863c9936a7c7f31d31a",
           "body": "",
@@ -15993,7 +16187,7 @@
       "avatar": "https://avatars.githubusercontent.com/u/3310349?v=4"
     },
     {
-      "username": "Lin-Buo-Ren",
+      "username": "brlin-tw",
       "avatar": "https://avatars.githubusercontent.com/u/13408130?v=4"
     },
     {
@@ -16230,7 +16424,7 @@
   "public": true,
   "fork": false,
   "description": "Flash OS images to SD cards & USB drives, safely and easily.",
-  "stars": 21178,
+  "stars": 21635,
   "homepage": "https://etcher.io",
   "repositoryUrl": "https://github.com/balena-io/etcher.git",
   "active": true,
@@ -16240,86 +16434,110 @@
     "url": "https://github.com/balena-io",
     "type": "Organization"
   },
-  "dependencies": [],
-  "lastCommitDate": "2021-09-02T14:48:21Z",
+  "dependencies": [
+    "@fortawesome/fontawesome-free",
+    "aws4-axios",
+    "d3",
+    "debug",
+    "etcher-sdk",
+    "immutable",
+    "lodash",
+    "node-ipc",
+    "omit-deep-lodash",
+    "outdent",
+    "path-is-inside",
+    "pretty-bytes",
+    "react",
+    "react-dom",
+    "redux",
+    "rendition",
+    "resin-corvus",
+    "semver",
+    "styled-components",
+    "sudo-prompt",
+    "sys-class-rgb-led",
+    "url-loader",
+    "uuid"
+  ],
+  "lastCommitDate": "2021-11-09T16:09:26Z",
   "latestRelease": {
-    "tagName": "v1.5.122",
+    "tagName": "v1.7.0",
     "asssets": [
       {
-        "name": "balena-etcher-electron-1.5.122-linux-ia32.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.122/balena-etcher-electron-1.5.122-linux-ia32.zip"
+        "name": "balena-etcher-electron-1.7.0-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.0/balena-etcher-electron-1.7.0-linux-ia32.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.122-linux-x64.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.122/balena-etcher-electron-1.5.122-linux-x64.zip"
+        "name": "balena-etcher-electron-1.7.0-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.0/balena-etcher-electron-1.7.0-linux-x64.zip"
       },
       {
-        "name": "balena-etcher-electron-1.5.122.i686.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.122/balena-etcher-electron-1.5.122.i686.rpm"
+        "name": "balena-etcher-electron-1.7.0.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.0/balena-etcher-electron-1.7.0.i686.rpm"
       },
       {
-        "name": "balena-etcher-electron-1.5.122.x86_64.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.122/balena-etcher-electron-1.5.122.x86_64.rpm"
+        "name": "balena-etcher-electron-1.7.0.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.0/balena-etcher-electron-1.7.0.x86_64.rpm"
       },
       {
-        "name": "balena-etcher-electron_1.5.122_amd64.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.122/balena-etcher-electron_1.5.122_amd64.deb"
+        "name": "balena-etcher-electron_1.7.0_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.0/balena-etcher-electron_1.7.0_amd64.deb"
       },
       {
-        "name": "balena-etcher-electron_1.5.122_i386.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.122/balena-etcher-electron_1.5.122_i386.deb"
+        "name": "balena-etcher-electron_1.7.0_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.0/balena-etcher-electron_1.7.0_i386.deb"
       },
       {
-        "name": "balenaEtcher-1.5.122-ia32.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.122/balenaEtcher-1.5.122-ia32.AppImage"
+        "name": "balenaEtcher-1.7.0-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.0/balenaEtcher-1.7.0-ia32.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.122-x64.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.122/balenaEtcher-1.5.122-x64.AppImage"
+        "name": "balenaEtcher-1.7.0-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.0/balenaEtcher-1.7.0-x64.AppImage"
       },
       {
-        "name": "balenaEtcher-1.5.122.dmg",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.122/balenaEtcher-1.5.122.dmg"
+        "name": "balenaEtcher-1.7.0.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.0/balenaEtcher-1.7.0.dmg"
       },
       {
-        "name": "balenaEtcher-1.5.122.dmg.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.122/balenaEtcher-1.5.122.dmg.blockmap"
+        "name": "balenaEtcher-1.7.0.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.0/balenaEtcher-1.7.0.dmg.blockmap"
       },
       {
-        "name": "balenaEtcher-1.5.122.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.122/balenaEtcher-1.5.122.zip"
+        "name": "balenaEtcher-1.7.0.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.0/balenaEtcher-1.7.0.zip"
       },
       {
-        "name": "balenaEtcher-Portable-1.5.122.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.122/balenaEtcher-Portable-1.5.122.exe"
+        "name": "balenaEtcher-Portable-1.7.0.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.0/balenaEtcher-Portable-1.7.0.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.122.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.122/balenaEtcher-Setup-1.5.122.exe"
+        "name": "balenaEtcher-Setup-1.7.0.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.0/balenaEtcher-Setup-1.7.0.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.5.122.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.122/balenaEtcher-Setup-1.5.122.exe.blockmap"
+        "name": "balenaEtcher-Setup-1.7.0.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.0/balenaEtcher-Setup-1.7.0.exe.blockmap"
       },
       {
         "name": "builder-effective-config.yaml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.122/builder-effective-config.yaml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.0/builder-effective-config.yaml"
       },
       {
         "name": "latest-linux-ia32.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.122/latest-linux-ia32.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.0/latest-linux-ia32.yml"
       },
       {
         "name": "latest-linux.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.122/latest-linux.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.0/latest-linux.yml"
       },
       {
         "name": "latest-mac.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.122/latest-mac.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.0/latest-mac.yml"
       },
       {
         "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.5.122/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.0/latest.yml"
       }
     ]
   },
@@ -16417,8 +16635,64 @@
     ]
   },
   "openIssues": {
-    "numberOfIssues": 311,
+    "numberOfIssues": 305,
     "latestIssues": [
+      {
+        "title": "\"Priviledge access in order to flash disks\" prompt confusing to user when smartcard PIN is used for auth",
+        "url": "https://github.com/balena-io/etcher/issues/3627"
+      },
+      {
+        "title": "Flash from URL fails with \"Error: certificate has expired\"",
+        "url": "https://github.com/balena-io/etcher/issues/3626"
+      },
+      {
+        "title": "creating image from sd or cloning enhancement request",
+        "url": "https://github.com/balena-io/etcher/issues/3624"
+      },
+      {
+        "title": "Error: User did not grant permission",
+        "url": "https://github.com/balena-io/etcher/issues/3621"
+      },
+      {
+        "title": "password prompt disappears right away on manjaro/kde",
+        "url": "https://github.com/balena-io/etcher/issues/3620"
+      },
+      {
+        "title": "Boot disk selected/selectable when eMMC storage is used",
+        "url": "https://github.com/balena-io/etcher/issues/3608"
+      },
+      {
+        "title": "Download page not showing 1.6 version",
+        "url": "https://github.com/balena-io/etcher/issues/3604"
+      },
+      {
+        "title": "New Icon for macOS Big Sur",
+        "url": "https://github.com/balena-io/etcher/issues/3603"
+      },
+      {
+        "title": "Is this common knowledge that `rpiboot` is needed in order to flash images to BalenaFin?",
+        "url": "https://github.com/balena-io/etcher/issues/3601"
+      },
+      {
+        "title": "AppImage/DEB install issues",
+        "url": "https://github.com/balena-io/etcher/issues/3600"
+      },
+      {
+        "title": "Etcher DEB and AppImage will not launch see details!",
+        "url": "https://github.com/balena-io/etcher/issues/3595"
+      },
+      {
+        "title": "Focus disappears from the 'Authentication Required' dialog",
+        "url": "https://github.com/balena-io/etcher/issues/3594"
+      },
+      {
+        "title": "regression: 1.6.0 is not 'universal' for both Intel and ARM/M1/AppleSilicon Macs anymore",
+        "url": "https://github.com/balena-io/etcher/issues/3593"
+      },
+      {
+        "title": "balenaEtcher window shows \"Etcher\" instead of \"balenaEtcher\" on windows version",
+        "url": "https://github.com/balena-io/etcher/issues/3592"
+      },
       {
         "title": "Can't select SD card reader as a target when flash file is on external drive",
         "url": "https://github.com/balena-io/etcher/issues/3591"
@@ -16436,72 +16710,16 @@
         "url": "https://github.com/balena-io/etcher/issues/3587"
       },
       {
-        "title": "Not able to install repo on ZorinOS",
-        "url": "https://github.com/balena-io/etcher/issues/3586"
-      },
-      {
         "title": "Etcher suddenly doesnt work",
         "url": "https://github.com/balena-io/etcher/issues/3584"
       },
       {
-        "title": "Broken Cruzer Blade 8Gb",
-        "url": "https://github.com/balena-io/etcher/issues/3583"
-      },
-      {
-        "title": "Update Makefile to Apple M1 info",
-        "url": "https://github.com/balena-io/etcher/pull/3582"
-      },
-      {
-        "title": "add support for basic auth when getting images from URL",
-        "url": "https://github.com/balena-io/etcher/pull/3581"
-      },
-      {
         "title": "minor: broken link to blog on balena.io/etcher page",
         "url": "https://github.com/balena-io/etcher/issues/3580"
-      },
-      {
-        "title": "problem finding /opt/balena-etcher-electron/chrome-sandbox",
-        "url": "https://github.com/balena-io/etcher/issues/3579"
-      },
-      {
-        "title": "Etcher won't install apt (Debian/Ubuntu) package on Deepin without extra options",
-        "url": "https://github.com/balena-io/etcher/issues/3578"
-      },
-      {
-        "title": "Optimized assets.",
-        "url": "https://github.com/balena-io/etcher/pull/3576"
-      },
-      {
-        "title": "Flash Failed",
-        "url": "https://github.com/balena-io/etcher/issues/3575"
-      },
-      {
-        "title": "BalenaEtcher1.5.121 Failed to customize a centos image, but ultraISO succeeded flash ",
-        "url": "https://github.com/balena-io/etcher/issues/3573"
-      },
-      {
-        "title": "Etcher won't install apt (Debian/Ubuntu) package on Pop!_OS without extra options",
-        "url": "https://github.com/balena-io/etcher/issues/3571"
-      },
-      {
-        "title": "[feature request] balenaos-img support",
-        "url": "https://github.com/balena-io/etcher/issues/3564"
-      },
-      {
-        "title": "How to build binaries for a common platform",
-        "url": "https://github.com/balena-io/etcher/issues/3561"
-      },
-      {
-        "title": "1.5.121 - sha512 mismatch on mac zip YAML assets",
-        "url": "https://github.com/balena-io/etcher/issues/3560"
-      },
-      {
-        "title": "Windows Flash Failed Error",
-        "url": "https://github.com/balena-io/etcher/issues/3559"
       }
     ]
   },
-  "version": "1.5.122",
+  "version": "1.7.0",
   "screenshot": null,
   "logo": null
 }
