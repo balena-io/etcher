@@ -90,11 +90,8 @@ TARGET_ARCH ?= $(HOST_ARCH)
 # ---------------------------------------------------------------------
 electron-develop:
 	git submodule update --init && \
-	$(RESIN_SCRIPTS)/electron/install.sh \
-		-b $(shell pwd) \
-		-r $(TARGET_ARCH) \
-		-s $(PLATFORM) \
-		-m $(NPM_VERSION)
+	npm ci && \
+	npm run webpack
 
 electron-test:
 	$(RESIN_SCRIPTS)/electron/test.sh \

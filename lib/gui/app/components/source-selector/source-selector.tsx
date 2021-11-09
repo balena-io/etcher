@@ -65,6 +65,7 @@ import SrcSvg from '../../../assets/src.svg';
 import { DriveSelector } from '../drive-selector/drive-selector';
 import { DrivelistDrive } from '../../../../shared/drive-constraints';
 import axios, { AxiosRequestConfig } from 'axios';
+import { isJson } from '../../../../shared/utils';
 
 const recentUrlImagesKey = 'recentUrlImages';
 
@@ -76,7 +77,7 @@ function normalizeRecentUrlImages(urls: any[]): URL[] {
 		.map((url) => {
 			try {
 				return new URL(url);
-			} catch (error) {
+			} catch (error: any) {
 				// Invalid URL, skip
 			}
 		})
@@ -378,7 +379,9 @@ export class SourceSelector extends React.Component<
 		this.setState({ imageLoading: true });
 		await this.selectSource(
 			imagePath,
-			isURL(imagePath) ? sourceDestination.Http : sourceDestination.File,
+			isURL(this.normalizeImagePath(imagePath))
+				? sourceDestination.Http
+				: sourceDestination.File,
 		).promise;
 		this.setState({ imageLoading: false });
 	}
@@ -390,11 +393,11 @@ export class SourceSelector extends React.Component<
 	) {
 		try {
 			selected = await replaceWindowsNetworkDriveLetter(selected);
-		} catch (error) {
+		} catch (error: any) {
 			analytics.logException(error);
 		}
 
-		if (this.isJson(decodeURIComponent(selected))) {
+		if (isJson(decodeURIComponent(selected))) {
 			const config: AxiosRequestConfig = JSON.parse(
 				decodeURIComponent(selected),
 			);
@@ -413,13 +416,12 @@ export class SourceSelector extends React.Component<
 		return new sourceDestination.Http({ url: selected, auth });
 	}
 
-	public isJson(jsonString: string) {
-		try {
-			JSON.parse(jsonString);
-		} catch (e) {
-			return false;
+	public normalizeImagePath(imgPath: string) {
+		const decodedPath = decodeURIComponent(imgPath);
+		if (isJson(decodedPath)) {
+			return JSON.parse(decodedPath).url ?? decodedPath;
 		}
-		return true;
+		return decodedPath;
 	}
 
 	private reselectSource() {
@@ -445,7 +447,10 @@ export class SourceSelector extends React.Component<
 				let source;
 				let metadata: SourceMetadata | undefined;
 				if (isString(selected)) {
-					if (SourceType === sourceDestination.Http && !isURL(selected)) {
+					if (
+						SourceType === sourceDestination.Http &&
+						!isURL(this.normalizeImagePath(selected))
+					) {
 						this.handleError(
 							'Unsupported protocol',
 							selected,
@@ -489,7 +494,7 @@ export class SourceSelector extends React.Component<
 								},
 							});
 						}
-					} catch (error) {
+					} catch (error: any) {
 						this.handleError(
 							'Error opening source',
 							sourcePath,
@@ -499,7 +504,7 @@ export class SourceSelector extends React.Component<
 					} finally {
 						try {
 							await source.close();
-						} catch (error) {
+						} catch (error: any) {
 							// Noop
 						}
 					}
@@ -589,7 +594,7 @@ export class SourceSelector extends React.Component<
 				return;
 			}
 			await this.selectSource(imagePath, sourceDestination.File).promise;
-		} catch (error) {
+		} catch (error: any) {
 			exceptionReporter.report(error);
 		} finally {
 			this.setState({ imageSelectorOpen: false });

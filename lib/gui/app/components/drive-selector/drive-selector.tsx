@@ -379,8 +379,8 @@ export class DriveSelector extends React.Component<
 		const displayedDrives = this.getDisplayedDrives(drives);
 		const disabledDrives = this.getDisabledDrives(drives, image);
 		const numberOfSystemDrives = drives.filter(isSystemDrive).length;
-		const numberOfDisplayedSystemDrives = displayedDrives.filter(isSystemDrive)
-			.length;
+		const numberOfDisplayedSystemDrives =
+			displayedDrives.filter(isSystemDrive).length;
 		const numberOfHiddenSystemDrives =
 			numberOfSystemDrives - numberOfDisplayedSystemDrives;
 		const hasSystemDrives = selectedList.filter(isSystemDrive).length;
@@ -534,7 +534,7 @@ export class DriveSelector extends React.Component<
 								if (missingDriversModal.drive !== undefined) {
 									openExternal(missingDriversModal.drive.link);
 								}
-							} catch (error) {
+							} catch (error: any) {
 								logException(error);
 							} finally {
 								this.setState({ missingDriversModal: {} });

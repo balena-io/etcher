@@ -218,7 +218,7 @@ async function performWrite(
 				});
 				flashResults.cancelled = cancelled || results.cancelled;
 				flashResults.skip = skip;
-			} catch (error) {
+			} catch (error: any) {
 				// This happens when the child is killed using SIGKILL
 				const SIGKILL_EXIT_CODE = 137;
 				if (error.code === SIGKILL_EXIT_CODE) {
@@ -287,7 +287,7 @@ export async function flash(
 	try {
 		const result = await write(image, drives, flashState.setProgressState);
 		await flashState.unsetFlashingFlag(result);
-	} catch (error) {
+	} catch (error: any) {
 		await flashState.unsetFlashingFlag({
 			cancelled: false,
 			errorCode: error.code,
@@ -349,7 +349,7 @@ export async function cancel(type: string) {
 		if (socket !== undefined) {
 			ipc.server.emit(socket, status);
 		}
-	} catch (error) {
+	} catch (error: any) {
 		analytics.logException(error);
 	}
 }

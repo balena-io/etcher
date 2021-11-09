@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { scanner } from 'etcher-sdk';
 import * as React from 'react';
 import { Flex, Txt } from 'rendition';
 
@@ -37,6 +36,7 @@ import { TargetSelectorButton } from './target-selector-button';
 import TgtSvg from '../../../assets/tgt.svg';
 import DriveSvg from '../../../assets/drive.svg';
 import { warning } from '../../../../shared/messages';
+import { DrivelistDrive } from '../../../../shared/drive-constraints';
 
 export const getDriveListLabel = () => {
 	return getSelectedDrives()
@@ -70,9 +70,7 @@ export const TargetSelectorModal = (
 	/>
 );
 
-export const selectAllTargets = (
-	modalTargets: scanner.adapters.DrivelistDrive[],
-) => {
+export const selectAllTargets = (modalTargets: DrivelistDrive[]) => {
 	const selectedDrivesFromState = getSelectedDrives();
 	const deselected = selectedDrivesFromState.filter(
 		(drive) =>
@@ -114,9 +112,8 @@ export const TargetSelector = ({
 	const [{ driveListLabel, targets }, setStateSlice] = React.useState(
 		getDriveSelectionStateSlice(),
 	);
-	const [showTargetSelectorModal, setShowTargetSelectorModal] = React.useState(
-		false,
-	);
+	const [showTargetSelectorModal, setShowTargetSelectorModal] =
+		React.useState(false);
 
 	React.useEffect(() => {
 		return observe(() => {

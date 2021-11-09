@@ -102,10 +102,9 @@ function validateMixpanelConfig(config: {
  * This function sends the debug message to product analytics services.
  */
 export function logEvent(message: string, data: _.Dictionary<any> = {}) {
-	const {
-		applicationSessionUuid,
-		flashingWorkflowUuid,
-	} = store.getState().toJS();
+	const { applicationSessionUuid, flashingWorkflowUuid } = store
+		.getState()
+		.toJS();
 	resinCorvus.logEvent(message, {
 		...data,
 		sample: mixpanelSample,

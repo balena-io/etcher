@@ -245,16 +245,16 @@ export async function init(): Promise<void> {
 		for (const [drivePath, ledsNames] of Object.entries(ledsMapping)) {
 			leds.set('/dev/disk/by-path/' + drivePath, new RGBLed(ledsNames));
 		}
+		ledColors = (await settings.get('ledColors')) || {};
+		ledAnimationFunctions = {
+			blinkGreen: createAnimationFunction(blink, ledColors['green']),
+			blinkPurple: createAnimationFunction(blink, ledColors['purple']),
+			staticRed: createAnimationFunction(one, ledColors['red']),
+			staticGreen: createAnimationFunction(one, ledColors['green']),
+			staticBlue: createAnimationFunction(one, ledColors['blue']),
+			staticWhite: createAnimationFunction(one, ledColors['white']),
+			staticBlack: createAnimationFunction(one, ledColors['black']),
+		};
+		observe(_.debounce(stateObserver, 1000, { maxWait: 1000 }));
 	}
-	ledColors = (await settings.get('ledColors')) || {};
-	ledAnimationFunctions = {
-		blinkGreen: createAnimationFunction(blink, ledColors['green']),
-		blinkPurple: createAnimationFunction(blink, ledColors['purple']),
-		staticRed: createAnimationFunction(one, ledColors['red']),
-		staticGreen: createAnimationFunction(one, ledColors['green']),
-		staticBlue: createAnimationFunction(one, ledColors['blue']),
-		staticWhite: createAnimationFunction(one, ledColors['white']),
-		staticBlack: createAnimationFunction(one, ledColors['black']),
-	};
-	observe(_.debounce(stateObserver, 1000, { maxWait: 1000 }));
 }
