@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import CopyPlugin from 'copy-webpack-plugin';
+import * as CopyPlugin from 'copy-webpack-plugin';
 import { readdirSync } from 'fs';
 import * as _ from 'lodash';
 import * as os from 'os';
 import outdent from 'outdent';
 import * as path from 'path';
 import { env } from 'process';
-import SimpleProgressWebpackPlugin from 'simple-progress-webpack-plugin';
-import TerserPlugin from 'terser-webpack-plugin';
+import * as SimpleProgressWebpackPlugin from 'simple-progress-webpack-plugin';
+import * as TerserPlugin from 'terser-webpack-plugin';
 import { BannerPlugin, NormalModuleReplacementPlugin } from 'webpack';
-import PnpWebpackPlugin from 'pnp-webpack-plugin';
+import * as PnpWebpackPlugin from 'pnp-webpack-plugin';
 
 import * as tsconfigRaw from './tsconfig.webpack.json';
 

@@ -11,17 +11,13 @@
     "pretty": true,
     "sourceMap": true,
     "baseUrl": "./src",
-    /* Additional Checks */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    /* Module Resolution Options */
     "moduleResolution": "node",
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "allowJs": true,
-  },
-  "exclude": ["test", "release/build", "release/app/dist", ".erb/dll"]
+  }
 }
