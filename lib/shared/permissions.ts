@@ -20,7 +20,7 @@ import { promises as fs } from 'fs';
 import * as _ from 'lodash';
 import * as os from 'os';
 import * as semver from 'semver';
-import * as sudoPrompt from 'sudo-prompt';
+import * as sudoPrompt from '@balena/sudo-prompt';
 import { promisify } from 'util';
 
 import { sudo as catalinaSudo } from './catalina-sudo/sudo';
@@ -29,16 +29,18 @@ import * as errors from './errors';
 const execAsync = promisify(childProcess.exec);
 const execFileAsync = promisify(childProcess.execFile);
 
+type Std = string | Buffer | undefined;
+
 function sudoExecAsync(
 	cmd: string,
 	options: { name: string },
-): Promise<{ stdout: string; stderr: string }> {
+): Promise<{ stdout: Std; stderr: Std }> {
 	return new Promise((resolve, reject) => {
 		sudoPrompt.exec(
 			cmd,
 			options,
-			(error: Error | null, stdout: string, stderr: string) => {
-				if (error != null) {
+			(error: Error | undefined, stdout: Std, stderr: Std) => {
+				if (error !== undefined) {
 					reject(error);
 				} else {
 					resolve({ stdout, stderr });

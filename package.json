@@ -16,9 +16,9 @@
     "lint-ts": "balena-lint --fix --typescript typings lib tests scripts/clean-shrinkwrap.ts webpack.config.ts",
     "lint-css": "prettier --write lib/**/*.css",
     "lint": "npm run lint-ts && npm run lint-css",
-    "test-spectron": "mocha --recursive --reporter spec --require ts-node/register --require-main tests/gui/allow-renderer-process-reuse.ts tests/spectron/runner.spec.ts",
-    "test-gui": "electron-mocha --recursive --reporter spec --require ts-node/register --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox --renderer tests/gui/**/*.ts",
-    "test-shared": "electron-mocha --recursive --reporter spec --require ts-node/register --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox tests/shared/**/*.ts",
+    "test-spectron": "mocha --recursive --reporter spec --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts tests/spectron/runner.spec.ts",
+    "test-gui": "electron-mocha --recursive --reporter spec --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox --renderer tests/gui/**/*.ts",
+    "test-shared": "electron-mocha --recursive --reporter spec --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox tests/shared/**/*.ts",
     "test": "npm run lint && npm run test-gui && npm run test-shared && npm run test-spectron && npm run sanity-checks",
     "sanity-checks": "bash scripts/ci/ensure-all-file-extensions-in-gitattributes.sh",
     "start": "./node_modules/.bin/electron .",
@@ -45,6 +45,7 @@
   "author": "Balena Inc. <hello@etcher.io>",
   "license": "Apache-2.0",
   "dependencies": {
+    "@balena/sudo-prompt": "9.2.1-workaround-windows-amperstand-in-username-0849e215b947987a643fe5763902aea201255534",
     "@fortawesome/fontawesome-free": "5.13.1",
     "aws4-axios": "2.2.1",
     "d3": "4.13.0",
@@ -64,7 +65,6 @@
     "resin-corvus": "2.0.5",
     "semver": "7.3.2",
     "styled-components": "5.1.0",
-    "sudo-prompt": "github:zvin/sudo-prompt#7cdede2f0da28fbcc2db48402d7d935f3a825c91",
     "sys-class-rgb-led": "3.0.0",
     "url-loader": "4.1.1",
     "uuid": "8.1.0"
