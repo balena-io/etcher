@@ -28,7 +28,6 @@ import * as EXIT_CODES from '../../shared/exit-codes';
 import * as messages from '../../shared/messages';
 import * as availableDrives from './models/available-drives';
 import * as flashState from './models/flash-state';
-import { init as ledsInit } from './models/leds';
 import { deselectImage, getImage } from './models/selection-state';
 import * as settings from './models/settings';
 import { Actions, observe, store } from './models/store';
@@ -340,7 +339,13 @@ window.addEventListener('beforeunload', async (event) => {
 });
 
 export async function main() {
-	await ledsInit();
+	try {
+		const { init: ledsInit } = require('./models/leds');
+		await ledsInit();
+	} catch (error: any) {
+		exceptionReporter.report(error);
+	}
+
 	ReactDOM.render(
 		React.createElement(MainPage),
 		document.getElementById('main'),

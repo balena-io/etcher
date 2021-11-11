@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
-import * as CopyPlugin from 'copy-webpack-plugin';
+import CopyPlugin from 'copy-webpack-plugin';
 import { readdirSync } from 'fs';
 import * as _ from 'lodash';
 import * as os from 'os';
 import outdent from 'outdent';
 import * as path from 'path';
 import { env } from 'process';
-import * as SimpleProgressWebpackPlugin from 'simple-progress-webpack-plugin';
-import * as TerserPlugin from 'terser-webpack-plugin';
+import SimpleProgressWebpackPlugin from 'simple-progress-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
 import { BannerPlugin, NormalModuleReplacementPlugin } from 'webpack';
-import * as PnpWebpackPlugin from 'pnp-webpack-plugin';
+import PnpWebpackPlugin from 'pnp-webpack-plugin';
+
+import * as tsconfigRaw from './tsconfig.webpack.json';
 
 /**
  * Don't webpack package.json as mixpanel & sentry tokens
@@ -141,13 +143,13 @@ const commonConfig = {
 		minimize: true,
 		minimizer: [
 			new TerserPlugin({
+				parallel: true,
 				terserOptions: {
 					compress: false,
 					mangle: false,
-					output: {
-						beautify: true,
+					format: {
 						comments: false,
-						ecma: 2018,
+						ecma: 2020,
 					},
 				},
 				extractComments: false,
@@ -173,9 +175,11 @@ const commonConfig = {
 				test: /\.tsx?$/,
 				use: [
 					{
-						loader: 'ts-loader',
+						loader: 'esbuild-loader',
 						options: {
-							configFile: 'tsconfig.webpack.json',
+							loader: 'tsx',
+							target: 'es2021',
+							tsconfigRaw,
 						},
 					},
 				],

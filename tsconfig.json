@@ -1,12 +1,27 @@
 {
   "compilerOptions": {
     "strict": true,
+    "target": "es2019",
+    "typeRoots": ["./node_modules/@types", "./typings"],
+    "module": "commonjs",
+    "lib": ["dom", "esnext"],
+    "declaration": true,
+    "declarationMap": true,
+    "jsx": "react",
+    "pretty": true,
+    "sourceMap": true,
+    "baseUrl": "./src",
+    /* Additional Checks */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "resolveJsonModule": true,
-    "target": "es2019",
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    /* Module Resolution Options */
     "moduleResolution": "node",
-    "jsx": "react",
-    "typeRoots": ["./node_modules/@types", "./typings"]
-  }
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+  },
+  "exclude": ["test", "release/build", "release/app/dist", ".erb/dll"]
 }
