@@ -177,7 +177,7 @@ export function SettingsModal({ toggleModal }: SettingsModalProps): any {
 					<Txt style={{ borderBottom: '1px solid #00aeef' }}>{version}</Txt>					
 				</Flex>
 				{showDiagButton ? <Box>
-					<Button primary onClick={() => openDiagFrame()}>Open Diagnostics {window.location.hostname}</Button>
+					<Button primary onClick={() => openDiagFrame()}>Open Diagnostics</Button>
 				</Box> : <></>}
 			</Flex>
 
