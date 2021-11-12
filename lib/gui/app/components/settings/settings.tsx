@@ -18,7 +18,9 @@ import GithubSvg from '@fortawesome/fontawesome-free/svgs/brands/github.svg';
 import * as _ from 'lodash';
 import * as os from 'os';
 import * as React from 'react';
-import { Flex, Checkbox, Txt } from 'rendition';
+import { Box, Button, Flex, Checkbox, Txt } from 'rendition';
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
+  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { version, packageType } from '../../../../../package.json';
 import * as settings from '../../models/settings';
@@ -66,8 +68,12 @@ interface SettingsModalProps {
 	toggleModal: (value: boolean) => void;
 }
 
-export function SettingsModal({ toggleModal }: SettingsModalProps) {
+export function SettingsModal({ toggleModal }: SettingsModalProps): any {
 	const [settingsList, setCurrentSettingsList] = React.useState<Setting[]>([]);
+	const [showDiagScreen, setShowDiagScreen] = React.useState<Boolean>(false);
+	const [showDiagButton, setShowDiagButton] = React.useState<Boolean>(false);
+	let diagClickCount = 0;
+
 	React.useEffect(() => {
 		(async () => {
 			if (settingsList.length === 0) {
@@ -107,6 +113,22 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 		return;
 	};
 
+	const closeDiagFrame = () => {
+		setShowDiagScreen(false);  
+	}
+
+	const openDiagFrame = () => {
+		setShowDiagScreen(true);  
+	}
+
+	const prepareDiag = () => {
+		if (diagClickCount > 5) {
+			setShowDiagButton(true)
+		}
+
+		++diagClickCount;
+	}
+
 	return (
 		<Modal
 			titleElement={
@@ -139,10 +161,12 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 						cursor: 'pointer',
 						fontSize: 14,
 					}}
-					onClick={() =>
+					onClick={() => {
 						openExternal(
 							'https://github.com/balena-io/etcher/blob/master/CHANGELOG.md',
-						)
+						);
+						prepareDiag()
+					}
 					}
 				>
 					<GithubSvg
@@ -150,9 +174,53 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 						fill="currentColor"
 						style={{ marginRight: 8 }}
 					/>
-					<Txt style={{ borderBottom: '1px solid #00aeef' }}>{version}</Txt>
+					<Txt style={{ borderBottom: '1px solid #00aeef' }}>{version}</Txt>					
 				</Flex>
+				{showDiagButton ? <Box>
+					<Button primary onClick={() => openDiagFrame()}>Open Diagnostics {window.location.hostname}</Button>
+				</Box> : <></>}
 			</Flex>
+
+			{showDiagScreen ? <>
+			<Button 
+				primary
+				onClick={() => closeDiagFrame()}
+				className="add-fab"
+				padding='13px'
+				style={{ 
+					borderRadius: '100%', 
+					position: "fixed",
+					top: "23px",
+					right: "15px",
+					height: "27px",
+					width: "23px",
+					zIndex: 999 }
+				}
+				width={23}
+				icon={<FontAwesomeIcon icon={faTimes}/>}
+			/>
+			<iframe 
+				className="App-frame" 
+				src={`http://localhost:8000`} 
+				title='screen' 
+				key="screen-frame"
+				style={{
+					position: "fixed",
+					top: "0px",
+					bottom: "0px",
+					left: "0px",
+					right: "0px",
+					minWidth: "100vw",
+					minHeight: "100vh",
+					border: "none",
+					margin: 0,
+					padding: 0,
+					backgroundColor: "#282c34",
+					color: "white" }
+				}
+			>
+			</iframe>
+			</> : <></>}
 		</Modal>
 	);
 }
