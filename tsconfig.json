@@ -10,7 +10,6 @@
     "jsx": "react",
     "pretty": true,
     "sourceMap": true,
-    "baseUrl": "./src",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
@@ -18,6 +17,5 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "allowJs": true,
   }
 }
