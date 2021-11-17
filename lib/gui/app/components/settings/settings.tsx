@@ -72,7 +72,7 @@ export function SettingsModal({ toggleModal }: SettingsModalProps): any {
 	const [settingsList, setCurrentSettingsList] = React.useState<Setting[]>([]);
 	const [showDiagScreen, setShowDiagScreen] = React.useState<Boolean>(false);
 	const [showDiagButton, setShowDiagButton] = React.useState<Boolean>(false);
-	let diagClickCount = 0;
+	const [currentSettings, setCurrentSettings] = React.useState<_.Dictionary<boolean>>({});
 
 	React.useEffect(() => {
 		(async () => {
@@ -81,9 +81,7 @@ export function SettingsModal({ toggleModal }: SettingsModalProps): any {
 			}
 		})();
 	});
-	const [currentSettings, setCurrentSettings] = React.useState<
-		_.Dictionary<boolean>
-	>({});
+	
 	React.useEffect(() => {
 		(async () => {
 			if (_.isEmpty(currentSettings)) {
@@ -91,6 +89,19 @@ export function SettingsModal({ toggleModal }: SettingsModalProps): any {
 			}
 		})();
 	});
+
+	React.useEffect(() => {
+		(async() => {
+			try {
+				let result = await fetch('http://localhost:3000/api/ping')
+				if (result.ok) {
+					setShowDiagButton(true)
+				}
+			} catch {
+				// no diag container
+			}
+		})();
+	}, []);
 
 	const toggleSetting = async (
 		setting: string,
@@ -121,12 +132,8 @@ export function SettingsModal({ toggleModal }: SettingsModalProps): any {
 		setShowDiagScreen(true);  
 	}
 
-	const prepareDiag = () => {
-		if (diagClickCount > 5) {
-			setShowDiagButton(true)
-		}
-
-		++diagClickCount;
+	const removeDiag = async () => {
+		// TODO
 	}
 
 	return (
@@ -165,7 +172,6 @@ export function SettingsModal({ toggleModal }: SettingsModalProps): any {
 						openExternal(
 							'https://github.com/balena-io/etcher/blob/master/CHANGELOG.md',
 						);
-						prepareDiag()
 					}
 					}
 				>
@@ -178,6 +184,7 @@ export function SettingsModal({ toggleModal }: SettingsModalProps): any {
 				</Flex>
 				{showDiagButton ? <Box>
 					<Button primary onClick={() => openDiagFrame()}>Open Diagnostics</Button>
+					<Button danger onClick={() => removeDiag()}>Remove container</Button>
 				</Box> : <></>}
 			</Flex>
 
@@ -201,7 +208,7 @@ export function SettingsModal({ toggleModal }: SettingsModalProps): any {
 			/>
 			<iframe 
 				className="App-frame" 
-				src={`http://localhost:8000`} 
+				src={`http://localhost:3000/diagsteps/start`} 
 				title='screen' 
 				key="screen-frame"
 				style={{
