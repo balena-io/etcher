@@ -26,7 +26,7 @@ const debug = _debug('etcher:models:settings');
 
 const JSON_INDENT = 2;
 
-export const DEFAULT_WIDTH = 800;
+export const DEFAULT_WIDTH = 1200;
 export const DEFAULT_HEIGHT = 480;
 
 /**
