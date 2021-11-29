@@ -1,4 +1,55 @@
 - commits:
+    - subject: 'patch: Revert back to electron-rebuild'
+      hash: ea9875ddf06b932b22b5b26d64fed6fe4f02384e
+      body: ''
+      footer:
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: 'patch: Disallow TS in JS'
+      hash: 65dacd2ff282864b82283b7f8251ef9fa548ed3f
+      body: ''
+      footer:
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: 'patch: Remove esInterop TS flag'
+      hash: a190818827e2354f9ff13d04017541c1fae6cd47
+      body: ''
+      footer:
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: 'patch: Use @balena/sudo-prompt'
+      hash: 98e33b619be70348429038b5d04e49a840c8f218
+      body: ''
+      footer:
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: 'patch: Update rpiboot guide link'
+      hash: 685ed715ac85495343a82e5d7886ad826fe2cdfe
+      body: ''
+      footer:
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+    - subject: 'patch: Improve webpack build time'
+      hash: 3cf3c4b398fb65cb4ca59cbf8c3798492197f622
+      body: ''
+      footer:
+        Signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+        signed-off-by: Lorenzo Alberto Maria Ambrosi <lorenzothunder.ambrosi@gmail.com>
+      author: Lorenzo Alberto Maria Ambrosi
+      nested: []
+  version: 1.7.1
+  date: 2021-11-29T09:04:06.693Z
+- commits:
     - subject: 'patch: Add missing @types/react@16.8.5'
       hash: 0a28af5c35a5c73cd78a729bfd8f4bb7978d7c1a
       body: ''
@@ -98,7 +149,7 @@
       author: Lorenzo Alberto Maria Ambrosi
       nested: []
   version: 1.7.0
-  date: 2021-11-09T16:08:41.508Z
+  date: 2021-11-09T13:13:32.580Z
 - commits:
     - subject: Add support for basic auth when downloading images from URL.
       hash: b2d0c1c9ddbbfe87d5a905d420d615821610e825
