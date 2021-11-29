@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.7.1
+## (2021-11-22)
+
+* patch: Revert back to electron-rebuild [Lorenzo Alberto Maria Ambrosi]
+* patch: Disallow TS in JS [Lorenzo Alberto Maria Ambrosi]
+* patch: Remove esInterop TS flag [Lorenzo Alberto Maria Ambrosi]
+* patch: Use @balena/sudo-prompt [Lorenzo Alberto Maria Ambrosi]
+* patch: Update rpiboot guide link [Lorenzo Alberto Maria Ambrosi]
+* patch: Improve webpack build time [Lorenzo Alberto Maria Ambrosi]
+
 # v1.7.0
 ## (2021-11-09)
 
