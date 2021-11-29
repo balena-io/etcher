@@ -1,1 +1,1 @@
-declare module 'sudo-prompt';
+declare module '@balena/sudo-prompt';

@@ -26,6 +26,8 @@ import * as TerserPlugin from 'terser-webpack-plugin';
 import { BannerPlugin, NormalModuleReplacementPlugin } from 'webpack';
 import * as PnpWebpackPlugin from 'pnp-webpack-plugin';
 
+import * as tsconfigRaw from './tsconfig.webpack.json';
+
 /**
  * Don't webpack package.json as mixpanel & sentry tokens
  * will be inserted in it after webpacking
@@ -141,13 +143,13 @@ const commonConfig = {
 		minimize: true,
 		minimizer: [
 			new TerserPlugin({
+				parallel: true,
 				terserOptions: {
 					compress: false,
 					mangle: false,
-					output: {
-						beautify: true,
+					format: {
 						comments: false,
-						ecma: 2018,
+						ecma: 2020,
 					},
 				},
 				extractComments: false,
@@ -173,9 +175,11 @@ const commonConfig = {
 				test: /\.tsx?$/,
 				use: [
 					{
-						loader: 'ts-loader',
+						loader: 'esbuild-loader',
 						options: {
-							configFile: 'tsconfig.webpack.json',
+							loader: 'tsx',
+							target: 'es2021',
+							tsconfigRaw,
 						},
 					},
 				],
