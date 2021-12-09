@@ -44,6 +44,7 @@ import {
 	TargetSelector,
 	getDriveListLabel,
 } from '../../components/target-selector/target-selector';
+import { UDSetter } from '../../components/userdata-setter/ud-setter';
 import { FlashStep } from './Flash';
 
 import EtcherSvg from '../../../assets/etcher.svg';
@@ -165,6 +166,8 @@ export class MainPage extends React.Component<
 	private renderMain() {
 		const state = flashState.getFlashState();
 		const shouldDriveStepBeDisabled = !this.state.hasImage;
+		const shouldUserdataStepBeDisabled =
+			!this.state.hasDrive || shouldDriveStepBeDisabled;
 		const shouldFlashStepBeDisabled =
 			!this.state.hasImage || !this.state.hasDrive;
 		const notFlashingOrSplitView =
@@ -185,6 +188,10 @@ export class MainPage extends React.Component<
 							hasDrive={this.state.hasDrive}
 							flashing={this.state.isFlashing}
 						/>
+						<Flex>
+							<StepBorder disabled={shouldFlashStepBeDisabled} right />
+						</Flex>
+						<UDSetter disabled={shouldUserdataStepBeDisabled} />
 						<Flex>
 							<StepBorder disabled={shouldFlashStepBeDisabled} right />
 						</Flex>
