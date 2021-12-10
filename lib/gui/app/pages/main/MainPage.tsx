@@ -44,7 +44,7 @@ import {
 	TargetSelector,
 	getDriveListLabel,
 } from '../../components/target-selector/target-selector';
-import { UDSetter } from '../../components/userdata-setter/ud-setter';
+import { UserdataSetter } from '../../components/userdata-setter/userdata-setter';
 import { FlashStep } from './Flash';
 
 import EtcherSvg from '../../../assets/etcher.svg';
@@ -191,7 +191,7 @@ export class MainPage extends React.Component<
 						<Flex>
 							<StepBorder disabled={shouldFlashStepBeDisabled} right />
 						</Flex>
-						<UDSetter disabled={shouldUserdataStepBeDisabled} />
+						<UserdataSetter disabled={shouldUserdataStepBeDisabled} />
 						<Flex>
 							<StepBorder disabled={shouldFlashStepBeDisabled} right />
 						</Flex>

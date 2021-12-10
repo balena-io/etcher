@@ -20,11 +20,11 @@ import { StepNameButton } from '../../styled-components';
 
 import UserDataSvg from '../../../assets/userdata.svg';
 
-interface UDSetterProps {
+interface UserdataSetterProps {
 	disabled: boolean;
 }
 
-export const UDSetter = ({ disabled }: UDSetterProps) => {
+export const UserdataSetter = ({ disabled }: UserdataSetterProps) => {
 	return (
 		<Flex flexDirection="column" alignItems="center">
 			<UserDataSvg
