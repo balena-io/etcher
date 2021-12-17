@@ -15,16 +15,21 @@
  */
 
 import * as React from 'react';
-import { Flex } from 'rendition';
-import { StepNameButton } from '../../styled-components';
+import { Flex, Txt } from 'rendition';
+
+import { StepNameButton, Modal } from '../../styled-components';
 
 import UserDataSvg from '../../../assets/userdata.svg';
 
+import '../../css/modal.css';
 interface UserdataSetterProps {
 	disabled: boolean;
 }
 
 export const UserdataSetter = ({ disabled }: UserdataSetterProps) => {
+	const [showUserdataSetterModal, setShowUserdataSetterModal] =
+		React.useState(false);
+
 	return (
 		<Flex flexDirection="column" alignItems="center">
 			<UserDataSvg
@@ -35,9 +40,52 @@ export const UserdataSetter = ({ disabled }: UserdataSetterProps) => {
 				}}
 			/>
 
-			<StepNameButton className="button button-primary" disabled={disabled}>
+			<StepNameButton
+				primary={true}
+				disabled={disabled}
+				onClick={() => setShowUserdataSetterModal(true)}
+			>
 				Set user-data
 			</StepNameButton>
+
+			{showUserdataSetterModal && (
+				<Modal>
+					<Flex flexDirection="column" alignItems="center">
+						<Flex mb={15} style={{ width: '100%' }} flexDirection="column">
+							<Txt mb="10px" fontSize="24px">
+								Welcome to the user-data.yml generate wizard.
+							</Txt>
+						</Flex>
+						<Flex
+							mb={15}
+							style={{ width: '100%' }}
+							flexDirection="column"
+							alignItems="center"
+						>
+							<StepNameButton
+								primary={true}
+								onClick={() => setShowUserdataSetterModal(false)}
+							>
+								{'Create New >'}
+							</StepNameButton>
+						</Flex>
+						<Flex
+							mb={15}
+							style={{ width: '100%' }}
+							flexDirection="column"
+							alignItems="center"
+						>
+							<StepNameButton
+								primary={true}
+								// disabled={disabled}
+								onClick={() => setShowUserdataSetterModal(false)}
+							>
+								{'Apply previously >'}
+							</StepNameButton>
+						</Flex>
+					</Flex>
+				</Modal>
+			)}
 		</Flex>
 	);
 };
