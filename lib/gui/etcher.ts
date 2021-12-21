@@ -97,6 +97,7 @@ const sourceSelectorReady = new Promise((resolve) => {
 async function selectImageURL(url?: string) {
 	// 'data:,' is the default chromedriver url that is passed as last argument when running spectron tests
 	if (url !== undefined && url !== 'data:,') {
+		url = url.replace(/\/$/, ''); // on windows the url ends with an extra slash
 		url = url.startsWith(scheme) ? url.slice(scheme.length) : url;
 		await sourceSelectorReady;
 		electron.BrowserWindow.getAllWindows().forEach((window) => {
