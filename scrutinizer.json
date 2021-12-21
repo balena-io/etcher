@@ -5,6 +5,25 @@
     {
       "commits": [
         {
+          "subject": "patch: fixed open from browser on windows",
+          "hash": "ef90d048ca2fc9e3eb7731b4b5eff63c3f0ee00a",
+          "body": "",
+          "footer": {
+            "Change-type": "patch",
+            "change-type": "patch",
+            "Signed-off-by": "Peter Makra <peter@balena.io>",
+            "signed-off-by": "Peter Makra <peter@balena.io>"
+          },
+          "author": "Peter Makra",
+          "nested": []
+        }
+      ],
+      "version": "1.7.2",
+      "date": "2021-12-21T16:51:12.194Z"
+    },
+    {
+      "commits": [
+        {
           "subject": "patch: Revert back to electron-rebuild",
           "hash": "ea9875ddf06b932b22b5b26d64fed6fe4f02384e",
           "body": "",
@@ -16496,7 +16515,7 @@
   "public": true,
   "fork": false,
   "description": "Flash OS images to SD cards & USB drives, safely and easily.",
-  "stars": 21798,
+  "stars": 21946,
   "homepage": "https://etcher.io",
   "repositoryUrl": "https://github.com/balena-io/etcher.git",
   "active": true,
@@ -16507,85 +16526,85 @@
     "type": "Organization"
   },
   "dependencies": [],
-  "lastCommitDate": "2021-11-29T09:05:10Z",
+  "lastCommitDate": "2021-12-21T18:38:54Z",
   "latestRelease": {
-    "tagName": "v1.7.1",
+    "tagName": "v1.7.2",
     "asssets": [
       {
-        "name": "balena-etcher-electron-1.7.1-linux-ia32.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.1/balena-etcher-electron-1.7.1-linux-ia32.zip"
+        "name": "balena-etcher-electron-1.7.2-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balena-etcher-electron-1.7.2-linux-ia32.zip"
       },
       {
-        "name": "balena-etcher-electron-1.7.1-linux-x64.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.1/balena-etcher-electron-1.7.1-linux-x64.zip"
+        "name": "balena-etcher-electron-1.7.2-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balena-etcher-electron-1.7.2-linux-x64.zip"
       },
       {
-        "name": "balena-etcher-electron-1.7.1.i686.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.1/balena-etcher-electron-1.7.1.i686.rpm"
+        "name": "balena-etcher-electron-1.7.2.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balena-etcher-electron-1.7.2.i686.rpm"
       },
       {
-        "name": "balena-etcher-electron-1.7.1.x86_64.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.1/balena-etcher-electron-1.7.1.x86_64.rpm"
+        "name": "balena-etcher-electron-1.7.2.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balena-etcher-electron-1.7.2.x86_64.rpm"
       },
       {
-        "name": "balena-etcher-electron_1.7.1_amd64.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.1/balena-etcher-electron_1.7.1_amd64.deb"
+        "name": "balena-etcher-electron_1.7.2_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balena-etcher-electron_1.7.2_amd64.deb"
       },
       {
-        "name": "balena-etcher-electron_1.7.1_i386.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.1/balena-etcher-electron_1.7.1_i386.deb"
+        "name": "balena-etcher-electron_1.7.2_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balena-etcher-electron_1.7.2_i386.deb"
       },
       {
-        "name": "balenaEtcher-1.7.1-ia32.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.1/balenaEtcher-1.7.1-ia32.AppImage"
+        "name": "balenaEtcher-1.7.2-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balenaEtcher-1.7.2-ia32.AppImage"
       },
       {
-        "name": "balenaEtcher-1.7.1-x64.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.1/balenaEtcher-1.7.1-x64.AppImage"
+        "name": "balenaEtcher-1.7.2-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balenaEtcher-1.7.2-x64.AppImage"
       },
       {
-        "name": "balenaEtcher-1.7.1.dmg",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.1/balenaEtcher-1.7.1.dmg"
+        "name": "balenaEtcher-1.7.2.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balenaEtcher-1.7.2.dmg"
       },
       {
-        "name": "balenaEtcher-1.7.1.dmg.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.1/balenaEtcher-1.7.1.dmg.blockmap"
+        "name": "balenaEtcher-1.7.2.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balenaEtcher-1.7.2.dmg.blockmap"
       },
       {
-        "name": "balenaEtcher-1.7.1.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.1/balenaEtcher-1.7.1.zip"
+        "name": "balenaEtcher-1.7.2.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balenaEtcher-1.7.2.zip"
       },
       {
-        "name": "balenaEtcher-Portable-1.7.1.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.1/balenaEtcher-Portable-1.7.1.exe"
+        "name": "balenaEtcher-Portable-1.7.2.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balenaEtcher-Portable-1.7.2.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.7.1.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.1/balenaEtcher-Setup-1.7.1.exe"
+        "name": "balenaEtcher-Setup-1.7.2.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balenaEtcher-Setup-1.7.2.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.7.1.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.1/balenaEtcher-Setup-1.7.1.exe.blockmap"
+        "name": "balenaEtcher-Setup-1.7.2.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balenaEtcher-Setup-1.7.2.exe.blockmap"
       },
       {
         "name": "builder-effective-config.yaml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.1/builder-effective-config.yaml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/builder-effective-config.yaml"
       },
       {
         "name": "latest-linux-ia32.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.1/latest-linux-ia32.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/latest-linux-ia32.yml"
       },
       {
         "name": "latest-linux.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.1/latest-linux.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/latest-linux.yml"
       },
       {
         "name": "latest-mac.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.1/latest-mac.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/latest-mac.yml"
       },
       {
         "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.1/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/latest.yml"
       }
     ]
   },
@@ -16683,8 +16702,44 @@
     ]
   },
   "openIssues": {
-    "numberOfIssues": 315,
+    "numberOfIssues": 324,
     "latestIssues": [
+      {
+        "title": "Analytics tracking is broken",
+        "url": "https://github.com/balena-io/etcher/issues/3660"
+      },
+      {
+        "title": "Why is Etcher 139 MB large?",
+        "url": "https://github.com/balena-io/etcher/issues/3658"
+      },
+      {
+        "title": "url encoded flash link doesn't work",
+        "url": "https://github.com/balena-io/etcher/issues/3656"
+      },
+      {
+        "title": "Pb adding Etcher Debian repository",
+        "url": "https://github.com/balena-io/etcher/issues/3654"
+      },
+      {
+        "title": "Incorrect SHA512 checksum in latest.yml",
+        "url": "https://github.com/balena-io/etcher/issues/3653"
+      },
+      {
+        "title": "Multiple request when flashing from URL",
+        "url": "https://github.com/balena-io/etcher/issues/3649"
+      },
+      {
+        "title": "Cannot read property ‘message’ of null",
+        "url": "https://github.com/balena-io/etcher/issues/3648"
+      },
+      {
+        "title": "Etcher won't launch on Fedora 35.",
+        "url": "https://github.com/balena-io/etcher/issues/3647"
+      },
+      {
+        "title": "Trouble installing the .deb on both Pop!_OS 21.04 & Zorin 16",
+        "url": "https://github.com/balena-io/etcher/issues/3646"
+      },
       {
         "title": "A technical problem",
         "url": "https://github.com/balena-io/etcher/issues/3645"
@@ -16728,46 +16783,10 @@
       {
         "title": "\"Priviledge access in order to flash disks\" prompt confusing to user when smartcard PIN is used for auth",
         "url": "https://github.com/balena-io/etcher/issues/3627"
-      },
-      {
-        "title": "Flash from URL fails with \"Error: certificate has expired\"",
-        "url": "https://github.com/balena-io/etcher/issues/3626"
-      },
-      {
-        "title": "creating image from sd or cloning enhancement request",
-        "url": "https://github.com/balena-io/etcher/issues/3624"
-      },
-      {
-        "title": "Error: User did not grant permission",
-        "url": "https://github.com/balena-io/etcher/issues/3621"
-      },
-      {
-        "title": "password prompt disappears right away on manjaro/kde",
-        "url": "https://github.com/balena-io/etcher/issues/3620"
-      },
-      {
-        "title": "Boot disk selected/selectable when eMMC storage is used",
-        "url": "https://github.com/balena-io/etcher/issues/3608"
-      },
-      {
-        "title": "Download page not showing 1.6 version",
-        "url": "https://github.com/balena-io/etcher/issues/3604"
-      },
-      {
-        "title": "New Icon for macOS Big Sur",
-        "url": "https://github.com/balena-io/etcher/issues/3603"
-      },
-      {
-        "title": "Is this common knowledge that `rpiboot` is needed in order to flash images to BalenaFin?",
-        "url": "https://github.com/balena-io/etcher/issues/3601"
-      },
-      {
-        "title": "AppImage/DEB install issues",
-        "url": "https://github.com/balena-io/etcher/issues/3600"
       }
     ]
   },
-  "version": "1.7.1",
+  "version": "1.7.2",
   "screenshot": null,
   "logo": null
 }

@@ -1,4 +1,17 @@
 - commits:
+    - subject: 'patch: fixed open from browser on windows'
+      hash: ef90d048ca2fc9e3eb7731b4b5eff63c3f0ee00a
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Peter Makra <peter@balena.io>
+        signed-off-by: Peter Makra <peter@balena.io>
+      author: Peter Makra
+      nested: []
+  version: 1.7.2
+  date: 2021-12-21T18:37:55.869Z
+- commits:
     - subject: 'patch: Revert back to electron-rebuild'
       hash: ea9875ddf06b932b22b5b26d64fed6fe4f02384e
       body: ''
@@ -48,7 +61,7 @@
       author: Lorenzo Alberto Maria Ambrosi
       nested: []
   version: 1.7.1
-  date: 2021-11-29T09:04:06.693Z
+  date: 2021-11-22T11:27:50.714Z
 - commits:
     - subject: 'patch: Add missing @types/react@16.8.5'
       hash: 0a28af5c35a5c73cd78a729bfd8f4bb7978d7c1a
