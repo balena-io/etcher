@@ -5,6 +5,23 @@
     {
       "commits": [
         {
+          "subject": "patch: fix mesage of null",
+          "hash": "9c1b55bebc1f7777ee830886c1999a72f082c17f",
+          "body": "",
+          "footer": {
+            "Change-Type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Peter Makra",
+          "nested": []
+        }
+      ],
+      "version": "1.7.3",
+      "date": "2021-12-29T14:31:13.283Z"
+    },
+    {
+      "commits": [
+        {
           "subject": "patch: fixed open from browser on windows",
           "hash": "ef90d048ca2fc9e3eb7731b4b5eff63c3f0ee00a",
           "body": "",
@@ -16515,7 +16532,7 @@
   "public": true,
   "fork": false,
   "description": "Flash OS images to SD cards & USB drives, safely and easily.",
-  "stars": 21946,
+  "stars": 21986,
   "homepage": "https://etcher.io",
   "repositoryUrl": "https://github.com/balena-io/etcher.git",
   "active": true,
@@ -16526,85 +16543,85 @@
     "type": "Organization"
   },
   "dependencies": [],
-  "lastCommitDate": "2021-12-21T18:38:54Z",
+  "lastCommitDate": "2021-12-29T15:09:42Z",
   "latestRelease": {
-    "tagName": "v1.7.2",
+    "tagName": "v1.7.3",
     "asssets": [
       {
-        "name": "balena-etcher-electron-1.7.2-linux-ia32.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balena-etcher-electron-1.7.2-linux-ia32.zip"
+        "name": "balena-etcher-electron-1.7.3-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balena-etcher-electron-1.7.3-linux-ia32.zip"
       },
       {
-        "name": "balena-etcher-electron-1.7.2-linux-x64.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balena-etcher-electron-1.7.2-linux-x64.zip"
+        "name": "balena-etcher-electron-1.7.3-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balena-etcher-electron-1.7.3-linux-x64.zip"
       },
       {
-        "name": "balena-etcher-electron-1.7.2.i686.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balena-etcher-electron-1.7.2.i686.rpm"
+        "name": "balena-etcher-electron-1.7.3.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balena-etcher-electron-1.7.3.i686.rpm"
       },
       {
-        "name": "balena-etcher-electron-1.7.2.x86_64.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balena-etcher-electron-1.7.2.x86_64.rpm"
+        "name": "balena-etcher-electron-1.7.3.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balena-etcher-electron-1.7.3.x86_64.rpm"
       },
       {
-        "name": "balena-etcher-electron_1.7.2_amd64.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balena-etcher-electron_1.7.2_amd64.deb"
+        "name": "balena-etcher-electron_1.7.3_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balena-etcher-electron_1.7.3_amd64.deb"
       },
       {
-        "name": "balena-etcher-electron_1.7.2_i386.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balena-etcher-electron_1.7.2_i386.deb"
+        "name": "balena-etcher-electron_1.7.3_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balena-etcher-electron_1.7.3_i386.deb"
       },
       {
-        "name": "balenaEtcher-1.7.2-ia32.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balenaEtcher-1.7.2-ia32.AppImage"
+        "name": "balenaEtcher-1.7.3-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balenaEtcher-1.7.3-ia32.AppImage"
       },
       {
-        "name": "balenaEtcher-1.7.2-x64.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balenaEtcher-1.7.2-x64.AppImage"
+        "name": "balenaEtcher-1.7.3-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balenaEtcher-1.7.3-x64.AppImage"
       },
       {
-        "name": "balenaEtcher-1.7.2.dmg",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balenaEtcher-1.7.2.dmg"
+        "name": "balenaEtcher-1.7.3.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balenaEtcher-1.7.3.dmg"
       },
       {
-        "name": "balenaEtcher-1.7.2.dmg.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balenaEtcher-1.7.2.dmg.blockmap"
+        "name": "balenaEtcher-1.7.3.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balenaEtcher-1.7.3.dmg.blockmap"
       },
       {
-        "name": "balenaEtcher-1.7.2.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balenaEtcher-1.7.2.zip"
+        "name": "balenaEtcher-1.7.3.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balenaEtcher-1.7.3.zip"
       },
       {
-        "name": "balenaEtcher-Portable-1.7.2.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balenaEtcher-Portable-1.7.2.exe"
+        "name": "balenaEtcher-Portable-1.7.3.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balenaEtcher-Portable-1.7.3.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.7.2.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balenaEtcher-Setup-1.7.2.exe"
+        "name": "balenaEtcher-Setup-1.7.3.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balenaEtcher-Setup-1.7.3.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.7.2.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/balenaEtcher-Setup-1.7.2.exe.blockmap"
+        "name": "balenaEtcher-Setup-1.7.3.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balenaEtcher-Setup-1.7.3.exe.blockmap"
       },
       {
         "name": "builder-effective-config.yaml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/builder-effective-config.yaml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/builder-effective-config.yaml"
       },
       {
         "name": "latest-linux-ia32.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/latest-linux-ia32.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/latest-linux-ia32.yml"
       },
       {
         "name": "latest-linux.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/latest-linux.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/latest-linux.yml"
       },
       {
         "name": "latest-mac.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/latest-mac.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/latest-mac.yml"
       },
       {
         "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.2/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/latest.yml"
       }
     ]
   },
@@ -16702,8 +16719,32 @@
     ]
   },
   "openIssues": {
-    "numberOfIssues": 324,
+    "numberOfIssues": 329,
     "latestIssues": [
+      {
+        "title": "another error",
+        "url": "https://github.com/balena-io/etcher/issues/3668"
+      },
+      {
+        "title": "linux",
+        "url": "https://github.com/balena-io/etcher/issues/3666"
+      },
+      {
+        "title": "Unable to install balena etcher through the debian & ubuntu repository method",
+        "url": "https://github.com/balena-io/etcher/issues/3665"
+      },
+      {
+        "title": "Provide graceful failure when flashing from URL to a disk that's too small",
+        "url": "https://github.com/balena-io/etcher/issues/3664"
+      },
+      {
+        "title": "Add support for Pop!_OS 21.10",
+        "url": "https://github.com/balena-io/etcher/issues/3663"
+      },
+      {
+        "title": "Improve feedback when users tries to flash to the source drive",
+        "url": "https://github.com/balena-io/etcher/issues/3662"
+      },
       {
         "title": "Analytics tracking is broken",
         "url": "https://github.com/balena-io/etcher/issues/3660"
@@ -16727,10 +16768,6 @@
       {
         "title": "Multiple request when flashing from URL",
         "url": "https://github.com/balena-io/etcher/issues/3649"
-      },
-      {
-        "title": "Cannot read property ‘message’ of null",
-        "url": "https://github.com/balena-io/etcher/issues/3648"
       },
       {
         "title": "Etcher won't launch on Fedora 35.",
@@ -16763,30 +16800,10 @@
       {
         "title": "Missing directory in /opt during install - solved by symlink.",
         "url": "https://github.com/balena-io/etcher/issues/3640"
-      },
-      {
-        "title": "A Blank white screen is visible because of 'Module did not self-register' Error in console window ",
-        "url": "https://github.com/balena-io/etcher/issues/3638"
-      },
-      {
-        "title": "BE v1.70 Portable Does Not run when executed",
-        "url": "https://github.com/balena-io/etcher/issues/3635"
-      },
-      {
-        "title": "Fails to flash from URL with Zip version not supported error",
-        "url": "https://github.com/balena-io/etcher/issues/3634"
-      },
-      {
-        "title": "Etcher fails to make Lakka USB",
-        "url": "https://github.com/balena-io/etcher/issues/3633"
-      },
-      {
-        "title": "\"Priviledge access in order to flash disks\" prompt confusing to user when smartcard PIN is used for auth",
-        "url": "https://github.com/balena-io/etcher/issues/3627"
       }
     ]
   },
-  "version": "1.7.2",
+  "version": "1.7.3",
   "screenshot": null,
   "logo": null
 }
