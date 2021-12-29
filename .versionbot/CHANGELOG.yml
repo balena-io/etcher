@@ -1,4 +1,15 @@
 - commits:
+    - subject: 'patch: fix mesage of null'
+      hash: 9c1b55bebc1f7777ee830886c1999a72f082c17f
+      body: ''
+      footer:
+        Change-Type: patch
+        change-type: patch
+      author: Peter Makra
+      nested: []
+  version: 1.7.3
+  date: 2021-12-29T14:31:13.283Z
+- commits:
     - subject: 'patch: fixed open from browser on windows'
       hash: ef90d048ca2fc9e3eb7731b4b5eff63c3f0ee00a
       body: ''
