@@ -40,7 +40,7 @@ function sudoExecAsync(
 			cmd,
 			options,
 			(error: Error | undefined, stdout: Std, stderr: Std) => {
-				if (error !== undefined) {
+				if (error) {
 					reject(error);
 				} else {
 					resolve({ stdout, stderr });
