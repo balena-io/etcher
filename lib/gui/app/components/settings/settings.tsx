@@ -283,6 +283,7 @@ export function SettingsModal({ toggleModal }: SettingsModalProps): any {
 						plain
 						onClick={() => closeDiagFrame()}
 						className="add-fab"
+						color="#00aeef"
 						padding="13px"
 						style={{
 							borderRadius: '100%',
