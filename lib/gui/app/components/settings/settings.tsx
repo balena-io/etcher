@@ -19,15 +19,15 @@ import * as _ from 'lodash';
 import * as os from 'os';
 import * as React from 'react';
 import { Box, Button, Flex, Checkbox, Txt } from 'rendition';
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
-  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { version, packageType } from '../../../../../package.json';
 import * as settings from '../../models/settings';
 import * as analytics from '../../modules/analytics';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 import { Modal } from '../../styled-components';
-import { unlinkSync, readFileSync  } from 'fs'
+import { unlinkSync, readFileSync } from 'fs';
 
 const platform = os.platform();
 
@@ -71,11 +71,13 @@ interface SettingsModalProps {
 
 export function SettingsModal({ toggleModal }: SettingsModalProps): any {
 	const [settingsList, setCurrentSettingsList] = React.useState<Setting[]>([]);
-	const [showDiagScreen, setShowDiagScreen] = React.useState<Boolean>(false);
-	const [diagApiIsUp, setDiagApiIsUp] = React.useState<Boolean>(false);
-	const [showDiagButton, setShowDiagButton] = React.useState<Boolean>(false);
-	const [currentSettings, setCurrentSettings] = React.useState<_.Dictionary<boolean>>({});
-	const [errorMessage, setErrorMessage] = React.useState<String>("");
+	const [showDiagScreen, setShowDiagScreen] = React.useState<boolean>(false);
+	const [diagApiIsUp, setDiagApiIsUp] = React.useState<boolean>(false);
+	const [showDiagButton, setShowDiagButton] = React.useState<boolean>(false);
+	const [currentSettings, setCurrentSettings] = React.useState<
+		_.Dictionary<boolean>
+	>({});
+	const [errorMessage, setErrorMessage] = React.useState<string>('');
 	let diagCount = 0;
 
 	React.useEffect(() => {
@@ -85,7 +87,7 @@ export function SettingsModal({ toggleModal }: SettingsModalProps): any {
 			}
 		})();
 	});
-	
+
 	React.useEffect(() => {
 		(async () => {
 			if (_.isEmpty(currentSettings)) {
@@ -95,12 +97,12 @@ export function SettingsModal({ toggleModal }: SettingsModalProps): any {
 	});
 
 	React.useEffect(() => {
-		(async() => {
+		(async () => {
 			try {
-				let result = await fetch('http://localhost:3000/api/ping')
+				const result = await fetch('http://localhost:3000/api/ping');
 				if (result.ok) {
-					setShowDiagButton(true)
-					setDiagApiIsUp(true)
+					setShowDiagButton(true);
+					setDiagApiIsUp(true);
 				}
 			} catch {
 				// no diag container
@@ -130,66 +132,79 @@ export function SettingsModal({ toggleModal }: SettingsModalProps): any {
 	};
 
 	const closeDiagFrame = () => {
-		setShowDiagScreen(false);  
-	}
+		setShowDiagScreen(false);
+	};
 
 	const openDiagFrame = () => {
-		setShowDiagScreen(true);  
-	}
+		setShowDiagScreen(true);
+	};
 
 	const prepareDiag = () => {
 		if (++diagCount > 5) {
 			setShowDiagButton(true);
 		}
-	}
+	};
 
 	const startDiag = async () => {
-		unlinkSync("/usr/src/diag-data/startup.lock");
+		unlinkSync('/usr/src/diag-data/startup.lock');
 
-		const supUrl: string = readFileSync("/usr/src/diag-data/start.url", {encoding:'utf8', flag:'r'})
-		const startRes  = await fetch(supUrl, {
-			method: "POST",
+		const supUrl: string = readFileSync('/usr/src/diag-data/start.url', {
+			encoding: 'utf8',
+			flag: 'r',
+		});
+		const startRes = await fetch(supUrl, {
+			method: 'POST',
 			body: JSON.stringify({ serviceName: 'diag-runner', force: true }),
 			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
+				'Content-Type': 'application/json',
+			},
+		});
 
 		if (startRes.ok) {
 			// good
 		} else {
-			setErrorMessage(`${errorMessage} :: ${startRes.statusText}`)
+			setErrorMessage(`${errorMessage} :: ${startRes.statusText}`);
 		}
-	}
+	};
 
 	const removeDiag = async () => {
-		setErrorMessage("");
+		setErrorMessage('');
 		try {
-			const supervisorUrl = await (await fetch(`http://localhost:3000/api/supervisor/url`)).text()
-			const supervisorApiKey = await (await fetch(`http://localhost:3000/api/supervisor/apiKey`)).text()
-			const appId = await (await fetch(`http://localhost:3000/api/supervisor/appid`)).text()
-			const createLock = await fetch(`http://localhost:3000/api/supervisor/createlock`)
-			
-			const stopRes  = await fetch(`${supervisorUrl}/v2/applications/${appId}/stop-service?apikey=${supervisorApiKey}`, {
-				method: "POST",
-				body: JSON.stringify({ serviceName: 'diag-runner', force: true }),
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			})
+			const supervisorUrl = await (
+				await fetch(`http://localhost:3000/api/supervisor/url`)
+			).text();
+			const supervisorApiKey = await (
+				await fetch(`http://localhost:3000/api/supervisor/apiKey`)
+			).text();
+			const appId = await (
+				await fetch(`http://localhost:3000/api/supervisor/appid`)
+			).text();
+			const createLock = await fetch(
+				`http://localhost:3000/api/supervisor/createlock`,
+			);
+
+			const stopRes = await fetch(
+				`${supervisorUrl}/v2/applications/${appId}/stop-service?apikey=${supervisorApiKey}`,
+				{
+					method: 'POST',
+					body: JSON.stringify({ serviceName: 'diag-runner', force: true }),
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				},
+			);
 
 			if (!stopRes.ok) {
-				setErrorMessage(`Stop call failed | ${stopRes.statusText}`)
+				setErrorMessage(`Stop call failed | ${stopRes.statusText}`);
 			}
 
 			if (!createLock.ok) {
-				setErrorMessage(`${errorMessage} :: Create lock file failed :: `)
+				setErrorMessage(`${errorMessage} :: Create lock file failed :: `);
 			}
-
 		} catch (err) {
-			setErrorMessage(err)
+			setErrorMessage(err);
 		}
-	}
+	};
 
 	return (
 		<Modal
@@ -223,75 +238,85 @@ export function SettingsModal({ toggleModal }: SettingsModalProps): any {
 						cursor: 'pointer',
 						fontSize: 14,
 					}}
-					onClick={() => { 
+					onClick={() => {
 						openExternal(
 							'https://github.com/balena-io/etcher/blob/master/CHANGELOG.md',
 						);
 						prepareDiag();
-					}
-					}
+					}}
 				>
 					<GithubSvg
 						height="1em"
 						fill="currentColor"
 						style={{ marginRight: 8 }}
 					/>
-					<Txt style={{ borderBottom: '1px solid #00aeef' }}>{version}</Txt>					
+					<Txt style={{ borderBottom: '1px solid #00aeef' }}>{version}</Txt>
 				</Flex>
-				{showDiagButton ? <Box>
-					{diagApiIsUp ? 
-						<>
-							<Button primary onClick={() => openDiagFrame()}>Open Diagnostics</Button>
-							<Button danger onClick={() => removeDiag()}>Stop container</Button>
-						</> :
-						<>
-							<Button primary onClick={() => startDiag()}>Start diag container</Button>
-						</>
-					}
-					<Txt>{errorMessage}</Txt>
-				</Box> : <></>}
+				{showDiagButton ? (
+					<Box>
+						{diagApiIsUp ? (
+							<>
+								<Button primary onClick={() => openDiagFrame()}>
+									Open Diagnostics
+								</Button>
+								<Button danger onClick={() => removeDiag()}>
+									Stop container
+								</Button>
+							</>
+						) : (
+							<>
+								<Button primary onClick={() => startDiag()}>
+									Start diag container
+								</Button>
+							</>
+						)}
+						<Txt>{errorMessage}</Txt>
+					</Box>
+				) : (
+					<></>
+				)}
 			</Flex>
 
-			{showDiagScreen ? <>
-			<Button 
-				primary
-				onClick={() => closeDiagFrame()}
-				className="add-fab"
-				padding='13px'
-				style={{ 
-					borderRadius: '100%', 
-					position: "fixed",
-					top: "17px",
-					right: "3px",
-					height: "27px",
-					width: "23px",
-					zIndex: 555 }
-				}
-				width={23}
-				icon={<FontAwesomeIcon icon={faTimes}/>}
-			/>
-			<iframe 
-				className="App-frame" 
-				src={`http://localhost:3000/diagsteps/start`} 
-				title='screen' 
-				key="screen-frame"
-				style={{
-					position: "fixed",
-					top: "0px",
-					bottom: "0px",
-					left: "0px",
-					right: "0px",
-					minWidth: "100vw",
-					minHeight: "100vh",
-					border: "none",
-					margin: 0,
-					padding: 0,
-					backgroundColor: "#282c34",
-					color: "white" }
-				}
-			>
-			</iframe>
-			</> : <></>}
+			{showDiagScreen ? (
+				<>
+					<Button
+						plain
+						onClick={() => closeDiagFrame()}
+						className="add-fab"
+						padding="13px"
+						style={{
+							borderRadius: '100%',
+							position: 'fixed',
+							top: '17px',
+							right: '3px',
+							height: '27px',
+							width: '23px',
+							zIndex: 555,
+						}}
+						width={23}
+						icon={<FontAwesomeIcon icon={faTimes} />}
+					/>
+					<iframe
+						className="App-frame"
+						src={`http://localhost:3000/diagsteps/start`}
+						title="screen"
+						key="screen-frame"
+						style={{
+							position: 'fixed',
+							top: '0px',
+							bottom: '0px',
+							left: '0px',
+							right: '0px',
+							border: 'none',
+							margin: 0,
+							padding: 0,
+							backgroundColor: 'white',
+						}}
+					></iframe>
+				</>
+			) : (
+				<></>
+			)}
 		</Modal>
 	);
 }
