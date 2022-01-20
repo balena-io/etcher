@@ -308,6 +308,8 @@ export function SettingsModal({ toggleModal }: SettingsModalProps): any {
 							left: '0px',
 							right: '0px',
 							border: 'none',
+							width: '100%',
+							height: '100%',
 							margin: 0,
 							padding: 0,
 							backgroundColor: 'white',
