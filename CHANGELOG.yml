@@ -1,4 +1,14 @@
 - commits:
+    - subject: "patch: fix flashing from URL when using basic auth"
+      hash: a6f6cd4a19b25c26cbc36386719186a7e3c31fea
+      body: ""
+      footer: {}
+      author: Marco Füllemann
+      nested: []
+  version: 1.7.5
+  title: "'patch: fix flashing from URL when using basic auth'"
+  date: 2022-02-21T13:18:51.641Z
+- commits:
     - subject: "patch: set version update notification 1.7.3"
       hash: 28adc34239f9abc7ccfe13f2810991ca0f17a645
       body: ""
@@ -23,7 +33,7 @@
       nested: []
   version: 1.7.4
   title: "'patch: updated electron to 12.2.3'"
-  date: 2022-02-21T11:43:53.892Z
+  date: 2022-02-21T08:33:45.382Z
 - commits:
     - subject: "patch: fix mesage of null"
       hash: 9c1b55bebc1f7777ee830886c1999a72f082c17f

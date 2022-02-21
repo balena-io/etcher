@@ -5,6 +5,21 @@
     {
       "commits": [
         {
+          "subject": "patch: fix flashing from URL when using basic auth",
+          "hash": "a6f6cd4a19b25c26cbc36386719186a7e3c31fea",
+          "body": "",
+          "footer": {},
+          "author": "Marco Füllemann",
+          "nested": []
+        }
+      ],
+      "version": "1.7.5",
+      "title": "'patch: fix flashing from URL when using basic auth'",
+      "date": "2022-02-21T12:39:38.276Z"
+    },
+    {
+      "commits": [
+        {
           "subject": "patch: set version update notification 1.7.3",
           "hash": "28adc34239f9abc7ccfe13f2810991ca0f17a645",
           "body": "",
@@ -16569,7 +16584,7 @@
   "public": true,
   "fork": false,
   "description": "Flash OS images to SD cards & USB drives, safely and easily.",
-  "stars": 22319,
+  "stars": 22321,
   "homepage": "https://etcher.io",
   "repositoryUrl": "https://github.com/balena-io/etcher.git",
   "active": true,
@@ -16580,25 +16595,25 @@
     "type": "Organization"
   },
   "dependencies": [],
-  "lastCommitDate": "2022-02-21T11:44:44Z",
+  "lastCommitDate": "2022-02-21T13:19:52Z",
   "latestRelease": {
-    "tagName": "v1.7.4",
+    "tagName": "v1.7.5",
     "asssets": [
       {
-        "name": "balenaEtcher-Portable-1.7.4.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.4/balenaEtcher-Portable-1.7.4.exe"
+        "name": "balenaEtcher-Portable-1.7.5.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.5/balenaEtcher-Portable-1.7.5.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.7.4.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.4/balenaEtcher-Setup-1.7.4.exe"
+        "name": "balenaEtcher-Setup-1.7.5.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.5/balenaEtcher-Setup-1.7.5.exe"
       },
       {
-        "name": "balenaEtcher-Setup-1.7.4.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.4/balenaEtcher-Setup-1.7.4.exe.blockmap"
+        "name": "balenaEtcher-Setup-1.7.5.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.5/balenaEtcher-Setup-1.7.5.exe.blockmap"
       },
       {
         "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.4/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.5/latest.yml"
       }
     ]
   },
@@ -16696,7 +16711,7 @@
     ]
   },
   "openIssues": {
-    "numberOfIssues": 344,
+    "numberOfIssues": 342,
     "latestIssues": [
       {
         "title": "Etcher won't open with \"Out of memory\" error",
@@ -16715,20 +16730,12 @@
         "url": "https://github.com/balena-io/etcher/issues/3701"
       },
       {
-        "title": "patch: fix flashing from URL when using basic auth",
-        "url": "https://github.com/balena-io/etcher/pull/3700"
-      },
-      {
         "title": "patch: add requirements and help to issue template",
         "url": "https://github.com/balena-io/etcher/pull/3699"
       },
       {
         "title": "Keep Getting Flash Failed",
         "url": "https://github.com/balena-io/etcher/issues/3698"
-      },
-      {
-        "title": "patch: Update electron to v12.2.3",
-        "url": "https://github.com/balena-io/etcher/pull/3697"
       },
       {
         "title": "does nothing",
@@ -16777,10 +16784,18 @@
       {
         "title": "Change Ubuntu/Debian Instructions in README.md",
         "url": "https://github.com/balena-io/etcher/pull/3676"
+      },
+      {
+        "title": "Support to flash Windows ISOs.",
+        "url": "https://github.com/balena-io/etcher/issues/3673"
+      },
+      {
+        "title": "New Release Tempfile Issue",
+        "url": "https://github.com/balena-io/etcher/issues/3671"
       }
     ]
   },
-  "version": "1.7.4",
+  "version": "1.7.5",
   "screenshot": null,
   "logo": null
 }
