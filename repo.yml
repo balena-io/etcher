@@ -6,7 +6,7 @@ sentry:
     team: resinio
     type: electron
 triggerNotification:
-    version: 1.7.3
+    version: 1.7.6
     stagingPercentage: 100
 upstream:
   - repo: etcher-sdk
