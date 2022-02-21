@@ -315,6 +315,7 @@ export interface SourceMetadata extends sourceDestination.Metadata {
 	drive?: DrivelistDrive;
 	extension?: string;
 	archiveExtension?: string;
+	auth?: Authentication;
 }
 
 interface SourceSelectorProps {
@@ -529,6 +530,7 @@ export class SourceSelector extends React.Component<
 				}
 
 				if (metadata !== undefined) {
+					metadata.auth = auth;
 					selectionState.selectSource(metadata);
 					analytics.logEvent('Select image', {
 						// An easy way so we can quickly identify if we're making use of

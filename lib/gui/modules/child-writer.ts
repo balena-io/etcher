@@ -291,9 +291,14 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 							url: imagePathObject.url,
 							avoidRandomAccess: true,
 							axiosInstance: axios.create(_.omit(imagePathObject, ['url'])),
+							auth: options.image.auth,
 						});
 					} else {
-						source = new Http({ url: imagePath, avoidRandomAccess: true });
+						source = new Http({
+							url: imagePath,
+							avoidRandomAccess: true,
+							auth: options.image.auth,
+						});
 					}
 				}
 			}
