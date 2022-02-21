@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.7.4
+## (2022-02-21)
+
+* patch: set version update notification 1.7.3 [Peter Makra]
+* patch: updated electron to 12.2.3 [Peter Makra]
+* patch: updated electron to 12.2.3 [Peter Makra]
+
 # v1.7.3
 ## (2021-12-29)
 
