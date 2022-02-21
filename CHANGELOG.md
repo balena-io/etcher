@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.7.6
+## (2022-02-21)
+
+* patch: version number notification [Peter Makra]
+* patch: fixed typos in template [Peter Makra]
+* patch: add requirements and help to issue template [mcraa]
+* patch: add requirements and help to issue template [mcraa]
+
 # v1.7.5
 ## (2022-02-21)
 

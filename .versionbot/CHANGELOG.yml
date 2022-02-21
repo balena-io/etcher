@@ -1,4 +1,32 @@
 - commits:
+    - subject: "patch: version number notification"
+      hash: 35868509af3461f5bc312990d184d88eae476c4f
+      body: ""
+      footer: {}
+      author: Peter Makra
+      nested: []
+    - subject: "patch: fixed typos in template"
+      hash: 4366bb372f3c273ccce99dc61b1ced905c591004
+      body: ""
+      footer: {}
+      author: Peter Makra
+      nested: []
+    - subject: "patch: add requirements and help to issue template"
+      hash: e4d02bc561c359ace94a2c461310ef0dc44b2ca1
+      body: ""
+      footer: {}
+      author: mcraa
+      nested: []
+    - subject: "patch: add requirements and help to issue template"
+      hash: b9e54e39f7f95aa64e2b12474936c3ce880b661f
+      body: ""
+      footer: {}
+      author: mcraa
+      nested: []
+  version: 1.7.6
+  title: "'patch: add requirements and help to issue template'"
+  date: 2022-02-21T15:40:15.306Z
+- commits:
     - subject: "patch: fix flashing from URL when using basic auth"
       hash: a6f6cd4a19b25c26cbc36386719186a7e3c31fea
       body: ""
