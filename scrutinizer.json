@@ -5,6 +5,43 @@
     {
       "commits": [
         {
+          "subject": "patch: set version update notification 1.7.3",
+          "hash": "28adc34239f9abc7ccfe13f2810991ca0f17a645",
+          "body": "",
+          "footer": {},
+          "author": "Peter Makra",
+          "nested": []
+        },
+        {
+          "subject": "patch: updated electron to 12.2.3",
+          "hash": "59f54e194bd19c5e77b797039141be65371b376c",
+          "body": "",
+          "footer": {
+            "Change-Type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Peter Makra",
+          "nested": []
+        },
+        {
+          "subject": "patch: updated electron to 12.2.3",
+          "hash": "c4834e61a7058d91d9a17960acb16365591a17fd",
+          "body": "",
+          "footer": {
+            "Change-Type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Peter Makra",
+          "nested": []
+        }
+      ],
+      "version": "1.7.4",
+      "title": "'patch: updated electron to 12.2.3'",
+      "date": "2022-02-21T08:33:45.382Z"
+    },
+    {
+      "commits": [
+        {
           "subject": "patch: fix mesage of null",
           "hash": "9c1b55bebc1f7777ee830886c1999a72f082c17f",
           "body": "",
@@ -16251,6 +16288,10 @@
       "avatar": "https://avatars.githubusercontent.com/u/963645?v=4"
     },
     {
+      "username": "mcraa",
+      "avatar": "https://avatars.githubusercontent.com/u/6892971?v=4"
+    },
+    {
       "username": "dimitrisnl",
       "avatar": "https://avatars.githubusercontent.com/u/4951004?v=4"
     },
@@ -16313,10 +16354,6 @@
     {
       "username": "Angeall",
       "avatar": "https://avatars.githubusercontent.com/u/6820648?v=4"
-    },
-    {
-      "username": "CherryDT",
-      "avatar": "https://avatars.githubusercontent.com/u/6010463?v=4"
     }
   ],
   "docs": [
@@ -16532,7 +16569,7 @@
   "public": true,
   "fork": false,
   "description": "Flash OS images to SD cards & USB drives, safely and easily.",
-  "stars": 21986,
+  "stars": 22319,
   "homepage": "https://etcher.io",
   "repositoryUrl": "https://github.com/balena-io/etcher.git",
   "active": true,
@@ -16543,85 +16580,25 @@
     "type": "Organization"
   },
   "dependencies": [],
-  "lastCommitDate": "2021-12-29T15:09:42Z",
+  "lastCommitDate": "2022-02-21T11:44:44Z",
   "latestRelease": {
-    "tagName": "v1.7.3",
+    "tagName": "v1.7.4",
     "asssets": [
       {
-        "name": "balena-etcher-electron-1.7.3-linux-ia32.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balena-etcher-electron-1.7.3-linux-ia32.zip"
+        "name": "balenaEtcher-Portable-1.7.4.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.4/balenaEtcher-Portable-1.7.4.exe"
       },
       {
-        "name": "balena-etcher-electron-1.7.3-linux-x64.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balena-etcher-electron-1.7.3-linux-x64.zip"
+        "name": "balenaEtcher-Setup-1.7.4.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.4/balenaEtcher-Setup-1.7.4.exe"
       },
       {
-        "name": "balena-etcher-electron-1.7.3.i686.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balena-etcher-electron-1.7.3.i686.rpm"
-      },
-      {
-        "name": "balena-etcher-electron-1.7.3.x86_64.rpm",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balena-etcher-electron-1.7.3.x86_64.rpm"
-      },
-      {
-        "name": "balena-etcher-electron_1.7.3_amd64.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balena-etcher-electron_1.7.3_amd64.deb"
-      },
-      {
-        "name": "balena-etcher-electron_1.7.3_i386.deb",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balena-etcher-electron_1.7.3_i386.deb"
-      },
-      {
-        "name": "balenaEtcher-1.7.3-ia32.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balenaEtcher-1.7.3-ia32.AppImage"
-      },
-      {
-        "name": "balenaEtcher-1.7.3-x64.AppImage",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balenaEtcher-1.7.3-x64.AppImage"
-      },
-      {
-        "name": "balenaEtcher-1.7.3.dmg",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balenaEtcher-1.7.3.dmg"
-      },
-      {
-        "name": "balenaEtcher-1.7.3.dmg.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balenaEtcher-1.7.3.dmg.blockmap"
-      },
-      {
-        "name": "balenaEtcher-1.7.3.zip",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balenaEtcher-1.7.3.zip"
-      },
-      {
-        "name": "balenaEtcher-Portable-1.7.3.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balenaEtcher-Portable-1.7.3.exe"
-      },
-      {
-        "name": "balenaEtcher-Setup-1.7.3.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balenaEtcher-Setup-1.7.3.exe"
-      },
-      {
-        "name": "balenaEtcher-Setup-1.7.3.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/balenaEtcher-Setup-1.7.3.exe.blockmap"
-      },
-      {
-        "name": "builder-effective-config.yaml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/builder-effective-config.yaml"
-      },
-      {
-        "name": "latest-linux-ia32.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/latest-linux-ia32.yml"
-      },
-      {
-        "name": "latest-linux.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/latest-linux.yml"
-      },
-      {
-        "name": "latest-mac.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/latest-mac.yml"
+        "name": "balenaEtcher-Setup-1.7.4.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.4/balenaEtcher-Setup-1.7.4.exe.blockmap"
       },
       {
         "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.3/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.4/latest.yml"
       }
     ]
   },
@@ -16719,91 +16696,91 @@
     ]
   },
   "openIssues": {
-    "numberOfIssues": 329,
+    "numberOfIssues": 344,
     "latestIssues": [
       {
-        "title": "another error",
-        "url": "https://github.com/balena-io/etcher/issues/3668"
+        "title": "Etcher won't open with \"Out of memory\" error",
+        "url": "https://github.com/balena-io/etcher/issues/3706"
       },
       {
-        "title": "linux",
-        "url": "https://github.com/balena-io/etcher/issues/3666"
+        "title": "always Flash failed even in brandnew sdcard when flashing Jetpack 4.6 SDK",
+        "url": "https://github.com/balena-io/etcher/issues/3703"
       },
       {
-        "title": "Unable to install balena etcher through the debian & ubuntu repository method",
-        "url": "https://github.com/balena-io/etcher/issues/3665"
+        "title": "ubuntu-budgie-20.04.3-desktop-amd64.iso flash failed",
+        "url": "https://github.com/balena-io/etcher/issues/3702"
       },
       {
-        "title": "Provide graceful failure when flashing from URL to a disk that's too small",
-        "url": "https://github.com/balena-io/etcher/issues/3664"
+        "title": "Failed to flash image built by balena-rockpi",
+        "url": "https://github.com/balena-io/etcher/issues/3701"
       },
       {
-        "title": "Add support for Pop!_OS 21.10",
-        "url": "https://github.com/balena-io/etcher/issues/3663"
+        "title": "patch: fix flashing from URL when using basic auth",
+        "url": "https://github.com/balena-io/etcher/pull/3700"
       },
       {
-        "title": "Improve feedback when users tries to flash to the source drive",
-        "url": "https://github.com/balena-io/etcher/issues/3662"
+        "title": "patch: add requirements and help to issue template",
+        "url": "https://github.com/balena-io/etcher/pull/3699"
       },
       {
-        "title": "Analytics tracking is broken",
-        "url": "https://github.com/balena-io/etcher/issues/3660"
+        "title": "Keep Getting Flash Failed",
+        "url": "https://github.com/balena-io/etcher/issues/3698"
       },
       {
-        "title": "Why is Etcher 139 MB large?",
-        "url": "https://github.com/balena-io/etcher/issues/3658"
+        "title": "patch: Update electron to v12.2.3",
+        "url": "https://github.com/balena-io/etcher/pull/3697"
       },
       {
-        "title": "url encoded flash link doesn't work",
-        "url": "https://github.com/balena-io/etcher/issues/3656"
+        "title": "does nothing",
+        "url": "https://github.com/balena-io/etcher/issues/3696"
       },
       {
-        "title": "Pb adding Etcher Debian repository",
-        "url": "https://github.com/balena-io/etcher/issues/3654"
+        "title": "Flash failing",
+        "url": "https://github.com/balena-io/etcher/issues/3694"
       },
       {
-        "title": "Incorrect SHA512 checksum in latest.yml",
-        "url": "https://github.com/balena-io/etcher/issues/3653"
+        "title": "Etcher - can't change the language - HOW can i change the interface language ?",
+        "url": "https://github.com/balena-io/etcher/issues/3692"
       },
       {
-        "title": "Multiple request when flashing from URL",
-        "url": "https://github.com/balena-io/etcher/issues/3649"
+        "title": "Program must request elevation instead of \"User did not grant permission\" failure",
+        "url": "https://github.com/balena-io/etcher/issues/3691"
       },
       {
-        "title": "Etcher won't launch on Fedora 35.",
-        "url": "https://github.com/balena-io/etcher/issues/3647"
+        "title": "It must be possible to select installation directory",
+        "url": "https://github.com/balena-io/etcher/issues/3690"
       },
       {
-        "title": "Trouble installing the .deb on both Pop!_OS 21.04 & Zorin 16",
-        "url": "https://github.com/balena-io/etcher/issues/3646"
+        "title": "usb pen damaged",
+        "url": "https://github.com/balena-io/etcher/issues/3689"
       },
       {
-        "title": "A technical problem",
-        "url": "https://github.com/balena-io/etcher/issues/3645"
+        "title": "problème select target avec ma carte ssd",
+        "url": "https://github.com/balena-io/etcher/issues/3688"
       },
       {
-        "title": "Cloudsmith repo is not updated with newest releases",
-        "url": "https://github.com/balena-io/etcher/issues/3644"
+        "title": "hard disk",
+        "url": "https://github.com/balena-io/etcher/issues/3685"
       },
       {
-        "title": "I/O error",
-        "url": "https://github.com/balena-io/etcher/issues/3643"
+        "title": "If 'Flash' button in balenaCloud is used whilst Etcher is open at success screen, nothing happens",
+        "url": "https://github.com/balena-io/etcher/issues/3683"
       },
       {
-        "title": "device can't work with sdimg.bz2?",
-        "url": "https://github.com/balena-io/etcher/issues/3642"
+        "title": "Flash ubuntu-20.04.3-desktop-amd64.iso failed",
+        "url": "https://github.com/balena-io/etcher/issues/3680"
       },
       {
-        "title": "Javascript error",
-        "url": "https://github.com/balena-io/etcher/issues/3641"
+        "title": "False warning popup for linux distro Windowsfx",
+        "url": "https://github.com/balena-io/etcher/issues/3679"
       },
       {
-        "title": "Missing directory in /opt during install - solved by symlink.",
-        "url": "https://github.com/balena-io/etcher/issues/3640"
+        "title": "Change Ubuntu/Debian Instructions in README.md",
+        "url": "https://github.com/balena-io/etcher/pull/3676"
       }
     ]
   },
-  "version": "1.7.3",
+  "version": "1.7.4",
   "screenshot": null,
   "logo": null
 }
