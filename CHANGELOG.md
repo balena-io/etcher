@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.7.5
+## (2022-02-21)
+
+* patch: fix flashing from URL when using basic auth [Marco Füllemann]
+
 # v1.7.4
 ## (2022-02-21)
 
