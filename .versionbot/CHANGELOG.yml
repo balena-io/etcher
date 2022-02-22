@@ -1,4 +1,22 @@
 - commits:
+    - subject: "patch: clarified update check"
+      hash: a5201942b8817cc1d74fba0ae2c8378632d16fc5
+      body: ""
+      footer: {}
+      author: Peter Makra
+      nested: []
+    - subject: "patch: autoupdate stagingPercentage check, include default"
+      hash: c1f7164273ffff5d2d5e6aadc1defcd9b0acbecb
+      body: ""
+      footer:
+        Change-Type: patch
+        change-type: patch
+      author: Peter Makra
+      nested: []
+  version: 1.7.7
+  title: "'patch: Fix auto update'"
+  date: 2022-02-22T08:57:27.982Z
+- commits:
     - subject: "patch: version number notification"
       hash: 35868509af3461f5bc312990d184d88eae476c4f
       body: ""
