@@ -5,6 +5,71 @@
     {
       "commits": [
         {
+          "subject": "patch: clarified update check",
+          "hash": "a5201942b8817cc1d74fba0ae2c8378632d16fc5",
+          "body": "",
+          "footer": {},
+          "author": "Peter Makra",
+          "nested": []
+        },
+        {
+          "subject": "patch: autoupdate stagingPercentage check, include default",
+          "hash": "c1f7164273ffff5d2d5e6aadc1defcd9b0acbecb",
+          "body": "",
+          "footer": {
+            "Change-Type": "patch",
+            "change-type": "patch"
+          },
+          "author": "Peter Makra",
+          "nested": []
+        }
+      ],
+      "version": "1.7.7",
+      "title": "'patch: Fix auto update'",
+      "date": "2022-02-22T08:57:27.982Z"
+    },
+    {
+      "commits": [
+        {
+          "subject": "patch: version number notification",
+          "hash": "35868509af3461f5bc312990d184d88eae476c4f",
+          "body": "",
+          "footer": {},
+          "author": "Peter Makra",
+          "nested": []
+        },
+        {
+          "subject": "patch: fixed typos in template",
+          "hash": "4366bb372f3c273ccce99dc61b1ced905c591004",
+          "body": "",
+          "footer": {},
+          "author": "Peter Makra",
+          "nested": []
+        },
+        {
+          "subject": "patch: add requirements and help to issue template",
+          "hash": "e4d02bc561c359ace94a2c461310ef0dc44b2ca1",
+          "body": "",
+          "footer": {},
+          "author": "mcraa",
+          "nested": []
+        },
+        {
+          "subject": "patch: add requirements and help to issue template",
+          "hash": "b9e54e39f7f95aa64e2b12474936c3ce880b661f",
+          "body": "",
+          "footer": {},
+          "author": "mcraa",
+          "nested": []
+        }
+      ],
+      "version": "1.7.6",
+      "title": "'patch: add requirements and help to issue template'",
+      "date": "2022-02-21T15:40:15.306Z"
+    },
+    {
+      "commits": [
+        {
           "subject": "patch: fix flashing from URL when using basic auth",
           "hash": "a6f6cd4a19b25c26cbc36386719186a7e3c31fea",
           "body": "",
@@ -16291,6 +16356,10 @@
       "avatar": "https://avatars.githubusercontent.com/u/2217136?v=4"
     },
     {
+      "username": "mcraa",
+      "avatar": "https://avatars.githubusercontent.com/u/6892971?v=4"
+    },
+    {
       "username": "LucianBuzzo",
       "avatar": "https://avatars.githubusercontent.com/u/15064535?v=4"
     },
@@ -16301,10 +16370,6 @@
     {
       "username": "dlech",
       "avatar": "https://avatars.githubusercontent.com/u/963645?v=4"
-    },
-    {
-      "username": "mcraa",
-      "avatar": "https://avatars.githubusercontent.com/u/6892971?v=4"
     },
     {
       "username": "dimitrisnl",
@@ -16339,6 +16404,10 @@
       "avatar": "https://avatars.githubusercontent.com/u/1001049?v=4"
     },
     {
+      "username": "flec",
+      "avatar": "https://avatars.githubusercontent.com/u/2362414?v=4"
+    },
+    {
       "username": "mikesimos",
       "avatar": "https://avatars.githubusercontent.com/u/3433256?v=4"
     },
@@ -16365,10 +16434,6 @@
     {
       "username": "aloisklink",
       "avatar": "https://avatars.githubusercontent.com/u/19716675?v=4"
-    },
-    {
-      "username": "Angeall",
-      "avatar": "https://avatars.githubusercontent.com/u/6820648?v=4"
     }
   ],
   "docs": [
@@ -16584,7 +16649,7 @@
   "public": true,
   "fork": false,
   "description": "Flash OS images to SD cards & USB drives, safely and easily.",
-  "stars": 22321,
+  "stars": 22336,
   "homepage": "https://etcher.io",
   "repositoryUrl": "https://github.com/balena-io/etcher.git",
   "active": true,
@@ -16595,25 +16660,85 @@
     "type": "Organization"
   },
   "dependencies": [],
-  "lastCommitDate": "2022-02-21T13:19:52Z",
+  "lastCommitDate": "2022-02-22T09:25:43Z",
   "latestRelease": {
-    "tagName": "v1.7.5",
+    "tagName": "v1.7.7",
     "asssets": [
       {
-        "name": "balenaEtcher-Portable-1.7.5.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.5/balenaEtcher-Portable-1.7.5.exe"
+        "name": "balena-etcher-electron-1.7.7-linux-ia32.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.7/balena-etcher-electron-1.7.7-linux-ia32.zip"
       },
       {
-        "name": "balenaEtcher-Setup-1.7.5.exe",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.5/balenaEtcher-Setup-1.7.5.exe"
+        "name": "balena-etcher-electron-1.7.7-linux-x64.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.7/balena-etcher-electron-1.7.7-linux-x64.zip"
       },
       {
-        "name": "balenaEtcher-Setup-1.7.5.exe.blockmap",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.5/balenaEtcher-Setup-1.7.5.exe.blockmap"
+        "name": "balena-etcher-electron-1.7.7.i686.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.7/balena-etcher-electron-1.7.7.i686.rpm"
+      },
+      {
+        "name": "balena-etcher-electron-1.7.7.x86_64.rpm",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.7/balena-etcher-electron-1.7.7.x86_64.rpm"
+      },
+      {
+        "name": "balena-etcher-electron_1.7.7_amd64.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.7/balena-etcher-electron_1.7.7_amd64.deb"
+      },
+      {
+        "name": "balena-etcher-electron_1.7.7_i386.deb",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.7/balena-etcher-electron_1.7.7_i386.deb"
+      },
+      {
+        "name": "balenaEtcher-1.7.7-ia32.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.7/balenaEtcher-1.7.7-ia32.AppImage"
+      },
+      {
+        "name": "balenaEtcher-1.7.7-x64.AppImage",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.7/balenaEtcher-1.7.7-x64.AppImage"
+      },
+      {
+        "name": "balenaEtcher-1.7.7.dmg",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.7/balenaEtcher-1.7.7.dmg"
+      },
+      {
+        "name": "balenaEtcher-1.7.7.dmg.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.7/balenaEtcher-1.7.7.dmg.blockmap"
+      },
+      {
+        "name": "balenaEtcher-1.7.7.zip",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.7/balenaEtcher-1.7.7.zip"
+      },
+      {
+        "name": "balenaEtcher-Portable-1.7.7.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.7/balenaEtcher-Portable-1.7.7.exe"
+      },
+      {
+        "name": "balenaEtcher-Setup-1.7.7.exe",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.7/balenaEtcher-Setup-1.7.7.exe"
+      },
+      {
+        "name": "balenaEtcher-Setup-1.7.7.exe.blockmap",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.7/balenaEtcher-Setup-1.7.7.exe.blockmap"
+      },
+      {
+        "name": "builder-effective-config.yaml",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.7/builder-effective-config.yaml"
+      },
+      {
+        "name": "latest-linux-ia32.yml",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.7/latest-linux-ia32.yml"
+      },
+      {
+        "name": "latest-linux.yml",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.7/latest-linux.yml"
+      },
+      {
+        "name": "latest-mac.yml",
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.7/latest-mac.yml"
       },
       {
         "name": "latest.yml",
-        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.5/latest.yml"
+        "downloadUrl": "https://github.com/balena-io/etcher/releases/download/v1.7.7/latest.yml"
       }
     ]
   },
@@ -16711,8 +16836,24 @@
     ]
   },
   "openIssues": {
-    "numberOfIssues": 342,
+    "numberOfIssues": 344,
     "latestIssues": [
+      {
+        "title": "Download link will not work. ",
+        "url": "https://github.com/balena-io/etcher/issues/3710"
+      },
+      {
+        "title": "Balena etcher official site download button for linux doesnt work (.zip file from github not found)",
+        "url": "https://github.com/balena-io/etcher/issues/3709"
+      },
+      {
+        "title": "etcher.io Linux x64 update 🙏🏿",
+        "url": "https://github.com/balena-io/etcher/issues/3708"
+      },
+      {
+        "title": "MacOS download button does not work",
+        "url": "https://github.com/balena-io/etcher/issues/3707"
+      },
       {
         "title": "Etcher won't open with \"Out of memory\" error",
         "url": "https://github.com/balena-io/etcher/issues/3706"
@@ -16728,10 +16869,6 @@
       {
         "title": "Failed to flash image built by balena-rockpi",
         "url": "https://github.com/balena-io/etcher/issues/3701"
-      },
-      {
-        "title": "patch: add requirements and help to issue template",
-        "url": "https://github.com/balena-io/etcher/pull/3699"
       },
       {
         "title": "Keep Getting Flash Failed",
@@ -16780,22 +16917,10 @@
       {
         "title": "False warning popup for linux distro Windowsfx",
         "url": "https://github.com/balena-io/etcher/issues/3679"
-      },
-      {
-        "title": "Change Ubuntu/Debian Instructions in README.md",
-        "url": "https://github.com/balena-io/etcher/pull/3676"
-      },
-      {
-        "title": "Support to flash Windows ISOs.",
-        "url": "https://github.com/balena-io/etcher/issues/3673"
-      },
-      {
-        "title": "New Release Tempfile Issue",
-        "url": "https://github.com/balena-io/etcher/issues/3671"
       }
     ]
   },
-  "version": "1.7.5",
+  "version": "1.7.7",
   "screenshot": null,
   "logo": null
 }
