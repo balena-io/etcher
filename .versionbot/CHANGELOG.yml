@@ -1,4 +1,16 @@
 - commits:
+    - subject: "patch: add arm64 output"
+      hash: d02c1e0bf3212ca2f1ced4d7b945155f48164c84
+      body: ""
+      footer:
+        Change-Type: patch
+        change-type: patch
+      author: Peter Makra
+      nested: []
+  version: 1.7.8
+  title: "'patch: add arm64 output'"
+  date: 2022-02-23T12:43:58.343Z
+- commits:
     - subject: "patch: clarified update check"
       hash: a5201942b8817cc1d74fba0ae2c8378632d16fc5
       body: ""

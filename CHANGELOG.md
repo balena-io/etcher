@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.7.8
+## (2022-02-23)
+
+* patch: add arm64 output [Peter Makra]
+
 # v1.7.7
 ## (2022-02-22)
 
