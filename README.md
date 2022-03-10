@@ -139,6 +139,9 @@ rm /etc/yum.repos.d/balena-etcher-source.repo
 
 ```sh
 sudo zypper rm balena-etcher-electron
+# remove the repo
+sudo zypper rr balena-etcher
+sudo zypper rr balena-etcher-source
 ```
 
 #### Solus (GNU/Linux x64)
