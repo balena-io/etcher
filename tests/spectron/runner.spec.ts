@@ -59,7 +59,7 @@ if (platform() !== 'darwin') {
 
 			it('should set a proper title', async () => {
 				// @ts-ignore (SpectronClient.getTitle exists)
-				return expect(await app.client.getTitle()).to.equal('Etcher');
+				return expect(await app.client.getTitle()).to.equal('balenaEtcher');
 			});
 		});
 	});
