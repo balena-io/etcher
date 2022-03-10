@@ -67,26 +67,10 @@ rm -rf /var/lib/apt/lists/*
 apt-get update
 ```
 
-#### RPM based Package Repository (GNU/Linux x86/x64)
+#### Redhat (RHEL) and Fedora-based Package Repository (GNU/Linux x86/x64)
 
 > Detailed or alternative steps in the [instructions by Cloudsmith](https://cloudsmith.io/~balena/repos/etcher/setup/#formats-rpm)
 
-#### OpenSUSE LEAP & Tumbleweed install
-
-```sh
-curl -1sLf \
-  'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \
-  | sudo -E bash
-```
-
-##### Uninstall
-
-```sh
-zypper rr balena-etcher
-zypper rr balena-etcher-source
-```
-
-#### Redhat (RHEL) and Fedora-based Package Repository (GNU/Linux x86/x64)
 
 ##### DNF
 
@@ -133,6 +117,21 @@ rm /etc/yum.repos.d/balena-etcher-source.repo
 sudo yum remove -y balena-etcher-electron
 rm /etc/yum.repos.d/balena-etcher.repo
 rm /etc/yum.repos.d/balena-etcher-source.repo
+```
+
+#### OpenSUSE LEAP & Tumbleweed install (zypper)
+
+```sh
+curl -1sLf \
+  'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \
+  | sudo -E bash
+```
+
+##### Uninstall
+
+```sh
+zypper rr balena-etcher
+zypper rr balena-etcher-source
 ```
 
 #### Solus (GNU/Linux x64)
