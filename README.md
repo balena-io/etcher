@@ -121,17 +121,24 @@ rm /etc/yum.repos.d/balena-etcher-source.repo
 
 #### OpenSUSE LEAP & Tumbleweed install (zypper)
 
-```sh
-curl -1sLf \
-  'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \
-  | sudo -E bash
-```
+1. Add the repo
+
+   ```sh
+   curl -1sLf \
+   'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \
+   | sudo -E bash
+   ```
+2. Update and install
+
+   ```sh
+   sudo zypper up
+   sudo zypper install balena-etcher-electron
+   ```
 
 ##### Uninstall
 
 ```sh
-zypper rr balena-etcher
-zypper rr balena-etcher-source
+sudo zypper rm balena-etcher-electron
 ```
 
 #### Solus (GNU/Linux x64)
