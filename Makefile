@@ -24,50 +24,54 @@ SHELL := /bin/bash
 # ---------------------------------------------------------------------
 
 # http://stackoverflow.com/a/12099167
+# You can override the PLATFORM, HOST_ARCH info by doing:
+#
+#   make <target> [PLATFORM=<platform>] [HOST_ARCH=<arch>]
+#
 ifeq ($(OS),Windows_NT)
-	PLATFORM = win32
+	PLATFORM ?= win32
 
 	ifeq ($(PROCESSOR_ARCHITEW6432),AMD64)
-		HOST_ARCH = x64
+		HOST_ARCH ?= x64
 	else
 		ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
-			HOST_ARCH = x64
+			HOST_ARCH ?= x64
 		endif
 		ifeq ($(PROCESSOR_ARCHITECTURE),x86)
-			HOST_ARCH = x86
+			HOST_ARCH ?= x86
 		endif
 	endif
 else
 	ifeq ($(shell uname -s),Linux)
-		PLATFORM = linux
+		PLATFORM ?= linux
 
 		ifeq ($(shell uname -m),x86_64)
-			HOST_ARCH = x64
+			HOST_ARCH ?= x64
 		endif
 		ifneq ($(filter %86,$(shell uname -m)),)
-			HOST_ARCH = x86
+			HOST_ARCH ?= x86
 		endif
 		ifeq ($(shell uname -m),armv7l)
-			HOST_ARCH = armv7hf
+			HOST_ARCH ?= armv7hf
 		endif
 		ifeq ($(shell uname -m),aarch64)
-			HOST_ARCH = aarch64
+			HOST_ARCH ?= aarch64
 		endif
 		ifeq ($(shell uname -m),armv8)
-			HOST_ARCH = aarch64
+			HOST_ARCH ?= aarch64
 		endif
 		ifeq ($(shell uname -m),arm64)
-			HOST_ARCH = aarch64
+			HOST_ARCH ?= aarch64
 		endif
 	endif
 	ifeq ($(shell uname -s),Darwin)
-		PLATFORM = darwin
+		PLATFORM ?= darwin
 
 		ifeq ($(shell uname -m),x86_64)
-			HOST_ARCH = x64
+			HOST_ARCH ?= x64
 		endif
 		ifeq ($(shell uname -m),arm64)
-			HOST_ARCH = aarch64
+			HOST_ARCH ?= aarch64
 		endif
 	endif
 endif
