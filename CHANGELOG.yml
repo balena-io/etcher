@@ -1,4 +1,73 @@
 - commits:
+    - subject: "patch: complete suse uninstall readme"
+      hash: 8370f638b4e92a4c981f79362ba0d0700f9f94a1
+      body: ""
+      footer:
+        Change-Type: patch
+        change-type: patch
+      author: Peter Makra
+      nested: []
+    - subject: "patch: completed suse instructions"
+      hash: ac34c511251f195fd37baf24d1c150a309210c9e
+      body: ""
+      footer:
+        Change-Type: patch
+        change-type: patch
+      author: Peter Makra
+      nested: []
+    - subject: "patch: order rpm instrictions"
+      hash: b241470fe1bae57e70888b84bb066855363a350b
+      body: ""
+      footer:
+        Change-Type: patch
+        change-type: patch
+      author: Peter Makra
+      nested: []
+    - subject: "patch: enabled update notification for version 1.7.8"
+      hash: 335766ed12901d6b8b16860d449eca4ea574f9c1
+      body: ""
+      footer:
+        Change-Type: patch
+        change-type: patch
+      author: Peter Makra
+      nested: []
+    - subject: "patch: updated title to balenaEtcher"
+      hash: 4c5d052a7185ecd598a12d80d2bd7afd5ced7c92
+      body: |
+        fixes #3592
+      footer:
+        Change-Type: patch
+        change-type: patch
+      author: Peter Makra
+      nested: []
+    - subject: "patch: cleanup and organize readme"
+      hash: 86423342a86a9327545099eb9df47236d0ac6aef
+      body: ""
+      footer:
+        Change-Type: patch
+        change-type: patch
+      author: Peter Makra
+      nested: []
+    - subject: "patch: extend cloudsmith attribution in readme"
+      hash: d8b41552e34faf71bbd128f3857667f8f341a217
+      body: ""
+      footer:
+        Change-Type: patch
+        change-type: patch
+      author: Peter Makra
+      nested: []
+    - subject: Update macOS Icon to Big Sur Style
+      hash: 11c65fb392416027158918f77bde68dd8996187c
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Logicer
+      nested: []
+  version: 1.7.8
+  title: "'small ui updates'"
+  date: 2022-03-18T17:21:01.820Z
+- commits:
     - subject: "patch: clarified update check"
       hash: a5201942b8817cc1d74fba0ae2c8378632d16fc5
       body: ""
@@ -15,7 +84,7 @@
       nested: []
   version: 1.7.7
   title: "'patch: Fix auto update'"
-  date: 2022-02-22T09:24:57.735Z
+  date: 2022-02-22T08:57:27.982Z
 - commits:
     - subject: "patch: version number notification"
       hash: 35868509af3461f5bc312990d184d88eae476c4f
