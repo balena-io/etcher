@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.7.8
+## (2022-03-18)
+
+* patch: complete suse uninstall readme [Peter Makra]
+* patch: completed suse instructions [Peter Makra]
+* patch: order rpm instrictions [Peter Makra]
+* patch: enabled update notification for version 1.7.8 [Peter Makra]
+* patch: updated title to balenaEtcher [Peter Makra]
+* patch: cleanup and organize readme [Peter Makra]
+* patch: extend cloudsmith attribution in readme [Peter Makra]
+* Update macOS Icon to Big Sur Style [Logicer]
+
 # v1.7.7
 ## (2022-02-22)
 
