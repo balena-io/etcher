@@ -9,7 +9,6 @@ was written correctly, and much more. It can also directly flash Raspberry Pi de
 
 [![Current Release](https://img.shields.io/github/release/balena-io/etcher.svg?style=flat-square)](https://balena.io/etcher)
 [![License](https://img.shields.io/github/license/balena-io/etcher.svg?style=flat-square)](https://github.com/balena-io/etcher/blob/master/LICENSE)
-[![Dependency status](https://img.shields.io/david/balena-io/etcher.svg?style=flat-square)](https://david-dm.org/balena-io/etcher)
 [![Balena.io Forums](https://img.shields.io/discourse/https/forums.balena.io/topics.svg?style=flat-square&label=balena.io%20forums)](https://forums.balena.io/c/etcher)
 
 ---
@@ -31,9 +30,17 @@ was written correctly, and much more. It can also directly flash Raspberry Pi de
 Refer to the [downloads page][etcher] for the latest pre-made
 installers for all supported operating systems.
 
-> Note: Our deb and rpm packages are now hosted on [Cloudsmith](https://cloudsmith.com)!
+## Packages
+
+> [![Hosted By: Cloudsmith](https://img.shields.io/badge/OSS%20hosting%20by-cloudsmith-blue?logo=cloudsmith&style=for-the-badge)](https://cloudsmith.com) \
+Package repository hosting is graciously provided by  [Cloudsmith](https://cloudsmith.com).
+Cloudsmith is the only fully hosted, cloud-native, universal package management solution, that
+enables your organization to create, store and share packages in any format, to any place, with total
+confidence.
 
 #### Debian and Ubuntu based Package Repository (GNU/Linux x86/x64)
+
+> Detailed or alternative steps in the [instructions by Cloudsmith](https://cloudsmith.io/~balena/repos/etcher/setup/#formats-deb)
 
 1. Add Etcher Debian repository:
 
@@ -60,22 +67,10 @@ rm -rf /var/lib/apt/lists/*
 apt-get update
 ```
 
-##### OpenSUSE LEAP & Tumbleweed install
-
-```sh
-curl -1sLf \
-  'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \
-  | sudo -E bash
-```
-
-##### Uninstall
-
-```sh
-zypper rr balena-etcher
-zypper rr balena-etcher-source
-```
-
 #### Redhat (RHEL) and Fedora-based Package Repository (GNU/Linux x86/x64)
+
+> Detailed or alternative steps in the [instructions by Cloudsmith](https://cloudsmith.io/~balena/repos/etcher/setup/#formats-rpm)
+
 
 ##### DNF
 
@@ -122,6 +117,31 @@ rm /etc/yum.repos.d/balena-etcher-source.repo
 sudo yum remove -y balena-etcher-electron
 rm /etc/yum.repos.d/balena-etcher.repo
 rm /etc/yum.repos.d/balena-etcher-source.repo
+```
+
+#### OpenSUSE LEAP & Tumbleweed install (zypper)
+
+1. Add the repo
+
+   ```sh
+   curl -1sLf \
+   'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \
+   | sudo -E bash
+   ```
+2. Update and install
+
+   ```sh
+   sudo zypper up
+   sudo zypper install balena-etcher-electron
+   ```
+
+##### Uninstall
+
+```sh
+sudo zypper rm balena-etcher-electron
+# remove the repo
+sudo zypper rr balena-etcher
+sudo zypper rr balena-etcher-source
 ```
 
 #### Solus (GNU/Linux x64)
