@@ -1,4 +1,16 @@
 - commits:
+    - subject: "patch: fix usb-device-boot link in README"
+      hash: ab668f0a25c3e7fc205da8f2c6ae1a000d1ad256
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrew Scheller
+      nested: []
+  version: 1.7.9
+  title: "'patch: fix usb-device-boot link in README'"
+  date: 2022-03-19T01:59:46.543Z
+- commits:
     - subject: "patch: complete suse uninstall readme"
       hash: 8370f638b4e92a4c981f79362ba0d0700f9f94a1
       body: ""
