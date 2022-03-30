@@ -87,6 +87,7 @@ deb:
     - libxss1
     - libxtst6
     - polkit-1-auth-agent | policykit-1-gnome | polkit-kde-1
+  afterInstall: "./after-install.tpl"
 rpm:
   depends:
     - util-linux
