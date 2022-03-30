@@ -1,4 +1,18 @@
 - commits:
+    - subject: Fix application directory for Debian postinst script
+      hash: 665a9839873fd3980fac425175877810c497f48d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Ken Bannister <kb2ma@runbox.com>
+        signed-off-by: Ken Bannister <kb2ma@runbox.com>
+      author: Ken Bannister
+      nested: []
+  version: 1.7.9
+  title: "'Fix application directory for Debian postinst script'"
+  date: 2022-03-30T19:31:48.824Z
+- commits:
     - subject: "patch: complete suse uninstall readme"
       hash: 8370f638b4e92a4c981f79362ba0d0700f9f94a1
       body: ""
