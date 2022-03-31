@@ -17,7 +17,6 @@
 import CircleSvg from '@fortawesome/fontawesome-free/svgs/solid/circle.svg';
 import CheckCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/check-circle.svg';
 import TimesCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/times-circle.svg';
-import * as _ from 'lodash';
 import outdent from 'outdent';
 import * as React from 'react';
 import { Flex, FlexProps, Link, TableColumn, Txt } from 'rendition';
@@ -104,6 +103,19 @@ const columns: Array<TableColumn<FlashError>> = [
 	},
 ];
 
+function getEffectiveSpeed(results: {
+	sourceMetadata: {
+		size: number;
+		blockmappedSize?: number;
+	};
+	averageFlashingSpeed: number;
+}) {
+	const flashedSize =
+		results.sourceMetadata.blockmappedSize ?? results.sourceMetadata.size;
+	const timeSpent = flashedSize / results.averageFlashingSpeed;
+	return results.sourceMetadata.size / timeSpent;
+}
+
 export function FlashResults({
 	goToMain,
 	image = '',
@@ -117,10 +129,9 @@ export function FlashResults({
 	errors: FlashError[];
 	skip: boolean;
 	results: {
-		bytesWritten: number;
 		sourceMetadata: {
 			size: number;
-			blockmappedSize: number;
+			blockmappedSize?: number;
 		};
 		averageFlashingSpeed: number;
 		devices: { failed: number; successful: number };
@@ -129,11 +140,7 @@ export function FlashResults({
 	const [showErrorsInfo, setShowErrorsInfo] = React.useState(false);
 	const allFailed = !skip && results.devices.successful === 0;
 	const someFailed = results.devices.failed !== 0 || errors.length !== 0;
-	const effectiveSpeed = _.round(
-		bytesToMegabytes(
-			results.sourceMetadata.size /
-				(results.sourceMetadata.blockmappedSize / results.averageFlashingSpeed),
-		),
+	const effectiveSpeed = bytesToMegabytes(getEffectiveSpeed(results)).toFixed(
 		1,
 	);
 	return (

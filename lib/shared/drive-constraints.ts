@@ -105,23 +105,18 @@ export function isDriveLargeEnough(
 }
 
 /**
- * @summary Check if a drive is disabled (i.e. not ready for selection)
- */
-export function isDriveDisabled(drive: DrivelistDrive): boolean {
-	return drive.disabled || false;
-}
-
-/**
  * @summary Check if a drive is valid, i.e. large enough for an image
  */
 export function isDriveValid(
 	drive: DrivelistDrive,
 	image?: SourceMetadata,
+	write: boolean = true,
 ): boolean {
 	return (
-		isDriveLargeEnough(drive, image) &&
-		!isSourceDrive(drive, image as SourceMetadata) &&
-		!isDriveDisabled(drive)
+		!write ||
+		(!drive.disabled &&
+			isDriveLargeEnough(drive, image) &&
+			!isSourceDrive(drive, image as SourceMetadata))
 	);
 }
 

@@ -573,7 +573,8 @@ describe('Model: flashState', function () {
 		});
 
 		describe('.getFlashUuid()', function () {
-			const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+			const UUID_REGEX =
+				/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 
 			it('should be initially undefined', function () {
 				expect(flashState.getFlashUuid()).to.be.undefined;

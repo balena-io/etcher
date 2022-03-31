@@ -15,14 +15,13 @@
  */
 
 import { exec } from 'child_process';
+import { withTmpFile } from 'etcher-sdk/build/tmp';
 import { readFile } from 'fs';
 import { chain, trim } from 'lodash';
 import { platform } from 'os';
 import { join } from 'path';
 import { env } from 'process';
 import { promisify } from 'util';
-
-import { withTmpFile } from '../../../shared/tmp';
 
 const readFileAsync = promisify(readFile);
 
@@ -41,11 +40,11 @@ async function getWmicNetworkDrivesOutput(): Promise<string> {
 	// So we just redirect to a file and read it afterwards as we know it will be ucs2 encoded.
 	const options = {
 		// Close the file once it's created
-		discardDescriptor: true,
+		keepOpen: false,
 		// Wmic fails with "Invalid global switch" when the "/output:" switch filename contains a dash ("-")
 		prefix: 'tmp',
 	};
-	return withTmpFile(options, async (path) => {
+	return withTmpFile(options, async ({ path }) => {
 		const command = [
 			join(env.SystemRoot as string, 'System32', 'Wbem', 'wmic'),
 			'path',

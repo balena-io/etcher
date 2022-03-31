@@ -15,30 +15,32 @@
  */
 
 import * as childProcess from 'child_process';
+import { withTmpFile } from 'etcher-sdk/build/tmp';
 import { promises as fs } from 'fs';
 import * as _ from 'lodash';
 import * as os from 'os';
 import * as semver from 'semver';
-import * as sudoPrompt from 'sudo-prompt';
+import * as sudoPrompt from '@balena/sudo-prompt';
 import { promisify } from 'util';
 
 import { sudo as catalinaSudo } from './catalina-sudo/sudo';
 import * as errors from './errors';
-import { withTmpFile } from './tmp';
 
 const execAsync = promisify(childProcess.exec);
 const execFileAsync = promisify(childProcess.execFile);
 
+type Std = string | Buffer | undefined;
+
 function sudoExecAsync(
 	cmd: string,
 	options: { name: string },
-): Promise<{ stdout: string; stderr: string }> {
+): Promise<{ stdout: Std; stderr: Std }> {
 	return new Promise((resolve, reject) => {
 		sudoPrompt.exec(
 			cmd,
 			options,
-			(error: Error | null, stdout: string, stderr: string) => {
-				if (error != null) {
+			(error: Error | undefined, stdout: Std, stderr: Std) => {
+				if (error) {
 					reject(error);
 				} else {
 					resolve({ stdout, stderr });
@@ -60,7 +62,7 @@ export async function isElevated(): Promise<boolean> {
 		// See http://stackoverflow.com/a/28268802
 		try {
 			await execAsync('fltmc');
-		} catch (error) {
+		} catch (error: any) {
 			if (error.code === os.constants.errno.EPERM) {
 				return false;
 			}
@@ -146,7 +148,7 @@ async function elevateScriptCatalina(
 	try {
 		const { cancelled } = await catalinaSudo(cmd);
 		return { cancelled };
-	} catch (error) {
+	} catch (error: any) {
 		throw errors.createError({ title: error.stderr });
 	}
 }
@@ -172,10 +174,11 @@ export async function elevateCommand(
 	);
 	return await withTmpFile(
 		{
+			keepOpen: false,
 			prefix: 'balena-etcher-electron-',
 			postfix: '.cmd',
 		},
-		async (path) => {
+		async ({ path }) => {
 			await fs.writeFile(path, launchScript);
 			if (isWindows) {
 				return elevateScriptWindows(path, options.applicationName);
@@ -189,7 +192,7 @@ export async function elevateCommand(
 			}
 			try {
 				return await elevateScriptUnix(path, options.applicationName);
-			} catch (error) {
+			} catch (error: any) {
 				// We're hardcoding internal error messages declared by `sudo-prompt`.
 				// There doesn't seem to be a better way to handle these errors, so
 				// for now, we should make sure we double check if the error messages

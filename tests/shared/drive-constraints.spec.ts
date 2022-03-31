@@ -514,40 +514,6 @@ describe('Shared: DriveConstraints', function () {
 		});
 	});
 
-	describe('.isDriveDisabled()', function () {
-		it('should return true if the drive is disabled', function () {
-			const result = constraints.isDriveDisabled(({
-				device: '/dev/disk1',
-				size: 1000000000,
-				isReadOnly: false,
-				disabled: true,
-			} as unknown) as constraints.DrivelistDrive);
-
-			expect(result).to.be.true;
-		});
-
-		it('should return false if the drive is not disabled', function () {
-			const result = constraints.isDriveDisabled(({
-				device: '/dev/disk1',
-				size: 1000000000,
-				isReadOnly: false,
-				disabled: false,
-			} as unknown) as constraints.DrivelistDrive);
-
-			expect(result).to.be.false;
-		});
-
-		it('should return false if "disabled" is undefined', function () {
-			const result = constraints.isDriveDisabled({
-				device: '/dev/disk1',
-				size: 1000000000,
-				isReadOnly: false,
-			} as constraints.DrivelistDrive);
-
-			expect(result).to.be.false;
-		});
-	});
-
 	describe('.isDriveSizeRecommended()', function () {
 		const image: SourceMetadata = {
 			description: 'rpi.img',
@@ -1192,7 +1158,7 @@ describe('Shared: DriveConstraints', function () {
 						'/dev/disk6',
 				  ];
 		const drives = [
-			({
+			{
 				device: drivePaths[0],
 				description: 'My Drive',
 				size: 123456789,
@@ -1200,8 +1166,8 @@ describe('Shared: DriveConstraints', function () {
 				mountpoints: [{ path: __dirname }],
 				isSystem: false,
 				isReadOnly: false,
-			} as unknown) as constraints.DrivelistDrive,
-			({
+			} as unknown as constraints.DrivelistDrive,
+			{
 				device: drivePaths[1],
 				description: 'My Other Drive',
 				size: 123456789,
@@ -1209,8 +1175,8 @@ describe('Shared: DriveConstraints', function () {
 				mountpoints: [],
 				isSystem: false,
 				isReadOnly: true,
-			} as unknown) as constraints.DrivelistDrive,
-			({
+			} as unknown as constraints.DrivelistDrive,
+			{
 				device: drivePaths[2],
 				description: 'My Drive',
 				size: 1234567,
@@ -1218,8 +1184,8 @@ describe('Shared: DriveConstraints', function () {
 				mountpoints: [],
 				isSystem: false,
 				isReadOnly: false,
-			} as unknown) as constraints.DrivelistDrive,
-			({
+			} as unknown as constraints.DrivelistDrive,
+			{
 				device: drivePaths[3],
 				description: 'My Drive',
 				size: 123456789,
@@ -1227,8 +1193,8 @@ describe('Shared: DriveConstraints', function () {
 				mountpoints: [],
 				isSystem: true,
 				isReadOnly: false,
-			} as unknown) as constraints.DrivelistDrive,
-			({
+			} as unknown as constraints.DrivelistDrive,
+			{
 				device: drivePaths[4],
 				description: 'My Drive',
 				size: 128000000001,
@@ -1236,8 +1202,8 @@ describe('Shared: DriveConstraints', function () {
 				mountpoints: [],
 				isSystem: false,
 				isReadOnly: false,
-			} as unknown) as constraints.DrivelistDrive,
-			({
+			} as unknown as constraints.DrivelistDrive,
+			{
 				device: drivePaths[5],
 				description: 'My Drive',
 				size: 12345678,
@@ -1245,8 +1211,8 @@ describe('Shared: DriveConstraints', function () {
 				mountpoints: [],
 				isSystem: false,
 				isReadOnly: false,
-			} as unknown) as constraints.DrivelistDrive,
-			({
+			} as unknown as constraints.DrivelistDrive,
+			{
 				device: drivePaths[6],
 				description: 'My Drive',
 				size: 123456789,
@@ -1254,7 +1220,7 @@ describe('Shared: DriveConstraints', function () {
 				mountpoints: [],
 				isSystem: false,
 				isReadOnly: false,
-			} as unknown) as constraints.DrivelistDrive,
+			} as unknown as constraints.DrivelistDrive,
 		];
 
 		const image: SourceMetadata = {

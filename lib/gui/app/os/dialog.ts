@@ -27,7 +27,7 @@ async function mountSourceDrive() {
 	if (sourceDrivePath) {
 		try {
 			await electron.ipcRenderer.invoke('mount-drive', sourceDrivePath);
-		} catch (error) {
+		} catch (error: any) {
 			// noop
 		}
 	}

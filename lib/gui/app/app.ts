@@ -28,7 +28,6 @@ import * as EXIT_CODES from '../../shared/exit-codes';
 import * as messages from '../../shared/messages';
 import * as availableDrives from './models/available-drives';
 import * as flashState from './models/flash-state';
-import { init as ledsInit } from './models/leds';
 import { deselectImage, getImage } from './models/selection-state';
 import * as settings from './models/settings';
 import { Actions, observe, store } from './models/store';
@@ -38,6 +37,7 @@ import * as exceptionReporter from './modules/exception-reporter';
 import * as osDialog from './os/dialog';
 import * as windowProgress from './os/window-progress';
 import MainPage from './pages/main/MainPage';
+import './css/main.css';
 
 window.addEventListener(
 	'unhandledrejection',
@@ -216,8 +216,7 @@ function prepareDrive(drive: Drive) {
 			disabled: true,
 			icon: 'warning',
 			size: null,
-			link:
-				'https://www.raspberrypi.org/documentation/hardware/computemodule/cm-emmc-flashing.md',
+			link: 'https://www.raspberrypi.com/documentation/computers/compute-module.html#flashing-the-compute-module-emmc',
 			linkCTA: 'Install',
 			linkTitle: 'Install missing drivers',
 			linkMessage: outdent`
@@ -334,13 +333,19 @@ window.addEventListener('beforeunload', async (event) => {
 			flashingWorkflowUuid,
 		});
 		popupExists = false;
-	} catch (error) {
+	} catch (error: any) {
 		exceptionReporter.report(error);
 	}
 });
 
-async function main() {
-	await ledsInit();
+export async function main() {
+	try {
+		const { init: ledsInit } = require('./models/leds');
+		await ledsInit();
+	} catch (error: any) {
+		exceptionReporter.report(error);
+	}
+
 	ReactDOM.render(
 		React.createElement(MainPage),
 		document.getElementById('main'),
@@ -356,5 +361,3 @@ async function main() {
 		},
 	);
 }
-
-main();

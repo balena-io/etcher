@@ -59,13 +59,8 @@ function FinishPage({ goToMain }: { goToMain: () => void }) {
 	).map(([, error]: [string, FlashError]) => ({
 		...error,
 	}));
-	const {
-		averageSpeed,
-		blockmappedSize,
-		bytesWritten,
-		failed,
-		size,
-	} = flashState.getFlashState();
+	const { averageSpeed, blockmappedSize, bytesWritten, failed, size } =
+		flashState.getFlashState();
 	const {
 		skip,
 		results = {
