@@ -15,7 +15,7 @@
  */
 
 import * as CopyPlugin from 'copy-webpack-plugin';
-import { readdirSync } from 'fs';
+import { readdirSync, existsSync } from 'fs';
 import * as _ from 'lodash';
 import * as os from 'os';
 import outdent from 'outdent';
@@ -78,14 +78,21 @@ function renameNodeModules(resourcePath: string) {
 }
 
 function findLzmaNativeBindingsFolder(): string {
-	const files = readdirSync(path.join('node_modules', 'lzma-native'));
-	const bindingsFolder = files.find(
+	const lzmaModuleBasePath = path.join('node_modules', 'lzma-native')
+	const files = readdirSync(lzmaModuleBasePath);
+	let bindingsFolder = files.find(
 		(f) =>
 			f.startsWith('binding-') &&
 			f.endsWith(env.npm_config_target_arch || os.arch()),
 	);
 	if (bindingsFolder === undefined) {
-		throw new Error('Could not find lzma_native binding');
+		// later version of lzma-native changed the build output folder to ./build/Release
+		const buildOutputPath = path.join('build', 'Release');
+		if (existsSync(path.join(lzmaModuleBasePath, buildOutputPath))) {	
+			bindingsFolder = buildOutputPath		
+		} else {
+			throw new Error('Could not find lzma_native binding');
+		}
 	}
 	return bindingsFolder;
 }
