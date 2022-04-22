@@ -27,6 +27,7 @@ Makefile text
 *.yml text
 *.patch text
 *.txt text
+*.tpl text
 CODEOWNERS text
 *.plist text
 
