@@ -1,4 +1,38 @@
 - commits:
+    - subject: "patch: update allowed extensions to include deb afterinstall in build"
+      hash: 61610ded842caba47c6a682afcb08aa0fda4e86b
+      body: ""
+      footer: {}
+      author: mcraa
+      nested: []
+    - subject: "patch: add update notification"
+      hash: c87a132f40b41c28d2375c7489d66ad4a6914355
+      body: ""
+      footer: {}
+      author: Peter Makra
+      nested: []
+    - subject: "patch: fix usb-device-boot link in README"
+      hash: 350d4de32ba0739b0ad1c2dc0b0b98eecf41f8f9
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrew Scheller
+      nested: []
+    - subject: Fix application directory for Debian postinst script
+      hash: f5f9025d6db248a8774ff6c9bb9d2afebda6cc3b
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Ken Bannister <kb2ma@runbox.com>
+        signed-off-by: Ken Bannister <kb2ma@runbox.com>
+      author: Ken Bannister
+      nested: []
+  version: 1.7.9
+  title: "'patch: deb afterinstall and readme updates'"
+  date: 2022-04-22T13:10:47.137Z
+- commits:
     - subject: "patch: complete suse uninstall readme"
       hash: 8370f638b4e92a4c981f79362ba0d0700f9f94a1
       body: ""

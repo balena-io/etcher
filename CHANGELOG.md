@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.7.9
+## (2022-04-22)
+
+* patch: update allowed extensions to include deb afterinstall in build [mcraa]
+* patch: add update notification [Peter Makra]
+* patch: fix usb-device-boot link in README [Andrew Scheller]
+* Fix application directory for Debian postinst script [Ken Bannister]
+
 # v1.7.8
 ## (2022-03-18)
 
