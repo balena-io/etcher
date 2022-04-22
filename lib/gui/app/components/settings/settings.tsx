@@ -146,25 +146,35 @@ export function SettingsModal({ toggleModal }: SettingsModalProps): any {
 	};
 
 	const startDiag = async () => {
-		unlinkSync('/usr/src/diag-data/startup.lock');
-
-		const supUrl: string = readFileSync('/usr/src/diag-data/start.url', {
-			encoding: 'utf8',
-			flag: 'r',
-		});
-		const startRes = await fetch(supUrl, {
-			method: 'POST',
-			body: JSON.stringify({ serviceName: 'diag-runner', force: true }),
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		});
-
-		if (startRes.ok) {
-			// good
-		} else {
-			setErrorMessage(`${errorMessage} :: ${startRes.statusText}`);
+		try {
+			unlinkSync('/usr/src/diag-data/startup.lock');
+		} catch (error) {
+			console.log("Can't remove diag lock", error)
 		}
+
+		try {
+			const supUrl: string = readFileSync('/usr/src/diag-data/start.url', {
+				encoding: 'utf8',
+				flag: 'r',
+			});
+
+			const startRes = await fetch(supUrl, {
+				method: 'POST',
+				body: JSON.stringify({ serviceName: 'diag-runner', force: true }),
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+	
+			if (startRes.ok) {
+				// good
+			} else {
+				setErrorMessage(`${errorMessage} :: ${startRes.statusText}`);
+			}			
+		} catch (error) {
+			console.log("Error in starting diag", error)
+		}
+
 	};
 
 	const removeDiag = async () => {
