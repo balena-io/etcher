@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------------
 
 RESIN_SCRIPTS ?= ./scripts/resin
-export NPM_VERSION ?= 6.14.5
+export NPM_VERSION ?= 6.14.8
 S3_BUCKET = artifacts.ci.balena-cloud.com
 
 # This directory will be completely deleted by the `clean` rule
@@ -66,6 +66,9 @@ else
 		ifeq ($(shell uname -m),x86_64)
 			HOST_ARCH = x64
 		endif
+		ifeq ($(shell uname -m),arm64)
+			HOST_ARCH = aarch64
+		endif
 	endif
 endif
 
@@ -86,11 +89,9 @@ TARGET_ARCH ?= $(HOST_ARCH)
 # Electron
 # ---------------------------------------------------------------------
 electron-develop:
-	$(RESIN_SCRIPTS)/electron/install.sh \
-		-b $(shell pwd) \
-		-r $(TARGET_ARCH) \
-		-s $(PLATFORM) \
-		-m $(NPM_VERSION)
+	git submodule update --init && \
+	npm ci && \
+	npm run webpack
 
 electron-test:
 	$(RESIN_SCRIPTS)/electron/test.sh \
@@ -125,7 +126,7 @@ TARGETS = \
 
 .PHONY: $(TARGETS)
 
-lint: 
+lint:
 	npm run lint
 
 test:

@@ -83,7 +83,7 @@ describe('Browser: imageWriter', () => {
 						imageWriter.flash(image, [fakeDrive], performWriteStub),
 					]);
 					assert.fail('Writing twice should fail');
-				} catch (error) {
+				} catch (error: any) {
 					expect(error.message).to.equal(
 						'There is already a flash in progress',
 					);
@@ -133,7 +133,7 @@ describe('Browser: imageWriter', () => {
 				});
 				try {
 					await imageWriter.flash(image, [fakeDrive], performWriteStub);
-				} catch (error) {
+				} catch (error: any) {
 					expect(error).to.be.an.instanceof(Error);
 					expect(error.message).to.equal('write error');
 				}

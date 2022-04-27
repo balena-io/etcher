@@ -23,7 +23,7 @@ import * as settings from '../../../lib/gui/app/models/settings';
 async function checkError(promise: Promise<any>, fn: (err: Error) => any) {
 	try {
 		await promise;
-	} catch (error) {
+	} catch (error: any) {
 		await fn(error);
 		return;
 	}

@@ -27,6 +27,7 @@ import {
 	OnProgressFunction,
 	OnFailFunction,
 	decompressThenFlash,
+	DECOMPRESSED_IMAGE_PREFIX,
 } from 'etcher-sdk/build/multi-write';
 import { cleanupTmpFiles } from 'etcher-sdk/build/tmp';
 import * as ipc from 'node-ipc';
@@ -34,8 +35,10 @@ import { totalmem } from 'os';
 
 import { toJSON } from '../../shared/errors';
 import { GENERAL_ERROR, SUCCESS } from '../../shared/exit-codes';
-import { delay } from '../../shared/utils';
+import { delay, isJson } from '../../shared/utils';
 import { SourceMetadata } from '../app/components/source-selector/source-selector';
+import axios from 'axios';
+import * as _ from 'lodash';
 
 ipc.config.id = process.env.IPC_CLIENT_ID as string;
 ipc.config.socketRoot = process.env.IPC_SOCKET_ROOT as string;
@@ -68,7 +71,7 @@ function log(message: string) {
  */
 async function terminate(exitCode: number) {
 	ipc.disconnect(IPC_SERVER_ID);
-	await cleanupTmpFiles(Date.now());
+	await cleanupTmpFiles(Date.now(), DECOMPRESSED_IMAGE_PREFIX);
 	process.nextTick(() => {
 		process.exit(exitCode || SUCCESS);
 	});
@@ -167,10 +170,10 @@ async function writeAndValidate({
 interface WriteOptions {
 	image: SourceMetadata;
 	destinations: DrivelistDrive[];
-	unmountOnSuccess: boolean;
 	autoBlockmapping: boolean;
 	decompressFirst: boolean;
 	SourceType: string;
+	httpRequest?: any;
 }
 
 ipc.connectTo(IPC_SERVER_ID, () => {
@@ -257,13 +260,12 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 		const imagePath = options.image.path;
 		log(`Image: ${imagePath}`);
 		log(`Devices: ${destinations.join(', ')}`);
-		log(`Umount on success: ${options.unmountOnSuccess}`);
 		log(`Auto blockmapping: ${options.autoBlockmapping}`);
 		log(`Decompress first: ${options.decompressFirst}`);
 		const dests = options.destinations.map((destination) => {
 			return new BlockDevice({
 				drive: destination,
-				unmountOnSuccess: options.unmountOnSuccess,
+				unmountOnSuccess: true,
 				write: true,
 				direct: true,
 			});
@@ -282,7 +284,22 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 						path: imagePath,
 					});
 				} else {
-					source = new Http({ url: imagePath, avoidRandomAccess: true });
+					const decodedImagePath = decodeURIComponent(imagePath);
+					if (isJson(decodedImagePath)) {
+						const imagePathObject = JSON.parse(decodedImagePath);
+						source = new Http({
+							url: imagePathObject.url,
+							avoidRandomAccess: true,
+							axiosInstance: axios.create(_.omit(imagePathObject, ['url'])),
+							auth: options.image.auth,
+						});
+					} else {
+						source = new Http({
+							url: imagePath,
+							avoidRandomAccess: true,
+							auth: options.image.auth,
+						});
+					}
 				}
 			}
 			const results = await writeAndValidate({
@@ -301,7 +318,7 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 			ipc.of[IPC_SERVER_ID].emit('done', { results });
 			await delay(DISCONNECT_DELAY);
 			await terminate(exitCode);
-		} catch (error) {
+		} catch (error: any) {
 			exitCode = GENERAL_ERROR;
 			ipc.of[IPC_SERVER_ID].emit('error', toJSON(error));
 		}

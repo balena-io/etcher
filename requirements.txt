@@ -1,3 +1,2 @@
-codespell==1.12.0
 awscli==1.11.87
 shyaml==0.5.0

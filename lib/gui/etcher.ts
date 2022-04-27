@@ -43,7 +43,7 @@ async function checkForUpdates(interval: number) {
 				const release = await autoUpdater.checkForUpdates();
 				const isOutdated =
 					semver.compare(release.updateInfo.version, version) > 0;
-				const shouldUpdate = release.updateInfo.stagingPercentage || 0 > 0;
+				const shouldUpdate = release.updateInfo.stagingPercentage !== 0; // undefinded (default) means 100%
 				if (shouldUpdate && isOutdated) {
 					await autoUpdater.downloadUpdate();
 					packageUpdated = true;
@@ -97,6 +97,7 @@ const sourceSelectorReady = new Promise((resolve) => {
 async function selectImageURL(url?: string) {
 	// 'data:,' is the default chromedriver url that is passed as last argument when running spectron tests
 	if (url !== undefined && url !== 'data:,') {
+		url = url.replace(/\/$/, ''); // on windows the url ends with an extra slash
 		url = url.startsWith(scheme) ? url.slice(scheme.length) : url;
 		await sourceSelectorReady;
 		electron.BrowserWindow.getAllWindows().forEach((window) => {
@@ -147,6 +148,7 @@ async function createMainWindow() {
 		webPreferences: {
 			backgroundThrottling: false,
 			nodeIntegration: true,
+			contextIsolation: false,
 			webviewTag: true,
 			zoomFactor: width / defaultWidth,
 			enableRemoteModule: true,

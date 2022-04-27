@@ -81,13 +81,10 @@ export const compatibility = {
 } as const;
 
 export const warning = {
-	unrecommendedDriveSize: (
-		image: { recommendedDriveSize: number },
-		drive: { device: string; size: number },
-	) => {
+	tooSmall: (source: { size: number }, target: { size: number }) => {
 		return outdent({ newline: ' ' })`
-			This image recommends a ${prettyBytes(image.recommendedDriveSize)}
-			drive, however ${drive.device} is only ${prettyBytes(drive.size)}.
+			The selected source is ${prettyBytes(source.size - target.size)}
+			larger than this drive.
 		`;
 	},
 
@@ -126,7 +123,7 @@ export const warning = {
 	},
 
 	largeDriveSize: () => {
-		return 'This is a large drive! Make sure it doesn\'t contain files that you want to keep.';
+		return "This is a large drive! Make sure it doesn't contain files that you want to keep.";
 	},
 
 	systemDrive: () => {

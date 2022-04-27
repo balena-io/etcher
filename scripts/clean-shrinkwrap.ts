@@ -29,11 +29,15 @@ const SHRINKWRAP_FILENAME = path.join(__dirname, '..', 'npm-shrinkwrap.json');
 async function main() {
 	try {
 		const cleaned = omit(shrinkwrap, packageInfo.platformSpecificDependencies);
+		for (const item of Object.values(cleaned.dependencies)) {
+			// @ts-ignore
+			item.dev = true;
+		}
 		await writeFileAsync(
 			SHRINKWRAP_FILENAME,
 			JSON.stringify(cleaned, null, JSON_INDENT),
 		);
-	} catch (error) {
+	} catch (error: any) {
 		console.log(`[ERROR] Couldn't write shrinkwrap file: ${error.stack}`);
 		process.exitCode = 1;
 	}

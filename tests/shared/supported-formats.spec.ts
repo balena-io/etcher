@@ -30,9 +30,8 @@ describe('Shared: SupportedFormats', function () {
 			],
 			(imagePath) => {
 				it(`should return true if filename is ${imagePath}`, function () {
-					const looksLikeWindowsImage = supportedFormats.looksLikeWindowsImage(
-						imagePath,
-					);
+					const looksLikeWindowsImage =
+						supportedFormats.looksLikeWindowsImage(imagePath);
 					expect(looksLikeWindowsImage).to.be.true;
 				});
 			},
@@ -45,9 +44,8 @@ describe('Shared: SupportedFormats', function () {
 			],
 			(imagePath) => {
 				it(`should return false if filename is ${imagePath}`, function () {
-					const looksLikeWindowsImage = supportedFormats.looksLikeWindowsImage(
-						imagePath,
-					);
+					const looksLikeWindowsImage =
+						supportedFormats.looksLikeWindowsImage(imagePath);
 					expect(looksLikeWindowsImage).to.be.false;
 				});
 			},

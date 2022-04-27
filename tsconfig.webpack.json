@@ -10,7 +10,16 @@
     "jsx": "react",
     "typeRoots": ["./node_modules/@types", "./typings"],
     "importHelpers": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "lib": ["dom", "esnext"],
+    "declaration": true,
+    "declarationMap": true,
+    "pretty": true,
+    "sourceMap": true,
+    "baseUrl": "./src",
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowJs": true
   },
   "include": [
     "lib/**/*.ts",

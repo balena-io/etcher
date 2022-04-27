@@ -16,11 +16,12 @@
 
 import GithubSvg from '@fortawesome/fontawesome-free/svgs/brands/github.svg';
 import * as _ from 'lodash';
-import * as os from 'os';
 import * as React from 'react';
-import { Box, Button, Flex, Checkbox, Txt } from 'rendition';
+
+import { Box, Button, Flex, Checkbox, TextWithCopy, Txt } from 'rendition';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 import { version, packageType } from '../../../../../package.json';
 import * as settings from '../../models/settings';
@@ -29,47 +30,41 @@ import { open as openExternal } from '../../os/open-external/services/open-exter
 import { Modal } from '../../styled-components';
 import { unlinkSync, readFileSync } from 'fs';
 
-const platform = os.platform();
-
 interface Setting {
 	name: string;
 	label: string | JSX.Element;
-	options?: {
-		description: string;
-		confirmLabel: string;
-	};
-	hide?: boolean;
 }
 
 async function getSettingsList(): Promise<Setting[]> {
-	return [
+	const list: Setting[] = [
 		{
 			name: 'errorReporting',
 			label: 'Anonymously report errors and usage statistics to balena.io',
 		},
-		{
-			name: 'unmountOnSuccess',
-			/**
-			 * On Windows, "Unmounting" basically means "ejecting".
-			 * On top of that, Windows users are usually not even
-			 * familiar with the meaning of "unmount", which comes
-			 * from the UNIX world.
-			 */
-			label: `${platform === 'win32' ? 'Eject' : 'Auto-unmount'} on success`,
-		},
-		{
+	];
+	if (['appimage', 'nsis', 'dmg'].includes(packageType)) {
+		list.push({
 			name: 'updatesEnabled',
 			label: 'Auto-updates enabled',
-			hide: ['rpm', 'deb'].includes(packageType),
-		},
-	];
+		});
+	}
+	return list;
 }
 
 interface SettingsModalProps {
 	toggleModal: (value: boolean) => void;
 }
 
-export function SettingsModal({ toggleModal }: SettingsModalProps): any {
+const UUID = process.env.BALENA_DEVICE_UUID;
+
+const InfoBox = (props: any) => (
+	<Box fontSize={14}>
+		<Txt>{props.label}</Txt>
+		<TextWithCopy code text={props.value} copy={props.value} />
+	</Box>
+);
+
+export function SettingsModal({ toggleModal }: SettingsModalProps) {
 	const [settingsList, setCurrentSettingsList] = React.useState<Setting[]>([]);
 	const [showDiagScreen, setShowDiagScreen] = React.useState<boolean>(false);
 	const [diagApiIsUp, setDiagApiIsUp] = React.useState<boolean>(false);
@@ -110,25 +105,16 @@ export function SettingsModal({ toggleModal }: SettingsModalProps): any {
 		})();
 	}, []);
 
-	const toggleSetting = async (
-		setting: string,
-		options?: Setting['options'],
-	) => {
+	
+	const toggleSetting = async (setting: string) => {
+
 		const value = currentSettings[setting];
-		const dangerous = options !== undefined;
-
-		analytics.logEvent('Toggle setting', {
-			setting,
-			value,
-			dangerous,
-		});
-
+		analytics.logEvent('Toggle setting', { setting, value });
 		await settings.set(setting, !value);
 		setCurrentSettings({
 			...currentSettings,
 			[setting]: !value,
 		});
-		return;
 	};
 
 	const closeDiagFrame = () => {
@@ -227,18 +213,24 @@ export function SettingsModal({ toggleModal }: SettingsModalProps): any {
 		>
 			<Flex flexDirection="column">
 				{settingsList.map((setting: Setting, i: number) => {
-					return setting.hide ? null : (
+					return (
 						<Flex key={setting.name} mb={14}>
 							<Checkbox
 								toggle
 								tabIndex={6 + i}
 								label={setting.label}
 								checked={currentSettings[setting.name]}
-								onChange={() => toggleSetting(setting.name, setting.options)}
+								onChange={() => toggleSetting(setting.name)}
 							/>
 						</Flex>
 					);
 				})}
+				{UUID !== undefined && (
+					<Flex flexDirection="column">
+						<Txt fontSize={24}>System Information</Txt>
+						<InfoBox label="UUID" value={UUID.substr(0, 7)} />
+					</Flex>
+				)}
 				<Flex
 					mt={18}
 					alignItems="center"

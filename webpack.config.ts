@@ -17,7 +17,6 @@
 import * as CopyPlugin from 'copy-webpack-plugin';
 import { readdirSync } from 'fs';
 import * as _ from 'lodash';
-import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import * as os from 'os';
 import outdent from 'outdent';
 import * as path from 'path';
@@ -25,6 +24,9 @@ import { env } from 'process';
 import * as SimpleProgressWebpackPlugin from 'simple-progress-webpack-plugin';
 import * as TerserPlugin from 'terser-webpack-plugin';
 import { BannerPlugin, NormalModuleReplacementPlugin } from 'webpack';
+import * as PnpWebpackPlugin from 'pnp-webpack-plugin';
+
+import * as tsconfigRaw from './tsconfig.webpack.json';
 
 /**
  * Don't webpack package.json as mixpanel & sentry tokens
@@ -32,8 +34,7 @@ import { BannerPlugin, NormalModuleReplacementPlugin } from 'webpack';
  */
 function externalPackageJson(packageJsonPath: string) {
 	return (
-		_context: string,
-		request: string,
+		{ request }: { context: string; request: string },
 		callback: (error?: Error | null, result?: string) => void,
 	) => {
 		if (_.endsWith(request, 'package.json')) {
@@ -50,8 +51,7 @@ function platformSpecificModule(
 ) {
 	// Resolves module on platform, otherwise resolves the replacement
 	return (
-		_context: string,
-		request: string,
+		{ request }: { context: string; request: string },
 		callback: (error?: Error, result?: string, type?: string) => void,
 	) => {
 		if (request === module && os.platform() !== platform) {
@@ -70,6 +70,8 @@ function renameNodeModules(resourcePath: string) {
 		path
 			.relative(__dirname, resourcePath)
 			.replace('node_modules', 'modules')
+			// use the same name on all architectures so electron-builder can build a universal dmg on mac
+			.replace(LZMA_BINDINGS_FOLDER, LZMA_BINDINGS_FOLDER_RENAMED)
 			// file-loader expects posix paths, even on Windows
 			.replace(/\\/g, '/')
 	);
@@ -89,6 +91,7 @@ function findLzmaNativeBindingsFolder(): string {
 }
 
 const LZMA_BINDINGS_FOLDER = findLzmaNativeBindingsFolder();
+const LZMA_BINDINGS_FOLDER_RENAMED = 'binding';
 
 interface ReplacementRule {
 	search: string;
@@ -119,7 +122,15 @@ function fetchWasm(...where: string[]) {
 		} catch {
 		}
 		function appPath() {
-			return Path.isAbsolute(__dirname) ? __dirname : Path.join(electron.remote.app.getAppPath(), 'generated');
+			return Path.isAbsolute(__dirname) ?
+				__dirname :
+				Path.join(
+					// With macOS universal builds, getAppPath() returns the path to an app.asar file containing an index.js file which will
+					// include the app-x64 or app-arm64 folder depending on the arch.
+					// We don't care about the app.asar file, we want the actual folder.
+					electron.remote.app.getAppPath().replace(/\\.asar$/, () => process.platform === 'darwin' ? '-' + process.arch : ''),
+					'generated'
+				);
 		}
 		scriptDirectory = Path.join(appPath(), 'modules', ${whereStr}, '/');
 	`;
@@ -128,16 +139,17 @@ function fetchWasm(...where: string[]) {
 const commonConfig = {
 	mode: 'production',
 	optimization: {
+		moduleIds: 'natural',
 		minimize: true,
 		minimizer: [
 			new TerserPlugin({
+				parallel: true,
 				terserOptions: {
 					compress: false,
 					mangle: false,
-					output: {
-						beautify: true,
+					format: {
 						comments: false,
-						ecma: 2018,
+						ecma: 2020,
 					},
 				},
 				extractComments: false,
@@ -148,7 +160,12 @@ const commonConfig = {
 		rules: [
 			{
 				test: /\.css$/,
-				use: 'css-loader',
+				use: ['style-loader', 'css-loader'],
+			},
+			{
+				test: /\.(woff|woff2|eot|ttf|otf)$/,
+				loader: 'file-loader',
+				options: { name: renameNodeModules },
 			},
 			{
 				test: /\.svg$/,
@@ -158,9 +175,11 @@ const commonConfig = {
 				test: /\.tsx?$/,
 				use: [
 					{
-						loader: 'ts-loader',
+						loader: 'esbuild-loader',
 						options: {
-							configFile: 'tsconfig.webpack.json',
+							loader: 'tsx',
+							target: 'es2021',
+							tsconfigRaw,
 						},
 					},
 				],
@@ -192,12 +211,7 @@ const commonConfig = {
 				// remove node-pre-gyp magic from lzma-native
 				{
 					search: 'require(binding_path)',
-					replace: () => {
-						return `require('./${path.posix.join(
-							LZMA_BINDINGS_FOLDER,
-							'lzma_native.node',
-						)}')`;
-					},
+					replace: `require('./${LZMA_BINDINGS_FOLDER}/lzma_native.node')`,
 				},
 				// use regular stream module instead of readable-stream
 				{
@@ -241,7 +255,19 @@ const commonConfig = {
 					"return await readFile(Path.join(__dirname, '..', 'blobs', filename));",
 				replace: outdent`
 					const { app, remote } = require('electron');
-					return await readFile(Path.join((app || remote.app).getAppPath(), 'generated', __dirname.replace('node_modules', 'modules'), '..', 'blobs', filename));
+					return await readFile(
+						Path.join(
+							// With macOS universal builds, getAppPath() returns the path to an app.asar file containing an index.js file which will
+							// include the app-x64 or app-arm64 folder depending on the arch.
+							// We don't care about the app.asar file, we want the actual folder.
+							(app || remote.app).getAppPath().replace(/\\.asar$/, () => process.platform === 'darwin' ? '-' + process.arch : ''),
+							'generated',
+							__dirname.replace('node_modules', 'modules'),
+							'..',
+							'blobs',
+							filename
+						)
+					);
 				`,
 			}),
 			// Use the libext2fs.wasm file in the generated folder
@@ -272,16 +298,20 @@ const commonConfig = {
 		extensions: ['.node', '.js', '.json', '.ts', '.tsx'],
 	},
 	plugins: [
+		PnpWebpackPlugin,
 		new SimpleProgressWebpackPlugin({
 			format: process.env.WEBPACK_PROGRESS || 'verbose',
 		}),
 		// Force axios to use http.js, not xhr.js as we need stream support
-		// (it's package.json file replaces http with xhr for browser targets).
+		// (its package.json file replaces http with xhr for browser targets).
 		new NormalModuleReplacementPlugin(
 			slashOrAntislash(/node_modules\/axios\/lib\/adapters\/xhr\.js/),
 			'./http.js',
 		),
 	],
+	resolveLoader: {
+		plugins: [PnpWebpackPlugin.moduleLoader(module)],
+	},
 	output: {
 		path: path.join(__dirname, 'generated'),
 		filename: '[name].js',
@@ -319,7 +349,7 @@ if (os.platform() === 'win32') {
 	// liblzma.dll is required on Windows for lzma-native
 	guiConfigCopyPatterns.push({
 		from: `node_modules/lzma-native/${LZMA_BINDINGS_FOLDER}/liblzma.dll`,
-		to: `modules/lzma-native/${LZMA_BINDINGS_FOLDER}/liblzma.dll`,
+		to: `modules/lzma-native/${LZMA_BINDINGS_FOLDER_RENAMED}/liblzma.dll`,
 	});
 }
 
@@ -331,10 +361,19 @@ const guiConfig = {
 		__filename: true,
 	},
 	entry: {
-		gui: path.join(__dirname, 'lib', 'gui', 'app', 'app.ts'),
+		gui: path.join(__dirname, 'lib', 'gui', 'app', 'renderer.ts'),
 	},
+	// entry: path.join(__dirname, 'lib', 'gui', 'app', 'renderer.ts'),
 	plugins: [
 		...commonConfig.plugins,
+		new CopyPlugin({
+			patterns: [
+				{ from: 'lib/gui/app/index.html', to: 'index.html' },
+				// electron-builder doesn't bundle folders named "assets"
+				// See https://github.com/electron-userland/electron-builder/issues/4545
+				{ from: 'assets/icon.png', to: 'media/icon.png' },
+			],
+		}),
 		// Remove "Download the React DevTools for a better development experience" message
 		new BannerPlugin({
 			banner: '__REACT_DEVTOOLS_GLOBAL_HOOK__ = { isDisabled: true };',
@@ -373,41 +412,4 @@ const childWriterConfig = {
 	},
 };
 
-const cssConfig = {
-	mode: 'production',
-	optimization: {
-		minimize: false,
-	},
-	module: {
-		rules: [
-			{
-				test: /\.css$/i,
-				use: [MiniCssExtractPlugin.loader, 'css-loader'],
-			},
-			{
-				test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
-				loader: 'file-loader',
-				options: { name: renameNodeModules },
-			},
-		],
-	},
-	plugins: [
-		new MiniCssExtractPlugin({ filename: '[name].css' }),
-		new CopyPlugin({
-			patterns: [
-				{ from: 'lib/gui/app/index.html', to: 'index.html' },
-				// electron-builder doesn't bundle folders named "assets"
-				// See https://github.com/electron-userland/electron-builder/issues/4545
-				{ from: 'assets/icon.png', to: 'media/icon.png' },
-			],
-		}),
-	],
-	entry: {
-		index: path.join(__dirname, 'lib', 'gui', 'app', 'css', 'main.css'),
-	},
-	output: {
-		path: path.join(__dirname, 'generated'),
-	},
-};
-
-module.exports = [cssConfig, guiConfig, etcherConfig, childWriterConfig];
+export default [guiConfig, etcherConfig, childWriterConfig];

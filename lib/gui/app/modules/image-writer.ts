@@ -15,7 +15,6 @@
  */
 
 import { Drive as DrivelistDrive } from 'drivelist';
-import * as electron from 'electron';
 import * as sdk from 'etcher-sdk';
 import { Dictionary } from 'lodash';
 import * as ipc from 'node-ipc';
@@ -25,6 +24,7 @@ import * as path from 'path';
 import * as packageJSON from '../../../../package.json';
 import * as errors from '../../../shared/errors';
 import * as permissions from '../../../shared/permissions';
+import { getAppPath } from '../../../shared/utils';
 import { SourceMetadata } from '../components/source-selector/source-selector';
 import * as flashState from '../models/flash-state';
 import * as selectionState from '../models/selection-state';
@@ -93,11 +93,7 @@ function terminateServer() {
 }
 
 function writerArgv(): string[] {
-	let entryPoint = path.join(
-		electron.remote.app.getAppPath(),
-		'generated',
-		'child-writer.js',
-	);
+	let entryPoint = path.join(getAppPath(), 'generated', 'child-writer.js');
 	// AppImages run over FUSE, so the files inside the mount point
 	// can only be accessed by the user that mounted the AppImage.
 	// This means we can't re-spawn Etcher as root from the same
@@ -151,11 +147,7 @@ async function performWrite(
 	let cancelled = false;
 	let skip = false;
 	ipc.serve();
-	const {
-		unmountOnSuccess,
-		autoBlockmapping,
-		decompressFirst,
-	} = await settings.getAll();
+	const { autoBlockmapping, decompressFirst } = await settings.getAll();
 	return await new Promise((resolve, reject) => {
 		ipc.server.on('error', (error) => {
 			terminateServer();
@@ -174,7 +166,6 @@ async function performWrite(
 			driveCount: drives.length,
 			uuid: flashState.getFlashUuid(),
 			flashInstanceUuid: flashState.getFlashUuid(),
-			unmountOnSuccess,
 		};
 
 		ipc.server.on('fail', ({ device, error }) => {
@@ -211,7 +202,6 @@ async function performWrite(
 				destinations: drives,
 				SourceType: image.SourceType.name,
 				autoBlockmapping,
-				unmountOnSuccess,
 				decompressFirst,
 			});
 		});
@@ -228,7 +218,7 @@ async function performWrite(
 				});
 				flashResults.cancelled = cancelled || results.cancelled;
 				flashResults.skip = skip;
-			} catch (error) {
+			} catch (error: any) {
 				// This happens when the child is killed using SIGKILL
 				const SIGKILL_EXIT_CODE = 137;
 				if (error.code === SIGKILL_EXIT_CODE) {
@@ -278,7 +268,7 @@ export async function flash(
 		throw new Error('There is already a flash in progress');
 	}
 
-	flashState.setFlashingFlag();
+	await flashState.setFlashingFlag();
 	flashState.setDevicePaths(
 		drives.map((d) => d.devicePath).filter((p) => p != null) as string[],
 	);
@@ -290,16 +280,18 @@ export async function flash(
 		uuid: flashState.getFlashUuid(),
 		status: 'started',
 		flashInstanceUuid: flashState.getFlashUuid(),
-		unmountOnSuccess: await settings.get('unmountOnSuccess'),
 	};
 
 	analytics.logEvent('Flash', analyticsData);
 
 	try {
 		const result = await write(image, drives, flashState.setProgressState);
-		flashState.unsetFlashingFlag(result);
-	} catch (error) {
-		flashState.unsetFlashingFlag({ cancelled: false, errorCode: error.code });
+		await flashState.unsetFlashingFlag(result);
+	} catch (error: any) {
+		await flashState.unsetFlashingFlag({
+			cancelled: false,
+			errorCode: error.code,
+		});
 		windowProgress.clear();
 		const { results = {} } = flashState.getFlashResults();
 		const eventData = {
@@ -345,7 +337,6 @@ export async function cancel(type: string) {
 		driveCount: drives.length,
 		uuid: flashState.getFlashUuid(),
 		flashInstanceUuid: flashState.getFlashUuid(),
-		unmountOnSuccess: await settings.get('unmountOnSuccess'),
 		status,
 	};
 	analytics.logEvent('Cancel', analyticsData);
@@ -358,7 +349,7 @@ export async function cancel(type: string) {
 		if (socket !== undefined) {
 			ipc.server.emit(socket, status);
 		}
-	} catch (error) {
+	} catch (error: any) {
 		analytics.logException(error);
 	}
 }
