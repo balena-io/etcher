@@ -78,10 +78,12 @@ function renameNodeModules(resourcePath: string) {
 }
 
 function findLzmaNativeBindingsFolder(): string {
-	const files = readdirSync(path.join('node_modules', 'lzma-native'));
+	const files = readdirSync(
+		path.join('node_modules', 'lzma-native', 'prebuilds'),
+	);
 	const bindingsFolder = files.find(
 		(f) =>
-			f.startsWith('binding-') &&
+			f.startsWith(os.platform()) &&
 			f.endsWith(env.npm_config_target_arch || os.arch()),
 	);
 	if (bindingsFolder === undefined) {
@@ -210,8 +212,8 @@ const commonConfig = {
 				/node_modules\/lzma-native\/index\.js$/,
 				// remove node-pre-gyp magic from lzma-native
 				{
-					search: 'require(binding_path)',
-					replace: `require('./${LZMA_BINDINGS_FOLDER}/lzma_native.node')`,
+					search: `require('node-gyp-build')(__dirname);`,
+					replace: `require('./prebuilds/${LZMA_BINDINGS_FOLDER}/electron.napi.node')`,
 				},
 				// use regular stream module instead of readable-stream
 				{
@@ -348,8 +350,8 @@ const guiConfigCopyPatterns = [
 if (os.platform() === 'win32') {
 	// liblzma.dll is required on Windows for lzma-native
 	guiConfigCopyPatterns.push({
-		from: `node_modules/lzma-native/${LZMA_BINDINGS_FOLDER}/liblzma.dll`,
-		to: `modules/lzma-native/${LZMA_BINDINGS_FOLDER_RENAMED}/liblzma.dll`,
+		from: `node_modules/lzma-native/prebuilds/${LZMA_BINDINGS_FOLDER}/liblzma.dll`,
+		to: `modules/lzma-native/prebuilds/${LZMA_BINDINGS_FOLDER_RENAMED}/liblzma.dll`,
 	});
 }
 
