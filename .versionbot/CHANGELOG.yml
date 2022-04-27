@@ -1,4 +1,21 @@
 - commits:
+    - subject: "patch: updated aws axios version to match with sdk"
+      hash: 3e02af8ea026458b15cacff959e29942fd30ae9c
+      body: ""
+      footer: {}
+      author: Peter Makra
+      nested: []
+    - subject: "patch: updated etcher-sdk to 7.2.0; adjusted webpack config to updated
+        lzma structure"
+      hash: 30c5175ddbba0afdcb8bab9f86267f884fb72b17
+      body: ""
+      footer: {}
+      author: Peter Makra
+      nested: []
+  version: 1.7.10
+  title: "'patch: updated etcher-sdk to 7.2.0'"
+  date: 2022-04-27T16:13:54.499Z
+- commits:
     - subject: "patch: update allowed extensions to include deb afterinstall in build"
       hash: 61610ded842caba47c6a682afcb08aa0fda4e86b
       body: ""

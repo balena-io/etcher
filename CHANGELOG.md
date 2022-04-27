@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.7.10
+## (2022-04-27)
+
+* patch: updated aws axios version to match with sdk [Peter Makra]
+* patch: updated etcher-sdk to 7.2.0; adjusted webpack config to updated lzma structure [Peter Makra]
+
 # v1.7.9
 ## (2022-04-22)
 
