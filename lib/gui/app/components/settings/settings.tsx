@@ -66,13 +66,9 @@ const InfoBox = (props: any) => (
 export function SettingsModal({ toggleModal }: SettingsModalProps) {
 	const [settingsList, setCurrentSettingsList] = React.useState<Setting[]>([]);
 	const [showDiagScreen, setShowDiagScreen] = React.useState<boolean>(false);
-	const [diagApiIsUp, setDiagApiIsUp] = React.useState<boolean>(false);
-	const [showDiagButton, setShowDiagButton] = React.useState<boolean>(false);
 	const [currentSettings, setCurrentSettings] = React.useState<
 		_.Dictionary<boolean>
 	>({});
-	const [errorMessage, setErrorMessage] = React.useState<string>('');
-	let diagCount = 0;
 
 	React.useEffect(() => {
 		(async () => {
@@ -90,20 +86,6 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 		})();
 	});
 
-	React.useEffect(() => {
-		(async () => {
-			try {
-				const result = await fetch('http://localhost:3000/api/ping');
-				if (result.ok) {
-					setShowDiagButton(true);
-					setDiagApiIsUp(true);
-				}
-			} catch {
-				// no diag container
-			}
-		})();
-	}, []);
-
 	const toggleSetting = async (setting: string) => {
 		const value = currentSettings[setting];
 		analytics.logEvent('Toggle setting', { setting, value });
@@ -120,82 +102,6 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 
 	const openDiagFrame = () => {
 		setShowDiagScreen(true);
-	};
-
-	const prepareDiag = () => {
-		if (++diagCount > 5) {
-			setShowDiagButton(true);
-		}
-	};
-
-	const startDiag = async () => {
-		try {
-			unlinkSync('/usr/src/diag-data/startup.lock');
-		} catch (error) {
-			console.log("Can't remove diag lock", error);
-		}
-
-		try {
-			const supUrl: string = readFileSync('/usr/src/diag-data/start.url', {
-				encoding: 'utf8',
-				flag: 'r',
-			});
-
-			const startRes = await fetch(supUrl, {
-				method: 'POST',
-				body: JSON.stringify({ serviceName: 'diag-runner', force: true }),
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			});
-
-			if (startRes.ok) {
-				// good
-			} else {
-				setErrorMessage(`${errorMessage} :: ${startRes.statusText}`);
-			}
-		} catch (error) {
-			console.log('Error in starting diag', error);
-		}
-	};
-
-	const removeDiag = async () => {
-		setErrorMessage('');
-		try {
-			const supervisorUrl = await (
-				await fetch(`http://localhost:3000/api/supervisor/url`)
-			).text();
-			const supervisorApiKey = await (
-				await fetch(`http://localhost:3000/api/supervisor/apiKey`)
-			).text();
-			const appId = await (
-				await fetch(`http://localhost:3000/api/supervisor/appid`)
-			).text();
-			const createLock = await fetch(
-				`http://localhost:3000/api/supervisor/createlock`,
-			);
-
-			const stopRes = await fetch(
-				`${supervisorUrl}/v2/applications/${appId}/stop-service?apikey=${supervisorApiKey}`,
-				{
-					method: 'POST',
-					body: JSON.stringify({ serviceName: 'diag-runner', force: true }),
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				},
-			);
-
-			if (!stopRes.ok) {
-				setErrorMessage(`Stop call failed | ${stopRes.statusText}`);
-			}
-
-			if (!createLock.ok) {
-				setErrorMessage(`${errorMessage} :: Create lock file failed :: `);
-			}
-		} catch (err) {
-			setErrorMessage(err);
-		}
 	};
 
 	return (
@@ -240,7 +146,6 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 						openExternal(
 							'https://github.com/balena-io/etcher/blob/master/CHANGELOG.md',
 						);
-						prepareDiag();
 					}}
 				>
 					<GithubSvg
@@ -250,34 +155,16 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 					/>
 					<Txt style={{ borderBottom: '1px solid #00aeef' }}>{version}</Txt>
 				</Flex>
-				{showDiagButton ? (
-					<Box>
-						{diagApiIsUp ? (
-							<>
-								<Button
-									icon={<FontAwesomeIcon icon={faChartBar} />}
-									onClick={() => openDiagFrame()}
-									plain
-								>
-									Run self-test
-								</Button>
-							</>
-						) : (
-							<>
-								<Button
-									icon={<FontAwesomeIcon icon={faChartBar} />}
-									plain
-									onClick={() => startDiag()}
-								>
-									Start diag container
-								</Button>
-							</>
-						)}
-						<Txt>{errorMessage}</Txt>
-					</Box>
-				) : (
-					<></>
-				)}
+
+				<Box>
+					<Button
+						icon={<FontAwesomeIcon icon={faChartBar} />}
+						onClick={() => openDiagFrame()}
+						plain
+					>
+						Run self-test
+					</Button>
+				</Box>
 			</Flex>
 
 			{showDiagScreen ? (
