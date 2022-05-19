@@ -19,9 +19,8 @@ import * as _ from 'lodash';
 import * as React from 'react';
 
 import { Box, Button, Flex, Checkbox, TextWithCopy, Txt } from 'rendition';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faChartBar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 
 import { version, packageType } from '../../../../../package.json';
 import * as settings from '../../models/settings';
@@ -105,9 +104,7 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 		})();
 	}, []);
 
-	
 	const toggleSetting = async (setting: string) => {
-
 		const value = currentSettings[setting];
 		analytics.logEvent('Toggle setting', { setting, value });
 		await settings.set(setting, !value);
@@ -135,7 +132,7 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 		try {
 			unlinkSync('/usr/src/diag-data/startup.lock');
 		} catch (error) {
-			console.log("Can't remove diag lock", error)
+			console.log("Can't remove diag lock", error);
 		}
 
 		try {
@@ -151,16 +148,15 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 					'Content-Type': 'application/json',
 				},
 			});
-	
+
 			if (startRes.ok) {
 				// good
 			} else {
 				setErrorMessage(`${errorMessage} :: ${startRes.statusText}`);
-			}			
+			}
 		} catch (error) {
-			console.log("Error in starting diag", error)
+			console.log('Error in starting diag', error);
 		}
-
 	};
 
 	const removeDiag = async () => {
@@ -258,16 +254,21 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 					<Box>
 						{diagApiIsUp ? (
 							<>
-								<Button primary onClick={() => openDiagFrame()}>
-									Open Diagnostics
-								</Button>
-								<Button danger onClick={() => removeDiag()}>
-									Stop container
+								<Button
+									icon={<FontAwesomeIcon icon={faChartBar} />}
+									onClick={() => openDiagFrame()}
+									plain
+								>
+									Run self-test
 								</Button>
 							</>
 						) : (
 							<>
-								<Button primary onClick={() => startDiag()}>
+								<Button
+									icon={<FontAwesomeIcon icon={faChartBar} />}
+									plain
+									onClick={() => startDiag()}
+								>
 									Start diag container
 								</Button>
 							</>
