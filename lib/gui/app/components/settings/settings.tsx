@@ -153,17 +153,16 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 						style={{ marginRight: 8 }}
 					/>
 					<Txt style={{ borderBottom: '1px solid #00aeef' }}>{version}</Txt>
-				</Flex>
-
-				<Box>
+					<br />
 					<Button
 						icon={<FontAwesomeIcon icon={faChartBar} />}
 						onClick={() => openDiagFrame()}
 						plain
+						size="small"
 					>
 						Run self-test
 					</Button>
-				</Box>
+				</Flex>
 			</Flex>
 
 			{showDiagScreen ? (
