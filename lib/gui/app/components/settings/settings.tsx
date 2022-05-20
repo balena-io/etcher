@@ -153,15 +153,25 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 						style={{ marginRight: 8 }}
 					/>
 					<Txt style={{ borderBottom: '1px solid #00aeef' }}>{version}</Txt>
-					<br />
-					<Button
-						icon={<FontAwesomeIcon icon={faChartBar} />}
-						onClick={() => openDiagFrame()}
-						plain
-						size="small"
-					>
-						Run self-test
-					</Button>
+				</Flex>
+				<Flex
+					mt={18}
+					alignItems="center"
+					color="#00aeef"
+					style={{
+						width: 'fit-content',
+						cursor: 'pointer',
+						fontSize: 14,
+					}}
+					onClick={() => openDiagFrame()}
+				>
+					<FontAwesomeIcon
+						icon={faChartBar}
+						height="1em"
+						fill="currentColor"
+						style={{ marginRight: 8 }}
+					/>
+					<Txt style={{ borderBottom: '1px solid #00aeef' }}>Run self-test</Txt>
 				</Flex>
 			</Flex>
 
