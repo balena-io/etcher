@@ -64,6 +64,7 @@ const InfoBox = (props: any) => (
 
 export function SettingsModal({ toggleModal }: SettingsModalProps) {
 	const [settingsList, setCurrentSettingsList] = React.useState<Setting[]>([]);
+	const [diagApiIsUp, setDiagApiIsUp] = React.useState<boolean>(false);
 	const [showDiagScreen, setShowDiagScreen] = React.useState<boolean>(false);
 	const [currentSettings, setCurrentSettings] = React.useState<
 		_.Dictionary<boolean>
@@ -84,6 +85,23 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 			}
 		})();
 	});
+
+	React.useEffect(() => {
+		(async () => {
+			try {
+				const res = await fetch(`http://localhost:3000/api/ping`);
+				if (res.status < 400 && res.status > 199) {
+					setDiagApiIsUp(true);
+				} else {
+					console.log('Diagnostics api not reachable.');
+					setDiagApiIsUp(false);
+				}
+			} catch (err) {
+				console.log('Diagnostics api not reachable.', err);
+				setDiagApiIsUp(false);
+			}
+		})();
+	}, []);
 
 	const toggleSetting = async (setting: string) => {
 		const value = currentSettings[setting];
@@ -154,25 +172,31 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 					/>
 					<Txt style={{ borderBottom: '1px solid #00aeef' }}>{version}</Txt>
 				</Flex>
-				<Flex
-					mt={18}
-					alignItems="center"
-					color="#00aeef"
-					style={{
-						width: 'fit-content',
-						cursor: 'pointer',
-						fontSize: 14,
-					}}
-					onClick={() => openDiagFrame()}
-				>
-					<FontAwesomeIcon
-						icon={faChartBar}
-						height="1em"
-						fill="currentColor"
-						style={{ marginRight: 8 }}
-					/>
-					<Txt style={{ borderBottom: '1px solid #00aeef' }}>Run self-test</Txt>
-				</Flex>
+				{diagApiIsUp ? (
+					<Flex
+						mt={18}
+						alignItems="center"
+						color="#00aeef"
+						style={{
+							width: 'fit-content',
+							cursor: 'pointer',
+							fontSize: 14,
+						}}
+						onClick={() => openDiagFrame()}
+					>
+						<FontAwesomeIcon
+							icon={faChartBar}
+							height="1em"
+							fill="currentColor"
+							style={{ marginRight: 8 }}
+						/>
+						<Txt style={{ borderBottom: '1px solid #00aeef' }}>
+							Run self-test
+						</Txt>
+					</Flex>
+				) : (
+					<></>
+				)}
 			</Flex>
 
 			{showDiagScreen ? (
