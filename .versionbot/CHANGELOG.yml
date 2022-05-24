@@ -1,4 +1,103 @@
 - commits:
+    - subject: "patch: hide selftest if api is not available"
+      hash: c1cb9e5ec8560795ef5b2121b694f3d03fc05aae
+      body: ""
+      footer: {}
+      author: Peter Makra
+      nested: []
+    - subject: "patch: fixed style of diag button"
+      hash: cbbf99259dfa89cc84a0244999e54463712883e3
+      body: ""
+      footer: {}
+      author: Peter Makra
+      nested: []
+    - subject: "patch: moved diag link to container"
+      hash: 0089fec943595222630239be524b6010413ff719
+      body: ""
+      footer: {}
+      author: Peter Makra
+      nested: []
+    - subject: "patch: cleaned up settings page from diag"
+      hash: 708750cc8514f6a0921422b795df73275f501414
+      body: ""
+      footer: {}
+      author: Peter Makra
+      nested: []
+    - subject: "patch: cleaned up settings page from diag"
+      hash: 80dd432bdb58108491aa67741b95a1b40f76c154
+      body: ""
+      footer: {}
+      author: Peter Makra
+      nested: []
+    - subject: "patch: removed diagnostic stop button"
+      hash: 7690f0e861675b99946064405f0adc4818892a94
+      body: ""
+      footer: {}
+      author: Peter Makra
+      nested: []
+    - subject: "patch: updated submodule"
+      hash: 767c67454530a35b7acefeae97f1c1ee52955d73
+      body: ""
+      footer: {}
+      author: Peter Makra
+      nested: []
+    - subject: "patch: fix error handling around file operations"
+      hash: 8700cad22883793162be2016cade2fcea02ff9b5
+      body: ""
+      footer:
+        Change-Type: patch
+        change-type: patch
+      author: Peter Makra
+      nested: []
+    - subject: "patch: maked close button blue"
+      hash: 816c45c763c3d0860a3235521e096e9875dfe2be
+      body: ""
+      footer:
+        Change-Type: patch
+        change-type: patch
+      author: Peter Makra
+      nested: []
+    - subject: "patch: changed iframe size to percent"
+      hash: 6e9f6385d31c60e3074e36ae69afcdf587d0c851
+      body: ""
+      footer:
+        Change-Type: patch
+        change-type: patch
+      author: Peter Makra
+      nested: []
+    - subject: "patch: changed iframe css; fixed lint"
+      hash: 507ca28234dcac8bd4d93d7ce692d34e6a3b4178
+      body: ""
+      footer:
+        Change-Type: patch
+        change-type: patch
+      author: Peter Makra
+      nested: []
+    - subject: "patch: [diag] added diag container handling"
+      hash: ac77ac75461a0dca7332c183b111b373a1cfb1b4
+      body: ""
+      footer:
+        Change-Type: patch
+        change-type: patch
+      author: Peter Makra
+      nested: []
+    - subject: "patch: Show diag buttons if container available"
+      hash: 762b51970fdb6aff7989e20d22219056f36e8a53
+      body: ""
+      footer:
+        Change-Type: patch
+        change-type: patch
+      author: Peter Makra
+      nested: []
+    - subject: "patch: add hw-diag button to settings"
+      hash: 8a19709832c998a872561f8d6cb7384e2808c8d4
+      body: ""
+      footer: {}
+      author: Peter Makra
+      nested: []
+  version: 1.7.9
+  date: 2022-05-24T12:16:03.584Z
+- commits:
     - subject: "patch: complete suse uninstall readme"
       hash: 8370f638b4e92a4c981f79362ba0d0700f9f94a1
       body: ""
