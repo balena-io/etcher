@@ -52,7 +52,7 @@ async function checkForUpdates(interval: number) {
 				const release = await autoUpdater.checkForUpdates();
 				const isOutdated =
 					semver.compare(release!.updateInfo.version, version) > 0;
-				const shouldUpdate = release!.updateInfo.stagingPercentage !== 0; // undefinded (default) means 100%
+				const shouldUpdate = release!.updateInfo.stagingPercentage !== 0; // undefined (default) means 100%
 				if (shouldUpdate && isOutdated) {
 					await autoUpdater.downloadUpdate();
 					packageUpdated = true;
