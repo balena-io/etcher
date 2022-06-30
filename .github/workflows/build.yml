@@ -1,0 +1,65 @@
+
+name: build
+
+on:
+  push:
+    tags: ['**']
+
+  workflow_dispatch:
+    
+
+jobs:
+  tags:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get tag
+      id: preparetag
+      run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+
+    - run: echo ${{ steps.preparetag.outputs.tag }}
+  build: 
+    strategy: 
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      
+      - name: use node
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: 14
+      
+      - name: npm install
+        run: npm ci 
+     
+      - name: webpack build
+        run: npm run webpack 
+      
+      - name: tests
+        run: npm run test
+      
+      - name: electron build
+        if: $ {{ runner.os == 'macOS'}}
+        run: ./node_modules/.bin/electron-builder -c electron-builder.yml
+        # env:
+        #   CSC_LINK: ...
+        #   CSC_KEY_PASSWORD: ...
+
+      - name: electron build
+        if: $ {{ runner.os == 'Windows'}}
+        run: ./node_modules/.bin/electron-builder -c electron-builder.yml
+        # env:
+        #   CSC_LINK: ...
+        #   CSC_KEY_PASSWORD: ...
+
+      - name: electron build
+        if: $ {{ runner.os == 'Linux'}}
+        run: ./node_modules/.bin/electron-builder -c electron-builder.yml
+
+      - name: store build output
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ runner.os }}-${{ runner.arch }}-dist
+          path: dist
