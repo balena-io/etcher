@@ -51,3 +51,7 @@ node_modules
 # VSCode files
 
 .vscode
+
+# JetBrains WebStorm files
+
+.idea

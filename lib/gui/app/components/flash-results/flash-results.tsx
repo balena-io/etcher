@@ -31,6 +31,7 @@ import { resetState } from '../../models/flash-state';
 import * as selection from '../../models/selection-state';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
 import { Modal, Table } from '../../styled-components';
+import i18next from 'i18next';
 
 const ErrorsTable = styled((props) => <Table<FlashError> {...props} />)`
 	&&& [data-display='table-head'],
@@ -88,15 +89,15 @@ function formattedErrors(errors: FlashError[]) {
 const columns: Array<TableColumn<FlashError>> = [
 	{
 		field: 'description',
-		label: 'Target',
+		label: i18next.t('flash.target'),
 	},
 	{
 		field: 'device',
-		label: 'Location',
+		label: i18next.t('flash.location'),
 	},
 	{
 		field: 'message',
-		label: 'Error',
+		label: i18next.t('flash.error'),
 		render: (message: string, { code }: FlashError) => {
 			return message ?? code;
 		},
@@ -162,9 +163,10 @@ export function FlashResults({
 					<Txt>{middleEllipsis(image, 24)}</Txt>
 				</Flex>
 				<Txt fontSize={24} color="#fff" mb="17px">
-					Flash {allFailed ? 'Failed' : 'Complete'}!
+					{i18next.t('flash.flash')}{' '}
+					{allFailed ? i18next.t('failed') : i18next.t('completed')}!
 				</Txt>
-				{skip ? <Txt color="#7e8085">Validation has been skipped</Txt> : null}
+				{skip ? <Txt color="#7e8085">{i18next.t('flash.skip')}</Txt> : null}
 			</Flex>
 			<Flex flexDirection="column" color="#7e8085">
 				{results.devices.successful !== 0 ? (
@@ -188,7 +190,7 @@ export function FlashResults({
 							{progress.failed(errors.length)}
 						</Txt>
 						<Link ml="10px" onClick={() => setShowErrorsInfo(true)}>
-							more info
+							{i18next.t('flash.moreInfo')}
 						</Link>
 					</Flex>
 				) : null}
@@ -199,12 +201,9 @@ export function FlashResults({
 							fontWeight: 500,
 							textAlign: 'center',
 						}}
-						tooltip={outdent({ newline: ' ' })`
-							The speed is calculated by dividing the image size by the flashing time.
-							Disk images with ext partitions flash faster as we are able to skip unused parts.
-						`}
+						tooltip={i18next.t('flash.speedTip')}
 					>
-						Effective speed: {effectiveSpeed} MB/s
+						{i18next.t('flash.speed')} {effectiveSpeed} MB/s
 					</Txt>
 				)}
 			</Flex>
@@ -214,11 +213,11 @@ export function FlashResults({
 					titleElement={
 						<Flex alignItems="baseline" mb={18}>
 							<Txt fontSize={24} align="left">
-								Failed targets
+								{i18next.t('failedTarget')}
 							</Txt>
 						</Flex>
 					}
-					action="Retry failed targets"
+					action={i18next.t('failedRetry')}
 					cancel={() => setShowErrorsInfo(false)}
 					done={() => {
 						setShowErrorsInfo(false);

@@ -30,6 +30,9 @@ export async function sudo(
 	command: string,
 ): Promise<{ cancelled: boolean; stdout?: string; stderr?: string }> {
 	try {
+		let lang = Intl.DateTimeFormat().resolvedOptions().locale;
+		lang = lang.substr(0, 2);
+
 		const { stdout, stderr } = await execFileAsync(
 			'sudo',
 			['--askpass', 'sh', '-c', `echo ${SUCCESSFUL_AUTH_MARKER} && ${command}`],
@@ -40,7 +43,7 @@ export async function sudo(
 					SUDO_ASKPASS: join(
 						getAppPath(),
 						__dirname,
-						'sudo-askpass.osascript.js',
+						'sudo-askpass.osascript-' + lang + '.js',
 					),
 				},
 			},
