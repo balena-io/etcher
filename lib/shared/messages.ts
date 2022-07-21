@@ -44,16 +44,15 @@ export const info = {
 		} else {
 			if (successful) {
 				targets.push(
-					i18next.t('message.to') +
-						successful +
-						i18next.t('message.target', { count: successful }),
+					i18next.t('message.succeedTarget', {
+						count: successful,
+						num: successful,
+					}),
 				);
 			}
 			if (failed) {
 				targets.push(
-					i18next.t('message.andFail') +
-						failed +
-						i18next.t('message.target', { count: failed }),
+					i18next.t('message.andFailTarget', { count: failed, num: failed }),
 				);
 			}
 		}
