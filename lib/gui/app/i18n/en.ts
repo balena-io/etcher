@@ -33,7 +33,10 @@ const translation = {
 			flashFail_one: 'Failed target',
 			flashFail_other: 'Failed targets',
 			to: 'to ',
-			andFail: 'and failed to be flashed to ',
+			succeedTarget_one: 'to {{num}} target',
+			succeedTarget_other: 'to {{num}} targets',
+			andFailTarget_one: 'and failed to be flashed to {{num}} target',
+			andFailTarget_other: 'and failed to be flashed to {{num}} targets',
 			target_one: ' target',
 			target_other: ' targets',
 			succeedTo: 'was successfully flashed',
@@ -123,9 +126,11 @@ const translation = {
 			moreInfo: 'more info',
 			speedTip:
 				'The speed is calculated by dividing the image size by the flashing time.\nDisk images with ext partitions flash faster as we are able to skip unused parts.',
-			speed: 'Effective speed: ',
+			speed: 'Effective speed: {{speed}} MB/s',
 			failedTarget: 'Failed targets',
 			failedRetry: 'Retry failed targets',
+			flashFailed: 'Flash Failed.',
+			flashCompleted: 'Flash Completed!',
 		},
 		settings: {
 			errorReporting:

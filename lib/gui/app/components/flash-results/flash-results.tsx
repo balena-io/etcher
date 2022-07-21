@@ -163,8 +163,9 @@ export function FlashResults({
 					<Txt>{middleEllipsis(image, 24)}</Txt>
 				</Flex>
 				<Txt fontSize={24} color="#fff" mb="17px">
-					{i18next.t('flash.flash')}{' '}
-					{allFailed ? i18next.t('failed') : i18next.t('completed')}!
+					{allFailed
+						? i18next.t('flash.flashFailed')
+						: i18next.t('flash.flashCompleted')}
 				</Txt>
 				{skip ? <Txt color="#7e8085">{i18next.t('flash.skip')}</Txt> : null}
 			</Flex>
@@ -203,7 +204,7 @@ export function FlashResults({
 						}}
 						tooltip={i18next.t('flash.speedTip')}
 					>
-						{i18next.t('flash.speed')} {effectiveSpeed} MB/s
+						{i18next.t('flash.speed', { speed: effectiveSpeed })}
 					</Txt>
 				)}
 			</Flex>
