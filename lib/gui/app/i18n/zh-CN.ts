@@ -33,13 +33,14 @@ const translation = {
 			flashFail_one: '烧录失败',
 			flashFail_other: '烧录失败',
 			to: '到 ',
-			succeedTarget_one: '到 {{num}} 个目标',
-			succeedTarget_other: '到 {{num}} 个目标',
+			toDrive: '到 {{description}} ({{name}})',
+			toTarget_one: '到 {{num}} 个目标',
+			toTarget_other: '到 {{num}} 个目标',
 			andFailTarget_one: '并烧录失败了 {{num}} 个目标',
 			andFailTarget_other: '并烧录失败了 {{num}} 个目标',
 			target_one: ' 个目标',
 			target_other: ' 个目标',
-			succeedTo: '被成功烧录',
+			succeedTo: '{{name}} 被成功烧录到 {{target}}',
 			exitWhileFlashing:
 				'您当前正在刷机。 关闭 Etcher 可能会导致您的磁盘无法使用。',
 			looksLikeWindowsImage:
@@ -53,11 +54,11 @@ const translation = {
 			sourceDrive: '源镜像位于这个分区中',
 			noSpace: '磁盘空间不足。 请插入另一个较大的磁盘并重试。',
 			genericFlashError:
-				'出了点问题。如果源镜像曾被压缩过，请检查它是否已损坏。',
+				'出了点问题。如果源镜像曾被压缩过，请检查它是否已损坏。\n{{error}}',
 			validation:
 				'写入已成功完成，但 Etcher 在从磁盘读取镜像时检测到潜在的损坏问题。 \n\n请考虑将镜像写入其他磁盘。',
 			openError: '打开 {{source}} 时出错。\n\n错误信息： {{error}}',
-			flashError: '烧录 {{image}} 到 {{target}} 失败。',
+			flashError: '烧录 {{image}} 到 {{targets}} 失败。',
 			unplug:
 				'看起来 Etcher 失去了对磁盘的连接。 它是不是被意外拔掉了？\n\n有时这个错误是因为读卡器出了故障。',
 			cannotWrite:

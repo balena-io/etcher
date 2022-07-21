@@ -33,13 +33,14 @@ const translation = {
 			flashFail_one: '燒錄失敗',
 			flashFail_other: '燒錄失敗',
 			to: '到 ',
-			succeedTarget_one: '到 {{num}} 個目標',
-			succeedTarget_other: '到 {{num}} 個目標',
+			toDrive: '到 {{description}} ({{name}})',
+			toTarget_one: '到 {{num}} 個目標',
+			toTarget_other: '到 {{num}} 個目標',
 			andFailTarget_one: '並燒錄失敗了 {{num}} 個目標',
 			andFailTarget_other: '並燒錄失敗了 {{num}} 個目標',
 			target_one: ' 個目標',
 			target_other: ' 個目標',
-			succeedTo: '被成功燒錄',
+			succeedTo: '{{name}} 被成功燒錄到 {{target}}',
 			exitWhileFlashing:
 				'您當前正在刷機。 關閉 Etcher 可能會導致您的磁盤無法使用。',
 			looksLikeWindowsImage:
@@ -53,11 +54,11 @@ const translation = {
 			sourceDrive: '源鏡像位於這個分區中',
 			noSpace: '磁盤空間不足。 請插入另一個較大的磁盤並重試。',
 			genericFlashError:
-				'出了點問題。如果源鏡像曾被壓縮過，請檢查它是否已損壞。',
+				'出了點問題。如果源鏡像曾被壓縮過，請檢查它是否已損壞。\n{{error}}',
 			validation:
 				'寫入已成功完成，但 Etcher 在從磁盤讀取鏡像時檢測到潛在的損壞問題。 \n\n請考慮將鏡像寫入其他磁盤。',
 			openError: '打開 {{source}} 時出錯。\n\n錯誤信息： {{error}}',
-			flashError: '燒錄 {{image}} 到 {{target}} 失敗。',
+			flashError: '燒錄 {{image}} 到 {{targets}} 失敗。',
 			unplug:
 				'看起來 Etcher 失去了對磁盤的連接。 它是不是被意外拔掉了？\n\n有時這個錯誤是因爲讀卡器出了故障。',
 			cannotWrite:

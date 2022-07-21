@@ -33,13 +33,14 @@ const translation = {
 			flashFail_one: 'Failed target',
 			flashFail_other: 'Failed targets',
 			to: 'to ',
-			succeedTarget_one: 'to {{num}} target',
-			succeedTarget_other: 'to {{num}} targets',
+			toDrive: 'to {{description}} ({{name}})',
+			toTarget_one: 'to {{num}} target',
+			toTarget_other: 'to {{num}} targets',
 			andFailTarget_one: 'and failed to be flashed to {{num}} target',
 			andFailTarget_other: 'and failed to be flashed to {{num}} targets',
 			target_one: ' target',
 			target_other: ' targets',
-			succeedTo: 'was successfully flashed',
+			succeedTo: '{{name}} was successfully flashed to {{target}}',
 			exitWhileFlashing:
 				'You are currently flashing a drive. Closing Etcher may leave your drive in an unusable state.',
 			looksLikeWindowsImage:
@@ -56,12 +57,13 @@ const translation = {
 			noSpace:
 				'Not enough space on the drive. Please insert larger one and try again.',
 			genericFlashError:
-				'Something went wrong. If it is a compressed image, please check that the archive is not corrupted.',
+				'Something went wrong. If it is a compressed image, please check that the archive is not corrupted.\n{{error}}',
 			validation:
 				'The write has been completed successfully but Etcher detected potential corruption issues when reading the image back from the drive. \n\nPlease consider writing the image to a different drive.',
 			openError:
 				'Something went wrong while opening {{source}}.\n\nError: {{error}}',
-			flashError: 'Something went wrong while writing {{image}} to {{target}}.',
+			flashError:
+				'Something went wrong while writing {{image}} to {{targets}}.',
 			unplug:
 				"Looks like Etcher lost access to the drive. Did it get unplugged accidentally?\n\nSometimes this error is caused by faulty readers that don't provide stable access to the drive.",
 			cannotWrite:

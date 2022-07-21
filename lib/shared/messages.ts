@@ -39,12 +39,15 @@ export const info = {
 		const targets = [];
 		if (failed + successful === 1) {
 			targets.push(
-				i18next.t('message.to') + `${drive.description} (${drive.displayName})`,
+				i18next.t('message.toDrive', {
+					description: drive.description,
+					name: drive.displayName,
+				}),
 			);
 		} else {
 			if (successful) {
 				targets.push(
-					i18next.t('message.succeedTarget', {
+					i18next.t('message.toTarget', {
 						count: successful,
 						num: successful,
 					}),
@@ -56,11 +59,10 @@ export const info = {
 				);
 			}
 		}
-		return (
-			`${imageBasename} ` +
-			i18next.t('message.succeedTo') +
-			` ${targets.join(' ')}`
-		);
+		return i18next.t('message.succeedTo', {
+			name: imageBasename,
+			target: targets.join(' '),
+		});
 	},
 };
 
@@ -135,7 +137,7 @@ export const error = {
 	},
 
 	genericFlashError: (err: Error) => {
-		return i18next.t('message.genericFlashError') + `\n${err.message}`;
+		return i18next.t('message.genericFlashError', { error: err.message });
 	},
 
 	validation: () => {
@@ -155,10 +157,18 @@ export const error = {
 	) => {
 		const target =
 			drives.length === 1
-				? `${drives[0].description} (${drives[0].displayName})`
-				: `${drives.length}` +
-				  i18next.t('message.target', { count: drives.length });
-		return i18next.t('message.flashError', { image: imageBasename, target });
+				? i18next.t('message.toDrive', {
+						description: drives[0].description,
+						name: drives[0].displayName,
+				  })
+				: i18next.t('message.toTarget', {
+						count: drives.length,
+						num: drives.length,
+				  });
+		return i18next.t('message.flashError', {
+			image: imageBasename,
+			targets: target,
+		});
 	},
 
 	driveUnplugged: () => {
