@@ -1,4 +1,19 @@
 - commits:
+    - subject: "minor: optimize i18n"
+      hash: c1d07cc7b6477de08bdff276899cc58c3e8be538
+      body: >
+        Optimized several translations.
+
+        This commit itself is only a patch, but as a pull request must have at least one commit with a change-type.
+      footer:
+        Change-Type: minor
+        change-type: minor
+      author: r-q
+      nested: []
+  version: 1.8.0
+  title: "'minor: make i18n support and Chinese translation'"
+  date: 2022-07-22T14:43:12.906Z
+- commits:
     - subject: "patch: update allowed extensions to include deb afterinstall in build"
       hash: 61610ded842caba47c6a682afcb08aa0fda4e86b
       body: ""
