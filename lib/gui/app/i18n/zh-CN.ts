@@ -42,10 +42,10 @@ const translation = {
 				'您当前正在刷机。 关闭 Etcher 可能会导致您的磁盘无法使用。',
 			looksLikeWindowsImage:
 				'看起来您正在尝试刻录 Windows 镜像。\n\n与其他镜像不同，Windows 镜像需要特殊处理才能使其可启动。 我们建议您使用专门为此目的设计的工具，例如 <a href="https://rufus.akeo.ie">Rufus</a> (Windows)、<a href="https://github. com/slacka/WoeUSB">WoeUSB</a> (Linux) 或 Boot Camp 助理 (macOS)。',
+			image: '镜像',
+			drive: '磁盘',
 			missingPartitionTable:
-				'看起来这不是一个可启动的镜像。\n\n这个镜像似乎不包含分区表，因此您的设备可能无法识别或无法正确启动。',
-			driveMissingPartitionTable:
-				'看起来这不是可引导磁盘。\n这个磁盘似乎不包含分区表，\n因此您的设备可能无法识别或无法正确启动。',
+				'看起来这不是一个可启动的{{type}}。\n\n这个{{type}}似乎不包含分区表，因此您的设备可能无法识别或无法正确启动。',
 			largeDriveSize: '这是个很大的磁盘！请检查并确认它不包含对您很重要的信息',
 			systemDrive: '选择系统盘很危险，因为这将会删除你的系统',
 			sourceDrive: '源镜像位于这个分区中',

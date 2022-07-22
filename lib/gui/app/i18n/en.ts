@@ -42,10 +42,10 @@ const translation = {
 				'You are currently flashing a drive. Closing Etcher may leave your drive in an unusable state.',
 			looksLikeWindowsImage:
 				'It looks like you are trying to burn a Windows image.\n\nUnlike other images, Windows images require special processing to be made bootable. We suggest you use a tool specially designed for this purpose, such as <a href="https://rufus.akeo.ie">Rufus</a> (Windows), <a href="https://github.com/slacka/WoeUSB">WoeUSB</a> (Linux), or Boot Camp Assistant (macOS).',
+			image: 'image',
+			drive: 'drive',
 			missingPartitionTable:
-				'It looks like this is not a bootable image.\n\nThe image does not appear to contain a partition table, and might not be recognized or bootable by your device.',
-			driveMissingPartitionTable:
-				'It looks like this is not a bootable drive.\nThe drive does not appear to contain a partition table,\nand might not be recognized or bootable by your device.',
+				'It looks like this is not a bootable {{type}}.\n\nThe {{type}} does not appear to contain a partition table, and might not be recognized or bootable by your device.',
 			largeDriveSize:
 				"This is a large drive! Make sure it doesn't contain files that you want to keep.",
 			systemDrive:
