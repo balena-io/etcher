@@ -111,11 +111,15 @@ export const warning = {
 	},
 
 	missingPartitionTable: () => {
-		return i18next.t('message.missingPartitionTable');
+		return i18next.t('message.missingPartitionTable', {
+			type: i18next.t('message.image'),
+		});
 	},
 
 	driveMissingPartitionTable: () => {
-		return i18next.t('message.driveMissingPartitionTable');
+		return i18next.t('message.missingPartitionTable', {
+			type: i18next.t('message.drive'),
+		});
 	},
 
 	largeDriveSize: () => {
