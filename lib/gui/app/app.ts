@@ -38,7 +38,7 @@ import * as osDialog from './os/dialog';
 import * as windowProgress from './os/window-progress';
 import MainPage from './pages/main/MainPage';
 import './css/main.css';
-import i18next from 'i18next';
+import * as i18next from 'i18next';
 
 window.addEventListener(
 	'unhandledrejection',

@@ -32,15 +32,12 @@ const translation = {
 			flashSucceed_other: '燒錄成功',
 			flashFail_one: '燒錄失敗',
 			flashFail_other: '燒錄失敗',
-			to: '到 ',
 			toDrive: '到 {{description}} ({{name}})',
 			toTarget_one: '到 {{num}} 個目標',
 			toTarget_other: '到 {{num}} 個目標',
 			andFailTarget_one: '並燒錄失敗了 {{num}} 個目標',
 			andFailTarget_other: '並燒錄失敗了 {{num}} 個目標',
-			target_one: ' 個目標',
-			target_other: ' 個目標',
-			succeedTo: '{{name}} 被成功燒錄到 {{target}}',
+			succeedTo: '{{name}} 被成功燒錄 {{target}}',
 			exitWhileFlashing:
 				'您當前正在刷機。 關閉 Etcher 可能會導致您的磁盤無法使用。',
 			looksLikeWindowsImage:
@@ -58,7 +55,7 @@ const translation = {
 			validation:
 				'寫入已成功完成，但 Etcher 在從磁盤讀取鏡像時檢測到潛在的損壞問題。 \n\n請考慮將鏡像寫入其他磁盤。',
 			openError: '打開 {{source}} 時出錯。\n\n錯誤信息： {{error}}',
-			flashError: '燒錄 {{image}} 到 {{targets}} 失敗。',
+			flashError: '燒錄 {{image}} {{targets}} 失敗。',
 			unplug:
 				'看起來 Etcher 失去了對磁盤的連接。 它是不是被意外拔掉了？\n\n有時這個錯誤是因爲讀卡器出了故障。',
 			cannotWrite:
@@ -134,8 +131,10 @@ const translation = {
 			skip: '跳過了驗證',
 			moreInfo: '更多信息',
 			speedTip:
-				'通過將圖像大小除以燒錄時間來計算速度。\n由於我們能夠跳過未使用的部分，因此具有EXT分區的磁盤鏡像燒錄速度更快。',
+				'通過將鏡像大小除以燒錄時間來計算速度。\n由於我們能夠跳過未使用的部分，因此具有EXT分區的磁盤鏡像燒錄速度更快。',
 			speed: '速度：{{speed}} MB/秒',
+			speedShort: '{{speed}} MB/秒',
+			eta: '預計還需要：{{eta}}',
 			failedTarget: '失敗的燒錄目標',
 			failedRetry: '重試燒錄失敗目標',
 			flashFailed: '燒錄失敗。',

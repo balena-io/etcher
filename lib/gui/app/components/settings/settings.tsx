@@ -24,7 +24,7 @@ import * as settings from '../../models/settings';
 import * as analytics from '../../modules/analytics';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 import { Modal } from '../../styled-components';
-import i18next from 'i18next';
+import * as i18next from 'i18next';
 
 interface Setting {
 	name: string;

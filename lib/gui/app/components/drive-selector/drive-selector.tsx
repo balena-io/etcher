@@ -44,7 +44,7 @@ import {
 
 import { SourceMetadata } from '../source-selector/source-selector';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
-import i18next from 'i18next';
+import * as i18next from 'i18next';
 
 interface UsbbootDrive extends sourceDestination.UsbbootDrive {
 	progress: number;

@@ -20,7 +20,7 @@ import { default as styled } from 'styled-components';
 
 import { fromFlashState } from '../../modules/progress-status';
 import { StepButton } from '../../styled-components';
-import i18next from 'i18next';
+import * as i18next from 'i18next';
 
 const FlashProgressBar = styled(ProgressBar)`
 	> div {
