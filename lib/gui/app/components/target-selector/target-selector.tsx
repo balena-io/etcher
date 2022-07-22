@@ -37,7 +37,7 @@ import TgtSvg from '../../../assets/tgt.svg';
 import DriveSvg from '../../../assets/drive.svg';
 import { warning } from '../../../../shared/messages';
 import { DrivelistDrive } from '../../../../shared/drive-constraints';
-import i18next from 'i18next';
+import * as i18next from 'i18next';
 
 export const getDriveListLabel = () => {
 	return getSelectedDrives()

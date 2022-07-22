@@ -17,7 +17,7 @@
 import * as React from 'react';
 
 import { BaseButton } from '../../styled-components';
-import i18next from 'i18next';
+import * as i18next from 'i18next';
 
 export interface FlashAnotherProps {
 	onClick: () => void;

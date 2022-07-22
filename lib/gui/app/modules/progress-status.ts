@@ -15,7 +15,7 @@
  */
 
 import * as prettyBytes from 'pretty-bytes';
-import i18next from 'i18next';
+import * as i18next from 'i18next';
 
 export interface FlashState {
 	active: number;

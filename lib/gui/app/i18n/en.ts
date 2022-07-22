@@ -17,7 +17,7 @@ const translation = {
 			decompressing: 'Decompressing...',
 			flashing: 'Flashing...',
 			finishing: 'Finishing...',
-			verifying: 'Verifying...',
+			verifying: 'Validating...',
 			failing: 'Failed',
 		},
 		message: {
@@ -32,15 +32,12 @@ const translation = {
 			flashSucceed_other: 'Successful targets',
 			flashFail_one: 'Failed target',
 			flashFail_other: 'Failed targets',
-			to: 'to ',
 			toDrive: 'to {{description}} ({{name}})',
 			toTarget_one: 'to {{num}} target',
 			toTarget_other: 'to {{num}} targets',
 			andFailTarget_one: 'and failed to be flashed to {{num}} target',
 			andFailTarget_other: 'and failed to be flashed to {{num}} targets',
-			target_one: ' target',
-			target_other: ' targets',
-			succeedTo: '{{name}} was successfully flashed to {{target}}',
+			succeedTo: '{{name}} was successfully flashed {{target}}',
 			exitWhileFlashing:
 				'You are currently flashing a drive. Closing Etcher may leave your drive in an unusable state.',
 			looksLikeWindowsImage:
@@ -62,8 +59,7 @@ const translation = {
 				'The write has been completed successfully but Etcher detected potential corruption issues when reading the image back from the drive. \n\nPlease consider writing the image to a different drive.',
 			openError:
 				'Something went wrong while opening {{source}}.\n\nError: {{error}}',
-			flashError:
-				'Something went wrong while writing {{image}} to {{targets}}.',
+			flashError: 'Something went wrong while writing {{image}} {{targets}}.',
 			unplug:
 				"Looks like Etcher lost access to the drive. Did it get unplugged accidentally?\n\nSometimes this error is caused by faulty readers that don't provide stable access to the drive.",
 			cannotWrite:
@@ -129,6 +125,8 @@ const translation = {
 			speedTip:
 				'The speed is calculated by dividing the image size by the flashing time.\nDisk images with ext partitions flash faster as we are able to skip unused parts.',
 			speed: 'Effective speed: {{speed}} MB/s',
+			speedShort: '{{speed}} MB/s',
+			eta: 'ETA: {{eta}}',
 			failedTarget: 'Failed targets',
 			failedRetry: 'Retry failed targets',
 			flashFailed: 'Flash Failed.',

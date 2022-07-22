@@ -17,7 +17,7 @@
 import * as electron from 'electron';
 import { displayName } from '../../package.json';
 
-import i18next from 'i18next';
+import * as i18next from 'i18next';
 
 /**
  * @summary Builds a native application menu for a given window

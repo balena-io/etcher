@@ -31,7 +31,7 @@ import { resetState } from '../../models/flash-state';
 import * as selection from '../../models/selection-state';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
 import { Modal, Table } from '../../styled-components';
-import i18next from 'i18next';
+import * as i18next from 'i18next';
 
 const ErrorsTable = styled((props) => <Table<FlashError> {...props} />)`
 	&&& [data-display='table-head'],

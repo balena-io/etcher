@@ -20,7 +20,7 @@ import * as _ from 'lodash';
 import * as errors from '../../../shared/errors';
 import * as settings from '../../../gui/app/models/settings';
 import { SUPPORTED_EXTENSIONS } from '../../../shared/supported-formats';
-import i18next from 'i18next';
+import * as i18next from 'i18next';
 
 async function mountSourceDrive() {
 	// sourceDrivePath is the name of the link in /dev/disk/by-path

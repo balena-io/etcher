@@ -18,7 +18,7 @@ import { Dictionary } from 'lodash';
 import { outdent } from 'outdent';
 import * as prettyBytes from 'pretty-bytes';
 import '../gui/app/i18n';
-import i18next from 'i18next';
+import * as i18next from 'i18next';
 
 export const progress: Dictionary<(quantity: number) => string> = {
 	successful: (quantity: number) => {

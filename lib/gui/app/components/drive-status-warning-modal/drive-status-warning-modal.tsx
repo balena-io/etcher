@@ -7,7 +7,7 @@ import { middleEllipsis } from '../../utils/middle-ellipsis';
 
 import * as prettyBytes from 'pretty-bytes';
 import { DriveWithWarnings } from '../../pages/main/Flash';
-import i18next from 'i18next';
+import * as i18next from 'i18next';
 
 const DriveStatusWarningModal = ({
 	done,
