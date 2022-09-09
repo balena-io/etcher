@@ -63,7 +63,7 @@ confidence.
 sudo apt-get remove balena-etcher-electron
 sudo rm /etc/apt/sources.list.d/balena-etcher.list
 sudo apt-get clean
-sudo rm -rf /var/lib/apt/lists/*
+sudo rm -rf /var/lib/apt/lists/*etcher*
 sudo apt-get update
 ```
 
