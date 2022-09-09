@@ -61,10 +61,10 @@ confidence.
 
 ```sh
 sudo apt-get remove balena-etcher-electron
-rm /etc/apt/sources.list.d/balena-etcher.list
-apt-get clean
-rm -rf /var/lib/apt/lists/*
-apt-get update
+sudo rm /etc/apt/sources.list.d/balena-etcher.list
+sudo apt-get clean
+sudo rm -rf /var/lib/apt/lists/*
+sudo apt-get update
 ```
 
 #### Redhat (RHEL) and Fedora-based Package Repository (GNU/Linux x86/x64)
@@ -91,8 +91,8 @@ apt-get update
 ###### Uninstall
 
 ```sh
-rm /etc/yum.repos.d/balena-etcher.repo
-rm /etc/yum.repos.d/balena-etcher-source.repo
+sudo rm /etc/yum.repos.d/balena-etcher.repo
+sudo rm /etc/yum.repos.d/balena-etcher-source.repo
 ```
 
 ##### Yum
@@ -115,8 +115,8 @@ rm /etc/yum.repos.d/balena-etcher-source.repo
 
 ```sh
 sudo yum remove -y balena-etcher-electron
-rm /etc/yum.repos.d/balena-etcher.repo
-rm /etc/yum.repos.d/balena-etcher-source.repo
+sudo rm /etc/yum.repos.d/balena-etcher.repo
+sudo rm /etc/yum.repos.d/balena-etcher-source.repo
 ```
 
 #### OpenSUSE LEAP & Tumbleweed install (zypper)
