@@ -1,0 +1,251 @@
+---
+name: package and publish GitHub (draft) release
+# https://github.com/product-os/flowzone/tree/master/.github/actions
+inputs:
+  json:
+    description: "JSON stringified object containing all the inputs from the calling workflow"
+    required: true
+  secrets:
+    description: "JSON stringified object containing all the secrets from the calling workflow"
+    required: true
+
+  # --- custom environment
+  XCODE_APP_LOADER_EMAIL:
+    type: string
+    default: "accounts+apple@balena.io"
+  NODE_VERSION:
+    type: string
+    default: "14.x"
+  VERBOSE:
+    type: string
+    default: "true"
+
+runs:
+  # https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
+  using: "composite"
+  steps:
+    - name: Download custom source artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: custom-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}-${{ runner.os }}
+        path: ${{ runner.temp }}
+
+    - name: Extract custom source artifact
+      if: runner.os != 'Windows'
+      shell: bash --noprofile --norc -eo pipefail -x {0}
+      working-directory: .
+      run: tar -xf ${{ runner.temp }}/custom.tgz
+
+    - name: Extract custom source artifact
+      if: runner.os == 'Windows'
+      shell: powershell
+      working-directory: .
+      run: tar -xf ${{ runner.temp }}\custom.tgz
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.NODE_VERSION }}
+        cache: npm
+
+    - name: Install yq
+      shell: bash --noprofile --norc -eo pipefail -x {0}
+      run: choco install yq
+      if: runner.os == 'Windows'
+
+    # FIXME: resinci-deploy is not actively maintained
+    # https://github.com/product-os/resinci-deploy
+    - name: Checkout resinci-deploy
+      uses: actions/checkout@v3
+      with:
+        repository: product-os/resinci-deploy
+        token: ${{ fromJSON(inputs.secrets).FLOWZONE_TOKEN }}
+        path: resinci-deploy
+
+    - name: Build and install resinci-deploy
+      shell: bash --noprofile --norc -eo pipefail -x {0}
+      run: |
+        set -ea
+
+        [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
+
+        runner_os="$(echo "${RUNNER_OS}" | tr '[:upper:]' '[:lower:]')"
+
+        rm -rf ../resinci-deploy && mv resinci-deploy ..
+
+        pushd ../resinci-deploy && npm ci && npm link && popd
+
+        if [ $runner_os =~ linux|macos ]]; then
+            chmod +x "$(dirname "$(which node)")/resinci-deploy" && which resinci-deploy
+        fi
+
+    # FIXME: store sentry workflow is not documented
+    # https://github.com/product-os/resinci-deploy/blob/master/lib/sentry.ts
+    # https://github.com/getsentry/sentry-cli
+    # https://docs.sentry.io/api/projects/create-a-new-client-key/
+    - name: Generate Sentry DSN
+      id: sentry
+      shell: bash --noprofile --norc -eo pipefail -x {0}
+      run: |
+        set -ea
+
+        [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
+
+        branch="$(echo '${{ github.event.pull_request.head.ref }}' | sed 's/[^[:alnum:]]/-/g')"
+
+        stdout="$(resinci-deploy store sentry \
+          --branch="${branch}" \
+          --name="$(jq -r '.name' package.json)" \
+          --team="$(yq e '.sentry.team' repo.yml)" \
+          --org="$(yq e '.sentry.org' repo.yml)" \
+          --type="$(yq e '.sentry.type' repo.yml)")"
+
+        echo "dsn=$(echo "${stdout}" | tail -n 1)" >> $GITHUB_OUTPUT
+
+      env:
+        SENTRY_TOKEN: ${{ fromJSON(inputs.secrets).SENTRY_AUTH_TOKEN }}
+
+    # https://www.electron.build/code-signing.html
+    # https://github.com/Apple-Actions/import-codesign-certs
+    - name: Import Apple code signing certificate
+      if: runner.os == 'macOS'
+      uses: apple-actions/import-codesign-certs@v1
+      with:
+        p12-file-base64: ${{ fromJSON(inputs.secrets).APPLE_SIGNING }}
+        p12-password: ${{ fromJSON(inputs.secrets).APPLE_SIGNING_PASSWORD }}
+
+    - name: Import Windows code signing certificate
+      if: runner.os == 'Windows'
+      shell: powershell
+      run: |
+        Set-Content -Path ${{ runner.temp }}/certificate.base64 -Value $env:WINDOWS_CERTIFICATE
+        certutil -decode ${{ runner.temp }}/certificate.base64 ${{ runner.temp }}/certificate.pfx
+        Remove-Item -path ${{ runner.temp }} -include certificate.base64
+
+        Import-PfxCertificate `
+          -FilePath ${{ runner.temp }}/certificate.pfx `
+          -CertStoreLocation Cert:\CurrentUser\My `
+          -Password (ConvertTo-SecureString -String $env:WINDOWS_CERTIFICATE_PASSWORD -Force -AsPlainText)
+
+        Remove-Item -path ${{ runner.temp }} -include certificate.pfx
+
+      env:
+        WINDOWS_CERTIFICATE: ${{ fromJSON(inputs.secrets).WINDOWS_SIGNING }}
+        WINDOWS_CERTIFICATE_PASSWORD: ${{ fromJSON(inputs.secrets).WINDOWS_SIGNING_PASSWORD }}
+
+    # ... or refactor (e.g.) https://github.com/samuelmeuli/action-electron-builder
+    # https://github.com/product-os/scripts/tree/master/electron
+    # https://github.com/product-os/scripts/tree/master/shared
+    # https://github.com/product-os/balena-concourse/blob/master/pipelines/github-events/template.yml
+    - name: Package release
+      id: package_release
+      shell: bash --noprofile --norc -eo pipefail -x {0}
+      run: |
+        set -ea
+
+        [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
+
+        runner_os="$(echo "${RUNNER_OS}" | tr '[:upper:]' '[:lower:]')"
+        runner_arch="$(echo "${RUNNER_ARCH}" | tr '[:upper:]' '[:lower:]')"
+
+        ELECTRON_BUILDER_ARCHITECTURE="${runner_arch}"
+        APPLICATION_VERSION="$(jq -r '.version' package.json)"
+        ARCHITECTURE_FLAGS="--${ELECTRON_BUILDER_ARCHITECTURE}"
+
+        if [[ $runner_os =~ linux ]]; then
+            ELECTRON_BUILDER_OS='--linux'
+            TARGETS="$(yq e .linux.target[] electron-builder.yml)"
+
+        elif [[ $runner_os =~ darwin|macos|osx ]]; then
+            CSC_KEY_PASSWORD=${{ fromJSON(inputs.secrets).APPLE_SIGNING_PASSWORD }}
+            CSC_KEYCHAIN=signing_temp
+            CSC_LINK=${{ fromJSON(inputs.secrets).APPLE_SIGNING }}
+            ELECTRON_BUILDER_OS='--mac'
+            TARGETS="$(yq e .mac.target[] electron-builder.yml)"
+
+        elif [[ $runner_os =~ windows|win ]]; then
+            ARCHITECTURE_FLAGS="--ia32 ${ARCHITECTURE_FLAGS}"
+            CSC_KEY_PASSWORD=${{ fromJSON(inputs.secrets).WINDOWS_SIGNING_PASSWORD }}
+            CSC_LINK=${{ fromJSON(inputs.secrets).WINDOWS_SIGNING }}
+            ELECTRON_BUILDER_OS='--win'
+            TARGETS="$(yq e .win.target[] electron-builder.yml)"
+
+        else
+            exit 1
+        fi
+
+        npm link electron-builder
+
+        for target in ${TARGETS}; do
+            electron-builder ${ELECTRON_BUILDER_OS} ${ARCHITECTURE_FLAGS} \
+              --c.extraMetadata.analytics.sentry.token='${{ steps.sentry.outputs.dsn }}' \
+              --c.extraMetadata.packageType="${target}"
+
+            find dist -type f -maxdepth 1
+        done
+
+        echo "version=${APPLICATION_VERSION}" >> $GITHUB_OUTPUT
+
+      env:
+        # Apple notarization (afterSignHook.js)
+        XCODE_APP_LOADER_EMAIL: ${{ inputs.XCODE_APP_LOADER_EMAIL }}
+        XCODE_APP_LOADER_PASSWORD: ${{ fromJSON(inputs.secrets).XCODE_APP_LOADER_PASSWORD }}
+        # https://github.blog/2020-08-03-github-actions-improvements-for-fork-and-pull-request-workflows/#improvements-for-public-repository-forks
+        # https://docs.github.com/en/actions/managing-workflow-runs/approving-workflow-runs-from-public-forks#about-workflow-runs-from-public-forks
+        CSC_FOR_PULL_REQUEST: true
+
+    # https://www.electron.build/auto-update.html#staged-rollouts
+    - name: Configure staged rollout(s)
+      shell: bash --noprofile --norc -eo pipefail -x {0}
+      run: |
+        set -ea
+
+        [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
+
+        percentage="$(cat < repo.yml | yq e .triggerNotification.stagingPercentage)"
+
+        find dist -type f -maxdepth 1 \
+          -name "latest*.yml" \
+          -exec yq -i e .version=\"${{ steps.package_release.outputs.version }}\" {} \;
+
+        find dist -type f -maxdepth 1 \
+          -name "latest*.yml" \
+          -exec yq -i e .stagingPercentage=\"$percentage\" {} \;
+
+    # https://github.com/softprops/action-gh-release#-customizing
+    - name: Create draft GitHub (pre)release
+      uses: softprops/action-gh-release@v1
+      with:
+        # use PR branch name for draft releases
+        name: ${{ github.event.pull_request.head.ref }}
+        tag_name: ${{ github.event.pull_request.head.ref }}
+        draft: true
+        generate_release_notes: false
+        prerelease: true
+        token: ${{ fromJSON(inputs.secrets).FLOWZONE_TOKEN }}
+        files: |
+          dist/*.AppImage
+          dist/*.blockmap
+          dist/*.deb
+          dist/*.dmg
+          dist/*.exe
+          dist/*.rpm
+          dist/*.zip
+          dist/latest*.yml
+
+    - name: Compress custom source
+      if: runner.os != 'Windows'
+      shell: bash --noprofile --norc -eo pipefail -x {0}
+      run: tar -acf ${{ runner.temp }}/custom.tgz .
+
+    - name: Compress custom source
+      if: runner.os == 'Windows'
+      shell: powershell
+      run: tar -acf ${{ runner.temp }}\custom.tgz .
+
+    - name: Upload custom artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: custom-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}-${{ runner.os }}
+        path: ${{ runner.temp }}/custom.tgz
+        retention-days: 1

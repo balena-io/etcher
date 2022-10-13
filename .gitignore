@@ -51,3 +51,9 @@ node_modules
 # VSCode files
 
 .vscode
+.gitsecret/keys/random_seed
+!*.secret
+secrets/APPLE_SIGNING_PASSWORD.txt
+secrets/WINDOWS_SIGNING_PASSWORD.txt
+secrets/XCODE_APP_LOADER_PASSWORD.txt
+secrets/WINDOWS_SIGNING.pfx

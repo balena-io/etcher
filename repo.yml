@@ -1,17 +1,18 @@
+---
 type: electron
 release: github
 publishMetadata: true
 sentry:
-    org: balenaetcher
-    team: resinio
-    type: electron
+  org: balenaetcher
+  team: resinio
+  type: electron
 triggerNotification:
-    version: 1.7.9
-    stagingPercentage: 100
+  version: 1.7.9
+  stagingPercentage: 100
 upstream:
   - repo: etcher-sdk
     url: https://github.com/balena-io-modules/etcher-sdk
-    module: 'etcher-sdk'
+    module: etcher-sdk
   - repo: sys-class-rgb-led
     url: https://github.com/balena-io-modules/sys-class-rgb-led
     module: sys-class-rgb-led
