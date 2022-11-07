@@ -1,4 +1,16 @@
 - commits:
+    - subject: "patch: Add etcherPro documentation"
+      hash: 82d0bba96a98533e465cbfd08acf95d2136d168a
+      body: ""
+      footer:
+        Signed-off-by: Vipul Gupta (@vipulgupta2048) <vipul@balena.io>
+        signed-off-by: Vipul Gupta (@vipulgupta2048) <vipul@balena.io>
+      author: Vipul Gupta (@vipulgupta2048)
+      nested: []
+  version: 1.7.10
+  title: "'patch: Add etcherPro documentation'"
+  date: 2022-11-07T22:21:31.943Z
+- commits:
     - subject: "patch: update allowed extensions to include deb afterinstall in build"
       hash: 61610ded842caba47c6a682afcb08aa0fda4e86b
       body: ""
