@@ -13,21 +13,26 @@
     "url": "git@github.com:balena-io/etcher.git"
   },
   "scripts": {
-    "lint-ts": "balena-lint --fix --typescript typings lib tests scripts/clean-shrinkwrap.ts webpack.config.ts",
+    "build": "npm run webpack",
+    "flowzone-preinstall-linux": "sudo apt-get install -y xvfb libudev-dev && cat < electron-builder.yml | yq e .deb.depends[] - | xargs -L1 echo | sed 's/|//g' | xargs -L1 sudo apt-get --ignore-missing install || true",
+    "flowzone-preinstall-macos": "true",
+    "flowzone-preinstall-windows": "true",
+    "flowzone-preinstall": "npm run flowzone-preinstall-linux",
     "lint-css": "prettier --write lib/**/*.css",
+    "lint-ts": "balena-lint --fix --typescript typings lib tests scripts/clean-shrinkwrap.ts webpack.config.ts",
     "lint": "npm run lint-ts && npm run lint-css",
-    "test-spectron": "mocha --recursive --reporter spec --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts tests/spectron/runner.spec.ts",
-    "test-gui": "electron-mocha --recursive --reporter spec --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox --renderer tests/gui/**/*.ts",
-    "test-shared": "electron-mocha --recursive --reporter spec --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox tests/shared/**/*.ts",
-    "test": "npm run lint && npm run test-gui && npm run test-shared && npm run test-spectron && npm run sanity-checks",
+    "postinstall": "electron-rebuild -t prod,dev,optional",
     "sanity-checks": "bash scripts/ci/ensure-all-file-extensions-in-gitattributes.sh",
     "start": "./node_modules/.bin/electron .",
-    "postinstall": "electron-rebuild -t prod,dev,optional",
-    "webpack": "webpack",
+    "test-macos": "npm run lint && npm run test-gui && npm run test-shared && npm run test-spectron && npm run sanity-checks",
+    "test-gui": "electron-mocha --recursive --reporter spec --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox --renderer tests/gui/**/*.ts",
+    "test-linux": "npm run lint && xvfb-run --auto-servernum npm run test-gui && xvfb-run --auto-servernum npm run test-shared && xvfb-run --auto-servernum npm run test-spectron && npm run sanity-checks",
+    "test-shared": "electron-mocha --recursive --reporter spec --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox tests/shared/**/*.ts",
+    "test-spectron": "mocha --recursive --reporter spec --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts tests/spectron/runner.spec.ts",
+    "test-windows": "npm run lint && npm run test-gui && npm run test-shared && npm run test-spectron && npm run sanity-checks",
+    "test": "echo npm run test-{linux,windows,macos}",
     "watch": "webpack serve --no-optimization-minimize --config ./webpack.dev.config.ts",
-    "concourse-build-electron": "npm run webpack",
-    "concourse-test": "npx npm@6.14.8 test",
-    "concourse-test-electron": "npx npm@6.14.8 test"
+    "webpack": "webpack"
   },
   "husky": {
     "hooks": {
@@ -63,7 +68,7 @@
     "@types/terser-webpack-plugin": "5.0.2",
     "@types/tmp": "0.2.0",
     "@types/webpack-node-externals": "2.5.0",
-    "aws4-axios": "2.2.1",
+    "aws4-axios": "2.4.9",
     "chai": "4.2.0",
     "copy-webpack-plugin": "7.0.0",
     "css-loader": "5.0.1",
@@ -76,7 +81,7 @@
     "electron-rebuild": "3.2.5",
     "electron-updater": "4.3.5",
     "esbuild-loader": "2.16.0",
-    "etcher-sdk": "6.3.0",
+    "etcher-sdk": "7.4.0",
     "file-loader": "6.2.0",
     "husky": "4.2.5",
     "immutable": "3.8.1",
@@ -87,7 +92,7 @@
     "native-addon-loader": "2.0.1",
     "node-ipc": "9.1.1",
     "omit-deep-lodash": "1.1.4",
-    "outdent": "0.7.1",
+    "outdent": "0.8.0",
     "path-is-inside": "1.0.2",
     "pnp-webpack-plugin": "1.6.4",
     "pretty-bytes": "5.3.0",
@@ -114,6 +119,9 @@
     "webpack": "5.11.0",
     "webpack-cli": "4.2.0",
     "webpack-dev-server": "4.5.0"
+  },
+  "engines": {
+    "node": ">=14 < 16"
   },
   "versionist": {
     "publishedAt": "2022-04-22T13:10:47.906Z"

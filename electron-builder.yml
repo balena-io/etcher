@@ -1,10 +1,9 @@
+# https://www.electron.build/configuration/configuration
 appId: io.balena.etcher
 copyright: Copyright 2016-2021 Balena Ltd
 productName: balenaEtcher
-npmRebuild: true
-nodeGypRebuild: false
-publish: null
-afterPack: "./afterPack.js"
+afterPack: ./afterPack.js
+afterSign: ./afterSignHook.js
 asar: false
 files:
   - generated
@@ -16,6 +15,8 @@ mac:
   entitlements: "entitlements.mac.plist"
   entitlementsInherit: "entitlements.mac.plist"
   artifactName: "${productName}-${version}.${ext}"
+  target:
+    - dmg
 dmg:
   background: assets/dmg/background.tiff
   icon: assets/icon.icns
@@ -32,6 +33,10 @@ dmg:
     height: 405
 win:
   icon: assets/icon.ico
+  target:
+    - zip
+    - nsis
+    - portable
 nsis:
   oneClick: true
   runAfterFinish: true
@@ -44,16 +49,23 @@ portable:
   artifactName: "${productName}-Portable-${version}.${ext}"
   requestExecutionLevel: user
 linux:
+  icon: assets/iconset
+  target:
+    - AppImage
+    - rpm
+    - deb
   category: Utility
   packageCategory: utils
-  executableName: balena-etcher-electron
+  executableName: balena-etcher
   synopsis: balenaEtcher is a powerful OS image flasher built with web technologies to ensure flashing an SDCard or USB drive is a pleasant and safe experience. It protects you from accidentally writing to your hard-drives, ensures every byte of data was written correctly and much more.
-  icon: assets/iconset
+appImage:
+  artifactName: ${productName}-${version}-${env.ELECTRON_BUILDER_ARCHITECTURE}.${ext}
 deb:
   priority: optional
+  compression: bzip2
   depends:
-    - gconf2
     - gconf-service
+    - gconf2
     - libasound2
     - libatk1.0-0
     - libc6

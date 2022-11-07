@@ -1,0 +1,76 @@
+---
+name: test release
+# https://github.com/product-os/flowzone/tree/master/.github/actions
+inputs:
+  json:
+    description: "JSON stringified object containing all the inputs from the calling workflow"
+    required: true
+  secrets:
+    description: "JSON stringified object containing all the secrets from the calling workflow"
+    required: true
+
+  # --- custom environment
+  NODE_VERSION:
+    type: string
+    default: "14.x"
+  VERBOSE:
+    type: string
+    default: "true"
+
+runs:
+  # https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
+  using: "composite"
+  steps:
+    - name: Delete previous draft release
+      shell: bash --noprofile --norc -eo pipefail -x {0}
+      run: |
+        set -ea
+
+        [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
+
+        gh release delete --yes '${{ github.event.pull_request.head.ref }}' || true
+
+      env:
+        GITHUB_TOKEN: ${{ fromJSON(inputs.secrets).FLOWZONE_TOKEN }}
+
+    # https://github.com/actions/setup-node#caching-global-packages-data
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.NODE_VERSION }}
+        cache: npm
+
+    - name: Test release
+      shell: bash --noprofile --norc -eo pipefail -x {0}
+      run: |
+        set -ea
+
+        [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
+
+        runner_os="$(echo "${RUNNER_OS}" | tr '[:upper:]' '[:lower:]')"
+
+        npm run flowzone-preinstall-${runner_os}
+        npm ci
+        npm run build
+        npm run test-${runner_os}
+
+      env:
+        # https://www.electronjs.org/docs/latest/api/environment-variables
+        ELECTRON_NO_ATTACH_CONSOLE: true
+
+    - name: Compress custom source
+      if: runner.os != 'Windows'
+      shell: bash --noprofile --norc -eo pipefail -x {0}
+      run: tar -acf ${{ runner.temp }}/custom.tgz .
+
+    - name: Compress custom source
+      if: runner.os == 'Windows'
+      shell: powershell
+      run: tar -acf ${{ runner.temp }}\custom.tgz .
+
+    - name: Upload custom artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: custom-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}-${{ runner.os }}
+        path: ${{ runner.temp }}/custom.tgz
+        retention-days: 1

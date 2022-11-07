@@ -1,0 +1,48 @@
+---
+name: publish GitHub release
+# https://github.com/product-os/flowzone/tree/master/.github/actions
+inputs:
+  json:
+    description: "JSON stringified object containing all the inputs from the calling workflow"
+    required: true
+  secrets:
+    description: "JSON stringified object containing all the secrets from the calling workflow"
+    required: true
+
+runs:
+  # https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
+  using: "composite"
+  steps:
+    - name: Get release version
+      id: get_release
+      shell: bash --noprofile --norc -eo pipefail -x {0}
+      run: |
+        set -ea
+
+        [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
+
+        echo "version=$(jq -r '.version' package.json)" >> $GITHUB_OUTPUT
+
+    - name: Rename release
+      shell: bash --noprofile --norc -eo pipefail -x {0}
+      run: |
+        set -ea
+
+        [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
+
+        gh release edit '${{ github.event.pull_request.head.ref }}' \
+          --title 'v${{ steps.get_release.outputs.version }}' \
+          --tag 'v${{ steps.get_release.outputs.version }}'
+
+      env:
+        GITHUB_TOKEN: ${{ fromJSON(inputs.secrets).FLOWZONE_TOKEN }}
+
+    - name: Finalize GitHub release
+      uses: softprops/action-gh-release@v1
+      with:
+        name: v${{ steps.get_release.outputs.version }}
+        tag_name: v${{ steps.get_release.outputs.version }}
+        draft: false
+        generate_release_notes: true
+        prerelease: false
+        token: ${{ fromJSON(inputs.secrets).FLOWZONE_TOKEN }}
