@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.7.14
+## (2022-11-07)
+
+* Update dependency lodash to 4.17.21 [SECURITY] [Renovate Bot]
+
 # v1.7.13
 ## (2022-11-07)
 

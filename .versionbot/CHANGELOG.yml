@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency lodash to 4.17.21 [SECURITY]
+      hash: f356e4c303080eefdf74f52c2b4de227d20e4e49
+      body: |
+        Update lodash to 4.17.21
+
+        Update lodash from 4.17.10 to 4.17.21
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.7.14
+  title: ""
+  date: 2022-11-07T20:17:53.572Z
+- commits:
     - subject: Update release notes on finalize
       hash: 576113febfe000339545c0fd55793aafd2e53abb
       body: ""
