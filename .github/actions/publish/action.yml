@@ -75,7 +75,7 @@ runs:
 
         pushd ../resinci-deploy && npm ci && npm link && popd
 
-        if [ $runner_os =~ linux|macos ]]; then
+        if [[ $runner_os =~ linux|macos ]]; then
             chmod +x "$(dirname "$(which node)")/resinci-deploy" && which resinci-deploy
         fi
 
@@ -177,7 +177,7 @@ runs:
         npm link electron-builder
 
         for target in ${TARGETS}; do
-            electron-builder ${ELECTRON_BUILDER_OS} ${ARCHITECTURE_FLAGS} \
+            electron-builder ${ELECTRON_BUILDER_OS} ${target} ${ARCHITECTURE_FLAGS} \
               --c.extraMetadata.analytics.sentry.token='${{ steps.sentry.outputs.dsn }}' \
               --c.extraMetadata.packageType="${target}"
 

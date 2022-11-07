@@ -40,10 +40,3 @@ runs:
 
       env:
         GITHUB_TOKEN: ${{ fromJSON(inputs.secrets).FLOWZONE_TOKEN }}
-
-    - name: Update release notes
-      if: runner.os == 'Linux'
-      uses: softprops/action-gh-release@v1
-      with:
-        generate_release_notes: true
-        token: ${{ fromJSON(inputs.secrets).FLOWZONE_TOKEN }}
