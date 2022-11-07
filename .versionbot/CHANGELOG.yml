@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency @types/mime-types to 2.1.1
+      hash: fe09f9f862d2eef79a237986c50e587b232d9c2d
+      body: |
+        Update @types/mime-types to 2.1.1
+
+        Update @types/mime-types from 2.1.0 to 2.1.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.1
+  title: ""
+  date: 2022-11-07T23:35:26.671Z
+- commits:
     - subject: Update scripts/resin digest to 652fdd4
       hash: 16422971012d77dc928c9d99c3db6b1a58cd52be
       body: |

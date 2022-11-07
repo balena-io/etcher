@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.8.1
+## (2022-11-07)
+
+* Update dependency @types/mime-types to 2.1.1 [Renovate Bot]
+
 # v1.8.0
 ## (2022-11-07)
 
