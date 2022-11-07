@@ -44,3 +44,7 @@ Etcher requires an available [polkit authentication agent](https://wiki.archlinu
 ## May I run Etcher in older macOS versions?
 
 Etcher GUI is based on the [Electron](http://electron.atom.io/) framework, [which only supports macOS 10.10 and newer versions](https://github.com/electron/electron/blob/master/docs/tutorial/support.md#supported-platforms).
+
+## Why does the SHA512 sum of my Etcher release not match its YAML file?
+
+The binary encodings will indeed match (assuming the file is uncorrupted). However, the command line output is hexadecimal encoded and the generated YAML file is base64 encoded. 
