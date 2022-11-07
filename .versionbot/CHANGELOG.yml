@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update scripts/resin digest to 652fdd4
+      hash: 16422971012d77dc928c9d99c3db6b1a58cd52be
+      body: |
+        Update scripts/resin to
+
+        Update scripts/resin from  to
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Renovate Bot
+      nested: []
+  version: 1.8.0
+  title: ""
+  date: 2022-11-07T22:27:03.928Z
+- commits:
     - subject: Build targets individually
       hash: b58249b9c833763ec80402820b2c93c01fafda22
       body: ""
