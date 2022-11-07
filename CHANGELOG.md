@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.7.13
+## (2022-11-07)
+
+* Update release notes on finalize [ab77]
+
 # v1.7.12
 ## (2022-11-07)
 

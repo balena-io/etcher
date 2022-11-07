@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update release notes on finalize
+      hash: 576113febfe000339545c0fd55793aafd2e53abb
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 1.7.13
+  title: ""
+  date: 2022-11-07T19:17:06.571Z
+- commits:
     - subject: Avoid duplicate releases
       hash: 33dea6267fbcc3cd47b1744830731c853ebbba18
       body: ""
