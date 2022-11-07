@@ -1,4 +1,16 @@
 - commits:
+    - subject: Build targets individually
+      hash: b58249b9c833763ec80402820b2c93c01fafda22
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 1.7.15
+  title: ""
+  date: 2022-11-07T21:36:35.993Z
+- commits:
     - subject: Update dependency lodash to 4.17.21 [SECURITY]
       hash: f356e4c303080eefdf74f52c2b4de227d20e4e49
       body: |
