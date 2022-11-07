@@ -1,4 +1,16 @@
 - commits:
+    - subject: Avoid duplicate releases
+      hash: 33dea6267fbcc3cd47b1744830731c853ebbba18
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 1.7.12
+  title: ""
+  date: 2022-11-07T18:32:19.617Z
+- commits:
     - subject: Only run finalize on Linux runners
       hash: 9ab307df4f4f617adac33c6a36f492229050bb0e
       body: ""
