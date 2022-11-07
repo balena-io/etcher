@@ -14,6 +14,7 @@ runs:
   using: "composite"
   steps:
     - name: Get release version
+      if: runner.os == 'Linux'
       id: get_release
       shell: bash --noprofile --norc -eo pipefail -x {0}
       run: |
@@ -24,6 +25,7 @@ runs:
         echo "version=$(jq -r '.version' package.json)" >> $GITHUB_OUTPUT
 
     - name: Rename release
+      if: runner.os == 'Linux'
       shell: bash --noprofile --norc -eo pipefail -x {0}
       run: |
         set -ea
@@ -38,6 +40,7 @@ runs:
         GITHUB_TOKEN: ${{ fromJSON(inputs.secrets).FLOWZONE_TOKEN }}
 
     - name: Finalize GitHub release
+      if: runner.os == 'Linux'
       uses: softprops/action-gh-release@v1
       with:
         name: v${{ steps.get_release.outputs.version }}
