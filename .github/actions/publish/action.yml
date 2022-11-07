@@ -220,7 +220,6 @@ runs:
         name: ${{ github.event.pull_request.head.ref }}
         tag_name: ${{ github.event.pull_request.head.ref }}
         draft: true
-        generate_release_notes: true
         prerelease: true
         token: ${{ fromJSON(inputs.secrets).FLOWZONE_TOKEN }}
         files: |
