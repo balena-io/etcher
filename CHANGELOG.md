@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.8.15
+## (2022-11-08)
+
+* CI: generalise artefact handling [ab77]
+
 # v1.8.14
 ## (2022-11-08)
 

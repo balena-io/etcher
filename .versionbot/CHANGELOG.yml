@@ -1,4 +1,18 @@
 - commits:
+    - subject: "CI: generalise artefact handling"
+      hash: e3618b939e119b8ae6d0dcea0f4077fe2c332122
+      body: |
+        * on PR syncs, delete draft releases on Linux runners only
+        * delete draft releases when unmerged PRs are closed
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 1.8.15
+  title: ""
+  date: 2022-11-08T18:21:04.227Z
+- commits:
     - subject: Update dependency @types/node to 14.18.33
       hash: 7e2c2eae635e6d9aef1e65b158268400074ff020
       body: |
