@@ -108,7 +108,7 @@
     "string-replace-loader": "3.0.1",
     "style-loader": "2.0.0",
     "styled-components": "5.1.0",
-    "sys-class-rgb-led": "3.0.0",
+    "sys-class-rgb-led": "3.0.1",
     "terser-webpack-plugin": "5.2.5",
     "ts-loader": "8.0.12",
     "ts-node": "9.1.1",
