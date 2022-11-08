@@ -91,7 +91,7 @@
     "mocha": "8.0.1",
     "native-addon-loader": "2.0.1",
     "node-ipc": "9.1.1",
-    "omit-deep-lodash": "1.1.4",
+    "omit-deep-lodash": "1.1.7",
     "outdent": "0.8.0",
     "path-is-inside": "1.0.2",
     "pnp-webpack-plugin": "1.6.4",
