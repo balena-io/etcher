@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency @balena/lint to 5.4.2
+      hash: cc0285a77db78a014b73169cc8a6b2429961f41f
+      body: |
+        Update @balena/lint to 5.4.2
+
+        Update @balena/lint from 5.3.0 to 5.4.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.11
+  title: ""
+  date: 2022-11-08T10:38:47.026Z
+- commits:
     - subject: Update dependency sys-class-rgb-led to 3.0.1
       hash: 0e58edf1139b16b26335f7b6f7b2e6f92c8c8838
       body: |
