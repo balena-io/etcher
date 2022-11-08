@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency @types/node to 14.18.33
+      hash: 7e2c2eae635e6d9aef1e65b158268400074ff020
+      body: |
+        Update @types/node to 14.18.33
+
+        Update @types/node from 14.14.41 to 14.18.33
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.14
+  title: ""
+  date: 2022-11-08T13:57:18.149Z
+- commits:
     - subject: Update dependency @types/copy-webpack-plugin to 6.4.3
       hash: 2c2a5c7c2b31d188cc32024dd6f9b5d0d1a5bc8b
       body: |
