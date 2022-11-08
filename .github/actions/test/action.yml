@@ -22,6 +22,7 @@ runs:
   using: "composite"
   steps:
     - name: Delete previous draft release
+      if: runner.os == 'Linux'
       shell: bash --noprofile --norc -eo pipefail -x {0}
       run: |
         set -ea
@@ -59,14 +60,8 @@ runs:
         ELECTRON_NO_ATTACH_CONSOLE: true
 
     - name: Compress custom source
-      if: runner.os != 'Windows'
-      shell: bash --noprofile --norc -eo pipefail -x {0}
+      shell: pwsh
       run: tar -acf ${{ runner.temp }}/custom.tgz .
-
-    - name: Compress custom source
-      if: runner.os == 'Windows'
-      shell: powershell
-      run: tar -acf ${{ runner.temp }}\custom.tgz .
 
     - name: Upload custom artifact
       uses: actions/upload-artifact@v3

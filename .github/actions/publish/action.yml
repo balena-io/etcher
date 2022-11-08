@@ -31,16 +31,9 @@ runs:
         path: ${{ runner.temp }}
 
     - name: Extract custom source artifact
-      if: runner.os != 'Windows'
-      shell: bash --noprofile --norc -eo pipefail -x {0}
+      shell: pwsh
       working-directory: .
       run: tar -xf ${{ runner.temp }}/custom.tgz
-
-    - name: Extract custom source artifact
-      if: runner.os == 'Windows'
-      shell: powershell
-      working-directory: .
-      run: tar -xf ${{ runner.temp }}\custom.tgz
 
     - name: Setup Node.js
       uses: actions/setup-node@v3
@@ -233,14 +226,8 @@ runs:
           dist/latest*.yml
 
     - name: Compress custom source
-      if: runner.os != 'Windows'
-      shell: bash --noprofile --norc -eo pipefail -x {0}
+      shell: pwsh
       run: tar -acf ${{ runner.temp }}/custom.tgz .
-
-    - name: Compress custom source
-      if: runner.os == 'Windows'
-      shell: powershell
-      run: tar -acf ${{ runner.temp }}\custom.tgz .
 
     - name: Upload custom artifact
       uses: actions/upload-artifact@v3

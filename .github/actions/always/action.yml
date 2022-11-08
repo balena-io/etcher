@@ -1,0 +1,38 @@
+---
+name: cleanup
+# https://github.com/product-os/flowzone/tree/master/.github/actions
+inputs:
+  json:
+    description: "JSON stringified object containing all the inputs from the calling workflow"
+    required: true
+  secrets:
+    description: "JSON stringified object containing all the secrets from the calling workflow"
+    required: true
+
+  # --- custom environment
+  VERBOSE:
+    type: string
+    default: "true"
+
+runs:
+  # https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
+  using: "composite"
+  steps:
+    # delete draft releases if the pull request is closed without merging
+    - name: Delete draft release
+      if: |
+        runner.os == 'Linux' &&
+        github.event_name == 'pull_request' &&
+        github.event.pull_request.merged == false &&
+        github.event.action == 'closed'
+
+      shell: bash --noprofile --norc -eo pipefail -x {0}
+      run: |
+        set -ea
+
+        [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
+
+        gh release delete --yes '${{ github.event.pull_request.head.ref }}' || true
+
+      env:
+        GITHUB_TOKEN: ${{ fromJSON(inputs.secrets).FLOWZONE_TOKEN }}
