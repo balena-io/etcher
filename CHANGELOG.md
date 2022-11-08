@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.8.9
+## (2022-11-08)
+
+* Update dependency semver to 7.3.8 [Renovate Bot]
+
 # v1.8.8
 ## (2022-11-08)
 

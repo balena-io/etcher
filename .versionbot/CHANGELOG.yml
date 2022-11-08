@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency semver to 7.3.8
+      hash: 8357cc19d258103bc66061467ac984b1adae6456
+      body: |
+        Update semver to 7.3.8
+
+        Update semver from 7.3.2 to 7.3.8
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.9
+  title: ""
+  date: 2022-11-08T08:40:21.355Z
+- commits:
     - subject: Update dependency omit-deep-lodash to 1.1.7
       hash: a4f944e7959431f24b55c44dbcde2b13530cf902
       body: |
