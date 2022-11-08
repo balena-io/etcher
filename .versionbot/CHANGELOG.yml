@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency @fortawesome/fontawesome-free to 5.15.4
+      hash: 7bb52aa1706b4bfe06cdd023f4f95bf8de1a6666
+      body: |
+        Update @fortawesome/fontawesome-free to 5.15.4
+
+        Update @fortawesome/fontawesome-free from 5.13.1 to 5.15.4
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.12
+  title: ""
+  date: 2022-11-08T11:33:01.286Z
+- commits:
     - subject: Update dependency @balena/lint to 5.4.2
       hash: cc0285a77db78a014b73169cc8a6b2429961f41f
       body: |
