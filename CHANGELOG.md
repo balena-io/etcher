@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.8.6
+## (2022-11-08)
+
+* Update dependency electron-rebuild to 3.2.9 [Renovate Bot]
+
 # v1.8.5
 ## (2022-11-08)
 

@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency electron-rebuild to 3.2.9
+      hash: 3dc54405feebce319bb29933f9bad52621067f0a
+      body: |
+        Update electron-rebuild to 3.2.9
+
+        Update electron-rebuild from 3.2.5 to 3.2.9
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.6
+  title: ""
+  date: 2022-11-08T05:18:29.447Z
+- commits:
     - subject: Update dependency electron-mocha to 9.3.3
       hash: 1b93891ed805d2a091a3d4eaff6a00a498de6eaa
       body: |
