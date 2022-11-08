@@ -50,7 +50,7 @@
   "author": "Balena Inc. <hello@etcher.io>",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@balena/lint": "5.3.0",
+    "@balena/lint": "5.4.2",
     "@balena/sudo-prompt": "9.2.1-workaround-windows-amperstand-in-username-0849e215b947987a643fe5763902aea201255534",
     "@fortawesome/fontawesome-free": "5.13.1",
     "@svgr/webpack": "5.5.0",
