@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.8.2
+## (2022-11-08)
+
+* Generate release notes with git [ab77]
+
 # v1.8.1
 ## (2022-11-07)
 

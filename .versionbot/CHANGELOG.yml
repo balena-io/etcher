@@ -1,4 +1,16 @@
 - commits:
+    - subject: Generate release notes with git
+      hash: a61aa8e2bec57281655eb1c89c956fd5d42d3fc5
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 1.8.2
+  title: ""
+  date: 2022-11-08T00:19:25.825Z
+- commits:
     - subject: Update dependency @types/mime-types to 2.1.1
       hash: fe09f9f862d2eef79a237986c50e587b232d9c2d
       body: |
