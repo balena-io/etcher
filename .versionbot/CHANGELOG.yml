@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency @types/react-dom to 16.9.17
+      hash: 448ce141d51ec342e95148f265daf0fc73df694c
+      body: |
+        Update @types/react-dom to 16.9.17
+
+        Update @types/react-dom from 16.8.4 to 16.9.17
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.17
+  title: ""
+  date: 2022-11-08T20:38:27.629Z
+- commits:
     - subject: Update dependency @types/react to 16.14.34
       hash: 77b33b127dcfb0345e0ff80c80b2f560984c14b1
       body: |
