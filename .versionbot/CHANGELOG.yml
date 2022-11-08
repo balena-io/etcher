@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency @types/webpack-node-externals to 2.5.3
+      hash: ea5a167f4f3eb81a177ebd5c9c3def2e38a65f37
+      body: |
+        Update @types/webpack-node-externals to 2.5.3
+
+        Update @types/webpack-node-externals from 2.5.0 to 2.5.3
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.4
+  title: ""
+  date: 2022-11-08T02:41:36.635Z
+- commits:
     - subject: Update dependency @types/tmp to 0.2.3
       hash: 98a5ddf58ad762d46d532310100513834c6d68b5
       body: |
