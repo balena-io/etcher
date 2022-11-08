@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency awscli to 1.27.5
+      hash: 26dc2d19e56354b0f43c9af2f1d6dd51a4a0b235
+      body: |
+        Update awscli to 1.27.5
+
+        Update awscli from 1.11.87 to 1.27.5
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Renovate Bot
+      nested: []
+  version: 1.9.0
+  title: ""
+  date: 2022-11-08T21:37:25.500Z
+- commits:
     - subject: Update dependency @types/react-dom to 16.9.17
       hash: 448ce141d51ec342e95148f265daf0fc73df694c
       body: |
