@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.8.10
+## (2022-11-08)
+
+
+<details>
+<summary> Update dependency sys-class-rgb-led to 3.0.1 [Renovate Bot] </summary>
+
+> ## sys-class-rgb-led-3.0.1
+> ### (2021-07-01)
+> 
+> * patch: Delete Codeowners [Vipul Gupta]
+> 
+</details>
+
 # v1.8.9
 ## (2022-11-08)
 

@@ -1,4 +1,27 @@
 - commits:
+    - subject: Update dependency sys-class-rgb-led to 3.0.1
+      hash: 0e58edf1139b16b26335f7b6f7b2e6f92c8c8838
+      body: |
+        Update sys-class-rgb-led to 3.0.1
+
+        Update sys-class-rgb-led from 3.0.0 to 3.0.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested:
+        - commits:
+            - subject: "patch: Delete Codeowners"
+              hash: 91e33b39ac7c55b1186887b20703e3298f37751c
+              body: ""
+              footer: {}
+              author: Vipul Gupta
+          version: sys-class-rgb-led-3.0.1
+          date: 2021-07-01T10:53:00.610Z
+  version: 1.8.10
+  title: ""
+  date: 2022-11-08T09:35:02.677Z
+- commits:
     - subject: Update dependency semver to 7.3.8
       hash: 8357cc19d258103bc66061467ac984b1adae6456
       body: |
