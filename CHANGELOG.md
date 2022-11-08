@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.8.13
+## (2022-11-08)
+
+* Update dependency @types/copy-webpack-plugin to 6.4.3 [Renovate Bot]
+
 # v1.8.12
 ## (2022-11-08)
 

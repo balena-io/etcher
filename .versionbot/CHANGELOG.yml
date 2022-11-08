@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency @types/copy-webpack-plugin to 6.4.3
+      hash: 2c2a5c7c2b31d188cc32024dd6f9b5d0d1a5bc8b
+      body: |
+        Update @types/copy-webpack-plugin to 6.4.3
+
+        Update @types/copy-webpack-plugin from 6.0.0 to 6.4.3
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.13
+  title: ""
+  date: 2022-11-08T12:39:27.293Z
+- commits:
     - subject: Update dependency @fortawesome/fontawesome-free to 5.15.4
       hash: 7bb52aa1706b4bfe06cdd023f4f95bf8de1a6666
       body: |
