@@ -1,0 +1,8 @@
+{
+  "repositories": [
+    "balena-io/etcher"
+  ],
+  "extends": [
+    "config:base"
+  ]
+}
