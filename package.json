@@ -55,7 +55,7 @@
     "@fortawesome/fontawesome-free": "5.15.4",
     "@svgr/webpack": "5.5.0",
     "@types/chai": "4.2.7",
-    "@types/copy-webpack-plugin": "6.0.0",
+    "@types/copy-webpack-plugin": "6.4.3",
     "@types/mime-types": "2.1.1",
     "@types/mini-css-extract-plugin": "1.2.2",
     "@types/mocha": "8.0.3",
