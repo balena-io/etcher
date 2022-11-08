@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency omit-deep-lodash to 1.1.7
+      hash: a4f944e7959431f24b55c44dbcde2b13530cf902
+      body: |
+        Update omit-deep-lodash to 1.1.7
+
+        Update omit-deep-lodash from 1.1.4 to 1.1.7
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.8
+  title: ""
+  date: 2022-11-08T07:33:36.421Z
+- commits:
     - subject: Update dependency immutable to 3.8.2
       hash: 330df325f9b2eb855c6213f91cdb0d4cf1439525
       body: |
