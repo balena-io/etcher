@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency immutable to 3.8.2
+      hash: 330df325f9b2eb855c6213f91cdb0d4cf1439525
+      body: |
+        Update immutable to 3.8.2
+
+        Update immutable from 3.8.1 to 3.8.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.7
+  title: ""
+  date: 2022-11-08T06:19:12.271Z
+- commits:
     - subject: Update dependency electron-rebuild to 3.2.9
       hash: 3dc54405feebce319bb29933f9bad52621067f0a
       body: |
