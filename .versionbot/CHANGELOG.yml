@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency electron-mocha to 9.3.3
+      hash: 1b93891ed805d2a091a3d4eaff6a00a498de6eaa
+      body: |
+        Update electron-mocha to 9.3.3
+
+        Update electron-mocha from 9.3.2 to 9.3.3
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.5
+  title: ""
+  date: 2022-11-08T04:22:23.418Z
+- commits:
     - subject: Update dependency @types/webpack-node-externals to 2.5.3
       hash: ea5a167f4f3eb81a177ebd5c9c3def2e38a65f37
       body: |
