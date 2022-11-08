@@ -52,7 +52,7 @@
   "devDependencies": {
     "@balena/lint": "5.4.2",
     "@balena/sudo-prompt": "9.2.1-workaround-windows-amperstand-in-username-0849e215b947987a643fe5763902aea201255534",
-    "@fortawesome/fontawesome-free": "5.13.1",
+    "@fortawesome/fontawesome-free": "5.15.4",
     "@svgr/webpack": "5.5.0",
     "@types/chai": "4.2.7",
     "@types/copy-webpack-plugin": "6.0.0",
