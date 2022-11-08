@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.8.16
+## (2022-11-08)
+
+* Update dependency @types/react to 16.14.34 [Renovate Bot]
+
 # v1.8.15
 ## (2022-11-08)
 

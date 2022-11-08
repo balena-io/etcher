@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency @types/react to 16.14.34
+      hash: 77b33b127dcfb0345e0ff80c80b2f560984c14b1
+      body: |
+        Update @types/react to 16.14.34
+
+        Update @types/react from 16.8.5 to 16.14.34
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.16
+  title: ""
+  date: 2022-11-08T19:39:42.616Z
+- commits:
     - subject: "CI: generalise artefact handling"
       hash: e3618b939e119b8ae6d0dcea0f4077fe2c332122
       body: |
