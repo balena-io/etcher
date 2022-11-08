@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency @types/tmp to 0.2.3
+      hash: 98a5ddf58ad762d46d532310100513834c6d68b5
+      body: |
+        Update @types/tmp to 0.2.3
+
+        Update @types/tmp from 0.2.0 to 0.2.3
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.3
+  title: ""
+  date: 2022-11-08T01:36:34.632Z
+- commits:
     - subject: Generate release notes with git
       hash: a61aa8e2bec57281655eb1c89c956fd5d42d3fc5
       body: ""
