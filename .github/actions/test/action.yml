@@ -12,7 +12,7 @@ inputs:
   # --- custom environment
   NODE_VERSION:
     type: string
-    default: "14.x"
+    default: "16.19.0"
   VERBOSE:
     type: string
     default: "true"
@@ -28,8 +28,17 @@ runs:
         node-version: ${{ inputs.NODE_VERSION }}
         cache: npm
 
+    # FIXME: https://github.com/nodejs/node-gyp/issues/1371
+    # https://github.com/nodejs/node-gyp#command-options
+    - name: Install node-gyp
+      if: runner.os == 'Windows'
+      shell: bash
+      run: |
+        find "$(dirname $(which node))/.." -type f -name node-gyp.js \
+          | xargs -I{} node {} install
+
     - name: Test release
-      shell: bash --noprofile --norc -eo pipefail -x {0}
+      shell: bash
       run: |
         set -ea
 
@@ -45,6 +54,7 @@ runs:
       env:
         # https://www.electronjs.org/docs/latest/api/environment-variables
         ELECTRON_NO_ATTACH_CONSOLE: true
+        NPM_CONFIG_loglevel: verbose
 
     - name: Compress custom source
       shell: pwsh

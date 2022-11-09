@@ -176,7 +176,8 @@ function replace(test: RegExp, ...replacements: ReplacementRule[]) {
 		loader: 'string-replace-loader',
 		// Handle windows path separators
 		test: slashOrAntislash(test),
-		options: { multiple: replacements.map((r) => ({ ...r, strict: true })) },
+		// https://github.com/Va1/string-replace-loader#strict-mode-replacement
+		options: { multiple: replacements.map((r) => ({ ...r, strict: false })) },
 	};
 }
 
@@ -190,6 +191,7 @@ function fetchWasm(...where: string[]) {
 			electron = require('electron');
 		} catch {
 		}
+		// FIXME: throws an error with string-replace-loader { strict: true }
 		function appPath() {
 			return Path.isAbsolute(__dirname) ?
 				__dirname :

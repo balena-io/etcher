@@ -14,24 +14,25 @@
   },
   "scripts": {
     "build": "npm run webpack",
-    "flowzone-preinstall-linux": "sudo apt-get install -y xvfb libudev-dev && cat < electron-builder.yml | yq e .deb.depends[] - | xargs -L1 echo | sed 's/|//g' | xargs -L1 sudo apt-get --ignore-missing install || true",
+    "flowzone-preinstall-linux": "sudo apt-get install -y xvfb libudev-dev && cat < package.json | jq -r .build.deb.depends[] - | xargs -L1 echo | sed 's/|//g' | xargs -L1 sudo apt-get --ignore-missing install || true",
     "flowzone-preinstall-macos": "true",
     "flowzone-preinstall-windows": "true",
     "flowzone-preinstall": "npm run flowzone-preinstall-linux",
     "lint-css": "prettier --write lib/**/*.css",
     "lint-ts": "balena-lint --fix --typescript typings lib tests scripts/clean-shrinkwrap.ts webpack.config.ts",
     "lint": "npm run lint-ts && npm run lint-css",
-    "postinstall": "electron-rebuild -t prod,dev,optional",
+    "postinstall": "bash scripts/ci/postinstall.sh",
+    "preinstall": "bash scripts/ci/preinstall.sh",
     "sanity-checks": "bash scripts/ci/ensure-all-file-extensions-in-gitattributes.sh",
-    "start": "./node_modules/.bin/electron .",
-    "test-macos": "npm run lint && npm run test-gui && npm run test-shared && npm run test-spectron && npm run sanity-checks",
+    "start": "node_modules/.bin/electron .",
     "test-gui": "electron-mocha --recursive --reporter spec --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox --renderer tests/gui/**/*.ts",
     "test-linux": "npm run lint && xvfb-run --auto-servernum npm run test-gui && xvfb-run --auto-servernum npm run test-shared && xvfb-run --auto-servernum npm run test-spectron && npm run sanity-checks",
+    "test-macos": "npm run lint && npm run test-gui && npm run test-shared && npm run test-spectron && npm run sanity-checks",
     "test-shared": "electron-mocha --recursive --reporter spec --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox tests/shared/**/*.ts",
     "test-spectron": "mocha --recursive --reporter spec --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts tests/spectron/runner.spec.ts",
     "test-windows": "npm run lint && npm run test-gui && npm run test-shared && npm run test-spectron && npm run sanity-checks",
     "test": "echo npm run test-{linux,windows,macos}",
-    "watch": "webpack serve --no-optimization-minimize --config ./webpack.dev.config.ts",
+    "watch": "webpack serve --no-optimization-minimize --config webpack.dev.config.ts",
     "webpack": "webpack"
   },
   "husky": {
@@ -68,20 +69,20 @@
     "@types/terser-webpack-plugin": "5.0.4",
     "@types/tmp": "0.2.3",
     "@types/webpack-node-externals": "2.5.3",
-    "aws4-axios": "2.4.9",
+    "aws4-axios": "2.4.6",
     "chai": "4.3.7",
     "copy-webpack-plugin": "7.0.0",
     "css-loader": "5.2.7",
     "d3": "4.13.0",
     "debug": "4.3.4",
-    "electron": "^13.5.0",
-    "electron-builder": "^23.0.9",
+    "electron": "13.6.9",
+    "electron-builder": "23.6.0",
     "electron-mocha": "9.3.3",
     "electron-notarize": "1.2.2",
     "electron-rebuild": "3.2.9",
     "electron-updater": "5.3.0",
     "esbuild-loader": "2.20.0",
-    "etcher-sdk": "^7.4.6",
+    "etcher-sdk": "7.4.7-build-ab77-operational-6f10344d887bcf306b3bf897a5451666f6590ae9-1",
     "file-loader": "6.2.0",
     "husky": "4.3.8",
     "i18next": "21.10.0",
@@ -94,6 +95,7 @@
     "node-ipc": "9.2.1",
     "omit-deep-lodash": "1.1.7",
     "outdent": "0.8.0",
+    "patch-package": "^6.5.1",
     "path-is-inside": "1.0.2",
     "pnp-webpack-plugin": "1.7.0",
     "pretty-bytes": "5.6.0",
@@ -123,9 +125,182 @@
     "webpack-dev-server": "4.11.1"
   },
   "engines": {
-    "node": ">=14 < 16"
+    "node": "16"
+  },
+  "build": {
+    "appId": "io.balena.etcher",
+    "copyright": "Copyright 2016-2023 Balena Ltd",
+    "productName": "balenaEtcher",
+    "afterPack": "./afterPack.js",
+    "afterSign": "./afterSignHook.js",
+    "asar": false,
+    "files": [
+      "generated",
+      "lib/shared/catalina-sudo/sudo-askpass.osascript.js"
+    ],
+    "mac": {
+      "icon": "assets/icon.icns",
+      "category": "public.app-category.developer-tools",
+      "hardenedRuntime": true,
+      "entitlements": "entitlements.mac.plist",
+      "entitlementsInherit": "entitlements.mac.plist",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ]
+    },
+    "dmg": {
+      "artifactName": "${productName}-${version}-${arch}.${ext}",
+      "background": "assets/dmg/background.tiff",
+      "icon": "assets/icon.icns",
+      "iconSize": 110,
+      "contents": [
+        {
+          "x": 140,
+          "y": 225
+        },
+        {
+          "x": 415,
+          "y": 225,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ],
+      "window": {
+        "width": 540,
+        "height": 405
+      }
+    },
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": true,
+      "runAfterFinish": true,
+      "installerIcon": "assets/icon.ico",
+      "uninstallerIcon": "assets/icon.ico",
+      "deleteAppDataOnUninstall": true,
+      "license": "LICENSE",
+      "artifactName": "${productName}-Setup-${version}-${arch}.${ext}"
+    },
+    "portable": {
+      "artifactName": "${productName}-Portable-${version}-${arch}.${ext}",
+      "requestExecutionLevel": "user"
+    },
+    "linux": {
+      "icon": "assets/iconset",
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64",
+            "arm64",
+            "armv7l"
+          ]
+        },
+        {
+          "target": "rpm",
+          "arch": [
+            "x64",
+            "arm64",
+            "armv7l"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64",
+            "arm64",
+            "armv7l"
+          ]
+        }
+      ],
+      "category": "Utility",
+      "packageCategory": "utils",
+      "executableName": "balena-etcher",
+      "synopsis": "balenaEtcher is a powerful OS image flasher built with web technologies to ensure flashing an SDCard or USB drive is a pleasant and safe experience. It protects you from accidentally writing to your hard-drives, ensures every byte of data was written correctly and much more."
+    },
+    "appImage": {
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
+    "deb": {
+      "priority": "optional",
+      "compression": "bzip2",
+      "depends": [
+        "gconf-service",
+        "gconf2",
+        "libasound2",
+        "libatk1.0-0",
+        "libc6",
+        "libcairo2",
+        "libcups2",
+        "libdbus-1-3",
+        "libexpat1",
+        "libfontconfig1",
+        "libfreetype6",
+        "libgbm1",
+        "libgcc1",
+        "libgconf-2-4",
+        "libgdk-pixbuf2.0-0",
+        "libglib2.0-0",
+        "libgtk-3-0",
+        "liblzma5",
+        "libnotify4",
+        "libnspr4",
+        "libnss3",
+        "libpango1.0-0 | libpango-1.0-0",
+        "libstdc++6",
+        "libx11-6",
+        "libxcomposite1",
+        "libxcursor1",
+        "libxdamage1",
+        "libxext6",
+        "libxfixes3",
+        "libxi6",
+        "libxrandr2",
+        "libxrender1",
+        "libxss1",
+        "libxtst6",
+        "polkit-1-auth-agent | policykit-1-gnome | polkit-kde-1"
+      ],
+      "afterInstall": "./after-install.tpl",
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
+    "rpm": {
+      "depends": [
+        "util-linux"
+      ],
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
+    "protocols": {
+      "name": "etcher",
+      "schemes": [
+        "etcher"
+      ]
+    }
   },
   "versionist": {
-    "publishedAt": "2023-01-02T20:55:58.804Z"
+    "publishedAt": "2022-12-05T21:38:42.561Z"
   }
 }

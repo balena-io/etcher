@@ -15,7 +15,7 @@ inputs:
     default: "accounts+apple@balena.io"
   NODE_VERSION:
     type: string
-    default: "14.x"
+    default: "16.19.0"
   VERBOSE:
     type: string
     default: "true"
@@ -41,10 +41,19 @@ runs:
         node-version: ${{ inputs.NODE_VERSION }}
         cache: npm
 
-    - name: Install yq
-      shell: bash --noprofile --norc -eo pipefail -x {0}
-      run: choco install yq
+    # FIXME: https://github.com/nodejs/node-gyp/issues/1371
+    # https://github.com/nodejs/node-gyp#command-options
+    - name: Install node-gyp
       if: runner.os == 'Windows'
+      shell: bash
+      run: |
+        find "$(dirname $(which node))/.." -type f -name node-gyp.js \
+          | xargs -I{} node {} install
+
+    - name: Install package(s)
+      if: runner.os == 'Windows'
+      shell: bash
+      run: choco install yq
 
     # FIXME: resinci-deploy is not actively maintained
     # https://github.com/product-os/resinci-deploy
@@ -56,7 +65,7 @@ runs:
         path: resinci-deploy
 
     - name: Build and install resinci-deploy
-      shell: bash --noprofile --norc -eo pipefail -x {0}
+      shell: bash
       run: |
         set -ea
 
@@ -78,7 +87,7 @@ runs:
     # https://docs.sentry.io/api/projects/create-a-new-client-key/
     - name: Generate Sentry DSN
       id: sentry
-      shell: bash --noprofile --norc -eo pipefail -x {0}
+      shell: bash
       run: |
         set -ea
 
@@ -126,56 +135,74 @@ runs:
         WINDOWS_CERTIFICATE: ${{ fromJSON(inputs.secrets).WINDOWS_SIGNING }}
         WINDOWS_CERTIFICATE_PASSWORD: ${{ fromJSON(inputs.secrets).WINDOWS_SIGNING_PASSWORD }}
 
-    # ... or refactor (e.g.) https://github.com/samuelmeuli/action-electron-builder
     # https://github.com/product-os/scripts/tree/master/electron
     # https://github.com/product-os/scripts/tree/master/shared
     # https://github.com/product-os/balena-concourse/blob/master/pipelines/github-events/template.yml
     - name: Package release
       id: package_release
-      shell: bash --noprofile --norc -eo pipefail -x {0}
+      shell: bash
       run: |
         set -ea
 
         [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
 
         runner_os="$(echo "${RUNNER_OS}" | tr '[:upper:]' '[:lower:]')"
-        runner_arch="$(echo "${RUNNER_ARCH}" | tr '[:upper:]' '[:lower:]')"
 
-        ELECTRON_BUILDER_ARCHITECTURE="${runner_arch}"
         APPLICATION_VERSION="$(jq -r '.version' package.json)"
-        ARCHITECTURE_FLAGS="--${ELECTRON_BUILDER_ARCHITECTURE}"
 
         if [[ $runner_os =~ linux ]]; then
-            ELECTRON_BUILDER_OS='--linux'
-            TARGETS="$(yq e .linux.target[] electron-builder.yml)"
+            ELECTRON_BUILDER_OS=linux
 
         elif [[ $runner_os =~ darwin|macos|osx ]]; then
             CSC_KEY_PASSWORD=${{ fromJSON(inputs.secrets).APPLE_SIGNING_PASSWORD }}
             CSC_KEYCHAIN=signing_temp
             CSC_LINK=${{ fromJSON(inputs.secrets).APPLE_SIGNING }}
-            ELECTRON_BUILDER_OS='--mac'
-            TARGETS="$(yq e .mac.target[] electron-builder.yml)"
+            ELECTRON_BUILDER_OS=mac
 
         elif [[ $runner_os =~ windows|win ]]; then
-            ARCHITECTURE_FLAGS="--ia32 ${ARCHITECTURE_FLAGS}"
             CSC_KEY_PASSWORD=${{ fromJSON(inputs.secrets).WINDOWS_SIGNING_PASSWORD }}
             CSC_LINK=${{ fromJSON(inputs.secrets).WINDOWS_SIGNING }}
-            ELECTRON_BUILDER_OS='--win'
-            TARGETS="$(yq e .win.target[] electron-builder.yml)"
+            ELECTRON_BUILDER_OS=win
 
         else
-            exit 1
+            echo "${runner_os} is not supported"
+            false
         fi
 
         npm link electron-builder
 
-        for target in ${TARGETS}; do
-            electron-builder ${ELECTRON_BUILDER_OS} ${target} ${ARCHITECTURE_FLAGS} \
-              --c.extraMetadata.analytics.sentry.token='${{ steps.sentry.outputs.dsn }}' \
-              --c.extraMetadata.analytics.mixpanel.token='balena-etcher' \
-              --c.extraMetadata.packageType="${target}"
+        TARGETS="$(yq e '.build.[env(ELECTRON_BUILDER_OS)].target[].target' package.json)"
 
-            find dist -type f -maxdepth 1
+        for target in ${TARGETS}; do
+            archs="$(yq e '.build.[env(ELECTRON_BUILDER_OS)].target[] | select(.target == env(target)).arch[]' package.json)"
+            archs=(${archs})
+
+            for arch in ${archs[*]}; do
+                # (re)build|pack for all non-x64 architectures
+                if ! [[ "$arch" =~ x64 ]]; then
+                    # FIXME: remove when Node.js win-arm64 support ships
+                    # https://github.com/nodejs/build/issues/2450#issuecomment-1367786829
+                    if [[ "$runner_os" =~ win ]] && [[ "$arch" =~ arm64 ]]; then
+                        find "$(dirname $(which node))/.." -type f -name node-gyp.js \
+                          | xargs -I{} node {} install \
+                          --dist-url=https://unofficial-builds.nodejs.org/download/release
+                    fi
+
+                    npm ci
+
+                    find node_modules -type d \( -name 'prebuilds' -o -name 'deps' \) \
+                      | xargs -L1 -I{} find {} -type f
+
+                    npm run build
+                fi
+
+                electron-builder "--${ELECTRON_BUILDER_OS}" "${target}" "--${arch}" \
+                  --c.extraMetadata.analytics.sentry.token='${{ steps.sentry.outputs.dsn }}' \
+                  --c.extraMetadata.analytics.mixpanel.token='balena-etcher' \
+                  --c.extraMetadata.packageType="${target}"
+
+                find dist -type f -maxdepth 1
+            done
         done
 
         echo "version=${APPLICATION_VERSION}" >> $GITHUB_OUTPUT
@@ -187,10 +214,13 @@ runs:
         # https://github.blog/2020-08-03-github-actions-improvements-for-fork-and-pull-request-workflows/#improvements-for-public-repository-forks
         # https://docs.github.com/en/actions/managing-workflow-runs/approving-workflow-runs-from-public-forks#about-workflow-runs-from-public-forks
         CSC_FOR_PULL_REQUEST: true
+        # https://www.electron.build/#debug
+        DEBUG: electron-builder
+        NPM_CONFIG_loglevel: verbose
 
     # https://www.electron.build/auto-update.html#staged-rollouts
     - name: Configure staged rollout(s)
-      shell: bash --noprofile --norc -eo pipefail -x {0}
+      shell: bash
       run: |
         set -ea
 

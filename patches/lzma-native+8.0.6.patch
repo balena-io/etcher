@@ -1,0 +1,47 @@
+diff --git a/node_modules/lzma-native/binding.gyp b/node_modules/lzma-native/binding.gyp
+index 8bcda26..3d66890 100644
+--- a/node_modules/lzma-native/binding.gyp
++++ b/node_modules/lzma-native/binding.gyp
+@@ -38,8 +38,10 @@
+             "conditions": [
+               [ 'target_arch=="x64"', {
+                 "library_dirs" : [ "<(module_root_dir)\\deps\\bin_x86-64" ]
+-              }, {
++              }, 'target_arch=="ia32"', {
+                 "library_dirs" : [ "<(module_root_dir)\\deps\\bin_i686" ]
++              }, {
++                "library_dirs" : [ "<(module_root_dir)\\deps\\bin_ARM64" ]
+               } ]
+             ]
+           }
+@@ -69,11 +71,16 @@
+                 "arch_lib_path" : 'bin_x86-64',
+                 "arch_lib_code" : 'x64'
+               }
+-            }, {
++            }, 'target_arch=="ia32"', {
+               'variables': {
+                 "arch_lib_path" : 'bin_i686',
+                 "arch_lib_code" : 'ix86'
+               }
++            },{
++              'variables': {
++                "arch_lib_path" : 'bin_ARM64',
++                "arch_lib_code" : 'ARM64'
++              }
+             } ]
+           ],
+           "actions" : [
+diff --git a/node_modules/lzma-native/package.json b/node_modules/lzma-native/package.json
+index 3264e55..f18ea42 100644
+--- a/node_modules/lzma-native/package.json
++++ b/node_modules/lzma-native/package.json
+@@ -37,7 +37,7 @@
+     "prepack": "[ $(ls prebuilds | wc -l) = '6' ] || (echo 'Some prebuilds are missing'; exit 1)",
+     "test": "mocha --expose-gc -s 1000 -t 15000",
+     "prepare": "npm run prepare-win32 || true",
+-    "prepare-win32": "cd deps && 7z x -y xz-5.2.3-windows.7z bin_i686/liblzma.dll bin_x86-64/liblzma.dll include doc/liblzma.def",
++    "prepare-win32": "cd deps && 7z x -y xz-5.2.3-windows.7z bin_i686/liblzma.dll bin_x86-64/liblzma.dll bin_ARM64/liblzma.dll include doc/liblzma.def",
+     "jshint": "jshint ."
+   },
+   "gypfile": true,
