@@ -1,4 +1,14 @@
 - commits:
+    - subject: "patch: publish to winget with gh action"
+      hash: 38ceab598dac9aa66bea66a4defeb0884f45acc7
+      body: ""
+      footer: {}
+      author: Begula
+      nested: []
+  version: 1.7.10
+  title: "'patch: introducing github actions (WinGet)'"
+  date: 2022-11-10T16:48:37.566Z
+- commits:
     - subject: "patch: update allowed extensions to include deb afterinstall in build"
       hash: 61610ded842caba47c6a682afcb08aa0fda4e86b
       body: ""
