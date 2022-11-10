@@ -121,7 +121,6 @@ export function setProgressState(
 			state.percentage !== undefined && _.isFinite(state.percentage)
 				? Math.floor(state.percentage)
 				: undefined,
-
 		speed: _.attempt(() => {
 			if (_.isFinite(state.speed)) {
 				return _.round(bytesToMegabytes(state.speed), PRECISION);
