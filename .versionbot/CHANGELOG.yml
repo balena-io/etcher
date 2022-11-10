@@ -1,4 +1,16 @@
 - commits:
+    - subject: testing renovate
+      hash: 306e087ec6daed9e736a8918cde07159dd9298dc
+      body: ""
+      footer:
+        Change-Type: minor
+        change-type: minor
+      author: builder555
+      nested: []
+  version: 1.10.0
+  title: ""
+  date: 2022-11-10T20:54:12.345Z
+- commits:
     - subject: Update dependency awscli to 1.27.5
       hash: 26dc2d19e56354b0f43c9af2f1d6dd51a4a0b235
       body: |
