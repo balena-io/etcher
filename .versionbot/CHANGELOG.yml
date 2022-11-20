@@ -1,4 +1,380 @@
 - commits:
+    - subject: testing renovate
+      hash: 306e087ec6daed9e736a8918cde07159dd9298dc
+      body: ""
+      footer:
+        Change-Type: minor
+        change-type: minor
+      author: builder555
+      nested: []
+  version: 1.10.0
+  title: ""
+  date: 2022-11-10T20:54:12.345Z
+- commits:
+    - subject: Update dependency awscli to 1.27.5
+      hash: 26dc2d19e56354b0f43c9af2f1d6dd51a4a0b235
+      body: |
+        Update awscli to 1.27.5
+
+        Update awscli from 1.11.87 to 1.27.5
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Renovate Bot
+      nested: []
+  version: 1.9.0
+  title: ""
+  date: 2022-11-08T21:37:25.500Z
+- commits:
+    - subject: Update dependency @types/react-dom to 16.9.17
+      hash: 448ce141d51ec342e95148f265daf0fc73df694c
+      body: |
+        Update @types/react-dom to 16.9.17
+
+        Update @types/react-dom from 16.8.4 to 16.9.17
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.17
+  title: ""
+  date: 2022-11-08T20:38:27.629Z
+- commits:
+    - subject: Update dependency @types/react to 16.14.34
+      hash: 77b33b127dcfb0345e0ff80c80b2f560984c14b1
+      body: |
+        Update @types/react to 16.14.34
+
+        Update @types/react from 16.8.5 to 16.14.34
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.16
+  title: ""
+  date: 2022-11-08T19:39:42.616Z
+- commits:
+    - subject: "CI: generalise artefact handling"
+      hash: e3618b939e119b8ae6d0dcea0f4077fe2c332122
+      body: |
+        * on PR syncs, delete draft releases on Linux runners only
+        * delete draft releases when unmerged PRs are closed
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 1.8.15
+  title: ""
+  date: 2022-11-08T18:21:04.227Z
+- commits:
+    - subject: Update dependency @types/node to 14.18.33
+      hash: 7e2c2eae635e6d9aef1e65b158268400074ff020
+      body: |
+        Update @types/node to 14.18.33
+
+        Update @types/node from 14.14.41 to 14.18.33
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.14
+  title: ""
+  date: 2022-11-08T13:57:18.149Z
+- commits:
+    - subject: Update dependency @types/copy-webpack-plugin to 6.4.3
+      hash: 2c2a5c7c2b31d188cc32024dd6f9b5d0d1a5bc8b
+      body: |
+        Update @types/copy-webpack-plugin to 6.4.3
+
+        Update @types/copy-webpack-plugin from 6.0.0 to 6.4.3
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.13
+  title: ""
+  date: 2022-11-08T12:39:27.293Z
+- commits:
+    - subject: Update dependency @fortawesome/fontawesome-free to 5.15.4
+      hash: 7bb52aa1706b4bfe06cdd023f4f95bf8de1a6666
+      body: |
+        Update @fortawesome/fontawesome-free to 5.15.4
+
+        Update @fortawesome/fontawesome-free from 5.13.1 to 5.15.4
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.12
+  title: ""
+  date: 2022-11-08T11:33:01.286Z
+- commits:
+    - subject: Update dependency @balena/lint to 5.4.2
+      hash: cc0285a77db78a014b73169cc8a6b2429961f41f
+      body: |
+        Update @balena/lint to 5.4.2
+
+        Update @balena/lint from 5.3.0 to 5.4.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.11
+  title: ""
+  date: 2022-11-08T10:38:47.026Z
+- commits:
+    - subject: Update dependency sys-class-rgb-led to 3.0.1
+      hash: 0e58edf1139b16b26335f7b6f7b2e6f92c8c8838
+      body: |
+        Update sys-class-rgb-led to 3.0.1
+
+        Update sys-class-rgb-led from 3.0.0 to 3.0.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested:
+        - commits:
+            - subject: "patch: Delete Codeowners"
+              hash: 91e33b39ac7c55b1186887b20703e3298f37751c
+              body: ""
+              footer: {}
+              author: Vipul Gupta
+          version: sys-class-rgb-led-3.0.1
+          date: 2021-07-01T10:53:00.610Z
+  version: 1.8.10
+  title: ""
+  date: 2022-11-08T09:35:02.677Z
+- commits:
+    - subject: Update dependency semver to 7.3.8
+      hash: 8357cc19d258103bc66061467ac984b1adae6456
+      body: |
+        Update semver to 7.3.8
+
+        Update semver from 7.3.2 to 7.3.8
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.9
+  title: ""
+  date: 2022-11-08T08:40:21.355Z
+- commits:
+    - subject: Update dependency omit-deep-lodash to 1.1.7
+      hash: a4f944e7959431f24b55c44dbcde2b13530cf902
+      body: |
+        Update omit-deep-lodash to 1.1.7
+
+        Update omit-deep-lodash from 1.1.4 to 1.1.7
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.8
+  title: ""
+  date: 2022-11-08T07:33:36.421Z
+- commits:
+    - subject: Update dependency immutable to 3.8.2
+      hash: 330df325f9b2eb855c6213f91cdb0d4cf1439525
+      body: |
+        Update immutable to 3.8.2
+
+        Update immutable from 3.8.1 to 3.8.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.7
+  title: ""
+  date: 2022-11-08T06:19:12.271Z
+- commits:
+    - subject: Update dependency electron-rebuild to 3.2.9
+      hash: 3dc54405feebce319bb29933f9bad52621067f0a
+      body: |
+        Update electron-rebuild to 3.2.9
+
+        Update electron-rebuild from 3.2.5 to 3.2.9
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.6
+  title: ""
+  date: 2022-11-08T05:18:29.447Z
+- commits:
+    - subject: Update dependency electron-mocha to 9.3.3
+      hash: 1b93891ed805d2a091a3d4eaff6a00a498de6eaa
+      body: |
+        Update electron-mocha to 9.3.3
+
+        Update electron-mocha from 9.3.2 to 9.3.3
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.5
+  title: ""
+  date: 2022-11-08T04:22:23.418Z
+- commits:
+    - subject: Update dependency @types/webpack-node-externals to 2.5.3
+      hash: ea5a167f4f3eb81a177ebd5c9c3def2e38a65f37
+      body: |
+        Update @types/webpack-node-externals to 2.5.3
+
+        Update @types/webpack-node-externals from 2.5.0 to 2.5.3
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.4
+  title: ""
+  date: 2022-11-08T02:41:36.635Z
+- commits:
+    - subject: Update dependency @types/tmp to 0.2.3
+      hash: 98a5ddf58ad762d46d532310100513834c6d68b5
+      body: |
+        Update @types/tmp to 0.2.3
+
+        Update @types/tmp from 0.2.0 to 0.2.3
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.3
+  title: ""
+  date: 2022-11-08T01:36:34.632Z
+- commits:
+    - subject: Generate release notes with git
+      hash: a61aa8e2bec57281655eb1c89c956fd5d42d3fc5
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 1.8.2
+  title: ""
+  date: 2022-11-08T00:19:25.825Z
+- commits:
+    - subject: Update dependency @types/mime-types to 2.1.1
+      hash: fe09f9f862d2eef79a237986c50e587b232d9c2d
+      body: |
+        Update @types/mime-types to 2.1.1
+
+        Update @types/mime-types from 2.1.0 to 2.1.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.8.1
+  title: ""
+  date: 2022-11-07T23:35:26.671Z
+- commits:
+    - subject: Update scripts/resin digest to 652fdd4
+      hash: 16422971012d77dc928c9d99c3db6b1a58cd52be
+      body: |
+        Update scripts/resin to
+
+        Update scripts/resin from  to
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Renovate Bot
+      nested: []
+  version: 1.8.0
+  title: ""
+  date: 2022-11-07T22:27:03.928Z
+- commits:
+    - subject: Build targets individually
+      hash: b58249b9c833763ec80402820b2c93c01fafda22
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 1.7.15
+  title: ""
+  date: 2022-11-07T21:36:35.993Z
+- commits:
+    - subject: Update dependency lodash to 4.17.21 [SECURITY]
+      hash: f356e4c303080eefdf74f52c2b4de227d20e4e49
+      body: |
+        Update lodash to 4.17.21
+
+        Update lodash from 4.17.10 to 4.17.21
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.7.14
+  title: ""
+  date: 2022-11-07T20:17:53.572Z
+- commits:
+    - subject: Update release notes on finalize
+      hash: 576113febfe000339545c0fd55793aafd2e53abb
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 1.7.13
+  title: ""
+  date: 2022-11-07T19:17:06.571Z
+- commits:
+    - subject: Avoid duplicate releases
+      hash: 33dea6267fbcc3cd47b1744830731c853ebbba18
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 1.7.12
+  title: ""
+  date: 2022-11-07T18:32:19.617Z
+- commits:
+    - subject: Only run finalize on Linux runners
+      hash: 9ab307df4f4f617adac33c6a36f492229050bb0e
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 1.7.11
+  title: ""
+  date: 2022-11-07T17:32:25.787Z
+- commits:
+    - subject: Switch to Flowzone
+      hash: 2e53feb38cd548bd2fe68957797bffe66b832eaf
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 1.7.10
+  title: ""
+  date: 2022-11-07T15:59:41.308Z
+- commits:
     - subject: "patch: update allowed extensions to include deb afterinstall in build"
       hash: 61610ded842caba47c6a682afcb08aa0fda4e86b
       body: ""
@@ -363,11 +739,11 @@
     - subject: Add support for basic auth when downloading images from URL.
       hash: b2d0c1c9ddbbfe87d5a905d420d615821610e825
       body: >
-        When selecting "Flash from URL" the user can optionally provide a
-        username and password for basic authentication. The authentication input
-        fields are collapsed by default. When the authentication input fields
-        are collapsed after entering values the values are cleared to ensure
-        that the user sees all parameter passed to the server.
+        When selecting "Flash from URL" the user can optionally provide a username
+        and password for basic authentication. The authentication input fields
+        are collapsed by default. When the authentication input fields are
+        collapsed after entering values the values are cleared to ensure that
+        the user sees all parameter passed to the server.
       footer:
         Change-Type: minor
         change-type: minor
@@ -924,8 +1300,7 @@
             - subject: Ignore ENOENT errors on unlink in withTmpFile
               hash: 7bb2a23c4e94dcda6a7b494fe0435c0b59b56b06
               body: >
-                The temporary file might have been already deleted by
-                cleanupTmpFiles
+                The temporary file might have been already deleted by cleanupTmpFiles
               footer:
                 Change-type: patch
                 change-type: patch
@@ -995,8 +1370,7 @@
                     - subject: Pass strings between methods as std::string instead of char *
                       hash: 1ec6a8ffc4c9e138b78210f0db84a9ebd6c9182b
                       body: >
-                        - Fixes "basic_string::_M_construct null not valid"
-                        exception
+                        - Fixes "basic_string::_M_construct null not valid" exception
                           aborting program, because WCharToUtf8() returned NULL
                           in some cases, and NULL was being fed to string constructor.
                         - Fixes memory leak because memory allocated with calloc()
@@ -3084,8 +3458,8 @@
         change-type: patch
       subject: Fixes the Command for macOS drive recovery
       body: >-
-        Changes the documentation to update the disktutil command which didn't
-        fix my case, cause the boot partition was broken.
+        Changes the documentation to update the disktutil command which didn't fix
+        my case, cause the boot partition was broken.
 
         This way it rewrites the drive into a FAT32 partition editable in Unix/Windows.
     - hash: b3f25c176b1bdb487d1a7bf111d7f170fe008842
@@ -6014,8 +6388,7 @@
         changelog-entry: Add support for configuration files
       subject: "feat(gui): Add ability to read settings from a config file"
       body: >-
-        This adds the capability to configure settings via a `.etcher.json`
-        file,
+        This adds the capability to configure settings via a `.etcher.json` file,
 
         either in the user's home directory, or the current working directory.
 
@@ -6133,8 +6506,7 @@
         change-type: patch
       subject: "doc: Update MAINTAINERS.md with Symantec Whitelisting"
       body: >-
-        This adds instructions for submitting Etcher for false positive
-        detection
+        This adds instructions for submitting Etcher for false positive detection
 
         to Symantec Endpoint Protection.
     - hash: bb2dac75040554c0ba2c7e50ff9ecd61608e7d38
@@ -6310,8 +6682,7 @@
         change-type: patch
       subject: "fix(image-writer): Remove use of _.isError"
       body: >-
-        `_.isError()` returns `true` for anything that has a `name` and
-        `message`
+        `_.isError()` returns `true` for anything that has a `name` and `message`
 
         property, causing the check here to always keep the plain object as error.
     - hash: 355373f24df6be0989fad9429c2230166b33a3bf
@@ -6327,8 +6698,7 @@
         change-type: patch
       subject: "upgrade(package): Update drivelist 6.1.5 -> 6.1.7"
       body: >-
-        This fixes a ReferenceError that could occur when the DeviceNode was
-        null,
+        This fixes a ReferenceError that could occur when the DeviceNode was null,
 
         as well as devices being null when run after the system recovers from sleep / standby.
     - hash: 6e7484d3dabc2aeaa7cd471822d7019860cc4a5c
@@ -7164,8 +7534,7 @@
         changelog-entry: Remove stale `invalidKey` check in store.
       subject: "refactor: remove stale invalid key check in store"
       body: >-
-        We remove a piece of code checking whether `_.keys` returns any
-        non-string
+        We remove a piece of code checking whether `_.keys` returns any non-string
 
         values in its array, but per the Lodash documentation `_.keys` always returns an
 
@@ -7193,8 +7562,7 @@
         changelog-entry: Make the drive-selector button orange on warnings.
       subject: "feat(GUI): warning makes drive-selector button orange"
       body: >-
-        We make the drive-selector button orange when there is a warning
-        attached
+        We make the drive-selector button orange when there is a warning attached
 
         to the image-drive pair.
     - hash: 4ce89f97fe02d714ce7f247a6a03ad6d326c3a8a

@@ -1,3 +1,6 @@
+# default
+* text
+
 # Javascript files must retain LF line-endings (to keep eslint happy)
 *.js text eol=lf
 *.jsx text eol=lf
@@ -59,3 +62,7 @@ CODEOWNERS text
 *.ttf binary diff=hex
 xz-without-extension binary diff=hex
 wmic-output.txt binary diff=hex
+
+# gitsecret
+*.secret binary
+.gitsecret/** binary
