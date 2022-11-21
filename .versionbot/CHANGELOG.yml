@@ -1,4 +1,19 @@
 - commits:
+    - subject: Fixing call to electron block screensaver methods invocation
+      hash: 1b5b64713505dfb69448bc2184839b4c23bd677b
+      body: >
+        Replacing `send` calls to `invoke` for `enable/disable-screensaver` calls.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Aurelien VALADE <aurelien.valade@balena.io>
+        signed-off-by: Aurelien VALADE <aurelien.valade@balena.io>
+      author: Aurelien VALADE
+      nested: []
+  version: 1.10.1
+  title: ""
+  date: 2022-11-21T16:50:14.797Z
+- commits:
     - subject: testing renovate
       hash: 306e087ec6daed9e736a8918cde07159dd9298dc
       body: ""

@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.10.1
+## (2022-11-21)
+
+* Fixing call to electron block screensaver methods invocation [Aurelien VALADE]
+
 # v1.10.0
 ## (2022-11-10)
 
