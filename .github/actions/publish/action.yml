@@ -206,33 +206,9 @@ runs:
           -name "latest*.yml" \
           -exec yq -i e .stagingPercentage=\"$percentage\" {} \;
 
-    # https://github.com/softprops/action-gh-release#-customizing
-    - name: Create draft GitHub (pre)release
-      uses: softprops/action-gh-release@v1
-      with:
-        # use PR branch name for draft releases
-        name: ${{ github.event.pull_request.head.ref }}
-        tag_name: ${{ github.event.pull_request.head.ref }}
-        draft: true
-        prerelease: true
-        token: ${{ fromJSON(inputs.secrets).FLOWZONE_TOKEN }}
-        files: |
-          dist/*.AppImage
-          dist/*.blockmap
-          dist/*.deb
-          dist/*.dmg
-          dist/*.exe
-          dist/*.rpm
-          dist/*.zip
-          dist/latest*.yml
-
-    - name: Compress custom source
-      shell: pwsh
-      run: tar -acf ${{ runner.temp }}/custom.tgz .
-
-    - name: Upload custom artifact
+    - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: custom-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}-${{ runner.os }}
-        path: ${{ runner.temp }}/custom.tgz
+        name: gh-release-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}
+        path: dist
         retention-days: 1
