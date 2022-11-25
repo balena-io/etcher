@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.10.2
+## (2022-11-25)
+
+* Fix missing analytics token [Edwin Joassart]
+
 # v1.10.1
 ## (2022-11-21)
 

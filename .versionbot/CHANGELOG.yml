@@ -1,4 +1,18 @@
 - commits:
+    - subject: Fix missing analytics token
+      hash: 831339bd2cbe73dd441cdd77d85b34e98f68a6a6
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Edwin Joassart edwin.joassart@balena.io
+        signed-off-by: Edwin Joassart edwin.joassart@balena.io
+      author: Edwin Joassart
+      nested: []
+  version: 1.10.2
+  title: ""
+  date: 2022-11-25T19:22:49.679Z
+- commits:
     - subject: Fixing call to electron block screensaver methods invocation
       hash: 1b5b64713505dfb69448bc2184839b4c23bd677b
       body: >
