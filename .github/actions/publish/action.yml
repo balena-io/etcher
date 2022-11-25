@@ -172,6 +172,7 @@ runs:
         for target in ${TARGETS}; do
             electron-builder ${ELECTRON_BUILDER_OS} ${target} ${ARCHITECTURE_FLAGS} \
               --c.extraMetadata.analytics.sentry.token='${{ steps.sentry.outputs.dsn }}' \
+              --c.extraMetadata.analytics.mixpanel.token='balena-etcher' \
               --c.extraMetadata.packageType="${target}"
 
             find dist -type f -maxdepth 1
