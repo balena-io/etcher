@@ -15,84 +15,47 @@
  */
 
 import * as _ from 'lodash';
-import * as resinCorvus from 'resin-corvus/browser';
-
-import * as packageJSON from '../../../../package.json';
-import { getConfig } from '../../../shared/utils';
+import { Client, createClient, createNoopClient } from 'analytics-client';
+import * as SentryRenderer from '@sentry/electron/renderer';
 import * as settings from '../models/settings';
 import { store } from '../models/store';
+import * as packageJSON from '../../../../package.json';
 
-const DEFAULT_PROBABILITY = 0.1;
-
-async function installCorvus(): Promise<void> {
-	const sentryToken =
-		(await settings.get('analyticsSentryToken')) ||
-		_.get(packageJSON, ['analytics', 'sentry', 'token']);
-	const mixpanelToken =
-		(await settings.get('analyticsMixpanelToken')) ||
-		_.get(packageJSON, ['analytics', 'mixpanel', 'token']);
-	resinCorvus.install({
-		services: {
-			sentry: sentryToken,
-			mixpanel: mixpanelToken,
-		},
-		options: {
-			release: packageJSON.version,
-			shouldReport: () => {
-				return settings.getSync('errorReporting');
-			},
-			mixpanelDeferred: true,
-		},
-	});
-}
-
-let mixpanelSample = DEFAULT_PROBABILITY;
-
+let analyticsClient: Client;
 /**
  * @summary Init analytics configurations
  */
-async function initConfig() {
-	await installCorvus();
-	let validatedConfig = null;
-	try {
-		const configUrl = await settings.get('configUrl');
-		const config = await getConfig(configUrl);
-		const mixpanel = _.get(config, ['analytics', 'mixpanel'], {});
-		mixpanelSample = mixpanel.probability || DEFAULT_PROBABILITY;
-		if (isClientEligible(mixpanelSample)) {
-			validatedConfig = validateMixpanelConfig(mixpanel);
-		}
-	} catch (err) {
-		resinCorvus.logException(err);
-	}
-	resinCorvus.setConfigs({
-		mixpanel: validatedConfig,
-	});
-}
+export const initAnalytics = _.once(() => {
+	const dsn =
+		settings.getSync('analyticsSentryToken') ||
+		_.get(packageJSON, ['analytics', 'sentry', 'token']);
+	SentryRenderer.init({ dsn });
 
-initConfig();
+	const projectName =
+		settings.getSync('analyticsAmplitudeToken') ||
+		_.get(packageJSON, ['analytics', 'amplitude', 'token']);
 
-/**
- * @summary Check that the client is eligible for analytics
- */
-function isClientEligible(probability: number) {
-	return Math.random() < probability;
-}
-
-/**
- * @summary Check that config has at least HTTP_PROTOCOL and api_host
- */
-function validateMixpanelConfig(config: {
-	api_host?: string;
-	HTTP_PROTOCOL?: string;
-}) {
-	const mixpanelConfig = {
-		api_host: 'https://api.mixpanel.com',
+	const clientConfig = {
+		projectName,
+		endpoint: 'data.balena-cloud',
+		componentName: 'etcher',
+		componentVersion: packageJSON.version,
 	};
-	if (config.HTTP_PROTOCOL !== undefined && config.api_host !== undefined) {
-		mixpanelConfig.api_host = `${config.HTTP_PROTOCOL}://${config.api_host}`;
-	}
-	return mixpanelConfig;
+	analyticsClient = projectName
+		? createClient(clientConfig)
+		: createNoopClient();
+});
+
+function reportAnalytics(message: string, data: _.Dictionary<any> = {}) {
+	const { applicationSessionUuid, flashingWorkflowUuid } = store
+		.getState()
+		.toJS();
+
+	analyticsClient.track(message, {
+		...data,
+		applicationSessionUuid,
+		flashingWorkflowUuid,
+	});
 }
 
 /**
@@ -101,16 +64,12 @@ function validateMixpanelConfig(config: {
  * @description
  * This function sends the debug message to product analytics services.
  */
-export function logEvent(message: string, data: _.Dictionary<any> = {}) {
-	const { applicationSessionUuid, flashingWorkflowUuid } = store
-		.getState()
-		.toJS();
-	resinCorvus.logEvent(message, {
-		...data,
-		sample: mixpanelSample,
-		applicationSessionUuid,
-		flashingWorkflowUuid,
-	});
+export async function logEvent(message: string, data: _.Dictionary<any> = {}) {
+	const shouldReportAnalytics = await settings.get('errorReporting');
+	if (shouldReportAnalytics) {
+		initAnalytics();
+		reportAnalytics(message, data);
+	}
 }
 
 /**
@@ -119,4 +78,11 @@ export function logEvent(message: string, data: _.Dictionary<any> = {}) {
  * @description
  * This function logs an exception to error reporting services.
  */
-export const logException = resinCorvus.logException;
+export function logException(error: any) {
+	const shouldReportErrors = settings.getSync('errorReporting');
+	if (shouldReportErrors) {
+		initAnalytics();
+		console.error(error);
+		SentryRenderer.captureException(error);
+	}
+}

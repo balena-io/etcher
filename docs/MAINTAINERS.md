@@ -31,7 +31,7 @@ Releasing
 - [Post release note to forums](https://forums.balena.io/c/etcher)
 - [Submit Windows binaries to Symantec for whitelisting](#submitting-binaries-to-symantec)
 - [Update the website](https://github.com/balena-io/etcher-homepage)
-- Wait 2-3 hours for analytics (Sentry, Mixpanel) to trickle in and check for elevated error rates, or regressions
+- Wait 2-3 hours for analytics (Sentry, Amplitude) to trickle in and check for elevated error rates, or regressions
 - If regressions arise; pull the release, and release a patched version, else:
 - [Upload deb & rpm packages to Bintray](#uploading-packages-to-bintray)
 - [Upload build artifacts to Amazon S3](#uploading-binaries-to-amazon-s3)
@@ -48,7 +48,7 @@ Make sure to set the analytics tokens when generating production release binarie
 
 ```bash
 export ANALYTICS_SENTRY_TOKEN="xxxxxx"
-export ANALYTICS_MIXPANEL_TOKEN="xxxxxx"
+export ANALYTICS_AMPLITUDE_TOKEN="xxxxxx"
 ```
 
 #### Linux
