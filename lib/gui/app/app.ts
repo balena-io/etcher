@@ -296,6 +296,8 @@ driveScanner.start();
 
 let popupExists = false;
 
+analytics.initAnalytics();
+
 window.addEventListener('beforeunload', async (event) => {
 	if (!flashState.isFlashing() || popupExists) {
 		analytics.logEvent('Close application', {
