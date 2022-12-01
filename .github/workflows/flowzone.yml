@@ -3,14 +3,22 @@ name: Flowzone
 on:
   pull_request:
     types: [opened, synchronize, closed]
-    branches:
-      - "main"
-      - "master"
+    branches: [main, master]
+  # allow external contributions to use secrets within trusted code
+  pull_request_target:
+    types: [opened, synchronize, closed]
+    branches: [main, master]
 
 jobs:
   flowzone:
     name: Flowzone
     uses: product-os/flowzone/.github/workflows/flowzone.yml@master
+    # prevent duplicate workflows and only allow one `pull_request` or `pull_request_target` for
+    # internal or external contributions respectively
+    if: |
+      (github.event.pull_request.head.repo.full_name == github.repository && github.event_name == 'pull_request') ||
+      (github.event.pull_request.head.repo.full_name != github.repository && github.event_name == 'pull_request_target')
     secrets: inherit
     with:
       tests_run_on: '["ubuntu-latest","macos-latest","windows-2019"]'
+      restrict_custom_actions: false
