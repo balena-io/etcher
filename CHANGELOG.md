@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.10.4
+## (2022-12-01)
+
+* patch: remove Homebrew instructions in README [Patrick Linnane]
+
 # v1.10.3
 ## (2022-12-01)
 

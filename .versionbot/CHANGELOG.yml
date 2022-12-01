@@ -1,4 +1,17 @@
 - commits:
+    - subject: "patch: remove Homebrew instructions in README"
+      hash: 0d1cfffa5c7c084d9f48d60c1abbf7e2974abb28
+      body: |
+        Homebrew no longer supports etcher, so removing install instructions.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Patrick Linnane
+      nested: []
+  version: 1.10.4
+  title: ""
+  date: 2022-12-01T23:27:55.910Z
+- commits:
     - subject: Allow external contributors
       hash: 156b9314b5786e943256974d5344383ae1f0650d
       body: ""
