@@ -1,4 +1,16 @@
 - commits:
+    - subject: Allow external contributors
+      hash: 156b9314b5786e943256974d5344383ae1f0650d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 1.10.3
+  title: ""
+  date: 2022-12-01T22:31:25.592Z
+- commits:
     - subject: Fix missing analytics token
       hash: 831339bd2cbe73dd441cdd77d85b34e98f68a6a6
       body: ""
