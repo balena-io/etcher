@@ -1,4 +1,18 @@
 - commits:
+    - subject: Dummy update to fix asset version issue
+      hash: 03d6a011db5fd4dad3d25fde86cf2b434c8192e8
+      body: |
+        Due to a race between two patch, 1.10.5 assets are labelled 1.10.3.
+        This dummy PR should fix this.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Edwin Joassart
+      nested: []
+  version: 1.10.6
+  title: ""
+  date: 2022-12-02T14:04:57.766Z
+- commits:
     - subject: "Patch: run linux build on ubuntu-18.04"
       hash: 57a6ceff0e28d06063679a7a8b14671416ba46c5
       body: >-
