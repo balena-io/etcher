@@ -1,4 +1,19 @@
 - commits:
+    - subject: "Patch: run linux build on ubuntu-18.04"
+      hash: 57a6ceff0e28d06063679a7a8b14671416ba46c5
+      body: >-
+        Running on ubuntu-latest means you need a more recent version of glibc
+        which breaks on older ubuntu.
+
+
+        Thanks to @theofficialgman for suggesting the fix.
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.10.5
+  title: ""
+  date: 2022-12-02T12:41:19.841Z
+- commits:
     - subject: "patch: remove Homebrew instructions in README"
       hash: 0d1cfffa5c7c084d9f48d60c1abbf7e2974abb28
       body: |
