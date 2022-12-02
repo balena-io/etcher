@@ -204,3 +204,5 @@ the [license].
 [milestones]: https://github.com/balena-io/etcher/milestones
 [newissue]: https://github.com/balena-io/etcher/issues/new
 [license]: https://github.com/balena-io/etcher/blob/master/LICENSE
+
+
