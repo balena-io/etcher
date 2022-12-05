@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.10.7
+## (2022-12-05)
+
+* Use core workflow for GitHub publish [ab77]
+
 # v1.10.6
 ## (2022-12-02)
 

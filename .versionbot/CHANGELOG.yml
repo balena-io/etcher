@@ -1,4 +1,16 @@
 - commits:
+    - subject: Use core workflow for GitHub publish
+      hash: f3844d56e2bb317e9360f34f5054c91eb0fb8910
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 1.10.7
+  title: ""
+  date: 2022-12-05T19:39:07.247Z
+- commits:
     - subject: Dummy update to fix asset version issue
       hash: 03d6a011db5fd4dad3d25fde86cf2b434c8192e8
       body: |
