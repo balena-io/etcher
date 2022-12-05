@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency chai to 4.3.7
+      hash: 4ed30027162365a68f26264f7574ac9eaf752926
+      body: |
+        Update chai to 4.3.7
+
+        Update chai from 4.2.0 to 4.3.7
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.8
+  title: ""
+  date: 2022-12-05T21:38:41.964Z
+- commits:
     - subject: Use core workflow for GitHub publish
       hash: f3844d56e2bb317e9360f34f5054c91eb0fb8910
       body: ""
