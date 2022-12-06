@@ -23,8 +23,7 @@ jobs:
       tests_run_on: '["ubuntu-18.04","macos-latest","windows-2019"]'
       restrict_custom_actions: false
       github_prerelease: true
-#      repo_config: true
-#      repo_description: |
-#        Flash OS images to SD cards & USB drives, safely and easily.
-#      repo_homepage: https://etcher.io/
-#      repo_enable_wiki: true
+      repo_config: true
+      repo_description: "Flash OS images to SD cards & USB drives, safely and easily."
+      repo_homepage: https://etcher.io/
+      repo_enable_wiki: true
