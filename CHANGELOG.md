@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.10.8
+## (2022-12-05)
+
+* Update dependency chai to 4.3.7 [Renovate Bot]
+
+# v1.10.7
+## (2022-12-05)
+
+* Use core workflow for GitHub publish [ab77]
+
+# v1.10.6
+## (2022-12-02)
+
+* Dummy update to fix asset version issue [Edwin Joassart]
+
+# v1.10.5
+## (2022-12-02)
+
+* Patch: run linux build on ubuntu-18.04 [Edwin Joassart]
+
+# v1.10.4
+## (2022-12-01)
+
+* patch: remove Homebrew instructions in README [Patrick Linnane]
+
+# v1.10.3
+## (2022-12-01)
+
+* Allow external contributors [ab77]
+
+# v1.10.2
+## (2022-11-25)
+
+* Fix missing analytics token [Edwin Joassart]
+
+# v1.10.1
+## (2022-11-21)
+
+* Fixing call to electron block screensaver methods invocation [Aurelien VALADE]
+
 # v1.10.0
 ## (2022-11-10)
 
