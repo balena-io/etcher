@@ -1,0 +1,54 @@
+---
+name: publish GitHub release
+# https://github.com/product-os/flowzone/tree/master/.github/actions
+inputs:
+  json:
+    description: "JSON stringified object containing all the inputs from the calling workflow"
+    required: true
+  secrets:
+    description: "JSON stringified object containing all the secrets from the calling workflow"
+    required: true
+
+runs:
+  # https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
+  using: "composite"
+  steps:
+    - name: Get release version
+      if: runner.os == 'Linux'
+      id: get_release
+      shell: bash --noprofile --norc -eo pipefail -x {0}
+      run: |
+        set -ea
+
+        [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
+
+        echo "version=$(jq -r '.version' package.json)" >> $GITHUB_OUTPUT
+
+    # https://docs.github.com/en/rest/releases
+    - name: Finalize GitHub release
+      if: runner.os == 'Linux'
+      shell: bash --noprofile --norc -eo pipefail -x {0}
+      run: |
+        set -ea
+
+        [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
+
+        previous_tag="$(git tag --sort=-version:refname | head -n 2 | tail -n 1)"
+        release_notes="$(git log ${previous_tag}..HEAD --pretty=reference)"
+
+        gh release edit '${{ github.event.pull_request.head.ref }}' \
+          --notes "${release_notes}" \
+          --title 'v${{ steps.get_release.outputs.version }}' \
+          --tag 'v${{ steps.get_release.outputs.version }}' \
+          --prerelease=false \
+          --draft=false
+
+        release_id="$(gh api "/repos/${{ github.repository }}/releases/tags/v${{ steps.get_release.outputs.version }}" \
+          -H 'Accept: application/vnd.github+json' | jq -r .id)"
+
+        gh api --method PATCH "/repos/${{ github.repository }}/releases/${release_id}" \
+          -H 'Accept: application/vnd.github+json' \
+          -F make_latest="true"
+
+      env:
+        GITHUB_TOKEN: ${{ fromJSON(inputs.secrets).FLOWZONE_TOKEN }}

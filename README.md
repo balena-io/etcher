@@ -170,6 +170,22 @@ yay -S balena-etcher
 yay -R balena-etcher
 ```
 
+#### Brew (macOS)
+
+**Note**: Etcher has to be updated manually to point to new versions,
+so it might not refer to the latest version immediately after an Etcher
+release.
+
+```sh
+brew install balenaetcher
+```
+
+##### Uninstall
+
+```sh
+brew uninstall balenaetcher
+```
+
 #### Chocolatey (Windows)
 
 This package is maintained by [@majkinetor](https://github.com/majkinetor), and
@@ -204,5 +220,3 @@ the [license].
 [milestones]: https://github.com/balena-io/etcher/milestones
 [newissue]: https://github.com/balena-io/etcher/issues/new
 [license]: https://github.com/balena-io/etcher/blob/master/LICENSE
-
-
