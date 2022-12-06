@@ -1,4 +1,16 @@
 - commits:
+    - subject: Enable repository configuration
+      hash: 0d5bb4935f860a5b7f58810fce8084dc8f82dd65
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 1.10.9
+  title: ""
+  date: 2022-12-06T23:59:21.301Z
+- commits:
     - subject: Update dependency chai to 4.3.7
       hash: 4ed30027162365a68f26264f7574ac9eaf752926
       body: |
