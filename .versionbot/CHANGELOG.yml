@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency @types/node to 14.18.34
+      hash: aa3756ad172e939dff88ad213fda2b57966341c6
+      body: |
+        Update @types/node to 14.18.34
+
+        Update @types/node from 14.18.33 to 14.18.34
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.10
+  title: ""
+  date: 2022-12-07T02:19:17.414Z
+- commits:
     - subject: Enable repository configuration
       hash: 0d5bb4935f860a5b7f58810fce8084dc8f82dd65
       body: ""
