@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.10.11
+## (2022-12-07)
+
+* Update dependency awscli to 1.27.24 [Renovate Bot]
+
 # v1.10.10
 ## (2022-12-07)
 
