@@ -1,2 +1,2 @@
-awscli==1.27.5
+awscli==1.27.24
 shyaml==0.5.0
