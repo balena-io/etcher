@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency css-loader to 5.2.7
+      hash: 6991a4950bfb2b7c9ad93df4c76170003b7d47f0
+      body: |
+        Update css-loader to 5.2.7
+
+        Update css-loader from 5.0.1 to 5.2.7
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.12
+  title: ""
+  date: 2022-12-08T15:56:12.526Z
+- commits:
     - subject: Update dependency awscli to 1.27.24
       hash: 72b4d4f4fa5a013d9a808402660186a92b165bc7
       body: |
