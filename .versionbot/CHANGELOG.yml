@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency awscli to 1.27.25
+      hash: 0667d1110fbc05ef7222530ea413a1db7a2bd814
+      body: |
+        Update awscli to 1.27.25
+
+        Update awscli from 1.27.24 to 1.27.25
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.13
+  title: ""
+  date: 2022-12-08T17:57:06.474Z
+- commits:
     - subject: Update dependency css-loader to 5.2.7
       hash: 6991a4950bfb2b7c9ad93df4c76170003b7d47f0
       body: |
