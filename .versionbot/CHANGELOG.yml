@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency electron-builder to 22.14.13
+      hash: 99862b95a55a3a7a174763d635073bab5dbc704f
+      body: |
+        Update electron-builder to 22.14.13
+
+        Update electron-builder from 22.10.5 to 22.14.13
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.15
+  title: ""
+  date: 2022-12-08T21:37:01.110Z
+- commits:
     - subject: Update dependency debug to 4.3.4
       hash: b8af86e30c9ce3b8d9eba8749f2aeba1f6eea197
       body: |
