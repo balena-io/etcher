@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency debug to 4.3.4
+      hash: b8af86e30c9ce3b8d9eba8749f2aeba1f6eea197
+      body: |
+        Update debug to 4.3.4
+
+        Update debug from 4.2.0 to 4.3.4
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.14
+  title: ""
+  date: 2022-12-08T19:55:06.173Z
+- commits:
     - subject: Update dependency awscli to 1.27.25
       hash: 0667d1110fbc05ef7222530ea413a1db7a2bd814
       body: |
