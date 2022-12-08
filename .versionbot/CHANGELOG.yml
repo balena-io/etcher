@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency awscli to 1.27.26
+      hash: b5ab500a14396525cb6c7bac4eabf0b4b1c7cb11
+      body: |
+        Update awscli to 1.27.26
+
+        Update awscli from 1.27.25 to 1.27.26
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.16
+  title: ""
+  date: 2022-12-08T22:58:41.740Z
+- commits:
     - subject: Update dependency electron-builder to 22.14.13
       hash: 99862b95a55a3a7a174763d635073bab5dbc704f
       body: |
