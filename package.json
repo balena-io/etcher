@@ -71,7 +71,7 @@
     "aws4-axios": "2.4.9",
     "chai": "4.3.7",
     "copy-webpack-plugin": "7.0.0",
-    "css-loader": "5.0.1",
+    "css-loader": "5.2.7",
     "d3": "4.13.0",
     "debug": "4.2.0",
     "electron": "12.2.3",
