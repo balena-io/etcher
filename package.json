@@ -75,7 +75,7 @@
     "d3": "4.13.0",
     "debug": "4.3.4",
     "electron": "12.2.3",
-    "electron-builder": "22.10.5",
+    "electron-builder": "22.14.13",
     "electron-mocha": "9.3.3",
     "electron-notarize": "1.0.0",
     "electron-rebuild": "3.2.9",
