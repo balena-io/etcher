@@ -77,7 +77,7 @@
     "electron": "12.2.3",
     "electron-builder": "22.14.13",
     "electron-mocha": "9.3.3",
-    "electron-notarize": "1.0.0",
+    "electron-notarize": "1.2.2",
     "electron-rebuild": "3.2.9",
     "electron-updater": "4.3.5",
     "esbuild-loader": "2.16.0",
