@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency redux to 4.2.0
+      hash: 85c183b9ef2dbe798c6d5cd8bce6367ef31e2624
+      body: |
+        Update redux to 4.2.0
+
+        Update redux from 4.0.5 to 4.2.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.27
+  title: ""
+  date: 2022-12-09T20:59:24.075Z
+- commits:
     - subject: Update dependency pretty-bytes to 5.6.0
       hash: d8b2a7a2369f24b1390bd85eca3cfbcd8282df80
       body: |
