@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency husky to 4.3.8
+      hash: cf8b5790a1e9cf853328f128f9c52d72d5ac1da5
+      body: |
+        Update husky to 4.3.8
+
+        Update husky from 4.2.5 to 4.3.8
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.20
+  title: ""
+  date: 2022-12-09T06:59:31.264Z
+- commits:
     - subject: Update dependency esbuild-loader to 2.20.0
       hash: ba812b4f6484f0803486f7c1969992030267ae12
       body: |
