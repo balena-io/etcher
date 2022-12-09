@@ -98,7 +98,7 @@
     "pretty-bytes": "5.6.0",
     "react": "16.8.5",
     "react-dom": "16.8.5",
-    "redux": "4.0.5",
+    "redux": "4.2.0",
     "rendition": "19.2.0",
     "resin-corvus": "2.0.5",
     "semver": "7.3.8",
