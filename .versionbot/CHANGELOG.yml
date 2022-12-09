@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency pnp-webpack-plugin to 1.7.0
+      hash: 86bb093f3d7eec4835060789cc725e172223c74f
+      body: |
+        Update pnp-webpack-plugin to 1.7.0
+
+        Update pnp-webpack-plugin from 1.6.4 to 1.7.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.25
+  title: ""
+  date: 2022-12-09T17:01:52.897Z
+- commits:
     - subject: Update dependency node-ipc to 9.2.1
       hash: f26b0748114c7623f152e00b065f3e6ec0657e83
       body: |
