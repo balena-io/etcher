@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency lint-staged to 10.5.4
+      hash: 54e6c5e2c137073e6229fa28726d8f6b08853fcc
+      body: |
+        Update lint-staged to 10.5.4
+
+        Update lint-staged from 10.2.2 to 10.5.4
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.21
+  title: ""
+  date: 2022-12-09T08:57:59.766Z
+- commits:
     - subject: Update dependency husky to 4.3.8
       hash: cf8b5790a1e9cf853328f128f9c52d72d5ac1da5
       body: |

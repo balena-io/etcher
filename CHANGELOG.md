@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.10.21
+## (2022-12-09)
+
+* Update dependency lint-staged to 10.5.4 [Renovate Bot]
+
 # v1.10.20
 ## (2022-12-09)
 
