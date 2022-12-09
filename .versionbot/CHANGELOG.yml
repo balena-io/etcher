@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency electron-updater to 4.6.5
+      hash: 32011c0deab646af1c4d99c15418f336f1dc02f1
+      body: |
+        Update electron-updater to 4.6.5
+
+        Update electron-updater from 4.3.5 to 4.6.5
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.18
+  title: ""
+  date: 2022-12-09T03:07:57.710Z
+- commits:
     - subject: Update dependency electron-notarize to 1.2.2
       hash: d68eab1dda78e17ce3804e6c7f08940b36f377a8
       body: |
