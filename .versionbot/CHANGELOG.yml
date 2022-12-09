@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency mocha to 8.4.0
+      hash: be190c6c802f0cb6f5f68981b255aa4e620db2f7
+      body: |
+        Update mocha to 8.4.0
+
+        Update mocha from 8.0.1 to 8.4.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.23
+  title: ""
+  date: 2022-12-09T13:05:52.859Z
+- commits:
     - subject: Update dependency mini-css-extract-plugin to 1.6.2
       hash: d35f3c30498e3a8d8b8eb74a50952489f1c629fc
       body: |
