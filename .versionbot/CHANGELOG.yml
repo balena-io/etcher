@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency pretty-bytes to 5.6.0
+      hash: d8b2a7a2369f24b1390bd85eca3cfbcd8282df80
+      body: |
+        Update pretty-bytes to 5.6.0
+
+        Update pretty-bytes from 5.3.0 to 5.6.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.26
+  title: ""
+  date: 2022-12-09T18:58:21.970Z
+- commits:
     - subject: Update dependency pnp-webpack-plugin to 1.7.0
       hash: 86bb093f3d7eec4835060789cc725e172223c74f
       body: |
