@@ -99,7 +99,7 @@
     "react": "16.8.5",
     "react-dom": "16.8.5",
     "redux": "4.2.0",
-    "rendition": "19.2.0",
+    "rendition": "19.3.2",
     "resin-corvus": "2.0.5",
     "semver": "7.3.8",
     "simple-progress-webpack-plugin": "1.1.2",
