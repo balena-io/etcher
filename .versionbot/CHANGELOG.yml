@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency esbuild-loader to 2.20.0
+      hash: ba812b4f6484f0803486f7c1969992030267ae12
+      body: |
+        Update esbuild-loader to 2.20.0
+
+        Update esbuild-loader from 2.16.0 to 2.20.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.19
+  title: ""
+  date: 2022-12-09T04:58:48.480Z
+- commits:
     - subject: Update dependency electron-updater to 4.6.5
       hash: 32011c0deab646af1c4d99c15418f336f1dc02f1
       body: |
