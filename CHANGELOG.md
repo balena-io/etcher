@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.10.24
+## (2022-12-09)
+
+* Update dependency node-ipc to 9.2.1 [Renovate Bot]
+
 # v1.10.23
 ## (2022-12-09)
 

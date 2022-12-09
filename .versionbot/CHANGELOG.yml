@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency node-ipc to 9.2.1
+      hash: f26b0748114c7623f152e00b065f3e6ec0657e83
+      body: |
+        Update node-ipc to 9.2.1
+
+        Update node-ipc from 9.1.1 to 9.2.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.24
+  title: ""
+  date: 2022-12-09T14:59:54.907Z
+- commits:
     - subject: Update dependency mocha to 8.4.0
       hash: be190c6c802f0cb6f5f68981b255aa4e620db2f7
       body: |
