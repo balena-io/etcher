@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.10.22
+## (2022-12-09)
+
+* Update dependency mini-css-extract-plugin to 1.6.2 [Renovate Bot]
+
 # v1.10.21
 ## (2022-12-09)
 
