@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency electron-notarize to 1.2.2
+      hash: d68eab1dda78e17ce3804e6c7f08940b36f377a8
+      body: |
+        Update electron-notarize to 1.2.2
+
+        Update electron-notarize from 1.0.0 to 1.2.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.17
+  title: ""
+  date: 2022-12-09T01:21:25.322Z
+- commits:
     - subject: Update dependency awscli to 1.27.26
       hash: b5ab500a14396525cb6c7bac4eabf0b4b1c7cb11
       body: |
