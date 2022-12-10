@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency sinon to 9.2.4
+      hash: 686a5837b69c26bc83772ed738376ce0a766fef5
+      body: |
+        Update sinon to 9.2.4
+
+        Update sinon from 9.0.2 to 9.2.4
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.11.1
+  title: ""
+  date: 2022-12-10T06:19:30.932Z
+- commits:
     - subject: Update dependency shyaml to 0.6.2
       hash: 2acad790d3e85b3215e692705691fff4fadb99b0
       body: |

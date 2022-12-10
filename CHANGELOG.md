@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.11.1
+## (2022-12-10)
+
+* Update dependency sinon to 9.2.4 [Renovate Bot]
+
 # v1.11.0
 ## (2022-12-10)
 
