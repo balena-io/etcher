@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency ts-loader to 8.4.0
+      hash: 5ae9a263619e9bb499705ee7c19df5707ea3936c
+      body: |
+        Update ts-loader to 8.4.0
+
+        Update ts-loader from 8.0.12 to 8.4.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.11.5
+  title: ""
+  date: 2022-12-10T12:28:18.918Z
+- commits:
     - subject: Update dependency styled-components to 5.3.6
       hash: 88c5fa50352efe76a6506ee763915f504889111b
       body: |

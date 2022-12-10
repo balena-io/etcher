@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.11.5
+## (2022-12-10)
+
+* Update dependency ts-loader to 8.4.0 [Renovate Bot]
+
 # v1.11.4
 ## (2022-12-10)
 
