@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.10.28
+## (2022-12-10)
+
+
+<details>
+<summary> Update dependency rendition to 19.3.2 [Renovate Bot] </summary>
+
+> ## rendition-19.3.2
+> ### (2020-12-29)
+> 
+> * Add Breadcrumbs component export [JSReds]
+> 
+> ## rendition-19.3.1
+> ### (2020-12-29)
+> 
+> * Fix max-width on breadcrumbs container [JSReds]
+> 
+> ## rendition-19.3.0
+> ### (2020-12-29)
+> 
+> * Add Breadcrumbs component [JSReds]
+> 
+
+</details>
+
 # v1.10.27
 ## (2022-12-09)
 

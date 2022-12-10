@@ -1,4 +1,58 @@
 - commits:
+    - subject: Update dependency rendition to 19.3.2
+      hash: 0d740ad12dbadcb35d0e2076821a073177476acb
+      body: |
+        Update rendition to 19.3.2
+
+        Update rendition from 19.2.0 to 19.3.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested:
+        - commits:
+            - subject: Add Breadcrumbs component export
+              hash: fbe0da641ae76ed99185f5799f94653bbed52609
+              body: |
+                add breadcrumbs component export
+              footer:
+                Change-type: patch
+                change-type: patch
+                Signed-off-by: Andrea Rosci <andrear@balena.io>
+                signed-off-by: Andrea Rosci <andrear@balena.io>
+              author: JSReds
+          version: rendition-19.3.2
+          date: 2020-12-29T17:27:09.528Z
+        - commits:
+            - subject: Fix max-width on breadcrumbs container
+              hash: b7c4ab7bed3caa1c10130f50abb582fcf63d867e
+              body: |
+                fix max-width on breadcrumbs container
+              footer:
+                Change-type: patch
+                change-type: patch
+                Signed-off-by: Andrea Rosci <andrear@balena.io>
+                signed-off-by: Andrea Rosci <andrear@balena.io>
+              author: JSReds
+          version: rendition-19.3.1
+          date: 2020-12-29T13:35:01.615Z
+        - commits:
+            - subject: Add Breadcrumbs component
+              hash: 41a7abb3724a6c8a0a839d4083ce36ceaeeb9d91
+              body: |
+                Add Breadcrumbs component and generate snapshots
+              footer:
+                Change-type: minor
+                change-type: minor
+                Signed-off-by: Andrea Rosci <andrear@balena.io>
+                signed-off-by: Andrea Rosci <andrear@balena.io>
+              author: JSReds
+          version: rendition-19.3.0
+          date: 2020-12-29T12:12:16.944Z
+  version: 1.10.28
+  title: ""
+  date: 2022-12-10T02:10:41.368Z
+- commits:
     - subject: Update dependency redux to 4.2.0
       hash: 85c183b9ef2dbe798c6d5cd8bce6367ef31e2624
       body: |
