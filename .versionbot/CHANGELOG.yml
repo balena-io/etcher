@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency terser-webpack-plugin to 5.3.6
+      hash: c431222909ef49126549c0f630cf1f3f3f8895ed
+      body: |
+        Update terser-webpack-plugin to 5.3.6
+
+        Update terser-webpack-plugin from 5.2.5 to 5.3.6
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.11.3
+  title: ""
+  date: 2022-12-10T08:54:53.274Z
+- commits:
     - subject: Update dependency string-replace-loader to 3.1.0
       hash: 33f8851083d50ed2db2b1308d1f1cf8749751db5
       body: |
