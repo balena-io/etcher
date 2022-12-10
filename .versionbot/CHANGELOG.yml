@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency shyaml to 0.6.2
+      hash: 2acad790d3e85b3215e692705691fff4fadb99b0
+      body: |
+        Update shyaml to 0.6.2
+
+        Update shyaml from 0.5.0 to 0.6.2
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Renovate Bot
+      nested: []
+  version: 1.11.0
+  title: ""
+  date: 2022-12-10T04:27:19.119Z
+- commits:
     - subject: Update dependency awscli to 1.27.27
       hash: 17858a7d72dc001419bf75ac04b1a66b782404e2
       body: |
