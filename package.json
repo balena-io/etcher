@@ -105,7 +105,7 @@
     "simple-progress-webpack-plugin": "1.1.2",
     "sinon": "9.2.4",
     "spectron": "14.0.0",
-    "string-replace-loader": "3.0.1",
+    "string-replace-loader": "3.1.0",
     "style-loader": "2.0.0",
     "styled-components": "5.1.0",
     "sys-class-rgb-led": "3.0.1",
