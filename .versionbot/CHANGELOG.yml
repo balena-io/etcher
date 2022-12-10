@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency awscli to 1.27.27
+      hash: 17858a7d72dc001419bf75ac04b1a66b782404e2
+      body: |
+        Update awscli to 1.27.27
+
+        Update awscli from 1.27.26 to 1.27.27
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.29
+  title: ""
+  date: 2022-12-10T03:05:02.826Z
+- commits:
     - subject: Update dependency rendition to 19.3.2
       hash: 0d740ad12dbadcb35d0e2076821a073177476acb
       body: |
