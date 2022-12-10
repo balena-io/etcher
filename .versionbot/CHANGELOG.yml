@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency string-replace-loader to 3.1.0
+      hash: 33f8851083d50ed2db2b1308d1f1cf8749751db5
+      body: |
+        Update string-replace-loader to 3.1.0
+
+        Update string-replace-loader from 3.0.1 to 3.1.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.11.2
+  title: ""
+  date: 2022-12-10T07:32:25.553Z
+- commits:
     - subject: Update dependency sinon to 9.2.4
       hash: 686a5837b69c26bc83772ed738376ce0a766fef5
       body: |
