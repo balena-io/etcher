@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency styled-components to 5.3.6
+      hash: 88c5fa50352efe76a6506ee763915f504889111b
+      body: |
+        Update styled-components to 5.3.6
+
+        Update styled-components from 5.1.0 to 5.3.6
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.11.4
+  title: ""
+  date: 2022-12-10T10:57:10.809Z
+- commits:
     - subject: Update dependency terser-webpack-plugin to 5.3.6
       hash: c431222909ef49126549c0f630cf1f3f3f8895ed
       body: |
