@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.11.9
+## (2022-12-12)
+
+* Update dependency webpack to 5.75.0 [Renovate Bot]
+
 # v1.11.8
 ## (2022-12-12)
 

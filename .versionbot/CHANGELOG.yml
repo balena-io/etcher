@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency webpack to 5.75.0
+      hash: cd67b442c9c55adddb2d8def456d7155af1f23c6
+      body: |
+        Update webpack to 5.75.0
+
+        Update webpack from 5.11.0 to 5.75.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.11.9
+  title: ""
+  date: 2022-12-12T23:58:09.807Z
+- commits:
     - subject: Update dependency awscli to 1.27.28
       hash: 927a026b869e0da872e17a662536d0ad3aeeae0f
       body: |
