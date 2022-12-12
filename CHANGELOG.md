@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.11.6
+## (2022-12-12)
+
+* Update dependency tslib to 2.4.1 [Renovate Bot]
+* Patch: run linux build on ubuntu-20.04 [Edwin Joassart]
+
 # v1.11.5
 ## (2022-12-10)
 
