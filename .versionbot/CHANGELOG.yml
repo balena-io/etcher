@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency awscli to 1.27.28
+      hash: 927a026b869e0da872e17a662536d0ad3aeeae0f
+      body: |
+        Update awscli to 1.27.28
+
+        Update awscli from 1.27.27 to 1.27.28
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.11.8
+  title: ""
+  date: 2022-12-12T21:55:28.620Z
+- commits:
     - subject: Update dependency uuid to 8.3.2
       hash: c9cfb87733a694a69044a3b04cb12e72047a92da
       body: |
