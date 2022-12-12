@@ -3,6 +3,131 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.11.5
+## (2022-12-10)
+
+* Update dependency ts-loader to 8.4.0 [Renovate Bot]
+
+# v1.11.4
+## (2022-12-10)
+
+* Update dependency styled-components to 5.3.6 [Renovate Bot]
+
+# v1.11.3
+## (2022-12-10)
+
+* Update dependency terser-webpack-plugin to 5.3.6 [Renovate Bot]
+
+# v1.11.2
+## (2022-12-10)
+
+* Update dependency string-replace-loader to 3.1.0 [Renovate Bot]
+
+# v1.11.1
+## (2022-12-10)
+
+* Update dependency sinon to 9.2.4 [Renovate Bot]
+
+# v1.11.0
+## (2022-12-10)
+
+* Update dependency shyaml to 0.6.2 [Renovate Bot]
+
+# v1.10.29
+## (2022-12-10)
+
+* Update dependency awscli to 1.27.27 [Renovate Bot]
+
+# v1.10.28
+## (2022-12-10)
+
+
+<details>
+<summary> Update dependency rendition to 19.3.2 [Renovate Bot] </summary>
+
+> ## rendition-19.3.2
+> ### (2020-12-29)
+> 
+> * Add Breadcrumbs component export [JSReds]
+> 
+> ## rendition-19.3.1
+> ### (2020-12-29)
+> 
+> * Fix max-width on breadcrumbs container [JSReds]
+> 
+> ## rendition-19.3.0
+> ### (2020-12-29)
+> 
+> * Add Breadcrumbs component [JSReds]
+> 
+
+</details>
+
+# v1.10.27
+## (2022-12-09)
+
+* Update dependency redux to 4.2.0 [Renovate Bot]
+
+# v1.10.26
+## (2022-12-09)
+
+* Update dependency pretty-bytes to 5.6.0 [Renovate Bot]
+
+# v1.10.25
+## (2022-12-09)
+
+* Update dependency pnp-webpack-plugin to 1.7.0 [Renovate Bot]
+
+# v1.10.24
+## (2022-12-09)
+
+* Update dependency node-ipc to 9.2.1 [Renovate Bot]
+
+# v1.10.23
+## (2022-12-09)
+
+* Update dependency mocha to 8.4.0 [Renovate Bot]
+
+# v1.10.22
+## (2022-12-09)
+
+* Update dependency mini-css-extract-plugin to 1.6.2 [Renovate Bot]
+
+# v1.10.21
+## (2022-12-09)
+
+* Update dependency lint-staged to 10.5.4 [Renovate Bot]
+
+# v1.10.20
+## (2022-12-09)
+
+* Update dependency husky to 4.3.8 [Renovate Bot]
+
+# v1.10.19
+## (2022-12-09)
+
+* Update dependency esbuild-loader to 2.20.0 [Renovate Bot]
+
+# v1.10.18
+## (2022-12-09)
+
+* Update dependency electron-updater to 4.6.5 [Renovate Bot]
+
+# v1.10.17
+## (2022-12-09)
+
+* Update dependency electron-notarize to 1.2.2 [Renovate Bot]
+
+# v1.10.16
+## (2022-12-08)
+
+* Update dependency awscli to 1.27.26 [Renovate Bot]
+
+# v1.10.15
+## (2022-12-08)
+
+* Update dependency electron-builder to 22.14.13 [Renovate Bot]
+
 # v1.10.14
 ## (2022-12-08)
 
