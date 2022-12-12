@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency uuid to 8.3.2
+      hash: c9cfb87733a694a69044a3b04cb12e72047a92da
+      body: |
+        Update uuid to 8.3.2
+
+        Update uuid from 8.1.0 to 8.3.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.11.7
+  title: ""
+  date: 2022-12-12T19:57:31.379Z
+- commits:
     - subject: Update dependency tslib to 2.4.1
       hash: f0747abe3fde8df4a004573a3ffd49134dd6d40d
       body: |
