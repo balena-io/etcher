@@ -1,4 +1,555 @@
 - commits:
+    - subject: Update dependency ts-loader to 8.4.0
+      hash: 5ae9a263619e9bb499705ee7c19df5707ea3936c
+      body: |
+        Update ts-loader to 8.4.0
+
+        Update ts-loader from 8.0.12 to 8.4.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.11.5
+  title: ""
+  date: 2022-12-10T12:28:18.918Z
+- commits:
+    - subject: Update dependency styled-components to 5.3.6
+      hash: 88c5fa50352efe76a6506ee763915f504889111b
+      body: |
+        Update styled-components to 5.3.6
+
+        Update styled-components from 5.1.0 to 5.3.6
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.11.4
+  title: ""
+  date: 2022-12-10T10:57:10.809Z
+- commits:
+    - subject: Update dependency terser-webpack-plugin to 5.3.6
+      hash: c431222909ef49126549c0f630cf1f3f3f8895ed
+      body: |
+        Update terser-webpack-plugin to 5.3.6
+
+        Update terser-webpack-plugin from 5.2.5 to 5.3.6
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.11.3
+  title: ""
+  date: 2022-12-10T08:54:53.274Z
+- commits:
+    - subject: Update dependency string-replace-loader to 3.1.0
+      hash: 33f8851083d50ed2db2b1308d1f1cf8749751db5
+      body: |
+        Update string-replace-loader to 3.1.0
+
+        Update string-replace-loader from 3.0.1 to 3.1.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.11.2
+  title: ""
+  date: 2022-12-10T07:32:25.553Z
+- commits:
+    - subject: Update dependency sinon to 9.2.4
+      hash: 686a5837b69c26bc83772ed738376ce0a766fef5
+      body: |
+        Update sinon to 9.2.4
+
+        Update sinon from 9.0.2 to 9.2.4
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.11.1
+  title: ""
+  date: 2022-12-10T06:19:30.932Z
+- commits:
+    - subject: Update dependency shyaml to 0.6.2
+      hash: 2acad790d3e85b3215e692705691fff4fadb99b0
+      body: |
+        Update shyaml to 0.6.2
+
+        Update shyaml from 0.5.0 to 0.6.2
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Renovate Bot
+      nested: []
+  version: 1.11.0
+  title: ""
+  date: 2022-12-10T04:27:19.119Z
+- commits:
+    - subject: Update dependency awscli to 1.27.27
+      hash: 17858a7d72dc001419bf75ac04b1a66b782404e2
+      body: |
+        Update awscli to 1.27.27
+
+        Update awscli from 1.27.26 to 1.27.27
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.29
+  title: ""
+  date: 2022-12-10T03:05:02.826Z
+- commits:
+    - subject: Update dependency rendition to 19.3.2
+      hash: 0d740ad12dbadcb35d0e2076821a073177476acb
+      body: |
+        Update rendition to 19.3.2
+
+        Update rendition from 19.2.0 to 19.3.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested:
+        - commits:
+            - subject: Add Breadcrumbs component export
+              hash: fbe0da641ae76ed99185f5799f94653bbed52609
+              body: |
+                add breadcrumbs component export
+              footer:
+                Change-type: patch
+                change-type: patch
+                Signed-off-by: Andrea Rosci <andrear@balena.io>
+                signed-off-by: Andrea Rosci <andrear@balena.io>
+              author: JSReds
+          version: rendition-19.3.2
+          date: 2020-12-29T17:27:09.528Z
+        - commits:
+            - subject: Fix max-width on breadcrumbs container
+              hash: b7c4ab7bed3caa1c10130f50abb582fcf63d867e
+              body: |
+                fix max-width on breadcrumbs container
+              footer:
+                Change-type: patch
+                change-type: patch
+                Signed-off-by: Andrea Rosci <andrear@balena.io>
+                signed-off-by: Andrea Rosci <andrear@balena.io>
+              author: JSReds
+          version: rendition-19.3.1
+          date: 2020-12-29T13:35:01.615Z
+        - commits:
+            - subject: Add Breadcrumbs component
+              hash: 41a7abb3724a6c8a0a839d4083ce36ceaeeb9d91
+              body: |
+                Add Breadcrumbs component and generate snapshots
+              footer:
+                Change-type: minor
+                change-type: minor
+                Signed-off-by: Andrea Rosci <andrear@balena.io>
+                signed-off-by: Andrea Rosci <andrear@balena.io>
+              author: JSReds
+          version: rendition-19.3.0
+          date: 2020-12-29T12:12:16.944Z
+  version: 1.10.28
+  title: ""
+  date: 2022-12-10T02:10:41.368Z
+- commits:
+    - subject: Update dependency redux to 4.2.0
+      hash: 85c183b9ef2dbe798c6d5cd8bce6367ef31e2624
+      body: |
+        Update redux to 4.2.0
+
+        Update redux from 4.0.5 to 4.2.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.27
+  title: ""
+  date: 2022-12-09T20:59:24.075Z
+- commits:
+    - subject: Update dependency pretty-bytes to 5.6.0
+      hash: d8b2a7a2369f24b1390bd85eca3cfbcd8282df80
+      body: |
+        Update pretty-bytes to 5.6.0
+
+        Update pretty-bytes from 5.3.0 to 5.6.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.26
+  title: ""
+  date: 2022-12-09T18:58:21.970Z
+- commits:
+    - subject: Update dependency pnp-webpack-plugin to 1.7.0
+      hash: 86bb093f3d7eec4835060789cc725e172223c74f
+      body: |
+        Update pnp-webpack-plugin to 1.7.0
+
+        Update pnp-webpack-plugin from 1.6.4 to 1.7.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.25
+  title: ""
+  date: 2022-12-09T17:01:52.897Z
+- commits:
+    - subject: Update dependency node-ipc to 9.2.1
+      hash: f26b0748114c7623f152e00b065f3e6ec0657e83
+      body: |
+        Update node-ipc to 9.2.1
+
+        Update node-ipc from 9.1.1 to 9.2.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.24
+  title: ""
+  date: 2022-12-09T14:59:54.907Z
+- commits:
+    - subject: Update dependency mocha to 8.4.0
+      hash: be190c6c802f0cb6f5f68981b255aa4e620db2f7
+      body: |
+        Update mocha to 8.4.0
+
+        Update mocha from 8.0.1 to 8.4.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.23
+  title: ""
+  date: 2022-12-09T13:05:52.859Z
+- commits:
+    - subject: Update dependency mini-css-extract-plugin to 1.6.2
+      hash: d35f3c30498e3a8d8b8eb74a50952489f1c629fc
+      body: |
+        Update mini-css-extract-plugin to 1.6.2
+
+        Update mini-css-extract-plugin from 1.3.3 to 1.6.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.22
+  title: ""
+  date: 2022-12-09T10:57:43.780Z
+- commits:
+    - subject: Update dependency lint-staged to 10.5.4
+      hash: 54e6c5e2c137073e6229fa28726d8f6b08853fcc
+      body: |
+        Update lint-staged to 10.5.4
+
+        Update lint-staged from 10.2.2 to 10.5.4
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.21
+  title: ""
+  date: 2022-12-09T08:57:59.766Z
+- commits:
+    - subject: Update dependency husky to 4.3.8
+      hash: cf8b5790a1e9cf853328f128f9c52d72d5ac1da5
+      body: |
+        Update husky to 4.3.8
+
+        Update husky from 4.2.5 to 4.3.8
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.20
+  title: ""
+  date: 2022-12-09T06:59:31.264Z
+- commits:
+    - subject: Update dependency esbuild-loader to 2.20.0
+      hash: ba812b4f6484f0803486f7c1969992030267ae12
+      body: |
+        Update esbuild-loader to 2.20.0
+
+        Update esbuild-loader from 2.16.0 to 2.20.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.19
+  title: ""
+  date: 2022-12-09T04:58:48.480Z
+- commits:
+    - subject: Update dependency electron-updater to 4.6.5
+      hash: 32011c0deab646af1c4d99c15418f336f1dc02f1
+      body: |
+        Update electron-updater to 4.6.5
+
+        Update electron-updater from 4.3.5 to 4.6.5
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.18
+  title: ""
+  date: 2022-12-09T03:07:57.710Z
+- commits:
+    - subject: Update dependency electron-notarize to 1.2.2
+      hash: d68eab1dda78e17ce3804e6c7f08940b36f377a8
+      body: |
+        Update electron-notarize to 1.2.2
+
+        Update electron-notarize from 1.0.0 to 1.2.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.17
+  title: ""
+  date: 2022-12-09T01:21:25.322Z
+- commits:
+    - subject: Update dependency awscli to 1.27.26
+      hash: b5ab500a14396525cb6c7bac4eabf0b4b1c7cb11
+      body: |
+        Update awscli to 1.27.26
+
+        Update awscli from 1.27.25 to 1.27.26
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.16
+  title: ""
+  date: 2022-12-08T22:58:41.740Z
+- commits:
+    - subject: Update dependency electron-builder to 22.14.13
+      hash: 99862b95a55a3a7a174763d635073bab5dbc704f
+      body: |
+        Update electron-builder to 22.14.13
+
+        Update electron-builder from 22.10.5 to 22.14.13
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.15
+  title: ""
+  date: 2022-12-08T21:37:01.110Z
+- commits:
+    - subject: Update dependency debug to 4.3.4
+      hash: b8af86e30c9ce3b8d9eba8749f2aeba1f6eea197
+      body: |
+        Update debug to 4.3.4
+
+        Update debug from 4.2.0 to 4.3.4
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.14
+  title: ""
+  date: 2022-12-08T19:55:06.173Z
+- commits:
+    - subject: Update dependency awscli to 1.27.25
+      hash: 0667d1110fbc05ef7222530ea413a1db7a2bd814
+      body: |
+        Update awscli to 1.27.25
+
+        Update awscli from 1.27.24 to 1.27.25
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.13
+  title: ""
+  date: 2022-12-08T17:57:06.474Z
+- commits:
+    - subject: Update dependency css-loader to 5.2.7
+      hash: 6991a4950bfb2b7c9ad93df4c76170003b7d47f0
+      body: |
+        Update css-loader to 5.2.7
+
+        Update css-loader from 5.0.1 to 5.2.7
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.12
+  title: ""
+  date: 2022-12-08T15:56:12.526Z
+- commits:
+    - subject: Update dependency awscli to 1.27.24
+      hash: 72b4d4f4fa5a013d9a808402660186a92b165bc7
+      body: |
+        Update awscli to 1.27.24
+
+        Update awscli from 1.27.5 to 1.27.24
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.11
+  title: ""
+  date: 2022-12-07T03:21:58.354Z
+- commits:
+    - subject: Update dependency @types/node to 14.18.34
+      hash: aa3756ad172e939dff88ad213fda2b57966341c6
+      body: |
+        Update @types/node to 14.18.34
+
+        Update @types/node from 14.18.33 to 14.18.34
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.10
+  title: ""
+  date: 2022-12-07T02:19:17.414Z
+- commits:
+    - subject: Enable repository configuration
+      hash: 0d5bb4935f860a5b7f58810fce8084dc8f82dd65
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 1.10.9
+  title: ""
+  date: 2022-12-06T23:59:21.301Z
+- commits:
+    - subject: Update dependency chai to 4.3.7
+      hash: 4ed30027162365a68f26264f7574ac9eaf752926
+      body: |
+        Update chai to 4.3.7
+
+        Update chai from 4.2.0 to 4.3.7
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.10.8
+  title: ""
+  date: 2022-12-05T21:38:41.964Z
+- commits:
+    - subject: Use core workflow for GitHub publish
+      hash: f3844d56e2bb317e9360f34f5054c91eb0fb8910
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 1.10.7
+  title: ""
+  date: 2022-12-05T19:39:07.247Z
+- commits:
+    - subject: Dummy update to fix asset version issue
+      hash: 03d6a011db5fd4dad3d25fde86cf2b434c8192e8
+      body: |
+        Due to a race between two patch, 1.10.5 assets are labelled 1.10.3.
+        This dummy PR should fix this.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Edwin Joassart
+      nested: []
+  version: 1.10.6
+  title: ""
+  date: 2022-12-02T14:04:57.766Z
+- commits:
+    - subject: "Patch: run linux build on ubuntu-18.04"
+      hash: 57a6ceff0e28d06063679a7a8b14671416ba46c5
+      body: >-
+        Running on ubuntu-latest means you need a more recent version of glibc
+        which breaks on older ubuntu.
+
+
+        Thanks to @theofficialgman for suggesting the fix.
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.10.5
+  title: ""
+  date: 2022-12-02T12:41:19.841Z
+- commits:
+    - subject: "patch: remove Homebrew instructions in README"
+      hash: 0d1cfffa5c7c084d9f48d60c1abbf7e2974abb28
+      body: |
+        Homebrew no longer supports etcher, so removing install instructions.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Patrick Linnane
+      nested: []
+  version: 1.10.4
+  title: ""
+  date: 2022-12-01T23:27:55.910Z
+- commits:
+    - subject: Allow external contributors
+      hash: 156b9314b5786e943256974d5344383ae1f0650d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: ab77
+      nested: []
+  version: 1.10.3
+  title: ""
+  date: 2022-12-01T22:31:25.592Z
+- commits:
+    - subject: Fix missing analytics token
+      hash: 831339bd2cbe73dd441cdd77d85b34e98f68a6a6
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Edwin Joassart edwin.joassart@balena.io
+        signed-off-by: Edwin Joassart edwin.joassart@balena.io
+      author: Edwin Joassart
+      nested: []
+  version: 1.10.2
+  title: ""
+  date: 2022-11-25T19:22:49.679Z
+- commits:
+    - subject: Fixing call to electron block screensaver methods invocation
+      hash: 1b5b64713505dfb69448bc2184839b4c23bd677b
+      body: >
+        Replacing `send` calls to `invoke` for `enable/disable-screensaver` calls.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Aurelien VALADE <aurelien.valade@balena.io>
+        signed-off-by: Aurelien VALADE <aurelien.valade@balena.io>
+      author: Aurelien VALADE
+      nested: []
+  version: 1.10.1
+  title: ""
+  date: 2022-11-21T16:50:14.797Z
+- commits:
     - subject: testing renovate
       hash: 306e087ec6daed9e736a8918cde07159dd9298dc
       body: ""
