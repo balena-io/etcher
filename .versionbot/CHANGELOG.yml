@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency webpack-cli to 4.10.0
+      hash: 757aa77d897d6266afbf6e7d62ddd0255ea0c926
+      body: |
+        Update webpack-cli to 4.10.0
+
+        Update webpack-cli from 4.2.0 to 4.10.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.11.10
+  title: ""
+  date: 2022-12-13T02:27:41.593Z
+- commits:
     - subject: Update dependency webpack to 5.75.0
       hash: cd67b442c9c55adddb2d8def456d7155af1f23c6
       body: |

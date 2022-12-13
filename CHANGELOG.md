@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.11.10
+## (2022-12-13)
+
+* Update dependency webpack-cli to 4.10.0 [Renovate Bot]
+
 # v1.11.9
 ## (2022-12-12)
 
