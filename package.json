@@ -125,9 +125,5 @@
   },
   "versionist": {
     "publishedAt": "2022-12-13T02:27:42.254Z"
-  },
-  "dependencies": {
-    "drivelist": "^9.2.4",
-    "ext2fs": "^3.0.5"
   }
 }
