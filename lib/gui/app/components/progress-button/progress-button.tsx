@@ -20,6 +20,7 @@ import { default as styled } from 'styled-components';
 
 import { fromFlashState } from '../../modules/progress-status';
 import { StepButton } from '../../styled-components';
+import * as i18next from 'i18next';
 
 const FlashProgressBar = styled(ProgressBar)`
 	> div {
@@ -28,6 +29,7 @@ const FlashProgressBar = styled(ProgressBar)`
 		color: white !important;
 		text-shadow: none !important;
 		transition-duration: 0s;
+
 		> div {
 			transition-duration: 0s;
 		}
@@ -61,7 +63,7 @@ const colors = {
 } as const;
 
 const CancelButton = styled(({ type, onClick, ...props }) => {
-	const status = type === 'verifying' ? 'Skip' : 'Cancel';
+	const status = type === 'verifying' ? i18next.t('skip') : i18next.t('cancel');
 	return (
 		<Button plain onClick={() => onClick(status)} {...props}>
 			{status}
@@ -69,6 +71,7 @@ const CancelButton = styled(({ type, onClick, ...props }) => {
 	);
 })`
 	font-weight: 600;
+
 	&&& {
 		width: auto;
 		height: auto;
@@ -126,7 +129,7 @@ export class ProgressButton extends React.PureComponent<ProgressButtonProps> {
 					marginTop: 30,
 				}}
 			>
-				Flash!
+				{i18next.t('flash.flashNow')}
 			</StepButton>
 		);
 	}

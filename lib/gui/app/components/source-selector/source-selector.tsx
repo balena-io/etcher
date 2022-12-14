@@ -66,6 +66,7 @@ import { DriveSelector } from '../drive-selector/drive-selector';
 import { DrivelistDrive } from '../../../../shared/drive-constraints';
 import axios, { AxiosRequestConfig } from 'axios';
 import { isJson } from '../../../../shared/utils';
+import * as i18next from 'i18next';
 
 const recentUrlImagesKey = 'recentUrlImages';
 
@@ -160,7 +161,7 @@ const URLSelector = ({
 			primaryButtonProps={{
 				disabled: loading || !imageURL,
 			}}
-			action={loading ? <Spinner /> : 'OK'}
+			action={loading ? <Spinner /> : i18next.t('ok')}
 			done={async () => {
 				setLoading(true);
 				const urlStrings = recentImages.map((url: URL) => url.href);
@@ -176,11 +177,11 @@ const URLSelector = ({
 			<Flex flexDirection="column">
 				<Flex mb={15} style={{ width: '100%' }} flexDirection="column">
 					<Txt mb="10px" fontSize="24px">
-						Use Image URL
+						{i18next.t('source.useSourceURL')}
 					</Txt>
 					<Input
 						value={imageURL}
-						placeholder="Enter a valid URL"
+						placeholder={i18next.t('source.enterValidURL')}
 						type="text"
 						onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
 							setImageURL(evt.target.value)
@@ -205,7 +206,7 @@ const URLSelector = ({
 							{!showBasicAuth && (
 								<ChevronRightSvg height="1em" fill="currentColor" />
 							)}
-							<Txt ml={8}>Authentication</Txt>
+							<Txt ml={8}>{i18next.t('source.auth')}</Txt>
 						</Flex>
 					</Link>
 					{showBasicAuth && (
@@ -213,7 +214,7 @@ const URLSelector = ({
 							<Input
 								mb={15}
 								value={username}
-								placeholder="Enter username"
+								placeholder={i18next.t('source.username')}
 								type="text"
 								onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
 									setUsername(evt.target.value)
@@ -221,7 +222,7 @@ const URLSelector = ({
 							/>
 							<Input
 								value={password}
-								placeholder="Enter password"
+								placeholder={i18next.t('source.password')}
 								type="password"
 								onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
 									setPassword(evt.target.value)
@@ -295,7 +296,7 @@ const FlowSelector = styled(
 		font-weight: 600;
 
 		svg {
-			color: ${colors.primary.foreground}!important;
+			color: ${colors.primary.foreground} !important;
 		}
 	}
 `;
@@ -453,7 +454,7 @@ export class SourceSelector extends React.Component<
 						!isURL(this.normalizeImagePath(selected))
 					) {
 						this.handleError(
-							'Unsupported protocol',
+							i18next.t('source.unsupportedProtocol'),
 							selected,
 							messages.error.unsupportedProtocol(),
 						);
@@ -465,7 +466,7 @@ export class SourceSelector extends React.Component<
 						this.setState({
 							warning: {
 								message: messages.warning.looksLikeWindowsImage(),
-								title: 'Possible Windows image detected',
+								title: i18next.t('source.windowsImage'),
 							},
 						});
 					}
@@ -491,13 +492,13 @@ export class SourceSelector extends React.Component<
 							this.setState({
 								warning: {
 									message: messages.warning.missingPartitionTable(),
-									title: 'Missing partition table',
+									title: i18next.t('source.partitionTable'),
 								},
 							});
 						}
 					} catch (error: any) {
 						this.handleError(
-							'Error opening source',
+							i18next.t('source.errorOpen'),
 							sourcePath,
 							messages.error.openSource(sourcePath, error.message),
 							error,
@@ -515,7 +516,7 @@ export class SourceSelector extends React.Component<
 						this.setState({
 							warning: {
 								message: messages.warning.driveMissingPartitionTable(),
-								title: 'Missing partition table',
+								title: i18next.t('source.partitionTable'),
 							},
 						});
 					}
@@ -719,7 +720,7 @@ export class SourceSelector extends React.Component<
 									mb={14}
 									onClick={() => this.reselectSource()}
 								>
-									Remove
+									{i18next.t('cancel')}
 								</ChangeButton>
 							)}
 							{!_.isNil(imageSize) && !imageLoading && (
@@ -734,7 +735,7 @@ export class SourceSelector extends React.Component<
 								key="Flash from file"
 								flow={{
 									onClick: () => this.openImageSelector(),
-									label: 'Flash from file',
+									label: i18next.t('source.fromFile'),
 									icon: <FileSvg height="1em" fill="currentColor" />,
 								}}
 								onMouseEnter={() => this.setDefaultFlowActive(false)}
@@ -744,7 +745,7 @@ export class SourceSelector extends React.Component<
 								key="Flash from URL"
 								flow={{
 									onClick: () => this.openURLSelector(),
-									label: 'Flash from URL',
+									label: i18next.t('source.fromURL'),
 									icon: <LinkSvg height="1em" fill="currentColor" />,
 								}}
 								onMouseEnter={() => this.setDefaultFlowActive(false)}
@@ -754,7 +755,7 @@ export class SourceSelector extends React.Component<
 								key="Clone drive"
 								flow={{
 									onClick: () => this.openDriveSelector(),
-									label: 'Clone drive',
+									label: i18next.t('source.clone'),
 									icon: <CopySvg height="1em" fill="currentColor" />,
 								}}
 								onMouseEnter={() => this.setDefaultFlowActive(false)}
@@ -775,7 +776,7 @@ export class SourceSelector extends React.Component<
 								<span>{this.state.warning.title}</span>
 							</span>
 						}
-						action="Continue"
+						action={i18next.t('continue')}
 						cancel={() => {
 							this.setState({ warning: null });
 							this.reselectSource();
@@ -793,17 +794,17 @@ export class SourceSelector extends React.Component<
 
 				{showImageDetails && (
 					<SmallModal
-						title="Image"
+						title={i18next.t('source.image')}
 						done={() => {
 							this.setState({ showImageDetails: false });
 						}}
 					>
 						<Txt.p>
-							<Txt.span bold>Name: </Txt.span>
+							<Txt.span bold>{i18next.t('source.name')}</Txt.span>
 							<Txt.span>{imageName || imageBasename}</Txt.span>
 						</Txt.p>
 						<Txt.p>
-							<Txt.span bold>Path: </Txt.span>
+							<Txt.span bold>{i18next.t('source.path')}</Txt.span>
 							<Txt.span>{imagePath}</Txt.span>
 						</Txt.p>
 					</SmallModal>
@@ -842,8 +843,8 @@ export class SourceSelector extends React.Component<
 					<DriveSelector
 						write={false}
 						multipleSelection={false}
-						titleLabel="Select source"
-						emptyListLabel="Plug a source drive"
+						titleLabel={i18next.t('source.selectSource')}
+						emptyListLabel={i18next.t('source.plugSource')}
 						emptyListIcon={<SrcSvg width="40px" />}
 						cancel={(originalList) => {
 							if (originalList.length) {

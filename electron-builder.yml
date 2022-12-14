@@ -7,7 +7,8 @@ afterSign: ./afterSignHook.js
 asar: false
 files:
   - generated
-  - lib/shared/catalina-sudo/sudo-askpass.osascript.js
+  - lib/shared/catalina-sudo/sudo-askpass.osascript-zh.js
+  - lib/shared/catalina-sudo/sudo-askpass.osascript-en.js
 mac:
   icon: assets/icon.icns
   category: public.app-category.developer-tools

@@ -21,18 +21,22 @@ import { platform } from 'os';
 import * as path from 'path';
 import * as semver from 'semver';
 
+import './app/i18n';
+
 import { packageType, version } from '../../package.json';
 import * as EXIT_CODES from '../shared/exit-codes';
 import { delay, getConfig } from '../shared/utils';
 import * as settings from './app/models/settings';
 import { logException } from './app/modules/analytics';
 import { buildWindowMenu } from './menu';
+import * as i18n from 'i18next';
 
 const customProtocol = 'etcher';
 const scheme = `${customProtocol}://`;
 const updatablePackageTypes = ['appimage', 'nsis', 'dmg'];
 const packageUpdatable = updatablePackageTypes.includes(packageType);
 let packageUpdated = false;
+let mainWindow: any = null;
 
 async function checkForUpdates(interval: number) {
 	// We use a while loop instead of a setInterval to preserve
@@ -130,7 +134,7 @@ async function createMainWindow() {
 	if (fullscreen) {
 		({ width, height } = electron.screen.getPrimaryDisplay().bounds);
 	}
-	const mainWindow = new electron.BrowserWindow({
+	mainWindow = new electron.BrowserWindow({
 		width,
 		height,
 		frame: !fullscreen,
@@ -157,7 +161,6 @@ async function createMainWindow() {
 
 	electron.app.setAsDefaultProtocolClient(customProtocol);
 
-	buildWindowMenu(mainWindow);
 	mainWindow.setFullScreen(true);
 
 	// Prevent flash of white when starting the application
@@ -240,6 +243,17 @@ async function main(): Promise<void> {
 			await selectImageURL(await getCommandLineURL(argv));
 		});
 		await selectImageURL(await getCommandLineURL(process.argv));
+
+		electron.ipcMain.on('change-lng', function (event, args) {
+			i18n.changeLanguage(args, () => {
+				console.log('Language changed to: ' + args);
+			});
+			if (mainWindow != null) {
+				buildWindowMenu(mainWindow);
+			} else {
+				console.log('Build menu failed. ');
+			}
+		});
 	}
 }
 

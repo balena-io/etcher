@@ -44,6 +44,7 @@ import {
 
 import { SourceMetadata } from '../source-selector/source-selector';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
+import * as i18next from 'i18next';
 
 interface UsbbootDrive extends sourceDestination.UsbbootDrive {
 	progress: number;
@@ -189,7 +190,7 @@ export class DriveSelector extends React.Component<
 		this.tableColumns = [
 			{
 				field: 'description',
-				label: 'Name',
+				label: i18next.t('drives.name'),
 				render: (description: string, drive: Drive) => {
 					if (isDrivelistDrive(drive)) {
 						const isLargeDrive = isDriveSizeLarge(drive);
@@ -215,7 +216,7 @@ export class DriveSelector extends React.Component<
 			{
 				field: 'description',
 				key: 'size',
-				label: 'Size',
+				label: i18next.t('drives.size'),
 				render: (_description: string, drive: Drive) => {
 					if (isDrivelistDrive(drive) && drive.size !== null) {
 						return prettyBytes(drive.size);
@@ -225,7 +226,7 @@ export class DriveSelector extends React.Component<
 			{
 				field: 'description',
 				key: 'link',
-				label: 'Location',
+				label: i18next.t('drives.location'),
 				render: (_description: string, drive: Drive) => {
 					return (
 						<Txt>
@@ -399,14 +400,14 @@ export class DriveSelector extends React.Component<
 							color="#5b82a7"
 							style={{ fontWeight: 600 }}
 						>
-							{drives.length} found
+							{i18next.t('drives.find', { length: drives.length })}
 						</Txt>
 					</Flex>
 				}
 				titleDetails={<Txt fontSize={11}>{getDrives().length} found</Txt>}
 				cancel={() => cancel(this.originalList)}
 				done={() => done(selectedList)}
-				action={`Select (${selectedList.length})`}
+				action={i18next.t('drives.select', { select: selectedList.length })}
 				primaryButtonProps={{
 					primary: !showWarnings,
 					warning: showWarnings,
@@ -512,7 +513,11 @@ export class DriveSelector extends React.Component<
 							>
 								<Flex alignItems="center">
 									<ChevronDownSvg height="1em" fill="currentColor" />
-									<Txt ml={8}>Show {numberOfHiddenSystemDrives} hidden</Txt>
+									<Txt ml={8}>
+										{i18next.t('drives.showHidden', {
+											num: numberOfHiddenSystemDrives,
+										})}
+									</Txt>
 								</Flex>
 							</Link>
 						)}
@@ -520,7 +525,7 @@ export class DriveSelector extends React.Component<
 				)}
 				{this.props.showWarnings && hasSystemDrives ? (
 					<Alert className="system-drive-alert" style={{ width: '67%' }}>
-						Selecting your system drive is dangerous and will erase your drive!
+						{i18next.t('drives.systemDriveDanger')}
 					</Alert>
 				) : null}
 
@@ -540,13 +545,15 @@ export class DriveSelector extends React.Component<
 								this.setState({ missingDriversModal: {} });
 							}
 						}}
-						action="Yes, continue"
+						action={i18next.t('yesContinue')}
 						cancelButtonProps={{
-							children: 'Cancel',
+							children: i18next.t('cancel'),
 						}}
 						children={
 							missingDriversModal.drive.linkMessage ||
-							`Etcher will open ${missingDriversModal.drive.link} in your browser`
+							i18next.t('drives.openInBrowser', {
+								link: missingDriversModal.drive.link,
+							})
 						}
 					/>
 				)}

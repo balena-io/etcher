@@ -32,6 +32,7 @@ import {
 	StepNameButton,
 } from '../../styled-components';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
+import * as i18next from 'i18next';
 
 interface TargetSelectorProps {
 	targets: any[];
@@ -95,7 +96,7 @@ export function TargetSelectorButton(props: TargetSelectorProps) {
 				</StepNameButton>
 				{!props.flashing && (
 					<ChangeButton plain mb={14} onClick={props.reselectDrive}>
-						Change
+						{i18next.t('target.change')}
 					</ChangeButton>
 				)}
 				{target.size != null && (
@@ -132,11 +133,11 @@ export function TargetSelectorButton(props: TargetSelectorProps) {
 		return (
 			<>
 				<StepNameButton plain tooltip={props.tooltip}>
-					{targets.length} Targets
+					{targets.length} {i18next.t('target.targets')}
 				</StepNameButton>
 				{!props.flashing && (
 					<ChangeButton plain onClick={props.reselectDrive} mb={14}>
-						Change
+						{i18next.t('target.change')}
 					</ChangeButton>
 				)}
 				{targetsTemplate}
@@ -151,7 +152,7 @@ export function TargetSelectorButton(props: TargetSelectorProps) {
 			disabled={props.disabled}
 			onClick={props.openDriveSelector}
 		>
-			Select target
+			{i18next.t('target.selectTarget')}
 		</StepButton>
 	);
 }

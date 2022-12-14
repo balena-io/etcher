@@ -38,6 +38,7 @@ import * as osDialog from './os/dialog';
 import * as windowProgress from './os/window-progress';
 import MainPage from './pages/main/MainPage';
 import './css/main.css';
+import * as i18next from 'i18next';
 
 window.addEventListener(
 	'unhandledrejection',
@@ -313,9 +314,9 @@ window.addEventListener('beforeunload', async (event) => {
 
 	try {
 		const confirmed = await osDialog.showWarning({
-			confirmationLabel: 'Yes, quit',
-			rejectionLabel: 'Cancel',
-			title: 'Are you sure you want to close Etcher?',
+			confirmationLabel: i18next.t('yesExit'),
+			rejectionLabel: i18next.t('cancel'),
+			title: i18next.t('reallyExit'),
 			description: messages.warning.exitWhileFlashing(),
 		});
 		if (confirmed) {

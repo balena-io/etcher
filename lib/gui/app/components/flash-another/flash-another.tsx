@@ -17,6 +17,7 @@
 import * as React from 'react';
 
 import { BaseButton } from '../../styled-components';
+import * as i18next from 'i18next';
 
 export interface FlashAnotherProps {
 	onClick: () => void;
@@ -25,7 +26,7 @@ export interface FlashAnotherProps {
 export const FlashAnother = (props: FlashAnotherProps) => {
 	return (
 		<BaseButton primary onClick={props.onClick}>
-			Flash another
+			{i18next.t('flash.another')}
 		</BaseButton>
 	);
 };

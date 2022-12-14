@@ -20,6 +20,7 @@ import * as _ from 'lodash';
 import * as errors from '../../../shared/errors';
 import * as settings from '../../../gui/app/models/settings';
 import { SUPPORTED_EXTENSIONS } from '../../../shared/supported-formats';
+import * as i18next from 'i18next';
 
 async function mountSourceDrive() {
 	// sourceDrivePath is the name of the link in /dev/disk/by-path
@@ -53,11 +54,11 @@ export async function selectImage(): Promise<string | undefined> {
 		properties: ['openFile', 'treatPackageAsDirectory'],
 		filters: [
 			{
-				name: 'OS Images',
+				name: i18next.t('source.osImages'),
 				extensions: SUPPORTED_EXTENSIONS,
 			},
 			{
-				name: 'All',
+				name: i18next.t('source.allFiles'),
 				extensions: ['*'],
 			},
 		],
@@ -79,8 +80,8 @@ export async function showWarning(options: {
 	description: string;
 }): Promise<boolean> {
 	_.defaults(options, {
-		confirmationLabel: 'OK',
-		rejectionLabel: 'Cancel',
+		confirmationLabel: i18next.t('ok'),
+		rejectionLabel: i18next.t('cancel'),
 	});
 
 	const BUTTONS = [options.confirmationLabel, options.rejectionLabel];
@@ -98,7 +99,7 @@ export async function showWarning(options: {
 			buttons: BUTTONS,
 			defaultId: BUTTON_REJECTION_INDEX,
 			cancelId: BUTTON_REJECTION_INDEX,
-			title: 'Attention',
+			title: i18next.t('attention'),
 			message: options.title,
 			detail: options.description,
 		},

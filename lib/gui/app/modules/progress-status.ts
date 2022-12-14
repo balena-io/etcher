@@ -15,6 +15,7 @@
  */
 
 import * as prettyBytes from 'pretty-bytes';
+import * as i18next from 'i18next';
 
 export interface FlashState {
 	active: number;
@@ -34,36 +35,45 @@ export function fromFlashState({
 	position?: string;
 } {
 	if (type === undefined) {
-		return { status: 'Starting...' };
+		return { status: i18next.t('progress.starting') };
 	} else if (type === 'decompressing') {
 		if (percentage == null) {
-			return { status: 'Decompressing...' };
+			return { status: i18next.t('progress.decompressing') };
 		} else {
-			return { position: `${percentage}%`, status: 'Decompressing...' };
+			return {
+				position: `${percentage}%`,
+				status: i18next.t('progress.decompressing'),
+			};
 		}
 	} else if (type === 'flashing') {
 		if (percentage != null) {
 			if (percentage < 100) {
-				return { position: `${percentage}%`, status: 'Flashing...' };
+				return {
+					position: `${percentage}%`,
+					status: i18next.t('progress.flashing'),
+				};
 			} else {
-				return { status: 'Finishing...' };
+				return { status: i18next.t('progress.finishing') };
 			}
 		} else {
 			return {
-				status: 'Flashing...',
+				status: i18next.t('progress.flashing'),
 				position: `${position ? prettyBytes(position) : ''}`,
 			};
 		}
 	} else if (type === 'verifying') {
 		if (percentage == null) {
-			return { status: 'Validating...' };
+			return { status: i18next.t('progress.verifying') };
 		} else if (percentage < 100) {
-			return { position: `${percentage}%`, status: 'Validating...' };
+			return {
+				position: `${percentage}%`,
+				status: i18next.t('progress.verifying'),
+			};
 		} else {
-			return { status: 'Finishing...' };
+			return { status: i18next.t('progress.finishing') };
 		}
 	}
-	return { status: 'Failed' };
+	return { status: i18next.t('progress.failing') };
 }
 
 export function titleFromFlashState(
