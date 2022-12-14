@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.12.0
+## (2022-12-14)
+
+* i18n support and Chinese translation [ab77]
+* minor: optimize i18n [r-q]
+
 # v1.11.10
 ## (2022-12-13)
 

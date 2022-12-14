@@ -1,4 +1,27 @@
 - commits:
+    - subject: i18n support and Chinese translation
+      hash: 8fc574f0596f256382523c3b269e647a9aed5747
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: ab77
+      nested: []
+    - subject: "minor: optimize i18n"
+      hash: 67d26ff7902c272e8113c9b650382a1dcb0cdde0
+      body: >
+        Optimized several translations.
+
+        This commit itself is only a patch, but as a pull request must have at least one commit with a change-type.
+      footer:
+        Change-Type: minor
+        change-type: minor
+      author: r-q
+      nested: []
+  version: 1.12.0
+  title: ""
+  date: 2022-12-14T16:17:31.131Z
+- commits:
     - subject: Update dependency webpack-cli to 4.10.0
       hash: 757aa77d897d6266afbf6e7d62ddd0255ea0c926
       body: |
