@@ -29,7 +29,7 @@ import { delay, getConfig } from '../shared/utils';
 import * as settings from './app/models/settings';
 import { logException } from './app/modules/analytics';
 import { buildWindowMenu } from './menu';
-import i18n from 'i18next';
+import * as i18n from 'i18next';
 
 const customProtocol = 'etcher';
 const scheme = `${customProtocol}://`;
