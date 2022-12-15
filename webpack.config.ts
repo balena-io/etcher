@@ -322,13 +322,10 @@ const commonConfig = {
 			// Use the libext2fs.wasm file in the generated folder
 			// The way to find the app directory depends on whether we run in the renderer or in the child-writer
 			// We use __dirname in the child-writer and electron.remote.app.getAppPath() in the renderer
-			replace(
-				/node_modules\/balena-image-fs\/node_modules\/ext2fs\/lib\/libext2fs\.js$/,
-				{
-					search: 'scriptDirectory = __dirname + "/";',
-					replace: fetchWasm('ext2fs', 'lib'),
-				},
-			),
+			replace(/node_modules\/ext2fs\/lib\/libext2fs\.js$/, {
+				search: 'scriptDirectory = __dirname + "/";',
+				replace: fetchWasm('ext2fs', 'lib'),
+			}),
 			// Same for node-crc-utils
 			replace(/node_modules\/@balena\/node-crc-utils\/crc32\.js$/, {
 				search: 'scriptDirectory=__dirname+"/"',
@@ -388,7 +385,7 @@ const guiConfigCopyPatterns = [
 		to: 'modules/node-raspberrypi-usbboot/blobs',
 	},
 	{
-		from: 'node_modules/balena-image-fs/node_modules/ext2fs/lib/libext2fs.wasm',
+		from: 'node_modules/ext2fs/lib/libext2fs.wasm',
 		to: 'modules/ext2fs/lib/libext2fs.wasm',
 	},
 	{
