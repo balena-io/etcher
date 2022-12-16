@@ -37,6 +37,10 @@ async function getSettingsList(): Promise<Setting[]> {
 			name: 'errorReporting',
 			label: i18next.t('settings.errorReporting'),
 		},
+		{
+			name: 'autoBlockmapping',
+			label: 'Trim ext{2,3,4} partitions before writing (raw images only)',
+		},
 	];
 	if (['appimage', 'nsis', 'dmg'].includes(packageType)) {
 		list.push({
