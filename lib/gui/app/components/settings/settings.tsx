@@ -39,7 +39,7 @@ async function getSettingsList(): Promise<Setting[]> {
 		},
 		{
 			name: 'autoBlockmapping',
-			label: 'Trim ext{2,3,4} partitions before writing (raw images only)',
+			label: i18next.t('settings.trimExtPartitions'),
 		},
 	];
 	if (['appimage', 'nsis', 'dmg'].includes(packageType)) {
