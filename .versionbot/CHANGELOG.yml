@@ -1,4 +1,16 @@
 - commits:
+    - subject: "Patch: expose trim ext{2,3,4} setting"
+      hash: b9a82be29bee61a41f6f6a5ca6043dd8a7bee547
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: builder555
+      nested: []
+  version: 1.12.1
+  title: ""
+  date: 2022-12-16T15:02:34.104Z
+- commits:
     - subject: i18n support and Chinese translation
       hash: 8fc574f0596f256382523c3b269e647a9aed5747
       body: ""
