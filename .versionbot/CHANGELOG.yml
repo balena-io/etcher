@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency webpack-dev-server to 4.11.1
+      hash: c9e9d7d109ee103402acea1c7be4bac2f674168a
+      body: |
+        Update webpack-dev-server to 4.11.1
+
+        Update webpack-dev-server from 4.5.0 to 4.11.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.12.2
+  title: ""
+  date: 2022-12-16T16:59:03.254Z
+- commits:
     - subject: "Patch: expose trim ext{2,3,4} setting"
       hash: b9a82be29bee61a41f6f6a5ca6043dd8a7bee547
       body: ""
