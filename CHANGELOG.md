@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.12.3
+## (2022-12-19)
+
+* Patch: replaced plain text with i18n in settings [builder555]
+
 # v1.12.2
 ## (2022-12-16)
 
