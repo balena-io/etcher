@@ -1,4 +1,14 @@
 - commits:
+    - subject: "patch: publish to winget with gh action"
+      hash: f9c8378d6a96e1c44d0bced0d3227a9930b9fd14
+      body: ""
+      footer: {}
+      author: Begula
+      nested: []
+  version: 1.12.4
+  title: ""
+  date: 2022-12-19T19:41:59.151Z
+- commits:
     - subject: "Patch: replaced plain text with i18n in settings"
       hash: 11cea7c926be1bac27df8ab583cbb4b8752a49c5
       body: ""
