@@ -10,4 +10,4 @@ jobs:
         with:
           identifier: Balena.Etcher
           installer-regex: 'balenaEtcher-Setup.*.exe$'
-          token: ${{ secrets.GH_TOKEN_PUBLICREPO }}
+          token: ${{ secrets.WINGET_PAT }}
