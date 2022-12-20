@@ -59,7 +59,7 @@
     "@types/mime-types": "2.1.1",
     "@types/mini-css-extract-plugin": "1.4.3",
     "@types/mocha": "8.2.3",
-    "@types/node": "14.18.34",
+    "@types/node": "18.11.17",
     "@types/node-ipc": "9.2.0",
     "@types/react": "16.14.34",
     "@types/react-dom": "16.9.17",
@@ -123,7 +123,7 @@
     "webpack-dev-server": "4.11.1"
   },
   "engines": {
-    "node": ">=14 < 16"
+    "node": "< 19"
   },
   "versionist": {
     "publishedAt": "2022-12-20T19:35:12.134Z"
