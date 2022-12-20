@@ -1,4 +1,16 @@
 - commits:
+    - subject: "Patch: made trim setting more readable"
+      hash: 5c5a7612220b011e6942ac10b7026b7d6513e54f
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: builder555
+      nested: []
+  version: 1.12.5
+  title: ""
+  date: 2022-12-20T12:27:33.706Z
+- commits:
     - subject: "patch: publish to winget with gh action"
       hash: f9c8378d6a96e1c44d0bced0d3227a9930b9fd14
       body: ""
