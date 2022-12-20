@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency i18next to 21.10.0
+      hash: b068b847c7ae6456ebd16a5d641ff61d8d074015
+      body: |
+        Update i18next to 21.10.0
+
+        Update i18next from 21.8.14 to 21.10.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.12.7
+  title: ""
+  date: 2022-12-20T19:35:11.219Z
+- commits:
     - subject: Update dependency react-i18next to 11.18.6
       hash: 2e85fb45de3a52e9bf0605e474a550e1af2bb980
       body: |
