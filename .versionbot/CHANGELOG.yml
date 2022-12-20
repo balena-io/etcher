@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update dependency react-i18next to 11.18.6
+      hash: 2e85fb45de3a52e9bf0605e474a550e1af2bb980
+      body: |
+        Update react-i18next to 11.18.6
+
+        Update react-i18next from 11.18.1 to 11.18.6
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Renovate Bot
+      nested: []
+  version: 1.12.6
+  title: ""
+  date: 2022-12-20T18:00:03.165Z
+- commits:
     - subject: "Patch: made trim setting more readable"
       hash: 5c5a7612220b011e6942ac10b7026b7d6513e54f
       body: ""
