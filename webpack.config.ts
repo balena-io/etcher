@@ -92,10 +92,9 @@ function findExt2fsFolder(): string {
 
 function makeExt2FsRegex(): RegExp {
 	const folder = findExt2fsFolder();
-	const libpath = '/lib/libext2fs\\.js&';
+	const libpath = '/lib/libext2fs\\.js$';
 
-	const regex = folder.concat(libpath).split('/').join('/');
-	return new RegExp(regex);
+	return new RegExp(folder.concat(libpath));
 }
 
 function findUsbPrebuild(): string[] {
@@ -173,7 +172,6 @@ function slashOrAntislash(pattern: RegExp): RegExp {
 }
 
 function replace(test: RegExp, ...replacements: ReplacementRule[]) {
-	console.log(test.source);
 	return {
 		loader: 'string-replace-loader',
 		// Handle windows path separators
@@ -415,8 +413,6 @@ const guiConfigCopyPatterns = [
 		to: 'modules/@balena/node-crc-utils/crc32.wasm',
 	},
 ];
-
-console.log(guiConfigCopyPatterns);
 
 if (os.platform() === 'win32') {
 	// liblzma.dll is required on Windows for lzma-native
