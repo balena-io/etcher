@@ -1,6 +1,6 @@
 # https://www.electron.build/configuration/configuration
 appId: io.balena.etcher
-copyright: Copyright 2016-2021 Balena Ltd
+copyright: Copyright 2016-2023 Balena Ltd
 productName: balenaEtcher
 afterPack: ./afterPack.js
 afterSign: ./afterSignHook.js
