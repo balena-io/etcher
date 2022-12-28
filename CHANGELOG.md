@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.13.0
+## (2022-12-28)
+
+* minor: electron version bump [Peter Makra]
+* patch: handle ext2fs with webpack [Peter Makra]
+* Patch: update etcher-sdk version to fix CM4 issues [builder555]
+
 # v1.12.7
 ## (2022-12-20)
 

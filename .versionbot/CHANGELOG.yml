@@ -1,4 +1,28 @@
 - commits:
+    - subject: "minor: electron version bump"
+      hash: e3072ac416470cd161309935c2622cc5a3d8d242
+      body: ""
+      footer: {}
+      author: Peter Makra
+      nested: []
+    - subject: "patch: handle ext2fs with webpack"
+      hash: b59b171e43a170c0ccf84d36ab4ba2db403e25c5
+      body: ""
+      footer: {}
+      author: Peter Makra
+      nested: []
+    - subject: "Patch: update etcher-sdk version to fix CM4 issues"
+      hash: 36c813714b3ce60e5e85f1889c9bc7eeadb524b4
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: builder555
+      nested: []
+  version: 1.13.0
+  title: ""
+  date: 2022-12-28T16:48:12.506Z
+- commits:
     - subject: Update dependency i18next to 21.10.0
       hash: b068b847c7ae6456ebd16a5d641ff61d8d074015
       body: |
