@@ -15,7 +15,7 @@
  */
 
 import * as CopyPlugin from 'copy-webpack-plugin';
-import { readdirSync } from 'fs';
+import { readdirSync, existsSync } from 'fs';
 import * as _ from 'lodash';
 import * as os from 'os';
 import outdent from 'outdent';
@@ -77,25 +77,45 @@ function renameNodeModules(resourcePath: string) {
 	);
 }
 
+function findExt2fsFolder(): string {
+	const ext2fs = 'node_modules/ext2fs';
+	const biFsExt2fs = 'node_modules/balena-image-fs/node_modules/ext2fs';
+
+	if (existsSync(ext2fs)) {
+		return ext2fs;
+	} else if (existsSync(biFsExt2fs)) {
+		return biFsExt2fs;
+	} else {
+		throw Error('ext2fs not found');
+	}
+}
+
+function makeExt2FsRegex(): RegExp {
+	const folder = findExt2fsFolder();
+	const libpath = '/lib/libext2fs\\.js$';
+
+	return new RegExp(folder.concat(libpath));
+}
+
 function findUsbPrebuild(): string[] {
-	const usbPrebuildsFolder = path.join('node_modules', 'usb', 'prebuilds')
+	const usbPrebuildsFolder = path.join('node_modules', 'usb', 'prebuilds');
 	const prebuildFolders = readdirSync(usbPrebuildsFolder);
 	let bindingFile: string | undefined = 'node.napi.node';
 	const platformFolder = prebuildFolders.find(
-		(f) =>
-			f.startsWith(os.platform()) &&
-			f.indexOf(os.arch()) > -1,
+		(f) => f.startsWith(os.platform()) && f.indexOf(os.arch()) > -1,
 	);
 	if (platformFolder === undefined) {
-		throw new Error('Could not find usb prebuild. Should try fallback to node-gyp and use /build/Release instead of /prebuilds');
+		throw new Error(
+			'Could not find usb prebuild. Should try fallback to node-gyp and use /build/Release instead of /prebuilds',
+		);
 	}
 
 	const bindingFiles = readdirSync(
-		path.join(usbPrebuildsFolder, platformFolder)
-	)
+		path.join(usbPrebuildsFolder, platformFolder),
+	);
 
 	if (!bindingFiles.length) {
-		throw new Error('Could not find usb prebuild for platform')
+		throw new Error('Could not find usb prebuild for platform');
 	}
 
 	if (bindingFiles.length === 1) {
@@ -107,25 +127,22 @@ function findUsbPrebuild(): string[] {
 	if (bindingFiles.length > 1) {
 		bindingFile = bindingFiles.find((file) => {
 			if (bindingFiles.indexOf('arm') > -1) {
-				const process = require('process')
-				return file.indexOf(process.config.variables.arm_version) > -1
+				const process = require('process');
+				return file.indexOf(process.config.variables.arm_version) > -1;
 			} else {
-				return file.indexOf('glibc') > -1
+				return file.indexOf('glibc') > -1;
 			}
-		})
+		});
 	}
 
 	if (bindingFile === undefined) {
-		throw new Error('Could not find usb prebuild for platform')
+		throw new Error('Could not find usb prebuild for platform');
 	}
 
 	return [platformFolder, bindingFile];
 }
 
-const [
-	USB_BINDINGS_FOLDER,
-	USB_BINDINGS_FILE,
-] = findUsbPrebuild();
+const [USB_BINDINGS_FOLDER, USB_BINDINGS_FILE] = findUsbPrebuild();
 
 function findLzmaNativeBindingsFolder(): string {
 	const files = readdirSync(
@@ -325,8 +342,8 @@ const commonConfig = {
 			// Use the libext2fs.wasm file in the generated folder
 			// The way to find the app directory depends on whether we run in the renderer or in the child-writer
 			// We use __dirname in the child-writer and electron.remote.app.getAppPath() in the renderer
-			replace(/node_modules\/ext2fs\/lib\/libext2fs\.js$/, {
-				search: 'scriptDirectory=__dirname+"/"',
+			replace(makeExt2FsRegex(), {
+				search: 'scriptDirectory = __dirname + "/";',
 				replace: fetchWasm('ext2fs', 'lib'),
 			}),
 			// Same for node-crc-utils
@@ -388,7 +405,7 @@ const guiConfigCopyPatterns = [
 		to: 'modules/node-raspberrypi-usbboot/blobs',
 	},
 	{
-		from: 'node_modules/ext2fs/lib/libext2fs.wasm',
+		from: `${findExt2fsFolder()}/lib/libext2fs.wasm`,
 		to: 'modules/ext2fs/lib/libext2fs.wasm',
 	},
 	{
