@@ -1,4 +1,14 @@
 - commits:
+    - subject: "patch: fixed winget parameter name"
+      hash: 33fe4b2c1abcb7f71f42a4b682f174422cb72a00
+      body: ""
+      footer: {}
+      author: mcraa
+      nested: []
+  version: 1.13.2
+  title: ""
+  date: 2023-01-02T20:55:58.179Z
+- commits:
     - subject: "patch: updated sdk to fix bz2 issue"
       hash: f79cb0fac56f6ec86f3a6f9be7035fbf59102253
       body: ""

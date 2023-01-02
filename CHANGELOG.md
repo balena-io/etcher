@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.13.2
+## (2023-01-02)
+
+* patch: fixed winget parameter name [mcraa]
+
 # v1.13.1
 ## (2023-01-02)
 
