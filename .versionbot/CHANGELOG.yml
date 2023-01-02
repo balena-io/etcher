@@ -1,4 +1,20 @@
 - commits:
+    - subject: "patch: updated sdk to fix bz2 issue"
+      hash: f79cb0fac56f6ec86f3a6f9be7035fbf59102253
+      body: ""
+      footer: {}
+      author: Peter Makra
+      nested: []
+    - subject: "patch: update copyright in electron-builder"
+      hash: ec42892c7cf1d22f4bb2968733ba9dc85e3552c6
+      body: ""
+      footer: {}
+      author: JOASSART Edwin
+      nested: []
+  version: 1.13.1
+  title: ""
+  date: 2023-01-02T17:26:55.602Z
+- commits:
     - subject: "minor: electron version bump"
       hash: e3072ac416470cd161309935c2622cc5a3d8d242
       body: ""

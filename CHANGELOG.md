@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.13.1
+## (2023-01-02)
+
+* patch: updated sdk to fix bz2 issue [Peter Makra]
+* patch: update copyright in electron-builder [JOASSART Edwin]
+
 # v1.13.0
 ## (2022-12-28)
 
