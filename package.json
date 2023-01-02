@@ -81,7 +81,7 @@
     "electron-rebuild": "3.2.9",
     "electron-updater": "5.3.0",
     "esbuild-loader": "2.20.0",
-    "etcher-sdk": "7.4.4",
+    "etcher-sdk": "^7.4.6",
     "file-loader": "6.2.0",
     "husky": "4.3.8",
     "i18next": "21.10.0",
