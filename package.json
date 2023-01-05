@@ -22,9 +22,8 @@
     "lint-ts": "balena-lint --fix --typescript typings lib tests scripts/clean-shrinkwrap.ts webpack.config.ts",
     "lint": "npm run lint-ts && npm run lint-css",
     "postinstall": "bash scripts/ci/postinstall.sh",
-    "preinstall": "bash scripts/ci/preinstall.sh",
     "sanity-checks": "bash scripts/ci/ensure-all-file-extensions-in-gitattributes.sh",
-    "start": "node_modules/.bin/electron .",
+    "start": "npx electron .",
     "test-gui": "electron-mocha --recursive --reporter spec --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox --renderer tests/gui/**/*.ts",
     "test-linux": "npm run lint && xvfb-run --auto-servernum npm run test-gui && xvfb-run --auto-servernum npm run test-shared && xvfb-run --auto-servernum npm run test-spectron && npm run sanity-checks",
     "test-macos": "npm run lint && npm run test-gui && npm run test-shared && npm run test-spectron && npm run sanity-checks",
@@ -82,7 +81,7 @@
     "electron-rebuild": "3.2.9",
     "electron-updater": "5.3.0",
     "esbuild-loader": "2.20.0",
-    "etcher-sdk": "7.4.7-build-ab77-operational-6f10344d887bcf306b3bf897a5451666f6590ae9-1",
+    "etcher-sdk": "7.5.0-build-ab77-operational-b6b28fa83d619c5c1b4fa07f0ee9dc5702bec6ea-1",
     "file-loader": "6.2.0",
     "husky": "4.3.8",
     "i18next": "21.10.0",
@@ -182,15 +181,13 @@
         {
           "target": "nsis",
           "arch": [
-            "x64",
-            "arm64"
+            "x64"
           ]
         },
         {
           "target": "portable",
           "arch": [
-            "x64",
-            "arm64"
+            "x64"
           ]
         }
       ]

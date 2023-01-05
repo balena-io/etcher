@@ -15,10 +15,10 @@ inputs:
     default: "accounts+apple@balena.io"
   NODE_VERSION:
     type: string
-    default: "16.19.0"
+    default: "16.x"
   VERBOSE:
     type: string
-    default: "true"
+    default: "false"
 
 runs:
   # https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
@@ -91,8 +91,6 @@ runs:
       run: |
         set -ea
 
-        [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
-
         branch="$(echo '${{ github.event.pull_request.head.ref }}' | sed 's/[^[:alnum:]]/-/g')"
 
         stdout="$(resinci-deploy store sentry \
@@ -102,6 +100,7 @@ runs:
           --org="$(yq e '.sentry.org' repo.yml)" \
           --type="$(yq e '.sentry.type' repo.yml)")"
 
+        echo "::add-mask::${stdout}"
         echo "dsn=$(echo "${stdout}" | tail -n 1)" >> $GITHUB_OUTPUT
 
       env:
@@ -180,21 +179,12 @@ runs:
             for arch in ${archs[*]}; do
                 # (re)build|pack for all non-x64 architectures
                 if ! [[ "$arch" =~ x64 ]]; then
-                    # FIXME: remove when Node.js win-arm64 support ships
-                    # https://github.com/nodejs/build/issues/2450#issuecomment-1367786829
-                    if [[ "$runner_os" =~ win ]] && [[ "$arch" =~ arm64 ]]; then
-                        find "$(dirname $(which node))/.." -type f -name node-gyp.js \
-                          | xargs -I{} node {} install \
-                          --dist-url=https://unofficial-builds.nodejs.org/download/release
-                    fi
-
                     npm ci
-
-                    find node_modules -type d \( -name 'prebuilds' -o -name 'deps' \) \
-                      | xargs -L1 -I{} find {} -type f
-
                     npm run build
                 fi
+
+                find node_modules -type d \( -name 'prebuilds' -o -name 'deps' \) \
+                  | xargs -L1 -I{} find {} -type f
 
                 electron-builder "--${ELECTRON_BUILDER_OS}" "${target}" "--${arch}" \
                   --c.extraMetadata.analytics.sentry.token='${{ steps.sentry.outputs.dsn }}' \
@@ -214,9 +204,6 @@ runs:
         # https://github.blog/2020-08-03-github-actions-improvements-for-fork-and-pull-request-workflows/#improvements-for-public-repository-forks
         # https://docs.github.com/en/actions/managing-workflow-runs/approving-workflow-runs-from-public-forks#about-workflow-runs-from-public-forks
         CSC_FOR_PULL_REQUEST: true
-        # https://www.electron.build/#debug
-        DEBUG: electron-builder
-        NPM_CONFIG_loglevel: verbose
 
     # https://www.electron.build/auto-update.html#staged-rollouts
     - name: Configure staged rollout(s)
