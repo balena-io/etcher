@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.14.0
+## (2023-01-05)
+
+* Build and package ARM releases [ab77]
+
 # v1.13.2
 ## (2023-01-02)
 

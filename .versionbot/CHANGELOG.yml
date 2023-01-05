@@ -1,4 +1,16 @@
 - commits:
+    - subject: Build and package ARM releases
+      hash: 81355b6a198799de1326ead8becd1ba0551dab61
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: ab77
+      nested: []
+  version: 1.14.0
+  title: ""
+  date: 2023-01-05T23:17:33.604Z
+- commits:
     - subject: "patch: fixed winget parameter name"
       hash: 33fe4b2c1abcb7f71f42a4b682f174422cb72a00
       body: ""
