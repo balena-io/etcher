@@ -37,7 +37,7 @@ export const initAnalytics = _.once(() => {
 
 	const clientConfig = {
 		projectName,
-		endpoint: 'data.balena-cloud',
+		endpoint: 'data.balena-cloud.com',
 		componentName: 'etcher',
 		componentVersion: packageJSON.version,
 	};
