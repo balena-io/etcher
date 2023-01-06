@@ -23,7 +23,7 @@ import * as packageJSON from '../../../../package.json';
 
 const clearUserPath = (filename: string): string => {
 	const generatedFile = filename.split('generated').reverse()[0];
-	return `generated${generatedFile}`;
+	return generatedFile !== filename ? `generated${generatedFile}` : filename;
 };
 
 export const anonymizeData = (
