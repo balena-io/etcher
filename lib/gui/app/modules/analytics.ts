@@ -21,6 +21,35 @@ import * as settings from '../models/settings';
 import { store } from '../models/store';
 import * as packageJSON from '../../../../package.json';
 
+const clearUserPath = (filename: string): string => {
+	const generatedFile = filename.split('generated').reverse()[0];
+	return `generated${generatedFile}`;
+};
+
+export const anonymizeData = (
+	event: SentryRenderer.Event,
+): SentryRenderer.Event => {
+	event.exception?.values?.forEach((exception) => {
+		exception.stacktrace?.frames?.forEach((frame) => {
+			if (frame.filename) {
+				frame.filename = clearUserPath(frame.filename);
+			}
+		});
+	});
+
+	event.breadcrumbs?.forEach((breadcrumb) => {
+		if (breadcrumb.data?.url) {
+			breadcrumb.data.url = clearUserPath(breadcrumb.data.url);
+		}
+	});
+
+	if (event.request?.url) {
+		event.request.url = clearUserPath(event.request.url);
+	}
+
+	return event;
+};
+
 let analyticsClient: Client;
 /**
  * @summary Init analytics configurations
@@ -29,7 +58,7 @@ export const initAnalytics = _.once(() => {
 	const dsn =
 		settings.getSync('analyticsSentryToken') ||
 		_.get(packageJSON, ['analytics', 'sentry', 'token']);
-	SentryRenderer.init({ dsn });
+	SentryRenderer.init({ dsn, beforeSend: anonymizeData });
 
 	const projectName =
 		settings.getSync('analyticsAmplitudeToken') ||
