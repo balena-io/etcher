@@ -16,13 +16,11 @@
     "declarationMap": true,
     "pretty": true,
     "sourceMap": true,
+    "inlineSourceMap": true,
     "baseUrl": "./src",
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "allowJs": true
   },
-  "include": [
-    "lib/**/*.ts",
-    "node_modules/electron/**/*.d.ts"
-  ]
+  "include": ["lib/**/*.ts", "node_modules/electron/**/*.d.ts"]
 }
