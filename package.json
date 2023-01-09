@@ -32,7 +32,7 @@
     "test-windows": "npm run lint && npm run test-gui && npm run test-shared && npm run test-spectron && npm run sanity-checks",
     "test": "echo npm run test-{linux,windows,macos}",
     "watch": "webpack serve --no-optimization-minimize --config ./webpack.dev.config.ts",
-    "uploadSourcemap": "sentry-cli sentry-cli releases files $VERSION upload-sourcemaps ./generated/*.js.map --finalize",
+    "uploadSourcemap": "sentry-cli releases files $VERSION upload-sourcemaps ./generated/*.js.map --finalize",
     "webpack": "webpack"
   },
   "husky": {
