@@ -32,6 +32,7 @@
     "test-windows": "npm run lint && npm run test-gui && npm run test-shared && npm run test-spectron && npm run sanity-checks",
     "test": "echo npm run test-{linux,windows,macos}",
     "watch": "webpack serve --no-optimization-minimize --config ./webpack.dev.config.ts",
+    "uploadSourcemap": "sentry-cli sentry-cli releases files $VERSION upload-sourcemaps ./generated/*.js.map --finalize",
     "webpack": "webpack"
   },
   "husky": {
@@ -53,6 +54,7 @@
     "@balena/lint": "5.4.2",
     "@balena/sudo-prompt": "9.2.1-workaround-windows-amperstand-in-username-0849e215b947987a643fe5763902aea201255534",
     "@fortawesome/fontawesome-free": "5.15.4",
+    "@sentry/cli": "^2.11.0",
     "@sentry/electron": "^4.1.2",
     "@svgr/webpack": "5.5.0",
     "@types/chai": "4.3.4",
