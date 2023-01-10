@@ -21,12 +21,14 @@ import * as settings from '../models/settings';
 import { store } from '../models/store';
 import * as packageJSON from '../../../../package.json';
 
+type AnalyticsPayload = _.Dictionary<any>;
+
 const clearUserPath = (filename: string): string => {
 	const generatedFile = filename.split('generated').reverse()[0];
 	return generatedFile !== filename ? `generated${generatedFile}` : filename;
 };
 
-export const anonymizeData = (
+export const anonymizeSentryData = (
 	event: SentryRenderer.Event,
 ): SentryRenderer.Event => {
 	event.exception?.values?.forEach((exception) => {
@@ -50,6 +52,68 @@ export const anonymizeData = (
 	return event;
 };
 
+const extractPathRegex = /(.*)(^|\s)(file\:\/\/)?(\w\:)?([\\\/].+)/;
+const etcherSegmentMarkers = ['app.asar', 'Resources'];
+
+export const anonymizePath = (input: string) => {
+	// First, extract a part of the value that matches a path pattern.
+	const match = extractPathRegex.exec(input);
+	if (match === null) {
+		return input;
+	}
+	const mainPart = match[5];
+	const space = match[2];
+	const beginning = match[1];
+	const uriPrefix = match[3] || '';
+
+	// We have to deal with both Windows and POSIX here.
+	// The path starts with its separator (we work with absolute paths).
+	const sep = mainPart[0];
+	const segments = mainPart.split(sep);
+
+	// Moving from the end, find the first marker and cut the path from there.
+	const startCutIndex = _.findLastIndex(segments, (segment) =>
+		etcherSegmentMarkers.includes(segment),
+	);
+	return (
+		beginning +
+		space +
+		uriPrefix +
+		'[PERSONAL PATH]' +
+		sep +
+		segments.splice(startCutIndex).join(sep)
+	);
+};
+
+const safeAnonymizePath = (input: string) => {
+	try {
+		return anonymizePath(input);
+	} catch (e) {
+		return '[ANONYMIZE PATH FAILED]';
+	}
+};
+
+const sensitiveEtcherProperties = [
+	'error.description',
+	'error.message',
+	'error.stack',
+	'image',
+	'image.path',
+	'path',
+];
+
+export const anonymizeAnalyticsPayload = (
+	data: AnalyticsPayload,
+): AnalyticsPayload => {
+	for (const prop of sensitiveEtcherProperties) {
+		const value = data[prop];
+		if (value != null) {
+			data[prop] = safeAnonymizePath(value.toString());
+		}
+	}
+	return data;
+};
+
 let analyticsClient: Client;
 /**
  * @summary Init analytics configurations
@@ -58,7 +122,7 @@ export const initAnalytics = _.once(() => {
 	const dsn =
 		settings.getSync('analyticsSentryToken') ||
 		_.get(packageJSON, ['analytics', 'sentry', 'token']);
-	SentryRenderer.init({ dsn, beforeSend: anonymizeData });
+	SentryRenderer.init({ dsn, beforeSend: anonymizeSentryData });
 
 	const projectName =
 		settings.getSync('analyticsAmplitudeToken') ||
@@ -75,16 +139,64 @@ export const initAnalytics = _.once(() => {
 		: createNoopClient();
 });
 
-function reportAnalytics(message: string, data: _.Dictionary<any> = {}) {
+const getCircularReplacer = () => {
+	const seen = new WeakSet();
+	return (key: any, value: any) => {
+		if (typeof value === 'object' && value !== null) {
+			if (seen.has(value)) {
+				return;
+			}
+			seen.add(value);
+		}
+		return value;
+	};
+};
+
+function flattenObject(obj: any) {
+	const toReturn: AnalyticsPayload = {};
+
+	for (const i in obj) {
+		if (!obj.hasOwnProperty(i)) {
+			continue;
+		}
+
+		if (Array.isArray(obj[i])) {
+			toReturn[i] = obj[i];
+			continue;
+		}
+
+		if (typeof obj[i] === 'object' && obj[i] !== null) {
+			const flatObject = flattenObject(obj[i]);
+			for (const x in flatObject) {
+				if (!flatObject.hasOwnProperty(x)) {
+					continue;
+				}
+
+				toReturn[i.toLowerCase() + '.' + x.toLowerCase()] = flatObject[x];
+			}
+		} else {
+			toReturn[i] = obj[i];
+		}
+	}
+	return toReturn;
+}
+
+function formatEvent(data: any): AnalyticsPayload {
+	const event = JSON.parse(JSON.stringify(data, getCircularReplacer()));
+	return anonymizeAnalyticsPayload(flattenObject(event));
+}
+
+function reportAnalytics(message: string, data: AnalyticsPayload = {}) {
 	const { applicationSessionUuid, flashingWorkflowUuid } = store
 		.getState()
 		.toJS();
 
-	analyticsClient.track(message, {
+	const event = formatEvent({
 		...data,
 		applicationSessionUuid,
 		flashingWorkflowUuid,
 	});
+	analyticsClient.track(message, event);
 }
 
 /**
@@ -93,7 +205,7 @@ function reportAnalytics(message: string, data: _.Dictionary<any> = {}) {
  * @description
  * This function sends the debug message to product analytics services.
  */
-export async function logEvent(message: string, data: _.Dictionary<any> = {}) {
+export async function logEvent(message: string, data: AnalyticsPayload = {}) {
 	const shouldReportAnalytics = await settings.get('errorReporting');
 	if (shouldReportAnalytics) {
 		initAnalytics();

@@ -32,7 +32,7 @@ import { buildWindowMenu } from './menu';
 import * as i18n from 'i18next';
 import * as SentryMain from '@sentry/electron/main';
 import * as packageJSON from '../../package.json';
-import { anonymizeData } from './app/modules/analytics';
+import { anonymizeSentryData } from './app/modules/analytics';
 
 const customProtocol = 'etcher';
 const scheme = `${customProtocol}://`;
@@ -110,7 +110,7 @@ const initSentryMain = _.once(() => {
 		settings.getSync('analyticsSentryToken') ||
 		_.get(packageJSON, ['analytics', 'sentry', 'token']);
 
-	SentryMain.init({ dsn, beforeSend: anonymizeData });
+	SentryMain.init({ dsn, beforeSend: anonymizeSentryData });
 });
 
 const sourceSelectorReady = new Promise((resolve) => {
