@@ -186,9 +186,9 @@ runs:
         npm run uploadSourcemap
       env:
         SENTRY_AUTH_TOKEN: ${{ fromJSON(inputs.secrets).SENTRY_AUTH_TOKEN }}
-        SENTRY_ORG: balenaEtcher
-        SENTRY_PROJECT: balenaetcher
-        SENTRY_VERSION: ${{ steps.package_release.outputs.version }}
+        npm_config_SENTRY_ORG: balenaEtcher
+        npm_config_SENTRY_PROJECT: balenaetcher
+        npm_config_SENTRY_VERSION: ${{ steps.package_release.outputs.version }}
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
