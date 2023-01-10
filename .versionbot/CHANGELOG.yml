@@ -1,4 +1,14 @@
 - commits:
+    - subject: "patch: progress cm4 to second stage"
+      hash: ba5481b39a3cd16c5db428d1f731deeaef1352f2
+      body: ""
+      footer: {}
+      author: Peter Makra
+      nested: []
+  version: 1.13.3
+  title: ""
+  date: 2023-01-10T14:40:56.738Z
+- commits:
     - subject: "patch: fixed winget parameter name"
       hash: 33fe4b2c1abcb7f71f42a4b682f174422cb72a00
       body: ""
