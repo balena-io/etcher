@@ -183,11 +183,12 @@ runs:
     - name: Upload sourcemap to Sentry
       shell: bash --noprofile --norc -eo pipefail -x {0}
       run: |
-        VERSION=${{ steps.package_release.outputs.version }} npm run uploadSourcemap
+        npm run uploadSourcemap
       env:
         SENTRY_AUTH_TOKEN: ${{ fromJSON(inputs.secrets).SENTRY_AUTH_TOKEN }}
         SENTRY_ORG: balenaEtcher
         SENTRY_PROJECT: balenaetcher
+        SENTRY_VERSION: ${{ steps.package_release.outputs.version }}
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
