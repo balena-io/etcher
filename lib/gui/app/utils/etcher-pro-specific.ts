@@ -16,6 +16,12 @@
 
 import { Dictionary } from 'lodash';
 
+type BalenaTag = {
+	id: number,
+	name: string,
+	value: string
+}
+
 export class EtcherPro {
 	private supervisorAddr: string;
 	private supervisorKey: string;
@@ -38,12 +44,12 @@ export class EtcherPro {
 		if (parsed['status'] === 'success') {
 			return Object.assign(
 				{},
-				...parsed['tags'].map((tag: any) => {
-					return { [tag.name]: tag['value'] };
+				...parsed['tags'].map((tag: BalenaTag) => {
+					return { [tag.name]: tag.value };
 				}),
 			);
 		} else {
-			return await {};
+			return {};
 		}
 	}
 
