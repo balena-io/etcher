@@ -72,10 +72,7 @@ runs:
             chmod +x "$(dirname "$(which node)")/resinci-deploy" && which resinci-deploy
         fi
 
-    # FIXME: store sentry workflow is not documented
-    # https://github.com/product-os/resinci-deploy/blob/master/lib/sentry.ts
-    # https://github.com/getsentry/sentry-cli
-    # https://docs.sentry.io/api/projects/create-a-new-client-key/
+    # Upload sourcemaps to sentry
     - name: Generate Sentry DSN
       id: sentry
       shell: bash --noprofile --norc -eo pipefail -x {0}
@@ -205,6 +202,16 @@ runs:
         find dist -type f -maxdepth 1 \
           -name "latest*.yml" \
           -exec yq -i e .stagingPercentage=\"$percentage\" {} \;
+
+    - name: Upload sourcemap to Sentry
+      shell: bash --noprofile --norc -eo pipefail -x {0}
+      run: |
+        VERSION=${{ steps.package_release.outputs.version }} npm run uploadSourcemap
+      env:
+        SENTRY_AUTH_TOKEN: ${{ fromJSON(inputs.secrets).SENTRY_AUTH_TOKEN }}
+        npm_config_SENTRY_ORG: balenaEtcher
+        npm_config_SENTRY_PROJECT: balenaetcher
+        npm_config_SENTRY_VERSION: ${{ steps.package_release.outputs.version }}
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3

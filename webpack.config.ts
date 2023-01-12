@@ -455,6 +455,7 @@ const guiConfig = {
 const mainConfig = {
 	...commonConfig,
 	target: 'electron-main',
+	devtool: 'source-map',
 	node: {
 		__dirname: false,
 		__filename: true,

@@ -31,6 +31,7 @@
     "test-spectron": "mocha --recursive --reporter spec --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts tests/spectron/runner.spec.ts",
     "test-windows": "npm run lint && npm run test-gui && npm run test-shared && npm run test-spectron && npm run sanity-checks",
     "test": "echo npm run test-{linux,windows,macos}",
+    "uploadSourcemap": "sentry-cli releases files $npm_config_SENTRY_VERSION upload-sourcemaps ./generated/*.js.map --org $npm_config_SENTRY_ORG --project $npm_config_SENTRY_PROJECT",
     "watch": "webpack serve --no-optimization-minimize --config ./webpack.dev.config.ts",
     "webpack": "webpack"
   },
@@ -53,6 +54,7 @@
     "@balena/lint": "5.4.2",
     "@balena/sudo-prompt": "9.2.1-workaround-windows-amperstand-in-username-0849e215b947987a643fe5763902aea201255534",
     "@fortawesome/fontawesome-free": "5.15.4",
+    "@sentry/cli": "^2.11.0",
     "@svgr/webpack": "5.5.0",
     "@types/chai": "4.3.4",
     "@types/copy-webpack-plugin": "6.4.3",
