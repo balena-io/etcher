@@ -25,6 +25,7 @@ import * as analytics from '../../modules/analytics';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 import { Modal } from '../../styled-components';
 import * as i18next from 'i18next';
+import { etcherProInfo } from '../../utils/etcher-pro-specific';
 
 interface Setting {
 	name: string;
@@ -55,7 +56,7 @@ interface SettingsModalProps {
 	toggleModal: (value: boolean) => void;
 }
 
-const UUID = process.env.BALENA_DEVICE_UUID;
+const EPInfo = etcherProInfo();
 
 const InfoBox = (props: any) => (
 	<Box fontSize={14}>
@@ -117,10 +118,14 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 						</Flex>
 					);
 				})}
-				{UUID !== undefined && (
+				{EPInfo !== undefined && (
 					<Flex flexDirection="column">
 						<Txt fontSize={24}>{i18next.t('settings.systemInformation')}</Txt>
-						<InfoBox label="UUID" value={UUID.substr(0, 7)} />
+						{EPInfo.get_serial() === undefined ? (
+							<InfoBox label="UUID" value={EPInfo.uuid} />
+						) : (
+							<InfoBox label="Serial" value={EPInfo.get_serial()} />
+						)}
 					</Flex>
 				)}
 				<Flex
