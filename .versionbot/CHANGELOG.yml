@@ -1,4 +1,16 @@
 - commits:
+    - subject: Adding EtcherPro device serial number to the Settings modal
+      hash: d25eda9a7d6bf89284b630b2d55cbb0a7e3a9432
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Aurelien VALADE
+      nested: []
+  version: 1.13.4
+  title: ""
+  date: 2023-01-12T15:10:50.328Z
+- commits:
     - subject: "patch: progress cm4 to second stage"
       hash: 2475d576c7d9ecb46507c47c4143bdbfbdb44e45
       body: ""
