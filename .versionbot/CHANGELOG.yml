@@ -1,4 +1,92 @@
 - commits:
+    - subject: "patch: send sourcemap to sentry at build"
+      hash: 02d73b4cc97da2a017547383336752c98b510064
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: send sourcemap to sentry at build"
+      hash: 11c5a802b7e30e7a8dcb2dc1a81b374877d0043c
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: send sourcemap to sentry at build"
+      hash: e5384985b142d5da9c4aa55132916c63e0ec0f18
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: send sourcemap to sentry at build"
+      hash: 1a37c9aad1796d9d0d4fd6b9168656a2ebe0d2b2
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: send sourcemap to sentry at build"
+      hash: e6bbbb66768b7314a7b2841521b51c489d8285d5
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: send sourcemap to sentry at build"
+      hash: 505bc7fd07daa9de3935396efa8275485cee43e9
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: send sourcemap to sentry at build"
+      hash: d29c6551268e8224116953f773cde41fa44b3973
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: Sentry fix path"
+      hash: fa5cd5d9882de35db9dd0f1ced3250577252be66
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: Remove personal path on etcher
+      hash: 722cf876860bb8d8574a102a0f626f7a6afcf0be
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Otávio Jacobi
+      nested: []
+    - subject: Unifying sentry reports in a single project
+      hash: 3d50f9417ae6c4f7f11396ef896c62728a81b0ec
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Edwin Joassart
+      nested: []
+    - subject: Removes corvus in favor of sentry and analytics client
+      hash: 214c87683f4a343c9e2cc864fb697302c261586a
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Otavio Jacobi
+        signed-off-by: Otavio Jacobi
+      author: Otávio Jacobi
+      nested: []
+    - subject: Removes corvus in favor of sentry and analytics client
+      hash: 3513a83b9063a9f81fd5c3661f4e8dea24af266b
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Otavio Jacobi
+        signed-off-by: Otavio Jacobi
+      author: Otávio Jacobi
+      nested: []
+  version: 1.14.0
+  title: ""
+  date: 2023-01-12T11:55:15.843Z
+- commits:
     - subject: "patch: fixed winget parameter name"
       hash: 33fe4b2c1abcb7f71f42a4b682f174422cb72a00
       body: ""
