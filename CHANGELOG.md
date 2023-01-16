@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.14.1
+## (2023-01-16)
+
+* fix disabled-screensaver unhandled exception outside balena-electron env [Edwin Joassart]
+
 # v1.14.0
 ## (2023-01-16)
 

@@ -2,7 +2,7 @@
   "name": "balena-etcher",
   "private": true,
   "displayName": "balenaEtcher",
-  "version": "1.14.0",
+  "version": "1.14.1",
   "packageType": "local",
   "main": "generated/etcher.js",
   "description": "Flash OS images to SD cards and USB drives, safely and easily.",
@@ -127,6 +127,6 @@
     "node": ">=14 < 16"
   },
   "versionist": {
-    "publishedAt": "2023-01-16T11:23:55.599Z"
+    "publishedAt": "2023-01-16T13:22:37.656Z"
   }
 }

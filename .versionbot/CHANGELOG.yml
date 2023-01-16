@@ -1,4 +1,16 @@
 - commits:
+    - subject: fix disabled-screensaver unhandled exception outside balena-electron env
+      hash: 46c406e8c1e3b5e41890aff7f65b1711e4426782
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Edwin Joassart
+      nested: []
+  version: 1.14.1
+  title: ""
+  date: 2023-01-16T13:22:36.972Z
+- commits:
     - subject: Anonymizes all paths before sending
       hash: 86d43a536f7c9aa6b450a9f2f90341e07364208e
       body: ""
