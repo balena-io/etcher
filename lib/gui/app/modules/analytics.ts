@@ -221,9 +221,9 @@ export async function logEvent(message: string, data: AnalyticsPayload = {}) {
  */
 export function logException(error: any) {
 	const shouldReportErrors = settings.getSync('errorReporting');
+	console.error(error);
 	if (shouldReportErrors) {
 		initAnalytics();
-		console.error(error);
 		SentryRenderer.captureException(error);
 	}
 }
