@@ -65,8 +65,8 @@ async function checkForUpdates(interval: number) {
 
 function logMainProcessException(error: any) {
 	const shouldReportErrors = settings.getSync('errorReporting');
+	console.error(error);
 	if (shouldReportErrors) {
-		console.error(error);
 		SentryMain.captureException(error);
 	}
 }
