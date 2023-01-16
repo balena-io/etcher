@@ -183,7 +183,12 @@ export class SafeWebview extends React.PureComponent<
 		// only care about this event if it's a request for the main frame
 		if (event.resourceType === 'mainFrame') {
 			const HTTP_OK = 200;
-			analytics.logEvent('SafeWebview loaded', { event });
+			const { webContents, ...webviewEvent } = event;
+			analytics.logEvent('SafeWebview loaded', {
+				...webviewEvent,
+				screen_height: webContents?.hostWebContents.browserWindowOptions.height,
+				screen_width: webContents?.hostWebContents.browserWindowOptions.width,
+			});
 			this.setState({
 				shouldShow: event.statusCode === HTTP_OK,
 			});

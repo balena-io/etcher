@@ -15,84 +15,188 @@
  */
 
 import * as _ from 'lodash';
-import * as resinCorvus from 'resin-corvus/browser';
-
-import * as packageJSON from '../../../../package.json';
-import { getConfig } from '../../../shared/utils';
+import { Client, createClient, createNoopClient } from 'analytics-client';
+import * as SentryRenderer from '@sentry/electron/renderer';
 import * as settings from '../models/settings';
 import { store } from '../models/store';
+import * as packageJSON from '../../../../package.json';
 
-const DEFAULT_PROBABILITY = 0.1;
+type AnalyticsPayload = _.Dictionary<any>;
 
-async function installCorvus(): Promise<void> {
-	const sentryToken =
-		(await settings.get('analyticsSentryToken')) ||
-		_.get(packageJSON, ['analytics', 'sentry', 'token']);
-	const mixpanelToken =
-		(await settings.get('analyticsMixpanelToken')) ||
-		_.get(packageJSON, ['analytics', 'mixpanel', 'token']);
-	resinCorvus.install({
-		services: {
-			sentry: sentryToken,
-			mixpanel: mixpanelToken,
-		},
-		options: {
-			release: packageJSON.version,
-			shouldReport: () => {
-				return settings.getSync('errorReporting');
-			},
-			mixpanelDeferred: true,
-		},
+const clearUserPath = (filename: string): string => {
+	const generatedFile = filename.split('generated').reverse()[0];
+	return generatedFile !== filename ? `generated${generatedFile}` : filename;
+};
+
+export const anonymizeSentryData = (
+	event: SentryRenderer.Event,
+): SentryRenderer.Event => {
+	event.exception?.values?.forEach((exception) => {
+		exception.stacktrace?.frames?.forEach((frame) => {
+			if (frame.filename) {
+				frame.filename = clearUserPath(frame.filename);
+			}
+		});
 	});
-}
 
-let mixpanelSample = DEFAULT_PROBABILITY;
+	event.breadcrumbs?.forEach((breadcrumb) => {
+		if (breadcrumb.data?.url) {
+			breadcrumb.data.url = clearUserPath(breadcrumb.data.url);
+		}
+	});
 
+	if (event.request?.url) {
+		event.request.url = clearUserPath(event.request.url);
+	}
+
+	return event;
+};
+
+const extractPathRegex = /(.*)(^|\s)(file\:\/\/)?(\w\:)?([\\\/].+)/;
+const etcherSegmentMarkers = ['app.asar', 'Resources'];
+
+export const anonymizePath = (input: string) => {
+	// First, extract a part of the value that matches a path pattern.
+	const match = extractPathRegex.exec(input);
+	if (match === null) {
+		return input;
+	}
+	const mainPart = match[5];
+	const space = match[2];
+	const beginning = match[1];
+	const uriPrefix = match[3] || '';
+
+	// We have to deal with both Windows and POSIX here.
+	// The path starts with its separator (we work with absolute paths).
+	const sep = mainPart[0];
+	const segments = mainPart.split(sep);
+
+	// Moving from the end, find the first marker and cut the path from there.
+	const startCutIndex = _.findLastIndex(segments, (segment) =>
+		etcherSegmentMarkers.includes(segment),
+	);
+	return (
+		beginning +
+		space +
+		uriPrefix +
+		'[PERSONAL PATH]' +
+		sep +
+		segments.splice(startCutIndex).join(sep)
+	);
+};
+
+const safeAnonymizePath = (input: string) => {
+	try {
+		return anonymizePath(input);
+	} catch (e) {
+		return '[ANONYMIZE PATH FAILED]';
+	}
+};
+
+const sensitiveEtcherProperties = [
+	'error.description',
+	'error.message',
+	'error.stack',
+	'image',
+	'image.path',
+	'path',
+];
+
+export const anonymizeAnalyticsPayload = (
+	data: AnalyticsPayload,
+): AnalyticsPayload => {
+	for (const prop of sensitiveEtcherProperties) {
+		const value = data[prop];
+		if (value != null) {
+			data[prop] = safeAnonymizePath(value.toString());
+		}
+	}
+	return data;
+};
+
+let analyticsClient: Client;
 /**
  * @summary Init analytics configurations
  */
-async function initConfig() {
-	await installCorvus();
-	let validatedConfig = null;
-	try {
-		const configUrl = await settings.get('configUrl');
-		const config = await getConfig(configUrl);
-		const mixpanel = _.get(config, ['analytics', 'mixpanel'], {});
-		mixpanelSample = mixpanel.probability || DEFAULT_PROBABILITY;
-		if (isClientEligible(mixpanelSample)) {
-			validatedConfig = validateMixpanelConfig(mixpanel);
-		}
-	} catch (err) {
-		resinCorvus.logException(err);
-	}
-	resinCorvus.setConfigs({
-		mixpanel: validatedConfig,
-	});
-}
+export const initAnalytics = _.once(() => {
+	const dsn =
+		settings.getSync('analyticsSentryToken') ||
+		_.get(packageJSON, ['analytics', 'sentry', 'token']);
+	SentryRenderer.init({ dsn, beforeSend: anonymizeSentryData });
 
-initConfig();
+	const projectName =
+		settings.getSync('analyticsAmplitudeToken') ||
+		_.get(packageJSON, ['analytics', 'amplitude', 'token']);
 
-/**
- * @summary Check that the client is eligible for analytics
- */
-function isClientEligible(probability: number) {
-	return Math.random() < probability;
-}
-
-/**
- * @summary Check that config has at least HTTP_PROTOCOL and api_host
- */
-function validateMixpanelConfig(config: {
-	api_host?: string;
-	HTTP_PROTOCOL?: string;
-}) {
-	const mixpanelConfig = {
-		api_host: 'https://api.mixpanel.com',
+	const clientConfig = {
+		projectName,
+		endpoint: 'data.balena-cloud.com',
+		componentName: 'etcher',
+		componentVersion: packageJSON.version,
 	};
-	if (config.HTTP_PROTOCOL !== undefined && config.api_host !== undefined) {
-		mixpanelConfig.api_host = `${config.HTTP_PROTOCOL}://${config.api_host}`;
+	analyticsClient = projectName
+		? createClient(clientConfig)
+		: createNoopClient();
+});
+
+const getCircularReplacer = () => {
+	const seen = new WeakSet();
+	return (key: any, value: any) => {
+		if (typeof value === 'object' && value !== null) {
+			if (seen.has(value)) {
+				return;
+			}
+			seen.add(value);
+		}
+		return value;
+	};
+};
+
+function flattenObject(obj: any) {
+	const toReturn: AnalyticsPayload = {};
+
+	for (const i in obj) {
+		if (!obj.hasOwnProperty(i)) {
+			continue;
+		}
+
+		if (Array.isArray(obj[i])) {
+			toReturn[i] = obj[i];
+			continue;
+		}
+
+		if (typeof obj[i] === 'object' && obj[i] !== null) {
+			const flatObject = flattenObject(obj[i]);
+			for (const x in flatObject) {
+				if (!flatObject.hasOwnProperty(x)) {
+					continue;
+				}
+
+				toReturn[i.toLowerCase() + '.' + x.toLowerCase()] = flatObject[x];
+			}
+		} else {
+			toReturn[i] = obj[i];
+		}
 	}
-	return mixpanelConfig;
+	return toReturn;
+}
+
+function formatEvent(data: any): AnalyticsPayload {
+	const event = JSON.parse(JSON.stringify(data, getCircularReplacer()));
+	return anonymizeAnalyticsPayload(flattenObject(event));
+}
+
+function reportAnalytics(message: string, data: AnalyticsPayload = {}) {
+	const { applicationSessionUuid, flashingWorkflowUuid } = store
+		.getState()
+		.toJS();
+
+	const event = formatEvent({
+		...data,
+		applicationSessionUuid,
+		flashingWorkflowUuid,
+	});
+	analyticsClient.track(message, event);
 }
 
 /**
@@ -101,16 +205,12 @@ function validateMixpanelConfig(config: {
  * @description
  * This function sends the debug message to product analytics services.
  */
-export function logEvent(message: string, data: _.Dictionary<any> = {}) {
-	const { applicationSessionUuid, flashingWorkflowUuid } = store
-		.getState()
-		.toJS();
-	resinCorvus.logEvent(message, {
-		...data,
-		sample: mixpanelSample,
-		applicationSessionUuid,
-		flashingWorkflowUuid,
-	});
+export async function logEvent(message: string, data: AnalyticsPayload = {}) {
+	const shouldReportAnalytics = await settings.get('errorReporting');
+	if (shouldReportAnalytics) {
+		initAnalytics();
+		reportAnalytics(message, data);
+	}
 }
 
 /**
@@ -119,4 +219,11 @@ export function logEvent(message: string, data: _.Dictionary<any> = {}) {
  * @description
  * This function logs an exception to error reporting services.
  */
-export const logException = resinCorvus.logException;
+export function logException(error: any) {
+	const shouldReportErrors = settings.getSync('errorReporting');
+	if (shouldReportErrors) {
+		initAnalytics();
+		console.error(error);
+		SentryRenderer.captureException(error);
+	}
+}

@@ -29,7 +29,7 @@ import * as PnpWebpackPlugin from 'pnp-webpack-plugin';
 import * as tsconfigRaw from './tsconfig.webpack.json';
 
 /**
- * Don't webpack package.json as mixpanel & sentry tokens
+ * Don't webpack package.json as sentry tokens
  * will be inserted in it after webpacking
  */
 function externalPackageJson(packageJsonPath: string) {

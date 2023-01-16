@@ -20,6 +20,7 @@ import { promises as fs } from 'fs';
 import { platform } from 'os';
 import * as path from 'path';
 import * as semver from 'semver';
+import * as _ from 'lodash';
 
 import './app/i18n';
 
@@ -27,9 +28,11 @@ import { packageType, version } from '../../package.json';
 import * as EXIT_CODES from '../shared/exit-codes';
 import { delay, getConfig } from '../shared/utils';
 import * as settings from './app/models/settings';
-import { logException } from './app/modules/analytics';
 import { buildWindowMenu } from './menu';
 import * as i18n from 'i18next';
+import * as SentryMain from '@sentry/electron/main';
+import * as packageJSON from '../../package.json';
+import { anonymizeSentryData } from './app/modules/analytics';
 
 const customProtocol = 'etcher';
 const scheme = `${customProtocol}://`;
@@ -53,10 +56,18 @@ async function checkForUpdates(interval: number) {
 					packageUpdated = true;
 				}
 			} catch (err) {
-				logException(err);
+				logMainProcessException(err);
 			}
 		}
 		await delay(interval);
+	}
+}
+
+function logMainProcessException(error: any) {
+	const shouldReportErrors = settings.getSync('errorReporting');
+	if (shouldReportErrors) {
+		console.error(error);
+		SentryMain.captureException(error);
 	}
 }
 
@@ -93,6 +104,14 @@ async function getCommandLineURL(argv: string[]): Promise<string | undefined> {
 		return value;
 	}
 }
+
+const initSentryMain = _.once(() => {
+	const dsn =
+		settings.getSync('analyticsSentryToken') ||
+		_.get(packageJSON, ['analytics', 'sentry', 'token']);
+
+	SentryMain.init({ dsn, beforeSend: anonymizeSentryData });
+});
 
 const sourceSelectorReady = new Promise((resolve) => {
 	electron.ipcMain.on('source-selector-ready', resolve);
@@ -190,8 +209,9 @@ async function createMainWindow() {
 	const page = mainWindow.webContents;
 
 	page.once('did-frame-finish-load', async () => {
+		console.log('packageUpdatable', packageUpdatable);
 		autoUpdater.on('error', (err) => {
-			logException(err);
+			logMainProcessException(err);
 		});
 		if (packageUpdatable) {
 			try {
@@ -208,7 +228,7 @@ async function createMainWindow() {
 					onlineConfig?.autoUpdates?.checkForUpdatesTimer ?? 300000;
 				checkForUpdates(checkForUpdatesTimer);
 			} catch (err) {
-				logException(err);
+				logMainProcessException(err);
 			}
 		}
 	});
@@ -233,6 +253,7 @@ async function main(): Promise<void> {
 	if (!electron.app.requestSingleInstanceLock()) {
 		electron.app.quit();
 	} else {
+		initSentryMain();
 		await electron.app.whenReady();
 		const window = await createMainWindow();
 		electron.app.on('second-instance', async (_event, argv) => {
@@ -256,7 +277,6 @@ async function main(): Promise<void> {
 		});
 	}
 }
-
 main();
 
 console.time('ready-to-show');

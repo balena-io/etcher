@@ -72,32 +72,6 @@ runs:
             chmod +x "$(dirname "$(which node)")/resinci-deploy" && which resinci-deploy
         fi
 
-    # FIXME: store sentry workflow is not documented
-    # https://github.com/product-os/resinci-deploy/blob/master/lib/sentry.ts
-    # https://github.com/getsentry/sentry-cli
-    # https://docs.sentry.io/api/projects/create-a-new-client-key/
-    - name: Generate Sentry DSN
-      id: sentry
-      shell: bash --noprofile --norc -eo pipefail -x {0}
-      run: |
-        set -ea
-
-        [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
-
-        branch="$(echo '${{ github.event.pull_request.head.ref }}' | sed 's/[^[:alnum:]]/-/g')"
-
-        stdout="$(resinci-deploy store sentry \
-          --branch="${branch}" \
-          --name="$(jq -r '.name' package.json)" \
-          --team="$(yq e '.sentry.team' repo.yml)" \
-          --org="$(yq e '.sentry.org' repo.yml)" \
-          --type="$(yq e '.sentry.type' repo.yml)")"
-
-        echo "dsn=$(echo "${stdout}" | tail -n 1)" >> $GITHUB_OUTPUT
-
-      env:
-        SENTRY_TOKEN: ${{ fromJSON(inputs.secrets).SENTRY_AUTH_TOKEN }}
-
     # https://www.electron.build/code-signing.html
     # https://github.com/Apple-Actions/import-codesign-certs
     - name: Import Apple code signing certificate
@@ -171,8 +145,8 @@ runs:
 
         for target in ${TARGETS}; do
             electron-builder ${ELECTRON_BUILDER_OS} ${target} ${ARCHITECTURE_FLAGS} \
-              --c.extraMetadata.analytics.sentry.token='${{ steps.sentry.outputs.dsn }}' \
-              --c.extraMetadata.analytics.mixpanel.token='balena-etcher' \
+              --c.extraMetadata.analytics.sentry.token='https://739bbcfc0ba4481481138d3fc831136d@o95242.ingest.sentry.io/4504451487301632' \
+              --c.extraMetadata.analytics.amplitude.token='balena-etcher' \
               --c.extraMetadata.packageType="${target}"
 
             find dist -type f -maxdepth 1
