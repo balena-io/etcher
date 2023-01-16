@@ -50,13 +50,7 @@ else
 		ifeq ($(shell uname -m),armv7l)
 			HOST_ARCH = armv7hf
 		endif
-		ifeq ($(shell uname -m),aarch64)
-			HOST_ARCH = aarch64
-		endif
-		ifeq ($(shell uname -m),armv8)
-			HOST_ARCH = aarch64
-		endif
-		ifeq ($(shell uname -m),arm64)
+		ifneq (,$(filter aarch64 armv8 arm64, $(shell uname -m)))
 			HOST_ARCH = aarch64
 		endif
 	endif
