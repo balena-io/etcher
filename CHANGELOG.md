@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.14.0
+## (2023-01-16)
+
+* Anonymizes all paths before sending [Otávio Jacobi]
+* patch: Sentry fix path [Edwin Joassart]
+* Remove personal path on etcher [Otávio Jacobi]
+* Unifying sentry reports in a single project [Edwin Joassart]
+* Removes corvus in favor of sentry and analytics client [Otávio Jacobi]
+* Removes corvus in favor of sentry and analytics client [Otávio Jacobi]
+
 # v1.13.4
 ## (2023-01-12)
 

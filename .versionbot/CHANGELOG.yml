@@ -1,4 +1,58 @@
 - commits:
+    - subject: Anonymizes all paths before sending
+      hash: 86d43a536f7c9aa6b450a9f2f90341e07364208e
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Otávio Jacobi
+      nested: []
+    - subject: "patch: Sentry fix path"
+      hash: 6c417e35a13873cd95d25f42a819de3750cdf65d
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: Remove personal path on etcher
+      hash: 2b728d3c521b76177a2c019b4891627272f35aac
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Otávio Jacobi
+      nested: []
+    - subject: Unifying sentry reports in a single project
+      hash: f3f7ecb852503d4d97dbe6a78bf920ca177bddd1
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Edwin Joassart
+      nested: []
+    - subject: Removes corvus in favor of sentry and analytics client
+      hash: 41fca03c98d4a72bd8c3842d7e6b9d41f65336f9
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Otavio Jacobi
+        signed-off-by: Otavio Jacobi
+      author: Otávio Jacobi
+      nested: []
+    - subject: Removes corvus in favor of sentry and analytics client
+      hash: 10caf8f1b6a174762192b13ce7bb4eaa71e90fcc
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Otavio Jacobi
+        signed-off-by: Otavio Jacobi
+      author: Otávio Jacobi
+      nested: []
+  version: 1.14.0
+  title: ""
+  date: 2023-01-16T11:23:54.866Z
+- commits:
     - subject: Adding EtcherPro device serial number to the Settings modal
       hash: d25eda9a7d6bf89284b630b2d55cbb0a7e3a9432
       body: ""
