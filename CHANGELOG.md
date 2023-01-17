@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.14.2
+## (2023-01-17)
+
+* patch: revert to lockfile v1 [Peter Makra]
+* patch: update etcher-sdk for cm4v5 [builder555]
+
 # v1.14.1
 ## (2023-01-16)
 

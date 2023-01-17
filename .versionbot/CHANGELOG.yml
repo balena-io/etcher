@@ -1,4 +1,22 @@
 - commits:
+    - subject: "patch: revert to lockfile v1"
+      hash: 72af77860bee3685635c9f4db602c2a07e825037
+      body: ""
+      footer: {}
+      author: Peter Makra
+      nested: []
+    - subject: "patch: update etcher-sdk for cm4v5"
+      hash: 8e63be2efecada2ad6abd9d9d7728859e2c30ebc
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: builder555
+      nested: []
+  version: 1.14.2
+  title: ""
+  date: 2023-01-17T14:37:41.555Z
+- commits:
     - subject: fix disabled-screensaver unhandled exception outside balena-electron env
       hash: 46c406e8c1e3b5e41890aff7f65b1711e4426782
       body: ""
