@@ -39,4 +39,6 @@ i18next.use(initReactI18next).init({
 	},
 });
 
+export const supportedLocales = ['en', 'zh'];
+
 export default i18next;
