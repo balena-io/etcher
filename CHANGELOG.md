@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.14.3
+## (2023-01-19)
+
+* patch: fixed mac sudo on other languages [Peter Makra]
+
 # v1.14.2
 ## (2023-01-17)
 

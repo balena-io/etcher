@@ -1,4 +1,14 @@
 - commits:
+    - subject: "patch: fixed mac sudo on other languages"
+      hash: 19d1e093fc2b1588492c9868f7604ee15ab3fd5b
+      body: ""
+      footer: {}
+      author: Peter Makra
+      nested: []
+  version: 1.14.3
+  title: ""
+  date: 2023-01-19T12:21:02.651Z
+- commits:
     - subject: "patch: revert to lockfile v1"
       hash: 72af77860bee3685635c9f4db602c2a07e825037
       body: ""
