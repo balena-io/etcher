@@ -148,7 +148,7 @@ export class MainPage extends React.Component<
 	private async getFeaturedProjectURL() {
 		const url = new URL(
 			(await settings.get('featuredProjectEndpoint')) ||
-				'https://assets.balena.io/etcher-featured/index.html',
+				'https://static.balena.io/etcher/featured',
 		);
 		url.searchParams.append('borderRight', 'false');
 		url.searchParams.append('darkBackground', 'true');
