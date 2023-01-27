@@ -1,4 +1,34 @@
 - commits:
+    - subject: Add support for Node 18
+      hash: 887ec42847acbd4a935b4e9ed6abb2b8d87058ce
+      body: >
+        The Electron version we’re currently using is on Node 14 but this is a
+        step forward to upgrading to a newer Electron and Node version.
+
+
+        Updates etcher-sdk and switches the redundant aws4-axios dependency to just axios.
+
+
+        Also changed bundler to stop trying to bundle wasm files — they must be included inline with JS code as data — and removed some now redundant code.
+
+
+        The crucial changes that enable support are:
+
+
+        1. The update to etcher-sdk@8 where some dependency fixes and updates took place
+
+        2. The downgrade and pinning of "electron-rebuild" to v3.2.3 until we’re able to update to Electron >= 14.2. The patch we need to avoid is https://github.com/electron/rebuild/pull/907. Also see: https://github.com/nodejs/node-gyp/issues/2673 and https://github.com/electron/rebuild/issues/913
+
+        3. A rule in webpack.config to ignore `aws-crt` which is a dependency of (ultimately) `aws4-axios` which is used by etcher-sdk and does a runtime check to its availability. We’re not currently using the “assume role” functionality (AFAIU) of aws4-axios and we don’t care that it’s not found, so force webpack to ignore the import. See https://github.com/aws/aws-sdk-js-v3/issues/3025
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Akis Kesoglou
+      nested: []
+  version: 1.15.0
+  title: ""
+  date: 2023-01-27T11:36:32.980Z
+- commits:
     - subject: "patch: fixed mac sudo on other languages"
       hash: 19d1e093fc2b1588492c9868f7604ee15ab3fd5b
       body: ""

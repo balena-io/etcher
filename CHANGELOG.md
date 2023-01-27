@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.15.0
+## (2023-01-27)
+
+* Add support for Node 18 [Akis Kesoglou]
+
 # v1.14.3
 ## (2023-01-19)
 
