@@ -15,7 +15,7 @@
  */
 
 import * as CopyPlugin from 'copy-webpack-plugin';
-import { readdirSync, existsSync } from 'fs';
+import { readdirSync } from 'fs';
 import * as _ from 'lodash';
 import * as os from 'os';
 import outdent from 'outdent';
@@ -23,7 +23,7 @@ import * as path from 'path';
 import { env } from 'process';
 import * as SimpleProgressWebpackPlugin from 'simple-progress-webpack-plugin';
 import * as TerserPlugin from 'terser-webpack-plugin';
-import { BannerPlugin, NormalModuleReplacementPlugin } from 'webpack';
+import { BannerPlugin, IgnorePlugin, NormalModuleReplacementPlugin } from 'webpack';
 import * as PnpWebpackPlugin from 'pnp-webpack-plugin';
 
 import * as tsconfigRaw from './tsconfig.webpack.json';
@@ -75,26 +75,6 @@ function renameNodeModules(resourcePath: string) {
 			// file-loader expects posix paths, even on Windows
 			.replace(/\\/g, '/')
 	);
-}
-
-function findExt2fsFolder(): string {
-	const ext2fs = 'node_modules/ext2fs';
-	const biFsExt2fs = 'node_modules/balena-image-fs/node_modules/ext2fs';
-
-	if (existsSync(ext2fs)) {
-		return ext2fs;
-	} else if (existsSync(biFsExt2fs)) {
-		return biFsExt2fs;
-	} else {
-		throw Error('ext2fs not found');
-	}
-}
-
-function makeExt2FsRegex(): RegExp {
-	const folder = findExt2fsFolder();
-	const libpath = '/lib/libext2fs\\.js$';
-
-	return new RegExp(folder.concat(libpath));
 }
 
 function findUsbPrebuild(): string[] {
@@ -178,31 +158,6 @@ function replace(test: RegExp, ...replacements: ReplacementRule[]) {
 		test: slashOrAntislash(test),
 		options: { multiple: replacements.map((r) => ({ ...r, strict: true })) },
 	};
-}
-
-function fetchWasm(...where: string[]) {
-	const whereStr = where.map((x) => `'${x}'`).join(', ');
-	return outdent`
-		const Path = require('path');
-		let electron;
-		try {
-			// This doesn't exist in the child-writer
-			electron = require('electron');
-		} catch {
-		}
-		function appPath() {
-			return Path.isAbsolute(__dirname) ?
-				__dirname :
-				Path.join(
-					// With macOS universal builds, getAppPath() returns the path to an app.asar file containing an index.js file which will
-					// include the app-x64 or app-arm64 folder depending on the arch.
-					// We don't care about the app.asar file, we want the actual folder.
-					electron.remote.app.getAppPath().replace(/\\.asar$/, () => process.platform === 'darwin' ? '-' + process.arch : ''),
-					'generated'
-				);
-		}
-		scriptDirectory = Path.join(appPath(), 'modules', ${whereStr}, '/');
-	`;
 }
 
 const commonConfig = {
@@ -339,18 +294,6 @@ const commonConfig = {
 					);
 				`,
 			}),
-			// Use the libext2fs.wasm file in the generated folder
-			// The way to find the app directory depends on whether we run in the renderer or in the child-writer
-			// We use __dirname in the child-writer and electron.remote.app.getAppPath() in the renderer
-			replace(makeExt2FsRegex(), {
-				search: 'scriptDirectory = __dirname + "/";',
-				replace: fetchWasm('ext2fs', 'lib'),
-			}),
-			// Same for node-crc-utils
-			replace(/node_modules\/@balena\/node-crc-utils\/crc32\.js$/, {
-				search: 'scriptDirectory=__dirname+"/"',
-				replace: fetchWasm('@balena', 'node-crc-utils'),
-			}),
 			// Copy native modules to generated folder
 			{
 				test: /\.node$/,
@@ -377,6 +320,14 @@ const commonConfig = {
 			slashOrAntislash(/node_modules\/axios\/lib\/adapters\/xhr\.js/),
 			'./http.js',
 		),
+		// Ignore `aws-crt` which is a dependency of (ultimately) `aws4-axios` which is used
+		// by etcher-sdk and does a runtime check to its availability. We’re not currently
+		// using the “assume role” functionality (AFAIU) of aws4-axios and we don’t care that
+		// it’s not found, so force webpack to ignore the import.
+		// See https://github.com/aws/aws-sdk-js-v3/issues/3025
+		new IgnorePlugin({
+			resourceRegExp: /^aws-crt$/,
+		})
 	],
 	resolveLoader: {
 		plugins: [PnpWebpackPlugin.moduleLoader(module)],
@@ -403,14 +354,6 @@ const guiConfigCopyPatterns = [
 	{
 		from: 'node_modules/node-raspberrypi-usbboot/blobs',
 		to: 'modules/node-raspberrypi-usbboot/blobs',
-	},
-	{
-		from: `${findExt2fsFolder()}/lib/libext2fs.wasm`,
-		to: 'modules/ext2fs/lib/libext2fs.wasm',
-	},
-	{
-		from: 'node_modules/@balena/node-crc-utils/crc32.wasm',
-		to: 'modules/@balena/node-crc-utils/crc32.wasm',
 	},
 ];
 
