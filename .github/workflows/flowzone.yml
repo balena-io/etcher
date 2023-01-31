@@ -1,5 +1,4 @@
 name: Flowzone
-
 on:
   pull_request:
     types: [opened, synchronize, closed]
@@ -8,11 +7,10 @@ on:
   pull_request_target:
     types: [opened, synchronize, closed]
     branches: [main, master]
-
 jobs:
   flowzone:
     name: Flowzone
-    uses: product-os/flowzone/.github/workflows/flowzone.yml@master
+    uses: product-os/flowzone/.github/workflows/flowzone.yml@87ce10c98551c0922b9c698b078de64aad5ca425
     # prevent duplicate workflows and only allow one `pull_request` or `pull_request_target` for
     # internal or external contributions respectively
     if: |
@@ -27,3 +25,4 @@ jobs:
       repo_description: "Flash OS images to SD cards & USB drives, safely and easily."
       repo_homepage: https://etcher.io/
       repo_enable_wiki: true
+      protect_branch: false
