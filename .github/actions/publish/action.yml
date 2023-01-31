@@ -46,32 +46,6 @@ runs:
       run: choco install yq
       if: runner.os == 'Windows'
 
-    # FIXME: resinci-deploy is not actively maintained
-    # https://github.com/product-os/resinci-deploy
-    - name: Checkout resinci-deploy
-      uses: actions/checkout@v3
-      with:
-        repository: product-os/resinci-deploy
-        token: ${{ fromJSON(inputs.secrets).FLOWZONE_TOKEN }}
-        path: resinci-deploy
-
-    - name: Build and install resinci-deploy
-      shell: bash --noprofile --norc -eo pipefail -x {0}
-      run: |
-        set -ea
-
-        [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
-
-        runner_os="$(echo "${RUNNER_OS}" | tr '[:upper:]' '[:lower:]')"
-
-        rm -rf ../resinci-deploy && mv resinci-deploy ..
-
-        pushd ../resinci-deploy && npm ci && npm link && popd
-
-        if [[ $runner_os =~ linux|macos ]]; then
-            chmod +x "$(dirname "$(which node)")/resinci-deploy" && which resinci-deploy
-        fi
-
     # https://www.electron.build/code-signing.html
     # https://github.com/Apple-Actions/import-codesign-certs
     - name: Import Apple code signing certificate
