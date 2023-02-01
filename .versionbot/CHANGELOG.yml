@@ -1,4 +1,26 @@
 - commits:
+    - subject: Remove redundant resinci-deploy build step
+      hash: 48ddafd120cc9cd4fb94c0d6f7530a14be46f28d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Akis Kesoglou
+      nested: []
+    - subject: Lazily import Electron from child-writer process
+      hash: 851219f835ed037d9fd970f538095e4b339c5342
+      body: >
+        No idea how this *used* to work, but it doesn’t since 887ec428 and this is
+        fixing it properly.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Akis Kesoglou
+      nested: []
+  version: 1.15.1
+  title: ""
+  date: 2023-02-01T12:18:55.922Z
+- commits:
     - subject: Add support for Node 18
       hash: 887ec42847acbd4a935b4e9ed6abb2b8d87058ce
       body: >

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.15.1
+## (2023-02-01)
+
+* Remove redundant resinci-deploy build step [Akis Kesoglou]
+* Lazily import Electron from child-writer process [Akis Kesoglou]
+
 # v1.15.0
 ## (2023-01-27)
 
