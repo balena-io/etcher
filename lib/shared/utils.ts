@@ -15,7 +15,6 @@
  */
 
 import axios from 'axios';
-import { app, remote } from 'electron';
 import { Dictionary } from 'lodash';
 
 import * as errors from './errors';
@@ -50,6 +49,7 @@ export async function delay(duration: number): Promise<void> {
 }
 
 export function getAppPath(): string {
+	const { app, remote } = require('electron');
 	return (
 		(app || remote.app)
 			.getAppPath()
