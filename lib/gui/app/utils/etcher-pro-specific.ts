@@ -17,10 +17,10 @@
 import { Dictionary } from 'lodash';
 
 type BalenaTag = {
-	id: number,
-	name: string,
-	value: string
-}
+	id: number;
+	name: string;
+	value: string;
+};
 
 export class EtcherPro {
 	private supervisorAddr: string;

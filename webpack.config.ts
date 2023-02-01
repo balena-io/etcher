@@ -23,7 +23,11 @@ import * as path from 'path';
 import { env } from 'process';
 import * as SimpleProgressWebpackPlugin from 'simple-progress-webpack-plugin';
 import * as TerserPlugin from 'terser-webpack-plugin';
-import { BannerPlugin, IgnorePlugin, NormalModuleReplacementPlugin } from 'webpack';
+import {
+	BannerPlugin,
+	IgnorePlugin,
+	NormalModuleReplacementPlugin,
+} from 'webpack';
 import * as PnpWebpackPlugin from 'pnp-webpack-plugin';
 
 import * as tsconfigRaw from './tsconfig.webpack.json';
@@ -327,7 +331,7 @@ const commonConfig = {
 		// See https://github.com/aws/aws-sdk-js-v3/issues/3025
 		new IgnorePlugin({
 			resourceRegExp: /^aws-crt$/,
-		})
+		}),
 	],
 	resolveLoader: {
 		plugins: [PnpWebpackPlugin.moduleLoader(module)],

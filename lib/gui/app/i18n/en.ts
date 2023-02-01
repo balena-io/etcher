@@ -138,7 +138,8 @@ const translation = {
 			autoUpdate: 'Auto-updates enabled',
 			settings: 'Settings',
 			systemInformation: 'System Information',
-			trimExtPartitions: 'Trim unallocated space on raw images (in ext-type partitions)',
+			trimExtPartitions:
+				'Trim unallocated space on raw images (in ext-type partitions)',
 		},
 		menu: {
 			edit: 'Edit',
