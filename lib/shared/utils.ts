@@ -39,9 +39,8 @@ export async function delay(duration: number): Promise<void> {
 }
 
 export function getAppPath(): string {
-	const { app, remote } = require('electron');
 	return (
-		(app || remote.app)
+		(require('electron').app || require('@electron/remote').app)
 			.getAppPath()
 			// With macOS universal builds, getAppPath() returns the path to an app.asar file containing an index.js file which will
 			// include the app-x64 or app-arm64 folder depending on the arch.

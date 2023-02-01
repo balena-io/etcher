@@ -1,0 +1,5 @@
+{
+  "webPreferences": {
+    "enableRemoteModule": true
+  }
+}

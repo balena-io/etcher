@@ -15,6 +15,7 @@
  */
 
 import * as electron from 'electron';
+import * as remote from '@electron/remote';
 import * as _ from 'lodash';
 
 import * as errors from '../../../shared/errors';
@@ -63,10 +64,9 @@ export async function selectImage(): Promise<string | undefined> {
 			},
 		],
 	};
-	const currentWindow = electron.remote.getCurrentWindow();
-	const [file] = (
-		await electron.remote.dialog.showOpenDialog(currentWindow, options)
-	).filePaths;
+	const currentWindow = remote.getCurrentWindow();
+	const [file] = (await remote.dialog.showOpenDialog(currentWindow, options))
+		.filePaths;
 	return file;
 }
 
@@ -92,8 +92,8 @@ export async function showWarning(options: {
 	);
 	const BUTTON_REJECTION_INDEX = _.indexOf(BUTTONS, options.rejectionLabel);
 
-	const { response } = await electron.remote.dialog.showMessageBox(
-		electron.remote.getCurrentWindow(),
+	const { response } = await remote.dialog.showMessageBox(
+		remote.getCurrentWindow(),
 		{
 			type: 'warning',
 			buttons: BUTTONS,
@@ -113,5 +113,5 @@ export async function showWarning(options: {
 export function showError(error: Error) {
 	const title = errors.getTitle(error);
 	const message = errors.getDescription(error);
-	electron.remote.dialog.showErrorBox(title, message);
+	remote.dialog.showErrorBox(title, message);
 }

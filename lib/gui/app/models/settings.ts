@@ -41,11 +41,10 @@ export const DEFAULT_HEIGHT = 480;
  * NOTE: We use the remote property when this module
  * is loaded in the Electron's renderer process
  */
-const app = electron.app || electron.remote.app;
-
-const USER_DATA_DIR = app.getPath('userData');
-
-const CONFIG_PATH = join(USER_DATA_DIR, 'config.json');
+function getConfigPath() {
+	const app = electron.app || require('@electron/remote').app;
+	return join(app.getPath('userData'), 'config.json');
+}
 
 async function readConfigFile(filename: string): Promise<_.Dictionary<any>> {
 	let contents = '{}';
@@ -64,7 +63,7 @@ async function readConfigFile(filename: string): Promise<_.Dictionary<any>> {
 
 // exported for tests
 export async function readAll() {
-	return await readConfigFile(CONFIG_PATH);
+	return await readConfigFile(getConfigPath());
 }
 
 // exported for tests
@@ -103,7 +102,7 @@ export async function set(
 	const previousValue = settings[key];
 	settings[key] = value;
 	try {
-		await writeConfigFileFn(CONFIG_PATH, settings);
+		await writeConfigFileFn(getConfigPath(), settings);
 	} catch (error: any) {
 		// Revert to previous value if persisting settings failed
 		settings[key] = previousValue;
