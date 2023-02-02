@@ -26,7 +26,6 @@ import './app/i18n';
 
 import { packageType, version } from '../../package.json';
 import * as EXIT_CODES from '../shared/exit-codes';
-import { delay, getConfig } from '../shared/utils';
 import * as settings from './app/models/settings';
 import { buildWindowMenu } from './menu';
 import * as i18n from 'i18next';
@@ -206,32 +205,6 @@ async function createMainWindow() {
 		)}`,
 	);
 
-	const page = mainWindow.webContents;
-
-	page.once('did-frame-finish-load', async () => {
-		console.log('packageUpdatable', packageUpdatable);
-		autoUpdater.on('error', (err) => {
-			logMainProcessException(err);
-		});
-		if (packageUpdatable) {
-			try {
-				const configUrl = await settings.get('configUrl');
-				const onlineConfig = await getConfig(configUrl);
-				const autoUpdaterConfig: AutoUpdaterConfig = onlineConfig?.autoUpdates
-					?.autoUpdaterConfig ?? {
-					autoDownload: false,
-				};
-				for (const [key, value] of Object.entries(autoUpdaterConfig)) {
-					autoUpdater[key as keyof AutoUpdaterConfig] = value;
-				}
-				const checkForUpdatesTimer =
-					onlineConfig?.autoUpdates?.checkForUpdatesTimer ?? 300000;
-				checkForUpdates(checkForUpdatesTimer);
-			} catch (err) {
-				logMainProcessException(err);
-			}
-		}
-	});
 	return mainWindow;
 }
 
