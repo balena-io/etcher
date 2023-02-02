@@ -1,4 +1,20 @@
 - commits:
+    - subject: Switch to `@electron/remote`
+      hash: 7ee174edcecbfc2d7370db6d4185b3ee4eedbe28
+      body: >
+        Electron 12 deprecated `electron.remote` and the functionality was removed
+        in Electron 14, but became available as a separate `@electron/remote`
+        module. This commit makes the transition to the external module as an
+        intermediary step to enable updating to a newer Electron version.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Akis Kesoglou
+      nested: []
+  version: 1.15.4
+  title: ""
+  date: 2023-02-02T18:26:45.877Z
+- commits:
     - subject: move EFP & success-banner to efp.balena.io
       hash: a140faaebe087a96387604f12c3510ee22374d92
       body: ""
