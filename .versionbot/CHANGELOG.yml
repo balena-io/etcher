@@ -1,4 +1,16 @@
 - commits:
+    - subject: move EFP & success-banner to efp.balena.io
+      hash: a140faaebe087a96387604f12c3510ee22374d92
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Edwin Joassart
+      nested: []
+  version: 1.15.3
+  title: ""
+  date: 2023-02-02T17:23:16.454Z
+- commits:
     - subject: Remove configuration remote update
       hash: 85a49a221fa7fc9b1943dc8ed43b29995f9d8260
       body: ""

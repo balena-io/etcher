@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.15.3
+## (2023-02-02)
+
+* move EFP & success-banner to efp.balena.io [Edwin Joassart]
+
 # v1.15.2
 ## (2023-02-02)
 
