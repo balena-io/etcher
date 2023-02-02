@@ -15,6 +15,7 @@
  */
 
 import * as electron from 'electron';
+import * as remote from '@electron/remote';
 import * as _ from 'lodash';
 import * as React from 'react';
 
@@ -97,7 +98,7 @@ export class SafeWebview extends React.PureComponent<
 		this.didFailLoad = _.bind(this.didFailLoad, this);
 		this.didGetResponseDetails = _.bind(this.didGetResponseDetails, this);
 		// Make a persistent electron session for the webview
-		this.session = electron.remote.session.fromPartition(ELECTRON_SESSION, {
+		this.session = remote.session.fromPartition(ELECTRON_SESSION, {
 			// Disable the cache for the session such that new content shows up when refreshing
 			cache: false,
 		});

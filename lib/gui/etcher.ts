@@ -15,6 +15,7 @@
  */
 
 import * as electron from 'electron';
+import * as remoteMain from '@electron/remote/main';
 import { autoUpdater } from 'electron-updater';
 import { promises as fs } from 'fs';
 import { platform } from 'os';
@@ -40,6 +41,8 @@ const packageUpdatable = updatablePackageTypes.includes(packageType);
 let packageUpdated = false;
 let mainWindow: any = null;
 
+remoteMain.initialize();
+
 async function checkForUpdates(interval: number) {
 	// We use a while loop instead of a setInterval to preserve
 	// async execution time between each function call
@@ -48,8 +51,8 @@ async function checkForUpdates(interval: number) {
 			try {
 				const release = await autoUpdater.checkForUpdates();
 				const isOutdated =
-					semver.compare(release.updateInfo.version, version) > 0;
-				const shouldUpdate = release.updateInfo.stagingPercentage !== 0; // undefinded (default) means 100%
+					semver.compare(release!.updateInfo.version, version) > 0;
+				const shouldUpdate = release!.updateInfo.stagingPercentage !== 0; // undefinded (default) means 100%
 				if (shouldUpdate && isOutdated) {
 					await autoUpdater.downloadUpdate();
 					packageUpdated = true;

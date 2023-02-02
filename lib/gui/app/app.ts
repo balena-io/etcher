@@ -15,6 +15,7 @@
  */
 
 import * as electron from 'electron';
+import * as remote from '@electron/remote';
 import * as sdk from 'etcher-sdk';
 import * as _ from 'lodash';
 import outdent from 'outdent';
@@ -327,8 +328,8 @@ window.addEventListener('beforeunload', async (event) => {
 			});
 
 			// This circumvents the 'beforeunload' event unlike
-			// electron.remote.app.quit() which does not.
-			electron.remote.process.exit(EXIT_CODES.SUCCESS);
+			// remote.app.quit() which does not.
+			remote.process.exit(EXIT_CODES.SUCCESS);
 		}
 
 		analytics.logEvent('Close rejected while flashing', {
