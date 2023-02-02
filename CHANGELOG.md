@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.15.2
+## (2023-02-02)
+
+* Remove configuration remote update [Edwin Joassart]
+
 # v1.15.1
 ## (2023-02-01)
 

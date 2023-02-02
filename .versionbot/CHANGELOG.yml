@@ -1,4 +1,16 @@
 - commits:
+    - subject: Remove configuration remote update
+      hash: 85a49a221fa7fc9b1943dc8ed43b29995f9d8260
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Edwin Joassart
+      nested: []
+  version: 1.15.2
+  title: ""
+  date: 2023-02-02T13:05:01.310Z
+- commits:
     - subject: Remove redundant resinci-deploy build step
       hash: 48ddafd120cc9cd4fb94c0d6f7530a14be46f28d
       body: ""
