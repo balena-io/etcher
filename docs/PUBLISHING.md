@@ -73,3 +73,7 @@ of Etcher, and including the relevant section of the Changelog.
 [homebrew-cask]: https://github.com/caskroom/homebrew-cask
 [balena-forum-etcher]: https://forums.balena.io/c/etcher
 [github-releases]: https://github.com/balena-io/etcher/releases
+
+Updating EFP / Success-Banner
+-----------------------------
+Can only be done by someone from Balena, instruction are on the [Etcher-EFP repo (private)](https://github.com/balena-io/etcher-efp)
