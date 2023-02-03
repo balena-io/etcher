@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.15.5
+## (2023-02-03)
+
+* revert auto-update feature [JOASSART Edwin]
+
 # v1.15.4
 ## (2023-02-02)
 

@@ -1,4 +1,16 @@
 - commits:
+    - subject: revert auto-update feature
+      hash: e6d33eda2b8f767679a43f8056e20098b0f2f6d9
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: JOASSART Edwin
+      nested: []
+  version: 1.15.5
+  title: ""
+  date: 2023-02-03T14:25:19.611Z
+- commits:
     - subject: Switch to `@electron/remote`
       hash: 7ee174edcecbfc2d7370db6d4185b3ee4eedbe28
       body: >
