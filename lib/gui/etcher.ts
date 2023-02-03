@@ -208,6 +208,23 @@ async function createMainWindow() {
 		)}`,
 	);
 
+	const page = mainWindow.webContents;
+
+	page.once('did-frame-finish-load', async () => {
+		console.log('packageUpdatable', packageUpdatable);
+		autoUpdater.on('error', (err) => {
+			logMainProcessException(err);
+		});
+		if (packageUpdatable) {
+			try {
+				const checkForUpdatesTimer = 300000;
+				checkForUpdates(checkForUpdatesTimer);
+			} catch (err) {
+				logMainProcessException(err);
+			}
+		}
+	});
+
 	return mainWindow;
 }
 
