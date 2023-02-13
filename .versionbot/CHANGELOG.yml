@@ -1,4 +1,17 @@
 - commits:
+    - subject: "patch: app: i18n: Translation: Update zh-TW strings * Improve
+        translate. * Sync layout with English strings ts file."
+      hash: b51418814f5ef48d09e3157c92bda5eab173dbd5
+      body: ""
+      footer:
+        Signed-off-by: Edward Wu <bluehome.wu@gmail.com>
+        signed-off-by: Edward Wu <bluehome.wu@gmail.com>
+      author: Edward Wu
+      nested: []
+  version: 1.15.6
+  title: ""
+  date: 2023-02-13T11:23:13.079Z
+- commits:
     - subject: revert auto-update feature
       hash: e6d33eda2b8f767679a43f8056e20098b0f2f6d9
       body: ""
