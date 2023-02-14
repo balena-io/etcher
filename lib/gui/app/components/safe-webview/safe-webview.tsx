@@ -187,8 +187,6 @@ export class SafeWebview extends React.PureComponent<
 			const { webContents, ...webviewEvent } = event;
 			analytics.logEvent('SafeWebview loaded', {
 				...webviewEvent,
-				screen_height: webContents?.hostWebContents.browserWindowOptions.height,
-				screen_width: webContents?.hostWebContents.browserWindowOptions.width,
 			});
 			this.setState({
 				shouldShow: event.statusCode === HTTP_OK,

@@ -3,7 +3,11 @@ const { app } = require('electron');
 
 if (app !== undefined) {
 	// tslint:disable-next-line:no-var-requires
-	require('@electron/remote/main').initialize();
+	const remoteMain = require('@electron/remote/main');
 
-	app.allowRendererProcessReuse = false;
+	remoteMain.initialize();
+
+	app.on('browser-window-created', (_event, window) =>
+		remoteMain.enable(window.webContents),
+	);
 }
