@@ -16,7 +16,7 @@
     "build": "npm run webpack",
     "flowzone-preinstall-linux": "sudo apt-get install -y xvfb libudev-dev && cat < electron-builder.yml | yq e .deb.depends[] - | xargs -L1 echo | sed 's/|//g' | xargs -L1 sudo apt-get --ignore-missing install || true",
     "flowzone-preinstall-macos": "true",
-    "flowzone-preinstall-windows": "true",
+    "flowzone-preinstall-windows": "npx node-gyp install",
     "flowzone-preinstall": "npm run flowzone-preinstall-linux",
     "lint-css": "prettier --write lib/**/*.css",
     "lint-ts": "balena-lint --fix --typescript typings lib tests scripts/clean-shrinkwrap.ts webpack.config.ts",
