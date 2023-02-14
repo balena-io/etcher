@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update to Electron 17 and Node 16
+      hash: 3c1dd6ce29ddf43ef35e58236d25713fa2026c10
+      body: |
+        This is the latest Electron version officially supported by Spectron.
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Akis Kesoglou
+      nested: []
+  version: 1.17.0
+  title: ""
+  date: 2023-02-14T16:18:54.834Z
+- commits:
     - subject: Update to Electron 14
       hash: df7854111a901b620e3284edf10768d308ce7755
       body: ""
