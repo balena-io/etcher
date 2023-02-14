@@ -143,7 +143,7 @@ Use the following steps to ensure everything goes flawlessly:
   dependencies because you come from another branch or reference.
 
 - Install the new version of the dependency. For example: `npm install --save
-  <package>@<version>`. This will update the `npm-shrinkwrap.json` file.
+  [package]@[version]`. This will update the `npm-shrinkwrap.json` file.
 
 - Commit *both* `package.json` and `npm-shrinkwrap.json`.
 
