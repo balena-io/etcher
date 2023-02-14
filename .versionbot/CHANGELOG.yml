@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update to Electron 14
+      hash: df7854111a901b620e3284edf10768d308ce7755
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Akis Kesoglou
+      nested: []
+  version: 1.16.0
+  title: ""
+  date: 2023-02-14T12:40:40.820Z
+- commits:
     - subject: "patch: app: i18n: Translation: Update zh-TW strings * Improve
         translate. * Sync layout with English strings ts file."
       hash: b51418814f5ef48d09e3157c92bda5eab173dbd5
