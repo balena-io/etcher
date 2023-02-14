@@ -76,7 +76,7 @@
     "css-loader": "5.2.7",
     "d3": "4.13.0",
     "debug": "4.3.4",
-    "electron": "^17.4.11",
+    "electron": "^19.1.9",
     "electron-builder": "^23.6.0",
     "electron-mocha": "^11.0.2",
     "electron-notarize": "1.2.2",
