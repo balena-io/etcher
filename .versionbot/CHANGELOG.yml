@@ -1,4 +1,28 @@
 - commits:
+    - subject: Update to Electron 19
+      hash: c11db0a2797a6b1093dd3fa6f55bee5f100c6da4
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Akis Kesoglou
+      nested: []
+    - subject: Remove Spectron and related (low-value) tests
+      hash: 6f7570d265e4b457afe832d00e5f45e0bf5a8a53
+      body: >
+        Spectron is long deprecated and abandoned and the browser tests are so
+        rudimentary that it’s no longer worth having them around. We will
+        introduce a proper browser-based test suite in the short term — it’s a
+        project in progress.
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Akis Kesoglou
+      nested: []
+  version: 1.18.0
+  title: ""
+  date: 2023-02-14T18:07:05.870Z
+- commits:
     - subject: Update to Electron 17 and Node 16
       hash: 3c1dd6ce29ddf43ef35e58236d25713fa2026c10
       body: |

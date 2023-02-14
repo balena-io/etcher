@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.18.0
+## (2023-02-14)
+
+* Update to Electron 19 [Akis Kesoglou]
+* Remove Spectron and related (low-value) tests [Akis Kesoglou]
+
 # v1.17.0
 ## (2023-02-14)
 
