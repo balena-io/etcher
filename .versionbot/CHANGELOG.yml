@@ -1,4 +1,14 @@
 - commits:
+    - subject: "patch: use @electron/remote for locating rpiboot files"
+      hash: 04fa3dcd8c619dce927221cef5799b5210354d2e
+      body: ""
+      footer: {}
+      author: mcraa
+      nested: []
+  version: 1.18.1
+  title: ""
+  date: 2023-02-15T14:54:45.951Z
+- commits:
     - subject: Update to Electron 19
       hash: c11db0a2797a6b1093dd3fa6f55bee5f100c6da4
       body: ""

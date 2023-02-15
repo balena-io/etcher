@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.18.1
+## (2023-02-15)
+
+* patch: use @electron/remote for locating rpiboot files [mcraa]
+
 # v1.18.0
 ## (2023-02-14)
 
