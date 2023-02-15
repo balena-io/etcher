@@ -276,6 +276,26 @@ const commonConfig = {
 				`,
 				replace: "require('./build/Release/Generator.node')",
 			}),
+			replace(/node_modules\/node-raspberrypi-usbboot\/build\/index\.js$/, {
+				search:
+					"return await readFile(Path.join(__dirname, '..', 'blobs', filename));",
+				replace: outdent`
+					const remote = require('@electron/remote');
+					return await readFile(
+						Path.join(
+							// With macOS universal builds, getAppPath() returns the path to an app.asar file containing an index.js file which will
+							// include the app-x64 or app-arm64 folder depending on the arch.
+							// We don't care about the app.asar file, we want the actual folder.
+							remote.app.getAppPath().replace(/\\.asar$/, () => process.platform === 'darwin' ? '-' + process.arch : ''),
+							'generated',
+							__dirname.replace('node_modules', 'modules'),
+							'..',
+							'blobs',
+							filename
+						)
+					);
+				`,
+			}),
 			// Copy native modules to generated folder
 			{
 				test: /\.node$/,
