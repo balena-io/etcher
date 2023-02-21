@@ -27,3 +27,4 @@ jobs:
       repo_description: "Flash OS images to SD cards & USB drives, safely and easily."
       repo_homepage: https://etcher.io/
       repo_enable_wiki: true
+      cloudflare_website: "etcher"

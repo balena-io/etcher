@@ -53,9 +53,10 @@ confidence.
 2. Update and install:
 
    ```sh
-   sudo apt-get update
+   sudo apt-get update #you can use apt instead of apt-get as well
    sudo apt-get install balena-etcher-electron
    ```
+   >Note: after v1.7.9 the package name changed to `balena-etcher` (no electron at the end)
 
 ##### Uninstall
 
@@ -87,6 +88,7 @@ apt-get update
    ```sh
    sudo dnf install -y balena-etcher-electron
    ```
+   >Note: after v1.7.9 the package name changed to `balena-etcher` (no electron at the end)
 
 ###### Uninstall
 
@@ -110,6 +112,7 @@ rm /etc/yum.repos.d/balena-etcher-source.repo
    ```sh
    sudo yum install -y balena-etcher-electron
    ```
+   >Note: after v1.7.9 the package name changed to `balena-etcher` (no electron at the end)
 
 ###### Uninstall
 
@@ -134,6 +137,7 @@ rm /etc/yum.repos.d/balena-etcher-source.repo
    sudo zypper up
    sudo zypper install balena-etcher-electron
    ```
+   >Note: after v1.7.9 the package name changed to `balena-etcher` (no electron at the end)
 
 ##### Uninstall
 
@@ -168,6 +172,19 @@ yay -S balena-etcher
 
 ```sh
 yay -R balena-etcher
+```
+#### WinGet (Windows)
+
+This package is updated by [gh-action](https://github.com/vedantmgoyal2009/winget-releaser), and is kept up to date automatically.
+
+```sh
+winget install balenaEtcher #or Balena.Etcher
+```
+
+##### Uninstall
+
+```sh
+winget uninstall balenaEtcher
 ```
 
 #### Chocolatey (Windows)
