@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.18.2
+## (2023-02-21)
+
+* patch: organize docs [mcraa]
+* patch: actualized develop guide [mcraa]
+* patch: updated commit message guide [mcraa]
+* add-item-from-FAQs [Lizzie Epton]
+* patch: removed gt characters from contributing guide [mcraa]
+* patch: added docosaurus site name [mcraa]
+
 # v1.18.1
 ## (2023-02-15)
 
