@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.18.3
+## (2023-02-22)
+
+* fix-typo [Lizzie Epton]
+* edits-to-info-about-efp [Lizzie Epton]
+* Add reference to etcher-efp in publishing.md [Edwin Joassart]
+
 # v1.18.2
 ## (2023-02-21)
 

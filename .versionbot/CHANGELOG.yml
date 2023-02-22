@@ -1,4 +1,33 @@
 - commits:
+    - subject: fix-typo
+      hash: 496f131c4b024dfcd17fde5173016f70c0d0599c
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Lizzie Epton
+      nested: []
+    - subject: edits-to-info-about-efp
+      hash: f582b0215c2cf66acf652afdaa47353e1a7eac07
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Lizzie Epton
+      nested: []
+    - subject: Add reference to etcher-efp in publishing.md
+      hash: 4c3c4babea5efdadbed7ba0df85f08b68a7b6f20
+      body: |
+        Add reference to etcher-efp in publishing.md
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Edwin Joassart
+      nested: []
+  version: 1.18.3
+  title: ""
+  date: 2023-02-22T12:12:40.270Z
+- commits:
     - subject: "patch: organize docs"
       hash: e479b95d72bed6a50ae6a971598a18d8a7562f0d
       body: ""
