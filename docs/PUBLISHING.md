@@ -76,4 +76,4 @@ of Etcher, and including the relevant section of the Changelog.
 
 Updating EFP / Success-Banner
 -----------------------------
-Etcher Featured Project is automatically run based on an algorithm which promoted proejcts from the balena marketplace which have been contributed by the community, the algorithm prioritises projects which give uses the best experience. Editing both EFP and the Etcher Success-Banner can only be done by someone from balena, instruction are on the [Etcher-EFP repo (private)](https://github.com/balena-io/etcher-efp)
+Etcher Featured Project is automatically run based on an algorithm which promoted projects from the balena marketplace which have been contributed by the community, the algorithm prioritises projects which give uses the best experience. Editing both EFP and the Etcher Success-Banner can only be done by someone from balena, instruction are on the [Etcher-EFP repo (private)](https://github.com/balena-io/etcher-efp)
