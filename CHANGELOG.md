@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.18.4
+## (2023-03-02)
+
+* patch: bump etcher-sdk to 8.3.1 [JOASSART Edwin]
+
 # v1.18.3
 ## (2023-02-22)
 

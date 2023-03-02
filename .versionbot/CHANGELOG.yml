@@ -1,4 +1,14 @@
 - commits:
+    - subject: "patch: bump etcher-sdk to 8.3.1"
+      hash: bf0360e7f46ac620f95021e0c48a3a04d302e725
+      body: ""
+      footer: {}
+      author: JOASSART Edwin
+      nested: []
+  version: 1.18.4
+  title: ""
+  date: 2023-03-02T17:31:31.788Z
+- commits:
     - subject: fix-typo
       hash: 496f131c4b024dfcd17fde5173016f70c0d0599c
       body: ""
