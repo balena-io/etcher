@@ -3,6 +3,11 @@ Etcher User Documentation
 
 This document contains how-tos and FAQs oriented to Etcher users.
 
+Config
+------
+Etcher's configuration is saved to the `config.json` file in the apps folder.
+Not all the options are surfaced to the UI. You may edit this file to tweak settings even before launching the app.
+
 Why is my drive not bootable?
 -----------------------------
 
@@ -218,3 +223,5 @@ macOS 10.10 (Yosemite) and newer versions][electron-supported-platforms].
 [unetbootin]: https://unetbootin.github.io
 [windows-iot-dashboard]: https://developer.microsoft.com/en-us/windows/iot/downloads
 [woeusb]: https://github.com/slacka/WoeUSB
+
+See [PUBLISHING](/docs/PUBLISHING.md) for more details about release types.

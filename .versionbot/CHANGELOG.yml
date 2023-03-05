@@ -1,4 +1,85 @@
 - commits:
+    - subject: "patch: bump etcher-sdk to 8.3.1"
+      hash: bf0360e7f46ac620f95021e0c48a3a04d302e725
+      body: ""
+      footer: {}
+      author: JOASSART Edwin
+      nested: []
+  version: 1.18.4
+  title: ""
+  date: 2023-03-02T17:31:31.788Z
+- commits:
+    - subject: fix-typo
+      hash: 496f131c4b024dfcd17fde5173016f70c0d0599c
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Lizzie Epton
+      nested: []
+    - subject: edits-to-info-about-efp
+      hash: f582b0215c2cf66acf652afdaa47353e1a7eac07
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Lizzie Epton
+      nested: []
+    - subject: Add reference to etcher-efp in publishing.md
+      hash: 4c3c4babea5efdadbed7ba0df85f08b68a7b6f20
+      body: |
+        Add reference to etcher-efp in publishing.md
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Edwin Joassart
+      nested: []
+  version: 1.18.3
+  title: ""
+  date: 2023-02-22T12:12:40.270Z
+- commits:
+    - subject: "patch: organize docs"
+      hash: e479b95d72bed6a50ae6a971598a18d8a7562f0d
+      body: ""
+      footer: {}
+      author: mcraa
+      nested: []
+    - subject: "patch: actualized develop guide"
+      hash: 926ff2b7549d8b187b18ee452ce48c62f6cd3531
+      body: ""
+      footer: {}
+      author: mcraa
+      nested: []
+    - subject: "patch: updated commit message guide"
+      hash: 394b64319de11b1010b8acfe160de13a6f3851cd
+      body: ""
+      footer: {}
+      author: mcraa
+      nested: []
+    - subject: add-item-from-FAQs
+      hash: 96fa53b6ee4ec7a29522df488b927074c0f301ca
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Lizzie Epton
+      nested: []
+    - subject: "patch: removed gt characters from contributing guide"
+      hash: 9b54e2af0b9356bb73e197cccbcc2ff89673361f
+      body: ""
+      footer: {}
+      author: mcraa
+      nested: []
+    - subject: "patch: added docosaurus site name"
+      hash: b01cf3c2e1c3a7a234c8b957bd570ecdca81e0c1
+      body: ""
+      footer: {}
+      author: mcraa
+      nested: []
+  version: 1.18.2
+  title: ""
+  date: 2023-02-21T13:17:09.606Z
+- commits:
     - subject: "patch: use @electron/remote for locating rpiboot files"
       hash: 04fa3dcd8c619dce927221cef5799b5210354d2e
       body: ""
