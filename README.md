@@ -61,7 +61,7 @@ confidence.
 ##### Uninstall
 
 ```sh
-sudo apt remove balena-etcher-electron
+sudo apt remove balena-etcher-electron balena-etcher # This will remove the old version and the new one, after v1.7.9 the package name changed to 'balena-etcher'
 sudo rm /etc/apt/sources.list.d/balena-etcher.list
 sudo apt update
 sudo apt autoremove
@@ -85,13 +85,14 @@ sudo apt autoremove
 2. Update and install:
 
    ```sh
-   sudo dnf install -y balena-etcher-electron
+   sudo dnf install -y balena-etcher
    ```
    >Note: after v1.7.9 the package name changed to `balena-etcher` (no electron at the end)
 
 ###### Uninstall
 
 ```sh
+sudo dnf remove -y balena-etcher-electron balena-etcher # This will remove the old version and the new one, after v1.7.9 the package name changed to 'balena-etcher'
 rm /etc/yum.repos.d/balena-etcher.repo
 rm /etc/yum.repos.d/balena-etcher-source.repo
 ```
@@ -109,14 +110,14 @@ rm /etc/yum.repos.d/balena-etcher-source.repo
 2. Update and install:
 
    ```sh
-   sudo yum install -y balena-etcher-electron
+   sudo yum install -y balena-etcher
    ```
    >Note: after v1.7.9 the package name changed to `balena-etcher` (no electron at the end)
 
 ###### Uninstall
 
 ```sh
-sudo yum remove -y balena-etcher-electron
+sudo yum remove -y balena-etcher-electron balena-etcher # This will remove the old version and the new one, after v1.7.9 the package name changed to 'balena-etcher'
 rm /etc/yum.repos.d/balena-etcher.repo
 rm /etc/yum.repos.d/balena-etcher-source.repo
 ```
@@ -134,14 +135,14 @@ rm /etc/yum.repos.d/balena-etcher-source.repo
 
    ```sh
    sudo zypper up
-   sudo zypper install balena-etcher-electron
+   sudo zypper install balena-etcher
    ```
    >Note: after v1.7.9 the package name changed to `balena-etcher` (no electron at the end)
 
 ##### Uninstall
 
 ```sh
-sudo zypper rm balena-etcher-electron
+sudo zypper rm balena-etcher-electron balena-etcher # This will remove the old version and the new one, after v1.7.9 the package name changed to 'balena-etcher'
 # remove the repo
 sudo zypper rr balena-etcher
 sudo zypper rr balena-etcher-source
