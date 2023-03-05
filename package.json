@@ -2,7 +2,7 @@
   "name": "balena-etcher",
   "private": true,
   "displayName": "balenaEtcher",
-  "version": "1.18.4",
+  "version": "1.18.5",
   "packageType": "local",
   "main": "generated/etcher.js",
   "description": "Flash OS images to SD cards and USB drives, safely and easily.",
@@ -14,7 +14,7 @@
   },
   "scripts": {
     "build": "npm run webpack",
-    "flowzone-preinstall-linux": "sudo apt-get install -y xvfb libudev-dev && cat < electron-builder.yml | yq e .deb.depends[] - | xargs -L1 echo | sed 's/|//g' | xargs -L1 sudo apt-get --ignore-missing install || true",
+    "flowzone-preinstall-linux": "sudo apt-get update && sudo apt-get install -y xvfb libudev-dev && cat < electron-builder.yml | yq e .deb.depends[] - | xargs -L1 echo | sed 's/|//g' | xargs -L1 sudo apt-get --ignore-missing install || true",
     "flowzone-preinstall-macos": "true",
     "flowzone-preinstall-windows": "npx node-gyp install",
     "flowzone-preinstall": "npm run flowzone-preinstall-linux",
@@ -126,6 +126,6 @@
     "node": ">=16"
   },
   "versionist": {
-    "publishedAt": "2023-03-02T17:31:32.681Z"
+    "publishedAt": "2023-03-09T11:30:35.322Z"
   }
 }
