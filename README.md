@@ -54,14 +54,14 @@ confidence.
 
    ```sh
    sudo apt-get update #you can use apt instead of apt-get as well
-   sudo apt-get install balena-etcher-electron
+   sudo apt-get install balena-etcher
    ```
-   >Note: after v1.7.9 the package name changed to `balena-etcher` (no electron at the end)
+   >Note: for version v1.7.9 and below the package name was to `balena-etcher-electron`
 
 ##### Uninstall
 
 ```sh
-sudo apt-get remove balena-etcher-electron
+sudo apt-get remove balena-etcher
 rm /etc/apt/sources.list.d/balena-etcher.list
 apt-get clean
 rm -rf /var/lib/apt/lists/*
@@ -86,9 +86,9 @@ apt-get update
 2. Update and install:
 
    ```sh
-   sudo dnf install -y balena-etcher-electron
+   sudo dnf install -y balena-etcher
    ```
-   >Note: after v1.7.9 the package name changed to `balena-etcher` (no electron at the end)
+   >Note: for v1.7.9 and below the package name was `balena-etcher-electron`
 
 ###### Uninstall
 
@@ -110,14 +110,14 @@ rm /etc/yum.repos.d/balena-etcher-source.repo
 2. Update and install:
 
    ```sh
-   sudo yum install -y balena-etcher-electron
+   sudo yum install -y balena-etcher
    ```
-   >Note: after v1.7.9 the package name changed to `balena-etcher` (no electron at the end)
+   >Note: for version v1.7.9 and below the package name was `balena-etcher-electron`
 
 ###### Uninstall
 
 ```sh
-sudo yum remove -y balena-etcher-electron
+sudo yum remove -y balena-etcher
 rm /etc/yum.repos.d/balena-etcher.repo
 rm /etc/yum.repos.d/balena-etcher-source.repo
 ```
@@ -135,14 +135,14 @@ rm /etc/yum.repos.d/balena-etcher-source.repo
 
    ```sh
    sudo zypper up
-   sudo zypper install balena-etcher-electron
+   sudo zypper install balena-etcher
    ```
-   >Note: after v1.7.9 the package name changed to `balena-etcher` (no electron at the end)
+   >Note: for version v1.7.9 and below the package name was `balena-etcher-electron`
 
 ##### Uninstall
 
 ```sh
-sudo zypper rm balena-etcher-electron
+sudo zypper rm balena-etcher
 # remove the repo
 sudo zypper rr balena-etcher
 sudo zypper rr balena-etcher-source
