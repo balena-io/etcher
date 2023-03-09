@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.18.5
+## (2023-03-09)
+
+* patch: add apt-get update in flowzone preinstall [Edwin Joassart]
+
 # v1.18.4
 ## (2023-03-02)
 
