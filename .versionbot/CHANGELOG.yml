@@ -1,4 +1,15 @@
 - commits:
+    - subject: "patch: add apt-get update in flowzone preinstall"
+      hash: 0d9ac710880e6b9413b09e4c35a505034d1e9d51
+      body: libudev package has changed and cannot be installed if we not update apt
+        cache
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.18.5
+  title: ""
+  date: 2023-03-09T11:30:34.540Z
+- commits:
     - subject: "patch: bump etcher-sdk to 8.3.1"
       hash: bf0360e7f46ac620f95021e0c48a3a04d302e725
       body: ""
