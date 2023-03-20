@@ -15,24 +15,33 @@
  */
 
 import * as electron from 'electron';
+import * as remoteMain from '@electron/remote/main';
 import { autoUpdater } from 'electron-updater';
 import { promises as fs } from 'fs';
 import { platform } from 'os';
 import * as path from 'path';
 import * as semver from 'semver';
+import * as _ from 'lodash';
+
+import './app/i18n';
 
 import { packageType, version } from '../../package.json';
 import * as EXIT_CODES from '../shared/exit-codes';
-import { delay, getConfig } from '../shared/utils';
 import * as settings from './app/models/settings';
-import { logException } from './app/modules/analytics';
 import { buildWindowMenu } from './menu';
+import * as i18n from 'i18next';
+import * as SentryMain from '@sentry/electron/main';
+import * as packageJSON from '../../package.json';
+import { anonymizeSentryData } from './app/modules/analytics';
 
 const customProtocol = 'etcher';
 const scheme = `${customProtocol}://`;
 const updatablePackageTypes = ['appimage', 'nsis', 'dmg'];
 const packageUpdatable = updatablePackageTypes.includes(packageType);
 let packageUpdated = false;
+let mainWindow: any = null;
+
+remoteMain.initialize();
 
 async function checkForUpdates(interval: number) {
 	// We use a while loop instead of a setInterval to preserve
@@ -42,17 +51,25 @@ async function checkForUpdates(interval: number) {
 			try {
 				const release = await autoUpdater.checkForUpdates();
 				const isOutdated =
-					semver.compare(release.updateInfo.version, version) > 0;
-				const shouldUpdate = release.updateInfo.stagingPercentage !== 0; // undefinded (default) means 100%
+					semver.compare(release!.updateInfo.version, version) > 0;
+				const shouldUpdate = release!.updateInfo.stagingPercentage !== 0; // undefinded (default) means 100%
 				if (shouldUpdate && isOutdated) {
 					await autoUpdater.downloadUpdate();
 					packageUpdated = true;
 				}
 			} catch (err) {
-				logException(err);
+				logMainProcessException(err);
 			}
 		}
 		await delay(interval);
+	}
+}
+
+function logMainProcessException(error: any) {
+	const shouldReportErrors = settings.getSync('errorReporting');
+	console.error(error);
+	if (shouldReportErrors) {
+		SentryMain.captureException(error);
 	}
 }
 
@@ -89,6 +106,14 @@ async function getCommandLineURL(argv: string[]): Promise<string | undefined> {
 		return value;
 	}
 }
+
+const initSentryMain = _.once(() => {
+	const dsn =
+		settings.getSync('analyticsSentryToken') ||
+		_.get(packageJSON, ['analytics', 'sentry', 'token']);
+
+	SentryMain.init({ dsn, beforeSend: anonymizeSentryData });
+});
 
 const sourceSelectorReady = new Promise((resolve) => {
 	electron.ipcMain.on('source-selector-ready', resolve);
@@ -130,7 +155,7 @@ async function createMainWindow() {
 	if (fullscreen) {
 		({ width, height } = electron.screen.getPrimaryDisplay().bounds);
 	}
-	const mainWindow = new electron.BrowserWindow({
+	mainWindow = new electron.BrowserWindow({
 		width,
 		height,
 		frame: !fullscreen,
@@ -151,13 +176,11 @@ async function createMainWindow() {
 			contextIsolation: false,
 			webviewTag: true,
 			zoomFactor: width / defaultWidth,
-			enableRemoteModule: true,
 		},
 	});
 
 	electron.app.setAsDefaultProtocolClient(customProtocol);
 
-	buildWindowMenu(mainWindow);
 	mainWindow.setFullScreen(true);
 
 	// Prevent flash of white when starting the application
@@ -185,34 +208,26 @@ async function createMainWindow() {
 	);
 
 	const page = mainWindow.webContents;
+	remoteMain.enable(page);
 
 	page.once('did-frame-finish-load', async () => {
+		console.log('packageUpdatable', packageUpdatable);
 		autoUpdater.on('error', (err) => {
-			logException(err);
+			logMainProcessException(err);
 		});
 		if (packageUpdatable) {
 			try {
-				const configUrl = await settings.get('configUrl');
-				const onlineConfig = await getConfig(configUrl);
-				const autoUpdaterConfig: AutoUpdaterConfig = onlineConfig?.autoUpdates
-					?.autoUpdaterConfig ?? {
-					autoDownload: false,
-				};
-				for (const [key, value] of Object.entries(autoUpdaterConfig)) {
-					autoUpdater[key as keyof AutoUpdaterConfig] = value;
-				}
-				const checkForUpdatesTimer =
-					onlineConfig?.autoUpdates?.checkForUpdatesTimer ?? 300000;
+				const checkForUpdatesTimer = 300000;
 				checkForUpdates(checkForUpdatesTimer);
 			} catch (err) {
-				logException(err);
+				logMainProcessException(err);
 			}
 		}
 	});
+
 	return mainWindow;
 }
 
-electron.app.allowRendererProcessReuse = false;
 electron.app.on('window-all-closed', electron.app.quit);
 
 // Sending a `SIGINT` (e.g: Ctrl-C) to an Electron app that registers
@@ -230,6 +245,7 @@ async function main(): Promise<void> {
 	if (!electron.app.requestSingleInstanceLock()) {
 		electron.app.quit();
 	} else {
+		initSentryMain();
 		await electron.app.whenReady();
 		const window = await createMainWindow();
 		electron.app.on('second-instance', async (_event, argv) => {
@@ -240,9 +256,19 @@ async function main(): Promise<void> {
 			await selectImageURL(await getCommandLineURL(argv));
 		});
 		await selectImageURL(await getCommandLineURL(process.argv));
+
+		electron.ipcMain.on('change-lng', function (event, args) {
+			i18n.changeLanguage(args, () => {
+				console.log('Language changed to: ' + args);
+			});
+			if (mainWindow != null) {
+				buildWindowMenu(mainWindow);
+			} else {
+				console.log('Build menu failed. ');
+			}
+		});
 	}
 }
-
 main();
 
 console.time('ready-to-show');

@@ -23,13 +23,17 @@ import * as path from 'path';
 import { env } from 'process';
 import * as SimpleProgressWebpackPlugin from 'simple-progress-webpack-plugin';
 import * as TerserPlugin from 'terser-webpack-plugin';
-import { BannerPlugin, NormalModuleReplacementPlugin } from 'webpack';
+import {
+	BannerPlugin,
+	IgnorePlugin,
+	NormalModuleReplacementPlugin,
+} from 'webpack';
 import * as PnpWebpackPlugin from 'pnp-webpack-plugin';
 
 import * as tsconfigRaw from './tsconfig.webpack.json';
 
 /**
- * Don't webpack package.json as mixpanel & sentry tokens
+ * Don't webpack package.json as sentry tokens
  * will be inserted in it after webpacking
  */
 function externalPackageJson(packageJsonPath: string) {
@@ -77,11 +81,60 @@ function renameNodeModules(resourcePath: string) {
 	);
 }
 
+function findUsbPrebuild(): string[] {
+	const usbPrebuildsFolder = path.join('node_modules', 'usb', 'prebuilds');
+	const prebuildFolders = readdirSync(usbPrebuildsFolder);
+	let bindingFile: string | undefined = 'node.napi.node';
+	const platformFolder = prebuildFolders.find(
+		(f) => f.startsWith(os.platform()) && f.indexOf(os.arch()) > -1,
+	);
+	if (platformFolder === undefined) {
+		throw new Error(
+			'Could not find usb prebuild. Should try fallback to node-gyp and use /build/Release instead of /prebuilds',
+		);
+	}
+
+	const bindingFiles = readdirSync(
+		path.join(usbPrebuildsFolder, platformFolder),
+	);
+
+	if (!bindingFiles.length) {
+		throw new Error('Could not find usb prebuild for platform');
+	}
+
+	if (bindingFiles.length === 1) {
+		bindingFile = bindingFiles[0];
+	}
+
+	// armv6 vs v7 in linux-arm and
+	// glibc vs musl in linux-x64
+	if (bindingFiles.length > 1) {
+		bindingFile = bindingFiles.find((file) => {
+			if (bindingFiles.indexOf('arm') > -1) {
+				const process = require('process');
+				return file.indexOf(process.config.variables.arm_version) > -1;
+			} else {
+				return file.indexOf('glibc') > -1;
+			}
+		});
+	}
+
+	if (bindingFile === undefined) {
+		throw new Error('Could not find usb prebuild for platform');
+	}
+
+	return [platformFolder, bindingFile];
+}
+
+const [USB_BINDINGS_FOLDER, USB_BINDINGS_FILE] = findUsbPrebuild();
+
 function findLzmaNativeBindingsFolder(): string {
-	const files = readdirSync(path.join('node_modules', 'lzma-native'));
+	const files = readdirSync(
+		path.join('node_modules', 'lzma-native', 'prebuilds'),
+	);
 	const bindingsFolder = files.find(
 		(f) =>
-			f.startsWith('binding-') &&
+			f.startsWith(os.platform()) &&
 			f.endsWith(env.npm_config_target_arch || os.arch()),
 	);
 	if (bindingsFolder === undefined) {
@@ -109,31 +162,6 @@ function replace(test: RegExp, ...replacements: ReplacementRule[]) {
 		test: slashOrAntislash(test),
 		options: { multiple: replacements.map((r) => ({ ...r, strict: true })) },
 	};
-}
-
-function fetchWasm(...where: string[]) {
-	const whereStr = where.map((x) => `'${x}'`).join(', ');
-	return outdent`
-		const Path = require('path');
-		let electron;
-		try {
-			// This doesn't exist in the child-writer
-			electron = require('electron');
-		} catch {
-		}
-		function appPath() {
-			return Path.isAbsolute(__dirname) ?
-				__dirname :
-				Path.join(
-					// With macOS universal builds, getAppPath() returns the path to an app.asar file containing an index.js file which will
-					// include the app-x64 or app-arm64 folder depending on the arch.
-					// We don't care about the app.asar file, we want the actual folder.
-					electron.remote.app.getAppPath().replace(/\\.asar$/, () => process.platform === 'darwin' ? '-' + process.arch : ''),
-					'generated'
-				);
-		}
-		scriptDirectory = Path.join(appPath(), 'modules', ${whereStr}, '/');
-	`;
 }
 
 const commonConfig = {
@@ -210,8 +238,8 @@ const commonConfig = {
 				/node_modules\/lzma-native\/index\.js$/,
 				// remove node-pre-gyp magic from lzma-native
 				{
-					search: 'require(binding_path)',
-					replace: `require('./${LZMA_BINDINGS_FOLDER}/lzma_native.node')`,
+					search: `require('node-gyp-build')(__dirname);`,
+					replace: `require('./prebuilds/${LZMA_BINDINGS_FOLDER}/electron.napi.node')`,
 				},
 				// use regular stream module instead of readable-stream
 				{
@@ -220,9 +248,9 @@ const commonConfig = {
 				},
 			),
 			// remove node-pre-gyp magic from usb
-			replace(/node_modules\/@balena.io\/usb\/usb\.js$/, {
-				search: 'require(binding_path)',
-				replace: "require('./build/Release/usb_bindings.node')",
+			replace(/node_modules\/usb\/dist\/usb\/bindings\.js$/, {
+				search: `require('node-gyp-build')(path_1.join(__dirname, '..', '..'));`,
+				replace: `require('../../prebuilds/${USB_BINDINGS_FOLDER}/${USB_BINDINGS_FILE}')`,
 			}),
 			// remove bindings magic from mountutils
 			replace(/node_modules\/mountutils\/index\.js$/, {
@@ -248,19 +276,17 @@ const commonConfig = {
 				`,
 				replace: "require('./build/Release/Generator.node')",
 			}),
-			// Use the copy of blobs in the generated folder and rename node_modules -> modules
-			// See the renameNodeModules function above
 			replace(/node_modules\/node-raspberrypi-usbboot\/build\/index\.js$/, {
 				search:
 					"return await readFile(Path.join(__dirname, '..', 'blobs', filename));",
 				replace: outdent`
-					const { app, remote } = require('electron');
+					const remote = require('@electron/remote');
 					return await readFile(
 						Path.join(
 							// With macOS universal builds, getAppPath() returns the path to an app.asar file containing an index.js file which will
 							// include the app-x64 or app-arm64 folder depending on the arch.
 							// We don't care about the app.asar file, we want the actual folder.
-							(app || remote.app).getAppPath().replace(/\\.asar$/, () => process.platform === 'darwin' ? '-' + process.arch : ''),
+							remote.app.getAppPath().replace(/\\.asar$/, () => process.platform === 'darwin' ? '-' + process.arch : ''),
 							'generated',
 							__dirname.replace('node_modules', 'modules'),
 							'..',
@@ -269,18 +295,6 @@ const commonConfig = {
 						)
 					);
 				`,
-			}),
-			// Use the libext2fs.wasm file in the generated folder
-			// The way to find the app directory depends on whether we run in the renderer or in the child-writer
-			// We use __dirname in the child-writer and electron.remote.app.getAppPath() in the renderer
-			replace(/node_modules\/ext2fs\/lib\/libext2fs\.js$/, {
-				search: 'scriptDirectory=__dirname+"/"',
-				replace: fetchWasm('ext2fs', 'lib'),
-			}),
-			// Same for node-crc-utils
-			replace(/node_modules\/@balena\/node-crc-utils\/crc32\.js$/, {
-				search: 'scriptDirectory=__dirname+"/"',
-				replace: fetchWasm('@balena', 'node-crc-utils'),
 			}),
 			// Copy native modules to generated folder
 			{
@@ -308,6 +322,14 @@ const commonConfig = {
 			slashOrAntislash(/node_modules\/axios\/lib\/adapters\/xhr\.js/),
 			'./http.js',
 		),
+		// Ignore `aws-crt` which is a dependency of (ultimately) `aws4-axios` which is used
+		// by etcher-sdk and does a runtime check to its availability. We’re not currently
+		// using the “assume role” functionality (AFAIU) of aws4-axios and we don’t care that
+		// it’s not found, so force webpack to ignore the import.
+		// See https://github.com/aws/aws-sdk-js-v3/issues/3025
+		new IgnorePlugin({
+			resourceRegExp: /^aws-crt$/,
+		}),
 	],
 	resolveLoader: {
 		plugins: [PnpWebpackPlugin.moduleLoader(module)],
@@ -335,21 +357,13 @@ const guiConfigCopyPatterns = [
 		from: 'node_modules/node-raspberrypi-usbboot/blobs',
 		to: 'modules/node-raspberrypi-usbboot/blobs',
 	},
-	{
-		from: 'node_modules/ext2fs/lib/libext2fs.wasm',
-		to: 'modules/ext2fs/lib/libext2fs.wasm',
-	},
-	{
-		from: 'node_modules/@balena/node-crc-utils/crc32.wasm',
-		to: 'modules/@balena/node-crc-utils/crc32.wasm',
-	},
 ];
 
 if (os.platform() === 'win32') {
 	// liblzma.dll is required on Windows for lzma-native
 	guiConfigCopyPatterns.push({
-		from: `node_modules/lzma-native/${LZMA_BINDINGS_FOLDER}/liblzma.dll`,
-		to: `modules/lzma-native/${LZMA_BINDINGS_FOLDER_RENAMED}/liblzma.dll`,
+		from: `node_modules/lzma-native/prebuilds/${LZMA_BINDINGS_FOLDER}/liblzma.dll`,
+		to: `modules/lzma-native/prebuilds/${LZMA_BINDINGS_FOLDER_RENAMED}/liblzma.dll`,
 	});
 }
 

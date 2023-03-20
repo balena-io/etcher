@@ -17,16 +17,16 @@
 import { Dictionary } from 'lodash';
 import { outdent } from 'outdent';
 import * as prettyBytes from 'pretty-bytes';
+import '../gui/app/i18n';
+import * as i18next from 'i18next';
 
 export const progress: Dictionary<(quantity: number) => string> = {
 	successful: (quantity: number) => {
-		const plural = quantity === 1 ? '' : 's';
-		return `Successful target${plural}`;
+		return i18next.t('message.flashSucceed', { count: quantity });
 	},
 
 	failed: (quantity: number) => {
-		const plural = quantity === 1 ? '' : 's';
-		return `Failed target${plural}`;
+		return i18next.t('message.flashFail', { count: quantity });
 	},
 };
 
@@ -38,129 +38,121 @@ export const info = {
 	) => {
 		const targets = [];
 		if (failed + successful === 1) {
-			targets.push(`to ${drive.description} (${drive.displayName})`);
+			targets.push(
+				i18next.t('message.toDrive', {
+					description: drive.description,
+					name: drive.displayName,
+				}),
+			);
 		} else {
 			if (successful) {
-				const plural = successful === 1 ? '' : 's';
-				targets.push(`to ${successful} target${plural}`);
+				targets.push(
+					i18next.t('message.toTarget', {
+						count: successful,
+						num: successful,
+					}),
+				);
 			}
 			if (failed) {
-				const plural = failed === 1 ? '' : 's';
-				targets.push(`and failed to be flashed to ${failed} target${plural}`);
+				targets.push(
+					i18next.t('message.andFailTarget', { count: failed, num: failed }),
+				);
 			}
 		}
-		return `${imageBasename} was successfully flashed ${targets.join(' ')}`;
+		return i18next.t('message.succeedTo', {
+			name: imageBasename,
+			target: targets.join(' '),
+		});
 	},
 };
 
 export const compatibility = {
 	sizeNotRecommended: () => {
-		return 'Not recommended';
+		return i18next.t('message.sizeNotRecommended');
 	},
 
 	tooSmall: () => {
-		return 'Too small';
+		return i18next.t('message.tooSmall');
 	},
 
 	locked: () => {
-		return 'Locked';
+		return i18next.t('message.locked');
 	},
 
 	system: () => {
-		return 'System drive';
+		return i18next.t('message.system');
 	},
 
 	containsImage: () => {
-		return 'Source drive';
+		return i18next.t('message.containsImage');
 	},
 
 	// The drive is large and therefore likely not a medium you want to write to.
 	largeDrive: () => {
-		return 'Large drive';
+		return i18next.t('message.largeDrive');
 	},
 } as const;
 
 export const warning = {
 	tooSmall: (source: { size: number }, target: { size: number }) => {
 		return outdent({ newline: ' ' })`
-			The selected source is ${prettyBytes(source.size - target.size)}
-			larger than this drive.
+			 ${i18next.t('message.sourceLarger', {
+					byte: prettyBytes(source.size - target.size),
+				})}
 		`;
 	},
 
 	exitWhileFlashing: () => {
-		return [
-			'You are currently flashing a drive.',
-			'Closing Etcher may leave your drive in an unusable state.',
-		].join(' ');
+		return i18next.t('message.exitWhileFlashing');
 	},
 
 	looksLikeWindowsImage: () => {
-		return [
-			'It looks like you are trying to burn a Windows image.\n\n',
-			'Unlike other images, Windows images require special processing to be made bootable.',
-			'We suggest you use a tool specially designed for this purpose, such as',
-			'<a href="https://rufus.akeo.ie">Rufus</a> (Windows),',
-			'<a href="https://github.com/slacka/WoeUSB">WoeUSB</a> (Linux),',
-			'or Boot Camp Assistant (macOS).',
-		].join(' ');
+		return i18next.t('message.looksLikeWindowsImage');
 	},
 
 	missingPartitionTable: () => {
-		return [
-			'It looks like this is not a bootable image.\n\n',
-			'The image does not appear to contain a partition table,',
-			'and might not be recognized or bootable by your device.',
-		].join(' ');
+		return i18next.t('message.missingPartitionTable', {
+			type: i18next.t('message.image'),
+		});
 	},
 
 	driveMissingPartitionTable: () => {
-		return outdent({ newline: ' ' })`
-			It looks like this is not a bootable drive.
-			The drive does not appear to contain a partition table,
-			and might not be recognized or bootable by your device.
-		`;
+		return i18next.t('message.missingPartitionTable', {
+			type: i18next.t('message.drive'),
+		});
 	},
 
 	largeDriveSize: () => {
-		return "This is a large drive! Make sure it doesn't contain files that you want to keep.";
+		return i18next.t('message.largeDriveSize');
 	},
 
 	systemDrive: () => {
-		return 'Selecting your system drive is dangerous and will erase your drive!';
+		return i18next.t('message.systemDrive');
 	},
 
 	sourceDrive: () => {
-		return 'Contains the image you chose to flash';
+		return i18next.t('message.sourceDrive');
 	},
 };
 
 export const error = {
 	notEnoughSpaceInDrive: () => {
-		return [
-			'Not enough space on the drive.',
-			'Please insert larger one and try again.',
-		].join(' ');
+		return i18next.t('message.noSpace');
 	},
 
 	genericFlashError: (err: Error) => {
-		return `Something went wrong. If it is a compressed image, please check that the archive is not corrupted.\n${err.message}`;
+		return i18next.t('message.genericFlashError', { error: err.message });
 	},
 
 	validation: () => {
-		return [
-			'The write has been completed successfully but Etcher detected potential',
-			'corruption issues when reading the image back from the drive.',
-			'\n\nPlease consider writing the image to a different drive.',
-		].join(' ');
+		return i18next.t('message.validation');
 	},
 
 	openSource: (sourceName: string, errorMessage: string) => {
-		return outdent`
-			Something went wrong while opening ${sourceName}
-
-			Error: ${errorMessage}
-		`;
+		return i18next.t('message.openError', {
+			source: sourceName,
+			error: errorMessage,
+		});
 	},
 
 	flashFailure: (
@@ -169,35 +161,33 @@ export const error = {
 	) => {
 		const target =
 			drives.length === 1
-				? `${drives[0].description} (${drives[0].displayName})`
-				: `${drives.length} targets`;
-		return `Something went wrong while writing ${imageBasename} to ${target}.`;
+				? i18next.t('message.toDrive', {
+						description: drives[0].description,
+						name: drives[0].displayName,
+				  })
+				: i18next.t('message.toTarget', {
+						count: drives.length,
+						num: drives.length,
+				  });
+		return i18next.t('message.flashError', {
+			image: imageBasename,
+			targets: target,
+		});
 	},
 
 	driveUnplugged: () => {
-		return [
-			'Looks like Etcher lost access to the drive.',
-			'Did it get unplugged accidentally?',
-			"\n\nSometimes this error is caused by faulty readers that don't provide stable access to the drive.",
-		].join(' ');
+		return i18next.t('message.unplug');
 	},
 
 	inputOutput: () => {
-		return [
-			'Looks like Etcher is not able to write to this location of the drive.',
-			'This error is usually caused by a faulty drive, reader, or port.',
-			'\n\nPlease try again with another drive, reader, or port.',
-		].join(' ');
+		return i18next.t('message.cannotWrite');
 	},
 
 	childWriterDied: () => {
-		return [
-			'The writer process ended unexpectedly.',
-			'Please try again, and contact the Etcher team if the problem persists.',
-		].join(' ');
+		return i18next.t('message.childWriterDied');
 	},
 
 	unsupportedProtocol: () => {
-		return 'Only http:// and https:// URLs are supported.';
+		return i18next.t('message.badProtocol');
 	},
 };

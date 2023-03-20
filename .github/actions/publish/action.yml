@@ -1,0 +1,162 @@
+---
+name: package and publish GitHub (draft) release
+# https://github.com/product-os/flowzone/tree/master/.github/actions
+inputs:
+  json:
+    description: "JSON stringified object containing all the inputs from the calling workflow"
+    required: true
+  secrets:
+    description: "JSON stringified object containing all the secrets from the calling workflow"
+    required: true
+
+  # --- custom environment
+  XCODE_APP_LOADER_EMAIL:
+    type: string
+    default: "accounts+apple@balena.io"
+  NODE_VERSION:
+    type: string
+    default: "16.x"
+  VERBOSE:
+    type: string
+    default: "true"
+
+runs:
+  # https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
+  using: "composite"
+  steps:
+    - name: Download custom source artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: custom-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}-${{ runner.os }}
+        path: ${{ runner.temp }}
+
+    - name: Extract custom source artifact
+      shell: pwsh
+      working-directory: .
+      run: tar -xf ${{ runner.temp }}/custom.tgz
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.NODE_VERSION }}
+        cache: npm
+
+    - name: Install yq
+      shell: bash --noprofile --norc -eo pipefail -x {0}
+      run: choco install yq
+      if: runner.os == 'Windows'
+
+    # https://www.electron.build/code-signing.html
+    # https://github.com/Apple-Actions/import-codesign-certs
+    - name: Import Apple code signing certificate
+      if: runner.os == 'macOS'
+      uses: apple-actions/import-codesign-certs@v1
+      with:
+        p12-file-base64: ${{ fromJSON(inputs.secrets).APPLE_SIGNING }}
+        p12-password: ${{ fromJSON(inputs.secrets).APPLE_SIGNING_PASSWORD }}
+
+    - name: Import Windows code signing certificate
+      if: runner.os == 'Windows'
+      shell: powershell
+      run: |
+        Set-Content -Path ${{ runner.temp }}/certificate.base64 -Value $env:WINDOWS_CERTIFICATE
+        certutil -decode ${{ runner.temp }}/certificate.base64 ${{ runner.temp }}/certificate.pfx
+        Remove-Item -path ${{ runner.temp }} -include certificate.base64
+
+        Import-PfxCertificate `
+          -FilePath ${{ runner.temp }}/certificate.pfx `
+          -CertStoreLocation Cert:\CurrentUser\My `
+          -Password (ConvertTo-SecureString -String $env:WINDOWS_CERTIFICATE_PASSWORD -Force -AsPlainText)
+
+        Remove-Item -path ${{ runner.temp }} -include certificate.pfx
+
+      env:
+        WINDOWS_CERTIFICATE: ${{ fromJSON(inputs.secrets).WINDOWS_SIGNING }}
+        WINDOWS_CERTIFICATE_PASSWORD: ${{ fromJSON(inputs.secrets).WINDOWS_SIGNING_PASSWORD }}
+
+    # ... or refactor (e.g.) https://github.com/samuelmeuli/action-electron-builder
+    # https://github.com/product-os/scripts/tree/master/electron
+    # https://github.com/product-os/scripts/tree/master/shared
+    # https://github.com/product-os/balena-concourse/blob/master/pipelines/github-events/template.yml
+    - name: Package release
+      id: package_release
+      shell: bash --noprofile --norc -eo pipefail -x {0}
+      run: |
+        set -ea
+
+        [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
+
+        runner_os="$(echo "${RUNNER_OS}" | tr '[:upper:]' '[:lower:]')"
+        runner_arch="$(echo "${RUNNER_ARCH}" | tr '[:upper:]' '[:lower:]')"
+
+        ELECTRON_BUILDER_ARCHITECTURE="${runner_arch}"
+        APPLICATION_VERSION="$(jq -r '.version' package.json)"
+        ARCHITECTURE_FLAGS="--${ELECTRON_BUILDER_ARCHITECTURE}"
+
+        if [[ $runner_os =~ linux ]]; then
+            ELECTRON_BUILDER_OS='--linux'
+            TARGETS="$(yq e .linux.target[] electron-builder.yml)"
+
+        elif [[ $runner_os =~ darwin|macos|osx ]]; then
+            CSC_KEY_PASSWORD=${{ fromJSON(inputs.secrets).APPLE_SIGNING_PASSWORD }}
+            CSC_KEYCHAIN=signing_temp
+            CSC_LINK=${{ fromJSON(inputs.secrets).APPLE_SIGNING }}
+            ELECTRON_BUILDER_OS='--mac'
+            TARGETS="$(yq e .mac.target[] electron-builder.yml)"
+
+        elif [[ $runner_os =~ windows|win ]]; then
+            ARCHITECTURE_FLAGS="--ia32 ${ARCHITECTURE_FLAGS}"
+            CSC_KEY_PASSWORD=${{ fromJSON(inputs.secrets).WINDOWS_SIGNING_PASSWORD }}
+            CSC_LINK=${{ fromJSON(inputs.secrets).WINDOWS_SIGNING }}
+            ELECTRON_BUILDER_OS='--win'
+            TARGETS="$(yq e .win.target[] electron-builder.yml)"
+
+        else
+            exit 1
+        fi
+
+        npm link electron-builder
+
+        for target in ${TARGETS}; do
+            electron-builder ${ELECTRON_BUILDER_OS} ${target} ${ARCHITECTURE_FLAGS} \
+              --c.extraMetadata.analytics.sentry.token='https://739bbcfc0ba4481481138d3fc831136d@o95242.ingest.sentry.io/4504451487301632' \
+              --c.extraMetadata.analytics.amplitude.token='balena-etcher' \
+              --c.extraMetadata.packageType="${target}"
+
+            find dist -type f -maxdepth 1
+        done
+
+        echo "version=${APPLICATION_VERSION}" >> $GITHUB_OUTPUT
+
+      env:
+        # Apple notarization (afterSignHook.js)
+        XCODE_APP_LOADER_EMAIL: ${{ inputs.XCODE_APP_LOADER_EMAIL }}
+        XCODE_APP_LOADER_PASSWORD: ${{ fromJSON(inputs.secrets).XCODE_APP_LOADER_PASSWORD }}
+        # https://github.blog/2020-08-03-github-actions-improvements-for-fork-and-pull-request-workflows/#improvements-for-public-repository-forks
+        # https://docs.github.com/en/actions/managing-workflow-runs/approving-workflow-runs-from-public-forks#about-workflow-runs-from-public-forks
+        CSC_FOR_PULL_REQUEST: true
+
+    # https://www.electron.build/auto-update.html#staged-rollouts
+    - name: Configure staged rollout(s)
+      shell: bash --noprofile --norc -eo pipefail -x {0}
+      run: |
+        set -ea
+
+        [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
+
+        percentage="$(cat < repo.yml | yq e .triggerNotification.stagingPercentage)"
+
+        find dist -type f -maxdepth 1 \
+          -name "latest*.yml" \
+          -exec yq -i e .version=\"${{ steps.package_release.outputs.version }}\" {} \;
+
+        find dist -type f -maxdepth 1 \
+          -name "latest*.yml" \
+          -exec yq -i e .stagingPercentage=\"$percentage\" {} \;
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: gh-release-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}
+        path: dist
+        retention-days: 1

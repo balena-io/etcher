@@ -112,4 +112,4 @@ Analytics
 - [ ] Disable analytics, open DevTools Network pane or a packet sniffer, and
   check that no request is sent
 - [ ] **Disable analytics, refresh application from DevTools (using Cmd-R or
-  F5), and check that initial events are not sent to Mixpanel**
+  F5), and check that initial events are not sent to Amplitude**

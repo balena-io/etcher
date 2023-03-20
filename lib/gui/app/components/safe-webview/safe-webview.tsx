@@ -15,6 +15,7 @@
  */
 
 import * as electron from 'electron';
+import * as remote from '@electron/remote';
 import * as _ from 'lodash';
 import * as React from 'react';
 
@@ -97,7 +98,7 @@ export class SafeWebview extends React.PureComponent<
 		this.didFailLoad = _.bind(this.didFailLoad, this);
 		this.didGetResponseDetails = _.bind(this.didGetResponseDetails, this);
 		// Make a persistent electron session for the webview
-		this.session = electron.remote.session.fromPartition(ELECTRON_SESSION, {
+		this.session = remote.session.fromPartition(ELECTRON_SESSION, {
 			// Disable the cache for the session such that new content shows up when refreshing
 			cache: false,
 		});
@@ -183,7 +184,10 @@ export class SafeWebview extends React.PureComponent<
 		// only care about this event if it's a request for the main frame
 		if (event.resourceType === 'mainFrame') {
 			const HTTP_OK = 200;
-			analytics.logEvent('SafeWebview loaded', { event });
+			const { webContents, ...webviewEvent } = event;
+			analytics.logEvent('SafeWebview loaded', {
+				...webviewEvent,
+			});
 			this.setState({
 				shouldShow: event.statusCode === HTTP_OK,
 			});

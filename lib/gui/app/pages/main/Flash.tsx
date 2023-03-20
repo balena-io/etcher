@@ -37,6 +37,7 @@ import {
 
 import FlashSvg from '../../../assets/flash.svg';
 import DriveStatusWarningModal from '../../components/drive-status-warning-modal/drive-status-warning-modal';
+import * as i18next from 'i18next';
 
 const COMPLETED_PERCENTAGE = 100;
 const SPEED_PRECISION = 2;
@@ -293,9 +294,17 @@ export class FlashStep extends React.PureComponent<
 								color="#7e8085"
 								width="100%"
 							>
-								<Txt>{this.props.speed.toFixed(SPEED_PRECISION)} MB/s</Txt>
+								<Txt>
+									{i18next.t('flash.speedShort', {
+										speed: this.props.speed.toFixed(SPEED_PRECISION),
+									})}
+								</Txt>
 								{!_.isNil(this.props.eta) && (
-									<Txt>ETA: {formatSeconds(this.props.eta)}</Txt>
+									<Txt>
+										{i18next.t('flash.eta', {
+											eta: formatSeconds(this.props.eta),
+										})}
+									</Txt>
 								)}
 							</Flex>
 						)}

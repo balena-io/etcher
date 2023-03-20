@@ -17,11 +17,11 @@ Developing
 
 #### Common
 
-- [NodeJS](https://nodejs.org) (at least v6.11)
-- [Python 2.7](https://www.python.org)
+- [NodeJS](https://nodejs.org) (at least v16.11)
+- [Python 3](https://www.python.org)
 - [jq](https://stedolan.github.io/jq/)
 - [curl](https://curl.haxx.se/)
-- [npm](https://www.npmjs.com/) (version 6.7)
+- [npm](https://www.npmjs.com/)
 
 ```sh
 pip install -r requirements.txt
@@ -33,16 +33,16 @@ You might need to run this with `sudo` or administrator permissions.
 
 - [NSIS v2.51](http://nsis.sourceforge.net/Main_Page) (v3.x won't work)
 - Either one of the following:
-  - [Visual C++ 2015 Build Tools](http://landinghub.visualstudio.com/visual-cpp-build-tools) containing standalone compilers, libraries and scripts
-  - Install the [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools) via npm with `npm install --global windows-build-tools`
-  - [Visual Studio Community 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48146) (free) (other editions, like Professional and Enterprise, should work too)
-    **NOTE:** Visual Studio 2015 doesn't install C++ by default. You have to rerun the
+  - [Visual C++ 2019 Build Tools](https://visualstudio.microsoft.com/vs/features/cplusplus/) containing standalone compilers, libraries and scripts
+  - The [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools#windows-build-tools) should be installed along with NodeJS
+  - [Visual Studio Community 2019](https://visualstudio.microsoft.com/vs/) (free) (other editions, like Professional and Enterprise, should work too)
+    **NOTE:** Visual Studio doesn't install C++ by default. You have to rerun the
     setup, select "Modify" and then check `Visual C++ -> Common Tools for Visual
-    C++ 2015` (see http://stackoverflow.com/a/31955339)
+    C++` (see http://stackoverflow.com/a/31955339)
 - [MinGW](http://www.mingw.org)
 
-You might need to `npm config set msvs_version 2015` for node-gyp to correctly detect
-the version of Visual Studio you're using (in this example VS2015).
+You might need to `npm config set msvs_version 2019` for node-gyp to correctly detect
+the version of Visual Studio you're using (in this example VS2019).
 
 The following MinGW packages are required:
 
@@ -61,7 +61,7 @@ as well.
 
 #### Linux
 
-- `libudev-dev` for libusb (install with `sudo apt install libudev-dev` for example)
+- `libudev-dev` for libusb (for example install with `sudo apt install libudev-dev`, or on fedora `systemd-devel` contains the required package)
 
 ### Cloning the project
 
@@ -70,28 +70,13 @@ git clone --recursive https://github.com/balena-io/etcher
 cd etcher
 ```
 
-### Installing npm dependencies
-
-**NOTE:** Please make use of the following command to install npm dependencies rather
-than simply running `npm install` given that we need to do extra configuration
-to make sure native dependencies are correctly compiled for Electron, otherwise
-the application might not run successfully.
-
-If you're on Windows, **run the command from the _Developer Command Prompt for
-VS2015_**, to ensure all Visual Studio command utilities are available in the
-`%PATH%`.
-
-```sh
-make electron-develop
-```
-
 ### Running the application
 
 #### GUI
 
 ```sh
 # Build the GUI
-npm run webpack
+npm run webpack #or npm run build
 # Start Electron
 npm start
 ```
@@ -119,10 +104,6 @@ systems as they can before sending a pull request.
 *The test suite is run automatically by CI servers when you send a pull
 request.*
 
-We also rely on various `make` targets to perform some common tasks:
-
-- `make lint`: Run the linter.
-- `make sass`: Compile SCSS files.
 
 We make use of [EditorConfig] to communicate indentation, line endings and
 other text editing default. We encourage you to install the relevant plugin in
@@ -132,20 +113,7 @@ process.
 Updating a dependency
 ---------------------
 
-Given we use [npm shrinkwrap][shrinkwrap], we have to take extra steps to make
-sure the `npm-shrinkwrap.json` file gets updated correctly when we update a
-dependency.
-
-Use the following steps to ensure everything goes flawlessly:
-
-- Run `make electron-develop` to ensure you don't have extraneous dependencies
-  you might have brought during development, or you are running older
-  dependencies because you come from another branch or reference.
-
-- Install the new version of the dependency. For example: `npm install --save
-  <package>@<version>`. This will update the `npm-shrinkwrap.json` file.
-
-- Commit *both* `package.json` and `npm-shrinkwrap.json`.
+- Commit *both* `package.json` and `package-lock.json`.
 
 Diffing Binaries
 ----------------

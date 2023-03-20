@@ -15,11 +15,13 @@
  */
 
 import * as electron from 'electron';
+import * as remote from '@electron/remote';
 import * as _ from 'lodash';
 
 import * as errors from '../../../shared/errors';
 import * as settings from '../../../gui/app/models/settings';
 import { SUPPORTED_EXTENSIONS } from '../../../shared/supported-formats';
+import * as i18next from 'i18next';
 
 async function mountSourceDrive() {
 	// sourceDrivePath is the name of the link in /dev/disk/by-path
@@ -53,19 +55,18 @@ export async function selectImage(): Promise<string | undefined> {
 		properties: ['openFile', 'treatPackageAsDirectory'],
 		filters: [
 			{
-				name: 'OS Images',
+				name: i18next.t('source.osImages'),
 				extensions: SUPPORTED_EXTENSIONS,
 			},
 			{
-				name: 'All',
+				name: i18next.t('source.allFiles'),
 				extensions: ['*'],
 			},
 		],
 	};
-	const currentWindow = electron.remote.getCurrentWindow();
-	const [file] = (
-		await electron.remote.dialog.showOpenDialog(currentWindow, options)
-	).filePaths;
+	const currentWindow = remote.getCurrentWindow();
+	const [file] = (await remote.dialog.showOpenDialog(currentWindow, options))
+		.filePaths;
 	return file;
 }
 
@@ -79,8 +80,8 @@ export async function showWarning(options: {
 	description: string;
 }): Promise<boolean> {
 	_.defaults(options, {
-		confirmationLabel: 'OK',
-		rejectionLabel: 'Cancel',
+		confirmationLabel: i18next.t('ok'),
+		rejectionLabel: i18next.t('cancel'),
 	});
 
 	const BUTTONS = [options.confirmationLabel, options.rejectionLabel];
@@ -91,14 +92,14 @@ export async function showWarning(options: {
 	);
 	const BUTTON_REJECTION_INDEX = _.indexOf(BUTTONS, options.rejectionLabel);
 
-	const { response } = await electron.remote.dialog.showMessageBox(
-		electron.remote.getCurrentWindow(),
+	const { response } = await remote.dialog.showMessageBox(
+		remote.getCurrentWindow(),
 		{
 			type: 'warning',
 			buttons: BUTTONS,
 			defaultId: BUTTON_REJECTION_INDEX,
 			cancelId: BUTTON_REJECTION_INDEX,
-			title: 'Attention',
+			title: i18next.t('attention'),
 			message: options.title,
 			detail: options.description,
 		},
@@ -112,5 +113,5 @@ export async function showWarning(options: {
 export function showError(error: Error) {
 	const title = errors.getTitle(error);
 	const message = errors.getDescription(error);
-	electron.remote.dialog.showErrorBox(title, message);
+	remote.dialog.showErrorBox(title, message);
 }

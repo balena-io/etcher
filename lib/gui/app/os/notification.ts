@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import * as electron from 'electron';
+import * as remote from '@electron/remote';
 
 import * as settings from '../models/settings';
 
@@ -28,8 +28,8 @@ export async function send(title: string, body: string, icon: string) {
 	}
 
 	// `app.dock` is only defined in OS X
-	if (electron.remote.app.dock) {
-		electron.remote.app.dock.bounce();
+	if (remote.app.dock) {
+		remote.app.dock.bounce();
 	}
 
 	return new window.Notification(title, { body, icon });

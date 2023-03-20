@@ -20,6 +20,7 @@ import { env } from 'process';
 import { promisify } from 'util';
 
 import { getAppPath } from '../utils';
+import { supportedLocales } from '../../gui/app/i18n';
 
 const execFileAsync = promisify(execFile);
 
@@ -30,6 +31,15 @@ export async function sudo(
 	command: string,
 ): Promise<{ cancelled: boolean; stdout?: string; stderr?: string }> {
 	try {
+		let lang = Intl.DateTimeFormat().resolvedOptions().locale;
+		lang = lang.substr(0, 2);
+		if (supportedLocales.indexOf(lang) > -1) {
+			// language should be present
+		} else {
+			// fallback to eng
+			lang = 'en';
+		}
+
 		const { stdout, stderr } = await execFileAsync(
 			'sudo',
 			['--askpass', 'sh', '-c', `echo ${SUCCESSFUL_AUTH_MARKER} && ${command}`],
@@ -40,7 +50,7 @@ export async function sudo(
 					SUDO_ASKPASS: join(
 						getAppPath(),
 						__dirname,
-						'sudo-askpass.osascript.js',
+						`sudo-askpass.osascript-${lang}.js`,
 					),
 				},
 			},

@@ -142,7 +142,7 @@ export const Modal = styled(({ style, children, ...props }) => {
 			{...props}
 		>
 			<ScrollableFlex flexDirection="column" width="100%" height="90%">
-				{...children}
+				{children.length ? children.map((c: any) => <>{c}</>) : children}
 			</ScrollableFlex>
 		</ModalBase>
 	);

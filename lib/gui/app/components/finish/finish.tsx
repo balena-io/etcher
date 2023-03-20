@@ -43,7 +43,7 @@ function restart(goToMain: () => void) {
 async function getSuccessBannerURL() {
 	return (
 		(await settings.get('successBannerURL')) ??
-		'https://www.balena.io/etcher/success-banner?borderTop=false&darkBackground=true'
+		'https://efp.balena.io/success-banner?borderTop=false&darkBackground=true'
 	);
 }
 

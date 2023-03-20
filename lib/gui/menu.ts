@@ -17,6 +17,8 @@
 import * as electron from 'electron';
 import { displayName } from '../../package.json';
 
+import * as i18next from 'i18next';
+
 /**
  * @summary Builds a native application menu for a given window
  */
@@ -42,12 +44,13 @@ export function buildWindowMenu(window: electron.BrowserWindow) {
 	const menuTemplate: electron.MenuItemConstructorOptions[] = [
 		{
 			role: 'editMenu',
+			label: i18next.t('menu.edit'),
 		},
 		{
-			label: 'View',
+			label: i18next.t('menu.view'),
 			submenu: [
 				{
-					label: 'Toggle Developer Tools',
+					label: i18next.t('menu.devTool'),
 					accelerator:
 						process.platform === 'darwin' ? 'Command+Alt+I' : 'Control+Shift+I',
 					click: toggleDevTools,
@@ -56,12 +59,14 @@ export function buildWindowMenu(window: electron.BrowserWindow) {
 		},
 		{
 			role: 'windowMenu',
+			label: i18next.t('menu.window'),
 		},
 		{
 			role: 'help',
+			label: i18next.t('menu.help'),
 			submenu: [
 				{
-					label: 'Etcher Pro',
+					label: i18next.t('menu.pro'),
 					click() {
 						electron.shell.openExternal(
 							'https://etcher.io/pro?utm_source=etcher_menu&ref=etcher_menu',
@@ -69,13 +74,13 @@ export function buildWindowMenu(window: electron.BrowserWindow) {
 					},
 				},
 				{
-					label: 'Etcher Website',
+					label: i18next.t('menu.website'),
 					click() {
 						electron.shell.openExternal('https://etcher.io?ref=etcher_menu');
 					},
 				},
 				{
-					label: 'Report an issue',
+					label: i18next.t('menu.issue'),
 					click() {
 						electron.shell.openExternal(
 							'https://github.com/balena-io/etcher/issues',
@@ -92,25 +97,29 @@ export function buildWindowMenu(window: electron.BrowserWindow) {
 			submenu: [
 				{
 					role: 'about' as const,
-					label: 'About Etcher',
+					label: i18next.t('menu.about'),
 				},
 				{
 					type: 'separator' as const,
 				},
 				{
 					role: 'hide' as const,
+					label: i18next.t('menu.hide'),
 				},
 				{
 					role: 'hideOthers' as const,
+					label: i18next.t('menu.hideOthers'),
 				},
 				{
 					role: 'unhide' as const,
+					label: i18next.t('menu.unhide'),
 				},
 				{
 					type: 'separator' as const,
 				},
 				{
 					role: 'quit' as const,
+					label: i18next.t('menu.quit'),
 				},
 			],
 		});
