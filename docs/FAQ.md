@@ -49,4 +49,4 @@ Etcher GUI is based on the [Electron](http://electron.atom.io/) framework, [whic
 
 You can use the Flash with Etcher button on your site or blog, if you have an OS that you want your users to be able to easily flash using Etcher, add the following code where you want to button to be:
 
-`<a href="https://efp.balena.io/open-image-url?imageUrl=<your image URL>"><img src="http://balena.io/flash-with-etcher.png /></a>`
+`<a href="https://efp.balena.io/open-image-url?imageUrl=<your image URL>"><img src="http://balena.io/flash-with-etcher.png" /></a>`
