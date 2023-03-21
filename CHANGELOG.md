@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.18.6
+## (2023-03-21)
+
+* add-flash-with-etcher-to-docs [Lizzie Epton]
+
 # v1.18.5
 ## (2023-03-09)
 
