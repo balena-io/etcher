@@ -20,6 +20,7 @@ import * as _ from 'lodash';
 import { DrivelistDrive } from '../../../shared/drive-constraints';
 import { bytesToMegabytes } from '../../../shared/units';
 import { Actions, store } from './store';
+import { etcherProInfo } from '../utils/etcher-pro-specific';
 
 /**
  * @summary Reset flash state
@@ -47,12 +48,15 @@ export function isFlashing(): boolean {
  */
 export function setFlashingFlag() {
 	// see https://github.com/balenablocks/balena-electron-env/blob/4fce9c461f294d4a768db8f247eea6f75d7b08b0/README.md#remote-methods
-	try {
-		electron.ipcRenderer.invoke('disable-screensaver');
-	} catch (error) {
-		console.log(
-			"Can't disable-screensaver, we're probably not running on a balena-electron env",
-		);
+	if (etcherProInfo()?.uuid) {
+		try {
+			console.log(etcherProInfo()?.uuid);
+			electron.ipcRenderer.invoke('disable-screensaver');
+		} catch (error) {
+			console.log(
+				"Can't disable-screensaver, we're probably not running on a balena-electron env",
+			);
+		}
 	}
 	store.dispatch({
 		type: Actions.SET_FLASHING_FLAG,
