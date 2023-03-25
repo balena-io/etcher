@@ -56,7 +56,7 @@ confidence.
    sudo apt update
    sudo apt install balena-etcher
    ```
-   >Note: after v1.7.9 the package name changed to `balena-etcher` (no electron at the end)
+   >Note: for version 1.7.9 and below the package name was `balena-etcher-electron`
 
 ##### Uninstall
 
@@ -87,7 +87,7 @@ sudo apt autoremove
    ```sh
    sudo dnf install -y balena-etcher
    ```
-   >Note: after v1.7.9 the package name changed to `balena-etcher` (no electron at the end)
+   >Note: for version 1.7.9 and below the package name was `balena-etcher-electron`
 
 ###### Uninstall
 
@@ -112,7 +112,7 @@ rm /etc/yum.repos.d/balena-etcher-source.repo
    ```sh
    sudo yum install -y balena-etcher
    ```
-   >Note: after v1.7.9 the package name changed to `balena-etcher` (no electron at the end)
+   >Note: for version 1.7.9 and below the package name was `balena-etcher-electron`
 
 ###### Uninstall
 
@@ -137,7 +137,7 @@ rm /etc/yum.repos.d/balena-etcher-source.repo
    sudo zypper up
    sudo zypper install balena-etcher
    ```
-   >Note: after v1.7.9 the package name changed to `balena-etcher` (no electron at the end)
+   >Note: for version 1.7.9 and below the package name was `balena-etcher-electron`
 
 ##### Uninstall
 
