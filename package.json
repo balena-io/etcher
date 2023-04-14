@@ -127,5 +127,8 @@
   },
   "versionist": {
     "publishedAt": "2023-03-21T13:24:18.905Z"
+  },
+  "dependencies": {
+    "@electron/fuses": "^1.6.1"
   }
 }
