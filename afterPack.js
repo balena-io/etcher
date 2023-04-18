@@ -60,6 +60,7 @@ exports.default = async function (context) {
   await flipFuses(electronBinaryPath, {
     version: FuseVersion.V1,
     resetAdHocDarwinSignature: IS_APPLE_SILICON, // necessary for building on Apple Silicon
+    [FuseV1Options.RunAsNode]: false,
     [FuseV1Options.EnableCookieEncryption]: true,
     [FuseV1Options.EnableNodeOptionsEnvironmentVariable]: false,
     [FuseV1Options.EnableNodeCliInspectArguments]: false,
