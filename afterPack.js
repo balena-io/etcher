@@ -55,6 +55,8 @@ exports.default = async function (context) {
     `${executableName}${ext}`
   );
 
+  console.log(electronBinaryPath);
+
   await flipFuses(electronBinaryPath, {
     version: FuseVersion.V1,
     resetAdHocDarwinSignature: IS_APPLE_SILICON, // necessary for building on Apple Silicon

@@ -51,6 +51,7 @@
   "devDependencies": {
     "@balena/lint": "5.4.2",
     "@balena/sudo-prompt": "9.2.1-workaround-windows-amperstand-in-username-0849e215b947987a643fe5763902aea201255534",
+    "@electron/fuses": "^1.6.1",
     "@electron/remote": "^2.0.9",
     "@fortawesome/fontawesome-free": "5.15.4",
     "@sentry/electron": "^4.1.2",
@@ -127,8 +128,5 @@
   },
   "versionist": {
     "publishedAt": "2023-03-21T13:24:18.905Z"
-  },
-  "dependencies": {
-    "@electron/fuses": "^1.6.1"
   }
 }
