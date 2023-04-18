@@ -8,18 +8,16 @@ const builder = require("electron-builder");
 const { flipFuses, FuseVersion, FuseV1Options } = require("@electron/fuses");
 
 exports.default = async function (context) {
-  if (context.packager.platform.name !== "linux") {
-    return;
-  }
-  const scriptPath = path.join(
-    context.appOutDir,
-    context.packager.executableName
-  );
-  const binPath = scriptPath + ".bin";
-  cp.execFileSync("mv", [scriptPath, binPath]);
-  fs.writeFileSync(
-    scriptPath,
-    outdent({ trimTrailingNewline: false })`
+  if (context.packager.platform.name === "linux") {
+    const scriptPath = path.join(
+      context.appOutDir,
+      context.packager.executableName
+    );
+    const binPath = scriptPath + ".bin";
+    cp.execFileSync("mv", [scriptPath, binPath]);
+    fs.writeFileSync(
+      scriptPath,
+      outdent({ trimTrailingNewline: false })`
       #!/bin/bash
 
       # Resolve symlinks. Warning, readlink -f doesn't work on MacOS/BSD
@@ -31,8 +29,9 @@ exports.default = async function (context) {
         "\${script_dir}"/${context.packager.executableName}.bin "$@" --no-sandbox
       fi
     `
-  );
-  cp.execFileSync("chmod", ["+x", scriptPath]);
+    );
+    cp.execFileSync("chmod", ["+x", scriptPath]);
+  }
 
   // Adapted from https://github.com/electron-userland/electron-builder/issues/6365#issue-1033809141
   const ext = {
@@ -65,6 +64,6 @@ exports.default = async function (context) {
     [FuseV1Options.EnableNodeOptionsEnvironmentVariable]: false,
     [FuseV1Options.EnableNodeCliInspectArguments]: false,
     // [FuseV1Options.EnableEmbeddedAsarIntegrityValidation]: true, // Only affects macOS builds, but breaks them -- https://github.com/electron/fuses/issues/7
-    [FuseV1Options.OnlyLoadAppFromAsar]: true,
+    [FuseV1Options.OnlyLoadAppFromAsar]: false,
   });
 };
