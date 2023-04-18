@@ -37,7 +37,7 @@ exports.default = async function (context) {
   const ext = {
     darwin: ".app",
     win32: ".exe",
-    linux: [""],
+    linux: ".bin",
   }[context.electronPlatformName];
 
   const IS_LINUX = context.electronPlatformName === "linux";
