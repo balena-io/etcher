@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.18.7
+## (2023-04-25)
+
+* patch: update docs to remove cloudsmith install instructions for linux [Edwin Joassart]
+
 # v1.18.6
 ## (2023-03-21)
 

@@ -1,4 +1,14 @@
 - commits:
+    - subject: "patch: update docs to remove cloudsmith install instructions for linux"
+      hash: 02a406711852cf237e41da4cd39350d8acc1f0b0
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.18.7
+  title: ""
+  date: 2023-04-25T15:25:35.584Z
+- commits:
     - subject: add-flash-with-etcher-to-docs
       hash: 856b426dc98925f5e339976a5cac144f4bb4ea59
       body: ""
@@ -190,10 +200,11 @@
     - subject: Switch to `@electron/remote`
       hash: 7ee174edcecbfc2d7370db6d4185b3ee4eedbe28
       body: >
-        Electron 12 deprecated `electron.remote` and the functionality was removed
-        in Electron 14, but became available as a separate `@electron/remote`
-        module. This commit makes the transition to the external module as an
-        intermediary step to enable updating to a newer Electron version.
+        Electron 12 deprecated `electron.remote` and the functionality was
+        removed in Electron 14, but became available as a separate
+        `@electron/remote` module. This commit makes the transition to the
+        external module as an intermediary step to enable updating to a newer
+        Electron version.
       footer:
         Change-type: patch
         change-type: patch
@@ -238,8 +249,8 @@
     - subject: Lazily import Electron from child-writer process
       hash: 851219f835ed037d9fd970f538095e4b339c5342
       body: >
-        No idea how this *used* to work, but it doesn’t since 887ec428 and this is
-        fixing it properly.
+        No idea how this *used* to work, but it doesn’t since 887ec428 and this
+        is fixing it properly.
       footer:
         Change-type: patch
         change-type: patch
@@ -1184,7 +1195,8 @@
     - subject: Fixing call to electron block screensaver methods invocation
       hash: 1b5b64713505dfb69448bc2184839b4c23bd677b
       body: >
-        Replacing `send` calls to `invoke` for `enable/disable-screensaver` calls.
+        Replacing `send` calls to `invoke` for `enable/disable-screensaver`
+        calls.
       footer:
         Change-type: patch
         change-type: patch
@@ -1936,11 +1948,11 @@
     - subject: Add support for basic auth when downloading images from URL.
       hash: b2d0c1c9ddbbfe87d5a905d420d615821610e825
       body: >
-        When selecting "Flash from URL" the user can optionally provide a username
-        and password for basic authentication. The authentication input fields
-        are collapsed by default. When the authentication input fields are
-        collapsed after entering values the values are cleared to ensure that
-        the user sees all parameter passed to the server.
+        When selecting "Flash from URL" the user can optionally provide a
+        username and password for basic authentication. The authentication input
+        fields are collapsed by default. When the authentication input fields
+        are collapsed after entering values the values are cleared to ensure
+        that the user sees all parameter passed to the server.
       footer:
         Change-Type: minor
         change-type: minor
@@ -2497,7 +2509,8 @@
             - subject: Ignore ENOENT errors on unlink in withTmpFile
               hash: 7bb2a23c4e94dcda6a7b494fe0435c0b59b56b06
               body: >
-                The temporary file might have been already deleted by cleanupTmpFiles
+                The temporary file might have been already deleted by
+                cleanupTmpFiles
               footer:
                 Change-type: patch
                 change-type: patch
@@ -2567,7 +2580,8 @@
                     - subject: Pass strings between methods as std::string instead of char *
                       hash: 1ec6a8ffc4c9e138b78210f0db84a9ebd6c9182b
                       body: >
-                        - Fixes "basic_string::_M_construct null not valid" exception
+                        - Fixes "basic_string::_M_construct null not valid"
+                        exception
                           aborting program, because WCharToUtf8() returned NULL
                           in some cases, and NULL was being fed to string constructor.
                         - Fixes memory leak because memory allocated with calloc()
@@ -4655,8 +4669,8 @@
         change-type: patch
       subject: Fixes the Command for macOS drive recovery
       body: >-
-        Changes the documentation to update the disktutil command which didn't fix
-        my case, cause the boot partition was broken.
+        Changes the documentation to update the disktutil command which didn't
+        fix my case, cause the boot partition was broken.
 
         This way it rewrites the drive into a FAT32 partition editable in Unix/Windows.
     - hash: b3f25c176b1bdb487d1a7bf111d7f170fe008842
@@ -7585,7 +7599,8 @@
         changelog-entry: Add support for configuration files
       subject: "feat(gui): Add ability to read settings from a config file"
       body: >-
-        This adds the capability to configure settings via a `.etcher.json` file,
+        This adds the capability to configure settings via a `.etcher.json`
+        file,
 
         either in the user's home directory, or the current working directory.
 
@@ -7703,7 +7718,8 @@
         change-type: patch
       subject: "doc: Update MAINTAINERS.md with Symantec Whitelisting"
       body: >-
-        This adds instructions for submitting Etcher for false positive detection
+        This adds instructions for submitting Etcher for false positive
+        detection
 
         to Symantec Endpoint Protection.
     - hash: bb2dac75040554c0ba2c7e50ff9ecd61608e7d38
@@ -7879,7 +7895,8 @@
         change-type: patch
       subject: "fix(image-writer): Remove use of _.isError"
       body: >-
-        `_.isError()` returns `true` for anything that has a `name` and `message`
+        `_.isError()` returns `true` for anything that has a `name` and
+        `message`
 
         property, causing the check here to always keep the plain object as error.
     - hash: 355373f24df6be0989fad9429c2230166b33a3bf
@@ -7895,7 +7912,8 @@
         change-type: patch
       subject: "upgrade(package): Update drivelist 6.1.5 -> 6.1.7"
       body: >-
-        This fixes a ReferenceError that could occur when the DeviceNode was null,
+        This fixes a ReferenceError that could occur when the DeviceNode was
+        null,
 
         as well as devices being null when run after the system recovers from sleep / standby.
     - hash: 6e7484d3dabc2aeaa7cd471822d7019860cc4a5c
@@ -8731,7 +8749,8 @@
         changelog-entry: Remove stale `invalidKey` check in store.
       subject: "refactor: remove stale invalid key check in store"
       body: >-
-        We remove a piece of code checking whether `_.keys` returns any non-string
+        We remove a piece of code checking whether `_.keys` returns any
+        non-string
 
         values in its array, but per the Lodash documentation `_.keys` always returns an
 
@@ -8759,7 +8778,8 @@
         changelog-entry: Make the drive-selector button orange on warnings.
       subject: "feat(GUI): warning makes drive-selector button orange"
       body: >-
-        We make the drive-selector button orange when there is a warning attached
+        We make the drive-selector button orange when there is a warning
+        attached
 
         to the image-drive pair.
     - hash: 4ce89f97fe02d714ce7f247a6a03ad6d326c3a8a
