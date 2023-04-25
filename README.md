@@ -32,132 +32,41 @@ installers for all supported operating systems.
 
 ## Packages
 
-> [![Hosted By: Cloudsmith](https://img.shields.io/badge/OSS%20hosting%20by-cloudsmith-blue?logo=cloudsmith&style=for-the-badge)](https://cloudsmith.com) \
-Package repository hosting is graciously provided by  [Cloudsmith](https://cloudsmith.com).
-Cloudsmith is the only fully hosted, cloud-native, universal package management solution, that
-enables your organization to create, store and share packages in any format, to any place, with total
-confidence.
-
 #### Debian and Ubuntu based Package Repository (GNU/Linux x86/x64)
 
-> Detailed or alternative steps in the [instructions by Cloudsmith](https://cloudsmith.io/~balena/repos/etcher/setup/#formats-deb)
+Package for Debian and Ubuntu can be downloaded from the [Github release page](https://github.com/balena-io/etcher/releases/)
 
-1. Add Etcher Debian repository:
-
-   ```sh
-   curl -1sLf \
-      'https://dl.cloudsmith.io/public/balena/etcher/setup.deb.sh' \
-      | sudo -E bash
-   ```
-
-2. Update and install:
+1. Install using dpkg
 
    ```sh
-   sudo apt-get update #you can use apt instead of apt-get as well
-   sudo apt-get install balena-etcher-electron
+      sudo dpkg -i balena-etcher_******_amd64.deb
    ```
-   >Note: after v1.7.9 the package name changed to `balena-etcher` (no electron at the end)
+
+   If you're missing dependencies you can fix them with:
+
+   ```sh
+      sudo apt update && apt --fix-broken install #to add potential missing dependencies
+   ```
 
 ##### Uninstall
 
 ```sh
-sudo apt-get remove balena-etcher-electron
-rm /etc/apt/sources.list.d/balena-etcher.list
-apt-get clean
+sudo apt-get remove balena-etcher
+apt clean
 rm -rf /var/lib/apt/lists/*
-apt-get update
+apt update
 ```
 
 #### Redhat (RHEL) and Fedora-based Package Repository (GNU/Linux x86/x64)
 
-> Detailed or alternative steps in the [instructions by Cloudsmith](https://cloudsmith.io/~balena/repos/etcher/setup/#formats-rpm)
-
-
-##### DNF
-
-1. Add Etcher rpm repository:
-
-   ```sh
-   curl -1sLf \
-      'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \
-      | sudo -E bash
-   ```
-
-2. Update and install:
-
-   ```sh
-   sudo dnf install -y balena-etcher-electron
-   ```
-   >Note: after v1.7.9 the package name changed to `balena-etcher` (no electron at the end)
-
-###### Uninstall
-
-```sh
-rm /etc/yum.repos.d/balena-etcher.repo
-rm /etc/yum.repos.d/balena-etcher-source.repo
-```
-
 ##### Yum
 
-1. Add Etcher rpm repository:
+Package for Fedora-based and Redhat can be downloaded from the [Github release page](https://github.com/balena-io/etcher/releases/)
 
-   ```sh
-   curl -1sLf \
-      'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \
-      | sudo -E bash
-   ```
-
-2. Update and install:
-
-   ```sh
-   sudo yum install -y balena-etcher-electron
-   ```
-   >Note: after v1.7.9 the package name changed to `balena-etcher` (no electron at the end)
-
-###### Uninstall
+1. Install using yum
 
 ```sh
-sudo yum remove -y balena-etcher-electron
-rm /etc/yum.repos.d/balena-etcher.repo
-rm /etc/yum.repos.d/balena-etcher-source.repo
-```
-
-#### OpenSUSE LEAP & Tumbleweed install (zypper)
-
-1. Add the repo
-
-   ```sh
-   curl -1sLf \
-   'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \
-   | sudo -E bash
-   ```
-2. Update and install
-
-   ```sh
-   sudo zypper up
-   sudo zypper install balena-etcher-electron
-   ```
-   >Note: after v1.7.9 the package name changed to `balena-etcher` (no electron at the end)
-
-##### Uninstall
-
-```sh
-sudo zypper rm balena-etcher-electron
-# remove the repo
-sudo zypper rr balena-etcher
-sudo zypper rr balena-etcher-source
-```
-
-#### Solus (GNU/Linux x64)
-
-```sh
-sudo eopkg it etcher
-```
-
-##### Uninstall
-
-```sh
-sudo eopkg rm etcher
+   sudo yum localinstall balena-etcher-***.x86_64.rpm
 ```
 
 #### Arch/Manjaro Linux (GNU/Linux x64)
@@ -173,6 +82,7 @@ yay -S balena-etcher
 ```sh
 yay -R balena-etcher
 ```
+
 #### WinGet (Windows)
 
 This package is updated by [gh-action](https://github.com/vedantmgoyal2009/winget-releaser), and is kept up to date automatically.
@@ -221,5 +131,3 @@ the [license].
 [milestones]: https://github.com/balena-io/etcher/milestones
 [newissue]: https://github.com/balena-io/etcher/issues/new
 [license]: https://github.com/balena-io/etcher/blob/master/LICENSE
-
-
