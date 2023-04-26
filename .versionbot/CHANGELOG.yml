@@ -1,4 +1,14 @@
 - commits:
+    - subject: "Patch: Fix Support link"
+      hash: 882b385c88111a192e5f37e20c1c8aeca9950b21
+      body: ""
+      footer: {}
+      author: Oliver Plummer
+      nested: []
+  version: 1.18.8
+  title: ""
+  date: 2023-04-26T09:57:46.155Z
+- commits:
     - subject: "patch: update docs to remove cloudsmith install instructions for linux"
       hash: 02a406711852cf237e41da4cd39350d8acc1f0b0
       body: ""
