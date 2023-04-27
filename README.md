@@ -36,26 +36,17 @@ installers for all supported operating systems.
 
 Package for Debian and Ubuntu can be downloaded from the [Github release page](https://github.com/balena-io/etcher/releases/)
 
-1. Install using dpkg
+##### Install .deb file using apt
 
    ```sh
-      sudo dpkg -i balena-etcher_******_amd64.deb
-   ```
-
-   If you're missing dependencies you can fix them with:
-
-   ```sh
-      sudo apt update && apt --fix-broken install #to add potential missing dependencies
+      sudo apt install ./balena-etcher_******_amd64.deb
    ```
 
 ##### Uninstall
 
-```sh
-sudo apt-get remove balena-etcher
-apt clean
-rm -rf /var/lib/apt/lists/*
-apt update
-```
+   ```sh
+      sudo apt remove balena-etcher
+   ```
 
 #### Redhat (RHEL) and Fedora-based Package Repository (GNU/Linux x86/x64)
 
