@@ -45,16 +45,16 @@ Package for Debian and Ubuntu can be downloaded from the [Github release page](h
    If you're missing dependencies you can fix them with:
 
    ```sh
-      sudo apt update && apt --fix-broken install #to add potential missing dependencies
+      sudo apt update && sudo apt --fix-broken install #to add potential missing dependencies
    ```
 
 ##### Uninstall
 
 ```sh
 sudo apt-get remove balena-etcher
-apt clean
-rm -rf /var/lib/apt/lists/*
-apt update
+sudo apt clean
+sudo rm -rf /var/lib/apt/lists/*
+sudo apt update
 ```
 
 #### Redhat (RHEL) and Fedora-based Package Repository (GNU/Linux x86/x64)
