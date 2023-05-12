@@ -124,7 +124,7 @@ the [license].
 
 [etcher]: https://balena.io/etcher
 [electron]: https://electronjs.org/
-[electron-supported-platforms]: https://electronjs.org/docs/tutorial/support#supported-platforms
+[electron-supported-platforms]: https://github.com/electron/electron/blob/main/README.md#platform-support
 [support]: https://github.com/balena-io/etcher/blob/master/docs/SUPPORT.md
 [contributing]: https://github.com/balena-io/etcher/blob/master/docs/CONTRIBUTING.md
 [user-documentation]: https://github.com/balena-io/etcher/blob/master/docs/USER-DOCUMENTATION.md
