@@ -45,7 +45,7 @@ Package for Debian and Ubuntu can be downloaded from the [Github release page](h
    If you're missing dependencies you can fix them with:
 
    ```sh
-      sudo apt update && apt --fix-broken install #to add potential missing dependencies
+      sudo apt update && sudo apt --fix-broken install #to add potential missing dependencies
    ```
 
 ##### Uninstall
