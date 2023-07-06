@@ -95,6 +95,7 @@ export class SafeWebview extends React.PureComponent<
 		);
 		this.entryHref = url.href;
 		// Events steal 'this'
+		this.handleDomReady = _.bind(this.handleDomReady, this);
 		this.didFailLoad = _.bind(this.didFailLoad, this);
 		this.didGetResponseDetails = _.bind(this.didGetResponseDetails, this);
 		// Make a persistent electron session for the webview
@@ -121,6 +122,8 @@ export class SafeWebview extends React.PureComponent<
 				ref={this.webviewRef}
 				partition={ELECTRON_SESSION}
 				style={style}
+				// @ts-ignore
+				allowpopups="true"
 			/>
 		);
 	}
@@ -134,8 +137,8 @@ export class SafeWebview extends React.PureComponent<
 				this.didFailLoad,
 			);
 			this.webviewRef.current.addEventListener(
-				'new-window',
-				SafeWebview.newWindow,
+				'dom-ready',
+				this.handleDomReady,
 			);
 			this.webviewRef.current.addEventListener(
 				'console-message',
@@ -157,8 +160,8 @@ export class SafeWebview extends React.PureComponent<
 				this.didFailLoad,
 			);
 			this.webviewRef.current.removeEventListener(
-				'new-window',
-				SafeWebview.newWindow,
+				'dom-ready',
+				this.handleDomReady,
 			);
 			this.webviewRef.current.removeEventListener(
 				'console-message',
@@ -166,6 +169,15 @@ export class SafeWebview extends React.PureComponent<
 			);
 		}
 		this.session.webRequest.onCompleted(null);
+	}
+
+	handleDomReady() {
+		const webview = this.webviewRef.current;
+		if (webview == null) {
+			return;
+		}
+		const id = webview.getWebContentsId();
+		electron.ipcRenderer.send('webview-dom-ready', id);
 	}
 
 	// Set the element state to hidden
@@ -194,19 +206,6 @@ export class SafeWebview extends React.PureComponent<
 			if (this.props.onWebviewShow) {
 				this.props.onWebviewShow(event.statusCode === HTTP_OK);
 			}
-		}
-	}
-
-	// Open link in browser if it's opened as a 'foreground-tab'
-	public static async newWindow(event: electron.NewWindowEvent) {
-		const url = new window.URL(event.url);
-		if (
-			(url.protocol === 'http:' || url.protocol === 'https:') &&
-			event.disposition === 'foreground-tab' &&
-			// Don't open links if they're disabled by the env var
-			!(await settings.get('disableExternalLinks'))
-		) {
-			electron.shell.openExternal(url.href);
 		}
 	}
 }
