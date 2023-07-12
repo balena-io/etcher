@@ -1,4 +1,16 @@
 - commits:
+    - subject: Fix opening links from within SafeWebView
+      hash: 497bb0e2cbefad3e9a1188ee5df49cf61f6bd6e4
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Akis Kesoglou
+      nested: []
+  version: 1.18.9
+  title: ""
+  date: 2023-07-12T09:07:17.666Z
+- commits:
     - subject: "Patch: Fix Support link"
       hash: 882b385c88111a192e5f37e20c1c8aeca9950b21
       body: ""
