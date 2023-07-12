@@ -47,8 +47,14 @@ runs:
         ELECTRON_NO_ATTACH_CONSOLE: true
 
     - name: Compress custom source
+      if: runner.os != 'Windows'
       shell: pwsh
       run: tar -acf ${{ runner.temp }}/custom.tgz .
+
+    - name: Compress custom source
+      if: runner.os == 'Windows'
+      shell: pwsh
+      run: C:\"Program Files"\Git\usr\bin\tar.exe --force-local -acf ${{ runner.temp }}\custom.tgz .
 
     - name: Upload custom artifact
       uses: actions/upload-artifact@v3
