@@ -1,4 +1,38 @@
 - commits:
+    - subject: "spelling: validates"
+      hash: 06d246e3fd1c573b9e04d23ab3bc3c4036fb9859
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Josh Soref <jsoref@users.noreply.github.com>
+        signed-off-by: Josh Soref <jsoref@users.noreply.github.com>
+      author: Josh Soref
+      nested: []
+    - subject: "spelling: undefined"
+      hash: 67b26a5b69f819066c6419d3d915846b63fdbcf0
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Josh Soref <jsoref@users.noreply.github.com>
+        signed-off-by: Josh Soref <jsoref@users.noreply.github.com>
+      author: Josh Soref
+      nested: []
+    - subject: "spelling: except if"
+      hash: b4b9db7ffa2104c19e7bd079e4f394a817f40bc0
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Josh Soref <jsoref@users.noreply.github.com>
+        signed-off-by: Josh Soref <jsoref@users.noreply.github.com>
+      author: Josh Soref
+      nested: []
+  version: 1.18.10
+  title: ""
+  date: 2023-07-12T11:21:59.231Z
+- commits:
     - subject: Fix opening links from within SafeWebView
       hash: 497bb0e2cbefad3e9a1188ee5df49cf61f6bd6e4
       body: ""
