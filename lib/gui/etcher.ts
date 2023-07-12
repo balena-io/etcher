@@ -21,7 +21,7 @@ import { promises as fs } from 'fs';
 import { platform } from 'os';
 import * as path from 'path';
 import * as semver from 'semver';
-import * as _ from 'lodash';
+import * as lodash from 'lodash';
 
 import './app/i18n';
 
@@ -107,10 +107,10 @@ async function getCommandLineURL(argv: string[]): Promise<string | undefined> {
 	}
 }
 
-const initSentryMain = _.once(() => {
+const initSentryMain = lodash.once(() => {
 	const dsn =
 		settings.getSync('analyticsSentryToken') ||
-		_.get(packageJSON, ['analytics', 'sentry', 'token']);
+		lodash.get(packageJSON, ['analytics', 'sentry', 'token']);
 
 	SentryMain.init({ dsn, beforeSend: anonymizeSentryData });
 });
@@ -266,6 +266,24 @@ async function main(): Promise<void> {
 			} else {
 				console.log('Build menu failed. ');
 			}
+		});
+
+		electron.ipcMain.on('webview-dom-ready', (_, id) => {
+			const webview = electron.webContents.fromId(id);
+
+			// Open link in browser if it's opened as a 'foreground-tab'
+			webview.setWindowOpenHandler((event) => {
+				const url = new URL(event.url);
+				if (
+					(url.protocol === 'http:' || url.protocol === 'https:') &&
+					event.disposition === 'foreground-tab' &&
+					// Don't open links if they're disabled by the env var
+					!settings.getSync('disableExternalLinks')
+				) {
+					electron.shell.openExternal(url.href);
+				}
+				return { action: 'deny' };
+			});
 		});
 	}
 }

@@ -46,7 +46,8 @@ const translation = {
 			drive: '磁碟',
 			missingPartitionTable:
 				'看起來這不是一個可啟動的{{type}}。\n\n這個{{type}}似乎不包含分割表，因此您的設備可能無法識別或無法正確啟動。',
-			largeDriveSize: '這是個很大容量的磁碟！請檢查並確認它不包含對您來說存放很重要的資料',
+			largeDriveSize:
+				'這是個很大容量的磁碟！請檢查並確認它不包含對您來說存放很重要的資料',
 			systemDrive: '選擇系統分割區很危險，因為這將會刪除你的系統',
 			sourceDrive: '來源映像檔位於這個分割區中',
 			noSpace: '磁碟空間不足。請插入另一個較大的磁碟並重試。',
@@ -130,8 +131,7 @@ const translation = {
 			autoUpdate: '自動更新',
 			settings: '軟體設定',
 			systemInformation: '系統資訊',
-			trimExtPartitions:
-				'修改原始映像檔上未分配的空間（在 ext 類型分割區中）',
+			trimExtPartitions: '修改原始映像檔上未分配的空間（在 ext 類型分割區中）',
 		},
 		menu: {
 			edit: '編輯',

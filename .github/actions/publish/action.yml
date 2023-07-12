@@ -31,9 +31,16 @@ runs:
         path: ${{ runner.temp }}
 
     - name: Extract custom source artifact
+      if: runner.os != 'Windows'
       shell: pwsh
       working-directory: .
       run: tar -xf ${{ runner.temp }}/custom.tgz
+
+    - name: Extract custom source artifact
+      if: runner.os == 'Windows'
+      shell: pwsh
+      working-directory: .
+      run: C:\"Program Files"\Git\usr\bin\tar.exe --force-local -xf ${{ runner.temp }}\custom.tgz
 
     - name: Setup Node.js
       uses: actions/setup-node@v3
