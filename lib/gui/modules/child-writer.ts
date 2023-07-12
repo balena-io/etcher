@@ -108,7 +108,7 @@ export interface FlashResults extends WriteResult {
 }
 
 /**
- * @summary writes the source to the destinations and valiates the writes
+ * @summary writes the source to the destinations and validates the writes
  * @param {SourceDestination} source - source
  * @param {SourceDestination[]} destinations - destinations
  * @param {Boolean} verify - whether to validate the writes or not
