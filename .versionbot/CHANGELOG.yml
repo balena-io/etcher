@@ -1,4 +1,16 @@
 - commits:
+    - subject: "fix: prevent stealing window focus from auth dialog"
+      hash: f716c74ef7cb164b4d825828e4e46033484ad9af
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: leadpogrommer
+      nested: []
+  version: 1.18.11
+  title: ""
+  date: 2023-07-13T14:31:40.021Z
+- commits:
     - subject: "spelling: validates"
       hash: 06d246e3fd1c573b9e04d23ab3bc3c4036fb9859
       body: ""

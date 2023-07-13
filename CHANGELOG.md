@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.18.11
+## (2023-07-13)
+
+* fix: prevent stealing window focus from auth dialog [leadpogrommer]
+
 # v1.18.10
 ## (2023-07-12)
 
