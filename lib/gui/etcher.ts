@@ -184,7 +184,7 @@ async function createMainWindow() {
 	mainWindow.setFullScreen(true);
 
 	// Prevent flash of white when starting the application
-	mainWindow.on('ready-to-show', () => {
+	mainWindow.once('ready-to-show', () => {
 		console.timeEnd('ready-to-show');
 		// Electron sometimes caches the zoomFactor
 		// making it obnoxious to switch back-and-forth
