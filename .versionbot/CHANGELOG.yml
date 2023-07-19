@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update instructions for installing deb file
+      hash: acab03ad77a1c1901d0c8a65999e93c1d27169a0
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jorge Capona
+      nested: []
+  version: 1.18.12
+  title: ""
+  date: 2023-07-19T10:24:22.407Z
+- commits:
     - subject: "fix: prevent stealing window focus from auth dialog"
       hash: f716c74ef7cb164b4d825828e4e46033484ad9af
       body: ""
