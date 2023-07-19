@@ -6,7 +6,7 @@ jobs:
   publish:
     runs-on: windows-latest # action can only be run on windows
     steps:
-      - uses: vedantmgoyal2009/winget-releaser@v1
+      - uses: vedantmgoyal2009/winget-releaser@v2
         with:
           identifier: Balena.Etcher
           # matches something like "balenaEtcher-1.19.0.Setup.exe"
