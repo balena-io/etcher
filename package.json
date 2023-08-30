@@ -13,7 +13,9 @@
     "url": "git@github.com:balena-io/etcher.git"
   },
   "scripts": {
-    "build": "npm run webpack",
+    "build": "npm run webpack && npm run build:sidecar",
+    "build:rebuild-mountutils": "cd node_modules/mountutils && npm rebuild",
+    "build:sidecar": "npm run build:rebuild-mountutils && tsc --project tsconfig.sidecar.json && pkg build/util/api.js -c pkg-sidecar.json --target node18 --output generated/etcher-util",
     "flowzone-preinstall-linux": "sudo apt-get update && sudo apt-get install -y xvfb libudev-dev && cat < electron-builder.yml | yq e .deb.depends[] - | xargs -L1 echo | sed 's/|//g' | xargs -L1 sudo apt-get --ignore-missing install || true",
     "flowzone-preinstall-macos": "true",
     "flowzone-preinstall-windows": "npx node-gyp install",
@@ -49,6 +51,7 @@
   "author": "Balena Ltd. <hello@balena.io>",
   "license": "Apache-2.0",
   "devDependencies": {
+    "@babel/register": "^7.22.15",
     "@balena/lint": "5.4.2",
     "@balena/sudo-prompt": "9.2.1-workaround-windows-amperstand-in-username-0849e215b947987a643fe5763902aea201255534",
     "@electron/remote": "^2.0.9",
@@ -76,7 +79,7 @@
     "css-loader": "5.2.7",
     "d3": "4.13.0",
     "debug": "4.3.4",
-    "electron": "^19.1.9",
+    "electron": "^25.8.2",
     "electron-builder": "^23.6.0",
     "electron-mocha": "^11.0.2",
     "electron-notarize": "1.2.2",
@@ -97,6 +100,7 @@
     "omit-deep-lodash": "1.1.7",
     "outdent": "0.8.0",
     "path-is-inside": "1.0.2",
+    "pkg": "^5.8.1",
     "pnp-webpack-plugin": "1.7.0",
     "pretty-bytes": "5.6.0",
     "react": "16.8.5",
@@ -123,7 +127,7 @@
     "webpack-dev-server": "4.11.1"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18 <20"
   },
   "versionist": {
     "publishedAt": "2023-07-19T10:24:23.055Z"
