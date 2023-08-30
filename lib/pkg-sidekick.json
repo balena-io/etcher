@@ -1,0 +1,10 @@
+{
+  "bin": "build/util/child-writer.js",
+  "pkg": {
+    "assets": [
+      "node_modules/usb/prebuilds/darwin-x64+arm64/node.napi.node",
+      "node_modules/lzma-native/prebuilds/darwin-arm64/node.napi.node",
+      "node_modules/drivelist/build/Release/drivelist.node"
+    ]
+  }
+}

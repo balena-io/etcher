@@ -20,13 +20,13 @@ import LinkSvg from '@fortawesome/fontawesome-free/svgs/solid/link.svg';
 import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/exclamation-triangle.svg';
 import ChevronDownSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-down.svg';
 import ChevronRightSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-right.svg';
-import { sourceDestination } from 'etcher-sdk';
 import { ipcRenderer, IpcRendererEvent } from 'electron';
-import * as _ from 'lodash';
-import { GPTPartition, MBRPartition } from 'partitioninfo';
+import { uniqBy, isNil } from 'lodash';
 import * as path from 'path';
 import * as prettyBytes from 'pretty-bytes';
 import * as React from 'react';
+import { requestMetadata } from '../../app';
+
 import {
 	Flex,
 	ButtonProps,
@@ -47,7 +47,7 @@ import { observe } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import * as exceptionReporter from '../../modules/exception-reporter';
 import * as osDialog from '../../os/dialog';
-import { replaceWindowsNetworkDriveLetter } from '../../os/windows-network-drives';
+
 import {
 	ChangeButton,
 	DetailsText,
@@ -64,8 +64,12 @@ import ImageSvg from '../../../assets/image.svg';
 import SrcSvg from '../../../assets/src.svg';
 import { DriveSelector } from '../drive-selector/drive-selector';
 import { DrivelistDrive } from '../../../../shared/drive-constraints';
-import axios, { AxiosRequestConfig } from 'axios';
 import { isJson } from '../../../../shared/utils';
+import {
+	SourceMetadata,
+	Authentication,
+	Source,
+} from '../../../../shared/typings/source-selector';
 import * as i18next from 'i18next';
 
 const recentUrlImagesKey = 'recentUrlImages';
@@ -83,7 +87,7 @@ function normalizeRecentUrlImages(urls: any[]): URL[] {
 			}
 		})
 		.filter((url) => url !== undefined);
-	urls = _.uniqBy(urls, (url) => url.href);
+	urls = uniqBy(urls, (url) => url.href);
 	return urls.slice(urls.length - 5);
 }
 
@@ -301,24 +305,6 @@ const FlowSelector = styled(
 	}
 `;
 
-export type Source =
-	| typeof sourceDestination.File
-	| typeof sourceDestination.BlockDevice
-	| typeof sourceDestination.Http;
-
-export interface SourceMetadata extends sourceDestination.Metadata {
-	hasMBR?: boolean;
-	partitions?: MBRPartition[] | GPTPartition[];
-	path: string;
-	displayName: string;
-	description: string;
-	SourceType: Source;
-	drive?: DrivelistDrive;
-	extension?: string;
-	archiveExtension?: string;
-	auth?: Authentication;
-}
-
 interface SourceSelectorProps {
 	flashing: boolean;
 }
@@ -334,11 +320,6 @@ interface SourceSelectorState {
 	defaultFlowActive: boolean;
 	imageSelectorOpen: boolean;
 	imageLoading: boolean;
-}
-
-interface Authentication {
-	username: string;
-	password: string;
 }
 
 export class SourceSelector extends React.Component<
@@ -381,41 +362,9 @@ export class SourceSelector extends React.Component<
 		this.setState({ imageLoading: true });
 		await this.selectSource(
 			imagePath,
-			isURL(this.normalizeImagePath(imagePath))
-				? sourceDestination.Http
-				: sourceDestination.File,
+			isURL(this.normalizeImagePath(imagePath)) ? 'Http' : 'File',
 		).promise;
 		this.setState({ imageLoading: false });
-	}
-
-	private async createSource(
-		selected: string,
-		SourceType: Source,
-		auth?: Authentication,
-	) {
-		try {
-			selected = await replaceWindowsNetworkDriveLetter(selected);
-		} catch (error: any) {
-			analytics.logException(error);
-		}
-
-		if (isJson(decodeURIComponent(selected))) {
-			const config: AxiosRequestConfig = JSON.parse(
-				decodeURIComponent(selected),
-			);
-			return new sourceDestination.Http({
-				url: config.url!,
-				axiosInstance: axios.create(_.omit(config, ['url'])),
-			});
-		}
-
-		if (SourceType === sourceDestination.File) {
-			return new sourceDestination.File({
-				path: selected,
-			});
-		}
-
-		return new sourceDestination.Http({ url: selected, auth });
 	}
 
 	public normalizeImagePath(imgPath: string) {
@@ -446,11 +395,10 @@ export class SourceSelector extends React.Component<
 			},
 			promise: (async () => {
 				const sourcePath = isString(selected) ? selected : selected.device;
-				let source;
 				let metadata: SourceMetadata | undefined;
 				if (isString(selected)) {
 					if (
-						SourceType === sourceDestination.Http &&
+						SourceType === 'Http' &&
 						!isURL(this.normalizeImagePath(selected))
 					) {
 						this.handleError(
@@ -470,24 +418,14 @@ export class SourceSelector extends React.Component<
 							},
 						});
 					}
-					source = await this.createSource(selected, SourceType, auth);
-
-					if (cancelled) {
-						return;
-					}
 
 					try {
-						const innerSource = await source.getInnerSource();
-						if (cancelled) {
-							return;
-						}
-						metadata = await this.getMetadata(innerSource, selected);
-						if (cancelled) {
-							return;
-						}
-						metadata.SourceType = SourceType;
+						// this will send an event down the ipcMain asking for metadata
+						// we'll get the response through an event
 
-						if (!metadata.hasMBR && this.state.warning === null) {
+						metadata = await requestMetadata({ selected, SourceType, auth });
+
+						if (!metadata?.hasMBR && this.state.warning === null) {
 							analytics.logEvent('Missing partition table', { metadata });
 							this.setState({
 								warning: {
@@ -503,12 +441,6 @@ export class SourceSelector extends React.Component<
 							messages.error.openSource(sourcePath, error.message),
 							error,
 						);
-					} finally {
-						try {
-							await source.close();
-						} catch (error: any) {
-							// Noop
-						}
 					}
 				} else {
 					if (selected.partitionTableType === null) {
@@ -525,13 +457,14 @@ export class SourceSelector extends React.Component<
 						displayName: selected.displayName,
 						description: selected.displayName,
 						size: selected.size as SourceMetadata['size'],
-						SourceType: sourceDestination.BlockDevice,
+						SourceType: 'BlockDevice',
 						drive: selected,
 					};
 				}
 
 				if (metadata !== undefined) {
 					metadata.auth = auth;
+					metadata.SourceType = SourceType;
 					selectionState.selectSource(metadata);
 					analytics.logEvent('Select image', {
 						// An easy way so we can quickly identify if we're making use of
@@ -565,25 +498,6 @@ export class SourceSelector extends React.Component<
 		analytics.logEvent(title, { path: sourcePath });
 	}
 
-	private async getMetadata(
-		source: sourceDestination.SourceDestination,
-		selected: string | DrivelistDrive,
-	) {
-		const metadata = (await source.getMetadata()) as SourceMetadata;
-		const partitionTable = await source.getPartitionTable();
-		if (partitionTable) {
-			metadata.hasMBR = true;
-			metadata.partitions = partitionTable.partitions;
-		} else {
-			metadata.hasMBR = false;
-		}
-		if (isString(selected)) {
-			metadata.extension = path.extname(selected).slice(1);
-			metadata.path = selected;
-		}
-		return metadata;
-	}
-
 	private async openImageSelector() {
 		analytics.logEvent('Open image selector');
 		this.setState({ imageSelectorOpen: true });
@@ -596,7 +510,7 @@ export class SourceSelector extends React.Component<
 				analytics.logEvent('Image selector closed');
 				return;
 			}
-			await this.selectSource(imagePath, sourceDestination.File).promise;
+			await this.selectSource(imagePath, 'File').promise;
 		} catch (error: any) {
 			exceptionReporter.report(error);
 		} finally {
@@ -607,7 +521,7 @@ export class SourceSelector extends React.Component<
 	private async onDrop(event: React.DragEvent<HTMLDivElement>) {
 		const [file] = event.dataTransfer.files;
 		if (file) {
-			await this.selectSource(file.path, sourceDestination.File).promise;
+			await this.selectSource(file.path, 'File').promise;
 		}
 	}
 
@@ -723,7 +637,7 @@ export class SourceSelector extends React.Component<
 									{i18next.t('cancel')}
 								</ChangeButton>
 							)}
-							{!_.isNil(imageSize) && !imageLoading && (
+							{!isNil(imageSize) && !imageLoading && (
 								<DetailsText>{prettyBytes(imageSize)}</DetailsText>
 							)}
 						</>
@@ -827,7 +741,7 @@ export class SourceSelector extends React.Component<
 								let promise;
 								({ promise, cancel: cancelURLSelection } = this.selectSource(
 									imageURL,
-									sourceDestination.Http,
+									'Http',
 									auth,
 								));
 								await promise;
@@ -850,10 +764,7 @@ export class SourceSelector extends React.Component<
 							if (originalList.length) {
 								const originalSource = originalList[0];
 								if (selectionImage?.drive?.device !== originalSource.device) {
-									this.selectSource(
-										originalSource,
-										sourceDestination.BlockDevice,
-									);
+									this.selectSource(originalSource, 'BlockDevice');
 								}
 							} else {
 								selectionState.deselectImage();
@@ -868,7 +779,7 @@ export class SourceSelector extends React.Component<
 								) {
 									return selectionState.deselectImage();
 								}
-								this.selectSource(drive, sourceDestination.BlockDevice);
+								this.selectSource(drive, 'BlockDevice');
 							}
 						}}
 					/>
