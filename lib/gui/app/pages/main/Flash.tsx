@@ -27,7 +27,6 @@ import * as availableDrives from '../../models/available-drives';
 import * as flashState from '../../models/flash-state';
 import * as selection from '../../models/selection-state';
 import * as analytics from '../../modules/analytics';
-import { scanner as driveScanner } from '../../modules/drive-scanner';
 import * as imageWriter from '../../modules/image-writer';
 import * as notification from '../../os/notification';
 import {
@@ -95,10 +94,6 @@ async function flashImageToDrive(
 		return '';
 	}
 
-	// Stop scanning drives when flashing
-	// otherwise Windows throws EPERM
-	driveScanner.stop();
-
 	const iconPath = path.join('media', 'icon.png');
 	const basename = path.basename(image.path);
 	try {
@@ -110,7 +105,7 @@ async function flashImageToDrive(
 				cancelled,
 			} = flashState.getFlashResults();
 			if (!skip && !cancelled) {
-				if (results.devices.successful > 0) {
+				if (results?.devices?.successful > 0) {
 					notifySuccess(iconPath, basename, drives, results.devices);
 				} else {
 					notifyFailure(iconPath, basename, drives);
@@ -129,7 +124,6 @@ async function flashImageToDrive(
 		return errorMessage;
 	} finally {
 		availableDrives.setDrives([]);
-		driveScanner.start();
 	}
 
 	return '';

@@ -16,30 +16,30 @@
 
 import * as electron from 'electron';
 import * as remote from '@electron/remote';
-import * as sdk from 'etcher-sdk';
-import * as _ from 'lodash';
+import { debounce, capitalize, Dictionary, values } from 'lodash';
 import outdent from 'outdent';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { v4 as uuidV4 } from 'uuid';
 
 import * as packageJSON from '../../../package.json';
-import { DrivelistDrive, isSourceDrive } from '../../shared/drive-constraints';
+import { DrivelistDrive } from '../../shared/drive-constraints';
 import * as EXIT_CODES from '../../shared/exit-codes';
 import * as messages from '../../shared/messages';
 import * as availableDrives from './models/available-drives';
 import * as flashState from './models/flash-state';
-import { deselectImage, getImage } from './models/selection-state';
 import * as settings from './models/settings';
 import { Actions, observe, store } from './models/store';
 import * as analytics from './modules/analytics';
-import { scanner as driveScanner } from './modules/drive-scanner';
+import { startApiAndSpawnChild } from './modules/api';
 import * as exceptionReporter from './modules/exception-reporter';
 import * as osDialog from './os/dialog';
 import * as windowProgress from './os/window-progress';
 import MainPage from './pages/main/MainPage';
 import './css/main.css';
 import * as i18next from 'i18next';
+import { promises } from 'dns';
+import { SourceMetadata } from '../../shared/typings/source-selector';
 
 window.addEventListener(
 	'unhandledrejection',
@@ -89,7 +89,7 @@ analytics.logEvent('Application start', {
 	version: currentVersion,
 });
 
-const debouncedLog = _.debounce(console.log, 1000, { maxWait: 1000 });
+const debouncedLog = debounce(console.log, 1000, { maxWait: 1000 });
 
 function pluralize(word: string, quantity: number) {
 	return `${quantity} ${word}${quantity === 1 ? '' : 's'}`;
@@ -115,7 +115,7 @@ observe(() => {
 	// might cause some non-sense flashing state logs including
 	// `undefined` values.
 	debouncedLog(outdent({ newline: ' ' })`
-		${_.capitalize(currentFlashState.type)}
+		${capitalize(currentFlashState.type)}
 		${active},
 		${currentFlashState.percentage}%
 		at
@@ -128,172 +128,39 @@ observe(() => {
 	`);
 });
 
-/**
- * @summary The radix used by USB ID numbers
- */
-const USB_ID_RADIX = 16;
-
-/**
- * @summary The expected length of a USB ID number
- */
-const USB_ID_LENGTH = 4;
-
-/**
- * @summary Convert a USB id (e.g. product/vendor) to a string
- *
- * @example
- * console.log(usbIdToString(2652))
- * > '0x0a5c'
- */
-function usbIdToString(id: number): string {
-	return `0x${_.padStart(id.toString(USB_ID_RADIX), USB_ID_LENGTH, '0')}`;
-}
-
-/**
- * @summary Product ID of BCM2708
- */
-const USB_PRODUCT_ID_BCM2708_BOOT = 0x2763;
-
-/**
- * @summary Product ID of BCM2710
- */
-const USB_PRODUCT_ID_BCM2710_BOOT = 0x2764;
-
-/**
- * @summary Compute module descriptions
- */
-const COMPUTE_MODULE_DESCRIPTIONS: _.Dictionary<string> = {
-	[USB_PRODUCT_ID_BCM2708_BOOT]: 'Compute Module 1',
-	[USB_PRODUCT_ID_BCM2710_BOOT]: 'Compute Module 3',
-};
-
-async function driveIsAllowed(drive: {
-	devicePath: string;
-	device: string;
-	raw: string;
-}) {
-	const driveBlacklist = (await settings.get('driveBlacklist')) || [];
-	return !(
-		driveBlacklist.includes(drive.devicePath) ||
-		driveBlacklist.includes(drive.device) ||
-		driveBlacklist.includes(drive.raw)
-	);
-}
-
-type Drive =
-	| sdk.sourceDestination.BlockDevice
-	| sdk.sourceDestination.UsbbootDrive
-	| sdk.sourceDestination.DriverlessDevice;
-
-function prepareDrive(drive: Drive) {
-	if (drive instanceof sdk.sourceDestination.BlockDevice) {
-		// @ts-ignore (BlockDevice.drive is private)
-		return drive.drive;
-	} else if (drive instanceof sdk.sourceDestination.UsbbootDrive) {
-		// This is a workaround etcher expecting a device string and a size
-		// @ts-ignore
-		drive.device = drive.usbDevice.portId;
-		drive.size = null;
-		// @ts-ignore
-		drive.progress = 0;
-		drive.disabled = true;
-		drive.on('progress', (progress) => {
-			updateDriveProgress(drive, progress);
-		});
-		return drive;
-	} else if (drive instanceof sdk.sourceDestination.DriverlessDevice) {
-		const description =
-			COMPUTE_MODULE_DESCRIPTIONS[
-				drive.deviceDescriptor.idProduct.toString()
-			] || 'Compute Module';
-		return {
-			device: `${usbIdToString(
-				drive.deviceDescriptor.idVendor,
-			)}:${usbIdToString(drive.deviceDescriptor.idProduct)}`,
-			displayName: 'Missing drivers',
-			description,
-			mountpoints: [],
-			isReadOnly: false,
-			isSystem: false,
-			disabled: true,
-			icon: 'warning',
-			size: null,
-			link: 'https://www.raspberrypi.com/documentation/computers/compute-module.html#flashing-the-compute-module-emmc',
-			linkCTA: 'Install',
-			linkTitle: 'Install missing drivers',
-			linkMessage: outdent`
-				Would you like to download the necessary drivers from the Raspberry Pi Foundation?
-				This will open your browser.
-
-
-				Once opened, download and run the installer from the "Windows Installer" section to install the drivers
-			`,
-		};
+function setDrives(drives: Dictionary<DrivelistDrive>) {
+	// prevent setting drives while flashing otherwise we might lose some while we unmount them
+	if (!flashState.isFlashing()) {
+		availableDrives.setDrives(values(drives));
 	}
 }
 
-function setDrives(drives: _.Dictionary<DrivelistDrive>) {
-	availableDrives.setDrives(_.values(drives));
-}
+// Spwaning the child process without privileges to get the drives list
+// TODO: clean up this mess of exports
+export let requestMetadata: any;
 
-function getDrives() {
-	return _.keyBy(availableDrives.getDrives(), 'device');
-}
+// start the api and spawn the child process
+startApiAndSpawnChild({
+	withPrivileges: false,
+}).then(({ emit, registerHandler }) => {
+	// start scanning
+	emit('scan');
 
-async function addDrive(drive: Drive) {
-	const preparedDrive = prepareDrive(drive);
-	if (!(await driveIsAllowed(preparedDrive))) {
-		return;
-	}
-	const drives = getDrives();
-	drives[preparedDrive.device] = preparedDrive;
-	setDrives(drives);
-}
+	// make the sourceMetada awaitable to be used on source selection
+	requestMetadata = async (params: any): Promise<SourceMetadata> => {
+		emit('sourceMetadata', JSON.stringify(params));
 
-function removeDrive(drive: Drive) {
-	if (
-		drive instanceof sdk.sourceDestination.BlockDevice &&
-		// @ts-ignore BlockDevice.drive is private
-		isSourceDrive(drive.drive, getImage())
-	) {
-		// Deselect the image if it was on the drive that was removed.
-		// This will also deselect the image if the drive mountpoints change.
-		deselectImage();
-	}
-	const preparedDrive = prepareDrive(drive);
-	const drives = getDrives();
-	delete drives[preparedDrive.device];
-	setDrives(drives);
-}
+		return new Promise((resolve) =>
+			registerHandler('sourceMetadata', (data: any) => {
+				resolve(JSON.parse(data));
+			}),
+		);
+	};
 
-function updateDriveProgress(
-	drive: sdk.sourceDestination.UsbbootDrive,
-	progress: number,
-) {
-	const drives = getDrives();
-	// @ts-ignore
-	const driveInMap = drives[drive.device];
-	if (driveInMap) {
-		// @ts-ignore
-		drives[drive.device] = { ...driveInMap, progress };
-		setDrives(drives);
-	}
-}
-
-driveScanner.on('attach', addDrive);
-driveScanner.on('detach', removeDrive);
-
-driveScanner.on('error', (error) => {
-	// Stop the drive scanning loop in case of errors,
-	// otherwise we risk presenting the same error over
-	// and over again to the user, while also heavily
-	// spamming our error reporting service.
-	driveScanner.stop();
-
-	return exceptionReporter.report(error);
+	registerHandler('drives', (data: any) => {
+		setDrives(JSON.parse(data));
+	});
 });
-
-driveScanner.start();
 
 let popupExists = false;
 

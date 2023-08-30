@@ -181,7 +181,7 @@ async function createMainWindow() {
 
 	electron.app.setAsDefaultProtocolClient(customProtocol);
 
-	mainWindow.setFullScreen(true);
+	// mainWindow.setFullScreen(true);
 
 	// Prevent flash of white when starting the application
 	mainWindow.once('ready-to-show', () => {

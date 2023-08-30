@@ -139,8 +139,9 @@ export function FlashResults({
 	};
 } & FlexProps) {
 	const [showErrorsInfo, setShowErrorsInfo] = React.useState(false);
-	const allFailed = !skip && results.devices.successful === 0;
-	const someFailed = results.devices.failed !== 0 || errors.length !== 0;
+
+	const allFailed = !skip && results?.devices?.successful === 0;
+	const someFailed = results?.devices?.failed !== 0 || errors?.length !== 0;
 	const effectiveSpeed = bytesToMegabytes(getEffectiveSpeed(results)).toFixed(
 		1,
 	);
