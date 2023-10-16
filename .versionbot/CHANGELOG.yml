@@ -1,4 +1,21 @@
 - commits:
+    - subject: "patch: upgrade to electron 25"
+      hash: f38bca290fe26121bed58d1131265e1aa350ddb5
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: refactor scanner, loader and flasher out of gui + upgrade to
+        electron 25"
+      hash: fb8ed5b529e22bc9e766bfe99c2b6955ed695b58
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.18.13
+  title: ""
+  date: 2023-10-16T13:32:26.738Z
+- commits:
     - subject: Update instructions for installing deb file
       hash: acab03ad77a1c1901d0c8a65999e93c1d27169a0
       body: ""
