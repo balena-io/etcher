@@ -1,0 +1,10 @@
+{
+  "assets": [
+    "node_modules/usb/**",
+    "node_modules/lzma-native/**",
+    "node_modules/drivelist/**",
+    "node_modules/mountutils/**",
+    "node_modules/winusb-driver-generator/**",
+    "node_modules/node-raspberrypi-usbboot/**"
+  ]
+}
