@@ -30,7 +30,8 @@ const adapters: Adapter[] = [
 
 // Can't use permissions.isElevated() here as it returns a promise and we need to set
 // module.exports = scanner right now.
-if (platform !== 'linux' || geteuid() === 0) {
+const euid = geteuid ? geteuid() : undefined;
+if (platform !== 'linux' || euid === 0) {
 	adapters.push(new UsbbootDeviceAdapter());
 }
 

@@ -447,8 +447,5 @@ rules:
   react/jsx-uses-vars:
     - error
 
-overrides:
-  files: ['*.jsx']
-  rules:
-    require-jsdoc:
-    - off
+  ban-ts-ignore:
+    - warn

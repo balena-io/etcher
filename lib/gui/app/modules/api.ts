@@ -95,7 +95,6 @@ function terminateServer(server: any) {
 	// the server to actually close. Otherwise, it
 	// just stops receiving any further connections,
 	// but remains open if there are active ones.
-	// @ts-ignore (no Server.sockets in @types/node-ipc)
 	for (const socket of server.sockets) {
 		socket.destroy();
 	}
