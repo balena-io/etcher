@@ -17,15 +17,7 @@
 import * as CopyPlugin from 'copy-webpack-plugin';
 import * as _ from 'lodash';
 import * as path from 'path';
-import * as SimpleProgressWebpackPlugin from 'simple-progress-webpack-plugin';
 import * as TerserPlugin from 'terser-webpack-plugin';
-import {
-	BannerPlugin,
-	IgnorePlugin,
-	NormalModuleReplacementPlugin,
-} from 'webpack';
-import * as PnpWebpackPlugin from 'pnp-webpack-plugin';
-
 import * as tsconfigRaw from './tsconfig.webpack.json';
 
 /**
@@ -41,37 +33,6 @@ function externalPackageJson(packageJsonPath: string) {
 			return callback(null, `commonjs ${packageJsonPath}`);
 		}
 		return callback();
-	};
-}
-
-function renameNodeModules(resourcePath: string) {
-	// electron-builder excludes the node_modules folder even if you specifically include it
-	// Work around by renaming it to "modules"
-	// See https://github.com/electron-userland/electron-builder/issues/4545
-	return (
-		path
-			.relative(__dirname, resourcePath)
-			.replace('node_modules', 'modules')
-			// file-loader expects posix paths, even on Windows
-			.replace(/\\/g, '/')
-	);
-}
-
-interface ReplacementRule {
-	search: string;
-	replace: string | (() => string);
-}
-
-function slashOrAntislash(pattern: RegExp): RegExp {
-	return new RegExp(pattern.source.replace(/\\\//g, '(\\/|\\\\)'));
-}
-
-function replace(test: RegExp, ...replacements: ReplacementRule[]) {
-	return {
-		loader: 'string-replace-loader',
-		// Handle windows path separators
-		test: slashOrAntislash(test),
-		options: { multiple: replacements.map((r) => ({ ...r, strict: true })) },
 	};
 }
 
@@ -104,7 +65,6 @@ const commonConfig = {
 			{
 				test: /\.(woff|woff2|eot|ttf|otf)$/,
 				loader: 'file-loader',
-				options: { name: renameNodeModules },
 			},
 			{
 				test: /\.svg$/,
@@ -123,43 +83,10 @@ const commonConfig = {
 					},
 				],
 			},
-			// don't import WeakMap polyfill in deep-map-keys (required in corvus)
-			replace(/node_modules\/deep-map-keys\/lib\/deep-map-keys\.js$/, {
-				search: "var WeakMap = require('es6-weak-map');",
-				replace: '',
-			}),
-			// force axios to use http backend (not xhr) to support streams
-			replace(/node_modules\/axios\/lib\/defaults\.js$/, {
-				search: './adapters/xhr',
-				replace: './adapters/http',
-			}),
 		],
 	},
 	resolve: {
 		extensions: ['.js', '.json', '.ts', '.tsx'],
-	},
-	plugins: [
-		PnpWebpackPlugin,
-		new SimpleProgressWebpackPlugin({
-			format: process.env.WEBPACK_PROGRESS || 'verbose',
-		}),
-		// Force axios to use http.js, not xhr.js as we need stream support
-		// (its package.json file replaces http with xhr for browser targets).
-		new NormalModuleReplacementPlugin(
-			slashOrAntislash(/node_modules\/axios\/lib\/adapters\/xhr\.js/),
-			'./http.js',
-		),
-		// Ignore `aws-crt` which is a dependency of (ultimately) `aws4-axios` which is used
-		// by etcher-sdk and does a runtime check to its availability. We’re not currently
-		// using the “assume role” functionality (AFAIU) of aws4-axios and we don’t care that
-		// it’s not found, so force webpack to ignore the import.
-		// See https://github.com/aws/aws-sdk-js-v3/issues/3025
-		new IgnorePlugin({
-			resourceRegExp: /^aws-crt$/,
-		}),
-	],
-	resolveLoader: {
-		plugins: [PnpWebpackPlugin.moduleLoader(module)],
 	},
 	output: {
 		path: path.join(__dirname, 'generated'),
@@ -182,7 +109,6 @@ const guiConfig = {
 		gui: path.join(__dirname, 'lib', 'gui', 'app', 'renderer.ts'),
 	},
 	plugins: [
-		...commonConfig.plugins,
 		new CopyPlugin({
 			patterns: [
 				{ from: 'lib/gui/app/index.html', to: 'index.html' },
@@ -190,11 +116,6 @@ const guiConfig = {
 				// See https://github.com/electron-userland/electron-builder/issues/4545
 				{ from: 'assets/icon.png', to: 'media/icon.png' },
 			],
-		}),
-		// Remove "Download the React DevTools for a better development experience" message
-		new BannerPlugin({
-			banner: '__REACT_DEVTOOLS_GLOBAL_HOOK__ = { isDisabled: true };',
-			raw: true,
 		}),
 	],
 };
