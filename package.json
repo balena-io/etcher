@@ -70,7 +70,7 @@
     "@types/semver": "7.5.3",
     "@types/sinon": "10.0.19",
     "@types/terser-webpack-plugin": "5.0.4",
-    "@types/tmp": "0.2.3",
+    "@types/tmp": "0.2.4",
     "analytics-client": "^2.0.1",
     "axios": "^0.27.2",
     "chai": "4.3.10",
