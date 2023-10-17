@@ -35,7 +35,6 @@
         "chai": "4.3.10",
         "copy-webpack-plugin": "7.0.0",
         "css-loader": "5.2.7",
-        "d3": "4.13.0",
         "debug": "4.3.4",
         "electron": "^27.0.0",
         "electron-builder": "^23.6.0",
@@ -52,7 +51,6 @@
         "lodash": "4.17.21",
         "mini-css-extract-plugin": "1.6.2",
         "mocha": "^10.2.0",
-        "native-addon-loader": "2.0.1",
         "node-ipc": "9.2.1",
         "omit-deep-lodash": "1.1.7",
         "outdent": "0.8.0",
@@ -7236,43 +7234,6 @@
         "crc32": "bin/crc32.js"
       }
     },
-    "node_modules/d3": {
-      "version": "4.13.0",
-      "dev": true,
-      "license": "BSD-3-Clause",
-      "dependencies": {
-        "d3-array": "1.2.1",
-        "d3-axis": "1.0.8",
-        "d3-brush": "1.0.4",
-        "d3-chord": "1.0.4",
-        "d3-collection": "1.0.4",
-        "d3-color": "1.0.3",
-        "d3-dispatch": "1.0.3",
-        "d3-drag": "1.2.1",
-        "d3-dsv": "1.0.8",
-        "d3-ease": "1.0.3",
-        "d3-force": "1.1.0",
-        "d3-format": "1.2.2",
-        "d3-geo": "1.9.1",
-        "d3-hierarchy": "1.1.5",
-        "d3-interpolate": "1.1.6",
-        "d3-path": "1.0.5",
-        "d3-polygon": "1.0.3",
-        "d3-quadtree": "1.0.3",
-        "d3-queue": "3.0.7",
-        "d3-random": "1.1.0",
-        "d3-request": "1.0.6",
-        "d3-scale": "1.0.7",
-        "d3-selection": "1.3.0",
-        "d3-shape": "1.2.0",
-        "d3-time": "1.0.8",
-        "d3-time-format": "2.1.1",
-        "d3-timer": "1.0.7",
-        "d3-transition": "1.1.1",
-        "d3-voronoi": "1.1.2",
-        "d3-zoom": "1.7.1"
-      }
-    },
     "node_modules/d3-array": {
       "version": "1.2.1",
       "dev": true,
@@ -7433,40 +7394,10 @@
       "dev": true,
       "license": "BSD-3-Clause"
     },
-    "node_modules/d3-queue": {
-      "version": "3.0.7",
-      "dev": true,
-      "license": "BSD-3-Clause"
-    },
     "node_modules/d3-random": {
       "version": "1.1.0",
       "dev": true,
       "license": "BSD-3-Clause"
-    },
-    "node_modules/d3-request": {
-      "version": "1.0.6",
-      "dev": true,
-      "license": "BSD-3-Clause",
-      "dependencies": {
-        "d3-collection": "1",
-        "d3-dispatch": "1",
-        "d3-dsv": "1",
-        "xmlhttprequest": "1"
-      }
-    },
-    "node_modules/d3-scale": {
-      "version": "1.0.7",
-      "dev": true,
-      "license": "BSD-3-Clause",
-      "dependencies": {
-        "d3-array": "^1.2.0",
-        "d3-collection": "1",
-        "d3-color": "1",
-        "d3-format": "1",
-        "d3-interpolate": "1",
-        "d3-time": "1",
-        "d3-time-format": "2"
-      }
     },
     "node_modules/d3-scale-chromatic": {
       "version": "1.5.0",
@@ -13398,38 +13329,6 @@
       "dev": true,
       "license": "MIT"
     },
-    "node_modules/native-addon-loader": {
-      "version": "2.0.1",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "loader-utils": "^1.2.3"
-      }
-    },
-    "node_modules/native-addon-loader/node_modules/json5": {
-      "version": "1.0.2",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "minimist": "^1.2.0"
-      },
-      "bin": {
-        "json5": "lib/cli.js"
-      }
-    },
-    "node_modules/native-addon-loader/node_modules/loader-utils": {
-      "version": "1.4.2",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "big.js": "^5.2.2",
-        "emojis-list": "^3.0.0",
-        "json5": "^1.0.1"
-      },
-      "engines": {
-        "node": ">=4.0.0"
-      }
-    },
     "node_modules/negotiator": {
       "version": "0.6.3",
       "dev": true,
@@ -18168,14 +18067,6 @@
       "license": "MIT",
       "engines": {
         "node": ">=8.0"
-      }
-    },
-    "node_modules/xmlhttprequest": {
-      "version": "1.8.0",
-      "dev": true,
-      "license": "MIT",
-      "engines": {
-        "node": ">=0.4.0"
       }
     },
     "node_modules/xok": {
@@ -23448,42 +23339,6 @@
       "version": "1.2.0",
       "dev": true
     },
-    "d3": {
-      "version": "4.13.0",
-      "dev": true,
-      "requires": {
-        "d3-array": "1.2.1",
-        "d3-axis": "1.0.8",
-        "d3-brush": "1.0.4",
-        "d3-chord": "1.0.4",
-        "d3-collection": "1.0.4",
-        "d3-color": "1.0.3",
-        "d3-dispatch": "1.0.3",
-        "d3-drag": "1.2.1",
-        "d3-dsv": "1.0.8",
-        "d3-ease": "1.0.3",
-        "d3-force": "1.1.0",
-        "d3-format": "1.2.2",
-        "d3-geo": "1.9.1",
-        "d3-hierarchy": "1.1.5",
-        "d3-interpolate": "1.1.6",
-        "d3-path": "1.0.5",
-        "d3-polygon": "1.0.3",
-        "d3-quadtree": "1.0.3",
-        "d3-queue": "3.0.7",
-        "d3-random": "1.1.0",
-        "d3-request": "1.0.6",
-        "d3-scale": "1.0.7",
-        "d3-selection": "1.3.0",
-        "d3-shape": "1.2.0",
-        "d3-time": "1.0.8",
-        "d3-time-format": "2.1.1",
-        "d3-timer": "1.0.7",
-        "d3-transition": "1.1.1",
-        "d3-voronoi": "1.1.2",
-        "d3-zoom": "1.7.1"
-      }
-    },
     "d3-array": {
       "version": "1.2.1",
       "dev": true
@@ -23609,36 +23464,9 @@
       "version": "1.0.3",
       "dev": true
     },
-    "d3-queue": {
-      "version": "3.0.7",
-      "dev": true
-    },
     "d3-random": {
       "version": "1.1.0",
       "dev": true
-    },
-    "d3-request": {
-      "version": "1.0.6",
-      "dev": true,
-      "requires": {
-        "d3-collection": "1",
-        "d3-dispatch": "1",
-        "d3-dsv": "1",
-        "xmlhttprequest": "1"
-      }
-    },
-    "d3-scale": {
-      "version": "1.0.7",
-      "dev": true,
-      "requires": {
-        "d3-array": "^1.2.0",
-        "d3-collection": "1",
-        "d3-color": "1",
-        "d3-format": "1",
-        "d3-interpolate": "1",
-        "d3-time": "1",
-        "d3-time-format": "2"
-      }
     },
     "d3-scale-chromatic": {
       "version": "1.5.0",
@@ -27585,31 +27413,6 @@
       "version": "1.0.2",
       "dev": true
     },
-    "native-addon-loader": {
-      "version": "2.0.1",
-      "dev": true,
-      "requires": {
-        "loader-utils": "^1.2.3"
-      },
-      "dependencies": {
-        "json5": {
-          "version": "1.0.2",
-          "dev": true,
-          "requires": {
-            "minimist": "^1.2.0"
-          }
-        },
-        "loader-utils": {
-          "version": "1.4.2",
-          "dev": true,
-          "requires": {
-            "big.js": "^5.2.2",
-            "emojis-list": "^3.0.0",
-            "json5": "^1.0.1"
-          }
-        }
-      }
-    },
     "negotiator": {
       "version": "0.6.3",
       "dev": true
@@ -30691,10 +30494,6 @@
     },
     "xmlbuilder": {
       "version": "15.1.1",
-      "dev": true
-    },
-    "xmlhttprequest": {
-      "version": "1.8.0",
       "dev": true
     },
     "xok": {
