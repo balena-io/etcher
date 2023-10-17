@@ -66,9 +66,7 @@
         "redux": "4.2.0",
         "rendition": "19.3.2",
         "semver": "7.5.4",
-        "simple-progress-webpack-plugin": "1.1.2",
         "sinon": "16.1.0",
-        "string-replace-loader": "3.1.0",
         "style-loader": "2.0.0",
         "styled-components": "5.3.6",
         "sys-class-rgb-led": "3.0.1",
@@ -9624,17 +9622,6 @@
       "dev": true,
       "license": "BSD-2-Clause"
     },
-    "node_modules/figures": {
-      "version": "2.0.0",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "escape-string-regexp": "^1.0.5"
-      },
-      "engines": {
-        "node": ">=4"
-      }
-    },
     "node_modules/file-disk": {
       "version": "8.0.1",
       "dev": true,
@@ -16031,146 +16018,6 @@
         "url": "https://github.com/sponsors/sindresorhus"
       }
     },
-    "node_modules/simple-progress-webpack-plugin": {
-      "version": "1.1.2",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "chalk": "2.3.x",
-        "figures": "2.0.x",
-        "log-update": "2.3.x"
-      },
-      "peerDependencies": {
-        "webpack": ">=2.0.0"
-      }
-    },
-    "node_modules/simple-progress-webpack-plugin/node_modules/ansi-escapes": {
-      "version": "3.2.0",
-      "dev": true,
-      "license": "MIT",
-      "engines": {
-        "node": ">=4"
-      }
-    },
-    "node_modules/simple-progress-webpack-plugin/node_modules/ansi-regex": {
-      "version": "3.0.1",
-      "dev": true,
-      "license": "MIT",
-      "engines": {
-        "node": ">=4"
-      }
-    },
-    "node_modules/simple-progress-webpack-plugin/node_modules/chalk": {
-      "version": "2.3.2",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "ansi-styles": "^3.2.1",
-        "escape-string-regexp": "^1.0.5",
-        "supports-color": "^5.3.0"
-      },
-      "engines": {
-        "node": ">=4"
-      }
-    },
-    "node_modules/simple-progress-webpack-plugin/node_modules/cli-cursor": {
-      "version": "2.1.0",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "restore-cursor": "^2.0.0"
-      },
-      "engines": {
-        "node": ">=4"
-      }
-    },
-    "node_modules/simple-progress-webpack-plugin/node_modules/is-fullwidth-code-point": {
-      "version": "2.0.0",
-      "dev": true,
-      "license": "MIT",
-      "engines": {
-        "node": ">=4"
-      }
-    },
-    "node_modules/simple-progress-webpack-plugin/node_modules/log-update": {
-      "version": "2.3.0",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "ansi-escapes": "^3.0.0",
-        "cli-cursor": "^2.0.0",
-        "wrap-ansi": "^3.0.1"
-      },
-      "engines": {
-        "node": ">=4"
-      }
-    },
-    "node_modules/simple-progress-webpack-plugin/node_modules/mimic-fn": {
-      "version": "1.2.0",
-      "dev": true,
-      "license": "MIT",
-      "engines": {
-        "node": ">=4"
-      }
-    },
-    "node_modules/simple-progress-webpack-plugin/node_modules/onetime": {
-      "version": "2.0.1",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "mimic-fn": "^1.0.0"
-      },
-      "engines": {
-        "node": ">=4"
-      }
-    },
-    "node_modules/simple-progress-webpack-plugin/node_modules/restore-cursor": {
-      "version": "2.0.0",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "onetime": "^2.0.0",
-        "signal-exit": "^3.0.2"
-      },
-      "engines": {
-        "node": ">=4"
-      }
-    },
-    "node_modules/simple-progress-webpack-plugin/node_modules/string-width": {
-      "version": "2.1.1",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "is-fullwidth-code-point": "^2.0.0",
-        "strip-ansi": "^4.0.0"
-      },
-      "engines": {
-        "node": ">=4"
-      }
-    },
-    "node_modules/simple-progress-webpack-plugin/node_modules/strip-ansi": {
-      "version": "4.0.0",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "ansi-regex": "^3.0.0"
-      },
-      "engines": {
-        "node": ">=4"
-      }
-    },
-    "node_modules/simple-progress-webpack-plugin/node_modules/wrap-ansi": {
-      "version": "3.0.1",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "string-width": "^2.1.1",
-        "strip-ansi": "^4.0.0"
-      },
-      "engines": {
-        "node": ">=4"
-      }
-    },
     "node_modules/simple-swizzle": {
       "version": "0.2.2",
       "dev": true,
@@ -16461,18 +16308,6 @@
       "license": "MIT",
       "engines": {
         "node": ">=0.6.19"
-      }
-    },
-    "node_modules/string-replace-loader": {
-      "version": "3.1.0",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "loader-utils": "^2.0.0",
-        "schema-utils": "^3.0.0"
-      },
-      "peerDependencies": {
-        "webpack": "^5"
       }
     },
     "node_modules/string-width": {
@@ -25310,13 +25145,6 @@
       "version": "1.0.0",
       "dev": true
     },
-    "figures": {
-      "version": "2.0.0",
-      "dev": true,
-      "requires": {
-        "escape-string-regexp": "^1.0.5"
-      }
-    },
     "file-disk": {
       "version": "8.0.1",
       "dev": true,
@@ -29493,96 +29321,6 @@
         }
       }
     },
-    "simple-progress-webpack-plugin": {
-      "version": "1.1.2",
-      "dev": true,
-      "requires": {
-        "chalk": "2.3.x",
-        "figures": "2.0.x",
-        "log-update": "2.3.x"
-      },
-      "dependencies": {
-        "ansi-escapes": {
-          "version": "3.2.0",
-          "dev": true
-        },
-        "ansi-regex": {
-          "version": "3.0.1",
-          "dev": true
-        },
-        "chalk": {
-          "version": "2.3.2",
-          "dev": true,
-          "requires": {
-            "ansi-styles": "^3.2.1",
-            "escape-string-regexp": "^1.0.5",
-            "supports-color": "^5.3.0"
-          }
-        },
-        "cli-cursor": {
-          "version": "2.1.0",
-          "dev": true,
-          "requires": {
-            "restore-cursor": "^2.0.0"
-          }
-        },
-        "is-fullwidth-code-point": {
-          "version": "2.0.0",
-          "dev": true
-        },
-        "log-update": {
-          "version": "2.3.0",
-          "dev": true,
-          "requires": {
-            "ansi-escapes": "^3.0.0",
-            "cli-cursor": "^2.0.0",
-            "wrap-ansi": "^3.0.1"
-          }
-        },
-        "mimic-fn": {
-          "version": "1.2.0",
-          "dev": true
-        },
-        "onetime": {
-          "version": "2.0.1",
-          "dev": true,
-          "requires": {
-            "mimic-fn": "^1.0.0"
-          }
-        },
-        "restore-cursor": {
-          "version": "2.0.0",
-          "dev": true,
-          "requires": {
-            "onetime": "^2.0.0",
-            "signal-exit": "^3.0.2"
-          }
-        },
-        "string-width": {
-          "version": "2.1.1",
-          "dev": true,
-          "requires": {
-            "is-fullwidth-code-point": "^2.0.0",
-            "strip-ansi": "^4.0.0"
-          }
-        },
-        "strip-ansi": {
-          "version": "4.0.0",
-          "dev": true,
-          "requires": {
-            "ansi-regex": "^3.0.0"
-          }
-        },
-        "wrap-ansi": {
-          "version": "3.0.1",
-          "dev": true,
-          "requires": {
-            "string-width": "^2.1.1",
-            "strip-ansi": "^4.0.0"
-          }
-        }
-      }
-    },
     "simple-swizzle": {
       "version": "0.2.2",
       "dev": true,
@@ -29789,14 +29527,6 @@
     "string-argv": {
       "version": "0.3.1",
       "dev": true
-    },
-    "string-replace-loader": {
-      "version": "3.1.0",
-      "dev": true,
-      "requires": {
-        "loader-utils": "^2.0.0",
-        "schema-utils": "^3.0.0"
-      }
     },
     "string-width": {
       "version": "4.2.3",
