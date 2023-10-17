@@ -74,7 +74,7 @@
     "analytics-client": "^2.0.1",
     "axios": "^0.27.2",
     "chai": "4.3.10",
-    "copy-webpack-plugin": "7.0.0",
+    "copy-webpack-plugin": "11.0.0",
     "css-loader": "5.2.7",
     "debug": "4.3.4",
     "electron": "^27.0.0",
