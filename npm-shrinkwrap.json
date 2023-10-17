@@ -30,7 +30,6 @@
         "@types/sinon": "10.0.19",
         "@types/terser-webpack-plugin": "5.0.4",
         "@types/tmp": "0.2.3",
-        "@types/webpack-node-externals": "2.5.3",
         "analytics-client": "^2.0.1",
         "axios": "^0.27.2",
         "chai": "4.3.10",
@@ -4974,15 +4973,6 @@
         "@types/webpack-sources": "*",
         "anymatch": "^3.0.0",
         "source-map": "^0.6.0"
-      }
-    },
-    "node_modules/@types/webpack-node-externals": {
-      "version": "2.5.3",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "@types/node": "*",
-        "webpack": "^5"
       }
     },
     "node_modules/@types/webpack-sources": {
@@ -22069,14 +22059,6 @@
         "@types/webpack-sources": "*",
         "anymatch": "^3.0.0",
         "source-map": "^0.6.0"
-      }
-    },
-    "@types/webpack-node-externals": {
-      "version": "2.5.3",
-      "dev": true,
-      "requires": {
-        "@types/node": "*",
-        "webpack": "^5"
       }
     },
     "@types/webpack-sources": {
