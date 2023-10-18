@@ -83,7 +83,7 @@
     "electron-notarize": "1.2.2",
     "electron-updater": "6.1.4",
     "esbuild-loader": "4.0.2",
-    "etcher-sdk": "8.3.1",
+    "etcher-sdk": "8.7.2",
     "file-loader": "6.2.0",
     "husky": "8.0.3",
     "i18next": "23.5.1",
