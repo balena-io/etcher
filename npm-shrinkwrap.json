@@ -45,7 +45,7 @@
         "etcher-sdk": "8.3.1",
         "file-loader": "6.2.0",
         "husky": "8.0.3",
-        "i18next": "21.10.0",
+        "i18next": "23.5.1",
         "immutable": "3.8.2",
         "lint-staged": "10.5.4",
         "lodash": "4.17.21",
@@ -11094,7 +11094,9 @@
       }
     },
     "node_modules/i18next": {
-      "version": "21.10.0",
+      "version": "23.5.1",
+      "resolved": "https://registry.npmjs.org/i18next/-/i18next-23.5.1.tgz",
+      "integrity": "sha512-JelYzcaCoFDaa+Ysbfz2JsGAKkrHiMG6S61+HLBUEIPaF40WMwW9hCPymlQGrP+wWawKxKPuSuD71WZscCsWHg==",
       "dev": true,
       "funding": [
         {
@@ -11110,9 +11112,8 @@
           "url": "https://www.i18next.com/how-to/faq#i18next-is-awesome.-how-can-i-support-the-project"
         }
       ],
-      "license": "MIT",
       "dependencies": {
-        "@babel/runtime": "^7.17.2"
+        "@babel/runtime": "^7.22.5"
       }
     },
     "node_modules/iconv-corefoundation": {
@@ -26227,10 +26228,12 @@
       "dev": true
     },
     "i18next": {
-      "version": "21.10.0",
+      "version": "23.5.1",
+      "resolved": "https://registry.npmjs.org/i18next/-/i18next-23.5.1.tgz",
+      "integrity": "sha512-JelYzcaCoFDaa+Ysbfz2JsGAKkrHiMG6S61+HLBUEIPaF40WMwW9hCPymlQGrP+wWawKxKPuSuD71WZscCsWHg==",
       "dev": true,
       "requires": {
-        "@babel/runtime": "^7.17.2"
+        "@babel/runtime": "^7.22.5"
       }
     },
     "iconv-corefoundation": {

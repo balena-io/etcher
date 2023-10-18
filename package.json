@@ -86,7 +86,7 @@
     "etcher-sdk": "8.3.1",
     "file-loader": "6.2.0",
     "husky": "8.0.3",
-    "i18next": "21.10.0",
+    "i18next": "23.5.1",
     "immutable": "3.8.2",
     "lint-staged": "10.5.4",
     "lodash": "4.17.21",
