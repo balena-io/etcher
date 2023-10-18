@@ -1,13 +1,13 @@
-import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/exclamation-triangle.svg';
-import * as _ from 'lodash';
-import * as React from 'react';
-import { Badge, Flex, Txt, ModalProps } from 'rendition';
-import { Modal, ScrollableFlex } from '../../styled-components';
-import { middleEllipsis } from '../../utils/middle-ellipsis';
+import ExclamationTriangleSvg from "@fortawesome/fontawesome-free/svgs/solid/exclamation-triangle.svg";
+import * as _ from "lodash";
+import * as React from "react";
+import { Badge, Flex, Txt, ModalProps } from "rendition";
+import { Modal, ScrollableFlex } from "../../styled-components";
+import { middleEllipsis } from "../../utils/middle-ellipsis";
 
-import * as prettyBytes from 'pretty-bytes';
-import { DriveWithWarnings } from '../../pages/main/Flash';
-import * as i18next from 'i18next';
+import prettyBytes from "pretty-bytes";
+import { DriveWithWarnings } from "../../pages/main/Flash";
+import * as i18next from "i18next";
 
 const DriveStatusWarningModal = ({
 	done,
@@ -18,12 +18,12 @@ const DriveStatusWarningModal = ({
 	isSystem: boolean;
 	drivesWithWarnings: DriveWithWarnings[];
 }) => {
-	let warningSubtitle = i18next.t('drives.largeDriveWarning');
-	let warningCta = i18next.t('drives.largeDriveWarningMsg');
+	let warningSubtitle = i18next.t("drives.largeDriveWarning");
+	let warningCta = i18next.t("drives.largeDriveWarningMsg");
 
 	if (isSystem) {
-		warningSubtitle = i18next.t('drives.systemDriveWarning');
-		warningCta = i18next.t('drives.systemDriveWarningMsg');
+		warningSubtitle = i18next.t("drives.systemDriveWarning");
+		warningCta = i18next.t("drives.systemDriveWarningMsg");
 	}
 	return (
 		<Modal
@@ -34,9 +34,9 @@ const DriveStatusWarningModal = ({
 			cancelButtonProps={{
 				primary: false,
 				warning: true,
-				children: i18next.t('drives.changeTarget'),
+				children: i18next.t("drives.changeTarget"),
 			}}
-			action={i18next.t('sure')}
+			action={i18next.t("sure")}
 			primaryButtonProps={{
 				primary: false,
 				outline: true,
@@ -51,7 +51,7 @@ const DriveStatusWarningModal = ({
 				<Flex flexDirection="column">
 					<ExclamationTriangleSvg height="2em" fill="#fca321" />
 					<Txt fontSize="24px" color="#fca321">
-						{i18next.t('warning')}
+						{i18next.t("warning")}
 					</Txt>
 				</Flex>
 				<Txt fontSize="24px">{warningSubtitle}</Txt>
@@ -66,11 +66,11 @@ const DriveStatusWarningModal = ({
 					{drivesWithWarnings.map((drive, i, array) => (
 						<>
 							<Flex justifyContent="space-between" alignItems="baseline">
-								<strong>{middleEllipsis(drive.description, 28)}</strong>{' '}
-								{drive.size && prettyBytes(drive.size) + ' '}
+								<strong>{middleEllipsis(drive.description, 28)}</strong>{" "}
+								{drive.size && prettyBytes(drive.size) + " "}
 								<Badge shade={5}>{drive.statuses[0].message}</Badge>
 							</Flex>
-							{i !== array.length - 1 ? <hr style={{ width: '100%' }} /> : null}
+							{i !== array.length - 1 ? <hr style={{ width: "100%" }} /> : null}
 						</>
 					))}
 				</ScrollableFlex>

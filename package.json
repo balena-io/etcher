@@ -98,7 +98,7 @@
     "path-is-inside": "1.0.2",
     "pkg": "^5.8.1",
     "pnp-webpack-plugin": "1.7.0",
-    "pretty-bytes": "5.6.0",
+    "pretty-bytes": "6.1.1",
     "react": "16.8.5",
     "react-dom": "16.8.5",
     "react-i18next": "11.18.6",
