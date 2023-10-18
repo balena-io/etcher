@@ -57,7 +57,7 @@
     "@fortawesome/fontawesome-free": "5.15.4",
     "@sentry/electron": "^4.14.0",
     "@svgr/webpack": "8.1.0",
-    "@types/chai": "4.3.8",
+    "@types/chai": "4.3.9",
     "@types/copy-webpack-plugin": "6.4.3",
     "@types/lodash": "^4.14.200",
     "@types/mime-types": "2.1.1",

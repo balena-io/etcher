@@ -6062,8 +6062,9 @@
     },
     "node_modules/axios": {
       "version": "0.27.2",
+      "resolved": "https://registry.npmjs.org/axios/-/axios-0.27.2.tgz",
+      "integrity": "sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==",
       "dev": true,
-      "license": "MIT",
       "dependencies": {
         "follow-redirects": "^1.14.9",
         "form-data": "^4.0.0"
@@ -22776,6 +22777,8 @@
     },
     "axios": {
       "version": "0.27.2",
+      "resolved": "https://registry.npmjs.org/axios/-/axios-0.27.2.tgz",
+      "integrity": "sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==",
       "dev": true,
       "requires": {
         "follow-redirects": "^1.14.9",
