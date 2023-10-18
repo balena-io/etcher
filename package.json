@@ -79,7 +79,7 @@
     "debug": "4.3.4",
     "electron": "^27.0.0",
     "electron-builder": "^23.6.0",
-    "electron-mocha": "^11.0.2",
+    "electron-mocha": "^12.1.0",
     "electron-notarize": "1.2.2",
     "electron-updater": "6.1.4",
     "esbuild-loader": "4.0.2",
