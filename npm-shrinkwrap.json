@@ -13,7 +13,7 @@
         "@balena/lint": "5.4.2",
         "@balena/sudo-prompt": "9.2.1-workaround-windows-amperstand-in-username-0849e215b947987a643fe5763902aea201255534",
         "@electron/remote": "^2.0.12",
-        "@fortawesome/fontawesome-free": "5.15.4",
+        "@fortawesome/fontawesome-free": "6.4.2",
         "@sentry/electron": "^4.14.0",
         "@svgr/webpack": "8.1.0",
         "@types/chai": "4.3.9",
@@ -3198,10 +3198,11 @@
       }
     },
     "node_modules/@fortawesome/fontawesome-free": {
-      "version": "5.15.4",
+      "version": "6.4.2",
+      "resolved": "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-6.4.2.tgz",
+      "integrity": "sha512-m5cPn3e2+FDCOgi1mz0RexTUvvQibBebOUlUlW0+YrMjDTPkiJ6VTKukA1GRsvRw+12KyJndNjj0O4AgTxm2Pg==",
       "dev": true,
       "hasInstallScript": true,
-      "license": "(CC-BY-4.0 AND OFL-1.1 AND MIT)",
       "engines": {
         "node": ">=6"
       }
@@ -20616,7 +20617,9 @@
       "dev": true
     },
     "@fortawesome/fontawesome-free": {
-      "version": "5.15.4",
+      "version": "6.4.2",
+      "resolved": "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-6.4.2.tgz",
+      "integrity": "sha512-m5cPn3e2+FDCOgi1mz0RexTUvvQibBebOUlUlW0+YrMjDTPkiJ6VTKukA1GRsvRw+12KyJndNjj0O4AgTxm2Pg==",
       "dev": true
     },
     "@fortawesome/fontawesome-svg-core": {
