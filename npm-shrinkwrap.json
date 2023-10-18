@@ -27,7 +27,7 @@
         "@types/react": "16.14.34",
         "@types/react-dom": "16.9.17",
         "@types/semver": "7.5.3",
-        "@types/sinon": "10.0.19",
+        "@types/sinon": "10.0.20",
         "@types/terser-webpack-plugin": "5.0.4",
         "@types/tmp": "0.2.4",
         "analytics-client": "^2.0.1",
@@ -5206,9 +5206,9 @@
       }
     },
     "node_modules/@types/sinon": {
-      "version": "10.0.19",
-      "resolved": "https://registry.npmjs.org/@types/sinon/-/sinon-10.0.19.tgz",
-      "integrity": "sha512-MWZNGPSchIdDfb5FL+VFi4zHsHbNOTQEgjqFQk7HazXSXwUU9PAX3z9XBqb3AJGYr9YwrtCtaSMsT3brYsN/jQ==",
+      "version": "10.0.20",
+      "resolved": "https://registry.npmjs.org/@types/sinon/-/sinon-10.0.20.tgz",
+      "integrity": "sha512-2APKKruFNCAZgx3daAyACGzWuJ028VVCUDk6o2rw/Z4PXT0ogwdV4KUegW0MwVs0Zu59auPXbbuBJHF12Sx1Eg==",
       "dev": true,
       "dependencies": {
         "@types/sinonjs__fake-timers": "*"
@@ -22137,9 +22137,9 @@
       }
     },
     "@types/sinon": {
-      "version": "10.0.19",
-      "resolved": "https://registry.npmjs.org/@types/sinon/-/sinon-10.0.19.tgz",
-      "integrity": "sha512-MWZNGPSchIdDfb5FL+VFi4zHsHbNOTQEgjqFQk7HazXSXwUU9PAX3z9XBqb3AJGYr9YwrtCtaSMsT3brYsN/jQ==",
+      "version": "10.0.20",
+      "resolved": "https://registry.npmjs.org/@types/sinon/-/sinon-10.0.20.tgz",
+      "integrity": "sha512-2APKKruFNCAZgx3daAyACGzWuJ028VVCUDk6o2rw/Z4PXT0ogwdV4KUegW0MwVs0Zu59auPXbbuBJHF12Sx1Eg==",
       "dev": true,
       "requires": {
         "@types/sinonjs__fake-timers": "*"
