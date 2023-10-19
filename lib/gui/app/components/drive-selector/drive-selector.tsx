@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import ExclamationTriangleSvg from "@fortawesome/fontawesome-free/svgs/solid/triangle-exclamation.svg";
-import ChevronDownSvg from "@fortawesome/fontawesome-free/svgs/solid/chevron-down.svg";
-import * as sourceDestination from "etcher-sdk/build/source-destination/";
-import * as React from "react";
-import { Flex, ModalProps, Txt, Badge, Link, TableColumn } from "rendition";
-import styled from "styled-components";
+import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/triangle-exclamation.svg';
+import ChevronDownSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-down.svg';
+import * as sourceDestination from 'etcher-sdk/build/source-destination/';
+import * as React from 'react';
+import { Flex, ModalProps, Txt, Badge, Link, TableColumn } from 'rendition';
+import styled from 'styled-components';
 
 import {
 	getDriveImageCompatibilityStatuses,
@@ -27,24 +27,24 @@ import {
 	DriveStatus,
 	DrivelistDrive,
 	isDriveSizeLarge,
-} from "../../../../shared/drive-constraints";
-import { compatibility, warning } from "../../../../shared/messages";
-import prettyBytes from "pretty-bytes";
-import { getDrives, hasAvailableDrives } from "../../models/available-drives";
-import { getImage, isDriveSelected } from "../../models/selection-state";
-import { store } from "../../models/store";
-import { logEvent, logException } from "../../modules/analytics";
-import { open as openExternal } from "../../os/open-external/services/open-external";
+} from '../../../../shared/drive-constraints';
+import { compatibility, warning } from '../../../../shared/messages';
+import prettyBytes from 'pretty-bytes';
+import { getDrives, hasAvailableDrives } from '../../models/available-drives';
+import { getImage, isDriveSelected } from '../../models/selection-state';
+import { store } from '../../models/store';
+import { logEvent, logException } from '../../modules/analytics';
+import { open as openExternal } from '../../os/open-external/services/open-external';
 import {
 	Alert,
 	GenericTableProps,
 	Modal,
 	Table,
-} from "../../styled-components";
+} from '../../styled-components';
 
-import { SourceMetadata } from "../source-selector/source-selector";
-import { middleEllipsis } from "../../utils/middle-ellipsis";
-import * as i18next from "i18next";
+import { SourceMetadata } from '../source-selector/source-selector';
+import { middleEllipsis } from '../../utils/middle-ellipsis';
+import * as i18next from 'i18next';
 
 interface UsbbootDrive extends sourceDestination.UsbbootDrive {
 	progress: number;
@@ -70,7 +70,7 @@ function isDriverlessDrive(drive: Drive): drive is DriverlessDrive {
 }
 
 function isDrivelistDrive(drive: Drive): drive is DrivelistDrive {
-	return typeof (drive as DrivelistDrive).size === "number";
+	return typeof (drive as DrivelistDrive).size === 'number';
 }
 
 const DrivesTable = styled((props: GenericTableProps<Drive>) => (
@@ -119,7 +119,7 @@ const InitProgress = styled(
 		props?: React.ProgressHTMLAttributes<Element>;
 	}) => {
 		return <progress max="100" value={value} {...props} />;
-	}
+	},
 )`
 	/* Reset the default appearance */
 	appearance: none;
@@ -138,7 +138,7 @@ const InitProgress = styled(
 `;
 
 export interface DriveSelectorProps
-	extends Omit<ModalProps, "done" | "cancel" | "onSelect"> {
+	extends Omit<ModalProps, 'done' | 'cancel' | 'onSelect'> {
 	write: boolean;
 	multipleSelection: boolean;
 	showWarnings?: boolean;
@@ -189,8 +189,8 @@ export class DriveSelector extends React.Component<
 
 		this.tableColumns = [
 			{
-				field: "description",
-				label: i18next.t("drives.name"),
+				field: 'description',
+				label: i18next.t('drives.name'),
 				render: (description: string, drive: Drive) => {
 					if (isDrivelistDrive(drive)) {
 						const isLargeDrive = isDriveSizeLarge(drive);
@@ -201,7 +201,7 @@ export class DriveSelector extends React.Component<
 								{hasWarnings && (
 									<ExclamationTriangleSvg
 										height="1em"
-										fill={drive.isSystem ? "#fca321" : "#8f9297"}
+										fill={drive.isSystem ? '#fca321' : '#8f9297'}
 									/>
 								)}
 								<Txt ml={(hasWarnings && 8) || 0}>
@@ -214,9 +214,9 @@ export class DriveSelector extends React.Component<
 				},
 			},
 			{
-				field: "description",
-				key: "size",
-				label: i18next.t("drives.size"),
+				field: 'description',
+				key: 'size',
+				label: i18next.t('drives.size'),
 				render: (_description: string, drive: Drive) => {
 					if (isDrivelistDrive(drive) && drive.size !== null) {
 						return prettyBytes(drive.size);
@@ -224,17 +224,17 @@ export class DriveSelector extends React.Component<
 				},
 			},
 			{
-				field: "description",
-				key: "link",
-				label: i18next.t("drives.location"),
+				field: 'description',
+				key: 'link',
+				label: i18next.t('drives.location'),
 				render: (_description: string, drive: Drive) => {
 					return (
 						<Txt>
 							{drive.displayName}
 							{isDriverlessDrive(drive) && (
 								<>
-									{" "}
-									-{" "}
+									{' '}
+									-{' '}
 									<b>
 										<a onClick={() => this.installMissingDrivers(drive)}>
 											{drive.linkCTA}
@@ -247,8 +247,8 @@ export class DriveSelector extends React.Component<
 				},
 			},
 			{
-				field: "description",
-				key: "extra",
+				field: 'description',
+				key: 'extra',
 				// We use an empty React fragment otherwise it uses the field name as label
 				label: <></>,
 				render: (_description: string, drive: Drive) => {
@@ -300,7 +300,7 @@ export class DriveSelector extends React.Component<
 
 	private warningFromStatus(
 		status: string,
-		drive: { device: string; size: number }
+		drive: { device: string; size: number },
 	) {
 		switch (status) {
 			case compatibility.containsImage():
@@ -320,7 +320,7 @@ export class DriveSelector extends React.Component<
 		const statuses: DriveStatus[] = getDriveImageCompatibilityStatuses(
 			drive,
 			this.state.image,
-			this.props.write
+			this.props.write,
 		).slice(0, 2);
 		return (
 			// the column render fn expects a single Element
@@ -336,7 +336,7 @@ export class DriveSelector extends React.Component<
 							key={status.message}
 							shade={badgeShade}
 							mr="8px"
-							tooltip={this.props.showWarnings ? warningMessage : ""}
+							tooltip={this.props.showWarnings ? warningMessage : ''}
 						>
 							{status.message}
 						</Badge>
@@ -348,7 +348,7 @@ export class DriveSelector extends React.Component<
 
 	private installMissingDrivers(drive: DriverlessDrive) {
 		if (drive.link) {
-			logEvent("Open driver link modal", {
+			logEvent('Open driver link modal', {
 				url: drive.link,
 			});
 			this.setState({ missingDriversModal: { drive } });
@@ -400,14 +400,14 @@ export class DriveSelector extends React.Component<
 							color="#5b82a7"
 							style={{ fontWeight: 600 }}
 						>
-							{i18next.t("drives.find", { length: drives.length })}
+							{i18next.t('drives.find', { length: drives.length })}
 						</Txt>
 					</Flex>
 				}
 				titleDetails={<Txt fontSize={11}>{getDrives().length} found</Txt>}
 				cancel={() => cancel(this.originalList)}
 				done={() => done(selectedList)}
-				action={i18next.t("drives.select", { select: selectedList.length })}
+				action={i18next.t('drives.select', { select: selectedList.length })}
 				primaryButtonProps={{
 					primary: !showWarnings,
 					warning: showWarnings,
@@ -441,7 +441,7 @@ export class DriveSelector extends React.Component<
 							data={displayedDrives}
 							disabledRows={disabledDrives}
 							getRowClass={(row: Drive) =>
-								isDrivelistDrive(row) && row.isSystem ? ["system"] : []
+								isDrivelistDrive(row) && row.isSystem ? ['system'] : []
 							}
 							rowKey="displayName"
 							onCheck={(rows: Drive[]) => {
@@ -453,14 +453,14 @@ export class DriveSelector extends React.Component<
 									const deselecting = selectedList.filter(
 										(selected) =>
 											newSelection.filter(
-												(row) => row.device === selected.device
-											).length === 0
+												(row) => row.device === selected.device,
+											).length === 0,
 									);
 									const selecting = newSelection.filter(
 										(row) =>
 											selectedList.filter(
-												(selected) => row.device === selected.device
-											).length === 0
+												(selected) => row.device === selected.device,
+											).length === 0,
 									);
 									deselecting.concat(selecting).forEach((row) => {
 										if (this.props.onSelect) {
@@ -490,7 +490,7 @@ export class DriveSelector extends React.Component<
 									this.props.onSelect(row);
 								}
 								const index = selectedList.findIndex(
-									(d) => d.device === row.device
+									(d) => d.device === row.device,
 								);
 								const newList = this.props.multipleSelection
 									? [...selectedList]
@@ -516,7 +516,7 @@ export class DriveSelector extends React.Component<
 								<Flex alignItems="center">
 									<ChevronDownSvg height="1em" fill="currentColor" />
 									<Txt ml={8}>
-										{i18next.t("drives.showHidden", {
+										{i18next.t('drives.showHidden', {
 											num: numberOfHiddenSystemDrives,
 										})}
 									</Txt>
@@ -526,8 +526,8 @@ export class DriveSelector extends React.Component<
 					</>
 				)}
 				{this.props.showWarnings && hasSystemDrives ? (
-					<Alert className="system-drive-alert" style={{ width: "67%" }}>
-						{i18next.t("drives.systemDriveDanger")}
+					<Alert className="system-drive-alert" style={{ width: '67%' }}>
+						{i18next.t('drives.systemDriveDanger')}
 					</Alert>
 				) : null}
 
@@ -547,13 +547,13 @@ export class DriveSelector extends React.Component<
 								this.setState({ missingDriversModal: {} });
 							}
 						}}
-						action={i18next.t("yesContinue")}
+						action={i18next.t('yesContinue')}
 						cancelButtonProps={{
-							children: i18next.t("cancel"),
+							children: i18next.t('cancel'),
 						}}
 						children={
 							missingDriversModal.drive.linkMessage ||
-							i18next.t("drives.openInBrowser", {
+							i18next.t('drives.openInBrowser', {
 								link: missingDriversModal.drive.link,
 							})
 						}

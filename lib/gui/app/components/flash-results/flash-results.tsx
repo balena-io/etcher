@@ -14,29 +14,29 @@
  * limitations under the License.
  */
 
-import CircleSvg from "@fortawesome/fontawesome-free/svgs/solid/circle.svg";
-import CheckCircleSvg from "@fortawesome/fontawesome-free/svgs/solid/circle-check.svg";
-import TimesCircleSvg from "@fortawesome/fontawesome-free/svgs/solid/circle-xmark.svg";
-import * as React from "react";
-import { Flex, FlexProps, Link, TableColumn, Txt } from "rendition";
-import styled from "styled-components";
+import CircleSvg from '@fortawesome/fontawesome-free/svgs/solid/circle.svg';
+import CheckCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/circle-check.svg';
+import TimesCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/circle-xmark.svg';
+import * as React from 'react';
+import { Flex, FlexProps, Link, TableColumn, Txt } from 'rendition';
+import styled from 'styled-components';
 
-import { progress } from "../../../../shared/messages";
-import { bytesToMegabytes } from "../../../../shared/units";
+import { progress } from '../../../../shared/messages';
+import { bytesToMegabytes } from '../../../../shared/units';
 
-import FlashSvg from "../../../assets/flash.svg";
-import { getDrives } from "../../models/available-drives";
-import { resetState } from "../../models/flash-state";
-import * as selection from "../../models/selection-state";
-import { middleEllipsis } from "../../utils/middle-ellipsis";
-import { Modal, Table } from "../../styled-components";
-import * as i18next from "i18next";
+import FlashSvg from '../../../assets/flash.svg';
+import { getDrives } from '../../models/available-drives';
+import { resetState } from '../../models/flash-state';
+import * as selection from '../../models/selection-state';
+import { middleEllipsis } from '../../utils/middle-ellipsis';
+import { Modal, Table } from '../../styled-components';
+import * as i18next from 'i18next';
 
 const ErrorsTable = styled((props) => <Table<FlashError> {...props} />)`
-	&&& [data-display="table-head"],
-	&&& [data-display="table-body"] {
-		> [data-display="table-row"] {
-			> [data-display="table-cell"] {
+	&&& [data-display='table-head'],
+	&&& [data-display='table-body'] {
+		> [data-display='table-row'] {
+			> [data-display='table-cell'] {
 				&:first-child {
 					width: 30%;
 				}
@@ -58,11 +58,11 @@ const DoneIcon = (props: {
 	allFailed: boolean;
 }) => {
 	const svgProps = {
-		width: "28px",
+		width: '28px',
 		fill: props.color,
 		style: {
-			marginTop: "-25px",
-			marginLeft: "13px",
+			marginTop: '-25px',
+			marginLeft: '13px',
 			zIndex: 1,
 		},
 	};
@@ -82,21 +82,21 @@ export interface FlashError extends Error {
 function formattedErrors(errors: FlashError[]) {
 	return errors
 		.map((error) => `${error.device}: ${error.message || error.code}`)
-		.join("\n");
+		.join('\n');
 }
 
 const columns: Array<TableColumn<FlashError>> = [
 	{
-		field: "description",
-		label: i18next.t("flash.target"),
+		field: 'description',
+		label: i18next.t('flash.target'),
 	},
 	{
-		field: "device",
-		label: i18next.t("flash.location"),
+		field: 'device',
+		label: i18next.t('flash.location'),
 	},
 	{
-		field: "message",
-		label: i18next.t("flash.error"),
+		field: 'message',
+		label: i18next.t('flash.error'),
 		render: (message: string, { code }: FlashError) => {
 			return message ?? code;
 		},
@@ -118,7 +118,7 @@ function getEffectiveSpeed(results: {
 
 export function FlashResults({
 	goToMain,
-	image = "",
+	image = '',
 	errors,
 	results,
 	skip,
@@ -142,7 +142,7 @@ export function FlashResults({
 	const allFailed = !skip && results?.devices?.successful === 0;
 	const someFailed = results?.devices?.failed !== 0 || errors?.length !== 0;
 	const effectiveSpeed = bytesToMegabytes(getEffectiveSpeed(results)).toFixed(
-		1
+		1,
 	);
 	return (
 		<Flex flexDirection="column" {...props}>
@@ -158,16 +158,16 @@ export function FlashResults({
 					<DoneIcon
 						skipped={skip}
 						allFailed={allFailed}
-						color={allFailed || someFailed ? "#c6c8c9" : "#1ac135"}
+						color={allFailed || someFailed ? '#c6c8c9' : '#1ac135'}
 					/>
 					<Txt>{middleEllipsis(image, 24)}</Txt>
 				</Flex>
 				<Txt fontSize={24} color="#fff" mb="17px">
 					{allFailed
-						? i18next.t("flash.flashFailed")
-						: i18next.t("flash.flashCompleted")}
+						? i18next.t('flash.flashFailed')
+						: i18next.t('flash.flashCompleted')}
 				</Txt>
-				{skip ? <Txt color="#7e8085">{i18next.t("flash.skip")}</Txt> : null}
+				{skip ? <Txt color="#7e8085">{i18next.t('flash.skip')}</Txt> : null}
 			</Flex>
 			<Flex flexDirection="column" color="#7e8085">
 				{results.devices.successful !== 0 ? (
@@ -191,7 +191,7 @@ export function FlashResults({
 							{progress.failed(errors.length)}
 						</Txt>
 						<Link ml="10px" onClick={() => setShowErrorsInfo(true)}>
-							{i18next.t("flash.moreInfo")}
+							{i18next.t('flash.moreInfo')}
 						</Link>
 					</Flex>
 				) : null}
@@ -200,11 +200,11 @@ export function FlashResults({
 						fontSize="10px"
 						style={{
 							fontWeight: 500,
-							textAlign: "center",
+							textAlign: 'center',
 						}}
-						tooltip={i18next.t("flash.speedTip")}
+						tooltip={i18next.t('flash.speedTip')}
 					>
-						{i18next.t("flash.speed", { speed: effectiveSpeed })}
+						{i18next.t('flash.speed', { speed: effectiveSpeed })}
 					</Txt>
 				)}
 			</Flex>
@@ -214,11 +214,11 @@ export function FlashResults({
 					titleElement={
 						<Flex alignItems="baseline" mb={18}>
 							<Txt fontSize={24} align="left">
-								{i18next.t("failedTarget")}
+								{i18next.t('failedTarget')}
 							</Txt>
 						</Flex>
 					}
-					action={i18next.t("failedRetry")}
+					action={i18next.t('failedRetry')}
 					cancel={() => setShowErrorsInfo(false)}
 					done={() => {
 						setShowErrorsInfo(false);
@@ -229,7 +229,7 @@ export function FlashResults({
 								return drive.device;
 							})
 							.filter((driveDevice) =>
-								errors.some((error) => error.device === driveDevice)
+								errors.some((error) => error.device === driveDevice),
 							)
 							.forEach((driveDevice) => selection.selectDrive(driveDevice));
 						goToMain();

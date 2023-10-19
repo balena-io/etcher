@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-import ExclamationTriangleSvg from "@fortawesome/fontawesome-free/svgs/solid/triangle-exclamation.svg";
-import * as React from "react";
-import { Flex, FlexProps, Txt } from "rendition";
+import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/triangle-exclamation.svg';
+import * as React from 'react';
+import { Flex, FlexProps, Txt } from 'rendition';
 
 import {
 	getDriveImageCompatibilityStatuses,
 	DriveStatus,
-} from "../../../../shared/drive-constraints";
-import { compatibility, warning } from "../../../../shared/messages";
-import prettyBytes from "pretty-bytes";
-import { getImage, getSelectedDrives } from "../../models/selection-state";
+} from '../../../../shared/drive-constraints';
+import { compatibility, warning } from '../../../../shared/messages';
+import prettyBytes from 'pretty-bytes';
+import { getImage, getSelectedDrives } from '../../models/selection-state';
 import {
 	ChangeButton,
 	DetailsText,
 	StepButton,
 	StepNameButton,
-} from "../../styled-components";
-import { middleEllipsis } from "../../utils/middle-ellipsis";
-import * as i18next from "i18next";
+} from '../../styled-components';
+import { middleEllipsis } from '../../utils/middle-ellipsis';
+import * as i18next from 'i18next';
 
 interface TargetSelectorProps {
 	targets: any[];
@@ -53,7 +53,7 @@ function getDriveWarning(status: DriveStatus) {
 		case compatibility.system():
 			return warning.systemDrive();
 		default:
-			return "";
+			return '';
 	}
 }
 
@@ -64,12 +64,12 @@ const DriveCompatibilityWarning = ({
 	warnings: string[];
 } & FlexProps) => {
 	const systemDrive = warnings.find(
-		(message) => message === warning.systemDrive()
+		(message) => message === warning.systemDrive(),
 	);
 	return (
-		<Flex tooltip={warnings.join(", ")} {...props}>
+		<Flex tooltip={warnings.join(', ')} {...props}>
 			<ExclamationTriangleSvg
-				fill={systemDrive ? "#fca321" : "#8f9297"}
+				fill={systemDrive ? '#fca321' : '#8f9297'}
 				height="1em"
 			/>
 		</Flex>
@@ -84,7 +84,7 @@ export function TargetSelectorButton(props: TargetSelectorProps) {
 		const warnings = getDriveImageCompatibilityStatuses(
 			target,
 			getImage(),
-			true
+			true,
 		).map(getDriveWarning);
 		return (
 			<>
@@ -96,7 +96,7 @@ export function TargetSelectorButton(props: TargetSelectorProps) {
 				</StepNameButton>
 				{!props.flashing && (
 					<ChangeButton plain mb={14} onClick={props.reselectDrive}>
-						{i18next.t("target.change")}
+						{i18next.t('target.change')}
 					</ChangeButton>
 				)}
 				{target.size != null && (
@@ -112,13 +112,13 @@ export function TargetSelectorButton(props: TargetSelectorProps) {
 			const warnings = getDriveImageCompatibilityStatuses(
 				target,
 				getImage(),
-				true
+				true,
 			).map(getDriveWarning);
 			targetsTemplate.push(
 				<DetailsText
 					key={target.device}
 					tooltip={`${target.description} ${target.displayName} ${
-						target.size != null ? prettyBytes(target.size) : ""
+						target.size != null ? prettyBytes(target.size) : ''
 					}`}
 					px={21}
 				>
@@ -127,17 +127,17 @@ export function TargetSelectorButton(props: TargetSelectorProps) {
 					) : null}
 					<Txt mr={2}>{middleEllipsis(target.description, 14)}</Txt>
 					{target.size != null && <Txt>{prettyBytes(target.size)}</Txt>}
-				</DetailsText>
+				</DetailsText>,
 			);
 		}
 		return (
 			<>
 				<StepNameButton plain tooltip={props.tooltip}>
-					{targets.length} {i18next.t("target.targets")}
+					{targets.length} {i18next.t('target.targets')}
 				</StepNameButton>
 				{!props.flashing && (
 					<ChangeButton plain onClick={props.reselectDrive} mb={14}>
-						{i18next.t("target.change")}
+						{i18next.t('target.change')}
 					</ChangeButton>
 				)}
 				{targetsTemplate}
@@ -152,7 +152,7 @@ export function TargetSelectorButton(props: TargetSelectorProps) {
 			disabled={props.disabled}
 			onClick={props.openDriveSelector}
 		>
-			{i18next.t("target.selectTarget")}
+			{i18next.t('target.selectTarget')}
 		</StepButton>
 	);
 }

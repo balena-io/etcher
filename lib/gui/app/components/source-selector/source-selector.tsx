@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import CopySvg from "@fortawesome/fontawesome-free/svgs/solid/copy.svg";
-import FileSvg from "@fortawesome/fontawesome-free/svgs/solid/file.svg";
-import LinkSvg from "@fortawesome/fontawesome-free/svgs/solid/link.svg";
-import ExclamationTriangleSvg from "@fortawesome/fontawesome-free/svgs/solid/triangle-exclamation.svg";
-import ChevronDownSvg from "@fortawesome/fontawesome-free/svgs/solid/chevron-down.svg";
-import ChevronRightSvg from "@fortawesome/fontawesome-free/svgs/solid/chevron-right.svg";
-import { ipcRenderer, IpcRendererEvent } from "electron";
-import { uniqBy, isNil } from "lodash";
-import * as path from "path";
-import prettyBytes from "pretty-bytes";
-import * as React from "react";
-import { requestMetadata } from "../../app";
+import CopySvg from '@fortawesome/fontawesome-free/svgs/solid/copy.svg';
+import FileSvg from '@fortawesome/fontawesome-free/svgs/solid/file.svg';
+import LinkSvg from '@fortawesome/fontawesome-free/svgs/solid/link.svg';
+import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/triangle-exclamation.svg';
+import ChevronDownSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-down.svg';
+import ChevronRightSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-right.svg';
+import { ipcRenderer, IpcRendererEvent } from 'electron';
+import { uniqBy, isNil } from 'lodash';
+import * as path from 'path';
+import prettyBytes from 'pretty-bytes';
+import * as React from 'react';
+import { requestMetadata } from '../../app';
 
 import {
 	Flex,
@@ -36,17 +36,17 @@ import {
 	Input,
 	Spinner,
 	Link,
-} from "rendition";
-import styled from "styled-components";
+} from 'rendition';
+import styled from 'styled-components';
 
-import * as errors from "../../../../shared/errors";
-import * as messages from "../../../../shared/messages";
-import * as supportedFormats from "../../../../shared/supported-formats";
-import * as selectionState from "../../models/selection-state";
-import { observe } from "../../models/store";
-import * as analytics from "../../modules/analytics";
-import * as exceptionReporter from "../../modules/exception-reporter";
-import * as osDialog from "../../os/dialog";
+import * as errors from '../../../../shared/errors';
+import * as messages from '../../../../shared/messages';
+import * as supportedFormats from '../../../../shared/supported-formats';
+import * as selectionState from '../../models/selection-state';
+import { observe } from '../../models/store';
+import * as analytics from '../../modules/analytics';
+import * as exceptionReporter from '../../modules/exception-reporter';
+import * as osDialog from '../../os/dialog';
 
 import {
 	ChangeButton,
@@ -55,24 +55,24 @@ import {
 	StepButton,
 	StepNameButton,
 	ScrollableFlex,
-} from "../../styled-components";
-import { colors } from "../../theme";
-import { middleEllipsis } from "../../utils/middle-ellipsis";
-import { SVGIcon } from "../svg-icon/svg-icon";
+} from '../../styled-components';
+import { colors } from '../../theme';
+import { middleEllipsis } from '../../utils/middle-ellipsis';
+import { SVGIcon } from '../svg-icon/svg-icon';
 
-import ImageSvg from "../../../assets/image.svg";
-import SrcSvg from "../../../assets/src.svg";
-import { DriveSelector } from "../drive-selector/drive-selector";
-import { DrivelistDrive } from "../../../../shared/drive-constraints";
-import { isJson } from "../../../../shared/utils";
+import ImageSvg from '../../../assets/image.svg';
+import SrcSvg from '../../../assets/src.svg';
+import { DriveSelector } from '../drive-selector/drive-selector';
+import { DrivelistDrive } from '../../../../shared/drive-constraints';
+import { isJson } from '../../../../shared/utils';
 import {
 	SourceMetadata,
 	Authentication,
 	Source,
-} from "../../../../shared/typings/source-selector";
-import * as i18next from "i18next";
+} from '../../../../shared/typings/source-selector';
+import * as i18next from 'i18next';
 
-const recentUrlImagesKey = "recentUrlImages";
+const recentUrlImagesKey = 'recentUrlImages';
 
 function normalizeRecentUrlImages(urls: any[]): URL[] {
 	if (!Array.isArray(urls)) {
@@ -94,7 +94,7 @@ function normalizeRecentUrlImages(urls: any[]): URL[] {
 function getRecentUrlImages(): URL[] {
 	let urls = [];
 	try {
-		urls = JSON.parse(localStorage.getItem(recentUrlImagesKey) || "[]");
+		urls = JSON.parse(localStorage.getItem(recentUrlImagesKey) || '[]');
 	} catch {
 		// noop
 	}
@@ -107,7 +107,7 @@ function setRecentUrlImages(urls: URL[]) {
 }
 
 const isURL = (imagePath: string) =>
-	imagePath.startsWith("https://") || imagePath.startsWith("http://");
+	imagePath.startsWith('https://') || imagePath.startsWith('http://');
 
 const Card = styled(BaseCard)`
 	hr {
@@ -136,7 +136,7 @@ function getState() {
 }
 
 function isString(value: any): value is string {
-	return typeof value === "string";
+	return typeof value === 'string';
 }
 
 const URLSelector = ({
@@ -146,12 +146,12 @@ const URLSelector = ({
 	done: (imageURL: string, auth?: Authentication) => void;
 	cancel: () => void;
 }) => {
-	const [imageURL, setImageURL] = React.useState("");
+	const [imageURL, setImageURL] = React.useState('');
 	const [recentImages, setRecentImages] = React.useState<URL[]>([]);
 	const [loading, setLoading] = React.useState(false);
 	const [showBasicAuth, setShowBasicAuth] = React.useState(false);
-	const [username, setUsername] = React.useState("");
-	const [password, setPassword] = React.useState("");
+	const [username, setUsername] = React.useState('');
+	const [password, setPassword] = React.useState('');
 	React.useEffect(() => {
 		const fetchRecentUrlImages = async () => {
 			const recentUrlImages: URL[] = await getRecentUrlImages();
@@ -165,7 +165,7 @@ const URLSelector = ({
 			primaryButtonProps={{
 				disabled: loading || !imageURL,
 			}}
-			action={loading ? <Spinner /> : i18next.t("ok")}
+			action={loading ? <Spinner /> : i18next.t('ok')}
 			done={async () => {
 				setLoading(true);
 				const urlStrings = recentImages.map((url: URL) => url.href);
@@ -179,13 +179,13 @@ const URLSelector = ({
 			}}
 		>
 			<Flex flexDirection="column">
-				<Flex mb={15} style={{ width: "100%" }} flexDirection="column">
+				<Flex mb={15} style={{ width: '100%' }} flexDirection="column">
 					<Txt mb="10px" fontSize="24px">
-						{i18next.t("source.useSourceURL")}
+						{i18next.t('source.useSourceURL')}
 					</Txt>
 					<Input
 						value={imageURL}
-						placeholder={i18next.t("source.enterValidURL")}
+						placeholder={i18next.t('source.enterValidURL')}
 						type="text"
 						onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
 							setImageURL(evt.target.value)
@@ -197,8 +197,8 @@ const URLSelector = ({
 						fontSize="14px"
 						onClick={() => {
 							if (showBasicAuth) {
-								setUsername("");
-								setPassword("");
+								setUsername('');
+								setPassword('');
 							}
 							setShowBasicAuth(!showBasicAuth);
 						}}
@@ -210,7 +210,7 @@ const URLSelector = ({
 							{!showBasicAuth && (
 								<ChevronRightSvg height="1em" fill="currentColor" />
 							)}
-							<Txt ml={8}>{i18next.t("source.auth")}</Txt>
+							<Txt ml={8}>{i18next.t('source.auth')}</Txt>
 						</Flex>
 					</Link>
 					{showBasicAuth && (
@@ -218,7 +218,7 @@ const URLSelector = ({
 							<Input
 								mb={15}
 								value={username}
-								placeholder={i18next.t("source.username")}
+								placeholder={i18next.t('source.username')}
 								type="text"
 								onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
 									setUsername(evt.target.value)
@@ -226,7 +226,7 @@ const URLSelector = ({
 							/>
 							<Input
 								value={password}
-								placeholder={i18next.t("source.password")}
+								placeholder={i18next.t('source.password')}
 								type="password"
 								onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
 									setPassword(evt.target.value)
@@ -249,10 +249,10 @@ const URLSelector = ({
 												setImageURL(recent.href);
 											}}
 											style={{
-												overflowWrap: "break-word",
+												overflowWrap: 'break-word',
 											}}
 										>
-											{recent.pathname.split("/").pop()} - {recent.href}
+											{recent.pathname.split('/').pop()} - {recent.href}
 										</Txt>
 									))
 									.reverse()}
@@ -284,7 +284,7 @@ const FlowSelector = styled(
 		>
 			{flow.label}
 		</StepButton>
-	)
+	),
 )`
 	border-radius: 24px;
 	color: rgba(255, 255, 255, 0.7);
@@ -349,20 +349,20 @@ export class SourceSelector extends React.Component<
 		this.unsubscribe = observe(() => {
 			this.setState(getState());
 		});
-		ipcRenderer.on("select-image", this.onSelectImage);
-		ipcRenderer.send("source-selector-ready");
+		ipcRenderer.on('select-image', this.onSelectImage);
+		ipcRenderer.send('source-selector-ready');
 	}
 
 	public componentWillUnmount() {
 		this.unsubscribe?.();
-		ipcRenderer.removeListener("select-image", this.onSelectImage);
+		ipcRenderer.removeListener('select-image', this.onSelectImage);
 	}
 
 	private async onSelectImage(_event: IpcRendererEvent, imagePath: string) {
 		this.setState({ imageLoading: true });
 		await this.selectSource(
 			imagePath,
-			isURL(this.normalizeImagePath(imagePath)) ? "Http" : "File"
+			isURL(this.normalizeImagePath(imagePath)) ? 'Http' : 'File',
 		).promise;
 		this.setState({ imageLoading: false });
 	}
@@ -376,7 +376,7 @@ export class SourceSelector extends React.Component<
 	}
 
 	private reselectSource() {
-		analytics.logEvent("Reselect image", {
+		analytics.logEvent('Reselect image', {
 			previousImage: selectionState.getImage(),
 		});
 
@@ -386,7 +386,7 @@ export class SourceSelector extends React.Component<
 	private selectSource(
 		selected: string | DrivelistDrive,
 		SourceType: Source,
-		auth?: Authentication
+		auth?: Authentication,
 	): { promise: Promise<void>; cancel: () => void } {
 		let cancelled = false;
 		return {
@@ -398,23 +398,23 @@ export class SourceSelector extends React.Component<
 				let metadata: SourceMetadata | undefined;
 				if (isString(selected)) {
 					if (
-						SourceType === "Http" &&
+						SourceType === 'Http' &&
 						!isURL(this.normalizeImagePath(selected))
 					) {
 						this.handleError(
-							i18next.t("source.unsupportedProtocol"),
+							i18next.t('source.unsupportedProtocol'),
 							selected,
-							messages.error.unsupportedProtocol()
+							messages.error.unsupportedProtocol(),
 						);
 						return;
 					}
 
 					if (supportedFormats.looksLikeWindowsImage(selected)) {
-						analytics.logEvent("Possibly Windows image", { image: selected });
+						analytics.logEvent('Possibly Windows image', { image: selected });
 						this.setState({
 							warning: {
 								message: messages.warning.looksLikeWindowsImage(),
-								title: i18next.t("source.windowsImage"),
+								title: i18next.t('source.windowsImage'),
 							},
 						});
 					}
@@ -426,29 +426,29 @@ export class SourceSelector extends React.Component<
 						metadata = await requestMetadata({ selected, SourceType, auth });
 
 						if (!metadata?.hasMBR && this.state.warning === null) {
-							analytics.logEvent("Missing partition table", { metadata });
+							analytics.logEvent('Missing partition table', { metadata });
 							this.setState({
 								warning: {
 									message: messages.warning.missingPartitionTable(),
-									title: i18next.t("source.partitionTable"),
+									title: i18next.t('source.partitionTable'),
 								},
 							});
 						}
 					} catch (error: any) {
 						this.handleError(
-							i18next.t("source.errorOpen"),
+							i18next.t('source.errorOpen'),
 							sourcePath,
 							messages.error.openSource(sourcePath, error.message),
-							error
+							error,
 						);
 					}
 				} else {
 					if (selected.partitionTableType === null) {
-						analytics.logEvent("Missing partition table", { selected });
+						analytics.logEvent('Missing partition table', { selected });
 						this.setState({
 							warning: {
 								message: messages.warning.driveMissingPartitionTable(),
-								title: i18next.t("source.partitionTable"),
+								title: i18next.t('source.partitionTable'),
 							},
 						});
 					}
@@ -456,8 +456,8 @@ export class SourceSelector extends React.Component<
 						path: selected.device,
 						displayName: selected.displayName,
 						description: selected.displayName,
-						size: selected.size as SourceMetadata["size"],
-						SourceType: "BlockDevice",
+						size: selected.size as SourceMetadata['size'],
+						SourceType: 'BlockDevice',
 						drive: selected,
 					};
 				}
@@ -466,7 +466,7 @@ export class SourceSelector extends React.Component<
 					metadata.auth = auth;
 					metadata.SourceType = SourceType;
 					selectionState.selectSource(metadata);
-					analytics.logEvent("Select image", {
+					analytics.logEvent('Select image', {
 						// An easy way so we can quickly identify if we're making use of
 						// certain features without printing pages of text to DevTools.
 						image: {
@@ -484,7 +484,7 @@ export class SourceSelector extends React.Component<
 		title: string,
 		sourcePath: string,
 		description: string,
-		error?: Error
+		error?: Error,
 	) {
 		const imageError = errors.createUserError({
 			title,
@@ -499,7 +499,7 @@ export class SourceSelector extends React.Component<
 	}
 
 	private async openImageSelector() {
-		analytics.logEvent("Open image selector");
+		analytics.logEvent('Open image selector');
 		this.setState({ imageSelectorOpen: true });
 
 		try {
@@ -507,10 +507,10 @@ export class SourceSelector extends React.Component<
 			// Avoid analytics and selection state changes
 			// if no file was resolved from the dialog.
 			if (!imagePath) {
-				analytics.logEvent("Image selector closed");
+				analytics.logEvent('Image selector closed');
 				return;
 			}
-			await this.selectSource(imagePath, "File").promise;
+			await this.selectSource(imagePath, 'File').promise;
 		} catch (error: any) {
 			exceptionReporter.report(error);
 		} finally {
@@ -521,12 +521,12 @@ export class SourceSelector extends React.Component<
 	private async onDrop(event: React.DragEvent<HTMLDivElement>) {
 		const [file] = event.dataTransfer.files;
 		if (file) {
-			await this.selectSource(file.path, "File").promise;
+			await this.selectSource(file.path, 'File').promise;
 		}
 	}
 
 	private openURLSelector() {
-		analytics.logEvent("Open image URL selector");
+		analytics.logEvent('Open image URL selector');
 
 		this.setState({
 			showURLSelector: true,
@@ -534,7 +534,7 @@ export class SourceSelector extends React.Component<
 	}
 
 	private openDriveSelector() {
-		analytics.logEvent("Open drive selector");
+		analytics.logEvent('Open drive selector');
 
 		this.setState({
 			showDriveSelector: true,
@@ -552,7 +552,7 @@ export class SourceSelector extends React.Component<
 	}
 
 	private showSelectedImageDetails() {
-		analytics.logEvent("Show selected image tooltip", {
+		analytics.logEvent('Show selected image tooltip', {
 			imagePath: selectionState.getImage()?.path,
 		});
 
@@ -590,11 +590,11 @@ export class SourceSelector extends React.Component<
 			// noop
 		};
 		image.name = image.description || image.name;
-		const imagePath = image.path || image.displayName || "";
+		const imagePath = image.path || image.displayName || '';
 		const imageBasename = path.basename(imagePath);
-		const imageName = image.name || "";
+		const imageName = image.name || '';
 		const imageSize = image.size;
-		const imageLogo = image.logo || "";
+		const imageLogo = image.logo || '';
 
 		return (
 			<>
@@ -634,7 +634,7 @@ export class SourceSelector extends React.Component<
 									mb={14}
 									onClick={() => this.reselectSource()}
 								>
-									{i18next.t("cancel")}
+									{i18next.t('cancel')}
 								</ChangeButton>
 							)}
 							{!isNil(imageSize) && !imageLoading && (
@@ -649,7 +649,7 @@ export class SourceSelector extends React.Component<
 								key="Flash from file"
 								flow={{
 									onClick: () => this.openImageSelector(),
-									label: i18next.t("source.fromFile"),
+									label: i18next.t('source.fromFile'),
 									icon: <FileSvg height="1em" fill="currentColor" />,
 								}}
 								onMouseEnter={() => this.setDefaultFlowActive(false)}
@@ -659,7 +659,7 @@ export class SourceSelector extends React.Component<
 								key="Flash from URL"
 								flow={{
 									onClick: () => this.openURLSelector(),
-									label: i18next.t("source.fromURL"),
+									label: i18next.t('source.fromURL'),
 									icon: <LinkSvg height="1em" fill="currentColor" />,
 								}}
 								onMouseEnter={() => this.setDefaultFlowActive(false)}
@@ -669,7 +669,7 @@ export class SourceSelector extends React.Component<
 								key="Clone drive"
 								flow={{
 									onClick: () => this.openDriveSelector(),
-									label: i18next.t("source.clone"),
+									label: i18next.t('source.clone'),
 									icon: <CopySvg height="1em" fill="currentColor" />,
 								}}
 								onMouseEnter={() => this.setDefaultFlowActive(false)}
@@ -682,15 +682,15 @@ export class SourceSelector extends React.Component<
 				{this.state.warning != null && (
 					<SmallModal
 						style={{
-							boxShadow: "0 3px 7px rgba(0, 0, 0, 0.3)",
+							boxShadow: '0 3px 7px rgba(0, 0, 0, 0.3)',
 						}}
 						titleElement={
 							<span>
-								<ExclamationTriangleSvg fill="#fca321" height="1em" />{" "}
+								<ExclamationTriangleSvg fill="#fca321" height="1em" />{' '}
 								<span>{this.state.warning.title}</span>
 							</span>
 						}
-						action={i18next.t("continue")}
+						action={i18next.t('continue')}
 						cancel={() => {
 							this.setState({ warning: null });
 							this.reselectSource();
@@ -708,17 +708,17 @@ export class SourceSelector extends React.Component<
 
 				{showImageDetails && (
 					<SmallModal
-						title={i18next.t("source.image")}
+						title={i18next.t('source.image')}
 						done={() => {
 							this.setState({ showImageDetails: false });
 						}}
 					>
 						<Txt.p>
-							<Txt.span bold>{i18next.t("source.name")}</Txt.span>
+							<Txt.span bold>{i18next.t('source.name')}</Txt.span>
 							<Txt.span>{imageName || imageBasename}</Txt.span>
 						</Txt.p>
 						<Txt.p>
-							<Txt.span bold>{i18next.t("source.path")}</Txt.span>
+							<Txt.span bold>{i18next.t('source.path')}</Txt.span>
 							<Txt.span>{imagePath}</Txt.span>
 						</Txt.p>
 					</SmallModal>
@@ -736,13 +736,13 @@ export class SourceSelector extends React.Component<
 							// Avoid analytics and selection state changes
 							// if no file was resolved from the dialog.
 							if (!imageURL) {
-								analytics.logEvent("URL selector closed");
+								analytics.logEvent('URL selector closed');
 							} else {
 								let promise;
 								({ promise, cancel: cancelURLSelection } = this.selectSource(
 									imageURL,
-									"Http",
-									auth
+									'Http',
+									auth,
 								));
 								await promise;
 							}
@@ -757,14 +757,14 @@ export class SourceSelector extends React.Component<
 					<DriveSelector
 						write={false}
 						multipleSelection={false}
-						titleLabel={i18next.t("source.selectSource")}
-						emptyListLabel={i18next.t("source.plugSource")}
+						titleLabel={i18next.t('source.selectSource')}
+						emptyListLabel={i18next.t('source.plugSource')}
 						emptyListIcon={<SrcSvg width="40px" />}
 						cancel={(originalList) => {
 							if (originalList.length) {
 								const originalSource = originalList[0];
 								if (selectionImage?.drive?.device !== originalSource.device) {
-									this.selectSource(originalSource, "BlockDevice");
+									this.selectSource(originalSource, 'BlockDevice');
 								}
 							} else {
 								selectionState.deselectImage();
@@ -779,7 +779,7 @@ export class SourceSelector extends React.Component<
 								) {
 									return selectionState.deselectImage();
 								}
-								this.selectSource(drive, "BlockDevice");
+								this.selectSource(drive, 'BlockDevice');
 							}
 						}}
 					/>
