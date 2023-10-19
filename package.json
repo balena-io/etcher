@@ -105,7 +105,7 @@
     "redux": "4.2.0",
     "rendition": "19.3.2",
     "semver": "7.5.4",
-    "sinon": "16.1.1",
+    "sinon": "16.1.3",
     "style-loader": "2.0.0",
     "styled-components": "5.3.6",
     "sys-class-rgb-led": "3.0.1",
