@@ -36,7 +36,7 @@
         "copy-webpack-plugin": "11.0.0",
         "css-loader": "5.2.7",
         "debug": "4.3.4",
-        "electron": "^27.0.0",
+        "electron": "^27.0.1",
         "electron-builder": "^23.6.0",
         "electron-mocha": "^12.1.0",
         "electron-notarize": "1.2.2",
@@ -8614,9 +8614,9 @@
       }
     },
     "node_modules/electron": {
-      "version": "27.0.0",
-      "resolved": "https://registry.npmjs.org/electron/-/electron-27.0.0.tgz",
-      "integrity": "sha512-mr3Zoy82l8XKK/TgguE5FeNeHZ9KHXIGIpUMjbjZWIREfAv+X2Q3vdX6RG0Pmi1K23AFAxANXQezIHBA2Eypwg==",
+      "version": "27.0.1",
+      "resolved": "https://registry.npmjs.org/electron/-/electron-27.0.1.tgz",
+      "integrity": "sha512-AjDGgpf2thNxVXoNqEG+0GCUK4upAEa2B+IoM5Yk9YrOLd6uUOEMfGI9rhPtj+jC14iKOvBdefY2uAzcDC0qng==",
       "dev": true,
       "hasInstallScript": true,
       "dependencies": {
@@ -24570,9 +24570,9 @@
       }
     },
     "electron": {
-      "version": "27.0.0",
-      "resolved": "https://registry.npmjs.org/electron/-/electron-27.0.0.tgz",
-      "integrity": "sha512-mr3Zoy82l8XKK/TgguE5FeNeHZ9KHXIGIpUMjbjZWIREfAv+X2Q3vdX6RG0Pmi1K23AFAxANXQezIHBA2Eypwg==",
+      "version": "27.0.1",
+      "resolved": "https://registry.npmjs.org/electron/-/electron-27.0.1.tgz",
+      "integrity": "sha512-AjDGgpf2thNxVXoNqEG+0GCUK4upAEa2B+IoM5Yk9YrOLd6uUOEMfGI9rhPtj+jC14iKOvBdefY2uAzcDC0qng==",
       "dev": true,
       "requires": {
         "@electron/get": "^2.0.0",
