@@ -23,6 +23,7 @@
     "lint-css": "prettier --write lib/**/*.css",
     "lint-ts": "balena-lint --fix --typescript typings lib tests scripts/clean-shrinkwrap.ts webpack.config.ts",
     "lint": "npm run lint-ts && npm run lint-css",
+    "lint-staged": "lint-staged",
     "sanity-checks": "bash scripts/ci/ensure-all-file-extensions-in-gitattributes.sh",
     "start": "./node_modules/.bin/electron .",
     "test-gui": "electron-mocha --recursive --reporter spec --window-config tests/gui/window-config.json --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox --renderer tests/gui/**/*.ts",
@@ -32,11 +33,12 @@
     "test-windows": "npm run lint && npm run test-gui && npm run test-shared && npm run sanity-checks",
     "test": "echo npm run test-{linux,windows,macos}",
     "watch": "webpack serve --no-optimization-minimize --config ./webpack.dev.config.ts",
-    "webpack": "webpack"
+    "webpack": "webpack",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "npm run lint-staged"
     }
   },
   "lint-staged": {
@@ -85,7 +87,7 @@
     "esbuild-loader": "4.0.2",
     "etcher-sdk": "8.7.2",
     "file-loader": "6.2.0",
-    "husky": "8.0.3",
+    "husky": "^8.0.3",
     "i18next": "23.6.0",
     "immutable": "4.3.4",
     "lint-staged": "15.0.1",

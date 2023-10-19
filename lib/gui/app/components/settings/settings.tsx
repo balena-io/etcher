@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import GithubSvg from "@fortawesome/fontawesome-free/svgs/brands/github.svg";
-import * as _ from "lodash";
-import * as React from "react";
-import { Box, Checkbox, Flex, Txt } from "rendition";
+import GithubSvg from '@fortawesome/fontawesome-free/svgs/brands/github.svg';
+import * as _ from 'lodash';
+import * as React from 'react';
+import { Box, Checkbox, Flex, Txt } from 'rendition';
 
-import { version, packageType } from "../../../../../package.json";
-import * as settings from "../../models/settings";
-import * as analytics from "../../modules/analytics";
-import { open as openExternal } from "../../os/open-external/services/open-external";
-import { Modal } from "../../styled-components";
-import * as i18next from "i18next";
-import { etcherProInfo } from "../../utils/etcher-pro-specific";
+import { version, packageType } from '../../../../../package.json';
+import * as settings from '../../models/settings';
+import * as analytics from '../../modules/analytics';
+import { open as openExternal } from '../../os/open-external/services/open-external';
+import { Modal } from '../../styled-components';
+import * as i18next from 'i18next';
+import { etcherProInfo } from '../../utils/etcher-pro-specific';
 
 interface Setting {
 	name: string;
@@ -35,18 +35,18 @@ interface Setting {
 async function getSettingsList(): Promise<Setting[]> {
 	const list: Setting[] = [
 		{
-			name: "errorReporting",
-			label: i18next.t("settings.errorReporting"),
+			name: 'errorReporting',
+			label: i18next.t('settings.errorReporting'),
 		},
 		{
-			name: "autoBlockmapping",
-			label: i18next.t("settings.trimExtPartitions"),
+			name: 'autoBlockmapping',
+			label: i18next.t('settings.trimExtPartitions'),
 		},
 	];
-	if (["appimage", "nsis", "dmg"].includes(packageType)) {
+	if (['appimage', 'nsis', 'dmg'].includes(packageType)) {
 		list.push({
-			name: "updatesEnabled",
-			label: i18next.t("settings.autoUpdate"),
+			name: 'updatesEnabled',
+			label: i18next.t('settings.autoUpdate'),
 		});
 	}
 	return list;
@@ -62,7 +62,7 @@ const InfoBox = (props: any) => (
 	<Box fontSize={14}>
 		<Txt>{props.label}</Txt>
 		<Txt code copy={props.value}>
-			{props.value}{" "}
+			{props.value}{' '}
 		</Txt>
 	</Box>
 );
@@ -89,7 +89,7 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 
 	const toggleSetting = async (setting: string) => {
 		const value = currentSettings[setting];
-		analytics.logEvent("Toggle setting", { setting, value });
+		analytics.logEvent('Toggle setting', { setting, value });
 		await settings.set(setting, !value);
 		setCurrentSettings({
 			...currentSettings,
@@ -101,7 +101,7 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 		<Modal
 			titleElement={
 				<Txt fontSize={24} mb={24}>
-					{i18next.t("settings.settings")}
+					{i18next.t('settings.settings')}
 				</Txt>
 			}
 			done={() => toggleModal(false)}
@@ -122,7 +122,7 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 				})}
 				{EPInfo !== undefined && (
 					<Flex flexDirection="column">
-						<Txt fontSize={24}>{i18next.t("settings.systemInformation")}</Txt>
+						<Txt fontSize={24}>{i18next.t('settings.systemInformation')}</Txt>
 						{EPInfo.get_serial() === undefined ? (
 							<InfoBox label="UUID" value={EPInfo.uuid} />
 						) : (
@@ -135,13 +135,13 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 					alignItems="center"
 					color="#00aeef"
 					style={{
-						width: "fit-content",
-						cursor: "pointer",
+						width: 'fit-content',
+						cursor: 'pointer',
 						fontSize: 14,
 					}}
 					onClick={() =>
 						openExternal(
-							"https://github.com/balena-io/etcher/blob/master/CHANGELOG.md"
+							'https://github.com/balena-io/etcher/blob/master/CHANGELOG.md',
 						)
 					}
 				>
@@ -150,7 +150,7 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 						fill="currentColor"
 						style={{ marginRight: 8 }}
 					/>
-					<Txt style={{ borderBottom: "1px solid #00aeef" }}>{version}</Txt>
+					<Txt style={{ borderBottom: '1px solid #00aeef' }}>{version}</Txt>
 				</Flex>
 			</Flex>
 		</Modal>

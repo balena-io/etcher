@@ -44,7 +44,7 @@
         "esbuild-loader": "4.0.2",
         "etcher-sdk": "8.7.2",
         "file-loader": "6.2.0",
-        "husky": "8.0.3",
+        "husky": "^8.0.3",
         "i18next": "23.6.0",
         "immutable": "4.3.4",
         "lint-staged": "15.0.1",
