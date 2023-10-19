@@ -61,7 +61,7 @@
         "react": "16.8.5",
         "react-dom": "16.8.5",
         "react-i18next": "13.3.0",
-        "redux": "4.2.0",
+        "redux": "4.2.1",
         "rendition": "19.3.2",
         "semver": "7.5.4",
         "sinon": "16.1.3",
@@ -15266,9 +15266,10 @@
       "license": "BSD-3-Clause"
     },
     "node_modules/redux": {
-      "version": "4.2.0",
+      "version": "4.2.1",
+      "resolved": "https://registry.npmjs.org/redux/-/redux-4.2.1.tgz",
+      "integrity": "sha512-LAUYz4lc+Do8/g7aeRa8JkyDErK6ekstQaqWQrNRW//MY1TvCEpMtpTWvlQ+FPbWCx+Xixu/6SHt5N0HR+SB4w==",
       "dev": true,
-      "license": "MIT",
       "dependencies": {
         "@babel/runtime": "^7.9.2"
       }
@@ -28931,7 +28932,9 @@
       }
     },
     "redux": {
-      "version": "4.2.0",
+      "version": "4.2.1",
+      "resolved": "https://registry.npmjs.org/redux/-/redux-4.2.1.tgz",
+      "integrity": "sha512-LAUYz4lc+Do8/g7aeRa8JkyDErK6ekstQaqWQrNRW//MY1TvCEpMtpTWvlQ+FPbWCx+Xixu/6SHt5N0HR+SB4w==",
       "dev": true,
       "requires": {
         "@babel/runtime": "^7.9.2"
