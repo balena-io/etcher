@@ -76,26 +76,26 @@ function isDrivelistDrive(drive: Drive): drive is DrivelistDrive {
 const DrivesTable = styled((props: GenericTableProps<Drive>) => (
 	<Table<Drive> {...props} />
 ))`
-	[data-display="table-head"],
-	[data-display="table-body"] {
-		> [data-display="table-row"] > [data-display="table-cell"] {
-			&:nth-child(2) {
-				width: 32%;
-			}
+	// [data-display="table-head"],
+	// [data-display="table-body"] {
+	// 	> [data-display="table-row"] > [data-display="table-cell"] {
+	// 		&:nth-child(2) {
+	// 			width: 32%;
+	// 		}
 
-			&:nth-child(3) {
-				width: 15%;
-			}
+	// 		&:nth-child(3) {
+	// 			width: 15%;
+	// 		}
 
-			&:nth-child(4) {
-				width: 15%;
-			}
+	// 		&:nth-child(4) {
+	// 			width: 15%;
+	// 		}
 
-			&:nth-child(5) {
-				width: 32%;
-			}
-		}
-	}
+	// 		&:nth-child(5) {
+	// 			width: 32%;
+	// 		}
+	// 	}
+	// }
 `;
 
 function badgeShadeFromStatus(status: string) {
@@ -428,11 +428,13 @@ export class DriveSelector extends React.Component<
 				) : (
 					<>
 						<DrivesTable
-							refFn={(t) => {
-								if (t !== null) {
-									t.setRowSelection(selectedList);
-								}
-							}}
+							// refFn={(t) => {
+							// 	if (t !== null) {
+
+							// 		// t.setRowSelection(selectedList);
+							// 	}
+							// }}
+							checkedItems={selectedList}
 							checkedRowsNumber={selectedList.length}
 							multipleSelection={this.props.multipleSelection}
 							columns={this.tableColumns}
