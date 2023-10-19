@@ -46,7 +46,7 @@
         "file-loader": "6.2.0",
         "husky": "8.0.3",
         "i18next": "23.6.0",
-        "immutable": "3.8.2",
+        "immutable": "4.3.4",
         "lint-staged": "15.0.1",
         "lodash": "4.17.21",
         "mini-css-extract-plugin": "1.6.2",
@@ -11098,12 +11098,10 @@
       }
     },
     "node_modules/immutable": {
-      "version": "3.8.2",
-      "dev": true,
-      "license": "MIT",
-      "engines": {
-        "node": ">=0.10.0"
-      }
+      "version": "4.3.4",
+      "resolved": "https://registry.npmjs.org/immutable/-/immutable-4.3.4.tgz",
+      "integrity": "sha512-fsXeu4J4i6WNWSikpI88v/PcVflZz+6kMhUfIwc5SY+poQRPnaf5V7qds6SUyUN3cVxEzuCab7QIoLOQ+DQ1wA==",
+      "dev": true
     },
     "node_modules/import-fresh": {
       "version": "3.3.0",
@@ -15826,11 +15824,6 @@
       "engines": {
         "node": ">=14.0.0"
       }
-    },
-    "node_modules/sass/node_modules/immutable": {
-      "version": "4.3.4",
-      "dev": true,
-      "license": "MIT"
     },
     "node_modules/sax": {
       "version": "1.2.4",
@@ -26233,7 +26226,9 @@
       "dev": true
     },
     "immutable": {
-      "version": "3.8.2",
+      "version": "4.3.4",
+      "resolved": "https://registry.npmjs.org/immutable/-/immutable-4.3.4.tgz",
+      "integrity": "sha512-fsXeu4J4i6WNWSikpI88v/PcVflZz+6kMhUfIwc5SY+poQRPnaf5V7qds6SUyUN3cVxEzuCab7QIoLOQ+DQ1wA==",
       "dev": true
     },
     "import-fresh": {
@@ -29333,12 +29328,6 @@
         "chokidar": ">=3.0.0 <4.0.0",
         "immutable": "^4.0.0",
         "source-map-js": ">=0.6.2 <2.0.0"
-      },
-      "dependencies": {
-        "immutable": {
-          "version": "4.3.4",
-          "dev": true
-        }
       }
     },
     "sax": {
