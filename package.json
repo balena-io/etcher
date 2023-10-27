@@ -14,10 +14,8 @@
     "url": "git@github.com:balena-io/etcher.git"
   },
   "scripts": {
-    "build:rebuild-mountutils": "cd node_modules/mountutils && npm rebuild",
-    "build:sidecar": "npm run build:rebuild-mountutils && tsc --project tsconfig.sidecar.json && pkg build/util/api.js -c pkg-sidecar.json --target node18 --output generated/etcher-util",
     "lint-css": "prettier --write lib/**/*.css",
-    "lint-ts": "balena-lint --fix --typescript typings lib tests forge.config.ts webpack.config.ts",
+    "lint-ts": "balena-lint --fix --typescript typings lib tests forge.config.ts forge.sidecar.ts webpack.config.ts",
     "lint": "npm run lint-ts && npm run lint-css",
     "test-gui": "electron-mocha --recursive --reporter spec --window-config tests/gui/window-config.json --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox --renderer tests/gui/**/*.ts",
     "test-shared": "electron-mocha --recursive --reporter spec --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox tests/shared/**/*.ts",
@@ -88,6 +86,7 @@
     "@svgr/webpack": "5.5.0",
     "@types/chai": "4.3.4",
     "@types/copy-webpack-plugin": "6.4.3",
+    "@types/debug": "^4.1.12",
     "@types/mime-types": "2.1.1",
     "@types/mini-css-extract-plugin": "1.4.3",
     "@types/mocha": "^9.1.1",

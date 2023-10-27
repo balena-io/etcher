@@ -18,7 +18,6 @@ import * as os from 'os';
 import * as path from 'path';
 import * as packageJSON from '../../../../package.json';
 import * as permissions from '../../../shared/permissions';
-import { getAppPath } from '../../../shared/get-app-path';
 import * as errors from '../../../shared/errors';
 
 const THREADS_PER_CPU = 16;
@@ -27,8 +26,8 @@ const THREADS_PER_CPU = 16;
 // the stdout maxBuffer size to be exceeded when flashing
 ipc.config.silent = true;
 
-function writerArgv(): string[] {
-	let entryPoint = path.join(getAppPath(), 'generated', 'etcher-util');
+async function writerArgv(): Promise<string[]> {
+	let entryPoint = await window.etcher.getEtcherUtilPath();
 	// AppImages run over FUSE, so the files inside the mount point
 	// can only be accessed by the user that mounted the AppImage.
 	// This means we can't re-spawn Etcher as root from the same
@@ -75,7 +74,7 @@ async function spawnChild({
 	IPC_SERVER_ID: string;
 	IPC_SOCKET_ROOT: string;
 }) {
-	const argv = writerArgv();
+	const argv = await writerArgv();
 	const env = writerEnv(IPC_CLIENT_ID, IPC_SERVER_ID, IPC_SOCKET_ROOT);
 	if (withPrivileges) {
 		return await permissions.elevateCommand(argv, {

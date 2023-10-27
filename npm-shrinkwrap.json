@@ -51,6 +51,7 @@
         "@svgr/webpack": "5.5.0",
         "@types/chai": "4.3.4",
         "@types/copy-webpack-plugin": "6.4.3",
+        "@types/debug": "^4.1.12",
         "@types/mime-types": "2.1.1",
         "@types/mini-css-extract-plugin": "1.4.3",
         "@types/mocha": "^9.1.1",
@@ -5708,6 +5709,15 @@
         "@types/webpack": "^4"
       }
     },
+    "node_modules/@types/debug": {
+      "version": "4.1.12",
+      "resolved": "https://registry.npmjs.org/@types/debug/-/debug-4.1.12.tgz",
+      "integrity": "sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==",
+      "dev": true,
+      "dependencies": {
+        "@types/ms": "*"
+      }
+    },
     "node_modules/@types/eslint": {
       "version": "8.44.2",
       "dev": true,
@@ -5865,6 +5875,12 @@
       "version": "9.1.1",
       "dev": true,
       "license": "MIT"
+    },
+    "node_modules/@types/ms": {
+      "version": "0.7.34",
+      "resolved": "https://registry.npmjs.org/@types/ms/-/ms-0.7.34.tgz",
+      "integrity": "sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==",
+      "dev": true
     },
     "node_modules/@types/node": {
       "version": "16.18.46",
@@ -8750,7 +8766,8 @@
     },
     "node_modules/debug": {
       "version": "4.3.4",
-      "license": "MIT",
+      "resolved": "https://registry.npmjs.org/debug/-/debug-4.3.4.tgz",
+      "integrity": "sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==",
       "dependencies": {
         "ms": "2.1.2"
       },
@@ -24675,6 +24692,15 @@
         "@types/webpack": "^4"
       }
     },
+    "@types/debug": {
+      "version": "4.1.12",
+      "resolved": "https://registry.npmjs.org/@types/debug/-/debug-4.1.12.tgz",
+      "integrity": "sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==",
+      "dev": true,
+      "requires": {
+        "@types/ms": "*"
+      }
+    },
     "@types/eslint": {
       "version": "8.44.2",
       "dev": true,
@@ -24810,6 +24836,12 @@
     },
     "@types/mocha": {
       "version": "9.1.1",
+      "dev": true
+    },
+    "@types/ms": {
+      "version": "0.7.34",
+      "resolved": "https://registry.npmjs.org/@types/ms/-/ms-0.7.34.tgz",
+      "integrity": "sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==",
       "dev": true
     },
     "@types/node": {
@@ -26832,6 +26864,8 @@
     },
     "debug": {
       "version": "4.3.4",
+      "resolved": "https://registry.npmjs.org/debug/-/debug-4.3.4.tgz",
+      "integrity": "sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==",
       "requires": {
         "ms": "2.1.2"
       }

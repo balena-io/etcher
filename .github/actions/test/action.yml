@@ -50,7 +50,7 @@ runs:
       shell: bash
       run: |
         if [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]]; then
-          export DEBUG='electron-forge:*,electron-packager,electron-rebuild'
+          export DEBUG='electron-forge:*,sidecar'
         fi
 
         runner_os="$(echo "${RUNNER_OS}" | tr '[:upper:]' '[:lower:]')"
