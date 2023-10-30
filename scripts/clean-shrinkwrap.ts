@@ -19,7 +19,6 @@ import * as path from 'path';
 import { promisify } from 'util';
 
 import * as shrinkwrap from '../npm-shrinkwrap.json';
-import * as packageInfo from '../package.json';
 
 const writeFileAsync = promisify(writeFile);
 
@@ -28,8 +27,9 @@ const SHRINKWRAP_FILENAME = path.join(__dirname, '..', 'npm-shrinkwrap.json');
 
 async function main() {
 	try {
-		const cleaned = omit(shrinkwrap, packageInfo.platformSpecificDependencies);
+		const cleaned = omit(shrinkwrap);
 		for (const item of Object.values(cleaned.dependencies)) {
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore
 			item.dev = true;
 		}

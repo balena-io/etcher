@@ -53,7 +53,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@babel/register": "^7.22.15",
-    "@balena/lint": "5.4.2",
+    "@balena/lint": "7.2.1",
     "@balena/sudo-prompt": "9.2.1-workaround-windows-amperstand-in-username-0849e215b947987a643fe5763902aea201255534",
     "@electron/remote": "^2.0.12",
     "@fortawesome/fontawesome-free": "6.4.2",
@@ -90,7 +90,7 @@
     "husky": "^8.0.3",
     "i18next": "23.6.0",
     "immutable": "4.3.4",
-    "lint-staged": "15.0.1",
+    "lint-staged": "15.0.2",
     "lodash": "4.17.21",
     "mini-css-extract-plugin": "1.6.2",
     "mocha": "^10.2.0",

@@ -122,6 +122,7 @@ export class SafeWebview extends React.PureComponent<
 				ref={this.webviewRef}
 				partition={ELECTRON_SESSION}
 				style={style}
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 				// @ts-ignore
 				allowpopups="true"
 			/>

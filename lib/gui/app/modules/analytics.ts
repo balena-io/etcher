@@ -52,7 +52,7 @@ export const anonymizeSentryData = (
 	return event;
 };
 
-const extractPathRegex = /(.*)(^|\s)(file\:\/\/)?(\w\:)?([\\\/].+)/;
+const extractPathRegex = /(.*)(^|\s)(file:\/\/)?(\w:)?([\\/].+)/;
 const etcherSegmentMarkers = ['app.asar', 'Resources'];
 
 export const anonymizePath = (input: string) => {
@@ -156,7 +156,7 @@ function flattenObject(obj: any) {
 	const toReturn: AnalyticsPayload = {};
 
 	for (const i in obj) {
-		if (!obj.hasOwnProperty(i)) {
+		if (!Object.prototype.hasOwnProperty.call(obj, i)) {
 			continue;
 		}
 
@@ -168,7 +168,7 @@ function flattenObject(obj: any) {
 		if (typeof obj[i] === 'object' && obj[i] !== null) {
 			const flatObject = flattenObject(obj[i]);
 			for (const x in flatObject) {
-				if (!flatObject.hasOwnProperty(x)) {
+				if (!Object.prototype.hasOwnProperty.call(flatObject, x)) {
 					continue;
 				}
 

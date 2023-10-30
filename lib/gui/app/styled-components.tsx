@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import * as _ from 'lodash';
 import * as React from 'react';
 import {
 	Alert as AlertBase,
@@ -113,14 +112,25 @@ export const DetailsText = (props: FlexProps) => (
 
 const modalFooterShadowCss = css`
 	overflow: auto;
-	background: 0, linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%, 0,
+	background:
+		0,
+		linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%,
+		0,
 		linear-gradient(rgba(255, 255, 255, 0), rgba(221, 225, 240, 0.5) 70%) 0 100%;
 	background-repeat: no-repeat;
-	background-size: 100% 40px, 100% 40px, 100% 8px, 100% 8px;
+	background-size:
+		100% 40px,
+		100% 40px,
+		100% 8px,
+		100% 8px;
 
 	background-repeat: no-repeat;
 	background-color: white;
-	background-size: 100% 40px, 100% 40px, 100% 8px, 100% 8px;
+	background-size:
+		100% 40px,
+		100% 40px,
+		100% 8px,
+		100% 8px;
 	background-attachment: local, local, scroll, scroll;
 `;
 
@@ -238,7 +248,7 @@ export interface GenericTableProps<T> extends BaseTableProps<T> {
 
 const GenericTable: <T>(
 	props: GenericTableProps<T>,
-) => React.ReactElement<GenericTableProps<T>> = <T extends {}>({
+) => React.ReactElement<GenericTableProps<T>> = <T extends object>({
 	refFn,
 	...props
 }: GenericTableProps<T>) => (
@@ -318,7 +328,7 @@ function StyledTable<T>() {
 	`;
 }
 
-export const Table = <T extends {}>(props: GenericTableProps<T>) => {
+export const Table = <T extends object>(props: GenericTableProps<T>) => {
 	const TypedStyledFunctional = StyledTable<T>();
 	return <TypedStyledFunctional {...props} />;
 };

@@ -1,5 +1,4 @@
 import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/triangle-exclamation.svg';
-import * as _ from 'lodash';
 import * as React from 'react';
 import { Badge, Flex, Txt, ModalProps } from 'rendition';
 import { Modal, ScrollableFlex } from '../../styled-components';
