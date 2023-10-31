@@ -520,7 +520,6 @@ export class SourceSelector extends React.Component<
 	}
 
 	private async onDrop(event: React.DragEvent<HTMLDivElement>) {
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
 		const [file] = event.dataTransfer.files;
 		if (file) {
@@ -587,7 +586,6 @@ export class SourceSelector extends React.Component<
 		let image: SourceMetadata | DrivelistDrive =
 			selectionImage !== undefined ? selectionImage : ({} as SourceMetadata);
 
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
 		image = image.drive ?? image;
 

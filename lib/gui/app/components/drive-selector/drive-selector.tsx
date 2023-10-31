@@ -448,7 +448,7 @@ export class DriveSelector extends React.Component<
 							}
 							rowKey="displayName"
 							// TODO: check why this is not passing the typescheck
-							// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
 							// @ts-ignore
 							onCheck={(rows: Drive[]) => {
 								let newSelection = rows.filter(isDrivelistDrive);

@@ -29,5 +29,5 @@ export function setDrives(drives: any[]) {
 }
 
 export function getDrives(): DrivelistDrive[] {
-	return store.getState().toJS().availableDrives;
+	return store.getState().toJS().availableDrives as DrivelistDrive[];
 }

@@ -273,7 +273,7 @@ export class MainPage extends React.Component<
 					paddingTop="14px"
 					style={{
 						// Allow window to be dragged from header
-						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
 						// @ts-ignore
 						WebkitAppRegion: 'drag',
 						position: 'relative',

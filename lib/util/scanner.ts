@@ -69,16 +69,15 @@ type Drive =
 
 function prepareDrive(drive: Drive) {
 	if (drive instanceof sdk.sourceDestination.BlockDevice) {
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore (BlockDevice.drive is private)
 		return drive.drive;
 	} else if (drive instanceof sdk.sourceDestination.UsbbootDrive) {
 		// This is a workaround etcher expecting a device string and a size
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
 		// @ts-ignore
 		drive.device = drive.usbDevice.portId;
 		drive.size = null;
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
 		// @ts-ignore
 		drive.progress = 0;
 		drive.disabled = true;
@@ -143,11 +142,10 @@ function updateDriveProgress(
 	progress: number,
 ) {
 	const drives = getDrives();
-	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
 	// @ts-ignore
 	const driveInMap = drives[drive.device];
 	if (driveInMap) {
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
 		drives[drive.device] = { ...driveInMap, progress };
 		setDrives(drives);

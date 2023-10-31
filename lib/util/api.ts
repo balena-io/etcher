@@ -40,7 +40,7 @@ ipc.config.silent = true;
 // The purpose behind this change is for this process
 // to emit a "disconnect" event as soon as the GUI
 // process is closed, so we can kill this process as well.
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
 // @ts-ignore (0 is a valid value for stopRetrying and is not the same as false)
 ipc.config.stopRetrying = 0;
 

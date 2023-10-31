@@ -29,7 +29,6 @@ async function main() {
 	try {
 		const cleaned = omit(shrinkwrap);
 		for (const item of Object.values(cleaned.dependencies)) {
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore
 			item.dev = true;
 		}
