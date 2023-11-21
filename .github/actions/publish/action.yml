@@ -109,12 +109,17 @@ runs:
         APPLICATION_VERSION="$(jq -r '.version' package.json)"
 
         if [[ "${RUNNER_OS}" == Linux ]]; then
+          PLATFORM=Linux
           BUILD_ARCHS="x64"
+          SHA256SUM_BIN=sha256sum
 
         elif [[ "${RUNNER_OS}" == macOS ]]; then
+          PLATFORM=Darwin
           BUILD_ARCHS="x64,arm64"
+          SHA256SUM_BIN='shasum -a 256'
 
         elif [[ "${RUNNER_OS}" == Windows ]]; then
+          PLATFORM=Windows
           #BUILD_ARCHS="ia32,x64" -- distutils fails to build for ia32
           BUILD_ARCHS="x64"
 
@@ -137,6 +142,12 @@ runs:
           -iname "*.AppImage" -o   \
           -iname "*Setup.exe"      \
         \) -ls -exec cp '{}' dist/ \;
+
+        if [[ -n "${SHA256SUM_BIN}" ]]; then
+          # Compute and save digests.
+          cd dist/
+          ${SHA256SUM_BIN} *.* >"SHA256SUMS.${PLATFORM}.txt"
+        fi
       env:
         # ensure we sign the artifacts
         NODE_ENV: production
