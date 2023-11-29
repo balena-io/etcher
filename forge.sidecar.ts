@@ -60,7 +60,10 @@ function build(
 	binName: string,
 ) {
 	const commands: Array<[string, string[]]> = [
-		['tsc', ['--project', 'tsconfig.sidecar.json', '--outDir', sourcesDir]],
+		[
+			'tsc',
+			['--project', 'tsconfig.sidecar.json', '--outDir', `'${sourcesDir}'`],
+		],
 	];
 
 	buildForArchs.split(',').forEach((arch) => {
@@ -74,7 +77,7 @@ function build(
 		commands.push([
 			'pkg',
 			[
-				`${sourcesDir}/util/api.js`,
+				`'${path.join(sourcesDir, 'util', 'api.js')}'`,
 				'-c',
 				'pkg-sidecar.json',
 				// `--no-bytecode` so that we can cross-compile for arm64 on x64
@@ -86,9 +89,11 @@ function build(
 				'--target',
 				arch,
 				'--output',
-				binPath,
+				`'${binPath}'`,
 			],
 		]);
+
+		commands.push(['ls', ['-alFR', `'${binDir}'`]]);
 	});
 
 	commands.forEach(([cmd, args]) => {
