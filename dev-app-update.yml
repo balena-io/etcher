@@ -1,4 +1,0 @@
-owner: balena-io
-repo: etcher
-provider: github
-updaterCacheDirName: balena-etcher-updater

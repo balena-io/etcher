@@ -12,7 +12,7 @@ inputs:
   # --- custom environment
   NODE_VERSION:
     type: string
-    default: "16.x"
+    default: "18.x"
   VERBOSE:
     type: string
     default: "true"
@@ -28,27 +28,45 @@ runs:
         node-version: ${{ inputs.NODE_VERSION }}
         cache: npm
 
-    - name: Test release
-      shell: bash --noprofile --norc -eo pipefail -x {0}
+    - name: Install host dependencies
+      if: runner.os == 'Linux'
+      shell: bash
       run: |
-        set -ea
+        sudo apt-get install -y --no-install-recommends xvfb libudev-dev
+        cat < package.json | jq -r '.hostDependencies[][]' - | \
+          xargs -L1 echo | sed 's/|//g' | xargs -L1 \
+          sudo apt-get --ignore-missing install || true
 
-        [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
+    - name: Install host dependencies
+      if: runner.os == 'macOS'
+      # FIXME: Python 3.12 dropped distutils that node-gyp depends upon.
+      # This is a temporary workaround to make the job use Python 3.11 until
+      # we update to npm 10+.
+      uses: actions/setup-python@d27e3f3d7c64b4bbf8e4abfb9b63b83e846e0435 # v4
+      with:
+        python-version: '3.11'
+
+    - name: Test release
+      shell: bash
+      run: |
+        if [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]]; then
+          export DEBUG='electron-forge:*,electron-packager,electron-rebuild'
+        fi
 
         runner_os="$(echo "${RUNNER_OS}" | tr '[:upper:]' '[:lower:]')"
 
-        npm run flowzone-preinstall-${runner_os}
         npm ci
+        npm run lint
         npm run package
         npm run test-${runner_os}
 
       env:
         # https://www.electronjs.org/docs/latest/api/environment-variables
-        ELECTRON_NO_ATTACH_CONSOLE: true
+        ELECTRON_NO_ATTACH_CONSOLE: 'true'
 
     - name: Compress custom source
       if: runner.os != 'Windows'
-      shell: pwsh
+      shell: bash
       run: tar -acf ${{ runner.temp }}/custom.tgz .
 
     - name: Compress custom source
