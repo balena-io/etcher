@@ -117,3 +117,7 @@ secrets/WINDOWS_SIGNING.pfx
 
 # Image stream output directory
 /tests/image-stream/output
+
+#local development
+.yalc
+yalc.lock
