@@ -19,7 +19,6 @@ import { join } from 'path';
 import { env } from 'process';
 import { promisify } from 'util';
 
-import { getAppPath } from '../get-app-path';
 import { supportedLocales } from '../../gui/app/i18n';
 
 const execFileAsync = promisify(execFile);
@@ -48,8 +47,7 @@ export async function sudo(
 				env: {
 					PATH: env.PATH,
 					SUDO_ASKPASS: join(
-						getAppPath(),
-						__dirname,
+						process.resourcesPath,
 						`sudo-askpass.osascript-${lang}.js`,
 					),
 				},

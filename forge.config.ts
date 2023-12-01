@@ -41,6 +41,10 @@ const config: ForgeConfig = {
 		appCopyright: 'Copyright 2016-2023 Balena Ltd',
 		darwinDarkModeSupport: true,
 		protocols: [{ name: 'etcher', schemes: ['etcher'] }],
+		extraResource: [
+			"lib/shared/catalina-sudo/sudo-askpass.osascript-zh.js",
+  		"lib/shared/catalina-sudo/sudo-askpass.osascript-en.js"
+		],
 		osxSign: {
 			optionsForFile: () => ({
 				entitlements: './entitlements.mac.plist',
