@@ -62,7 +62,7 @@ function build(
 	const commands: Array<[string, string[]]> = [
 		[
 			'tsc',
-			['--project', 'tsconfig.sidecar.json', '--outDir', `'${sourcesDir}'`],
+			['--project', 'tsconfig.sidecar.json', '--outDir', `${sourcesDir}`],
 		],
 	];
 
@@ -77,7 +77,7 @@ function build(
 		commands.push([
 			'pkg',
 			[
-				`'${path.join(sourcesDir, 'util', 'api.js')}'`,
+				`${path.join(sourcesDir, 'util', 'api.js')}`,
 				'-c',
 				'pkg-sidecar.json',
 				// `--no-bytecode` so that we can cross-compile for arm64 on x64
@@ -89,16 +89,18 @@ function build(
 				'--target',
 				arch,
 				'--output',
-				`'${binPath}'`,
+				`${binPath}`,
 			],
 		]);
 
-		commands.push(['ls', ['-alFR', `'${binDir}'`]]);
+		//commands.push(['ls', ['-alFR', `'${binDir}'`]]);
 	});
 
 	commands.forEach(([cmd, args]) => {
 		debug('running command:', cmd, args.join(' '));
-		execFileSync(cmd, args, { shell: 'bash', stdio: 'inherit' });
+		try {
+		execFileSync(cmd, args, { shell: true, stdio: 'inherit' });
+	} catch (error) {console.log(error)}
 	});
 }
 
