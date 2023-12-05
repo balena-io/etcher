@@ -59,7 +59,7 @@ function build(
 	binDir: string,
 	binName: string,
 ) {
-	const commands: Array<[string, string[]]> = [
+	const commands: Array<[string, string[], object?]> = [
 		[
 			'tsc',
 			['--project', 'tsconfig.sidecar.json', '--outDir', `${sourcesDir}`],
@@ -73,7 +73,10 @@ function build(
 			  path.resolve(binDir, binName)
 			: // otherwise build in arch-specific directory within binDir
 			  path.resolve(binDir, arch, binName);
-
+		
+		// FIXME: rebuilding mountutils shouldn't be necessary, but it is. It's comming from etcher-sdk a fix has been upstreamed but to use the latest etcher-sdk we need to upgrade axios at the same time)
+		commands.push(['npm', ['run', 'rebuild'], { cwd: 'node_modules/mountutils' }])
+		
 		commands.push([
 			'pkg',
 			[
@@ -86,8 +89,8 @@ function build(
 				'--public-packages',
 				'"*"',
 				// always build for host platform and node version
-				'--target',
-				arch,
+				// https://github.com/vercel/pkg-fetch/releases
+				`--target node18-${arch}`,
 				'--output',
 				`${binPath}`,
 			],
@@ -96,10 +99,10 @@ function build(
 		//commands.push(['ls', ['-alFR', `'${binDir}'`]]);
 	});
 
-	commands.forEach(([cmd, args]) => {
+	commands.forEach(([cmd, args, opt]) => {
 		debug('running command:', cmd, args.join(' '));
 		try {
-		execFileSync(cmd, args, { shell: true, stdio: 'inherit' });
+		execFileSync(cmd, args, { shell: true, stdio: 'inherit', ...opt });
 	} catch (error) {console.log(error)}
 	});
 }
