@@ -12,7 +12,9 @@ inputs:
   # --- custom environment
   NODE_VERSION:
     type: string
-    default: "18.x"
+    # Beware that node native modules will be built for that version, which might no be compatible with the one used by pkg (see forge.sidecar.ts)
+    # https://github.com/vercel/pkg-fetch/releases
+    default: "18.18"
   VERBOSE:
     type: string
     default: "true"
@@ -24,7 +26,7 @@ runs:
     - name: Download custom source artifact
       uses: actions/download-artifact@v3
       with:
-        name: custom-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}-${{ runner.os }}
+        name: custom-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}-${{ runner.os }}-${{ runner.arch }}
         path: ${{ runner.temp }}
 
     - name: Extract custom source artifact
@@ -57,7 +59,7 @@ runs:
       # we update to npm 10+.
       uses: actions/setup-python@d27e3f3d7c64b4bbf8e4abfb9b63b83e846e0435 # v4
       with:
-        python-version: '3.11'
+        python-version: "3.11"
 
     # https://www.electron.build/code-signing.html
     # https://dev.to/rwwagner90/signing-electron-apps-with-github-actions-4cof
@@ -95,7 +97,7 @@ runs:
       id: import_win_signing_cert
       uses: timheuer/base64-to-file@v1
       with:
-        fileName: 'win-cert.pfx'
+        fileName: "win-cert.pfx"
         encodedString: ${{ fromJSON(inputs.secrets).WINDOWS_SIGNING }}
 
     - name: Package release
@@ -115,7 +117,14 @@ runs:
 
         elif [[ "${RUNNER_OS}" == macOS ]]; then
           PLATFORM=Darwin
-          BUILD_ARCHS="x64,arm64"
+          if [[ "${RUNNER_ARCH}" == "X64" ]]; then
+            BUILD_ARCHS="x64"
+          elif [[ "${RUNNER_ARCH}" == "ARM64" ]]; then
+            BUILD_ARCHS="arm64"
+          else
+            echo "ERROR: unexpected runner arch: ${RUNNER_ARCH}"
+            exit 1
+          fi
           SHA256SUM_BIN='shasum -a 256'
 
         elif [[ "${RUNNER_OS}" == Windows ]]; then
@@ -153,7 +162,7 @@ runs:
         NODE_ENV: production
         # analytics tokens
         SENTRY_TOKEN: https://739bbcfc0ba4481481138d3fc831136d@o95242.ingest.sentry.io/4504451487301632
-        AMPLITUDE_TOKEN: 'balena-etcher'
+        AMPLITUDE_TOKEN: "balena-etcher"
         # Apple notarization
         XCODE_APP_LOADER_EMAIL: ${{ fromJSON(inputs.secrets).XCODE_APP_LOADER_EMAIL }}
         XCODE_APP_LOADER_PASSWORD: ${{ fromJSON(inputs.secrets).XCODE_APP_LOADER_PASSWORD }}
