@@ -284,7 +284,6 @@ function StyledTable<T>() {
 		[data-display='table-body'] > [data-display='table-row'] {
 			> [data-display='table-cell']:first-child {
 				padding-left: 15px;
-				width: 6%;
 			}
 
 			> [data-display='table-cell']:last-child {
