@@ -66,7 +66,7 @@
         "electron": "25.8.2",
         "electron-mocha": "^11.0.2",
         "file-loader": "6.2.0",
-        "husky": "4.3.8",
+        "husky": "8.0.3",
         "lint-staged": "10.5.4",
         "mocha": "^10.2.0",
         "native-addon-loader": "2.0.1",
@@ -7637,11 +7637,6 @@
       "version": "1.1.0",
       "license": "MIT"
     },
-    "node_modules/ci-info": {
-      "version": "2.0.0",
-      "dev": true,
-      "license": "MIT"
-    },
     "node_modules/clean-css": {
       "version": "5.3.2",
       "dev": true,
@@ -7907,11 +7902,6 @@
       "engines": {
         "node": ">=0.10.0"
       }
-    },
-    "node_modules/compare-versions": {
-      "version": "3.6.0",
-      "dev": true,
-      "license": "MIT"
     },
     "node_modules/compressible": {
       "version": "2.0.18",
@@ -10671,20 +10661,6 @@
         "url": "https://github.com/sponsors/sindresorhus"
       }
     },
-    "node_modules/find-versions": {
-      "version": "4.0.0",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "semver-regex": "^3.1.2"
-      },
-      "engines": {
-        "node": ">=10"
-      },
-      "funding": {
-        "url": "https://github.com/sponsors/sindresorhus"
-      }
-    },
     "node_modules/findup-sync": {
       "version": "5.0.0",
       "dev": true,
@@ -11872,96 +11848,18 @@
       }
     },
     "node_modules/husky": {
-      "version": "4.3.8",
+      "version": "8.0.3",
+      "resolved": "https://registry.npmjs.org/husky/-/husky-8.0.3.tgz",
+      "integrity": "sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==",
       "dev": true,
-      "hasInstallScript": true,
-      "license": "MIT",
-      "dependencies": {
-        "chalk": "^4.0.0",
-        "ci-info": "^2.0.0",
-        "compare-versions": "^3.6.0",
-        "cosmiconfig": "^7.0.0",
-        "find-versions": "^4.0.0",
-        "opencollective-postinstall": "^2.0.2",
-        "pkg-dir": "^5.0.0",
-        "please-upgrade-node": "^3.2.0",
-        "slash": "^3.0.0",
-        "which-pm-runs": "^1.0.0"
-      },
       "bin": {
-        "husky-run": "bin/run.js",
-        "husky-upgrade": "lib/upgrader/bin.js"
+        "husky": "lib/bin.js"
       },
       "engines": {
-        "node": ">=10"
+        "node": ">=14"
       },
       "funding": {
-        "type": "opencollective",
-        "url": "https://opencollective.com/husky"
-      }
-    },
-    "node_modules/husky/node_modules/ansi-styles": {
-      "version": "4.3.0",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "color-convert": "^2.0.1"
-      },
-      "engines": {
-        "node": ">=8"
-      },
-      "funding": {
-        "url": "https://github.com/chalk/ansi-styles?sponsor=1"
-      }
-    },
-    "node_modules/husky/node_modules/chalk": {
-      "version": "4.1.2",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "ansi-styles": "^4.1.0",
-        "supports-color": "^7.1.0"
-      },
-      "engines": {
-        "node": ">=10"
-      },
-      "funding": {
-        "url": "https://github.com/chalk/chalk?sponsor=1"
-      }
-    },
-    "node_modules/husky/node_modules/color-convert": {
-      "version": "2.0.1",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "color-name": "~1.1.4"
-      },
-      "engines": {
-        "node": ">=7.0.0"
-      }
-    },
-    "node_modules/husky/node_modules/color-name": {
-      "version": "1.1.4",
-      "dev": true,
-      "license": "MIT"
-    },
-    "node_modules/husky/node_modules/has-flag": {
-      "version": "4.0.0",
-      "dev": true,
-      "license": "MIT",
-      "engines": {
-        "node": ">=8"
-      }
-    },
-    "node_modules/husky/node_modules/supports-color": {
-      "version": "7.2.0",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "has-flag": "^4.0.0"
-      },
-      "engines": {
-        "node": ">=8"
+        "url": "https://github.com/sponsors/typicode"
       }
     },
     "node_modules/i18next": {
@@ -14934,14 +14832,6 @@
         "url": "https://github.com/sponsors/sindresorhus"
       }
     },
-    "node_modules/opencollective-postinstall": {
-      "version": "2.0.3",
-      "dev": true,
-      "license": "MIT",
-      "bin": {
-        "opencollective-postinstall": "index.js"
-      }
-    },
     "node_modules/optimist": {
       "version": "0.6.1",
       "dev": true,
@@ -15419,17 +15309,6 @@
         "node-notifier": {
           "optional": true
         }
-      }
-    },
-    "node_modules/pkg-dir": {
-      "version": "5.0.0",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "find-up": "^5.0.0"
-      },
-      "engines": {
-        "node": ">=10"
       }
     },
     "node_modules/pkg-fetch": {
@@ -17109,17 +16988,6 @@
       "version": "1.0.0",
       "devOptional": true,
       "license": "MIT"
-    },
-    "node_modules/semver-regex": {
-      "version": "3.1.4",
-      "dev": true,
-      "license": "MIT",
-      "engines": {
-        "node": ">=8"
-      },
-      "funding": {
-        "url": "https://github.com/sponsors/sindresorhus"
-      }
     },
     "node_modules/semver/node_modules/lru-cache": {
       "version": "6.0.0",
