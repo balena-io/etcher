@@ -20,7 +20,7 @@
         "electron-squirrel-startup": "^1.0.0",
         "electron-updater": "5.3.0",
         "etcher-sdk": "9.0.0",
-        "i18next": "21.10.0",
+        "i18next": "23.7.8",
         "immutable": "4.3.4",
         "lodash": "4.17.21",
         "node-ipc": "9.2.1",
@@ -29,7 +29,7 @@
         "pretty-bytes": "6.1.1",
         "react": "16.8.5",
         "react-dom": "16.8.5",
-        "react-i18next": "11.18.6",
+        "react-i18next": "18.2.0",
         "redux": "4.2.1",
         "rendition": "19.3.2",
         "semver": "7.5.4",
@@ -4110,9 +4110,10 @@
       }
     },
     "node_modules/@fortawesome/fontawesome-free": {
-      "version": "5.15.4",
+      "version": "6.5.1",
+      "resolved": "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-6.5.1.tgz",
+      "integrity": "sha512-CNy5vSwN3fsUStPRLX7fUYojyuzoEMSXPl7zSLJ8TgtRfjv24LOnOWKT2zYwaHZCJGkdyRnTmstR0P+Ah503Gw==",
       "hasInstallScript": true,
-      "license": "(CC-BY-4.0 AND OFL-1.1 AND MIT)",
       "engines": {
         "node": ">=6"
       }
@@ -18657,6 +18658,8 @@
     },
     "node_modules/unbzip2-stream": {
       "version": "1.4.2",
+      "resolved": "git+ssh://git@github.com/balena-io-modules/unbzip2-stream.git#4a54f56a25b58950f9e4277c56db2912d62242e7",
+      "integrity": "sha512-brk1qgoQuqWAWifAFEyC7At0CZxuHL90kd3S2Sdmd1GrOcUGl2bey0Bu6MVc25xAXMz7WITNKD8hxyBpNmeOdg==",
       "license": "MIT"
     },
     "node_modules/undici-types": {
@@ -19531,6 +19534,24 @@
       "version": "2.0.1",
       "dev": true,
       "license": "MIT"
+    },
+    "node_modules/winusb-driver-generator": {
+      "version": "2.1.0",
+      "resolved": "https://registry.npmjs.org/winusb-driver-generator/-/winusb-driver-generator-2.1.0.tgz",
+      "integrity": "sha512-qbG0vFKaxHLO/ff3HwYgs7LY6iFNJl4lcSmzioBCEFik1rD6js1f9QPD18gn/4y2fSDQKgGg9k0YPVog2sldUQ==",
+      "hasInstallScript": true,
+      "optional": true,
+      "os": [
+        "win32"
+      ],
+      "dependencies": {
+        "bindings": "^1.5.0",
+        "node-addon-api": "^5.0.0",
+        "prebuild-install": "^7.1.1"
+      },
+      "engines": {
+        "node": ">=16 < 19"
+      }
     },
     "node_modules/word-wrap": {
       "version": "1.2.5",
