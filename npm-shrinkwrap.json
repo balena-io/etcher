@@ -51,7 +51,7 @@
         "@svgr/webpack": "8.1.0",
         "@types/chai": "4.3.11",
         "@types/debug": "^4.1.12",
-        "@types/mime-types": "2.1.1",
+        "@types/mime-types": "2.1.4",
         "@types/mocha": "^10.0.6",
         "@types/node": "^18.11.9",
         "@types/node-ipc": "9.2.0",
@@ -5851,20 +5851,21 @@
       "license": "MIT"
     },
     "node_modules/@types/react": {
-      "version": "16.14.34",
-      "license": "MIT",
+      "version": "17.0.2",
+      "resolved": "https://registry.npmjs.org/@types/react/-/react-17.0.2.tgz",
+      "integrity": "sha512-Xt40xQsrkdvjn1EyWe1Bc0dJLcil/9x2vAuW7ya+PuQip4UYUaXyhzWmAbwRsdMgwOFHpfp7/FFZebDU6Y8VHA==",
       "dependencies": {
         "@types/prop-types": "*",
-        "@types/scheduler": "*",
         "csstype": "^3.0.2"
       }
     },
     "node_modules/@types/react-dom": {
-      "version": "16.9.17",
+      "version": "17.0.2",
+      "resolved": "https://registry.npmjs.org/@types/react-dom/-/react-dom-17.0.2.tgz",
+      "integrity": "sha512-Icd9KEgdnFfJs39KyRyr0jQ7EKhq8U6CcHRMGAS45fp5qgUvxL3ujUCfWFttUK2UErqZNj97t9gsVPNAqcwoCg==",
       "dev": true,
-      "license": "MIT",
       "dependencies": {
-        "@types/react": "^16"
+        "@types/react": "*"
       }
     },
     "node_modules/@types/react-helmet": {
@@ -5884,10 +5885,6 @@
     "node_modules/@types/retry": {
       "version": "0.12.0",
       "dev": true,
-      "license": "MIT"
-    },
-    "node_modules/@types/scheduler": {
-      "version": "0.16.3",
       "license": "MIT"
     },
     "node_modules/@types/semver": {
@@ -5971,9 +5968,10 @@
       }
     },
     "node_modules/@types/tmp": {
-      "version": "0.2.3",
-      "dev": true,
-      "license": "MIT"
+      "version": "0.2.6",
+      "resolved": "https://registry.npmjs.org/@types/tmp/-/tmp-0.2.6.tgz",
+      "integrity": "sha512-chhaNf2oKHlRkDGt+tiKE2Z5aJ6qalm7Z9rlLdBwmOiAAf09YQvvoLXjWK4HWPF1xU/fqvMgfNfpVoBscA/tKA==",
+      "dev": true
     },
     "node_modules/@types/unist": {
       "version": "2.0.8",

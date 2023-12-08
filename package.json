@@ -86,7 +86,7 @@
     "@svgr/webpack": "8.1.0",
     "@types/chai": "4.3.11",
     "@types/debug": "^4.1.12",
-    "@types/mime-types": "2.1.1",
+    "@types/mime-types": "2.1.4",
     "@types/mocha": "^10.0.6",
     "@types/node": "^18.11.9",
     "@types/node-ipc": "9.2.0",
