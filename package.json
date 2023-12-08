@@ -57,7 +57,7 @@
     "i18next": "23.7.8",
     "immutable": "4.3.4",
     "lodash": "4.17.21",
-    "node-ipc": "9.2.1",
+    "node-ipc": "9.2.3",
     "outdent": "0.8.0",
     "path-is-inside": "1.0.2",
     "pretty-bytes": "6.1.1",

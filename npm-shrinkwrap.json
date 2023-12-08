@@ -22,7 +22,7 @@
         "i18next": "23.7.8",
         "immutable": "4.3.4",
         "lodash": "4.17.21",
-        "node-ipc": "9.2.1",
+        "node-ipc": "9.2.3",
         "outdent": "0.8.0",
         "path-is-inside": "1.0.2",
         "pretty-bytes": "6.1.1",
@@ -18557,9 +18557,9 @@
       }
     },
     "node_modules/rendition": {
-      "version": "35.1.0",
-      "resolved": "https://registry.npmjs.org/rendition/-/rendition-35.1.0.tgz",
-      "integrity": "sha512-HwoOeNrLiIxvvNVI/WVsogSH8et/iXpfxRg/mPlwbhGR3+I6kweOwpks008otkUUFAzXoYCSyWArGUReJSNkzg==",
+      "version": "35.1.2",
+      "resolved": "https://registry.npmjs.org/rendition/-/rendition-35.1.2.tgz",
+      "integrity": "sha512-l1CQsoHKYzJJcK9R9gxY4tiU79CA+7k2KG1S2Njqwyh+goMxTB6EBcXzRGgLmbLE/tJhfa0+LZu/Plpuv0RsDQ==",
       "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^6.1.1",
         "@fortawesome/free-regular-svg-icons": "^6.1.1",
