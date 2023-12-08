@@ -47,7 +47,7 @@
     "@balena/sudo-prompt": "9.2.1-workaround-windows-amperstand-in-username-0849e215b947987a643fe5763902aea201255534",
     "@electron/remote": "^2.1.0",
     "@fortawesome/fontawesome-free": "5.15.4",
-    "@sentry/electron": "^4.1.2",
+    "@sentry/electron": "^4.15.1",
     "analytics-client": "^2.0.1",
     "axios": "^1.6.0",
     "d3": "4.13.0",
