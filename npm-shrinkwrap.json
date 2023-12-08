@@ -68,7 +68,6 @@
         "file-loader": "6.2.0",
         "husky": "4.3.8",
         "lint-staged": "10.5.4",
-        "mini-css-extract-plugin": "1.6.2",
         "mocha": "^10.2.0",
         "native-addon-loader": "2.0.1",
         "node-loader": "^2.0.0",
@@ -13808,35 +13807,6 @@
         "node": ">=4"
       }
     },
-    "node_modules/mini-css-extract-plugin": {
-      "version": "1.6.2",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "loader-utils": "^2.0.0",
-        "schema-utils": "^3.0.0",
-        "webpack-sources": "^1.1.0"
-      },
-      "engines": {
-        "node": ">= 10.13.0"
-      },
-      "funding": {
-        "type": "opencollective",
-        "url": "https://opencollective.com/webpack"
-      },
-      "peerDependencies": {
-        "webpack": "^4.4.0 || ^5.0.0"
-      }
-    },
-    "node_modules/mini-css-extract-plugin/node_modules/webpack-sources": {
-      "version": "1.4.3",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "source-list-map": "^2.0.0",
-        "source-map": "~0.6.1"
-      }
-    },
     "node_modules/minimalistic-assert": {
       "version": "1.0.1",
       "dev": true,
@@ -17649,11 +17619,6 @@
         "node": ">= 10"
       }
     },
-    "node_modules/source-list-map": {
-      "version": "2.0.1",
-      "dev": true,
-      "license": "MIT"
-    },
     "node_modules/source-map": {
       "version": "0.6.1",
       "dev": true,
@@ -18450,9 +18415,10 @@
       }
     },
     "node_modules/ts-loader": {
-      "version": "9.5.0",
+      "version": "9.5.1",
+      "resolved": "https://registry.npmjs.org/ts-loader/-/ts-loader-9.5.1.tgz",
+      "integrity": "sha512-rNH3sK9kGZcH9dYzC7CewQm4NtxJTjSEVRJ2DyBZR7f8/wcta+iV44UPCXc5+nzDzivKtlzV6c9P4e+oFhDLYg==",
       "dev": true,
-      "license": "MIT",
       "dependencies": {
         "chalk": "^4.1.0",
         "enhanced-resolve": "^5.0.0",
@@ -18541,9 +18507,10 @@
       }
     },
     "node_modules/ts-node": {
-      "version": "10.9.1",
+      "version": "10.9.2",
+      "resolved": "https://registry.npmjs.org/ts-node/-/ts-node-10.9.2.tgz",
+      "integrity": "sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB+fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==",
       "dev": true,
-      "license": "MIT",
       "dependencies": {
         "@cspotcode/source-map-support": "^0.8.0",
         "@tsconfig/node10": "^1.0.7",
