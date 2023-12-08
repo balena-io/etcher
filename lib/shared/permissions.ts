@@ -70,14 +70,14 @@ export async function isElevated(): Promise<boolean> {
 		}
 		return true;
 	}
-	return process.geteuid() === UNIX_SUPERUSER_USER_ID;
+	return process.geteuid!() === UNIX_SUPERUSER_USER_ID;
 }
 
 /**
  * @summary Check if the current process is running with elevated permissions
  */
 export function isElevatedUnixSync(): boolean {
-	return process.geteuid() === UNIX_SUPERUSER_USER_ID;
+	return process.geteuid!() === UNIX_SUPERUSER_USER_ID;
 }
 
 function escapeSh(value: any): string {
