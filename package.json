@@ -109,7 +109,7 @@
     "pkg": "^5.8.1",
     "sinon": "17.0.1",
     "string-replace-loader": "3.1.0",
-    "style-loader": "2.0.0",
+    "style-loader": "3.3.3",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
     "tslib": "2.6.2",
