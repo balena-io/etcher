@@ -15,9 +15,8 @@
  */
 
 import CircleSvg from '@fortawesome/fontawesome-free/svgs/solid/circle.svg';
-import CheckCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/check-circle.svg';
-import TimesCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/times-circle.svg';
-import outdent from 'outdent';
+import CheckCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/circle-check.svg';
+import TimesCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/circle-xmark.svg';
 import * as React from 'react';
 import { Flex, FlexProps, Link, TableColumn, Txt } from 'rendition';
 import styled from 'styled-components';

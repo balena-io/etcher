@@ -43,7 +43,7 @@ function blink(t: number) {
 	return Math.floor(t) % 2;
 }
 
-function one(_t: number) {
+function one() {
 	return 1;
 }
 

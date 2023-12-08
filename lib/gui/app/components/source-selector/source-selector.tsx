@@ -17,7 +17,7 @@
 import CopySvg from '@fortawesome/fontawesome-free/svgs/solid/copy.svg';
 import FileSvg from '@fortawesome/fontawesome-free/svgs/solid/file.svg';
 import LinkSvg from '@fortawesome/fontawesome-free/svgs/solid/link.svg';
-import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/exclamation-triangle.svg';
+import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/triangle-exclamation.svg';
 import ChevronDownSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-down.svg';
 import ChevronRightSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-right.svg';
 import { ipcRenderer, IpcRendererEvent } from 'electron';
@@ -388,10 +388,9 @@ export class SourceSelector extends React.Component<
 		SourceType: Source,
 		auth?: Authentication,
 	): { promise: Promise<void>; cancel: () => void } {
-		let cancelled = false;
 		return {
 			cancel: () => {
-				cancelled = true;
+				// noop
 			},
 			promise: (async () => {
 				const sourcePath = isString(selected) ? selected : selected.device;
@@ -519,8 +518,8 @@ export class SourceSelector extends React.Component<
 	}
 
 	private async onDrop(event: React.DragEvent<HTMLDivElement>) {
-		const [file] = event.dataTransfer.files;
-		if (file) {
+		const file = event.dataTransfer.files.item(0);
+		if (file != null) {
 			await this.selectSource(file.path, 'File').promise;
 		}
 	}
@@ -581,7 +580,7 @@ export class SourceSelector extends React.Component<
 			imageLoading,
 		} = this.state;
 		const selectionImage = selectionState.getImage();
-		let image: SourceMetadata | DrivelistDrive =
+		let image =
 			selectionImage !== undefined ? selectionImage : ({} as SourceMetadata);
 
 		image = image.drive ?? image;
@@ -684,7 +683,7 @@ export class SourceSelector extends React.Component<
 						style={{
 							boxShadow: '0 3px 7px rgba(0, 0, 0, 0.3)',
 						}}
-						titleElement={
+						title={
 							<span>
 								<ExclamationTriangleSvg fill="#fca321" height="1em" />{' '}
 								<span>{this.state.warning.title}</span>

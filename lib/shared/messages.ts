@@ -16,7 +16,7 @@
 
 import { Dictionary } from 'lodash';
 import { outdent } from 'outdent';
-import * as prettyBytes from 'pretty-bytes';
+import prettyBytes from 'pretty-bytes';
 import '../gui/app/i18n';
 import * as i18next from 'i18next';
 
@@ -164,11 +164,11 @@ export const error = {
 				? i18next.t('message.toDrive', {
 						description: drives[0].description,
 						name: drives[0].displayName,
-				  })
+					})
 				: i18next.t('message.toTarget', {
 						count: drives.length,
 						num: drives.length,
-				  });
+					});
 		return i18next.t('message.flashError', {
 			image: imageBasename,
 			targets: target,

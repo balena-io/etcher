@@ -52,6 +52,7 @@ async function write(options: WriteOptions) {
 	const onFail = (destination: SourceDestination, error: Error) => {
 		emitFail({
 			// TODO: device should be destination
+
 			// @ts-ignore (destination.drive is private)
 			device: destination.drive,
 			error: toJSON(error),
