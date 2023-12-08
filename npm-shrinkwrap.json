@@ -32,7 +32,7 @@
         "react-i18next": "11.18.6",
         "redux": "4.2.0",
         "rendition": "19.3.2",
-        "semver": "7.3.8",
+        "semver": "7.5.4",
         "styled-components": "5.3.6",
         "sys-class-rgb-led": "3.0.1",
         "uuid": "8.3.2"
@@ -59,7 +59,7 @@
         "@types/node-ipc": "9.2.0",
         "@types/react": "16.14.34",
         "@types/react-dom": "16.9.17",
-        "@types/semver": "7.3.13",
+        "@types/semver": "7.5.6",
         "@types/sinon": "9.0.11",
         "@types/tmp": "0.2.3",
         "@vercel/webpack-asset-relocator-loader": "1.7.3",
