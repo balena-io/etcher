@@ -48,7 +48,7 @@
         "@electron-forge/plugin-auto-unpack-natives": "6.4.2",
         "@electron-forge/plugin-webpack": "6.4.2",
         "@reforged/maker-appimage": "3.3.1",
-        "@svgr/webpack": "5.5.0",
+        "@svgr/webpack": "8.1.0",
         "@types/chai": "4.3.11",
         "@types/debug": "^4.1.12",
         "@types/mime-types": "2.1.1",
