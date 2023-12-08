@@ -42,8 +42,8 @@ const config: ForgeConfig = {
 		darwinDarkModeSupport: true,
 		protocols: [{ name: 'etcher', schemes: ['etcher'] }],
 		extraResource: [
-			"lib/shared/catalina-sudo/sudo-askpass.osascript-zh.js",
-  		"lib/shared/catalina-sudo/sudo-askpass.osascript-en.js"
+			'lib/shared/catalina-sudo/sudo-askpass.osascript-zh.js',
+			'lib/shared/catalina-sudo/sudo-askpass.osascript-en.js',
 		],
 		osxSign: {
 			optionsForFile: () => ({

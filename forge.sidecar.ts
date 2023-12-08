@@ -73,10 +73,14 @@ function build(
 			  path.resolve(binDir, binName)
 			: // otherwise build in arch-specific directory within binDir
 			  path.resolve(binDir, arch, binName);
-		
+
 		// FIXME: rebuilding mountutils shouldn't be necessary, but it is. It's comming from etcher-sdk a fix has been upstreamed but to use the latest etcher-sdk we need to upgrade axios at the same time)
-		commands.push(['npm', ['run', 'rebuild'], { cwd: 'node_modules/mountutils' }])
-		
+		commands.push([
+			'npm',
+			['run', 'rebuild'],
+			{ cwd: 'node_modules/mountutils' },
+		]);
+
 		commands.push([
 			'pkg',
 			[
@@ -96,14 +100,16 @@ function build(
 			],
 		]);
 
-		//commands.push(['ls', ['-alFR', `'${binDir}'`]]);
+		// commands.push(['ls', ['-alFR', `'${binDir}'`]]);
 	});
 
 	commands.forEach(([cmd, args, opt]) => {
 		debug('running command:', cmd, args.join(' '));
 		try {
-		execFileSync(cmd, args, { shell: true, stdio: 'inherit', ...opt });
-	} catch (error) {console.log(error)}
+			execFileSync(cmd, args, { shell: true, stdio: 'inherit', ...opt });
+		} catch (error) {
+			console.log(error);
+		}
 	});
 }
 
