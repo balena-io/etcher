@@ -70,7 +70,7 @@
     "semver": "7.5.4",
     "styled-components": "5.3.6",
     "sys-class-rgb-led": "3.0.1",
-    "uuid": "8.3.2"
+    "uuid": "9.0.1"
   },
   "devDependencies": {
     "@balena/lint": "5.4.2",
