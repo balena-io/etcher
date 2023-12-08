@@ -77,8 +77,8 @@
         "sinon": "17.0.1",
         "string-replace-loader": "3.1.0",
         "style-loader": "2.0.0",
-        "ts-loader": "^9.5.0",
-        "ts-node": "^10.9.1",
+        "ts-loader": "^9.5.1",
+        "ts-node": "^10.9.2",
         "tslib": "2.6.2",
         "typescript": "4.4.4",
         "url-loader": "4.1.1"
@@ -16478,9 +16478,12 @@
       "license": "BSD-3-Clause"
     },
     "node_modules/redux": {
-      "version": "5.0.0",
-      "resolved": "https://registry.npmjs.org/redux/-/redux-5.0.0.tgz",
-      "integrity": "sha512-blLIYmYetpZMET6Q6uCY7Jtl/Im5OBldy+vNPauA8vvsdqyt66oep4EUpAMWNHauTC6xa9JuRPhRB72rY82QGA=="
+      "version": "4.2.1",
+      "resolved": "https://registry.npmjs.org/redux/-/redux-4.2.1.tgz",
+      "integrity": "sha512-LAUYz4lc+Do8/g7aeRa8JkyDErK6ekstQaqWQrNRW//MY1TvCEpMtpTWvlQ+FPbWCx+Xixu/6SHt5N0HR+SB4w==",
+      "dependencies": {
+        "@babel/runtime": "^7.9.2"
+      }
     },
     "node_modules/refractor": {
       "version": "3.6.0",
