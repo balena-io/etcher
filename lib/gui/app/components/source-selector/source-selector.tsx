@@ -23,7 +23,7 @@ import ChevronRightSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-ri
 import { ipcRenderer, IpcRendererEvent } from 'electron';
 import { uniqBy, isNil } from 'lodash';
 import * as path from 'path';
-import * as prettyBytes from 'pretty-bytes';
+import prettyBytes from 'pretty-bytes';
 import * as React from 'react';
 import { requestMetadata } from '../../app';
 

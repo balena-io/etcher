@@ -61,7 +61,7 @@
     "node-ipc": "9.2.1",
     "outdent": "0.8.0",
     "path-is-inside": "1.0.2",
-    "pretty-bytes": "5.6.0",
+    "pretty-bytes": "6.1.1",
     "react": "16.8.5",
     "react-dom": "16.8.5",
     "react-i18next": "11.18.6",

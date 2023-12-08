@@ -5,7 +5,7 @@ import { Badge, Flex, Txt, ModalProps } from 'rendition';
 import { Modal, ScrollableFlex } from '../../styled-components';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
 
-import * as prettyBytes from 'pretty-bytes';
+import prettyBytes from 'pretty-bytes';
 import { DriveWithWarnings } from '../../pages/main/Flash';
 import * as i18next from 'i18next';
 

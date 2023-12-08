@@ -16,7 +16,7 @@
 
 import { Dictionary } from 'lodash';
 import { outdent } from 'outdent';
-import * as prettyBytes from 'pretty-bytes';
+import prettyBytes from 'pretty-bytes';
 import '../gui/app/i18n';
 import * as i18next from 'i18next';
 
