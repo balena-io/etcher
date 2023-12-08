@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/exclamation-triangle.svg';
+import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/triangle-exclamation.svg';
 import ChevronDownSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-down.svg';
 import * as sourceDestination from 'etcher-sdk/build/source-destination/';
 import * as React from 'react';

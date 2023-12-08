@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/exclamation-triangle.svg';
+import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/triangle-exclamation.svg';
 import * as React from 'react';
 import { Flex, FlexProps, Txt } from 'rendition';
 

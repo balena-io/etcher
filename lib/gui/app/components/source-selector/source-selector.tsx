@@ -17,7 +17,7 @@
 import CopySvg from '@fortawesome/fontawesome-free/svgs/solid/copy.svg';
 import FileSvg from '@fortawesome/fontawesome-free/svgs/solid/file.svg';
 import LinkSvg from '@fortawesome/fontawesome-free/svgs/solid/link.svg';
-import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/exclamation-triangle.svg';
+import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/triangle-exclamation.svg';
 import ChevronDownSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-down.svg';
 import ChevronRightSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-right.svg';
 import { ipcRenderer, IpcRendererEvent } from 'electron';

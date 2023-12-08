@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import CogSvg from '@fortawesome/fontawesome-free/svgs/solid/cog.svg';
-import QuestionCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/question-circle.svg';
+import CogSvg from '@fortawesome/fontawesome-free/svgs/solid/gear.svg';
+import QuestionCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/circle-question.svg';
 
 import * as path from 'path';
 import prettyBytes from 'pretty-bytes';
