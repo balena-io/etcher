@@ -79,7 +79,7 @@
         "ts-loader": "^9.5.1",
         "ts-node": "^10.9.2",
         "tslib": "2.6.2",
-        "typescript": "4.4.4",
+        "typescript": "^5.3.3",
         "url-loader": "4.1.1"
       },
       "engines": {
@@ -2490,6 +2490,19 @@
       "version": "10.17.60",
       "dev": true,
       "license": "MIT"
+    },
+    "node_modules/@balena/lint/node_modules/typescript": {
+      "version": "4.9.5",
+      "resolved": "https://registry.npmjs.org/typescript/-/typescript-4.9.5.tgz",
+      "integrity": "sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==",
+      "dev": true,
+      "bin": {
+        "tsc": "bin/tsc",
+        "tsserver": "bin/tsserver"
+      },
+      "engines": {
+        "node": ">=4.2.0"
+      }
     },
     "node_modules/@balena/node-beaglebone-usbboot": {
       "version": "3.0.2",
@@ -5354,20 +5367,6 @@
         "js-yaml": "bin/js-yaml.js"
       }
     },
-    "node_modules/@svgr/core/node_modules/typescript": {
-      "version": "5.3.3",
-      "dev": true,
-      "license": "Apache-2.0",
-      "optional": true,
-      "peer": true,
-      "bin": {
-        "tsc": "bin/tsc",
-        "tsserver": "bin/tsserver"
-      },
-      "engines": {
-        "node": ">=14.17"
-      }
-    },
     "node_modules/@svgr/hast-util-to-babel-ast": {
       "version": "8.0.0",
       "dev": true,
@@ -5483,20 +5482,6 @@
       },
       "bin": {
         "js-yaml": "bin/js-yaml.js"
-      }
-    },
-    "node_modules/@svgr/plugin-svgo/node_modules/typescript": {
-      "version": "5.3.3",
-      "dev": true,
-      "license": "Apache-2.0",
-      "optional": true,
-      "peer": true,
-      "bin": {
-        "tsc": "bin/tsc",
-        "tsserver": "bin/tsserver"
-      },
-      "engines": {
-        "node": ">=14.17"
       }
     },
     "node_modules/@svgr/webpack": {
@@ -20915,15 +20900,16 @@
       }
     },
     "node_modules/typescript": {
-      "version": "4.4.4",
+      "version": "5.3.3",
+      "resolved": "https://registry.npmjs.org/typescript/-/typescript-5.3.3.tgz",
+      "integrity": "sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==",
       "dev": true,
-      "license": "Apache-2.0",
       "bin": {
         "tsc": "bin/tsc",
         "tsserver": "bin/tsserver"
       },
       "engines": {
-        "node": ">=4.2.0"
+        "node": ">=14.17"
       }
     },
     "node_modules/typo-js": {
