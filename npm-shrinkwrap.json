@@ -15,7 +15,6 @@
         "@sentry/electron": "^4.15.1",
         "analytics-client": "^2.0.1",
         "axios": "^1.6.0",
-        "d3": "4.13.0",
         "debug": "4.3.4",
         "electron-squirrel-startup": "^1.0.0",
         "electron-updater": "5.3.0",
@@ -5788,9 +5787,10 @@
       "license": "MIT"
     },
     "node_modules/@types/mime-types": {
-      "version": "2.1.1",
-      "dev": true,
-      "license": "MIT"
+      "version": "2.1.4",
+      "resolved": "https://registry.npmjs.org/@types/mime-types/-/mime-types-2.1.4.tgz",
+      "integrity": "sha512-lfU4b34HOri+kAY5UheuFMWPDOI+OPceBSHZKp69gEyTL/mmJ4cnU6Y/rlme3UL3GyOn6Y42hyIEw0/q8sWx5w==",
+      "dev": true
     },
     "node_modules/@types/minimatch": {
       "version": "5.1.2",
@@ -8453,6 +8453,7 @@
     },
     "node_modules/d3": {
       "version": "4.13.0",
+      "extraneous": true,
       "license": "BSD-3-Clause",
       "dependencies": {
         "d3-array": "1.2.1",
@@ -8631,6 +8632,7 @@
     },
     "node_modules/d3-queue": {
       "version": "3.0.7",
+      "extraneous": true,
       "license": "BSD-3-Clause"
     },
     "node_modules/d3-random": {
@@ -8639,6 +8641,7 @@
     },
     "node_modules/d3-request": {
       "version": "1.0.6",
+      "extraneous": true,
       "license": "BSD-3-Clause",
       "dependencies": {
         "d3-collection": "1",
@@ -8649,6 +8652,7 @@
     },
     "node_modules/d3-scale": {
       "version": "1.0.7",
+      "extraneous": true,
       "license": "BSD-3-Clause",
       "dependencies": {
         "d3-array": "^1.2.0",
@@ -22168,6 +22172,7 @@
     },
     "node_modules/xmlhttprequest": {
       "version": "1.8.0",
+      "extraneous": true,
       "license": "MIT",
       "engines": {
         "node": ">=0.4.0"
