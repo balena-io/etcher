@@ -67,7 +67,7 @@
         "electron-mocha": "^11.0.2",
         "file-loader": "6.2.0",
         "husky": "8.0.3",
-        "lint-staged": "10.5.4",
+        "lint-staged": "15.2.0",
         "mocha": "^10.2.0",
         "native-addon-loader": "2.0.1",
         "node-loader": "^2.0.0",
