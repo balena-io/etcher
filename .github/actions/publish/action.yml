@@ -104,9 +104,10 @@ runs:
       shell: bash
       # IMPORTANT: before making changes to this step please consult @engineering in balena's chat.
       run: |
-        if [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]]; then
-          export DEBUG='electron-forge:*,sidecar'
-        fi
+        ## FIXME: causes issues with `xxhash` which tries to load a debug build which doens't exist and cannot be compiled
+        # if [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]]; then
+        #  export DEBUG='electron-forge:*,sidecar'
+        # fi
 
         APPLICATION_VERSION="$(jq -r '.version' package.json)"
 

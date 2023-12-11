@@ -49,9 +49,10 @@ runs:
     - name: Test release
       shell: bash
       run: |
-        if [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]]; then
-          export DEBUG='electron-forge:*,sidecar'
-        fi
+        ## FIXME: causes issues with `xxhash` which tries to load a debug build which doens't exist and cannot be compiled
+        # if [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]]; then
+        #   export DEBUG='electron-forge:*,sidecar'
+        # fi
 
         runner_os="$(echo "${RUNNER_OS}" | tr '[:upper:]' '[:lower:]')"
 
