@@ -142,12 +142,13 @@ export function setProgressState(
 	});
 }
 
-export function getFlashResults() {
+export function getFlashResults(): any {
 	return store.getState().toJS().flashResults;
 }
 
-export function getFlashState() {
-	return store.getState().get('flashState').toJS();
+export function getFlashState(): any {
+	const flashState = store.getState().get('flashState')! as any;
+	return flashState.toJS();
 }
 
 export function wasLastFlashCancelled() {
@@ -155,7 +156,7 @@ export function wasLastFlashCancelled() {
 }
 
 export function getLastFlashSourceChecksum(): string {
-	return getFlashResults().sourceChecksum;
+	return getFlashResults()!.sourceChecksum;
 }
 
 export function getLastFlashErrorCode() {

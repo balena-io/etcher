@@ -29,7 +29,7 @@ import {
 	isDriveSizeLarge,
 } from '../../../../shared/drive-constraints';
 import { compatibility, warning } from '../../../../shared/messages';
-import prettyBytes from 'pretty-bytes';
+import * as prettyBytes from 'pretty-bytes';
 import { getDrives, hasAvailableDrives } from '../../models/available-drives';
 import { getImage, isDriveSelected } from '../../models/selection-state';
 import { store } from '../../models/store';
@@ -302,6 +302,7 @@ export class DriveSelector extends React.Component<
 		status: string,
 		drive: { device: string; size: number },
 	) {
+		let size;
 		switch (status) {
 			case compatibility.containsImage():
 				return warning.sourceDrive();
@@ -310,9 +311,11 @@ export class DriveSelector extends React.Component<
 			case compatibility.system():
 				return warning.systemDrive();
 			case compatibility.tooSmall():
-				const size =
+				size =
 					this.state.image?.recommendedDriveSize || this.state.image?.size || 0;
 				return warning.tooSmall({ size }, drive);
+			default:
+				return '';
 		}
 	}
 
@@ -444,6 +447,8 @@ export class DriveSelector extends React.Component<
 								isDrivelistDrive(row) && row.isSystem ? ['system'] : []
 							}
 							rowKey="displayName"
+							// TODO: check why this is not passing the typescheck
+							// @ts-ignore
 							onCheck={(rows: Drive[]) => {
 								let newSelection = rows.filter(isDrivelistDrive);
 								if (this.props.multipleSelection) {

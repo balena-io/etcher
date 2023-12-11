@@ -23,7 +23,7 @@ import {
 	DriveStatus,
 } from '../../../../shared/drive-constraints';
 import { compatibility, warning } from '../../../../shared/messages';
-import prettyBytes from 'pretty-bytes';
+import * as prettyBytes from 'pretty-bytes';
 import { getImage, getSelectedDrives } from '../../models/selection-state';
 import {
 	ChangeButton,

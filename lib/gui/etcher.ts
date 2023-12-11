@@ -49,6 +49,8 @@ let mainWindow: any = null;
 
 remoteMain.initialize();
 
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 async function checkForUpdates(interval: number) {
 	// We use a while loop instead of a setInterval to preserve
 	// async execution time between each function call
@@ -144,14 +146,6 @@ electron.app.on('open-url', async (event, data) => {
 	await selectImageURL(data);
 });
 
-interface AutoUpdaterConfig {
-	autoDownload?: boolean;
-	autoInstallOnAppQuit?: boolean;
-	allowPrerelease?: boolean;
-	fullChangelog?: boolean;
-	allowDowngrade?: boolean;
-}
-
 async function createMainWindow() {
 	const fullscreen = Boolean(await settings.get('fullscreen'));
 	const defaultWidth = settings.DEFAULT_WIDTH;
@@ -202,7 +196,7 @@ async function createMainWindow() {
 	// Prevent external resources from being loaded (like images)
 	// when dropping them on the WebView.
 	// See https://github.com/electron/electron/issues/5919
-	mainWindow.webContents.on('will-navigate', (event) => {
+	mainWindow.webContents.on('will-navigate', (event: any) => {
 		event.preventDefault();
 	});
 
@@ -287,7 +281,7 @@ async function main(): Promise<void> {
 			const webview = electron.webContents.fromId(id);
 
 			// Open link in browser if it's opened as a 'foreground-tab'
-			webview.setWindowOpenHandler((event) => {
+			webview!.setWindowOpenHandler((event) => {
 				const url = new URL(event.url);
 				if (
 					(url.protocol === 'http:' || url.protocol === 'https:') &&

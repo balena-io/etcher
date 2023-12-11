@@ -38,7 +38,6 @@ import * as windowProgress from './os/window-progress';
 import MainPage from './pages/main/MainPage';
 import './css/main.css';
 import * as i18next from 'i18next';
-import { promises } from 'dns';
 import { SourceMetadata } from '../../shared/typings/source-selector';
 
 window.addEventListener(

@@ -16,7 +16,6 @@
 
 import type { Configuration, ModuleOptions } from 'webpack';
 
-import * as _ from 'lodash';
 import {
 	BannerPlugin,
 	IgnorePlugin,

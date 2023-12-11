@@ -18,7 +18,7 @@ import CogSvg from '@fortawesome/fontawesome-free/svgs/solid/gear.svg';
 import QuestionCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/circle-question.svg';
 
 import * as path from 'path';
-import prettyBytes from 'pretty-bytes';
+import * as prettyBytes from 'pretty-bytes';
 import * as React from 'react';
 import { Flex } from 'rendition';
 import styled from 'styled-components';
@@ -116,10 +116,10 @@ interface MainPageState {
 }
 
 export class MainPage extends React.Component<
-	{},
+	object,
 	MainPageState & MainPageStateFromStore
 > {
-	constructor(props: {}) {
+	constructor(props: object) {
 		super(props);
 		this.state = {
 			current: 'main',

@@ -43,6 +43,7 @@ function blink(t: number) {
 	return Math.floor(t) % 2;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function one(_t: number) {
 	return 1;
 }

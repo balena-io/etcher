@@ -37,7 +37,6 @@ if (platform !== 'linux' || (geteuid && geteuid() === 0)) {
 if (platform === 'win32') {
 	const {
 		DriverlessDeviceAdapter: driverless,
-		// tslint:disable-next-line:no-var-requires
 	} = require('etcher-sdk/build/scanner/adapters/driverless');
 	adapters.push(new driverless());
 }

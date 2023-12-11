@@ -106,7 +106,7 @@ interface Action {
  * @returns {Object} new state
  */
 function getAvailableDrives(state: typeof DEFAULT_STATE) {
-	return state.get('availableDrives').toJS();
+	return state.get('availableDrives')!.toJS();
 }
 
 /**

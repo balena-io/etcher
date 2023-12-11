@@ -164,11 +164,11 @@ export const error = {
 				? i18next.t('message.toDrive', {
 						description: drives[0].description,
 						name: drives[0].displayName,
-				  })
+					})
 				: i18next.t('message.toTarget', {
 						count: drives.length,
 						num: drives.length,
-				  });
+					});
 		return i18next.t('message.flashError', {
 			image: imageBasename,
 			targets: target,
