@@ -14,7 +14,7 @@ inputs:
     type: string
     # Beware that node native modules will be built for that version, which might no be compatible with the one used by pkg (see forge.sidecar.ts)
     # https://github.com/vercel/pkg-fetch/releases
-    default: "18.18"
+    default: "18.x"
   VERBOSE:
     type: string
     default: "true"
