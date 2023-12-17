@@ -17,7 +17,7 @@ Developing
 
 #### Common
 
-- [NodeJS](https://nodejs.org) (at least v16.11)
+- [NodeJS](https://nodejs.org) (at least v18)
 - [Python 3](https://www.python.org)
 - [jq](https://stedolan.github.io/jq/)
 - [curl](https://curl.haxx.se/)
