@@ -135,7 +135,7 @@ function setDrives(drives: Dictionary<DrivelistDrive>) {
 	}
 }
 
-// Spwaning the child process without privileges to get the drives list
+// Spawning the child process without privileges to get the drives list
 // TODO: clean up this mess of exports
 export let requestMetadata: any;
 
