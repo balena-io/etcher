@@ -25,7 +25,7 @@ runs:
   using: "composite"
   steps:
     - name: Download custom source artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: custom-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}-${{ runner.os }}
         path: ${{ runner.temp }}
@@ -162,8 +162,8 @@ runs:
           -exec yq -i e .stagingPercentage=\"$percentage\" {} \;
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: gh-release-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}
+        name: gh-release-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}-${{ runner.os }}
         path: dist
         retention-days: 1
