@@ -39,7 +39,7 @@ runs:
 
         npm run flowzone-preinstall-${runner_os}
         npm ci
-        npm run build
+        npm run package
         npm run test-${runner_os}
 
       env:
