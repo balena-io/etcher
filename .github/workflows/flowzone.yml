@@ -1,5 +1,4 @@
 name: Flowzone
-
 on:
   pull_request:
     types: [opened, synchronize, closed]
@@ -8,7 +7,6 @@ on:
   pull_request_target:
     types: [opened, synchronize, closed]
     branches: [main, master]
-
 jobs:
   flowzone:
     name: Flowzone
@@ -23,8 +21,4 @@ jobs:
       tests_run_on: '["ubuntu-20.04","macos-latest","windows-2019"]'
       restrict_custom_actions: false
       github_prerelease: true
-      repo_config: true
-      repo_description: "Flash OS images to SD cards & USB drives, safely and easily."
-      repo_homepage: https://etcher.io/
-      repo_enable_wiki: true
       cloudflare_website: "etcher"

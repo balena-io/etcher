@@ -57,7 +57,7 @@ runs:
       run: C:\"Program Files"\Git\usr\bin\tar.exe --force-local -acf ${{ runner.temp }}\custom.tgz .
 
     - name: Upload custom artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: custom-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}-${{ runner.os }}
         path: ${{ runner.temp }}/custom.tgz
