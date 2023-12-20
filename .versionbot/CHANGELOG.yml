@@ -1,4 +1,34 @@
 - commits:
+    - subject: Remove repo config from flowzone.yml
+      hash: ecb24dad251fbb9b3f92e5b404b66aedd155a584
+      body: |
+        This functionality is being deprecated in Flowzone.
+
+        See: https://github.com/product-os/flowzone/pull/833
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: Update actions/upload-artifact to v4
+      hash: a970f55b555f69c5fcb40374eb50ad7b98cc8f96
+      body: |
+        Also ensure we are generating unique artifact names on upload.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+        See: https://github.com/product-os/flowzone/pull/827
+        see: https://github.com/product-os/flowzone/pull/827
+      author: Kyle Harding
+      nested: []
+  version: 1.18.14
+  title: ""
+  date: 2023-12-20T16:23:00.875Z
+- commits:
     - subject: "patch: upgrade to electron 25"
       hash: f38bca290fe26121bed58d1131265e1aa350ddb5
       body: ""
