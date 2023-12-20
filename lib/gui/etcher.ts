@@ -242,6 +242,20 @@ electron.app.on('before-quit', () => {
 	process.exit(EXIT_CODES.SUCCESS);
 });
 
+// this is replaced at build-time with the path to helper binary,
+// relative to the app resources directory.
+declare const ETCHER_UTIL_BIN_PATH: string;
+
+electron.ipcMain.handle('get-util-path', () => {
+	if (process.env.NODE_ENV === 'development') {
+		// In development there is no "app bundle" and we're working directly with
+		// artifacts from the "out" directory, where this value point to.
+		return ETCHER_UTIL_BIN_PATH;
+	}
+	// In any other case, resolve the helper relative to resources path.
+	return path.resolve(process.resourcesPath, ETCHER_UTIL_BIN_PATH);
+});
+
 async function main(): Promise<void> {
 	if (!electron.app.requestSingleInstanceLock()) {
 		electron.app.quit();

@@ -9,6 +9,7 @@ import { AutoUnpackNativesPlugin } from '@electron-forge/plugin-auto-unpack-nati
 import { WebpackPlugin } from '@electron-forge/plugin-webpack';
 
 import { mainConfig, rendererConfig } from './webpack.config';
+import * as sidecar from './forge.sidecar';
 
 import { hostDependencies, productDescription } from './package.json';
 
@@ -129,6 +130,7 @@ const config: ForgeConfig = {
 				],
 			},
 		}),
+		new sidecar.SidecarPlugin(),
 	],
 	hooks: {
 		readPackageJson: async (_config, packageJson) => {

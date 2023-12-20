@@ -118,7 +118,7 @@ runs:
       # IMPORTANT: before making changes to this step please consult @engineering in balena's chat.
       run: |
         if [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]]; then
-          export DEBUG='electron-forge:*,electron-packager,electron-rebuild'
+          export DEBUG='electron-forge:*,sidecar'
         fi
 
         APPLICATION_VERSION="$(jq -r '.version' package.json)"
