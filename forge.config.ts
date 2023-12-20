@@ -10,7 +10,24 @@ import { WebpackPlugin } from '@electron-forge/plugin-webpack';
 
 import { mainConfig, rendererConfig } from './webpack.config';
 
-import { productDescription } from './package.json';
+import { hostDependencies, productDescription } from './package.json';
+
+const osxSigningConfig: any = {};
+let winSigningConfig: any = {};
+
+if (process.env.NODE_ENV === 'production') {
+	osxSigningConfig.osxNotarize = {
+		tool: 'notarytool',
+		appleId: process.env.XCODE_APP_LOADER_EMAIL,
+		appleIdPassword: process.env.XCODE_APP_LOADER_PASSWORD,
+		teamId: process.env.XCODE_APP_LOADER_TEAM_ID,
+	};
+
+	winSigningConfig = {
+		certificateFile: process.env.WINDOWS_SIGNING_CERT_PATH,
+		certificatePassword: process.env.WINDOWS_SIGNING_PASSWORD,
+	};
+}
 
 const config: ForgeConfig = {
 	packagerConfig: {
@@ -23,20 +40,24 @@ const config: ForgeConfig = {
 		appCopyright: 'Copyright 2016-2023 Balena Ltd',
 		darwinDarkModeSupport: true,
 		protocols: [{ name: 'etcher', schemes: ['etcher'] }],
-
-		// osxSign: {},
-		// osxNotarize: {},
-
 		extraResource: [
 			'lib/shared/catalina-sudo/sudo-askpass.osascript-zh.js',
 			'lib/shared/catalina-sudo/sudo-askpass.osascript-en.js',
 		],
+		osxSign: {
+			optionsForFile: () => ({
+				entitlements: './entitlements.mac.plist',
+				hardenedRuntime: true,
+			}),
+		},
+		...osxSigningConfig,
 	},
 	rebuildConfig: {},
 	makers: [
 		new MakerZIP(),
 		new MakerSquirrel({
 			setupIcon: 'assets/icon.ico',
+			...winSigningConfig,
 		}),
 		new MakerDMG({
 			background: './assets/dmg/background.tiff',
@@ -85,43 +106,7 @@ const config: ForgeConfig = {
 				scripts: {
 					postinst: './after-install.tpl',
 				},
-				depends: [
-					'gconf-service',
-					'gconf2',
-					'libasound2',
-					'libatk1.0-0',
-					'libc6',
-					'libcairo2',
-					'libcups2',
-					'libdbus-1-3',
-					'libexpat1',
-					'libfontconfig1',
-					'libfreetype6',
-					'libgbm1',
-					'libgcc1',
-					'libgconf-2-4',
-					'libgdk-pixbuf2.0-0',
-					'libglib2.0-0',
-					'libgtk-3-0',
-					'liblzma5',
-					'libnotify4',
-					'libnspr4',
-					'libnss3',
-					'libpango1.0-0 | libpango-1.0-0',
-					'libstdc++6',
-					'libx11-6',
-					'libxcomposite1',
-					'libxcursor1',
-					'libxdamage1',
-					'libxext6',
-					'libxfixes3',
-					'libxi6',
-					'libxrandr2',
-					'libxrender1',
-					'libxss1',
-					'libxtst6',
-					'polkit-1-auth-agent | policykit-1-gnome | polkit-kde-1',
-				],
+				depends: hostDependencies['debian'],
 			},
 		}),
 	],
@@ -145,6 +130,27 @@ const config: ForgeConfig = {
 			},
 		}),
 	],
+	hooks: {
+		readPackageJson: async (_config, packageJson) => {
+			packageJson.analytics = {};
+
+			if (process.env.SENTRY_TOKEN) {
+				packageJson.analytics.sentry = {
+					token: process.env.SENTRY_TOKEN,
+				};
+			}
+
+			if (process.env.AMPLITUDE_TOKEN) {
+				packageJson.analytics.amplitude = {
+					token: 'balena-etcher',
+				};
+			}
+
+			// packageJson.packageType = 'dmg' | 'AppImage' | 'rpm' | 'deb' | 'zip' | 'nsis' | 'portable'
+
+			return packageJson;
+		},
+	},
 };
 
 export default config;
