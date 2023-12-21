@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.19.0
+## (2023-12-21)
+
+* Use native ARM runner for Apple Silicon builds [Akis Kesoglou]
+* Calculate and upload build artifact sha256 checksums [Akis Kesoglou]
+* Migrate build pipeline to Electron Forge [Akis Kesoglou]
+
 # v1.18.14
 ## (2023-12-20)
 

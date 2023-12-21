@@ -1,4 +1,32 @@
 - commits:
+    - subject: Use native ARM runner for Apple Silicon builds
+      hash: 01a96bb6de1ff00d20f7784469dd05286069e014
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Akis Kesoglou
+      nested: []
+    - subject: Calculate and upload build artifact sha256 checksums
+      hash: 2e3a75e685258961bc8efdb95dde12727b93a04a
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Akis Kesoglou
+      nested: []
+    - subject: Migrate build pipeline to Electron Forge
+      hash: bd33c5b092cb5224c8dfc4d5a2caf4684cee161d
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Akis Kesoglou
+      nested: []
+  version: 1.19.0
+  title: ""
+  date: 2023-12-21T16:41:57.426Z
+- commits:
     - subject: Remove repo config from flowzone.yml
       hash: ecb24dad251fbb9b3f92e5b404b66aedd155a584
       body: |
