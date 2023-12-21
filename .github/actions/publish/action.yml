@@ -27,7 +27,7 @@ runs:
     - name: Download custom source artifact
       uses: actions/download-artifact@v4
       with:
-        name: custom-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}-${{ runner.os }}
+        name: custom-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}-${{ runner.os }}-${{ runner.arch }}
         path: ${{ runner.temp }}
 
     - name: Extract custom source artifact
@@ -122,29 +122,27 @@ runs:
         fi
 
         APPLICATION_VERSION="$(jq -r '.version' package.json)"
+        HOST_ARCH="$(echo "${RUNNER_ARCH}" | tr '[:upper:]' '[:lower:]')"
 
         if [[ "${RUNNER_OS}" == Linux ]]; then
           PLATFORM=Linux
-          BUILD_ARCHS="x64"
           SHA256SUM_BIN=sha256sum
 
         elif [[ "${RUNNER_OS}" == macOS ]]; then
           PLATFORM=Darwin
-          BUILD_ARCHS="x64,arm64"
           SHA256SUM_BIN='shasum -a 256'
 
         elif [[ "${RUNNER_OS}" == Windows ]]; then
           PLATFORM=Windows
           SHA256SUM_BIN=sha256sum
-          #BUILD_ARCHS="ia32,x64" -- distutils fails to build for ia32
-          BUILD_ARCHS="x64"
 
         else
           echo "ERROR: unexpected runner OS: ${RUNNER_OS}"
           exit 1
         fi
 
-        npx electron-forge make --arch="${BUILD_ARCHS}"
+        # Currently, we can only build for the host architecture.
+        npx electron-forge make
 
         echo "version=${APPLICATION_VERSION}" >> $GITHUB_OUTPUT
 
@@ -162,7 +160,7 @@ runs:
         if [[ -n "${SHA256SUM_BIN}" ]]; then
           # Compute and save digests.
           cd dist/
-          ${SHA256SUM_BIN} *.* >"SHA256SUMS.${PLATFORM}.txt"
+          ${SHA256SUM_BIN} *.* >"SHA256SUMS.${PLATFORM}.${HOST_ARCH}.txt"
         fi
       env:
         # ensure we sign the artifacts
@@ -181,7 +179,7 @@ runs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: gh-release-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}-${{ runner.os }}
+        name: gh-release-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}-${{ runner.os }}-${{ runner.arch }}
         path: dist
         retention-days: 1
         if-no-files-found: error

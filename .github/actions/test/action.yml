@@ -12,7 +12,7 @@ inputs:
   # --- custom environment
   NODE_VERSION:
     type: string
-    default: "18.x"
+    default: "18.18"
   VERBOSE:
     type: string
     default: "true"
@@ -77,6 +77,6 @@ runs:
     - name: Upload custom artifact
       uses: actions/upload-artifact@v4
       with:
-        name: custom-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}-${{ runner.os }}
+        name: custom-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}-${{ runner.os }}-${{ runner.arch }}
         path: ${{ runner.temp }}/custom.tgz
         retention-days: 1
