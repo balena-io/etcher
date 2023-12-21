@@ -11,8 +11,7 @@
     "module": "CommonJS",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "outDir": "build"
+    "isolatedModules": true
   },
   "include": ["lib/util"]
 }

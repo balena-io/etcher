@@ -19,13 +19,21 @@ import { join } from 'path';
 import { env } from 'process';
 import { promisify } from 'util';
 
-import { getAppPath } from '../get-app-path';
 import { supportedLocales } from '../../gui/app/i18n';
 
 const execFileAsync = promisify(execFile);
 
 const SUCCESSFUL_AUTH_MARKER = 'AUTHENTICATION SUCCEEDED';
 const EXPECTED_SUCCESSFUL_AUTH_MARKER = `${SUCCESSFUL_AUTH_MARKER}\n`;
+
+function getAskPassScriptPath(lang: string): string {
+	if (process.env.NODE_ENV === 'development') {
+		// Force webpack's hand to bundle the script.
+		return require.resolve(`./sudo-askpass.osascript-${lang}.js`);
+	}
+	// Otherwise resolve the script relative to resources path.
+	return join(process.resourcesPath, `sudo-askpass.osascript-${lang}.js`);
+}
 
 export async function sudo(
 	command: string,
@@ -47,11 +55,7 @@ export async function sudo(
 				encoding: 'utf8',
 				env: {
 					PATH: env.PATH,
-					SUDO_ASKPASS: join(
-						getAppPath(),
-						__dirname,
-						`sudo-askpass.osascript-${lang}.js`,
-					),
+					SUDO_ASKPASS: getAskPassScriptPath(lang),
 				},
 			},
 		);

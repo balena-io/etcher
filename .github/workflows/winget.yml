@@ -9,5 +9,6 @@ jobs:
       - uses: vedantmgoyal2009/winget-releaser@v1
         with:
           identifier: Balena.Etcher
-          installers-regex: 'balenaEtcher-Setup.*.exe$'
+          # matches something like "balenaEtcher-1.19.0.Setup.exe"
+          installers-regex: 'balenaEtcher-[\d.-]+\.Setup.exe$'
           token: ${{ secrets.WINGET_PAT }}

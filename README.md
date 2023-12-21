@@ -17,13 +17,9 @@ was written correctly, and much more. It can also directly flash Raspberry Pi de
 
 ## Supported Operating Systems
 
-- Linux (most distros)
-- macOS 10.10 (Yosemite) and later
-- Microsoft Windows 7 and later
-
-**Note**: Etcher will run on any platform officially supported by
-[Electron][electron]. Read more in their
-[documentation][electron-supported-platforms].
+- Linux; most distros; Intel 64-bit.
+- Windows 10 and later; Intel 64-bit.
+- macOS 10.13 (High Sierra) and later; both Intel and Apple Silicon.
 
 ## Installers
 

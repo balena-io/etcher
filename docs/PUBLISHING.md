@@ -36,13 +36,16 @@ employee by asking for it from the relevant people.
 Packaging
 ---------
 
-The resulting installers will be saved to `dist/out`.
-
-Run the following commands on all platforms with the right arguments:
+Run the following command on each platform:
 
 ```sh
-./node_modules/electron-builder build <...>
+npm run make
 ```
+
+This will produce all targets (eg. zip, dmg) specified in forge.config.ts for the
+host platform and architecture.
+
+The resulting artifacts can be found in `out/make`.
 
 
 Publishing to Cloudfront

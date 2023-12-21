@@ -10,12 +10,12 @@ inputs:
     required: true
 
   # --- custom environment
-  XCODE_APP_LOADER_EMAIL:
-    type: string
-    default: "accounts+apple@balena.io"
   NODE_VERSION:
     type: string
-    default: "18.x"
+    # Beware that native modules will be built for this version,
+    # which might not be compatible with the one used by pkg (see forge.sidecar.ts)
+    # https://github.com/vercel/pkg-fetch/releases
+    default: "18.18"
   VERBOSE:
     type: string
     default: "true"
@@ -27,12 +27,12 @@ runs:
     - name: Download custom source artifact
       uses: actions/download-artifact@v4
       with:
-        name: custom-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}-${{ runner.os }}
+        name: custom-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}-${{ runner.os }}-${{ runner.arch }}
         path: ${{ runner.temp }}
 
     - name: Extract custom source artifact
       if: runner.os != 'Windows'
-      shell: pwsh
+      shell: bash
       working-directory: .
       run: tar -xf ${{ runner.temp }}/custom.tgz
 
@@ -48,22 +48,54 @@ runs:
         node-version: ${{ inputs.NODE_VERSION }}
         cache: npm
 
-    - name: Install yq
-      shell: bash --noprofile --norc -eo pipefail -x {0}
-      run: choco install yq
-      if: runner.os == 'Windows'
+    - name: Install host dependencies
+      if: runner.os == 'Linux'
+      shell: bash
+      run: sudo apt-get install -y --no-install-recommends fakeroot dpkg rpm
+
+    - name: Install host dependencies
+      if: runner.os == 'macOS'
+      # FIXME: Python 3.12 dropped distutils that node-gyp depends upon.
+      # This is a temporary workaround to make the job use Python 3.11 until
+      # we update to npm 10+.
+      uses: actions/setup-python@d27e3f3d7c64b4bbf8e4abfb9b63b83e846e0435 # v4
+      with:
+        python-version: '3.11'
 
     # https://www.electron.build/code-signing.html
-    # https://github.com/Apple-Actions/import-codesign-certs
+    # https://dev.to/rwwagner90/signing-electron-apps-with-github-actions-4cof
     - name: Import Apple code signing certificate
       if: runner.os == 'macOS'
-      uses: apple-actions/import-codesign-certs@v1
-      with:
-        p12-file-base64: ${{ fromJSON(inputs.secrets).APPLE_SIGNING }}
-        p12-password: ${{ fromJSON(inputs.secrets).APPLE_SIGNING_PASSWORD }}
+      shell: bash
+      run: |
+        KEY_CHAIN=build.keychain
+        CERTIFICATE_P12=certificate.p12
+
+        # Recreate the certificate from the secure environment variable
+        echo $CERTIFICATE_P12_B64 | base64 --decode > $CERTIFICATE_P12
+
+        # Create a keychain
+        security create-keychain -p actions $KEY_CHAIN
+
+        # Make the keychain the default so identities are found
+        security default-keychain -s $KEY_CHAIN
+
+        # Unlock the keychain
+        security unlock-keychain -p actions $KEY_CHAIN
+
+        security import $CERTIFICATE_P12 -k $KEY_CHAIN -P $CERTIFICATE_PASSWORD -T /usr/bin/codesign
+
+        security set-key-partition-list -S apple-tool:,apple: -s -k actions $KEY_CHAIN
+
+        # remove certs
+        rm -fr *.p12
+      env:
+        CERTIFICATE_P12_B64: ${{ fromJSON(inputs.secrets).APPLE_SIGNING }}
+        CERTIFICATE_PASSWORD: ${{ fromJSON(inputs.secrets).APPLE_SIGNING_PASSWORD }}
 
     - name: Import Windows code signing certificate
       if: runner.os == 'Windows'
+      id: import_win_signing_cert
       shell: powershell
       run: |
         Set-Content -Path ${{ runner.temp }}/certificate.base64 -Value $env:WINDOWS_CERTIFICATE
@@ -75,95 +107,79 @@ runs:
           -CertStoreLocation Cert:\CurrentUser\My `
           -Password (ConvertTo-SecureString -String $env:WINDOWS_CERTIFICATE_PASSWORD -Force -AsPlainText)
 
-        Remove-Item -path ${{ runner.temp }} -include certificate.pfx
+        echo "certFilePath=${{ runner.temp }}/certificate.pfx" >> $GITHUB_OUTPUT
 
       env:
         WINDOWS_CERTIFICATE: ${{ fromJSON(inputs.secrets).WINDOWS_SIGNING }}
         WINDOWS_CERTIFICATE_PASSWORD: ${{ fromJSON(inputs.secrets).WINDOWS_SIGNING_PASSWORD }}
 
-    # ... or refactor (e.g.) https://github.com/samuelmeuli/action-electron-builder
-    # https://github.com/product-os/scripts/tree/master/electron
-    # https://github.com/product-os/scripts/tree/master/shared
-    # https://github.com/product-os/balena-concourse/blob/master/pipelines/github-events/template.yml
     - name: Package release
-      id: package_release
-      shell: bash --noprofile --norc -eo pipefail -x {0}
+      shell: bash
+      # IMPORTANT: before making changes to this step please consult @engineering in balena's chat.
       run: |
-        set -ea
-
-        [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
-
-        runner_os="$(echo "${RUNNER_OS}" | tr '[:upper:]' '[:lower:]')"
-        runner_arch="$(echo "${RUNNER_ARCH}" | tr '[:upper:]' '[:lower:]')"
-
-        ELECTRON_BUILDER_ARCHITECTURE="${runner_arch}"
-        APPLICATION_VERSION="$(jq -r '.version' package.json)"
-        ARCHITECTURE_FLAGS="--${ELECTRON_BUILDER_ARCHITECTURE}"
-
-        if [[ $runner_os =~ linux ]]; then
-            ELECTRON_BUILDER_OS='--linux'
-            TARGETS="$(yq e .linux.target[] electron-builder.yml)"
-
-        elif [[ $runner_os =~ darwin|macos|osx ]]; then
-            CSC_KEY_PASSWORD=${{ fromJSON(inputs.secrets).APPLE_SIGNING_PASSWORD }}
-            CSC_KEYCHAIN=signing_temp
-            CSC_LINK=${{ fromJSON(inputs.secrets).APPLE_SIGNING }}
-            ELECTRON_BUILDER_OS='--mac'
-            TARGETS="$(yq e .mac.target[] electron-builder.yml)"
-
-        elif [[ $runner_os =~ windows|win ]]; then
-            ARCHITECTURE_FLAGS="--ia32 ${ARCHITECTURE_FLAGS}"
-            CSC_KEY_PASSWORD=${{ fromJSON(inputs.secrets).WINDOWS_SIGNING_PASSWORD }}
-            CSC_LINK=${{ fromJSON(inputs.secrets).WINDOWS_SIGNING }}
-            ELECTRON_BUILDER_OS='--win'
-            TARGETS="$(yq e .win.target[] electron-builder.yml)"
-
-        else
-            exit 1
+        if [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]]; then
+          export DEBUG='electron-forge:*,sidecar'
         fi
 
-        npm link electron-builder
+        APPLICATION_VERSION="$(jq -r '.version' package.json)"
+        HOST_ARCH="$(echo "${RUNNER_ARCH}" | tr '[:upper:]' '[:lower:]')"
 
-        for target in ${TARGETS}; do
-            electron-builder ${ELECTRON_BUILDER_OS} ${target} ${ARCHITECTURE_FLAGS} \
-              --c.extraMetadata.analytics.sentry.token='https://739bbcfc0ba4481481138d3fc831136d@o95242.ingest.sentry.io/4504451487301632' \
-              --c.extraMetadata.analytics.amplitude.token='balena-etcher' \
-              --c.extraMetadata.packageType="${target}"
+        if [[ "${RUNNER_OS}" == Linux ]]; then
+          PLATFORM=Linux
+          SHA256SUM_BIN=sha256sum
 
-            find dist -type f -maxdepth 1
-        done
+        elif [[ "${RUNNER_OS}" == macOS ]]; then
+          PLATFORM=Darwin
+          SHA256SUM_BIN='shasum -a 256'
+
+        elif [[ "${RUNNER_OS}" == Windows ]]; then
+          PLATFORM=Windows
+          SHA256SUM_BIN=sha256sum
+
+        else
+          echo "ERROR: unexpected runner OS: ${RUNNER_OS}"
+          exit 1
+        fi
+
+        # Currently, we can only build for the host architecture.
+        npx electron-forge make
 
         echo "version=${APPLICATION_VERSION}" >> $GITHUB_OUTPUT
 
+        # collect all artifacts from subdirectories under a common top-level directory
+        mkdir -p dist
+        find ./out/make -type f \( \
+          -iname "*.zip" -o        \
+          -iname "*.dmg" -o        \
+          -iname "*.rpm" -o        \
+          -iname "*.deb" -o        \
+          -iname "*.AppImage" -o   \
+          -iname "*Setup.exe"      \
+        \) -ls -exec cp '{}' dist/ \;
+
+        if [[ -n "${SHA256SUM_BIN}" ]]; then
+          # Compute and save digests.
+          cd dist/
+          ${SHA256SUM_BIN} *.* >"SHA256SUMS.${PLATFORM}.${HOST_ARCH}.txt"
+        fi
       env:
-        # Apple notarization (afterSignHook.js)
-        XCODE_APP_LOADER_EMAIL: ${{ inputs.XCODE_APP_LOADER_EMAIL }}
+        # ensure we sign the artifacts
+        NODE_ENV: production
+        # analytics tokens
+        SENTRY_TOKEN: https://739bbcfc0ba4481481138d3fc831136d@o95242.ingest.sentry.io/4504451487301632
+        AMPLITUDE_TOKEN: 'balena-etcher'
+        # Apple notarization
+        XCODE_APP_LOADER_EMAIL: ${{ fromJSON(inputs.secrets).XCODE_APP_LOADER_EMAIL }}
         XCODE_APP_LOADER_PASSWORD: ${{ fromJSON(inputs.secrets).XCODE_APP_LOADER_PASSWORD }}
-        # https://github.blog/2020-08-03-github-actions-improvements-for-fork-and-pull-request-workflows/#improvements-for-public-repository-forks
-        # https://docs.github.com/en/actions/managing-workflow-runs/approving-workflow-runs-from-public-forks#about-workflow-runs-from-public-forks
-        CSC_FOR_PULL_REQUEST: true
-
-    # https://www.electron.build/auto-update.html#staged-rollouts
-    - name: Configure staged rollout(s)
-      shell: bash --noprofile --norc -eo pipefail -x {0}
-      run: |
-        set -ea
-
-        [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]] && set -x
-
-        percentage="$(cat < repo.yml | yq e .triggerNotification.stagingPercentage)"
-
-        find dist -type f -maxdepth 1 \
-          -name "latest*.yml" \
-          -exec yq -i e .version=\"${{ steps.package_release.outputs.version }}\" {} \;
-
-        find dist -type f -maxdepth 1 \
-          -name "latest*.yml" \
-          -exec yq -i e .stagingPercentage=\"$percentage\" {} \;
+        XCODE_APP_LOADER_TEAM_ID: ${{ fromJSON(inputs.secrets).XCODE_APP_LOADER_TEAM_ID }}
+        # Windows signing
+        WINDOWS_SIGNING_CERT_PATH: ${{ steps.import_win_signing_cert.outputs.certFilePath }}
+        WINDOWS_SIGNING_PASSWORD: ${{ fromJSON(inputs.secrets).WINDOWS_SIGNING_PASSWORD }}
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: gh-release-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}-${{ runner.os }}
+        name: gh-release-${{ github.event.pull_request.head.sha || github.event.head_commit.id }}-${{ runner.os }}-${{ runner.arch }}
         path: dist
         retention-days: 1
+        if-no-files-found: error

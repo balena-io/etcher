@@ -6,10 +6,4 @@ import { ipcRenderer } from 'electron';
 
 ipcRenderer.send('change-lng', langParser());
 
-if (module.hot) {
-	module.hot.accept('./app', () => {
-		main();
-	});
-}
-
 main();

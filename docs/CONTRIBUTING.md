@@ -75,9 +75,7 @@ cd etcher
 #### GUI
 
 ```sh
-# Build the GUI
-npm run webpack #or npm run build
-# Start Electron
+# Build and start application
 npm start
 ```
 
@@ -104,7 +102,6 @@ systems as they can before sending a pull request.
 *The test suite is run automatically by CI servers when you send a pull
 request.*
 
-
 We make use of [EditorConfig] to communicate indentation, line endings and
 other text editing default. We encourage you to install the relevant plugin in
 your text editor of choice to avoid having to fix any issues during the review
@@ -113,7 +110,8 @@ process.
 Updating a dependency
 ---------------------
 
-- Commit *both* `package.json` and `package-lock.json`.
+- Install new version of dependency using npm
+- Commit *both* `package.json` and `npm-shrinkwrap.json`.
 
 Diffing Binaries
 ----------------

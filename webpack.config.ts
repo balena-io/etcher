@@ -14,48 +14,14 @@
  * limitations under the License.
  */
 
-import * as CopyPlugin from 'copy-webpack-plugin';
+import type { Configuration, ModuleOptions } from 'webpack';
+
 import * as _ from 'lodash';
-import * as path from 'path';
-import * as SimpleProgressWebpackPlugin from 'simple-progress-webpack-plugin';
-import * as TerserPlugin from 'terser-webpack-plugin';
 import {
 	BannerPlugin,
 	IgnorePlugin,
 	NormalModuleReplacementPlugin,
 } from 'webpack';
-import * as PnpWebpackPlugin from 'pnp-webpack-plugin';
-
-import * as tsconfigRaw from './tsconfig.webpack.json';
-
-/**
- * Don't webpack package.json as sentry tokens
- * will be inserted in it after webpacking
- */
-function externalPackageJson(packageJsonPath: string) {
-	return (
-		{ request }: { context: string; request: string },
-		callback: (error?: Error | null, result?: string) => void,
-	) => {
-		if (_.endsWith(request, 'package.json')) {
-			return callback(null, `commonjs ${packageJsonPath}`);
-		}
-		return callback();
-	};
-}
-
-function renameNodeModules(resourcePath: string) {
-	// electron-builder excludes the node_modules folder even if you specifically include it
-	// Work around by renaming it to "modules"
-	// See https://github.com/electron-userland/electron-builder/issues/4545
-	return (
-		path
-			.relative(__dirname, resourcePath)
-			.replace('node_modules', 'modules')
-			// file-loader expects posix paths, even on Windows
-			.replace(/\\/g, '/')
-	);
-}
 
 interface ReplacementRule {
 	search: string;
@@ -75,74 +41,58 @@ function replace(test: RegExp, ...replacements: ReplacementRule[]) {
 	};
 }
 
-const commonConfig = {
-	mode: 'production',
-	optimization: {
-		moduleIds: 'natural',
-		minimize: true,
-		minimizer: [
-			new TerserPlugin({
-				parallel: true,
-				terserOptions: {
-					compress: false,
-					mangle: false,
-					format: {
-						comments: false,
-						ecma: 2020,
-					},
-				},
-				extractComments: false,
-			}),
-		],
+const rules: Required<ModuleOptions>['rules'] = [
+	// Add support for native node modules
+	{
+		// We're specifying native_modules in the test because the asset relocator loader generates a
+		// "fake" .node file which is really a cjs file.
+		test: /native_modules[/\\].+\.node$/,
+		use: 'node-loader',
 	},
+	{
+		test: /[/\\]node_modules[/\\].+\.(m?js|node)$/,
+		parser: { amd: false },
+		use: {
+			loader: '@vercel/webpack-asset-relocator-loader',
+			options: {
+				outputAssetBase: 'native_modules',
+			},
+		},
+	},
+	{
+		test: /\.tsx?$/,
+		exclude: /(node_modules|\.webpack)/,
+		use: {
+			loader: 'ts-loader',
+			options: {
+				transpileOnly: true,
+			},
+		},
+	},
+	{
+		test: /\.css$/,
+		use: ['style-loader', 'css-loader'],
+	},
+	{
+		test: /\.(woff|woff2|eot|ttf|otf)$/,
+		loader: 'file-loader',
+	},
+	{
+		test: /\.svg$/,
+		use: '@svgr/webpack',
+	},
+	// force axios to use http backend (not xhr) to support streams
+	replace(/node_modules\/axios\/lib\/defaults\.js$/, {
+		search: './adapters/xhr',
+		replace: './adapters/http',
+	}),
+];
+
+export const rendererConfig: Configuration = {
 	module: {
-		rules: [
-			{
-				test: /\.css$/,
-				use: ['style-loader', 'css-loader'],
-			},
-			{
-				test: /\.(woff|woff2|eot|ttf|otf)$/,
-				loader: 'file-loader',
-				options: { name: renameNodeModules },
-			},
-			{
-				test: /\.svg$/,
-				use: '@svgr/webpack',
-			},
-			{
-				test: /\.tsx?$/,
-				use: [
-					{
-						loader: 'esbuild-loader',
-						options: {
-							loader: 'tsx',
-							target: 'es2021',
-							tsconfigRaw,
-						},
-					},
-				],
-			},
-			// don't import WeakMap polyfill in deep-map-keys (required in corvus)
-			replace(/node_modules\/deep-map-keys\/lib\/deep-map-keys\.js$/, {
-				search: "var WeakMap = require('es6-weak-map');",
-				replace: '',
-			}),
-			// force axios to use http backend (not xhr) to support streams
-			replace(/node_modules\/axios\/lib\/defaults\.js$/, {
-				search: './adapters/xhr',
-				replace: './adapters/http',
-			}),
-		],
-	},
-	resolve: {
-		extensions: ['.js', '.json', '.ts', '.tsx'],
+		rules,
 	},
 	plugins: [
-		PnpWebpackPlugin,
-		new SimpleProgressWebpackPlugin({
-			format: process.env.WEBPACK_PROGRESS || 'verbose',
-		}),
 		// Force axios to use http.js, not xhr.js as we need stream support
 		// (its package.json file replaces http with xhr for browser targets).
 		new NormalModuleReplacementPlugin(
@@ -157,62 +107,25 @@ const commonConfig = {
 		new IgnorePlugin({
 			resourceRegExp: /^aws-crt$/,
 		}),
-	],
-	resolveLoader: {
-		plugins: [PnpWebpackPlugin.moduleLoader(module)],
-	},
-	output: {
-		path: path.join(__dirname, 'generated'),
-		filename: '[name].js',
-	},
-	externals: [
-		// '../package.json' because we are in 'generated'
-		externalPackageJson('../package.json'),
-	],
-};
-
-const guiConfig = {
-	...commonConfig,
-	target: 'electron-renderer',
-	node: {
-		__dirname: true,
-		__filename: true,
-	},
-	entry: {
-		gui: path.join(__dirname, 'lib', 'gui', 'app', 'renderer.ts'),
-	},
-	plugins: [
-		...commonConfig.plugins,
-		new CopyPlugin({
-			patterns: [
-				{ from: 'lib/gui/app/index.html', to: 'index.html' },
-				// electron-builder doesn't bundle folders named "assets"
-				// See https://github.com/electron-userland/electron-builder/issues/4545
-				{ from: 'assets/icon.png', to: 'media/icon.png' },
-			],
-		}),
 		// Remove "Download the React DevTools for a better development experience" message
 		new BannerPlugin({
 			banner: '__REACT_DEVTOOLS_GLOBAL_HOOK__ = { isDisabled: true };',
 			raw: true,
 		}),
 	],
-};
-
-const mainConfig = {
-	...commonConfig,
-	target: 'electron-main',
-	node: {
-		__dirname: false,
-		__filename: true,
+	resolve: {
+		extensions: ['.js', '.ts', '.jsx', '.tsx', '.css'],
 	},
 };
 
-const etcherConfig = {
-	...mainConfig,
+export const mainConfig: Configuration = {
 	entry: {
-		etcher: path.join(__dirname, 'lib', 'gui', 'etcher.ts'),
+		etcher: './lib/gui/etcher.ts',
+	},
+	module: {
+		rules,
+	},
+	resolve: {
+		extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json'],
 	},
 };
-
-export default [guiConfig, etcherConfig];
