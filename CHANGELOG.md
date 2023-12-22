@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.19.2
+## (2023-12-22)
+
+* fix: typos [Rotzbua]
+
 # v1.19.1
 ## (2023-12-22)
 

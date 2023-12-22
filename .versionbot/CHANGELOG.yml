@@ -1,4 +1,16 @@
 - commits:
+    - subject: "fix: typos"
+      hash: aaac1336702b7ac4a07992f41db4f0bcdb931c70
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Rotzbua
+      nested: []
+  version: 1.19.2
+  title: ""
+  date: 2023-12-22T12:57:35.441Z
+- commits:
     - subject: "patch: update winget-releaser v2"
       hash: ea184eb6352b7988c6ab1f439d30c297610cd84e
       body: ""
