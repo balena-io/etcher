@@ -15,17 +15,18 @@
  */
 
 import * as ipc from 'node-ipc';
+import { Dictionary, values } from 'lodash';
+
+import type { MultiDestinationProgress } from 'etcher-sdk/build/multi-write';
 
 import { toJSON } from '../shared/errors';
 import { GENERAL_ERROR, SUCCESS } from '../shared/exit-codes';
 import { delay } from '../shared/utils';
 import { WriteOptions } from './types/types';
-import { MultiDestinationProgress } from 'etcher-sdk/build/multi-write';
 import { write, cleanup } from './child-writer';
 import { startScanning } from './scanner';
 import { getSourceMetadata } from './source-metadata';
 import { DrivelistDrive } from '../shared/drive-constraints';
-import { Dictionary, values } from 'lodash';
 
 ipc.config.id = process.env.IPC_CLIENT_ID as string;
 ipc.config.socketRoot = process.env.IPC_SOCKET_ROOT as string;
@@ -40,6 +41,7 @@ ipc.config.silent = true;
 // The purpose behind this change is for this process
 // to emit a "disconnect" event as soon as the GUI
 // process is closed, so we can kill this process as well.
+
 // @ts-ignore (0 is a valid value for stopRetrying and is not the same as false)
 ipc.config.stopRetrying = 0;
 

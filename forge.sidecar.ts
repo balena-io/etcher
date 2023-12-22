@@ -36,9 +36,9 @@ function addWebpackDefine(
 
 		const value = isStartScrpt()
 			? // on `npm start`, point directly to the binary
-			  path.resolve(binDir, binName)
+				path.resolve(binDir, binName)
 			: // otherwise point relative to the resources folder of the bundled app
-			  binName;
+				binName;
 
 		debug(`define '${defineName}'='${value}'`);
 
@@ -66,10 +66,10 @@ function build(
 	buildForArchs.split(',').forEach((arch) => {
 		const binPath = isStartScrpt()
 			? // on `npm start`, we don't know the arch we're building for at the time we're
-			  // adding the webpack define, so we just build under binDir
-			  path.resolve(binDir, binName)
+				// adding the webpack define, so we just build under binDir
+				path.resolve(binDir, binName)
 			: // otherwise build in arch-specific directory within binDir
-			  path.resolve(binDir, arch, binName);
+				path.resolve(binDir, arch, binName);
 
 		// FIXME: rebuilding mountutils shouldn't be necessary, but it is.
 		// It's coming from etcher-sdk, a fix has been upstreamed but to use
@@ -111,10 +111,10 @@ function copyArtifact(
 ) {
 	const binPath = isStartScrpt()
 		? // on `npm start`, we don't know the arch we're building for at the time we're
-		  // adding the webpack define, so look for the binary directly under binDir
-		  path.resolve(binDir, binName)
+			// adding the webpack define, so look for the binary directly under binDir
+			path.resolve(binDir, binName)
 		: // otherwise look into arch-specific directory within binDir
-		  path.resolve(binDir, arch, binName);
+			path.resolve(binDir, arch, binName);
 
 	// buildPath points to appPath, which is inside resources dir which is the one we actually want
 	const resourcesPath = path.dirname(buildPath);

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/exclamation-triangle.svg';
+import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/triangle-exclamation.svg';
 import ChevronDownSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-down.svg';
 import * as sourceDestination from 'etcher-sdk/build/source-destination/';
 import * as React from 'react';
@@ -42,7 +42,7 @@ import {
 	Table,
 } from '../../styled-components';
 
-import { SourceMetadata } from '../source-selector/source-selector';
+import { SourceMetadata } from '../../../../shared/typings/source-selector';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
 import * as i18next from 'i18next';
 
@@ -310,9 +310,17 @@ export class DriveSelector extends React.Component<
 			case compatibility.system():
 				return warning.systemDrive();
 			case compatibility.tooSmall():
-				const size =
-					this.state.image?.recommendedDriveSize || this.state.image?.size || 0;
-				return warning.tooSmall({ size }, drive);
+				return warning.tooSmall(
+					{
+						size:
+							this.state.image?.recommendedDriveSize ||
+							this.state.image?.size ||
+							0,
+					},
+					drive,
+				);
+			default:
+				return '';
 		}
 	}
 
@@ -428,11 +436,10 @@ export class DriveSelector extends React.Component<
 				) : (
 					<>
 						<DrivesTable
-							refFn={(t) => {
-								if (t !== null) {
-									t.setRowSelection(selectedList);
-								}
+							refFn={() => {
+								// noop
 							}}
+							checkedItems={selectedList}
 							checkedRowsNumber={selectedList.length}
 							multipleSelection={this.props.multipleSelection}
 							columns={this.tableColumns}
@@ -442,7 +449,10 @@ export class DriveSelector extends React.Component<
 								isDrivelistDrive(row) && row.isSystem ? ['system'] : []
 							}
 							rowKey="displayName"
-							onCheck={(rows: Drive[]) => {
+							onCheck={(rows) => {
+								if (rows == null) {
+									rows = [];
+								}
 								let newSelection = rows.filter(isDrivelistDrive);
 								if (this.props.multipleSelection) {
 									if (rows.length === 0) {

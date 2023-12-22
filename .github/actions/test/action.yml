@@ -49,16 +49,15 @@ runs:
     - name: Test release
       shell: bash
       run: |
-        if [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]]; then
-          export DEBUG='electron-forge:*,sidecar'
-        fi
-
-        runner_os="$(echo "${RUNNER_OS}" | tr '[:upper:]' '[:lower:]')"
+        ## FIXME: causes issues with `xxhash` which tries to load a debug build which doens't exist and cannot be compiled
+        # if [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]]; then
+        #   export DEBUG='electron-forge:*,sidecar'
+        # fi
 
         npm ci
         npm run lint
         npm run package
-        npm run test-${runner_os}
+        npm run test
 
       env:
         # https://www.electronjs.org/docs/latest/api/environment-variables

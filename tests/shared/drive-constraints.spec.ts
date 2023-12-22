@@ -1156,7 +1156,7 @@ describe('Shared: DriveConstraints', function () {
 						'/dev/disk4',
 						'/dev/disk5',
 						'/dev/disk6',
-				  ];
+					];
 		const drives = [
 			{
 				device: drivePaths[0],

@@ -17,7 +17,7 @@
 import GithubSvg from '@fortawesome/fontawesome-free/svgs/brands/github.svg';
 import * as _ from 'lodash';
 import * as React from 'react';
-import { Box, Checkbox, Flex, TextWithCopy, Txt } from 'rendition';
+import { Box, Checkbox, Flex, Txt } from 'rendition';
 
 import { version, packageType } from '../../../../../package.json';
 import * as settings from '../../models/settings';
@@ -61,7 +61,9 @@ const EPInfo = etcherProInfo();
 const InfoBox = (props: any) => (
 	<Box fontSize={14}>
 		<Txt>{props.label}</Txt>
-		<TextWithCopy code text={props.value} copy={props.value} />
+		<Txt code copy={props.value}>
+			{props.value}{' '}
+		</Txt>
 	</Box>
 );
 

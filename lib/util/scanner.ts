@@ -73,9 +73,11 @@ function prepareDrive(drive: Drive) {
 		return drive.drive;
 	} else if (drive instanceof sdk.sourceDestination.UsbbootDrive) {
 		// This is a workaround etcher expecting a device string and a size
+
 		// @ts-ignore
 		drive.device = drive.usbDevice.portId;
 		drive.size = null;
+
 		// @ts-ignore
 		drive.progress = 0;
 		drive.disabled = true;
@@ -140,6 +142,7 @@ function updateDriveProgress(
 	progress: number,
 ) {
 	const drives = getDrives();
+
 	// @ts-ignore
 	const driveInMap = drives[drive.device];
 	if (driveInMap) {

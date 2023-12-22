@@ -15,7 +15,6 @@
  */
 
 import { expect } from 'chai';
-import * as _ from 'lodash';
 import { stub } from 'sinon';
 
 import * as settings from '../../../lib/gui/app/models/settings';
@@ -47,8 +46,8 @@ describe('Browser: settings', () => {
 			const writeConfigFileStub = stub();
 			writeConfigFileStub.returns(Promise.reject(new Error('settings error')));
 
-			const p = settings.set('foo', 'baz', writeConfigFileStub);
-			await checkError(p, async (error) => {
+			const promise = settings.set('foo', 'baz', writeConfigFileStub);
+			await checkError(promise, async (error) => {
 				expect(error).to.be.an.instanceof(Error);
 				expect(error.message).to.equal('settings error');
 				expect(await settings.get('foo')).to.equal('bar');
