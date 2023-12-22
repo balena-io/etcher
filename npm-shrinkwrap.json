@@ -1,12 +1,12 @@
 {
   "name": "balena-etcher",
-  "version": "1.19.0",
+  "version": "1.19.1",
   "lockfileVersion": 2,
   "requires": true,
   "packages": {
     "": {
       "name": "balena-etcher",
-      "version": "1.19.0",
+      "version": "1.19.1",
       "hasInstallScript": true,
       "license": "Apache-2.0",
       "dependencies": {

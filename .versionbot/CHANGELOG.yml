@@ -1,4 +1,14 @@
 - commits:
+    - subject: "patch: update winget-releaser v2"
+      hash: ea184eb6352b7988c6ab1f439d30c297610cd84e
+      body: ""
+      footer: {}
+      author: Vedant
+      nested: []
+  version: 1.19.1
+  title: ""
+  date: 2023-12-22T08:12:34.451Z
+- commits:
     - subject: Use native ARM runner for Apple Silicon builds
       hash: 01a96bb6de1ff00d20f7784469dd05286069e014
       body: ""
