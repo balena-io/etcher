@@ -130,7 +130,7 @@ async function performWrite(
 			console.log('Flash results', flashResults);
 
 			// The flash wasn't cancelled and we didn't get a 'done' event
-			// Catch unexepected situation
+			// Catch unexpected situation
 			if (
 				!flashResults.cancelled &&
 				!flashResults.skip &&
@@ -166,15 +166,15 @@ async function performWrite(
 		cancelEmitter = (cancelStatus: string) => emit(cancelStatus);
 
 		// Now that we know we're connected we can instruct the child process to start the write
-		const paramaters = {
+		const parameters = {
 			image,
 			destinations: drives,
 			SourceType: image.SourceType,
 			autoBlockmapping,
 			decompressFirst,
 		};
-		console.log('params', paramaters);
-		emit('write', paramaters);
+		console.log('params', parameters);
+		emit('write', parameters);
 	});
 
 	// The process continue in the event handler
