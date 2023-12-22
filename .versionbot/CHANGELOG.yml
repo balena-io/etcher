@@ -1,4 +1,91 @@
 - commits:
+    - subject: Update dependencies
+      hash: 0f2b4dbc106c55fe104f0b10e62c35c16bcfe9b3
+      body: >
+        - upgrade pretty_bytes to 6.1.1
+
+        - upgrade electron-remote to 2.1.0
+
+        - upgrade semver to 7.5.4 + @types/semver to 7.5.6
+
+        - upgrade chai to 4.3.11 + @types/chai to 4.3.10
+
+        - upgrade mocha to 10.2.0 + @types/mocha to 10.0.6
+
+        - upgrade sinon to 17.0.1 + @types/sinon to 17.0.2
+
+        - remove useless @types
+
+        - upgrade @svgr/webpack to 8.1.0
+
+        - upgrade @sentry/electron to 4.15.1
+
+        - upgrade tslib to 2.6.2
+
+        - upgrade immutable to 4.3.4
+
+        - upgrade redux to 4.2.1
+
+        - upgrade ts-node to 10.9.2 & ts-loader to 9.5.1
+
+        - remove mini-css-extract-plugin
+
+        - upgrade husky to 8.0.3
+
+        - upgrade uuid to 9.0.1
+
+        - upgrade lint-staged to 15.2.1
+
+        - upgrade @types/node to 18.11.9
+
+        - upgrade @fortawesome/fontawesome-free to 6.5.1
+
+        - upgrade i18next to 23.7.8 & react-i18next to 11.18.6
+
+        - bump react, react-dom + related @types to 17.0.2 and rendition to 35.1.0
+
+        - fix getuid for ts
+
+        - fix @types/react being in wrong deps
+
+        - upgrade @types/tmp to 0.2.6
+
+        - upgrade typescript to 5.3.3
+
+        - upgrade @types/mime-types to 2.1.4
+
+        - remove d3 from deps
+
+        - upgrade electron-updater to 6.1.7
+
+        - upgrade rendition to 35.1.2
+
+        - upgrade node-ipc to 9.2.3
+
+        - upgrade @types/node-ipc to 9.2.3
+
+        - upgrade electron to 27.1.3
+
+        - upgrade @electron-forge/* to 7.2.0
+
+        - upgrade @reforged/marker-appimage to 3.3.2
+
+        - upgrade style-loader to 3.3.3
+
+        - upgrade balena-lint to 7.2.4
+
+        - run CI with node 18.19
+
+        - add xxhash-addon to sidecar assets
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.3
+  title: ""
+  date: 2023-12-22T16:13:00.924Z
+- commits:
     - subject: "fix: typos"
       hash: aaac1336702b7ac4a07992f41db4f0bcdb931c70
       body: ""
