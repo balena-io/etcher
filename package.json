@@ -16,12 +16,9 @@
   "scripts": {
     "prettify": "prettier --write lib/**/*.css && balena-lint --fix --typescript typings lib tests forge.config.ts forge.sidecar.ts webpack.config.ts",
     "lint": "npm run prettify && catch-uncommitted",
-    "test-gui": "electron-mocha --recursive --reporter spec --window-config tests/gui/window-config.json --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox --renderer tests/gui/**/*.ts",
-    "test-shared": "electron-mocha --recursive --reporter spec --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox tests/shared/**/*.ts",
-    "test-windows": "npm run lint && npm run test-gui && npm run test-shared",
-    "test-macos": "npm run lint && npm run test-gui && npm run test-shared",
-    "test-linux": "npm run lint && xvfb-run --auto-servernum npm run test-gui && xvfb-run --auto-servernum npm run test-shared",
-    "test": "echo npm run test-{linux,windows,macos}",
+    "test-gui": "xvfb-maybe electron-mocha --recursive --reporter spec --window-config tests/gui/window-config.json --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox --renderer tests/gui/**/*.ts",
+    "test-shared": "xvfb-maybe electron-mocha --recursive --reporter spec --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox tests/shared/**/*.ts",
+    "test": "npm run test-gui && npm run test-shared",
     "package": "electron-forge package",
     "start": "electron-forge start",
     "make": "electron-forge make"
@@ -104,7 +101,8 @@
     "ts-node": "^10.9.2",
     "tslib": "2.6.2",
     "typescript": "^5.3.3",
-    "url-loader": "4.1.1"
+    "url-loader": "4.1.1",
+    "xvfb-maybe": "^0.2.1"
   },
   "hostDependencies": {
     "debian": [

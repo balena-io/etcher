@@ -54,12 +54,10 @@ runs:
         #   export DEBUG='electron-forge:*,sidecar'
         # fi
 
-        runner_os="$(echo "${RUNNER_OS}" | tr '[:upper:]' '[:lower:]')"
-
         npm ci
         npm run lint
         npm run package
-        npm run test-${runner_os}
+        npm run test
 
       env:
         # https://www.electronjs.org/docs/latest/api/environment-variables
