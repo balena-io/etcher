@@ -112,10 +112,10 @@ function startApiAndSpawnChild({
 	// server/client has a different name.
 	const IPC_SERVER_ID = `etcher-server-${process.pid}-${Date.now()}-${
 		withPrivileges ? 'privileged' : 'unprivileged'
-	}}}`;
+	}`;
 	const IPC_CLIENT_ID = `etcher-client-${process.pid}-${Date.now()}-${
 		withPrivileges ? 'privileged' : 'unprivileged'
-	}}`;
+	}`;
 
 	const IPC_SOCKET_ROOT = path.join(
 		process.env.XDG_RUNTIME_DIR || os.tmpdir(),
