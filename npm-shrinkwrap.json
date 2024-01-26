@@ -1,12 +1,12 @@
 {
   "name": "balena-etcher",
-  "version": "1.19.3",
+  "version": "1.19.4",
   "lockfileVersion": 2,
   "requires": true,
   "packages": {
     "": {
       "name": "balena-etcher",
-      "version": "1.19.3",
+      "version": "1.19.4",
       "license": "Apache-2.0",
       "dependencies": {
         "@balena/sudo-prompt": "9.2.1-workaround-windows-amperstand-in-username-0849e215b947987a643fe5763902aea201255534",

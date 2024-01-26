@@ -1,4 +1,20 @@
 - commits:
+    - subject: "patch: remove screensaver error when not on etcher-pro"
+      hash: 196fd8ae24de2a23ebaeae736c6ca41007162fa1
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: fix typo in IPC server id"
+      hash: 5d436992423961258ad861c01e3b9b30f3317aab
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.4
+  title: ""
+  date: 2024-01-26T17:29:27.301Z
+- commits:
     - subject: Update dependencies
       hash: 0f2b4dbc106c55fe104f0b10e62c35c16bcfe9b3
       body: >

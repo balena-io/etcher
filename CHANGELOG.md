@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.19.4
+## (2024-01-26)
+
+* patch: remove screensaver error when not on etcher-pro [Edwin Joassart]
+* patch: fix typo in IPC server id [Edwin Joassart]
+
 # v1.19.3
 ## (2023-12-22)
 
