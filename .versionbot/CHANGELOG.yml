@@ -1,4 +1,20 @@
 - commits:
+    - subject: Replace deprecated flowzone input tests_run_on
+      hash: bec0e50741bfeda63ca9785217576613f74ca043
+      body: |
+        The `custom_runs_on` array supports multiple runner labels
+        in nested arrays.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 1.19.5
+  title: ""
+  date: 2024-02-14T19:51:16.321Z
+- commits:
     - subject: "patch: remove screensaver error when not on etcher-pro"
       hash: 196fd8ae24de2a23ebaeae736c6ca41007162fa1
       body: ""
