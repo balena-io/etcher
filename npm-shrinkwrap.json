@@ -83,7 +83,7 @@
         "xvfb-maybe": "^0.2.1"
       },
       "engines": {
-        "node": ">=18 <20"
+        "node": ">=20 <21"
       }
     },
     "node_modules/@aashutoshrathi/word-wrap": {
