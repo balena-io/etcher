@@ -48,11 +48,16 @@ ipc.config.stopRetrying = 0;
 const DISCONNECT_DELAY = 100;
 const IPC_SERVER_ID = process.env.IPC_SERVER_ID as string;
 
+console.log('starting ');
+if (!IPC_SERVER_ID) {
+	console.log('IPC_SERVER_ID is not defined, exiting');
+}
+
 /**
  * @summary Send a message to the IPC server
  */
-function emit(channel: string, message?: any) {
-	ipc.of[IPC_SERVER_ID].emit(channel, message);
+function emit(type: string, payload?: any) {
+	ipc.of[IPC_SERVER_ID].emit('message', { type, payload });
 }
 
 /**
@@ -129,47 +134,57 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 		await terminate(SUCCESS);
 	});
 
-	ipc.of[IPC_SERVER_ID].on('sourceMetadata', async (params) => {
-		const { selected, SourceType, auth } = JSON.parse(params);
-		try {
-			const sourceMatadata = await getSourceMetadata(
-				selected,
-				SourceType,
-				auth,
-			);
-			emitSourceMetadata(sourceMatadata);
-		} catch (error: any) {
-			emitFail(error);
+	const messagesHandler: any = {
+		scan: () => {
+			startScanning();
+		},
+
+		write: async (options: WriteOptions) => {
+			// Remove leftover tmp files older than 1 hour
+			cleanup(Date.now() - 60 * 60 * 1000);
+
+			let exitCode = SUCCESS;
+
+			ipc.of[IPC_SERVER_ID].on('cancel', () => onAbort(exitCode));
+
+			ipc.of[IPC_SERVER_ID].on('skip', () => onSkip(exitCode));
+
+			const results = await write(options);
+
+			if (results.errors.length > 0) {
+				results.errors = results.errors.map((error: any) => {
+					return toJSON(error);
+				});
+				exitCode = GENERAL_ERROR;
+			}
+
+			emit('done', { results });
+			await delay(DISCONNECT_DELAY);
+			await terminate(exitCode);
+		},
+
+		sourceMetadata: async (params: any) => {
+			const { selected, SourceType, auth } = JSON.parse(params);
+			try {
+				const sourceMatadata = await getSourceMetadata(
+					selected,
+					SourceType,
+					auth,
+				);
+				emitSourceMetadata(sourceMatadata);
+			} catch (error: any) {
+				emitFail(error);
+			}
+		},
+	};
+
+	ipc.of[IPC_SERVER_ID].on('message', async (data: any) => {
+		const message = messagesHandler[data.type];
+		if (message) {
+			await message(data.payload);
+		} else {
+			throw new Error(`Unknown message type: ${data.type}`);
 		}
-	});
-
-	ipc.of[IPC_SERVER_ID].on('scan', async () => {
-		startScanning();
-	});
-
-	// write handler
-	ipc.of[IPC_SERVER_ID].on('write', async (options: WriteOptions) => {
-		// Remove leftover tmp files older than 1 hour
-		cleanup(Date.now() - 60 * 60 * 1000);
-
-		let exitCode = SUCCESS;
-
-		ipc.of[IPC_SERVER_ID].on('cancel', () => onAbort(exitCode));
-
-		ipc.of[IPC_SERVER_ID].on('skip', () => onSkip(exitCode));
-
-		const results = await write(options);
-
-		if (results.errors.length > 0) {
-			results.errors = results.errors.map((error: any) => {
-				return toJSON(error);
-			});
-			exitCode = GENERAL_ERROR;
-		}
-
-		emit('done', { results });
-		await delay(DISCONNECT_DELAY);
-		await terminate(exitCode);
 	});
 
 	ipc.of[IPC_SERVER_ID].on('connect', () => {

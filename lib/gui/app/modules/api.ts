@@ -128,34 +128,44 @@ function startApiAndSpawnChild({
 	return new Promise((resolve, reject) => {
 		ipc.serve();
 
-		// log is special message which brings back the logs from the child process and prints them to the console
-		ipc.server.on('log', (message: string) => {
-			console.log(message);
+		// parse and route messages
+		const messagesHandler: any = {
+			log: (message: any) => {
+				console.log(message);
+			},
+
+			error: (error: any) => {
+				terminateServer(ipc.server);
+				const errorObject = errors.fromJSON(error);
+				reject(errorObject);
+			},
+
+			// once api is ready (means child process is connected) we pass the emit and terminate function to the caller
+			ready: (_: any, socket: any) => {
+				const emit = (type: string, payload: any) => {
+					ipc.server.emit(socket, 'message', { type, payload });
+				};
+				resolve({
+					emit,
+					terminateServer: () => terminateServer(ipc.server),
+					registerHandler,
+				});
+			},
+		};
+
+		ipc.server.on('message', (data: any, socket: any) => {
+			const message = messagesHandler[data.type];
+			if (message) {
+				message(data.payload, socket);
+			} else {
+				throw new Error(`Unknown message type: ${data.type}`);
+			}
 		});
 
 		// api to register more handlers with callbacks
 		const registerHandler = (event: string, handler: any) => {
-			ipc.server.on(event, handler);
+			messagesHandler[event] = handler;
 		};
-
-		// once api is ready (means child process is connected) we pass the emit and terminate function to the caller
-		ipc.server.on('ready', (_: any, socket) => {
-			const emit = (channel: string, data: any) => {
-				ipc.server.emit(socket, channel, data);
-			};
-			resolve({
-				emit,
-				terminateServer: () => terminateServer(ipc.server),
-				registerHandler,
-			});
-		});
-
-		// on api error we terminate
-		ipc.server.on('error', (error: any) => {
-			terminateServer(ipc.server);
-			const errorObject = errors.fromJSON(error);
-			reject(errorObject);
-		});
 
 		// when the api is started we spawn the child process
 		ipc.server.on('start', async () => {
