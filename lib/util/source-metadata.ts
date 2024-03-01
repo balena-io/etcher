@@ -80,13 +80,12 @@ async function getSourceMetadata(
 			return metadata;
 		} catch (error: any) {
 			// TODO: handle error
+			return {};
 		} finally {
-			try {
-				await source.close();
-			} catch (error: any) {
-				// Noop
-			}
+			await source.close();
 		}
+	} else {
+		return {};
 	}
 }
 

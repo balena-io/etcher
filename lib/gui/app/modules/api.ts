@@ -12,19 +12,22 @@
  *  - centralise the api for both the writer and the scanner instead of having two instances running
  */
 
-import * as ipc from 'node-ipc';
-import { spawn } from 'child_process';
+import WebSocket from 'ws'; // (no types for wrapper, this is expected)
+import { spawn, exec } from 'child_process';
 import * as os from 'os';
-import * as path from 'path';
 import * as packageJSON from '../../../../package.json';
 import * as permissions from '../../../shared/permissions';
 import * as errors from '../../../shared/errors';
 
 const THREADS_PER_CPU = 16;
+const connectionRetryDelay = 1000;
+const connectionRetryAttempts = 10;
 
-// NOTE: Ensure this isn't disabled, as it will cause
-// the stdout maxBuffer size to be exceeded when flashing
-ipc.config.silent = true;
+type ApiChannel = {
+	emit?: (type: string, payload: any) => void;
+	registerHandler?: (event: string, handler: any) => void;
+	cancelled?: boolean;
+};
 
 async function writerArgv(): Promise<string[]> {
 	let entryPoint = await window.etcher.getEtcherUtilPath();
@@ -45,15 +48,22 @@ async function writerArgv(): Promise<string[]> {
 	}
 }
 
-function writerEnv(
-	IPC_CLIENT_ID: string,
-	IPC_SERVER_ID: string,
-	IPC_SOCKET_ROOT: string,
-) {
-	return {
-		IPC_SERVER_ID,
-		IPC_CLIENT_ID,
-		IPC_SOCKET_ROOT,
+async function spawnChild({
+	withPrivileges,
+	ETCHER_SERVER_ID,
+	ETCHER_SERVER_ADDRESS,
+	ETCHER_SERVER_PORT,
+}: {
+	withPrivileges: boolean;
+	ETCHER_SERVER_ID: string;
+	ETCHER_SERVER_ADDRESS: string;
+	ETCHER_SERVER_PORT: string;
+}) {
+	const argv = await writerArgv();
+	const env: any = {
+		ETCHER_SERVER_ADDRESS,
+		ETCHER_SERVER_ID,
+		ETCHER_SERVER_PORT,
 		UV_THREADPOOL_SIZE: (os.cpus().length * THREADS_PER_CPU).toString(),
 		// This environment variable prevents the AppImages
 		// desktop integration script from presenting the
@@ -61,133 +71,180 @@ function writerEnv(
 		SKIP: '1',
 		...(process.platform === 'win32' ? {} : process.env),
 	};
-}
 
-async function spawnChild({
-	withPrivileges,
-	IPC_CLIENT_ID,
-	IPC_SERVER_ID,
-	IPC_SOCKET_ROOT,
-}: {
-	withPrivileges: boolean;
-	IPC_CLIENT_ID: string;
-	IPC_SERVER_ID: string;
-	IPC_SOCKET_ROOT: string;
-}) {
-	const argv = await writerArgv();
-	const env = writerEnv(IPC_CLIENT_ID, IPC_SERVER_ID, IPC_SOCKET_ROOT);
+	console.log(env);
+
 	if (withPrivileges) {
-		return await permissions.elevateCommand(argv, {
+		console.log('... with privileges ...');
+		return permissions.elevateCommand(argv, {
 			applicationName: packageJSON.displayName,
-			environment: env,
-		});
-	} else {
-		const process = await spawn(argv[0], argv.slice(1), {
 			env,
 		});
-		return { cancelled: false, process };
-	}
-}
-
-function terminateServer(server: any) {
-	// Turns out we need to destroy all sockets for
-	// the server to actually close. Otherwise, it
-	// just stops receiving any further connections,
-	// but remains open if there are active ones.
-	// @ts-ignore (no Server.sockets in @types/node-ipc)
-	for (const socket of server.sockets) {
-		socket.destroy();
-	}
-	server.stop();
-}
-
-// TODO: replace the custom ipc events by one generic "message" for all communication with the backend
-function startApiAndSpawnChild({
-	withPrivileges,
-}: {
-	withPrivileges: boolean;
-}): Promise<any> {
-	// There might be multiple Etcher instances running at
-	// the same time, also we might spawn multiple child and api so we must ensure each IPC
-	// server/client has a different name.
-	const IPC_SERVER_ID = `etcher-server-${process.pid}-${Date.now()}-${
-		withPrivileges ? 'privileged' : 'unprivileged'
-	}`;
-	const IPC_CLIENT_ID = `etcher-client-${process.pid}-${Date.now()}-${
-		withPrivileges ? 'privileged' : 'unprivileged'
-	}`;
-
-	const IPC_SOCKET_ROOT = path.join(
-		process.env.XDG_RUNTIME_DIR || os.tmpdir(),
-		path.sep,
-	);
-
-	ipc.config.id = IPC_SERVER_ID;
-	ipc.config.socketRoot = IPC_SOCKET_ROOT;
-
-	return new Promise((resolve, reject) => {
-		ipc.serve();
-
-		// parse and route messages
-		const messagesHandler: any = {
-			log: (message: any) => {
-				console.log(message);
-			},
-
-			error: (error: any) => {
-				terminateServer(ipc.server);
-				const errorObject = errors.fromJSON(error);
-				reject(errorObject);
-			},
-
-			// once api is ready (means child process is connected) we pass the emit and terminate function to the caller
-			ready: (_: any, socket: any) => {
-				const emit = (type: string, payload: any) => {
-					ipc.server.emit(socket, 'message', { type, payload });
-				};
-				resolve({
-					emit,
-					terminateServer: () => terminateServer(ipc.server),
-					registerHandler,
-				});
-			},
-		};
-
-		ipc.server.on('message', (data: any, socket: any) => {
-			const message = messagesHandler[data.type];
-			if (message) {
-				message(data.payload, socket);
-			} else {
-				throw new Error(`Unknown message type: ${data.type}`);
-			}
-		});
-
-		// api to register more handlers with callbacks
-		const registerHandler = (event: string, handler: any) => {
-			messagesHandler[event] = handler;
-		};
-
-		// when the api is started we spawn the child process
-		ipc.server.on('start', async () => {
-			try {
-				const results = await spawnChild({
-					withPrivileges,
-					IPC_CLIENT_ID,
-					IPC_SERVER_ID,
-					IPC_SOCKET_ROOT,
-				});
-				// this will happen if the child is spawned withPrivileges and privileges has been rejected
-				if (results.cancelled) {
-					reject();
+	} else {
+		if (process.platform === 'win32') {
+			// we need to ensure we reset the env as a previous elevation process might have kept them in a wrong state
+			const envCommand = [];
+			for (const key in env) {
+				if (Object.prototype.hasOwnProperty.call(env, key)) {
+					envCommand.push(`set ${key}=${env[key]}`);
 				}
-			} catch (error) {
+			}
+			await exec(envCommand.join(' && '));
+		}
+		const spawned = await spawn(argv[0], argv.slice(1), {
+			env,
+		});
+		return { cancelled: false, spawned };
+	}
+}
+
+const connectToChildProcess = async ({
+	ETCHER_SERVER_ADDRESS,
+	ETCHER_SERVER_PORT,
+	ETCHER_SERVER_ID,
+}: any): Promise<any> =>
+	new Promise((resolve, reject) => {
+		console.log(ETCHER_SERVER_ID);
+
+		// TODO: default to IPC connections https://github.com/websockets/ws/blob/master/doc/ws.md#ipc-connections
+		// TOOD: use the path as cheap authentication
+		const url = `ws://${ETCHER_SERVER_ADDRESS}:${ETCHER_SERVER_PORT}`;
+
+		const ws = new WebSocket(url);
+
+		let heartbeat: any;
+
+		const startHeartbeat = (emit: any) => {
+			console.log('start heartbeat');
+			heartbeat = setInterval(() => {
+				emit('heartbeat', {});
+			}, 1000);
+		};
+
+		const stopHeartbeat = () => {
+			console.log('stop heartbeat');
+			clearInterval(heartbeat);
+		};
+
+		ws.on('error', (error: any) => {
+			if (error.code === 'ECONNREFUSED') {
+				resolve({ failed: true, emit: null, registerHandler: null });
+			} else {
+				stopHeartbeat();
 				reject(error);
 			}
 		});
 
-		// start the server
-		ipc.server.start();
+		ws.on('open', () => {
+			const emit = (type: string, payload: any) => {
+				ws.send(JSON.stringify({ type, payload }));
+			};
+
+			emit('ready', {});
+
+			// parse and route messages
+			const messagesHandler: any = {
+				log: (message: any) => {
+					console.log(`CHILD LOG: ${message}`);
+				},
+
+				error: (error: any) => {
+					const errorObject = errors.fromJSON(error);
+					console.error('CHILD ERROR', errorObject);
+					stopHeartbeat();
+				},
+
+				// once api is ready (means child process is connected) we pass the emit function to the caller
+				ready: () => {
+					console.log('CHILD READY');
+
+					startHeartbeat(emit);
+
+					resolve({
+						failed: false,
+						emit,
+						registerHandler,
+					});
+				},
+			};
+
+			ws.on('message', (jsonData: any) => {
+				const data = JSON.parse(jsonData);
+				const message = messagesHandler[data.type];
+				if (message) {
+					message(data.payload);
+				} else {
+					throw new Error(`Unknown message type: ${data.type}`);
+				}
+			});
+
+			// api to register more handlers with callbacks
+			const registerHandler = (event: string, handler: any) => {
+				messagesHandler[event] = handler;
+			};
+		});
 	});
+
+async function spawnChildAndConnect({
+	withPrivileges,
+}: {
+	withPrivileges: boolean;
+}): Promise<ApiChannel> {
+	const ETCHER_SERVER_ADDRESS =
+		process.env.ETCHER_SERVER_ADDRESS ?? '127.0.0.1'; // localhost
+	const ETCHER_SERVER_PORT =
+		process.env.ETCHER_SERVER_PORT ?? withPrivileges ? '3435' : '3434';
+	const ETCHER_SERVER_ID =
+		process.env.ETCHER_SERVER_ID ??
+		`etcher-${Math.random().toString(36).substring(7)}`;
+
+	console.log('will spawn child', ETCHER_SERVER_PORT, withPrivileges);
+
+	// spawn the child process, which will act as the ws server
+	// ETCHER_NO_SPAWN_UTIL can be set to launch a GUI only version of etcher, in that case you'll probably want to set other ENV to match your setup
+	if (!process.env.ETCHER_NO_SPAWN_UTIL) {
+		try {
+			const result = await spawnChild({
+				withPrivileges,
+				ETCHER_SERVER_ADDRESS,
+				ETCHER_SERVER_PORT,
+				ETCHER_SERVER_ID,
+			});
+			if (result.cancelled) {
+				return { cancelled: true };
+			}
+		} catch (error) {
+			console.error('Error spawning child process', error);
+			return { cancelled: true };
+		}
+	}
+
+	// try to connect to the ws server, retrying if necessary, until the connection is established
+	try {
+		let retry = 0;
+		while (retry < connectionRetryAttempts) {
+			const { emit, registerHandler, failed } = await connectToChildProcess({
+				ETCHER_SERVER_ADDRESS,
+				ETCHER_SERVER_PORT,
+				ETCHER_SERVER_ID,
+			});
+			if (failed) {
+				retry++;
+				console.log(
+					`Retrying to connect to child process in ${connectionRetryDelay}... ${retry} / ${connectionRetryAttempts}`,
+				);
+				await new Promise((resolve) =>
+					setTimeout(resolve, connectionRetryDelay),
+				);
+				continue;
+			}
+			return { emit, registerHandler };
+		}
+		throw new Error('Connection to etcher-util timed out');
+	} catch (error) {
+		console.error('Error connecting to child process', error);
+		return { cancelled: true };
+	}
 }
 
-export { startApiAndSpawnChild };
+export { spawnChildAndConnect };

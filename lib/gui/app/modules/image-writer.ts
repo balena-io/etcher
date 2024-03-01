@@ -24,7 +24,7 @@ import * as selectionState from '../models/selection-state';
 import * as settings from '../models/settings';
 import * as analytics from '../modules/analytics';
 import * as windowProgress from '../os/window-progress';
-import { startApiAndSpawnChild } from './api';
+import { spawnChildAndConnect } from './api';
 
 /**
  * @summary Handle a flash error and log it to analytics
@@ -78,13 +78,10 @@ async function performWrite(
 ): Promise<{ cancelled?: boolean }> {
 	const { autoBlockmapping, decompressFirst } = await settings.getAll();
 
-	console.log({ image, drives });
-
 	// Spawn the child process with privileges and wait for the connection to be made
-	const { emit, registerHandler, terminateServer } =
-		await startApiAndSpawnChild({
-			withPrivileges: true,
-		});
+	const { emit, registerHandler } = await spawnChildAndConnect({
+		withPrivileges: true,
+	});
 
 	return await new Promise((resolve, reject) => {
 		const flashResults: FlashResults = {};
@@ -108,25 +105,25 @@ async function performWrite(
 			finish();
 		};
 
-		const onDone = (event: any) => {
-			console.log('done event');
-			event.results.errors = event.results.errors.map(
+		const onDone = (payload: any) => {
+			console.log('CHILD: flash done', payload);
+			payload.results.errors = payload.results.errors.map(
 				(data: Dictionary<any> & { message: string }) => {
 					return errors.fromJSON(data);
 				},
 			);
-			flashResults.results = event.results;
+			flashResults.results = payload.results;
 			finish();
 		};
 
 		const onAbort = () => {
-			console.log('abort event');
+			console.log('CHILD: flash aborted');
 			flashResults.cancelled = true;
 			finish();
 		};
 
 		const onSkip = () => {
-			console.log('skip event');
+			console.log('CHILD: validation skipped');
 			flashResults.skip = true;
 			finish();
 		};
@@ -151,18 +148,16 @@ async function performWrite(
 				);
 			}
 
-			console.log('Terminating IPC server');
-			terminateServer();
 			resolve(flashResults);
 		};
 
-		registerHandler('state', onProgress);
-		registerHandler('fail', onFail);
-		registerHandler('done', onDone);
-		registerHandler('abort', onAbort);
-		registerHandler('skip', onSkip);
+		registerHandler!('state', onProgress);
+		registerHandler!('fail', onFail);
+		registerHandler!('done', onDone);
+		registerHandler!('abort', onAbort);
+		registerHandler!('skip', onSkip);
 
-		cancelEmitter = (cancelStatus: string) => emit(cancelStatus);
+		cancelEmitter = (cancelStatus: string) => emit!('cancel', cancelStatus);
 
 		// Now that we know we're connected we can instruct the child process to start the write
 		const parameters = {
@@ -173,7 +168,7 @@ async function performWrite(
 			decompressFirst,
 		};
 		console.log('params', parameters);
-		emit('write', parameters);
+		emit!('write', parameters);
 	});
 
 	// The process continue in the event handler
@@ -212,7 +207,9 @@ export async function flash(
 	// start api and call the flasher
 	try {
 		const result = await write(image, drives, flashState.setProgressState);
+		console.log('got results', result);
 		await flashState.unsetFlashingFlag(result);
+		console.log('removed flashing flag');
 	} catch (error: any) {
 		await flashState.unsetFlashingFlag({
 			cancelled: false,

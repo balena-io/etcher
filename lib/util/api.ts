@@ -14,205 +14,274 @@
  * limitations under the License.
  */
 
-import * as ipc from 'node-ipc';
+import { WebSocketServer } from 'ws';
 import { Dictionary, values } from 'lodash';
 
 import type { MultiDestinationProgress } from 'etcher-sdk/build/multi-write';
 
 import { toJSON } from '../shared/errors';
 import { GENERAL_ERROR, SUCCESS } from '../shared/exit-codes';
-import { delay } from '../shared/utils';
 import { WriteOptions } from './types/types';
 import { write, cleanup } from './child-writer';
 import { startScanning } from './scanner';
 import { getSourceMetadata } from './source-metadata';
 import { DrivelistDrive } from '../shared/drive-constraints';
 
-ipc.config.id = process.env.IPC_CLIENT_ID as string;
-ipc.config.socketRoot = process.env.IPC_SOCKET_ROOT as string;
+const ETCHER_SERVER_ADDRESS = process.env.ETCHER_SERVER_ADDRESS as string;
+const ETCHER_SERVER_PORT = process.env.ETCHER_SERVER_PORT as string;
+// const ETCHER_SERVER_ID = process.env.ETCHER_SERVER_ID as string;
 
-// NOTE: Ensure this isn't disabled, as it will cause
-// the stdout maxBuffer size to be exceeded when flashing
-ipc.config.silent = true;
+const ETCHER_TERMINATE_TIMEOUT: number = parseInt(
+	process.env.ETCHER_TERMINATE_TIMEOUT ?? '10000',
+	10,
+);
 
-// > If set to 0, the client will NOT try to reconnect.
-// See https://github.com/RIAEvangelist/node-ipc/
-//
-// The purpose behind this change is for this process
-// to emit a "disconnect" event as soon as the GUI
-// process is closed, so we can kill this process as well.
+const host = ETCHER_SERVER_ADDRESS ?? '127.0.0.1';
+const port = parseInt(ETCHER_SERVER_PORT || '3434', 10);
+// const path = ETCHER_SERVER_ID || "etcher";
 
-// @ts-ignore (0 is a valid value for stopRetrying and is not the same as false)
-ipc.config.stopRetrying = 0;
+// TODO: use the path as cheap authentication
 
-const DISCONNECT_DELAY = 100;
-const IPC_SERVER_ID = process.env.IPC_SERVER_ID as string;
-
-console.log('starting ');
-if (!IPC_SERVER_ID) {
-	console.log('IPC_SERVER_ID is not defined, exiting');
-}
-
-/**
- * @summary Send a message to the IPC server
- */
-function emit(type: string, payload?: any) {
-	ipc.of[IPC_SERVER_ID].emit('message', { type, payload });
-}
-
-/**
- * @summary Send a log debug message to the IPC server
- */
-function log(message: string) {
-	if (console?.log) {
-		console.log(message);
-	}
-	emit('log', message);
-}
+const wss = new WebSocketServer({ host, port });
 
 /**
  * @summary Terminate the child process
  */
-async function terminate(exitCode: number) {
-	ipc.disconnect(IPC_SERVER_ID);
+async function terminate(exitCode?: number) {
 	await cleanup(Date.now());
 	process.nextTick(() => {
 		process.exit(exitCode || SUCCESS);
 	});
 }
 
-/**
- * @summary Handle errors
- */
-async function handleError(error: Error) {
-	emit('error', toJSON(error));
-	await delay(DISCONNECT_DELAY);
-	await terminate(GENERAL_ERROR);
-}
-
-/**
- * @summary Abort handler
- * @example
- */
-const onAbort = async (exitCode: number) => {
-	log('Abort');
-	emit('abort');
-	await delay(DISCONNECT_DELAY);
-	await terminate(exitCode);
+// kill the process if no connections or heartbeat for  sec
+const setTerminateTimeout = () => {
+	if (ETCHER_TERMINATE_TIMEOUT > 0) {
+		return setTimeout(() => {
+			console.log(
+				`no connections or heartbeat for ${ETCHER_TERMINATE_TIMEOUT} ms, terminating`,
+			);
+			terminate();
+		}, ETCHER_TERMINATE_TIMEOUT);
+	} else {
+		return null;
+	}
 };
 
-const onSkip = async (exitCode: number) => {
-	log('Skip validation');
-	emit('skip');
-	await delay(DISCONNECT_DELAY);
-	await terminate(exitCode);
-};
+let TerminateInterrupt = setTerminateTimeout();
 
-ipc.connectTo(IPC_SERVER_ID, () => {
-	// Gracefully exit on the following cases. If the parent
-	// process detects that child exit successfully but
-	// no flashing information is available, then it will
-	// assume that the child died halfway through.
+const setup = () =>
+	new Promise((resolve, reject) => {
+		wss.on('connection', (ws) => {
+			console.log('connection established... setting up');
 
-	process.once('uncaughtException', handleError);
-
-	process.once('SIGINT', async () => {
-		await terminate(SUCCESS);
-	});
-
-	process.once('SIGTERM', async () => {
-		await terminate(SUCCESS);
-	});
-
-	// The IPC server failed. Abort.
-	ipc.of[IPC_SERVER_ID].on('error', async () => {
-		await terminate(SUCCESS);
-	});
-
-	// The IPC server was disconnected. Abort.
-	ipc.of[IPC_SERVER_ID].on('disconnect', async () => {
-		await terminate(SUCCESS);
-	});
-
-	const messagesHandler: any = {
-		scan: () => {
-			startScanning();
-		},
-
-		write: async (options: WriteOptions) => {
-			// Remove leftover tmp files older than 1 hour
-			cleanup(Date.now() - 60 * 60 * 1000);
-
-			let exitCode = SUCCESS;
-
-			ipc.of[IPC_SERVER_ID].on('cancel', () => onAbort(exitCode));
-
-			ipc.of[IPC_SERVER_ID].on('skip', () => onSkip(exitCode));
-
-			const results = await write(options);
-
-			if (results.errors.length > 0) {
-				results.errors = results.errors.map((error: any) => {
-					return toJSON(error);
-				});
-				exitCode = GENERAL_ERROR;
+			/**
+			 * @summary Send a message to the IPC server
+			 */
+			function emit(type: string, payload?: any) {
+				ws.send(JSON.stringify({ type, payload }));
+				// ipc.of[IPC_SERVER_ID].emit("message", { type, payload });
 			}
 
-			emit('done', { results });
-			await delay(DISCONNECT_DELAY);
-			await terminate(exitCode);
-		},
-
-		sourceMetadata: async (params: any) => {
-			const { selected, SourceType, auth } = JSON.parse(params);
-			try {
-				const sourceMatadata = await getSourceMetadata(
-					selected,
-					SourceType,
-					auth,
-				);
-				emitSourceMetadata(sourceMatadata);
-			} catch (error: any) {
-				emitFail(error);
+			/**
+			 * @summary Print logs and send them back to client
+			 */
+			function log(message: string) {
+				if (console?.log) {
+					console.log(message);
+				}
+				emit('log', message);
 			}
-		},
+
+			/**
+			 * @summary Handle `errors`
+			 */
+			async function handleError(error: Error) {
+				emit('error', toJSON(error));
+				await terminate(GENERAL_ERROR);
+			}
+
+			/**
+			 * @summary Handle `abort` from client
+			 */
+			const onAbort = async (exitCode: number) => {
+				log('Abort');
+				emit('abort');
+				await terminate(exitCode);
+			};
+
+			/**
+			 * @summary Handle `skip` from client; skip validation
+			 */
+			const onSkip = async (exitCode: number) => {
+				log('Skip validation');
+				emit('skip');
+				await terminate(exitCode);
+			};
+
+			/**
+			 * @summary Handle `write` from client; start writing to the drives
+			 */
+			const onWrite = async (options: WriteOptions) => {
+				log('write requested');
+
+				// Remove leftover tmp files older than 1 hour
+				cleanup(Date.now() - 60 * 60 * 1000);
+
+				let exitCode = SUCCESS;
+
+				// Write to the drives
+				const results = await write(options);
+
+				// handle potential errors from the write process
+				if (results.errors.length > 0) {
+					results.errors = results.errors.map((error: any) => {
+						return toJSON(error);
+					});
+					exitCode = GENERAL_ERROR;
+				}
+
+				// send the results back to the client
+				emit('done', { results });
+
+				// terminate this process
+				await terminate(exitCode);
+			};
+
+			/**
+			 * @summary Handle `sourceMetadata` from client; get source metadata
+			 */
+			const onSourceMetadata = async (params: any) => {
+				log('sourceMetadata requested');
+				const { selected, SourceType, auth } = JSON.parse(params);
+				try {
+					const sourceMatadata = await getSourceMetadata(
+						selected,
+						SourceType,
+						auth,
+					);
+					emitSourceMetadata(sourceMatadata);
+				} catch (error: any) {
+					emitFail(error);
+				}
+			};
+
+			// handle uncaught exceptions
+			process.once('uncaughtException', handleError);
+
+			// terminate the process cleanly on SIGINT
+			process.once('SIGINT', async () => {
+				await terminate(SUCCESS);
+			});
+
+			// terminate the process cleanly on SIGTERM
+			process.once('SIGTERM', async () => {
+				await terminate(SUCCESS);
+			});
+
+			// terminate the process if the connection is closed
+			ws.on('error', async () => {
+				await terminate(SUCCESS);
+			});
+
+			// route messages from the client by `type`
+			const messagesHandler: any = {
+				// terminate the process
+				terminate: () => terminate(SUCCESS),
+
+				/* 
+				 receive a `heartbeat`, reset the terminate timeout
+				 this mechanism ensure the process will be terminated if the client is disconnected
+				*/
+				heartbeat: () => {
+					if (TerminateInterrupt) {
+						clearTimeout(TerminateInterrupt);
+					}
+					TerminateInterrupt = setTerminateTimeout();
+				},
+
+				// resolve the setup promise when the client is ready
+				ready: () => {
+					log('Ready ...');
+					resolve({ emit, log });
+				},
+
+				// start scanning for drives
+				scan: () => {
+					log('Scan requested');
+					startScanning();
+				},
+
+				// route `cancel` from client
+				cancel: () => onAbort(GENERAL_ERROR),
+
+				// route `skip` from client
+				skip: () => onSkip(GENERAL_ERROR),
+
+				// route `write` from client
+				write: async (options: WriteOptions) => onWrite(options),
+
+				// route `sourceMetadata` from client
+				sourceMetadata: async (params: any) => onSourceMetadata(params),
+			};
+
+			// message handler, parse and route messages coming on WS
+			ws.on('message', async (jsonData: any) => {
+				const data = JSON.parse(jsonData);
+				const message = messagesHandler[data.type];
+				if (message) {
+					await message(data.payload);
+				} else {
+					throw new Error(`Unknown message type: ${data.type}`);
+				}
+			});
+
+			// inform the client that the server is ready to receive messages
+			emit('ready', {});
+
+			ws.on('error', (error) => {
+				reject(error);
+			});
+		});
+	});
+
+let emitLog: any;
+let emitState: any;
+let emitFail: any;
+let emitDrives: any;
+let emitSourceMetadata: any;
+
+console.log('waiting for connection...');
+setTimeout(() => console.log('wss', wss.address()), 1000);
+
+setup().then(({ emit, log }: any) => {
+	// connection is established, clear the terminate timeout
+	if (TerminateInterrupt) {
+		clearInterval(TerminateInterrupt);
+	}
+
+	console.log('waiting for instruction...');
+
+	// set the exportable emit functions
+	emitLog = (message: string) => {
+		log(message);
 	};
 
-	ipc.of[IPC_SERVER_ID].on('message', async (data: any) => {
-		const message = messagesHandler[data.type];
-		if (message) {
-			await message(data.payload);
-		} else {
-			throw new Error(`Unknown message type: ${data.type}`);
-		}
-	});
+	emitState = (state: MultiDestinationProgress) => {
+		emit('state', state);
+	};
 
-	ipc.of[IPC_SERVER_ID].on('connect', () => {
-		log(
-			`Successfully connected to IPC server: ${IPC_SERVER_ID}, socket root ${ipc.config.socketRoot}`,
-		);
-		emit('ready', {});
-	});
+	emitFail = (data: any) => {
+		emit('fail', data);
+	};
+
+	emitDrives = (drives: Dictionary<DrivelistDrive>) => {
+		emit('drives', JSON.stringify(values(drives)));
+	};
+
+	emitSourceMetadata = (sourceMetadata: any) => {
+		emit('sourceMetadata', JSON.stringify(sourceMetadata));
+	};
 });
-
-function emitLog(message: string) {
-	log(message);
-}
-
-function emitState(state: MultiDestinationProgress) {
-	emit('state', state);
-}
-
-function emitFail(data: any) {
-	emit('fail', data);
-}
-
-function emitDrives(drives: Dictionary<DrivelistDrive>) {
-	emit('drives', JSON.stringify(values(drives)));
-}
-
-function emitSourceMetadata(sourceMetadata: any) {
-	emit('sourceMetadata', JSON.stringify(sourceMetadata));
-}
 
 export { emitLog, emitState, emitFail, emitDrives, emitSourceMetadata };
