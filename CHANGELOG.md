@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.19.5
+## (2024-02-14)
+
+* Replace deprecated flowzone input tests_run_on [Kyle Harding]
+
 # v1.19.4
 ## (2024-01-26)
 
