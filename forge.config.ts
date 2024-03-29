@@ -25,8 +25,7 @@ if (process.env.NODE_ENV === 'production') {
 	};
 
 	winSigningConfig = {
-		certificateFile: process.env.WINDOWS_SIGNING_CERT_PATH,
-		certificatePassword: process.env.WINDOWS_SIGNING_PASSWORD,
+		signWithParams: `-sha1 ${process.env.SM_CODE_SIGNING_CERT_SHA1_HASH} -tr ${process.env.TIMESTAMP_SERVER} -td sha256 -fd sha256 -d balena-etcher`,
 	};
 }
 
