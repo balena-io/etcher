@@ -86,15 +86,15 @@ you want to learn more.
 Running on Wayland
 ------------------
 
-You can run Etcher on Wayland by passing command line flags
+You can run Etcher on Wayland by passing command line flags like so:
 
 ```sh
-$ balena-etcher --enable-features=WaylandWindowDecorations --ozone-platform=wayland
+balena-etcher --enable-features=WaylandWindowDecorations --ozone-platform=wayland
 ```
-To make this changes permanent to the desktop entry
+To make these changes permanent to the desktop entry, run these commands in your terminal:
 ```sh
-$ cp /usr/share/applications/balena-etcher.desktop ~/.local/share/applications
-$ sed -i 's|^Exec=/opt/balenaEtcher/balena-etcher %U$|Exec=/opt/balenaEtcher/balena-etcher --enable-features=WaylandWindowDecorations --ozone-platform=wayland %U|' ~/.local/share/applications/balena-etcher.desktop
+cp /usr/share/applications/balena-etcher.desktop ~/.local/share/applications
+sed -i 's|^Exec=/opt/balenaEtcher/balena-etcher %U$|Exec=/opt/balenaEtcher/balena-etcher --enable-features=WaylandWindowDecorations --ozone-platform=wayland %U|' ~/.local/share/applications/balena-etcher.desktop
 ```
 
 Runtime GNU/Linux dependencies
