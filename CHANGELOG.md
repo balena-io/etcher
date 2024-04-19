@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.19.6
+## (2024-04-19)
+
+* patch: fix win signature process [Edwin Joassart]
+
 # v1.19.5
 ## (2024-02-14)
 
