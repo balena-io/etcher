@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.19.8
+## (2024-04-22)
+
+* patch: replace deprecated pkg with yao-pkg and bump etcher-util node v to 20.10 [Edwin Joassart]
+
 # v1.19.7
 ## (2024-04-22)
 

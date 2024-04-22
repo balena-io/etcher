@@ -1,4 +1,15 @@
 - commits:
+    - subject: "patch: replace deprecated pkg with yao-pkg and bump etcher-util node v
+        to 20.10"
+      hash: c696c389c9988c75ad9ccc472bdac7edefe762ed
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.8
+  title: ""
+  date: 2024-04-22T09:37:37.561Z
+- commits:
     - subject: "patch: fix formating"
       hash: 1a9a3d2cdc5642a754b73628f4ae2636e3ffd8eb
       body: ""
