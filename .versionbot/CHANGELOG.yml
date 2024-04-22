@@ -1,4 +1,21 @@
 - commits:
+    - subject: "patch: fix formating"
+      hash: 1a9a3d2cdc5642a754b73628f4ae2636e3ffd8eb
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: configure prettier in the project to use balena-lint
+        configuration"
+      hash: faeaa58ec548e47abaf30b2498ab145e7c0c6f76
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.7
+  title: ""
+  date: 2024-04-22T06:52:18.878Z
+- commits:
     - subject: "patch: fix win signature process"
       hash: f629e6d53b5329cd7e8105050df042f3873a35ee
       body: ""

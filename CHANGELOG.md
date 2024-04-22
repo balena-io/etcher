@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.19.7
+## (2024-04-22)
+
+* patch: fix formating [Edwin Joassart]
+* patch: configure prettier in the project to use balena-lint configuration [Edwin Joassart]
+
 # v1.19.6
 ## (2024-04-19)
 
