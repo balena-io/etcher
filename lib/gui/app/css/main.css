@@ -15,36 +15,36 @@
  */
 
 @font-face {
-  font-family: "SourceSansPro";
-  src: url("./fonts/SourceSansPro-Regular.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
+	font-family: 'SourceSansPro';
+	src: url('./fonts/SourceSansPro-Regular.ttf') format('truetype');
+	font-weight: 500;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: "SourceSansPro";
-  src: url("./fonts/SourceSansPro-SemiBold.ttf") format("truetype");
-  font-weight: 600;
-  font-style: normal;
+	font-family: 'SourceSansPro';
+	src: url('./fonts/SourceSansPro-SemiBold.ttf') format('truetype');
+	font-weight: 600;
+	font-style: normal;
 }
 
 html,
 body {
-  margin: 0;
-  overflow: hidden;
+	margin: 0;
+	overflow: hidden;
 
-  /* Prevent white flash when running application */
-  background-color: #4d5057;
+	/* Prevent white flash when running application */
+	background-color: #4d5057;
 
-  /* Prevent WebView bounce effect in OS X */
-  height: 100%;
-  width: 100%;
+	/* Prevent WebView bounce effect in OS X */
+	height: 100%;
+	width: 100%;
 }
 
 /* Prevent text selection */
 body {
-  -webkit-user-select: none;
-  -webkit-overflow-scrolling: touch;
+	-webkit-user-select: none;
+	-webkit-overflow-scrolling: touch;
 }
 
 /* Prevent blue outline */
@@ -52,15 +52,15 @@ a:focus,
 input:focus,
 button:focus,
 [tabindex]:focus,
-input[type="checkbox"] + div {
-  outline: none !important;
-  box-shadow: none !important;
+input[type='checkbox'] + div {
+	outline: none !important;
+	box-shadow: none !important;
 }
 
 .disabled {
-  opacity: 0.4;
+	opacity: 0.4;
 }
 
 #rendition-tooltip-root > div {
-  font-family: "SourceSansPro", sans-serif;
+	font-family: 'SourceSansPro', sans-serif;
 }
