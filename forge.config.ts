@@ -52,7 +52,9 @@ const config: ForgeConfig = {
 		},
 		...osxSigningConfig,
 	},
-	rebuildConfig: {},
+	rebuildConfig: {
+		onlyModules: [], // prevent rebuilding *any* native modules as they won't be used by electron but by the sidecar
+	},
 	makers: [
 		new MakerZIP(),
 		new MakerSquirrel({
