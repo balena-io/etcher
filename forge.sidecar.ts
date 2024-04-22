@@ -90,7 +90,7 @@ function build(
 				// always build for host platform and node version
 				// https://github.com/vercel/pkg-fetch/releases
 				'--target',
-				`node18-${arch}`,
+				`node20-${arch}`,
 				'--output',
 				binPath,
 			],
