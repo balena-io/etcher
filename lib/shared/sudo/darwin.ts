@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import { execFile } from 'child_process';
+import { spawn } from 'child_process';
 import { join } from 'path';
 import { env } from 'process';
-import { promisify } from 'util';
+// import { promisify } from "util";
 
 import { supportedLocales } from '../../gui/app/i18n';
 
-const execFileAsync = promisify(execFile);
+// const execFileAsync = promisify(execFile);
 
 const SUCCESSFUL_AUTH_MARKER = 'AUTHENTICATION SUCCEEDED';
 const EXPECTED_SUCCESSFUL_AUTH_MARKER = `${SUCCESSFUL_AUTH_MARKER}\n`;
@@ -48,22 +48,48 @@ export async function sudo(
 			lang = 'en';
 		}
 
-		const { stdout, stderr } = await execFileAsync(
+		const elevateProcess = spawn(
 			'sudo',
 			['--askpass', 'sh', '-c', `echo ${SUCCESSFUL_AUTH_MARKER} && ${command}`],
 			{
-				encoding: 'utf8',
+				// encoding: "utf8",
 				env: {
 					PATH: env.PATH,
 					SUDO_ASKPASS: getAskPassScriptPath(lang),
 				},
 			},
 		);
-		return {
-			cancelled: false,
-			stdout: stdout.slice(EXPECTED_SUCCESSFUL_AUTH_MARKER.length),
-			stderr,
-		};
+
+		let elevated = 'pending';
+
+		elevateProcess.stdout.on('data', (data) => {
+			if (data.toString().includes(SUCCESSFUL_AUTH_MARKER)) {
+				// if the first data comming out of the sudo command is the expected marker we resolve the promise
+				elevated = 'granted';
+			} else {
+				// if the first data comming out of the sudo command is not the expected marker we reject the promise
+				elevated = 'rejected';
+			}
+		});
+
+		// we don't spawn or read stdout in the promise otherwise resolving stop the process
+		return new Promise((resolve, reject) => {
+			const checkElevation = setInterval(() => {
+				if (elevated === 'granted') {
+					clearInterval(checkElevation);
+					resolve({ cancelled: false });
+				} else if (elevated === 'rejected') {
+					clearInterval(checkElevation);
+					resolve({ cancelled: true });
+				}
+			}, 300);
+
+			// if the elevation didn't occured in 30 seconds we reject the promise
+			setTimeout(() => {
+				clearInterval(checkElevation);
+				reject(new Error('Elevation timeout'));
+			}, 30000);
+		});
 	} catch (error: any) {
 		if (error.code === 1) {
 			if (!error.stdout.startsWith(EXPECTED_SUCCESSFUL_AUTH_MARKER)) {

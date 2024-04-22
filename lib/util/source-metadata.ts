@@ -68,7 +68,8 @@ async function getSourceMetadata(
 	selected: string | DrivelistDrive,
 	SourceType: Source,
 	auth?: Authentication,
-) {
+): Promise<SourceMetadata | Record<string, never>> {
+	// `Record<string, never>` means an empty object
 	if (isString(selected)) {
 		const source = await createSource(selected, SourceType, auth);
 
@@ -80,13 +81,12 @@ async function getSourceMetadata(
 			return metadata;
 		} catch (error: any) {
 			// TODO: handle error
+			return {};
 		} finally {
-			try {
-				await source.close();
-			} catch (error: any) {
-				// Noop
-			}
+			await source.close();
 		}
+	} else {
+		return {};
 	}
 }
 

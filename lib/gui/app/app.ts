@@ -31,7 +31,7 @@ import * as flashState from './models/flash-state';
 import * as settings from './models/settings';
 import { Actions, observe, store } from './models/store';
 import * as analytics from './modules/analytics';
-import { startApiAndSpawnChild } from './modules/api';
+import { spawnChildAndConnect } from './modules/api';
 import * as exceptionReporter from './modules/exception-reporter';
 import * as osDialog from './os/dialog';
 import * as windowProgress from './os/window-progress';
@@ -139,11 +139,11 @@ function setDrives(drives: Dictionary<DrivelistDrive>) {
 export let requestMetadata: any;
 
 // start the api and spawn the child process
-startApiAndSpawnChild({
+spawnChildAndConnect({
 	withPrivileges: false,
 }).then(({ emit, registerHandler }) => {
 	// start scanning
-	emit('scan');
+	emit('scan', {});
 
 	// make the sourceMetada awaitable to be used on source selection
 	requestMetadata = async (params: any): Promise<SourceMetadata> => {

@@ -146,7 +146,7 @@ export async function cleanup(until: number) {
  * @param {Boolean} autoBlockmapping - whether to trim ext partitions before writing
  * @param {Function} onProgress - function to call on progress
  * @param {Function} onFail - function to call on fail
- * @returns {Promise<{ bytesWritten, devices, errors} >}
+ * @returns {Promise<{ bytesWritten, devices, errors }>}
  */
 async function writeAndValidate({
 	source,
