@@ -1,4 +1,14 @@
 - commits:
+    - subject: "patch: prevent rebuild of native deps by @electron/rebuild"
+      hash: 003abfb88f2c7bff0ee291828f3815c738340afa
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.9
+  title: ""
+  date: 2024-04-22T10:20:10.534Z
+- commits:
     - subject: "patch: replace deprecated pkg with yao-pkg and bump etcher-util node v
         to 20.10"
       hash: c696c389c9988c75ad9ccc472bdac7edefe762ed
