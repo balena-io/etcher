@@ -17,7 +17,8 @@
 import * as remote from '@electron/remote';
 
 import { percentageToFloat } from '../../../shared/utils';
-import { FlashState, titleFromFlashState } from '../modules/progress-status';
+import type { FlashState } from '../modules/progress-status';
+import { titleFromFlashState } from '../modules/progress-status';
 
 /**
  * @summary The title of the main window upon program launch

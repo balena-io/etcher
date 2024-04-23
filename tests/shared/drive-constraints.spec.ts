@@ -17,7 +17,7 @@
 import { expect } from 'chai';
 import { sourceDestination } from 'etcher-sdk';
 import * as path from 'path';
-import { SourceMetadata } from '../../lib/gui/app/components/source-selector/source-selector';
+import type { SourceMetadata } from '../../lib/gui/app/components/source-selector/source-selector';
 
 import * as constraints from '../../lib/shared/drive-constraints';
 import * as messages from '../../lib/shared/messages';

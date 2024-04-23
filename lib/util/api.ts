@@ -14,19 +14,34 @@
  * limitations under the License.
  */
 
+<<<<<<< ours
 import * as ipc from 'node-ipc';
 import { Dictionary, values } from 'lodash';
+=======
+import { WebSocketServer } from 'ws';
+import type { Dictionary } from 'lodash';
+import { values } from 'lodash';
+>>>>>>> theirs
 
 import type { MultiDestinationProgress } from 'etcher-sdk/build/multi-write';
 
 import { toJSON } from '../shared/errors';
 import { GENERAL_ERROR, SUCCESS } from '../shared/exit-codes';
+<<<<<<< ours
 import { delay } from '../shared/utils';
 import { WriteOptions } from './types/types';
 import { write, cleanup } from './child-writer';
 import { startScanning } from './scanner';
 import { getSourceMetadata } from './source-metadata';
 import { DrivelistDrive } from '../shared/drive-constraints';
+=======
+import type { WriteOptions } from './types/types';
+import { write, cleanup } from './child-writer';
+import { startScanning } from './scanner';
+import { getSourceMetadata } from './source-metadata';
+import type { DrivelistDrive } from '../shared/drive-constraints';
+import type { SourceMetadata } from '../shared/typings/source-selector';
+>>>>>>> theirs
 
 ipc.config.id = process.env.IPC_CLIENT_ID as string;
 ipc.config.socketRoot = process.env.IPC_SOCKET_ROOT as string;

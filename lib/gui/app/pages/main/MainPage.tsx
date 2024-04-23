@@ -27,7 +27,7 @@ import FinishPage from '../../components/finish/finish';
 import { ReducedFlashingInfos } from '../../components/reduced-flashing-infos/reduced-flashing-infos';
 import { SettingsModal } from '../../components/settings/settings';
 import { SourceSelector } from '../../components/source-selector/source-selector';
-import { SourceMetadata } from '../../../../shared/typings/source-selector';
+import type { SourceMetadata } from '../../../../shared/typings/source-selector';
 import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
 import * as settings from '../../models/settings';

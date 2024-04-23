@@ -15,12 +15,17 @@
  */
 
 import { expect } from 'chai';
-import { Drive as DrivelistDrive } from 'drivelist';
+import type { Drive as DrivelistDrive } from 'drivelist';
 import { sourceDestination } from 'etcher-sdk';
+<<<<<<< ours
 import * as ipc from 'node-ipc';
 import { assert, SinonStub, stub } from 'sinon';
+=======
+import type { SinonStub } from 'sinon';
+import { assert, stub } from 'sinon';
+>>>>>>> theirs
 
-import { SourceMetadata } from '../../../lib/gui/app/components/source-selector/source-selector';
+import type { SourceMetadata } from '../../../lib/gui/app/components/source-selector/source-selector';
 import * as flashState from '../../../lib/gui/app/models/flash-state';
 import * as imageWriter from '../../../lib/gui/app/modules/image-writer';
 

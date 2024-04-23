@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { Drive as DrivelistDrive } from 'drivelist';
-import * as sdk from 'etcher-sdk';
-import { Dictionary } from 'lodash';
+import type { Drive as DrivelistDrive } from 'drivelist';
+import type * as sdk from 'etcher-sdk';
+import type { Dictionary } from 'lodash';
 import * as errors from '../../../shared/errors';
-import { SourceMetadata } from '../../../shared/typings/source-selector';
+import type { SourceMetadata } from '../../../shared/typings/source-selector';
 import * as flashState from '../models/flash-state';
 import * as selectionState from '../models/selection-state';
 import * as settings from '../models/settings';
