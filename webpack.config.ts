@@ -15,6 +15,7 @@
  */
 
 import type { Configuration, ModuleOptions } from 'webpack';
+import { resolve } from 'path';
 
 import {
 	BannerPlugin,
@@ -112,8 +113,13 @@ export const rendererConfig: Configuration = {
 			raw: true,
 		}),
 	],
+
 	resolve: {
 		extensions: ['.js', '.ts', '.jsx', '.tsx', '.css'],
+		alias: {
+			// need to alias ws to the wrapper to avoid the browser fake version to be used
+			ws: resolve(__dirname, 'node_modules/ws/wrapper.mjs'),
+		},
 	},
 };
 

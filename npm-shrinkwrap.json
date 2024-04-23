@@ -9,20 +9,20 @@
       "version": "1.19.9",
       "license": "Apache-2.0",
       "dependencies": {
-        "@balena/sudo-prompt": "9.2.1-workaround-windows-amperstand-in-username-0849e215b947987a643fe5763902aea201255534",
         "@electron/remote": "^2.1.0",
         "@fortawesome/fontawesome-free": "6.5.1",
+        "@ronomon/direct-io": "^3.0.1",
         "@sentry/electron": "^4.15.1",
         "analytics-client": "^2.0.1",
         "axios": "^1.6.0",
         "debug": "4.3.4",
+        "drivelist": "^12.0.2",
         "electron-squirrel-startup": "^1.0.0",
         "electron-updater": "6.1.7",
-        "etcher-sdk": "9.0.0",
+        "etcher-sdk": "9.0.7",
         "i18next": "23.7.8",
         "immutable": "3.8.2",
         "lodash": "4.17.21",
-        "node-ipc": "9.2.1",
         "outdent": "0.8.0",
         "path-is-inside": "1.0.2",
         "pretty-bytes": "5.6.0",
@@ -34,7 +34,8 @@
         "semver": "7.5.4",
         "styled-components": "5.3.6",
         "sys-class-rgb-led": "3.0.1",
-        "uuid": "9.0.1"
+        "uuid": "9.0.1",
+        "ws": "^8.16.0"
       },
       "devDependencies": {
         "@balena/lint": "7.2.4",
@@ -53,7 +54,6 @@
         "@types/mime-types": "2.1.4",
         "@types/mocha": "^10.0.6",
         "@types/node": "^20.11.6",
-        "@types/node-ipc": "9.2.3",
         "@types/react": "17.0.2",
         "@types/react-dom": "17.0.2",
         "@types/semver": "7.5.6",
@@ -83,7 +83,11 @@
         "xvfb-maybe": "^0.2.1"
       },
       "engines": {
-        "node": ">=18 <20"
+        "node": ">=20 <21"
+      },
+      "optionalDependencies": {
+        "bufferutil": "^4.0.8",
+        "utf-8-validate": "^5.0.10"
       }
     },
     "node_modules/@aashutoshrathi/word-wrap": {
@@ -2608,10 +2612,6 @@
         "node": ">=16"
       }
     },
-    "node_modules/@balena/sudo-prompt": {
-      "version": "9.2.1-workaround-windows-amperstand-in-username-0849e215b947987a643fe5763902aea201255534",
-      "license": "MIT"
-    },
     "node_modules/@balena/udif": {
       "version": "1.1.2",
       "license": "MIT",
@@ -5101,8 +5101,9 @@
     },
     "node_modules/@ronomon/direct-io": {
       "version": "3.0.1",
+      "resolved": "https://registry.npmjs.org/@ronomon/direct-io/-/direct-io-3.0.1.tgz",
+      "integrity": "sha512-NkKB32bjq7RfMdAMiWayphMlVWzsfPiKelK+btXLqggv1vDVgv2xELqeo0z4uYLLt86fVReLPxQj7qpg0zWvow==",
       "hasInstallScript": true,
-      "license": "MIT",
       "dependencies": {
         "@ronomon/queue": "^3.0.1"
       }
@@ -6378,14 +6379,6 @@
       "integrity": "sha512-+EOokTnksGVgip2PbYbr3xnR7kZigh4LbybAfBAw5BpnQ+FqBYUsvCEjYd70IXKlbohQ64mzEYmMtlWUY8q//Q==",
       "dependencies": {
         "undici-types": "~5.26.4"
-      }
-    },
-    "node_modules/@types/node-ipc": {
-      "version": "9.2.3",
-      "dev": true,
-      "license": "MIT",
-      "dependencies": {
-        "@types/node": "*"
       }
     },
     "node_modules/@types/parse-json": {
@@ -8505,6 +8498,19 @@
         "node": ">=0.2.0"
       }
     },
+    "node_modules/bufferutil": {
+      "version": "4.0.8",
+      "resolved": "https://registry.npmjs.org/bufferutil/-/bufferutil-4.0.8.tgz",
+      "integrity": "sha512-4T53u4PdgsXqKaIctwF8ifXlRTTmEPJ8iEPWFdGZvcf7sbwYo6FKFEX9eNNAnzFZ7EzJAQ3CJeOtCRA4rDp7Pw==",
+      "hasInstallScript": true,
+      "optional": true,
+      "dependencies": {
+        "node-gyp-build": "^4.3.0"
+      },
+      "engines": {
+        "node": ">=6.14.2"
+      }
+    },
     "node_modules/builder-util-runtime": {
       "version": "9.2.3",
       "license": "MIT",
@@ -10360,17 +10366,26 @@
       }
     },
     "node_modules/drivelist": {
-      "version": "11.1.0",
+      "version": "12.0.2",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-12.0.2.tgz",
+      "integrity": "sha512-Nps4pc1ukIqDj7v00wGgBkS7P3VVEZZKcaTPVcE1Yl+dLojXuEv76BuSg6HgmhjeOFIIMz8q7Y+2tux6gYqCvg==",
       "hasInstallScript": true,
-      "license": "Apache-2.0",
       "dependencies": {
         "bindings": "^1.5.0",
         "debug": "^4.3.4",
-        "node-addon-api": "^5.0.0",
+        "node-addon-api": "^8.0.0",
         "prebuild-install": "^7.1.1"
       },
       "engines": {
-        "node": ">=16 < 19"
+        "node": ">=18"
+      }
+    },
+    "node_modules/drivelist/node_modules/node-addon-api": {
+      "version": "8.0.0",
+      "resolved": "https://registry.npmjs.org/node-addon-api/-/node-addon-api-8.0.0.tgz",
+      "integrity": "sha512-ipO7rsHEBqa9STO5C5T10fj732ml+5kLN1cAG8/jdHd56ldQeGj3Q7+scUS+VHK/qy1zLEwC4wMK5+yM0btPvw==",
+      "engines": {
+        "node": "^18 || ^20 || >= 21"
       }
     },
     "node_modules/ds-store": {
@@ -10391,13 +10406,6 @@
     "node_modules/eastasianwidth": {
       "version": "0.2.0",
       "license": "MIT"
-    },
-    "node_modules/easy-stack": {
-      "version": "1.0.1",
-      "license": "MIT",
-      "engines": {
-        "node": ">=6.0.0"
-      }
     },
     "node_modules/easymde": {
       "version": "2.18.0",
@@ -11674,8 +11682,9 @@
       }
     },
     "node_modules/etcher-sdk": {
-      "version": "9.0.0",
-      "license": "Apache-2.0",
+      "version": "9.0.7",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-9.0.7.tgz",
+      "integrity": "sha512-RyTYtZXk2hTg9ZjVu9h6yQ5qFgGD7EraO+BhAElKWP9v0CKScHoVHLL0cWcoqWUBGecriqgu26XMrC3r0obexA==",
       "dependencies": {
         "@balena/node-beaglebone-usbboot": "^3.0.0",
         "@balena/udif": "^1.1.2",
@@ -11687,7 +11696,7 @@
         "check-disk-space": "^3.4.0",
         "cyclic-32": "^1.1.0",
         "debug": "^4.3.4",
-        "drivelist": "^11.1.0",
+        "drivelist": "^11.2.0",
         "file-disk": "^8.0.1",
         "file-type": "^16.0.0",
         "glob": "^10.3.10",
@@ -11718,6 +11727,21 @@
       "license": "MIT",
       "dependencies": {
         "balanced-match": "^1.0.0"
+      }
+    },
+    "node_modules/etcher-sdk/node_modules/drivelist": {
+      "version": "11.2.2",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-11.2.2.tgz",
+      "integrity": "sha512-shzkC4h3Q6sVkF9v9lbT1j49LN47O7h0GJk9E4VtJe81Xp6GF1O36gpnWpqRL6VvFya086eu4XcBEOwSXHHjeQ==",
+      "hasInstallScript": true,
+      "dependencies": {
+        "bindings": "^1.5.0",
+        "debug": "^4.3.4",
+        "node-addon-api": "^5.0.0",
+        "prebuild-install": "^7.1.1"
+      },
+      "engines": {
+        "node": ">=16"
       }
     },
     "node_modules/etcher-sdk/node_modules/glob": {
@@ -11759,13 +11783,6 @@
       "dependencies": {
         "d": "1",
         "es5-ext": "~0.10.14"
-      }
-    },
-    "node_modules/event-pubsub": {
-      "version": "4.3.0",
-      "license": "Unlicense",
-      "engines": {
-        "node": ">=4.0.0"
       }
     },
     "node_modules/eventemitter3": {
@@ -12527,6 +12544,7 @@
     "node_modules/fs-xattr": {
       "version": "0.3.1",
       "dev": true,
+      "hasInstallScript": true,
       "license": "MIT",
       "optional": true,
       "os": [
@@ -14672,23 +14690,6 @@
         "node": ">=14"
       }
     },
-    "node_modules/js-message": {
-      "version": "1.0.7",
-      "license": "MIT",
-      "engines": {
-        "node": ">=0.6.0"
-      }
-    },
-    "node_modules/js-queue": {
-      "version": "2.0.2",
-      "license": "MIT",
-      "dependencies": {
-        "easy-stack": "^1.0.1"
-      },
-      "engines": {
-        "node": ">=1.0.0"
-      }
-    },
     "node_modules/js-tokens": {
       "version": "4.0.0",
       "license": "MIT"
@@ -15937,6 +15938,7 @@
     "node_modules/macos-alias": {
       "version": "0.2.11",
       "dev": true,
+      "hasInstallScript": true,
       "license": "MIT",
       "optional": true,
       "os": [
@@ -17622,18 +17624,6 @@
         "node-gyp-build": "bin.js",
         "node-gyp-build-optional": "optional.js",
         "node-gyp-build-test": "build-test.js"
-      }
-    },
-    "node_modules/node-ipc": {
-      "version": "9.2.1",
-      "license": "MIT",
-      "dependencies": {
-        "event-pubsub": "4.3.0",
-        "js-message": "1.0.7",
-        "js-queue": "2.0.2"
-      },
-      "engines": {
-        "node": ">=8.0.0"
       }
     },
     "node_modules/node-loader": {
@@ -22552,6 +22542,19 @@
         "which": "bin/which"
       }
     },
+    "node_modules/utf-8-validate": {
+      "version": "5.0.10",
+      "resolved": "https://registry.npmjs.org/utf-8-validate/-/utf-8-validate-5.0.10.tgz",
+      "integrity": "sha512-Z6czzLq4u8fPOyx7TU6X3dvUZVvoJmxSQ+IcrlmagKhilxlhZgxPK6C5Jqbkw1IDUmFTM+cz9QDnnLTwDz/2gQ==",
+      "hasInstallScript": true,
+      "optional": true,
+      "dependencies": {
+        "node-gyp-build": "^4.3.0"
+      },
+      "engines": {
+        "node": ">=6.14.2"
+      }
+    },
     "node_modules/util-deprecate": {
       "version": "1.0.2",
       "license": "MIT"
@@ -23265,9 +23268,9 @@
       }
     },
     "node_modules/ws": {
-      "version": "8.13.0",
-      "dev": true,
-      "license": "MIT",
+      "version": "8.16.0",
+      "resolved": "https://registry.npmjs.org/ws/-/ws-8.16.0.tgz",
+      "integrity": "sha512-HS0c//TP7Ina87TfiPUz1rQzMhHrl/SG2guqRcTOIUYD2q8uhUdNHZYJUaQ8aTGPzCh+c6oawMKW35nFl1dxyQ==",
       "engines": {
         "node": ">=10.0.0"
       },
@@ -25227,9 +25230,6 @@
     "@balena/node-crc-utils": {
       "version": "3.0.0"
     },
-    "@balena/sudo-prompt": {
-      "version": "9.2.1-workaround-windows-amperstand-in-username-0849e215b947987a643fe5763902aea201255534"
-    },
     "@balena/udif": {
       "version": "1.1.2",
       "requires": {
@@ -26862,6 +26862,8 @@
     },
     "@ronomon/direct-io": {
       "version": "3.0.1",
+      "resolved": "https://registry.npmjs.org/@ronomon/direct-io/-/direct-io-3.0.1.tgz",
+      "integrity": "sha512-NkKB32bjq7RfMdAMiWayphMlVWzsfPiKelK+btXLqggv1vDVgv2xELqeo0z4uYLLt86fVReLPxQj7qpg0zWvow==",
       "requires": {
         "@ronomon/queue": "^3.0.1"
       }
@@ -27717,13 +27719,6 @@
       "integrity": "sha512-+EOokTnksGVgip2PbYbr3xnR7kZigh4LbybAfBAw5BpnQ+FqBYUsvCEjYd70IXKlbohQ64mzEYmMtlWUY8q//Q==",
       "requires": {
         "undici-types": "~5.26.4"
-      }
-    },
-    "@types/node-ipc": {
-      "version": "9.2.3",
-      "dev": true,
-      "requires": {
-        "@types/node": "*"
       }
     },
     "@types/parse-json": {
@@ -29211,6 +29206,15 @@
     "buffers": {
       "version": "0.1.1"
     },
+    "bufferutil": {
+      "version": "4.0.8",
+      "resolved": "https://registry.npmjs.org/bufferutil/-/bufferutil-4.0.8.tgz",
+      "integrity": "sha512-4T53u4PdgsXqKaIctwF8ifXlRTTmEPJ8iEPWFdGZvcf7sbwYo6FKFEX9eNNAnzFZ7EzJAQ3CJeOtCRA4rDp7Pw==",
+      "optional": true,
+      "requires": {
+        "node-gyp-build": "^4.3.0"
+      }
+    },
     "builder-util-runtime": {
       "version": "9.2.3",
       "requires": {
@@ -30399,12 +30403,21 @@
       "version": "5.0.1"
     },
     "drivelist": {
-      "version": "11.1.0",
+      "version": "12.0.2",
+      "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-12.0.2.tgz",
+      "integrity": "sha512-Nps4pc1ukIqDj7v00wGgBkS7P3VVEZZKcaTPVcE1Yl+dLojXuEv76BuSg6HgmhjeOFIIMz8q7Y+2tux6gYqCvg==",
       "requires": {
         "bindings": "^1.5.0",
         "debug": "^4.3.4",
-        "node-addon-api": "^5.0.0",
+        "node-addon-api": "^8.0.0",
         "prebuild-install": "^7.1.1"
+      },
+      "dependencies": {
+        "node-addon-api": {
+          "version": "8.0.0",
+          "resolved": "https://registry.npmjs.org/node-addon-api/-/node-addon-api-8.0.0.tgz",
+          "integrity": "sha512-ipO7rsHEBqa9STO5C5T10fj732ml+5kLN1cAG8/jdHd56ldQeGj3Q7+scUS+VHK/qy1zLEwC4wMK5+yM0btPvw=="
+        }
       }
     },
     "ds-store": {
@@ -30422,9 +30435,6 @@
     },
     "eastasianwidth": {
       "version": "0.2.0"
-    },
-    "easy-stack": {
-      "version": "1.0.1"
     },
     "easymde": {
       "version": "2.18.0",
@@ -31348,7 +31358,9 @@
       "dev": true
     },
     "etcher-sdk": {
-      "version": "9.0.0",
+      "version": "9.0.7",
+      "resolved": "https://registry.npmjs.org/etcher-sdk/-/etcher-sdk-9.0.7.tgz",
+      "integrity": "sha512-RyTYtZXk2hTg9ZjVu9h6yQ5qFgGD7EraO+BhAElKWP9v0CKScHoVHLL0cWcoqWUBGecriqgu26XMrC3r0obexA==",
       "requires": {
         "@balena/node-beaglebone-usbboot": "^3.0.0",
         "@balena/udif": "^1.1.2",
@@ -31360,7 +31372,7 @@
         "check-disk-space": "^3.4.0",
         "cyclic-32": "^1.1.0",
         "debug": "^4.3.4",
-        "drivelist": "^11.1.0",
+        "drivelist": "^11.2.0",
         "file-disk": "^8.0.1",
         "file-type": "^16.0.0",
         "glob": "^10.3.10",
@@ -31387,6 +31399,17 @@
             "balanced-match": "^1.0.0"
           }
         },
+        "drivelist": {
+          "version": "11.2.2",
+          "resolved": "https://registry.npmjs.org/drivelist/-/drivelist-11.2.2.tgz",
+          "integrity": "sha512-shzkC4h3Q6sVkF9v9lbT1j49LN47O7h0GJk9E4VtJe81Xp6GF1O36gpnWpqRL6VvFya086eu4XcBEOwSXHHjeQ==",
+          "requires": {
+            "bindings": "^1.5.0",
+            "debug": "^4.3.4",
+            "node-addon-api": "^5.0.0",
+            "prebuild-install": "^7.1.1"
+          }
+        },
         "glob": {
           "version": "10.3.10",
           "requires": {
@@ -31411,9 +31434,6 @@
         "d": "1",
         "es5-ext": "~0.10.14"
       }
-    },
-    "event-pubsub": {
-      "version": "4.3.0"
     },
     "eventemitter3": {
       "version": "4.0.7",
@@ -33198,15 +33218,6 @@
     },
     "js-cookie": {
       "version": "3.0.5"
-    },
-    "js-message": {
-      "version": "1.0.7"
-    },
-    "js-queue": {
-      "version": "2.0.2",
-      "requires": {
-        "easy-stack": "^1.0.1"
-      }
     },
     "js-tokens": {
       "version": "4.0.0"
@@ -35156,14 +35167,6 @@
     },
     "node-gyp-build": {
       "version": "4.6.1"
-    },
-    "node-ipc": {
-      "version": "9.2.1",
-      "requires": {
-        "event-pubsub": "4.3.0",
-        "js-message": "1.0.7",
-        "js-queue": "2.0.2"
-      }
     },
     "node-loader": {
       "version": "2.0.0",
@@ -38320,6 +38323,15 @@
         }
       }
     },
+    "utf-8-validate": {
+      "version": "5.0.10",
+      "resolved": "https://registry.npmjs.org/utf-8-validate/-/utf-8-validate-5.0.10.tgz",
+      "integrity": "sha512-Z6czzLq4u8fPOyx7TU6X3dvUZVvoJmxSQ+IcrlmagKhilxlhZgxPK6C5Jqbkw1IDUmFTM+cz9QDnnLTwDz/2gQ==",
+      "optional": true,
+      "requires": {
+        "node-gyp-build": "^4.3.0"
+      }
+    },
     "util-deprecate": {
       "version": "1.0.2"
     },
@@ -38798,8 +38810,9 @@
       }
     },
     "ws": {
-      "version": "8.13.0",
-      "dev": true,
+      "version": "8.16.0",
+      "resolved": "https://registry.npmjs.org/ws/-/ws-8.16.0.tgz",
+      "integrity": "sha512-HS0c//TP7Ina87TfiPUz1rQzMhHrl/SG2guqRcTOIUYD2q8uhUdNHZYJUaQ8aTGPzCh+c6oawMKW35nFl1dxyQ==",
       "requires": {}
     },
     "xdg-basedir": {

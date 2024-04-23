@@ -17,7 +17,6 @@
 import { expect } from 'chai';
 import { Drive as DrivelistDrive } from 'drivelist';
 import { sourceDestination } from 'etcher-sdk';
-import * as ipc from 'node-ipc';
 import { assert, SinonStub, stub } from 'sinon';
 
 import { SourceMetadata } from '../../../lib/gui/app/components/source-selector/source-selector';
@@ -138,13 +137,6 @@ describe('Browser: imageWriter', () => {
 					expect(error.message).to.equal('write error');
 				}
 			});
-		});
-	});
-
-	describe('.performWrite()', function () {
-		it('should set the ipc config to silent', function () {
-			// Reset this value as it can persist from other tests
-			expect(ipc.config.silent).to.be.true;
 		});
 	});
 });
