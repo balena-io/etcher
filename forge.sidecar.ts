@@ -1,5 +1,5 @@
 import { PluginBase } from '@electron-forge/plugin-base';
-import {
+import type {
 	ForgeHookMap,
 	ResolvedForgeConfig,
 } from '@electron-forge/shared-types';

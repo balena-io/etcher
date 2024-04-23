@@ -24,7 +24,8 @@ import * as settings from '../../models/settings';
 import { Actions, store } from '../../models/store';
 import * as analytics from '../../modules/analytics';
 import { FlashAnother } from '../flash-another/flash-another';
-import { FlashResults, FlashError } from '../flash-results/flash-results';
+import type { FlashError } from '../flash-results/flash-results';
+import { FlashResults } from '../flash-results/flash-results';
 import { SafeWebview } from '../safe-webview/safe-webview';
 
 function restart(goToMain: () => void) {

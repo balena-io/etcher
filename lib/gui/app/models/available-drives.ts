@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { DrivelistDrive } from '../../../shared/drive-constraints';
+import type { DrivelistDrive } from '../../../shared/drive-constraints';
 import { Actions, store } from './store';
 
 export function hasAvailableDrives() {

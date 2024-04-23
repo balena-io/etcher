@@ -1,8 +1,9 @@
 import { scanner as driveScanner } from './drive-scanner';
 import * as sdk from 'etcher-sdk';
-import { DrivelistDrive } from '../shared/drive-constraints';
+import type { DrivelistDrive } from '../shared/drive-constraints';
 import outdent from 'outdent';
-import { Dictionary, values, keyBy, padStart } from 'lodash';
+import type { Dictionary } from 'lodash';
+import { values, keyBy, padStart } from 'lodash';
 import { emitDrives } from './api';
 
 let availableDrives: DrivelistDrive[] = [];

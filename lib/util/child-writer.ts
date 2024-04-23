@@ -16,26 +16,24 @@
  * This file handles the writer process.
  */
 
-import {
+import type {
 	OnProgressFunction,
 	OnFailFunction,
+	MultiDestinationProgress,
+} from 'etcher-sdk/build/multi-write';
+import {
 	decompressThenFlash,
 	DECOMPRESSED_IMAGE_PREFIX,
-	MultiDestinationProgress,
 } from 'etcher-sdk/build/multi-write';
 
 import { totalmem } from 'os';
 
 import { cleanupTmpFiles } from 'etcher-sdk/build/tmp';
 
-import {
-	File,
-	Http,
-	BlockDevice,
-	SourceDestination,
-} from 'etcher-sdk/build/source-destination';
+import type { SourceDestination } from 'etcher-sdk/build/source-destination';
+import { File, Http, BlockDevice } from 'etcher-sdk/build/source-destination';
 
-import { WriteResult, FlashError, WriteOptions } from './types/types';
+import type { WriteResult, FlashError, WriteOptions } from './types/types';
 
 import { isJson } from '../shared/utils';
 import { toJSON } from '../shared/errors';

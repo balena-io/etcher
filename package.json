@@ -60,7 +60,7 @@
     "ws": "^8.16.0"
   },
   "devDependencies": {
-    "@balena/lint": "7.2.4",
+    "@balena/lint": "8.0.2",
     "@electron-forge/cli": "7.2.0",
     "@electron-forge/maker-deb": "7.2.0",
     "@electron-forge/maker-dmg": "7.2.0",
