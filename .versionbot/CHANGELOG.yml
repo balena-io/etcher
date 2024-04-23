@@ -1,4 +1,34 @@
 - commits:
+    - subject: "patch: remove node-ipc and tests"
+      hash: ccc31bb9aaba8df88b2af612824d9106051e2804
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: switch api; use ws; integrate sudo-prompt - switch api roles
+        flow - use websocket instead of node-ipc - integrate; modernize;
+        simplify and deprecate sudo-prompt"
+      hash: b3e33824ed1f70719b04f18dcb7f7dd76451b7f6
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: refactor api to use a single topic"
+      hash: 6582260355fcc5280932bee771602fbfb5190619
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: set require node engine to 20"
+      hash: b1d2bdaa06bfb35f4a66d92275ca21c731d1cf8e
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.10
+  title: ""
+  date: 2024-04-23T10:28:00.127Z
+- commits:
     - subject: "patch: prevent rebuild of native deps by @electron/rebuild"
       hash: 003abfb88f2c7bff0ee291828f3815c738340afa
       body: ""

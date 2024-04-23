@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.19.10
+## (2024-04-23)
+
+* patch: remove node-ipc and tests [Edwin Joassart]
+* patch: switch api; use ws; integrate sudo-prompt - switch api roles flow - use websocket instead of node-ipc - integrate; modernize; simplify and deprecate sudo-prompt [Edwin Joassart]
+* patch: refactor api to use a single topic [Edwin Joassart]
+* patch: set require node engine to 20 [Edwin Joassart]
+
 # v1.19.9
 ## (2024-04-22)
 
