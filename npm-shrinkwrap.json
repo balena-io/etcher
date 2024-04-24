@@ -30,7 +30,7 @@
 				"react-dom": "17.0.2",
 				"react-i18next": "13.5.0",
 				"redux": "4.2.1",
-				"rendition": "35.1.2",
+				"rendition": "35.2.0",
 				"semver": "7.6.0",
 				"styled-components": "5.3.6",
 				"sys-class-rgb-led": "3.0.1",
@@ -57,7 +57,7 @@
 				"@types/react": "17.0.2",
 				"@types/react-dom": "17.0.2",
 				"@types/semver": "^7.5.8",
-				"@types/sinon": "17.0.3",
+				"@types/sinon": "^17.0.3",
 				"@types/tmp": "0.2.6",
 				"@vercel/webpack-asset-relocator-loader": "1.7.3",
 				"@yao-pkg/pkg": "^5.11.5",
@@ -9949,17 +9949,12 @@
 			}
 		},
 		"node_modules/date-fns": {
-			"version": "2.30.0",
-			"license": "MIT",
-			"dependencies": {
-				"@babel/runtime": "^7.21.0"
-			},
-			"engines": {
-				"node": ">=0.11"
-			},
+			"version": "3.6.0",
+			"resolved": "https://registry.npmjs.org/date-fns/-/date-fns-3.6.0.tgz",
+			"integrity": "sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==",
 			"funding": {
-				"type": "opencollective",
-				"url": "https://opencollective.com/date-fns"
+				"type": "github",
+				"url": "https://github.com/sponsors/kossnocorp"
 			}
 		},
 		"node_modules/debug": {
@@ -20304,8 +20299,9 @@
 			}
 		},
 		"node_modules/rendition": {
-			"version": "35.1.2",
-			"license": "Apache-2.0",
+			"version": "35.2.0",
+			"resolved": "https://registry.npmjs.org/rendition/-/rendition-35.2.0.tgz",
+			"integrity": "sha512-dQD/HINUOEuFhGvgD7A8ZE6kRjtr3HmfzUtNUjmAP+A5jQhJhFgS0EzUXCZhTajgXLls8XCnSleZVHrOLt/uLw==",
 			"dependencies": {
 				"@fortawesome/fontawesome-svg-core": "^6.1.1",
 				"@fortawesome/free-regular-svg-icons": "^6.1.1",
@@ -20330,7 +20326,7 @@
 				"color": "^3.2.1",
 				"color-hash": "^1.1.1",
 				"copy-to-clipboard": "^3.3.2",
-				"date-fns": "^2.29.3",
+				"date-fns": "^3.0.5",
 				"grommet": "~2.18.0",
 				"hast-util-sanitize": "^3.0.2",
 				"json-e": "^4.4.3",
@@ -30771,10 +30767,9 @@
 			}
 		},
 		"date-fns": {
-			"version": "2.30.0",
-			"requires": {
-				"@babel/runtime": "^7.21.0"
-			}
+			"version": "3.6.0",
+			"resolved": "https://registry.npmjs.org/date-fns/-/date-fns-3.6.0.tgz",
+			"integrity": "sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww=="
 		},
 		"debug": {
 			"version": "4.3.4",
@@ -37588,7 +37583,9 @@
 			}
 		},
 		"rendition": {
-			"version": "35.1.2",
+			"version": "35.2.0",
+			"resolved": "https://registry.npmjs.org/rendition/-/rendition-35.2.0.tgz",
+			"integrity": "sha512-dQD/HINUOEuFhGvgD7A8ZE6kRjtr3HmfzUtNUjmAP+A5jQhJhFgS0EzUXCZhTajgXLls8XCnSleZVHrOLt/uLw==",
 			"requires": {
 				"@fortawesome/fontawesome-svg-core": "^6.1.1",
 				"@fortawesome/free-regular-svg-icons": "^6.1.1",
@@ -37613,7 +37610,7 @@
 				"color": "^3.2.1",
 				"color-hash": "^1.1.1",
 				"copy-to-clipboard": "^3.3.2",
-				"date-fns": "^2.29.3",
+				"date-fns": "^3.0.5",
 				"grommet": "~2.18.0",
 				"hast-util-sanitize": "^3.0.2",
 				"json-e": "^4.4.3",
