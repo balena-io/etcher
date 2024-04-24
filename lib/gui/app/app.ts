@@ -16,14 +16,15 @@
 
 import * as electron from 'electron';
 import * as remote from '@electron/remote';
-import { debounce, capitalize, Dictionary, values } from 'lodash';
+import type { Dictionary } from 'lodash';
+import { debounce, capitalize, values } from 'lodash';
 import outdent from 'outdent';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { v4 as uuidV4 } from 'uuid';
 
 import * as packageJSON from '../../../package.json';
-import { DrivelistDrive } from '../../shared/drive-constraints';
+import type { DrivelistDrive } from '../../shared/drive-constraints';
 import * as EXIT_CODES from '../../shared/exit-codes';
 import * as messages from '../../shared/messages';
 import * as availableDrives from './models/available-drives';
@@ -38,7 +39,7 @@ import * as windowProgress from './os/window-progress';
 import MainPage from './pages/main/MainPage';
 import './css/main.css';
 import * as i18next from 'i18next';
-import { SourceMetadata } from '../../shared/typings/source-selector';
+import type { SourceMetadata } from '../../shared/typings/source-selector';
 
 window.addEventListener(
 	'unhandledrejection',

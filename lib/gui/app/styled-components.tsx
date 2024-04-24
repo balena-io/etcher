@@ -15,16 +15,18 @@
  */
 
 import * as React from 'react';
+import type {
+	FlexProps,
+	ButtonProps,
+	TableProps as BaseTableProps,
+} from 'rendition';
 import {
 	Alert as AlertBase,
 	Flex,
-	FlexProps,
 	Button,
-	ButtonProps,
 	Modal as ModalBase,
 	Provider,
 	Table as BaseTable,
-	TableProps as BaseTableProps,
 	Txt,
 } from 'rendition';
 import styled, { css } from 'styled-components';

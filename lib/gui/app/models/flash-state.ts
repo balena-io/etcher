@@ -15,9 +15,9 @@
  */
 
 import * as electron from 'electron';
-import * as sdk from 'etcher-sdk';
+import type * as sdk from 'etcher-sdk';
 import * as _ from 'lodash';
-import { DrivelistDrive } from '../../../shared/drive-constraints';
+import type { DrivelistDrive } from '../../../shared/drive-constraints';
 import { bytesToMegabytes } from '../../../shared/units';
 import { Actions, store } from './store';
 

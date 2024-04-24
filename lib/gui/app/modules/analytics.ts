@@ -15,7 +15,8 @@
  */
 
 import * as _ from 'lodash';
-import { Client, createClient, createNoopClient } from 'analytics-client';
+import type { Client } from 'analytics-client';
+import { createClient, createNoopClient } from 'analytics-client';
 import * as SentryRenderer from '@sentry/electron/renderer';
 import * as settings from '../models/settings';
 import { store } from '../models/store';

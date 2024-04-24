@@ -1,6 +1,6 @@
-import { Metadata } from 'etcher-sdk/build/source-destination';
-import { SourceMetadata } from '../../shared/typings/source-selector';
-import { Drive as DrivelistDrive } from 'drivelist';
+import type { Metadata } from 'etcher-sdk/build/source-destination';
+import type { SourceMetadata } from '../../shared/typings/source-selector';
+import type { Drive as DrivelistDrive } from 'drivelist';
 
 export interface WriteResult {
 	bytesWritten?: number;

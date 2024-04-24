@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Dictionary } from 'lodash';
+import type { Dictionary } from 'lodash';
 
 type BalenaTag = {
 	id: number;

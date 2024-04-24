@@ -17,11 +17,11 @@
 import { expect } from 'chai';
 import { File } from 'etcher-sdk/build/source-destination';
 import * as path from 'path';
-import { SourceMetadata } from '../../../lib/gui/app/components/source-selector/source-selector';
+import type { SourceMetadata } from '../../../lib/gui/app/components/source-selector/source-selector';
 
 import * as availableDrives from '../../../lib/gui/app/models/available-drives';
 import * as selectionState from '../../../lib/gui/app/models/selection-state';
-import { DrivelistDrive } from '../../../lib/shared/drive-constraints';
+import type { DrivelistDrive } from '../../../lib/shared/drive-constraints';
 
 describe('Model: selectionState', function () {
 	describe('given a clean state', function () {
