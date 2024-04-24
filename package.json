@@ -40,7 +40,7 @@
 		"debug": "4.3.4",
 		"drivelist": "^12.0.2",
 		"electron-squirrel-startup": "^1.0.0",
-		"electron-updater": "6.1.7",
+		"electron-updater": "^6.1.8",
 		"etcher-sdk": "9.0.8",
 		"i18next": "^23.11.2",
 		"immutable": "3.8.2",

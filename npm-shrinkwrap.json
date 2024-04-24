@@ -18,7 +18,7 @@
 				"debug": "4.3.4",
 				"drivelist": "^12.0.2",
 				"electron-squirrel-startup": "^1.0.0",
-				"electron-updater": "6.1.7",
+				"electron-updater": "^6.1.8",
 				"etcher-sdk": "9.0.8",
 				"i18next": "^23.11.2",
 				"immutable": "3.8.2",
@@ -10890,8 +10890,9 @@
 			"license": "ISC"
 		},
 		"node_modules/electron-updater": {
-			"version": "6.1.7",
-			"license": "MIT",
+			"version": "6.1.8",
+			"resolved": "https://registry.npmjs.org/electron-updater/-/electron-updater-6.1.8.tgz",
+			"integrity": "sha512-hhOTfaFAd6wRHAfUaBhnAOYc+ymSGCWJLtFkw4xJqOvtpHmIdNHnXDV9m1MHC+A6q08Abx4Ykgyz/R5DGKNAMQ==",
 			"dependencies": {
 				"builder-util-runtime": "9.2.3",
 				"fs-extra": "^10.1.0",
@@ -31402,7 +31403,9 @@
 			"version": "1.4.608"
 		},
 		"electron-updater": {
-			"version": "6.1.7",
+			"version": "6.1.8",
+			"resolved": "https://registry.npmjs.org/electron-updater/-/electron-updater-6.1.8.tgz",
+			"integrity": "sha512-hhOTfaFAd6wRHAfUaBhnAOYc+ymSGCWJLtFkw4xJqOvtpHmIdNHnXDV9m1MHC+A6q08Abx4Ykgyz/R5DGKNAMQ==",
 			"requires": {
 				"builder-util-runtime": "9.2.3",
 				"fs-extra": "^10.1.0",
