@@ -65,7 +65,7 @@
 				"chai": "4.3.10",
 				"css-loader": "5.2.7",
 				"electron": "30.0.1",
-				"electron-mocha": "^12.2.0",
+				"electron-mocha": "^12.3.0",
 				"file-loader": "6.2.0",
 				"husky": "8.0.3",
 				"mocha": "^10.2.0",
@@ -10886,14 +10886,14 @@
 			}
 		},
 		"node_modules/electron-mocha": {
-			"version": "12.2.0",
-			"resolved": "https://registry.npmjs.org/electron-mocha/-/electron-mocha-12.2.0.tgz",
-			"integrity": "sha512-AY2UIcASNwfi3XoFftzUJA40HoML+WDLAbPUC8XkWOLXzyG4TLAyHGPyxLm8VovWZUuP/3yi3OPzkM0xEncw/Q==",
+			"version": "12.3.0",
+			"resolved": "https://registry.npmjs.org/electron-mocha/-/electron-mocha-12.3.0.tgz",
+			"integrity": "sha512-PwAlZxe7+4aZ2ml2toC3dkAfrw5WsRo1P0P2uRYN7jLyaLQXD9VYMY22T9eI/JOhNUGaKy1dlYML429yk6/lFw==",
 			"dev": true,
 			"dependencies": {
 				"ansi-colors": "^4.1.1",
 				"electron-window": "^0.8.0",
-				"mocha": "^10.2.0",
+				"mocha": "^10.4.0",
 				"which": "^4.0.0",
 				"yargs": "^17.7.2"
 			},
@@ -17418,9 +17418,10 @@
 			"license": "MIT"
 		},
 		"node_modules/mocha": {
-			"version": "10.2.0",
+			"version": "10.4.0",
+			"resolved": "https://registry.npmjs.org/mocha/-/mocha-10.4.0.tgz",
+			"integrity": "sha512-eqhGB8JKapEYcC4ytX/xrzKforgEc3j1pGlAXVy3eRwrtAy5/nIfT1SvgGzfN0XZZxeLq0aQWkOUAmqIJiv+bA==",
 			"dev": true,
-			"license": "MIT",
 			"dependencies": {
 				"ansi-colors": "4.1.1",
 				"browser-stdout": "1.3.1",
@@ -17429,13 +17430,12 @@
 				"diff": "5.0.0",
 				"escape-string-regexp": "4.0.0",
 				"find-up": "5.0.0",
-				"glob": "7.2.0",
+				"glob": "8.1.0",
 				"he": "1.2.0",
 				"js-yaml": "4.1.0",
 				"log-symbols": "4.1.0",
 				"minimatch": "5.0.1",
 				"ms": "2.1.3",
-				"nanoid": "3.3.3",
 				"serialize-javascript": "6.0.0",
 				"strip-json-comments": "3.1.1",
 				"supports-color": "8.1.1",
@@ -17450,10 +17450,6 @@
 			},
 			"engines": {
 				"node": ">= 14.0.0"
-			},
-			"funding": {
-				"type": "opencollective",
-				"url": "https://opencollective.com/mochajs"
 			}
 		},
 		"node_modules/mocha/node_modules/ansi-colors": {
@@ -17481,33 +17477,22 @@
 			}
 		},
 		"node_modules/mocha/node_modules/glob": {
-			"version": "7.2.0",
+			"version": "8.1.0",
+			"resolved": "https://registry.npmjs.org/glob/-/glob-8.1.0.tgz",
+			"integrity": "sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==",
 			"dev": true,
-			"license": "ISC",
 			"dependencies": {
 				"fs.realpath": "^1.0.0",
 				"inflight": "^1.0.4",
 				"inherits": "2",
-				"minimatch": "^3.0.4",
-				"once": "^1.3.0",
-				"path-is-absolute": "^1.0.0"
+				"minimatch": "^5.0.1",
+				"once": "^1.3.0"
 			},
 			"engines": {
-				"node": "*"
+				"node": ">=12"
 			},
 			"funding": {
 				"url": "https://github.com/sponsors/isaacs"
-			}
-		},
-		"node_modules/mocha/node_modules/glob/node_modules/minimatch": {
-			"version": "3.1.2",
-			"dev": true,
-			"license": "ISC",
-			"dependencies": {
-				"brace-expansion": "^1.1.7"
-			},
-			"engines": {
-				"node": "*"
 			}
 		},
 		"node_modules/mocha/node_modules/has-flag": {
@@ -17999,17 +17984,6 @@
 		"node_modules/nan": {
 			"version": "2.17.0",
 			"license": "MIT"
-		},
-		"node_modules/nanoid": {
-			"version": "3.3.3",
-			"dev": true,
-			"license": "MIT",
-			"bin": {
-				"nanoid": "bin/nanoid.cjs"
-			},
-			"engines": {
-				"node": "^10 || ^12 || ^13.7 || ^14 || >=15.0.1"
-			}
 		},
 		"node_modules/napi-build-utils": {
 			"version": "1.0.2",
@@ -31555,14 +31529,14 @@
 			}
 		},
 		"electron-mocha": {
-			"version": "12.2.0",
-			"resolved": "https://registry.npmjs.org/electron-mocha/-/electron-mocha-12.2.0.tgz",
-			"integrity": "sha512-AY2UIcASNwfi3XoFftzUJA40HoML+WDLAbPUC8XkWOLXzyG4TLAyHGPyxLm8VovWZUuP/3yi3OPzkM0xEncw/Q==",
+			"version": "12.3.0",
+			"resolved": "https://registry.npmjs.org/electron-mocha/-/electron-mocha-12.3.0.tgz",
+			"integrity": "sha512-PwAlZxe7+4aZ2ml2toC3dkAfrw5WsRo1P0P2uRYN7jLyaLQXD9VYMY22T9eI/JOhNUGaKy1dlYML429yk6/lFw==",
 			"dev": true,
 			"requires": {
 				"ansi-colors": "^4.1.1",
 				"electron-window": "^0.8.0",
-				"mocha": "^10.2.0",
+				"mocha": "^10.4.0",
 				"which": "^4.0.0",
 				"yargs": "^17.7.2"
 			},
@@ -35826,7 +35800,9 @@
 			"version": "0.5.3"
 		},
 		"mocha": {
-			"version": "10.2.0",
+			"version": "10.4.0",
+			"resolved": "https://registry.npmjs.org/mocha/-/mocha-10.4.0.tgz",
+			"integrity": "sha512-eqhGB8JKapEYcC4ytX/xrzKforgEc3j1pGlAXVy3eRwrtAy5/nIfT1SvgGzfN0XZZxeLq0aQWkOUAmqIJiv+bA==",
 			"dev": true,
 			"requires": {
 				"ansi-colors": "4.1.1",
@@ -35836,13 +35812,12 @@
 				"diff": "5.0.0",
 				"escape-string-regexp": "4.0.0",
 				"find-up": "5.0.0",
-				"glob": "7.2.0",
+				"glob": "8.1.0",
 				"he": "1.2.0",
 				"js-yaml": "4.1.0",
 				"log-symbols": "4.1.0",
 				"minimatch": "5.0.1",
 				"ms": "2.1.3",
-				"nanoid": "3.3.3",
 				"serialize-javascript": "6.0.0",
 				"strip-json-comments": "3.1.1",
 				"supports-color": "8.1.1",
@@ -35865,24 +35840,16 @@
 					"dev": true
 				},
 				"glob": {
-					"version": "7.2.0",
+					"version": "8.1.0",
+					"resolved": "https://registry.npmjs.org/glob/-/glob-8.1.0.tgz",
+					"integrity": "sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==",
 					"dev": true,
 					"requires": {
 						"fs.realpath": "^1.0.0",
 						"inflight": "^1.0.4",
 						"inherits": "2",
-						"minimatch": "^3.0.4",
-						"once": "^1.3.0",
-						"path-is-absolute": "^1.0.0"
-					},
-					"dependencies": {
-						"minimatch": {
-							"version": "3.1.2",
-							"dev": true,
-							"requires": {
-								"brace-expansion": "^1.1.7"
-							}
-						}
+						"minimatch": "^5.0.1",
+						"once": "^1.3.0"
 					}
 				},
 				"has-flag": {
@@ -36238,10 +36205,6 @@
 		},
 		"nan": {
 			"version": "2.17.0"
-		},
-		"nanoid": {
-			"version": "3.3.3",
-			"dev": true
 		},
 		"napi-build-utils": {
 			"version": "1.0.2"

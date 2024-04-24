@@ -87,7 +87,7 @@
 		"chai": "4.3.10",
 		"css-loader": "5.2.7",
 		"electron": "30.0.1",
-		"electron-mocha": "^12.2.0",
+		"electron-mocha": "^12.3.0",
 		"file-loader": "6.2.0",
 		"husky": "8.0.3",
 		"mocha": "^10.2.0",
