@@ -21,7 +21,8 @@
     "test": "npm run test-gui && npm run test-shared",
     "package": "electron-forge package",
     "start": "electron-forge start",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "wdio": "wdio run ./wdio.conf.ts"
   },
   "husky": {
     "hooks": {
@@ -82,6 +83,10 @@
     "@types/sinon": "17.0.2",
     "@types/tmp": "0.2.6",
     "@vercel/webpack-asset-relocator-loader": "1.7.3",
+    "@wdio/cli": "^8.36.1",
+    "@wdio/local-runner": "^8.36.1",
+    "@wdio/mocha-framework": "^8.36.1",
+    "@wdio/spec-reporter": "^8.36.1",
     "@yao-pkg/pkg": "^5.11.1",
     "catch-uncommitted": "^2.0.0",
     "chai": "4.3.10",
@@ -102,6 +107,7 @@
     "tslib": "2.6.2",
     "typescript": "^5.3.3",
     "url-loader": "4.1.1",
+    "wdio-electron-service": "^6.4.1",
     "xvfb-maybe": "^0.2.1"
   },
   "hostDependencies": {
