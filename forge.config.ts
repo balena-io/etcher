@@ -25,8 +25,7 @@ if (process.env.NODE_ENV === 'production') {
 	};
 
 	winSigningConfig = {
-		certificateFile: process.env.WINDOWS_SIGNING_CERT_PATH,
-		certificatePassword: process.env.WINDOWS_SIGNING_PASSWORD,
+		signWithParams: `-sha1 ${process.env.SM_CODE_SIGNING_CERT_SHA1_HASH} -tr ${process.env.TIMESTAMP_SERVER} -td sha256 -fd sha256 -d balena-etcher`,
 	};
 }
 
@@ -42,8 +41,8 @@ const config: ForgeConfig = {
 		darwinDarkModeSupport: true,
 		protocols: [{ name: 'etcher', schemes: ['etcher'] }],
 		extraResource: [
-			'lib/shared/catalina-sudo/sudo-askpass.osascript-zh.js',
-			'lib/shared/catalina-sudo/sudo-askpass.osascript-en.js',
+			'lib/shared/sudo/sudo-askpass.osascript-zh.js',
+			'lib/shared/sudo/sudo-askpass.osascript-en.js',
 		],
 		osxSign: {
 			optionsForFile: () => ({
@@ -53,7 +52,9 @@ const config: ForgeConfig = {
 		},
 		...osxSigningConfig,
 	},
-	rebuildConfig: {},
+	rebuildConfig: {
+		onlyModules: [], // prevent rebuilding *any* native modules as they won't be used by electron but by the sidecar
+	},
 	makers: [
 		new MakerZIP(),
 		new MakerSquirrel({

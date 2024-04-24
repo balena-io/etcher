@@ -14,41 +14,27 @@
  * limitations under the License.
  */
 
-import * as childProcess from 'child_process';
+/**
+ * TODO:
+ * This is convoluted and needlessly complex. It should be simplified and modernized.
+ * The environment variable setting and escaping should be greatly simplified by letting {linux|catalina}-sudo handle that.
+ * We shouldn't need to write a script to a file and then execute it. We should be able to forwatd the command to the sudo code directly.
+ */
+
+import { spawn, exec } from 'child_process';
 import { withTmpFile } from 'etcher-sdk/build/tmp';
 import { promises as fs } from 'fs';
+import { promisify } from 'util';
 import * as _ from 'lodash';
 import * as os from 'os';
 import * as semver from 'semver';
-import * as sudoPrompt from '@balena/sudo-prompt';
-import { promisify } from 'util';
 
-import { sudo as catalinaSudo } from './catalina-sudo/sudo';
+import { sudo as darwinSudo } from './sudo/darwin';
+import { sudo as linuxSudo } from './sudo/linux';
+import { sudo as winSudo } from './sudo/windows';
 import * as errors from './errors';
 
-const execAsync = promisify(childProcess.exec);
-const execFileAsync = promisify(childProcess.execFile);
-
-type Std = string | Buffer | undefined;
-
-function sudoExecAsync(
-	cmd: string,
-	options: { name: string },
-): Promise<{ stdout: Std; stderr: Std }> {
-	return new Promise((resolve, reject) => {
-		sudoPrompt.exec(
-			cmd,
-			options,
-			(error: Error | undefined, stdout: Std, stderr: Std) => {
-				if (error) {
-					reject(error);
-				} else {
-					resolve({ stdout, stderr });
-				}
-			},
-		);
-	});
-}
+const execAsync = promisify(exec);
 
 /**
  * @summary The user id of the UNIX "superuser"
@@ -125,10 +111,11 @@ export function createLaunchScript(
 async function elevateScriptWindows(
 	path: string,
 	name: string,
+	env: any,
 ): Promise<{ cancelled: false }> {
 	// '&' needs to be escaped here (but not when written to a .cmd file)
 	const cmd = ['cmd', '/c', escapeParamCmd(path).replace(/&/g, '^&')].join(' ');
-	await sudoExecAsync(cmd, { name });
+	await winSudo(cmd, name, env);
 	return { cancelled: false };
 }
 
@@ -137,7 +124,7 @@ async function elevateScriptUnix(
 	name: string,
 ): Promise<{ cancelled: boolean }> {
 	const cmd = ['bash', escapeSh(path)].join(' ');
-	await sudoExecAsync(cmd, { name });
+	await linuxSudo(cmd, { name });
 	return { cancelled: false };
 }
 
@@ -146,7 +133,7 @@ async function elevateScriptCatalina(
 ): Promise<{ cancelled: boolean }> {
 	const cmd = ['bash', escapeSh(path)].join(' ');
 	try {
-		const { cancelled } = await catalinaSudo(cmd);
+		const { cancelled } = await darwinSudo(cmd);
 		return { cancelled };
 	} catch (error: any) {
 		throw errors.createError({ title: error.stderr });
@@ -156,13 +143,13 @@ async function elevateScriptCatalina(
 export async function elevateCommand(
 	command: string[],
 	options: {
-		environment: _.Dictionary<string | undefined>;
+		env: _.Dictionary<string | undefined>;
 		applicationName: string;
 	},
 ): Promise<{ cancelled: boolean }> {
 	if (await isElevated()) {
-		await execFileAsync(command[0], command.slice(1), {
-			env: options.environment,
+		spawn(command[0], command.slice(1), {
+			env: options.env,
 		});
 		return { cancelled: false };
 	}
@@ -170,7 +157,7 @@ export async function elevateCommand(
 	const launchScript = createLaunchScript(
 		command[0],
 		command.slice(1),
-		options.environment,
+		options.env,
 	);
 	return await withTmpFile(
 		{
@@ -181,7 +168,7 @@ export async function elevateCommand(
 		async ({ path }) => {
 			await fs.writeFile(path, launchScript);
 			if (isWindows) {
-				return elevateScriptWindows(path, options.applicationName);
+				return elevateScriptWindows(path, options.applicationName, options.env);
 			}
 			if (
 				os.platform() === 'darwin' &&
@@ -191,7 +178,7 @@ export async function elevateCommand(
 				return elevateScriptCatalina(path);
 			}
 			try {
-				return await elevateScriptUnix(path, options.applicationName);
+				return elevateScriptUnix(path, options.applicationName);
 			} catch (error: any) {
 				// We're hardcoding internal error messages declared by `sudo-prompt`.
 				// There doesn't seem to be a better way to handle these errors, so

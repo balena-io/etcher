@@ -1,4 +1,82 @@
 - commits:
+    - subject: "patch: remove node-ipc and tests"
+      hash: ccc31bb9aaba8df88b2af612824d9106051e2804
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: switch api; use ws; integrate sudo-prompt - switch api roles
+        flow - use websocket instead of node-ipc - integrate; modernize;
+        simplify and deprecate sudo-prompt"
+      hash: b3e33824ed1f70719b04f18dcb7f7dd76451b7f6
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: refactor api to use a single topic"
+      hash: 6582260355fcc5280932bee771602fbfb5190619
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: set require node engine to 20"
+      hash: b1d2bdaa06bfb35f4a66d92275ca21c731d1cf8e
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.10
+  title: ""
+  date: 2024-04-23T10:28:00.127Z
+- commits:
+    - subject: "patch: prevent rebuild of native deps by @electron/rebuild"
+      hash: 003abfb88f2c7bff0ee291828f3815c738340afa
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.9
+  title: ""
+  date: 2024-04-22T10:20:10.534Z
+- commits:
+    - subject: "patch: replace deprecated pkg with yao-pkg and bump etcher-util node v
+        to 20.10"
+      hash: c696c389c9988c75ad9ccc472bdac7edefe762ed
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.8
+  title: ""
+  date: 2024-04-22T09:37:37.561Z
+- commits:
+    - subject: "patch: fix formating"
+      hash: 1a9a3d2cdc5642a754b73628f4ae2636e3ffd8eb
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: configure prettier in the project to use balena-lint
+        configuration"
+      hash: faeaa58ec548e47abaf30b2498ab145e7c0c6f76
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.7
+  title: ""
+  date: 2024-04-22T06:52:18.878Z
+- commits:
+    - subject: "patch: fix win signature process"
+      hash: f629e6d53b5329cd7e8105050df042f3873a35ee
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.6
+  title: ""
+  date: 2024-04-19T15:59:28.200Z
+- commits:
     - subject: Replace deprecated flowzone input tests_run_on
       hash: bec0e50741bfeda63ca9785217576613f74ca043
       body: |
@@ -74,7 +152,8 @@
 
         - upgrade i18next to 23.7.8 & react-i18next to 11.18.6
 
-        - bump react, react-dom + related @types to 17.0.2 and rendition to 35.1.0
+        - bump react, react-dom + related @types to 17.0.2 and rendition to
+        35.1.0
 
         - fix getuid for ts
 
@@ -563,20 +642,33 @@
         step forward to upgrading to a newer Electron and Node version.
 
 
-        Updates etcher-sdk and switches the redundant aws4-axios dependency to just axios.
+        Updates etcher-sdk and switches the redundant aws4-axios dependency to
+        just axios.
 
 
-        Also changed bundler to stop trying to bundle wasm files — they must be included inline with JS code as data — and removed some now redundant code.
+        Also changed bundler to stop trying to bundle wasm files — they must be
+        included inline with JS code as data — and removed some now redundant
+        code.
 
 
         The crucial changes that enable support are:
 
 
-        1. The update to etcher-sdk@8 where some dependency fixes and updates took place
+        1. The update to etcher-sdk@8 where some dependency fixes and updates
+        took place
 
-        2. The downgrade and pinning of "electron-rebuild" to v3.2.3 until we’re able to update to Electron >= 14.2. The patch we need to avoid is https://github.com/electron/rebuild/pull/907. Also see: https://github.com/nodejs/node-gyp/issues/2673 and https://github.com/electron/rebuild/issues/913
+        2. The downgrade and pinning of "electron-rebuild" to v3.2.3 until we’re
+        able to update to Electron >= 14.2. The patch we need to avoid is
+        https://github.com/electron/rebuild/pull/907. Also see:
+        https://github.com/nodejs/node-gyp/issues/2673 and
+        https://github.com/electron/rebuild/issues/913
 
-        3. A rule in webpack.config to ignore `aws-crt` which is a dependency of (ultimately) `aws4-axios` which is used by etcher-sdk and does a runtime check to its availability. We’re not currently using the “assume role” functionality (AFAIU) of aws4-axios and we don’t care that it’s not found, so force webpack to ignore the import. See https://github.com/aws/aws-sdk-js-v3/issues/3025
+        3. A rule in webpack.config to ignore `aws-crt` which is a dependency of
+        (ultimately) `aws4-axios` which is used by etcher-sdk and does a runtime
+        check to its availability. We’re not currently using the “assume role”
+        functionality (AFAIU) of aws4-axios and we don’t care that it’s not
+        found, so force webpack to ignore the import. See
+        https://github.com/aws/aws-sdk-js-v3/issues/3025
       footer:
         Change-type: minor
         change-type: minor
@@ -856,7 +948,8 @@
       body: >
         Optimized several translations.
 
-        This commit itself is only a patch, but as a pull request must have at least one commit with a change-type.
+        This commit itself is only a patch, but as a pull request must have at
+        least one commit with a change-type.
       footer:
         Change-Type: minor
         change-type: minor
@@ -944,7 +1037,8 @@
         removed](https://github.blog/changelog/2022-08-09-github-actions-the-ubuntu-18-04-actions-runner-image-is-being-deprecated-and-will-be-removed-by-12-1-22/)
 
 
-        We cannot use `latest` as the glibc version will cause issue with older ubuntu version.
+        We cannot use `latest` as the glibc version will cause issue with older
+        ubuntu version.
       footer: {}
       author: Edwin Joassart
       nested: []
@@ -2475,7 +2569,8 @@
         reloads without reloading the whole electron app.
 
 
-        This patch also runs the development environment in development mode, which is much, much faster on builds and rebuilds.
+        This patch also runs the development environment in development mode,
+        which is much, much faster on builds and rebuilds.
       footer: {}
       author: Zane Hitchcox
       nested: []
@@ -2880,9 +2975,11 @@
                         exception
                           aborting program, because WCharToUtf8() returned NULL
                           in some cases, and NULL was being fed to string constructor.
-                        - Fixes memory leak because memory allocated with calloc()
+                        - Fixes memory leak because memory allocated with
+                        calloc()
                           in WCharToUtf8() was not being freed anywhere
-                        - Fixes undefined behavior because GetEnumeratorName() returns
+                        - Fixes undefined behavior because GetEnumeratorName()
+                        returns
                           pointer to stack memory, that goes outside of scope while
                           pointer still is being used.
 
@@ -4804,7 +4901,8 @@
 
         Although it's possible to use a PC keyboard on a Mac, it's unusual.
 
-        In any case, all of the macOS (not "Mac OS" for some years now) documentation refers to the "Opt" key.
+        In any case, all of the macOS (not "Mac OS" for some years now)
+        documentation refers to the "Opt" key.
     - hash: ea11f179542794294f773f503d83dad3a10cda56
       author: Tom
       footers:
@@ -4968,7 +5066,8 @@
         Changes the documentation to update the disktutil command which didn't
         fix my case, cause the boot partition was broken.
 
-        This way it rewrites the drive into a FAT32 partition editable in Unix/Windows.
+        This way it rewrites the drive into a FAT32 partition editable in
+        Unix/Windows.
     - hash: b3f25c176b1bdb487d1a7bf111d7f170fe008842
       author: Lorenzo Alberto Maria Ambrosi
       footers:
@@ -7668,7 +7767,8 @@
 
         performance improvement
 
-        - Make Breadcrumbs and Icon pure components to stop frequent re-rendering
+        - Make Breadcrumbs and Icon pure components to stop frequent
+        re-rendering
 
         - Initial support for array constraints
 
@@ -7799,9 +7899,11 @@
 
         the `ETCHER_EXPERIMENTAL_FILE_PICKER` environment variable. Further
 
-        customisation can be done with the `ETCHER_FILE_BROWSER_CONSTRAIN_FOLDER`
+        customisation can be done with the
+        `ETCHER_FILE_BROWSER_CONSTRAIN_FOLDER`
 
-        variable that takes a path and allows one to constrain the file-picker to
+        variable that takes a path and allows one to constrain the file-picker
+        to
 
         a folder.
     - hash: 687e0b563b0dc3619ece4ce49d353d5838a21ff6
@@ -7900,11 +8002,13 @@
 
         either in the user's home directory, or the current working directory.
 
-        In the case of the home directory, the config file is `$HOME/.config/etcher/config.json`,
+        In the case of the home directory, the config file is
+        `$HOME/.config/etcher/config.json`,
 
         while on Windows `$HOME/.etcher.json` is used.
 
-        The defined settings are merged with localStorage settings, and preceding
+        The defined settings are merged with localStorage settings, and
+        preceding
 
         configuration files.
 
@@ -8194,7 +8298,8 @@
         `_.isError()` returns `true` for anything that has a `name` and
         `message`
 
-        property, causing the check here to always keep the plain object as error.
+        property, causing the check here to always keep the plain object as
+        error.
     - hash: 355373f24df6be0989fad9429c2230166b33a3bf
       author: Jonas Hermsmeier
       footers:
@@ -8211,7 +8316,8 @@
         This fixes a ReferenceError that could occur when the DeviceNode was
         null,
 
-        as well as devices being null when run after the system recovers from sleep / standby.
+        as well as devices being null when run after the system recovers from
+        sleep / standby.
     - hash: 6e7484d3dabc2aeaa7cd471822d7019860cc4a5c
       author: Benedict Aas
       subject: "feat(GUI): display succeeded and failed devices on finish screen"
@@ -8372,7 +8478,8 @@
       body: >-
         This replaces shelling out to `diskpart` on Windows to clear
 
-        the partition table with `win-drive-clean`, which does so via DeviceIoControl.
+        the partition table with `win-drive-clean`, which does so via
+        DeviceIoControl.
     - hash: abf2dc3efcf214a68c0b0e329d57a3f66bb5d342
       author: Benedict Aas
       footers:
@@ -8479,15 +8586,18 @@
         This updates the instructions to open the Developer Tools in the issue
         template,
 
-        as the keyboard shortcuts have changed to their defaults on Linux & Windows
+        as the keyboard shortcuts have changed to their defaults on Linux &
+        Windows
 
         from [Ctrl]+[Alt]+[I] to [Ctrl]+[Shift]+[I].
 
-        Further, the editor config is updated to allow trailing spaces in Markdown
+        Further, the editor config is updated to allow trailing spaces in
+        Markdown
 
         files to add trailing spaces to the list items in the issue template, in
 
-        order to avoid people not putting whitespace in between, causing the formatting
+        order to avoid people not putting whitespace in between, causing the
+        formatting
 
         to not be parsed properly.
     - hash: 3dd646485fa34437ac3adb3caa5a594d439f1f68
@@ -8571,7 +8681,8 @@
         This replaces use of `electron.app.getName()` with the package.json's
         `.displayName`
 
-        property to ensure the correct application name is displayed when packaged.
+        property to ensure the correct application name is displayed when
+        packaged.
     - hash: cf340f48c3582f3e96f7b2dc16c11f44b7661363
       author: Jonas Hermsmeier
       footers:
@@ -8747,7 +8858,8 @@
       body: >-
         This updates `resin-cli-visuals` in order to fix drive selection in
 
-        the CLI, which was caused by incompatibility of two different `drivelist` versions
+        the CLI, which was caused by incompatibility of two different
+        `drivelist` versions
     - hash: bde1e32e29ae75ccecf7fc3bc1b03efd6e4f67b8
       author: Jonas Hermsmeier
       footers:
@@ -9048,7 +9160,8 @@
         We remove a piece of code checking whether `_.keys` returns any
         non-string
 
-        values in its array, but per the Lodash documentation `_.keys` always returns an
+        values in its array, but per the Lodash documentation `_.keys` always
+        returns an
 
         array of strings.
     - hash: 83528df18be32bfe62d3e9e4578101077769a7cf
@@ -9304,7 +9417,8 @@
       body: >-
         Due to some Windows systems missing certain C runtime libraries
 
-        (Visual C/C++ 2012 / 2015 Redistributables), we ignore errors when loading
+        (Visual C/C++ 2012 / 2015 Redistributables), we ignore errors when
+        loading
 
         this module until we can ensure distribution of those along with it.
     - hash: 21e595466d5d950d7c38b2411791f756ec6ebdca
@@ -9389,7 +9503,8 @@
       body: >-
         This updates the `postshrinkwrap` script to traverse the dependency tree
 
-        and remove all `from` fields to avoid inconsistent diffs across platforms,
+        and remove all `from` fields to avoid inconsistent diffs across
+        platforms,
 
         environments and installs when shrinkwrapping anew.
     - hash: 619051a4b0cd8995e31838f221386b9b44e6ffc8
@@ -9801,7 +9916,8 @@
         This works around the "Cannot fetch index base URL
         http://pypi.python.org/simple/"
 
-        error by installing pip==9.0.1 directly from the pypi.python.org/packages/
+        error by installing pip==9.0.1 directly from the
+        pypi.python.org/packages/
     - hash: c8b2b652354029cedceda2637bed13fee65f8587
       author: Juan Cruz Viotti
       footers:
@@ -9853,9 +9969,11 @@
 
         WARNING: Binary file: lib/blobs/usbboot/raspberrypi/bootcode.bin
 
-        WARNING: Binary file: tests/image-stream/data/unrecognized/xz-without-extension
+        WARNING: Binary file:
+        tests/image-stream/data/unrecognized/xz-without-extension
 
-        WARNING: Binary file: tests/image-stream/data/unrecognized/xz-with-invalid-extension.foo
+        WARNING: Binary file:
+        tests/image-stream/data/unrecognized/xz-with-invalid-extension.foo
 
         ```
     - hash: f4e0121639d8f2cbcc15b6577ec15d7ecbab7e71
@@ -11588,7 +11706,8 @@
 
         https://developer.apple.com/library/mac/technotes/tn2206/_index.html
 
-        > Code signing uses extended attributes to store signatures in non-Mach-O
+        > Code signing uses extended attributes to store signatures in
+        non-Mach-O
 
         > executables such as script files. If the extended attributes are lost
 
@@ -11600,7 +11719,8 @@
 
         > One way to guarantee preservation of extended attributes is by packing
 
-        > up your signed code in a read-write disk image (DMG) file before signing
+        > up your signed code in a read-write disk image (DMG) file before
+        signing
 
         > and then, after signing, converting to read-only. You probably don't
 
@@ -11670,23 +11790,32 @@
 
         Unhandled rejection TypeError: Cannot read property '0' of undefined
 
-        at Number.indexedGetter (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/call_get.js:106:15)
+        at Number.indexedGetter
+        (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/call_get.js:106:15)
 
-        at Number.tryCatcher (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/util.js:16:23)
+        at Number.tryCatcher
+        (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/util.js:16:23)
 
-        at Promise._settlePromiseFromHandler (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/promise.js:503:31)
+        at Promise._settlePromiseFromHandler
+        (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/promise.js:503:31)
 
-        at Promise._settlePromise (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/promise.js:560:18)
+        at Promise._settlePromise
+        (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/promise.js:560:18)
 
-        at Promise._settlePromise0 (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/promise.js:605:10)
+        at Promise._settlePromise0
+        (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/promise.js:605:10)
 
-        at Promise._settlePromises (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/promise.js:684:18)
+        at Promise._settlePromises
+        (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/promise.js:684:18)
 
-        at Async._drainQueue (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/async.js:126:16)
+        at Async._drainQueue
+        (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/async.js:126:16)
 
-        at Async._drainQueues (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/async.js:136:10)
+        at Async._drainQueues
+        (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/async.js:136:10)
 
-        at Immediate.Async.drainQueues [as _onImmediate] (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/async.js:16:14)
+        at Immediate.Async.drainQueues [as _onImmediate]
+        (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/async.js:16:14)
 
         at processImmediate [as _immediateCallback] (timers.js:383:17)
     - hash: 6bd086f1c5c6654a47125cf2d46788655cae2553
@@ -11702,7 +11831,8 @@
       body: >-
         From the documentation:
 
-        > `useContentSize` Boolean - The `width` and `height` would be used as web
+        > `useContentSize` Boolean - The `width` and `height` would be used as
+        web
 
         > page’s size, which means the actual window’s size will include window
 
@@ -12519,7 +12649,8 @@
 
         ]);
 
-        From https://medium.com/@kentcdodds/how-to-distribute-your-angularjs-module-e04d4dd58ddc#.yqg2zo8im
+        From
+        https://medium.com/@kentcdodds/how-to-distribute-your-angularjs-module-e04d4dd58ddc#.yqg2zo8im
     - hash: b8f63af3f81bca3abd055303bc91ab35eb126655
       author: Juan Cruz Viotti
       footers:
@@ -12771,7 +12902,8 @@
       body: >-
         Electron no longer supports 10.8.
 
-        See http://electron.atom.io/docs/v0.37.5/tutorial/supported-platforms/#os-x
+        See
+        http://electron.atom.io/docs/v0.37.5/tutorial/supported-platforms/#os-x
     - hash: 097c9a4aa37029154c3efe8564edbeef048926ad
       author: Juan Cruz Viotti
       subject: Add subtle hover styling to footer links

@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.19.10
+## (2024-04-23)
+
+* patch: remove node-ipc and tests [Edwin Joassart]
+* patch: switch api; use ws; integrate sudo-prompt - switch api roles flow - use websocket instead of node-ipc - integrate; modernize; simplify and deprecate sudo-prompt [Edwin Joassart]
+* patch: refactor api to use a single topic [Edwin Joassart]
+* patch: set require node engine to 20 [Edwin Joassart]
+
+# v1.19.9
+## (2024-04-22)
+
+* patch: prevent rebuild of native deps by @electron/rebuild [Edwin Joassart]
+
+# v1.19.8
+## (2024-04-22)
+
+* patch: replace deprecated pkg with yao-pkg and bump etcher-util node v to 20.10 [Edwin Joassart]
+
+# v1.19.7
+## (2024-04-22)
+
+* patch: fix formating [Edwin Joassart]
+* patch: configure prettier in the project to use balena-lint configuration [Edwin Joassart]
+
+# v1.19.6
+## (2024-04-19)
+
+* patch: fix win signature process [Edwin Joassart]
+
 # v1.19.5
 ## (2024-02-14)
 
