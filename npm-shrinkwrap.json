@@ -25,7 +25,7 @@
 				"lodash": "4.17.21",
 				"outdent": "0.8.0",
 				"path-is-inside": "1.0.2",
-				"pretty-bytes": "5.6.0",
+				"pretty-bytes": "6.1.1",
 				"react": "17.0.2",
 				"react-dom": "17.0.2",
 				"react-i18next": "13.5.0",
@@ -18846,11 +18846,11 @@
 			}
 		},
 		"node_modules/pretty-bytes": {
-			"version": "5.6.0",
-			"resolved": "https://registry.npmjs.org/pretty-bytes/-/pretty-bytes-5.6.0.tgz",
-			"integrity": "sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==",
+			"version": "6.1.1",
+			"resolved": "https://registry.npmjs.org/pretty-bytes/-/pretty-bytes-6.1.1.tgz",
+			"integrity": "sha512-mQUvGU6aUFQ+rNvTIAcZuWGRT9a6f6Yrg9bHs4ImKF+HZCEK+plBvnAZYSIQztknZF2qnzNtr6F8s0+IuptdlQ==",
 			"engines": {
-				"node": ">=6"
+				"node": "^14.13.1 || >=16.0.0"
 			},
 			"funding": {
 				"url": "https://github.com/sponsors/sindresorhus"
@@ -35912,9 +35912,9 @@
 			"dev": true
 		},
 		"pretty-bytes": {
-			"version": "5.6.0",
-			"resolved": "https://registry.npmjs.org/pretty-bytes/-/pretty-bytes-5.6.0.tgz",
-			"integrity": "sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg=="
+			"version": "6.1.1",
+			"resolved": "https://registry.npmjs.org/pretty-bytes/-/pretty-bytes-6.1.1.tgz",
+			"integrity": "sha512-mQUvGU6aUFQ+rNvTIAcZuWGRT9a6f6Yrg9bHs4ImKF+HZCEK+plBvnAZYSIQztknZF2qnzNtr6F8s0+IuptdlQ=="
 		},
 		"pretty-error": {
 			"version": "4.0.0",

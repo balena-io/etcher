@@ -47,7 +47,7 @@
 		"lodash": "4.17.21",
 		"outdent": "0.8.0",
 		"path-is-inside": "1.0.2",
-		"pretty-bytes": "5.6.0",
+		"pretty-bytes": "6.1.1",
 		"react": "17.0.2",
 		"react-dom": "17.0.2",
 		"react-i18next": "13.5.0",
