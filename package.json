@@ -78,7 +78,7 @@
 		"@types/node": "^20.12.7",
 		"@types/react": "17.0.2",
 		"@types/react-dom": "17.0.2",
-		"@types/semver": "7.5.6",
+		"@types/semver": "^7.5.8",
 		"@types/sinon": "17.0.2",
 		"@types/tmp": "0.2.6",
 		"@vercel/webpack-asset-relocator-loader": "1.7.3",

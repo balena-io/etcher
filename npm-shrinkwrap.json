@@ -56,7 +56,7 @@
 				"@types/node": "^20.12.7",
 				"@types/react": "17.0.2",
 				"@types/react-dom": "17.0.2",
-				"@types/semver": "7.5.6",
+				"@types/semver": "^7.5.8",
 				"@types/sinon": "17.0.2",
 				"@types/tmp": "0.2.6",
 				"@vercel/webpack-asset-relocator-loader": "1.7.3",
@@ -6504,9 +6504,10 @@
 			"license": "MIT"
 		},
 		"node_modules/@types/semver": {
-			"version": "7.5.6",
-			"dev": true,
-			"license": "MIT"
+			"version": "7.5.8",
+			"resolved": "https://registry.npmjs.org/@types/semver/-/semver-7.5.8.tgz",
+			"integrity": "sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==",
+			"dev": true
 		},
 		"node_modules/@types/send": {
 			"version": "0.17.1",
@@ -6812,12 +6813,6 @@
 			"peerDependencies": {
 				"eslint": "^8.56.0"
 			}
-		},
-		"node_modules/@typescript-eslint/utils/node_modules/@types/semver": {
-			"version": "7.5.8",
-			"resolved": "https://registry.npmjs.org/@types/semver/-/semver-7.5.8.tgz",
-			"integrity": "sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==",
-			"dev": true
 		},
 		"node_modules/@typescript-eslint/visitor-keys": {
 			"version": "7.7.1",
@@ -28419,7 +28414,9 @@
 			"dev": true
 		},
 		"@types/semver": {
-			"version": "7.5.6",
+			"version": "7.5.8",
+			"resolved": "https://registry.npmjs.org/@types/semver/-/semver-7.5.8.tgz",
+			"integrity": "sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==",
 			"dev": true
 		},
 		"@types/send": {
@@ -28625,14 +28622,6 @@
 				"@typescript-eslint/types": "7.7.1",
 				"@typescript-eslint/typescript-estree": "7.7.1",
 				"semver": "^7.6.0"
-			},
-			"dependencies": {
-				"@types/semver": {
-					"version": "7.5.8",
-					"resolved": "https://registry.npmjs.org/@types/semver/-/semver-7.5.8.tgz",
-					"integrity": "sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==",
-					"dev": true
-				}
 			}
 		},
 		"@typescript-eslint/visitor-keys": {
