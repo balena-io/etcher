@@ -67,7 +67,7 @@
 				"electron": "30.0.1",
 				"electron-mocha": "^12.3.0",
 				"file-loader": "6.2.0",
-				"husky": "8.0.3",
+				"husky": "9.0.11",
 				"mocha": "^10.4.0",
 				"native-addon-loader": "2.0.1",
 				"node-loader": "^2.0.0",
@@ -13900,14 +13900,15 @@
 			}
 		},
 		"node_modules/husky": {
-			"version": "8.0.3",
+			"version": "9.0.11",
+			"resolved": "https://registry.npmjs.org/husky/-/husky-9.0.11.tgz",
+			"integrity": "sha512-AB6lFlbwwyIqMdHYhwPe+kjOC3Oc5P3nThEoW/AaO2BX3vJDjWPFxYLxokUZOo6RNX20He3AaT8sESs9NJcmEw==",
 			"dev": true,
-			"license": "MIT",
 			"bin": {
-				"husky": "lib/bin.js"
+				"husky": "bin.mjs"
 			},
 			"engines": {
-				"node": ">=14"
+				"node": ">=18"
 			},
 			"funding": {
 				"url": "https://github.com/sponsors/typicode"
@@ -33459,7 +33460,9 @@
 			}
 		},
 		"husky": {
-			"version": "8.0.3",
+			"version": "9.0.11",
+			"resolved": "https://registry.npmjs.org/husky/-/husky-9.0.11.tgz",
+			"integrity": "sha512-AB6lFlbwwyIqMdHYhwPe+kjOC3Oc5P3nThEoW/AaO2BX3vJDjWPFxYLxokUZOo6RNX20He3AaT8sESs9NJcmEw==",
 			"dev": true
 		},
 		"i18next": {
