@@ -9,7 +9,7 @@
 			"version": "1.19.10",
 			"license": "Apache-2.0",
 			"dependencies": {
-				"@electron/remote": "^2.1.0",
+				"@electron/remote": "^2.1.2",
 				"@fortawesome/fontawesome-free": "6.5.1",
 				"@ronomon/direct-io": "^3.0.1",
 				"@sentry/electron": "^4.15.1",
@@ -64,7 +64,7 @@
 				"catch-uncommitted": "^2.0.0",
 				"chai": "4.3.10",
 				"css-loader": "5.2.7",
-				"electron": "27.1.3",
+				"electron": "30.0.1",
 				"electron-mocha": "^12.2.0",
 				"file-loader": "6.2.0",
 				"husky": "8.0.3",
@@ -4391,8 +4391,9 @@
 			}
 		},
 		"node_modules/@electron/remote": {
-			"version": "2.1.0",
-			"license": "MIT",
+			"version": "2.1.2",
+			"resolved": "https://registry.npmjs.org/@electron/remote/-/remote-2.1.2.tgz",
+			"integrity": "sha512-EPwNx+nhdrTBxyCqXt/pftoQg/ybtWDW3DUWHafejvnB1ZGGfMpv6e15D8KeempocjXe78T7WreyGGb3mlZxdA==",
 			"peerDependencies": {
 				"electron": ">= 13.0.0"
 			}
@@ -10626,12 +10627,13 @@
 			"license": "MIT"
 		},
 		"node_modules/electron": {
-			"version": "27.1.3",
+			"version": "30.0.1",
+			"resolved": "https://registry.npmjs.org/electron/-/electron-30.0.1.tgz",
+			"integrity": "sha512-iwxkI/n2wBd29NH7TH0ZY8aWGzCoKpzJz+D10u7aGSJi1TV6d4MSM3rWyKvT/UkAHkTKOEgYfUyCa2vWQm8L0g==",
 			"hasInstallScript": true,
-			"license": "MIT",
 			"dependencies": {
 				"@electron/get": "^2.0.0",
-				"@types/node": "^18.11.18",
+				"@types/node": "^20.9.0",
 				"extract-zip": "^2.0.1"
 			},
 			"bin": {
@@ -11047,14 +11049,6 @@
 			},
 			"engines": {
 				"node": ">=6 <7 || >=8"
-			}
-		},
-		"node_modules/electron/node_modules/@types/node": {
-			"version": "18.19.9",
-			"resolved": "https://registry.npmjs.org/@types/node/-/node-18.19.9.tgz",
-			"integrity": "sha512-oZFKlC8l5YtzGQNT4zC2PiSSKzQVZ8bAwwd+EYdPLtyk0nSEq6O16SkK+rkkT2eflDAbormJgEF3QnH3oDrTSw==",
-			"dependencies": {
-				"undici-types": "~5.26.4"
 			}
 		},
 		"node_modules/emoji-regex": {
@@ -27094,7 +27088,9 @@
 			}
 		},
 		"@electron/remote": {
-			"version": "2.1.0",
+			"version": "2.1.2",
+			"resolved": "https://registry.npmjs.org/@electron/remote/-/remote-2.1.2.tgz",
+			"integrity": "sha512-EPwNx+nhdrTBxyCqXt/pftoQg/ybtWDW3DUWHafejvnB1ZGGfMpv6e15D8KeempocjXe78T7WreyGGb3mlZxdA==",
 			"requires": {}
 		},
 		"@electron/universal": {
@@ -31331,21 +31327,13 @@
 			"dev": true
 		},
 		"electron": {
-			"version": "27.1.3",
+			"version": "30.0.1",
+			"resolved": "https://registry.npmjs.org/electron/-/electron-30.0.1.tgz",
+			"integrity": "sha512-iwxkI/n2wBd29NH7TH0ZY8aWGzCoKpzJz+D10u7aGSJi1TV6d4MSM3rWyKvT/UkAHkTKOEgYfUyCa2vWQm8L0g==",
 			"requires": {
 				"@electron/get": "^2.0.0",
-				"@types/node": "^18.11.18",
+				"@types/node": "^20.9.0",
 				"extract-zip": "^2.0.1"
-			},
-			"dependencies": {
-				"@types/node": {
-					"version": "18.19.9",
-					"resolved": "https://registry.npmjs.org/@types/node/-/node-18.19.9.tgz",
-					"integrity": "sha512-oZFKlC8l5YtzGQNT4zC2PiSSKzQVZ8bAwwd+EYdPLtyk0nSEq6O16SkK+rkkT2eflDAbormJgEF3QnH3oDrTSw==",
-					"requires": {
-						"undici-types": "~5.26.4"
-					}
-				}
 			}
 		},
 		"electron-installer-common": {
