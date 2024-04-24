@@ -14,7 +14,7 @@
 				"@ronomon/direct-io": "^3.0.1",
 				"@sentry/electron": "^4.23.0",
 				"analytics-client": "^2.0.1",
-				"axios": "^1.6.0",
+				"axios": "^1.6.8",
 				"debug": "4.3.4",
 				"drivelist": "^12.0.2",
 				"electron-squirrel-startup": "^1.0.0",
@@ -8058,10 +8058,11 @@
 			}
 		},
 		"node_modules/axios": {
-			"version": "1.6.2",
-			"license": "MIT",
+			"version": "1.6.8",
+			"resolved": "https://registry.npmjs.org/axios/-/axios-1.6.8.tgz",
+			"integrity": "sha512-v/ZHtJDU39mDpyBoFVkETcd/uNdxrWRrg3bKpOKzXFA6Bvqopts6ALSMU3y6ijYxbw2B+wPrIv46egTzJXCLGQ==",
 			"dependencies": {
-				"follow-redirects": "^1.15.0",
+				"follow-redirects": "^1.15.6",
 				"form-data": "^4.0.0",
 				"proxy-from-env": "^1.1.0"
 			}
@@ -12759,14 +12760,15 @@
 			}
 		},
 		"node_modules/follow-redirects": {
-			"version": "1.15.2",
+			"version": "1.15.6",
+			"resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.6.tgz",
+			"integrity": "sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==",
 			"funding": [
 				{
 					"type": "individual",
 					"url": "https://github.com/sponsors/RubenVerborgh"
 				}
 			],
-			"license": "MIT",
 			"engines": {
 				"node": ">=4.0"
 			},
@@ -29697,9 +29699,11 @@
 			}
 		},
 		"axios": {
-			"version": "1.6.2",
+			"version": "1.6.8",
+			"resolved": "https://registry.npmjs.org/axios/-/axios-1.6.8.tgz",
+			"integrity": "sha512-v/ZHtJDU39mDpyBoFVkETcd/uNdxrWRrg3bKpOKzXFA6Bvqopts6ALSMU3y6ijYxbw2B+wPrIv46egTzJXCLGQ==",
 			"requires": {
-				"follow-redirects": "^1.15.0",
+				"follow-redirects": "^1.15.6",
 				"form-data": "^4.0.0",
 				"proxy-from-env": "^1.1.0"
 			}
@@ -32887,7 +32891,9 @@
 			}
 		},
 		"follow-redirects": {
-			"version": "1.15.2"
+			"version": "1.15.6",
+			"resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.6.tgz",
+			"integrity": "sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA=="
 		},
 		"for-each": {
 			"version": "0.3.3",
