@@ -10,7 +10,7 @@
 			"license": "Apache-2.0",
 			"dependencies": {
 				"@electron/remote": "^2.1.2",
-				"@fortawesome/fontawesome-free": "6.5.1",
+				"@fortawesome/fontawesome-free": "^6.5.2",
 				"@ronomon/direct-io": "^3.0.1",
 				"@sentry/electron": "^4.23.0",
 				"analytics-client": "^2.0.1",
@@ -4694,9 +4694,10 @@
 			}
 		},
 		"node_modules/@fortawesome/fontawesome-free": {
-			"version": "6.5.1",
+			"version": "6.5.2",
+			"resolved": "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-6.5.2.tgz",
+			"integrity": "sha512-hRILoInAx8GNT5IMkrtIt9blOdrqHOnPBH+k70aWUAqPZPgopb9G5EQJFpaBx/S8zp2fC+mPW349Bziuk1o28Q==",
 			"hasInstallScript": true,
-			"license": "(CC-BY-4.0 AND OFL-1.1 AND MIT)",
 			"engines": {
 				"node": ">=6"
 			}
@@ -27192,7 +27193,9 @@
 			"version": "6.5.1"
 		},
 		"@fortawesome/fontawesome-free": {
-			"version": "6.5.1"
+			"version": "6.5.2",
+			"resolved": "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-6.5.2.tgz",
+			"integrity": "sha512-hRILoInAx8GNT5IMkrtIt9blOdrqHOnPBH+k70aWUAqPZPgopb9G5EQJFpaBx/S8zp2fC+mPW349Bziuk1o28Q=="
 		},
 		"@fortawesome/fontawesome-svg-core": {
 			"version": "6.5.1",
