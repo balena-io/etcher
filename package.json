@@ -53,7 +53,7 @@
 		"react-i18next": "13.5.0",
 		"redux": "4.2.1",
 		"rendition": "35.1.2",
-		"semver": "7.5.4",
+		"semver": "7.6.0",
 		"styled-components": "5.3.6",
 		"sys-class-rgb-led": "3.0.1",
 		"uuid": "9.0.1",
