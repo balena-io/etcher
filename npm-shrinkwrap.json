@@ -57,7 +57,7 @@
 				"@types/react": "17.0.2",
 				"@types/react-dom": "17.0.2",
 				"@types/semver": "^7.5.8",
-				"@types/sinon": "17.0.2",
+				"@types/sinon": "17.0.3",
 				"@types/tmp": "0.2.6",
 				"@vercel/webpack-asset-relocator-loader": "1.7.3",
 				"@yao-pkg/pkg": "^5.11.5",
@@ -6537,9 +6537,10 @@
 			}
 		},
 		"node_modules/@types/sinon": {
-			"version": "17.0.2",
+			"version": "17.0.3",
+			"resolved": "https://registry.npmjs.org/@types/sinon/-/sinon-17.0.3.tgz",
+			"integrity": "sha512-j3uovdn8ewky9kRBG19bOwaZbexJu/XjtkHyjvUgt4xfPFz18dcORIMqnYh66Fx3Powhcr85NT5+er3+oViapw==",
 			"dev": true,
-			"license": "MIT",
 			"dependencies": {
 				"@types/sinonjs__fake-timers": "*"
 			}
@@ -28444,7 +28445,9 @@
 			}
 		},
 		"@types/sinon": {
-			"version": "17.0.2",
+			"version": "17.0.3",
+			"resolved": "https://registry.npmjs.org/@types/sinon/-/sinon-17.0.3.tgz",
+			"integrity": "sha512-j3uovdn8ewky9kRBG19bOwaZbexJu/XjtkHyjvUgt4xfPFz18dcORIMqnYh66Fx3Powhcr85NT5+er3+oViapw==",
 			"dev": true,
 			"requires": {
 				"@types/sinonjs__fake-timers": "*"
