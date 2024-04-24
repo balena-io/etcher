@@ -42,7 +42,7 @@
 		"electron-squirrel-startup": "^1.0.0",
 		"electron-updater": "6.1.7",
 		"etcher-sdk": "9.0.8",
-		"i18next": "23.7.8",
+		"i18next": "^23.11.2",
 		"immutable": "3.8.2",
 		"lodash": "4.17.21",
 		"outdent": "0.8.0",

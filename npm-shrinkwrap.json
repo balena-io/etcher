@@ -20,7 +20,7 @@
 				"electron-squirrel-startup": "^1.0.0",
 				"electron-updater": "6.1.7",
 				"etcher-sdk": "9.0.8",
-				"i18next": "23.7.8",
+				"i18next": "^23.11.2",
 				"immutable": "3.8.2",
 				"lodash": "4.17.21",
 				"outdent": "0.8.0",
@@ -13914,7 +13914,9 @@
 			}
 		},
 		"node_modules/i18next": {
-			"version": "23.7.8",
+			"version": "23.11.2",
+			"resolved": "https://registry.npmjs.org/i18next/-/i18next-23.11.2.tgz",
+			"integrity": "sha512-qMBm7+qT8jdpmmDw/kQD16VpmkL9BdL+XNAK5MNbNFaf1iQQq35ZbPrSlqmnNPOSUY4m342+c0t0evinF5l7sA==",
 			"funding": [
 				{
 					"type": "individual",
@@ -13929,7 +13931,6 @@
 					"url": "https://www.i18next.com/how-to/faq#i18next-is-awesome.-how-can-i-support-the-project"
 				}
 			],
-			"license": "MIT",
 			"dependencies": {
 				"@babel/runtime": "^7.23.2"
 			}
@@ -33462,7 +33463,9 @@
 			"dev": true
 		},
 		"i18next": {
-			"version": "23.7.8",
+			"version": "23.11.2",
+			"resolved": "https://registry.npmjs.org/i18next/-/i18next-23.11.2.tgz",
+			"integrity": "sha512-qMBm7+qT8jdpmmDw/kQD16VpmkL9BdL+XNAK5MNbNFaf1iQQq35ZbPrSlqmnNPOSUY4m342+c0t0evinF5l7sA==",
 			"requires": {
 				"@babel/runtime": "^7.23.2"
 			}
