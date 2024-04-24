@@ -84,7 +84,7 @@
 		"@vercel/webpack-asset-relocator-loader": "1.7.3",
 		"@yao-pkg/pkg": "^5.11.5",
 		"catch-uncommitted": "^2.0.0",
-		"chai": "4.3.10",
+		"chai": "5.1.0",
 		"css-loader": "5.2.7",
 		"electron": "30.0.1",
 		"electron-mocha": "^12.3.0",
