@@ -75,7 +75,7 @@
 		"@types/debug": "^4.1.12",
 		"@types/mime-types": "2.1.4",
 		"@types/mocha": "^10.0.6",
-		"@types/node": "^20.11.6",
+		"@types/node": "^20.12.7",
 		"@types/react": "17.0.2",
 		"@types/react-dom": "17.0.2",
 		"@types/semver": "7.5.6",

@@ -53,7 +53,7 @@
 				"@types/debug": "^4.1.12",
 				"@types/mime-types": "2.1.4",
 				"@types/mocha": "^10.0.6",
-				"@types/node": "^20.11.6",
+				"@types/node": "^20.12.7",
 				"@types/react": "17.0.2",
 				"@types/react-dom": "17.0.2",
 				"@types/semver": "7.5.6",
@@ -6436,9 +6436,9 @@
 			"license": "MIT"
 		},
 		"node_modules/@types/node": {
-			"version": "20.11.6",
-			"resolved": "https://registry.npmjs.org/@types/node/-/node-20.11.6.tgz",
-			"integrity": "sha512-+EOokTnksGVgip2PbYbr3xnR7kZigh4LbybAfBAw5BpnQ+FqBYUsvCEjYd70IXKlbohQ64mzEYmMtlWUY8q//Q==",
+			"version": "20.12.7",
+			"resolved": "https://registry.npmjs.org/@types/node/-/node-20.12.7.tgz",
+			"integrity": "sha512-wq0cICSkRLVaf3UGLMGItu/PtdY7oaXaI/RVU+xliKVOtRna3PRY57ZDfztpDL0n11vfymMUnXv8QwYCO7L1wg==",
 			"dependencies": {
 				"undici-types": "~5.26.4"
 			}
@@ -28510,9 +28510,9 @@
 			"dev": true
 		},
 		"@types/node": {
-			"version": "20.11.6",
-			"resolved": "https://registry.npmjs.org/@types/node/-/node-20.11.6.tgz",
-			"integrity": "sha512-+EOokTnksGVgip2PbYbr3xnR7kZigh4LbybAfBAw5BpnQ+FqBYUsvCEjYd70IXKlbohQ64mzEYmMtlWUY8q//Q==",
+			"version": "20.12.7",
+			"resolved": "https://registry.npmjs.org/@types/node/-/node-20.12.7.tgz",
+			"integrity": "sha512-wq0cICSkRLVaf3UGLMGItu/PtdY7oaXaI/RVU+xliKVOtRna3PRY57ZDfztpDL0n11vfymMUnXv8QwYCO7L1wg==",
 			"requires": {
 				"undici-types": "~5.26.4"
 			}
