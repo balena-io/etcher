@@ -68,7 +68,7 @@
 				"electron-mocha": "^12.3.0",
 				"file-loader": "6.2.0",
 				"husky": "8.0.3",
-				"mocha": "^10.2.0",
+				"mocha": "^10.4.0",
 				"native-addon-loader": "2.0.1",
 				"node-loader": "^2.0.0",
 				"omit-deep-lodash": "1.1.7",
