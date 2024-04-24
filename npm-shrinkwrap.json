@@ -49,7 +49,7 @@
 				"@electron-forge/plugin-webpack": "7.4.0",
 				"@reforged/maker-appimage": "3.3.2",
 				"@svgr/webpack": "8.1.0",
-				"@types/chai": "4.3.11",
+				"@types/chai": "4.3.14",
 				"@types/debug": "^4.1.12",
 				"@types/mime-types": "2.1.4",
 				"@types/mocha": "^10.0.6",
@@ -5218,9 +5218,9 @@
 			}
 		},
 		"node_modules/@types/chai": {
-			"version": "4.3.11",
-			"resolved": "https://registry.npmjs.org/@types/chai/-/chai-4.3.11.tgz",
-			"integrity": "sha512-qQR1dr2rGIHYlJulmr8Ioq3De0Le9E4MJ5AiaeAETJJpndT1uUNHsGFK3L/UIu+rbkQSdj8J/w2bCsBZc/Y5fQ==",
+			"version": "4.3.14",
+			"resolved": "https://registry.npmjs.org/@types/chai/-/chai-4.3.14.tgz",
+			"integrity": "sha512-Wj71sXE4Q4AkGdG9Tvq1u/fquNz9EdG4LIJMwVVII7ashjD/8cf8fyIfJAjRr6YcsXnSE8cOGQPq1gqeR8z+3w==",
 			"dev": true
 		},
 		"node_modules/@types/codemirror": {

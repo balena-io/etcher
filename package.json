@@ -71,7 +71,7 @@
 		"@electron-forge/plugin-webpack": "7.4.0",
 		"@reforged/maker-appimage": "3.3.2",
 		"@svgr/webpack": "8.1.0",
-		"@types/chai": "4.3.11",
+		"@types/chai": "4.3.14",
 		"@types/debug": "^4.1.12",
 		"@types/mime-types": "2.1.4",
 		"@types/mocha": "^10.0.6",
