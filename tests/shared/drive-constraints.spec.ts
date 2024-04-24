@@ -15,9 +15,8 @@
  */
 
 import { expect } from 'chai';
-import { sourceDestination } from 'etcher-sdk';
 import * as path from 'path';
-import { SourceMetadata } from '../../lib/gui/app/components/source-selector/source-selector';
+import { SourceMetadata } from '../../lib/shared/typings/source-selector';
 
 import * as constraints from '../../lib/shared/drive-constraints';
 import * as messages from '../../lib/shared/messages';
@@ -87,7 +86,7 @@ describe('Shared: DriveConstraints', function () {
 					path: '/Volumes/Untitled/image.img',
 					hasMBR: false,
 					partitions: [],
-					SourceType: sourceDestination.File,
+					SourceType: 'File',
 				},
 			);
 
@@ -101,7 +100,7 @@ describe('Shared: DriveConstraints', function () {
 				path: 'E:\\image.img',
 				hasMBR: false,
 				partitions: [],
-				SourceType: sourceDestination.File,
+				SourceType: 'File',
 			};
 			beforeEach(function () {
 				this.separator = path.sep;
@@ -207,7 +206,7 @@ describe('Shared: DriveConstraints', function () {
 				path: '/Volumes/Untitled/image.img',
 				hasMBR: false,
 				partitions: [],
-				SourceType: sourceDestination.File,
+				SourceType: 'File',
 			};
 			beforeEach(function () {
 				this.separator = path.sep;
@@ -522,7 +521,7 @@ describe('Shared: DriveConstraints', function () {
 			size: 1000000000,
 			isSizeEstimated: false,
 			recommendedDriveSize: 2000000000,
-			SourceType: sourceDestination.File,
+			SourceType: 'File',
 		};
 		it('should return true if the drive size is greater than the recommended size ', function () {
 			const result = constraints.isDriveSizeRecommended(
@@ -626,7 +625,7 @@ describe('Shared: DriveConstraints', function () {
 					description: 'rpi.img',
 					displayName: 'rpi.img',
 					path: '',
-					SourceType: sourceDestination.File,
+					SourceType: 'File',
 					size: 2000000000,
 					isSizeEstimated: false,
 				};
@@ -672,7 +671,7 @@ describe('Shared: DriveConstraints', function () {
 					description: 'rpi.img',
 					displayName: 'rpi.img',
 					path: '',
-					SourceType: sourceDestination.File,
+					SourceType: 'File',
 					size: 2000000000,
 					isSizeEstimated: false,
 				};
@@ -720,7 +719,7 @@ describe('Shared: DriveConstraints', function () {
 				description: 'rpi.img',
 				displayName: 'rpi.img',
 				path: '',
-				SourceType: sourceDestination.File,
+				SourceType: 'File',
 				size: 2000000000,
 				isSizeEstimated: false,
 			};
@@ -829,7 +828,7 @@ describe('Shared: DriveConstraints', function () {
 			};
 
 			this.image = {
-				SourceType: sourceDestination.File,
+				SourceType: 'File',
 				path: path.join(__dirname, 'rpi.img'),
 				size: this.drive.size - 1,
 				isSizeEstimated: false,
@@ -874,7 +873,7 @@ describe('Shared: DriveConstraints', function () {
 			};
 
 			this.image = {
-				SourceType: sourceDestination.File,
+				SourceType: 'File',
 				path: path.join(__dirname, 'rpi.img'),
 				size: this.drive.size - 1,
 				isSizeEstimated: false,
@@ -1227,7 +1226,7 @@ describe('Shared: DriveConstraints', function () {
 			description: 'rpi.img',
 			displayName: 'rpi.img',
 			path: path.join(__dirname, 'rpi.img'),
-			SourceType: sourceDestination.File,
+			SourceType: 'File',
 			// @ts-ignore
 			size: drives[2].size + 1,
 			isSizeEstimated: false,
