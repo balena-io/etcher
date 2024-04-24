@@ -60,7 +60,7 @@
 				"@types/sinon": "17.0.2",
 				"@types/tmp": "0.2.6",
 				"@vercel/webpack-asset-relocator-loader": "1.7.3",
-				"@yao-pkg/pkg": "^5.11.1",
+				"@yao-pkg/pkg": "^5.11.5",
 				"catch-uncommitted": "^2.0.0",
 				"chai": "4.3.10",
 				"css-loader": "5.2.7",
@@ -7168,15 +7168,15 @@
 			"license": "Apache-2.0"
 		},
 		"node_modules/@yao-pkg/pkg": {
-			"version": "5.11.1",
-			"resolved": "https://registry.npmjs.org/@yao-pkg/pkg/-/pkg-5.11.1.tgz",
-			"integrity": "sha512-y++Kd/kMZcp0UeI2GWB9+55WsDqZp3XCjHGzC4Nsao0tlGjhnNOB+TPhZhLTOCL1V4ApaKkH8zzPcpaTCtvM8g==",
+			"version": "5.11.5",
+			"resolved": "https://registry.npmjs.org/@yao-pkg/pkg/-/pkg-5.11.5.tgz",
+			"integrity": "sha512-NPFXCn+5bAYZKej7jI92+mXiWG/LA6pEIJCXgI4MM3aYhUFrQOPrYKYr3cGXGs9lkgKGovlnMcKGDjwJ3B7rCQ==",
 			"dev": true,
 			"dependencies": {
 				"@babel/generator": "7.23.0",
 				"@babel/parser": "7.23.0",
 				"@babel/types": "7.23.0",
-				"@yao-pkg/pkg-fetch": "3.5.7",
+				"@yao-pkg/pkg-fetch": "3.5.9",
 				"chalk": "^4.1.2",
 				"fs-extra": "^9.1.0",
 				"globby": "^11.1.0",
@@ -7193,9 +7193,9 @@
 			}
 		},
 		"node_modules/@yao-pkg/pkg-fetch": {
-			"version": "3.5.7",
-			"resolved": "https://registry.npmjs.org/@yao-pkg/pkg-fetch/-/pkg-fetch-3.5.7.tgz",
-			"integrity": "sha512-DhuvjBZsdrUrkXC+eYZljxCxZ8QrjPQRGhJEA8+hUsKhmPyg+FUn6ebOfN6B7ioiJg7GsVpUJt57hALBCj9epA==",
+			"version": "3.5.9",
+			"resolved": "https://registry.npmjs.org/@yao-pkg/pkg-fetch/-/pkg-fetch-3.5.9.tgz",
+			"integrity": "sha512-usMwwqFCd2B7k+V87u6kiTesyDSlw+3LpiuYBWe+UgryvSOk/NXjx3XVCub8hQoi0bCREbdQ6NDBqminyHJJrg==",
 			"dev": true,
 			"dependencies": {
 				"chalk": "^4.1.2",
@@ -29081,15 +29081,15 @@
 			"dev": true
 		},
 		"@yao-pkg/pkg": {
-			"version": "5.11.1",
-			"resolved": "https://registry.npmjs.org/@yao-pkg/pkg/-/pkg-5.11.1.tgz",
-			"integrity": "sha512-y++Kd/kMZcp0UeI2GWB9+55WsDqZp3XCjHGzC4Nsao0tlGjhnNOB+TPhZhLTOCL1V4ApaKkH8zzPcpaTCtvM8g==",
+			"version": "5.11.5",
+			"resolved": "https://registry.npmjs.org/@yao-pkg/pkg/-/pkg-5.11.5.tgz",
+			"integrity": "sha512-NPFXCn+5bAYZKej7jI92+mXiWG/LA6pEIJCXgI4MM3aYhUFrQOPrYKYr3cGXGs9lkgKGovlnMcKGDjwJ3B7rCQ==",
 			"dev": true,
 			"requires": {
 				"@babel/generator": "7.23.0",
 				"@babel/parser": "7.23.0",
 				"@babel/types": "7.23.0",
-				"@yao-pkg/pkg-fetch": "3.5.7",
+				"@yao-pkg/pkg-fetch": "3.5.9",
 				"chalk": "^4.1.2",
 				"fs-extra": "^9.1.0",
 				"globby": "^11.1.0",
@@ -29220,9 +29220,9 @@
 			}
 		},
 		"@yao-pkg/pkg-fetch": {
-			"version": "3.5.7",
-			"resolved": "https://registry.npmjs.org/@yao-pkg/pkg-fetch/-/pkg-fetch-3.5.7.tgz",
-			"integrity": "sha512-DhuvjBZsdrUrkXC+eYZljxCxZ8QrjPQRGhJEA8+hUsKhmPyg+FUn6ebOfN6B7ioiJg7GsVpUJt57hALBCj9epA==",
+			"version": "3.5.9",
+			"resolved": "https://registry.npmjs.org/@yao-pkg/pkg-fetch/-/pkg-fetch-3.5.9.tgz",
+			"integrity": "sha512-usMwwqFCd2B7k+V87u6kiTesyDSlw+3LpiuYBWe+UgryvSOk/NXjx3XVCub8hQoi0bCREbdQ6NDBqminyHJJrg==",
 			"dev": true,
 			"requires": {
 				"chalk": "^4.1.2",

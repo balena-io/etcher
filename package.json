@@ -82,7 +82,7 @@
 		"@types/sinon": "17.0.2",
 		"@types/tmp": "0.2.6",
 		"@vercel/webpack-asset-relocator-loader": "1.7.3",
-		"@yao-pkg/pkg": "^5.11.1",
+		"@yao-pkg/pkg": "^5.11.5",
 		"catch-uncommitted": "^2.0.0",
 		"chai": "4.3.10",
 		"css-loader": "5.2.7",
