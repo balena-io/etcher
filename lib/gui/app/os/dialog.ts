@@ -23,6 +23,7 @@ import * as settings from '../../../gui/app/models/settings';
 import { SUPPORTED_EXTENSIONS } from '../../../shared/supported-formats';
 import * as i18next from 'i18next';
 
+// FIXME: this is probably useless now
 async function mountSourceDrive() {
 	// sourceDrivePath is the name of the link in /dev/disk/by-path
 	const sourceDrivePath = await settings.get('automountOnFileSelect');
@@ -43,6 +44,17 @@ async function mountSourceDrive() {
  */
 export async function selectImage(): Promise<string | undefined> {
 	await mountSourceDrive();
+
+	// For automated E2E testing, we can't set the source file by interacting with the OS dialog,
+	// so we use an ENV var instead and bypass the dialog. Note that we still need to press the "flash from file" button.
+	if (
+		process.env.TEST_SOURCE_FILE !== undefined &&
+		typeof process.env.TEST_SOURCE_FILE === 'string'
+	) {
+		console.log(`test mode: loading ${process.env.TEST_SOURCE_FILE}`);
+		return process.env.TEST_SOURCE_FILE;
+	}
+
 	const options: electron.OpenDialogOptions = {
 		// This variable is set when running in GNU/Linux from
 		// inside an AppImage, and represents the working directory

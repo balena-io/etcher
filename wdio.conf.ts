@@ -35,16 +35,36 @@ export const config: Options.Testrunner = {
 	// Patterns to exclude.
 	// FIXME: Remove the following exclusions once the tests are ported to WDIO
 	exclude: [
-		'tests/gui/modules/image-writer.spec.ts',
-		'tests/gui/os/window-progress.spec.ts',
-		'tests/gui/models/available-drives.spec.ts',
-		'tests/gui/models/flash-state.spec.ts',
-		'tests/gui/models/selection-state.spec.ts',
-		'tests/gui/models/settings.spec.ts',
-		'tests/shared/drive-constraints.spec.ts',
-		'tests/shared/messages.spec.ts',
-		'tests/gui/modules/progress-status.spec.ts',
+		'./tests/gui/modules/image-writer.spec.ts',
+		'./tests/gui/os/window-progress.spec.ts',
+		'./tests/gui/models/available-drives.spec.ts',
+		'./tests/gui/models/flash-state.spec.ts',
+		'./tests/gui/models/selection-state.spec.ts',
+		'./tests/gui/models/settings.spec.ts',
+		'./tests/shared/drive-constraints.spec.ts',
+		'./tests/shared/messages.spec.ts',
+		'./tests/gui/modules/progress-status.spec.ts',
 	],
+
+	suites: {
+		'gui': ['./tests/gui/**/*.spec.ts'],
+		'shared': ['./tests/shared/**/*.spec.ts'],
+		'e2e': [
+			[
+				'./tests/e2e/e2e-flash-from-file.spec.ts',
+				'./tests/e2e/e2e-flash-from-url.spec.ts',
+			]
+		],
+		// CI needs to runs e2e tests and other tests sequencially
+		'ci': [
+			[
+				'./tests/e2e/e2e-flash-from-url.spec.ts',
+				'./tests/e2e/e2e-flash-from-file.spec.ts',
+				'./tests/gui/**/*.spec.ts',
+				'./tests/shared/**/*.spec.ts',
+			],
+		]
+	},
 	//
 	// ============
 	// Capabilities
@@ -85,7 +105,7 @@ export const config: Options.Testrunner = {
 	// Define all options that are relevant for the WebdriverIO instance here
 	//
 	// Level of logging verbosity: trace | debug | info | warn | error | silent
-	logLevel: 'info',
+	logLevel: 'warn',
 	//
 	// Set specific log levels per logger
 	// loggers:
