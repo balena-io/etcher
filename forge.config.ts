@@ -60,6 +60,7 @@ const config: ForgeConfig = {
 		new MakerZIP(),
 		new MakerSquirrel({
 			setupIcon: 'assets/icon.ico',
+			loadingGif: 'assets/icon.png',
 			...winSigningConfig,
 		}),
 		new MakerDMG({
