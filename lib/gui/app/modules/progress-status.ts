@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import * as prettyBytes from 'pretty-bytes';
+import prettyBytes from 'pretty-bytes';
 import * as i18next from 'i18next';
 
 export interface FlashState {

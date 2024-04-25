@@ -29,7 +29,7 @@ import {
 	isDriveSizeLarge,
 } from '../../../../shared/drive-constraints';
 import { compatibility, warning } from '../../../../shared/messages';
-import * as prettyBytes from 'pretty-bytes';
+import prettyBytes from 'pretty-bytes';
 import { getDrives, hasAvailableDrives } from '../../models/available-drives';
 import { getImage, isDriveSelected } from '../../models/selection-state';
 import { store } from '../../models/store';
