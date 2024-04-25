@@ -300,7 +300,7 @@ async function main(): Promise<void> {
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 // tslint:disable-next-line:no-var-requires
 if (require('electron-squirrel-startup')) {
-	app.quit();
+	electron.app.quit();
 }
 
 main();
