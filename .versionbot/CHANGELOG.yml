@@ -1,4 +1,14 @@
 - commits:
+    - subject: "patch: pretty-bytes to 6.1.1"
+      hash: fa642270f7153f14e45ee03a73bad1f0797cbd51
+      body: ""
+      footer: {}
+      author: JOASSART Edwin
+      nested: []
+  version: 1.19.14
+  title: ""
+  date: 2024-04-25T21:11:35.350Z
+- commits:
     - subject: "patch: use etcher icon as loading for windows installer"
       hash: bc3340960a765e99f2f02bc21adace91d228d26f
       body: ""
