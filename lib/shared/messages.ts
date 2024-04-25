@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Dictionary } from 'lodash';
+import type { Dictionary } from 'lodash';
 import { outdent } from 'outdent';
 import prettyBytes from 'pretty-bytes';
 import '../gui/app/i18n';

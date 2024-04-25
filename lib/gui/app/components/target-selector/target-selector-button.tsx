@@ -16,14 +16,13 @@
 
 import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/triangle-exclamation.svg';
 import * as React from 'react';
-import { Flex, FlexProps, Txt } from 'rendition';
+import type { FlexProps } from 'rendition';
+import { Flex, Txt } from 'rendition';
 
-import {
-	getDriveImageCompatibilityStatuses,
-	DriveStatus,
-} from '../../../../shared/drive-constraints';
+import type { DriveStatus } from '../../../../shared/drive-constraints';
+import { getDriveImageCompatibilityStatuses } from '../../../../shared/drive-constraints';
 import { compatibility, warning } from '../../../../shared/messages';
-import * as prettyBytes from 'pretty-bytes';
+import prettyBytes from 'pretty-bytes';
 import { getImage, getSelectedDrives } from '../../models/selection-state';
 import {
 	ChangeButton,

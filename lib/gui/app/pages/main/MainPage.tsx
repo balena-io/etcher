@@ -18,7 +18,7 @@ import CogSvg from '@fortawesome/fontawesome-free/svgs/solid/gear.svg';
 import QuestionCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/circle-question.svg';
 
 import * as path from 'path';
-import * as prettyBytes from 'pretty-bytes';
+import prettyBytes from 'pretty-bytes';
 import * as React from 'react';
 import { Flex } from 'rendition';
 import styled from 'styled-components';
@@ -27,7 +27,7 @@ import FinishPage from '../../components/finish/finish';
 import { ReducedFlashingInfos } from '../../components/reduced-flashing-infos/reduced-flashing-infos';
 import { SettingsModal } from '../../components/settings/settings';
 import { SourceSelector } from '../../components/source-selector/source-selector';
-import { SourceMetadata } from '../../../../shared/typings/source-selector';
+import type { SourceMetadata } from '../../../../shared/typings/source-selector';
 import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
 import * as settings from '../../models/settings';

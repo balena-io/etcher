@@ -20,16 +20,17 @@ import LinkSvg from '@fortawesome/fontawesome-free/svgs/solid/link.svg';
 import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/triangle-exclamation.svg';
 import ChevronDownSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-down.svg';
 import ChevronRightSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-right.svg';
-import { ipcRenderer, IpcRendererEvent } from 'electron';
+import type { IpcRendererEvent } from 'electron';
+import { ipcRenderer } from 'electron';
 import { uniqBy, isNil } from 'lodash';
 import * as path from 'path';
-import * as prettyBytes from 'pretty-bytes';
+import prettyBytes from 'pretty-bytes';
 import * as React from 'react';
 import { requestMetadata } from '../../app';
 
+import type { ButtonProps } from 'rendition';
 import {
 	Flex,
-	ButtonProps,
 	Modal as SmallModal,
 	Txt,
 	Card as BaseCard,
@@ -63,9 +64,9 @@ import { SVGIcon } from '../svg-icon/svg-icon';
 import ImageSvg from '../../../assets/image.svg';
 import SrcSvg from '../../../assets/src.svg';
 import { DriveSelector } from '../drive-selector/drive-selector';
-import { DrivelistDrive } from '../../../../shared/drive-constraints';
+import type { DrivelistDrive } from '../../../../shared/drive-constraints';
 import { isJson } from '../../../../shared/utils';
-import {
+import type {
 	SourceMetadata,
 	Authentication,
 	Source,

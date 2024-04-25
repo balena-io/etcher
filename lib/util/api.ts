@@ -15,18 +15,19 @@
  */
 
 import { WebSocketServer } from 'ws';
-import { Dictionary, values } from 'lodash';
+import type { Dictionary } from 'lodash';
+import { values } from 'lodash';
 
 import type { MultiDestinationProgress } from 'etcher-sdk/build/multi-write';
 
 import { toJSON } from '../shared/errors';
 import { GENERAL_ERROR, SUCCESS } from '../shared/exit-codes';
-import { WriteOptions } from './types/types';
+import type { WriteOptions } from './types/types';
 import { write, cleanup } from './child-writer';
 import { startScanning } from './scanner';
 import { getSourceMetadata } from './source-metadata';
-import { DrivelistDrive } from '../shared/drive-constraints';
-import { SourceMetadata } from '../shared/typings/source-selector';
+import type { DrivelistDrive } from '../shared/drive-constraints';
+import type { SourceMetadata } from '../shared/typings/source-selector';
 
 const ETCHER_SERVER_ADDRESS = process.env.ETCHER_SERVER_ADDRESS as string;
 const ETCHER_SERVER_PORT = process.env.ETCHER_SERVER_PORT as string;

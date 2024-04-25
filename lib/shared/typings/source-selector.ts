@@ -1,6 +1,6 @@
-import { GPTPartition, MBRPartition } from 'partitioninfo';
-import { sourceDestination } from 'etcher-sdk';
-import { DrivelistDrive } from '../drive-constraints';
+import type { GPTPartition, MBRPartition } from 'partitioninfo';
+import type { sourceDestination } from 'etcher-sdk';
+import type { DrivelistDrive } from '../drive-constraints';
 
 export type Source = 'File' | 'BlockDevice' | 'Http';
 

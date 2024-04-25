@@ -16,33 +16,32 @@
 
 import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/triangle-exclamation.svg';
 import ChevronDownSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-down.svg';
-import * as sourceDestination from 'etcher-sdk/build/source-destination/';
+import type * as sourceDestination from 'etcher-sdk/build/source-destination/';
 import * as React from 'react';
-import { Flex, ModalProps, Txt, Badge, Link, TableColumn } from 'rendition';
+import type { ModalProps, TableColumn } from 'rendition';
+import { Flex, Txt, Badge, Link } from 'rendition';
 import styled from 'styled-components';
 
+import type {
+	DriveStatus,
+	DrivelistDrive,
+} from '../../../../shared/drive-constraints';
 import {
 	getDriveImageCompatibilityStatuses,
 	isDriveValid,
-	DriveStatus,
-	DrivelistDrive,
 	isDriveSizeLarge,
 } from '../../../../shared/drive-constraints';
 import { compatibility, warning } from '../../../../shared/messages';
-import * as prettyBytes from 'pretty-bytes';
+import prettyBytes from 'pretty-bytes';
 import { getDrives, hasAvailableDrives } from '../../models/available-drives';
 import { getImage, isDriveSelected } from '../../models/selection-state';
 import { store } from '../../models/store';
 import { logEvent, logException } from '../../modules/analytics';
 import { open as openExternal } from '../../os/open-external/services/open-external';
-import {
-	Alert,
-	GenericTableProps,
-	Modal,
-	Table,
-} from '../../styled-components';
+import type { GenericTableProps } from '../../styled-components';
+import { Alert, Modal, Table } from '../../styled-components';
 
-import { SourceMetadata } from '../../../../shared/typings/source-selector';
+import type { SourceMetadata } from '../../../../shared/typings/source-selector';
 import { middleEllipsis } from '../../utils/middle-ellipsis';
 import * as i18next from 'i18next';
 
