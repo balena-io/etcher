@@ -40,7 +40,7 @@
     "drivelist": "^12.0.2",
     "electron-squirrel-startup": "^1.0.0",
     "electron-updater": "6.1.7",
-    "etcher-sdk": "9.0.7",
+    "etcher-sdk": "9.0.9",
     "i18next": "23.7.8",
     "immutable": "3.8.2",
     "lodash": "4.17.21",
