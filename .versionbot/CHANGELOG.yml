@@ -1,4 +1,20 @@
 - commits:
+    - subject: "patch: use etcher icon as loading for windows installer"
+      hash: bc3340960a765e99f2f02bc21adace91d228d26f
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: fix windows squirrel install"
+      hash: d498248a0f1416045b836646b72c7b4c588119d3
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.13
+  title: ""
+  date: 2024-04-25T19:02:23.576Z
+- commits:
     - subject: "patch: bump minors & patch"
       hash: afd659f9e586e012be7e3b02490d14a8ac64bb35
       body: ""

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.19.13
+## (2024-04-25)
+
+* patch: use etcher icon as loading for windows installer [Edwin Joassart]
+* patch: fix windows squirrel install [Edwin Joassart]
+
 # v1.19.12
 ## (2024-04-25)
 
