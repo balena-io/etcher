@@ -33,6 +33,7 @@ export const config: Options.Testrunner = {
 	//
 	specs: ['./tests/**/*.spec.ts'],
 	// Patterns to exclude.
+	// FIXME: Remove the following exclusions once the tests are ported to WDIO
 	exclude: [
 		'tests/gui/modules/image-writer.spec.ts',
 		'tests/gui/os/window-progress.spec.ts',
@@ -40,6 +41,9 @@ export const config: Options.Testrunner = {
 		'tests/gui/models/flash-state.spec.ts',
 		'tests/gui/models/selection-state.spec.ts',
 		'tests/gui/models/settings.spec.ts',
+		'tests/shared/drive-constraints.spec.ts',
+		'tests/shared/messages.spec.ts',
+		'tests/gui/modules/progress-status.spec.ts',
 	],
 	//
 	// ============
