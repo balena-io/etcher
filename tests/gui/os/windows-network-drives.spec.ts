@@ -17,7 +17,8 @@
 import { expect } from 'chai';
 import { promises as fs } from 'fs';
 import * as os from 'os';
-import { SinonStub, stub } from 'sinon';
+import type { SinonStub } from 'sinon';
+import { stub } from 'sinon';
 
 import * as wnd from '../../../lib/gui/app/os/windows-network-drives';
 

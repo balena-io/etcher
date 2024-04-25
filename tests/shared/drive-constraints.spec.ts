@@ -16,7 +16,7 @@
 
 import { expect } from 'chai';
 import * as path from 'path';
-import { SourceMetadata } from '../../lib/shared/typings/source-selector';
+import type { SourceMetadata } from '../../lib/shared/typings/source-selector';
 
 import * as constraints from '../../lib/shared/drive-constraints';
 import * as messages from '../../lib/shared/messages';

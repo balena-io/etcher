@@ -15,8 +15,8 @@
  */
 
 import * as sdk from 'etcher-sdk';
+import type { Adapter } from 'etcher-sdk/build/scanner/adapters';
 import {
-	Adapter,
 	BlockDeviceAdapter,
 	UsbbootDeviceAdapter,
 } from 'etcher-sdk/build/scanner/adapters';

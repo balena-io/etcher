@@ -22,10 +22,11 @@
  */
 
 import { expect } from 'chai';
-import { Drive as DrivelistDrive } from 'drivelist';
-import { assert, SinonStub, stub } from 'sinon';
+import type { Drive as DrivelistDrive } from 'drivelist';
+import type { SinonStub } from 'sinon';
+import { assert, stub } from 'sinon';
 
-import { SourceMetadata } from '../../../lib/shared/typings/source-selector';
+import type { SourceMetadata } from '../../../lib/shared/typings/source-selector';
 import * as flashState from '../../../lib/gui/app/models/flash-state';
 import * as imageWriter from '../../../lib/gui/app/modules/image-writer';
 
