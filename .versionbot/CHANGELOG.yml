@@ -1,4 +1,50 @@
 - commits:
+    - subject: "patch: bump minors & patch"
+      hash: afd659f9e586e012be7e3b02490d14a8ac64bb35
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: bump @electron-forge/* to 7.4.0"
+      hash: ffdeccf7efd1412a2e2838fd07df5b21f1233efe
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: bump electron to 30.0.1 & @electron/remote to 2.1.2"
+      hash: 37ac323e10c07db35a7e47b576d07e1d4d41a470
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: npm upgrade"
+      hash: 7c8f3c35d3d159e7be73442ab215019dc2388f54
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: bump @balena/lint to 8.0.2 and fix formating"
+      hash: 4aa4140d65189920938c42c41a6a781c97148c8a
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: fix pretty-bytes imports"
+      hash: 064261107954dd64d03f94d6aeffd95cd2211df0
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: bump etcher-sdk to 9.0.9"
+      hash: 2f4a12a48facf0634ed457fe6ed7c50e21b419ee
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.12
+  title: ""
+  date: 2024-04-25T16:47:43.024Z
+- commits:
     - subject: "patch: setup wdio and port (most) tests"
       hash: a661d102bc94bf2707f01958d1e9d260efc06c14
       body: ""

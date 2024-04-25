@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.19.12
+## (2024-04-25)
+
+* patch: bump minors & patch [Edwin Joassart]
+* patch: bump @electron-forge/* to 7.4.0 [Edwin Joassart]
+* patch: bump electron to 30.0.1 & @electron/remote to 2.1.2 [Edwin Joassart]
+* patch: npm upgrade [Edwin Joassart]
+* patch: bump @balena/lint to 8.0.2 and fix formating [Edwin Joassart]
+* patch: fix pretty-bytes imports [Edwin Joassart]
+* patch: bump etcher-sdk to 9.0.9 [Edwin Joassart]
+
 # v1.19.11
 ## (2024-04-25)
 
