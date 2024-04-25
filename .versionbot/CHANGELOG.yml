@@ -1,4 +1,14 @@
 - commits:
+    - subject: "patch: setup wdio and port (most) tests"
+      hash: a661d102bc94bf2707f01958d1e9d260efc06c14
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.11
+  title: ""
+  date: 2024-04-25T13:00:13.805Z
+- commits:
     - subject: "patch: remove node-ipc and tests"
       hash: ccc31bb9aaba8df88b2af612824d9106051e2804
       body: ""
