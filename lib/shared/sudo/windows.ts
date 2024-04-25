@@ -42,11 +42,9 @@ import { mkdir, writeFile, copyFile, readFile } from 'fs/promises';
 
 export async function sudo(
 	command: string,
-	name: string,
+	_name: string,
 	env: any,
 ): Promise<{ cancelled: boolean; stdout?: string; stderr?: string }> {
-	// console.log('name', name);
-
 	const uuid = uuidv4();
 
 	const temp = tmpdir();

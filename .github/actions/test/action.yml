@@ -3,23 +3,23 @@ name: test release
 # https://github.com/product-os/flowzone/tree/master/.github/actions
 inputs:
   json:
-    description: "JSON stringified object containing all the inputs from the calling workflow"
+    description: 'JSON stringified object containing all the inputs from the calling workflow'
     required: true
   secrets:
-    description: "JSON stringified object containing all the secrets from the calling workflow"
+    description: 'JSON stringified object containing all the secrets from the calling workflow'
     required: true
 
   # --- custom environment
   NODE_VERSION:
     type: string
-    default: "20.10"
+    default: '20.10'
   VERBOSE:
     type: string
-    default: "true"
+    default: 'true'
 
 runs:
   # https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
-  using: "composite"
+  using: 'composite'
   steps:
     # https://github.com/actions/setup-node#caching-global-packages-data
     - name: Setup Node.js
@@ -57,7 +57,7 @@ runs:
         npm ci
         npm run lint
         npm run package
-        npm run test
+        npm run wdio # test stage, note that it requires the package to be done first
 
       env:
         # https://www.electronjs.org/docs/latest/api/environment-variables

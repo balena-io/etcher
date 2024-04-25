@@ -15,12 +15,14 @@
  */
 
 import { expect } from 'chai';
+import * as i18next from 'i18next';
+import en_translation from '../../../lib/gui/app/i18n/en';
 
 import * as progressStatus from '../../../lib/gui/app/modules/progress-status';
 
 describe('Browser: progressStatus', function () {
 	describe('.titleFromFlashState()', function () {
-		beforeEach(function () {
+		beforeEach(async function () {
 			this.state = {
 				active: 1,
 				type: 'flashing',
@@ -29,6 +31,13 @@ describe('Browser: progressStatus', function () {
 				eta: 15,
 				speed: 100000000000000,
 			};
+
+			await i18next.init({
+				lng: 'en', // Set the default language
+				resources: {
+					en: en_translation,
+				},
+			});
 		});
 
 		it('should report 0% if percentage == 0 but speed != 0', function () {

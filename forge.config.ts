@@ -7,6 +7,7 @@ import { MakerDMG } from '@electron-forge/maker-dmg';
 import { MakerAppImage } from '@reforged/maker-appimage';
 import { AutoUnpackNativesPlugin } from '@electron-forge/plugin-auto-unpack-natives';
 import { WebpackPlugin } from '@electron-forge/plugin-webpack';
+import { exec } from 'child_process';
 
 import { mainConfig, rendererConfig } from './webpack.config';
 import * as sidecar from './forge.sidecar';
@@ -152,6 +153,23 @@ const config: ForgeConfig = {
 			// packageJson.packageType = 'dmg' | 'AppImage' | 'rpm' | 'deb' | 'zip' | 'nsis' | 'portable'
 
 			return packageJson;
+		},
+		postPackage: async (_forgeConfig, options) => {
+			if (options.platform === 'linux') {
+				// symlink the etcher binary from balena-etcher to balenaEtcher to ensure compatibility with the wdio suite and the old name
+				await new Promise<void>((resolve, reject) => {
+					exec(
+						`ln -s "${options.outputPaths}/balena-etcher" "${options.outputPaths}/balenaEtcher"`,
+						(err) => {
+							if (err) {
+								reject(err);
+							} else {
+								resolve();
+							}
+						},
+					);
+				});
+			}
 		},
 	},
 };
