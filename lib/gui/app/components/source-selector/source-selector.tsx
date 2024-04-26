@@ -423,6 +423,14 @@ export class SourceSelector extends React.Component<
 						// this will send an event down the ipcMain asking for metadata
 						// we'll get the response through an event
 
+						// FIXME: This is a poor man wait while loading to prevent a potential race condition without completely blocking the interface
+						// This should be addressed when refactoring the GUI
+						let retriesLeft = 10;
+						while (requestMetadata === undefined && retriesLeft > 0) {
+							await new Promise((resolve) => setTimeout(resolve, 1050)); // api is trying to connect every 1000, this is offset to make sure we fall between retries
+							retriesLeft--;
+						}
+
 						metadata = await requestMetadata({ selected, SourceType, auth });
 
 						if (!metadata?.hasMBR && this.state.warning === null) {
