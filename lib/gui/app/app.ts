@@ -142,25 +142,29 @@ export let requestMetadata: any;
 // start the api and spawn the child process
 spawnChildAndConnect({
 	withPrivileges: false,
-}).then(({ emit, registerHandler }) => {
-	// start scanning
-	emit('scan', {});
+})
+	.then(({ emit, registerHandler }) => {
+		// start scanning
+		emit('scan', {});
 
-	// make the sourceMetada awaitable to be used on source selection
-	requestMetadata = async (params: any): Promise<SourceMetadata> => {
-		emit('sourceMetadata', JSON.stringify(params));
+		// make the sourceMetada awaitable to be used on source selection
+		requestMetadata = async (params: any): Promise<SourceMetadata> => {
+			emit('sourceMetadata', JSON.stringify(params));
 
-		return new Promise((resolve) =>
-			registerHandler('sourceMetadata', (data: any) => {
-				resolve(JSON.parse(data));
-			}),
-		);
-	};
+			return new Promise((resolve) =>
+				registerHandler('sourceMetadata', (data: any) => {
+					resolve(JSON.parse(data));
+				}),
+			);
+		};
 
-	registerHandler('drives', (data: any) => {
-		setDrives(JSON.parse(data));
+		registerHandler('drives', (data: any) => {
+			setDrives(JSON.parse(data));
+		});
+	})
+	.catch((error: any) => {
+		throw new Error(`Failed to start the flasher process. error: ${error}`);
 	});
-});
 
 let popupExists = false;
 
