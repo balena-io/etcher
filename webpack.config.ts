@@ -17,29 +17,7 @@
 import type { Configuration, ModuleOptions } from 'webpack';
 import { resolve } from 'path';
 
-import {
-	BannerPlugin,
-	IgnorePlugin,
-	NormalModuleReplacementPlugin,
-} from 'webpack';
-
-interface ReplacementRule {
-	search: string;
-	replace: string | (() => string);
-}
-
-function slashOrAntislash(pattern: RegExp): RegExp {
-	return new RegExp(pattern.source.replace(/\\\//g, '(\\/|\\\\)'));
-}
-
-function replace(test: RegExp, ...replacements: ReplacementRule[]) {
-	return {
-		loader: 'string-replace-loader',
-		// Handle windows path separators
-		test: slashOrAntislash(test),
-		options: { multiple: replacements.map((r) => ({ ...r, strict: true })) },
-	};
-}
+import { BannerPlugin, IgnorePlugin } from 'webpack';
 
 const rules: Required<ModuleOptions>['rules'] = [
 	// Add support for native node modules
@@ -81,11 +59,6 @@ const rules: Required<ModuleOptions>['rules'] = [
 		test: /\.svg$/,
 		use: '@svgr/webpack',
 	},
-	// force axios to use http backend (not xhr) to support streams
-	replace(/node_modules\/axios\/lib\/defaults\.js$/, {
-		search: './adapters/xhr',
-		replace: './adapters/http',
-	}),
 ];
 
 export const rendererConfig: Configuration = {
@@ -93,12 +66,6 @@ export const rendererConfig: Configuration = {
 		rules,
 	},
 	plugins: [
-		// Force axios to use http.js, not xhr.js as we need stream support
-		// (its package.json file replaces http with xhr for browser targets).
-		new NormalModuleReplacementPlugin(
-			slashOrAntislash(/node_modules\/axios\/lib\/adapters\/xhr\.js/),
-			'./http.js',
-		),
 		// Ignore `aws-crt` which is a dependency of (ultimately) `aws4-axios` which is used
 		// by etcher-sdk and does a runtime check to its availability. We’re not currently
 		// using the “assume role” functionality (AFAIU) of aws4-axios and we don’t care that
