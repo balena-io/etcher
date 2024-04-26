@@ -1,4 +1,14 @@
 - commits:
+    - subject: "patch: hold request for metadata while waiting for flasher"
+      hash: 2dfa795129e287f887b9ea02f2eca717575d27ac
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.16
+  title: ""
+  date: 2024-04-26T14:33:19.111Z
+- commits:
     - subject: "patch: bump etcher-sdk to 9.0.11 to fix url loading using http/2"
       hash: cb03fb83754f38d647fc951b94470725b46b2b31
       body: ""
