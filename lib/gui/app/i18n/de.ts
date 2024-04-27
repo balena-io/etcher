@@ -124,7 +124,7 @@ const translation = {
 			moreInfo: 'weitere Infos',
 			speedTip:
 				'Die Geschwindigkeit wird berechnet, indem die Größe des Abbilds durch die Flash-Zeit geteilt wird.\nFestplattenabbilder mit ext-Partitionen werden schneller geflasht, da wir in der Lage sind, ungenutzte Bestandteile zu überspringen.',
-			speed: 'Effective speed: {{speed}} MB/s',
+			speed: 'Effektive Geschwindigkeit: {{speed}} MB/s',
 			speedShort: '{{speed}} MB/s',
 			eta: 'ETA: {{eta}}',
 			failedTarget: 'Fehlgeschlagene Ziele',
