@@ -27,7 +27,7 @@ import { promises as fs } from 'fs';
 import { platform } from 'os';
 import * as path from 'path';
 import * as semver from 'semver';
-import * as lodash from 'lodash';
+import { once } from 'lodash';
 
 import './app/i18n';
 
@@ -37,7 +37,6 @@ import * as settings from './app/models/settings';
 import { buildWindowMenu } from './menu';
 import * as i18n from 'i18next';
 import * as SentryMain from '@sentry/electron/main';
-import * as packageJSON from '../../package.json';
 import { anonymizeSentryData } from './app/modules/analytics';
 
 import { delay } from '../shared/utils';
@@ -115,12 +114,15 @@ async function getCommandLineURL(argv: string[]): Promise<string | undefined> {
 	}
 }
 
-const initSentryMain = lodash.once(() => {
+const initSentryMain = once(() => {
 	const dsn =
-		settings.getSync('analyticsSentryToken') ||
-		lodash.get(packageJSON, ['analytics', 'sentry', 'token']);
+		settings.getSync('analyticsSentryToken') || process.env.SENTRY_TOKEN;
 
-	SentryMain.init({ dsn, beforeSend: anonymizeSentryData });
+	SentryMain.init({
+		dsn,
+		beforeSend: anonymizeSentryData,
+	});
+	console.log(SentryMain.getCurrentScope());
 });
 
 const sourceSelectorReady = new Promise((resolve) => {

@@ -136,25 +136,6 @@ const config: ForgeConfig = {
 		new sidecar.SidecarPlugin(),
 	],
 	hooks: {
-		readPackageJson: async (_config, packageJson) => {
-			packageJson.analytics = {};
-
-			if (process.env.SENTRY_TOKEN) {
-				packageJson.analytics.sentry = {
-					token: process.env.SENTRY_TOKEN,
-				};
-			}
-
-			if (process.env.AMPLITUDE_TOKEN) {
-				packageJson.analytics.amplitude = {
-					token: 'balena-etcher',
-				};
-			}
-
-			// packageJson.packageType = 'dmg' | 'AppImage' | 'rpm' | 'deb' | 'zip' | 'nsis' | 'portable'
-
-			return packageJson;
-		},
 		postPackage: async (_forgeConfig, options) => {
 			if (options.platform === 'linux') {
 				// symlink the etcher binary from balena-etcher to balenaEtcher to ensure compatibility with the wdio suite and the old name
