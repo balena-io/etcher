@@ -14,6 +14,7 @@
     "url": "git@github.com:balena-io/etcher.git"
   },
   "scripts": {
+    "prepare": "husky install",
     "prettify": "prettier --write lib/**/*.css && balena-lint --fix --typescript typings lib tests forge.config.ts forge.sidecar.ts webpack.config.ts",
     "lint": "npm run prettify && catch-uncommitted",
     "test": "echo 'Only use custom tests; if you want to test locally, use `npm run wdio`' && exit 0",
@@ -23,11 +24,6 @@
     "wdio:unit": "xvfb-maybe wdio run ./wdio.conf.ts --suite gui --suite shared",
     "wdio:e2e": "xvfb-maybe wdio run ./wdio.conf.ts --suite e2e",
     "wdio:ci": "xvfb-maybe wdio run ./wdio.conf.ts --suite ci"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run prettify"
-    }
   },
   "author": "Balena Ltd. <hello@balena.io>",
   "license": "Apache-2.0",
