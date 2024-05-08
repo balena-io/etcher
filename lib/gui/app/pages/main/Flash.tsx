@@ -122,8 +122,6 @@ async function flashImageToDrive(
 			errorMessage = messages.error.genericFlashError(error);
 		}
 		return errorMessage;
-	} finally {
-		availableDrives.setDrives([]);
 	}
 
 	return '';

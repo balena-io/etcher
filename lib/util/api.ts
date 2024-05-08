@@ -24,7 +24,7 @@ import { toJSON } from '../shared/errors';
 import { GENERAL_ERROR, SUCCESS } from '../shared/exit-codes';
 import type { WriteOptions } from './types/types';
 import { write, cleanup } from './child-writer';
-import { startScanning } from './scanner';
+import { startScanning, stopScanning } from './scanner';
 import { getSourceMetadata } from './source-metadata';
 import type { DrivelistDrive } from '../shared/drive-constraints';
 import type { SourceMetadata } from '../shared/typings/source-selector';
@@ -220,6 +220,11 @@ function setup(): Promise<EmitLog> {
 				scan: () => {
 					log('Scan requested');
 					startScanning();
+				},
+
+				stopScan: () => {
+					log('Stop scan requested');
+					stopScanning();
 				},
 
 				// route `cancel` from client

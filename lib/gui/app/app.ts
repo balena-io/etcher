@@ -130,14 +130,18 @@ observe(() => {
 
 function setDrives(drives: Dictionary<DrivelistDrive>) {
 	// prevent setting drives while flashing otherwise we might lose some while we unmount them
-	if (!flashState.isFlashing()) {
-		availableDrives.setDrives(values(drives));
-	}
+	availableDrives.setDrives(values(drives));
 }
 
 // Spawning the child process without privileges to get the drives list
 // TODO: clean up this mess of exports
-export let requestMetadata: any;
+export let requestMetadata: (params: any) => Promise<SourceMetadata>;
+export let startScanner: () => void = () => {
+	console.log('stopScanner is not yet set');
+};
+export let stopScanner: () => void = () => {
+	console.log('stopScanner is not yet set');
+};
 
 // start the api and spawn the child process
 spawnChildAndConnect({
@@ -146,6 +150,18 @@ spawnChildAndConnect({
 	.then(({ emit, registerHandler }) => {
 		// start scanning
 		emit('scan', {});
+
+		// make startScanner available for the end of flash
+		startScanner = () => {
+			console.log('startScanner');
+			emit('scan', {});
+		};
+
+		// make stopScanner available for the start of flash
+		stopScanner = () => {
+			console.log('stopScanner');
+			emit('scan', {});
+		};
 
 		// make the sourceMetada awaitable to be used on source selection
 		requestMetadata = async (params: any): Promise<SourceMetadata> => {
