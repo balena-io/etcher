@@ -1,4 +1,14 @@
 - commits:
+    - subject: "patch: fix injection of analytics key at build time"
+      hash: e94767aca7b07e674bd60176ef77c11440131ace
+      body: ""
+      footer: {}
+      author: JOASSART Edwin
+      nested: []
+  version: 1.19.17
+  title: ""
+  date: 2024-05-09T06:33:45.091Z
+- commits:
     - subject: "patch: hold request for metadata while waiting for flasher"
       hash: 2dfa795129e287f887b9ea02f2eca717575d27ac
       body: ""
