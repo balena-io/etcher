@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import * as _ from 'lodash';
+import { findLastIndex, once } from 'lodash';
 import type { Client } from 'analytics-client';
 import { createClient, createNoopClient } from 'analytics-client';
 import * as SentryRenderer from '@sentry/electron/renderer';
 import * as settings from '../models/settings';
 import { store } from '../models/store';
-import * as packageJSON from '../../../../package.json';
+import { version } from '../../../../package.json';
 
 type AnalyticsPayload = _.Dictionary<any>;
 
@@ -73,7 +73,7 @@ export const anonymizePath = (input: string) => {
 	const segments = mainPart.split(sep);
 
 	// Moving from the end, find the first marker and cut the path from there.
-	const startCutIndex = _.findLastIndex(segments, (segment) =>
+	const startCutIndex = findLastIndex(segments, (segment) =>
 		etcherSegmentMarkers.includes(segment),
 	);
 	return (
@@ -119,21 +119,19 @@ let analyticsClient: Client;
 /**
  * @summary Init analytics configurations
  */
-export const initAnalytics = _.once(() => {
+export const initAnalytics = once(() => {
 	const dsn =
-		settings.getSync('analyticsSentryToken') ||
-		_.get(packageJSON, ['analytics', 'sentry', 'token']);
+		settings.getSync('analyticsSentryToken') || process.env.SENTRY_TOKEN;
 	SentryRenderer.init({ dsn, beforeSend: anonymizeSentryData });
 
 	const projectName =
-		settings.getSync('analyticsAmplitudeToken') ||
-		_.get(packageJSON, ['analytics', 'amplitude', 'token']);
+		settings.getSync('analyticsAmplitudeToken') || process.env.AMPLITUDE_TOKEN;
 
 	const clientConfig = {
 		projectName,
 		endpoint: 'data.balena-cloud.com',
 		componentName: 'etcher',
-		componentVersion: packageJSON.version,
+		componentVersion: version,
 	};
 	analyticsClient = projectName
 		? createClient(clientConfig)

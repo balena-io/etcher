@@ -17,7 +17,7 @@
 import type { Configuration, ModuleOptions } from 'webpack';
 import { resolve } from 'path';
 
-import { BannerPlugin, IgnorePlugin } from 'webpack';
+import { BannerPlugin, IgnorePlugin, DefinePlugin } from 'webpack';
 
 const rules: Required<ModuleOptions>['rules'] = [
 	// Add support for native node modules
@@ -78,6 +78,15 @@ export const rendererConfig: Configuration = {
 		new BannerPlugin({
 			banner: '__REACT_DEVTOOLS_GLOBAL_HOOK__ = { isDisabled: true };',
 			raw: true,
+		}),
+		// Inject the analytics key into the code
+		new DefinePlugin({
+			'process.env.SENTRY_TOKEN': JSON.stringify(
+				process.env.SENTRY_TOKEN || '',
+			),
+			'process.env.AMPLITUDE_TOKEN': JSON.stringify(
+				process.env.AMPLITUDE_TOKEN || '',
+			),
 		}),
 	],
 
