@@ -106,6 +106,17 @@ runs:
 
         echo "TARGET_DRIVE=Microsoft Virtual Disk" | Out-File -FilePath $env:GITHUB_ENV -Append
 
+    - name: Setup Virtual Drive on Linux
+      if: runner.os == 'Linux'
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y nbdkit nbd-client
+        sudo modprobe nbd
+        sudo nbdkit memory 4G
+        sudo nbd-client localhost /dev/nbd0
+        echo "TARGET_DRIVE=${/dev/nbd0}" >> $GITHUB_ENV
+
     - name: Test release
       shell: bash
       run: |
@@ -122,20 +133,15 @@ runs:
         # tests requires the app to already be built
         npm run package
 
-        if [[ '${{ runner.os }}' == 'Linux' ]]; then
-          # linux doesn't support e2e tests yet
-          npm run wdio:unit
-        else
-          # download the test source
-          wget -q -O ${{ env.TEST_SOURCE_FILE }} ${{ env.TEST_SOURCE_URL }}
-          # E2E tests can't input the administrative password, therefore the tests need to run as root
-          sudo \
-            TARGET_DRIVE=${{ env.TARGET_DRIVE }} \
-            ETCHER_INCLUDE_VIRTUAL_DRIVES=1 \
-            TEST_SOURCE_FILE: $(pwd)/${{ env.TEST_SOURCE_FILE }} \
-            TEST_SOURCE_URL: ${{ env.TEST_SOURCE_URL }} \
-            npm run wdio:ci
-        fi
+        # download the test source
+        wget -q -O ${{ env.TEST_SOURCE_FILE }} ${{ env.TEST_SOURCE_URL }}
+        # E2E tests can't input the administrative password, therefore the tests need to run as root
+        sudo \
+          TARGET_DRIVE=${{ env.TARGET_DRIVE }} \
+          ETCHER_INCLUDE_VIRTUAL_DRIVES=1 \
+          TEST_SOURCE_FILE: $(pwd)/${{ env.TEST_SOURCE_FILE }} \
+          TEST_SOURCE_URL: ${{ env.TEST_SOURCE_URL }} \
+          npm run wdio:ci
 
       env:
         # https://www.electronjs.org/docs/latest/api/environment-variables
