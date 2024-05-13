@@ -115,6 +115,7 @@ runs:
         sudo modprobe nbd
         sudo nbdkit memory 4G
         sudo nbd-client localhost /dev/nbd0
+        dmsg | grep nbd
         echo "TARGET_DRIVE=${/dev/nbd0}" >> $GITHUB_ENV
 
     - name: Test release
