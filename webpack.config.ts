@@ -61,6 +61,13 @@ const rules: Required<ModuleOptions>['rules'] = [
 	},
 ];
 
+const injectAnalyticsToken = new DefinePlugin({
+	'process.env.SENTRY_TOKEN': JSON.stringify(process.env.SENTRY_TOKEN || ''),
+	'process.env.AMPLITUDE_TOKEN': JSON.stringify(
+		process.env.AMPLITUDE_TOKEN || '',
+	),
+});
+
 export const rendererConfig: Configuration = {
 	module: {
 		rules,
@@ -79,15 +86,7 @@ export const rendererConfig: Configuration = {
 			banner: '__REACT_DEVTOOLS_GLOBAL_HOOK__ = { isDisabled: true };',
 			raw: true,
 		}),
-		// Inject the analytics key into the code
-		new DefinePlugin({
-			'process.env.SENTRY_TOKEN': JSON.stringify(
-				process.env.SENTRY_TOKEN || '',
-			),
-			'process.env.AMPLITUDE_TOKEN': JSON.stringify(
-				process.env.AMPLITUDE_TOKEN || '',
-			),
-		}),
+		injectAnalyticsToken,
 	],
 
 	resolve: {
@@ -109,4 +108,5 @@ export const mainConfig: Configuration = {
 	resolve: {
 		extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json'],
 	},
+	plugins: [injectAnalyticsToken],
 };
