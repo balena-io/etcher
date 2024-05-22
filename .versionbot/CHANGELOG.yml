@@ -1,4 +1,14 @@
 - commits:
+    - subject: "patch: fix Sentry DSN for main process"
+      hash: 4ffda6e208a6e2f109f652d39e1248bec23a2ddf
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.18
+  title: ""
+  date: 2024-05-22T13:28:03.659Z
+- commits:
     - subject: "patch: fix injection of analytics key at build time"
       hash: e94767aca7b07e674bd60176ef77c11440131ace
       body: ""
