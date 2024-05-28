@@ -121,6 +121,7 @@ const initSentryMain = once(() => {
 	SentryMain.init({
 		dsn,
 		beforeSend: anonymizeSentryData,
+		debug: process.env.ETCHER_SENTRY_DEBUG === 'true',
 	});
 	console.log(SentryMain.getCurrentScope());
 });
