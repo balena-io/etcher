@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.19.19
+## (2024-05-28)
+
+* patch: add sentry debug flag [Edwin Joassart]
+
 # v1.19.18
 ## (2024-05-22)
 
