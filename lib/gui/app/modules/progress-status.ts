@@ -34,8 +34,6 @@ export function fromFlashState({
 	status: string;
 	position?: string;
 } {
-	console.log(i18next.t('progress.starting'));
-
 	if (type === undefined) {
 		return { status: i18next.t('progress.starting') };
 	} else if (type === 'decompressing') {
