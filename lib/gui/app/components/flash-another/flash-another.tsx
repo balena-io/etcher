@@ -25,7 +25,7 @@ export interface FlashAnotherProps {
 
 export const FlashAnother = (props: FlashAnotherProps) => {
 	return (
-		<BaseButton primary onClick={props.onClick}>
+		<BaseButton primary data-testid="flash-another" onClick={props.onClick}>
 			{i18next.t('flash.another')}
 		</BaseButton>
 	);
