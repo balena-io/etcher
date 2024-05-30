@@ -1,5 +1,27 @@
 - commits:
     - subject: "patch: fix missing windows dependency"
+      hash: 8dad81ae34b8d71f3d4f7151ee60717e6207ccd8
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: fix missing windows dependency"
+      hash: d28719daf249f2994acdf94b4bb7ea937ffcab9b
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: fix missing windows dependency"
+      hash: 98db4df0dc147e5fec9180c50f4e21acf1fd0a58
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.21
+  title: ""
+  date: 2024-05-30T15:00:35.706Z
+- commits:
+    - subject: "patch: fix missing windows dependency"
       hash: c4d3f8db8769418925a9909ac700edc5f425a068
       body: ""
       footer: {}
