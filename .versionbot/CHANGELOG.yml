@@ -1,4 +1,14 @@
 - commits:
+    - subject: "patch: fix missing windows dependency"
+      hash: c4d3f8db8769418925a9909ac700edc5f425a068
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.20
+  title: ""
+  date: 2024-05-30T10:17:29.075Z
+- commits:
     - subject: "patch: add sentry debug flag"
       hash: 8223130e8dfce180481550d77f022064255601e4
       body: ""
