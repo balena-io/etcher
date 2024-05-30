@@ -151,6 +151,7 @@
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.8",
-    "utf-8-validate": "^5.0.10"
+    "utf-8-validate": "^5.0.10",
+    "winusb-driver-generator": "2.1.2"
   }
 }
