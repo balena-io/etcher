@@ -3,6 +3,7 @@ import { initReactI18next } from 'react-i18next';
 import zh_CN_translation from './i18n/zh-CN';
 import zh_TW_translation from './i18n/zh-TW';
 import en_translation from './i18n/en';
+import it_translation from './i18n/it';
 
 export function langParser() {
 	if (process.env.LANG !== undefined) {
