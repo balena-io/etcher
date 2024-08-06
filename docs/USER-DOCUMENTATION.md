@@ -20,7 +20,7 @@ images, usually available from the image publishers themselves.
 Images known to require special treatment:
 
 - Microsoft Windows (use [Windows USB/DVD Download Tool][windows-usb-tool], 
-  [Rufus][rufus], or [WoeUSB][woeusb]).
+  [Rufus][rufus], or [WoeUSB](https://github.com/WoeUSB/WoeUSB-ng)).
 
 - Windows 10 IoT (use the [Windows 10 IoT Core Dashboard][windows-iot-dashboard])
 
