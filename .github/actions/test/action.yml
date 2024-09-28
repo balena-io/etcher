@@ -55,6 +55,12 @@ runs:
         # fi
 
         npm ci
+
+        # as the shrinkwrap might have been done on mac/linux, this is ensure the package is there for windows
+        if [[ "$RUNNER_OS" == "Windows" ]]; then
+          npm i -D winusb-driver-generator
+        fi
+
         npm run lint
         npm run package
         npm run wdio # test stage, note that it requires the package to be done first

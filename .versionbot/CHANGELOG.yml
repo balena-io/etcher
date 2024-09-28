@@ -1,4 +1,68 @@
 - commits:
+    - subject: Replace deprecated Flowzone inputs
+      hash: 52d396aa7ea9ae1ef6d68151f582f04f57191b14
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Kyle Harding
+      nested: []
+  version: 1.19.22
+  title: ""
+  date: 2024-07-18T18:12:56.368Z
+- commits:
+    - subject: "patch: fix missing windows dependency"
+      hash: 8dad81ae34b8d71f3d4f7151ee60717e6207ccd8
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: fix missing windows dependency"
+      hash: d28719daf249f2994acdf94b4bb7ea937ffcab9b
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: fix missing windows dependency"
+      hash: 98db4df0dc147e5fec9180c50f4e21acf1fd0a58
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.21
+  title: ""
+  date: 2024-05-30T15:00:35.706Z
+- commits:
+    - subject: "patch: fix missing windows dependency"
+      hash: c4d3f8db8769418925a9909ac700edc5f425a068
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.20
+  title: ""
+  date: 2024-05-30T10:17:29.075Z
+- commits:
+    - subject: "patch: add sentry debug flag"
+      hash: 8223130e8dfce180481550d77f022064255601e4
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.19
+  title: ""
+  date: 2024-05-28T12:09:51.167Z
+- commits:
+    - subject: "patch: fix Sentry DSN for main process"
+      hash: 4ffda6e208a6e2f109f652d39e1248bec23a2ddf
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.18
+  title: ""
+  date: 2024-05-22T13:28:03.659Z
+- commits:
     - subject: "patch: fix injection of analytics key at build time"
       hash: e94767aca7b07e674bd60176ef77c11440131ace
       body: ""
