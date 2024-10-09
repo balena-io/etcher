@@ -46,9 +46,20 @@ runs:
       with:
         python-version: '3.11'
 
+    - name: Setup Virtual Drive on MacOS
+      if: runner.os == 'macOS'
+      shell: bash
+      run: |
+        hdiutil create -size 4096m -layout NONE -o virtual_test_disk.dmg
+        virtual_path=$(hdiutil attach -nomount virtual_test_disk.dmg | awk '{print $1}')
+        echo "TARGET_DRIVE=${virtual_path}" >> $GITHUB_ENV
+        echo "ETCHER_INCLUDE_VIRTUAL_DRIVES=1" >> $GITHUB_ENV
+
     - name: Test release
       shell: bash
       run: |
+        # Build and Test release
+
         ## FIXME: causes issues with `xxhash` which tries to load a debug build which doens't exist and cannot be compiled
         # if [[ '${{ inputs.VERBOSE }}' =~ on|On|Yes|yes|true|True ]]; then
         #   export DEBUG='electron-forge:*,sidecar'
@@ -63,11 +74,29 @@ runs:
 
         npm run lint
         npm run package
-        npm run wdio # test stage, note that it requires the package to be done first
+        
+        # tests requires the app to already be built
 
+        # # only run e2e tests on Mac as it's the only supported platform atm
+        if [[ '${{ runner.os }}' == 'macOS' ]]; then
+          # run all tests on macOS including E2E
+          # E2E tests can't input the administrative password, therefore the tests need to run as root
+          wget -q -O ${{ env.TEST_SOURCE_FILE }} ${{ env.TEST_SOURCE_URL }}
+          sudo \
+            TARGET_DRIVE=${{ env.TARGET_DRIVE }} \
+            ETCHER_INCLUDE_VIRTUAL_DRIVES=1 \
+            TEST_SOURCE_FILE: $(pwd)/${{ env.TEST_SOURCE_FILE }} \
+            TEST_SOURCE_URL: ${{ env.TEST_SOURCE_URL }} \
+            npm run wdio:ci
+        else
+          npm run wdio:unit
+        fi
+        
       env:
         # https://www.electronjs.org/docs/latest/api/environment-variables
         ELECTRON_NO_ATTACH_CONSOLE: 'true'
+        TEST_SOURCE_URL: 'https://api.balena-cloud.com/download?deviceType=raspberrypi4-64&version=5.2.8&fileType=.zip'
+        TEST_SOURCE_FILE: 'raspberrypi4-64-5.2.8-v16.1.10.img.zip'
 
     - name: Compress custom source
       if: runner.os != 'Windows'
