@@ -1,4 +1,14 @@
 - commits:
+    - subject: "patch: remove gconf2 libgconf-2-4 deps"
+      hash: 2ed779ef371db367e4e413c9d0d08fcd738edb5b
+      body: "Closes #4096"
+      footer: {}
+      author: Marc-Aurèle Brothier
+      nested: []
+  version: 1.19.23
+  title: ""
+  date: 2024-10-09T13:52:54.936Z
+- commits:
     - subject: Replace deprecated Flowzone inputs
       hash: 52d396aa7ea9ae1ef6d68151f582f04f57191b14
       body: ""

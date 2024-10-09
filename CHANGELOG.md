@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.19.23
+## (2024-10-09)
+
+* patch: remove gconf2 libgconf-2-4 deps [Marc-Aurèle Brothier]
+
 # v1.19.22
 ## (2024-07-18)
 
