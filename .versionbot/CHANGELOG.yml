@@ -1,4 +1,30 @@
 - commits:
+    - subject: "patch: etcher-util is corrupted in RPM package"
+      hash: e43ee788ec5ec49e105ff804206919bb10a59ea7
+      body: |
+        rpmbuild strips executables by default when generating an rpm packge.
+        This was causing the JavaScript code bundled in the etcher-util file
+        to be removed, causing "Pkg: Error reading from file." whenever
+        etcher-util was called.
+
+        This in turn caused balena-etcher to generate the error message
+        `Error: (0, h.requestMetadata) is not a function` when attempting
+        to write an SD card.
+
+        This fixes the issue for RPM builds by replacing the `strip` command
+        with `true` so that rpmbuild no longer strips the executables and
+        the embeded code stays intact.
+
+        See: https://github.com/balena-io/etcher/issues/4150
+      footer:
+        Signed-off-by: Richard Glidden <richard@glidden.org>
+        signed-off-by: Richard Glidden <richard@glidden.org>
+      author: Richard Glidden
+      nested: []
+  version: 1.19.24
+  title: ""
+  date: 2024-10-09T14:22:56.623Z
+- commits:
     - subject: "patch: remove gconf2 libgconf-2-4 deps"
       hash: 2ed779ef371db367e4e413c9d0d08fcd738edb5b
       body: "Closes #4096"
