@@ -122,7 +122,11 @@ let analyticsClient: Client;
 export const initAnalytics = once(() => {
 	const dsn =
 		settings.getSync('analyticsSentryToken') || process.env.SENTRY_TOKEN;
-	SentryRenderer.init({ dsn, beforeSend: anonymizeSentryData });
+	SentryRenderer.init({
+		dsn,
+		beforeSend: anonymizeSentryData,
+		debug: process.env.ETCHER_SENTRY_DEBUG === 'true',
+	});
 
 	const projectName =
 		settings.getSync('analyticsAmplitudeToken') || process.env.AMPLITUDE_TOKEN;

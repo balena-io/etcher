@@ -3,7 +3,7 @@
   "private": true,
   "displayName": "balenaEtcher",
   "productName": "balenaEtcher",
-  "version": "1.19.18",
+  "version": "1.19.25",
   "packageType": "local",
   "main": ".webpack/main",
   "description": "Flash OS images to SD cards and USB drives, safely and easily.",
@@ -40,7 +40,7 @@
     "drivelist": "^12.0.2",
     "electron-squirrel-startup": "^1.0.0",
     "electron-updater": "6.1.8",
-    "etcher-sdk": "9.0.11",
+    "etcher-sdk": "9.1.2",
     "i18next": "23.11.2",
     "immutable": "3.8.2",
     "lodash": "4.17.21",
@@ -106,8 +106,6 @@
   },
   "hostDependencies": {
     "debian": [
-      "gconf-service",
-      "gconf2",
       "libasound2",
       "libatk1.0-0",
       "libc6",
@@ -119,7 +117,6 @@
       "libfreetype6",
       "libgbm1",
       "libgcc1",
-      "libgconf-2-4",
       "libgdk-pixbuf2.0-0",
       "libglib2.0-0",
       "libgtk-3-0",
@@ -147,10 +144,11 @@
     "node": ">=20 <21"
   },
   "versionist": {
-    "publishedAt": "2024-05-22T13:28:04.201Z"
+    "publishedAt": "2024-10-10T10:03:29.992Z"
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.8",
-    "utf-8-validate": "^5.0.10"
+    "utf-8-validate": "^5.0.10",
+    "winusb-driver-generator": "2.1.2"
   }
 }

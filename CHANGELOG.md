@@ -3,6 +3,43 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.19.25
+## (2024-10-10)
+
+* patch: bump etcher-sdk to 9.1.2 [Edwin Joassart]
+
+# v1.19.24
+## (2024-10-09)
+
+* patch: etcher-util is corrupted in RPM package [Richard Glidden]
+
+# v1.19.23
+## (2024-10-09)
+
+* patch: remove gconf2 libgconf-2-4 deps [Marc-Aurèle Brothier]
+
+# v1.19.22
+## (2024-07-18)
+
+* Replace deprecated Flowzone inputs [Kyle Harding]
+
+# v1.19.21
+## (2024-05-30)
+
+* patch: fix missing windows dependency [Edwin Joassart]
+* patch: fix missing windows dependency [Edwin Joassart]
+* patch: fix missing windows dependency [Edwin Joassart]
+
+# v1.19.20
+## (2024-05-30)
+
+* patch: fix missing windows dependency [Edwin Joassart]
+
+# v1.19.19
+## (2024-05-28)
+
+* patch: add sentry debug flag [Edwin Joassart]
+
 # v1.19.18
 ## (2024-05-22)
 

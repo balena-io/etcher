@@ -53,6 +53,13 @@ runs:
       shell: bash
       run: sudo apt-get install -y --no-install-recommends fakeroot dpkg rpm
 
+    # rpmbuild will strip binaries by default, which breaks the sidecar.
+    # Use a macro to override the "strip" to bypass stripping.
+    - name: Configure rpmbuild to not strip executables
+      if: runner.os == 'Linux'
+      shell: bash
+      run: echo '%__strip  /usr/bin/true' > ~/.rpmmacros
+
     - name: Install host dependencies
       if: runner.os == 'macOS'
       # FIXME: Python 3.12 dropped distutils that node-gyp depends upon.
@@ -131,7 +138,7 @@ runs:
           PLATFORM=Windows
           SHA256SUM_BIN=sha256sum
 
-          # Install DigiCert Signing Manager Tools      
+          # Install DigiCert Signing Manager Tools
           curl --silent --retry 3 --fail https://one.digicert.com/signingmanager/api-ui/v1/releases/smtools-windows-x64.msi/download \
             -H "x-api-key:$SM_API_KEY" \
             -o smtools-windows-x64.msi

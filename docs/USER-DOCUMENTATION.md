@@ -122,7 +122,6 @@ run Etcher on a GNU/Linux system.
 - xrender
 - xtst
 - xscrnsaver
-- gconf-2.0
 - gmodule-2.0
 - nss
 

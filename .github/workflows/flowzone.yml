@@ -18,7 +18,24 @@ jobs:
       (github.event.pull_request.head.repo.full_name != github.repository && github.event_name == 'pull_request_target')
     secrets: inherit
     with:
-      custom_runs_on: '[["ubuntu-20.04"],["windows-2019"],["macos-12"],["macos-latest-xlarge"]]'
+      custom_test_matrix: >
+        {
+          "os": [
+            ["ubuntu-20.04"],
+            ["windows-2019"],
+            ["macos-12"],
+            ["macos-latest-xlarge"]
+          ]
+        }
+      custom_publish_matrix: >
+        {
+          "os": [
+            ["ubuntu-20.04"],
+            ["windows-2019"],
+            ["macos-12"],
+            ["macos-latest-xlarge"]
+          ]
+        }
       restrict_custom_actions: false
       github_prerelease: true
       cloudflare_website: "etcher"
