@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.19.25
+## (2024-10-10)
+
+* patch: bump etcher-sdk to 9.1.2 [Edwin Joassart]
+
 # v1.19.24
 ## (2024-10-09)
 

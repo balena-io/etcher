@@ -1,4 +1,14 @@
 - commits:
+    - subject: "patch: bump etcher-sdk to 9.1.2"
+      hash: c726b51dca3383c76f4bf824fd5d594ac3069180
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 1.19.25
+  title: ""
+  date: 2024-10-10T10:03:29.519Z
+- commits:
     - subject: "patch: etcher-util is corrupted in RPM package"
       hash: e43ee788ec5ec49e105ff804206919bb10a59ea7
       body: |
