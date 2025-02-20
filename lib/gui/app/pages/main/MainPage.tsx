@@ -15,12 +15,13 @@
  */
 
 import CogSvg from '@fortawesome/fontawesome-free/svgs/solid/gear.svg';
+import CloseSvg from '@fortawesome/fontawesome-free/svgs/solid/x.svg';
 import QuestionCircleSvg from '@fortawesome/fontawesome-free/svgs/solid/circle-question.svg';
 
 import * as path from 'path';
 import prettyBytes from 'pretty-bytes';
 import * as React from 'react';
-import { Flex } from 'rendition';
+import { Alert, Flex, Link } from 'rendition';
 import styled from 'styled-components';
 
 import FinishPage from '../../components/finish/finish';
@@ -35,6 +36,7 @@ import { observe } from '../../models/store';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 import {
 	IconButton as BaseIcon,
+	IconButton,
 	ThemedProvider,
 } from '../../styled-components';
 
@@ -46,6 +48,7 @@ import { FlashStep } from './Flash';
 
 import EtcherSvg from '../../../assets/etcher.svg';
 import { SafeWebview } from '../../components/safe-webview/safe-webview';
+import { theme } from '../../theme';
 
 const Icon = styled(BaseIcon)`
 	margin-right: 20px;
@@ -97,6 +100,8 @@ const StepBorder = styled.div<{
 	margin-left: ${(props) => (props.right ? '-120px' : undefined)};
 `;
 
+const ANALYTICS_ALERT_VISIBILITY_KEY = 'analytics_alert_visible';
+
 interface MainPageStateFromStore {
 	isFlashing: boolean;
 	hasImage: boolean;
@@ -113,6 +118,7 @@ interface MainPageState {
 	isWebviewShowing: boolean;
 	hideSettings: boolean;
 	featuredProjectURL?: string;
+	analyticsAlertIsVisible: boolean;
 }
 
 export class MainPage extends React.Component<
@@ -125,6 +131,8 @@ export class MainPage extends React.Component<
 			current: 'main',
 			isWebviewShowing: false,
 			hideSettings: true,
+			analyticsAlertIsVisible:
+				localStorage.getItem(ANALYTICS_ALERT_VISIBILITY_KEY) !== 'false',
 			...this.stateHelper(),
 		};
 	}
@@ -153,11 +161,29 @@ export class MainPage extends React.Component<
 		return url.toString();
 	}
 
+	private hideAnalyticsAlert = () => {
+		if (this.state.analyticsAlertIsVisible) {
+			localStorage.setItem(ANALYTICS_ALERT_VISIBILITY_KEY, 'false');
+			this.setState({ analyticsAlertIsVisible: false });
+		}
+	};
+
 	public async componentDidMount() {
 		observe(() => {
 			this.setState(this.stateHelper());
 		});
 		this.setState({ featuredProjectURL: await this.getFeaturedProjectURL() });
+	}
+
+	public componentDidUpdate(
+		_prevProps: object,
+		prevState: Readonly<MainPageState & MainPageStateFromStore>,
+	) {
+		if (this.state.analyticsAlertIsVisible) {
+			if (prevState.hideSettings !== this.state.hideSettings) {
+				this.setState({ analyticsAlertIsVisible: false });
+			}
+		}
 	}
 
 	private renderMain() {
@@ -169,86 +195,127 @@ export class MainPage extends React.Component<
 			!this.state.isFlashing || !this.state.isWebviewShowing;
 		return (
 			<Flex
-				m={`110px ${this.state.isWebviewShowing ? 35 : 55}px`}
-				justifyContent="space-between"
+				m={`110px ${this.state.isWebviewShowing ? 35 : 55}px 18px ${this.state.isWebviewShowing ? 35 : 55}px`}
+				flexDirection="column"
 			>
-				{notFlashingOrSplitView && (
-					<>
-						<SourceSelector flashing={this.state.isFlashing} />
-						<Flex>
-							<StepBorder disabled={shouldDriveStepBeDisabled} left />
-						</Flex>
-						<TargetSelector
-							disabled={shouldDriveStepBeDisabled}
-							hasDrive={this.state.hasDrive}
-							flashing={this.state.isFlashing}
-						/>
-						<Flex>
-							<StepBorder disabled={shouldFlashStepBeDisabled} right />
-						</Flex>
-					</>
-				)}
+				<Flex
+					justifyContent="space-between"
+					mb={this.state.analyticsAlertIsVisible ? '0px' : '92px'}
+				>
+					{notFlashingOrSplitView && (
+						<>
+							<SourceSelector
+								flashing={this.state.isFlashing}
+								hideAnalyticsAlert={this.hideAnalyticsAlert}
+							/>
+							<Flex>
+								<StepBorder disabled={shouldDriveStepBeDisabled} left />
+							</Flex>
+							<TargetSelector
+								disabled={shouldDriveStepBeDisabled}
+								hasDrive={this.state.hasDrive}
+								flashing={this.state.isFlashing}
+								hideAnalyticsAlert={this.hideAnalyticsAlert}
+							/>
+							<Flex>
+								<StepBorder disabled={shouldFlashStepBeDisabled} right />
+							</Flex>
+						</>
+					)}
 
-				{this.state.isFlashing && this.state.isWebviewShowing && (
-					<Flex
-						style={{
-							position: 'absolute',
-							top: 0,
-							left: 0,
-							width: '36.2vw',
-							height: '100vh',
-							zIndex: 1,
-							boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.2)',
-						}}
-					>
-						<ReducedFlashingInfos
-							imageLogo={this.state.imageLogo}
-							imageName={this.state.imageName}
-							imageSize={
-								typeof this.state.imageSize === 'number'
-									? prettyBytes(this.state.imageSize)
-									: ''
-							}
-							driveTitle={this.state.driveTitle}
-							driveLabel={this.state.driveLabel}
+					{this.state.isFlashing && this.state.isWebviewShowing && (
+						<Flex
 							style={{
 								position: 'absolute',
-								color: '#fff',
-								left: 35,
-								top: 72,
+								top: 0,
+								left: 0,
+								width: '36.2vw',
+								height: '100vh',
+								zIndex: 1,
+								boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.2)',
+							}}
+						>
+							<ReducedFlashingInfos
+								imageLogo={this.state.imageLogo}
+								imageName={this.state.imageName}
+								imageSize={
+									typeof this.state.imageSize === 'number'
+										? prettyBytes(this.state.imageSize)
+										: ''
+								}
+								driveTitle={this.state.driveTitle}
+								driveLabel={this.state.driveLabel}
+								style={{
+									position: 'absolute',
+									color: '#fff',
+									left: 35,
+									top: 72,
+								}}
+							/>
+						</Flex>
+					)}
+					{this.state.isFlashing && this.state.featuredProjectURL && (
+						<SafeWebview
+							src={this.state.featuredProjectURL}
+							onWebviewShow={(isWebviewShowing: boolean) => {
+								this.setState({ isWebviewShowing });
+							}}
+							style={{
+								position: 'absolute',
+								right: 0,
+								bottom: 0,
+								width: '63.8vw',
+								height: '100vh',
 							}}
 						/>
-					</Flex>
-				)}
-				{this.state.isFlashing && this.state.featuredProjectURL && (
-					<SafeWebview
-						src={this.state.featuredProjectURL}
-						onWebviewShow={(isWebviewShowing: boolean) => {
-							this.setState({ isWebviewShowing });
-						}}
-						style={{
-							position: 'absolute',
-							right: 0,
-							bottom: 0,
-							width: '63.8vw',
-							height: '100vh',
-						}}
-					/>
-				)}
+					)}
 
-				<FlashStep
-					width={this.state.isWebviewShowing ? '220px' : '200px'}
-					goToSuccess={() => this.setState({ current: 'success' })}
-					shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
-					isFlashing={this.state.isFlashing}
-					step={state.type}
-					percentage={state.percentage}
-					position={state.position}
-					failed={state.failed}
-					speed={state.speed}
-					eta={state.eta}
-					style={{ zIndex: 1 }}
-				/>
+					<FlashStep
+						width={this.state.isWebviewShowing ? '220px' : '200px'}
+						goToSuccess={() => this.setState({ current: 'success' })}
+						shouldFlashStepBeDisabled={shouldFlashStepBeDisabled}
+						isFlashing={this.state.isFlashing}
+						step={state.type}
+						percentage={state.percentage}
+						position={state.position}
+						failed={state.failed}
+						speed={state.speed}
+						eta={state.eta}
+						style={{ zIndex: 1 }}
+					/>
+				</Flex>
+				{this.state.analyticsAlertIsVisible && (
+					<Alert mt="18px" style={{ boxShadow: 'none', fontSize: '12px' }}>
+						<Flex alignItems="center" justifyContent="space-between">
+							<Flex flexDirection="column">
+								<div>
+									Etcher collects a limited amount of anonymous data to help us
+									improve user experience. You can opt out in the{' '}
+									<Link onClick={() => this.setState({ hideSettings: false })}>
+										settings
+									</Link>
+									.
+								</div>
+								<div>
+									For more information about how we use this data, see our{' '}
+									<Link
+										onClick={(e) => {
+											e.stopPropagation();
+											openExternal('https://www.balena.io/privacy-policy');
+										}}
+									>
+										privacy policy
+									</Link>
+									.
+								</div>
+							</Flex>
+							{/* TODO: can we use onDismiss instead? */}
+							<IconButton onClick={this.hideAnalyticsAlert}>
+								<CloseSvg height="0.75rem" fill={theme.colors.text.main} />
+							</IconButton>
+						</Flex>
+					</Alert>
+				)}
 			</Flex>
 		);
 	}
