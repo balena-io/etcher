@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v2.0.0
+## (2025-02-20)
+
+* major: build on ubuntu 22 and macos 13 [Edwin Joassart]
+
 # v1.19.25
 ## (2024-10-10)
 

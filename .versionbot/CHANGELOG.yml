@@ -1,4 +1,14 @@
 - commits:
+    - subject: "major: build on ubuntu 22 and macos 13"
+      hash: 039a022353d1980ef9ddd19166515c531e48aba4
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 2.0.0
+  title: ""
+  date: 2025-02-20T14:27:01.338Z
+- commits:
     - subject: "patch: bump etcher-sdk to 9.1.2"
       hash: c726b51dca3383c76f4bf824fd5d594ac3069180
       body: ""
@@ -1254,13 +1264,10 @@
       nested: []
     - subject: "Patch: run linux build on ubuntu-20.04"
       hash: adcd8e0325bc891460b3e51aa5403f8675189f13
-      body: >-
-        as [`18.04` has been
-        removed](https://github.blog/changelog/2022-08-09-github-actions-the-ubuntu-18-04-actions-runner-image-is-being-deprecated-and-will-be-removed-by-12-1-22/)
+      body: |-
+        as [`18.04` has been removed](https://github.blog/changelog/2022-08-09-github-actions-the-ubuntu-18-04-actions-runner-image-is-being-deprecated-and-will-be-removed-by-12-1-22/)
 
-
-        We cannot use `latest` as the glibc version will cause issue with older
-        ubuntu version.
+        We cannot use `latest` as the glibc version will cause issue with older ubuntu version.
       footer: {}
       author: Edwin Joassart
       nested: []
@@ -12005,40 +12012,19 @@
         changelog-entry: Don't include user paths in Mixpanel usage reports
         link: https://github.com/resin-io-modules/etcher-image-stream/blob/master/CHANGELOG.md
       subject: Fix uncaught exception if no file was selected from a dialog
-      body: >-
+      body: |-
         The following error is thrown if the open file dialog is cancelled
-
         without any selection:
-
         Unhandled rejection TypeError: Cannot read property '0' of undefined
-
-        at Number.indexedGetter
-        (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/call_get.js:106:15)
-
-        at Number.tryCatcher
-        (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/util.js:16:23)
-
-        at Promise._settlePromiseFromHandler
-        (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/promise.js:503:31)
-
-        at Promise._settlePromise
-        (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/promise.js:560:18)
-
-        at Promise._settlePromise0
-        (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/promise.js:605:10)
-
-        at Promise._settlePromises
-        (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/promise.js:684:18)
-
-        at Async._drainQueue
-        (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/async.js:126:16)
-
-        at Async._drainQueues
-        (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/async.js:136:10)
-
-        at Immediate.Async.drainQueues [as _onImmediate]
-        (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/async.js:16:14)
-
+        at Number.indexedGetter (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/call_get.js:106:15)
+        at Number.tryCatcher (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/util.js:16:23)
+        at Promise._settlePromiseFromHandler (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/promise.js:503:31)
+        at Promise._settlePromise (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/promise.js:560:18)
+        at Promise._settlePromise0 (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/promise.js:605:10)
+        at Promise._settlePromises (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/promise.js:684:18)
+        at Async._drainQueue (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/async.js:126:16)
+        at Async._drainQueues (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/async.js:136:10)
+        at Immediate.Async.drainQueues [as _onImmediate] (/home/parallels/Projects/etcher/node_modules/bluebird/js/release/async.js:16:14)
         at processImmediate [as _immediateCallback] (timers.js:383:17)
     - hash: 6bd086f1c5c6654a47125cf2d46788655cae2553
       author: Juan Cruz Viotti
@@ -12635,21 +12621,14 @@
         changelog-entry: Use info icon instead of "SHOW FULL FILE NAME" in first step.
         fixes: https://github.com/resin-io/etcher/issues/458
       subject: Make use of AppImage desktop integration script
-      body: >-
+      body: |-
         This is useful to prompt the user to install the `.desktop` file.
-
         The `Description` key in `Etcher.desktop` was changed to `Comment` since
-
         `desktop-file-validate` complained with:
-
         Etcher.desktop: error: file contains key "Description" in group "Desktop
-
         Entry", but keys extending the format should start with "X-"
-
         After checking the desktop file format specification, the correct key
-
         should be "Comment"
-
         (https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s05.html).
     - hash: c3e360e61933ef0044c005b5e92c879ff9a47c49
       author: Juan Cruz Viotti
@@ -12862,17 +12841,12 @@
         changelog-entry: Fix flashing never starting after elevation in GNU/Linux.
         fixes: https://github.com/resin-io/etcher/issues/665
       subject: Make all angular modules export the name of the module
-      body: >-
+      body: |-
         This makes them very nicely require-able, for example:
-
         angular.module('MyModule', [
-
         require('my-dependency');
-
         ]);
-
-        From
-        https://medium.com/@kentcdodds/how-to-distribute-your-angularjs-module-e04d4dd58ddc#.yqg2zo8im
+        From https://medium.com/@kentcdodds/how-to-distribute-your-angularjs-module-e04d4dd58ddc#.yqg2zo8im
     - hash: b8f63af3f81bca3abd055303bc91ab35eb126655
       author: Juan Cruz Viotti
       footers:
