@@ -1,4 +1,16 @@
 - commits:
+    - subject: Add informational notice about how to disable analytics collection
+      hash: aac092fd4df8750024c082b25dcbd0ae6ee618fd
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+      nested: []
+  version: 2.1.0
+  title: ""
+  date: 2025-02-27T16:16:57.036Z
+- commits:
     - subject: "major: build on ubuntu 22 and macos 13"
       hash: 039a022353d1980ef9ddd19166515c531e48aba4
       body: ""
