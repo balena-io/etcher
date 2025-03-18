@@ -117,7 +117,7 @@
       "libfreetype6",
       "libgbm1",
       "libgcc1",
-      "libgdk-pixbuf2.0-0",
+      "libgdk-pixbuf-xlib-2.0-0",
       "libglib2.0-0",
       "libgtk-3-0",
       "liblzma5",
