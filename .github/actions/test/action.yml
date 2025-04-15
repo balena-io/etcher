@@ -54,7 +54,7 @@ runs:
         #   export DEBUG='electron-forge:*,sidecar'
         # fi
 
-        npm ci
+        npm ci --verbose
 
         # as the shrinkwrap might have been done on mac/linux, this is ensure the package is there for windows
         if [[ "$RUNNER_OS" == "Windows" ]]; then
