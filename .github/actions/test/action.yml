@@ -32,7 +32,7 @@ runs:
       if: runner.os == 'Linux'
       shell: bash
       run: |
-        sudo apt-get update && sudo apt-get install -y --no-install-recommends xvfb libudev-dev
+        sudo apt-get update && sudo apt-get install -y --no-install-recommends xvfb libudev-dev build-essential
         cat < package.json | jq -r '.hostDependencies[][]' - | \
           xargs -L1 echo | sed 's/|//g' | xargs -L1 \
           sudo apt-get --ignore-missing install || true
