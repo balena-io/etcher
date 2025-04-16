@@ -149,7 +149,9 @@ runs:
           /c/Windows/System32/certutil.exe -csp "DigiCert Signing Manager KSP" -key -user
           smksp_cert_sync.exe
 
-          certutil -user -store My
+          echo "INFO: Certs list"
+          certutil.exe -csp "DigiCert Software Trust Manager KSP" -key -user
+          echo "INFO: End certs list"
 
           # (signtool.exe) https://github.com/actions/runner-images/blob/main/images/win/Windows2019-Readme.md#installed-windows-sdks
           PATH="/c/Program Files (x86)/Windows Kits/10/bin/${runner_arch}:${PATH}"
