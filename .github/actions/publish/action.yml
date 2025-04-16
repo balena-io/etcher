@@ -144,7 +144,6 @@ runs:
             -o smtools-windows-x64.msi
           msiexec -i smtools-windows-x64.msi -qn
           PATH="/c/Program Files/DigiCert/DigiCert One Signing Manager Tools:${PATH}"
-          smksp_registrar.exe register
           smksp_registrar.exe list
           smctl.exe keypair ls
           /c/Windows/System32/certutil.exe -csp "DigiCert Signing Manager KSP" -key -user
