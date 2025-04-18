@@ -151,7 +151,7 @@ runs:
 
           echo "INFO: Certs list"
           certutil.exe -csp "DigiCert Software Trust Manager KSP" -key -user
-          certutil.exe -store -user My
+          certutil.exe -store
           echo "INFO: End certs list"
 
           # (signtool.exe) https://github.com/actions/runner-images/blob/main/images/win/Windows2019-Readme.md#installed-windows-sdks
