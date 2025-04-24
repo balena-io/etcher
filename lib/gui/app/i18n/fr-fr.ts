@@ -1,0 +1,162 @@
+const translation = {
+	translation: {
+		continue: "Continuer",
+		ok: "Valider",
+		cancel: "Annuler",
+		skip: "Ignorer",
+		sure: "Oui, je suis sûr·e",
+		warning: "ALERTE ! ",
+		attention: "Attention",
+		failed: "Échoué",
+		completed: "Terminé",
+		yesContinue: "Oui, continuer",
+		reallyExit: "Êtes-vous sûr·e de quitter Etcher?",
+		yesExit: "Oui, quitter",
+		progress: {
+			starting: "Démarrage...",
+			decompressing: "Décompression...",
+			flashing: "Flashage...",
+			finishing: "Finition...",
+			verifying: "Validation...",
+			failing: "Défaut",
+		},
+		message: {
+			sizeNotRecommended: "Non recommandé",
+			tooSmall: "Trop petite taille",
+			locked: "Verrouillé",
+			system: "Support de stockage système",
+			containsImage: "Support de stockage source",
+			largeDrive: "Support de stockage de grande taille",
+			sourceLarger: "La source sélectionnée a {{byte}} de plus que ce support de stockage.",
+			flashSucceed_one: "Cible réussie",
+			flashSucceed_other: "Cibles réussies",
+			flashFail_one: "Cible défectueuse",
+			flashFail_other: "Cibles défectueuses",
+			toDrive: "vers {{description}} ({{name}})",
+			toTarget_one: "vers {{num}} cible",
+			toTarget_other: "vers {{num}} cibles",
+			andFailTarget_one: "et n'a pas réussi à être flashée sur {{num}} cible",
+			andFailTarget_other: "et n'a pas réussi à être flashée sur {{num}} cibles",
+			succeedTo: "{{name}} a été flashée avec succès {{target}}",
+			exitWhileFlashing:
+				"Vous êtes en train de flasher un support de stockage. La fermeture d'Etcher peut laisser votre support de stockage inutilisable en l'état.",
+			looksLikeWindowsImage:
+				"Il semble que vous essayez de graver une image Windows.\n\nContrairement aux autres images, les images Windows nécessitent un traitement spécial pour être rendues amorçables. Nous vous suggérons d'utiliser un outil spécialement conçu à cet effet, tel que <a href="https://rufus.akeo.ie">Rufus</a> (Windows), <a href="https://github.com/slacka/WoeUSB">WoeUSB</a> (Linux), ou Boot Camp Assistant (macOS).",
+			image: "image",
+			drive: "support de stockage",
+			missingPartitionTable:
+				"Il semble que ce n'est pas une {{type}} amorçable.\n\nL'{{type}} ne semble pas contenir de table de partition et peut ne pas être reconnu ou démarrée par votre appareil.",
+			largeDriveSize:
+				"C'est un support de stockage de grande taille ! Soyez sûr·e qu'il ne contient pas des fichiers que vous voulez conserver.",
+			systemDrive:
+				"Choisir votre support de stockage système est dangereux et va l'effacer !",
+			sourceDrive: "Contient l'image que vous avez choisie de flasher",
+			noSpace:
+				"Pas assez d'espace disponible sur le support de stockage. Veuillez en insérer un plus grand et réessayer.",
+			genericFlashError:
+				"Quelque chose s'est mal passé. Si c'est une image compressée, veuillez vérifier que l'archive n'est pas corrompue.\n{{error}}",
+			validation:
+				"L'écriture s'est terminée avec succès mais Etcher a détecté de potentiels problèmes de corruption lors de la lecture de l'image à partir du support de stockage. \n\nVeuillez envisager d'écrire l'image sur un autre support de stockage.",
+			openError:
+				"Quelque chose s'est mal passé lors de l'ouverture de {{source}}.\n\nError: {{error}}",
+			flashError: "Quelque chose s'est mal passé lors de l'écriture de {{image}} {{targets}}.",
+			unplug:
+				"Il semble qu'Etcher ait perdu l'accès au support de stockage. A-t-il été débranché accidentellement ?\n\nParfois, cette erreur est causée par des lecteurs défectueux qui ne fournissent pas un accès stable au support de stockage.",
+			cannotWrite:
+				"Il semble qu'Etcher ne soit pas en mesure d'écrire à cet emplacement du support de stockage. Cette erreur est généralement causée par un support de stockage, un lecteur ou un port défectueux. \n\nVeuillez réessayer avec un autre support de stockage, un autre lecteur ou un autre port.",
+			childWriterDied:
+				"Le processus d'écriture s'est terminé de manière inattendue. Veuillez réessayer et contacter l'équipe d'Etcher si le problème persiste.",
+			badProtocol: "Seules les URL http:// et https:// sont prises en charge.",
+		},
+		target: {
+			selectTarget: "Sélectionnez la cible",
+			plugTarget: "Branchez un support de stockage cible",
+			targets: "Cibles",
+			change: "Changer",
+		},
+		source: {
+			useSourceURL: "Utiliser l'URL de l'image",
+			auth: "Authentification",
+			username: "Entrez votre nom d'utilisateur",
+			password: "Entrez votre mot de passe",
+			unsupportedProtocol: "Protocole non pris en charge",
+			windowsImage: "Possible image Windows détectée",
+			partitionTable: "Table de partition manquante",
+			errorOpen: "Erreur lors de l'ouverture de la source",
+			fromFile: "Flasher à partir du fichier",
+			fromURL: "Flasher à partir d'une URL",
+			clone: "Cloner le support de stockage",
+			image: "Image",
+			name: "Nom : ",
+			path: "Chemin : ",
+			selectSource: "Choisissez la source",
+			plugSource: "Branchez un support de stockage source",
+			osImages: "Images systèmes",
+			allFiles: "Toutes",
+			enterValidURL: "Entrez une URL valide",
+		},
+		drives: {
+			name: "Nom",
+			size: "Taille",
+			location: "Emplacement",
+			find: "{{length}} trouvée",
+			select: "Sélectionner {{select}}",
+			showHidden: "Montrer {{num}} caché",
+			systemDriveDanger:
+				"Choisir votre support de stockage système est dangereux et va l'effacer !",
+			openInBrowser: "`Etcher va ouvrir {{link}} dans votre navigateur web`",
+			changeTarget: "Changer la cible",
+			largeDriveWarning: "Vous êtes sur le point d'effacer un support de stockage inhabituellement volumineux",
+			largeDriveWarningMsg:
+				"Êtes-vous sûr que le support sélectionné n'est pas un disque de stockage ?",
+			systemDriveWarning: "Vous êtes sur le point d'effacer les disques de votre ordinateur",
+			systemDriveWarningMsg:
+				"Êtes-vous sûr·e de flasher votre disque système ?",
+		},
+		flash: {
+			another: "Flasher une autre",
+			target: "Cible",
+			location: "Emplacement",
+			error: "Erreur",
+			flash: "Flashage",
+			flashNow: "Flasher !",
+			skip: "La validation a été ignorée",
+			moreInfo: "plus d'information",
+			speedTip:
+				"La vitesse est calculée en divisant la taille de l'image par le temps de flashage.\nLes images disque avec des partitions ext sont flashées plus rapidement car nous pouvons ignorer les parties inutilisées.",
+			speed: "Vitesse réelle : {{speed}} MB/s",
+			speedShort: "{{speed}} MB/s",
+			eta: "ETA : {{eta}}",
+			failedTarget: "Cibles ratées",
+			failedRetry: "Réessayer les cibles ratées",
+			flashFailed: "Le flashage a échoué.",
+			flashCompleted: "Flashage terminé !",
+		},
+		settings: {
+			errorReporting:
+				"Signaler de manière anonyme les erreurs et les statistiques d'utilisation à balena.io",
+			autoUpdate: "Mises à jour automatiques activées",
+			settings: "Paramètres",
+			systemInformation: "Informations système",
+			trimExtPartitions:
+				"Supprimer l'espace non alloué dans les images brutes (dans les partitions de type ext)",
+		},
+		menu: {
+			edit: "Éditer",
+			view: "Afficher",
+			devTool: "Activer les outils de développement",
+			window: "Window",
+			help: "Aide",
+			pro: "Etcher Pro",
+			website: "Site web d'Etcher",
+			issue: "Signaler un problème",
+			about: "À propos d'Etcher",
+			hide: "Masquer Etcher",
+			hideOthers: "Masquer les autres",
+			unhide: "Tout afficher",
+			quit: "Quitter Etcher",
+		},
+	},
+};
+
+export default translation;
