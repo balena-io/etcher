@@ -2,6 +2,7 @@ import * as i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import zh_CN_translation from './i18n/zh-CN';
 import zh_TW_translation from './i18n/zh-TW';
+import fr-FR_translation from './i18n/fr-FR'
 import en_translation from './i18n/en';
 
 export function langParser() {
@@ -35,6 +36,7 @@ i18next.use(initReactI18next).init({
 	resources: {
 		'zh-CN': zh_CN_translation,
 		'zh-TW': zh_TW_translation,
+		'fr-FR': fr_FR_translation,
 		en: en_translation,
 	},
 });
