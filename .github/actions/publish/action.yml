@@ -3,10 +3,10 @@ name: package and publish GitHub (draft) release
 # https://github.com/product-os/flowzone/tree/master/.github/actions
 inputs:
   json:
-    description: "JSON stringified object containing all the inputs from the calling workflow"
+    description: 'JSON stringified object containing all the inputs from the calling workflow'
     required: true
   secrets:
-    description: "JSON stringified object containing all the secrets from the calling workflow"
+    description: 'JSON stringified object containing all the secrets from the calling workflow'
     required: true
 
   # --- custom environment
@@ -15,14 +15,14 @@ inputs:
     # Beware that native modules will be built for this version,
     # which might not be compatible with the one used by pkg (see forge.sidecar.ts)
     # https://github.com/vercel/pkg-fetch/releases
-    default: "20.x"
+    default: '20.x'
   VERBOSE:
     type: string
-    default: "true"
+    default: 'true'
 
 runs:
   # https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Download custom source artifact
       uses: actions/download-artifact@v4
@@ -146,8 +146,8 @@ runs:
           PATH="/c/Program Files/DigiCert/DigiCert One Signing Manager Tools:${PATH}"
           smksp_registrar.exe list
           smctl.exe keypair ls
+          smctl.exe windows certsync
           /c/Windows/System32/certutil.exe -csp "DigiCert Signing Manager KSP" -key -user
-          smksp_cert_sync.exe
 
           # (signtool.exe) https://github.com/actions/runner-images/blob/main/images/win/Windows2019-Readme.md#installed-windows-sdks
           PATH="/c/Program Files (x86)/Windows Kits/10/bin/${runner_arch}:${PATH}"
