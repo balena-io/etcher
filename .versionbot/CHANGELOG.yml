@@ -1,4 +1,14 @@
 - commits:
+    - subject: "patch: fix signin windows artifacts"
+      hash: a1e9be2f94629447e02994e52e12c67ec98de831
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 2.1.1
+  title: ""
+  date: 2025-05-05T17:19:50.443Z
+- commits:
     - subject: Add informational notice about how to disable analytics collection
       hash: aac092fd4df8750024c082b25dcbd0ae6ee618fd
       body: ""
