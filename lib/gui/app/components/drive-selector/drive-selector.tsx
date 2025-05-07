@@ -36,7 +36,7 @@ import prettyBytes from 'pretty-bytes';
 import { getDrives, hasAvailableDrives } from '../../models/available-drives';
 import { getImage, isDriveSelected } from '../../models/selection-state';
 import { store } from '../../models/store';
-import { logEvent, logException } from '../../modules/analytics';
+import { logException } from '../../modules/analytics';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 import type { GenericTableProps } from '../../styled-components';
 import { Alert, Modal, Table } from '../../styled-components';
@@ -355,9 +355,6 @@ export class DriveSelector extends React.Component<
 
 	private installMissingDrivers(drive: DriverlessDrive) {
 		if (drive.link) {
-			logEvent('Open driver link modal', {
-				url: drive.link,
-			});
 			this.setState({ missingDriversModal: { drive } });
 		}
 	}

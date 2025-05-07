@@ -1,10 +1,8 @@
-Maintaining Etcher
-==================
+# Maintaining Etcher
 
 This document is meant to serve as a guide for maintainers to perform common tasks.
 
-Releasing
----------
+## Releasing
 
 ### Release Types
 
@@ -13,16 +11,15 @@ Releasing
 - **release**: Full releases
 
 Draft release is created from each PR, tagged with the branch name.
-All merged PR will generate a new tag/version as a *pre-release*.
+All merged PR will generate a new tag/version as a _pre-release_.
 Mark the pre-release as final when it is necessary, then distribute the packages in alternative channels as necessary.
-
 
 #### Preparation
 
 - [Prepare the new version](#preparing-a-new-version)
 - [Generate build artifacts](#generating-binaries) (binaries, archives, etc.)
 - [Draft a release on GitHub](https://github.com/balena-io/etcher/releases)
-    - Upload build artifacts to GitHub release draft
+  - Upload build artifacts to GitHub release draft
 
 #### Testing
 
@@ -35,7 +32,7 @@ Mark the pre-release as final when it is necessary, then distribute the packages
 - [Post release note to forums](https://forums.balena.io/c/etcher)
 - [Submit Windows binaries to Symantec for whitelisting](#submitting-binaries-to-symantec)
 - [Update the website](https://github.com/balena-io/etcher-homepage)
-- Wait 2-3 hours for analytics (Sentry, Amplitude) to trickle in and check for elevated error rates, or regressions
+- Wait 2-3 hours for analytics (Sentry) to trickle in and check for elevated error rates, or regressions
 - If regressions arise; pull the release, and release a patched version, else:
 - [Upload deb & rpm packages to Cloudfront](#uploading-packages-to-cloudfront)
 - Post changelog with `#release-notes` tag on internal chat
@@ -51,7 +48,6 @@ Make sure to set the analytics tokens when generating production release binarie
 
 ```bash
 export ANALYTICS_SENTRY_TOKEN="xxxxxx"
-export ANALYTICS_AMPLITUDE_TOKEN="xxxxxx"
 ```
 
 #### Linux
@@ -70,7 +66,6 @@ npm run make
 ```
 
 Our CI will appropriately sign artifacts for macOS and some Windows targets.
-
 
 ### Uploading packages to Cloudfront
 
@@ -98,7 +93,6 @@ aws s3api delete-object --bucket <bucket name> --key <file name>
 ```
 
 The Bintray dashboard provides an easy way to delete a version's files.
-
 
 ### Submitting binaries to Symantec
 
