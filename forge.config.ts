@@ -86,12 +86,6 @@ const config: ForgeConfig = {
 				},
 			},
 		}),
-		new MakerAppImage({
-			options: {
-				icon: './assets/icon.png',
-				categories: ['Utility'],
-			},
-		}),
 		new MakerRpm({
 			options: {
 				icon: './assets/icon.png',

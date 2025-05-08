@@ -109,6 +109,8 @@ the balena.io team will be happy to help.
 Etcher is free software and may be redistributed under the terms specified in
 the [license].
 
+## This is a dummy PR to test CI issue 
+
 [etcher]: https://balena.io/etcher
 [electron]: https://electronjs.org/
 [electron-supported-platforms]: https://electronjs.org/docs/tutorial/support#supported-platforms
