@@ -21,7 +21,6 @@ import * as React from 'react';
 
 import * as packageJSON from '../../../../../package.json';
 import * as settings from '../../models/settings';
-import * as analytics from '../../modules/analytics';
 
 /**
  * @summary Electron session identifier
@@ -196,10 +195,6 @@ export class SafeWebview extends React.PureComponent<
 		// only care about this event if it's a request for the main frame
 		if (event.resourceType === 'mainFrame') {
 			const HTTP_OK = 200;
-			const { webContents, ...webviewEvent } = event;
-			analytics.logEvent('SafeWebview loaded', {
-				...webviewEvent,
-			});
 			this.setState({
 				shouldShow: event.statusCode === HTTP_OK,
 			});

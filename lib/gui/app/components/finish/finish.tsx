@@ -22,7 +22,6 @@ import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
 import * as settings from '../../models/settings';
 import { Actions, store } from '../../models/store';
-import * as analytics from '../../modules/analytics';
 import { FlashAnother } from '../flash-another/flash-another';
 import type { FlashError } from '../flash-results/flash-results';
 import { FlashResults } from '../flash-results/flash-results';
@@ -30,7 +29,6 @@ import { SafeWebview } from '../safe-webview/safe-webview';
 
 function restart(goToMain: () => void) {
 	selectionState.deselectAllDrives();
-	analytics.logEvent('Restart');
 
 	// Reset the flashing workflow uuid
 	store.dispatch({

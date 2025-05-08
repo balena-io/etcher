@@ -198,9 +198,7 @@ export class FlashStep extends React.PureComponent<
 	private handleFlashErrorResponse(shouldRetry: boolean) {
 		this.setState({ errorMessage: '' });
 		flashState.resetState();
-		if (shouldRetry) {
-			analytics.logEvent('Restart after failure');
-		} else {
+		if (!shouldRetry) {
 			selection.clear();
 		}
 	}

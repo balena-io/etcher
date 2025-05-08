@@ -20,7 +20,6 @@ import { Flex, Txt } from 'rendition';
 import type { DriveSelectorProps } from '../drive-selector/drive-selector';
 import { DriveSelector } from '../drive-selector/drive-selector';
 import {
-	isDriveSelected,
 	getImage,
 	getSelectedDrives,
 	deselectDrive,
@@ -28,7 +27,6 @@ import {
 	deselectAllDrives,
 } from '../../models/selection-state';
 import { observe } from '../../models/store';
-import * as analytics from '../../modules/analytics';
 import { TargetSelectorButton } from './target-selector-button';
 
 import TgtSvg from '../../../assets/tgt.svg';
@@ -77,21 +75,10 @@ export const selectAllTargets = (modalTargets: DrivelistDrive[]) => {
 	);
 	// deselect drives
 	deselected.forEach((drive) => {
-		analytics.logEvent('Toggle drive', {
-			drive,
-			previouslySelected: true,
-		});
 		deselectDrive(drive.device);
 	});
 	// select drives
 	modalTargets.forEach((drive) => {
-		// Don't send events for drives that were already selected
-		if (!isDriveSelected(drive.device)) {
-			analytics.logEvent('Toggle drive', {
-				drive,
-				previouslySelected: false,
-			});
-		}
 		selectDrive(drive.device);
 	});
 };
@@ -142,7 +129,6 @@ export const TargetSelector = ({
 					hideAnalyticsAlert();
 				}}
 				reselectDrive={() => {
-					analytics.logEvent('Reselect drive');
 					setShowTargetSelectorModal(true);
 				}}
 				flashing={flashing}

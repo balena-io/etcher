@@ -21,7 +21,6 @@ import { Box, Checkbox, Flex, Txt } from 'rendition';
 
 import { version, packageType } from '../../../../../package.json';
 import * as settings from '../../models/settings';
-import * as analytics from '../../modules/analytics';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 import { Modal } from '../../styled-components';
 import * as i18next from 'i18next';
@@ -89,7 +88,6 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 
 	const toggleSetting = async (setting: string) => {
 		const value = currentSettings[setting];
-		analytics.logEvent('Toggle setting', { setting, value });
 		await settings.set(setting, !value);
 		setCurrentSettings({
 			...currentSettings,

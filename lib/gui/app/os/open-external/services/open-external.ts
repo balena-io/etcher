@@ -16,7 +16,6 @@
 
 import * as electron from 'electron';
 import * as settings from '../../../models/settings';
-import { logEvent } from '../../../modules/analytics';
 
 /**
  * @summary Open an external resource
@@ -26,8 +25,6 @@ export async function open(url: string) {
 	if (await settings.get('disableExternalLinks')) {
 		return;
 	}
-
-	logEvent('Open external link', { url });
 
 	if (url) {
 		electron.shell.openExternal(url);

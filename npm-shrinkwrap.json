@@ -13,7 +13,6 @@
         "@fortawesome/fontawesome-free": "^6.5.2",
         "@ronomon/direct-io": "^3.0.1",
         "@sentry/electron": "^4.24.0",
-        "analytics-client": "^2.0.1",
         "axios": "^1.6.8",
         "debug": "4.3.4",
         "drivelist": "^12.0.2",
@@ -99,148 +98,6 @@
       "dev": true,
       "engines": {
         "node": ">=0.10.0"
-      }
-    },
-    "node_modules/@amplitude/analytics-browser": {
-      "version": "1.13.4",
-      "resolved": "https://registry.npmjs.org/@amplitude/analytics-browser/-/analytics-browser-1.13.4.tgz",
-      "integrity": "sha512-FyNlrhLZUFI+lDHxbDGMoZED80iARS6VjTP+zZcfk0GWI7+lt0Meu5jD7G8xms21Ioxrg1+Lf1Q4v3CC6XN2Nw==",
-      "dependencies": {
-        "@amplitude/analytics-client-common": "^1.2.2",
-        "@amplitude/analytics-core": "^1.2.5",
-        "@amplitude/analytics-types": "^1.3.4",
-        "@amplitude/plugin-page-view-tracking-browser": "^1.0.12",
-        "@amplitude/plugin-web-attribution-browser": "^1.0.12",
-        "@amplitude/ua-parser-js": "^0.7.31",
-        "tslib": "^2.4.1"
-      }
-    },
-    "node_modules/@amplitude/analytics-client-common": {
-      "version": "1.2.2",
-      "resolved": "https://registry.npmjs.org/@amplitude/analytics-client-common/-/analytics-client-common-1.2.2.tgz",
-      "integrity": "sha512-vwGgVXl9FKEi99OzjqqhX8RrulQQ55aAllhgbdyxpyyAQ5NbbZOPdrxp1ow0oliCVvbSDgUYOAeAwTChIgnStA==",
-      "dependencies": {
-        "@amplitude/analytics-connector": "^1.5.0",
-        "@amplitude/analytics-core": "^1.2.5",
-        "@amplitude/analytics-types": "^1.3.4",
-        "tslib": "^2.4.1"
-      }
-    },
-    "node_modules/@amplitude/analytics-connector": {
-      "version": "1.5.0",
-      "resolved": "https://registry.npmjs.org/@amplitude/analytics-connector/-/analytics-connector-1.5.0.tgz",
-      "integrity": "sha512-T8mOYzB9RRxckzhL0NTHwdge9xuFxXEOplC8B1Y3UX3NHa3BLh7DlBUZlCOwQgMc2nxDfnSweDL5S3bhC+W90g=="
-    },
-    "node_modules/@amplitude/analytics-core": {
-      "version": "1.2.5",
-      "resolved": "https://registry.npmjs.org/@amplitude/analytics-core/-/analytics-core-1.2.5.tgz",
-      "integrity": "sha512-V7CVlHVN+1diKiOpdp2bCPZ0mbS4CmUYF+v+eXDwVfJL3M/t3sVcT1apXnmVYGYi14cGu9hQOD11rD6qKbUOsw==",
-      "dependencies": {
-        "@amplitude/analytics-types": "^1.3.4",
-        "tslib": "^2.4.1"
-      }
-    },
-    "node_modules/@amplitude/analytics-types": {
-      "version": "1.3.4",
-      "resolved": "https://registry.npmjs.org/@amplitude/analytics-types/-/analytics-types-1.3.4.tgz",
-      "integrity": "sha512-tR70gzqFkEzX9QpxvWYMfLCledT7vMhgd3d4/bkp3nnGXTOORaVUOCcSgOyxyuFdSx84T61aP/eZPKIcZcaP+A=="
-    },
-    "node_modules/@amplitude/marketing-analytics-browser": {
-      "version": "0.2.9",
-      "resolved": "https://registry.npmjs.org/@amplitude/marketing-analytics-browser/-/marketing-analytics-browser-0.2.9.tgz",
-      "integrity": "sha512-xOx5tCqV2A1r9+pYP7PPDfBqzQpKvhmIPR/CF4blpo7ZTYqCIWLg7QG1pN3uWFQuq5d4MWWz5QH+TUvKXifsHA==",
-      "dependencies": {
-        "@amplitude/analytics-browser": "^1.6.3",
-        "@amplitude/analytics-client-common": "^0.4.1",
-        "@amplitude/analytics-core": "^0.10.1",
-        "@amplitude/analytics-types": "^0.13.0",
-        "@amplitude/plugin-page-view-tracking-browser": "^0.4.9",
-        "@amplitude/plugin-web-attribution-browser": "^0.4.2",
-        "tslib": "^2.3.1"
-      }
-    },
-    "node_modules/@amplitude/marketing-analytics-browser/node_modules/@amplitude/analytics-client-common": {
-      "version": "0.4.1",
-      "resolved": "https://registry.npmjs.org/@amplitude/analytics-client-common/-/analytics-client-common-0.4.1.tgz",
-      "integrity": "sha512-cwKHZVNfBt8kNmhXuSZ/BkEwdOSsCVQDXKgQysb4sp5AYkwqYV/bVd7yvWxffrrkK4N2PsYLnvODeTwANH/4UQ==",
-      "dependencies": {
-        "@amplitude/analytics-connector": "^1.4.5",
-        "@amplitude/analytics-core": "^0.10.1",
-        "@amplitude/analytics-types": "^0.13.0",
-        "tslib": "^2.3.1"
-      }
-    },
-    "node_modules/@amplitude/marketing-analytics-browser/node_modules/@amplitude/analytics-core": {
-      "version": "0.10.1",
-      "resolved": "https://registry.npmjs.org/@amplitude/analytics-core/-/analytics-core-0.10.1.tgz",
-      "integrity": "sha512-XYJavGCnf0Y28chswEGNjSM2MqCMafsQvHpSgRD1JYTNrv+j/CTkj7P3TwyxriaXCTSfFcWTDPKRHd3SruU3Aw==",
-      "dependencies": {
-        "@amplitude/analytics-types": "^0.13.0",
-        "tslib": "^2.3.1"
-      }
-    },
-    "node_modules/@amplitude/marketing-analytics-browser/node_modules/@amplitude/analytics-types": {
-      "version": "0.13.0",
-      "resolved": "https://registry.npmjs.org/@amplitude/analytics-types/-/analytics-types-0.13.0.tgz",
-      "integrity": "sha512-yti2SytTIh0R5QknuKO1RMgB+r8CGjauhPfFaaYiTm4keAvqYxDdG9ULarPDoOx2VPSfB5Za779Kt1Muc+34PA=="
-    },
-    "node_modules/@amplitude/marketing-analytics-browser/node_modules/@amplitude/plugin-page-view-tracking-browser": {
-      "version": "0.4.9",
-      "resolved": "https://registry.npmjs.org/@amplitude/plugin-page-view-tracking-browser/-/plugin-page-view-tracking-browser-0.4.9.tgz",
-      "integrity": "sha512-dPeMativPA+UitDQbRv/FtBfAZtddbu9tgezbtSR90yubK+bS3oYWXETxR6X7P73qNBIZGUpH9i2nWVY6EXVQQ==",
-      "dependencies": {
-        "@amplitude/analytics-client-common": "^0.4.1",
-        "@amplitude/analytics-types": "^0.13.0",
-        "tslib": "^2.3.1"
-      }
-    },
-    "node_modules/@amplitude/marketing-analytics-browser/node_modules/@amplitude/plugin-web-attribution-browser": {
-      "version": "0.4.2",
-      "resolved": "https://registry.npmjs.org/@amplitude/plugin-web-attribution-browser/-/plugin-web-attribution-browser-0.4.2.tgz",
-      "integrity": "sha512-9N1Qe4fTBmS7uDcgCA5PbIryJCf2V+BUhwP8n6BSwH1XOujx/sK0UQRgPlGRFSmmm2eH7QG9RKJkQj6VB3/zrQ==",
-      "dependencies": {
-        "@amplitude/analytics-client-common": "^0.4.1",
-        "@amplitude/analytics-types": "^0.13.0",
-        "tslib": "^2.3.1"
-      }
-    },
-    "node_modules/@amplitude/plugin-page-view-tracking-browser": {
-      "version": "1.0.12",
-      "resolved": "https://registry.npmjs.org/@amplitude/plugin-page-view-tracking-browser/-/plugin-page-view-tracking-browser-1.0.12.tgz",
-      "integrity": "sha512-zbFbBi/+QrsWm1rPcFIAcxQ3t7uZwTuHCnHHzyZU/nQB/gyOgRh4U4uqt5DekLf4Tp3V2a+hmhmTE0KfRFuXLw==",
-      "dependencies": {
-        "@amplitude/analytics-client-common": "^1.2.2",
-        "@amplitude/analytics-types": "^1.3.4",
-        "tslib": "^2.4.1"
-      }
-    },
-    "node_modules/@amplitude/plugin-web-attribution-browser": {
-      "version": "1.0.12",
-      "resolved": "https://registry.npmjs.org/@amplitude/plugin-web-attribution-browser/-/plugin-web-attribution-browser-1.0.12.tgz",
-      "integrity": "sha512-zoIqgIT34xbE3V2TyQYoRVCs7j3biY/AXkGzYphiriuUvKmQtRjBoP2o08nZHYFzVSOSq4Ixk7OlelilW10Krg==",
-      "dependencies": {
-        "@amplitude/analytics-client-common": "^1.2.2",
-        "@amplitude/analytics-core": "^1.2.5",
-        "@amplitude/analytics-types": "^1.3.4",
-        "tslib": "^2.4.1"
-      }
-    },
-    "node_modules/@amplitude/ua-parser-js": {
-      "version": "0.7.33",
-      "resolved": "https://registry.npmjs.org/@amplitude/ua-parser-js/-/ua-parser-js-0.7.33.tgz",
-      "integrity": "sha512-wKEtVR4vXuPT9cVEIJkYWnlF++Gx3BdLatPBM+SZ1ztVIvnhdGBZR/mn9x/PzyrMcRlZmyi6L56I2J3doVBnjA==",
-      "funding": [
-        {
-          "type": "opencollective",
-          "url": "https://opencollective.com/ua-parser-js"
-        },
-        {
-          "type": "paypal",
-          "url": "https://paypal.me/faisalman"
-        }
-      ],
-      "engines": {
-        "node": "*"
       }
     },
     "node_modules/@ampproject/remapping": {
@@ -7024,16 +6881,6 @@
       "integrity": "sha512-5p6WTN0DdTGVQk6VjcEju19IgaHudalcfabD7yhDGeA6bcQnmL+CpveLJq/3hvfwd1aof6L386Ougkx6RfyMIQ==",
       "peerDependencies": {
         "ajv": "^6.9.1"
-      }
-    },
-    "node_modules/analytics-client": {
-      "version": "2.0.2",
-      "resolved": "https://registry.npmjs.org/analytics-client/-/analytics-client-2.0.2.tgz",
-      "integrity": "sha512-03Qo4r86wzw7NV0voG7xNwZjbba7h0wC6A8Dd85Slgt1bMg0jWKBXS9DnWIMiUMT4vfm8HtLaBDJyJIKlu1glQ==",
-      "dependencies": {
-        "@amplitude/analytics-browser": "^1.5.4",
-        "@amplitude/marketing-analytics-browser": "^0.2.4",
-        "js-cookie": "^3.0.1"
       }
     },
     "node_modules/ansi-align": {
@@ -16846,14 +16693,6 @@
       },
       "funding": {
         "url": "https://github.com/chalk/supports-color?sponsor=1"
-      }
-    },
-    "node_modules/js-cookie": {
-      "version": "3.0.5",
-      "resolved": "https://registry.npmjs.org/js-cookie/-/js-cookie-3.0.5.tgz",
-      "integrity": "sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==",
-      "engines": {
-        "node": ">=14"
       }
     },
     "node_modules/js-tokens": {
