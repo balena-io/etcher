@@ -1,4 +1,14 @@
 - commits:
+    - subject: "patch: remove analytics"
+      hash: aa6d526fea010d181f49dd81ae3bdaefb8d1938e
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 2.1.2
+  title: ""
+  date: 2025-05-08T08:51:44.810Z
+- commits:
     - subject: "patch: fix signin windows artifacts"
       hash: a1e9be2f94629447e02994e52e12c67ec98de831
       body: ""
