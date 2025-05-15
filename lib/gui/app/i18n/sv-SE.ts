@@ -1,0 +1,162 @@
+const translation = {
+	translation: {
+		continue: 'Fortsätt',
+		ok: 'OK',
+		cancel: 'Avbryt',
+		skip: 'Hoppa över',
+		sure: "Ja, jag är säker",
+		warning: 'VARNING! ',
+		attention: 'Observera',
+		failed: 'Misslyckades',
+		completed: 'Klar',
+		yesContinue: 'Ja, fortsätt',
+		reallyExit: 'Är du säker på att du vill avsluta Etcher?',
+		yesExit: 'Ja, avsluta',
+		progress: {
+			starting: 'Startar...',
+			decompressing: 'Dekomprimerar...',
+			flashing: 'Flashar...',
+			finishing: 'Avslutar...',
+			verifying: 'Validerar...',
+			failing: 'Misslyckades',
+		},
+		message: {
+			sizeNotRecommended: 'Rekommenderas inte',
+			tooSmall: 'För liten',
+			locked: 'Låst',
+			system: 'Systemenhet',
+			containsImage: 'Källenhet',
+			largeDrive: 'Stor enhet',
+			sourceLarger: 'Den valda källan är {{byte}} större än denna enhet.',
+			flashSucceed_one: 'Lyckat mål',
+			flashSucceed_other: 'Lyckade mål',
+			flashFail_one: 'Misslyckat mål',
+			flashFail_other: 'Misslyckade mål',
+			toDrive: 'till {{description}} ({{name}})',
+			toTarget_one: 'till {{num}} mål',
+			toTarget_other: 'till {{num}} mål',
+			andFailTarget_one: 'och misslyckades med att flasha till {{num}} mål',
+			andFailTarget_other: 'och misslyckades med att flasha till {{num}} mål',
+			succeedTo: '{{name}} flashades framgångsrikt {{target}}',
+			exitWhileFlashing:
+				'Du flashar för närvarande en enhet. Att stänga Etcher kan lämna din enhet i ett oanvändbart tillstånd.',
+			looksLikeWindowsImage:
+				'Det ser ut som att du försöker bränna en Windows-avbild.\n\nTill skillnad från andra avbilder kräver Windows-avbilder speciell bearbetning för att de ska göras startbara. Vi föreslår att du använder ett verktyg speciellt utformat för detta ändamål som t.ex <a href="https://rufus.akeo.ie">Rufus</a> (Windows), <a href="https://github.com/slacka/WoeUSB">WoeUSB</a> (Linux) eller Boot Camp Assistant (macOS).',
+			image: 'avbild',
+			drive: 'enhet',
+			missingPartitionTable:
+				'Det ser ut som att detta inte är en startbar {{type}}.\n\n{{type}} verkar inte innehålla någon partitionstabell och därför känns den kanske inte igen eller startbar av din enhet.',
+			largeDriveSize:
+				"Detta är en stor enhet! Se till att den inte innehåller filer som du vill behålla.",
+			systemDrive:
+				'Att välja din systemenhet är farligt och kommer att radera din enhet!',
+			sourceDrive: 'Innehåller avbilden du valde att flasha',
+			noSpace:
+				'Inte tillräckligt med utrymme på enheten. Sätt in en större och försök igen.',
+			genericFlashError:
+				'Något gick fel. Om det är en komprimerad avbild, kontrollera att arkivet inte är skadat.\n{{error}}',
+			validation:
+				'Skrivningen har slutförts korrekt, men Etcher upptäckte potentiella korruptionsproblem när avbilden lästes tillbaka från enheten. \n\nÖverväg att skriva avbilden till en annan enhet.',
+			openError:
+				'Något gick fel vid öppningen {{source}}.\n\nFel: {{error}}',
+			flashError: 'Något gick fel vid skrivningen av {{image}} {{targets}}.',
+			unplug:
+				"Det verkar som om Etcher tappade åtkomsten till enheten. Har den kopplats ur av misstag?\n\nIbland orsakas detta fel av en felaktiga läsare som inte ger stabil åtkomst till enheten.",
+			cannotWrite:
+				'Det verkar som om Etcher inte kan skriva till den här platsen på enheten. Detta fel orsakas vanligtvis av en felaktig enhet, läsare eller port. \n\nFörsök igen med en annan enhet, läsare eller port.',
+			childWriterDied:
+				'The writer process ended unexpectedly. Please try again, and contact the Etcher team if the problem persists.',
+			badProtocol: 'Endast http:// och https:// webbadresser stöds.',
+		},
+		target: {
+			selectTarget: 'Välj mål',
+			plugTarget: 'Anslut en målenhet',
+			targets: 'Mål',
+			change: 'Ändra',
+		},
+		source: {
+			useSourceURL: 'Använd avbildswebbadress',
+			auth: 'Autentisering',
+			username: 'Ange användarnamn',
+			password: 'Ange lösenord',
+			unsupportedProtocol: 'Protokoll som inte stöds',
+			windowsImage: 'Möjlig Windows-avbild upptäckt',
+			partitionTable: 'Partitionstabell saknas',
+			errorOpen: 'Det gick inte att öppna källan',
+			fromFile: 'Flasha från fil',
+			fromURL: 'Flasha från webbadress',
+			clone: 'Klona enhet',
+			image: 'Avbild',
+			name: 'Namn: ',
+			path: 'Sökväg: ',
+			selectSource: 'Välj källa',
+			plugSource: 'Anslut en källenhet',
+			osImages: 'OS-avbilder',
+			allFiles: 'Alla',
+			enterValidURL: 'Ange en giltig webbadress',
+		},
+		drives: {
+			name: 'Namn',
+			size: 'Storlek',
+			location: 'Plats',
+			find: '{{length}} funnen',
+			select: 'Välj {{select}}',
+			showHidden: 'Visa {{num}} dolda',
+			systemDriveDanger:
+				'Att välja din systemenhet är farligt och kommer att radera din enhet!',
+			openInBrowser: '`Etcher öppnar {{link}} i din webbläsare`',
+			changeTarget: 'Ändra mål',
+			largeDriveWarning: 'Du är på väg att radera en ovanligt stor enhet',
+			largeDriveWarningMsg:
+				'Är du säker på att den valda enheten inte är en lagringsenhet?',
+			systemDriveWarning: "Du håller på att radera din dators enheter",
+			systemDriveWarningMsg:
+				'Är du säker på att du vill flasha din systemenhet?',
+		},
+		flash: {
+			another: 'Flasha en annan',
+			target: 'Mål',
+			location: 'Plats',
+			error: 'Fel',
+			flash: 'Flasha',
+			flashNow: 'Flasha!',
+			skip: 'Validering har hoppats över',
+			moreInfo: 'mer info',
+			speedTip:
+				'Hastigheten beräknas genom att dividera storleken på avbilden med flashtiden.\nDiskavbilder med ext-partitioner flashas snabbare eftersom vi kan hoppa över oanvända delar.',
+			speed: 'Effektiv hastighet: {{speed}} MB/s',
+			speedShort: '{{speed}} MB/s',
+			eta: 'Beräknad tid kvar: {{eta}}',
+			failedTarget: 'Misslyckade mål',
+			failedRetry: 'Försök igen på misslyckade mål',
+			flashFailed: 'Flashningen misslyckades.',
+			flashCompleted: 'Flashningen klar!',
+		},
+		settings: {
+			errorReporting:
+				'Rapportera anonymt fel och användningsstatistik till balena.io',
+			autoUpdate: 'Automatiska uppdateringar aktiverade',
+			settings: 'Inställningar',
+			systemInformation: 'Systeminformation',
+			trimExtPartitions:
+				'Trimma oallokerat utrymme på råavbilder (i partitioner av ext-typ)',
+		},
+		menu: {
+			edit: 'Redigera',
+			view: 'Visa',
+			devTool: 'Växla utvecklarverktyg',
+			window: 'Fönster',
+			help: 'Hjälp',
+			pro: 'Etcher Pro',
+			website: 'Etcher hemsida',
+			issue: 'Rapportera ett problem',
+			about: 'Om Etcher',
+			hide: 'Dölj Etcher',
+			hideOthers: 'Dölj andra',
+			unhide: 'Visa alla',
+			quit: 'Avsluta Etcher',
+		},
+	},
+};
+
+export default translation;
