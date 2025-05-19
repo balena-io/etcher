@@ -1,22 +1,19 @@
-Manual Testing
-==============
+# Manual Testing
 
 This document describes a high-level script of manual tests to check for. We
 should aim to replace items on this list with automated Spectron test cases.
 
-Image Selection
----------------
+## Image Selection
 
 - [ ] Cancel image selection dialog
 - [ ] Select an unbootable image (without a partition table), and expect a
-  sensible warning
+      sensible warning
 - [ ] Attempt to select a ZIP archive with more than one image
 - [ ] Attempt to select a tar archive (with any compression method)
 - [ ] Change image selection
 - [ ] Select a Windows image, and expect a sensible warning
 
-Drive Selection
----------------
+## Drive Selection
 
 - [ ] Open the drive selection modal
 - [ ] Switch drive selection
@@ -25,16 +22,15 @@ Drive Selection
 - [ ] Insert a locked SD Card and expect a warning
 - [ ] Insert a too small drive and expect a warning
 - [ ] Put an image into a drive and attempt to flash the image to the drive
-  that contains it
+      that contains it
 - [ ] Attempt to flash a compressed image (for which we can get the
-  uncompressed size) into a drive that is big enough to hold the compressed
-  image, but not big enough to hold the uncompressed version
+      uncompressed size) into a drive that is big enough to hold the compressed
+      image, but not big enough to hold the uncompressed version
 - [ ] Enable "Unsafe Mode" and attempt to select a system drive
 - [ ] Enable "Unsafe Mode", and if there is only one system drive (and no
-  removable ones), don't expect autoselection
+      removable ones), don't expect autoselection
 
-Image Support
--------------
+## Image Support
 
 Run the following tests with and without validation enabled:
 
@@ -51,18 +47,17 @@ Run the following tests with and without validation enabled:
 - [ ] Flash an archive image containing a blockmap file
 - [ ] Flash an archive image containing a manifest metadata file
 
-Flashing Process
-----------------
+## Flashing Process
 
 - [ ] Unplug the drive during flash or validation
 - [ ] Click "Flash", cancel elevation dialog, and click "Flash" again
 - [ ] Start flashing an image, try to close Etcher, cancel the application
-  close warning dialog, and check that Etcher continues to flash the image
+      close warning dialog, and check that Etcher continues to flash the image
 
 ### Child Writer
 
 - [ ] Kill the child writer process (i.e. with `SIGINT` or `SIGKILL`), and
-  check that the UI reacts appropriately
+      check that the UI reacts appropriately
 - [ ] Close the application while flashing using the window manager close icon
 - [ ] Close the application while flashing using the OS keyboard shortcut
 - [ ] Close the application from the terminal using Ctrl-C while flashing
@@ -72,11 +67,10 @@ In all these cases, the child writer process should not remain alive. Note that
 in some systems you need to open your process monitor tool of choice with extra
 permissions to see the elevated child writer process.
 
-GUI
-----
+## GUI
 
 - [ ] Close application from the terminal using Ctrl-C while the application is
-  idle
+      idle
 - [ ] Click footer links that take you to an external website
 - [ ] Attempt to change image or drive selection while flashing
 - [ ] Go to the settings page while flashing and come back
@@ -85,31 +79,20 @@ GUI
 - [ ] Minimize the application
 - [ ] Start the application given no internet connection
 
-Success Banner
---------------
+## Success Banner
 
 - [ ] Click an external link on the success banner (with and without internet
-  connection)
+      connection)
 
-Elevation Prompt
-----------------
+## Elevation Prompt
 
 - [ ] Flash an image as `root`/administrator
 - [ ] Reject elevation prompt
 - [ ] Put incorrect elevation prompt password
 - [ ] Unplug the drive during elevation
 
-Unmounting
-----------
+## Unmounting
 
 - [ ] Disable unmounting and flash an image
 - [ ] Flash an image with a file system that is readable by the host OS, and
-  check that is unmounted correctly
-
-Analytics
----------
-
-- [ ] Disable analytics, open DevTools Network pane or a packet sniffer, and
-  check that no request is sent
-- [ ] **Disable analytics, refresh application from DevTools (using Cmd-R or
-  F5), and check that initial events are not sent to Amplitude**
+      check that is unmounted correctly

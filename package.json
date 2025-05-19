@@ -3,7 +3,7 @@
   "private": true,
   "displayName": "balenaEtcher",
   "productName": "balenaEtcher",
-  "version": "2.1.0",
+  "version": "2.1.3",
   "packageType": "local",
   "main": ".webpack/main",
   "description": "Flash OS images to SD cards and USB drives, safely and easily.",
@@ -34,7 +34,6 @@
     "@fortawesome/fontawesome-free": "^6.5.2",
     "@ronomon/direct-io": "^3.0.1",
     "@sentry/electron": "^4.24.0",
-    "analytics-client": "^2.0.1",
     "axios": "^1.6.8",
     "debug": "4.3.4",
     "drivelist": "^12.0.2",
@@ -144,7 +143,7 @@
     "node": ">=20 <21"
   },
   "versionist": {
-    "publishedAt": "2025-02-27T16:16:57.534Z"
+    "publishedAt": "2025-05-15T18:09:56.320Z"
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.8",

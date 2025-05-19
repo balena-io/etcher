@@ -12,7 +12,7 @@ inputs:
   # --- custom environment
   NODE_VERSION:
     type: string
-    default: '20.10'
+    default: '20.19'
   VERBOSE:
     type: string
     default: 'true'

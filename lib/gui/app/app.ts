@@ -64,9 +64,6 @@ store.dispatch({
 	data: uuidV4(),
 });
 
-const applicationSessionUuid = store.getState().toJS().applicationSessionUuid;
-const flashingWorkflowUuid = store.getState().toJS().flashingWorkflowUuid;
-
 console.log(outdent`
 	${outdent}
 	 _____ _       _
@@ -81,13 +78,6 @@ console.log(outdent`
 
 	Version = ${packageJSON.version}, Type = ${packageJSON.packageType}
 `);
-
-const currentVersion = packageJSON.version;
-
-analytics.logEvent('Application start', {
-	packageType: packageJSON.packageType,
-	version: currentVersion,
-});
 
 const debouncedLog = debounce(console.log, 1000, { maxWait: 1000 });
 
@@ -172,9 +162,6 @@ analytics.initAnalytics();
 
 window.addEventListener('beforeunload', async (event) => {
 	if (!flashState.isFlashing() || popupExists) {
-		analytics.logEvent('Close application', {
-			isFlashing: flashState.isFlashing(),
-		});
 		return;
 	}
 
@@ -184,8 +171,6 @@ window.addEventListener('beforeunload', async (event) => {
 	// Don't open any more popups
 	popupExists = true;
 
-	analytics.logEvent('Close attempt while flashing');
-
 	try {
 		const confirmed = await osDialog.showWarning({
 			confirmationLabel: i18next.t('yesExit'),
@@ -194,19 +179,11 @@ window.addEventListener('beforeunload', async (event) => {
 			description: messages.warning.exitWhileFlashing(),
 		});
 		if (confirmed) {
-			analytics.logEvent('Close confirmed while flashing', {
-				flashInstanceUuid: flashState.getFlashUuid(),
-			});
-
 			// This circumvents the 'beforeunload' event unlike
 			// remote.app.quit() which does not.
 			remote.process.exit(EXIT_CODES.SUCCESS);
 		}
 
-		analytics.logEvent('Close rejected while flashing', {
-			applicationSessionUuid,
-			flashingWorkflowUuid,
-		});
 		popupExists = false;
 	} catch (error: any) {
 		exceptionReporter.report(error);

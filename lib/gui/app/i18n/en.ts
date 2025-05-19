@@ -133,8 +133,7 @@ const translation = {
 			flashCompleted: 'Flash Completed!',
 		},
 		settings: {
-			errorReporting:
-				'Anonymously report errors and usage statistics to balena.io',
+			errorReporting: 'Anonymously report errors to balena.io',
 			autoUpdate: 'Auto-updates enabled',
 			settings: 'Settings',
 			systemInformation: 'System Information',

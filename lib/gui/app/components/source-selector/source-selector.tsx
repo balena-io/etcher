@@ -392,10 +392,6 @@ export class SourceSelector extends React.Component<
 	}
 
 	private reselectSource() {
-		analytics.logEvent('Reselect image', {
-			previousImage: selectionState.getImage(),
-		});
-
 		selectionState.deselectImage();
 		this.props.hideAnalyticsAlert();
 	}
@@ -426,7 +422,6 @@ export class SourceSelector extends React.Component<
 					}
 
 					if (supportedFormats.looksLikeWindowsImage(selected)) {
-						analytics.logEvent('Possibly Windows image', { image: selected });
 						this.setState({
 							warning: {
 								message: messages.warning.looksLikeWindowsImage(),
@@ -450,7 +445,6 @@ export class SourceSelector extends React.Component<
 						metadata = await requestMetadata({ selected, SourceType, auth });
 
 						if (!metadata?.hasMBR && this.state.warning === null) {
-							analytics.logEvent('Missing partition table', { metadata });
 							this.setState({
 								warning: {
 									message: messages.warning.missingPartitionTable(),
@@ -468,7 +462,6 @@ export class SourceSelector extends React.Component<
 					}
 				} else {
 					if (selected.partitionTableType === null) {
-						analytics.logEvent('Missing partition table', { selected });
 						this.setState({
 							warning: {
 								message: messages.warning.driveMissingPartitionTable(),
@@ -490,15 +483,6 @@ export class SourceSelector extends React.Component<
 					metadata.auth = auth;
 					metadata.SourceType = SourceType;
 					selectionState.selectSource(metadata);
-					analytics.logEvent('Select image', {
-						// An easy way so we can quickly identify if we're making use of
-						// certain features without printing pages of text to DevTools.
-						image: {
-							...metadata,
-							logo: Boolean(metadata.logo),
-							blockMap: Boolean(metadata.blockMap),
-						},
-					});
 				}
 			})(),
 		};
@@ -519,11 +503,9 @@ export class SourceSelector extends React.Component<
 			analytics.logException(error);
 			return;
 		}
-		analytics.logEvent(title, { path: sourcePath });
 	}
 
 	private async openImageSelector() {
-		analytics.logEvent('Open image selector');
 		this.setState({ imageSelectorOpen: true });
 
 		try {
@@ -531,7 +513,6 @@ export class SourceSelector extends React.Component<
 			// Avoid analytics and selection state changes
 			// if no file was resolved from the dialog.
 			if (!imagePath) {
-				analytics.logEvent('Image selector closed');
 				return;
 			}
 			await this.selectSource(imagePath, 'File').promise;
@@ -550,16 +531,12 @@ export class SourceSelector extends React.Component<
 	}
 
 	private openURLSelector() {
-		analytics.logEvent('Open image URL selector');
-
 		this.setState({
 			showURLSelector: true,
 		});
 	}
 
 	private openDriveSelector() {
-		analytics.logEvent('Open drive selector');
-
 		this.setState({
 			showDriveSelector: true,
 		});
@@ -576,10 +553,6 @@ export class SourceSelector extends React.Component<
 	}
 
 	private showSelectedImageDetails() {
-		analytics.logEvent('Show selected image tooltip', {
-			imagePath: selectionState.getImage()?.path,
-		});
-
 		this.setState({
 			showImageDetails: true,
 		});
@@ -759,9 +732,7 @@ export class SourceSelector extends React.Component<
 						done={async (imageURL: string, auth?: Authentication) => {
 							// Avoid analytics and selection state changes
 							// if no file was resolved from the dialog.
-							if (!imageURL) {
-								analytics.logEvent('URL selector closed');
-							} else {
+							if (imageURL) {
 								let promise;
 								({ promise, cancel: cancelURLSelection } = this.selectSource(
 									imageURL,

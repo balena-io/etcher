@@ -15,12 +15,8 @@
  */
 
 import { findLastIndex, once } from 'lodash';
-import type { Client } from 'analytics-client';
-import { createClient, createNoopClient } from 'analytics-client';
 import * as SentryRenderer from '@sentry/electron/renderer';
 import * as settings from '../models/settings';
-import { store } from '../models/store';
-import { version } from '../../../../package.json';
 
 type AnalyticsPayload = _.Dictionary<any>;
 
@@ -115,7 +111,6 @@ export const anonymizeAnalyticsPayload = (
 	return data;
 };
 
-let analyticsClient: Client;
 /**
  * @summary Init analytics configurations
  */
@@ -127,94 +122,7 @@ export const initAnalytics = once(() => {
 		beforeSend: anonymizeSentryData,
 		debug: process.env.ETCHER_SENTRY_DEBUG === 'true',
 	});
-
-	const projectName =
-		settings.getSync('analyticsAmplitudeToken') || process.env.AMPLITUDE_TOKEN;
-
-	const clientConfig = {
-		projectName,
-		endpoint: 'data.balena-cloud.com',
-		componentName: 'etcher',
-		componentVersion: version,
-	};
-	analyticsClient = projectName
-		? createClient(clientConfig)
-		: createNoopClient();
 });
-
-const getCircularReplacer = () => {
-	const seen = new WeakSet();
-	return (_key: any, value: any) => {
-		if (typeof value === 'object' && value !== null) {
-			if (seen.has(value)) {
-				return;
-			}
-			seen.add(value);
-		}
-		return value;
-	};
-};
-
-function flattenObject(obj: any) {
-	const toReturn: AnalyticsPayload = {};
-
-	for (const i in obj) {
-		if (!Object.prototype.hasOwnProperty.call(obj, i)) {
-			continue;
-		}
-
-		if (Array.isArray(obj[i])) {
-			toReturn[i] = obj[i];
-			continue;
-		}
-
-		if (typeof obj[i] === 'object' && obj[i] !== null) {
-			const flatObject = flattenObject(obj[i]);
-			for (const x in flatObject) {
-				if (!Object.prototype.hasOwnProperty.call(flatObject, x)) {
-					continue;
-				}
-
-				toReturn[i.toLowerCase() + '.' + x.toLowerCase()] = flatObject[x];
-			}
-		} else {
-			toReturn[i] = obj[i];
-		}
-	}
-	return toReturn;
-}
-
-function formatEvent(data: any): AnalyticsPayload {
-	const event = JSON.parse(JSON.stringify(data, getCircularReplacer()));
-	return anonymizeAnalyticsPayload(flattenObject(event));
-}
-
-function reportAnalytics(message: string, data: AnalyticsPayload = {}) {
-	const { applicationSessionUuid, flashingWorkflowUuid } = store
-		.getState()
-		.toJS();
-
-	const event = formatEvent({
-		...data,
-		applicationSessionUuid,
-		flashingWorkflowUuid,
-	});
-	analyticsClient.track(message, event);
-}
-
-/**
- * @summary Log an event
- *
- * @description
- * This function sends the debug message to product analytics services.
- */
-export async function logEvent(message: string, data: AnalyticsPayload = {}) {
-	const shouldReportAnalytics = await settings.get('errorReporting');
-	if (shouldReportAnalytics) {
-		initAnalytics();
-		reportAnalytics(message, data);
-	}
-}
 
 /**
  * @summary Log an exception

@@ -63,9 +63,6 @@ const rules: Required<ModuleOptions>['rules'] = [
 
 const injectAnalyticsToken = new DefinePlugin({
 	'process.env.SENTRY_TOKEN': JSON.stringify(process.env.SENTRY_TOKEN || ''),
-	'process.env.AMPLITUDE_TOKEN': JSON.stringify(
-		process.env.AMPLITUDE_TOKEN || '',
-	),
 });
 
 export const rendererConfig: Configuration = {
