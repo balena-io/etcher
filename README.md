@@ -99,6 +99,20 @@ choco install etcher
 choco uninstall etcher
 ```
 
+#### Homebrew (macOS)
+
+This package is updated by [BrewTestBot](https://docs.brew.sh/BrewTestBot), and is kept up to date automatically.
+
+```sh
+brew install --cask balenaetcher
+```
+
+##### Uninstall
+
+```sh
+brew uninstall --cask balenaetcher
+```
+
 ## Support
 
 If you're having any problem, please [raise an issue][newissue] on GitHub, and
