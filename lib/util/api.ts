@@ -29,6 +29,28 @@ import { getSourceMetadata } from './source-metadata';
 import type { DrivelistDrive } from '../shared/drive-constraints';
 import type { SourceMetadata } from '../shared/typings/source-selector';
 
+// Utility to parse --key=value arguments into process.env if not already set
+function injectEnvFromArgs() {
+	for (const arg of process.argv.slice(2)) {
+		const match = arg.match(/^--([^=]+)=(.*)$/);
+		if (match) {
+			const key = match[1];
+			const value = match[2];
+			if (process.env[key] === undefined) {
+				process.env[key] = value;
+			}
+		}
+	}
+}
+
+// Inject env vars from arguments if not already present
+injectEnvFromArgs();
+
+console.log(
+	'Etcher child process started with the following environment variables:',
+);
+console.log(JSON.stringify(process.env, null, 2));
+
 const ETCHER_SERVER_ADDRESS = process.env.ETCHER_SERVER_ADDRESS as string;
 const ETCHER_SERVER_PORT = process.env.ETCHER_SERVER_PORT as string;
 // const ETCHER_SERVER_ID = process.env.ETCHER_SERVER_ID as string;
