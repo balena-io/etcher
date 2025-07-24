@@ -59,6 +59,17 @@ runs:
         # as the shrinkwrap might have been done on mac/linux, this is ensure the package is there for windows
         if [[ "$RUNNER_OS" == "Windows" ]]; then
           npm i -D winusb-driver-generator
+
+          # need to modifies @yao-pkg/pkg-fetch
+          # expected-shas.json and patches.json files to force use of nodejs v20.11.1 instead of latest minor (v20.19.4 at the time of writing).
+          # this is required for Windows compatibility as 20.15.1 introduced a regression that breaks the flasher on Windows.
+          # As soon as nodejs the fix is backported to node20 and, or node 22, this script can be removed: https://github.com/nodejs/node/pull/55623
+          
+          # Add entry to expected-shas.json
+          sed -i 's/}$/,\n  "node-v20.11.1-win-x64": "140c377c2c91751832e673cb488724cbd003f01aa237615142cd2907f34fa1a2"\n}/' node_modules/@yao-pkg/pkg-fetch/lib-es5/expected-shas.json
+
+          # Replace any "v20..." key with "v20.11.1" in patches.json (keeps value)
+          sed -i -E 's/"v20[^"]*":/"v20.11.1":/' node_modules/@yao-pkg/pkg-fetch/patches/patches.json
         fi
 
         npm run lint
