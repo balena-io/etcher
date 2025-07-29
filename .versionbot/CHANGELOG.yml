@@ -1,4 +1,29 @@
 - commits:
+    - subject: "patch: fix ubuntu 24 build and flash issues - bump electron-forge to
+        7.8.1 - bump electron to 37.2.4 - stop producing broken appimage"
+      hash: c824a60e5dc9a78b92679fa8915e3ddad4127c05
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: fix windows build and flash issues - downgrade flasher's node
+        to 20.11.1 on windows - bump windows GHA runner to 2022 - bump
+        winusb-driver-generator to 2.1.9"
+      hash: 2a470f5e6c864ea161188f1e1a01d4baeba6c310
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: refactor permission code"
+      hash: f3123f3cbe0159c624412ec2f162d01e079d314e
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 2.1.4
+  title: ""
+  date: 2025-07-29T12:17:33.739Z
+- commits:
     - subject: Remove stale secrets
       hash: c2fc36971c9460eac6bd02cfc7bdcabec7b97a6d
       body: ""
