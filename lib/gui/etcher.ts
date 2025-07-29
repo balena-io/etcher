@@ -123,7 +123,6 @@ const initSentryMain = once(() => {
 		beforeSend: anonymizeSentryData,
 		debug: process.env.ETCHER_SENTRY_DEBUG === 'true',
 	});
-	console.log(SentryMain.getCurrentScope());
 });
 
 const sourceSelectorReady = new Promise((resolve) => {

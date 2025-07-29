@@ -4,7 +4,7 @@ import { MakerZIP } from '@electron-forge/maker-zip';
 import { MakerDeb } from '@electron-forge/maker-deb';
 import { MakerRpm } from '@electron-forge/maker-rpm';
 import { MakerDMG } from '@electron-forge/maker-dmg';
-import { MakerAppImage } from '@reforged/maker-appimage';
+// import { MakerAppImage } from '@reforged/maker-appimage';
 import { AutoUnpackNativesPlugin } from '@electron-forge/plugin-auto-unpack-natives';
 import { WebpackPlugin } from '@electron-forge/plugin-webpack';
 import { exec } from 'child_process';
@@ -86,12 +86,12 @@ const config: ForgeConfig = {
 				},
 			},
 		}),
-		new MakerAppImage({
-			options: {
-				icon: './assets/icon.png',
-				categories: ['Utility'],
-			},
-		}),
+		// new MakerAppImage({
+		// 	options: {
+		// 		icon: './assets/icon.png',
+		// 		categories: ['Utility'],
+		// 	},
+		// }),
 		new MakerRpm({
 			options: {
 				icon: './assets/icon.png',
