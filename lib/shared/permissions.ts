@@ -14,16 +14,7 @@
  * limitations under the License.
  */
 
-/**
- * TODO:
- * This is convoluted and needlessly complex. It should be simplified and modernized.
- * The environment variable setting and escaping should be greatly simplified by letting {linux|catalina}-sudo handle that.
- * We shouldn't need to write a script to a file and then execute it. We should be able to forwatd the command to the sudo code directly.
- */
-
 import { spawn, exec } from 'child_process';
-import { withTmpFile } from 'etcher-sdk/build/tmp';
-import { promises as fs } from 'fs';
 import { promisify } from 'util';
 import * as _ from 'lodash';
 import * as os from 'os';
@@ -40,6 +31,32 @@ const execAsync = promisify(exec);
  * @summary The user id of the UNIX "superuser"
  */
 const UNIX_SUPERUSER_USER_ID = 0;
+
+// Augment the command to pass the environment variables as args
+// This is required because both windows and linux sudo commands strips the environment
+// variables when running the elevated command, so we need to pass them as arguments
+function commandWithEnv(
+	command: string[],
+	env: _.Dictionary<string | undefined>,
+): string[] {
+	const envFilter: string[] = [
+		'ETCHER_SERVER_ADDRESS',
+		'ETCHER_SERVER_PORT',
+		'ETCHER_SERVER_ID',
+		'ETCHER_NO_SPAWN_UTIL',
+		'ETCHER_TERMINATE_TIMEOUT',
+		'UV_THREADPOOL_SIZE',
+	];
+
+	return [
+		command[0],
+		...command.slice(1),
+		...Object.keys(env)
+			.filter((key) => Object.prototype.hasOwnProperty.call(env, key))
+			.filter((key) => envFilter.includes(key))
+			.map((key) => `--${key}=${env[key]}`),
+	];
+}
 
 export async function isElevated(): Promise<boolean> {
 	if (os.platform() === 'win32') {
@@ -66,80 +83,6 @@ export function isElevatedUnixSync(): boolean {
 	return process.geteuid!() === UNIX_SUPERUSER_USER_ID;
 }
 
-function escapeSh(value: any): string {
-	// Make sure it's a string
-	// Replace ' -> '\'' (closing quote, escaped quote, opening quote)
-	// Surround with quotes
-	return `'${String(value).replace(/'/g, "'\\''")}'`;
-}
-
-function escapeParamCmd(value: any): string {
-	// Make sure it's a string
-	// Escape " -> \"
-	// Surround with double quotes
-	return `"${String(value).replace(/"/g, '\\"')}"`;
-}
-
-function setEnvVarSh(value: any, name: string): string {
-	return `export ${name}=${escapeSh(value)}`;
-}
-
-function setEnvVarCmd(value: any, name: string): string {
-	return `set "${name}=${String(value)}"`;
-}
-
-// Exported for tests
-export function createLaunchScript(
-	command: string,
-	argv: string[],
-	environment: _.Dictionary<string | undefined>,
-): string {
-	const isWindows = os.platform() === 'win32';
-	const lines = [];
-	if (isWindows) {
-		// Switch to utf8
-		lines.push('chcp 65001');
-	}
-	const [setEnvVarFn, escapeFn] = isWindows
-		? [setEnvVarCmd, escapeParamCmd]
-		: [setEnvVarSh, escapeSh];
-	lines.push(..._.map(environment, setEnvVarFn));
-	lines.push([command, ...argv].map(escapeFn).join(' '));
-	return lines.join(os.EOL);
-}
-
-async function elevateScriptWindows(
-	path: string,
-	name: string,
-	env: any,
-): Promise<{ cancelled: false }> {
-	// '&' needs to be escaped here (but not when written to a .cmd file)
-	const cmd = ['cmd', '/c', escapeParamCmd(path).replace(/&/g, '^&')].join(' ');
-	await winSudo(cmd, name, env);
-	return { cancelled: false };
-}
-
-async function elevateScriptUnix(
-	path: string,
-	name: string,
-): Promise<{ cancelled: boolean }> {
-	const cmd = ['bash', escapeSh(path)].join(' ');
-	await linuxSudo(cmd, { name });
-	return { cancelled: false };
-}
-
-async function elevateScriptCatalina(
-	path: string,
-): Promise<{ cancelled: boolean }> {
-	const cmd = ['bash', escapeSh(path)].join(' ');
-	try {
-		const { cancelled } = await darwinSudo(cmd);
-		return { cancelled };
-	} catch (error: any) {
-		throw errors.createError({ title: error.stderr });
-	}
-}
-
 export async function elevateCommand(
 	command: string[],
 	options: {
@@ -147,66 +90,60 @@ export async function elevateCommand(
 		applicationName: string;
 	},
 ): Promise<{ cancelled: boolean }> {
+	// if we're running with elevated privileges, we can just spawn the command
 	if (await isElevated()) {
 		spawn(command[0], command.slice(1), {
 			env: options.env,
 		});
 		return { cancelled: false };
 	}
-	const isWindows = os.platform() === 'win32';
-	const launchScript = createLaunchScript(
-		command[0],
-		command.slice(1),
-		options.env,
-	);
-	return await withTmpFile(
-		{
-			keepOpen: false,
-			prefix: 'balena-etcher-electron-',
-			postfix: '.cmd',
-		},
-		async ({ path }) => {
-			await fs.writeFile(path, launchScript);
-			if (isWindows) {
-				return elevateScriptWindows(path, options.applicationName, options.env);
-			}
-			if (
-				os.platform() === 'darwin' &&
-				semver.compare(os.release(), '19.0.0') >= 0
-			) {
-				// >= macOS Catalina
-				return elevateScriptCatalina(path);
-			}
-			try {
-				return elevateScriptUnix(path, options.applicationName);
-			} catch (error: any) {
-				// We're hardcoding internal error messages declared by `sudo-prompt`.
-				// There doesn't seem to be a better way to handle these errors, so
-				// for now, we should make sure we double check if the error messages
-				// have changed every time we upgrade `sudo-prompt`.
-				console.log('error', error);
-				if (_.includes(error.message, 'is not in the sudoers file')) {
-					throw errors.createUserError({
-						title: "Your user doesn't have enough privileges to proceed",
-						description:
-							'This application requires sudo privileges to be able to write to drives',
-					});
-				} else if (_.startsWith(error.message, 'Command failed:')) {
-					throw errors.createUserError({
-						title: 'The elevated process died unexpectedly',
-						description: `The process error code was ${error.code}`,
-					});
-				} else if (error.message === 'User did not grant permission.') {
-					return { cancelled: true };
-				} else if (error.message === 'No polkit authentication agent found.') {
-					throw errors.createUserError({
-						title: 'No polkit authentication agent found',
-						description:
-							'Please install a polkit authentication agent for your desktop environment of choice to continue',
-					});
-				}
-				throw error;
-			}
-		},
-	);
+
+	try {
+		if (os.platform() === 'win32') {
+			const { cancelled } = await winSudo(commandWithEnv(command, options.env));
+			return { cancelled };
+		}
+		if (
+			os.platform() === 'darwin' &&
+			semver.compare(os.release(), '19.0.0') >= 0
+		) {
+			// >= macOS Catalina
+			const { cancelled } = await darwinSudo(command, options.env);
+			return { cancelled };
+		}
+	} catch (error: any) {
+		throw errors.createError({ title: error.stderr });
+	}
+
+	try {
+		const { cancelled } = await linuxSudo(commandWithEnv(command, options.env));
+		return { cancelled };
+	} catch (error: any) {
+		// We're hardcoding internal error messages declared by `sudo-prompt`.
+		// There doesn't seem to be a better way to handle these errors, so
+		// for now, we should make sure we double check if the error messages
+		// have changed every time we upgrade `sudo-prompt`.
+		console.log('error', error);
+		if (_.includes(error.message, 'is not in the sudoers file')) {
+			throw errors.createUserError({
+				title: "Your user doesn't have enough privileges to proceed",
+				description:
+					'This application requires sudo privileges to be able to write to drives',
+			});
+		} else if (_.startsWith(error.message, 'Command failed:')) {
+			throw errors.createUserError({
+				title: 'The elevated process died unexpectedly',
+				description: `The process error code was ${error.code}`,
+			});
+		} else if (error.message === 'User did not grant permission.') {
+			return { cancelled: true };
+		} else if (error.message === 'No polkit authentication agent found.') {
+			throw errors.createUserError({
+				title: 'No polkit authentication agent found',
+				description:
+					'Please install a polkit authentication agent for your desktop environment of choice to continue',
+			});
+		}
+		throw error;
+	}
 }

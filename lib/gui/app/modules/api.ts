@@ -98,7 +98,8 @@ async function connectToChildProcess(
 ): Promise<ChildApi | { failed: boolean }> {
 	return new Promise((resolve, reject) => {
 		// TODO: default to IPC connections https://github.com/websockets/ws/blob/master/doc/ws.md#ipc-connections
-		// TOOD: use the path as cheap authentication
+		// TODO: use the path as cheap authentication
+
 		console.log(etcherServerId);
 
 		const url = `ws://${etcherServerAddress}:${etcherServerPort}`;
@@ -196,9 +197,9 @@ async function spawnChildAndConnect({
 		`etcher-${Math.random().toString(36).substring(7)}`;
 
 	console.log(
-		`Spawning ${
+		`Starting ${
 			withPrivileges ? 'priviledged' : 'unpriviledged'
-		} sidecar on port ${etcherServerPort}`,
+		} flasher sidecar on port ${etcherServerPort}`,
 	);
 
 	// spawn the child process, which will act as the ws server
@@ -212,11 +213,11 @@ async function spawnChildAndConnect({
 				etcherServerPort,
 			);
 			if (result.cancelled) {
-				throw new Error('Spwaning the child process was cancelled');
+				throw new Error('Starting flasher sidecar process was cancelled');
 			}
 		} catch (error) {
-			console.error('Error spawning child process', error);
-			throw new Error('Error spawning the child process');
+			console.error('Error starting flasher sidecar process', error);
+			throw new Error('Error starting flasher sidecar process');
 		}
 	}
 
@@ -232,7 +233,7 @@ async function spawnChildAndConnect({
 			if (failed) {
 				retry++;
 				console.log(
-					`Retrying to connect to child process in ${connectionRetryDelay}... ${retry} / ${connectionRetryAttempts}`,
+					`Connection to sidecar flasher process attempt ${retry} / ${connectionRetryAttempts} failed; retrying in ${connectionRetryDelay}ms...`,
 				);
 				await new Promise((resolve) =>
 					setTimeout(resolve, connectionRetryDelay),
@@ -241,10 +242,11 @@ async function spawnChildAndConnect({
 			}
 			return { failed, emit, registerHandler };
 		}
-		throw new Error('Connection to etcher-util timed out');
+		// TODO: raised an error to the user if we reach this point
+		throw new Error('Connection to sidecar flasher process timed out');
 	} catch (error) {
-		console.error('Error connecting to child process', error);
-		throw new Error('Connection to etcher-util failed');
+		console.error('Error connecting to sidecar flasher process process', error);
+		throw new Error('Connection to sidecar flasher process failed');
 	}
 }
 

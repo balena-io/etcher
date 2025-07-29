@@ -1,6 +1,6 @@
 import { PluginBase } from '@electron-forge/plugin-base';
 import type {
-	ForgeHookMap,
+	ForgeMultiHookMap,
 	ResolvedForgeConfig,
 } from '@electron-forge/shared-types';
 import { WebpackPlugin } from '@electron-forge/plugin-webpack';
@@ -10,9 +10,9 @@ import { execFileSync } from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
 
-import * as d from 'debug';
+import debug from 'debug';
 
-const debug = d('sidecar');
+const log = debug('sidecar');
 
 function isStartScrpt(): boolean {
 	return process.env.npm_lifecycle_event === 'start';
@@ -40,7 +40,7 @@ function addWebpackDefine(
 			: // otherwise point relative to the resources folder of the bundled app
 				binName;
 
-		debug(`define '${defineName}'='${value}'`);
+		log(`define '${defineName}'='${value}'`);
 
 		mainConfig.plugins.push(
 			new DefinePlugin({
@@ -98,7 +98,7 @@ function build(
 	});
 
 	commands.forEach(([cmd, args, opt]) => {
-		debug('running command:', cmd, args.join(' '));
+		log('running command:', cmd, args.join(' '));
 		execFileSync(cmd, args, { shell: true, stdio: 'inherit', ...opt });
 	});
 }
@@ -119,7 +119,7 @@ function copyArtifact(
 	// buildPath points to appPath, which is inside resources dir which is the one we actually want
 	const resourcesPath = path.dirname(buildPath);
 	const dest = path.resolve(resourcesPath, path.basename(binPath));
-	debug(`copying '${binPath}' to '${dest}'`);
+	log(`copying '${binPath}' to '${dest}'`);
 	fs.copyFileSync(binPath, dest);
 }
 
@@ -129,10 +129,10 @@ export class SidecarPlugin extends PluginBase<void> {
 	constructor() {
 		super();
 		this.getHooks = this.getHooks.bind(this);
-		debug('isStartScript:', isStartScrpt());
+		log('isStartScript:', isStartScrpt());
 	}
 
-	getHooks(): ForgeHookMap {
+	getHooks(): ForgeMultiHookMap {
 		const DEFINE_NAME = 'ETCHER_UTIL_BIN_PATH';
 		const BASE_DIR = path.join('out', 'sidecar');
 		const SRC_DIR = path.join(BASE_DIR, 'src');
@@ -141,11 +141,11 @@ export class SidecarPlugin extends PluginBase<void> {
 
 		return {
 			resolveForgeConfig: async (currentConfig) => {
-				debug('resolveForgeConfig');
+				log('resolveForgeConfig');
 				return addWebpackDefine(currentConfig, DEFINE_NAME, BIN_DIR, BIN_NAME);
 			},
 			generateAssets: async (_config, platform, arch) => {
-				debug('generateAssets', { platform, arch });
+				log('generateAssets', { platform, arch });
 				build(SRC_DIR, arch, BIN_DIR, BIN_NAME);
 			},
 			packageAfterCopy: async (
@@ -155,7 +155,7 @@ export class SidecarPlugin extends PluginBase<void> {
 				platform,
 				arch,
 			) => {
-				debug('packageAfterCopy', {
+				log('packageAfterCopy', {
 					buildPath,
 					electronVersion,
 					platform,

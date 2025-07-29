@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 balena.io
+ * Copyright 2025 balena.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,10 @@
 
 import { spawn } from 'child_process';
 import { join } from 'path';
-import { env } from 'process';
-// import { promisify } from "util";
 
 import { supportedLocales } from '../../gui/app/i18n';
 
-// const execFileAsync = promisify(execFile);
-
 const SUCCESSFUL_AUTH_MARKER = 'AUTHENTICATION SUCCEEDED';
-const EXPECTED_SUCCESSFUL_AUTH_MARKER = `${SUCCESSFUL_AUTH_MARKER}\n`;
 
 function getAskPassScriptPath(lang: string): string {
 	if (process.env.NODE_ENV === 'development') {
@@ -36,67 +31,68 @@ function getAskPassScriptPath(lang: string): string {
 }
 
 export async function sudo(
-	command: string,
+	command: string[],
+	env: any,
 ): Promise<{ cancelled: boolean; stdout?: string; stderr?: string }> {
-	try {
-		let lang = Intl.DateTimeFormat().resolvedOptions().locale;
-		lang = lang.substr(0, 2);
-		if (supportedLocales.indexOf(lang) > -1) {
-			// language should be present
-		} else {
-			// fallback to eng
-			lang = 'en';
-		}
+	let lang = Intl.DateTimeFormat().resolvedOptions().locale;
+	lang = lang.substr(0, 2);
+	if (supportedLocales.indexOf(lang) === -1) {
+		lang = 'en';
+	}
 
+	// Build the shell command string
+	const shellCmd = `echo ${SUCCESSFUL_AUTH_MARKER} && ${command[0]} ${command
+		.slice(1)
+		.map((a) => a.replace(/\\/g, '\\\\').replace(/"/g, '\\"'))
+		.join(' ')}`;
+
+	let elevated = 'pending';
+
+	try {
 		const elevateProcess = spawn(
 			'sudo',
-			['--askpass', 'sh', '-c', `echo ${SUCCESSFUL_AUTH_MARKER} && ${command}`],
+			['-E', '--askpass', 'sh', '-c', shellCmd],
 			{
-				// encoding: "utf8",
 				env: {
+					...env,
 					PATH: env.PATH,
 					SUDO_ASKPASS: getAskPassScriptPath(lang),
 				},
 			},
 		);
 
-		let elevated = 'pending';
-
 		elevateProcess.stdout.on('data', (data) => {
+			// console.log(`stdout: ${data}`);
 			if (data.toString().includes(SUCCESSFUL_AUTH_MARKER)) {
-				// if the first data comming out of the sudo command is the expected marker we resolve the promise
 				elevated = 'granted';
 			} else {
-				// if the first data comming out of the sudo command is not the expected marker we reject the promise
 				elevated = 'rejected';
 			}
 		});
 
-		// we don't spawn or read stdout in the promise otherwise resolving stop the process
-		return new Promise((resolve, reject) => {
-			const checkElevation = setInterval(() => {
-				if (elevated === 'granted') {
-					clearInterval(checkElevation);
-					resolve({ cancelled: false });
-				} else if (elevated === 'rejected') {
-					clearInterval(checkElevation);
-					resolve({ cancelled: true });
-				}
-			}, 300);
-
-			// if the elevation didn't occured in 30 seconds we reject the promise
-			setTimeout(() => {
-				clearInterval(checkElevation);
-				reject(new Error('Elevation timeout'));
-			}, 30000);
-		});
+		// elevateProcess.stderr.on('data', (data) => {
+		// 	console.log(`stderr: ${data}`);
+		// });
 	} catch (error: any) {
-		if (error.code === 1) {
-			if (!error.stdout.startsWith(EXPECTED_SUCCESSFUL_AUTH_MARKER)) {
-				return { cancelled: true };
-			}
-			error.stdout = error.stdout.slice(EXPECTED_SUCCESSFUL_AUTH_MARKER.length);
-		}
-		throw error;
+		console.error('Error starting sudo process', error);
+		throw new Error('Error starting sudo process');
 	}
+
+	return new Promise((resolve, reject) => {
+		const checkElevation = setInterval(() => {
+			console.log('elevated', elevated);
+			if (elevated === 'granted') {
+				clearInterval(checkElevation);
+				resolve({ cancelled: false });
+			} else if (elevated === 'rejected') {
+				clearInterval(checkElevation);
+				resolve({ cancelled: true });
+			}
+		}, 300);
+
+		setTimeout(() => {
+			clearInterval(checkElevation);
+			reject(new Error('Elevation timeout'));
+		}, 30000);
+	});
 }

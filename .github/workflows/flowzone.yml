@@ -22,7 +22,7 @@ jobs:
         {
           "os": [
             ["ubuntu-22.04"],
-            ["windows-2019"],
+            ["windows-2022"],
             ["macos-13"],
             ["macos-latest-xlarge"]
           ]
@@ -31,11 +31,11 @@ jobs:
         {
           "os": [
             ["ubuntu-22.04"],
-            ["windows-2019"],
+            ["windows-2022"],
             ["macos-13"],
             ["macos-latest-xlarge"]
           ]
         }
       restrict_custom_actions: false
       github_prerelease: true
-      cloudflare_website: "etcher"
+      cloudflare_website: 'etcher'
