@@ -32,8 +32,8 @@ import * as flashState from './models/flash-state';
 import * as settings from './models/settings';
 import { Actions, observe, store } from './models/store';
 import * as analytics from './modules/analytics';
-import { spawnChildAndConnect } from './modules/api';
 import * as exceptionReporter from './modules/exception-reporter';
+import { SidecarConnectionManager } from './modules/sidecar-connection';
 import * as osDialog from './os/dialog';
 import * as windowProgress from './os/window-progress';
 import MainPage from './pages/main/MainPage';
@@ -125,36 +125,13 @@ function setDrives(drives: Dictionary<DrivelistDrive>) {
 	}
 }
 
-// Spawning the child process without privileges to get the drives list
-// TODO: clean up this mess of exports
-export let requestMetadata: any;
+// Sidecar connection manager - handles connection state and request correlation
+export const sidecarConnection = new SidecarConnectionManager();
 
-// start the api and spawn the child process
-spawnChildAndConnect({
-	withPrivileges: false,
-})
-	.then(({ emit, registerHandler }) => {
-		// start scanning
-		emit('scan', {});
-
-		// make the sourceMetada awaitable to be used on source selection
-		requestMetadata = async (params: any): Promise<SourceMetadata> => {
-			emit('sourceMetadata', JSON.stringify(params));
-
-			return new Promise((resolve) =>
-				registerHandler('sourceMetadata', (data: any) => {
-					resolve(JSON.parse(data));
-				}),
-			);
-		};
-
-		registerHandler('drives', (data: any) => {
-			setDrives(JSON.parse(data));
-		});
-	})
-	.catch((error: any) => {
-		throw new Error(`Failed to start the flasher process. error: ${error}`);
-	});
+// Register drives handler
+sidecarConnection.registerDrivesHandler((data: any) => {
+	setDrives(JSON.parse(data));
+});
 
 let popupExists = false;
 
