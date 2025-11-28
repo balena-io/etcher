@@ -763,10 +763,11 @@ export class SourceSelector extends React.Component<
 								showURLSelector: false,
 							});
 						}}
-					done={async (imageURL: string, auth?: Authentication) => {
-						// Close the URL selector modal
-						this.setState({
-							showURLSelector: false,
+
+						done={async (imageURL: string, auth?: Authentication) => {
+							// Close the URL selector modal
+							this.setState({
+								showURLSelector: false,
 						});
 
 						// Avoid analytics and selection state changes
