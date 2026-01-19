@@ -50,10 +50,13 @@ Package for Debian and Ubuntu can be downloaded from the [Github release page](h
 
 Package for Fedora-based and Redhat can be downloaded from the [Github release page](https://github.com/balena-io/etcher/releases/)
 
-1. Install using yum
-
+1. Install using dnf/yum
 ```sh
-   sudo yum localinstall balena-etcher-***.x86_64.rpm
+# Fedora/RHEL 8+
+sudo dnf install ./balena-etcher-***.x86_64.rpm
+
+# RHEL/CentOS 7
+sudo yum localinstall balena-etcher-***.x86_64.rpm
 ```
 
 #### Arch/Manjaro Linux (GNU/Linux x64)
