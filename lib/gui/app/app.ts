@@ -126,35 +126,34 @@ function setDrives(drives: Dictionary<DrivelistDrive>) {
 }
 
 // Spawning the child process without privileges to get the drives list
-// TODO: clean up this mess of exports
-export let requestMetadata: any;
-
-// start the api and spawn the child process
-spawnChildAndConnect({
+const sidecarApiPromise = spawnChildAndConnect({
 	withPrivileges: false,
 })
 	.then(({ emit, registerHandler }) => {
 		// start scanning
 		emit('scan', {});
 
-		// make the sourceMetada awaitable to be used on source selection
-		requestMetadata = async (params: any): Promise<SourceMetadata> => {
-			emit('sourceMetadata', JSON.stringify(params));
-
-			return new Promise((resolve) =>
-				registerHandler('sourceMetadata', (data: any) => {
-					resolve(JSON.parse(data));
-				}),
-			);
-		};
-
 		registerHandler('drives', (data: any) => {
 			setDrives(JSON.parse(data));
 		});
+
+		return { emit, registerHandler };
 	})
 	.catch((error: any) => {
 		throw new Error(`Failed to start the flasher process. error: ${error}`);
 	});
+
+// make the sourceMetadata awaitable to be used on source selection
+export const requestMetadata = async (params: any): Promise<SourceMetadata> => {
+	const { emit, registerHandler } = await sidecarApiPromise;
+	emit('sourceMetadata', JSON.stringify(params));
+
+	return new Promise((resolve) =>
+		registerHandler('sourceMetadata', (data: any) => {
+			resolve(JSON.parse(data));
+		}),
+	);
+};
 
 let popupExists = false;
 
