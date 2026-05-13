@@ -73,12 +73,12 @@ export async function sudo(
 	let elevated = '';
 
 	elevateProcess.stdout.on('data', (data) => {
-		// console.log(`stdout: ${data.toString()}`);
 		if (data.toString().includes(SUCCESSFUL_AUTH_MARKER)) {
-			// if the first data comming out of the sudo command is the expected marker we resolve the promise
 			elevated = 'granted';
-		} else {
-			// if the first data comming out of the sudo command is not the expected marker we reject the promise
+		}
+	});
+	elevateProcess.on('exit', (code) => {
+		if (code !== 0 && elevated === '') {
 			elevated = 'refused';
 		}
 	});
