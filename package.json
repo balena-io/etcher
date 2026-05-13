@@ -72,7 +72,7 @@
     "@types/chai": "4.3.14",
     "@types/debug": "^4.1.12",
     "@types/mime-types": "2.1.4",
-    "@types/node": "^20.11.6",
+    "@types/node": "^22.21.1",
     "@types/react": "17.0.2",
     "@types/react-dom": "17.0.2",
     "@types/semver": "7.5.8",
@@ -140,7 +140,7 @@
     ]
   },
   "engines": {
-    "node": ">=20 <21"
+    "node": ">=20 <23"
   },
   "versionist": {
     "publishedAt": "2026-05-13T16:39:40.853Z"
