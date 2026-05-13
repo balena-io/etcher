@@ -15,6 +15,11 @@ was written correctly, and much more. It can also directly flash Raspberry Pi de
 
 [**Download**][etcher] | [**Support**][support] | [**Documentation**][user-documentation] | [**Contributing**][contributing] | [**Roadmap**][milestones]
 
+## Recent Improvements
+
+### Robust Sidecar Initialization
+We've improved how Etcher communicates with its sidecar utility (`etcher-util`). Previously, the application relied on a polling mechanism to wait for the sidecar connection, which could lead to race conditions. The new implementation uses a robust, promise-based initialization pattern that ensures all hardware-level operations (like scanning drives and requesting image metadata) are only attempted once the communication channel is fully established.
+
 ## Supported Operating Systems
 
 - Linux; most distros; Intel 64-bit.
