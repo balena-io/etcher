@@ -87,7 +87,7 @@
     "catch-uncommitted": "^2.0.0",
     "chai": "4.3.10",
     "css-loader": "5.2.7",
-    "electron": "37.2.4",
+    "electron": "39.2.7",
     "file-loader": "6.2.0",
     "husky": "8.0.3",
     "native-addon-loader": "2.0.1",
