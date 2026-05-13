@@ -88,6 +88,7 @@ export enum Actions {
 	UNSET_FLASHING_FLAG,
 	SELECT_TARGET,
 	SELECT_SOURCE,
+	SOURCE_SELECTED,
 	DESELECT_TARGET,
 	DESELECT_SOURCE,
 	SET_APPLICATION_SESSION_UUID,
@@ -475,6 +476,20 @@ function storeReducer(
 				},
 				state,
 			).setIn(['selection', 'image'], Immutable.fromJS(action.data));
+		}
+
+		case Actions.SOURCE_SELECTED: {
+			// User selected the source before its metadata is loaded
+			// Store minimal info (path + type + loading flag) in state.selection.image
+			// UI reads this via selectionState.getImage() to show immediate feedback
+			return state.setIn(
+				['selection', 'image'],
+				Immutable.fromJS({
+					path: action.data.path,
+					SourceType: action.data.SourceType,
+					loading: true,
+				}),
+			);
 		}
 
 		case Actions.DESELECT_TARGET: {

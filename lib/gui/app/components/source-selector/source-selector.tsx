@@ -26,7 +26,7 @@ import { uniqBy, isNil } from 'lodash';
 import * as path from 'path';
 import prettyBytes from 'pretty-bytes';
 import * as React from 'react';
-import { requestMetadata } from '../../app';
+import { sidecarConnection } from '../../app';
 
 import type { ButtonProps } from 'rendition';
 import {
@@ -376,11 +376,18 @@ export class SourceSelector extends React.Component<
 
 	private async onSelectImage(_event: IpcRendererEvent, imagePath: string) {
 		this.setState({ imageLoading: true });
-		await this.selectSource(
-			imagePath,
-			isURL(this.normalizeImagePath(imagePath)) ? 'Http' : 'File',
-		).promise;
-		this.setState({ imageLoading: false });
+		const sourceType = isURL(this.normalizeImagePath(imagePath))
+			? 'Http'
+			: 'File';
+		try {
+			selectionState.sourceSelected(imagePath, sourceType);
+			await this.selectSource(imagePath, sourceType).promise;
+		} catch (error: any) {
+			selectionState.deselectImage();
+			exceptionReporter.report(error);
+		} finally {
+			this.setState({ imageLoading: false });
+		}
 	}
 
 	public normalizeImagePath(imgPath: string) {
@@ -394,6 +401,9 @@ export class SourceSelector extends React.Component<
 	private reselectSource() {
 		selectionState.deselectImage();
 		this.props.hideAnalyticsAlert();
+		// Reset the imageSelectorOpen state in case it's still true
+		// from a pending openImageSelector() operation
+		this.setState({ imageSelectorOpen: false });
 	}
 
 	private selectSource(
@@ -431,18 +441,14 @@ export class SourceSelector extends React.Component<
 					}
 
 					try {
-						// this will send an event down the ipcMain asking for metadata
-						// we'll get the response through an event
-
-						// FIXME: This is a poor man wait while loading to prevent a potential race condition without completely blocking the interface
-						// This should be addressed when refactoring the GUI
-						let retriesLeft = 10;
-						while (requestMetadata === undefined && retriesLeft > 0) {
-							await new Promise((resolve) => setTimeout(resolve, 1050)); // api is trying to connect every 1000, this is offset to make sure we fall between retries
-							retriesLeft--;
-						}
-
-						metadata = await requestMetadata({ selected, SourceType, auth });
+						// Wait for sidecar connection to be ready, then request metadata
+						// The connection manager handles timeouts and request correlation internally
+						await sidecarConnection.getConnectionReady();
+						metadata = await sidecarConnection.requestMetadata({
+							selected,
+							SourceType,
+							auth,
+						});
 
 						if (!metadata?.hasMBR && this.state.warning === null) {
 							this.setState({
@@ -459,6 +465,8 @@ export class SourceSelector extends React.Component<
 							messages.error.openSource(sourcePath, error.message),
 							error,
 						);
+						// Re-throw to propagate error to caller so loading state can be cleared
+						throw error;
 					}
 				} else {
 					if (selected.partitionTableType === null) {
@@ -510,15 +518,29 @@ export class SourceSelector extends React.Component<
 
 		try {
 			const imagePath = await osDialog.selectImage();
-			// Avoid analytics and selection state changes
-			// if no file was resolved from the dialog.
+
+			// If user canceled, immediately reset state and return
 			if (!imagePath) {
+				this.setState({ imageSelectorOpen: false });
+				// Clear any previous loading state
+				const currentImage = selectionState.getImage();
+				if (currentImage && 'loading' in currentImage && currentImage.loading) {
+					selectionState.deselectImage();
+				}
 				return;
 			}
+
+			// Show file was selected before metadata loads,
+			// which may take time or fail
+			selectionState.sourceSelected(imagePath, 'File');
+
 			await this.selectSource(imagePath, 'File').promise;
 		} catch (error: any) {
+			// Clear the SOURCE_SELECTED state on error
+			selectionState.deselectImage();
 			exceptionReporter.report(error);
 		} finally {
+			// Always reset the modal state
 			this.setState({ imageSelectorOpen: false });
 		}
 	}
@@ -526,7 +548,15 @@ export class SourceSelector extends React.Component<
 	private async onDrop(event: React.DragEvent<HTMLDivElement>) {
 		const file = event.dataTransfer.files.item(0);
 		if (file != null) {
-			await this.selectSource(file.path, 'File').promise;
+			// Electron extends File with .path property (not in standard DOM File type)
+			const filePath = (file as any).path as string;
+			try {
+				selectionState.sourceSelected(filePath, 'File');
+				await this.selectSource(filePath, 'File').promise;
+			} catch (error: any) {
+				selectionState.deselectImage();
+				exceptionReporter.report(error);
+			}
 		}
 	}
 
@@ -593,6 +623,10 @@ export class SourceSelector extends React.Component<
 		const imageSize = image.size;
 		const imageLogo = image.logo || '';
 
+		// Check if metadata is loading (from Redux SOURCE_SELECTED action)
+		const isLoadingMetadata = selectionImage && 'loading' in selectionImage && selectionImage.loading === true;
+		const isActuallyLoading = imageLoading || isLoadingMetadata;
+
 		return (
 			<>
 				<Flex
@@ -621,11 +655,11 @@ export class SourceSelector extends React.Component<
 								onClick={() => this.showSelectedImageDetails()}
 								tooltip={imageName || imageBasename}
 							>
-								<Spinner show={imageLoading}>
+								<Spinner show={isActuallyLoading}>
 									{middleEllipsis(imageName || imageBasename, 20)}
 								</Spinner>
 							</StepNameButton>
-							{!flashing && !imageLoading && (
+							{!flashing && !isActuallyLoading && (
 								<ChangeButton
 									plain
 									mb={14}
@@ -634,7 +668,7 @@ export class SourceSelector extends React.Component<
 									{i18next.t('cancel')}
 								</ChangeButton>
 							)}
-							{!isNil(imageSize) && !imageLoading && (
+							{!isNil(imageSize) && !isActuallyLoading && (
 								<DetailsText>{prettyBytes(imageSize)}</DetailsText>
 							)}
 						</>
@@ -729,22 +763,38 @@ export class SourceSelector extends React.Component<
 								showURLSelector: false,
 							});
 						}}
+
 						done={async (imageURL: string, auth?: Authentication) => {
-							// Avoid analytics and selection state changes
-							// if no file was resolved from the dialog.
-							if (imageURL) {
-								let promise;
-								({ promise, cancel: cancelURLSelection } = this.selectSource(
-									imageURL,
-									'Http',
-									auth,
-								));
-								await promise;
-							}
+							// Close the URL selector modal
 							this.setState({
 								showURLSelector: false,
-							});
-						}}
+						});
+
+						// Avoid analytics and selection state changes
+						// if no file was resolved from the dialog.
+						if (!imageURL) {
+							// Clear any previous loading state when user cancels
+							const currentImage = selectionState.getImage();
+							if (currentImage && 'loading' in currentImage && currentImage.loading) {
+								selectionState.deselectImage();
+							}
+							return;
+						}
+
+						try {
+							selectionState.sourceSelected(imageURL, 'Http');
+							let promise;
+							({ promise, cancel: cancelURLSelection } = this.selectSource(
+								imageURL,
+								'Http',
+								auth,
+							));
+							await promise;
+						} catch (error: any) {
+							selectionState.deselectImage();
+							exceptionReporter.report(error);
+						}
+					}}
 					/>
 				)}
 

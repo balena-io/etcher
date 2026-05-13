@@ -195,14 +195,20 @@ function setup(): Promise<EmitLog> {
 			 */
 			const onSourceMetadata = async (params: any) => {
 				log('sourceMetadata requested');
-				const { selected, SourceType, auth } = JSON.parse(params);
+				const { selected, SourceType, auth, requestId } = JSON.parse(params);
 				try {
 					const sourceMatadata = await getSourceMetadata(
 						selected,
 						SourceType,
 						auth,
 					);
-					emitSourceMetadata(sourceMatadata);
+					// Echo back requestId if provided for request correlation
+					// requestId is added for client-side request correlation
+					const response: any = { ...sourceMatadata };
+					if (requestId) {
+						response.requestId = requestId;
+					}
+					emitSourceMetadata(response);
 				} catch (error: any) {
 					emitFail(error);
 				}
@@ -221,7 +227,7 @@ function setup(): Promise<EmitLog> {
 				// terminate the process
 				terminate: () => terminate(SUCCESS),
 
-				/* 
+				/*
 				 receive a `heartbeat`, reset the terminate timeout
 				 this mechanism ensure the process will be terminated if the client is disconnected
 				*/
