@@ -67,4 +67,4 @@ be documented instead!
 [immutablejs]: http://facebook.github.io/immutable-js/
 [sass]: http://sass-lang.com
 [mocha]: http://mochajs.org
-[jsdoc]: http://usejsdoc.org
+[jsdoc]: https://jsdoc.app/
