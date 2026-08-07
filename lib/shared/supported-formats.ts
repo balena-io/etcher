@@ -33,6 +33,8 @@ export const SUPPORTED_EXTENSIONS = [
 	'wic',
 	'xz',
 	'zip',
+	'zst',
+	'zstd',
 ];
 
 export function looksLikeWindowsImage(imagePath: string): boolean {
