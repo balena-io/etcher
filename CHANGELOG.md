@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v2.1.8
+## (2026-08-25)
+
+* Build on Node 24 [Robert Hilton]
+* Point auto-updates at this fork's own releases instead of leaving them disabled [Robert Hilton]
+
+# v2.1.7
+## (2026-08-25)
+
+* Add a GitHub Actions pipeline that builds releases for Linux, Windows and macOS [Robert Hilton]
+* Fix the flasher sidecar failing to start by pairing @yao-pkg/pkg with the pkg-fetch it expects [Robert Hilton]
+* Fix drive scanning crashing on Windows by bumping winusb-driver-generator to 2.1.9 [Robert Hilton]
+* Ad-hoc sign macOS builds when no Developer ID certificate is configured [Robert Hilton]
+* Exclude native build intermediates from the sidecar bundle, shrinking it by ~88MB [Robert Hilton]
+* Require Node 22 to match the Node runtime embedded in the sidecar [Robert Hilton]
+
 # v2.1.6
 ## (2026-05-13)
 

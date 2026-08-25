@@ -20,7 +20,7 @@ import * as _ from 'lodash';
 import { promises as fs } from 'fs';
 import { join } from 'path';
 
-import * as packageJSON from '../../../../package.json';
+import { isUpdateSupported } from '../../../shared/update-support';
 
 const debug = _debug('etcher:models:settings');
 
@@ -76,7 +76,7 @@ export async function writeConfigFile(
 
 const DEFAULT_SETTINGS: _.Dictionary<any> = {
 	errorReporting: true,
-	updatesEnabled: ['appimage', 'nsis', 'dmg'].includes(packageJSON.packageType),
+	updatesEnabled: isUpdateSupported(),
 	desktopNotifications: true,
 	autoBlockmapping: true,
 	decompressFirst: true,

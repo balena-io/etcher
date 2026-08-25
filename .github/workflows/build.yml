@@ -1,0 +1,231 @@
+name: Build
+
+# Builds balenaEtcher for Linux, Windows and macOS. Pushing a `v*` tag also
+# publishes the resulting artifacts to a GitHub release.
+on:
+  push:
+    branches: [master]
+    tags: ['v*']
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+# Builds are unsigned. NODE_ENV is deliberately NOT set to `production`:
+# forge.config.ts only enables Developer ID signing, notarization and Windows
+# signtool when it is, and none of those credentials exist here.
+env:
+  # Must stay on the same major as the pkg --target in forge.sidecar.ts.
+  # `mountutils` is a non-N-API addon rebuilt against whatever Node builds
+  # the project, and NAN addons are ABI-locked per major, so a major mismatch
+  # produces a sidecar that cannot load its own native modules at runtime.
+  NODE_VERSION: '24.18.1'
+
+# Least privilege by default; only the release job gets write access.
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  # Superseded branch builds are worth cancelling, but a tag build is
+  # publishing a release: cancelling it midway leaves a release with only
+  # some of its assets attached.
+  cancel-in-progress: ${{ !startsWith(github.ref, 'refs/tags/') }}
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      # One platform failing should not hide the results of the others.
+      fail-fast: false
+      matrix:
+        include:
+          - name: linux-x64
+            os: ubuntu-22.04
+          - name: windows-x64
+            os: windows-2022
+          - name: macos-arm64
+            os: macos-15
+          - name: macos-x64
+            os: macos-15-intel
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install Linux packaging dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends fakeroot dpkg rpm
+
+      - name: Stop rpmbuild from stripping the sidecar
+        if: runner.os == 'Linux'
+        # rpmbuild strips binaries by default, which corrupts the pkg-built
+        # etcher-util and makes the packaged app unable to flash.
+        run: echo '%__strip  /usr/bin/true' > ~/.rpmmacros
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Windows-only native dependencies
+        # No-op off Windows. Must run after every npm install, not just the
+        # first: npm treats winusb-driver-generator as an unsatisfiable
+        # optional dependency and prunes it whenever it reconciles the tree.
+        # The sidecar build refuses to package without it.
+        run: npm run install-win-deps
+
+      - name: Build
+        # Forge can only build for the host platform/arch, which is why the
+        # matrix uses one runner per target rather than cross-compiling.
+        #
+        # Retried because appdmg races hdiutil on macOS runners: it mounts the
+        # staging volume, then intermittently finds it already gone when it
+        # detaches, failing the whole make with
+        #   hdiutil detach /Volumes/balenaEtcher: No such file or directory
+        # The same job succeeds on a re-run, so treat it as flaky rather than
+        # dropping the .dmg target. A stale mount left behind by a failed
+        # attempt would break the next one, so clear it in between.
+        shell: bash
+        run: |
+          detach_stale() {
+            if [ "$RUNNER_OS" = "macOS" ]; then
+              for vol in /Volumes/balenaEtcher*; do
+                [ -d "$vol" ] && hdiutil detach "$vol" -force || true
+              done
+            fi
+          }
+
+          attempt=1
+          max=3
+          detach_stale
+          until npx electron-forge make; do
+            if [ "$attempt" -ge "$max" ]; then
+              echo "::error::electron-forge make failed after $max attempts"
+              exit 1
+            fi
+            echo "::warning::Build attempt $attempt failed; cleaning up and retrying"
+            detach_stale
+            attempt=$((attempt + 1))
+          done
+
+      - name: Collect artifacts
+        shell: bash
+        run: |
+          mkdir -p dist
+          find ./out/make -type f \( \
+            -iname "*.zip"      -o \
+            -iname "*.dmg"      -o \
+            -iname "*.rpm"      -o \
+            -iname "*.deb"      -o \
+            -iname "*.AppImage" -o \
+            -iname "*Setup.exe" -o \
+            -iname "*.nupkg"    -o \
+            -iname "RELEASES"      \
+          \) -exec cp {} dist/ \;
+
+          # RELEASES and the .nupkg are Squirrel.Windows' update feed. They
+          # are what lets an installed app update itself from a GitHub
+          # release; without them update.electronjs.org has nothing to serve.
+          #
+          # Squirrel names the installer "balenaEtcher-<version> Setup.exe".
+          # GitHub rewrites spaces to dots when it attaches a release asset,
+          # so the published name would no longer match the one recorded in
+          # SHA256SUMS.txt. Normalise here, before anything hashes it.
+          for f in dist/*; do
+            base=${f##*/}
+            case $base in
+              *\ *) mv "$f" "dist/$(printf '%s' "$base" | tr ' ' '.')" ;;
+            esac
+          done
+
+          ls -la dist
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: balenaEtcher-${{ matrix.name }}
+          path: dist/
+          if-no-files-found: error
+          retention-days: 14
+
+  release:
+    name: Publish release
+    needs: build
+    # Only publish for tag pushes, and only if every platform built.
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v8
+        with:
+          path: artifacts
+
+      - name: Gather and checksum
+        run: |
+          mkdir -p dist
+          find artifacts -type f -exec cp {} dist/ \;
+          cd dist
+          sha256sum -- * > SHA256SUMS.txt
+          ls -la
+
+      - name: Publish to GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" dist/* \
+              --repo "$GITHUB_REPOSITORY" --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" dist/* \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "$GITHUB_REF_NAME" \
+              --generate-notes
+          fi
+
+      - name: Prepend installation notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # These builds carry no Developer ID or Authenticode certificate, so
+          # both OSes object on first launch — macOS in particular reports an
+          # ad-hoc signed app as "damaged", which reads like a corrupt
+          # download. Say so on the release rather than leaving people to
+          # work it out.
+          body=$(gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --json body --jq .body)
+
+          # Re-runs re-upload assets against an existing release; don't stack
+          # another copy of the notes on top.
+          case $body in
+            *'### Installing'*) echo 'notes already present'; exit 0 ;;
+          esac
+
+          cat > notes.md <<'NOTE'
+          ### Installing
+
+          These builds are **unsigned**, so the OS will object on first launch.
+
+          **Windows** — SmartScreen shows "Windows protected your PC". Choose **More info**, then **Run anyway**.
+
+          **macOS** — the app is ad-hoc signed but not notarized, so Gatekeeper reports it as damaged. Copy it to Applications, then clear the quarantine flag:
+
+          ```
+          xattr -dr com.apple.quarantine /Applications/balenaEtcher.app
+          ```
+
+          Check a download against `SHA256SUMS.txt` before installing it.
+
+          ---
+
+          NOTE
+
+          printf '%s\n' "$body" >> notes.md
+          gh release edit "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --notes-file notes.md

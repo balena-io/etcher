@@ -3,7 +3,7 @@
   "private": true,
   "displayName": "balenaEtcher",
   "productName": "balenaEtcher",
-  "version": "2.1.6",
+  "version": "2.1.8",
   "packageType": "local",
   "main": ".webpack/main",
   "description": "Flash OS images to SD cards and USB drives, safely and easily.",
@@ -20,7 +20,8 @@
     "package": "electron-forge package",
     "start": "electron-forge start",
     "make": "electron-forge make",
-    "wdio": "xvfb-maybe wdio run ./wdio.conf.ts"
+    "wdio": "xvfb-maybe wdio run ./wdio.conf.ts",
+    "install-win-deps": "node scripts/install-win-deps.js"
   },
   "husky": {
     "hooks": {
@@ -38,7 +39,6 @@
     "debug": "4.3.4",
     "drivelist": "^12.0.2",
     "electron-squirrel-startup": "^1.0.0",
-    "electron-updater": "6.1.8",
     "etcher-sdk": "10.0.0",
     "i18next": "23.11.2",
     "immutable": "3.8.2",
@@ -54,6 +54,7 @@
     "semver": "7.6.0",
     "styled-components": "5.3.6",
     "sys-class-rgb-led": "3.0.1",
+    "update-electron-app": "^3.3.0",
     "uuid": "9.0.1",
     "ws": "^8.16.0"
   },
@@ -83,7 +84,7 @@
     "@wdio/local-runner": "^8.36.1",
     "@wdio/mocha-framework": "^8.36.1",
     "@wdio/spec-reporter": "^8.36.1",
-    "@yao-pkg/pkg": "^5.11.5",
+    "@yao-pkg/pkg": "6.22.0",
     "catch-uncommitted": "^2.0.0",
     "chai": "4.3.10",
     "css-loader": "5.2.7",
@@ -140,7 +141,7 @@
     ]
   },
   "engines": {
-    "node": ">=20 <21"
+    "node": ">=24 <25"
   },
   "versionist": {
     "publishedAt": "2026-05-13T16:39:40.853Z"
@@ -148,6 +149,35 @@
   "optionalDependencies": {
     "bufferutil": "^4.0.8",
     "utf-8-validate": "^5.0.10",
-    "winusb-driver-generator": "2.1.2"
+    "winusb-driver-generator": "2.1.9"
+  },
+  "overrides": {
+    "node-abi": "^4.31.0",
+    "@electron/node-gyp": "npm:node-gyp@^13.0.1"
+  },
+  "allowScripts": {
+    "@fortawesome/fontawesome-common-types@6.5.2": true,
+    "@fortawesome/fontawesome-free@6.5.2": true,
+    "@fortawesome/fontawesome-svg-core@6.5.2": true,
+    "@fortawesome/free-regular-svg-icons@6.5.2": true,
+    "@fortawesome/free-solid-svg-icons@6.5.2": true,
+    "@ronomon/direct-io@3.0.1": true,
+    "bufferutil@4.0.8": true,
+    "core-js@2.6.12": true,
+    "core-js@3.37.0": true,
+    "drivelist@12.0.2": true,
+    "edgedriver@5.3.10": true,
+    "electron-winstaller@5.3.1": true,
+    "electron@37.2.4": true,
+    "es5-ext@0.10.64": true,
+    "esbuild@0.28.2": true,
+    "geckodriver@4.3.3": true,
+    "lzma-native@8.0.6": true,
+    "mountutils@2.0.1": true,
+    "styled-components@5.3.6": true,
+    "usb@2.12.1": true,
+    "utf-8-validate@5.0.10": true,
+    "winusb-driver-generator@2.1.9": true,
+    "xxhash-addon@2.0.3": true
   }
 }

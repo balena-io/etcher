@@ -14,6 +14,30 @@ import debug from 'debug';
 
 const log = debug('sidecar');
 
+// winusb-driver-generator caps `engines` at "<23", so npm silently skips it
+// as an optional dependency on Node 24 — even though the addon is N-API and
+// builds and loads there perfectly well. No npm flag overrides that for
+// optional dependencies (--force, --engine-strict=false and
+// --include=optional were all tried), so `npm run install-win-deps` asks for
+// it by name. Without it the sidecar dies with MODULE_NOT_FOUND as soon as
+// drive scanning starts, because etcher-sdk's DriverlessDeviceAdapter
+// requires it eagerly.
+//
+// It is built by node-gyp from source — there are no published prebuilds for
+// this package — so the binding's presence is the only reliable signal that
+// it is actually usable.
+function hasWinusbBinding(): boolean {
+	return fs.existsSync(
+		path.resolve(
+			'node_modules',
+			'winusb-driver-generator',
+			'build',
+			'Release',
+			'Generator.node',
+		),
+	);
+}
+
 function isStartScrpt(): boolean {
 	return process.env.npm_lifecycle_event === 'start';
 }
@@ -74,7 +98,23 @@ function build(
 		// FIXME: rebuilding mountutils shouldn't be necessary, but it is.
 		// It's coming from etcher-sdk, a fix has been upstreamed but to use
 		// the latest etcher-sdk we need to upgrade axios at the same time.
+		//
+		// mountutils is the only NAN (non-N-API) addon we bundle, so it is
+		// also the only one whose ABI has to match the runtime pkg embeds
+		// below. Rebuilding it here against the Node running the build is
+		// what keeps the two in step; see the `engines` field.
 		commands.push(['npm', ['rebuild', 'mountutils', `--arch=${arch}`]]);
+
+		// winusb-driver-generator has to be present before we get here; see
+		// the note on hasWinusbBinding(). Fail loudly rather than letting
+		// pkg bundle a sidecar that dies on its first drive scan.
+		if (process.platform === 'win32' && !hasWinusbBinding()) {
+			throw new Error(
+				'winusb-driver-generator is not built. Run `npm run install-win-deps` ' +
+					'before packaging on Windows; npm skips it during install because ' +
+					'its `engines` field predates the Node version in use.',
+			);
+		}
 
 		commands.push([
 			'pkg',
@@ -87,10 +127,22 @@ function build(
 				'--public',
 				'--public-packages',
 				'"*"',
-				// always build for host platform and node version
-				// https://github.com/vercel/pkg-fetch/releases
+				// Pin to a specific Node build. The bare `nodeXX` targets
+				// resolve to whatever pkg-fetch knew about at publish time,
+				// which can ship runtimes that segfault on newer host OSes
+				// (e.g. v20.11.1 — and even v20.20.2 — crash on macOS 26).
+				//
+				// This must stay on the same major as the Node that builds
+				// the project, because `mountutils` above is rebuilt against
+				// the build's Node and NAN addons are ABI-locked per major
+				// (Node 22 = ABI 127, Node 24 = ABI 137). Patch releases
+				// share an ABI, so any 24.x host is fine here.
+				//
+				// v24.18.1 is the Node 24 build @yao-pkg/pkg-fetch 3.6.5
+				// knows about; see its patches/patches.json for the list.
+				// https://github.com/yao-pkg/pkg-fetch/releases
 				'--target',
-				`node20-${arch}`,
+				`node24.18.1-${arch}`,
 				'--output',
 				binPath,
 			],

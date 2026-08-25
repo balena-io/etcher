@@ -14,10 +14,12 @@ import * as sidecar from './forge.sidecar';
 
 import { hostDependencies, productDescription } from './package.json';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const osxSigningConfig: any = {};
 let winSigningConfig: any = {};
 
-if (process.env.NODE_ENV === 'production') {
+if (isProduction) {
 	osxSigningConfig.osxNotarize = {
 		tool: 'notarytool',
 		appleId: process.env.XCODE_APP_LOADER_EMAIL,
@@ -29,6 +31,29 @@ if (process.env.NODE_ENV === 'production') {
 		signWithParams: `-sha1 ${process.env.SM_CODE_SIGNING_CERT_SHA1_HASH} -tr ${process.env.TIMESTAMP_SERVER} -td sha256 -fd sha256 -d balena-etcher`,
 	};
 }
+
+// With signing credentials present (NODE_ENV=production) sign with the real
+// Developer ID and notarize. Without them — local builds, and CI that has no
+// certificate — fall back to an ad-hoc signature. macOS refuses to launch a
+// repackaged arm64 bundle that carries no signature at all, and
+// @electron/osx-sign throws "No identity found for signing" unless
+// identityValidation is disabled. Hardened runtime is only meaningful
+// alongside notarization, so it stays off for ad-hoc builds.
+const osxSign: any = isProduction
+	? {
+			optionsForFile: () => ({
+				entitlements: './entitlements.mac.plist',
+				hardenedRuntime: true,
+			}),
+		}
+	: {
+			identity: '-',
+			identityValidation: false,
+			optionsForFile: () => ({
+				entitlements: './entitlements.mac.plist',
+				hardenedRuntime: false,
+			}),
+		};
 
 const config: ForgeConfig = {
 	packagerConfig: {
@@ -45,12 +70,7 @@ const config: ForgeConfig = {
 			'lib/shared/sudo/sudo-askpass.osascript-zh.js',
 			'lib/shared/sudo/sudo-askpass.osascript-en.js',
 		],
-		osxSign: {
-			optionsForFile: () => ({
-				entitlements: './entitlements.mac.plist',
-				hardenedRuntime: true,
-			}),
-		},
+		osxSign,
 		...osxSigningConfig,
 	},
 	rebuildConfig: {

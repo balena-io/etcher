@@ -52,6 +52,25 @@ window.addEventListener(
 	},
 );
 
+// Prevent the renderer from navigating/downloading when a file is dropped
+// outside of an element that handles the drop (e.g. the source selector).
+// Without this, dropping a file on the window background causes Chromium
+// to fetch/download the file's URL. Use capture phase so we run before any
+// element-level handler and on document so we catch every event target.
+//
+// Forcing `dropEffect = 'copy'` is what makes the drop land consistently:
+// over interactive elements such as <button> Chromium otherwise defaults
+// the effect to 'none', which suppresses the `drop` event entirely.
+const allowDrag = (event: DragEvent) => {
+	event.preventDefault();
+	if (event.dataTransfer) {
+		event.dataTransfer.dropEffect = 'copy';
+	}
+};
+document.addEventListener('dragenter', allowDrag, true);
+document.addEventListener('dragover', allowDrag, true);
+document.addEventListener('drop', (event) => event.preventDefault(), true);
+
 // Set application session UUID
 store.dispatch({
 	type: Actions.SET_APPLICATION_SESSION_UUID,

@@ -22,16 +22,15 @@ declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 
 import * as electron from 'electron';
 import * as remoteMain from '@electron/remote/main';
-import { autoUpdater } from 'electron-updater';
+import { updateElectronApp, UpdateSourceType } from 'update-electron-app';
 import { promises as fs } from 'fs';
 import { platform } from 'os';
 import * as path from 'path';
-import * as semver from 'semver';
 import { once } from 'lodash';
 
 import './app/i18n';
 
-import { packageType, version } from '../../package.json';
+import { isUpdateSupported, UPDATE_REPOSITORY } from '../shared/update-support';
 import * as EXIT_CODES from '../shared/exit-codes';
 import * as settings from './app/models/settings';
 import { buildWindowMenu } from './menu';
@@ -39,37 +38,38 @@ import * as i18n from 'i18next';
 import * as SentryMain from '@sentry/electron/main';
 import { anonymizeSentryData } from './app/modules/analytics';
 
-import { delay } from '../shared/utils';
-
 const customProtocol = 'etcher';
 const scheme = `${customProtocol}://`;
-const updatablePackageTypes = ['appimage', 'nsis', 'dmg'];
-const packageUpdatable = updatablePackageTypes.includes(packageType);
-let packageUpdated = false;
+const packageUpdatable = isUpdateSupported();
 let mainWindow: any = null;
 
 remoteMain.initialize();
 
-async function checkForUpdates(interval: number) {
-	// We use a while loop instead of a setInterval to preserve
-	// async execution time between each function call
-	while (!packageUpdated) {
-		if (await settings.get('updatesEnabled')) {
-			try {
-				const release = await autoUpdater.checkForUpdates();
-				const isOutdated =
-					semver.compare(release!.updateInfo.version, version) > 0;
-				const shouldUpdate = release!.updateInfo.stagingPercentage !== 0; // undefined (default) means 100%
-				if (shouldUpdate && isOutdated) {
-					await autoUpdater.downloadUpdate();
-					packageUpdated = true;
-				}
-			} catch (err) {
-				logMainProcessException(err);
-			}
-		}
-		await delay(interval);
+async function startUpdateChecks() {
+	if (!(await settings.get('updatesEnabled'))) {
+		console.log('Updates are disabled in settings');
+		return;
 	}
+
+	// Checked once at startup rather than on every poll: update-electron-app
+	// owns its own timer, so toggling the setting takes effect on next launch.
+	updateElectronApp({
+		updateSource: {
+			type: UpdateSourceType.ElectronPublicUpdateService,
+			repo: UPDATE_REPOSITORY,
+		},
+		updateInterval: '1 hour',
+		// Updater failures are expected in normal operation — an unsigned
+		// macOS build cannot use Squirrel.Mac at all, and any machine may
+		// simply be offline. Log them, but keep them out of Sentry: they
+		// would repeat on every interval forever.
+		logger: {
+			log: console.log,
+			info: console.info,
+			warn: console.warn,
+			error: console.error,
+		},
+	});
 }
 
 function logMainProcessException(error: any) {
@@ -202,6 +202,18 @@ async function createMainWindow() {
 		event.preventDefault();
 	});
 
+	// Deny any new BrowserWindow opens from the main renderer (e.g. fallback
+	// new-window navigation that fires when a file is dropped on the window).
+	mainWindow.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
+
+	// Cancel downloads the renderer never explicitly initiated. Etcher itself
+	// fetches images through the sidecar, not the renderer session, so a
+	// will-download here always originates from an unwanted default action
+	// (most commonly a file drop falling through to Chromium's downloader).
+	mainWindow.webContents.session.on('will-download', (event: any) => {
+		event.preventDefault();
+	});
+
 	mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
 	const page = mainWindow.webContents;
@@ -209,13 +221,9 @@ async function createMainWindow() {
 
 	page.once('did-frame-finish-load', async () => {
 		console.log('packageUpdatable', packageUpdatable);
-		autoUpdater.on('error', (err) => {
-			logMainProcessException(err);
-		});
 		if (packageUpdatable) {
 			try {
-				const checkForUpdatesTimer = 300000;
-				checkForUpdates(checkForUpdatesTimer);
+				await startUpdateChecks();
 			} catch (err) {
 				logMainProcessException(err);
 			}

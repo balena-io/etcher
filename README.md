@@ -13,6 +13,15 @@ was written correctly, and much more. It can also directly flash Raspberry Pi de
 
 ---
 
+> **This is a fork of [balena-io/etcher](https://github.com/balena-io/etcher).**
+> It carries local fixes and builds its own unsigned installers for Linux,
+> Windows and macOS — see [this fork's releases][fork-releases], not the badges
+> and download links below, which point at upstream balena builds. Releases are
+> produced by [`.github/workflows/build.yml`](.github/workflows/build.yml); see
+> [PUBLISHING.md][publishing] for how to cut one and how to build locally.
+
+---
+
 [**Download**][etcher] | [**Support**][support] | [**Documentation**][user-documentation] | [**Contributing**][contributing] | [**Roadmap**][milestones]
 
 ## Supported Operating Systems
@@ -118,3 +127,5 @@ the [license].
 [milestones]: https://github.com/balena-io/etcher/milestones
 [newissue]: https://github.com/balena-io/etcher/issues/new
 [license]: https://github.com/balena-io/etcher/blob/master/LICENSE
+[fork-releases]: https://github.com/guitar24t/etcher/releases
+[publishing]: https://github.com/guitar24t/etcher/blob/master/docs/PUBLISHING.md

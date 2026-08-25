@@ -7,6 +7,14 @@
     "node_modules/winusb-driver-generator/**",
     "node_modules/node-raspberrypi-usbboot/**",
     "node_modules/xxhash-addon/**",
-    "node_modules/axios/**"
+    "node_modules/axios/**",
+
+    "!node_modules/**/build/**/obj/**",
+    "!node_modules/**/*.pdb",
+    "!node_modules/**/*.obj",
+    "!node_modules/**/*.iobj",
+    "!node_modules/**/*.ipdb",
+    "!node_modules/**/*.lib",
+    "!node_modules/**/*.exp"
   ]
 }

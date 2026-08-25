@@ -13,7 +13,7 @@
  */
 
 import WebSocket from 'ws'; // (no types for wrapper, this is expected)
-import { spawn, exec } from 'child_process';
+import { spawn } from 'child_process';
 import * as os from 'os';
 import * as packageJSON from '../../../../package.json';
 import * as permissions from '../../../shared/permissions';
@@ -68,17 +68,7 @@ async function spawnChild(
 			env,
 		});
 	} else {
-		if (process.platform === 'win32') {
-			// we need to ensure we reset the env as a previous elevation process might have kept them in a wrong state
-			const envCommand = [];
-			for (const key in env) {
-				if (Object.prototype.hasOwnProperty.call(env, key)) {
-					envCommand.push(`set ${key}=${env[key]}`);
-				}
-			}
-			await exec(envCommand.join(' && '));
-		}
-		const spawned = await spawn(argv[0], argv.slice(1), {
+		const spawned = spawn(argv[0], argv.slice(1), {
 			env,
 		});
 		return { cancelled: false, spawned };
@@ -121,12 +111,13 @@ async function connectToChildProcess(
 		};
 
 		ws.on('error', (error: any) => {
+			stopHeartbeat();
+			ws.close();
 			if (error.code === 'ECONNREFUSED') {
 				resolve({
 					failed: true,
 				});
 			} else {
-				stopHeartbeat();
 				reject({
 					failed: true,
 				});
@@ -167,12 +158,16 @@ async function connectToChildProcess(
 			};
 
 			ws.on('message', (jsonData: any) => {
-				const data = JSON.parse(jsonData);
-				const message = messagesHandler[data.type];
-				if (message) {
-					message(data.payload);
-				} else {
-					throw new Error(`Unknown message type: ${data.type}`);
+				try {
+					const data = JSON.parse(jsonData);
+					const message = messagesHandler[data.type];
+					if (message) {
+						message(data.payload);
+					} else {
+						console.warn(`Unknown message type: ${data.type}`);
+					}
+				} catch (error) {
+					console.error('Failed to handle message from sidecar:', error);
 				}
 			});
 
@@ -191,7 +186,7 @@ async function spawnChildAndConnect({
 }): Promise<ChildApi> {
 	const etcherServerAddress = process.env.ETCHER_SERVER_ADDRESS ?? '127.0.0.1'; // localhost
 	const etcherServerPort =
-		process.env.ETCHER_SERVER_PORT ?? withPrivileges ? '3435' : '3434';
+		process.env.ETCHER_SERVER_PORT ?? (withPrivileges ? '3435' : '3434');
 	const etcherServerId =
 		process.env.ETCHER_SERVER_ID ??
 		`etcher-${Math.random().toString(36).substring(7)}`;

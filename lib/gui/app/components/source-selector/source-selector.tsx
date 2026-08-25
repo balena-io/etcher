@@ -21,7 +21,7 @@ import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/tri
 import ChevronDownSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-down.svg';
 import ChevronRightSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-right.svg';
 import type { IpcRendererEvent } from 'electron';
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, webUtils } from 'electron';
 import { uniqBy, isNil } from 'lodash';
 import * as path from 'path';
 import prettyBytes from 'pretty-bytes';
@@ -322,6 +322,7 @@ interface SourceSelectorState {
 	defaultFlowActive: boolean;
 	imageSelectorOpen: boolean;
 	imageLoading: boolean;
+	draggingOver: boolean;
 }
 
 export class SourceSelector extends React.Component<
@@ -341,10 +342,15 @@ export class SourceSelector extends React.Component<
 			defaultFlowActive: true,
 			imageSelectorOpen: false,
 			imageLoading: false,
+			draggingOver: false,
 		};
 
 		// Bind `this` since it's used in an event's callback
 		this.onSelectImage = this.onSelectImage.bind(this);
+		this.onDrop = this.onDrop.bind(this);
+		this.onDragEnter = this.onDragEnter.bind(this);
+		this.onDragLeave = this.onDragLeave.bind(this);
+		this.onDragEnd = this.onDragEnd.bind(this);
 	}
 
 	public componentDidMount() {
@@ -353,11 +359,26 @@ export class SourceSelector extends React.Component<
 		});
 		ipcRenderer.on('select-image', this.onSelectImage);
 		ipcRenderer.send('source-selector-ready');
+		// Accept a dropped image anywhere on the window, not just over the
+		// source-selector card. Capture phase so `window` is the first node
+		// to receive the drop, regardless of which element it landed on.
+		window.addEventListener('drop', this.onDrop, true);
+		// While a drag is in progress we cover the window with a single
+		// stable overlay element (see render). This keeps the drop target
+		// from being a button whose DOM node is swapped out on hover, which
+		// otherwise disrupts the drag and prevents the drop event from firing.
+		window.addEventListener('dragenter', this.onDragEnter, true);
+		window.addEventListener('dragleave', this.onDragLeave, true);
+		window.addEventListener('dragend', this.onDragEnd, true);
 	}
 
 	public componentWillUnmount() {
 		this.unsubscribe?.();
 		ipcRenderer.removeListener('select-image', this.onSelectImage);
+		window.removeEventListener('drop', this.onDrop, true);
+		window.removeEventListener('dragenter', this.onDragEnter, true);
+		window.removeEventListener('dragleave', this.onDragLeave, true);
+		window.removeEventListener('dragend', this.onDragEnd, true);
 	}
 
 	public componentDidUpdate(
@@ -442,6 +463,12 @@ export class SourceSelector extends React.Component<
 							retriesLeft--;
 						}
 
+						if (typeof requestMetadata !== 'function') {
+							throw new Error(
+								'Flasher sidecar process failed to start or never connected; cannot read image metadata.',
+							);
+						}
+
 						metadata = await requestMetadata({ selected, SourceType, auth });
 
 						if (!metadata?.hasMBR && this.state.warning === null) {
@@ -523,11 +550,34 @@ export class SourceSelector extends React.Component<
 		}
 	}
 
-	private async onDrop(event: React.DragEvent<HTMLDivElement>) {
-		const file = event.dataTransfer.files.item(0);
+	private async onDrop(event: DragEvent) {
+		this.setState({ draggingOver: false });
+		const file = event.dataTransfer?.files.item(0);
 		if (file != null) {
-			await this.selectSource(file.path, 'File').promise;
+			// In Electron 32+, File.path has been removed; use webUtils instead.
+			const filePath = webUtils.getPathForFile(file);
+			if (filePath) {
+				await this.selectSource(filePath, 'File').promise;
+			}
 		}
+	}
+
+	private onDragEnter() {
+		if (!this.state.draggingOver) {
+			this.setState({ draggingOver: true });
+		}
+	}
+
+	private onDragLeave(event: DragEvent) {
+		// relatedTarget is null only when the cursor leaves the window
+		// entirely (moving between elements keeps it non-null).
+		if (event.relatedTarget === null) {
+			this.setState({ draggingOver: false });
+		}
+	}
+
+	private onDragEnd() {
+		this.setState({ draggingOver: false });
 	}
 
 	private openURLSelector() {
@@ -540,16 +590,6 @@ export class SourceSelector extends React.Component<
 		this.setState({
 			showDriveSelector: true,
 		});
-	}
-
-	private onDragOver(event: React.DragEvent<HTMLDivElement>) {
-		// Needed to get onDrop events on div elements
-		event.preventDefault();
-	}
-
-	private onDragEnter(event: React.DragEvent<HTMLDivElement>) {
-		// Needed to get onDrop events on div elements
-		event.preventDefault();
 	}
 
 	private showSelectedImageDetails() {
@@ -595,17 +635,26 @@ export class SourceSelector extends React.Component<
 
 		return (
 			<>
-				<Flex
-					flexDirection="column"
-					alignItems="center"
-					onDrop={(evt: React.DragEvent<HTMLDivElement>) => this.onDrop(evt)}
-					onDragEnter={(evt: React.DragEvent<HTMLDivElement>) =>
-						this.onDragEnter(evt)
-					}
-					onDragOver={(evt: React.DragEvent<HTMLDivElement>) =>
-						this.onDragOver(evt)
-					}
-				>
+				{this.state.draggingOver && (
+					// Single stable, top-most drop target shown only while a
+					// drag is in progress. The actual drop is handled by the
+					// window-level `onDrop` listener; this element just keeps
+					// the drag from landing on elements (e.g. the hover-styled
+					// "Flash from file" button) whose DOM nodes get swapped.
+					<Flex
+						style={{
+							position: 'fixed',
+							top: 0,
+							left: 0,
+							right: 0,
+							bottom: 0,
+							zIndex: 1000,
+							border: '2px dashed rgba(255, 255, 255, 0.5)',
+							backgroundColor: 'rgba(0, 0, 0, 0.15)',
+						}}
+					/>
+				)}
+				<Flex flexDirection="column" alignItems="center">
 					<SVGIcon
 						contents={imageLogo}
 						fallback={ImageSvg}
