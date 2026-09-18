@@ -55,6 +55,11 @@ Package for Fedora-based and Redhat can be downloaded from the [Github release p
 ```sh
    sudo yum localinstall balena-etcher-***.x86_64.rpm
 ```
+2. Install using dnf
+
+```sh
+   sudo dnf install ./balena-etcher-***.x86_64.rpm 
+```
 
 #### Arch/Manjaro Linux (GNU/Linux x64)
 
