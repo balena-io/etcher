@@ -154,8 +154,6 @@ async function connectToChildProcess(
 
 				// once api is ready (means child process is connected) we pass the emit function to the caller
 				ready: () => {
-					console.log('CHILD READY');
-
 					startHeartbeat(emit);
 
 					resolve({
@@ -171,8 +169,6 @@ async function connectToChildProcess(
 				const message = messagesHandler[data.type];
 				if (message) {
 					message(data.payload);
-				} else {
-					throw new Error(`Unknown message type: ${data.type}`);
 				}
 			});
 

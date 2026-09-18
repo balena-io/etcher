@@ -15,10 +15,33 @@ import type { DrivelistDrive } from '../../../shared/drive-constraints';
  * limitations under the License.
  */
 
-import type { SourceMetadata } from '../../../shared/typings/source-selector';
+import type {
+	SourceMetadata,
+	Source,
+} from '../../../shared/typings/source-selector';
 
 import * as availableDrives from './available-drives';
 import { Actions, store } from './store';
+
+/**
+ * @summary Select a source
+ */
+export function selectSource(source: SourceMetadata) {
+	store.dispatch({
+		type: Actions.SELECT_SOURCE,
+		data: source,
+	});
+}
+
+/**
+ * @summary Source is selected
+ */
+export function sourceSelected(path: string, sourceType: Source) {
+	store.dispatch({
+		type: Actions.SOURCE_SELECTED,
+		data: { path, SourceType: sourceType },
+	});
+}
 
 /**
  * @summary Select a drive by its device path
@@ -39,13 +62,6 @@ export function toggleDrive(driveDevice: string) {
 	} else {
 		selectDrive(driveDevice);
 	}
-}
-
-export function selectSource(source: SourceMetadata) {
-	store.dispatch({
-		type: Actions.SELECT_SOURCE,
-		data: source,
-	});
 }
 
 /**

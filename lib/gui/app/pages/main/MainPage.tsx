@@ -188,9 +188,14 @@ export class MainPage extends React.Component<
 
 	private renderMain() {
 		const state = flashState.getFlashState();
-		const shouldDriveStepBeDisabled = !this.state.hasImage;
+		const image = selectionState.getImage();
+		// Disable target selection until metadata is fully loaded
+		// (not just SOURCE_SELECTED with loading: true)
+		const isMetadataLoading = image && 'loading' in image && image.loading === true;
+		const hasFullMetadata = image && !isMetadataLoading;
+		const shouldDriveStepBeDisabled = !hasFullMetadata;
 		const shouldFlashStepBeDisabled =
-			!this.state.hasImage || !this.state.hasDrive;
+			!hasFullMetadata || !this.state.hasDrive;
 		const notFlashingOrSplitView =
 			!this.state.isFlashing || !this.state.isWebviewShowing;
 		return (
