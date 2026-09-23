@@ -442,6 +442,12 @@ export class SourceSelector extends React.Component<
 							retriesLeft--;
 						}
 
+						if (requestMetadata === undefined) {
+							throw new Error(
+								'Failed to start the flasher sidecar process. Please restart Etcher and try again.',
+							);
+						}
+
 						metadata = await requestMetadata({ selected, SourceType, auth });
 
 						if (!metadata?.hasMBR && this.state.warning === null) {
