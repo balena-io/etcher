@@ -46,14 +46,14 @@ Package for Debian and Ubuntu can be downloaded from the [Github release page](h
 
 #### Redhat (RHEL) and Fedora-based Package Repository (GNU/Linux x86/x64)
 
-##### Yum
+##### Dnf
 
 Package for Fedora-based and Redhat can be downloaded from the [Github release page](https://github.com/balena-io/etcher/releases/)
 
-1. Install using yum
+1. Install using dnf <!-- As of the latest versions of most Fedora-based distros, "yum" is deprecated. -Dusk, 6/2/2025 -->
 
 ```sh
-   sudo yum localinstall balena-etcher-***.x86_64.rpm
+   sudo dnf install balena-etcher-***.x86_64.rpm
 ```
 
 #### Arch/Manjaro Linux (GNU/Linux x64)
