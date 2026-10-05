@@ -20,9 +20,10 @@ import { values } from 'lodash';
 
 import type { MultiDestinationProgress } from 'etcher-sdk/build/multi-write';
 
-import { toJSON } from '../shared/errors';
+import { toJSON, createUserError } from '../shared/errors';
 import { GENERAL_ERROR, SUCCESS } from '../shared/exit-codes';
-import type { WriteOptions } from './types/types';
+import { isValidToken } from './auth-token';
+import type { WriteOptions, FlashError } from './types/types';
 import { write, cleanup } from './child-writer';
 import { startScanning } from './scanner';
 import { getSourceMetadata } from './source-metadata';
@@ -53,7 +54,7 @@ console.log(JSON.stringify(process.env, null, 2));
 
 const ETCHER_SERVER_ADDRESS = process.env.ETCHER_SERVER_ADDRESS as string;
 const ETCHER_SERVER_PORT = process.env.ETCHER_SERVER_PORT as string;
-// const ETCHER_SERVER_ID = process.env.ETCHER_SERVER_ID as string;
+const ETCHER_SERVER_ID = process.env.ETCHER_SERVER_ID as string;
 
 const ETCHER_TERMINATE_TIMEOUT: number = parseInt(
 	process.env.ETCHER_TERMINATE_TIMEOUT ?? '10000',
@@ -62,9 +63,6 @@ const ETCHER_TERMINATE_TIMEOUT: number = parseInt(
 
 const host = ETCHER_SERVER_ADDRESS ?? '127.0.0.1';
 const port = parseInt(ETCHER_SERVER_PORT || '3434', 10);
-// const path = ETCHER_SERVER_ID || "etcher";
-
-// TODO: use the path as cheap authentication
 
 const wss = new WebSocketServer({ host, port });
 
@@ -118,7 +116,13 @@ interface EmitLog {
 
 function setup(): Promise<EmitLog> {
 	return new Promise((resolve, reject) => {
-		wss.on('connection', (ws) => {
+		wss.on('connection', (ws, req) => {
+			if (!isValidToken(req.headers['x-etcher-token'], ETCHER_SERVER_ID)) {
+				console.log('rejected connection: invalid or missing auth token');
+				ws.close(4001, 'unauthorized');
+				return;
+			}
+
 			console.log('connection established... setting up');
 
 			/**
@@ -168,6 +172,30 @@ function setup(): Promise<EmitLog> {
 			 */
 			const onWrite = async (options: WriteOptions) => {
 				log('write requested');
+
+				// Refuse to flash system/boot drives, independently of whatever
+				// the client already checked (the client-side warning can be bypassed)
+				const systemDrives = options.destinations.filter((destination) =>
+					Boolean(destination.isSystem),
+				);
+				if (systemDrives.length > 0) {
+					const deviceList = systemDrives
+						.map((drive) => drive.device)
+						.join(', ');
+					log(`refusing to write: system drive(s) selected: ${deviceList}`);
+					const errors = systemDrives.map((drive) => {
+						const error = createUserError({
+							title: `Refusing to flash system drive ${drive.device}`,
+							description:
+								'This drive was detected as a system drive; flashing it was refused for safety.',
+						}) as FlashError;
+						error.device = drive.device;
+						return toJSON(error);
+					});
+					emit('done', { results: { errors } });
+					await terminate(GENERAL_ERROR);
+					return;
+				}
 
 				// Remove leftover tmp files older than 1 hour
 				cleanup(Date.now() - 60 * 60 * 1000);
