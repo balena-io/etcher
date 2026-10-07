@@ -2,5 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
+    <!-- `etcher-util` is a pkg-bundled Node.js binary: V8 needs JIT to start at all
+         (without it: "Fatal process OOM in Failed to reserve virtual memory for CodeRange") -->
+    <key>com.apple.security.cs.allow-jit</key>
+    <true/>
+    <!-- pkg extracts native addons (drivelist, usb, direct-io, ...) to a temp dir at runtime
+         and dlopen()s them; they don't carry our Team ID, so library validation must be off -->
+    <key>com.apple.security.cs.disable-library-validation</key>
+    <true/>
   </dict>
 </plist>
