@@ -6,6 +6,10 @@
          (without it: "Fatal process OOM in Failed to reserve virtual memory for CodeRange") -->
     <key>com.apple.security.cs.allow-jit</key>
     <true/>
+    <!-- Also part of Node's own macOS release entitlements: covers V8 code pages
+         that aren't mapped with MAP_JIT (e.g. on Intel Macs) -->
+    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+    <true/>
     <!-- pkg extracts native addons (drivelist, usb, direct-io, ...) to a temp dir at runtime
          and dlopen()s them; they don't carry our Team ID, so library validation must be off -->
     <key>com.apple.security.cs.disable-library-validation</key>
