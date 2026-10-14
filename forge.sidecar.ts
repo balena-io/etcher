@@ -71,10 +71,16 @@ function build(
 			: // otherwise build in arch-specific directory within binDir
 				path.resolve(binDir, arch, binName);
 
+		// Native addons must be compiled for the Node runtime embedded in the
+		// sidecar: a prebuilt drivelist addon built for the host runtime can make
+		// the packaged Node 20 process crash while registering the N-API module.
 		// FIXME: rebuilding mountutils shouldn't be necessary, but it is.
 		// It's coming from etcher-sdk, a fix has been upstreamed but to use
 		// the latest etcher-sdk we need to upgrade axios at the same time.
-		commands.push(['npm', ['rebuild', 'mountutils', `--arch=${arch}`]]);
+		commands.push([
+			'npm',
+			['rebuild', 'drivelist', 'mountutils', `--arch=${arch}`],
+		]);
 
 		commands.push([
 			'pkg',
