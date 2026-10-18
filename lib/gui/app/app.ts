@@ -39,7 +39,11 @@ import * as windowProgress from './os/window-progress';
 import MainPage from './pages/main/MainPage';
 import './css/main.css';
 import * as i18next from 'i18next';
-import type { SourceMetadata } from '../../shared/typings/source-selector';
+import type {
+	SourceMetadata,
+	Source,
+	Authentication,
+} from '../../shared/typings/source-selector';
 
 window.addEventListener(
 	'unhandledrejection',
@@ -126,35 +130,42 @@ function setDrives(drives: Dictionary<DrivelistDrive>) {
 }
 
 // Spawning the child process without privileges to get the drives list
-// TODO: clean up this mess of exports
-export let requestMetadata: any;
-
-// start the api and spawn the child process
-spawnChildAndConnect({
+const scannerReady = spawnChildAndConnect({
 	withPrivileges: false,
 })
-	.then(({ emit, registerHandler }) => {
-		// start scanning
-		emit('scan', {});
-
-		// make the sourceMetada awaitable to be used on source selection
-		requestMetadata = async (params: any): Promise<SourceMetadata> => {
-			emit('sourceMetadata', JSON.stringify(params));
-
-			return new Promise((resolve) =>
-				registerHandler('sourceMetadata', (data: any) => {
-					resolve(JSON.parse(data));
-				}),
-			);
-		};
-
+	.then((api) => {
+		const { emit, registerHandler } = api;
 		registerHandler('drives', (data: any) => {
 			setDrives(JSON.parse(data));
 		});
+		emit('scan', {});
+		return api;
 	})
 	.catch((error: any) => {
 		throw new Error(`Failed to start the flasher process. error: ${error}`);
 	});
+
+// Report startup failures even before an image is selected. Requests still
+// await the same promise so the source selector receives the actual error.
+void scannerReady.catch(exceptionReporter.report);
+
+export async function requestMetadata(params: {
+	selected: string;
+	SourceType: Source;
+	auth?: Authentication;
+}): Promise<SourceMetadata> {
+	const { emit, registerHandler } = await scannerReady;
+	return new Promise((resolve, reject) => {
+		registerHandler('sourceMetadata', (data: string) => {
+			try {
+				resolve(JSON.parse(data));
+			} catch (error) {
+				reject(error);
+			}
+		});
+		emit('sourceMetadata', JSON.stringify(params));
+	});
+}
 
 let popupExists = false;
 

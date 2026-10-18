@@ -46,10 +46,8 @@ const config: ForgeConfig = {
 			'lib/shared/sudo/sudo-askpass.osascript-en.js',
 		],
 		osxSign: {
-			// `etcher-util` is the privileged helper invoked under sudo to write
-			// raw disk images: it gets its own, maximally restrictive entitlements
-			// rather than inheriting the JIT/debugging exceptions the main app
-			// needs, so hardened runtime protections stay fully intact on it.
+			// The Node.js helper needs its own entitlements for V8 JIT and the
+			// native modules extracted by pkg, while keeping hardened runtime on.
 			optionsForFile: (filePath: string) => ({
 				entitlements: filePath.endsWith('/etcher-util')
 					? './entitlements.mac.util.plist'
