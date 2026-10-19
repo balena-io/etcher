@@ -47,9 +47,9 @@ const config: ForgeConfig = {
 		],
 		osxSign: {
 			// `etcher-util` is the privileged helper invoked under sudo to write
-			// raw disk images: it gets its own, maximally restrictive entitlements
-			// rather than inheriting the JIT/debugging exceptions the main app
-			// needs, so hardened runtime protections stay fully intact on it.
+			// raw disk images: it gets its own entitlements, restricted to the
+			// minimum a pkg-bundled Node.js binary needs to run (JIT + loading its
+			// extracted native addons), rather than inheriting the main app's.
 			optionsForFile: (filePath: string) => ({
 				entitlements: filePath.endsWith('/etcher-util')
 					? './entitlements.mac.util.plist'
