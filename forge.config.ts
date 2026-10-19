@@ -38,7 +38,7 @@ const config: ForgeConfig = {
 			process.platform === 'linux' ? 'balena-etcher' : 'balenaEtcher',
 		appBundleId: 'io.balena.etcher',
 		appCategoryType: 'public.app-category.developer-tools',
-		appCopyright: 'Copyright 2016-2023 Balena Ltd',
+		appCopyright: 'Copyright 2016-2026 Balena Ltd',
 		darwinDarkModeSupport: true,
 		protocols: [{ name: 'etcher', schemes: ['etcher'] }],
 		extraResource: [
@@ -46,8 +46,14 @@ const config: ForgeConfig = {
 			'lib/shared/sudo/sudo-askpass.osascript-en.js',
 		],
 		osxSign: {
-			optionsForFile: () => ({
-				entitlements: './entitlements.mac.plist',
+			// `etcher-util` is the privileged helper invoked under sudo to write
+			// raw disk images: it gets its own, maximally restrictive entitlements
+			// rather than inheriting the JIT/debugging exceptions the main app
+			// needs, so hardened runtime protections stay fully intact on it.
+			optionsForFile: (filePath: string) => ({
+				entitlements: filePath.endsWith('/etcher-util')
+					? './entitlements.mac.util.plist'
+					: './entitlements.mac.plist',
 				hardenedRuntime: true,
 			}),
 		},

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v2.1.7
+## (2026-09-18)
+
+* patch: macos hardening [Edwin Joassart]
+* patch: fix copyright [Edwin Joassart]
+
 # v2.1.6
 ## (2026-05-13)
 

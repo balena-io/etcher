@@ -1,4 +1,20 @@
 - commits:
+    - subject: "patch: macos hardening"
+      hash: 26ad031b49ca98a629933cf597b09cc88cdbd5df
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: fix copyright"
+      hash: 507fd3e9c7499e4005114c77bc2fbb9ea64c1f81
+      body: ""
+      footer: {}
+      author: Edwin Joassart
+      nested: []
+  version: 2.1.7
+  title: ""
+  date: 2026-09-18T13:52:02.135Z
+- commits:
     - subject: Fix MacOS x86 build by switching to the macos-14-large GH runner
       hash: faab6b2fb0aef21f78d9a84240a0032327e1f9d9
       body: ""
