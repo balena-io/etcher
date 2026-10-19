@@ -1,4 +1,48 @@
 - commits:
+    - subject: "patch: Harden etcher-util startup on macOS"
+      hash: 2fe1c06b0e009d22243068563ac3ecda3d67a17f
+      body: |
+        Bring in the remaining changes from #4673:
+
+        - Add `allow-unsigned-executable-memory` to the etcher-util
+          entitlements, matching Node's own macOS release entitlements, for V8
+          code pages not mapped with MAP_JIT (e.g. on Intel Macs).
+        - Rebuild drivelist, as well as mountutils, for the Node runtime
+          embedded in the pkg sidecar.
+        - Show a clear error when the sidecar fails to start, instead of the
+          "requestMetadata is not a function" TypeError.
+      footer:
+        See: https://github.com/balena-io/etcher/pull/4673
+        see: https://github.com/balena-io/etcher/pull/4673
+        Change-type: patch
+        change-type: patch
+        Co-authored-by: Zubair Lawrence <zubair@lawrence.io>
+        co-authored-by: Zubair Lawrence <zubair@lawrence.io>
+      author: Sam Duffield
+      nested: []
+    - subject: "patch: Restore entitlements needed by etcher-util on macOS"
+      hash: 80d23f64e1d34f91467bf986a9aa06650c7e451b
+      body: |
+        The macOS hardening in v2.1.7 signed `etcher-util` under the hardened
+        runtime with an empty entitlements file. `etcher-util` is a pkg-bundled
+        Node.js binary, so it crashed on start-up ("Failed to reserve virtual
+        memory for CodeRange") and the GUI failed with "requestMetadata is not
+        a function" when selecting a source.
+
+        Grant it only what it needs to run: `allow-jit` for V8, and
+        `disable-library-validation` so it can load the native addons pkg
+        extracts to a temp directory at runtime.
+      footer:
+        See: https://forums.balena.io/t/cannot-flash-linuxmint/379225/4
+        see: https://forums.balena.io/t/cannot-flash-linuxmint/379225/4
+        Change-type: patch
+        change-type: patch
+      author: Sam Duffield
+      nested: []
+  version: 2.1.8
+  title: ""
+  date: 2026-10-19T11:16:20.848Z
+- commits:
     - subject: "patch: macos hardening"
       hash: 26ad031b49ca98a629933cf597b09cc88cdbd5df
       body: ""

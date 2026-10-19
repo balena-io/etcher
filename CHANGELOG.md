@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v2.1.8
+## (2026-10-19)
+
+* patch: Harden etcher-util startup on macOS [Sam Duffield]
+* patch: Restore entitlements needed by etcher-util on macOS [Sam Duffield]
+
 # v2.1.7
 ## (2026-09-18)
 
