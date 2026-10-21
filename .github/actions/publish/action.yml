@@ -51,7 +51,8 @@ runs:
     - name: Install host dependencies
       if: runner.os == 'Linux'
       shell: bash
-      run: sudo apt-get install -y --no-install-recommends fakeroot dpkg rpm
+      # gcc-12/g++-12: see the test action
+      run: sudo apt-get update && sudo apt-get install -y --no-install-recommends fakeroot dpkg rpm gcc-12 g++-12
 
     # rpmbuild will strip binaries by default, which breaks the sidecar.
     # Use a macro to override the "strip" to bypass stripping.
@@ -137,6 +138,8 @@ runs:
         if [[ "${RUNNER_OS}" == Linux ]]; then
           PLATFORM=Linux
           SHA256SUM_BIN=sha256sum
+          # see the test action
+          export CC=gcc-12 CXX=g++-12
 
         elif [[ "${RUNNER_OS}" == macOS ]]; then
           PLATFORM=Darwin
