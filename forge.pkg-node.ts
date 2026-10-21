@@ -128,11 +128,14 @@ function checkPatches(fetchDir: string, patchFiles: string[], tarball: string) {
 				output = `${error.stdout ?? ''}${error.stderr ?? ''}`;
 			}
 
-			// `patching file X` is followed by the failures for X, if any
-			let current = '';
+			// `patching file X` (BSD patch) or `checking file X` (GNU patch with
+			// --dry-run) is followed by the failures for X, if any
+			let current = '<unknown file>';
 			const failed = new Set<string>();
 			for (const line of output.split('\n')) {
-				const patching = line.match(/^patching file '?([^']+?)'?$/);
+				const patching = line.match(
+					/^(?:patching|checking) file '?([^']+?)'?$/,
+				);
 				if (patching) {
 					current = patching[1];
 				} else if (/FAILED|failed|can't find file/.test(line)) {
