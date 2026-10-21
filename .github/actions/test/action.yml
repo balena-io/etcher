@@ -47,6 +47,15 @@ runs:
       with:
         python-version: '3.11'
 
+    # NASM: Node.js' Windows build needs it for OpenSSL's assembly, when
+    # pkg's base binary is built from source (see forge.pkg-node.ts)
+    - name: Install host dependencies
+      if: runner.os == 'Windows'
+      shell: bash
+      run: |
+        choco install nasm --no-progress -y
+        echo 'C:\Program Files\NASM' >> "$GITHUB_PATH"
+
     # forge.pkg-node.ts makes pkg build the sidecar's Node.js base binary from
     # source when pkg-fetch has no prebuilt one; this takes hours, keep it
     - name: Cache pkg base binaries

@@ -70,6 +70,14 @@ runs:
       with:
         python-version: '3.11'
 
+    # NASM: see the test action
+    - name: Install host dependencies
+      if: runner.os == 'Windows'
+      shell: bash
+      run: |
+        choco install nasm --no-progress -y
+        echo 'C:\Program Files\NASM' >> "$GITHUB_PATH"
+
     # see the test action
     - name: Cache pkg base binaries
       uses: actions/cache@v4
