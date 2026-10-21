@@ -101,9 +101,7 @@ function checkPatches(fetchDir: string, patchFiles: string[], tarball: string) {
 			const patchPath = path.join(fetchDir, 'patches', patchFile);
 			// existing files touched by the patch, new files have a `--- /dev/null` header
 			const touched = [
-				...fs
-					.readFileSync(patchPath, 'utf8')
-					.matchAll(/^--- node\/(\S+)$/gm),
+				...fs.readFileSync(patchPath, 'utf8').matchAll(/^--- node\/(\S+)$/gm),
 			].map(([, file]) => file);
 			// relative archive path: GNU tar reads `C:\...` as a remote `host:path`
 			execFileSync(
