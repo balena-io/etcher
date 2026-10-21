@@ -21,7 +21,7 @@ import ExclamationTriangleSvg from '@fortawesome/fontawesome-free/svgs/solid/tri
 import ChevronDownSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-down.svg';
 import ChevronRightSvg from '@fortawesome/fontawesome-free/svgs/solid/chevron-right.svg';
 import type { IpcRendererEvent } from 'electron';
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, webUtils } from 'electron';
 import { uniqBy, isNil } from 'lodash';
 import * as path from 'path';
 import prettyBytes from 'pretty-bytes';
@@ -532,7 +532,7 @@ export class SourceSelector extends React.Component<
 	private async onDrop(event: React.DragEvent<HTMLDivElement>) {
 		const file = event.dataTransfer.files.item(0);
 		if (file != null) {
-			await this.selectSource(file.path, 'File').promise;
+			await this.selectSource(webUtils.getPathForFile(file), 'File').promise;
 		}
 	}
 
