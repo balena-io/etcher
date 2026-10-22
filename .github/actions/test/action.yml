@@ -103,6 +103,24 @@ runs:
         fi
 
         npm run package
+
+        # etcher-util must start reliably: a badly built Node.js base binary
+        # made it crash intermittently while pkg unpacked its native addons.
+        # Run it on a stock Ubuntu 22.04, whose libstdc++ the toolchain PPA
+        # didn't upgrade, with an empty pkg cache each time.
+        if [[ "$RUNNER_OS" == "Linux" ]]; then
+          objdump -T out/sidecar/bin/x64/etcher-util | grep -oE 'GLIBC(XX)?_[0-9.]+' | sort -uV | tail -n 3
+          for i in 1 2 3 4 5; do
+            docker run --rm -v "$PWD/out/sidecar/bin/x64/etcher-util:/etcher-util:ro" ubuntu:22.04 \
+              timeout 60 /etcher-util > etcher-util.log 2>&1 || true
+            if ! grep -q 'waiting for connection' etcher-util.log; then
+              echo "etcher-util failed to start (attempt $i)"
+              tail -n 5 etcher-util.log
+              exit 1
+            fi
+          done
+          rm etcher-util.log
+        fi
         npm run wdio # test stage, note that it requires the package to be done first
 
       env:
