@@ -54,6 +54,12 @@ runs:
         #   export DEBUG='electron-forge:*,sidecar'
         # fi
 
+        # run install scripts one at a time: parallel node-gyp builds racing to
+        # download the same Node.js headers fail on Windows
+        if [[ "$RUNNER_OS" == "Windows" ]]; then
+          export npm_config_foreground_scripts=true
+        fi
+
         npm ci
 
         # as the shrinkwrap might have been done on mac/linux, this is ensure the package is there for windows

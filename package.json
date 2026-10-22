@@ -103,6 +103,9 @@
     "wdio-electron-service": "^6.4.1",
     "xvfb-maybe": "^0.2.1"
   },
+  "overrides": {
+    "@electron/node-gyp": "npm:node-gyp@^12.4.0"
+  },
   "hostDependencies": {
     "debian": [
       "libasound2",

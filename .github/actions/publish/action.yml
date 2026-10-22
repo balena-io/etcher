@@ -137,6 +137,8 @@ runs:
         elif [[ "${RUNNER_OS}" == Windows ]]; then
           PLATFORM=Windows
           SHA256SUM_BIN=sha256sum
+          # see the test action
+          export npm_config_foreground_scripts=true
 
           # Install DigiCert Signing Manager Tools
           curl --silent --retry 3 --fail https://one.digicert.com/signingmanager/api-ui/v1/releases/smtools-windows-x64.msi/download \
