@@ -12,6 +12,8 @@ import * as path from 'path';
 
 import debug from 'debug';
 
+import { preparePkgNode } from './forge.pkg-node';
+
 const log = debug('sidecar');
 
 function isStartScrpt(): boolean {
@@ -73,7 +75,7 @@ function build(
 
 		// Native addons must be compiled for the Node runtime embedded in the
 		// sidecar: a prebuilt drivelist addon built for the host runtime can make
-		// the packaged Node 20 process crash while registering the N-API module.
+		// the packaged Node 24 process crash while registering the N-API module.
 		// FIXME: rebuilding mountutils shouldn't be necessary, but it is.
 		// It's coming from etcher-sdk, a fix has been upstreamed but to use
 		// the latest etcher-sdk we need to upgrade axios at the same time.
@@ -96,7 +98,7 @@ function build(
 				// always build for host platform and node version
 				// https://github.com/vercel/pkg-fetch/releases
 				'--target',
-				`node20-${arch}`,
+				`node24-${arch}`,
 				'--output',
 				binPath,
 			],
@@ -152,6 +154,9 @@ export class SidecarPlugin extends PluginBase<void> {
 			},
 			generateAssets: async (_config, platform, arch) => {
 				log('generateAssets', { platform, arch });
+				for (const buildArch of arch.split(',')) {
+					await preparePkgNode(buildArch);
+				}
 				build(SRC_DIR, arch, BIN_DIR, BIN_NAME);
 			},
 			packageAfterCopy: async (

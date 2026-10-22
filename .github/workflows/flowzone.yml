@@ -21,9 +21,9 @@ jobs:
       custom_test_matrix: >
         {
           "os": [
-            ["ubuntu-22.04"],
+            ["Ubuntu-22.04-x64-32core"],
             ["windows-2022"],
-            ["macos-14-large"],
+            ["macos-26-large"],
             ["macos-latest-xlarge"]
           ]
         }
@@ -32,7 +32,7 @@ jobs:
           "os": [
             ["ubuntu-22.04"],
             ["windows-2022"],
-            ["macos-14-large"],
+            ["macos-26-large"],
             ["macos-latest-xlarge"]
           ]
         }

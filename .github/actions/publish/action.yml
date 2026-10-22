@@ -15,7 +15,7 @@ inputs:
     # Beware that native modules will be built for this version,
     # which might not be compatible with the one used by pkg (see forge.sidecar.ts)
     # https://github.com/vercel/pkg-fetch/releases
-    default: '20.19'
+    default: '24'
   VERBOSE:
     type: string
     default: 'true'
@@ -51,7 +51,10 @@ runs:
     - name: Install host dependencies
       if: runner.os == 'Linux'
       shell: bash
-      run: sudo apt-get install -y --no-install-recommends fakeroot dpkg rpm
+      # gcc-13/g++-13: see the test action
+      run: |
+        sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+        sudo apt-get update && sudo apt-get install -y --no-install-recommends fakeroot dpkg rpm gcc-13 g++-13
 
     # rpmbuild will strip binaries by default, which breaks the sidecar.
     # Use a macro to override the "strip" to bypass stripping.
@@ -68,6 +71,23 @@ runs:
       uses: actions/setup-python@d27e3f3d7c64b4bbf8e4abfb9b63b83e846e0435 # v4
       with:
         python-version: '3.11'
+
+    # NASM: see the test action
+    - name: Install host dependencies
+      if: runner.os == 'Windows'
+      shell: bash
+      run: |
+        choco install nasm --no-progress -y
+        echo 'C:\Program Files\NASM' >> "$GITHUB_PATH"
+
+    # see the test action
+    - name: Cache pkg base binaries
+      uses: actions/cache@v4
+      with:
+        path: ~/.pkg-cache
+        # gcc13-static-: never reuse Linux base binaries built with older toolchains
+        key: pkg-cache-${{ runner.os }}-${{ runner.arch }}-${{ runner.os == 'Linux' && 'gcc13-static-' || '' }}${{ hashFiles('forge.pkg-node.ts') }}
+        restore-keys: pkg-cache-${{ runner.os }}-${{ runner.arch }}-${{ runner.os == 'Linux' && 'gcc13-static-' || '' }}
 
     # https://www.electron.build/code-signing.html
     # https://dev.to/rwwagner90/signing-electron-apps-with-github-actions-4cof
@@ -129,6 +149,10 @@ runs:
         if [[ "${RUNNER_OS}" == Linux ]]; then
           PLATFORM=Linux
           SHA256SUM_BIN=sha256sum
+          # see the test action
+          npx ts-node -T -e "require('./forge.pkg-node').preparePkgNode('x64')"
+          CC=gcc-13 CXX=g++-13 LDFLAGS='-static-libstdc++ -static-libgcc' \
+            node node_modules/@yao-pkg/pkg-fetch/lib-es5/bin.js --node-range node24 --platform linux --arch x64
 
         elif [[ "${RUNNER_OS}" == macOS ]]; then
           PLATFORM=Darwin
@@ -137,6 +161,8 @@ runs:
         elif [[ "${RUNNER_OS}" == Windows ]]; then
           PLATFORM=Windows
           SHA256SUM_BIN=sha256sum
+          # see the test action
+          export npm_config_foreground_scripts=true
 
           # Install DigiCert Signing Manager Tools
           curl --silent --retry 3 --fail https://one.digicert.com/signingmanager/api-ui/v1/releases/smtools-windows-x64.msi/download \
