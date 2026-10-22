@@ -32,7 +32,10 @@ runs:
       if: runner.os == 'Linux'
       shell: bash
       run: |
-        sudo apt-get update && sudo apt-get install -y --no-install-recommends xvfb libudev-dev
+        # g++-13: building pkg's Node.js base binary from source (see forge.pkg-node.ts)
+        # with Ubuntu 22.04's g++-12 made etcher-util crash intermittently on startup
+        sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+        sudo apt-get update && sudo apt-get install -y --no-install-recommends xvfb libudev-dev gcc-13 g++-13
         cat < package.json | jq -r '.hostDependencies[][]' - | \
           xargs -L1 echo | sed 's/|//g' | xargs -L1 \
           sudo apt-get --ignore-missing install || true
@@ -45,6 +48,25 @@ runs:
       uses: actions/setup-python@d27e3f3d7c64b4bbf8e4abfb9b63b83e846e0435 # v4
       with:
         python-version: '3.11'
+
+    # NASM: Node.js' Windows build needs it for OpenSSL's assembly, when
+    # pkg's base binary is built from source (see forge.pkg-node.ts)
+    - name: Install host dependencies
+      if: runner.os == 'Windows'
+      shell: bash
+      run: |
+        choco install nasm --no-progress -y
+        echo 'C:\Program Files\NASM' >> "$GITHUB_PATH"
+
+    # forge.pkg-node.ts makes pkg build the sidecar's Node.js base binary from
+    # source when pkg-fetch has no prebuilt one; this takes hours, keep it
+    - name: Cache pkg base binaries
+      uses: actions/cache@v4
+      with:
+        path: ~/.pkg-cache
+        # gcc13-static-: never reuse Linux base binaries built with older toolchains
+        key: pkg-cache-${{ runner.os }}-${{ runner.arch }}-${{ runner.os == 'Linux' && 'gcc13-static-' || '' }}${{ hashFiles('forge.pkg-node.ts') }}
+        restore-keys: pkg-cache-${{ runner.os }}-${{ runner.arch }}-${{ runner.os == 'Linux' && 'gcc13-static-' || '' }}
 
     - name: Test release
       shell: bash
@@ -69,6 +91,17 @@ runs:
         fi
 
         npm run lint
+
+        if [[ "$RUNNER_OS" == "Linux" ]]; then
+          # build pkg's Node.js base binary with g++-13 (unless cached), linking
+          # libstdc++ and libgcc statically: g++-12 builds made etcher-util crash
+          # on startup, and a dynamic link would require GCC 13's libstdc++ on
+          # users' systems. Native addons keep the system toolchain.
+          npx ts-node -T -e "require('./forge.pkg-node').preparePkgNode('x64')"
+          CC=gcc-13 CXX=g++-13 LDFLAGS='-static-libstdc++ -static-libgcc' \
+            node node_modules/@yao-pkg/pkg-fetch/lib-es5/bin.js --node-range node24 --platform linux --arch x64
+        fi
+
         npm run package
         npm run wdio # test stage, note that it requires the package to be done first
 

@@ -12,6 +12,8 @@ import * as path from 'path';
 
 import debug from 'debug';
 
+import { preparePkgNode } from './forge.pkg-node';
+
 const log = debug('sidecar');
 
 function isStartScrpt(): boolean {
@@ -152,6 +154,9 @@ export class SidecarPlugin extends PluginBase<void> {
 			},
 			generateAssets: async (_config, platform, arch) => {
 				log('generateAssets', { platform, arch });
+				for (const buildArch of arch.split(',')) {
+					await preparePkgNode(buildArch);
+				}
 				build(SRC_DIR, arch, BIN_DIR, BIN_NAME);
 			},
 			packageAfterCopy: async (
