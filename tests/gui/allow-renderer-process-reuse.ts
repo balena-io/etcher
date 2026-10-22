@@ -5,7 +5,9 @@ if (app !== undefined) {
 
 	remoteMain.initialize();
 
-	app.on('browser-window-created', (_event, window) =>
-		remoteMain.enable(window.webContents),
+	app.on(
+		'browser-window-created',
+		(_event: Electron.Event, window: Electron.BrowserWindow) =>
+			remoteMain.enable(window.webContents),
 	);
 }
