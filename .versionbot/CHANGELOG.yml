@@ -1,4 +1,106 @@
 - commits:
+    - subject: "patch: Check etcher-util starts on Linux CI"
+      hash: 20c3024e9d82d364f6cf0aafa2c16e4728f0fa92
+      body: |
+        A badly built Node.js base binary made etcher-util crash intermittently
+        while pkg unpacked its native addons, and the GUI tests didn't notice.
+        Start it 5 times on a stock Ubuntu 22.04, with an empty pkg cache each
+        time, and print the glibc and libstdc++ versions it requires.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: Build etcher-util on Node.js 24.22.1 for the eMudhra CA fix"
+      hash: cdff2a0cfa4a3457a80a79ac380af84cffe02512
+      body: |
+        Node.js 24.22.1 blocks the compromised eMudhra/emSign intermediate CAs
+        (nodejs/node#66871) in the Node.js runtime embedded in etcher-util, but
+        yao-pkg/pkg-fetch has no prebuilt base binary for it yet: build it from
+        source.
+
+        - forge.pkg-node.ts registers v24.22.1 with pkg-fetch, reusing its
+          v24.20.0 patches, before the sidecar is built. It pins the source
+          tarball to the sha256 from Node.js' GPG-signed SHASUMS256.txt.asc, and
+          fails if the patches no longer apply, as pkg-fetch ignores patch
+          failures. The only expected failure is in src/inspector_agent.cc,
+          which isn't compiled as pkg-fetch configures `--without-inspector`.
+          It is a no-op once pkg-fetch ships a prebuilt binary for that version.
+        - Cache pkg's base binaries in CI.
+        - Windows: install NASM, which Node.js needs for OpenSSL's assembly.
+        - Linux: build with g++-13, linking libstdc++ and libgcc statically.
+          Ubuntu 22.04's g++-12 produced an etcher-util that crashed
+          intermittently on startup, and a dynamic link would require GCC 13's
+          libstdc++ on users' systems. etcher-util now needs glibc 2.35.
+      footer:
+        See: https://github.com/nodejs/node/pull/66871
+        see: https://github.com/nodejs/node/pull/66871
+        Change-type: patch
+        change-type: patch
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: Move Intel macOS CI to macos-26-large"
+      hash: 65b0809198a8d807fd50d80f8d23b6ccaded7b7d
+      body: |
+        GitHub removes the macos-14-large runner on 2026-11-02, and Node.js 24
+        needs Xcode >= 16.1, which isn't macOS 14's default.
+      footer:
+        See: https://github.com/actions/runner-images/issues/13518
+        see: https://github.com/actions/runner-images/issues/13518
+        Change-type: patch
+        change-type: patch
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: Build native addons with upstream node-gyp on Windows"
+      hash: bc58399127e775da619259c6f58d225b5474970f
+      body: >
+        Node.js 24's Windows headers set `clang: 1`, as Node.js itself is built
+
+        with ClangCL. Electron's node-gyp fork (10.2.0-electron.1) passes that
+        on
+
+        to addons, which then fail to link: MSVC's `/LTCG:INCREMENTAL` gets
+
+        passed to `llvm-lib`. Upstream node-gyp resets `clang` to 0 on Windows.
+
+
+        - Override `@electron/node-gyp` with node-gyp 12.4.0, which also drops
+          a git dependency npm couldn't integrity-check.
+        - Run install scripts one at a time on Windows CI: parallel node-gyp
+          builds racing to unpack the same Node.js headers failed with
+          "Completion callback never invoked".
+      footer:
+        See: https://github.com/nodejs/node-gyp/issues/3184
+        see: https://github.com/nodejs/node-gyp/issues/3184
+        Change-type: patch
+        change-type: patch
+      author: Edwin Joassart
+      nested: []
+    - subject: "patch: Update Electron to 44.9.1 and etcher-util to Node.js 24"
+      hash: d78b091e09b53ae75507814d76cf9383fbd65769
+      body: >
+        Electron 44.9.1 blocks the compromised eMudhra/emSign intermediate CAs
+
+        in both Chromium and its Node.js (electron/electron#55127).
+
+
+        - Update Electron from 37.2.4 to 44.9.1, and use
+          `webUtils.getPathForFile` for dropped files as `File.path` was removed.
+        - Build etcher-util with @yao-pkg/pkg 6 for `node24`, and move the
+          development and CI Node.js version to 24. This drops the workaround
+          pinning Node.js 20.11.1 on Windows.
+        - Allow the install scripts of our dependencies (npm 11 `allowScripts`).
+      footer:
+        See: https://emudhra.we-have-a-problem.com/
+        see: https://emudhra.we-have-a-problem.com/
+        Change-type: patch
+        change-type: patch
+      author: Edwin Joassart
+      nested: []
+  version: 2.1.9
+  title: ""
+  date: 2026-10-22T19:23:33.220Z
+- commits:
     - subject: "patch: Harden etcher-util startup on macOS"
       hash: 2fe1c06b0e009d22243068563ac3ecda3d67a17f
       body: |
