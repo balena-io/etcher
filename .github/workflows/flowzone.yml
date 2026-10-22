@@ -23,7 +23,7 @@ jobs:
           "os": [
             ["ubuntu-22.04"],
             ["windows-2022"],
-            ["macos-14-large"],
+            ["macos-26-large"],
             ["macos-latest-xlarge"]
           ]
         }
@@ -32,7 +32,7 @@ jobs:
           "os": [
             ["ubuntu-22.04"],
             ["windows-2022"],
-            ["macos-14-large"],
+            ["macos-26-large"],
             ["macos-latest-xlarge"]
           ]
         }
