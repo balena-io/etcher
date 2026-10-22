@@ -37,5 +37,8 @@ jobs:
           ]
         }
       restrict_custom_actions: false
+      # building pkg's Node.js base binary from source (see forge.pkg-node.ts)
+      # takes over 2h on Linux when not cached; GitHub-hosted runners stop at 6h
+      jobs_timeout_minutes: 360
       github_prerelease: true
       cloudflare_website: 'etcher'
