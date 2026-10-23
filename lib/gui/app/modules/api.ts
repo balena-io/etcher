@@ -14,6 +14,7 @@
 
 import WebSocket from 'ws'; // (no types for wrapper, this is expected)
 import { spawn, exec } from 'child_process';
+import { randomBytes } from 'crypto';
 import * as os from 'os';
 import * as packageJSON from '../../../../package.json';
 import * as permissions from '../../../shared/permissions';
@@ -98,13 +99,12 @@ async function connectToChildProcess(
 ): Promise<ChildApi | { failed: boolean }> {
 	return new Promise((resolve, reject) => {
 		// TODO: default to IPC connections https://github.com/websockets/ws/blob/master/doc/ws.md#ipc-connections
-		// TODO: use the path as cheap authentication
-
-		console.log(etcherServerId);
 
 		const url = `ws://${etcherServerAddress}:${etcherServerPort}`;
 
-		const ws = new WebSocket(url);
+		const ws = new WebSocket(url, {
+			headers: { 'x-etcher-token': etcherServerId },
+		});
 
 		let heartbeat: any;
 
@@ -192,9 +192,10 @@ async function spawnChildAndConnect({
 	const etcherServerAddress = process.env.ETCHER_SERVER_ADDRESS ?? '127.0.0.1'; // localhost
 	const etcherServerPort =
 		process.env.ETCHER_SERVER_PORT ?? withPrivileges ? '3435' : '3434';
+	// ETCHER_NO_SPAWN_UTIL: set ETCHER_SERVER_ID yourself to match the manually
+	// started sidecar's expected auth token.
 	const etcherServerId =
-		process.env.ETCHER_SERVER_ID ??
-		`etcher-${Math.random().toString(36).substring(7)}`;
+		process.env.ETCHER_SERVER_ID ?? randomBytes(32).toString('hex');
 
 	console.log(
 		`Starting ${
