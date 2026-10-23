@@ -39,6 +39,7 @@ Run the following tests with and without validation enabled:
 - [ ] Flash a XZ image
 - [ ] Flash a ZIP image
 - [ ] Flash a GZ image
+- [ ] Flash a Zstd image
 - [ ] Flash a DMG image
 - [ ] Flash an image whose size is not a multiple of 512 bytes
 - [ ] Flash a compressed image whose size is not a multiple of 512 bytes
