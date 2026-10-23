@@ -22,11 +22,12 @@ import {
 } from 'etcher-sdk/build/scanner/adapters';
 import { geteuid, platform } from 'process';
 
-const adapters: Adapter[] = [
-	new BlockDeviceAdapter({
-		includeSystemDrives: () => true,
-	}),
-];
+// Shared with the writer's system drive check so both see the same drives
+export const blockDeviceAdapterOptions = {
+	includeSystemDrives: () => true,
+};
+
+const adapters: Adapter[] = [new BlockDeviceAdapter(blockDeviceAdapterOptions)];
 
 // Can't use permissions.isElevated() here as it returns a promise and we need to set
 // module.exports = scanner right now.

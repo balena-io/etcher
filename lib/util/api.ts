@@ -19,12 +19,14 @@ import type { Dictionary } from 'lodash';
 import { values } from 'lodash';
 
 import type { MultiDestinationProgress } from 'etcher-sdk/build/multi-write';
+import { BlockDeviceAdapter } from 'etcher-sdk/build/scanner/adapters';
 
-import { toJSON } from '../shared/errors';
+import { toJSON, createUserError } from '../shared/errors';
 import { GENERAL_ERROR, SUCCESS } from '../shared/exit-codes';
-import type { WriteOptions } from './types/types';
+import type { WriteOptions, FlashError } from './types/types';
 import { write, cleanup } from './child-writer';
 import { startScanning } from './scanner';
+import { blockDeviceAdapterOptions } from './drive-scanner';
 import { getSourceMetadata } from './source-metadata';
 import type { DrivelistDrive } from '../shared/drive-constraints';
 import type { SourceMetadata } from '../shared/typings/source-selector';
@@ -116,6 +118,24 @@ interface EmitLog {
 	log: (message: string) => void;
 }
 
+/**
+ * @summary List the drives once, with the same adapter and options (and so the
+ * same filtering and `isSystem` handling, e.g. for Compute Modules) as the GUI scanner
+ */
+async function listDrives(): Promise<DrivelistDrive[]> {
+	const adapter = new BlockDeviceAdapter(blockDeviceAdapterOptions);
+	let listError: Error | undefined;
+	adapter.on('error', (error) => {
+		listError = error;
+	});
+	// @ts-ignore (BlockDeviceAdapter.listDrives is private)
+	const drives: Map<string, DrivelistDrive> = await adapter.listDrives();
+	if (listError) {
+		throw listError;
+	}
+	return Array.from(drives.values());
+}
+
 function setup(): Promise<EmitLog> {
 	return new Promise((resolve, reject) => {
 		wss.on('connection', (ws) => {
@@ -168,6 +188,35 @@ function setup(): Promise<EmitLog> {
 			 */
 			const onWrite = async (options: WriteOptions) => {
 				log('write requested');
+
+				// Refuse to flash system/boot drives. Don't trust the client's `isSystem`
+				// (it can be bypassed): list the drives ourselves and check each destination
+				let drives: DrivelistDrive[] = [];
+				try {
+					drives = await listDrives();
+				} catch (error: any) {
+					log(`unable to list drives: ${error.message}`);
+				}
+				const refused = options.destinations.filter((destination) => {
+					const drive = drives.find((d) => d.device === destination.device);
+					return drive === undefined || drive.isSystem;
+				});
+				if (refused.length > 0) {
+					const deviceList = refused.map((drive) => drive.device).join(', ');
+					log(`refusing to write: system or unknown drive(s): ${deviceList}`);
+					const errors = refused.map((drive) => {
+						const error = createUserError({
+							title: `Refusing to flash ${drive.device}`,
+							description:
+								'This drive was detected as a system drive, or could not be found; flashing it was refused for safety.',
+						}) as FlashError;
+						error.device = drive.device;
+						return toJSON(error);
+					});
+					emit('done', { results: { errors } });
+					await terminate(GENERAL_ERROR);
+					return;
+				}
 
 				// Remove leftover tmp files older than 1 hour
 				cleanup(Date.now() - 60 * 60 * 1000);
