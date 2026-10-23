@@ -22,6 +22,7 @@ import type { MultiDestinationProgress } from 'etcher-sdk/build/multi-write';
 
 import { toJSON } from '../shared/errors';
 import { GENERAL_ERROR, SUCCESS } from '../shared/exit-codes';
+import { isValidToken } from './auth-token';
 import type { WriteOptions } from './types/types';
 import { write, cleanup } from './child-writer';
 import { startScanning } from './scanner';
@@ -46,14 +47,9 @@ function injectEnvFromArgs() {
 // Inject env vars from arguments if not already present
 injectEnvFromArgs();
 
-console.log(
-	'Etcher child process started with the following environment variables:',
-);
-console.log(JSON.stringify(process.env, null, 2));
-
 const ETCHER_SERVER_ADDRESS = process.env.ETCHER_SERVER_ADDRESS as string;
 const ETCHER_SERVER_PORT = process.env.ETCHER_SERVER_PORT as string;
-// const ETCHER_SERVER_ID = process.env.ETCHER_SERVER_ID as string;
+const ETCHER_SERVER_ID = process.env.ETCHER_SERVER_ID as string;
 
 const ETCHER_TERMINATE_TIMEOUT: number = parseInt(
 	process.env.ETCHER_TERMINATE_TIMEOUT ?? '10000',
@@ -62,9 +58,6 @@ const ETCHER_TERMINATE_TIMEOUT: number = parseInt(
 
 const host = ETCHER_SERVER_ADDRESS ?? '127.0.0.1';
 const port = parseInt(ETCHER_SERVER_PORT || '3434', 10);
-// const path = ETCHER_SERVER_ID || "etcher";
-
-// TODO: use the path as cheap authentication
 
 const wss = new WebSocketServer({ host, port });
 
@@ -118,7 +111,13 @@ interface EmitLog {
 
 function setup(): Promise<EmitLog> {
 	return new Promise((resolve, reject) => {
-		wss.on('connection', (ws) => {
+		wss.on('connection', (ws, req) => {
+			if (!isValidToken(req.headers['x-etcher-token'], ETCHER_SERVER_ID)) {
+				console.log('rejected connection: invalid or missing auth token');
+				ws.close(4001, 'unauthorized');
+				return;
+			}
+
 			console.log('connection established... setting up');
 
 			/**
