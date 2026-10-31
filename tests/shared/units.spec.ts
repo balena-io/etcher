@@ -15,13 +15,31 @@
  */
 
 import { expect } from 'chai';
-import { bytesToMegabytes } from '../../lib/shared/units';
+import { bytesToMegabytes, formatSeconds } from '../../lib/shared/units';
 
 describe('Shared: Units', function () {
 	describe('.bytesToMegabytes()', function () {
 		it('should convert bytes to megabytes', function () {
 			expect(bytesToMegabytes(1.2e7)).to.equal(12);
 			expect(bytesToMegabytes(332000)).to.equal(0.332);
+		});
+	});
+
+	describe('.formatSeconds()', function () {
+		it('should format seconds as minutes and seconds', function () {
+			expect(formatSeconds(0)).to.equal('0m0s');
+			expect(formatSeconds(59)).to.equal('0m59s');
+			expect(formatSeconds(83)).to.equal('1m23s');
+			expect(formatSeconds(3725)).to.equal('62m5s');
+		});
+
+		it('should floor fractional seconds', function () {
+			expect(formatSeconds(83.9)).to.equal('1m23s');
+		});
+
+		it('should return an empty string for non-finite values', function () {
+			expect(formatSeconds(NaN)).to.equal('');
+			expect(formatSeconds(Infinity)).to.equal('');
 		});
 	});
 });

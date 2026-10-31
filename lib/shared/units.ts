@@ -19,3 +19,13 @@ const MEGABYTE_TO_BYTE_RATIO = 1000000;
 export function bytesToMegabytes(bytes: number): number {
 	return bytes / MEGABYTE_TO_BYTE_RATIO;
 }
+
+export function formatSeconds(totalSeconds: number): string {
+	if (typeof totalSeconds !== 'number' || !Number.isFinite(totalSeconds)) {
+		return '';
+	}
+	const minutes = Math.floor(totalSeconds / 60);
+	const seconds = Math.floor(totalSeconds - minutes * 60);
+
+	return `${minutes}m${seconds}s`;
+}

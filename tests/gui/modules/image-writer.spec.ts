@@ -24,7 +24,7 @@
 import { expect } from 'chai';
 import type { Drive as DrivelistDrive } from 'drivelist';
 import type { SinonStub } from 'sinon';
-import { assert, stub } from 'sinon';
+import { assert, stub, useFakeTimers } from 'sinon';
 
 import type { SourceMetadata } from '../../../lib/shared/typings/source-selector';
 import * as flashState from '../../../lib/gui/app/models/flash-state';
@@ -75,6 +75,26 @@ describe('Browser: imageWriter', () => {
 				} finally {
 					expect(flashState.isFlashing()).to.be.false;
 				}
+			});
+
+			it('should set the flash duration in the flash results', async () => {
+				flashState.unsetFlashingFlag({
+					cancelled: false,
+					sourceChecksum: '1234',
+				});
+				const clock = useFakeTimers({ toFake: ['Date'] });
+				performWriteStub.callsFake(async () => {
+					clock.tick(1234);
+					return { cancelled: false, sourceChecksum: '1234' };
+				});
+
+				try {
+					await imageWriter.flash(image, [fakeDrive], performWriteStub);
+				} finally {
+					clock.restore();
+				}
+
+				expect(flashState.getFlashResults().duration).to.equal(1234);
 			});
 
 			it('should prevent writing more than once', async () => {
