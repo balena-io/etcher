@@ -153,11 +153,16 @@ export async function flash(
 		drives.map((d) => d.devicePath).filter((p) => p != null) as string[],
 	);
 
+	const startTime = Date.now();
+
 	// start api and call the flasher
 	try {
 		const result = await write(image, drives, flashState.setProgressState);
 		console.log('got results', result);
-		await flashState.unsetFlashingFlag(result);
+		await flashState.unsetFlashingFlag({
+			...result,
+			duration: Date.now() - startTime,
+		});
 		console.log('removed flashing flag');
 	} catch (error: any) {
 		await flashState.unsetFlashingFlag({

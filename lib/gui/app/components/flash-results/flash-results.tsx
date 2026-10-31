@@ -23,7 +23,7 @@ import { Flex, Link, Txt } from 'rendition';
 import styled from 'styled-components';
 
 import { progress } from '../../../../shared/messages';
-import { bytesToMegabytes } from '../../../../shared/units';
+import { bytesToMegabytes, formatSeconds } from '../../../../shared/units';
 
 import FlashSvg from '../../../assets/flash.svg';
 import { getDrives } from '../../models/available-drives';
@@ -123,6 +123,7 @@ export function FlashResults({
 	errors,
 	results,
 	skip,
+	duration,
 	...props
 }: {
 	goToMain: () => void;
@@ -137,6 +138,8 @@ export function FlashResults({
 		averageFlashingSpeed: number;
 		devices: { failed: number; successful: number };
 	};
+	/** Flash duration in milliseconds */
+	duration?: number;
 } & FlexProps) {
 	const [showErrorsInfo, setShowErrorsInfo] = React.useState(false);
 
@@ -206,6 +209,19 @@ export function FlashResults({
 						tooltip={i18next.t('flash.speedTip')}
 					>
 						{i18next.t('flash.speed', { speed: effectiveSpeed })}
+					</Txt>
+				)}
+				{!allFailed && duration !== undefined && (
+					<Txt
+						fontSize="10px"
+						style={{
+							fontWeight: 500,
+							textAlign: 'center',
+						}}
+					>
+						{i18next.t('flash.duration', {
+							duration: formatSeconds(duration / 1000),
+						})}
 					</Txt>
 				)}
 			</Flex>

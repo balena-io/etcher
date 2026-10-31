@@ -62,6 +62,7 @@ function FinishPage({ goToMain }: { goToMain: () => void }) {
 		flashState.getFlashState();
 	const {
 		skip,
+		duration,
 		results = {
 			bytesWritten,
 			sourceMetadata: {
@@ -91,6 +92,7 @@ function FinishPage({ goToMain }: { goToMain: () => void }) {
 					image={selectionState.getImage()?.name}
 					results={results}
 					skip={skip}
+					duration={duration}
 					errors={errors}
 					mb="32px"
 					goToMain={goToMain}

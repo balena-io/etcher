@@ -127,6 +127,7 @@ const translation = {
 			speed: 'Effective speed: {{speed}} MB/s',
 			speedShort: '{{speed}} MB/s',
 			eta: 'ETA: {{eta}}',
+			duration: 'Flash duration: {{duration}}',
 			failedTarget: 'Failed targets',
 			failedRetry: 'Retry failed targets',
 			flashFailed: 'Flash Failed.',

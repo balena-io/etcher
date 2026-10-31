@@ -64,6 +64,8 @@ export function unsetFlashingFlag(results: {
 	cancelled?: boolean;
 	sourceChecksum?: string;
 	errorCode?: string | number;
+	/** Flash duration in milliseconds */
+	duration?: number;
 }) {
 	store.dispatch({
 		type: Actions.UNSET_FLASHING_FLAG,

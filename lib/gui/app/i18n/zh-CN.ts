@@ -135,6 +135,7 @@ const translation = {
 			speed: '速度：{{speed}} MB/秒',
 			speedShort: '{{speed}} MB/秒',
 			eta: '预计还需要：{{eta}}',
+			duration: '烧录用时：{{duration}}',
 			failedTarget: '失败的烧录目标',
 			failedRetry: '重试烧录失败目标',
 			flashFailed: '烧录失败。',

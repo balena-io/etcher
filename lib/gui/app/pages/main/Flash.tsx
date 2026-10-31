@@ -22,6 +22,7 @@ import { Flex, Modal as SmallModal, Txt } from 'rendition';
 
 import * as constraints from '../../../../shared/drive-constraints';
 import * as messages from '../../../../shared/messages';
+import { formatSeconds } from '../../../../shared/units';
 import { ProgressButton } from '../../components/progress-button/progress-button';
 import * as availableDrives from '../../models/available-drives';
 import * as flashState from '../../models/flash-state';
@@ -128,16 +129,6 @@ async function flashImageToDrive(
 
 	return '';
 }
-
-const formatSeconds = (totalSeconds: number) => {
-	if (typeof totalSeconds !== 'number' || !Number.isFinite(totalSeconds)) {
-		return '';
-	}
-	const minutes = Math.floor(totalSeconds / 60);
-	const seconds = Math.floor(totalSeconds - minutes * 60);
-
-	return `${minutes}m${seconds}s`;
-};
 
 interface FlashStepProps {
 	shouldFlashStepBeDisabled: boolean;
